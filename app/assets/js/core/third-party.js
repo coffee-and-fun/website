@@ -3,7 +3,7 @@ async function crisp() {
 	setTimeout(() => {
 		// Crisp
 		window.$crisp = [];
-		window.CRISP_WEBSITE_ID = "ada9377d-ca07-4dc7-9119-264f4724a975";
+		window.CRISP_WEBSITE_ID = "8db9bf53-290b-4a06-a5b9-498da087cd20";
 
 		let d = document;
 		let s = d.createElement("script");

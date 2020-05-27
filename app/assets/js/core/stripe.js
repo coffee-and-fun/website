@@ -27,18 +27,15 @@ async function load() {
 
             notyf.success('Loading.....');
             stripe.redirectToCheckout({
-                    items: [{
-                        plan: 'plan_FmS3HONbzTCxGl',
-                        quantity: 1
-                    }],
-                    // Do not rely on the redirect to the successUrl for fulfilling
-                    // purchases, customers may not always reach the success_url after
-                    // a successful payment.
-                    // Instead use one of the strategies described in
-                    // https://stripe.com/docs/payments/checkout/fulfillment
-                    successUrl: 'https://www.helperbird.com/success',
-                    cancelUrl: 'https://www.helperbird.com/support',
-                    billingAddressCollection: 'required',
+                lineItems: [{price: 'plan_GWiDO5WS3j8fNG', quantity: 1}],
+                mode: 'subscription',
+                // Do not rely on the redirect to the successUrl for fulfilling
+                // purchases, customers may not always reach the success_url after
+                // a successful payment.
+                // Instead use one of the strategies described in
+                // https://stripe.com/docs/payments/checkout/fulfillment
+                successUrl: 'https://www.coffeeandfun.com/?status=success',
+                cancelUrl: 'https://www.coffeeandfun.com/?status=canceled',
                 })
                 .then(({error}) => {
                     if (error) {
@@ -62,18 +59,15 @@ async function load() {
             // them to Checkout.
             notyf.success('Loading.....');
             stripe.redirectToCheckout({
-                    items: [{
-                        plan: '1',
-                        quantity: 1
-                    }],
-                    // Do not rely on the redirect to the successUrl for fulfilling
-                    // purchases, customers may not always reach the success_url after
-                    // a successful payment.
-                    // Instead use one of the strategies described in
-                    // https://stripe.com/docs/payments/checkout/fulfillment
-                    successUrl: 'https://www.helperbird.com/success',
-                    cancelUrl: 'https://www.helperbird.com/support',
-                    billingAddressCollection: 'required',
+                lineItems: [{price: 'price_HLvALnfLmoVK3j', quantity: 1}],
+                mode: 'subscription',
+                // Do not rely on the redirect to the successUrl for fulfilling
+                // purchases, customers may not always reach the success_url after
+                // a successful payment.
+                // Instead use one of the strategies described in
+                // https://stripe.com/docs/payments/checkout/fulfillment
+                successUrl: 'https://www.coffeeandfun.com/?status=success',
+                cancelUrl: 'https://www.coffeeandfun.com/?status=canceled',
 
                 })
                 .then(({error}) => {

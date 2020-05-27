@@ -1,22 +1,9 @@
 import '../css/override.min.css';
 import '../css/styles.min.css';
-
 // Js
 import * as stripe from './core/stripe';
-
-
 import * as thirdParty from './core/third-party';
-
-
-
-
-
-
-
-
 import '@fortawesome/fontawesome-free/js/all';
-
-
 
 async function loader() {
 
@@ -26,7 +13,6 @@ async function loader() {
     await thirdParty.crisp();
     await slider.initComparisons();
 
-    let slideIndex = 1;
 
 
     await thirdParty.tagManager();
