@@ -14,4 +14,4 @@
 
 ## License
 
-MIT © [Rouge Planet](https://www.rougeplanet.com)
+MIT © [Rouge Planet](https://www.coffeeandfun.com)
