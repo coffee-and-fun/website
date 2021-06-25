@@ -4,18 +4,18 @@
   "description": "Quickly launch an 11ty-generated static site. Includes a minimal Sass framework, and generated sitemap, RSS feed, and social share preview images.",
   "main": "index.js",
   "scripts": {
-    "watch:sass": "sass  --no-source-map --watch src/sass:public/css",
+    "watch:sass": "sass  --no-source-map --watch src/sass:docs/css",
     "watch:eleventy": "eleventy --serve",
-    "build:sass-site": "sass  --no-source-map src/sass/style.scss public/css/style.css",
+    "build:sass-site": "sass  --no-source-map src/sass/style.scss docs/css/style.css",
     "build:sass-social": "sass  --no-source-map src/sass/social.scss social/style.css",
     "build:sass": "npm-run-all --parallel build:sass-site",
     "build:eleventy": "eleventy",
-    "postbuild": "postcss public/css/*.css -u autoprefixer cssnano -r",
+    "postbuild": "postcss docs/css/*.css -u autoprefixer cssnano -r",
     "start": "cross-env ELEVENTY_ENV=dev npm-run-all build:sass --parallel watch:*",
     "build": "cross-env ELEVENTY_ENV=prod npm-run-all build:sass build:eleventy social-images",
     "lint": "stylelint 'src/sass/**/*.scss' 'src/sass/**/**/*.scss' 'src/sass/**/**/**/*.scss'",
     "lint:fix": "stylelint --fix 'src/sass/**/*.scss' 'src/sass/**/**/*.scss' 'src/sass/**/**/**/*.scss'",
-    "social-images": "eleventy-social-images --outputDir public --dataFile social/pages.json --templatePath social/template.html",
+    "social-images": "eleventy-social-images --outputDir docs --dataFile social/pages.json --templatePath social/template.html",
     "bump": "npm --no-git-tag-version version"
   },
   "repository": {

@@ -1,50 +1,46 @@
 <!DOCTYPE html>
-<html lang="en">
-{%- set pageTitle %}{% if title %}{{ title }} | {% endif %}{{ meta.siteName }}{% endset -%}
-{%- set pageDescription %}{% if description %}{{ description }}{% else %}{{ meta.siteDescription }}{% endif %}{% endset -%}
-{%- set pageSocialImg %}{{ meta.url }}/previews/{% if title %}{{ title | slug }}{% else %}home{% endif %}.png{% endset -%}
-  <head>
+<html lang="en"><head>
     <!-- Generated from the 11ty Netlify Jumpstart: https://github.com/5t3ph/11ty-netlify-jumpstart -->
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>{{pageTitle}}</title>
+    <title>Coffee &amp;amp; Fun - The makers of popular browser extensions and apps.</title>
     <meta
       name="description"
-      content="{{pageDescription}}"
+      content="Coffee and Fun make popular useful web browser extensions. From Markdown editors, Sex education, Developer tools, and more."
     />
-    <link rel="icon" href="{{ 'favicon.png' | url }}" />
+    <link rel="icon" href="favicon.png" />
       <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.1/dist/tailwind.min.css" rel="stylesheet" type="text/css" />
   <link href="https://cdn.jsdelivr.net/npm/daisyui@1.4.0/dist/full.css" rel="stylesheet" type="text/css" />
 
-    <link href="{{ 'css/style.css' | url }}" rel="stylesheet" />
+    <link href="css/style.css" rel="stylesheet" />
     <meta name="twitter:card" content="summary_large_image" />
-    {% if meta.twitterUsername %}
-    <meta name="twitter:creator" content="@{{ meta.twitterUsername }}" />
-    {% endif %}
+    
+    <meta name="twitter:creator" content="@coffee&amp;fun" />
+    
     <meta
       name="twitter:title"
-      content="{{pageTitle}}"
+      content="Coffee &amp;amp; Fun - The makers of popular browser extensions and apps."
     />
     <meta
       name="twitter:description"
-      content="{{pageDescription}}"
+      content="Coffee and Fun make popular useful web browser extensions. From Markdown editors, Sex education, Developer tools, and more."
     />
 
     <meta
       name="og:title"
-      content="{{pageTitle}}"
+      content="Coffee &amp;amp; Fun - The makers of popular browser extensions and apps."
     />
     <meta
       name="og:description"
-      content="{{pageDescription}}"
+      content="Coffee and Fun make popular useful web browser extensions. From Markdown editors, Sex education, Developer tools, and more."
     />
-    <meta property="og:image" content="{{pageSocialImg}}" />
-    <meta name="twitter:image" content="{{pageSocialImg}}" />
+    <meta property="og:image" content="http://localhost:8080/previews/home.png" />
+    <meta name="twitter:image" content="http://localhost:8080/previews/home.png" />
 
     <link
       rel="alternate"
       type="application/rss+xml"
-      title="RSS Feed for {{ meta.siteName }}"
+      title="RSS Feed for Coffee &amp; Fun - The makers of popular browser extensions and apps."
       href="/feed/"
     />
   </head>
@@ -80,7 +76,84 @@
   </div>
 </header>
 <main class="tdbc-container">
-    {{ content | safe }}
+    <main class="tdbc-container">
+	<div class="grid grid-cols-3 gap-4 my-12">
+		<div class="card bordered shadow-2xl">
+			<figure>
+				<img src="https://lh3.googleusercontent.com/eSNKciPK9310A3y1ykA_itOSXzWLBYdXGlZJKdST6YM8-tR9rEAkDqrYEYEa0FacwjyVIDogdXc-7FJIFQp6nH0Kmg=w440-h280-e365-rj-sc0x00ffffff">
+			</figure>
+			<div class="card-body">
+				<h2 class="card-title">Markdown Editor</h2>
+				<p>Create and view markdown files from any were. Simple and easy. A Github Flavored Markdown Editor.</p>
+				<div class="justify-end card-actions">
+					<a class="btn btn-secondary" style="color:white" href="https://chrome.google.com/webstore/detail/markdown-editor-for-chrom/dkpldbigkfcgpamifjimiejipmodkigk?hl=en" target="_blank">Vist Chrome store</a>
+				</div>
+			</div>
+		</div>
+		<div class="card bordered shadow-2xl">
+			<figure>
+				<img src="https://lh3.googleusercontent.com/thE_EDk-SaX6MKGO3KH_lJ3jBVAmoN9ELbXYIk_QRvWPk5g7YrENLettSisABCAniTjbyzUyZA=w440-h280-e365-rj-sc0x00ffffff">
+			</figure>
+			<div class="card-body">
+				<h2 class="card-title">Clean my history</h2>
+				<p>Remove over 15,000 NSFW websites and terms from your history in one click.</p>
+				<div class="justify-end card-actions">
+          <a class="btn btn-primary" style="color:white" href=" https://buy.stripe.com/6oEdTfbN75tncmIcMM" target="_blank">Upgrade</a>
+					<a class="btn btn-secondary" style="color:white" href="https://chrome.google.com/webstore/detail/clean-my-history-remove-n/iocknhfjfkmjecgighghbmmbjgbnhfpp/related?hl=en" target="_blank">Vist Chrome store</a>
+				</div>
+			</div>
+		</div>
+		<div class="card bordered shadow-2xl">
+			<figure>
+				<img src="https://lh3.googleusercontent.com/EDPAu6-8CTVq0shk7SmuAuRufgoqixxU-zl6fXP-XhV5CP5FX31JEMt8VqDtIEYLxUtIT8pC8gKse5t5pzOCHlHmAA=w440-h280-e365-rj-sc0x00ffffff">
+			</figure>
+			<div class="card-body">
+				<h2 class="card-title">Lexend font for Chrome</h2>
+				<p>Format pages using the Lexend font.</p>
+				<div class="justify-end card-actions">
+					<a class="btn btn-secondary" style="color:white" href="https://chrome.google.com/webstore/detail/lexend-font-for-chrome/dephbjebdflpbhnhnebainombgimhdgc" target="_blank">Vist Chrome store</a>
+				</div>
+			</div>
+		</div>
+		<div class="card bordered shadow-2xl">
+			<figure>
+				<img src="https://picsum.photos/id/1005/400/250">
+			</figure>
+			<div class="card-body">
+				<h2 class="card-title">Reddit: Random subreddit button</h2>
+				<p>Bring back reddits random button. Cause I miss it and dont use bookmarks.</p>
+				<div class="justify-end card-actions">
+					<a class="btn btn-secondary" style="color:white" href="https://chrome.google.com/webstore/detail/reddit-random-subreddit-b/ipnikackdjgacagdhaaneehepcodpahc?hl=en&authuser=0" target="_blank">Vist Chrome store</a>
+				</div>
+			</div>
+		</div>
+		<div class="card bordered shadow-2xl">
+			<figure>
+				<img src="https://picsum.photos/id/1005/400/250">
+			</figure>
+			<div class="card-body">
+				<h2 class="card-title">What Coffee should I have?</h2>
+				<p>Not sure what coffee to have? Let us pick for you with over 35 different coffees and growing.</p>
+				<div class="justify-end card-actions">
+					<a class="btn btn-secondary" style="color:white" href="https://chrome.google.com/webstore/detail/what-coffee-should-i-have/ddglahibjgojmjfdagciafcjnfinelbi?hl=en&authuser=0" target="_blank">Vist Chrome store</a>
+				</div>
+			</div>
+		</div>
+		<div class="card bordered shadow-2xl">
+			<figure>
+				<img src="https://picsum.photos/id/1005/400/250">
+			</figure>
+			<div class="card-body">
+				<h2 class="card-title">Too Shy To Ask</h2>
+				<p>A popular sex questionaire for you and partner to answer. Discovering new things to try in bed.</p>
+				<div class="justify-end card-actions">
+					<a class="btn btn-secondary" style="color:white" href="https://www.tooshytoask.com" target="_blank">Vist App</a>
+				</div>
+			</div>
+		</div>
+	</div>
+</main>
+
 </main>
 
     <script type="text/javascript">window.$crisp=[];window.CRISP_WEBSITE_ID="8db9bf53-290b-4a06-a5b9-498da087cd20";(function(){d=document;s=d.createElement("script");s.src="https://client.crisp.chat/l.js";s.async=1;d.getElementsByTagName("head")[0].appendChild(s);})();</script>
@@ -88,10 +161,10 @@
     <footer class="tdbc-background--secondary">
       <div class="tdbc-container tdbc-text-align-center">
         <div class="tdbc-row tdbc-ink--light tdbc-mx-auto">
-          <p class="tdbc-mb-none">&copy; {% year %} {{ meta.siteName }} </p>
+          <p class="tdbc-mb-none">&copy; 2021 Coffee &amp; Fun - The makers of popular browser extensions and apps. </p>
           <span class="tdbc-row tdbc-row--center-content">
             <a
-              href="https://twitter.com/{{ meta.twitterUsername }}/"
+              href="https://twitter.com/coffee&amp;fun/"
               class="tdbc-icon-button tdbc-ink--light"
               aria-label="Twitter"
             >
