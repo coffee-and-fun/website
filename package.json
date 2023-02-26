@@ -1,57 +1,123 @@
 {
-  "name": "11ty-netlify-jumpstart",
-  "version": "0.5.0",
-  "description": "Quickly launch an 11ty-generated static site. Includes a minimal Sass framework, and generated sitemap, RSS feed, and social share preview images.",
-  "main": "index.js",
-  "scripts": {
-    "watch:sass": "sass  --no-source-map --watch src/sass:docs/css",
-    "watch:eleventy": "eleventy --serve",
-    "build:sass-site": "sass  --no-source-map src/sass/style.scss docs/css/style.css",
-    "build:sass-social": "sass  --no-source-map src/sass/social.scss social/style.css",
-    "build:sass": "npm-run-all --parallel build:sass-site",
-    "build:eleventy": "eleventy",
-    "postbuild": "postcss docs/css/*.css -u autoprefixer cssnano -r",
-    "start": "cross-env ELEVENTY_ENV=dev npm-run-all build:sass --parallel watch:*",
-    "build": "cross-env ELEVENTY_ENV=prod npm-run-all build:sass build:eleventy social-images",
-    "lint": "stylelint 'src/sass/**/*.scss' 'src/sass/**/**/*.scss' 'src/sass/**/**/**/*.scss'",
-    "lint:fix": "stylelint --fix 'src/sass/**/*.scss' 'src/sass/**/**/*.scss' 'src/sass/**/**/**/*.scss'",
-    "social-images": "eleventy-social-images --outputDir docs --dataFile social/pages.json --templatePath social/template.html",
-    "bump": "npm --no-git-tag-version version"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/5t3ph/11ty-netlify-jumpstart.git"
-  },
-  "keywords": [],
-  "author": "5t3ph",
-  "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/5t3ph/11ty-netlify-jumpstart/issues"
-  },
-  "devDependencies": {
-    "@11ty/eleventy": "^0.11.0",
-    "@11ty/eleventy-plugin-rss": "^1.0.9",
-    "@11ty/eleventy-plugin-syntaxhighlight": "^3.0.1",
-    "@11tyrocks/eleventy-plugin-social-images": "^0.1.1",
-    "autoprefixer": "^9.8.6",
-    "cross-env": "^7.0.2",
-    "cssnano": "^4.1.10",
-    "dotenv": "^8.2.0",
-    "emoji-regex": "^9.0.0",
-    "luxon": "^1.25.0",
-    "markdown-it": "^11.0.0",
-    "markdown-it-anchor": "^5.2.7",
-    "npm-run-all": "^4.1.5",
-    "postcss-cli": "^7.1.2",
-    "sass": "^1.26.10",
-    "stylelint": "^13.7.0",
-    "stylelint-config-prettier": "^8.0.2",
-    "stylelint-config-standard": "^20.0.0",
-    "stylelint-order": "^4.1.0",
-    "stylelint-scss": "^3.18.0",
-    "stylelint-selector-bem-pattern": "^2.1.0"
-  },
-  "browserslist": [
-    "last 2 versions"
-  ]
+	"name": "Website",
+	"version": "2.0.0",
+	"description": "It's (j)ust (e)leventy and (t)ailwind … OK, and a few other things; it's still *really* small though.",
+	"scripts": {
+		"clean": "rimraf public src/css/styles.css",
+		"dev": "   webpack  && eleventy --serve",
+		"start": " eleventy --serve",
+		"format": "prettier  --write .",
+		"build": " NODE_ENV=production  webpack --mode production && eleventy"
+	},
+	"repository": {
+		"type": "git",
+		"url": "git+https://marcamos@github.com/marcamos/jet.git"
+	},
+	"keywords": [
+		"eleventy",
+		"11ty",
+		"tailwind",
+		"tailwindcss"
+	],
+	"license": "ISC",
+	"bugs": {
+		"url": "https://github.com/marcamos/jet/issues"
+	},
+	"homepage": "https://github.com/marcamos/jet#readme",
+	"resolutions": {
+		"babel-jest": "^21.2.0",
+		"babel-plugin-jest-hoist": "^21.2.0",
+		"babel-preset-jest": "^21.2.0"
+	},
+	"devDependencies": {
+		"@11ty/eleventy": "^1.0.2",
+		"@babel/core": "^7.21.0",
+		"@babel/plugin-proposal-optional-chaining": "^7.21.0",
+		"@babel/preset-env": "^7.20.2",
+		"@tailwindcss/aspect-ratio": "^0.4.2",
+		"@tailwindcss/forms": "^0.4.0",
+		"@tailwindcss/line-clamp": "^0.3.1",
+		"autoprefixer": "^10.4.13",
+		"babel-core": "^6.26.3",
+		"babel-eslint": "^10.1.0",
+		"babel-loader": "^8.3.0",
+		"babel-polyfill": "^6.26.0",
+		"babel-preset-es2015": "^6.24.1",
+		"babel-preset-stage-0": "^6.24.1",
+		"css-loader": "^4.3.0",
+		"cssnano": "^5.1.15",
+		"daisyui": "^2.51.0",
+		"date-fns": "^2.29.3",
+		"eslint-config-prettier": "^6.12.0",
+		"eslint-plugin-prettier": "^3.1.4",
+		"html-inline-css-webpack-plugin": "^1.11.1",
+		"html-webpack-plugin": "^5.3.2",
+		"notyf": "^3.4.0",
+		"npm-run-all": "^4.1.5",
+		"postcss": "^8.4.21",
+		"postcss-loader": "^4.1.0",
+		"prettier": "^2.8.4",
+		"prettier-plugin-tailwindcss": "^0.1.13",
+		"raw-loader": "^4.0.2",
+		"rimraf": "^3.0.2",
+		"style-loader": "^2.0.0",
+		"tailwindcss": "^3.2.7",
+		"tiny-slider": "^2.9.4",
+		"webpack": "^5.75.0",
+		"webpack-cli": "^4.10.0",
+		"workbox-webpack-plugin": "^4.3.1"
+	},
+	"eslintConfig": {
+		"root": true,
+		"extends": [
+			"plugin:vue/essential",
+			"plugin:prettier/recommended",
+			"eslint:recommended"
+		],
+		"env": {
+			"browser": true,
+			"jest": true,
+			"node": true
+		},
+		"globals": {
+			"chrome": true
+		},
+		"rules": {
+			"eol-last": 0,
+			"quotes": [
+				2,
+				"single"
+			]
+		}
+	},
+	"dependencies": {
+		"@fullhuman/postcss-purgecss": "^4.0.0",
+		"@jlengstorf/get-share-image": "^0.8.0",
+		"@tailwindcss/typography": "^0.5.9",
+		"@toycode/markdown-it-class": "^1.2.4",
+		"canvas": "^2.11.0",
+		"clean-css": "^5.3.2",
+		"core-js": "^3.28.0",
+		"css-minimizer-webpack-plugin": "^1.2.0",
+		"eleventy-plugin-pwa": "^1.0.8",
+		"eleventy-plugin-svg-contents": "^0.7.0",
+		"gulp": "^4.0.2",
+		"gulp-html2pug": "^3.0.3",
+		"gulp-image": "^6.2.1 ",
+		"gulp-imagemin": "^7.1.0",
+		"gulp-webp": "^4.0.1",
+		"html-minifier": "^4.0.0",
+		"imagemin": "^8.0.1",
+		"imagemin-pngquant": "^9.0.2",
+		"imagemin-webp": "^6.1.0",
+		"markdown-it": "^12.2.0",
+		"mini-css-extract-plugin": "^2.7.2",
+		"moment": "^2.29.4",
+		"postcss-loader": "^4.1.0",
+		"regenerator-runtime": "^0.13.11",
+		"shimmer": "^1.2.1",
+		"typewriter-effect": "^2.19.0",
+		"vue": "^2.7.14",
+		"vue-typer": "^1.2.0"
+	}
 }
