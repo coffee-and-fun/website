@@ -31,6 +31,10 @@ module.exports = {
 				'4xl': '2rem'
 			},
 
+			fontFamily: {
+				'pacifico': ['Pacifico', 'cursive'],
+			  },
+
 			maxWidth: {
 				'2xl': '40rem'
 			},
