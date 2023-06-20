@@ -56,7 +56,7 @@ self.__precacheManifest = [
   },
   {
     "url": "assets/images/social-icon.png",
-    "revision": "1dab37dfdee77d2b23b32be8fa82994d"
+    "revision": "3803e68e1bde2336123a7b25018aed43"
   },
   {
     "url": "assets/js/core/app.js",
@@ -84,7 +84,7 @@ self.__precacheManifest = [
   },
   {
     "url": "index.html",
-    "revision": "4cf9a0768e0075ba6f4e4de306b0af60"
+    "revision": "d16a0b02765082d84860c34f8b67db71"
   }
 ].concat(self.__precacheManifest || []);
 workbox.precaching.precacheAndRoute(self.__precacheManifest, {});
