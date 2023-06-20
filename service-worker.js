@@ -35,6 +35,10 @@ self.__precacheManifest = [
     "revision": "16b9ac116a44042bbecdb9db475fbf3a"
   },
   {
+    "url": "assets/images/coffee-and-fun-logo.png",
+    "revision": "835aae9ca06f8e91251903e222b94d3c"
+  },
+  {
     "url": "assets/images/edge.png",
     "revision": "08216bf8bb6261c731578bed2a5e7f3f"
   },
@@ -72,7 +76,7 @@ self.__precacheManifest = [
   },
   {
     "url": "assets/js/main.css",
-    "revision": "5350ec3711ac25c9246ad1d43d1347cd"
+    "revision": "a9b6324a7cede4a9c7a4081dec5bcb86"
   },
   {
     "url": "favicon.png",
@@ -80,7 +84,7 @@ self.__precacheManifest = [
   },
   {
     "url": "index.html",
-    "revision": "6c3006443fc3009b28eba729ecfca8ce"
+    "revision": "4cf9a0768e0075ba6f4e4de306b0af60"
   }
 ].concat(self.__precacheManifest || []);
 workbox.precaching.precacheAndRoute(self.__precacheManifest, {});
