@@ -4,7 +4,7 @@ const svgContents = require('eleventy-plugin-svg-contents');
 const pluginPWA = require('./tools/eleventy-plugin-pwa');
 const fs = require('fs');
 const path = require('path');
-
+const eleventyVue = require("@11ty/eleventy-plugin-vue");
 const { createCanvas, loadImage } = require('canvas');
 const { formatTitle } = require('./tools/format-title');
 const createSocialImageForArticle = (input, output) =>
@@ -105,7 +105,7 @@ const { tr } = require('date-fns/locale');
 module.exports = function (eleventyConfig) {
 	eleventyConfig.addPassthroughCopy({ 'src/assets/': '/assets/' });
 	eleventyConfig.addLiquidFilter('limit', (arr, limit) => arr.slice(0, limit));
-
+	eleventyConfig.addPlugin(eleventyVue);
 	eleventyConfig.addPlugin(pluginPWA, {
 		swDest: './docs/service-worker.js',
 		globDirectory: './docs'
