@@ -88,6 +88,10 @@ self.__precacheManifest = [
   },
   {
     "url": "privacy/index.html",
+    "revision": "660947a2ba8eb294255a25a06d70f4d5"
+  },
+  {
+    "url": "reviews/index.html",
     "revision": "78ed656333d45e2234f3af0752d9e379"
   }
 ].concat(self.__precacheManifest || []);
