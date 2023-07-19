@@ -7,6 +7,11 @@ const path = require('path');
 const eleventyVue = require("@11ty/eleventy-plugin-vue");
 const { createCanvas, loadImage } = require('canvas');
 const { formatTitle } = require('./tools/format-title');
+
+const orderCoffeeShopsByRating = require('./src/_data/sortedReviews.js');
+
+
+
 const createSocialImageForArticle = (input, output) =>
 	new Promise(async (resolve, reject) => {
 		// read data from input file
@@ -112,6 +117,12 @@ module.exports = function (eleventyConfig) {
 	});
 	eleventyConfig.addPlugin(svgContents);
 
+	eleventyConfig.addCollection('orderedCoffeeShops', function (collectionApi) {
+
+		let filler = orderCoffeeShopsByRating;
+		 	console.log('filler',filler);
+	    return filler;
+	  });
 	// add `date` filter
 	eleventyConfig.addFilter('date', function (date, dateFormat) {
 		return format(date, dateFormat);

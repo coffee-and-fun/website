@@ -89,10 +89,159 @@
 									/>
 								</div>
 								<article class="space-y-7 text-base text-black">
-						     {%- for cup in reviews.coffee -%}
+									<div class="overflow-x-auto">
 
-				   {%- endfor -%}
-								</article>
+										<ul role="list" class="grid grid-cols-1 gap-x-6 gap-y-8 xl:gap-x-8">
+ {% for coffeeShop in collections.orderedCoffeeShops %}
+											<li class="overflow-hidden rounded-xl border border-gray-200">
+										    <div class="flex items-center gap-x-4 border-b border-gray-900/5 bg-gray-50 p-6">
+										      <img src="{{ coffeeShop.logoUrl }}" alt="{{ coffeeShop.name }} Logo"  class="h-12 w-12 flex-none rounded-lg bg-white object-cover ring-1 ring-gray-900/10">
+										      <div class="text-sm font-medium leading-6 text-gray-900">{{ coffeeShop.name }}</div>
+
+															<div>		{{ coffeeShop.totalScore}}
+																	</div>
+
+										    </div>
+										    <dl class="-my-3 divide-y divide-gray-100 px-6 py-4 text-sm leading-6 bg-white">
+
+
+														<div class="flex justify-between gap-x-4 py-3">
+											        <dt class="text-gray-500">Location</dt>
+										        <dd class="text-gray-700"><a  class="link link-primary" href="https://www.google.com/maps/search/?api=1&query={{ coffeeShop.location }}" target="_blank" rel="noopener noreferrer">
+																								{{ coffeeShop.location }}
+														</a></dd>
+										      </div>
+													<div class="flex justify-between gap-x-4 py-3">
+													 <dt class="text-gray-500">Social</dt>
+													 <dd class="text-gray-700">		<a  class="link link-primary" href="{{coffeeShop.socialURL}}" target="_blank" rel="noopener noreferrer">
+								 																Visit
+								 							</a></dd>
+												 </div>
+
+
+												 <div class="flex justify-between gap-x-4 py-3">
+											 		<dt class="text-gray-500">Quality of Coffee</dt>
+											 		<dd class="flex items-start gap-x-2">
+											 			<div class="font-medium text-gray-900">
+
+
+{{coffeeShop.categories.qualityOfCoffee.rating}}
+
+														</div>
+
+											 		</dd>
+											 	</div>
+
+												<div class="flex justify-between gap-x-4 py-3">
+												 <dt class="text-gray-500">Atmosphere</dt>
+												 <dd class="flex items-start gap-x-2">
+													 <div class="font-medium text-gray-900">
+
+
+{{coffeeShop.categories.atmosphere.rating}}
+
+													 </div>
+
+												 </dd>
+											 </div>
+
+											 <div class="flex justify-between gap-x-4 py-3">
+												<dt class="text-gray-500">Service</dt>
+												<dd class="flex items-start gap-x-2">
+													<div class="font-medium text-gray-900">
+
+
+{{coffeeShop.categories.service.rating}}
+
+													</div>
+
+												</dd>
+											</div>
+
+											<div class="flex justify-between gap-x-4 py-3">
+											 <dt class="text-gray-500">Food Offerings</dt>
+											 <dd class="flex items-start gap-x-2">
+												 <div class="font-medium text-gray-900">
+
+
+{{coffeeShop.categories.foodOfferings.rating}}
+
+												 </div>
+
+											 </dd>
+										 </div>
+
+										 <div class="flex justify-between gap-x-4 py-3">
+											<dt class="text-gray-500">Seats</dt>
+											<dd class="flex items-start gap-x-2">
+												<div class="font-medium text-gray-900">
+
+
+{{coffeeShop.categories.seats.rating}}
+
+												</div>
+
+											</dd>
+										</div>
+
+										<div class="flex justify-between gap-x-4 py-3">
+										 <dt class="text-gray-500">Value</dt>
+										 <dd class="flex items-start gap-x-2">
+											 <div class="font-medium text-gray-900">
+
+
+{{coffeeShop.categories.value.rating}}
+
+											 </div>
+
+										 </dd>
+									 </div>
+
+
+									 <div class="flex justify-between gap-x-4 py-3">
+										<dt class="text-gray-500">Workability</dt>
+										<dd class="flex items-start gap-x-2">
+											<div class="font-medium text-gray-900">
+
+
+{{coffeeShop.categories.workability.rating}}
+
+											</div>
+
+										</dd>
+									</div>
+
+												  <div class="flex justify-between gap-x-4 py-3">
+										        <dt class="text-gray-500"><b>Final Score</b></dt>
+										        <dd class="flex items-start gap-x-2">
+										          <div class="font-medium text-gray-900">
+																{% for i in range(coffeeShop.totalScore) %}
+  {% set starIndex = i / 2 + 0.5 %}
+  {% if starIndex <= coffeeShop.totalScore %}
+    ⭐️
+  {% elif starIndex - 0.5 < coffeeShop.totalScore %}
+    🌟
+  {% else %}
+    ☆
+  {% endif %}
+{% endfor %}
+																		
+																	/ 5</div>
+										        </dd>
+										      </div>
+										    </dl>
+										  </li>
+		    {% endfor %}
+											</ul>
+
+
+
+
+
+				</div>
+
+		</article>
+
 							</div>
 						</div>
 					</div>
