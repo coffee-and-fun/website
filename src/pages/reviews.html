@@ -88,44 +88,98 @@
 										class="aspect-square mx-auto block"
 									/>
 								</div>
-								<article class="space-y-7 text-base text-black">
-									<div class="overflow-x-auto">
+
+
+<div>
+
+	<h1 class="text-3xl font-bold leading-none mb-4 mt-8">Finding the best Coffee shop</h1>
+<p class="text-black font-title py-4 text-xl">
+	At Coffee & Fun, we know that finding the ideal coffee shop is an art. It's about more than just the taste of the coffee; it's the complete experience, encompassing quality, atmosphere, service, food, seating, value, and workability.
+</p>
+<p class="text-black font-title py-4 text-xl">
+
+	That's why we've created a comprehensive review scale to guide you towards the coffee shop that suits all your preferences.
+
+
+
+
+
+</p>
+
+</div>
+
+								<article class="space-y-7 text-base text-black mt-16">
+									<div class="overflow-x-auto mx-auto">
 
 										<ul role="list" class="grid grid-cols-1 gap-x-6 gap-y-8 xl:gap-x-8">
  {% for coffeeShop in collections.orderedCoffeeShops %}
-											<li class="overflow-hidden rounded-xl border border-gray-200">
-										    <div class="flex items-center gap-x-4 border-b border-gray-900/5 bg-gray-50 p-6">
-										      <img src="{{ coffeeShop.logoUrl }}" alt="{{ coffeeShop.name }} Logo"  class="h-12 w-12 flex-none rounded-lg bg-white object-cover ring-1 ring-gray-900/10">
-										      <div class="text-sm font-medium leading-6 text-gray-900">{{ coffeeShop.name }}</div>
+											<li class="overflow-hidden rounded-xl border border-stone-600 border-2">
+										    <div class="flex items-center gap-x-4 border-b border-stone-900/5 bg-stone-50 p-6">
+										      <img src="{{ coffeeShop.logoUrl }}" alt="{{ coffeeShop.name }} Logo"  class="h-12 w-12 flex-none rounded-lg bg-white object-cover ring-1 ring-stone-900/10">
+<div class="flex flex-1">
+												  <div class="text-lg font-medium leading-6 text-stone-900  ">{{ coffeeShop.name }}
+														<div>  {% for highlight in coffeeShop.highlights %}
+														<span class="mr-2">	{{highlight}} - </span>
+														 	{% endfor %}</div>
 
-															<div>		{{ coffeeShop.totalScore}}
+</div>
+</div>
+															<div class="flex flex-none">
+																<div class="avatar placeholder mask mask-hexagon-2">
+																	<div class="bg-neutral-focus text-neutral-content rounded-full w-12">
+																		<span>
+
+																			{% if forloop.index == 1 %}
+																		    🥇
+																		  {% elsif forloop.index == 2 %}
+														🥈
+																		  {% elsif forloop.index == 3 %}
+																		  🥉
+																		  {% elsif forloop.index >= 4 %}
+																		 {{forloop.index}}
+																		  {% endif %}
+
+																		</span>
+																	</div>
+																</div>
+
 																	</div>
 
+
 										    </div>
-										    <dl class="-my-3 divide-y divide-gray-100 px-6 py-4 text-sm leading-6 bg-white">
+										    <dl class="-my-3 divide-y divide-stone-100 px-6 py-4 text-base leading-6 bg-white">
 
 
 														<div class="flex justify-between gap-x-4 py-3">
-											        <dt class="text-gray-500">Location</dt>
-										        <dd class="text-gray-700"><a  class="link link-primary" href="https://www.google.com/maps/search/?api=1&query={{ coffeeShop.location }}" target="_blank" rel="noopener noreferrer">
+											        <dt class="text-stone-600">Location</dt>
+										        <dd class="text-stone-700"><a  class="link link-primary" href="https://www.google.com/maps/search/?api=1&query={{ coffeeShop.location }}" target="_blank" rel="noopener noreferrer">
 																								{{ coffeeShop.location }}
 														</a></dd>
 										      </div>
 													<div class="flex justify-between gap-x-4 py-3">
-													 <dt class="text-gray-500">Social</dt>
-													 <dd class="text-gray-700">		<a  class="link link-primary" href="{{coffeeShop.socialURL}}" target="_blank" rel="noopener noreferrer">
+													 <dt class="text-stone-600">Social</dt>
+													 <dd class="text-stone-700">		<a  class="link link-primary" href="{{coffeeShop.socialURL}}" target="_blank" rel="noopener noreferrer">
 								 																Visit
 								 							</a></dd>
 												 </div>
 
 
 												 <div class="flex justify-between gap-x-4 py-3">
-											 		<dt class="text-gray-500">Quality of Coffee</dt>
+
+													<dt class="text-stone-600"> 	<div class="tooltip tooltip-right" data-tip="{{coffeeShop.categories.qualityOfCoffee.description}}">Quality of Coffee				</div></dt>
+
 											 		<dd class="flex items-start gap-x-2">
-											 			<div class="font-medium text-gray-900">
+											 			<div class="font-medium text-stone-900">
+
+															{% for i in (1..5) %}
+															 {% if i <= coffeeShop.categories.qualityOfCoffee.rating %}
+															    ⭐️
+															  {% else %}
+															    ☆
+															  {% endif %}
+															{% endfor %}
 
 
-{{coffeeShop.categories.qualityOfCoffee.rating}}
 
 														</div>
 
@@ -133,12 +187,21 @@
 											 	</div>
 
 												<div class="flex justify-between gap-x-4 py-3">
-												 <dt class="text-gray-500">Atmosphere</dt>
+
+												 <dt class="text-stone-600"> 	<div class="tooltip tooltip-right" data-tip="{{coffeeShop.categories.atmosphere.description}}">Atmosphere				</div></dt>
+
 												 <dd class="flex items-start gap-x-2">
-													 <div class="font-medium text-gray-900">
+													 <div class="font-medium text-stone-900">
 
 
-{{coffeeShop.categories.atmosphere.rating}}
+
+														 {% for i in (1..5) %}
+														   {% if i <= coffeeShop.categories.atmosphere.rating %}
+														     ⭐️
+														   {% else %}
+														     ☆
+														   {% endif %}
+														 {% endfor %}
 
 													 </div>
 
@@ -146,12 +209,24 @@
 											 </div>
 
 											 <div class="flex justify-between gap-x-4 py-3">
-												<dt class="text-gray-500">Service</dt>
+
+												<dt class="text-stone-600"> 	<div class="tooltip tooltip-right" data-tip="{{coffeeShop.categories.service.description}}">Service				</div></dt>
+
 												<dd class="flex items-start gap-x-2">
-													<div class="font-medium text-gray-900">
+													<div class="font-medium text-stone-900">
+
+																												 {% for i in (1..5) %}
+																												   {% if i <= coffeeShop.categories.service.rating %}
+																												     ⭐️
+																												   {% else %}
+																												     ☆
+																												   {% endif %}
+																												 {% endfor %}
 
 
-{{coffeeShop.categories.service.rating}}
+
+
+
 
 													</div>
 
@@ -159,12 +234,24 @@
 											</div>
 
 											<div class="flex justify-between gap-x-4 py-3">
-											 <dt class="text-gray-500">Food Offerings</dt>
+
+											 <dt class="text-stone-600"> 	<div class="tooltip tooltip-right" data-tip="{{coffeeShop.categories.foodOfferings.description}}">Food Offerings					</div></dt>
+
 											 <dd class="flex items-start gap-x-2">
-												 <div class="font-medium text-gray-900">
+												 <div class="font-medium text-stone-900">
 
 
-{{coffeeShop.categories.foodOfferings.rating}}
+
+													 														 {% for i in (1..5) %}
+													 															 {% if i <= coffeeShop.categories.foodOfferings.rating %}
+													 																 ⭐️
+													 															 {% else %}
+													 																 ☆
+													 															 {% endif %}
+													 														 {% endfor %}
+
+
+
 
 												 </div>
 
@@ -172,12 +259,20 @@
 										 </div>
 
 										 <div class="flex justify-between gap-x-4 py-3">
-											<dt class="text-gray-500">Seats</dt>
+																		<dt class="text-stone-600"> 	<div class="tooltip tooltip-right" data-tip="{{coffeeShop.categories.seats.description}}">Seats					</div></dt>
 											<dd class="flex items-start gap-x-2">
-												<div class="font-medium text-gray-900">
+												<div class="font-medium text-stone-900">
 
 
-{{coffeeShop.categories.seats.rating}}
+													{% for i in (1..5) %}
+							 						 {% if i <= coffeeShop.categories.seats.rating %}
+							 							 ⭐️
+							 						 {% else %}
+							 							 ☆
+							 						 {% endif %}
+							 					 {% endfor %}
+
+
 
 												</div>
 
@@ -185,12 +280,25 @@
 										</div>
 
 										<div class="flex justify-between gap-x-4 py-3">
-										 <dt class="text-gray-500">Value</dt>
+																		<dt class="text-stone-600"> 	<div class="tooltip tooltip-right" data-tip="{{coffeeShop.categories.value.description}}">Value					</div></dt>
 										 <dd class="flex items-start gap-x-2">
-											 <div class="font-medium text-gray-900">
+											 <div class="font-medium text-stone-900">
 
 
-{{coffeeShop.categories.value.rating}}
+												 {% for i in (1..5) %}
+							 					 {% if i <= coffeeShop.categories.value.rating %}
+							 						 ⭐️
+							 					 {% else %}
+							 						 ☆
+							 					 {% endif %}
+							 				 {% endfor %}
+
+
+
+
+
+
+
 
 											 </div>
 
@@ -199,12 +307,24 @@
 
 
 									 <div class="flex justify-between gap-x-4 py-3">
-										<dt class="text-gray-500">Workability</dt>
+										<dt class="text-stone-600"> 	<div class="tooltip tooltip-right" data-tip="{{coffeeShop.categories.workability.description}}">Workability					</div></dt>
 										<dd class="flex items-start gap-x-2">
-											<div class="font-medium text-gray-900">
+											<div class="font-medium text-stone-900">
 
 
-{{coffeeShop.categories.workability.rating}}
+
+
+																								 {% for i in (1..5) %}
+																			 					 {% if i <= coffeeShop.categories.workability.rating %}
+																			 						 ⭐️
+																			 					 {% else %}
+																			 						 ☆
+																			 					 {% endif %}
+																			 				 {% endfor %}
+
+
+
+
 
 											</div>
 
@@ -212,21 +332,25 @@
 									</div>
 
 												  <div class="flex justify-between gap-x-4 py-3">
-										        <dt class="text-gray-500"><b>Final Score</b></dt>
+
+										        <dt class="text-stone-600 text-lg">		<div class="tooltip tooltip-right" data-tip="hello"><b>Final Score</b>					</div></dt>
+
 										        <dd class="flex items-start gap-x-2">
-										          <div class="font-medium text-gray-900">
-																{% for i in range(coffeeShop.totalScore) %}
-  {% set starIndex = i / 2 + 0.5 %}
-  {% if starIndex <= coffeeShop.totalScore %}
-    ⭐️
-  {% elif starIndex - 0.5 < coffeeShop.totalScore %}
-    🌟
-  {% else %}
-    ☆
-  {% endif %}
-{% endfor %}
-																		
-																	/ 5</div>
+										          <div class="font-medium text-stone-900 text-lg">
+																	<div class="tooltip tooltip-left" data-tip="Final score {{coffeeShop.totalScore}}/5">
+																{% assign starIndex = forloop.index0 | divided_by: 2 | plus: 0.5 %}
+																{% for i in (1..5) %}
+																  {% if starIndex < coffeeShop.totalScore %}
+																    ⭐️
+																					  {% else %}
+																    ☆
+																  {% endif %}
+																  {% assign starIndex = starIndex | plus: 1 %}
+																{% endfor %}
+
+</div>
+
+													</div>
 										        </dd>
 										      </div>
 										    </dl>
@@ -255,7 +379,7 @@
 					<a
 						href="https://www.twitter.com/bycoffeeandfun"
 						target="_blank"
-						class="text-gray-800 hover:text-black"
+						class="text-stone-800 hover:text-black"
 					>
 						<span class="sr-only">Twitter</span>
 						<svg class="h-7 w-7" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
@@ -267,7 +391,7 @@
 					<a
 						href="https://www.github.com/bycoffeeandfun"
 						target="_blank"
-						class="text-gray-800 hover:text-black"
+						class="text-stone-800 hover:text-black"
 					>
 						<span class="sr-only">GitHub</span>
 						<svg class="h-7 w-7" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
@@ -281,7 +405,7 @@
 					<a
 						href="https://www.youtube.com/bycoffeeandfun"
 						target="_blank"
-						class="text-gray-800 hover:text-black"
+						class="text-stone-800 hover:text-black"
 					>
 						<span class="sr-only">Youtube</span>
 						<svg class="h-7 w-7" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
