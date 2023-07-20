@@ -117,10 +117,8 @@
 										    <div class="flex items-center gap-x-4 border-b border-stone-900/5 bg-stone-50 p-6">
 										      <img src="{{ coffeeShop.logoUrl }}" alt="{{ coffeeShop.name }} Logo"  class="h-12 w-12 flex-none rounded-lg bg-white object-cover ring-1 ring-stone-900/10">
 <div class="flex flex-1">
-												  <div class="text-lg font-medium leading-6 text-stone-900  ">{{ coffeeShop.name }}
-														<div>  {% for highlight in coffeeShop.highlights %}
-														<span class="mr-2">	{{highlight}} - </span>
-														 	{% endfor %}</div>
+												  <div class="text-lg font-bold leading-6 text-stone-900  ">{{ coffeeShop.name }}
+														<div class="text-base font-medium "> Robs favioute</div>
 
 </div>
 </div>
@@ -337,7 +335,7 @@
 
 										        <dd class="flex items-start gap-x-2">
 										          <div class="font-medium text-stone-900 text-lg">
-																	<div class="tooltip tooltip-left" data-tip="Final score {{coffeeShop.totalScore}}/5">
+																	<div class="tooltip " data-tip=" {{coffeeShop.totalScore}}/5">
 																{% assign starIndex = forloop.index0 | divided_by: 2 | plus: 0.5 %}
 																{% for i in (1..5) %}
 																  {% if starIndex < coffeeShop.totalScore %}
