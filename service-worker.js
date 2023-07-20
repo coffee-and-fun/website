@@ -76,7 +76,7 @@ self.__precacheManifest = [
   },
   {
     "url": "assets/js/main.css",
-    "revision": "febfadaf0c20cecda1bf36e3e34caf2a"
+    "revision": "6dc0252cee479d16f64a332314dd80a7"
   },
   {
     "url": "favicon.png",
@@ -92,7 +92,7 @@ self.__precacheManifest = [
   },
   {
     "url": "reviews/index.html",
-    "revision": "70ad8e537467e3ab761069d7ab81cc0a"
+    "revision": "12dd2bafd1eccb7650244fd534252f42"
   }
 ].concat(self.__precacheManifest || []);
 workbox.precaching.precacheAndRoute(self.__precacheManifest, {});
