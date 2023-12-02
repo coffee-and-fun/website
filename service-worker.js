@@ -76,7 +76,7 @@ self.__precacheManifest = [
   },
   {
     "url": "assets/js/main.css",
-    "revision": "6dc0252cee479d16f64a332314dd80a7"
+    "revision": "9d6ac1be35c03fceb68935761658faf0"
   },
   {
     "url": "favicon.png",
@@ -84,7 +84,7 @@ self.__precacheManifest = [
   },
   {
     "url": "index.html",
-    "revision": "6d89bb04cca83baab99175bb8f0b3fd1"
+    "revision": "245bd655de6293026387b6b9163d7ca8"
   },
   {
     "url": "privacy/index.html",
