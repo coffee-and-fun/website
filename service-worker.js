@@ -83,10 +83,6 @@ self.__precacheManifest = [
     "revision": "d428ce6a97051e9bd62601327915b185"
   },
   {
-    "url": "favicon.png",
-    "revision": "d2a7450b33fe64be194b342d0e98d294"
-  },
-  {
     "url": "index.html",
     "revision": "0d8f885165068d0310039bf82dc7a443"
   },
