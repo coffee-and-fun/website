@@ -51,6 +51,10 @@ self.__precacheManifest = [
     "revision": "d2a7450b33fe64be194b342d0e98d294"
   },
   {
+    "url": "assets/images/flash-cards.png",
+    "revision": "a78baf71ebddcd8ff4bce450cc8b1fbf"
+  },
+  {
     "url": "assets/images/logo.png",
     "revision": "f0dd0e6d19c000c9fa7631e8cf9c278a"
   },
@@ -80,7 +84,11 @@ self.__precacheManifest = [
   },
   {
     "url": "assets/js/main.css",
-    "revision": "d49e4c1c6c1144bc5c23acbdae080339"
+    "revision": "433f13427579132420c717fd7bb2e65e"
+  },
+  {
+    "url": "flash-cards/index.html",
+    "revision": "917f5e7db0d155cbd5d68b74960d53ab"
   },
   {
     "url": "index.html",
