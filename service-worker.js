@@ -84,11 +84,11 @@ self.__precacheManifest = [
   },
   {
     "url": "assets/js/main.css",
-    "revision": "433f13427579132420c717fd7bb2e65e"
+    "revision": "93e2d34253825eba4b3d84a5fade0405"
   },
   {
     "url": "flash-cards/index.html",
-    "revision": "694cbd620a5ce8fb7e6aa6676138fdae"
+    "revision": "176fd0f470a43e1ca34d51672dfd5c7a"
   },
   {
     "url": "index.html",
