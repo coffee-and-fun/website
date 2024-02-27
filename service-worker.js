@@ -88,7 +88,7 @@ self.__precacheManifest = [
   },
   {
     "url": "flash-cards/index.html",
-    "revision": "d0743ef61a9f8c39240fd74262f386bf"
+    "revision": "93965da55d852421174956a3226b9300"
   },
   {
     "url": "index.html",
