@@ -80,11 +80,11 @@ self.__precacheManifest = [
   },
   {
     "url": "assets/js/main.bundle.js",
-    "revision": "3f732b659336f297b548613c4799bed1"
+    "revision": "c51d324cdd39b741cf42a4d8fb6802e7"
   },
   {
     "url": "assets/js/main.css",
-    "revision": "fb32a06239a5c1084b301c204e52a711"
+    "revision": "bdc7ac8ce54ff79d7bc8282eecf744bf"
   },
   {
     "url": "flash-cards/index.html",
@@ -92,7 +92,7 @@ self.__precacheManifest = [
   },
   {
     "url": "index.html",
-    "revision": "29d4caaed119d156805a55cc290b7119"
+    "revision": "0fd7bb3dca9c658fe7e392e8a7ff0461"
   },
   {
     "url": "privacy/index.html",
