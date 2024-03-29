@@ -35,8 +35,16 @@ self.__precacheManifest = [
     "revision": "16b9ac116a44042bbecdb9db475fbf3a"
   },
   {
-    "url": "assets/images/coffee-and-fun-logo.png",
+    "url": "assets/images/coffee-and-fun-logo-dark.png",
+    "revision": "9eb41a43b9b81f9dbba281116c97b8eb"
+  },
+  {
+    "url": "assets/images/coffee-and-fun-logo-old.png",
     "revision": "835aae9ca06f8e91251903e222b94d3c"
+  },
+  {
+    "url": "assets/images/coffee-and-fun-logo.png",
+    "revision": "9d2722c66c5190c5cf5d5a82671d367c"
   },
   {
     "url": "assets/images/edge.png",
@@ -80,11 +88,11 @@ self.__precacheManifest = [
   },
   {
     "url": "assets/js/main.bundle.js",
-    "revision": "c51d324cdd39b741cf42a4d8fb6802e7"
+    "revision": "3f732b659336f297b548613c4799bed1"
   },
   {
     "url": "assets/js/main.css",
-    "revision": "bdc7ac8ce54ff79d7bc8282eecf744bf"
+    "revision": "3425f85b11c9f3a0d0bbb3d58799141e"
   },
   {
     "url": "flash-cards/index.html",
@@ -92,7 +100,7 @@ self.__precacheManifest = [
   },
   {
     "url": "index.html",
-    "revision": "0fd7bb3dca9c658fe7e392e8a7ff0461"
+    "revision": "c003cbd78de45f78c6cf83a17316785b"
   },
   {
     "url": "privacy/index.html",
