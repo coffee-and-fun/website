@@ -31,6 +31,30 @@ self.__precacheManifest = [
     "revision": "d41d8cd98f00b204e9800998ecf8427e"
   },
   {
+    "url": "assets/images/apps/bear.png",
+    "revision": "2bbb51bed83c4b102dcf895967c185f2"
+  },
+  {
+    "url": "assets/images/apps/flash.png",
+    "revision": "a58401282ece9199e3d3eb7748f2f0e8"
+  },
+  {
+    "url": "assets/images/apps/google.png",
+    "revision": "4370cb93e7433e090cf1ca055e95c708"
+  },
+  {
+    "url": "assets/images/apps/helperbird.png",
+    "revision": "39d059f4b2a92509c8973e30227910d6"
+  },
+  {
+    "url": "assets/images/apps/pii.png",
+    "revision": "b460f66f8d61c64330694e6a8707e5d6"
+  },
+  {
+    "url": "assets/images/apps/screenshot.png",
+    "revision": "a688c58d813cfcea7842f63ca06f2a34"
+  },
+  {
     "url": "assets/images/chrome.png",
     "revision": "16b9ac116a44042bbecdb9db475fbf3a"
   },
@@ -92,7 +116,7 @@ self.__precacheManifest = [
   },
   {
     "url": "assets/js/main.css",
-    "revision": "3425f85b11c9f3a0d0bbb3d58799141e"
+    "revision": "df5a484caf8b210291f6a2348d6634f7"
   },
   {
     "url": "flash-cards/index.html",
@@ -100,7 +124,7 @@ self.__precacheManifest = [
   },
   {
     "url": "index.html",
-    "revision": "c003cbd78de45f78c6cf83a17316785b"
+    "revision": "810e080487acc3d84374e9003e4a17c2"
   },
   {
     "url": "privacy/index.html",
