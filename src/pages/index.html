@@ -89,9 +89,12 @@
 									/>
 								</div>
 								<article class="space-y-7 text-base text-black">
-									 <div class="card bg-base-100 my-8 shadow-xl">
+									<div class="card my-8 bg-base-100 shadow-md">
 										<div class="card-body">
-											<h2 class="card-title text-2xl mb-4">Where fresh ideas are always brewing ☕</h2>
+											<h3 class="card-title mb-4 text-2xl">Welcome to Coffee & Fun 👋</h3>
+											<h3 class="mb-4 text-xl font-semibold">
+												Where fresh ideas are always brewing ☕
+											</h3>
 											<p class="mb-2 text-lg text-black">
 												Launched in 2023, our goal is simple: to mix the spark of innovation with
 												the comfort of everyday tools.
@@ -116,119 +119,73 @@
 												Dive into our collection and find your new favorite way to do more, stress
 												less, and keep it all fun.
 											</p>
-										 
 										</div>
 									</div>
 
-									 <div class="card bg-base-100 my-8 shadow-xl">
+									<div class="card my-8 bg-base-100 shadow-md">
 										<div class="card-body">
-											<h2 class="card-title text-2xl mb-4">Our Applications 📱</h2>
-											<ul class="mb-5 list-disc pl-5 text-lg">
-												<li>
-													<a
-														href="https://apps.apple.com/us/app/simple-screenshot-pro/id6451333294"
-														class="text-blue-500 hover:underline"
-														title="Download Simple Screenshot Pro from the App store"
-														target="_blank"
-														>Simple Screenshot Pro
-														<span class="badge badge-secondary"> New</span></a
-													>
-												</li>
-												<li>
-													<a
-														href="https://www.incognitomode.app"
-														class="text-blue-500 hover:underline"
-														title="Visit Incognito bear's website"
-														target="_blank"
-														>Incognito Bear</a
-													>
-												</li>
-												<li>
-													<a
-														href="https://chrome.google.com/webstore/detail/lexend-font-for-chrome/dephbjebdflpbhnhnebainombgimhdgc"
-														class="text-blue-500 hover:underline"
-														title="Get Lexend for Chrome on the Chrome Web Store"
-														target="_blank"
-														>Lexend for Chrome</a
-													>
-												</li>
-												<li>
-													<a
-														href="https://chrome.google.com/webstore/detail/markdown-editor-for-chrom/dkpldbigkfcgpamifjimiejipmodkigk?hl=en"
-														class="text-blue-500 hover:underline"
-														title="Get Markdown Editor for Chrome on the Chrome Web Store"
-														target="_blank"
-														>Markdown Editor
-													</a>
-												</li>
-												<li>
-													<a
-														href="https://chrome.google.com/webstore/detail/markdown-editor-for-chrom/dkpldbigkfcgpamifjimiejipmodkigk?hl=en"
-														class="text-blue-500 hover:underline"
-														title="Get Netflix Hidden Categories for Chrome on the Chrome Web Store"
-														target="_blank"
-														>Netflix Hidden Categories
-														<span class="badge badge-primary" aria-label="Product sold"> Sold</span>
-													</a>
-												</li>
+											<h2 class="card-title mb-8 text-2xl">Our Applications 📱</h2>
 
-												<li>
-													<a
-														href="https://apps.apple.com/us/app/instant-flash-cards/id6478512461"
-														class="text-blue-500 hover:underline"
-														title="Get Instant Flash Cards"
-														target="_blank"
-														>Instant Flash Cards
-														<span class="badge badge-secondary" aria-label="Product sold">
-															New</span
-														>
-													</a>
-												</li>
-											</ul>
+											<div
+												class="not-prose grid grid-cols-1 gap-x-6 gap-y-12 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-2"
+											>
+												{% for app in apps.apps %}
 
-										 
+												<a
+													class="card card-compact transition-all duration-200 hover:-translate-y-1 hover:bg-base-200"
+													href="{{ app.link }}"
+													><figure class="px-4 pt-4">
+														<img
+															loading="lazy"
+															src="{{ app.image }}"
+															class="rounded-lg border border-base-content border-opacity-5 bg-base-300"
+															alt="{{ app.name }}"
+														/>
+													</figure>
+													<div class="card-body">
+														<h2 class="card-title">{{ app.name }}</h2>
+														<p class="text-sm opacity-60">{{ app.description }}</p>
+													</div>
+												</a>
+
+												{% endfor %}
+											</div>
 										</div>
 									</div>
 
-									 <div class="card bg-base-100 my-8 shadow-xl">
+									<div class="card my-8 bg-base-100 shadow-md">
 										<div class="card-body">
-											<h2 class="card-title text-2xl mb-4">Open source 🔓</h2>
-											<ul class="mb-5 list-disc pl-5 text-lg">
-												<!-- List the graveyard apps here -->
-												<li>
-													<a
-														href="https://github.com/coffee-and-fun/google-profanity-words"
-														class="text-blue-500 hover:underline"
-														title="View Google Profanity Words on GitHub - Popular Open Source Project"
-														target="_blank"
-														rel="noopener noreferrer"
-														>Google Profanity Words
-														<span class="badge badge-primary" aria-label="Popular project"
-															>Popular</span
-														>
-													</a>
-												</li>
+											<h2 class="card-title mb-4 text-2xl mb-2">Open source 🔓</h2>
+											<div
+											class="not-prose grid grid-cols-1 gap-x-6 gap-y-12 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-2"
+										>
+											{% for app in apps.opensource %}
 
-												<li>
-													<a
-														href="https://github.com/coffee-and-fun/remove-pii"
-														class="text-blue-500 hover:underline"
-														title="Remove personally identifiable information (PII) from text"
-														target="_blank"
-														rel="noopener noreferrer"
-														>Remove PII
-													</a>
-												</li>
-												<!-- etc. -->
-											</ul>
+											<a
+												class="card card-compact transition-all duration-200 hover:-translate-y-1 hover:bg-base-200"
+												href="{{ app.link }}"
+												><figure class="px-4 pt-4">
+													<img
+														loading="lazy"
+														src="{{ app.image }}"
+														class="rounded-lg border border-base-content border-opacity-5 bg-base-300"
+														alt="{{ app.name }}"
+													/>
+												</figure>
+												<div class="card-body">
+													<h2 class="card-title">{{ app.name }}</h2>
+													<p class="text-sm opacity-60">{{ app.description }}</p>
+												</div>
+											</a>
 
-										 
+											{% endfor %}
+										</div>
 										</div>
 									</div>
 
-									 <div class="card bg-base-100 my-8 shadow-xl">
+									<div class="card my-8 bg-base-100 shadow-md">
 										<div class="card-body">
-											<h2 class="card-title text-2xl mb-4">The Graveyard ⚰️</h2>
+											<h2 class="card-title mb-4 text-2xl">The Graveyard ⚰️</h2>
 
 											<p class="mb-3 text-lg text-black">
 												These are our past projects that are no longer active:
@@ -241,13 +198,12 @@
 												<li>Netflix Hidden Categories</li>
 												<!-- etc. -->
 											</ul>
-										 
 										</div>
 									</div>
 
-									 <div class="card bg-base-100 my-8 shadow-xl">
+									<div class="card my-8 bg-base-100 shadow-md">
 										<div class="card-body">
-											<h2 class="card-title text-2xl mb-4">Support ✉️</h2>
+											<h2 class="card-title mb-4 text-2xl">Support ✉️</h2>
 
 											<p class="mb-4 text-lg text-black">
 												For
@@ -275,13 +231,12 @@
 													>hello@coffeeandfun.com</a
 												>.
 											</p>
-										 
 										</div>
 									</div>
 
-									 <div class="card bg-base-100 my-8 shadow-xl">
+									<div class="card my-8 bg-base-100 shadow-md">
 										<div class="card-body">
-											<h2 class="card-title text-2xl mb-4">Contact Us ✉️</h2>
+											<h2 class="card-title mb-4 text-2xl">Contact Us ✉️</h2>
 
 											<p class="text-lg text-black">
 												For business inquiries, please email us at
@@ -292,7 +247,6 @@
 													>hello@coffeeandfun.com</a
 												>.
 											</p>
-										 
 										</div>
 									</div>
 								</article>
