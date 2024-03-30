@@ -83,8 +83,12 @@ self.__precacheManifest = [
     "revision": "d2a7450b33fe64be194b342d0e98d294"
   },
   {
-    "url": "assets/images/flash-cards.png",
+    "url": "assets/images/flash-cards-old.png",
     "revision": "a78baf71ebddcd8ff4bce450cc8b1fbf"
+  },
+  {
+    "url": "assets/images/flash-cards.png",
+    "revision": "02a166499900cbd5d42828c3e1ca38c8"
   },
   {
     "url": "assets/images/logo.png",
