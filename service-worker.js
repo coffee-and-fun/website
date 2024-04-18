@@ -47,6 +47,10 @@ self.__precacheManifest = [
     "revision": "39d059f4b2a92509c8973e30227910d6"
   },
   {
+    "url": "assets/images/apps/instant-incognito.png",
+    "revision": "797b5f271c51677f741f2914a5c1bda0"
+  },
+  {
     "url": "assets/images/apps/pii.png",
     "revision": "b460f66f8d61c64330694e6a8707e5d6"
   },
@@ -132,7 +136,7 @@ self.__precacheManifest = [
   },
   {
     "url": "index.html",
-    "revision": "1599c05cc209997473405fa1b37b0f81"
+    "revision": "65626d687c70dbb090ec09630e2439d7"
   },
   {
     "url": "instant-incognito/index.html",
