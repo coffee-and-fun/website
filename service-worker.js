@@ -124,7 +124,7 @@ self.__precacheManifest = [
   },
   {
     "url": "assets/js/main.css",
-    "revision": "cef2ed40fa9d49a8dcfbe97317133731"
+    "revision": "d0a3241f52d3e8502e92b43a3fe3d8a8"
   },
   {
     "url": "flash-cards/index.html",
@@ -136,7 +136,7 @@ self.__precacheManifest = [
   },
   {
     "url": "instant-incognito/index.html",
-    "revision": "b4cf6c2c2d761e50ee893e532cdfb7de"
+    "revision": "e7b307f617b4a2874b114fa5b763e672"
   },
   {
     "url": "privacy/index.html",
