@@ -91,6 +91,10 @@ self.__precacheManifest = [
     "revision": "02a166499900cbd5d42828c3e1ca38c8"
   },
   {
+    "url": "assets/images/instant-incognito.png",
+    "revision": "239ce3bb7540d07f306461a15e4fbd9d"
+  },
+  {
     "url": "assets/images/logo.png",
     "revision": "f0dd0e6d19c000c9fa7631e8cf9c278a"
   },
@@ -120,23 +124,27 @@ self.__precacheManifest = [
   },
   {
     "url": "assets/js/main.css",
-    "revision": "df5a484caf8b210291f6a2348d6634f7"
+    "revision": "cef2ed40fa9d49a8dcfbe97317133731"
   },
   {
     "url": "flash-cards/index.html",
-    "revision": "a26568891a631d97354d33c1680fc8e8"
+    "revision": "b9a989a5111f4156f1eac1328ca29c3c"
   },
   {
     "url": "index.html",
-    "revision": "810e080487acc3d84374e9003e4a17c2"
+    "revision": "1599c05cc209997473405fa1b37b0f81"
+  },
+  {
+    "url": "instant-incognito/index.html",
+    "revision": "b4cf6c2c2d761e50ee893e532cdfb7de"
   },
   {
     "url": "privacy/index.html",
-    "revision": "aacdaf478c09f7bacb258615bdc53360"
+    "revision": "5ba8a084c4a8bafe43a30556fa8556ee"
   },
   {
     "url": "reviews/index.html",
-    "revision": "ba0a61fc0949f3920d16765498f5e005"
+    "revision": "c14df6c23d1a01232af66202b078e724"
   }
 ].concat(self.__precacheManifest || []);
 workbox.precaching.precacheAndRoute(self.__precacheManifest, {});
