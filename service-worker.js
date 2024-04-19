@@ -128,27 +128,27 @@ self.__precacheManifest = [
   },
   {
     "url": "assets/js/main.css",
-    "revision": "d0a3241f52d3e8502e92b43a3fe3d8a8"
+    "revision": "3f0bb29bd104fbb97a5a8bd9d87df4c3"
   },
   {
     "url": "flash-cards/index.html",
-    "revision": "b9a989a5111f4156f1eac1328ca29c3c"
+    "revision": "33906d6a1c09d40492584e5393f6fcdc"
   },
   {
     "url": "index.html",
-    "revision": "65626d687c70dbb090ec09630e2439d7"
+    "revision": "375e47069465b289ed6cb42bf58e6eda"
   },
   {
     "url": "instant-incognito/index.html",
-    "revision": "438c16f7a90d6d7a620124c6a67ac9de"
+    "revision": "ab07deec9d42c296d09aee09b0bfd636"
   },
   {
     "url": "privacy/index.html",
-    "revision": "5ba8a084c4a8bafe43a30556fa8556ee"
+    "revision": "419daba54fdfe83b1282ccb258e35548"
   },
   {
     "url": "reviews/index.html",
-    "revision": "c14df6c23d1a01232af66202b078e724"
+    "revision": "cf76254f182be60c978f84e151e03048"
   }
 ].concat(self.__precacheManifest || []);
 workbox.precaching.precacheAndRoute(self.__precacheManifest, {});
