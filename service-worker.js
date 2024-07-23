@@ -136,7 +136,7 @@ self.__precacheManifest = [
   },
   {
     "url": "assets/js/main.css",
-    "revision": "0f89f1e2e927d564708079e6c3a1d72d"
+    "revision": "0dfc3f0dcb2925c6d5ceca0bbf09f602"
   },
   {
     "url": "flash-cards/index.html",
@@ -156,7 +156,7 @@ self.__precacheManifest = [
   },
   {
     "url": "procrastinot/index.html",
-    "revision": "9c9212d52bea4988ae4e3880a2fbf956"
+    "revision": "c4f14bcc29c58bc22a45df1b3111be82"
   },
   {
     "url": "reviews/index.html",
