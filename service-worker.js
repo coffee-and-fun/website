@@ -156,7 +156,7 @@ self.__precacheManifest = [
   },
   {
     "url": "procrastinot/index.html",
-    "revision": "248c26cf632b028ffbf41d701f36c6d6"
+    "revision": "537491adf4fdc9eacbc1ba27b14338a1"
   },
   {
     "url": "reviews/index.html",
