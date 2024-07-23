@@ -133,6 +133,10 @@
 											<div class="card-body">
 												<h2 class="card-title">{{ app.name }}</h2>
 												<p class="text-sm opacity-60">{{ app.description }}</p>
+										
+												{% for platform in app.platform %}
+												<div class="badge badge-neutral  gap-2"> {{ platform }}</div>
+                    {% endfor %}
 											</div>
 										</a>
 
@@ -152,6 +156,7 @@
 											<div class="card-body">
 												<h2 class="card-title">{{ app.name }}</h2>
 												<p class="text-sm opacity-60">{{ app.description }}</p>
+										
 											</div>
 										</a>
 
