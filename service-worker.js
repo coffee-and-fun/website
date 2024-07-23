@@ -55,6 +55,10 @@ self.__precacheManifest = [
     "revision": "b460f66f8d61c64330694e6a8707e5d6"
   },
   {
+    "url": "assets/images/apps/procrastinot-2.png",
+    "revision": "f35e9d40ec71d1dbe4d3adffa6054525"
+  },
+  {
     "url": "assets/images/apps/procrastinot.png",
     "revision": "5f8448c856333869618531cabcb840a8"
   },
@@ -132,7 +136,7 @@ self.__precacheManifest = [
   },
   {
     "url": "assets/js/main.css",
-    "revision": "076fba5170afc16f3fdb76fb31bb776a"
+    "revision": "0f89f1e2e927d564708079e6c3a1d72d"
   },
   {
     "url": "flash-cards/index.html",
@@ -140,7 +144,7 @@ self.__precacheManifest = [
   },
   {
     "url": "index.html",
-    "revision": "e0a61673b5e204f300f40cfea0dd26ed"
+    "revision": "e6f5a5fd07a07086ae8575d4874bbc26"
   },
   {
     "url": "instant-incognito/index.html",
@@ -160,7 +164,7 @@ self.__precacheManifest = [
   },
   {
     "url": "stop-wasting/index.html",
-    "revision": "c8ba76e6c92b0235a3d10a62b85546df"
+    "revision": "2925c2554ebb19a0e5003e9c04dc1a73"
   }
 ].concat(self.__precacheManifest || []);
 workbox.precaching.precacheAndRoute(self.__precacheManifest, {});
