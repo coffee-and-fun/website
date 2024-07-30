@@ -35,6 +35,14 @@ self.__precacheManifest = [
     "revision": "2bbb51bed83c4b102dcf895967c185f2"
   },
   {
+    "url": "assets/images/apps/clean.png",
+    "revision": "8f3c202b3bbe9e62d12e8d65588d1ae0"
+  },
+  {
+    "url": "assets/images/apps/coffee.png",
+    "revision": "0caaa556480515325aa25b8b470398a9"
+  },
+  {
     "url": "assets/images/apps/flash.png",
     "revision": "a58401282ece9199e3d3eb7748f2f0e8"
   },
@@ -51,6 +59,10 @@ self.__precacheManifest = [
     "revision": "797b5f271c51677f741f2914a5c1bda0"
   },
   {
+    "url": "assets/images/apps/netflix.png",
+    "revision": "ae62168382182afd8fe1b46a86780886"
+  },
+  {
     "url": "assets/images/apps/pii.png",
     "revision": "b460f66f8d61c64330694e6a8707e5d6"
   },
@@ -61,6 +73,10 @@ self.__precacheManifest = [
   {
     "url": "assets/images/apps/procrastinot.png",
     "revision": "5f8448c856333869618531cabcb840a8"
+  },
+  {
+    "url": "assets/images/apps/reddit.png",
+    "revision": "b30b3c542e17e3bf71968c6a829d37e9"
   },
   {
     "url": "assets/images/apps/screenshot.png",
@@ -136,7 +152,7 @@ self.__precacheManifest = [
   },
   {
     "url": "assets/js/main.css",
-    "revision": "93e6e8e0264d3cd11c6bae5be611c536"
+    "revision": "9ff330c1bca54060f7f20d972f14d22e"
   },
   {
     "url": "flash-cards/index.html",
@@ -144,7 +160,7 @@ self.__precacheManifest = [
   },
   {
     "url": "index.html",
-    "revision": "42762667ac60d3b35c2b1a713d12ee91"
+    "revision": "d6d95c6b6b7c9c291367bb1a3b08d529"
   },
   {
     "url": "instant-incognito/index.html",
@@ -152,7 +168,7 @@ self.__precacheManifest = [
   },
   {
     "url": "privacy/index.html",
-    "revision": "419daba54fdfe83b1282ccb258e35548"
+    "revision": "7898081d37f257c0471564fad259fd4a"
   },
   {
     "url": "procrastinot/index.html",
