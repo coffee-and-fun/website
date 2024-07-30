@@ -117,7 +117,7 @@
 
 							<div class="card my-8 ">
 								<div class="my-8">
-									<h2 class="card-title mb-6 text-2xl">Our family of Apps </h2>
+									<h2 class="card-title mb-10 text-3xl">Our Family of Apps</h2>
 
 									<div
 										class="not-prose grid grid-cols-2 gap-x-8 gap-y-8 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 xl:grid-cols-3">
@@ -132,11 +132,14 @@
 											</figure>
 											<div class="card-body">
 												<h2 class="card-title">{{ app.name }}</h2>
-												<p class="text-sm opacity-60">{{ app.description }}</p>
+												<p class="text-base">{{ app.description }}</p>
 										
+												<div class="flex flex-wrap gap-2 mt-6 mb-6">
 												{% for platform in app.platform %}
 												<div class="badge badge-neutral  gap-2"> {{ platform }}</div>
-                    {% endfor %}
+                    
+												{% endfor %}
+												</div>
 											</div>
 										</a>
 
