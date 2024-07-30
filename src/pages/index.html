@@ -79,7 +79,14 @@
 						</svg>
 						Apps</a></li>
 
-				<li role="none"><a class="btn btn-outline" href="#contact" role="menuitem" aria-label="Support">
+				<li role="none"><button class="btn btn-outline" onclick="my_modal_3.showModal()"
+									
+											
+					title="Open the contact support form" 
+					class="text-blue-500 hover:underline"
+					aria-label="Open the contact support form" 
+					aria-controls="my_modal_3"
+	 role="menuitem" aria-label="Support">
 
 						<svg xmlns="http://www.w3.org/2000/svg" enable-background="new 0 0 24 24" viewBox="0 0 24 24"
 							class="w-5 h-5" fill="currentColor">
@@ -97,7 +104,7 @@
 								</g>
 							</g>
 						</svg>
-						Support</a></li>
+						Contact Us</button></li>
 
 			</ul>
 		</div>
@@ -339,6 +346,18 @@
 													class="text-blue-500 hover:underline"
 													title="Email Coffee & Fun">hello@coffeeandfun.com</a>.
 											</p>
+
+											<p class="text-lg text-black">
+												You can also use this form
+												<button onclick="my_modal_3.showModal()"
+									
+											
+        title="Open the contact support form" 
+		class="text-blue-500 hover:underline"
+        aria-label="Open the contact support form" 
+        aria-controls="my_modal_3"
+        role="button">Contact Form</button>.
+											</p>
 										</div>
 									</div>
 
@@ -370,7 +389,22 @@
 			</div>
 		</div>
 		</div>
+
 	</main>
+
+
+	<!-- You can open the modal using ID.showModal() method -->
+
+<dialog id="my_modal_3" class="modal">
+  <div class="modal-box">
+    <form method="dialog">
+      <button class="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">✕</button>
+    </form>
+
+	<iframe src="https://docs.google.com/forms/d/e/1FAIpQLSeOBpyxmu3enhScTOuJtYAx2jNK2wr9scFKtbQrj0AjqJfdEQ/viewform?embedded=true" width="100%" height="500" frameborder="0" marginheight="0" marginwidth="0">Loading…</iframe>
+
+  </div>
+</dialog>
 
 	<footer aria-labelledby="footer-heading" class="border-t border-gray-200 bg-white">
 		<h2 id="footer-heading" class="sr-only">Footer</h2>
