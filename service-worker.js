@@ -32,7 +32,7 @@ self.__precacheManifest = [
   },
   {
     "url": "assets/images/apps/bear.png",
-    "revision": "2bbb51bed83c4b102dcf895967c185f2"
+    "revision": "2a7059739e521a8816bb195039e5ca07"
   },
   {
     "url": "assets/images/apps/clean.png",
@@ -81,6 +81,10 @@ self.__precacheManifest = [
   {
     "url": "assets/images/apps/screenshot.png",
     "revision": "a688c58d813cfcea7842f63ca06f2a34"
+  },
+  {
+    "url": "assets/images/apps/yeti.png",
+    "revision": "05db40e5180db1f3eb3d5fcbe8f60234"
   },
   {
     "url": "assets/images/chrome.png",
@@ -160,7 +164,7 @@ self.__precacheManifest = [
   },
   {
     "url": "index.html",
-    "revision": "24ebf43fe761f58223a3cd70b684a350"
+    "revision": "48357037bca914677a802baab4224d36"
   },
   {
     "url": "instant-incognito/index.html",
