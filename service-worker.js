@@ -172,7 +172,7 @@ self.__precacheManifest = [
   },
   {
     "url": "privacy/index.html",
-    "revision": "7898081d37f257c0471564fad259fd4a"
+    "revision": "7c7dc9e8ff456dc16a9ad99c9fa4d8e6"
   },
   {
     "url": "procrastinot/index.html",
