@@ -172,7 +172,7 @@ self.__precacheManifest = [
   },
   {
     "url": "privacy/index.html",
-    "revision": "7c7dc9e8ff456dc16a9ad99c9fa4d8e6"
+    "revision": "db8033f461e51b412a58e6fbefb54d2d"
   },
   {
     "url": "procrastinot/index.html",
@@ -180,7 +180,7 @@ self.__precacheManifest = [
   },
   {
     "url": "reviews/index.html",
-    "revision": "cf76254f182be60c978f84e151e03048"
+    "revision": "fadadc43c7d54923ecb8dc5489bdba7c"
   },
   {
     "url": "stop-wasting/index.html",
