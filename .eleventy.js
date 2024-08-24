@@ -187,7 +187,7 @@ module.exports = function (eleventyConfig) {
 		return manifest['main.js'] ? `<script src="${manifest['main.js']}"></script>` : '';
 	});
 	return {
-		markdownTemplateEngine: 'md',
+		markdownTemplateEngine: 'liquid',
 		dir: {
 			data: '../_data',
 			includes: '../_includes',
