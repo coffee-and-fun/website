@@ -159,6 +159,10 @@ self.__precacheManifest = [
     "revision": "68d5876e96e46fba075a5f73d6fcb74f"
   },
   {
+    "url": "credits/index.html",
+    "revision": "7efe61b0d11fb48b7960ddbd81415eac"
+  },
+  {
     "url": "flash-cards/index.html",
     "revision": "33906d6a1c09d40492584e5393f6fcdc"
   },
@@ -180,7 +184,7 @@ self.__precacheManifest = [
   },
   {
     "url": "reviews/index.html",
-    "revision": "fadadc43c7d54923ecb8dc5489bdba7c"
+    "revision": "dd6796dd57876944b27a9b6d3c95c654"
   },
   {
     "url": "stop-wasting/index.html",
