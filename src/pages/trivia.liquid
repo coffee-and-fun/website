@@ -32,7 +32,7 @@
     <meta name="twitter:site" content="@bycoffeeandfun" />
     <meta name="twitter:description"
         content="TriviaFlix offers over 53,000 unique and random questions to keep you entertained. Perfect for quizzes, game nights, or just challenging yourself!" />
-    <meta name="twitter:image" content="https://www.coffeeandfun.com/assets/images/social-icon.png" />
+    <meta name="twitter:image" content="https://www.coffeeandfun.com/assets/images/social-trivia.png" />
     <meta name="twitter:image:alt" content=" Coffee & Fun" />
 
     <script type="application/ld+json">
@@ -70,58 +70,52 @@
             font-size: 1.5rem;
             color: #333;
         }
-
-
-
-
     </style>
-  <style>
-    @keyframes ticker {
-      0% {
-        transform: translateX(100%);
-      }
-      100% {
-        transform: translateX(-100%);
-      }
-    }
-  
-    .animate-ticker {
-      animation: ticker 10s linear infinite;
-    }
-  
-    .animate-ticker:hover {
-      animation-play-state: paused;
-    }
-  </style>
-  
-      
+    <style>
+        @keyframes ticker {
+            0% {
+                transform: translateX(100%);
+            }
+
+            100% {
+                transform: translateX(-100%);
+            }
+        }
+
+        .animate-ticker {
+            animation: ticker 10s linear infinite;
+        }
+
+        .animate-ticker:hover {
+            animation-play-state: paused;
+        }
+    </style>
+
+
 </head>
 
 <body>
 
     {% include header.html %}
-    {% assign headlines = "Headline 1: Breaking News - Lorem ipsum dolor sit amet., Headline 2: New developments in tech world today., Headline 3: Major update on global economy trends." | split: ", " %}
 
-    {% include ticker-trivia.html headlines=headlines %}
+    {% include ticker-trivia.html %}
 
     <main id="main-content" class="mx-auto max-w-7xl mb-12">
-
         <div class="mx-auto max-w-7xl lg:px-8">
-           
-              
             <div class="mx-auto grid max-w-xl grid-cols-1">
-
-            
                 <div class="text-base  lg:col-span-8">
-
                     <div class="p-4 h-fit mx-auto w-full items-center ">
                         <div class="flex w-full">
                             <div class="mx-auto mb-4 mt-4">
-                                <img alt="TriviaFlix" src="/assets/images/trivia.png" width="80" height="80"
-                                    decoding="async" data-nimg="future" loading="lazy"
+                                <img 
+                                    alt="TriviaFlix - Silhouette of a head with a question mark inside, representing confusion or inquiry." 
+                                    src="/assets/images/trivia.png" 
+                                    width="80" 
+                                    height="80"
+                                    decoding="async" 
+                                    data-nimg="future" 
+                                    loading="lazy"
                                     class="aspect-square mx-auto block" />
-
-
                             </div>
                         </div>
 
@@ -131,81 +125,104 @@
                                 <div class="card-body flex flex-col h-full">
                                     <div v-if="isQuestionsEmpty === true">
                                         <div class="flex flex-col gap-4">
-                                            <div class="skeleton bg-base-200 h-24 w-full" :class="[
+                                            <div 
+                                                class="skeleton bg-base-200 h-24 w-full" 
+                                                :class="
+                                                    [
                                                         {
                                                           'animate-none': isLoading === false,
                                                         },
-                                                      ]"></div>
+                                                    ]">
+                                            </div>
                                         </div>
                                     </div>
 
-                                    <!-- Question -->
-                                    <h2 class="mb-4 font-bold card-title text-center" v-if="isQuestionsEmpty === false"
+                                    <!-- Question Section -->
+                                    <h1 
+                                        class="mb-4 font-bold card-title text-center" 
+                                        v-if="isQuestionsEmpty === false"
                                         v-html="cards[currentCardIndex].question">
-                                    </h2>
+                                       
+                                    </h1>
 
                                     <!-- Answer Section -->
                                     <div class="flex-grow flex items-center justify-center">
-                                        <p v-if="isQuestionsEmpty === false"
+                                        <p 
+                                            v-if="isQuestionsEmpty === false"
                                             class="text-xl text-center font-black text-red-500 transition-opacity duration-300 ease-in-out"
                                             v-text="currentCardIndex === visibleCardIndex ? cards[currentCardIndex].answer : '**********'">
+                                      
                                         </p>
-
-
                                     </div>
 
                                     <!-- Button at the Bottom -->
                                     <div class="mt-auto">
-                                        <button v-if=""
+                                        <button 
+                                            v-if=""
                                             class="btn btn-lg btn-natural w-full h-16 flex justify-center items-center"
+                                            aria-label="currentCardIndex !== visibleCardIndex ? 'Show Answer' : 'Hide Answer' "
                                             :class="{
-                                            'btn-active': currentCardIndex === visibleCardIndex,
-                                            }" @click="toggleAnswer" v-on:keyup.enter="toggleAnswer">
-                                       
+                                                'btn-active': currentCardIndex === visibleCardIndex,
+                                            }" 
+                                            @click="toggleAnswer" 
+                                            v-on:keyup.enter="toggleAnswer">
                                             <span
-                                                v-text="currentCardIndex !== visibleCardIndex ? 'Show Answer' : 'Hide Answer' "></span>
-                                              
+                                                v-text="currentCardIndex !== visibleCardIndex ? 'Show Answer' : 'Hide Answer' ">
+                                     
+                                             </span>
                                         </button>
                                     </div>
                                 </div>
                             </div>
 
-                            <div v-if="isQuestionsEmpty === false" class="join justify-between w-full mt-6">
-                                <div class="tooltip" data-tip="Previous">
-                                <button class="join-item btn btn-ghost btn-primary btn-circle btn-sm" @click="prevCard"
-                                    v-on:keyup.enter="prevCard">
-                                    ◀︎
-                                </button>
+                            <div 
+                                v-if="isQuestionsEmpty === false" 
+                                class="join justify-between w-full mt-6">
 
-                                </div>
+                                    <div class="tooltip" data-tip="Previous" id="prevTooltip">
+                                        <button 
+                                            class="join-item btn btn-ghost btn-primary btn-circle btn-sm"
+                                            aria-label="Previous question"
+                                            aria-describedby="prevTooltip"
+                                            @click="prevCard" 
+                                            v-on:keyup.enter="prevCard">
+                                            ◀︎
+                                        </button>
+                                    </div>
 
 
-                                <div v-for="(card, index) in cards" :key="card.id">
-                                    <div class="tooltip" data-tip="Go to Question">
-                                <button 
-                                    class="join-item btn btn-ghost btn-circle btn-sm" :class="{
-                                            'btn-active': index === currentCardIndex,
-                                        }" @click="goToCard(index + 1)" v-on:keyup.enter="goToCard(index + 1)"
-                                    v-html="currentBatchStartIndex + index + 1">
-                                </button>
-                                </div>
-</div>
+                                    <div v-for="(card, index) in cards" :key="card.id">
+                                        <div class="tooltip" data-tip="Go to Question">
+                                            <button 
+                                                class="join-item btn btn-ghost btn-circle btn-sm" 
+                                                :class="{
+                                                    'btn-active': index === currentCardIndex,
+                                                }" 
+                                                @click="goToCard(index + 1)" 
+                                                v-on:keyup.enter="goToCard(index + 1)"
+                                                aria-label="Go to Question"
+                                                v-html="currentBatchStartIndex + index + 1">
+                                                
+                                            </button>
+                                        </div>
+                                    </div>
 
-                                <div class="tooltip" data-tip="Next">
-                                <button class="join-item btn btn-ghost btn-primary btn-circle btn-sm" @click="nextCard"
-                                    v-on:keyup.enter="nextCard">
-                                    ▶︎
-                                </button>
-                                </div>
+                                    <div class="tooltip" data-tip="Next" id="nextTooltip">
+                                        <button 
+                                            class="join-item btn btn-ghost btn-primary btn-circle btn-sm"
+                                            aria-label="Next question"
+                                            aria-describedby="nextTooltip"
+                                            @click="nextCard" 
+                                            v-on:keyup.enter="nextCard">
+                                            ▶︎
+                                        </button>
+                                    </div>
                             </div>
                         </article>
                     </div>
-
                 </div>
             </div>
-
         </div>
-
     </main>
 
 
@@ -217,12 +234,13 @@
                 return {
                     isLoading: true,
                     cards: [],
+                    allQuestions: [], // Store all questions here
                     currentCardIndex: 0,
+                    currentBatchStartIndex: 0,
                     visibleCardIndex: -1,
                     skelectionLimit: 6,
-                    batchSize: 8,
-                    totalQuestions: 53000, // Adjust to your actual number
-                    currentBatchStartIndex: 0 // Track the start index of the current batch
+                    batchSize: 8, // Adjust to your desired batch size
+                    totalQuestions: 53000 // Adjust to your actual number
                 }
             },
             computed: {
@@ -231,7 +249,7 @@
                 },
             },
             async mounted() {
-                this.loadJSON();
+                this.loadAllQuestions();
                 this.setKeyCommands();
             },
             methods: {
@@ -279,27 +297,35 @@
                     }
                     this.visibleCardIndex = -1;
                 },
-                loadJSON(batchSize = this.batchSize, startIndex = 0) {
+
+
+                loadAllQuestions() {
                     fetch('/assets/js/trivia.json')
                         .then(response => response.json())
                         .then(data => {
                             if (data.questions) {
-                                // Slice the array to get the batch, then shuffle it
-                                let questions = data.questions.slice(startIndex, startIndex + batchSize);
-                                questions = this.shuffleArray(questions);
-                                // Assign unique IDs to each question
-                                this.cards = questions.map((question, index) => ({
-                                    ...question,
-                                    id: startIndex + index + 1
-                                }));
-                                this.currentBatchStartIndex = startIndex; // Update the current batch start index
-                                this.currentCardIndex = 0; // Start at the first question of the new batch
-                                this.isLoading = false;
+                                // Shuffle the entire array of questions
+                                this.allQuestions = this.shuffleArray(data.questions);
+                                // Load the first batch of questions
+                                this.loadJSON();
                             } else {
                                 console.error('Invalid questions format:', data);
                             }
                         })
                         .catch(error => console.error('Error loading JSON:', error));
+                },
+
+                loadJSON(batchSize = this.batchSize, startIndex = 0) {
+                    // Slice the array to get the current batch
+                    let questions = this.allQuestions.slice(startIndex, startIndex + batchSize);
+                    // Assign unique IDs to each question
+                    this.cards = questions.map((question, index) => ({
+                        ...question,
+                        id: startIndex + index + 1
+                    }));
+                    this.currentBatchStartIndex = startIndex; // Update the current batch start index
+                    this.currentCardIndex = 0; // Start at the first question of the new batch
+                    this.isLoading = false;
                 },
                 shuffleArray(array) {
                     for (let i = array.length - 1; i > 0; i--) {
