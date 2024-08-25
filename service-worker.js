@@ -139,6 +139,10 @@ self.__precacheManifest = [
     "revision": "3803e68e1bde2336123a7b25018aed43"
   },
   {
+    "url": "assets/images/social-trivia.png",
+    "revision": "fffab0f9232ffff65f80ef0afa9aca03"
+  },
+  {
     "url": "assets/images/trivia.png",
     "revision": "cd395969ad974a67479db84ff2d65f74"
   },
@@ -196,7 +200,7 @@ self.__precacheManifest = [
   },
   {
     "url": "trivia/index.html",
-    "revision": "903c4281a4915f50bf5d8e183fde735a"
+    "revision": "ffa416ab7ff98cdae0b760bd58453822"
   }
 ].concat(self.__precacheManifest || []);
 workbox.precaching.precacheAndRoute(self.__precacheManifest, {});
