@@ -74,7 +74,9 @@
 </head>
 
 <body>
-    <main id="main-content" class="mx-auto max-w-7xl">
+
+{% include header.html %}
+    <main id="main-content" class="mx-auto max-w-7xl mb-12">
    
             <div class="mx-auto max-w-7xl lg:px-8">
              
@@ -92,7 +94,7 @@
                                         </div>
                                     </div>
 
-                                    <article class="mt-8 space-y-7 text-base text-black w-80	mx-auto">
+                                    <article class="mt-8 space-y-7 text-base text-black w-96	mx-auto">
                                         <div class="card card-compact my-8 bg-base-100 shadow-md block  mt-8 ">
                                             <div class="card-body">
 
@@ -169,6 +171,9 @@
             </div>
     
     </main>
+
+
+    
 
     <script>
         var app = Vue.createApp({
@@ -253,7 +258,10 @@
         app.mount("#main-content");
     </script>
 
+{% include modals.html %}
 
+
+{% include  footer.html %}
 </body>
 
 </html>
