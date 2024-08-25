@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html class="brand-color-background scroll-smooth antialiased" lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Trivia - Coffee & Fun.</title>
+    <meta name="description"
+        content="Discover the best coffees in the USA at Coffee & Fun. Uncover rich flavors and expert ratings for your perfect cup of Joe." />
+    <meta name="author" content="Coffee & Fun LLC" />
+    <meta name="robots" content="index, follow" />
+    <meta name="rating" content="safe for kids" />
+
+    <link rel="icon" href="/assets/images/favicon.png" />
+
+    <meta name="title" content="Reviewing & Ranking every Coffee shop - Coffee & Fun" />
+
+    <!-- Open Graph Meta Tags -->
+    <meta property="og:title" content="Reviewing & Ranking every Coffee shop - Coffee & Fun" />
+    <meta property="og:site_name" content="Coffee & Fun" />
+    <meta property="og:url" content="https://www.coffeeandfun.com/" />
+    <meta property="og:description"
+        content="Discover the best coffees in the USA at Coffee & Fun. Uncover rich flavors and expert ratings for your perfect cup of Joe." />
+    <meta property="og:type" content="website" />
+    <meta property="og:image" content="/assets/images/social-icon.png" />
+
+    <!-- Twitter Meta Tags -->
+    <meta property="twitter:domain" content="coffeeandfun.com" />
+    <meta property="twitter:url" content="https://www.coffeeandfun.com" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Reviewing & Ranking every Coffee shop - Coffee & Fun" />
+    <meta name="twitter:site" content="@bycoffeeandfun" />
+    <meta name="twitter:description"
+        content="Discover the best coffees in the USA at Coffee & Fun. Uncover rich flavors and expert ratings for your perfect cup of Joe." />
+    <meta name="twitter:image" content="https://www.coffeeandfun.com/assets/images/social-icon.png" />
+    <meta name="twitter:image:alt" content=" Coffee & Fun" />
+
+    <script type="application/ld+json">
+        {
+            "@context": "http://schema.org/",
+            "@type": "WebSite",
+            "url": "https://www.coffeeandfun.com",
+            "potentialAction": {
+                "@type": "SearchAction",
+                "target": "{search_term_string}",
+                "query-input": "required name=search_term_string"
+            }
+        }
+    </script>
+    {% bundledCss %}
+
+    <script src="https://unpkg.com/vue@3"></script>
+
+    <script>
+        if ('serviceWorker' in navigator) {
+            navigator.serviceWorker.register('/service-worker.js');
+        }
+    </script>
+
+    <style>
+        .brand-color-background {
+            background-color: #fef5ec;
+        }
+
+        .loading-spinner {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            font-size: 1.5rem;
+            color: #333;
+        }
+    </style>
+</head>
+
+<body>
+    <main id="main-content" class="mx-auto max-w-7xl">
+        <div class="mb-16 mt-16 sm:mb-24 sm:mt-24 sm:px-8">
+            <div class="mx-auto max-w-7xl lg:px-8">
+                <div class="relative px-4 sm:px-8 lg:px-12">
+                    <div class="mx-auto grid max-w-2xl grid-cols-1">
+                        <div class="max-w-xl text-base leading-7 lg:col-span-8">
+                            <div class="max-w-xl text-base  mx-auto">
+                                <div class="flex-1 p-4 h-fit mx-auto w-full flex items-center flex-col">
+                                    <div class="flex w-full">
+                                        <div class="mx-auto mb-4 mt-4">
+                                            <img alt="TriviaFlix" src="/assets/images/trivia.png" width="80" height="80"
+                                                decoding="async" data-nimg="future" loading="lazy"
+                                                class="aspect-square mx-auto block" />
+                                        </div>
+                                    </div>
+
+                                    <article class="mt-16 space-y-7 text-base text-black">
+                                        <div class="card card-compact my-8 bg-base-100 shadow-md block w-full mt-8">
+                                            <div class="card-body">
+
+                                                <div v-if="isQuestionsEmpty === true" class="mt-12">
+                                                    <div class="flex flex-col gap-4">
+                                               
+                                            
+                                                            <div class="skeleton bg-base-200 h-24 w-full" :class="[
+                                                        {
+                                                          'animate-none': isLoading === false,
+                                                        },
+                                                      ]"></div>
+                                                      
+                                                    </div>
+                                                </div>
+
+
+
+                                                <div class="flex flex-col h-full">
+                                                    <h2 class="mb-4 card-title" v-if="isQuestionsEmpty === false"
+                                                        v-html=" cards[currentCardIndex].question">
+
+                                                    </h2>
+
+                                                    <hr class="mt-2 mb-6" />
+
+                                                    <div
+                                                        class="flex-grow flex flex-col justify-between overflow-x-auto">
+                                                        <p v-if="currentCardIndex === visibleCardIndex"
+                                                            class="text-lg flex-grow"
+                                                            v-html="cards[currentCardIndex].answer">
+
+                                                        </p>
+
+                                                        <button v-if="currentCardIndex !== visibleCardIndex"
+                                                            class="btn w-full h-full" @click="toggleAnswer">
+                                                            Show
+                                                        </button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div v-if="isQuestionsEmpty === false" class="join justify-between w-full mt-6">
+                                            <button class="join-item btn btn-ghost btn-primary btn-circle btn-sm"
+                                                @click="prevCard">
+                                                ◀︎
+                                            </button>
+
+                                            <button v-for="number in cards.length" :key="number"
+                                                class="join-item btn btn-ghost btn-circle btn-sm" :class="{
+                                                'btn-active': number - 1 === currentCardIndex,
+                                            }" @click="goToCard(number)" v-html="number">
+
+                                            </button>
+
+                                            <button class="join-item btn btn-ghost btn-primary btn-circle btn-sm"
+                                                @click="nextCard">
+                                                ▶︎
+                                            </button>
+                                        </div>
+                                    </article>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <script>
+        var app = Vue.createApp({
+            data() {
+                return {
+                    isLoading: true,
+                    cards: [],
+                    currentCardIndex: 0,
+                    visibleCardIndex: -1,
+                    skelectionLimit: 6,
+                    batchSize: 10,
+                    totalQuestions: 53000 // Adjust to your actual number
+                }
+            },
+            computed: {
+                isQuestionsEmpty() {
+                    return this.cards.length === 0;
+                },
+            },
+            async mounted() {
+                this.loadJSON();
+            },
+            methods: {
+                toggleAnswer() {
+        let showAnswer = this.visibleCardIndex === this.currentCardIndex;
+        this.visibleCardIndex = showAnswer ? -1 : this.currentCardIndex;
+    },
+    goToCard(number = 0) {
+        this.currentCardIndex = number - 1;
+    },
+
+                prevCard() {
+        if (this.currentCardIndex > 0) {
+            this.currentCardIndex--;
+        } else if (this.currentCardIndex === 0 && this.cards[0].id > 1) {
+            const previousBatchStartIndex = Math.max(0, this.cards[0].id - this.batchSize - 1);
+            this.loadJSON(this.batchSize, previousBatchStartIndex);
+        }
+        this.visibleCardIndex = -1;
+    },
+    nextCard() {
+        if (this.currentCardIndex < this.cards.length - 1) {
+            this.currentCardIndex++;
+        } else if (this.currentCardIndex === this.cards.length - 1) {
+            const newStartIndex = this.cards[this.cards.length - 1].id;
+            this.loadJSON(this.batchSize, newStartIndex);
+        }
+        this.visibleCardIndex = -1;
+    },
+                loadJSON(batchSize = this.batchSize, startIndex = 0) {
+        fetch('/assets/js/trivia.json')
+            .then(response => response.json())
+            .then(data => {
+                if (data.questions) {
+                    // Slice the array to get the batch, then shuffle it
+                    let questions = data.questions.slice(startIndex, startIndex + batchSize);
+                    questions = this.shuffleArray(questions);
+                    // Assign unique IDs to each question
+                    this.cards = questions.map((question, index) => ({
+                        ...question,
+                        id: startIndex + index + 1
+                    }));
+                    this.currentCardIndex = 0; // Start at the first question of the new batch
+                    this.isLoading = false;
+                } else {
+                    console.error('Invalid questions format:', data);
+                }
+            })
+            .catch(error => console.error('Error loading JSON:', error));
+    },
+
+                shuffleArray(array) {
+        for (let i = array.length - 1; i > 0; i--) {
+            const j = Math.floor(Math.random() * (i + 1));
+            [array[i], array[j]] = [array[j], array[i]]; // Swap elements
+        }
+        return array;
+    }
+            }
+        });
+
+        app.mount("#main-content");
+    </script>
+
+
+</body>
+
+</html>
