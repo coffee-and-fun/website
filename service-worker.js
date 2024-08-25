@@ -160,7 +160,7 @@ self.__precacheManifest = [
   },
   {
     "url": "assets/js/main.css",
-    "revision": "19bc3bb948e28ad0ce392a16a1ddafd9"
+    "revision": "a416a857c6f79cd08fa9f83b9a6f7804"
   },
   {
     "url": "credits/index.html",
@@ -196,7 +196,7 @@ self.__precacheManifest = [
   },
   {
     "url": "trivia/index.html",
-    "revision": "6c4042b1db88e157333717921767594c"
+    "revision": "496700243c31fb8bc465cd63aa5827e5"
   }
 ].concat(self.__precacheManifest || []);
 workbox.precaching.precacheAndRoute(self.__precacheManifest, {});
