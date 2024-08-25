@@ -156,35 +156,35 @@ self.__precacheManifest = [
   },
   {
     "url": "assets/js/main.css",
-    "revision": "d1df8d169e086988799a057d7c07ddd5"
+    "revision": "9bfc10f4d0b27ce06281535c46e0ab47"
   },
   {
     "url": "credits/index.html",
-    "revision": "214cb6d64b28f55731fd34e3f3d78473"
+    "revision": "decc530db5d08f6f70e236b72618285d"
   },
   {
     "url": "flash-cards/index.html",
-    "revision": "93a240d860d6a34c73fdde4199a1bdc7"
+    "revision": "82385462f66a4faaa8ecbbc2c6cfdefa"
   },
   {
     "url": "index.html",
-    "revision": "379ede9f38d9ffa98ec836f21e3d1729"
+    "revision": "3401e451afd4453d15ec1155fe2eac90"
   },
   {
     "url": "instant-incognito/index.html",
-    "revision": "617f7f5fb524bcb36a14179d5926c0f3"
+    "revision": "44f1fd2c2126c4e9736ef445d07c2938"
   },
   {
     "url": "privacy/index.html",
-    "revision": "2138441d843f5c3608a28c6d42d2fb51"
+    "revision": "2c4709f28cd5df6f3cb664021678500f"
   },
   {
     "url": "procrastinot/index.html",
-    "revision": "a3affce9837b20194985a0cbe62f8d76"
+    "revision": "60c4f21577c8d4594092aa70cc0f3307"
   },
   {
     "url": "reviews/index.html",
-    "revision": "cb83a69b0d461a931c874ef8c6e523f9"
+    "revision": "1a0108e69d52948e8d50eba6baadf6b4"
   },
   {
     "url": "stop-wasting/index.html",
