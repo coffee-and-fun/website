@@ -139,6 +139,10 @@ self.__precacheManifest = [
     "revision": "3803e68e1bde2336123a7b25018aed43"
   },
   {
+    "url": "assets/images/trivia.png",
+    "revision": "cd395969ad974a67479db84ff2d65f74"
+  },
+  {
     "url": "assets/js/core/app.js",
     "revision": "262d4704c89cd94bfb1f7f98a4608334"
   },
@@ -156,7 +160,7 @@ self.__precacheManifest = [
   },
   {
     "url": "assets/js/main.css",
-    "revision": "2a2163bd134817293ac228f84ee36e03"
+    "revision": "7a4741a38ce302f00369449b00466f20"
   },
   {
     "url": "credits/index.html",
@@ -189,6 +193,10 @@ self.__precacheManifest = [
   {
     "url": "stop-wasting/index.html",
     "revision": "2925c2554ebb19a0e5003e9c04dc1a73"
+  },
+  {
+    "url": "trivia/index.html",
+    "revision": "d68955df7a2158f6aa27d111d5ce2e5e"
   }
 ].concat(self.__precacheManifest || []);
 workbox.precaching.precacheAndRoute(self.__precacheManifest, {});
