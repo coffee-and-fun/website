@@ -50,7 +50,7 @@
     {% bundledCss %}
 
     <script src="https://unpkg.com/vue@3"></script>
-
+    <script src="https://unpkg.com/hotkeys-js/dist/hotkeys.min.js"></script>
     <script>
         if ('serviceWorker' in navigator) {
             navigator.serviceWorker.register('/service-worker.js');
@@ -70,19 +70,48 @@
             font-size: 1.5rem;
             color: #333;
         }
+
+
+
+
     </style>
+  <style>
+    @keyframes ticker {
+      0% {
+        transform: translateX(100%);
+      }
+      100% {
+        transform: translateX(-100%);
+      }
+    }
+  
+    .animate-ticker {
+      animation: ticker 10s linear infinite;
+    }
+  
+    .animate-ticker:hover {
+      animation-play-state: paused;
+    }
+  </style>
+  
+      
 </head>
 
 <body>
 
     {% include header.html %}
+    {% assign headlines = "Headline 1: Breaking News - Lorem ipsum dolor sit amet., Headline 2: New developments in tech world today., Headline 3: Major update on global economy trends." | split: ", " %}
 
+    {% include ticker-trivia.html headlines=headlines %}
 
     <main id="main-content" class="mx-auto max-w-7xl mb-12">
 
         <div class="mx-auto max-w-7xl lg:px-8">
-
+           
+              
             <div class="mx-auto grid max-w-xl grid-cols-1">
+
+            
                 <div class="text-base  lg:col-span-8">
 
                     <div class="p-4 h-fit mx-auto w-full items-center ">
@@ -97,7 +126,8 @@
                         </div>
 
                         <article class="mt-8 text-base text-black mx-auto">
-                            <div class="card flex card-compact my-8 bg-base-100 shadow-md  w-full sm:w-96 mt-8 min-h-[340px] mx-auto">
+                            <div
+                                class="card flex card-compact my-8 bg-base-100 shadow-md  w-full sm:w-96 mt-8 min-h-[340px] mx-auto">
                                 <div class="card-body flex flex-col h-full">
                                     <div v-if="isQuestionsEmpty === true">
                                         <div class="flex flex-col gap-4">
@@ -108,41 +138,41 @@
                                                       ]"></div>
                                         </div>
                                     </div>
-                            
+
                                     <!-- Question -->
                                     <h2 class="mb-4 font-bold card-title text-center" v-if="isQuestionsEmpty === false"
                                         v-html="cards[currentCardIndex].question">
                                     </h2>
-                            
+
                                     <!-- Answer Section -->
                                     <div class="flex-grow flex items-center justify-center">
                                         <p v-if="isQuestionsEmpty === false"
-                                          class="text-xl text-center font-black text-red-500 transition-opacity duration-300 ease-in-out"
-                                           v-text="currentCardIndex === visibleCardIndex ? cards[currentCardIndex].answer : '**********'">
+                                            class="text-xl text-center font-black text-red-500 transition-opacity duration-300 ease-in-out"
+                                            v-text="currentCardIndex === visibleCardIndex ? cards[currentCardIndex].answer : '**********'">
                                         </p>
-                            
-                                        
+
+
                                     </div>
-                            
+
                                     <!-- Button at the Bottom -->
                                     <div class="mt-auto">
                                         <button v-if=""
                                             class="btn btn-lg btn-natural w-full h-16 flex justify-center items-center"
                                             :class="{
                                             'btn-active': currentCardIndex === visibleCardIndex,
-                                            }"
-                                            @click="toggleAnswer"
-                                            v-on:keyup.enter="toggleAnswer">
-                                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 -960 960 960" class="w-5 h-5" fill="currentColor">
+                                            }" @click="toggleAnswer" v-on:keyup.enter="toggleAnswer">
+                                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 -960 960 960"
+                                                class="w-5 h-5" fill="currentColor">
                                                 <path
-                                                    d="M480-320q75 0 127.5-52.5T660-500q0-75-52.5-127.5T480-680q-75 0-127.5 52.5T300-500q0 75 52.5 127.5T480-320Zm0-72q-45 0-76.5-31.5T372-500q0-45 31.5-76.5T480-608q45 0 76.5 31.5T588-500q0 45-31.5 76.5T480-392Zm0 192q-146 0-266-81.5T40-500q54-137 174-218.5T480-800q146 0 266 81.5T920-500q-54 137-174 218.5T480-200Zm0-300Zm0 220q113 0 207.5-59.5T832-500q-50-101-144.5-160.5T480-720q-113 0-207.5 59.5T128-500q50 101 144.5 160.5T480-280Z"/>
+                                                    d="M480-320q75 0 127.5-52.5T660-500q0-75-52.5-127.5T480-680q-75 0-127.5 52.5T300-500q0 75 52.5 127.5T480-320Zm0-72q-45 0-76.5-31.5T372-500q0-45 31.5-76.5T480-608q45 0 76.5 31.5T588-500q0 45-31.5 76.5T480-392Zm0 192q-146 0-266-81.5T40-500q54-137 174-218.5T480-800q146 0 266 81.5T920-500q-54 137-174 218.5T480-200Zm0-300Zm0 220q113 0 207.5-59.5T832-500q-50-101-144.5-160.5T480-720q-113 0-207.5 59.5T128-500q50 101 144.5 160.5T480-280Z" />
                                             </svg>
-                                            <span v-text="currentCardIndex !== visibleCardIndex ? 'Show Answer' : 'Hide Answer' "></span>
+                                            <span
+                                                v-text="currentCardIndex !== visibleCardIndex ? 'Show Answer' : 'Hide Answer' "></span>
                                         </button>
                                     </div>
                                 </div>
                             </div>
-                            
+
                             <div v-if="isQuestionsEmpty === false" class="join justify-between w-full mt-6">
 
                                 <button class="join-item btn btn-ghost btn-primary btn-circle btn-sm" @click="prevCard"
@@ -199,8 +229,28 @@
             },
             async mounted() {
                 this.loadJSON();
+                this.setKeyCommands();
             },
             methods: {
+                setKeyCommands() {
+                    hotkeys("right", (event) => {
+                        // Prevent the default refresh event under WINDOWS system
+                        event.preventDefault();
+                        this.nextCard();
+                    });
+
+                    hotkeys("left", (event) => {
+                        // Prevent the default refresh event under WINDOWS system
+                        event.preventDefault();
+                        this.prevCard();
+                    });
+
+                    hotkeys("up", (event) => {
+                        // Prevent the default refresh event under WINDOWS system
+                        event.preventDefault();
+                        this.toggleAnswer();
+                    });
+                },
                 toggleAnswer() {
                     let showAnswer = this.visibleCardIndex === this.currentCardIndex;
                     this.visibleCardIndex = showAnswer ? -1 : this.currentCardIndex;
