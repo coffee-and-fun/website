@@ -83,6 +83,10 @@ self.__precacheManifest = [
     "revision": "a688c58d813cfcea7842f63ca06f2a34"
   },
   {
+    "url": "assets/images/apps/trivia-app.png",
+    "revision": "2b41c291479a09c1224f70f48d83013b"
+  },
+  {
     "url": "assets/images/apps/yeti.png",
     "revision": "05db40e5180db1f3eb3d5fcbe8f60234"
   },
@@ -176,7 +180,7 @@ self.__precacheManifest = [
   },
   {
     "url": "index.html",
-    "revision": "d743098f3c25884c7829ea51791e03f7"
+    "revision": "34e3010b7435fda8319abcf0697684d0"
   },
   {
     "url": "instant-incognito/index.html",
