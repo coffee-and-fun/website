@@ -75,23 +75,25 @@
 
 <body>
     <main id="main-content" class="mx-auto max-w-7xl">
-        <div class="mb-16 mt-16 sm:mb-24 sm:mt-24 sm:px-8">
+   
             <div class="mx-auto max-w-7xl lg:px-8">
-                <div class="relative px-4 sm:px-8 lg:px-12">
-                    <div class="mx-auto grid max-w-2xl grid-cols-1">
-                        <div class="max-w-xl text-base leading-7 lg:col-span-8">
-                            <div class="max-w-xl text-base  mx-auto">
+             
+                    <div class="mx-auto grid max-w-xl grid-cols-1">
+                        <div class="text-base  lg:col-span-8">
+                        
                                 <div class="flex-1 p-4 h-fit mx-auto w-full flex items-center flex-col">
                                     <div class="flex w-full">
                                         <div class="mx-auto mb-4 mt-4">
                                             <img alt="TriviaFlix" src="/assets/images/trivia.png" width="80" height="80"
                                                 decoding="async" data-nimg="future" loading="lazy"
                                                 class="aspect-square mx-auto block" />
+
+                                                <h1 class="mt-4 font-bold">53,000 Trivia questions</h1>
                                         </div>
                                     </div>
 
-                                    <article class="mt-16 space-y-7 text-base text-black">
-                                        <div class="card card-compact my-8 bg-base-100 shadow-md block w-full mt-8">
+                                    <article class="mt-8 space-y-7 text-base text-black w-80	mx-auto">
+                                        <div class="card card-compact my-8 bg-base-100 shadow-md block  mt-8 ">
                                             <div class="card-body">
 
                                                 <div v-if="isQuestionsEmpty === true" class="mt-12">
@@ -110,7 +112,7 @@
 
 
                                                 <div class="flex flex-col h-full">
-                                                    <h2 class="mb-4 card-title" v-if="isQuestionsEmpty === false"
+                                                    <h2 class="mb-4 font-bold card-title text-center" v-if="isQuestionsEmpty === false"
                                                         v-html=" cards[currentCardIndex].question">
 
                                                     </h2>
@@ -120,13 +122,15 @@
                                                     <div
                                                         class="flex-grow flex flex-col justify-between overflow-x-auto">
                                                         <p v-if="currentCardIndex === visibleCardIndex"
-                                                            class="text-lg flex-grow"
+                                                            class="text-xl  text-center flex-grow"
                                                             v-html="cards[currentCardIndex].answer">
 
                                                         </p>
 
                                                         <button v-if="currentCardIndex !== visibleCardIndex"
-                                                            class="btn w-full h-full" @click="toggleAnswer">
+                                                            class="btn w-full h-full" @click="toggleAnswer"
+                                                            @keyup.enter="toggleAnswer"
+                                                            >
                                                             Show
                                                         </button>
                                                     </div>
@@ -136,30 +140,34 @@
 
                                         <div v-if="isQuestionsEmpty === false" class="join justify-between w-full mt-6">
                                             <button class="join-item btn btn-ghost btn-primary btn-circle btn-sm"
-                                                @click="prevCard">
+                                                @click="prevCard"
+                                                
+                                                @keyup.enter="prevCard"
+                                                >
                                                 ◀︎
                                             </button>
 
                                             <button v-for="number in cards.length" :key="number"
                                                 class="join-item btn btn-ghost btn-circle btn-sm" :class="{
                                                 'btn-active': number - 1 === currentCardIndex,
-                                            }" @click="goToCard(number)" v-html="number">
+                                            }" @click="goToCard(number)"  @keyup.enter="goToCard(number)" v-html="number">
 
                                             </button>
 
                                             <button class="join-item btn btn-ghost btn-primary btn-circle btn-sm"
-                                                @click="nextCard">
+                                                @click="nextCard"
+                                                @keyup.enter="nextCard">
                                                 ▶︎
                                             </button>
                                         </div>
                                     </article>
                                 </div>
-                            </div>
+                    
                         </div>
                     </div>
-                </div>
+
             </div>
-        </div>
+    
     </main>
 
     <script>
