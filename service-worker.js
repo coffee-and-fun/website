@@ -204,7 +204,7 @@ self.__precacheManifest = [
   },
   {
     "url": "trivia/index.html",
-    "revision": "a3097c93573b8cddb356e026e22d261c"
+    "revision": "4fdaf137509960bb025751fd563bf4cf"
   }
 ].concat(self.__precacheManifest || []);
 workbox.precaching.precacheAndRoute(self.__precacheManifest, {});
