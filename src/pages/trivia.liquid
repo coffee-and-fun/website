@@ -97,6 +97,7 @@
 <body>
     {% assign showDonation = true %}
     {% assign showTriviaApp = true %}
+    {% assign showKeyboardModal = true %}
     {% include header.html %}
 
 
@@ -110,7 +111,7 @@
 
                         <article class="text-base text-black mx-auto">
                             <div
-                                class="card flex card-compact my-8 bg-base-100 shadow-md  w-full sm:w-96 mt-8 min-h-[540px] mx-auto">
+                                class="card flex card-compact my-8 bg-base-100 shadow-md  w-full sm:w-96 mt-8 min-h-[500px] mx-auto">
                                 <div class="card-body flex flex-col h-full">
                                     <div v-if="isQuestionsEmpty === true">
                                         <div class="flex flex-col gap-4">
@@ -148,7 +149,7 @@
                                     <div class="mt-auto">
                                         <button 
                                             v-if=""
-                                            class="btn btn-lg btn-natural w-full h-16 flex justify-center items-center"
+                                            class="btn btn-lg btn-natural w-full h-16 flex justify-center items-center group grow"
                                             aria-label="currentCardIndex !== visibleCardIndex ? 'Show Answer' : 'Hide Answer' "
                                             :class="{
                                                 'btn-active': currentCardIndex === visibleCardIndex,
@@ -159,7 +160,7 @@
                                                 v-text="currentCardIndex !== visibleCardIndex ? 'Show Answer' : 'Hide Answer' ">
                                      
                                              </span>
-                                        </button>
+  </button>
                                     </div>
                                 </div>
                             </div>
@@ -167,7 +168,7 @@
        
                             <div 
                                 v-if="isQuestionsEmpty === false" 
-                                class="join justify-between w-full mt-6">
+                                class="join justify-between w-full mt-2">
 
                                     <div class="tooltip" data-tip="Previous" id="prevTooltip">
                                         <button 
@@ -231,7 +232,7 @@
                     currentBatchStartIndex: 0,
                     visibleCardIndex: -1,
                     skelectionLimit: 6,
-                    batchSize: 8, // Adjust to your desired batch size
+                    batchSize: 6, // Adjust to your desired batch size
                     totalQuestions: 53000 // Adjust to your actual number
                 }
             },
@@ -258,6 +259,12 @@
                         this.prevCard();
                     });
 
+                    hotkeys("down", (event) => {
+                        // Prevent the default refresh event under WINDOWS system
+                        event.preventDefault();
+                        this.toggleAnswer();
+                    });
+                    
                     hotkeys("up", (event) => {
                         // Prevent the default refresh event under WINDOWS system
                         event.preventDefault();

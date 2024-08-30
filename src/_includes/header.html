@@ -1,5 +1,6 @@
 {% assign showDonation = showDonation | default: false %}
 {% assign showTriviaApp = showTriviaApp | default: false %}
+{% assign showKeyboardModal = showKeyboardModal | default: false %}
 
 <header class="navbar">
     <div class="navbar-start">
@@ -19,6 +20,7 @@
 
     <div class="navbar-center">
         {% if showTriviaApp %}
+        <div class="tooltip tooltip-open tooltip-bottom" data-tip="Over 50,000 Questions">
             <a href="/" class="btn btn-ghost gap-1 px-2 md:gap-2">
                 <img 
                     alt="TriviaFlix - Silhouette of a head with a question mark inside, representing confusion or inquiry." 
@@ -30,10 +32,26 @@
                 />
                 <span class="font-title text-base-content text-lg md:text-2xl">TriviaFlix</span>
             </a>
+     </div>
         {% endif %}
     </div>
 
     <div class="navbar-end">
+
+        {% if showKeyboardModal %}
+        <button 
+            class="btn btn-ghost btn-circle" 
+            onclick="my_modal_69.showModal()"
+            title="Open the About modal" 
+            aria-label="Open the About modal" 
+            aria-controls="my_modal_69" 
+            role="menuitem">
+        
+<svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" fill="currentColor" viewBox="0 -960 960 960" ><path d="M120-120q-33 0-56.5-23.5T40-200v-520q0-33 23.5-56.5T120-800h720q33 0 56.5 23.5T920-720v520q0 33-23.5 56.5T840-120H120Zm0-80h720v-520H120v520Zm200-80h320v-40H320v40ZM200-400h80v-80h-80v80Zm160 0h80v-80h-80v80Zm160 0h80v-80h-80v80Zm160 0h80v-80h-80v80ZM200-560h80v-80h-80v80Zm160 0h80v-80h-80v80Zm160 0h80v-80h-80v80Zm160 0h80v-80h-80v80ZM120-200v-520 520Z"/></svg>
+        </button>
+        {% endif %}
+
+
         <button 
             class="btn btn-ghost btn-circle" 
             onclick="my_modal_1.showModal()"
@@ -44,7 +62,7 @@
             <svg 
                 xmlns="http://www.w3.org/2000/svg" 
                 viewBox="0 -960 960 960"  
-                class="w-8 h-8" 
+                class="w-6 h-6" 
                 fill="currentColor">
                 <path d="M120-240v-80h720v80H120Zm0-200v-80h720v80H120Zm0-200v-80h720v80H120Z"/>
             </svg>
