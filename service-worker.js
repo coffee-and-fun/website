@@ -168,35 +168,35 @@ self.__precacheManifest = [
   },
   {
     "url": "assets/js/main.css",
-    "revision": "89209235c08fd23124ab5dcf82b19493"
+    "revision": "3e0395a561f4d054e4a5ebca7560c81e"
   },
   {
     "url": "credits/index.html",
-    "revision": "5951deb5642f5ed7805ff64529a1bb42"
+    "revision": "04c01a0b153d803e355913403e499371"
   },
   {
     "url": "flash-cards/index.html",
-    "revision": "f20fc2a51c8f1fa5567f033b3748dcfa"
+    "revision": "64e222e584b9355ae502458819bbc183"
   },
   {
     "url": "index.html",
-    "revision": "b0776737e200bb5c7405eecfe338b4ee"
+    "revision": "7c1b29eca26a5d99ed27eaada6331632"
   },
   {
     "url": "instant-incognito/index.html",
-    "revision": "7b77b497a0c3b1488bf1d9a7b9bd7c6f"
+    "revision": "bef3e26deb8ebd362d6987c3c2bf25e3"
   },
   {
     "url": "privacy/index.html",
-    "revision": "efb17fa76b57518e52f88b94c2daa638"
+    "revision": "633939c6ff1ea25fad2c5de794102e4e"
   },
   {
     "url": "procrastinot/index.html",
-    "revision": "cf81e9eabda85b1cd468245bd9a7612c"
+    "revision": "16b2ba108a44bde8e6c603d688d82b0b"
   },
   {
     "url": "reviews/index.html",
-    "revision": "eb7b01d1bea47297c9f2ebdda07b8b86"
+    "revision": "7234af21b7b8dcdaf5f275f3afa62dac"
   },
   {
     "url": "stop-wasting/index.html",
@@ -204,7 +204,7 @@ self.__precacheManifest = [
   },
   {
     "url": "trivia/index.html",
-    "revision": "ac4a134c5308ea585e29ef608c61d1ab"
+    "revision": "48b209a4a2f303c8af4443a4871f1ef9"
   }
 ].concat(self.__precacheManifest || []);
 workbox.precaching.precacheAndRoute(self.__precacheManifest, {});
