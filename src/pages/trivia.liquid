@@ -95,7 +95,8 @@
 </head>
 
 <body>
-
+    {% assign showDonation = true %}
+    {% assign showTriviaApp = true %}
     {% include header.html %}
 
 
@@ -105,23 +106,11 @@
             <div class="mx-auto grid max-w-xl grid-cols-1">
                 <div class="text-base  lg:col-span-8">
                     <div class="p-4 h-fit mx-auto w-full items-center ">
-                        <div class="flex w-full">
-                            <div class="mx-auto mb-4 mt-4">
-                                <img 
-                                    alt="TriviaFlix - Silhouette of a head with a question mark inside, representing confusion or inquiry." 
-                                    src="/assets/images/trivia.png" 
-                                    width="80" 
-                                    height="80"
-                                    decoding="async" 
-                                    data-nimg="future" 
-                                    loading="lazy"
-                                    class="aspect-square mx-auto block" />
-                            </div>
-                        </div>
+                     
 
-                        <article class="mt-8 text-base text-black mx-auto">
+                        <article class="text-base text-black mx-auto">
                             <div
-                                class="card flex card-compact my-8 bg-base-100 shadow-md  w-full sm:w-96 mt-8 min-h-[340px] mx-auto">
+                                class="card flex card-compact my-8 bg-base-100 shadow-md  w-full sm:w-96 mt-8 min-h-[540px] mx-auto">
                                 <div class="card-body flex flex-col h-full">
                                     <div v-if="isQuestionsEmpty === true">
                                         <div class="flex flex-col gap-4">
@@ -139,7 +128,7 @@
 
                                     <!-- Question Section -->
                                     <h1 
-                                        class="mb-4 font-bold card-title text-center" 
+                                        class="mb-4 font-bold card-title text-2xl text-center" 
                                         v-if="isQuestionsEmpty === false"
                                         v-html="cards[currentCardIndex].question">
                                        
@@ -149,7 +138,7 @@
                                     <div class="flex-grow flex items-center justify-center">
                                         <p 
                                             v-if="isQuestionsEmpty === false"
-                                            class="text-xl text-center font-black text-red-500 transition-opacity duration-300 ease-in-out"
+                                            class="text-xl text-center font-black text-red-500 "
                                             v-text="currentCardIndex === visibleCardIndex ? cards[currentCardIndex].answer : '**********'">
                                       
                                         </p>
@@ -175,6 +164,7 @@
                                 </div>
                             </div>
 
+       
                             <div 
                                 v-if="isQuestionsEmpty === false" 
                                 class="join justify-between w-full mt-6">
@@ -219,7 +209,7 @@
                                     </div>
                             </div>
 
-                            {% include ticker-trivia.html %}
+
                         </article>
                     </div>
                 </div>
@@ -342,7 +332,10 @@
         app.mount("#main-content");
     </script>
 
-    {% include modals.html %}
+{% include modals.html %}
+
+
+{% include  footer.html %}
 
 
 
