@@ -107,6 +107,10 @@ self.__precacheManifest = [
     "revision": "9d2722c66c5190c5cf5d5a82671d367c"
   },
   {
+    "url": "assets/images/credits.png",
+    "revision": "d55805848a036129dba18d787e875786"
+  },
+  {
     "url": "assets/images/edge.png",
     "revision": "08216bf8bb6261c731578bed2a5e7f3f"
   },
@@ -168,35 +172,35 @@ self.__precacheManifest = [
   },
   {
     "url": "assets/js/main.css",
-    "revision": "0795cdb46270171692a26575f3ed484e"
-  },
-  {
-    "url": "credits/index.html",
-    "revision": "fb33c465afa8fb4580c3787373afe32b"
+    "revision": "3470c532d9644e77bb1515ef98ce2026"
   },
   {
     "url": "flash-cards/index.html",
-    "revision": "059e1cb729323427d0c34b06f620ef48"
+    "revision": "8c42150ffca08031b83a24060056acde"
+  },
+  {
+    "url": "forever-credits/index.html",
+    "revision": "7deab9153e9b7fba215f3ebe790cc1b0"
   },
   {
     "url": "index.html",
-    "revision": "dfbae31bcc4a3a49bd78d0f44597a4db"
+    "revision": "ac515385c4e099d5e3f282059fd5a62b"
   },
   {
     "url": "instant-incognito/index.html",
-    "revision": "f915a5a3d0b2949cab994f5a7c1c3380"
+    "revision": "3b48ec3884002465fdf1a390f51a2389"
   },
   {
     "url": "privacy/index.html",
-    "revision": "16295ce60fc26c759b15f9c4915c59a5"
+    "revision": "4139069efecf9fc434ecd43f028ad073"
   },
   {
     "url": "procrastinot/index.html",
-    "revision": "76acd08a9b6d62dea703a0fa84d26d58"
+    "revision": "673def1a82d8af2c45b3bfad4742a3f5"
   },
   {
     "url": "reviews/index.html",
-    "revision": "e90790c1de207103a214aa8632f1758b"
+    "revision": "d61c3ba5a6c5c6f2456c5e9c699b684a"
   },
   {
     "url": "stop-wasting/index.html",
@@ -204,7 +208,7 @@ self.__precacheManifest = [
   },
   {
     "url": "trivia/index.html",
-    "revision": "4fdaf137509960bb025751fd563bf4cf"
+    "revision": "649c2a37ebcd0c782eb7359e0a7faaf3"
   }
 ].concat(self.__precacheManifest || []);
 workbox.precaching.precacheAndRoute(self.__precacheManifest, {});
