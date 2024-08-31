@@ -113,40 +113,56 @@
 
 
         {% for category in credits.list %}
-        <div class="my-24">
-          <h2 class="text-4xl font-bold mb-4 text-center">{{ category.title }}</h2>
-          <h3 class="text-xl font-semibold mb-12 text-center">{{ category.description }}</h3>
-          <!-- Display the items within the group -->
-          <div class="grid grid-cols-1 sm:grid-cols-3 gap-8 text-center text-xl">
+          <div class="my-24">
+            <h2 class="text-4xl font-bold mb-4 text-center">{{ category.title }}</h2>
+            <h3 class="text-xl font-semibold mb-12 text-center">{{ category.description }}</h3>
+          
             {% assign sorted_items = category.list | sort: 'rank' %}
-            {% for item in sorted_items %}
-            <a href="{{ item.link }}" title="Link to {{ item.text }}" target="_blank" class="link link-hover">
-              {% assign position = forloop.index0 %}
-              {% if position == 0 %}
-              🥇
-              {% elsif position == 1 %}
-              🥈
-              {% elsif position == 2 %}
-              🥉
-              {% endif %}
-              {{ item.text }}
-            </a>
-            {% endfor %}
-
-            <a href="https://payments.coffeeandfun.com/b/14k4ifa6gbT62mQ9Bc" target="_blank"
-              class="btn btn-sm btn-outline btn-secondary"> Secure a Spot
-
-
-              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="h-6 w-6" fill="currentColor">
-                <path d="M0 0h24v24H0z" fill="none" />
-                <path d="M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z" />
-              </svg>
-            </a>
+          
+            <!-- If there are items in the list, use a grid layout -->
+            {% if sorted_items.size > 0 %}
+            <div class="grid grid-cols-1 sm:grid-cols-3 gap-8 text-center text-xl">
+              {% for item in sorted_items %}
+              <a href="{{ item.link }}" title="Link to {{ item.text }}" target="_blank" class="link link-hover">
+                {% assign position = forloop.index0 %}
+                {% if position == 0 %}
+                🥇
+                {% elsif position == 1 %}
+                🥈
+                {% elsif position == 2 %}
+                🥉
+                {% endif %}
+                {{ item.text }}
+              </a>
+              {% endfor %}
+          
+              <!-- The Secure a Spot button in the grid layout -->
+              <a href="https://payments.coffeeandfun.com/b/14k4ifa6gbT62mQ9Bc" target="_blank"
+                class="btn btn-sm btn-outline btn-secondary">
+                Secure a Spot
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="h-6 w-6" fill="currentColor">
+                  <path d="M0 0h24v24H0z" fill="none" />
+                  <path d="M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z" />
+                </svg>
+              </a>
+            </div>
+            {% else %}
+            <!-- If the list is empty, center the Secure a Spot button -->
+            <div class="flex justify-center">
+              <a href="https://payments.coffeeandfun.com/b/14k4ifa6gbT62mQ9Bc" target="_blank"
+                class="btn btn-sm btn-outline btn-secondary">
+                Secure a Spot
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="h-6 w-6" fill="currentColor">
+                  <path d="M0 0h24v24H0z" fill="none" />
+                  <path d="M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z" />
+                </svg>
+              </a>
+            </div>
+            {% endif %}
+          
           </div>
-        </div>
-        {% endfor %}
-
-
+          {% endfor %}
+          
 
 
 
