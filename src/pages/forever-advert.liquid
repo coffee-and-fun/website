@@ -113,25 +113,31 @@
 
  
         {% for category in credits.list %}
-          <!-- Ensure the group title is output correctly -->
           <div class="my-24">
             <h2 class="text-4xl font-bold mb-4 text-center">{{ category.title }}</h2>
             <h3 class="text-xl font-semibold mb-12 text-center">{{ category.description }}</h3>
-            <!-- Using `jsonify` to force string output -->
-
             <!-- Display the items within the group -->
             <div class="grid grid-cols-3 gap-8 text-center text-xl">
-              {% for item in category.list | slice(0, 3) %}
-                <a href="{{ item.link }}" title="Link to {{ item.text }}" target="_blank" class="link link-hover">{{ item.text }}</a>
+              {% assign sorted_items = category.list | sort: 'rank' %}
+              {% for item in sorted_items %}
+                <a href="{{ item.link }}" title="Link to {{ item.text }}" target="_blank" class="link link-hover">
+                {% assign position = forloop.index0 %}
+                {% if position == 0 %}
+                  🥇 
+                {% elsif position == 1 %}
+                  🥈 
+                {% elsif position == 2 %}
+                  🥉  
+                {% endif %}
+                  {{ item.text }}
+                </a>
               {% endfor %}
         
-              <!-- Display "Add me to this section" link if there are fewer than 15 items -->
-              {% if category.list.length < 3 %}
-                <a href="https://payments.coffeeandfun.com/b/14k4ifa6gbT62mQ9Bc?"  target="_blank" class="link link-hover text-yellow-500 font-bold ">Add me to this section</a>
-              {% endif %}
+              <a href="https://payments.coffeeandfun.com/b/14k4ifa6gbT62mQ9Bc?" target="_blank" class="link link-hover text-yellow-500 font-bold">Add me to this section</a>
             </div>
           </div>
         {% endfor %}
+        
 
 
 
