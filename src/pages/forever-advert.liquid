@@ -117,7 +117,7 @@
             <h2 class="text-4xl font-bold mb-4 text-center">{{ category.title }}</h2>
             <h3 class="text-xl font-semibold mb-12 text-center">{{ category.description }}</h3>
             <!-- Display the items within the group -->
-            <div class="grid grid-cols-3 gap-8 text-center text-xl">
+            <div class="grid grid-cols-1 sm:grid-cols-3 gap-8 text-center text-xl">
               {% assign sorted_items = category.list | sort: 'rank' %}
               {% for item in sorted_items %}
                 <a href="{{ item.link }}" title="Link to {{ item.text }}" target="_blank" class="link link-hover">
@@ -133,7 +133,7 @@
                 </a>
               {% endfor %}
         
-              <a href="https://payments.coffeeandfun.com/b/14k4ifa6gbT62mQ9Bc" target="_blank" class="link link-hover text-yellow-500 font-bold">Add me to this section</a>
+              <a href="https://payments.coffeeandfun.com/b/14k4ifa6gbT62mQ9Bc" target="_blank" class="link link-hover text-yellow-500 font-bold"> Secure a Spot</a>
             </div>
           </div>
         {% endfor %}
