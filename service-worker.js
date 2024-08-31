@@ -188,7 +188,7 @@ self.__precacheManifest = [
   },
   {
     "url": "forever-advert/index.html",
-    "revision": "e250ec783b34d6d13d59d6a1a0e79249"
+    "revision": "a92ac8ea438a02d4ea0c273bf27f6164"
   },
   {
     "url": "index.html",
