@@ -180,31 +180,31 @@ self.__precacheManifest = [
   },
   {
     "url": "flash-cards/index.html",
-    "revision": "5c2603200ce83547342383642b90d845"
+    "revision": "3932939cceb0aac776fea6443215cc88"
   },
   {
     "url": "forever-advert/index.html",
-    "revision": "a43e0fa3e5d624515f7da20d3812517d"
+    "revision": "f70b140f6e27858a9b7eb86a49549212"
   },
   {
     "url": "index.html",
-    "revision": "346fa582be2a9f3bc3708a9c588bd50a"
+    "revision": "7318f0fa3d3f6ed17eae424e4b2ed72c"
   },
   {
     "url": "instant-incognito/index.html",
-    "revision": "a877baafa679d5f3c9943424f1f5f5bb"
+    "revision": "12a2039446f578492cff40eb9f640a60"
   },
   {
     "url": "privacy/index.html",
-    "revision": "a222d02be0a9475329040fccad169cdf"
+    "revision": "b77856712956e7e4cd28837573cb1a5f"
   },
   {
     "url": "procrastinot/index.html",
-    "revision": "ffb70efa6b4f080ec98228816b01e023"
+    "revision": "b44033f0837b17bca1edd335ac587f37"
   },
   {
     "url": "reviews/index.html",
-    "revision": "860ab4ed19523d4fb3e6d50c72085244"
+    "revision": "7fbb82cf63a225dbd845eb4bdee72f2e"
   },
   {
     "url": "stop-wasting/index.html",
@@ -212,7 +212,7 @@ self.__precacheManifest = [
   },
   {
     "url": "trivia/index.html",
-    "revision": "bc6986d930eff09617f8e24a5e4f22ee"
+    "revision": "88c2a0a370fb29d0787e5344b44c8639"
   }
 ].concat(self.__precacheManifest || []);
 workbox.precaching.precacheAndRoute(self.__precacheManifest, {});
