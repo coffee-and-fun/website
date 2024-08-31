@@ -1,8 +1,11 @@
 {% assign showDonation = showDonation | default: false %}
 {% assign showTriviaApp = showTriviaApp | default: false %}
+{% assign showCreditApp = showCreditApp | default: false %}
 {% assign showKeyboardModal = showKeyboardModal | default: false %}
 
-<header class="navbar">
+
+<header class="navbar brand-color-background">
+
     <div class="navbar-start">
         {% if showDonation %}
             <a 
@@ -16,6 +19,19 @@
                 Donate
             </a>
         {% endif %}
+        {% if      showCreditsBuyButton %}
+        <a 
+            class="btn btn-secondary btn-sm" 
+            href="https://payments.coffeeandfun.com/b/00gbKHdise1e8Le6oZ"
+            title="Donate to Coffee & Fun LLC"
+            target="_blank"
+            aria-label="Donate to Coffee & Fun LLC" 
+            aria-controls="my_modal_1" 
+            role="menuitem">
+            Purchase a Spot
+        </a>
+        {% endif %}
+   
     </div>
 
     <div class="navbar-center">
@@ -32,7 +48,24 @@
                 />
                 <span class="font-title text-base-content text-lg md:text-2xl">TriviaFlix</span>
             </a>
-     </div>
+        </div>
+        {% endif %}
+
+
+        {% if showCreditApp %}
+        <div class="tooltip tooltip-open tooltip-bottom" data-tip="Buy a Spot of History">
+            <a href="/" class="btn btn-ghost gap-1 px-2 md:gap-2">
+                <img 
+                    alt="TriviaFlix - Silhouette of a head with a question mark inside, representing confusion or inquiry." 
+                    src="/assets/images/credits.png" 
+                    class="h-10 w-10 aspect-square"
+                    decoding="async" 
+                    data-nimg="future" 
+                    loading="lazy"
+                />
+                <span class="font-title text-base-content text-lg md:text-2xl">Forever Credit</span>
+            </a>
+        </div>
         {% endif %}
     </div>
 

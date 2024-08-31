@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html class="brand-color-background scroll-smooth antialiased" lang="en">
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Forever Credits - Own a Piece of 2024 Internet History </title>
+  <meta name="description"
+    content="Be part of something special with Forever Credits. Secure your spot in a unique digital movie credit roll where your name, brand, or a personal shoutout will be remembered forever. Launching on September 4th, this is your chance to own a piece of 2024 Internet history. And it's just the start—Forever Credits will continue to grow with new editions each year, creating lasting memories and opportunities for everyone involved." />
+  <meta name="author" content="Coffee & Fun LLC" />
+  <meta name="robots" content="index, follow" />
+  <meta name="rating" content="safe for kids" />
+
+  <link rel="icon" href="/assets/images/favicon.png" />
+
+  <meta name="title" content="Forever Credits - Own a Piece of 2024 Internet History - Coffee & Fun LLC" />
+
+  <!-- Open Graph Meta Tags -->
+  <meta property="og:title" content="Forever Credits - Own a Piece of 2024 Internet History - Coffee & Fun LLC" />
+  <meta property="og:site_name" content="Coffee & Fun" />
+  <meta property="og:url" content="https://www.coffeeandfun.com/" />
+  <meta property="og:description"
+    content="Be part of something special with Forever Credits. Secure your spot in a unique digital movie credit roll where your name, brand, or a personal shoutout will be remembered forever. Launching on September 4th, this is your chance to own a piece of 2024 Internet history. And it's just the start—Forever Credits will continue to grow with new editions each year, creating lasting memories and opportunities for everyone involved." />
+  <meta property="og:type" content="website" />
+  <meta property="og:image" content="/assets/images/social-trivia.png" />
+
+  <!-- Twitter Meta Tags -->
+  <meta property="twitter:domain" content="coffeeandfun.com" />
+  <meta property="twitter:url" content="https://www.coffeeandfun.com" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Forever Credits - Own a Piece of 2024 Internet History - Coffee & Fun LLC" />
+  <meta name="twitter:site" content="@bycoffeeandfun" />
+  <meta name="twitter:description"
+    content="Be part of something special with Forever Credits. Secure your spot in a unique digital movie credit roll where your name, brand, or a personal shoutout will be remembered forever. Launching on September 4th, this is your chance to own a piece of 2024 Internet history. And it's just the start—Forever Credits will continue to grow with new editions each year, creating lasting memories and opportunities for everyone involved." />
+  <meta name="twitter:image" content="https://www.coffeeandfun.com/assets/images/social-trivia.png" />
+  <meta name="twitter:image:alt" content=" Coffee & Fun" />
+
+  <script type="application/ld+json">
+        {
+            "@context": "http://schema.org/",
+            "@type": "WebSite",
+            "url": "https://www.coffeeandfun.com",
+            "potentialAction": {
+                "@type": "SearchAction",
+                "target": "{search_term_string}",
+                "query-input": "required name=search_term_string"
+            }
+        }
+    </script>
+  {% bundledCss %}
+
+  <script src="https://unpkg.com/vue@3"></script>
+  <script src="https://unpkg.com/hotkeys-js/dist/hotkeys.min.js"></script>
+  <script>
+    if ('serviceWorker' in navigator) {
+      navigator.serviceWorker.register('/service-worker.js');
+    }
+  </script>
+
+  <style>
+    .brand-color-background {
+      background-color: #fef5ec;
+    }
+
+    .loading-spinner {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      font-size: 1.5rem;
+      color: #333;
+    }
+  </style>
+  <style>
+    @keyframes ticker {
+      0% {
+        transform: translateX(100%);
+      }
+
+      100% {
+        transform: translateX(-100%);
+      }
+    }
+
+    .animate-ticker {
+      animation: ticker 10s linear infinite;
+    }
+
+    .animate-ticker:hover {
+      animation-play-state: paused;
+    }
+  </style>
+
+
+</head>
+
+<body style="background-color: black;">
+  {% assign showDonation = false %}
+  {% assign showCreditsBuyButton = false %}
+  {% assign showCreditApp = true %}
+  {% assign showKeyboardModal = false %}
+  {% include header.html %}
+
+
+
+  <main id="main-content" class="mx-auto max-w-7xl mb-12 bg-black text-white overflow-hidden">
+
+    <div class="flex flex-col h-screen">
+
+      <div class="flex flex-col flex-grow overflow-auto p-8" ref="scrollContainer" @scroll="handleUserScroll"
+        @mouseenter="pauseScroll" @mouseleave="startScroll">
+
+
+ 
+        {% for category in credits %}
+          <!-- Ensure the group title is output correctly -->
+          <div class="my-24">
+            <h2 class="text-4xl font-bold mb-12 text-center">{{ category[0] }}</h2>
+  
+            <!-- Using `jsonify` to force string output -->
+
+            <!-- Display the items within the group -->
+            <div class="grid grid-cols-3 gap-8 text-center text-xl">
+              {% for item in category[1] | slice(0, 3) %}
+                <a href="{{ item.link }}" title="Link to {{ item.text }}" target="_blank" class="link link-hover">{{ item.text }}</a>
+              {% endfor %}
+        
+              <!-- Display "Add me to this section" link if there are fewer than 15 items -->
+              {% if category[1].length < 3 %}
+                <a href="/add-me"  target="_blank" class="link link-hover text-yellow-500 font-bold ">Add me to this section</a>
+              {% endif %}
+            </div>
+          </div>
+        {% endfor %}
+
+
+
+
+
+
+
+      </div>
+    </div>
+
+  </main>
+
+
+
+
+  <script>
+    var app = Vue.createApp({
+      data() {
+        return {
+          scrollInterval: null,
+        }
+      },
+      computed: {
+
+      },
+      mounted() {
+        
+          this.startScroll(); // Ensure scrolling starts after the component is fully mounted
+ 
+      },
+      methods: {
+        startScroll() {
+      const container = this.$refs.scrollContainer;
+
+      if (this.scrollInterval) {
+        clearInterval(this.scrollInterval);
+      }
+
+      this.scrollInterval = setInterval(() => {
+        if (container.scrollTop + container.clientHeight >= container.scrollHeight) {
+          container.scrollTop = 0;
+        } else {
+          container.scrollTop += 1;
+        }
+      }, 20); // Adjust the speed by changing the interval time
+    },
+    pauseScroll() {
+      if (this.scrollInterval) {
+        clearInterval(this.scrollInterval);
+      }
+    },
+
+
+      },
+      beforeDestroy() {
+        if (this.scrollInterval) {
+          clearInterval(this.scrollInterval);
+        }
+      },
+    });
+
+    app.mount("#main-content");
+  </script>
+
+  <style>
+    /* Smooth scrolling for a better user experience */
+    .scroll-container {
+      scroll-behavior: smooth;
+    }
+
+    /* Ensuring the text elements have a subtle hover effect */
+    .link {
+      cursor: pointer;
+      transition: color 0.3s ease, transform 0.3s ease;
+    }
+
+    .link-hover:hover {
+
+
+      /* Change the text color on hover */
+      transform: scale(1.05);
+      /* Slightly enlarge the text on hover */
+    }
+  </style>
+
+  {% include modals.html %}
+
+
+  {% include footer.html %}
+
+
+
+</body>
+
+</html>
