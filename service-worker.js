@@ -176,7 +176,7 @@ self.__precacheManifest = [
   },
   {
     "url": "assets/js/main.css",
-    "revision": "3470c532d9644e77bb1515ef98ce2026"
+    "revision": "d7c511fe4da070d27ef9bc008d172563"
   },
   {
     "url": "flash-cards/index.html",
@@ -184,7 +184,7 @@ self.__precacheManifest = [
   },
   {
     "url": "forever-advert/index.html",
-    "revision": "fb1cfa2eca78aed1cc084ff51cdae4b6"
+    "revision": "a43e0fa3e5d624515f7da20d3812517d"
   },
   {
     "url": "index.html",
