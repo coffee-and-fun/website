@@ -184,43 +184,43 @@ self.__precacheManifest = [
   },
   {
     "url": "assets/js/main.css",
-    "revision": "4e3d8e44155233fcf3fee5b9d59de9a6"
+    "revision": "c2c511f326985fbc95086d1f2f80f194"
   },
   {
     "url": "flash-cards/index.html",
-    "revision": "9a8de9cb18c54890bf2387b58e26cd1b"
+    "revision": "58f900b3132d11b71a0348eeb75bd97c"
   },
   {
     "url": "forever-advert/index.html",
-    "revision": "38b47641f3d86f3f44e44aa7c4b23a4d"
+    "revision": "ffe3c3ba805be3834f9856ab090586c1"
   },
   {
     "url": "index.html",
-    "revision": "54ffa427263622915323c1c1499d2f5a"
+    "revision": "ebb717976d76eeae0bd75535e209771d"
   },
   {
     "url": "instant-incognito/index.html",
-    "revision": "b55ea522bf7fe0cf905827cae97532a5"
+    "revision": "08c8ceac4ddf3aed7bb3e1a55fdd1b54"
   },
   {
     "url": "privacy/index.html",
-    "revision": "63341a47f817e4f2c050b3fbd8138b23"
+    "revision": "322b9e27162855197abde14517543825"
   },
   {
     "url": "procrastinot/index.html",
-    "revision": "7b06ecb82db0f8634dd20f80c6f618f5"
+    "revision": "51946bc501568b0b473ca780c1f09dfb"
   },
   {
     "url": "reviews/index.html",
-    "revision": "283c93a9f4b3d84698c0e13db1d2c34b"
+    "revision": "2f8c7da539bd53b3adac35e80a78a8aa"
   },
   {
     "url": "stop-wasting/index.html",
-    "revision": "2925c2554ebb19a0e5003e9c04dc1a73"
+    "revision": "436fbd4ec9d7c15869cb596a856c2daa"
   },
   {
     "url": "trivia/index.html",
-    "revision": "0b8575faaf1eebe0be6efcf24ce26c4b"
+    "revision": "28a4135ed63b29c86e9dd319e076c5f8"
   }
 ].concat(self.__precacheManifest || []);
 workbox.precaching.precacheAndRoute(self.__precacheManifest, {});
