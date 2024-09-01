@@ -75,6 +75,10 @@ self.__precacheManifest = [
     "revision": "5f8448c856333869618531cabcb840a8"
   },
   {
+    "url": "assets/images/apps/rank.png",
+    "revision": "7eb1260fa26729f415a2ac29e2c1c780"
+  },
+  {
     "url": "assets/images/apps/reddit.png",
     "revision": "b30b3c542e17e3bf71968c6a829d37e9"
   },
@@ -192,7 +196,7 @@ self.__precacheManifest = [
   },
   {
     "url": "index.html",
-    "revision": "b93413326610fabd60df92b14088c663"
+    "revision": "976e08de44099a3d6894d1784f174f03"
   },
   {
     "url": "instant-incognito/index.html",
