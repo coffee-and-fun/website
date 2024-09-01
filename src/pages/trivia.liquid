@@ -89,6 +89,10 @@
         .animate-ticker:hover {
             animation-play-state: paused;
         }
+
+        .card-body {
+            transition: transform 0.3s ease-in-out;
+        }
     </style>
 
 
@@ -107,17 +111,16 @@
             <div class="mx-auto grid max-w-xl grid-cols-1">
                 <div class="text-base  lg:col-span-8">
                     <div class="p-4 h-fit mx-auto w-full items-center ">
-                     
+
 
                         <article class="text-base text-black mx-auto">
                             <div
                                 class="card flex card-compact my-8 bg-base-100 shadow-md  w-full sm:w-96 mt-8 min-h-[500px] mx-auto">
-                                <div class="card-body flex flex-col h-full">
+                                <div class="card-body flex flex-col h-full" @touchstart="touchStart"
+                                    @touchend="touchEnd">
                                     <div v-if="isQuestionsEmpty === true">
                                         <div class="flex flex-col gap-4">
-                                            <div 
-                                                class="skeleton bg-base-200 h-24 w-full" 
-                                                :class="
+                                            <div class="skeleton bg-base-200 h-24 w-full" :class="
                                                     [
                                                         {
                                                           'animate-none': isLoading === false,
@@ -128,86 +131,67 @@
                                     </div>
 
                                     <!-- Question Section -->
-                                    <h1 
-                                        class="mb-4 font-bold card-title text-2xl text-center mx-auto" 
-                                        v-if="isQuestionsEmpty === false"
-                                        v-html="cards[currentCardIndex].question">
-                                       
+                                    <h1 class="mb-4 font-bold card-title text-2xl text-center mx-auto"
+                                        v-if="isQuestionsEmpty === false" v-html="cards[currentCardIndex].question">
+
                                     </h1>
 
                                     <!-- Answer Section -->
                                     <div class="flex-grow flex items-center justify-center">
-                                        <p 
-                                            v-if="isQuestionsEmpty === false"
+                                        <p v-if="isQuestionsEmpty === false"
                                             class="text-2xl text-center font-black text-red-500 "
                                             v-text="currentCardIndex === visibleCardIndex ? cards[currentCardIndex].answer : '**********'">
-                                      
+
                                         </p>
                                     </div>
 
                                     <!-- Button at the Bottom -->
                                     <div class="mt-auto">
-                                        <button 
-                                            v-if=""
+                                        <button v-if=""
                                             class="btn btn-lg btn-natural w-full h-16 flex justify-center items-center group grow"
                                             aria-label="currentCardIndex !== visibleCardIndex ? 'Show Answer' : 'Hide Answer' "
                                             :class="{
                                                 'btn-active': currentCardIndex === visibleCardIndex,
-                                            }" 
-                                            @click="toggleAnswer" 
-                                            v-on:keyup.enter="toggleAnswer">
+                                            }" @click="toggleAnswer" v-on:keyup.enter="toggleAnswer">
                                             <span
                                                 v-text="currentCardIndex !== visibleCardIndex ? 'Show Answer' : 'Hide Answer' ">
-                                     
-                                             </span>
-  </button>
+
+                                            </span>
+                                        </button>
                                     </div>
                                 </div>
                             </div>
 
-       
-                            <div 
-                                v-if="isQuestionsEmpty === false" 
-                                class="join justify-between w-full mt-2">
 
-                                    <div class="tooltip" data-tip="Previous" id="prevTooltip">
-                                        <button 
-                                            class="join-item btn btn-ghost btn-primary btn-circle btn-sm"
-                                            aria-label="Previous question"
-                                            aria-describedby="prevTooltip"
-                                            @click="prevCard" 
-                                            v-on:keyup.enter="prevCard">
-                                            ◀︎
+                            <div v-if="isQuestionsEmpty === false" class="join justify-between w-full mt-2">
+
+                                <div class="tooltip" data-tip="Previous" id="prevTooltip">
+                                    <button class="join-item btn btn-ghost btn-primary btn-circle btn-sm"
+                                        aria-label="Previous question" aria-describedby="prevTooltip" @click="prevCard"
+                                        v-on:keyup.enter="prevCard">
+                                        ◀︎
+                                    </button>
+                                </div>
+
+
+                                <div v-for="(card, index) in cards" :key="card.id">
+                                    <div class="tooltip" data-tip="Go to Question">
+                                        <button class="join-item btn btn-ghost btn-circle btn-sm" :class="{
+                                                    'btn-active': index === currentCardIndex
+                                                }" @click="goToCard(index + 1)" v-on:keyup.enter="goToCard(index + 1)"
+                                            aria-label="Go to Question" v-html="currentBatchStartIndex + index + 1">
+
                                         </button>
                                     </div>
+                                </div>
 
-
-                                    <div v-for="(card, index) in cards" :key="card.id">
-                                        <div class="tooltip" data-tip="Go to Question">
-                                            <button 
-                                                class="join-item btn btn-ghost btn-circle btn-sm" 
-                                                :class="{
-                                                    'btn-active': index === currentCardIndex,
-                                                }" 
-                                                @click="goToCard(index + 1)" 
-                                                v-on:keyup.enter="goToCard(index + 1)"
-                                                aria-label="Go to Question"
-                                                v-html="currentBatchStartIndex + index + 1">
-                                                
-                                            </button>
-                                        </div>
-                                    </div>
-
-                                    <div class="tooltip" data-tip="Next" id="nextTooltip">
-                                        <button 
-                                            class="join-item btn btn-ghost btn-primary btn-circle btn-sm"
-                                            aria-label="Next question"
-                                            aria-describedby="nextTooltip"
-                                            @click="nextCard" 
-                                            v-on:keyup.enter="nextCard">
-                                            ▶︎
-                                        </button>
-                                    </div>
+                                <div class="tooltip" data-tip="Next" id="nextTooltip">
+                                    <button class="join-item btn btn-ghost btn-primary btn-circle btn-sm"
+                                        aria-label="Next question" aria-describedby="nextTooltip" @click="nextCard"
+                                        v-on:keyup.enter="nextCard">
+                                        ▶︎
+                                    </button>
+                                </div>
                             </div>
 
 
@@ -233,6 +217,8 @@
                     visibleCardIndex: -1,
                     skelectionLimit: 6,
                     batchSize: 6, // Adjust to your desired batch size
+                    touchStartX: 0,
+                    touchEndX: 0,
                     totalQuestions: 53000 // Adjust to your actual number
                 }
             },
@@ -246,6 +232,37 @@
                 this.setKeyCommands();
             },
             methods: {
+                touchStart(event) {
+                    // Capture the X coordinate where the touch started
+                    this.touchStartX = event.changedTouches[0].screenX;
+                },
+                touchEnd(event) {
+                    // Capture the X coordinate where the touch ended
+                    this.touchEndX = event.changedTouches[0].screenX;
+                    this.handleSwipeGesture();
+                },
+                handleSwipeGesture() {
+                    const swipeDistance = this.touchStartX - this.touchEndX;
+
+                    if (swipeDistance > 50) {
+                        // Swipe left detected
+                        this.onSwipeRight();
+                    } else if (swipeDistance < -50) {
+                        // Swipe right detected
+                        this.onSwipeLeft();
+                    }
+                },
+                onSwipeLeft() {
+                    // Handle swipe left action here
+
+                    this.prevCard(); // Example: Go to the next card
+                },
+                onSwipeRight() {
+                    // Handle swipe right action here
+
+                    this.nextCard(); // Example: Go to the previous card
+                },
+
                 setKeyCommands() {
                     hotkeys("right", (event) => {
                         // Prevent the default refresh event under WINDOWS system
@@ -264,7 +281,7 @@
                         event.preventDefault();
                         this.toggleAnswer();
                     });
-                    
+
                     hotkeys("up", (event) => {
                         // Prevent the default refresh event under WINDOWS system
                         event.preventDefault();
@@ -339,10 +356,10 @@
         app.mount("#main-content");
     </script>
 
-{% include modals.html %}
+    {% include modals.html %}
 
 
-{% include  footer.html %}
+    {% include footer.html %}
 
 
 
