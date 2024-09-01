@@ -51,7 +51,6 @@
 
     <script src="https://unpkg.com/vue@3"></script>
     <script src="https://unpkg.com/hotkeys-js/dist/hotkeys.min.js"></script>
-    <script src="https://unpkg.com/typed.js@2.1.0/dist/typed.umd.js"></script>
 
     <script>
         if ('serviceWorker' in navigator) {
@@ -134,8 +133,8 @@
 
                                     <!-- Question Section -->
                                     <h1 class="mb-4 font-bold card-title text-2xl text-center mx-auto"
-                                        v-if="isQuestionsEmpty === false" ref="typedQuestion">
-
+                                        v-if="isQuestionsEmpty === false" 
+                                        v-html="cards[currentCardIndex].question">
                                     </h1>
 
                                     <!-- Answer Section -->
@@ -234,25 +233,7 @@
                 this.setKeyCommands();
             },
             methods: {
-                initializeTypedEffect() {
-                    // Destroy any existing Typed instance
-                    if (this.typed) {
-                        this.typed.destroy();
-                    }
-
-                    // Get the current question text
-                    const questionText = this.cards[this.currentCardIndex].question;
-
-                    // Initialize a new Typed.js instance
-                    this.typed = new Typed(this.$refs.typedQuestion, {
-                        strings: [questionText],
-                        typeSpeed: 100, // Adjust typing speed as needed
-                        showCursor: false,
-                        onComplete: () => {
-                            // Optional: do something when typing is complete
-                        }
-                    });
-                },
+             
                 touchStart(event) {
                     // Capture the X coordinate where the touch started
                     this.touchStartX = event.changedTouches[0].screenX;
@@ -325,10 +306,6 @@
                     }
                     this.visibleCardIndex = -1;
 
-                    // Initialize the typing effect for the previous question
-                    this.$nextTick(() => {
-                        this.initializeTypedEffect();
-                    });
                 },
                 nextCard() {
                     if (this.currentCardIndex < this.cards.length - 1) {
@@ -339,10 +316,7 @@
                     }
                     this.visibleCardIndex = -1;
 
-                    // Initialize the typing effect for the next question
-                    this.$nextTick(() => {
-                        this.initializeTypedEffect();
-                    });
+            
                 },
 
 
@@ -374,10 +348,7 @@
                     this.currentCardIndex = 0; // Start at the first question of the new batch
                     this.isLoading = false;
 
-                    // Initialize the typing effect for the first question
-                    this.$nextTick(() => {
-                        this.initializeTypedEffect();
-                    });
+                 
                 },
                 shuffleArray(array) {
                     for (let i = array.length - 1; i > 0; i--) {
