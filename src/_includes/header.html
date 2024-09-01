@@ -2,6 +2,8 @@
 {% assign showTriviaApp = showTriviaApp | default: false %}
 {% assign showMysteryApp = showMysteryApp | default: false %}
 {% assign showKeyboardModal = showKeyboardModal | default: false %}
+{% assign showInstantApp = showInstantApp | default: false %}
+{% assign showProcrastinot = showProcrastinot | default: false %}
 
 
 <header class="navbar brand-color-background">
@@ -34,6 +36,31 @@
                 <span class="font-title text-base-content text-lg md:text-2xl">TriviaFlix</span>
             </a>
         </div>
+        {% endif %}
+
+
+        
+
+        {% if showProcrastinot %}
+       
+            <a href="/" class="btn btn-ghost gap-1 px-2 md:gap-2">
+                <img alt="Instant Incognito automatically opens specific websites in incognito mode for enhanced privacy."
+                    src="/assets/images/apps/procrastinot.png" class="h-10 w-10 aspect-square" decoding="async" data-nimg="future"
+                    loading="lazy" />
+                <span class="font-title text-base-content text-lg md:text-2xl">ProcrastiNot</span>
+            </a>
+ 
+        {% endif %}
+
+        {% if showInstantApp %}
+       
+            <a href="/" class="btn btn-ghost gap-1 px-2 md:gap-2">
+                <img alt="Instant Incognito automatically opens specific websites in incognito mode for enhanced privacy."
+                    src="/assets/images/instant-incognito.png" class="h-10 w-10 aspect-square" decoding="async" data-nimg="future"
+                    loading="lazy" />
+                <span class="font-title text-base-content text-lg md:text-2xl">Instant Incognito</span>
+            </a>
+ 
         {% endif %}
 
 
