@@ -192,7 +192,7 @@ self.__precacheManifest = [
   },
   {
     "url": "forever-advert/index.html",
-    "revision": "fedf8225bb4957b7f71032a85ac1e1c1"
+    "revision": "7c37240bd6fbdde435a6a567e040cdbf"
   },
   {
     "url": "index.html",
