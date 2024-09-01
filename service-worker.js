@@ -192,7 +192,7 @@ self.__precacheManifest = [
   },
   {
     "url": "forever-advert/index.html",
-    "revision": "2e566535d233579ddd6a3d84a4136c52"
+    "revision": "5aa933fcfdcc71ca1f36d69d0f5e5ba1"
   },
   {
     "url": "index.html",
@@ -220,7 +220,7 @@ self.__precacheManifest = [
   },
   {
     "url": "trivia/index.html",
-    "revision": "89c710416475a4c8e25181d9f14d346e"
+    "revision": "1f59391a053993233f6a938585dd1414"
   }
 ].concat(self.__precacheManifest || []);
 workbox.precaching.precacheAndRoute(self.__precacheManifest, {});

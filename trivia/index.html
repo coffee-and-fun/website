@@ -7,7 +7,7 @@
                 "target": "{search_term_string}",
                 "query-input": "required name=search_term_string"
             }
-        }</script><link href="/assets/js/main.css" rel="stylesheet"><script src="https://unpkg.com/vue@3"></script><script src="https://unpkg.com/hotkeys-js/dist/hotkeys.min.js"></script><script>if ('serviceWorker' in navigator) {
+        }</script><link href="/assets/js/main.css" rel="stylesheet"><script src="https://unpkg.com/vue@3"></script><script src="https://unpkg.com/hotkeys-js/dist/hotkeys.min.js"></script><script src="https://unpkg.com/typed.js@2.1.0/dist/typed.umd.js"></script><script>if ('serviceWorker' in navigator) {
             navigator.serviceWorker.register('/service-worker.js');
         }</script><style>.brand-color-background {
             background-color: #fef5ec;
@@ -45,7 +45,7 @@
                                                         {
                                                           'animate-none': isLoading === false,
                                                         },
-                                                    ]"></div></div></div><h1 class="mb-4 font-bold card-title text-2xl text-center mx-auto" v-if="isQuestionsEmpty === false" v-html="cards[currentCardIndex].question"></h1><div class="flex-grow flex items-center justify-center"><p v-if="isQuestionsEmpty === false" class="text-2xl text-center font-black text-red-500" v-text="currentCardIndex === visibleCardIndex ? cards[currentCardIndex].answer : '**********'"></p></div><div class="mt-auto"><button v-if="" class="btn btn-lg btn-natural w-full h-16 flex justify-center items-center group grow" aria-label="currentCardIndex !== visibleCardIndex ? 'Show Answer' : 'Hide Answer' " :class="{
+                                                    ]"></div></div></div><h1 class="mb-4 font-bold card-title text-2xl text-center mx-auto" v-if="isQuestionsEmpty === false" ref="typedQuestion"></h1><div class="flex-grow flex items-center justify-center"><p v-if="isQuestionsEmpty === false" class="text-2xl text-center font-black text-red-500" v-text="currentCardIndex === visibleCardIndex ? cards[currentCardIndex].answer : '**********'"></p></div><div class="mt-auto"><button v-if="" class="btn btn-lg btn-natural w-full h-16 flex justify-center items-center group grow" aria-label="currentCardIndex !== visibleCardIndex ? 'Show Answer' : 'Hide Answer' " :class="{
                                                 'btn-active': currentCardIndex === visibleCardIndex,
                                             }" @click="toggleAnswer" v-on:keyup.enter="toggleAnswer"><span v-text="currentCardIndex !== visibleCardIndex ? 'Show Answer' : 'Hide Answer' "></span></button></div></div></div><div v-if="isQuestionsEmpty === false" class="join justify-between w-full mt-2"><div class="tooltip" data-tip="Previous" id="prevTooltip"><button class="join-item btn btn-ghost btn-primary btn-circle btn-sm" aria-label="Previous question" aria-describedby="prevTooltip" @click="prevCard" v-on:keyup.enter="prevCard">◀︎</button></div><div v-for="(card, index) in cards" :key="card.id"><div class="tooltip" data-tip="Go to Question"><button class="join-item btn btn-ghost btn-circle btn-sm" :class="{
                                                     'btn-active': index === currentCardIndex
@@ -75,6 +75,25 @@
                 this.setKeyCommands();
             },
             methods: {
+                initializeTypedEffect() {
+                    // Destroy any existing Typed instance
+                    if (this.typed) {
+                        this.typed.destroy();
+                    }
+
+                    // Get the current question text
+                    const questionText = this.cards[this.currentCardIndex].question;
+
+                    // Initialize a new Typed.js instance
+                    this.typed = new Typed(this.$refs.typedQuestion, {
+                        strings: [questionText],
+                        typeSpeed: 50, // Adjust typing speed as needed
+                        showCursor: false,
+                        onComplete: () => {
+                            // Optional: do something when typing is complete
+                        }
+                    });
+                },
                 touchStart(event) {
                     // Capture the X coordinate where the touch started
                     this.touchStartX = event.changedTouches[0].screenX;
@@ -146,6 +165,11 @@
                         this.loadJSON(this.batchSize, previousBatchStartIndex);
                     }
                     this.visibleCardIndex = -1;
+
+                    // Initialize the typing effect for the previous question
+                    this.$nextTick(() => {
+                        this.initializeTypedEffect();
+                    });
                 },
                 nextCard() {
                     if (this.currentCardIndex < this.cards.length - 1) {
@@ -155,6 +179,11 @@
                         this.loadJSON(this.batchSize, newStartIndex);
                     }
                     this.visibleCardIndex = -1;
+
+                    // Initialize the typing effect for the next question
+                    this.$nextTick(() => {
+                        this.initializeTypedEffect();
+                    });
                 },
 
 
@@ -185,6 +214,11 @@
                     this.currentBatchStartIndex = startIndex; // Update the current batch start index
                     this.currentCardIndex = 0; // Start at the first question of the new batch
                     this.isLoading = false;
+
+                    // Initialize the typing effect for the first question
+                    this.$nextTick(() => {
+                        this.initializeTypedEffect();
+                    });
                 },
                 shuffleArray(array) {
                     for (let i = array.length - 1; i > 0; i--) {
