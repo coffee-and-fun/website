@@ -59,6 +59,10 @@ self.__precacheManifest = [
     "revision": "797b5f271c51677f741f2914a5c1bda0"
   },
   {
+    "url": "assets/images/apps/markdown.png",
+    "revision": "1d281aa11d540d3addda1e51488988a6"
+  },
+  {
     "url": "assets/images/apps/netflix.png",
     "revision": "ae62168382182afd8fe1b46a86780886"
   },
@@ -188,31 +192,31 @@ self.__precacheManifest = [
   },
   {
     "url": "flash-cards/index.html",
-    "revision": "58f900b3132d11b71a0348eeb75bd97c"
+    "revision": "28ef3d3c97c3e6d6786db3452556ce05"
   },
   {
     "url": "forever-advert/index.html",
-    "revision": "ffe3c3ba805be3834f9856ab090586c1"
+    "revision": "e3498b28ab42f285f47ddd888ca7fc6a"
   },
   {
     "url": "index.html",
-    "revision": "ebb717976d76eeae0bd75535e209771d"
+    "revision": "e561195148f508d22917f5077ae6c640"
   },
   {
     "url": "instant-incognito/index.html",
-    "revision": "08c8ceac4ddf3aed7bb3e1a55fdd1b54"
+    "revision": "bec6fa403e2a5e92647c97c32637efa9"
   },
   {
     "url": "privacy/index.html",
-    "revision": "322b9e27162855197abde14517543825"
+    "revision": "db645c7596b43d5f4acc90b736939cbd"
   },
   {
     "url": "procrastinot/index.html",
-    "revision": "51946bc501568b0b473ca780c1f09dfb"
+    "revision": "aaef9edf014aa5905279e1c7d74c7b2c"
   },
   {
     "url": "reviews/index.html",
-    "revision": "2f8c7da539bd53b3adac35e80a78a8aa"
+    "revision": "275a5eed2b3058eddf8e74c0a14a5cdd"
   },
   {
     "url": "stop-wasting/index.html",
@@ -220,7 +224,7 @@ self.__precacheManifest = [
   },
   {
     "url": "trivia/index.html",
-    "revision": "28a4135ed63b29c86e9dd319e076c5f8"
+    "revision": "d0603f82feec5e1ba2142dacd5c01a6e"
   }
 ].concat(self.__precacheManifest || []);
 workbox.precaching.precacheAndRoute(self.__precacheManifest, {});
