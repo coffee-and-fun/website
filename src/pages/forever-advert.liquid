@@ -52,7 +52,6 @@
   <script src="https://unpkg.com/vue@3"></script>
   <script src="https://unpkg.com/hotkeys-js/dist/hotkeys.min.js"></script>
 
-  <script src="https://cdn.jsdelivr.net/npm/js-confetti@latest/dist/js-confetti.browser.js"></script>
 
   <script>
     if ('serviceWorker' in navigator) {
@@ -193,7 +192,7 @@
       data() {
         return {
           scrollInterval: null,
-          cannon: new JSConfetti()
+       
         }
       },
       computed: {
@@ -202,13 +201,10 @@
       mounted() {
 
         this.startScroll(); // Ensure scrolling starts after the component is fully mounted
-        this.shoot();
+
       },
       methods: {
-        shoot() {
-          // Edit given parameters
-          this.cannon.addConfetti()
-        },
+  
         startScroll() {
           const container = this.$refs.scrollContainer;
 
