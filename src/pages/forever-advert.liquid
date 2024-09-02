@@ -110,7 +110,7 @@
 
           <!-- If there are items in the list, use a grid layout -->
           {% if sorted_items.size > 0 %}
-          <div class="grid grid-cols-1 sm:grid-cols-3 gap-8 text-center text-xl">
+          <div class="grid grid-cols-1 sm:grid-cols-3 gap-8 text-center text-xl mx-auto max-w-4xl ">
             {% for item in sorted_items %}
             <a href="{{ item.link }}" title="Link to {{ item.text }}" target="_blank" class="link link-hover">
               {% assign position = forloop.index0 %}
