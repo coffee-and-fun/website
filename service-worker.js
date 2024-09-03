@@ -44,7 +44,7 @@ self.__precacheManifest = [
   },
   {
     "url": "assets/images/apps/confetti.png",
-    "revision": "0a5b78e18a0eb0e30a197d7dd0166c41"
+    "revision": "c2e1c747208d90afb36c0761721ff323"
   },
   {
     "url": "assets/images/apps/flash.png",
