@@ -14,3 +14,78 @@
 
     gtag('config', 'G-RC4JGW9PVN');
 </script>
+
+
+
+<script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.3/dist/confetti.browser.min.js"></script>
+
+
+<script>
+
+// Function to launch the confetti animation
+function launchConfetti() {
+  const totalParticles = 300; // Total number of confetti particles
+
+  // Default configuration for the confetti
+  const confettiDefaults = {
+    angle: 75, // Initial angle for the confetti
+    zIndex: 2147483647, // Ensure confetti is displayed on top of other elements
+  };
+
+  // Function to trigger the confetti animation with different configurations
+  function triggerConfetti(particleProportion, options) {
+    // Launch confetti from the left side
+    confetti({
+      ...confettiDefaults,
+      ...options,
+      origin: { y: 1, x: 0 }, // Confetti originates from the bottom left
+      angle: 30, // Angle at which confetti is launched
+      particleCount: Math.floor(totalParticles * particleProportion), // Number of particles
+    });
+
+    // Launch confetti from the right side
+    confetti({
+      ...confettiDefaults,
+      ...options,
+      origin: { y: 1, x: 1 }, // Confetti originates from the bottom right
+      angle: 150, // Angle at which confetti is launched
+      particleCount: Math.floor(totalParticles * particleProportion), // Number of particles
+    });
+
+    // Launch confetti from the center
+    confetti({
+      ...confettiDefaults,
+      ...options,
+      origin: { y: 1, x: 0.5 }, // Confetti originates from the bottom center
+      particleCount: Math.floor(totalParticles * particleProportion), // Number of particles
+    });
+  }
+
+  // Different configurations for the confetti bursts
+  triggerConfetti(0.3, {
+    spread: 30, // How much the confetti spreads out
+    startVelocity: 80, // Initial velocity of the confetti
+  });
+
+  triggerConfetti(0.25, {
+    spread: 50, // Spread is wider here
+  });
+
+  triggerConfetti(0.4, {
+    spread: 90, // Even wider spread
+    decay: 0.89, // How quickly the confetti slows down
+  });
+
+  triggerConfetti(0.15, {
+    spread: 110, // Very wide spread
+    startVelocity: 40, // Slower initial velocity
+    decay: 0.90, // Slightly slower decay
+  });
+
+  triggerConfetti(0.1, {
+    spread: 130, // Maximum spread
+    startVelocity: 70, // Moderate initial velocity
+  });
+}
+
+</script>
