@@ -39,6 +39,10 @@ self.__precacheManifest = [
     "revision": "8f3c202b3bbe9e62d12e8d65588d1ae0"
   },
   {
+    "url": "assets/images/apps/coco.png",
+    "revision": "4cc2701428984e2bcadc807459e8e645"
+  },
+  {
     "url": "assets/images/apps/coffee.png",
     "revision": "0caaa556480515325aa25b8b470398a9"
   },
@@ -105,6 +109,10 @@ self.__precacheManifest = [
   {
     "url": "assets/images/chrome.png",
     "revision": "16b9ac116a44042bbecdb9db475fbf3a"
+  },
+  {
+    "url": "assets/images/coco.png",
+    "revision": "b5adb2e066959860b42ce6250e133835"
   },
   {
     "url": "assets/images/coffee-and-fun-logo-dark.png",
@@ -192,35 +200,35 @@ self.__precacheManifest = [
   },
   {
     "url": "assets/js/main.css",
-    "revision": "21dc77c0cb9ffc2f6ce3d1bc5f07b4f1"
+    "revision": "c2e5db0a6c8a7d816afe59c80f821d7e"
   },
   {
     "url": "flash-cards/index.html",
-    "revision": "27c96f1f55a217c379c6934dd382b6a4"
+    "revision": "070178bb4807b282f0c41a368b9b9679"
   },
   {
     "url": "forever-advert/index.html",
-    "revision": "b40d1bb57248c7363aa7027ea9b2b83a"
+    "revision": "da8f70ba8261f96fe7d707b963b3e96c"
   },
   {
     "url": "index.html",
-    "revision": "c39a48a3afbcae1247836f03c03ace2c"
+    "revision": "f9bff38ae89a0a1b70d3d3b604ee0ff2"
   },
   {
     "url": "instant-incognito/index.html",
-    "revision": "9c579356f9af4d29fb5e37308f37dd51"
+    "revision": "e59c3093f473e2b4633c217bab827cb3"
   },
   {
     "url": "privacy/index.html",
-    "revision": "7b1e2539b819ea4138f2cea4d0cd6493"
+    "revision": "07f032f4ae53acb4d96fc72a77075d61"
   },
   {
     "url": "procrastinot/index.html",
-    "revision": "f1e925657dae9c819f5f0360fea249f8"
+    "revision": "8e54133c51c4de88942279578766ed7c"
   },
   {
     "url": "reviews/index.html",
-    "revision": "b296d846d50ee7a54329fc10b86b658c"
+    "revision": "3e82ba3e950779d13c6878b169ac4860"
   },
   {
     "url": "stop-wasting/index.html",
@@ -228,7 +236,7 @@ self.__precacheManifest = [
   },
   {
     "url": "trivia/index.html",
-    "revision": "4590e2ee424f6227e06bd87103f6ca6a"
+    "revision": "57faafcf59d5b2affcc16e385c57aaad"
   }
 ].concat(self.__precacheManifest || []);
 workbox.precaching.precacheAndRoute(self.__precacheManifest, {});
