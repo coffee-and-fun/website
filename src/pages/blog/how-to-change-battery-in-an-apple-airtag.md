@@ -41,11 +41,11 @@ Start by holding the AirTag in both hands, with the metal side facing you. Press
 *Here’s a picture of what it looks like after you twist off the back.*
 
 <img
-                src="text"
-                alt="test"
-                class="aspect-square rounded-xl mb-10"
-                title="test"
-              />
+    src="/assets/images/blog/airtag/1.webp"
+    alt="TThe AirTag with a new CR2032 battery inserted into the battery compartment, next to the metal cover that has been removed."
+    class="aspect-square rounded-xl mb-10"
+    title="The AirTag with a new CR2032 battery inserted into the battery compartment, next to the metal cover that has been removed."
+/>
 
 ### 2. Remove the Old Battery
 Once the back is off, you’ll see the battery. Just lift it out with your fingers. It should come out without any trouble.
@@ -53,11 +53,11 @@ Once the back is off, you’ll see the battery. Just lift it out with your finge
 *Here’s a shot of the battery being taken out.*
 
 <img
-                src="text"
-                alt="test"
-                class="aspect-square rounded-xl mb-10"
-                title="test"
-              />
+    src="/assets/images/blog/airtag/2.webp"
+    alt="The AirTag's components laid out on a brown surface, including the metal back cover, the removed CR2032 battery, and the AirTag's plastic casing."
+    class="aspect-square rounded-xl mb-10"
+    title="The AirTag's components laid out on a brown surface, including the metal back cover, the removed CR2032 battery, and the AirTag's plastic casing."
+/>
 
 ### 3. Insert the New Battery
 Grab your new CR2032 battery and pop it into the AirTag. Make sure the positive side (the one with the + symbol) is facing up. It should sit right in place.
@@ -65,11 +65,11 @@ Grab your new CR2032 battery and pop it into the AirTag. Make sure the positive 
 *Check out the new battery in the AirTag here.*
 
 <img
-                src="text"
-                alt="test"
-                class="aspect-square rounded-xl mb-10"
-                title="test"
-              />
+    src="/assets/images/blog/airtag/3.webp"
+    alt="The back of an AirTag after the metal cover has been removed, revealing a CR2032 lithium battery still inside the AirTag's compartment."
+    class="aspect-square rounded-xl mb-10"
+    title="The back of an AirTag after the metal cover has been removed, revealing a CR2032 lithium battery still inside the AirTag's compartment."
+/>
 
 ### 4. Close It Up
 Now, place the metal back over the AirTag and twist it clockwise to secure it. You should hear a little sound from the AirTag, letting you know that the battery is in and working.
@@ -77,11 +77,11 @@ Now, place the metal back over the AirTag and twist it clockwise to secure it. Y
 *And here’s the final look, all closed up and ready to go.*
 
 <img
-                src="text"
-                alt="test"
-                class="aspect-square rounded-xl mb-10"
-                title="test"
-              />
+    src="/assets/images/blog/airtag/4.webp"
+    alt="A close-up view of an intact AirTag, with the white plastic front facing up, placed on a brown surface."
+    class="aspect-square rounded-xl mb-10"
+    title="A close-up view of an intact AirTag, with the white plastic front facing up, placed on a brown surface."
+/>
 
 That’s it! Your AirTag is now refreshed and ready to keep track of your things again. If you get any more low battery warnings down the road, just follow these same steps to swap it out.
 
