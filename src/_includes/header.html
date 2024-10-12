@@ -5,6 +5,7 @@
 {% assign showInstantApp = showInstantApp | default: false %}
 {% assign showProcrastinot = showProcrastinot | default: false %}
 {% assign showCannon = showCannon | default: false %}
+{% assign showBlog = showBlog | default: false %}
 
 
 <header class="navbar brand-color-background">
@@ -118,8 +119,23 @@
 
         {% endif %}
 
+
+        {% if showBlog %}
+        <a 
+            class="btn btn-ghost btn-outline btn-sm mx-4"  
+            href="/blog/"
+            title="Visit Coffee & Fun LLC Blog" 
+            aria-label="Visit Coffee & Fun LLC Blog" 
+            aria-controls="Visit Coffee & Fun LLC Blog" 
+            role="menuitem">
+        
+             Blog
+    </a>
+
+        {% endif %}
+
         <button 
-            class="btn btn-ghost btn-circle" 
+            class="btn btn-ghost btn-circle ml-2" 
             onclick="my_modal_site_menu.showModal()"
             title="Open the contact support form" 
             aria-label="Open the contact support form"

@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html class="brand-color-background scroll-smooth antialiased" lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Coffee & Fun Blog - Research, Announcements, and Guides</title>
+    <meta name="description"
+        content="Discover the latest updates from Coffee & Fun LLC products, guides, announcements on our official blog." />
+    <meta name="author" content="Coffee & Fun LLC" />
+    <meta name="robots" content="index, follow" />
+    <meta name="rating" content="safe for kids" />
+
+    <link rel="icon" href="/assets/images/favicon.png" />
+
+    <meta name="title" content="Coffee & Fun Blog - Research, Announcements, and Guides" />
+
+    <!-- Open Graph Meta Tags -->
+    <meta property="og:title" content="Coffee & Fun Blog - Research, Announcements, and Guides" />
+    <meta property="og:site_name" content="Coffee & Fun" />
+    <meta property="og:url" content="https://www.coffeeandfun.com/blog/" />
+    <meta property="og:description"
+        content="Discover the latest updates from Coffee & Fun LLC products, guides, announcements on our official blog." />
+    <meta property="og:type" content="website" />
+    <meta property="og:image" content="/assets/images/social-icon.png" />
+
+    <!-- Twitter Meta Tags -->
+    <meta property="twitter:domain" content="coffeeandfun.com" />
+    <meta property="twitter:url" content="https://www.coffeeandfun.com/blog/" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Coffee & Fun Blog - Research, Announcements, and Guides" />
+    <meta name="twitter:site" content="@bycoffeeandfun" />
+    <meta name="twitter:description"
+        content="Discover the latest updates from Coffee & Fun LLC products, guides, announcements on our official blog." />
+    <meta name="twitter:image" content="https://www.coffeeandfun.com/assets/images/social-icon.png" />
+    <meta name="twitter:image:alt" content=" Coffee & Fun" />
+
+    <script type="application/ld+json">
+			{
+				"@context": "http://schema.org/",
+				"@type": "WebSite",
+				"url": "https://www.coffeeandfun.com",
+				"potentialAction": {
+					"@type": "SearchAction",
+					"target": "{search_term_string}",
+					"query-input": "required name=search_term_string"
+				}
+			}
+		</script>
+
+    {% bundledCss %}
+    <script>
+        if ('serviceWorker' in navigator) {
+            navigator.serviceWorker.register('/service-worker.js');
+        }
+    </script>
+
+
+    {% include scripts.html %}
+</head>
+
+<body>
+
+    {% assign showCannon = true %}
+{% assign showBlog = true %}
+    {% assign showBlog = true %}
+    {% include header.html %}
+
+
+	<main id="main-content" class="mx-auto max-w-7xl">
+		<div class="mb-16 mt-16 sm:mb-24 sm:mt-24 sm:px-8">
+			<div class="mx-auto max-w-7xl lg:px-8">
+				<div class="relative px-12 sm:px-8 lg:px-12">
+					<div class="mx-auto max-w-7xl">
+						<div class="max-w-xl text-base  mx-auto">
+							<div class="mx-auto mb-4 mt-4">
+                                <a href="/" title="Go Back to Coffee & Fun's Homepage">
+								<img alt="Logo of Coffee & Fun LLC featuring a stylized cup with a coffee bean pattern, representing the company's focus on creativity and innovation in software development."
+									src="/assets/images/coffee-and-fun-logo-dark.png" width="180" height="180"
+									decoding="async" data-nimg="future" loading="lazy"
+									class="aspect-square mx-auto block" />
+                                    </a>
+							</div>
+
+						</div>
+
+			
+
+						<div class="max-w-8xl text-base  mx-auto" id="apps">
+
+
+							<div class="card my-8 ">
+								<div class="my-8">
+						
+									<div
+										class="not-prose grid grid-cols-1 gap-x-8 gap-y-8 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 xl:grid-cols-3">
+										{% for post in blog.posts %}
+
+										<a class="card card-compact bg-base-100 transition-all duration-200 hover:-translate-y-1  shadow-md"
+											href="{{ post.link }}">
+											<figure class="px-4 pt-4">
+												<img loading="lazy" src="{{ post.image }}"
+													class="rounded-lg border border-base-content border-opacity-5 bg-base-300"
+													alt="{{ post.name }}" />
+											</figure>
+											<div class="card-body">
+												<h2 class="card-title">{{ post.name }}</h2>
+												<p class="text-base">{{ post.description }}</p>
+
+												<div class="flex flex-wrap gap-2 mt-6 mb-6">
+													{% for platform in post.platform %}
+													<div class="badge badge-neutral  gap-2   
+
+													{% if platform == 'Apple' %}
+														badge-info
+													{% elsif platform == 'Guide' %}
+														badge-error
+													{% elsif platform == 'Announcement' %}
+														badge-accent
+													{% elsif platform == 'Release' %}
+														badge-secondary
+													{% elsif platform == 'Product' %}
+														badge-warning
+													{% else %}
+														badge-neutral
+													{% endif %}
+													"> {{ platform }}</div>
+
+													{% endfor %}
+												</div>
+											</div>
+										</a>
+
+										{% endfor %}
+
+
+
+										
+
+									</div>
+								</div>
+							</div>
+
+						</div>
+
+
+
+
+
+
+
+
+
+					</div>
+				</div>
+			</div>
+		</div>
+		</div>
+
+	</main>
+
+
+    {% include modals.liquid %}
+
+
+    {% include footer.html %}
+
+
+
+</body>
+
+</html>

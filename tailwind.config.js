@@ -1,6 +1,6 @@
 module.exports = {
 	enabled: true,
-	darkMode: 'class',
+	darkMode: false,
 	content: [
 		'./src/**/**/*.html',
 		'./src/**/**/*.md',
