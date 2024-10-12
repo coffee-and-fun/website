@@ -111,6 +111,22 @@ self.__precacheManifest = [
     "revision": "f0edb91afcfae7033c139c65c54aaf3e"
   },
   {
+    "url": "assets/images/blog/airtag/1.webp",
+    "revision": "8a22eaf796a7b2b5bebe235250ee8d3a"
+  },
+  {
+    "url": "assets/images/blog/airtag/2.webp",
+    "revision": "f5e324303f6bc73d35796edc6839cf3b"
+  },
+  {
+    "url": "assets/images/blog/airtag/3.webp",
+    "revision": "de0d803ce9dbe5c50a69ec9eb8e3c762"
+  },
+  {
+    "url": "assets/images/blog/airtag/4.webp",
+    "revision": "6cbfab9464797b034cd756870deac5ff"
+  },
+  {
     "url": "assets/images/chrome.png",
     "revision": "16b9ac116a44042bbecdb9db475fbf3a"
   },
@@ -208,7 +224,7 @@ self.__precacheManifest = [
   },
   {
     "url": "blog/how-to-change-battery-in-an-apple-airtag/index.html",
-    "revision": "087e100b5c732ad98af22f6ec125487b"
+    "revision": "3c83c5f61ecf5bf4a9d5fb6d9666e374"
   },
   {
     "url": "blog/index.html",
