@@ -107,6 +107,10 @@ self.__precacheManifest = [
     "revision": "05db40e5180db1f3eb3d5fcbe8f60234"
   },
   {
+    "url": "assets/images/blog/airtag.png",
+    "revision": "f0edb91afcfae7033c139c65c54aaf3e"
+  },
+  {
     "url": "assets/images/chrome.png",
     "revision": "16b9ac116a44042bbecdb9db475fbf3a"
   },
@@ -200,43 +204,51 @@ self.__precacheManifest = [
   },
   {
     "url": "assets/js/main.css",
-    "revision": "c2e5db0a6c8a7d816afe59c80f821d7e"
+    "revision": "6e38176e2f04743ca1891becadc37e68"
+  },
+  {
+    "url": "blog/how-to-change-battery-in-an-apple-airtag/index.html",
+    "revision": "087e100b5c732ad98af22f6ec125487b"
+  },
+  {
+    "url": "blog/index.html",
+    "revision": "65266c84dd24664312c73e50c6763fd9"
   },
   {
     "url": "flash-cards/index.html",
-    "revision": "070178bb4807b282f0c41a368b9b9679"
+    "revision": "55b6d26b4bc749d1852760afe6759384"
   },
   {
     "url": "forever-advert/index.html",
-    "revision": "da8f70ba8261f96fe7d707b963b3e96c"
+    "revision": "c216b92b2f15ef4c80b5569e5e3b83e2"
   },
   {
     "url": "index.html",
-    "revision": "f9bff38ae89a0a1b70d3d3b604ee0ff2"
+    "revision": "c2219f117c75b6313b6401f2c98fe3ae"
   },
   {
     "url": "instant-incognito/index.html",
-    "revision": "e59c3093f473e2b4633c217bab827cb3"
+    "revision": "a49f4e58d1db44ba7ebe7dbf77670b3a"
   },
   {
     "url": "privacy/index.html",
-    "revision": "07f032f4ae53acb4d96fc72a77075d61"
+    "revision": "f1432e9d9f486cf8a910ac93e7c93431"
   },
   {
     "url": "procrastinot/index.html",
-    "revision": "8e54133c51c4de88942279578766ed7c"
+    "revision": "416fe6c50c2893e4443f958990424785"
   },
   {
     "url": "reviews/index.html",
-    "revision": "3e82ba3e950779d13c6878b169ac4860"
+    "revision": "d195d7c790bd0f6a8d9a734de8192a58"
   },
   {
     "url": "stop-wasting/index.html",
-    "revision": "6fb18c64675e3ccc253840365dbb1c06"
+    "revision": "24be9ee1f4477c44da3df5c3066bd809"
   },
   {
     "url": "trivia/index.html",
-    "revision": "57faafcf59d5b2affcc16e385c57aaad"
+    "revision": "1fad30627aee3f96f20fdd5562b41fbd"
   }
 ].concat(self.__precacheManifest || []);
 workbox.precaching.precacheAndRoute(self.__precacheManifest, {});
