@@ -5,7 +5,7 @@
 {% assign showInstantApp = showInstantApp | default: false %}
 {% assign showProcrastinot = showProcrastinot | default: false %}
 {% assign showCannon = showCannon | default: false %}
-{% assign showBlog = showBlog | default: false %}
+{% assign showMiddleBadge = showMiddleBadge | default: false %}
 
 
 <header class="navbar brand-color-background">
@@ -29,6 +29,20 @@
     </div>
 
     <div class="navbar-center">
+
+
+        {% if showMiddleBadge %}
+    
+
+        <a href="/" class="btn btn-ghost gap-1 px-2 md:gap-2">
+            <img alt="Logo of Coffee & Fun LLC featuring a stylized cup with a coffee bean pattern, representing the company's focus on creativity and innovation in software development."
+            src="/assets/images/favicon.png" class="h-10 w-10 aspect-square" decoding="async" data-nimg="future"
+                loading="lazy" />
+            <span class="sr-only font-title text-base-content text-lg md:text-2xl">Coffee & Fun</span>
+        </a>
+        {% endif %}
+
+
         {% if showTriviaApp %}
         <div class="tooltip tooltip-open tooltip-bottom" data-tip="I'm Coco and I love Trivia! ">
             <a href="/" class="btn btn-ghost gap-1 px-2 md:gap-2">
@@ -120,19 +134,7 @@
         {% endif %}
 
 
-        {% if showBlog %}
-        <a 
-            class="btn btn-ghost btn-outline btn-sm mx-4"  
-            href="/blog/"
-            title="Visit Coffee & Fun LLC Blog" 
-            aria-label="Visit Coffee & Fun LLC Blog" 
-            aria-controls="Visit Coffee & Fun LLC Blog" 
-            role="menuitem">
-        
-             Blog
-    </a>
-
-        {% endif %}
+      
 
         <button 
             class="btn btn-ghost btn-circle ml-2" 
