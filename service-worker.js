@@ -224,7 +224,7 @@ self.__precacheManifest = [
   },
   {
     "url": "blog/how-to-change-battery-in-an-apple-airtag/index.html",
-    "revision": "3c83c5f61ecf5bf4a9d5fb6d9666e374"
+    "revision": "04fb90509971d75b5652006c296d7904"
   },
   {
     "url": "blog/index.html",
