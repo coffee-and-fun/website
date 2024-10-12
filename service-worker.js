@@ -224,39 +224,39 @@ self.__precacheManifest = [
   },
   {
     "url": "blog/how-to-change-battery-in-an-apple-airtag/index.html",
-    "revision": "85a705c4b59424acf32b216f4f934ccc"
+    "revision": "f1ad6559a26b40242bcc699371c59c70"
   },
   {
     "url": "blog/index.html",
-    "revision": "9f97372d7fe9b1fbf8d11a27b2d1b5ac"
+    "revision": "e917166c0f9922d2c4f1c500ee156694"
   },
   {
     "url": "flash-cards/index.html",
-    "revision": "08e51202c3d746b0e42a20aac224f81f"
+    "revision": "d57c272a1ebc423f367721ec4befd336"
   },
   {
     "url": "forever-advert/index.html",
-    "revision": "10430217445e9bbca2df5aaa99fa1bb0"
+    "revision": "859a7d0144d059768b9dc08665570005"
   },
   {
     "url": "index.html",
-    "revision": "6381c4304dd9dca3696298e143eec651"
+    "revision": "2e1247bc8cb514a0a74b0fde86662841"
   },
   {
     "url": "instant-incognito/index.html",
-    "revision": "ed90fb35353442ad5ab9c88b975f2d6b"
+    "revision": "175c963e1b6636d469d8967d3ae759e7"
   },
   {
     "url": "privacy/index.html",
-    "revision": "563ed0c3297cff4033cfab32efb58883"
+    "revision": "8222833f3caa8bb3de07af61205a61c5"
   },
   {
     "url": "procrastinot/index.html",
-    "revision": "c7c8bb466ab82fcc5e4db7c171ace93f"
+    "revision": "7f009fdf0dbe1a7a4a381146ae2e1307"
   },
   {
     "url": "reviews/index.html",
-    "revision": "0aa810dab518882cf800460a75bfbccc"
+    "revision": "3391cd88e08139c01c62dc2e29d1ba73"
   },
   {
     "url": "stop-wasting/index.html",
@@ -264,7 +264,7 @@ self.__precacheManifest = [
   },
   {
     "url": "trivia/index.html",
-    "revision": "5f4ba3267248fdb2ab3e0cb7e39c18f4"
+    "revision": "db97b6d31621cae13672e6df02fb65fe"
   }
 ].concat(self.__precacheManifest || []);
 workbox.precaching.precacheAndRoute(self.__precacheManifest, {});
