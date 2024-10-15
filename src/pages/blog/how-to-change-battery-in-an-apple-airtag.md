@@ -18,7 +18,7 @@ img: /assets/images/blog/airtag.png
 date: 2024-10-11T00:00:00.000Z
 time: 5 min
 tags:
-  - apple
+  - social
   - guide
 ---
 
