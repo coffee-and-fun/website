@@ -232,11 +232,11 @@ self.__precacheManifest = [
   },
   {
     "url": "blog/how-to-delete-or-deactivate-your-facebook-account/index.html",
-    "revision": "4b9f56bb67a81f90bf634e952e4b1c42"
+    "revision": "b38704fc1eb9bf8dd7582e8ec52b8701"
   },
   {
     "url": "blog/index.html",
-    "revision": "e917166c0f9922d2c4f1c500ee156694"
+    "revision": "87a7e25e042448d299efb45f1f31e251"
   },
   {
     "url": "flash-cards/index.html",
