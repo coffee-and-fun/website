@@ -127,6 +127,10 @@ self.__precacheManifest = [
     "revision": "6cbfab9464797b034cd756870deac5ff"
   },
   {
+    "url": "assets/images/blog/facebook.png",
+    "revision": "c689363606cd5523238ee72d83b7ac60"
+  },
+  {
     "url": "assets/images/chrome.png",
     "revision": "16b9ac116a44042bbecdb9db475fbf3a"
   },
@@ -225,6 +229,10 @@ self.__precacheManifest = [
   {
     "url": "blog/how-to-change-battery-in-an-apple-airtag/index.html",
     "revision": "f1ad6559a26b40242bcc699371c59c70"
+  },
+  {
+    "url": "blog/how-to-delete-or-deactivate-your-facebook-account/index.html",
+    "revision": "4b9f56bb67a81f90bf634e952e4b1c42"
   },
   {
     "url": "blog/index.html",
