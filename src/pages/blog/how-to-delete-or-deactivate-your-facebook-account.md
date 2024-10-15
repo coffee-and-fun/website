@@ -5,7 +5,7 @@ footer: true
 header: true
 layout: templates/post.liquid
 title: How to Delete or Deactivate Your Facebook Account 
-description: Learn how to easily delete or deactivate your Facebook account with this simple, step-by-step guide. Whether you're taking a break or leaving for good, we’ve got you covered!"
+description: Learn how to easily delete or deactivate your Facebook account with this simple, step-by-step guide. Whether you're taking a break or leaving for good, we’ve got you covered!
 keywords: "delete Facebook account, deactivate Facebook account, how to delete Facebook, how to deactivate Facebook, Facebook account removal, Facebook deactivation guide, Facebook delete steps, delete Facebook permanently, deactivate Facebook temporarily, Facebook account management"
 url: blog/how-to-delete-or-deactivate-your-facebook-account/
 isBlog: true
