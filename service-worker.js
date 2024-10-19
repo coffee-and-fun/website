@@ -131,6 +131,10 @@ self.__precacheManifest = [
     "revision": "c689363606cd5523238ee72d83b7ac60"
   },
   {
+    "url": "assets/images/blog/switch-battery.png",
+    "revision": "82a1ca8978651a0a7016a6f3d6528351"
+  },
+  {
     "url": "assets/images/chrome.png",
     "revision": "16b9ac116a44042bbecdb9db475fbf3a"
   },
@@ -224,7 +228,7 @@ self.__precacheManifest = [
   },
   {
     "url": "assets/js/main.css",
-    "revision": "c2be9816faccc7ec35fd06ae93fd2e45"
+    "revision": "e7a6fce1cbbe7533c5e07858ba49fa4d"
   },
   {
     "url": "blog/how-to-change-battery-in-an-apple-airtag/index.html",
@@ -235,8 +239,12 @@ self.__precacheManifest = [
     "revision": "ffd15940e57d26fd40a519314f2ce3c3"
   },
   {
+    "url": "blog/how-to-replace-the-battery-in-your-nintendo-switch/index.html",
+    "revision": "80e7fc7a232038050cdcd27f528df502"
+  },
+  {
     "url": "blog/index.html",
-    "revision": "f85a6928275eceaed024f43f69392dae"
+    "revision": "c38c2e4cded70fb2d231ab8a10c97f91"
   },
   {
     "url": "flash-cards/index.html",
