@@ -71,6 +71,10 @@ self.__precacheManifest = [
     "revision": "1d281aa11d540d3addda1e51488988a6"
   },
   {
+    "url": "assets/images/apps/maths.png",
+    "revision": "6fc0a8b93aa18182585c98290b6e48dd"
+  },
+  {
     "url": "assets/images/apps/netflix.png",
     "revision": "ae62168382182afd8fe1b46a86780886"
   },
@@ -232,47 +236,47 @@ self.__precacheManifest = [
   },
   {
     "url": "blog/how-to-change-battery-in-an-apple-airtag/index.html",
-    "revision": "d6c5723fc11c2b97f3f7b5d011e2ab9b"
+    "revision": "c976a808a345822f487c7ae1e37de89f"
   },
   {
     "url": "blog/how-to-delete-or-deactivate-your-facebook-account/index.html",
-    "revision": "ffd15940e57d26fd40a519314f2ce3c3"
+    "revision": "6e3e9304194c295eccb6ded916676cb5"
   },
   {
     "url": "blog/how-to-replace-the-battery-in-your-nintendo-switch/index.html",
-    "revision": "80e7fc7a232038050cdcd27f528df502"
+    "revision": "19183a16fb64188fb2f71aa0fce22f54"
   },
   {
     "url": "blog/index.html",
-    "revision": "c38c2e4cded70fb2d231ab8a10c97f91"
+    "revision": "5122e470fccb34feed2d02cdee9b4e7d"
   },
   {
     "url": "flash-cards/index.html",
-    "revision": "290decf0e8c927d92bc8d3639a6e0872"
+    "revision": "5ee2b330cc85fc5ecdfad1efc8cc0b40"
   },
   {
     "url": "forever-advert/index.html",
-    "revision": "9743e14dc93078cd9dd9a7728f2a5f97"
+    "revision": "caf7b6dedaa9ced0eb976eb1b41dc676"
   },
   {
     "url": "index.html",
-    "revision": "16727fb58b551fbdf80ec2d85c71f756"
+    "revision": "898051f6a8cc822c97960e25f1f64b6c"
   },
   {
     "url": "instant-incognito/index.html",
-    "revision": "8fef34b48ab4f11cdbcda608c9252f23"
+    "revision": "ddaa800e0c1aba0146825ab8afc76fe1"
   },
   {
     "url": "privacy/index.html",
-    "revision": "23f5edebbe2b1bcb239e1b695bb209a4"
+    "revision": "c29b590e513966f9b26648d660a73fa1"
   },
   {
     "url": "procrastinot/index.html",
-    "revision": "6ee21b98fe9fc9f0d677e38ef8321685"
+    "revision": "1517b4be5238dcbd925b76fcce2d5e18"
   },
   {
     "url": "reviews/index.html",
-    "revision": "25b35d9538a4b81f7333917e091e6f7c"
+    "revision": "11ac5dc76bc04a8dbefcd57466fa311e"
   },
   {
     "url": "stop-wasting/index.html",
@@ -280,7 +284,7 @@ self.__precacheManifest = [
   },
   {
     "url": "trivia/index.html",
-    "revision": "7f3f186a6f615ddec77c1410098d25fe"
+    "revision": "ad8ac3ece264863c70f1bdcfd63a25de"
   }
 ].concat(self.__precacheManifest || []);
 workbox.precaching.precacheAndRoute(self.__precacheManifest, {});
