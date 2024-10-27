@@ -86,14 +86,24 @@
 </head>
 
 <body>
-    {% assign showDonation = true %}
-    {% assign showTriviaApp = true %}
+    {% assign showDonation = false %}
     {% assign showKeyboardModal = true %}
+    {%assign showMiddleBadge = true %}
     {% include header.html %}
 
 
 
     <main id="main-content" class="mx-auto max-w-7xl mb-12">
+
+
+    <div class="flex flex-col items-center min-h-screen  p-6">
+        <!-- Logo -->
+
+
+      
+
+
+
         <div class="mx-auto max-w-7xl lg:px-8">
             <div class="mx-auto grid max-w-xl grid-cols-1">
                 <div class="text-base  lg:col-span-8">
@@ -101,6 +111,9 @@
 
 
                         <article class="text-base text-black mx-auto">
+
+        
+
                             <div
                                 class="card flex card-compact my-8 bg-base-100 shadow-md  w-full sm:w-96 mt-8 min-h-[500px] mx-auto">
                                 <div class="card-body flex flex-col h-full" @touchstart="touchStart"
@@ -149,39 +162,19 @@
                                 </div>
                             </div>
 
+<div class="sm:w-96 mx-auto">
+                            <button 
+                                class="mt-2 btn btn-secondary font-bold rounded-full shadow-md btn-block"
+                            
+                                v-if="isQuestionsEmpty === false"
+                                 @click="nextCard"
+                                        v-on:keyup.enter="nextCard"
+                            >
+                                NEXT
+                            </button>
 
-                            <div v-if="isQuestionsEmpty === false" class="join justify-between w-full mt-2">
-
-                                <div class="tooltip" data-tip="Previous" id="prevTooltip">
-                                    <button class="join-item btn btn-ghost btn-primary btn-circle btn-sm"
-                                        aria-label="Previous question" aria-describedby="prevTooltip" @click="prevCard"
-                                        v-on:keyup.enter="prevCard">
-                                        ◀︎
-                                    </button>
-                                </div>
-
-
-                                <div v-for="(card, index) in cards" :key="card.id">
-                                    <div class="tooltip" data-tip="Go to Question">
-                                        <button class="join-item btn btn-ghost btn-circle btn-sm" :class="{
-                                                    'btn-active': index === currentCardIndex
-                                                }" @click="goToCard(index + 1)" v-on:keyup.enter="goToCard(index + 1)"
-                                            aria-label="Go to Question" v-html="currentBatchStartIndex + index + 1">
-
-                                        </button>
-                                    </div>
-                                </div>
-
-                                <div class="tooltip" data-tip="Next" id="nextTooltip">
-                                    <button class="join-item btn btn-ghost btn-primary btn-circle btn-sm"
-                                        aria-label="Next question" aria-describedby="nextTooltip" @click="nextCard"
-                                        v-on:keyup.enter="nextCard">
-                                        ▶︎
-                                    </button>
-                                </div>
-                            </div>
-
-
+                      
+</div>
                         </article>
                     </div>
                 </div>
