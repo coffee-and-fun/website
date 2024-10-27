@@ -236,7 +236,7 @@ self.__precacheManifest = [
   },
   {
     "url": "assets/js/main.css",
-    "revision": "9517b2ee45da802ca5a7021fb1a60ba6"
+    "revision": "292327da68eae6be9714d40a64e3e15b"
   },
   {
     "url": "blog/how-to-change-battery-in-an-apple-airtag/index.html",
@@ -292,7 +292,7 @@ self.__precacheManifest = [
   },
   {
     "url": "trivia/index.html",
-    "revision": "ba41d74bdcec95bf32d6d15696e5d6c7"
+    "revision": "bc43f769e7f93b65c8b31cbe48d1cd79"
   }
 ].concat(self.__precacheManifest || []);
 workbox.precaching.precacheAndRoute(self.__precacheManifest, {});
