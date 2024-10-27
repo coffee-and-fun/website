@@ -280,7 +280,7 @@ self.__precacheManifest = [
   },
   {
     "url": "stop-wasting/index.html",
-    "revision": "24be9ee1f4477c44da3df5c3066bd809"
+    "revision": "d2719f0819a997048a6e2326b36360f6"
   },
   {
     "url": "trivia/index.html",
