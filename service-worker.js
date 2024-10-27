@@ -135,6 +135,10 @@ self.__precacheManifest = [
     "revision": "c689363606cd5523238ee72d83b7ac60"
   },
   {
+    "url": "assets/images/blog/maths-update.png",
+    "revision": "2a57290f8fdb7837d4645e324161b388"
+  },
+  {
     "url": "assets/images/blog/switch-battery.png",
     "revision": "82a1ca8978651a0a7016a6f3d6528351"
   },
@@ -232,7 +236,7 @@ self.__precacheManifest = [
   },
   {
     "url": "assets/js/main.css",
-    "revision": "e7a6fce1cbbe7533c5e07858ba49fa4d"
+    "revision": "6287333d1f93cdbc30eee76b42644f2d"
   },
   {
     "url": "blog/how-to-change-battery-in-an-apple-airtag/index.html",
@@ -248,7 +252,11 @@ self.__precacheManifest = [
   },
   {
     "url": "blog/index.html",
-    "revision": "5122e470fccb34feed2d02cdee9b4e7d"
+    "revision": "ad47dd9179c3ed5b3ccb23b1c015ed74"
+  },
+  {
+    "url": "blog/procrastinot-maths-challenge-update/index.html",
+    "revision": "06974b8b6ec6d79a01e7fde6034d67f9"
   },
   {
     "url": "flash-cards/index.html",
