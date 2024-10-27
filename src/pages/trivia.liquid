@@ -58,29 +58,35 @@
         }
     </script>
 
-    <style>
-        @keyframes ticker {
-            0% {
-                transform: translateX(100%);
-            }
-
-            100% {
-                transform: translateX(-100%);
-            }
+<style>
+    @keyframes ticker {
+        0% {
+            transform: translateX(100%);
         }
 
-        .animate-ticker {
-            animation: ticker 10s linear infinite;
+        100% {
+            transform: translateX(-100%);
         }
+    }
 
-        .animate-ticker:hover {
-            animation-play-state: paused;
-        }
+    .animate-ticker {
+        animation: ticker 10s linear infinite;
+    }
 
-        .card-body {
-            transition: transform 0.3s ease-in-out;
-        }
-    </style>
+    .animate-ticker:hover {
+        animation-play-state: paused;
+    }
+
+    .card-body {
+        transition: transform 0.3s ease-in-out;
+    }
+
+    .draggable-card {
+        transition: top 0.3s ease, left 0.3s ease;
+        position: absolute;
+    }
+</style>
+
 
 {% include scripts.html %}
 </head>
@@ -162,16 +168,41 @@
                                 </div>
                             </div>
 
-<div class="sm:w-96 mx-auto">
-                            <button 
-                                class="mt-2 btn btn-secondary font-bold rounded-full shadow-md btn-block"
+
+
+
+<div v-if="isQuestionsEmpty === false" class="join justify-between w-full mt-2">
+
+
+<div class="tooltip" data-tip="Previous" id="prevTooltip">
+                                    <button class="join-item btn btn-ghost btn-primary btn-circle btn-sm"
+                                        aria-label="Previous question" aria-describedby="prevTooltip" @click="prevCard"
+                                        v-on:keyup.enter="prevCard">
+                                        ◀︎
                             
-                                v-if="isQuestionsEmpty === false"
-                                 @click="nextCard"
-                                        v-on:keyup.enter="nextCard"
-                            >
-                                NEXT
                             </button>
+                                </div>
+
+                                  <div v-for="(card, index) in cards" :key="card.id">
+                                    <div class="tooltip" data-tip="Go to Question">
+                                        <button class="join-item btn btn-ghost btn-circle btn-sm" :class="{
+                                                    'btn-active': index === currentCardIndex
+                                                }" @click="goToCard(index + 1)" v-on:keyup.enter="goToCard(index + 1)"
+                                            aria-label="Go to Question" v-html="currentBatchStartIndex + index + 1">
+                      
+                                        </button>
+                                    </div>
+</div>
+
+                                <div class="tooltip" data-tip="Next" id="nextTooltip">
+                                    <button class="join-item btn btn-ghost btn-primary btn-circle btn-sm"
+                                        aria-label="Next question" aria-describedby="nextTooltip" @click="nextCard"
+                                        v-on:keyup.enter="nextCard">
+                                        ▶︎
+                                    </button>
+                                </div>
+                            </div>
+
 
                       
 </div>
@@ -276,6 +307,26 @@
                 goToCard(number = 0) {
                     this.currentCardIndex = number - 1;
                 },
+
+                startDrag(event) {
+                    this.isDragging = true;
+                    const { clientX, clientY } = event.type.includes('mouse') ? event : event.touches[0];
+                    this.startCoords.x = clientX - this.position.x;
+                    this.startCoords.y = clientY - this.position.y;
+                },
+                // Function to drag the card
+                drag(event) {
+                    if (!this.isDragging) return;
+                    const { clientX, clientY } = event.type.includes('mouse') ? event : event.touches[0];
+                    this.position.x = clientX - this.startCoords.x;
+                    this.position.y = clientY - this.startCoords.y;
+                },
+                // Function to end dragging with a "fall" effect
+                endDrag() {
+                    this.isDragging = false;
+                    this.position.y += 150; // Apply a "fall" effect
+                },
+
                 prevCard() {
                     if (this.currentCardIndex > 0) {
                         this.currentCardIndex--;
