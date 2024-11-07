@@ -1,7 +1,7 @@
 /******/ (() => { // webpackBootstrap
 /******/ 	var __webpack_modules__ = ({
 
-/***/ 674:
+/***/ 970:
 /***/ (function(module, __unused_webpack_exports, __webpack_require__) {
 
 /*!
@@ -87,15 +87,14 @@
 /******/ 	})();
 /******/ 	
 /************************************************************************/
-var __webpack_exports__ = {};
-// This entry need to be wrapped in an IIFE because it need to be in strict mode.
+// This entry needs to be wrapped in an IIFE because it needs to be in strict mode.
 (() => {
 "use strict";
 
 // EXTERNAL MODULE: ../node_modules/vue/dist/vue.min.js
-var vue_min = __webpack_require__(674);
+var vue_min = __webpack_require__(970);
 var vue_min_default = /*#__PURE__*/__webpack_require__.n(vue_min);
-;// CONCATENATED MODULE: ./assets/js/core/third-party.js
+;// ./assets/js/core/third-party.js
 function crisp() {
   setTimeout(function () {
     // Crisp
@@ -136,7 +135,7 @@ function loadManager() {
   };
 }
  // a list of exported variables
-;// CONCATENATED MODULE: ./assets/js/core/app.js
+;// ./assets/js/core/app.js
 
 
 function load() {
@@ -158,7 +157,7 @@ function load() {
   });
 }
  // a list of exported variables
-;// CONCATENATED MODULE: ./assets/js/index.js
+;// ./assets/js/index.js
 // css
 
 
@@ -171,7 +170,7 @@ if ('serviceWorker' in navigator) {
 }
 })();
 
-// This entry need to be wrapped in an IIFE because it need to be isolated against other entry modules.
+// This entry needs to be wrapped in an IIFE because it needs to be isolated against other entry modules.
 (() => {
 // extracted by mini-css-extract-plugin
 })();

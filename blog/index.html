@@ -77,7 +77,8 @@
 
 <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.3/dist/confetti.browser.min.js"></script>
 
-
+<link rel="stylesheet" href="https://unpkg.com/prismjs@1.20.0/themes/prism-okaidia.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
 <script>
 
 // Function to launch the confetti animation
@@ -146,6 +147,14 @@ function launchConfetti() {
   });
 }
 
+
+
+
+document.addEventListener("DOMContentLoaded", (event) => {
+        document.querySelectorAll('pre code').forEach((block) => {
+            hljs.highlightElement(block);
+        });
+    });
 </script>
 </head>
 
@@ -260,6 +269,41 @@ function launchConfetti() {
 						
 									<div
 										class="not-prose grid grid-cols-1 gap-x-8 gap-y-8 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 xl:grid-cols-3">
+										
+
+										<a class="card card-compact bg-base-100 transition-all duration-200 hover:-translate-y-1  shadow-md"
+											href="/blog/ethically-hack-woobox-voting-node-puppeteer/">
+											<figure class="px-4 pt-4">
+												<img loading="lazy" src="/assets/images/blog/woobox.png"
+													class="rounded-lg border border-base-content border-opacity-5 bg-base-300"
+													alt="How to Ethically Hack Woobox Voting with Node.js and Puppeteer" />
+											</figure>
+											<div class="card-body">
+												<h2 class="card-title">How to Ethically Hack Woobox Voting with Node.js and Puppeteer</h2>
+												<p class="text-base">Learn how to ethically automate voting on Woobox using Node.js and Puppeteer. This guide walks you through creating a voting script for educational purposes, exploring the mechanics of online voting and best practices for securing platforms.</p>
+
+												<div class="flex flex-wrap gap-2 mt-6 mb-6">
+													
+													<div class="badge badge-neutral  gap-2   
+
+													
+														badge-neutral
+													
+													"> Update</div>
+
+													
+													<div class="badge badge-neutral  gap-2   
+
+													
+														badge-error
+													
+													"> Guide</div>
+
+													
+												</div>
+											</div>
+										</a>
+
 										
 
 										<a class="card card-compact bg-base-100 transition-all duration-200 hover:-translate-y-1  shadow-md"
