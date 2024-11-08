@@ -244,19 +244,19 @@ self.__precacheManifest = [
   },
   {
     "url": "blog/ethically-hack-woobox-voting-node-puppeteer/index.html",
-    "revision": "758a48ec994486bce3734b94690efe7a"
+    "revision": "7d5e4f0f173fefba366adee5d9aca119"
   },
   {
     "url": "blog/how-to-change-battery-in-an-apple-airtag/index.html",
-    "revision": "dd9cfb04db6918fb86cf95d0a975670f"
+    "revision": "90ffa7bebcbde05c95e52a0d3c709eaa"
   },
   {
     "url": "blog/how-to-delete-or-deactivate-your-facebook-account/index.html",
-    "revision": "5093a6e65db921bfb89a9188e2b0728c"
+    "revision": "b8bd80e3149c5ee669f54d6c7acd5dc8"
   },
   {
     "url": "blog/how-to-replace-the-battery-in-your-nintendo-switch/index.html",
-    "revision": "7cd4a9530422a59dc2dd744e1f84d7a9"
+    "revision": "7f67a367f39a863ffadc28824763b8ac"
   },
   {
     "url": "blog/index.html",
@@ -264,7 +264,7 @@ self.__precacheManifest = [
   },
   {
     "url": "blog/procrastinot-maths-challenge-update/index.html",
-    "revision": "7cd7e9a6e77ab3019434f52248f60f44"
+    "revision": "f76c6191e383cb0829182ec79c4b617e"
   },
   {
     "url": "flash-cards/index.html",
