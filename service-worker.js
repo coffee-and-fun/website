@@ -264,7 +264,7 @@ self.__precacheManifest = [
   },
   {
     "url": "blog/index.html",
-    "revision": "18250eb5d7638b67656cea35cdd34800"
+    "revision": "54306d0bffd4f693cdc08cd5413218e7"
   },
   {
     "url": "blog/procrastinot-maths-challenge-update/index.html",
