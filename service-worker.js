@@ -139,6 +139,10 @@ self.__precacheManifest = [
     "revision": "2a57290f8fdb7837d4645e324161b388"
   },
   {
+    "url": "assets/images/blog/redbox.png",
+    "revision": "a02f58a011425fe91ecdcebc8e25f054"
+  },
+  {
     "url": "assets/images/blog/switch-battery.png",
     "revision": "82a1ca8978651a0a7016a6f3d6528351"
   },
