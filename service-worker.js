@@ -240,7 +240,7 @@ self.__precacheManifest = [
   },
   {
     "url": "assets/js/main.css",
-    "revision": "bc62003f0d04759684b3e8e00fe1acac"
+    "revision": "9b111bf48f794d3220cf8e8030e17a68"
   },
   {
     "url": "blog/ethically-hack-woobox-voting-node-puppeteer/index.html",
@@ -265,6 +265,10 @@ self.__precacheManifest = [
   {
     "url": "blog/procrastinot-maths-challenge-update/index.html",
     "revision": "f76c6191e383cb0829182ec79c4b617e"
+  },
+  {
+    "url": "blog/testing-redbox-kiosk-offline-hack-for-free-dvds/index.html",
+    "revision": "05e6ea60b9d20be490fc02f97e22829d"
   },
   {
     "url": "flash-cards/index.html",
