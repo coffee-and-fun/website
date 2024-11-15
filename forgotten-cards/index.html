@@ -1,0 +1,484 @@
+<!DOCTYPE html>
+<html class="brand-color-background scroll-smooth antialiased" lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Discounts When You Leave Your Card Behind - ForgotMyMembershipCard.com  - Coffee & Fun LLC</title>
+    <meta name="description"
+        content="Ever been at the checkout and realized you forgot your membership card? ForgotMyMembershipCard.com has you covered! Quickly access discounts and rewards at popular stores, even when you’ve left your card at home. Just pull up our site, scan, and save—no need to miss out on deals. Plus, find links to sign up for your own account if you’d like to earn rewards personally. Perfect for those “Oh no!” moments at the counter!" />
+    <meta name="author" content="Coffee & Fun LLC" />
+    <meta name="robots" content="index, follow" />
+    <meta name="rating" content="safe for kids" />
+
+    <link rel="icon" href="/assets/images/favicon.png" />
+
+    <meta name="title" content="Discounts When You Leave Your Card Behind - ForgotMyMembershipCard.com  - Coffee & Fun LLC" />
+
+    <!-- Open Graph Meta Tags -->
+    <meta property="og:title" content="Discounts When You Leave Your Card Behind - ForgotMyMembershipCard.com  - Coffee & Fun LLC" />
+    <meta property="og:site_name" content="Coffee & Fun" />
+    <meta property="og:url" content="https://www.coffeeandfun.com/" />
+    <meta property="og:description"
+        content="Ever been at the checkout and realized you forgot your membership card? ForgotMyMembershipCard.com has you covered! Quickly access discounts and rewards at popular stores, even when you’ve left your card at home. Just pull up our site, scan, and save—no need to miss out on deals. Plus, find links to sign up for your own account if you’d like to earn rewards personally. Perfect for those “Oh no!” moments at the counter!" />
+    <meta property="og:type" content="website" />
+    <meta property="og:image" content="/assets/images/apps/coco.png" />
+
+    <!-- Twitter Meta Tags -->
+    <meta property="twitter:domain" content="coffeeandfun.com" />
+    <meta property="twitter:url" content="https://www.coffeeandfun.com" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Discounts When You Leave Your Card Behind - ForgotMyMembershipCard.com  - Coffee & Fun LLC" />
+    <meta name="twitter:site" content="@bycoffeeandfun" />
+    <meta name="twitter:description"
+        content="Ever been at the checkout and realized you forgot your membership card? ForgotMyMembershipCard.com has you covered! Quickly access discounts and rewards at popular stores, even when you’ve left your card at home. Just pull up our site, scan, and save—no need to miss out on deals. Plus, find links to sign up for your own account if you’d like to earn rewards personally. Perfect for those “Oh no!” moments at the counter!" />
+    <meta name="twitter:image" content="https://www.coffeeandfun.com/assets/images/apps/coco.png" />
+    <meta name="twitter:image:alt" content=" Coffee & Fun" />
+
+    <script type="application/ld+json">
+        {
+            "@context": "http://schema.org/",
+            "@type": "WebSite",
+            "url": "https://www.coffeeandfun.com",
+            "potentialAction": {
+                "@type": "SearchAction",
+                "target": "{search_term_string}",
+                "query-input": "required name=search_term_string"
+            }
+        }
+    </script>
+    <link href="/assets/js/main.css" rel="stylesheet" />
+
+    <script src="https://unpkg.com/vue@3"></script>
+    <script src="https://unpkg.com/hotkeys-js/dist/hotkeys.min.js"></script>
+
+    <script>
+        if ('serviceWorker' in navigator) {
+            navigator.serviceWorker.register('/service-worker.js');
+        }
+    </script>
+
+<style>
+    @keyframes ticker {
+        0% {
+            transform: translateX(100%);
+        }
+
+        100% {
+            transform: translateX(-100%);
+        }
+    }
+
+    .animate-ticker {
+        animation: ticker 10s linear infinite;
+    }
+
+    .animate-ticker:hover {
+        animation-play-state: paused;
+    }
+
+    .card-body {
+        transition: transform 0.3s ease-in-out;
+    }
+
+    .draggable-card {
+        transition: top 0.3s ease, left 0.3s ease;
+        position: absolute;
+    }
+</style>
+
+
+<style>
+    .brand-color-background {
+        background-color: #fef5ec;
+    }
+</style>
+
+
+<!-- Google Tag Manager Script -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-RC4JGW9PVN"></script>
+<script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag() { dataLayer.push(arguments); }
+    gtag('js', new Date());
+
+    gtag('config', 'G-RC4JGW9PVN');
+</script>
+
+
+
+<script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.3/dist/confetti.browser.min.js"></script>
+
+<link rel="stylesheet" href="https://unpkg.com/prismjs@1.20.0/themes/prism-okaidia.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+<script>
+
+// Function to launch the confetti animation
+function launchConfetti() {
+  const totalParticles = 300; // Total number of confetti particles
+
+  // Default configuration for the confetti
+  const confettiDefaults = {
+    angle: 75, // Initial angle for the confetti
+    zIndex: 2147483647, // Ensure confetti is displayed on top of other elements
+  };
+
+  // Function to trigger the confetti animation with different configurations
+  function triggerConfetti(particleProportion, options) {
+    // Launch confetti from the left side
+    confetti({
+      ...confettiDefaults,
+      ...options,
+      origin: { y: 1, x: 0 }, // Confetti originates from the bottom left
+      angle: 30, // Angle at which confetti is launched
+      particleCount: Math.floor(totalParticles * particleProportion), // Number of particles
+    });
+
+    // Launch confetti from the right side
+    confetti({
+      ...confettiDefaults,
+      ...options,
+      origin: { y: 1, x: 1 }, // Confetti originates from the bottom right
+      angle: 150, // Angle at which confetti is launched
+      particleCount: Math.floor(totalParticles * particleProportion), // Number of particles
+    });
+
+    // Launch confetti from the center
+    confetti({
+      ...confettiDefaults,
+      ...options,
+      origin: { y: 1, x: 0.5 }, // Confetti originates from the bottom center
+      particleCount: Math.floor(totalParticles * particleProportion), // Number of particles
+    });
+  }
+
+  // Different configurations for the confetti bursts
+  triggerConfetti(0.3, {
+    spread: 30, // How much the confetti spreads out
+    startVelocity: 80, // Initial velocity of the confetti
+  });
+
+  triggerConfetti(0.25, {
+    spread: 50, // Spread is wider here
+  });
+
+  triggerConfetti(0.4, {
+    spread: 90, // Even wider spread
+    decay: 0.89, // How quickly the confetti slows down
+  });
+
+  triggerConfetti(0.15, {
+    spread: 110, // Very wide spread
+    startVelocity: 40, // Slower initial velocity
+    decay: 0.90, // Slightly slower decay
+  });
+
+  triggerConfetti(0.1, {
+    spread: 130, // Maximum spread
+    startVelocity: 70, // Moderate initial velocity
+  });
+}
+
+
+
+
+document.addEventListener("DOMContentLoaded", (event) => {
+        document.querySelectorAll('pre code').forEach((block) => {
+            hljs.highlightElement(block);
+        });
+    });
+</script>
+</head>
+
+<body class=" font-sans text-center p-8">
+
+   
+
+
+
+    <main id="main-content" class="mx-auto max-w-7xl mb-12">
+        <div class="flex flex-col items-center min-h-screen  p-6">
+            <div class="max-w-xl text-base  mx-auto">
+                <div class="mx-auto mb-4 mt-4">
+                    <img alt="Logo of Coffee & Fun LLC featuring a stylized cup with a coffee bean pattern, representing the company's focus on creativity and innovation in software development."
+                        src="assets/images/forgot.png" width="180" height="180"
+                        decoding="async" data-nimg="future" loading="lazy"
+                        class="aspect-square mx-auto block" />
+                </div>
+
+            </div>
+
+
+ <h1 class="text-lg font-bold mb-6">
+    You’ve joined the countdown! Get your designs ready — it’s almost time to stick it big, with deals on EVERYTHING!
+  </h1>
+
+  <!-- Icon Section (you can add custom icons here as needed) -->
+  <div class="flex justify-center mb-4">
+    <!-- Placeholder for icons, replace with actual icons if needed -->
+  
+  </div>
+
+  <!-- Card Container -->
+  <div class="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-xl mx-auto">
+    <!-- Die-Cut Stickers Card -->
+    
+        <div>
+    <div class="bg-black text-white  h-48  p-6 rounded-lg shadow-md" style="background-color: #003171; color: #ffffff">
+      <h2 class="text-2xl font-semibold">Kroger</h2>
+    </div>
+
+    <button class="w-full py-2 px-4 rounded-lg btn btn-primary  mt-4"
+          >
+            Show Card
+        </button>
+
+        <a href="https://www.kroger.com/account/create" target="_blank"
+           class="mt-4 text-sm font-medium underline text-blue-300 hover:text-blue-400">
+            Sign Up for Your Own Account
+        </a>
+</div>
+
+
+        <div>
+    <div class="bg-black text-white  h-48  p-6 rounded-lg shadow-md" style="background-color: #e31837; color: #ffffff">
+      <h2 class="text-2xl font-semibold">Safeway</h2>
+    </div>
+
+    <button class="w-full py-2 px-4 rounded-lg btn btn-primary  mt-4"
+          >
+            Show Card
+        </button>
+
+        <a href="https://www.safeway.com/account/club-card" target="_blank"
+           class="mt-4 text-sm font-medium underline text-blue-300 hover:text-blue-400">
+            Sign Up for Your Own Account
+        </a>
+</div>
+
+
+        <div>
+    <div class="bg-black text-white  h-48  p-6 rounded-lg shadow-md" style="background-color: #cc0000; color: #ffffff">
+      <h2 class="text-2xl font-semibold">CVS Pharmacy</h2>
+    </div>
+
+    <button class="w-full py-2 px-4 rounded-lg btn btn-primary  mt-4"
+          >
+            Show Card
+        </button>
+
+        <a href="https://www.cvs.com/extracare" target="_blank"
+           class="mt-4 text-sm font-medium underline text-blue-300 hover:text-blue-400">
+            Sign Up for Your Own Account
+        </a>
+</div>
+
+
+        <div>
+    <div class="bg-black text-white  h-48  p-6 rounded-lg shadow-md" style="background-color: #e5097f; color: #ffffff">
+      <h2 class="text-2xl font-semibold">Walgreens</h2>
+    </div>
+
+    <button class="w-full py-2 px-4 rounded-lg btn btn-primary  mt-4"
+          >
+            Show Card
+        </button>
+
+        <a href="https://www.walgreens.com/balancerewards" target="_blank"
+           class="mt-4 text-sm font-medium underline text-blue-300 hover:text-blue-400">
+            Sign Up for Your Own Account
+        </a>
+</div>
+
+
+        <div>
+    <div class="bg-black text-white  h-48  p-6 rounded-lg shadow-md" style="background-color: #cc0000; color: #ffffff">
+      <h2 class="text-2xl font-semibold">Target</h2>
+    </div>
+
+    <button class="w-full py-2 px-4 rounded-lg btn btn-primary  mt-4"
+          >
+            Show Card
+        </button>
+
+        <a href="https://www.target.com/circle" target="_blank"
+           class="mt-4 text-sm font-medium underline text-blue-300 hover:text-blue-400">
+            Sign Up for Your Own Account
+        </a>
+</div>
+
+
+        <div>
+    <div class="bg-black text-white  h-48  p-6 rounded-lg shadow-md" style="background-color: #ff7f00; color: #ffffff">
+      <h2 class="text-2xl font-semibold">7-Eleven</h2>
+    </div>
+
+    <button class="w-full py-2 px-4 rounded-lg btn btn-primary  mt-4"
+          >
+            Show Card
+        </button>
+
+        <a href="https://www.7-eleven.com/7rewards" target="_blank"
+           class="mt-4 text-sm font-medium underline text-blue-300 hover:text-blue-400">
+            Sign Up for Your Own Account
+        </a>
+</div>
+
+
+        <div>
+    <div class="bg-black text-white  h-48  p-6 rounded-lg shadow-md" style="background-color: #005732; color: #ffffff">
+      <h2 class="text-2xl font-semibold">BP</h2>
+    </div>
+
+    <button class="w-full py-2 px-4 rounded-lg btn btn-primary  mt-4"
+          >
+            Show Card
+        </button>
+
+        <a href="https://www.bp.com/en_us/united-states/home/products-and-services/bpme-rewards.html" target="_blank"
+           class="mt-4 text-sm font-medium underline text-blue-300 hover:text-blue-400">
+            Sign Up for Your Own Account
+        </a>
+</div>
+
+
+        <div>
+    <div class="bg-black text-white  h-48  p-6 rounded-lg shadow-md" style="background-color: #ffd100; color: #cc0000">
+      <h2 class="text-2xl font-semibold">Shell</h2>
+    </div>
+
+    <button class="w-full py-2 px-4 rounded-lg btn btn-primary  mt-4"
+          >
+            Show Card
+        </button>
+
+        <a href="https://www.fuelrewards.com" target="_blank"
+           class="mt-4 text-sm font-medium underline text-blue-300 hover:text-blue-400">
+            Sign Up for Your Own Account
+        </a>
+</div>
+
+
+        <div>
+    <div class="bg-black text-white  h-48  p-6 rounded-lg shadow-md" style="background-color: #006db7; color: #ffffff">
+      <h2 class="text-2xl font-semibold">Petco</h2>
+    </div>
+
+    <button class="w-full py-2 px-4 rounded-lg btn btn-primary  mt-4"
+          >
+            Show Card
+        </button>
+
+        <a href="https://www.petco.com/shop/petco/Pals-Rewards" target="_blank"
+           class="mt-4 text-sm font-medium underline text-blue-300 hover:text-blue-400">
+            Sign Up for Your Own Account
+        </a>
+</div>
+
+
+        <div>
+    <div class="bg-black text-white  h-48  p-6 rounded-lg shadow-md" style="background-color: #ff4f00; color: #ffffff">
+      <h2 class="text-2xl font-semibold">AutoZone</h2>
+    </div>
+
+    <button class="w-full py-2 px-4 rounded-lg btn btn-primary  mt-4"
+          >
+            Show Card
+        </button>
+
+        <a href="https://www.autozone.com/loyalty/rewards" target="_blank"
+           class="mt-4 text-sm font-medium underline text-blue-300 hover:text-blue-400">
+            Sign Up for Your Own Account
+        </a>
+</div>
+
+
+
+        </div>
+        </div>
+    </main>
+
+
+
+
+
+
+
+
+    <footer class="footer footer-center  rounded p-10 brand-color-background">
+
+  <a href="/" title="Coffee & Fun Home page" >
+    <span class="sr-only"> Visit the Coffee & Fun Homepage</span>
+  <img alt="Coffee and Fun Logo" src="/assets/images/coffee-and-fun-logo-dark.png" width="200" height="200"
+    decoding="async" data-nimg="future" loading="lazy"
+    class="h-24 w-24 flex-none fill-cyan-500 inline-block fill-current" />
+    </a>
+  <p class="  mb-4">
+    <span class="font-bold text-lg">
+    Coffee & Fun LLC
+    </span>
+
+  <span class="text-base font-normal">Crafting Software, One Brew at a Time</span>
+</p>
+  <nav>
+    <div class="grid grid-flow-col gap-4">
+
+      <a href="https://www.twitter.com/bycoffeeandfun" target="_blank" rel="noopener noreferrer"
+        class="text-black hover:text-blue-400" title="Follow Coffee & Fun on Twitter">
+        <span class="sr-only">Follow us on Twitter</span>
+        <svg class="h-7 w-7" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+          <path
+            d="M8.29 20.251c7.547 0 11.675-6.253 11.675-11.675 0-.178 0-.355-.012-.53A8.348 8.348 0 0022 5.92a8.19 8.19 0 01-2.357.646 4.118 4.118 0 001.804-2.27 8.224 8.224 0 01-2.605.996 4.107 4.107 0 00-6.993 3.743 11.65 11.65 0 01-8.457-4.287 4.106 4.106 0 001.27 5.477A4.072 4.072 0 012.8 9.713v.052a4.105 4.105 0 003.292 4.022 4.095 4.095 0 01-1.853.07 4.108 4.108 0 003.834 2.85A8.233 8.233 0 012 18.407a11.616 11.616 0 006.29 1.84">
+          </path>
+        </svg>
+      </a>
+      <a href="https://www.instagram.com/coffeeandfunllc" target="_blank" rel="noopener noreferrer"
+      class="text-black hover:text-pink-400" title="Follow Coffee & Fun on Instagram">
+      <svg aria-hidden="true" role="img" fill="currentColor" viewBox="0 0 24 24" class="h-7 w-7"><title>Instagram</title><desc>Visit Helperbird's official Instagram page</desc><path clip-rule="evenodd" d="M12.315 2c2.43 0 2.784.013 3.808.06 1.064.049 1.791.218 2.427.465a4.902 4.902 0 011.772 1.153 4.902 4.902 0 011.153 1.772c.247.636.416 1.363.465 2.427.048 1.067.06 1.407.06 4.123v.08c0 2.643-.012 2.987-.06 4.043-.049 1.064-.218 1.791-.465 2.427a4.902 4.902 0 01-1.153 1.772 4.902 4.902 0 01-1.772 1.153c-.636.247-1.363.416-2.427.465-1.067.048-1.407.06-4.123.06h-.08c-2.643 0-2.987-.012-4.043-.06-1.064-.049-1.791-.218-2.427-.465a4.902 4.902 0 01-1.772-1.153 4.902 4.902 0 01-1.153-1.772c-.247-.636-.416-1.363-.465-2.427-.047-1.024-.06-1.379-.06-3.808v-.63c0-2.43.013-2.784.06-3.808.049-1.064.218-1.791.465-2.427a4.902 4.902 0 011.153-1.772A4.902 4.902 0 015.45 2.525c.636-.247 1.363-.416 2.427-.465C8.901 2.013 9.256 2 11.685 2h.63zm-.081 1.802h-.468c-2.456 0-2.784.011-3.807.058-.975.045-1.504.207-1.857.344-.467.182-.8.398-1.15.748-.35.35-.566.683-.748 1.15-.137.353-.3.882-.344 1.857-.047 1.023-.058 1.351-.058 3.807v.468c0 2.456.011 2.784.058 3.807.045.975.207 1.504.344 1.857.182.466.399.8.748 1.15.35.35.683.566 1.15.748.353.137.882.3 1.857.344 1.054.048 1.37.058 4.041.058h.08c2.597 0 2.917-.01 3.96-.058.976-.045 1.505-.207 1.858-.344.466-.182.8-.398 1.15-.748.35-.35.566-.683.748-1.15.137-.353.3-.882.344-1.857.048-1.055.058-1.37.058-4.041v-.08c0-2.597-.01-2.917-.058-3.96-.045-.976-.207-1.505-.344-1.858a3.097 3.097 0 00-.748-1.15 3.098 3.098 0 00-1.15-.748c-.353-.137-.882-.3-1.857-.344-1.023-.047-1.351-.058-3.807-.058zM12 6.865a5.135 5.135 0 110 10.27 5.135 5.135 0 010-10.27zm0 1.802a3.333 3.333 0 100 6.666 3.333 3.333 0 000-6.666zm5.338-3.205a1.2 1.2 0 110 2.4 1.2 1.2 0 010-2.4z" fill-rule="evenodd"></path></svg>
+</a>
+      <a href="https://www.github.com/coffee-and-fun" target="_blank" rel="noopener noreferrer"
+        title="Follow Coffee & Fun on Github" class="text-black hover:text-gray-700">
+        <span class="sr-only">Follow us on GitHub</span>
+        <svg class="h-7 w-7" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+          <path fill-rule="evenodd"
+            d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z"
+            clip-rule="evenodd"></path>
+        </svg>
+      </a>
+      <a href="https://www.youtube.com/bycoffeeandfun" target="_blank" rel="noopener noreferrer"
+        title="Follow Coffee & Fun on Youtube" class="text-black hover:text-red-600">
+        <span class="sr-only">Follow us on Youtube</span>
+        <svg class="h-7 w-7" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+          <path fill-rule="evenodd"
+            d="M19.812 5.418c.861.23 1.538.907 1.768 1.768C21.998 8.746 22 12 22 12s0 3.255-.418 4.814a2.504 2.504 0 0 1-1.768 1.768c-1.56.419-7.814.419-7.814.419s-6.255 0-7.814-.419a2.505 2.505 0 0 1-1.768-1.768C2 15.255 2 12 2 12s0-3.255.417-4.814a2.507 2.507 0 0 1 1.768-1.768C5.744 5 11.998 5 11.998 5s6.255 0 7.814.418ZM15.194 12 10 15V9l5.194 3Z"
+            clip-rule="evenodd"></path>
+        </svg>
+      </a>
+
+    </div>
+  </nav>
+  <aside>
+    <p> &copy; 2024 <b>Coffee & Fun LLC</b>. All rights reserved.</p>
+  </aside>
+</footer>
+
+
+<script type="text/javascript">
+  window.addEventListener('load', function() {
+      window.$crisp=[];
+      window.CRISP_WEBSITE_ID="e5727c25-afa3-4d32-9eef-bb1b4ed4ffeb";
+      (function(){
+          var d=document;
+          var s=d.createElement("script");
+          s.src="https://client.crisp.chat/l.js";
+          s.async=1;
+          d.getElementsByTagName("head")[0].appendChild(s);
+      })();
+  });
+</script>
+
+
+
+</body>
+
+</html>

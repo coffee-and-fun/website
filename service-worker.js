@@ -195,6 +195,10 @@ self.__precacheManifest = [
     "revision": "02a166499900cbd5d42828c3e1ca38c8"
   },
   {
+    "url": "assets/images/forgot.png",
+    "revision": "ff8b1391b5eb662f6f7681f2995f2b38"
+  },
+  {
     "url": "assets/images/instant-incognito.png",
     "revision": "239ce3bb7540d07f306461a15e4fbd9d"
   },
@@ -244,7 +248,7 @@ self.__precacheManifest = [
   },
   {
     "url": "assets/js/main.css",
-    "revision": "9b111bf48f794d3220cf8e8030e17a68"
+    "revision": "c885f9abdf3ab5f076f34748896d8508"
   },
   {
     "url": "blog/ethically-hack-woobox-voting-node-puppeteer/index.html",
@@ -283,8 +287,12 @@ self.__precacheManifest = [
     "revision": "d814da7ef65f825f5d365a82a572908f"
   },
   {
+    "url": "forgotten-cards/index.html",
+    "revision": "ac849368a95fb42f640d4e4a25d49977"
+  },
+  {
     "url": "index.html",
-    "revision": "5127511fd3924f59444d9453d13063c5"
+    "revision": "805c618d9e563ad2a79b964f12cf158c"
   },
   {
     "url": "instant-incognito/index.html",
