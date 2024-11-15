@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html class="brand-color-background scroll-smooth antialiased" lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Discounts When You Leave Your Card Behind - ForgotMyMembershipCard.com  - Coffee & Fun LLC</title>
+    <meta name="description"
+        content="Ever been at the checkout and realized you forgot your membership card? ForgotMyMembershipCard.com has you covered! Quickly access discounts and rewards at popular stores, even when you’ve left your card at home. Just pull up our site, scan, and save—no need to miss out on deals. Plus, find links to sign up for your own account if you’d like to earn rewards personally. Perfect for those “Oh no!” moments at the counter!" />
+    <meta name="author" content="Coffee & Fun LLC" />
+    <meta name="robots" content="index, follow" />
+    <meta name="rating" content="safe for kids" />
+
+    <link rel="icon" href="/assets/images/favicon.png" />
+
+    <meta name="title" content="Discounts When You Leave Your Card Behind - ForgotMyMembershipCard.com  - Coffee & Fun LLC" />
+
+    <!-- Open Graph Meta Tags -->
+    <meta property="og:title" content="Discounts When You Leave Your Card Behind - ForgotMyMembershipCard.com  - Coffee & Fun LLC" />
+    <meta property="og:site_name" content="Coffee & Fun" />
+    <meta property="og:url" content="https://www.coffeeandfun.com/" />
+    <meta property="og:description"
+        content="Ever been at the checkout and realized you forgot your membership card? ForgotMyMembershipCard.com has you covered! Quickly access discounts and rewards at popular stores, even when you’ve left your card at home. Just pull up our site, scan, and save—no need to miss out on deals. Plus, find links to sign up for your own account if you’d like to earn rewards personally. Perfect for those “Oh no!” moments at the counter!" />
+    <meta property="og:type" content="website" />
+    <meta property="og:image" content="/assets/images/apps/coco.png" />
+
+    <!-- Twitter Meta Tags -->
+    <meta property="twitter:domain" content="coffeeandfun.com" />
+    <meta property="twitter:url" content="https://www.coffeeandfun.com" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Discounts When You Leave Your Card Behind - ForgotMyMembershipCard.com  - Coffee & Fun LLC" />
+    <meta name="twitter:site" content="@bycoffeeandfun" />
+    <meta name="twitter:description"
+        content="Ever been at the checkout and realized you forgot your membership card? ForgotMyMembershipCard.com has you covered! Quickly access discounts and rewards at popular stores, even when you’ve left your card at home. Just pull up our site, scan, and save—no need to miss out on deals. Plus, find links to sign up for your own account if you’d like to earn rewards personally. Perfect for those “Oh no!” moments at the counter!" />
+    <meta name="twitter:image" content="https://www.coffeeandfun.com/assets/images/apps/coco.png" />
+    <meta name="twitter:image:alt" content=" Coffee & Fun" />
+
+    <script type="application/ld+json">
+        {
+            "@context": "http://schema.org/",
+            "@type": "WebSite",
+            "url": "https://www.coffeeandfun.com",
+            "potentialAction": {
+                "@type": "SearchAction",
+                "target": "{search_term_string}",
+                "query-input": "required name=search_term_string"
+            }
+        }
+    </script>
+    {% bundledCss %}
+
+    <script src="https://unpkg.com/vue@3"></script>
+    <script src="https://unpkg.com/hotkeys-js/dist/hotkeys.min.js"></script>
+
+    <script>
+        if ('serviceWorker' in navigator) {
+            navigator.serviceWorker.register('/service-worker.js');
+        }
+    </script>
+
+<style>
+    @keyframes ticker {
+        0% {
+            transform: translateX(100%);
+        }
+
+        100% {
+            transform: translateX(-100%);
+        }
+    }
+
+    .animate-ticker {
+        animation: ticker 10s linear infinite;
+    }
+
+    .animate-ticker:hover {
+        animation-play-state: paused;
+    }
+
+    .card-body {
+        transition: transform 0.3s ease-in-out;
+    }
+
+    .draggable-card {
+        transition: top 0.3s ease, left 0.3s ease;
+        position: absolute;
+    }
+</style>
+
+
+{% include scripts.html %}
+</head>
+
+<body class=" font-sans text-center p-8">
+
+   
+
+
+
+    <main id="main-content" class="mx-auto max-w-7xl mb-12">
+        <div class="flex flex-col items-center min-h-screen  p-6">
+            <div class="max-w-xl text-base  mx-auto">
+                <div class="mx-auto mb-4 mt-4">
+                    <img alt="Logo of Coffee & Fun LLC featuring a stylized cup with a coffee bean pattern, representing the company's focus on creativity and innovation in software development."
+                        src="assets/images/forgot.png" width="180" height="180"
+                        decoding="async" data-nimg="future" loading="lazy"
+                        class="aspect-square mx-auto block" />
+                </div>
+
+            </div>
+
+
+ <h1 class="text-lg font-bold mb-6">
+    You’ve joined the countdown! Get your designs ready — it’s almost time to stick it big, with deals on EVERYTHING!
+  </h1>
+
+  <!-- Icon Section (you can add custom icons here as needed) -->
+  <div class="flex justify-center mb-4">
+    <!-- Placeholder for icons, replace with actual icons if needed -->
+  
+  </div>
+
+  <!-- Card Container -->
+  <div class="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-xl mx-auto">
+    <!-- Die-Cut Stickers Card -->
+    {% for card in forgot.cards %}
+        <div>
+    <div class="bg-black text-white  h-48  p-6 rounded-lg shadow-md" style="background-color: {{ card.background }}; color: {{ card.color }}">
+      <h2 class="text-2xl font-semibold">{{card.name}}</h2>
+    </div>
+
+    <button class="w-full py-2 px-4 rounded-lg btn btn-primary  mt-4"
+          >
+            Show Card
+        </button>
+
+        <a href="{{ card.link }}" target="_blank"
+           class="mt-4 text-sm font-medium underline text-blue-300 hover:text-blue-400">
+            Sign Up for Your Own Account
+        </a>
+</div>
+
+{% endfor %}
+
+        </div>
+        </div>
+    </main>
+
+
+
+
+
+
+
+
+    {% include footer.html %}
+
+
+
+</body>
+
+</html>
