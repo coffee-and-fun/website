@@ -36,7 +36,7 @@ self.__precacheManifest = [
   },
   {
     "url": "assets/images/apps/cards.png",
-    "revision": "80a2c1af35f992bfba4d8b392c42ae43"
+    "revision": "cf01642045076a74e77195de4fcefd3c"
   },
   {
     "url": "assets/images/apps/clean.png",
@@ -215,6 +215,10 @@ self.__precacheManifest = [
     "revision": "887022f0c6f4a055bc7a8e17f9f73924"
   },
   {
+    "url": "assets/images/forgotten/cards/tesco.png",
+    "revision": "60429b01fe17fdb3b2254f6c2a42e446"
+  },
+  {
     "url": "assets/images/forgotten/logos/bestbuy.png",
     "revision": "0b11e07775d08e51ccf6df6740b7e34a"
   },
@@ -225,6 +229,10 @@ self.__precacheManifest = [
   {
     "url": "assets/images/forgotten/logos/target.png",
     "revision": "194bad664b1a18c5202380d2da2703e6"
+  },
+  {
+    "url": "assets/images/forgotten/logos/tesco.png",
+    "revision": "7c00973e22af5162d8f01bb27f1f3805"
   },
   {
     "url": "assets/images/instant-incognito.png",
@@ -276,7 +284,7 @@ self.__precacheManifest = [
   },
   {
     "url": "assets/js/main.css",
-    "revision": "0ecc62d70fb82fe62ba18c9a78c7f22b"
+    "revision": "f4f7ef4e5e7bdfedb4cfc062460261ac"
   },
   {
     "url": "blog/ethically-hack-woobox-voting-node-puppeteer/index.html",
@@ -316,7 +324,7 @@ self.__precacheManifest = [
   },
   {
     "url": "forgotten-cards/index.html",
-    "revision": "ba4531dcb08bc5c325bcdd30c9a528aa"
+    "revision": "2a7ba45787a79d8cf26948c5e5e38ee8"
   },
   {
     "url": "index.html",
