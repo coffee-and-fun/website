@@ -116,13 +116,21 @@
 
         </div>
             <!-- Icon Section (you can add custom icons here as needed) -->
-            <div class="flex justify-center mb-8">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-xl mx-auto mb-8">
                 <!-- Placeholder for icons, replace with actual icons if needed -->
+                <button class="btn btn-primary btn-outline mx-auto  " href="/">Contact Us</button>
                 <button class="btn btn-primary btn-outline mx-auto  " id="a2hs-button">Add to your Phone</button>
+                <button class="btn btn-primary btn-outline mx-auto" onclick="my_info.showModal()">
+                    What is this?
+                </button>
             </div>
 
+
+
+
+
             <!-- Card Container -->
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-xl mx-auto">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-xl mx-auto mt-4">
                 <!-- Die-Cut Stickers Card -->
                 {% for card in forgot.cards %}
                 {% if card.active == true %}
@@ -165,6 +173,29 @@
             </div>
         </div>
     </main>
+
+
+    <dialog id="my_info" class="modal">
+        <div class="modal-box">
+            <p class="text-left">
+            One day, I was at Kroger picking up some mouthwash, and when I got to the checkout, I realized I’d forgotten my membership card. Without it, the mouthwash was $12, but with the membership, it was only $7. Five bucks might not sound like much, but it adds up!
+</p>
+<p class="mt-2 text-left">
+            That’s when I decided to create a simple way to help in situations like this. Now, if you forget your card, you can quickly pull up the barcode and still get the discounts.
+            </p>
+            <p class="mt-2 text-left">
+            It’s always a good idea to create your own account with stores so you can earn rewards personally, but this is a perfect backup for those moments when life happens.
+            </p>
+            <p class="mt-2 text-left">
+            Next time you’re at the counter without your card, don’t stress—just pull this up and save!
+            </p>
+        </div>
+        <form method="dialog" class="modal-backdrop">
+            <button>close</button>
+        </form>
+
+    </dialog>
+
 
 
 
