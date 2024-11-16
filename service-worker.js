@@ -199,6 +199,26 @@ self.__precacheManifest = [
     "revision": "ff8b1391b5eb662f6f7681f2995f2b38"
   },
   {
+    "url": "assets/images/forgotten/cards/kroger.png",
+    "revision": "d1707000c7c60656ea9ab3e36f56f4a0"
+  },
+  {
+    "url": "assets/images/forgotten/cards/target.png",
+    "revision": "887022f0c6f4a055bc7a8e17f9f73924"
+  },
+  {
+    "url": "assets/images/forgotten/logos/bestbuy.png",
+    "revision": "ebced70d962f26d5961f243c4e45d2f3"
+  },
+  {
+    "url": "assets/images/forgotten/logos/kroger.png",
+    "revision": "1ed80368d71ff9f069821ac9db6cb404"
+  },
+  {
+    "url": "assets/images/forgotten/logos/target.png",
+    "revision": "194bad664b1a18c5202380d2da2703e6"
+  },
+  {
     "url": "assets/images/instant-incognito.png",
     "revision": "239ce3bb7540d07f306461a15e4fbd9d"
   },
@@ -248,7 +268,7 @@ self.__precacheManifest = [
   },
   {
     "url": "assets/js/main.css",
-    "revision": "c885f9abdf3ab5f076f34748896d8508"
+    "revision": "0ecc62d70fb82fe62ba18c9a78c7f22b"
   },
   {
     "url": "blog/ethically-hack-woobox-voting-node-puppeteer/index.html",
@@ -288,7 +308,7 @@ self.__precacheManifest = [
   },
   {
     "url": "forgotten-cards/index.html",
-    "revision": "ac849368a95fb42f640d4e4a25d49977"
+    "revision": "d27b117e06197523388f7ab3b1c55595"
   },
   {
     "url": "index.html",
