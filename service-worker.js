@@ -259,6 +259,18 @@ self.__precacheManifest = [
     "revision": "fffab0f9232ffff65f80ef0afa9aca03"
   },
   {
+    "url": "assets/images/social/1200.png",
+    "revision": "5a91dabc071cc69de3afd6a15e541283"
+  },
+  {
+    "url": "assets/images/social/192.png",
+    "revision": "9b7d7b94f9397278bbccdb4ac6742dda"
+  },
+  {
+    "url": "assets/images/social/384.png",
+    "revision": "6ab59948caf82fa7a85ea3e19bc17c5a"
+  },
+  {
     "url": "assets/images/star.png",
     "revision": "e3dc14d94da63eca534fba4127a631d6"
   },
@@ -316,43 +328,43 @@ self.__precacheManifest = [
   },
   {
     "url": "flash-cards/index.html",
-    "revision": "95e103308fd08c7a2ccc758c4bd8dbfa"
+    "revision": "a06ed26f4cdbea597b78e1aab519b82b"
   },
   {
     "url": "forever-advert/index.html",
-    "revision": "b1ee4b544cc06ef1117acdd0d827a071"
+    "revision": "36b9234dc8c2ddfca14a0e5f420d78a5"
   },
   {
     "url": "forgotten-cards/index.html",
-    "revision": "2a7ba45787a79d8cf26948c5e5e38ee8"
+    "revision": "aa69cb7110d2d6f865085adba4294fb2"
   },
   {
     "url": "index.html",
-    "revision": "15d7e455340a966f16e44e3157b082ff"
+    "revision": "0f2b5bbfa2278070b24d5b2586e9a552"
   },
   {
     "url": "instant-incognito/index.html",
-    "revision": "7094ea9b736504ffa2e5dbbb49e412e4"
+    "revision": "069283dd70a9b2302ddf352d4f9b0773"
   },
   {
     "url": "privacy/index.html",
-    "revision": "b629806ba3751e5a41f8d74d9537e05a"
+    "revision": "51282ed9bb1bad3e3ba91ecc72b4921e"
   },
   {
     "url": "procrastinot/index.html",
-    "revision": "4050b89a3e1d3108d0ec74725207c22f"
+    "revision": "f4e2cedbba1ff92a4af3ba4a8e7ed845"
   },
   {
     "url": "reviews/index.html",
-    "revision": "7c29ee6c0706957ed0b27c954e336f55"
+    "revision": "59fe8bf8645322d17f18491d0281621c"
   },
   {
     "url": "stop-wasting/index.html",
-    "revision": "4ff525badf244ef4775ec0a9a3a2ee19"
+    "revision": "eb1c25255eb3e87ae1ef40f76ff5c003"
   },
   {
     "url": "trivia/index.html",
-    "revision": "25b144a8cb8485b6da4c4ce3a9f50c38"
+    "revision": "9076b2354b2701e4c841b7a74f3f44ba"
   }
 ].concat(self.__precacheManifest || []);
 workbox.precaching.precacheAndRoute(self.__precacheManifest, {});
