@@ -336,7 +336,7 @@ self.__precacheManifest = [
   },
   {
     "url": "forgotten-cards/index.html",
-    "revision": "7067346b059eed98aae8bf842b262bfa"
+    "revision": "94cfd0ab51dc2ce32366f8b2b77c8116"
   },
   {
     "url": "index.html",
