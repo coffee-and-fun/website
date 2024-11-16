@@ -199,6 +199,10 @@ self.__precacheManifest = [
     "revision": "ff8b1391b5eb662f6f7681f2995f2b38"
   },
   {
+    "url": "assets/images/forgotten/cards/bestbuy.png",
+    "revision": "5887b7d712a70a7ff4251c5653b055c8"
+  },
+  {
     "url": "assets/images/forgotten/cards/kroger.png",
     "revision": "d1707000c7c60656ea9ab3e36f56f4a0"
   },
@@ -208,7 +212,7 @@ self.__precacheManifest = [
   },
   {
     "url": "assets/images/forgotten/logos/bestbuy.png",
-    "revision": "ebced70d962f26d5961f243c4e45d2f3"
+    "revision": "0b11e07775d08e51ccf6df6740b7e34a"
   },
   {
     "url": "assets/images/forgotten/logos/kroger.png",
@@ -308,7 +312,7 @@ self.__precacheManifest = [
   },
   {
     "url": "forgotten-cards/index.html",
-    "revision": "d27b117e06197523388f7ab3b1c55595"
+    "revision": "ba4531dcb08bc5c325bcdd30c9a528aa"
   },
   {
     "url": "index.html",
