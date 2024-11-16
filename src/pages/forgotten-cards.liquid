@@ -25,7 +25,7 @@
         content="Ever been at the checkout and realized you forgot your membership card? ForgotMyMembershipCard.com has you covered! Quickly access discounts and rewards at popular stores, even when you’ve left your card at home. Just pull up our site, scan, and save—no need to miss out on deals. Plus, find links to sign up for your own account if you’d like to earn rewards personally. Perfect for those “Oh no!” moments at the counter!" />
     <meta property="og:type" content="website" />
     <meta property="og:image" content="/assets/images/apps/coco.png" />
-
+    <link rel="manifest" href="/assets/images/social/cards.webmanifest" />
     <!-- Twitter Meta Tags -->
     <meta property="twitter:domain" content="coffeeandfun.com" />
     <meta property="twitter:url" content="https://www.coffeeandfun.com" />
@@ -100,14 +100,25 @@
 
 
 
+
     <main id="main-content" class="mx-auto max-w-7xl mb-12">
+
+ 
         <div class="flex flex-col items-center min-h-screen  p-6">
 
+        <div class="max-w-xl text-base  mx-auto mb-4">
+            <div class="mx-auto mb-4 mt-4">
+                <img alt="Logo of Coffee & Fun LLC featuring a stylized cup with a coffee bean pattern, representing the company's focus on creativity and innovation in software development."
+                    src="/assets/images/coffee-and-fun-logo-dark.png" width="140" height="140"
+                    decoding="async" data-nimg="future" loading="lazy"
+                    class="aspect-square mx-auto block" />
+            </div>
 
+        </div>
             <!-- Icon Section (you can add custom icons here as needed) -->
-            <div class="flex justify-center mb-4">
+            <div class="flex justify-center mb-8">
                 <!-- Placeholder for icons, replace with actual icons if needed -->
-
+                <button class="btn btn-primary btn-outline mx-auto  " id="a2hs-button">Add to your Phone</button>
             </div>
 
             <!-- Card Container -->
@@ -162,7 +173,45 @@
 
 
 
-
+    <script>
+        let deferredPrompt;
+    
+        // Listen for the `beforeinstallprompt` event
+        window.addEventListener('beforeinstallprompt', (e) => {
+            // Prevent the default prompt from showing
+            e.preventDefault();
+            deferredPrompt = e;
+    
+            // Show the custom button
+            const a2hsButton = document.getElementById('a2hs-button');
+            a2hsButton.style.display = 'block';
+    
+            // When the button is clicked
+            a2hsButton.addEventListener('click', () => {
+                // Show the install prompt
+                deferredPrompt.prompt();
+    
+                // Wait for the user to respond to the prompt
+                deferredPrompt.userChoice.then((choiceResult) => {
+                    if (choiceResult.outcome === 'accepted') {
+                        console.log('User accepted the A2HS prompt');
+                    } else {
+                        console.log('User dismissed the A2HS prompt');
+                    }
+    
+                    // Clear the deferred prompt
+                    deferredPrompt = null;
+                });
+            });
+        });
+    
+        // Optional: Hide the button if the app is already installed
+        window.addEventListener('appinstalled', () => {
+            console.log('App was installed');
+            const a2hsButton = document.getElementById('a2hs-button');
+            a2hsButton.style.display = 'none';
+        });
+    </script>
 
     {% include footer.html %}
 
