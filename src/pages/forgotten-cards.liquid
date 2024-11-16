@@ -99,20 +99,7 @@
 
     <main id="main-content" class="mx-auto max-w-7xl mb-12">
         <div class="flex flex-col items-center min-h-screen  p-6">
-            <div class="max-w-xl text-base  mx-auto">
-                <div class="mx-auto mb-4 mt-4">
-                    <img alt="Logo of Coffee & Fun LLC featuring a stylized cup with a coffee bean pattern, representing the company's focus on creativity and innovation in software development."
-                        src="assets/images/forgot.png" width="180" height="180"
-                        decoding="async" data-nimg="future" loading="lazy"
-                        class="aspect-square mx-auto block" />
-                </div>
-
-            </div>
-
-
- <h1 class="text-lg font-bold mb-6">
-    You’ve joined the countdown! Get your designs ready — it’s almost time to stick it big, with deals on EVERYTHING!
-  </h1>
+   
 
   <!-- Icon Section (you can add custom icons here as needed) -->
   <div class="flex justify-center mb-4">
@@ -124,27 +111,43 @@
   <div class="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-xl mx-auto">
     <!-- Die-Cut Stickers Card -->
     {% for card in forgot.cards %}
+        {% if card.active == true %}
         <div>
     <div class="bg-black text-white  h-48  p-6 rounded-lg shadow-md" style="background-color: {{ card.background }}; color: {{ card.color }}">
-      <h2 class="text-2xl font-semibold">{{card.name}}</h2>
+     <img src="/assets/images/forgotten/logos/{{card.name}}.png" alt="{{card.name}} logo"  class="max-auto block" width="100%" height="100">
     </div>
 
     <button class="w-full py-2 px-4 rounded-lg btn btn-primary  mt-4"
+     onclick="my_{{ card.name }}.showModal()"
           >
             Show Card
         </button>
 
         <a href="{{ card.link }}" target="_blank"
-           class="mt-4 text-sm font-medium underline text-blue-300 hover:text-blue-400">
-            Sign Up for Your Own Account
+           class="mt-4 text-sm font-medium  text-blue-600 hover:text-blue-800 block">
+           Create Your Own Account
         </a>
 </div>
+
+<dialog id="my_{{ card.name }}" class="modal">
+  <div class="modal-box">
+   
+  <img src="/assets/images/forgotten/cards/{{card.name}}.png" alt="{{card.name}} logo" width="100%" height="100">
+  
+    <form method="dialog" class="modal-backdrop">
+       
+      </form>
+  </div>
+</dialog>
+{% endif %}
 
 {% endfor %}
 
         </div>
         </div>
     </main>
+
+
 
 
 
