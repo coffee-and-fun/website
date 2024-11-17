@@ -304,39 +304,39 @@ self.__precacheManifest = [
   },
   {
     "url": "blog/ethically-hack-woobox-voting-node-puppeteer/index.html",
-    "revision": "8dc497534a8f6039ae08b6a68ad194fe"
+    "revision": "ffb49f5c3d41990af4167351db3ac62c"
   },
   {
     "url": "blog/how-to-change-battery-in-an-apple-airtag/index.html",
-    "revision": "ed76fbc0ff11c356be6614fb82d5aa8b"
+    "revision": "4a4e34b39d243e9a10e01e4237e1fd88"
   },
   {
     "url": "blog/how-to-delete-or-deactivate-your-facebook-account/index.html",
-    "revision": "b8dc52d8ada2fb080e06a6947ef4621f"
+    "revision": "ad8a9aa3f71fe0f7cace98795901ace4"
   },
   {
     "url": "blog/how-to-replace-the-battery-in-your-nintendo-switch/index.html",
-    "revision": "a88cc5687562ba095bef0aff414d4bd9"
+    "revision": "6f94d41229632c8a845da36630c974e5"
   },
   {
     "url": "blog/index.html",
-    "revision": "3e8e95f3029c933355ff831c7a54baa7"
+    "revision": "1f0787031ff1624b4f7a6520e4198dd1"
   },
   {
     "url": "blog/procrastinot-maths-challenge-update/index.html",
-    "revision": "61522c8db4dbb6194c89d8dfaa86d23d"
+    "revision": "9124a96b62e5033576a1d5a0c597ddbf"
   },
   {
     "url": "blog/testing-redbox-kiosk-offline-hack-for-free-dvds/index.html",
-    "revision": "00a5ff4d2d227c3ca663959a0447d10e"
+    "revision": "c71709183f6b52dd2e15a51b800f4d2e"
   },
   {
     "url": "flash-cards/index.html",
-    "revision": "79a2a664907710be2f86ad6cd1a190e6"
+    "revision": "c70497eeba6e3374fada8c5b027ff363"
   },
   {
     "url": "forever-advert/index.html",
-    "revision": "28e69e4da328e1a564656d2c38e8893b"
+    "revision": "bb7e546a815ac135e592657d956c7c6a"
   },
   {
     "url": "forgotten-cards/index.html",
@@ -344,23 +344,23 @@ self.__precacheManifest = [
   },
   {
     "url": "index.html",
-    "revision": "bf81914c1b1699573cff27a649a32234"
+    "revision": "dd32d8c42a1863e48b33750d85f706f6"
   },
   {
     "url": "instant-incognito/index.html",
-    "revision": "17214affef046936e308f7142babf951"
+    "revision": "6c108a3c9d76b350172e01608d6ace90"
   },
   {
     "url": "privacy/index.html",
-    "revision": "b902ac4e2747ddddb3bdd188bd9da561"
+    "revision": "cd1e30cb6eaa0eb0762f70d4d40759f7"
   },
   {
     "url": "procrastinot/index.html",
-    "revision": "5e181af27c710932a4fb12a569ff82e0"
+    "revision": "1c10e05a89e013e546cce91182d3e648"
   },
   {
     "url": "reviews/index.html",
-    "revision": "7ba2f99c7bec7acd508d1770f4190204"
+    "revision": "eb04c4f573b80604cabda1d9ecd0d74c"
   },
   {
     "url": "stop-wasting/index.html",
@@ -368,7 +368,7 @@ self.__precacheManifest = [
   },
   {
     "url": "trivia/index.html",
-    "revision": "a8e827ada875115aca26d61d1ee98f96"
+    "revision": "a6f9be73bd30644479775058c2864e00"
   }
 ].concat(self.__precacheManifest || []);
 workbox.precaching.precacheAndRoute(self.__precacheManifest, {});
