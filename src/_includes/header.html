@@ -8,6 +8,32 @@
 {% assign showMiddleBadge = showMiddleBadge | default: false %}
 
 
+<div class="bg-yellow-500 py-2 text-white lg:block">
+  <div class="relative overflow-hidden">
+    <div class="animate-marquee whitespace-nowrap">
+      <span class="px-4 text-lg text-black font-bold">Breaking News:</span>
+      <span class="px-4 text-sm text-black">Coffee & Fun is now offering consultations from our award-winning team! </span>
+       <span class="px-4 text-sm text-black"> <a href="booknow" title="book now "class="btn btn-xs btn-ghost">Book Now</a></span>
+    </div>
+  </div>
+</div>
+
+<style>
+  @keyframes marquee {
+    0% {
+      transform: translateX(100%);
+    }
+    100% {
+      transform: translateX(-100%);
+    }
+  }
+  .animate-marquee {
+    display: inline-block;
+    animation: marquee 25s linear infinite;
+  }
+</style>
+
+
 <header class="navbar brand-color-background">
 
     <div class="navbar-start">
