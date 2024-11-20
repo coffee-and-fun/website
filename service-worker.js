@@ -320,47 +320,47 @@ self.__precacheManifest = [
   },
   {
     "url": "blog/ethically-hack-woobox-voting-node-puppeteer/index.html",
-    "revision": "45e25a36430906ecd7fb7b0b8ad0db12"
+    "revision": "e277e344c888d9dd096894cf16751432"
   },
   {
     "url": "blog/how-to-change-battery-in-an-apple-airtag/index.html",
-    "revision": "6f705dfaf98a111f2dd4f3a8a0fd33ef"
+    "revision": "7435bca3b8550ba5afb90c618aa44b8a"
   },
   {
     "url": "blog/how-to-delete-or-deactivate-your-facebook-account/index.html",
-    "revision": "b0422cfe854b982f33fef25bbb08249c"
+    "revision": "45dbf15fab0b0d3ad2ff2480a84b43be"
   },
   {
     "url": "blog/how-to-replace-the-battery-in-your-nintendo-switch/index.html",
-    "revision": "6910d8bb12c24a980f4c0e267870ba50"
+    "revision": "f8762b24cc37c1e299bb95bfcc3994aa"
   },
   {
     "url": "blog/index.html",
-    "revision": "47227b6d97433f5e40eef840cc4baafb"
+    "revision": "b6e65157bba9431c8999e0a3f1a78737"
   },
   {
     "url": "blog/introducing-autopause-control-your-media/index.html",
-    "revision": "2f57f218e96a3d10aaac80bb20c7c173"
+    "revision": "663eb5a70ee198cd8560e5370e568d04"
   },
   {
     "url": "blog/procrastinot-maths-challenge-update/index.html",
-    "revision": "6b30726ff52a7da40eb9567d8baa0c5f"
+    "revision": "7879df77e0b8c776bf3520868c61f4fb"
   },
   {
     "url": "blog/should-you-test-your-code-in-production/index.html",
-    "revision": "ae5374291fe23151afd6ef95deba4ef9"
+    "revision": "6597b8414d816e9288f60cc99cad8cc9"
   },
   {
     "url": "blog/testing-redbox-kiosk-offline-hack-for-free-dvds/index.html",
-    "revision": "ec49410a661f16bcb6fd433a6a24f057"
+    "revision": "d71be01aa11fec08937fcc0aeb4e06bf"
   },
   {
     "url": "flash-cards/index.html",
-    "revision": "cd2f98015176a989c92fa20564ec836b"
+    "revision": "482a5b7445999ba79da866a0e7b6b56b"
   },
   {
     "url": "forever-advert/index.html",
-    "revision": "fd996ee8a4a40fca468530b37378b685"
+    "revision": "5bbebf64e29490e3a6c31021946c20fa"
   },
   {
     "url": "forgotten-cards/index.html",
@@ -368,23 +368,23 @@ self.__precacheManifest = [
   },
   {
     "url": "index.html",
-    "revision": "eadd5487c51e94af44797273d25e108f"
+    "revision": "620a85e2e9bb2d4ea628618297a4da91"
   },
   {
     "url": "instant-incognito/index.html",
-    "revision": "4d97361b02704ff58fedeb9da70f25d7"
+    "revision": "8b47b39de979a0c1ea9e0b90ee341668"
   },
   {
     "url": "privacy/index.html",
-    "revision": "1c252e4f21c7c8afb0075e4134b191e4"
+    "revision": "da323fcd0bd2a8a44b5c803c83c145d8"
   },
   {
     "url": "procrastinot/index.html",
-    "revision": "b2346734f991804cdd1b98668ed8440a"
+    "revision": "1d474c51db0a9a0a48767fdcc2dba67f"
   },
   {
     "url": "reviews/index.html",
-    "revision": "c4fc6b0ff30db8ae20992ae22cd971c7"
+    "revision": "95f46eb23d71918f5490e0661af432cb"
   },
   {
     "url": "stop-wasting/index.html",
@@ -392,7 +392,7 @@ self.__precacheManifest = [
   },
   {
     "url": "trivia/index.html",
-    "revision": "3166e190258bdfc608c758fbc7f5b8f7"
+    "revision": "785e7d512c56016ae3d6fd043e59b678"
   }
 ].concat(self.__precacheManifest || []);
 workbox.precaching.precacheAndRoute(self.__precacheManifest, {});
