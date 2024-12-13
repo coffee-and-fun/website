@@ -360,7 +360,7 @@ self.__precacheManifest = [
   },
   {
     "url": "blog/whats-coming-for-coffee-and-fun-llc-in-2025/index.html",
-    "revision": "2bb9d3381794eaec744e28689ccd8239"
+    "revision": "801505ded294bbbd65666efedf9b6e33"
   },
   {
     "url": "flash-cards/index.html",
