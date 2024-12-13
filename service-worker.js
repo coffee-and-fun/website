@@ -127,6 +127,10 @@ self.__precacheManifest = [
     "revision": "05db40e5180db1f3eb3d5fcbe8f60234"
   },
   {
+    "url": "assets/images/blog/2025.png",
+    "revision": "06c0caebcae109f5ec9fb661ed8091ad"
+  },
+  {
     "url": "assets/images/blog/airtag.png",
     "revision": "f0edb91afcfae7033c139c65c54aaf3e"
   },
@@ -316,51 +320,55 @@ self.__precacheManifest = [
   },
   {
     "url": "assets/js/main.css",
-    "revision": "adfed39a01bf955adc66c84625cda195"
+    "revision": "878f8c2cc747f3275dc45f41d2a01ce9"
   },
   {
     "url": "blog/ethically-hack-woobox-voting-node-puppeteer/index.html",
-    "revision": "e277e344c888d9dd096894cf16751432"
+    "revision": "45e25a36430906ecd7fb7b0b8ad0db12"
   },
   {
     "url": "blog/how-to-change-battery-in-an-apple-airtag/index.html",
-    "revision": "7435bca3b8550ba5afb90c618aa44b8a"
+    "revision": "6f705dfaf98a111f2dd4f3a8a0fd33ef"
   },
   {
     "url": "blog/how-to-delete-or-deactivate-your-facebook-account/index.html",
-    "revision": "45dbf15fab0b0d3ad2ff2480a84b43be"
+    "revision": "b0422cfe854b982f33fef25bbb08249c"
   },
   {
     "url": "blog/how-to-replace-the-battery-in-your-nintendo-switch/index.html",
-    "revision": "f8762b24cc37c1e299bb95bfcc3994aa"
+    "revision": "6910d8bb12c24a980f4c0e267870ba50"
   },
   {
     "url": "blog/index.html",
-    "revision": "b6e65157bba9431c8999e0a3f1a78737"
+    "revision": "18ba7f00eed70f42314aea4d77b4ea95"
   },
   {
     "url": "blog/introducing-autopause-control-your-media/index.html",
-    "revision": "663eb5a70ee198cd8560e5370e568d04"
+    "revision": "2f57f218e96a3d10aaac80bb20c7c173"
   },
   {
     "url": "blog/procrastinot-maths-challenge-update/index.html",
-    "revision": "7879df77e0b8c776bf3520868c61f4fb"
+    "revision": "6b30726ff52a7da40eb9567d8baa0c5f"
   },
   {
     "url": "blog/should-you-test-your-code-in-production/index.html",
-    "revision": "6597b8414d816e9288f60cc99cad8cc9"
+    "revision": "ae5374291fe23151afd6ef95deba4ef9"
   },
   {
     "url": "blog/testing-redbox-kiosk-offline-hack-for-free-dvds/index.html",
-    "revision": "d71be01aa11fec08937fcc0aeb4e06bf"
+    "revision": "ec49410a661f16bcb6fd433a6a24f057"
+  },
+  {
+    "url": "blog/whats-coming-for-coffee-and-fun-llc-in-2025/index.html",
+    "revision": "2bb9d3381794eaec744e28689ccd8239"
   },
   {
     "url": "flash-cards/index.html",
-    "revision": "482a5b7445999ba79da866a0e7b6b56b"
+    "revision": "cd2f98015176a989c92fa20564ec836b"
   },
   {
     "url": "forever-advert/index.html",
-    "revision": "5bbebf64e29490e3a6c31021946c20fa"
+    "revision": "fd996ee8a4a40fca468530b37378b685"
   },
   {
     "url": "forgotten-cards/index.html",
@@ -368,23 +376,23 @@ self.__precacheManifest = [
   },
   {
     "url": "index.html",
-    "revision": "620a85e2e9bb2d4ea628618297a4da91"
+    "revision": "eadd5487c51e94af44797273d25e108f"
   },
   {
     "url": "instant-incognito/index.html",
-    "revision": "8b47b39de979a0c1ea9e0b90ee341668"
+    "revision": "4d97361b02704ff58fedeb9da70f25d7"
   },
   {
     "url": "privacy/index.html",
-    "revision": "da323fcd0bd2a8a44b5c803c83c145d8"
+    "revision": "1c252e4f21c7c8afb0075e4134b191e4"
   },
   {
     "url": "procrastinot/index.html",
-    "revision": "1d474c51db0a9a0a48767fdcc2dba67f"
+    "revision": "b2346734f991804cdd1b98668ed8440a"
   },
   {
     "url": "reviews/index.html",
-    "revision": "95f46eb23d71918f5490e0661af432cb"
+    "revision": "c4fc6b0ff30db8ae20992ae22cd971c7"
   },
   {
     "url": "stop-wasting/index.html",
@@ -392,7 +400,7 @@ self.__precacheManifest = [
   },
   {
     "url": "trivia/index.html",
-    "revision": "785e7d512c56016ae3d6fd043e59b678"
+    "revision": "3166e190258bdfc608c758fbc7f5b8f7"
   }
 ].concat(self.__precacheManifest || []);
 workbox.precaching.precacheAndRoute(self.__precacheManifest, {});
