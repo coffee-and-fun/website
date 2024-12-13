@@ -14,7 +14,7 @@ youtubeId:
 cardTitle: What’s Coming for Coffee & Fun LLC in 2025  
 blog_snip: Coffee & Fun LLC is all about tech, fun, and creativity. Here’s what we’re working on in 2025, from Helperbird to VR, 3D printing, Pokémon grading, and new apps like Step Hero.
 name: Robert James Gabriel
-img: /assets/images/blog/coffee-and-fun-2025.png
+img: /assets/images/blog/2025.png
 date: 2024-12-12T00:00:00.000Z
 time: 5 min
 tags:
