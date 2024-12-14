@@ -332,7 +332,7 @@ self.__precacheManifest = [
   },
   {
     "url": "blog/how-psa-grades-pokemon-cards-research-guide/index.html",
-    "revision": "480d268c27831b7ac83e34f5781c034b"
+    "revision": "093d2c6b56ed6af840602149babbacea"
   },
   {
     "url": "blog/how-to-change-battery-in-an-apple-airtag/index.html",
