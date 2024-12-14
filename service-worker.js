@@ -163,6 +163,10 @@ self.__precacheManifest = [
     "revision": "2a57290f8fdb7837d4645e324161b388"
   },
   {
+    "url": "assets/images/blog/psa-grading-research.png",
+    "revision": "cdddf462238eaee0f71477792f8b436a"
+  },
+  {
     "url": "assets/images/blog/redbox.png",
     "revision": "a02f58a011425fe91ecdcebc8e25f054"
   },
@@ -320,11 +324,15 @@ self.__precacheManifest = [
   },
   {
     "url": "assets/js/main.css",
-    "revision": "878f8c2cc747f3275dc45f41d2a01ce9"
+    "revision": "e36e2ac047f8f2ed5bbaefa51d6d43b3"
   },
   {
     "url": "blog/ethically-hack-woobox-voting-node-puppeteer/index.html",
     "revision": "45e25a36430906ecd7fb7b0b8ad0db12"
+  },
+  {
+    "url": "blog/how-psa-grades-pokemon-cards-research-guide/index.html",
+    "revision": "cdebfbe9eab8e35ede22b821e269265c"
   },
   {
     "url": "blog/how-to-change-battery-in-an-apple-airtag/index.html",
@@ -340,7 +348,7 @@ self.__precacheManifest = [
   },
   {
     "url": "blog/index.html",
-    "revision": "18ba7f00eed70f42314aea4d77b4ea95"
+    "revision": "50134936e3590f74e778f938cceb228e"
   },
   {
     "url": "blog/introducing-autopause-control-your-media/index.html",
