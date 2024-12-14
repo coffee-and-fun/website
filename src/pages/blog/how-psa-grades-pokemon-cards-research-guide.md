@@ -25,11 +25,13 @@ tags:
 ---
 
 
-This post is part of our research into creating an AI/ChatGPT grading estimator for Pokémon cards. As part of this experiment, we’ve ordered three professionally graded cards—a PSA 10, PSA 9, and PSA 8—to study the differences in how cards are evaluated. By understanding PSA’s grading criteria and seeing these grades in action, we aim to replicate the grading process with an AI-powered tool that can analyze centering, edges, corners, and surface conditions.
+This post is part of our research into creating an AI/ChatGPT grading estimator for Pokémon cards. As part of this experiment, we’ve ordered three professionally graded cards—a PSA 10, PSA 9, and PSA 8—to study the differences in how cards are evaluated. 
+
+By understanding PSA’s grading criteria and seeing these grades in action, we aim to replicate the grading process with an AI-powered tool that can analyze centering, edges, corners, and surface conditions.
 
 
 
-# How PSA Grades Pokémon Cards
+## How PSA Grades Pokémon Cards
 
 ## 1. Centering
 
@@ -178,16 +180,38 @@ PSA evaluates the print quality, ensuring no discoloration or fading. Misprints 
 
 ## How PSA Grades a Card: Step-by-Step
 
-1. **Initial Inspection:** PSA professionals examine the card under strong lighting and magnification tools.
-2. **Measurement of Centering:** Border thickness is checked to ensure the centering meets the criteria for the desired grade.
-3. **Magnified Evaluation:** Corners, edges, and surface are carefully inspected for even the smallest flaws.
-4. **Grade Assignment:** Multiple graders evaluate the card, and the final grade is assigned based on consensus.
-5. **Encapsulation:** The card is sealed in a tamper-proof plastic case with a label showing its grade, serial number, and details.
+**Initial Inspection**
+
+ PSA professionals examine the card under strong lighting and magnification tools.
+
+**Measurement of Centering** 
+
+Border thickness is checked to ensure the centering meets the criteria for the desired grade.
+
+**Magnified Evaluation** 
+
+Corners, edges, and surface are carefully inspected for even the smallest flaws.
+
+**Grade Assignment** 
+
+Multiple graders evaluate the card, and the final grade is assigned based on consensus.
+
+**Encapsulation** 
+
+The card is sealed in a tamper-proof plastic case with a label showing its grade, serial number, and details.
 
 ---
 
 ## Pro Tips for Submitting Cards
 
-- **Use Card Sleeves and Toploaders:** Protect your card during handling and shipping to avoid damage.
-- **Clean the Surface Carefully:** Wipe dirt or smudges off gently with a soft microfiber cloth.
-- **Check for Flaws Before Submitting:** Look for centering, edge whitening, and scratches under good lighting.
+**Use Card Sleeves and Toploaders** 
+
+Protect your card during handling and shipping to avoid damage.
+
+**Clean the Surface Carefully**
+
+Wipe dirt or smudges off gently with a soft microfiber cloth.
+
+**Check for Flaws Before Submitting** 
+
+Look for centering, edge whitening, and scratches under good lighting.
