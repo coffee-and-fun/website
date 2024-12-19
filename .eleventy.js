@@ -171,7 +171,12 @@ module.exports = function (eleventyConfig) {
 		ul: "leading-relaxed list-disc list-inside mt-4 space-y-2 pl-6 text-lg font-display ml-6 mb-8 text-gray-900",
 		ol: "leading-relaxed list-decimal list-inside mt-4 space-y-2 pl-6 text-lg font-display ml-6 mb-8 text-gray-900",
 		li: "leading-relaxed mb-2 text-lg font-display text-gray-900 flex items-center",
-	  
+		table: "table-auto w-full border-collapse border border-gray-300 text-lg font-display text-gray-900 mt-4 mb-8",
+		thead: "bg-gray-100",
+		th: "border border-gray-300 px-4 py-2 text-left text-gray-700 font-medium",
+		tbody: "",
+		tr: "odd:bg-gray-50 even:bg-white",
+		td: "border border-gray-300 px-4 py-2 text-gray-900",
 		img: 'aspect-square rounded-2xl mb-8 shadow-lg',
 		hr: 'divider divider-neutral my-10',
 		a: 'leading-relaxed font-sans text-lg text-blue-500 hover:text-blue-700 underline',
