@@ -179,6 +179,10 @@ self.__precacheManifest = [
     "revision": "eeab8da5b3836ca6083bd8d8cdce563c"
   },
   {
+    "url": "assets/images/blog/vision-pro-thoughts.png",
+    "revision": "414720c6a1f031538ac8bbdbf8de198f"
+  },
+  {
     "url": "assets/images/blog/woobox.png",
     "revision": "7b05f996f0cb6428789992842631e8aa"
   },
@@ -348,11 +352,15 @@ self.__precacheManifest = [
   },
   {
     "url": "blog/index.html",
-    "revision": "50134936e3590f74e778f938cceb228e"
+    "revision": "be50f64bdc8099b795db3f4cede045a8"
   },
   {
     "url": "blog/introducing-autopause-control-your-media/index.html",
     "revision": "2f57f218e96a3d10aaac80bb20c7c173"
+  },
+  {
+    "url": "blog/our-first-thoughts-on-the-vision-pro/index.html",
+    "revision": "ce562be0ac9d2946fd208b84ca6b7156"
   },
   {
     "url": "blog/procrastinot-maths-challenge-update/index.html",
