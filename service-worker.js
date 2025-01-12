@@ -119,6 +119,10 @@ self.__precacheManifest = [
     "revision": "a688c58d813cfcea7842f63ca06f2a34"
   },
   {
+    "url": "assets/images/apps/spoilers.png",
+    "revision": "4191cb1920482854379f08df194b3fb5"
+  },
+  {
     "url": "assets/images/apps/trivia-app.png",
     "revision": "2b41c291479a09c1224f70f48d83013b"
   },
@@ -336,59 +340,59 @@ self.__precacheManifest = [
   },
   {
     "url": "blog/ethically-hack-woobox-voting-node-puppeteer/index.html",
-    "revision": "c4c1fbd25cd2fb50db71a142941b51aa"
+    "revision": "1c664da952d0bc9e461ecba2a5b79700"
   },
   {
     "url": "blog/how-psa-grades-pokemon-cards-research-guide/index.html",
-    "revision": "23e79061371d0fb8e580a7078ff737e4"
+    "revision": "535d020d23d1a8afcf00aab84d9e1bee"
   },
   {
     "url": "blog/how-to-change-battery-in-an-apple-airtag/index.html",
-    "revision": "7e4c9bf2fa9117fd9c04686fc156d1f4"
+    "revision": "a0bdef20a0aacfcae5ea62e10f7630f6"
   },
   {
     "url": "blog/how-to-delete-or-deactivate-your-facebook-account/index.html",
-    "revision": "8a8698c2ecee26f60849a4d9f9f99b3d"
+    "revision": "d1c065864a4d2735921a42371d0ca623"
   },
   {
     "url": "blog/how-to-replace-the-battery-in-your-nintendo-switch/index.html",
-    "revision": "23bcba8277e505f40506b8242144bc22"
+    "revision": "86b0fb4695276de5335c310b213e7fcc"
   },
   {
     "url": "blog/index.html",
-    "revision": "1b98c0663fa5b423af48312f2ae78200"
+    "revision": "344475de0a4f5491c85ff83a071a71f3"
   },
   {
     "url": "blog/introducing-autopause-control-your-media/index.html",
-    "revision": "3e03f7aaa590af3a74458066999031ee"
+    "revision": "9ede1ebb20324110e13728463cc9d506"
   },
   {
     "url": "blog/our-first-thoughts-on-the-vision-pro/index.html",
-    "revision": "148a380f13f3788d9e8697cd965498bb"
+    "revision": "a3c350bca716b9e4fb1c7e782b04e336"
   },
   {
     "url": "blog/procrastinot-maths-challenge-update/index.html",
-    "revision": "2da7028720d3be28855794804aa65c07"
+    "revision": "8b339714472c0a99d290617b265d4cea"
   },
   {
     "url": "blog/should-you-test-your-code-in-production/index.html",
-    "revision": "aa81cd470a869bdec74f1d0bd5397e7f"
+    "revision": "acaa871062cd2d940e7afebab36db7b8"
   },
   {
     "url": "blog/testing-redbox-kiosk-offline-hack-for-free-dvds/index.html",
-    "revision": "de3d0a33f6a85ae3e9dfcba723c2a2b8"
+    "revision": "da901ae9a72c02bef479737c998f41c5"
   },
   {
     "url": "blog/whats-coming-for-coffee-and-fun-llc-in-2025/index.html",
-    "revision": "4a4234c81d1b65e97226cb6b6b5fc4b1"
+    "revision": "3ea2e56073261c5a0bc81d49e9ae69b3"
   },
   {
     "url": "flash-cards/index.html",
-    "revision": "7c1371b7078984e276ff91bdd9493b42"
+    "revision": "6bd5c606747c695ccd360a41d7e1fe64"
   },
   {
     "url": "forever-advert/index.html",
-    "revision": "01f39faf75247cdcad3892b626d75f9e"
+    "revision": "b1e8060d085a94150db58affe85be3cc"
   },
   {
     "url": "forgotten-cards/index.html",
@@ -396,27 +400,27 @@ self.__precacheManifest = [
   },
   {
     "url": "hide-spoilers-extension/index.html",
-    "revision": "6bb9e64b9d1fb52a3f54fab7574337ba"
+    "revision": "9212d8b81608a51bf7a0b3ccaf4d4a2c"
   },
   {
     "url": "index.html",
-    "revision": "14e029b7ffd71418c7a03257f0cae77c"
+    "revision": "648ea9c7517725aef034803d6f12fc8a"
   },
   {
     "url": "instant-incognito/index.html",
-    "revision": "e3bdf3397daff67e9f402d087b6e77d9"
+    "revision": "590f6213037b2b8c4d2a2d6ac497626a"
   },
   {
     "url": "privacy/index.html",
-    "revision": "7728f89a9dbd06810f8a094121af90f6"
+    "revision": "6aef80846117b76a2606318f53cff5c3"
   },
   {
     "url": "procrastinot/index.html",
-    "revision": "4fa943801730ebe0041185830a7d2bb3"
+    "revision": "88886249995293441b7a94914a860da9"
   },
   {
     "url": "reviews/index.html",
-    "revision": "837f897e2019e1d79c87c98876d3429b"
+    "revision": "d4adbf1a9e6818c1b8e0e228b79738be"
   },
   {
     "url": "stop-wasting/index.html",
@@ -424,7 +428,7 @@ self.__precacheManifest = [
   },
   {
     "url": "trivia/index.html",
-    "revision": "0cd9a464d389c6616efba9c63e6a6ea2"
+    "revision": "19ee750c41acaefa6b19d25a0e474793"
   }
 ].concat(self.__precacheManifest || []);
 workbox.precaching.precacheAndRoute(self.__precacheManifest, {});
