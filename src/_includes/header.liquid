@@ -6,7 +6,7 @@
 {% assign showProcrastinot = showProcrastinot | default: false %}
 {% assign showCannon = showCannon | default: false %}
 {% assign showMiddleBadge = showMiddleBadge | default: false %}
-
+{%  assign showSpoilers = showSpoilers |  default: false  %}
 
 {% include  ticker.liquid %}
 
@@ -44,8 +44,17 @@
         </a>
         {% endif %}
 
+        {% if showSpoilers %}
+    
 
-
+            <a href="/" class="btn btn-ghost gap-1 px-2 md:gap-2">
+                <img alt="Logo of Coffee & Fun LLC featuring a stylized cup with a coffee bean pattern, representing the company's focus on creativity and innovation in software development."
+                src="/assets/images/spoilers.png" class="h-10 w-10 aspect-square" decoding="async" data-nimg="future"
+                    loading="lazy" />
+                <span class="sr-only font-title text-base-content text-lg md:text-2xl">Hide Spoilers</span>
+            </a>
+            {% endif %}
+ 
 
 
         
