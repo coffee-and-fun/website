@@ -340,23 +340,23 @@ self.__precacheManifest = [
   },
   {
     "url": "blog/ethically-hack-woobox-voting-node-puppeteer/index.html",
-    "revision": "0e966416d9d41d2b42c4f1e769d17071"
+    "revision": "53e40d07a050410315d7c3280f015089"
   },
   {
     "url": "blog/how-psa-grades-pokemon-cards-research-guide/index.html",
-    "revision": "5afbf3e811494116b941f21cec815d45"
+    "revision": "568542d28a70b8fd1112511619436ec4"
   },
   {
     "url": "blog/how-to-change-battery-in-an-apple-airtag/index.html",
-    "revision": "64868d8d2fa905e8eb083a3a9be7ee35"
+    "revision": "869110bc3798cc13cf4c2d3b988c9a6d"
   },
   {
     "url": "blog/how-to-delete-or-deactivate-your-facebook-account/index.html",
-    "revision": "72ded58c827a3a2a078867a8d3126c8a"
+    "revision": "929b71f6095bde605c819052f59c7cfd"
   },
   {
     "url": "blog/how-to-replace-the-battery-in-your-nintendo-switch/index.html",
-    "revision": "d48c1305b3ab635de63995548f2b2104"
+    "revision": "016625c1960235b4fd0262ed9762ae96"
   },
   {
     "url": "blog/index.html",
@@ -364,27 +364,27 @@ self.__precacheManifest = [
   },
   {
     "url": "blog/introducing-autopause-control-your-media/index.html",
-    "revision": "fa799c1b666fedcb632d8e4b49c456e2"
+    "revision": "c6ba70dd1d40d66595f1f8846000d28f"
   },
   {
     "url": "blog/our-first-thoughts-on-the-vision-pro/index.html",
-    "revision": "5f180f8d67353d7fa8a8943010ce2913"
+    "revision": "67e608f4d019385f82392df83823385d"
   },
   {
     "url": "blog/procrastinot-maths-challenge-update/index.html",
-    "revision": "d7b44222c03dab1e4392eda936c464a4"
+    "revision": "2a9e513687398615ec1dfc4437314713"
   },
   {
     "url": "blog/should-you-test-your-code-in-production/index.html",
-    "revision": "32d1b10f92d9e42cb15766bcdb8aa86f"
+    "revision": "88de3b71eb6cd0b62835454fa7987b8e"
   },
   {
     "url": "blog/testing-redbox-kiosk-offline-hack-for-free-dvds/index.html",
-    "revision": "1fd10bab2515f323dec6fdb6e0e83320"
+    "revision": "6569b2b2422726ae08decf865549317d"
   },
   {
     "url": "blog/whats-coming-for-coffee-and-fun-llc-in-2025/index.html",
-    "revision": "7a2f5644ed6e7f8415fa686ee1de8011"
+    "revision": "583a91e59bf654f8fff663e56ab47937"
   },
   {
     "url": "flash-cards/index.html",
@@ -400,7 +400,7 @@ self.__precacheManifest = [
   },
   {
     "url": "hide-spoilers-extension/index.html",
-    "revision": "6666dc21666b523b662bfe5ebae29606"
+    "revision": "cf9eecc551f69b7e81bb43261d6de71f"
   },
   {
     "url": "index.html",
@@ -428,7 +428,7 @@ self.__precacheManifest = [
   },
   {
     "url": "trivia/index.html",
-    "revision": "d3e0446eaabe36192722e209f4d82165"
+    "revision": "5399640cb503635f504bb3dcea3f96ad"
   }
 ].concat(self.__precacheManifest || []);
 workbox.precaching.precacheAndRoute(self.__precacheManifest, {});
