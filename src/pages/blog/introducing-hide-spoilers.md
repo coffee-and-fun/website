@@ -23,7 +23,6 @@ tags:
 ---
 
 
-**# Introducing Hide Spoilers**
 
 Scrolling through websites and stumbling on spoilers for your favorite shows or games can ruin the fun. My wife and I faced this frustration, especially while waiting for the new season of *Severance* to wrap up. We couldn’t find an extension to block or blur spoilers effectively, so I created **Hide Spoilers**.
 
