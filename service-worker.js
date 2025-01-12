@@ -340,59 +340,59 @@ self.__precacheManifest = [
   },
   {
     "url": "blog/ethically-hack-woobox-voting-node-puppeteer/index.html",
-    "revision": "1c664da952d0bc9e461ecba2a5b79700"
+    "revision": "0e966416d9d41d2b42c4f1e769d17071"
   },
   {
     "url": "blog/how-psa-grades-pokemon-cards-research-guide/index.html",
-    "revision": "535d020d23d1a8afcf00aab84d9e1bee"
+    "revision": "5afbf3e811494116b941f21cec815d45"
   },
   {
     "url": "blog/how-to-change-battery-in-an-apple-airtag/index.html",
-    "revision": "a0bdef20a0aacfcae5ea62e10f7630f6"
+    "revision": "64868d8d2fa905e8eb083a3a9be7ee35"
   },
   {
     "url": "blog/how-to-delete-or-deactivate-your-facebook-account/index.html",
-    "revision": "d1c065864a4d2735921a42371d0ca623"
+    "revision": "72ded58c827a3a2a078867a8d3126c8a"
   },
   {
     "url": "blog/how-to-replace-the-battery-in-your-nintendo-switch/index.html",
-    "revision": "86b0fb4695276de5335c310b213e7fcc"
+    "revision": "d48c1305b3ab635de63995548f2b2104"
   },
   {
     "url": "blog/index.html",
-    "revision": "344475de0a4f5491c85ff83a071a71f3"
+    "revision": "adf61826bd4e60d2687ad29dabb90d09"
   },
   {
     "url": "blog/introducing-autopause-control-your-media/index.html",
-    "revision": "9ede1ebb20324110e13728463cc9d506"
+    "revision": "fa799c1b666fedcb632d8e4b49c456e2"
   },
   {
     "url": "blog/our-first-thoughts-on-the-vision-pro/index.html",
-    "revision": "a3c350bca716b9e4fb1c7e782b04e336"
+    "revision": "5f180f8d67353d7fa8a8943010ce2913"
   },
   {
     "url": "blog/procrastinot-maths-challenge-update/index.html",
-    "revision": "8b339714472c0a99d290617b265d4cea"
+    "revision": "d7b44222c03dab1e4392eda936c464a4"
   },
   {
     "url": "blog/should-you-test-your-code-in-production/index.html",
-    "revision": "acaa871062cd2d940e7afebab36db7b8"
+    "revision": "32d1b10f92d9e42cb15766bcdb8aa86f"
   },
   {
     "url": "blog/testing-redbox-kiosk-offline-hack-for-free-dvds/index.html",
-    "revision": "da901ae9a72c02bef479737c998f41c5"
+    "revision": "1fd10bab2515f323dec6fdb6e0e83320"
   },
   {
     "url": "blog/whats-coming-for-coffee-and-fun-llc-in-2025/index.html",
-    "revision": "3ea2e56073261c5a0bc81d49e9ae69b3"
+    "revision": "7a2f5644ed6e7f8415fa686ee1de8011"
   },
   {
     "url": "flash-cards/index.html",
-    "revision": "6bd5c606747c695ccd360a41d7e1fe64"
+    "revision": "28c47a0a8eb547190c967aafd22cef18"
   },
   {
     "url": "forever-advert/index.html",
-    "revision": "b1e8060d085a94150db58affe85be3cc"
+    "revision": "68d1255611930d836a30ded7650b5d8d"
   },
   {
     "url": "forgotten-cards/index.html",
@@ -400,27 +400,27 @@ self.__precacheManifest = [
   },
   {
     "url": "hide-spoilers-extension/index.html",
-    "revision": "9212d8b81608a51bf7a0b3ccaf4d4a2c"
+    "revision": "6666dc21666b523b662bfe5ebae29606"
   },
   {
     "url": "index.html",
-    "revision": "648ea9c7517725aef034803d6f12fc8a"
+    "revision": "9427ee1f0322bf9975d6b39ecf4b4105"
   },
   {
     "url": "instant-incognito/index.html",
-    "revision": "590f6213037b2b8c4d2a2d6ac497626a"
+    "revision": "ec45e433d1473416d5540000dfc162ad"
   },
   {
     "url": "privacy/index.html",
-    "revision": "6aef80846117b76a2606318f53cff5c3"
+    "revision": "2e27a6a7d19fbe17d9edafb28aed329e"
   },
   {
     "url": "procrastinot/index.html",
-    "revision": "88886249995293441b7a94914a860da9"
+    "revision": "655030054930eba53ee2d48537dbd511"
   },
   {
     "url": "reviews/index.html",
-    "revision": "d4adbf1a9e6818c1b8e0e228b79738be"
+    "revision": "58dea3b051667e23a9de116aa976c763"
   },
   {
     "url": "stop-wasting/index.html",
@@ -428,7 +428,7 @@ self.__precacheManifest = [
   },
   {
     "url": "trivia/index.html",
-    "revision": "19ee750c41acaefa6b19d25a0e474793"
+    "revision": "d3e0446eaabe36192722e209f4d82165"
   }
 ].concat(self.__precacheManifest || []);
 workbox.precaching.precacheAndRoute(self.__precacheManifest, {});
