@@ -372,7 +372,7 @@ self.__precacheManifest = [
   },
   {
     "url": "blog/introducing-hide-spoilers/index.html",
-    "revision": "44ffd2ec8ade5f5336bef4c68143883e"
+    "revision": "93b6961a81725ef4996a371061f6df73"
   },
   {
     "url": "blog/our-first-thoughts-on-the-vision-pro/index.html",
