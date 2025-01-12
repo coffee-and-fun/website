@@ -163,6 +163,10 @@ self.__precacheManifest = [
     "revision": "c689363606cd5523238ee72d83b7ac60"
   },
   {
+    "url": "assets/images/blog/hide-spoilers.png",
+    "revision": "63486ba296d86fe7cda0698969eaddc9"
+  },
+  {
     "url": "assets/images/blog/maths-update.png",
     "revision": "2a57290f8fdb7837d4645e324161b388"
   },
@@ -336,7 +340,7 @@ self.__precacheManifest = [
   },
   {
     "url": "assets/js/main.css",
-    "revision": "d7fb15470e3702b3bed14e9dbf32ab67"
+    "revision": "113a7449a97488d6cbec4611285c2b10"
   },
   {
     "url": "blog/ethically-hack-woobox-voting-node-puppeteer/index.html",
@@ -360,11 +364,15 @@ self.__precacheManifest = [
   },
   {
     "url": "blog/index.html",
-    "revision": "adf61826bd4e60d2687ad29dabb90d09"
+    "revision": "370bf263371f67cc833eee267318e99a"
   },
   {
     "url": "blog/introducing-autopause-control-your-media/index.html",
     "revision": "c6ba70dd1d40d66595f1f8846000d28f"
+  },
+  {
+    "url": "blog/introducing-hide-spoilers/index.html",
+    "revision": "44ffd2ec8ade5f5336bef4c68143883e"
   },
   {
     "url": "blog/our-first-thoughts-on-the-vision-pro/index.html",
