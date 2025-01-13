@@ -4,14 +4,14 @@ submit: false
 footer: true
 header: true
 layout: templates/post.liquid
-title: How I would Improve Chrome Web Store
+title: How I would Improve the Chrome Web Store
 description:  Join me as I share real, hands-on tips for improving the Chrome Web Store. Everything from more meaningful badges and better review tools to showing genuine user engagement. 
 keywords: Chrome Web Store, Extension Development, Google Chrome Extensions, Trusted Badge, Best Standards, User Engagement, Security Breaches, Two-Factor Authentication (2FA), Developer Fees, Smarter Reviews, Version-Specific Feedback, Temporary Badge Removal, Monthly Active Users (MAU), Collection & Ranking Badges, Spam Prevention, Accessibility Tools, Material Design M3, Extension Marketplace, User Transparency, Developer Advocates
 url: blog/how-i-would-improve-chrome-web-store/
 isBlog: true
 blog_cat: Usecase
 youtubeId: HqSjk8fC1tA
-cardTitle: How I would Improve Chrome Web Store
+cardTitle: How I would Improve the Chrome Web Store
 blog_snip: Join me as I share real, hands-on tips for improving the Chrome Web Store. Everything from more meaningful badges and better review tools to showing genuine user engagement. 
 name: Robert James Gabriel
 img: /assets/images/blog/how-i-would-improve.png
