@@ -167,6 +167,18 @@ self.__precacheManifest = [
     "revision": "63486ba296d86fe7cda0698969eaddc9"
   },
   {
+    "url": "assets/images/blog/how-i-would-improve.png",
+    "revision": "12a8f8d794b494efe96bbcd0a3b9e3bf"
+  },
+  {
+    "url": "assets/images/blog/improve/after.png",
+    "revision": "30767b14e91bfa198e402ff919c60185"
+  },
+  {
+    "url": "assets/images/blog/improve/before.png",
+    "revision": "1423ce1d196d5f8db95a981fda01678c"
+  },
+  {
     "url": "assets/images/blog/maths-update.png",
     "revision": "2a57290f8fdb7837d4645e324161b388"
   },
@@ -340,11 +352,15 @@ self.__precacheManifest = [
   },
   {
     "url": "assets/js/main.css",
-    "revision": "113a7449a97488d6cbec4611285c2b10"
+    "revision": "e14bac845e6eadd503b104013f766cc9"
   },
   {
     "url": "blog/ethically-hack-woobox-voting-node-puppeteer/index.html",
     "revision": "53e40d07a050410315d7c3280f015089"
+  },
+  {
+    "url": "blog/how-i-would-improve-chrome-web-store/index.html",
+    "revision": "bf9a2c0bf370fa16b4e74229ad0fcf47"
   },
   {
     "url": "blog/how-psa-grades-pokemon-cards-research-guide/index.html",
@@ -364,7 +380,7 @@ self.__precacheManifest = [
   },
   {
     "url": "blog/index.html",
-    "revision": "370bf263371f67cc833eee267318e99a"
+    "revision": "3b2a6e5c5da73a4ef3034d0528fc8ef2"
   },
   {
     "url": "blog/introducing-autopause-control-your-media/index.html",
