@@ -424,7 +424,7 @@ self.__precacheManifest = [
   },
   {
     "url": "hide-spoilers-extension/index.html",
-    "revision": "30bfc14ade72c5ec691ea66b6840bd0e"
+    "revision": "3583cb41372cf82eeee29b8fad30b622"
   },
   {
     "url": "index.html",
