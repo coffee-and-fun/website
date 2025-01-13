@@ -360,7 +360,7 @@ self.__precacheManifest = [
   },
   {
     "url": "blog/how-i-would-improve-chrome-web-store/index.html",
-    "revision": "bf9a2c0bf370fa16b4e74229ad0fcf47"
+    "revision": "75d87b6f616e63c7a0a9e6f36fa5af36"
   },
   {
     "url": "blog/how-psa-grades-pokemon-cards-research-guide/index.html",
@@ -424,7 +424,7 @@ self.__precacheManifest = [
   },
   {
     "url": "hide-spoilers-extension/index.html",
-    "revision": "7e5ca84b278f49f35f11765359832e73"
+    "revision": "8e93fdb53b58f61aa0aa0da778f7b234"
   },
   {
     "url": "index.html",
