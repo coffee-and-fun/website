@@ -54,3 +54,6 @@ I wanted a simple tool to block spoilers for shows, games, or events. Hide Spoil
 
 Avoid spoilers for the shows, games, and movies you love. Hide Spoilers is easy to use, customizable, and keeps your browsing stress-free. Download it now for **Chrome**, or grab it for **iOS and Safari** for just $2.99.
 
+
+
+

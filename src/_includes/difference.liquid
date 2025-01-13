@@ -1,0 +1,21 @@
+{%  assign showDifference  = showDifference |  default: false  %}
+
+{%  assign beforeImage  = beforeImage |  default: ''  %}
+
+{%  assign afterImage  = afterImage |  default: ''  %}
+
+{% if showDifference %}
+<div class="diff aspect-[16/9] shadow-md rounded-lg">
+    <div class="diff-item-1">
+      <img alt="daisy" 
+      src='{{beforeImage}}' />
+    </div>
+    <div class="diff-item-2">
+      <img
+        alt="daisy"
+        src='{{afterImage}}' />
+    </div>
+    <div class="diff-resizer"></div>
+  </div>
+
+{% endif %}
