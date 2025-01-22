@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html class="brand-color-background scroll-smooth antialiased" lang="en">
+<html class="brand-color-background scroll-smooth antialiased special-red" lang="en">
 	<head>
 		<meta charset="utf-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -23,7 +23,7 @@
 		<link rel="manifest" href="/assets/images/social/site.webmanifest" />
 		<!-- Twitter Meta Tags -->
 		<meta property="twitter:domain" content="coffeeandfun.com" />
-		<meta property="twitter:url" content="https://www.coffeeandfun.com/instant-incognito/" />
+		<meta property="twitter:url" content="https://www.coffeeandfun.com/procrastinot/" />
 		<meta name="twitter:card" content="summary_large_image" />
 		<meta name="twitter:title" content="ProcrastiNOT - Website Blocker for MacOs & iOS" />
 		<meta name="twitter:site" content="@bycoffeeandfun" />
@@ -52,13 +52,20 @@
 		</script>
 
 		{% include scripts.html %}
+		<style>
+			.special-red{
+				background-color: #fc7367;
+			}
+			
+					</style>
 	</head>
-	<body>
-		{% assign showDonation = true %}
+	<body class="special-red">
+		{% assign showDonation = false %}
 		{% assign showTriviaApp = false %}
 		{% assign showKeyboardModal = false %}
 		{% assign showInstantApp = false %}
-		{% assign showProcrastinot = true %}
+		{% assign showProcrastinot = false %}
+		{%  assign showMiddleBadge = true %}
 		{% include header.liquid %}
 		<main id="main-content" class="mx-auto max-w-7xl pb-12 pt-12">
 			<div class="relative my-16">
@@ -68,16 +75,23 @@
 							<img
 								class="mx-auto block h-14"
 								style="height: 7.5rem"
-								src="/assets/images/apps/procrastinot.png"
+								src="/assets/images/procrastinot/clear.png"
 								alt="ProcrastiNot by Coffee & Fun"
 							/>
 							<h1 class="text-4xl font-bold tracking-tight text-black sm:text-6xl">
 								<span class="block font-sans leading-relaxed text-black">ProcrastiNOT </span>
 							</h1>
 							<p class="mt-6 font-sans text-xl leading-relaxed text-black">
-								Say goodbye to procrastination and hello to productivity with ProcrastiNOT! This
-								extension is your personal productivity guardian, helping you stay focused and
-								accomplish more, by blocking websites when you're trying to get work done!
+								Say goodbye to procrastination with ProcrastiNOT! This extension helps you stay focused by blocking distracting websites and  <b>requires solving a math problem to turn it off.</b>
+
+
+
+
+
+
+
+
+								<br />
 								<br />
 								Available as an extension for
 								<a
@@ -165,8 +179,15 @@
 							</dt>
 							<dd class="mt-4 lg:col-span-7 lg:mt-0">
 								<p class="text-lg leading-7 text-black">
-									This extension is your personal productivity guardian, helping you stay focused
-									and accomplish more, by blocking websites when you're trying to get work done!
+									ProcrastiNot helps you stay focused by blocking websites you choose, like Facebook or YouTube. If you try to visit a blocked site, it redirects you with a message to refocus, and you’ll need to solve a math problem to turn it off! 🚀
+
+
+
+
+
+
+
+
 								</p>
 							</dd>
 						</div>
@@ -195,36 +216,33 @@
 								Permissions used.
 							</dt>
 							<dd class="mt-4 lg:col-span-7 lg:mt-0">
-								<p class="text-lg leading-7 text-black">
-									<b>🌐 webNavigation</b>
-									<br />
-									<br />
-									Think of 'webNavigation' like having a smart compass that knows when you're ready
-									to set sail to a new web page. When you click a link or type in a new address,
-									this permission helps our app to see that you're heading somewhere new. It doesn't
-									peek at what you're doing or where you're going; it just makes sure that if you're
-									visiting one of those secret clubhouse sites, the app switches you to incognito
-									mode faster than a superhero can change their outfit! ⚡
-									<br />
-									<br />
-									<b>🔗 tabs</b>
-									<br />
-									<br />
-									The 'tabs' permission is like being able to teleport your stuff from one room to
-									another. This lets our app move your current webpage into a private incognito tab
-									if needed, or open a new one without you having to lift a finger. It's like having
-									a magic wand to open, close, and switch between tabs, all while keeping your
-									secret missions... well, secret! 🧙‍♂️✨
+								<h3 class="text-lg font-bold mt-8">🌐 webNavigation</h3>
+								<p class="text-lg leading-7 text-black mt-2">
+							
+							
+									The <b>webNavigation</b> permission lets the extension know when you're navigating to a new webpage, like clicking a link or typing a new address. It doesn’t track your activity or see what you're doing—it simply detects when you're visiting specific websites. If those sites are on the extension's list (like NSFW or private sites), it automatically switches to incognito mode for your privacy.
+									
+									</p>
 
-									<b>💾 storage</b>
-									<br />
-									<br />
-									And for 'storage', imagine having an invisible backpack where you can keep all
-									your favorite app settings and tools. This permission lets our app remember how
-									you've set things up so that everything is just the way you like it every time you
-									use it. It's your personal preference locker, and only you have the key. No one
-									else can peek inside – it's just for your app to make sure your adventure is ready
-									to go whenever you are! 🎒🔐
+
+									<h3 class="text-lg font-bold mt-8">🌐
+										🔗 tabs
+										</h3>
+									<p class="text-lg leading-7 text-black  mt-2">
+									
+								
+							
+							
+									The <b>tabs</b> permission allows the extension to interact with the tabs you're currently using. It can detect which tab you're on, retrieve its URL, and perform actions like refreshing the tab, moving it to incognito mode, or opening related tabs. This helps the extension work smoothly with your browsing without interrupting your flow!
+								</p>
+
+								<h3 class="text-lg font-bold mt-8">🌐
+									💾 storage
+									</h3>
+								<p class="text-lg leading-7 text-black mt-2">
+								
+									
+									The <b>storage</b> permission allows the extension to save your preferences and settings, like how you’ve customized the app or enabled specific features. This ensures that every time you use the extension, everything works just the way you set it up. All the data is stored securely and privately—only the extension can access it, and it’s there to make your experience seamless and consistent. 🎒🔐
 								</p>
 							</dd>
 						</div>
@@ -235,7 +253,15 @@
 							</dt>
 							<dd class="mt-4 lg:col-span-7 lg:mt-0">
 								<p class="text-lg leading-7 text-black">
-									This allows us to develop the app and make improvements.
+									The $2.99 helps us keep the app running, add new features, and make improvements. It supports all the work that goes into making the app better for you.
+
+
+
+
+
+
+
+
 								</p>
 							</dd>
 						</div>
@@ -243,69 +269,7 @@
 				</div>
 			</div>
 
-			<div class="bg-white py-24 sm:py-32" id="pricing">
-				<div class="mx-auto max-w-7xl px-6 lg:px-8">
-				  <div class="mx-auto max-w-2xl sm:text-center">
-					<h2 class="text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">ProcrastiNot Pricing</h2>
-					<p class="mt-6 text-lg leading-8 text-gray-600">Secure ProcrastiNot for just $2.99! Perfect for acing exams, mastering new skills, or just wanting to focus.</p>
-				  </div>
-				  <div class="mx-auto mt-16 max-w-2xl rounded-3xl ring-1 ring-gray-200 sm:mt-20 lg:mx-0 lg:flex lg:max-w-none">
-					<div class="p-8 sm:p-10 lg:flex-auto">
-					  <h3 class="text-2xl font-bold tracking-tight text-gray-900">One Time Payment</h3>
-					  <p class="mt-6 text-base leading-7 text-gray-600">Secure ProcrastiNot for just $2.99! Perfect for acing exams, mastering new skills, or just wanting to focus.</p>
-					  <div class="mt-10 flex items-center gap-x-4">
-						<h4 class="flex-none text-sm font-semibold leading-6 text-indigo-600">What’s included</h4>
-						<div class="h-px flex-auto bg-gray-100"></div>
-					  </div>
-					  <ul role="list" class="mt-8 grid grid-cols-1 gap-4 text-sm leading-6 text-gray-600 sm:grid-cols-2 sm:gap-6">
-						<li class="flex gap-x-3">
-						  <svg class="h-6 w-5 flex-none text-indigo-600" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
-							<path fill-rule="evenodd" d="M16.704 4.153a.75.75 0 01.143 1.052l-8 10.5a.75.75 0 01-1.127.075l-4.5-4.5a.75.75 0 011.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 011.05-.143z" clip-rule="evenodd" />
-						  </svg>
-						  macOs version
-						</li>
-						<li class="flex gap-x-3">
-						  <svg class="h-6 w-5 flex-none text-indigo-600" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
-							<path fill-rule="evenodd" d="M16.704 4.153a.75.75 0 01.143 1.052l-8 10.5a.75.75 0 01-1.127.075l-4.5-4.5a.75.75 0 011.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 011.05-.143z" clip-rule="evenodd" />
-						  </svg>
-						  iPad/iPhone version
-						</li>
-						<li class="flex gap-x-3">
-						  <svg class="h-6 w-5 flex-none text-indigo-600" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
-							<path fill-rule="evenodd" d="M16.704 4.153a.75.75 0 01.143 1.052l-8 10.5a.75.75 0 01-1.127.075l-4.5-4.5a.75.75 0 011.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 011.05-.143z" clip-rule="evenodd" />
-						  </svg>
-						  24/7 Support
-
-						</li>
-						<li class="flex gap-x-3">
-						  <svg class="h-6 w-5 flex-none text-indigo-600" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
-							<path fill-rule="evenodd" d="M16.704 4.153a.75.75 0 01.143 1.052l-8 10.5a.75.75 0 01-1.127.075l-4.5-4.5a.75.75 0 011.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 011.05-.143z" clip-rule="evenodd" />
-						  </svg>
-						  Free Updates
-						</li>
-					  </ul>
-					</div>
-					<div class="-mt-2 p-2 lg:mt-0 lg:w-full lg:max-w-md lg:flex-shrink-0">
-					  <div class="rounded-2xl bg-gray-50 py-10 text-center ring-1 ring-inset ring-gray-900/5 lg:flex lg:flex-col lg:justify-center lg:py-16">
-						<div class="mx-auto max-w-xs px-8">
-							<img
-							class="mx-auto h-36"
-							src="/assets/images/apps/procrastinot.png"
-							alt="ProcrastiNOT"
-						/>
-						  <p class="text-base font-semibold text-gray-600">Pay once, own it forever</p>
-						  <p class="mt-6 flex items-baseline justify-center gap-x-2">
-							<span class="text-5xl font-bold tracking-tight text-gray-900">$2.99</span>
-							<span class="text-sm font-semibold leading-6 tracking-wide text-gray-600">USD</span>
-						  </p>
-						  <a 	href="https://apps.apple.com/us/app/procrastinot-website-blocker/id6569216739?platform=ipad" class="mt-10 block w-full rounded-md bg-indigo-600 px-3 py-2 text-center text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600" aria-label="Buy it Now!" title="Buy it Now!">Buy it Now!</a>
-						  <p class="mt-6 text-xs leading-5 text-gray-600">Invoices and receipts available for easy company reimbursement</p>
-						</div>
-					  </div>
-					</div>
-				  </div>
-				</div>
-			  </div>
+	
 
 			  {% include discord.liquid %}
 
