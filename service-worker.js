@@ -195,6 +195,10 @@ self.__precacheManifest = [
     "revision": "a02f58a011425fe91ecdcebc8e25f054"
   },
   {
+    "url": "assets/images/blog/skip-movie-trailers-trick.png",
+    "revision": "75e8a356352008309a580ec24dacc193"
+  },
+  {
     "url": "assets/images/blog/switch-battery.png",
     "revision": "82a1ca8978651a0a7016a6f3d6528351"
   },
@@ -388,7 +392,7 @@ self.__precacheManifest = [
   },
   {
     "url": "blog/index.html",
-    "revision": "7935c06e252458dc19da12ce709bd950"
+    "revision": "685118dbbe8483fc115b1901b774061d"
   },
   {
     "url": "blog/introducing-autopause-control-your-media/index.html",
@@ -409,6 +413,10 @@ self.__precacheManifest = [
   {
     "url": "blog/should-you-test-your-code-in-production/index.html",
     "revision": "4ad52901faaf80a183c9de960339269b"
+  },
+  {
+    "url": "blog/skip-movie-trailers-trick/index.html",
+    "revision": "ab30f2860b7918f3645de4d0a2b93c05"
   },
   {
     "url": "blog/testing-redbox-kiosk-offline-hack-for-free-dvds/index.html",
