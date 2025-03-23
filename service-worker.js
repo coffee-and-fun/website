@@ -416,7 +416,7 @@ self.__precacheManifest = [
   },
   {
     "url": "blog/skip-movie-trailers-trick/index.html",
-    "revision": "ab30f2860b7918f3645de4d0a2b93c05"
+    "revision": "68c04755effa2d47452b68715b3e9ed6"
   },
   {
     "url": "blog/testing-redbox-kiosk-offline-hack-for-free-dvds/index.html",
