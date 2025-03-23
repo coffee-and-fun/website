@@ -163,6 +163,10 @@ self.__precacheManifest = [
     "revision": "1f9e2edee24b732519bc64c94275efbd"
   },
   {
+    "url": "assets/images/blog/coffee-and-fun-quarterly-update-spring-2025.png",
+    "revision": "75e8a356352008309a580ec24dacc193"
+  },
+  {
     "url": "assets/images/blog/facebook.png",
     "revision": "c689363606cd5523238ee72d83b7ac60"
   },
@@ -367,6 +371,10 @@ self.__precacheManifest = [
     "revision": "3d54a9259ad76eac7bd5b94058cc5e20"
   },
   {
+    "url": "blog/coffee-and-fun-quarterly-update-spring-2025/index.html",
+    "revision": "341da0aba4392d941d103afc107efdfc"
+  },
+  {
     "url": "blog/ethically-hack-woobox-voting-node-puppeteer/index.html",
     "revision": "ac0708b25db0dacbca1ccaa3e0f8fdb3"
   },
@@ -392,7 +400,7 @@ self.__precacheManifest = [
   },
   {
     "url": "blog/index.html",
-    "revision": "685118dbbe8483fc115b1901b774061d"
+    "revision": "7d4e360d3501a32e9a58b2fcb1d8032c"
   },
   {
     "url": "blog/introducing-autopause-control-your-media/index.html",
