@@ -159,6 +159,10 @@ self.__precacheManifest = [
     "revision": "6cbfab9464797b034cd756870deac5ff"
   },
   {
+    "url": "assets/images/blog/apple-passwords-app-coffee-and-fun.png",
+    "revision": "17002879a79dbcb5104997c037ced680"
+  },
+  {
     "url": "assets/images/blog/autopause.png",
     "revision": "1f9e2edee24b732519bc64c94275efbd"
   },
@@ -371,6 +375,10 @@ self.__precacheManifest = [
     "revision": "3d54a9259ad76eac7bd5b94058cc5e20"
   },
   {
+    "url": "blog/apple-passwords-app-review-coffee-and-fun/index.html",
+    "revision": "f17132d82ce749f99195b96aa05f56dc"
+  },
+  {
     "url": "blog/coffee-and-fun-quarterly-update-spring-2025/index.html",
     "revision": "f65c9ae891176bd6bf56fb764f07937b"
   },
@@ -400,7 +408,7 @@ self.__precacheManifest = [
   },
   {
     "url": "blog/index.html",
-    "revision": "7d4e360d3501a32e9a58b2fcb1d8032c"
+    "revision": "fb54cc8018f14ec17f0c78a967859c8c"
   },
   {
     "url": "blog/introducing-autopause-control-your-media/index.html",
