@@ -164,7 +164,7 @@ self.__precacheManifest = [
   },
   {
     "url": "assets/images/blog/coffee-and-fun-quarterly-update-spring-2025.png",
-    "revision": "75e8a356352008309a580ec24dacc193"
+    "revision": "d202df7b5728fe18e4a1ce4824aa9ecf"
   },
   {
     "url": "assets/images/blog/facebook.png",
@@ -372,7 +372,7 @@ self.__precacheManifest = [
   },
   {
     "url": "blog/coffee-and-fun-quarterly-update-spring-2025/index.html",
-    "revision": "341da0aba4392d941d103afc107efdfc"
+    "revision": "f65c9ae891176bd6bf56fb764f07937b"
   },
   {
     "url": "blog/ethically-hack-woobox-voting-node-puppeteer/index.html",
