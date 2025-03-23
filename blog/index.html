@@ -76,10 +76,14 @@
 
 
 <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.3/dist/confetti.browser.min.js"></script>
+<script src="https://unpkg.com/cursor-effects@latest/dist/browser.js"></script>
 
 <link rel="stylesheet" href="https://unpkg.com/prismjs@1.20.0/themes/prism-okaidia.css">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
 <script>
+
+
+
 
 // Function to launch the confetti animation
 function launchConfetti() {
@@ -148,7 +152,40 @@ function launchConfetti() {
 }
 
 
+let cursorEffect = null;
+let cursorEffectsEnabled = false;
+let currentEffectIndex = -1; // Start before first
 
+const availableEffects = [
+  'rainbowCursor',
+  'followingDotCursor',
+  'clockCursor',
+  'ghostCursor',
+  'bubbleCursor',
+  'fairyDustCursor'
+];
+
+function applyCursorEffect() {
+  if (cursorEffectsEnabled) {
+    // Turn OFF
+    if (cursorEffect && typeof cursorEffect.destroy === "function") {
+      cursorEffect.destroy();
+    }
+    cursorEffect = null;
+    cursorEffectsEnabled = false;
+  } else {
+    // Move to the next effect in the list
+    currentEffectIndex = (currentEffectIndex + 1) % availableEffects.length;
+    const effectName = availableEffects[currentEffectIndex];
+
+    // Create new effect instance
+    cursorEffect = new cursoreffects[effectName]();
+    cursorEffectsEnabled = true;
+
+    // Optional: log the current effect
+
+  }
+}
 
 document.addEventListener("DOMContentLoaded", (event) => {
         document.querySelectorAll('pre code').forEach((block) => {
@@ -173,39 +210,6 @@ document.addEventListener("DOMContentLoaded", (event) => {
 
 
 
-<div class="bg-yellow-500 py-2 text-white lg:block">
-  <div class="relative overflow-hidden">
-    <div class="animate-marquee whitespace-nowrap px-4">
-      <span class="text-lg text-black font-bold mr-2">Breaking News:</span>
-      <span class="text-base text-black">
-        Join our Discord to talk to the team, suggest features, report bugs or hang out 
-        <a href="https://discord.gg/J6EeMvSBYg" target="_blank" 
-           title="Join our Discord" class="btn btn-xs ml-2">
-          Join Discord
-        </a>
-      </span>
-    </div>
-  </div>
-</div>
-
-<style>
-  @keyframes marquee {
-    0% {
-      transform: translateX(100%);
-    }
-    100% {
-      transform: translateX(-100%);
-    }
-  }
-  .animate-marquee {
-    display: inline-block;
-    animation: marquee 25s linear infinite;
-  }
-  .animate-marquee:hover {
-    animation-play-state: paused;
-  }
-</style>
- 
 
 <header class="navbar ">
 
@@ -235,64 +239,106 @@ document.addEventListener("DOMContentLoaded", (event) => {
     </div>
 
     <div class="navbar-end">
-
-        
-
-
-        
-
-
-        
-        <button 
-            class="btn btn-secondary btn-sm btn-circle mr-2 transition-all duration-200 hover:-translate-y-1" 
-            onclick="launchConfetti()"
-            title="Party" 
-            aria-label="Party"
-            aria-controls="Party" 
-            role="menuitem">
-        
-                <svg xmlns="http://www.w3.org/2000/svg" enable-background="new 0 0 24 24"  viewBox="0 0 24 24" class="w-6 h-6" fill="currentColor"><g><rect fill="none" height="24" width="24"/></g><g><g><polygon points="2,22 16,17 7,8"/><path d="M14.53,12.53l5.59-5.59c0.49-0.49,1.28-0.49,1.77,0l0.59,0.59l1.06-1.06l-0.59-0.59c-1.07-1.07-2.82-1.07-3.89,0 l-5.59,5.59L14.53,12.53z"/><path d="M10.06,6.88L9.47,7.47l1.06,1.06l0.59-0.59c1.07-1.07,1.07-2.82,0-3.89l-0.59-0.59L9.47,4.53l0.59,0.59 C10.54,5.6,10.54,6.4,10.06,6.88z"/><path d="M17.06,11.88l-1.59,1.59l1.06,1.06l1.59-1.59c0.49-0.49,1.28-0.49,1.77,0l1.61,1.61l1.06-1.06l-1.61-1.61 C19.87,10.81,18.13,10.81,17.06,11.88z"/><path d="M15.06,5.88l-3.59,3.59l1.06,1.06l3.59-3.59c1.07-1.07,1.07-2.82,0-3.89l-1.59-1.59l-1.06,1.06l1.59,1.59 C15.54,4.6,15.54,5.4,15.06,5.88z"/></g></g></svg>
-        </button>
-
-        
-
-
-
-            <a 
-                class="btn btn-primary btn-sm btn-circle mr-2 transition-all duration-200 hover:-translate-y-1" 
-                href="https://discord.gg/J6EeMvSBYg"
-                title="Join our Discord" 
-                target="_blank"
-                aria-label="Join our Discord" 
-                aria-controls="Join our Discord" 
-                role="menuitem">
+        <div class="flex items-center gap-4">
             
-                <svg class="h-7 w-7 p-1" fill="currentColor" viewBox="0 -28.5 256 256" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" preserveAspectRatio="xMidYMid">
-        <g>
-            <path d="M216.856339,16.5966031 C200.285002,8.84328665 182.566144,3.2084988 164.041564,0 C161.766523,4.11318106 159.108624,9.64549908 157.276099,14.0464379 C137.583995,11.0849896 118.072967,11.0849896 98.7430163,14.0464379 C96.9108417,9.64549908 94.1925838,4.11318106 91.8971895,0 C73.3526068,3.2084988 55.6133949,8.86399117 39.0420583,16.6376612 C5.61752293,67.146514 -3.4433191,116.400813 1.08711069,164.955721 C23.2560196,181.510915 44.7403634,191.567697 65.8621325,198.148576 C71.0772151,190.971126 75.7283628,183.341335 79.7352139,175.300261 C72.104019,172.400575 64.7949724,168.822202 57.8887866,164.667963 C59.7209612,163.310589 61.5131304,161.891452 63.2445898,160.431257 C105.36741,180.133187 151.134928,180.133187 192.754523,160.431257 C194.506336,161.891452 196.298154,163.310589 198.110326,164.667963 C191.183787,168.842556 183.854737,172.420929 176.223542,175.320965 C180.230393,183.341335 184.861538,190.991831 190.096624,198.16893 C211.238746,191.588051 232.743023,181.531619 254.911949,164.955721 C260.227747,108.668201 245.831087,59.8662432 216.856339,16.5966031 Z M85.4738752,135.09489 C72.8290281,135.09489 62.4592217,123.290155 62.4592217,108.914901 C62.4592217,94.5396472 72.607595,82.7145587 85.4738752,82.7145587 C98.3405064,82.7145587 108.709962,94.5189427 108.488529,108.914901 C108.508531,123.290155 98.3405064,135.09489 85.4738752,135.09489 Z M170.525237,135.09489 C157.88039,135.09489 147.510584,123.290155 147.510584,108.914901 C147.510584,94.5396472 157.658606,82.7145587 170.525237,82.7145587 C183.391518,82.7145587 193.761324,94.5189427 193.539891,108.914901 C193.539891,123.290155 183.391518,135.09489 170.525237,135.09489 Z" fill="currentColor" fill-rule="nonzero">
-    
-    </path>
-        </g>
-    </svg>
+
+
+            
+
+
+   
+            
+                <button
+                    class="btn btn-warning  btn-circle transition-all duration-200 hover:-translate-y-1"
+                    onclick="applyCursorEffect()"
+                    title="Party"
+                    aria-label="Party"
+                    aria-controls="Party"
+                    role="menuitem"
+                >
+
+
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 -960 960 960"   class="w-6 h-6" fill="currentColor"><path d="M331-651 211-771l57-57 120 120-57 57Zm149-95v-170h80v170h-80Zm291 535L651-331l57-57 120 120-57 57Zm-63-440-57-57 120-120 57 57-120 120Zm38 171v-80h170v80H746ZM205-92 92-205q-12-12-12-28t12-28l363-364q35-35 85-35t85 35q35 35 35 85t-35 85L261-92q-12 12-28 12t-28-12Zm279-335-14.5-14-14.5-14-14-14-14-14 28 28 29 28ZM233-176l251-251-57-56-250 250 56 57Z"/></svg>
+                 
+                </button>
+
+                <button
+                    class="btn btn-secondary  btn-circle transition-all duration-200 hover:-translate-y-1"
+                    onclick="launchConfetti()"
+                    title="Party"
+                    aria-label="Party"
+                    aria-controls="Party"
+                    role="menuitem"
+                >
+                    <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    enable-background="new 0 0 24 24"
+                    viewBox="0 0 24 24"
+                    class="w-6 h-6"
+                    fill="currentColor"
+                    >
+                    <g><rect fill="none" height="24" width="24" /></g>
+                    <g>
+                        <g>
+                        <polygon points="2,22 16,17 7,8" />
+                        <path
+                            d="M14.53,12.53l5.59-5.59c0.49-0.49,1.28-0.49,1.77,0l0.59,0.59l1.06-1.06l-0.59-0.59c-1.07-1.07-2.82-1.07-3.89,0 l-5.59,5.59L14.53,12.53z"
+                        />
+                        <path
+                            d="M10.06,6.88L9.47,7.47l1.06,1.06l0.59-0.59c1.07-1.07,1.07-2.82,0-3.89l-0.59-0.59L9.47,4.53l0.59,0.59 C10.54,5.6,10.54,6.4,10.06,6.88z"
+                        />
+                        <path
+                            d="M17.06,11.88l-1.59,1.59l1.06,1.06l1.59-1.59c0.49-0.49,1.28-0.49,1.77,0l1.61,1.61l1.06-1.06l-1.61-1.61 C19.87,10.81,18.13,10.81,17.06,11.88z"
+                        />
+                        <path
+                            d="M15.06,5.88l-3.59,3.59l1.06,1.06l3.59-3.59c1.07-1.07,1.07-2.82,0-3.89l-1.59-1.59l-1.06,1.06l1.59,1.59 C15.54,4.6,15.54,5.4,15.06,5.88z"
+                        />
+                        </g>
+                    </g>
+                    </svg>
+                </button>
+
+
+            
+          
+            <a
+              class="btn btn-primary btn-circle transition-all duration-200 hover:-translate-y-1"
+              href="https://discord.gg/J6EeMvSBYg"
+              title="Join our Discord"
+              target="_blank"
+              aria-label="Join our Discord"
+              aria-controls="Join our Discord"
+              role="menuitem"
+            >
+              <svg
+                class="w-6 h-6"
+                fill="currentColor"
+                viewBox="0 -28.5 256 256"
+                xmlns="http://www.w3.org/2000/svg"
+                preserveAspectRatio="xMidYMid"
+              >
+                <path
+                  d="M216.856339,16.5966031 C200.285002,8.84328665 182.566144,3.2084988 164.041564,0 C161.766523,4.11318106 159.108624,9.64549908 157.276099,14.0464379 C137.583995,11.0849896 118.072967,11.0849896 98.7430163,14.0464379 C96.9108417,9.64549908 94.1925838,4.11318106 91.8971895,0 C73.3526068,3.2084988 55.6133949,8.86399117 39.0420583,16.6376612 C5.61752293,67.146514 -3.4433191,116.400813 1.08711069,164.955721 C23.2560196,181.510915 44.7403634,191.567697 65.8621325,198.148576 C71.0772151,190.971126 75.7283628,183.341335 79.7352139,175.300261 C72.104019,172.400575 64.7949724,168.822202 57.8887866,164.667963 C59.7209612,163.310589 61.5131304,161.891452 63.2445898,160.431257 C105.36741,180.133187 151.134928,180.133187 192.754523,160.431257 C194.506336,161.891452 196.298154,163.310589 198.110326,164.667963 C191.183787,168.842556 183.854737,172.420929 176.223542,175.320965 C180.230393,183.341335 184.861538,190.991831 190.096624,198.16893 C211.238746,191.588051 232.743023,181.531619 254.911949,164.955721 C260.227747,108.668201 245.831087,59.8662432 216.856339,16.5966031 Z M85.4738752,135.09489 C72.8290281,135.09489 62.4592217,123.290155 62.4592217,108.914901 C62.4592217,94.5396472 72.607595,82.7145587 85.4738752,82.7145587 C98.3405064,82.7145587 108.709962,94.5189427 108.488529,108.914901 C108.508531,123.290155 98.3405064,135.09489 85.4738752,135.09489 Z M170.525237,135.09489 C157.88039,135.09489 147.510584,123.290155 147.510584,108.914901 C147.510584,94.5396472 157.658606,82.7145587 170.525237,82.7145587 C183.391518,82.7145587 193.761324,94.5189427 193.539891,108.914901 C193.539891,123.290155 183.391518,135.09489 170.525237,135.09489 Z"
+                  fill="currentColor"
+                  fill-rule="nonzero"
+                ></path>
+              </svg>
             </a>
-    
-
-    
-
-      
-
-        <button 
-            class="btn btn-ghost btn-circle ml-2" 
-            onclick="my_modal_site_menu.showModal()"
-            title="Open the contact support form" 
-            aria-label="Open the contact support form"
-            aria-controls="my_modal_site_menu" 
-            role="menuitem">
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 -960 960 960" class="w-8 h-8" fill="currentColor">
+          
+            <button 
+              class="btn btn-info btn-circle"
+              onclick="my_modal_site_menu.showModal()"
+              title="Open the contact support form" 
+              aria-label="Open the contact support form"
+              aria-controls="my_modal_site_menu" 
+              role="menuitem"
+            >
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 -960 960 960" class="w-6 h-6" fill="currentColor">
                 <path d="M120-240v-80h720v80H120Zm0-200v-80h720v80H120Zm0-200v-80h720v80H120Z" />
-            </svg>
-        </button>
-
+              </svg>
+            </button>
+          </div>
+          
 
     </div>
 </header>
@@ -1187,29 +1233,9 @@ document.addEventListener("DOMContentLoaded", (event) => {
                 <li class="text-left mb-4">
 
 
-                    <a href="https://www.isupporthumans.com/" target="_blank" rel="noopener noreferrer" title="Visit Coffee & Fun Apps"
-                    class="btn  btn-neutral btn-outline  btn-sm btn-block  font-semibold   mt-2 gap-2">
-                        <span>I Support Humans</span>
-                    </a>
-
-                </li>
-			
-                <li class="text-left mb-4">
-
-
                     <a href="https://shouldyoutestinproduction.com/" target="_blank" rel="noopener noreferrer" title="Visit Coffee & Fun Apps"
                     class="btn  btn-neutral btn-outline  btn-sm btn-block  font-semibold   mt-2 gap-2">
                         <span>Should You Test in Production?</span>
-                    </a>
-
-                </li>
-			
-                <li class="text-left mb-4">
-
-
-                    <a href="https://www.coffeeandfun.com/forgotten-cards/" target="_blank" rel="noopener noreferrer" title="Visit Coffee & Fun Apps"
-                    class="btn  btn-neutral btn-outline  btn-sm btn-block  font-semibold   mt-2 gap-2">
-                        <span>Forgotten Membership Cards</span>
                     </a>
 
                 </li>
@@ -1230,16 +1256,6 @@ document.addEventListener("DOMContentLoaded", (event) => {
                     <a href="https://apps.apple.com/us/app/markdown-editor-for-safari/id6578456621" target="_blank" rel="noopener noreferrer" title="Visit Coffee & Fun Apps"
                     class="btn  btn-neutral btn-outline  btn-sm btn-block  font-semibold   mt-2 gap-2">
                         <span>Markdown Editor for Safari</span>
-                    </a>
-
-                </li>
-			
-                <li class="text-left mb-4">
-
-
-                    <a href="/forever-advert/" target="_blank" rel="noopener noreferrer" title="Visit Coffee & Fun Apps"
-                    class="btn  btn-neutral btn-outline  btn-sm btn-block  font-semibold   mt-2 gap-2">
-                        <span>Mystery Rank</span>
                     </a>
 
                 </li>
@@ -1290,16 +1306,6 @@ document.addEventListener("DOMContentLoaded", (event) => {
                     <a href="https://apps.apple.com/us/app/simple-screenshot-pro/id6451333294" target="_blank" rel="noopener noreferrer" title="Visit Coffee & Fun Apps"
                     class="btn  btn-neutral btn-outline  btn-sm btn-block  font-semibold   mt-2 gap-2">
                         <span>Simple Screenshot Pro</span>
-                    </a>
-
-                </li>
-			
-                <li class="text-left mb-4">
-
-
-                    <a href="https://www.coffeeandfun.com/flash-cards/" target="_blank" rel="noopener noreferrer" title="Visit Coffee & Fun Apps"
-                    class="btn  btn-neutral btn-outline  btn-sm btn-block  font-semibold   mt-2 gap-2">
-                        <span>Instant Flash Cards</span>
                     </a>
 
                 </li>
