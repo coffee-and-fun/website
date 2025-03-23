@@ -46,9 +46,9 @@ And since we really hate spoilers (we literally made an extension to block them,
 
 So here’s what we discovered—by accident at first, then on purpose, then three more times just to be sure. If you're going to a theater like Cinemark or anywhere that lets you pre-order food, there's a sneaky little timing trick:
 
-- 1. Buy your ticket through the theater's app or website.
-- 2. Choose your snacks. (We recommend the pretzel bites.)
-- 3. When it asks for a pickup time, pick the latest one available.
+**1.** Buy your ticket through the theater's app or website.
+**2.** Choose your snacks. (We recommend the pretzel bites.)
+**3.** When it asks for a pickup time, pick the latest one available.
 
 That time? **That’s when the actual movie starts.**
 
