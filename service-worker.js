@@ -444,39 +444,39 @@ self.__precacheManifest = [
   },
   {
     "url": "flash-cards/index.html",
-    "revision": "45b65bb89367edf58d3a99ab7d54ca2a"
+    "revision": "775654fd0843a0967076feb1eb154db8"
   },
   {
     "url": "forever-advert/index.html",
-    "revision": "5472c6e7cf8635fd920c563812150486"
+    "revision": "5c5a98ca2c17a748dfec7d3cdd9629e4"
   },
   {
     "url": "forgotten-cards/index.html",
-    "revision": "deeb836406defae1f0d057ddb777bc11"
+    "revision": "ca29dcaf0467412ead91575d304ed5ba"
   },
   {
     "url": "hide-spoilers-extension/index.html",
-    "revision": "af7668d363d1d71ed9216c68663bac58"
+    "revision": "d416c334fe00780081a2c8cc65e7aef0"
   },
   {
     "url": "index.html",
-    "revision": "83cf48e62ee2ff736e169fd8dc387dbe"
+    "revision": "d3275bdf5859d0dc3b9ea1359a8820a8"
   },
   {
     "url": "instant-incognito/index.html",
-    "revision": "515686d8a64f78bc2e1b992797d0a1b1"
+    "revision": "5402fec446f1e16c0d92f4c46ac61385"
   },
   {
     "url": "privacy/index.html",
-    "revision": "264f1c6e4116d516d3cf7f25e419f91e"
+    "revision": "3810c10ea497a49907a94077dd9b2eb8"
   },
   {
     "url": "procrastinot/index.html",
-    "revision": "e2a4a6837e8f240294d63aab0d946108"
+    "revision": "aaf813ba85720ed17f1db815b21bbce3"
   },
   {
     "url": "reviews/index.html",
-    "revision": "51bf4bfe9e940a7ec45d4b3093cc2600"
+    "revision": "d81b6d2f7752c00179539eaf8cdda24e"
   },
   {
     "url": "stop-wasting/index.html",
@@ -484,7 +484,7 @@ self.__precacheManifest = [
   },
   {
     "url": "trivia/index.html",
-    "revision": "7c52ec00bf5858f6df65e5a7d06c441f"
+    "revision": "d232718900ec088201773be99ad2b0ff"
   }
 ].concat(self.__precacheManifest || []);
 workbox.precaching.precacheAndRoute(self.__precacheManifest, {});
