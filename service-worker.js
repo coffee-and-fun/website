@@ -388,7 +388,7 @@ self.__precacheManifest = [
   },
   {
     "url": "blog/delete-tweets-retweets-likes-without-apps/index.html",
-    "revision": "85dfd02a132f0a965165120d78e28f67"
+    "revision": "80b3f2b647ab9935a854ba800349cbad"
   },
   {
     "url": "blog/ethically-hack-woobox-voting-node-puppeteer/index.html",
