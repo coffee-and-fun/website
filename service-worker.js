@@ -171,6 +171,10 @@ self.__precacheManifest = [
     "revision": "d202df7b5728fe18e4a1ce4824aa9ecf"
   },
   {
+    "url": "assets/images/blog/delete-tweets-retweets-likes-without-apps.png",
+    "revision": "8617d8fb9e16852b71bf9acb8ccedfcc"
+  },
+  {
     "url": "assets/images/blog/facebook.png",
     "revision": "c689363606cd5523238ee72d83b7ac60"
   },
@@ -372,7 +376,7 @@ self.__precacheManifest = [
   },
   {
     "url": "assets/js/main.css",
-    "revision": "06b7c94bce63f080f8d34b678811b444"
+    "revision": "37bd9b7f6e3328c4df92539c3c46817c"
   },
   {
     "url": "blog/apple-passwords-app-review-coffee-and-fun/index.html",
@@ -381,6 +385,10 @@ self.__precacheManifest = [
   {
     "url": "blog/coffee-and-fun-quarterly-update-spring-2025/index.html",
     "revision": "02164e719b131490f0546a1a8d6a5704"
+  },
+  {
+    "url": "blog/delete-tweets-retweets-likes-without-apps/index.html",
+    "revision": "7fd029468a9f8a4ba43534d038f4cead"
   },
   {
     "url": "blog/ethically-hack-woobox-voting-node-puppeteer/index.html",
@@ -408,7 +416,7 @@ self.__precacheManifest = [
   },
   {
     "url": "blog/index.html",
-    "revision": "15b3fb32a18d61e4873caef651af4ae0"
+    "revision": "59170a57f9bef1ed54683f55e8a07d2a"
   },
   {
     "url": "blog/introducing-autopause-control-your-media/index.html",
