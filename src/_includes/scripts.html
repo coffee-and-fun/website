@@ -18,10 +18,14 @@
 
 
 <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.3/dist/confetti.browser.min.js"></script>
+<script src="https://unpkg.com/cursor-effects@latest/dist/browser.js"></script>
 
 <link rel="stylesheet" href="https://unpkg.com/prismjs@1.20.0/themes/prism-okaidia.css">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
 <script>
+
+
+
 
 // Function to launch the confetti animation
 function launchConfetti() {
@@ -90,7 +94,40 @@ function launchConfetti() {
 }
 
 
+let cursorEffect = null;
+let cursorEffectsEnabled = false;
+let currentEffectIndex = -1; // Start before first
 
+const availableEffects = [
+  'rainbowCursor',
+  'followingDotCursor',
+  'clockCursor',
+  'ghostCursor',
+  'bubbleCursor',
+  'fairyDustCursor'
+];
+
+function applyCursorEffect() {
+  if (cursorEffectsEnabled) {
+    // Turn OFF
+    if (cursorEffect && typeof cursorEffect.destroy === "function") {
+      cursorEffect.destroy();
+    }
+    cursorEffect = null;
+    cursorEffectsEnabled = false;
+  } else {
+    // Move to the next effect in the list
+    currentEffectIndex = (currentEffectIndex + 1) % availableEffects.length;
+    const effectName = availableEffects[currentEffectIndex];
+
+    // Create new effect instance
+    cursorEffect = new cursoreffects[effectName]();
+    cursorEffectsEnabled = true;
+
+    // Optional: log the current effect
+
+  }
+}
 
 document.addEventListener("DOMContentLoaded", (event) => {
         document.querySelectorAll('pre code').forEach((block) => {
