@@ -58,14 +58,14 @@ It works right inside your browser and mimics the clicks you’d normally do by 
 
 👀 **Watches for rate-limit messages** in the UI and pauses if needed
 
-This is 100% local. It doesn’t send data anywhere, doesn’t log in to your account — it just clicks things you could click yourself, faster.
+This is 100% local. It doesn’t send data anywhere, doesn’t log in to your account.
 
 ---
 
 ## 🛠️ How to use it in Chrome
 
 ### 1. Go to your Twitter profile  
-Head to your own profile page — where all your tweets, retweets, and likes are shown.
+Head to your own profile page. Where all your tweets, retweets, and likes are shown.
 
 ### 2. Open the Console  
 Right-click anywhere on the page, click **Inspect**, then click the **Console** tab.
@@ -216,7 +216,7 @@ We just wanted a way to clean up our Twitter without giving some random app full
 You don’t have to delete your entire account to feel fresh. Sometimes just clearing out the old stuff is enough.
 
 If it helped, feel free to share it or bookmark it for later.
-And if you want an Instagram version next? Let us know — it might already be brewing.
+And if you want an Instagram version next? Let us know, it might already be brewing.
 
 Catch you next cleanup
 **The Coffee & Fun crew ☕**
