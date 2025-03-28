@@ -395,6 +395,10 @@ self.__precacheManifest = [
     "revision": "d111417e1067cafdd728803712de11de"
   },
   {
+    "url": "blog/ethically-scrape-poshmark-listings-node-puppeteer/index.html",
+    "revision": "ed818da529850e91f515da93b3ece18a"
+  },
+  {
     "url": "blog/how-i-would-improve-chrome-web-store/index.html",
     "revision": "d2b4fb270c93b9d0edfe4fb9cbfb8b79"
   },
