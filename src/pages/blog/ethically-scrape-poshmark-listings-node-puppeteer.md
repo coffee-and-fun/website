@@ -4,16 +4,16 @@ submit: false
 footer: true
 header: true
 layout: templates/post.liquid
-title: How I Ethically Scraped 20,000 Poshmark Listings Using Node.js and Puppeteer
-description: Learn how I ethically scraped and backed up 20,000 listings from a Poshmark store using Node.js and Puppeteer. This guide explains the full process, includes code, and helps you recover public listing data for educational or personal use.
+title: How I Scraped 20,000 Poshmark Listings Using Node.js and Puppeteer
+description: Learn how I scraped and backed up 20,000 listings from a Poshmark store using Node.js and Puppeteer. This guide explains the full process, includes code, and helps you recover public listing data for educational or personal use.
 keywords: "ethical scraping, Poshmark backup, Node.js Puppeteer tutorial, Poshmark automation, online listing backup, ethical scraping guide, Puppeteer project, ecommerce recovery, scraping listings Node.js"
 url: blog/ethically-scrape-poshmark-listings-node-puppeteer/
 isBlog: true
 blog_cat: Usecase
-cardTitle: How I Ethically Scraped 20,000 Poshmark Listings Using Node.js and Puppeteer
-blog_snip: Learn how I ethically scraped and backed up 20,000 listings from a Poshmark store using Node.js and Puppeteer. This guide explains the full process, includes code, and helps you recover public listing data for educational or personal use.
+cardTitle: How I Scraped 20,000 Poshmark Listings Using Node.js and Puppeteer
+blog_snip: Learn how I scraped and backed up 20,000 listings from a Poshmark store using Node.js and Puppeteer. This guide explains the full process, includes code, and helps you recover public listing data for educational or personal use.
 name: Robert James Gabriel
-img: /assets/images/blog/how-i-would-improve.png
+img: /assets/images/blog/ethically-scrape-poshmark-listings-node-puppeteer.png
 date: 2025-03-28T00:00:00.000Z
 time: 6 min
 tags:
