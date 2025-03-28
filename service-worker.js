@@ -424,7 +424,7 @@ self.__precacheManifest = [
   },
   {
     "url": "blog/index.html",
-    "revision": "d726c47e0d8a2a28ec95f98e3cc095f7"
+    "revision": "8c0b8279e28c3d0e11fb53a69d565be8"
   },
   {
     "url": "blog/introducing-autopause-control-your-media/index.html",
