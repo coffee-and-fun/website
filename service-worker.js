@@ -400,7 +400,7 @@ self.__precacheManifest = [
   },
   {
     "url": "blog/ethically-scrape-poshmark-listings-node-puppeteer/index.html",
-    "revision": "9c9e6425bd9ce778f12b685ef7b606a6"
+    "revision": "9129e806bdbd0a45148dd6b7d541d156"
   },
   {
     "url": "blog/how-i-would-improve-chrome-web-store/index.html",
