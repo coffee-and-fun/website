@@ -175,6 +175,10 @@ self.__precacheManifest = [
     "revision": "8617d8fb9e16852b71bf9acb8ccedfcc"
   },
   {
+    "url": "assets/images/blog/ethically-scrape-poshmark-listings-node-puppeteer.png",
+    "revision": "f030e6cc2bfc035d8a5a6dec3016a9ac"
+  },
+  {
     "url": "assets/images/blog/facebook.png",
     "revision": "c689363606cd5523238ee72d83b7ac60"
   },
@@ -396,7 +400,7 @@ self.__precacheManifest = [
   },
   {
     "url": "blog/ethically-scrape-poshmark-listings-node-puppeteer/index.html",
-    "revision": "ed818da529850e91f515da93b3ece18a"
+    "revision": "9c9e6425bd9ce778f12b685ef7b606a6"
   },
   {
     "url": "blog/how-i-would-improve-chrome-web-store/index.html",
@@ -420,7 +424,7 @@ self.__precacheManifest = [
   },
   {
     "url": "blog/index.html",
-    "revision": "59170a57f9bef1ed54683f55e8a07d2a"
+    "revision": "d726c47e0d8a2a28ec95f98e3cc095f7"
   },
   {
     "url": "blog/introducing-autopause-control-your-media/index.html",
