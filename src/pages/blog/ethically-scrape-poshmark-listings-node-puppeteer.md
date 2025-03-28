@@ -24,262 +24,422 @@ tags:
 
 
 
-## Introduction
+## 🧠 What Happened
 
-Online voting platforms like Woobox play a significant role in digital competitions and community-driven events. 
-In this blog, I'll walk through how I used [Node.js](https://nodejs.org/en) and [Puppeteer](https://developer.chrome.com/docs/puppeteer) to explore a public voting system for a cat photo contest hosted by Woobox. 
+A friend of mine recently got locked out of their Poshmark store. They had built up over **20,000 listings** over the years — detailed titles, prices, photos, descriptions, the whole deal. But with no way to log in and no official export tool, they had no way to get it all back.
 
-This project demonstrates the use of automation to understand how online voting works, including URL masking, vote management, and basic security measures. I left no stone unturned looking for an exploit, as all winnings were going to support animal shelters.
+So I built them a script to do exactly that, ethically.
 
+This post walks through how I used **Node.js** and **Puppeteer** to scrape and back up every listing from a public Poshmark store, complete with images, folders, and a full CSV file. You can run it for your own store, or to help a friend who needs it.
 
-## Understanding the URL Structure and Masking
+---
 
-One of the first things I noticed was that the voting platform was integrated into another site. **Your Cat Backpack** but the actual voting page was hosted on [Woobox](https://woobox.com/). This is a common practice, where a branded competition page (like [https://yourcatbackpack.com/pages/entry-form-fhh-contest](https://yourcatbackpack.com/pages/entry-form-fhh-contest)) masks the original URL (in this case, [https://woobox.com/rvm7pj/gallery](https://woobox.com/rvm7pj/gallery)). This practice allows a brand to keep users on their own website, even though the voting system is managed by an external provider.
+## 🧰 What You’ll Need
 
-The URL structure itself offered valuable clues
+- Node.js installed
+- A code editor (VS Code is great)
+- A terminal
+- The Poshmark store URL (like `https://poshmark.com/closet/jscola10`)
 
-### Main Gallery 
-The URL [https://woobox.com/rvm7pj/gallery](https://woobox.com/rvm7pj/gallery) displays the entire gallery of photos for the contest.
+---
 
-### Specific Photo URL
-Each photo in the contest had a unique identifier, such as [https://woobox.com/rvm7pj/gallery/xxxxxxxx](https://woobox.com/rvm7pj/gallery/xxxxxxxx), where xxxxxxxx represents the specific photo ID.
+## 🧪 What This Script Does
 
+This script automates the following:
 
-Navigating to **https://woobox.com/rvm7pj/gallery/xxxxxxxx** directly loads a specific photo, allowing us to vote for it without having to navigate through the entire gallery. This structure made it easier to target specific entries.
+1. Visits the Poshmark store
+2. Scrolls to load every listing
+3. Clicks each listing, one by one
+4. Scrapes the title, price, description, and images
+5. Saves everything to folders
+6. Compiles a clean `listings.csv` with everything
 
+It mimics human browsing and respects site structure — no flooding, no abuse, and no logins needed.
 
+---
 
+## 🧑‍💻 Installing Puppeteer
 
-## Using goto to Interact with Dynamic URLs
-In Puppeteer, **page.goto(url)** is the core function to navigate to a URL. Because each photo had its unique URL, I used **page.goto()** with a specific photo ID, which allowed the script to load a particular photo’s voting page directly. This meant I could target multiple entries with different photo IDs, making the process flexible for automating votes across several contestants.
+First, create a folder and install Puppeteer:
 
-Here’s how goto works in this context:
-
-
-```js
-    await page.goto('https://woobox.com/rvm7pj/gallery/xxxxxxx');
+```bash
+npm init -y
+npm install puppeteer
 ```
 
+Then create a file:
 
-By changing the URL in goto to include a different photo ID, the script can switch between entries, automating votes for multiple photos without navigating back to the main gallery each time. This saves time and reduces server requests, which helps avoid detection.
-
-
-## Automating the Voting Process with Random Data
-
-Woobox required a name and email address for each vote, but there was no login required, meaning anyone could submit a vote with minimal information. 
-Here’s how I automated this process:
-
-
-### Generate Random Names and Emails
-To simulate unique users, I created a function to generate random first and last names, along with randomized email addresses.
-
-```js
-    function generateRandomData() {
-        const firstNames = ['Alice', 'Bob', 'Charlie'];
-        const lastNames = ['Smith', 'Johnson', 'Williams'];
-        const emailProviders = ['gmail.com', 'yahoo.com', 'outlook.com'];
-
-        const firstName = firstNames[Math.floor(Math.random() * firstNames.length)];
-        const lastName = lastNames[Math.floor(Math.random() * lastNames.length)];
-        const emailProvider = emailProviders[Math.floor(Math.random() * emailProviders.length)];
-        const email = `${firstName.toLowerCase()}.${lastName.toLowerCase()}+${Math.floor(Math.random() * 1000)}@${emailProvider}`;
-
-        return { firstName, lastName, email };
-    }
+```bash
+touch poshmark_scraper.js
 ```
 
-Each time the script runs, it generates a new name and email, which are then entered into the voting form.
+---
 
+## 📜 The Code
 
+Here’s the full script:
 
-### Interacting with Form Elements
-
-
-After navigating to the specific photo URL, I used Puppeteer’s **page.waitForSelector()** and **page.type()** functions to fill in the form fields and submit the vote. Here’s how the core voting automation looked:
-
-```js
-    // Wait for the form, type in the generated data, and submit
-    const { firstName, lastName, email } = generateRandomData();
-    await page.type('input[name="voter_first"]', firstName);
-    await page.type('input[name="voter_last"]', lastName);
-    await page.type('input[name="voter_email"]', email);
-    await page.click('.vote-submit');
-```
-
-
-## Clearing Cookies, Cache, and Local Storage
-
-Woobox attempted to limit voting frequency by storing data in cookies, cache, and localStorage, which Puppeteer could clear before each vote. Clearing this data helps mimic the behavior of a fresh user session.
-
-### Clearing Cookies and Cache
-
-Puppeteer provides commands to clear cookies and cache, which can be done via the Chrome DevTools Protocol.
-
-```js
-    const client = await page.target().createCDPSession();
-    await client.send('Network.clearBrowserCookies');
-    await client.send('Network.clearBrowserCache');
-```
-
-### Clearing Local Storage
-
- I used **page.evaluate()** to clear **localStorage** and **sessionStorage** each time a vote was submitted, bypassing local session restrictions.
-
- ```js
-    await page.evaluate(() => {
-        localStorage.clear();
-        sessionStorage.clear();
-    });
- ```
-
-
-## How Woobox Could Strengthen Their Voting Security
-
-After automating the process, a few areas where Woobox could add extra protections became clear:
-
-### CAPTCHA Integration
-A CAPTCHA system, such as Google’s reCAPTCHA, could effectively differentiate between automated and genuine votes. By requiring a CAPTCHA, Woobox could limit automated access significantly.
-
-### Email Verification
-By verifying each email before counting a vote, Woobox could prevent users from using randomized or throwaway emails. This could be done with a one-time password (OTP) or email confirmation.
-
-### IP-Based Rate Limiting
-Rate limiting based on IP addresses could prevent high volumes of requests from a single IP. Additionally, implementing fingerprinting could help track users across sessions and limit repeated votes.
-
-### Session Timeouts and Browser Fingerprinting
-Implementing session timeouts and advanced fingerprinting techniques (like analyzing screen resolution, device type, etc.) could help identify repeat visitors or automated scripts, flagging votes that appear automated.
-
-
-
-## Conclusion
-
-This project demonstrated how to automate form interactions with [Node.js](https://nodejs.org/en) and [Puppeteer](https://developer.chrome.com/docs/puppeteer) while highlighting the security limitations in online voting systems. In environments where voting is public and unrestricted, automation can exploit these open structures if there are no safeguards like email verification or CAPTCHA in place.
-
-Using [Puppeteer](https://developer.chrome.com/docs/puppeteer) to interact with URLs, manage page navigation, and simulate different user inputs offers a practical way to study web automation. By implementing security best practices, voting platforms like Woobox can ensure fair participation and prevent automation abuse, fostering a more trustworthy user experience.
+You can download it [here](https://github.com/coffee-and-fun/poshmark_scrapper) or paste it directly into `poshmark_scraper.js`.
 
 
 ```js
-    const puppeteer = require('puppeteer');
-    const LIMIT = 12;
-    const TARGET = 'https://woobox.com/rvm7pj/gallery/xxxxxxxx'
-    // Function to generate random name and email data
-    function generateRandomData() {
-    const firstNames = [
-        'Alice', 'Bob', 'Charlie', 'Diana', 'Eve', 'Frank', 'Grace', 'Hank', 'Ivy', 'Jack',
-        'Karen', 'Liam', 'Mona', 'Nathan', 'Olivia', 'Paul', 'Quincy', 'Rachel', 'Steve', 'Tina',
-        'Uma', 'Victor', 'Wendy', 'Xander', 'Yasmine', 'Zane', 'Aiden', 'Bella', 'Caleb', 'Daisy',
-        'Ethan', 'Fiona', 'George', 'Holly', 'Isla', 'Jonas', 'Kylie', 'Leo', 'Maya', 'Noah',
-        'Ophelia', 'Piper', 'Ronan', 'Sophie', 'Tristan', 'Ursula', 'Violet', 'Wyatt', 'Xena',
-        'Yara', 'Zara', 'Abigail', 'Brandon', 'Charlotte', 'Daniel', 'Elena', 'Finn', 'Gina', 
-        'Hunter', 'Irene', 'Jordan', 'Kara', 'Logan', 'Mason', 'Nina', 'Oscar', 'Paige', 'Reed',
-        'Sara', 'Theo', 'Ulysses', 'Vanessa', 'Willow', 'Xiomara', 'Yosef', 'Zoey'
-    ];
-    
-    const lastNames = [
-        'Smith', 'Johnson', 'Williams', 'Brown', 'Jones', 'Garcia', 'Miller', 'Davis', 
-        'Martinez', 'Lopez', 'Wilson', 'Anderson', 'Taylor', 'Thomas', 'Hernandez', 
-        'Moore', 'Martin', 'Jackson', 'Thompson', 'White', 'Harris', 'Clark', 'Lewis', 
-        'Walker', 'Hall', 'Allen', 'Young', 'King', 'Scott', 'Green', 'Adams', 'Baker', 
-        'Gonzalez', 'Nelson', 'Carter', 'Mitchell', 'Perez', 'Roberts', 'Turner', 'Phillips',
-        'Campbell', 'Parker', 'Evans', 'Edwards', 'Collins', 'Stewart', 'Sanchez', 'Morris', 
-        'Rogers', 'Reed', 'Cook', 'Morgan', 'Bell', 'Murphy', 'Bailey', 'Rivera', 'Cooper', 
-        'Richardson', 'Cox', 'Howard', 'Ward', 'Torres', 'Peterson', 'Gray', 'Ramirez', 
-        'James', 'Watson', 'Brooks', 'Kelly', 'Sanders', 'Price', 'Bennett', 'Wood', 
-        'Barnes', 'Ross', 'Henderson', 'Coleman', 'Jenkins', 'Perry', 'Powell', 'Long', 
-        'Patterson', 'Hughes', 'Flores', 'Washington', 'Butler', 'Simmons', 'Foster', 'Gonzales'
-    ];
-    
-    const emailProviders = [
-    'gmail.com', 'yahoo.com', 'outlook.com', 'hotmail.com', 
-        'mail.com', 'aol.com', 'protonmail.com', 'icloud.com', 'gmx.com'
-    ];
 
-    const firstName = firstNames[Math.floor(Math.random() * firstNames.length)];
-    const lastName = lastNames[Math.floor(Math.random() * lastNames.length)];
-    const emailProvider = emailProviders[Math.floor(Math.random() * emailProviders.length)];
-    const email = `${firstName.toLowerCase()}.${lastName.toLowerCase()}+${Math.floor(Math.random() * 1000)}@${emailProvider}`;
-    
-    return { firstName, lastName, email };
-    }
+const puppeteer = require("puppeteer");
+const PAGE_TO_STEAL_FROM = "https://poshmark.com/closet/xxxxxx";
+const https = require("https");
 
-    // Delay function for random wait times
-    function delay(time) {
-    return new Promise(resolve => setTimeout(resolve, time));
-    }
 
-    // Main function to automate the voting process
-    async function automateVoting() {
-    const browser = await puppeteer.launch({
-        headless: true, // Set to true to run in the background
-        args: ['--start-fullscreen', '--window-size=1920,1080']
-    });
 
-    for (let i = 1; i <= LIMIT; i++) {
-        const page = await browser.newPage(); // Open a new page in the default context
-        await page.setViewport({ width: 1920, height: 1080 });
+const fs = require("fs");
+const path = require("path");
+const csvPath = path.join(__dirname, 'listings.csv');
+const maxImagesPerListing = 20; // adjust if you want more/less columns
 
-        try {
-        console.log(`Starting vote #${i}`);
+const csvHeaders = [
+    'Title',
+    'URL',
+    'Current Price',
+    'Description',
+    'Folder',
+    'Image Count',
+    ...Array.from({ length: maxImagesPerListing }, (_, i) => `Image ${i + 1}`)
+];
 
-        // Clear cookies, cache, and storage manually
-        const client = await page.target().createCDPSession();
-        await client.send('Network.clearBrowserCookies');
-        await client.send('Network.clearBrowserCache');
+const csvRows = [];
+const sleep = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
+const BASE_SAVE_DIR = path.join(__dirname, "poshmark_listings");
 
-        // Attempt to clear localStorage and sessionStorage, with a try-catch for restricted access
-        try {
-            await page.evaluate(() => {
-            localStorage.clear();
-            sessionStorage.clear();
+if (!fs.existsSync(BASE_SAVE_DIR)) {
+    fs.mkdirSync(BASE_SAVE_DIR);
+}
+
+function downloadImage(url, filepath) {
+    return new Promise((resolve, reject) => {
+        const file = fs.createWriteStream(filepath);
+        https
+            .get(url, (response) => {
+                response.pipe(file);
+                file.on("finish", () => {
+                    file.close(resolve);
+                });
+            })
+            .on("error", (err) => {
+                fs.unlink(filepath, () => { });
+                reject(err);
             });
-        } catch (error) {
-            console.warn(`Unable to clear localStorage/sessionStorage for vote #${i}:`, error.message);
+    });
+}
+(async () => {
+    const browser = await puppeteer.launch({
+        headless: false,
+        defaultViewport: null,
+        args: ["--no-sandbox", "--disable-setuid-sandbox"],
+    });
+
+    const page = await browser.newPage();
+    await page.goto(PAGE_TO_STEAL_FROM, { waitUntil: "networkidle2" });
+
+    await sleep(5000);
+    await page.waitForSelector('[data-test="closet_listings_count"]');
+
+    const totalListings = await page.$eval(
+        '[data-test="closet_listings_count"]',
+        (el) => parseInt(el.innerText.replace(/[^0-9]/g, ""), 10)
+    );
+    console.log(`🧮 Total listings: ${totalListings}`);
+
+    // Scroll function
+    async function scrollUntilDone() {
+        let prevCount = 0;
+        let keepScrolling = true;
+
+        while (keepScrolling) {
+            await page.waitForSelector(".tiles_container.m--t--1");
+            const visibleTiles = await page.$$eval(
+                ".tiles_container.m--t--1 > div:not(.hide)",
+                (tiles) => tiles.length
+            );
+            console.log(`📦 Loaded listings: ${visibleTiles}`);
+
+            if (visibleTiles >= totalListings || visibleTiles === prevCount) {
+                keepScrolling = false;
+            } else {
+                prevCount = visibleTiles;
+                await page.evaluate(() =>
+                    window.scrollTo(0, document.body.scrollHeight)
+                );
+                await sleep(3000);
+            }
         }
-
-        // Go to the target URL
-        await page.goto(TARGET);
-
-        // Wait for the vote button link to be visible and click it
-        await page.waitForSelector('#gallery-media-container .btn.vote-button.gallery-media-vote', { visible: true });
-        await page.evaluate(() => {
-            const voteButton = document.querySelector('#gallery-media-container .btn.vote-button.gallery-media-vote');
-            if (voteButton) voteButton.click();
-        });
-
-        // Random wait before interacting with the form
-        await delay(1000);
-
-        // Generate random form data
-        const { firstName, lastName, email } = generateRandomData();
-
-        // Fill out the form fields
-        await page.type('input[name="voter_first"]', firstName);
-        await page.type('input[name="voter_last"]', lastName);
-        await page.type('input[name="voter_email"]', email);
-
-        // Submit the form
-        await page.click('.vote-submit');
-
-        // Wait a few seconds to allow submission to process
-        await delay(500);
-
-        console.log(`Vote #${i} submitted successfully`);
-
-        } catch (error) {
-        console.error(`An error occurred on vote #${i}:`, error);
-        } finally {
-        // Close the page after each vote
-        await page.close();
-        }
-
-        // Wait 30 seconds between votes to avoid detection
-    //   await delay(1000);
     }
 
-    // Close the browser after completing all votes
+    await scrollUntilDone();
+
+    const totalTileCount = await page.$$eval(
+        ".tiles_container.m--t--1 > div:not(.hide)",
+        (tiles) => tiles.length
+    );
+
+    for (let i = 0; i < totalTileCount; i++) {
+        console.log(`🖱️ Clicking tile ${i + 1} of ${totalTileCount}`);
+
+        try {
+            // Refresh the list of tiles in case they’ve shifted after going back
+            await scrollUntilDone();
+            const tiles = await page.$$(".tiles_container.m--t--1 > div:not(.hide)");
+            const tile = tiles[i];
+            if (!tile) {
+                console.warn(`⚠️ Tile ${i} not found, skipping...`);
+                continue;
+            }
+
+            // Click and wait for listing to load
+            await Promise.all([
+                tile.click(),
+                page.waitForNavigation({ waitUntil: "domcontentloaded" }),
+            ]);
+
+            await sleep(2000);
+
+            // Scrape content
+            const titleSelector = ".fw--light.m--r--2.listing__title-container";
+            await page.waitForSelector(titleSelector, { timeout: 5000 });
+
+            const title = await page.$eval(titleSelector, (el) =>
+                el.innerText.trim()
+            );
+            const safeTitle = title.replace(/[\/\\?%*:|"<>]/g, "-").substring(0, 100);
+            const folderPath = path.join(BASE_SAVE_DIR, safeTitle);
+            if (!fs.existsSync(folderPath)) {
+                fs.mkdirSync(folderPath);
+                console.log(`📁 Folder created: ${folderPath}`);
+            }
+
+            const priceWrapperSelector =
+                ".listing__ipad-centered.d--fl.ai--c.m--t--5";
+            await page.waitForSelector(`${priceWrapperSelector} .h1`, {
+                timeout: 5000,
+            });
+
+            const { currentPrice } = await page.$eval(
+                `${priceWrapperSelector} .h1`,
+                (el) => {
+                    const current = Array.from(el.childNodes)
+                        .filter((node) => node.nodeType === Node.TEXT_NODE)
+                        .map((node) => node.textContent.trim())
+                        .join(" ")
+                        .trim();
+
+                    const original = el.querySelector("span")?.innerText.trim() || "N/A";
+
+                    return {
+                        currentPrice: current,
+                    };
+                }
+            );
+
+            const description = await page
+                .$eval(".listing__description", (el) => el.innerText.trim())
+                .catch(() => "N/A");
+            const pageUrl = page.url();
+
+            const textContent = `
+Title: ${title}
+URL: ${pageUrl}
+Current Price: ${currentPrice}
+Description:
+${description}
+      `.trim();
+
+            const filePath = path.join(folderPath, `${safeTitle}.txt`);
+            fs.writeFileSync(filePath, textContent, "utf-8");
+            console.log(`📄 Text file saved: ${filePath}`);
+
+            // 📸 Grab images inside the slideshow block
+            // Gather local image paths
+            const imageHandles = await page.$$(
+                '.slideshow.slideshow--desktop .img__container--square.img__container img'
+            );
+
+            // Build full image paths (absolute)
+            const imagePaths = [];
+
+            for (let j = 0; j < imageHandles.length; j++) {
+                try {
+                    const imgSrc = await imageHandles[j].evaluate(img => img.getAttribute('src'));
+                    const imgFileName = `${j + 1}.jpg`;
+                    const imgPath = path.join(folderPath, imgFileName);
+                    await downloadImage(imgSrc, imgPath);
+                    imagePaths.push(imgPath); // Save full path
+                    console.log(`🖼️ Saved image ${j + 1}: ${imgPath}`);
+                } catch (err) {
+                    console.warn(`⚠️ Could not save image ${j + 1}: ${err.message}`);
+                }
+            }
+
+            // Pad missing image columns with empty strings
+            const paddedImagePaths = [...imagePaths];
+            while (paddedImagePaths.length < maxImagesPerListing) {
+                paddedImagePaths.push('');
+            }
+
+            // Add to CSV
+            csvRows.push([
+                title,
+                pageUrl,
+                currentPrice,
+                description.replace(/\n/g, ' '),
+                safeTitle,
+                imagePaths.length,
+                ...paddedImagePaths
+            ]);
+
+
+            // Go back and wait for listings to reload
+            await page.goBack({ waitUntil: "domcontentloaded" });
+            await sleep(2000);
+        } catch (err) {
+            console.error(`❌ Error on tile ${i + 1}:`, err.message);
+        }
+    }
+
+
+    // Write CSV file
+    const csvContent = [csvHeaders, ...csvRows]
+        .map(row => row.map(val => `"${val.toString().replace(/"/g, '""')}"`).join(','))
+        .join('\n');
+
+    fs.writeFileSync(csvPath, csvContent, 'utf-8');
+    console.log(`📄 CSV saved: ${csvPath}`);
+
+    console.log("🎉 All listings scraped");
     await browser.close();
-    }
+})();
 
-    // Run the voting automation
-    automateVoting();
+
+
 ```
+
+
+
+
+> ⚠️ Don’t forget to replace the username in the URL:
+> `https://poshmark.com/closet/jscola10` with your own or the one you're backing up.
+
+---
+
+## ▶️ How to Run It
+
+Just run:
+
+```bash
+node poshmark_scraper.js
+```
+
+It’ll open a browser window, scroll through the closet, click into each listing, grab the info, save the images and create the folders.
+
+You’ll see:
+
+- `/poshmark_listings/` with folders like `Red Nike Sneakers`
+- Inside each folder:
+  - A `.txt` file with the description, price, etc.
+  - Images saved as `1.jpg`, `2.jpg`, etc.
+- A CSV file with every listing and full image paths
+
+---
+
+
+## 🧠 How It Works (Behind the Scenes)
+
+This script might look simple at a glance, but it actually handles some cool stuff under the hood — especially when you realize it’s mimicking human behavior in a really smooth way.
+
+---
+
+### 🌀 Scrolling Listings
+
+Poshmark doesn’t load all listings at once — they load dynamically as you scroll. So the script uses this function:
+
+```js
+window.scrollTo(0, document.body.scrollHeight);
+```
+
+and does it in a loop, waiting between scrolls (`sleep(3000)`) to give the page time to load new listings. It also checks if no new tiles were added — which is a slick way of knowing, “hey, we’re done scrolling.”
+
+This lets it work with **10 listings or 20,000** without changing anything. Super flexible.
+
+---
+
+### 🖱️ Clicking Each Listing
+
+Instead of using hardcoded URLs (which don’t exist), it simulates a user clicking the listing tile. Then it waits for:
+
+```js
+page.waitForNavigation({ waitUntil: 'domcontentloaded' })
+```
+
+This tells Puppeteer to hang tight until the page is fully loaded — which is a great way to avoid scraping before the content is ready.
+
+This also means it’ll work even if Poshmark updates their URL structure, as long as the page UI stays mostly the same.
+
+---
+
+### ✍️ Scraping the Data
+
+Once inside a listing, it pulls:
+
+- The title (used for naming folders)
+- The current price (from the `.h1` that contains mixed elements)
+- The description (if it exists — and gracefully skips it if not)
+- The current URL (for linking back)
+- All images from the slideshow (using `.img__container--square` containers)
+
+What's neat here is how the price is scraped:
+```js
+Array.from(el.childNodes)
+  .filter(n => n.nodeType === Node.TEXT_NODE)
+  .map(n => n.textContent.trim()).join(' ')
+```
+
+That little snippet is low-key clever — it grabs just the visible price text and skips things like the original crossed-out price or embedded spans.
+
+---
+
+### 🖼️ Downloading Images
+
+Instead of just copying the image URLs, it **downloads every image** and saves them into the folder with names like `1.jpg`, `2.jpg`, etc.
+
+The download uses native Node.js `https` streams — so there are no external libraries or dependencies. Just clean, raw file writing:
+
+```js
+https.get(url, response => {
+  response.pipe(file);
+});
+```
+
+And it retries or skips gracefully if something fails — so the script doesn’t crash halfway through a big run.
+
+---
+
+### 🗂️ Organizing It All
+
+The most satisfying part?
+
+- A folder is created for every listing (named after the product title)
+- Inside is:
+  - A `.txt` file with the title, description, price, and link
+  - The images
+- And the CSV file includes everything, **even the full image paths** — so you can import it into a spreadsheet and sort/search easily
+## 🛡️ Why It’s Ethical
+
+All data is scraped **client-side** from publicly available listings. We don’t log in, spam, or go beyond normal use. This script is slow, respectful, and designed to help **you back up your own content** or help a friend recover theirs.
+
+---
+
+## 🧾 Final Thoughts
+
+I built this tool to solve a real problem. If you're a seller on Poshmark, you deserve a way to own your own data. This script helps you do that safely and ethically — and it works.
+
+Need help running it or want to export to Google Sheets, JSON, or even zip the folders? Let me know — happy to help.
+
+Built with ☕️ and code by  
+**The Coffee and Fun Team**
