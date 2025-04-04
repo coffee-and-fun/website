@@ -4,36 +4,36 @@
 <head>
 	<meta charset="utf-8" />
 	<meta name="viewport" content="width=device-width, initial-scale=1" />
-	<title>How I Scraped 20,000 Poshmark Listings Using Node.js and Puppeteer - Coffee & Fun LLC</title>
+	<title>Scraping 20,000 Poshmark Listings (For Real This Time) - Coffee & Fun LLC</title>
 	<meta name="description"
-		content="Learn how I scraped and backed up 20,000 listings from a Poshmark store using Node.js and Puppeteer. This guide explains the full process, includes code, and helps you recover public listing data for educational or personal use." />
+		content="Back last week, I wrote a blog post titled How I Scraped 20,000 Poshmark Listings Using Node.js and Puppeteer. The idea seemed solid, scroll through a Poshmark closet, grab every listing URL, and scrape each listing one by one. But in reality? The script crashed constantly. It would hang, freeze, or get stuck on a single listing. Chrome would balloon in memory, and Puppeteer would throw vague timeout errors like" />
 	<meta name="author" content="Coffee & Fun LLC" />
 	<meta name="robots" content="index, follow" />
 	<meta name="rating" content="safe for kids" />
 
 	<link rel="icon" href="https://www.coffeeandfun.com/assets/images/favicon.png" />
 
-	<meta name="title" content="How I Scraped 20,000 Poshmark Listings Using Node.js and Puppeteer - Coffee & Fun LLC" />
+	<meta name="title" content="Scraping 20,000 Poshmark Listings (For Real This Time) - Coffee & Fun LLC" />
     <meta name="keywords" content="ethical scraping, Poshmark backup, Node.js Puppeteer tutorial, Poshmark automation, online listing backup, ethical scraping guide, Puppeteer project, ecommerce recovery, scraping listings Node.js" />
 
 	<!-- Open Graph Meta Tags -->
-	<meta property="og:title" content="How I Scraped 20,000 Poshmark Listings Using Node.js and Puppeteer - Coffee & Fun LLC" />
+	<meta property="og:title" content="Scraping 20,000 Poshmark Listings (For Real This Time) - Coffee & Fun LLC" />
 	<meta property="og:site_name" content="Coffee & Fun LLC" />
-	<meta property="og:url" content="https://www.coffeeandfun.com//blog/ethically-scrape-poshmark-listings-node-puppeteer/" />
+	<meta property="og:url" content="https://www.coffeeandfun.com//blog/ethically-scrape-poshmark-listings-node-puppeteer-update/" />
 	<meta property="og:description"
-		content="Learn how I scraped and backed up 20,000 listings from a Poshmark store using Node.js and Puppeteer. This guide explains the full process, includes code, and helps you recover public listing data for educational or personal use." />
+		content="Back last week, I wrote a blog post titled How I Scraped 20,000 Poshmark Listings Using Node.js and Puppeteer. The idea seemed solid, scroll through a Poshmark closet, grab every listing URL, and scrape each listing one by one. But in reality? The script crashed constantly. It would hang, freeze, or get stuck on a single listing. Chrome would balloon in memory, and Puppeteer would throw vague timeout errors like" />
 	<meta property="og:type" content="website" />
 	<meta property="og:image" content="https://www.coffeeandfun.com/assets/images/blog/ethically-scrape-poshmark-listings-node-puppeteer.png" />
 
 	<!-- Twitter Meta Tags -->
 	<meta property="twitter:domain" content="coffeeandfun.com" />
-	<meta property="twitter:url" content="https://www.coffeeandfun.com/blog/ethically-scrape-poshmark-listings-node-puppeteer/" />
+	<meta property="twitter:url" content="https://www.coffeeandfun.com/blog/ethically-scrape-poshmark-listings-node-puppeteer-update/" />
 	<meta name="twitter:card" content="summary_large_image" />
-	<meta name="twitter:title" content="How I Scraped 20,000 Poshmark Listings Using Node.js and Puppeteer - Coffee & Fun LLC" />
+	<meta name="twitter:title" content="Scraping 20,000 Poshmark Listings (For Real This Time) - Coffee & Fun LLC" />
 	<meta name="twitter:site" content="@bycoffeeandfun" />
 
 	<meta name="twitter:description"
-		content="Learn how I scraped and backed up 20,000 listings from a Poshmark store using Node.js and Puppeteer. This guide explains the full process, includes code, and helps you recover public listing data for educational or personal use." />
+		content="Back last week, I wrote a blog post titled How I Scraped 20,000 Poshmark Listings Using Node.js and Puppeteer. The idea seemed solid, scroll through a Poshmark closet, grab every listing URL, and scrape each listing one by one. But in reality? The script crashed constantly. It would hang, freeze, or get stuck on a single listing. Chrome would balloon in memory, and Puppeteer would throw vague timeout errors like" />
 	<meta name="twitter:image" content="https://www.coffeeandfun.com/assets/images/blog/ethically-scrape-poshmark-listings-node-puppeteer.png" />
 	<meta name="twitter:image:alt" content=" Coffee & Fun LLC" />
 
@@ -384,7 +384,7 @@ document.addEventListener("DOMContentLoaded", (event) => {
                     </a>
                   </div>
                   <h1 id="article-title" class="mt-6 text-2xl font-bold tracking-tight text-black sm:text-4xl">
-                    How I Scraped 20,000 Poshmark Listings Using Node.js and Puppeteer
+                    Scraping 20,000 Poshmark Listings (For Real This Time)
                   </h1>
                   <div class="divider"></div>
       
@@ -404,370 +404,145 @@ document.addEventListener("DOMContentLoaded", (event) => {
                 <div class="mt-10">
                   <img
                     src="/assets/images/blog/ethically-scrape-poshmark-listings-node-puppeteer.png"
-                    alt="How I Scraped 20,000 Poshmark Listings Using Node.js and Puppeteer"
+                    alt="Scraping 20,000 Poshmark Listings (For Real This Time)"
                     class="aspect-square rounded-xl mb-10"
-                    title="How I Scraped 20,000 Poshmark Listings Using Node.js and Puppeteer"
+                    title="Scraping 20,000 Poshmark Listings (For Real This Time)"
                   />
       
-                  <h2 class="leading-relaxed font-display text-2xl mb-6 mt-12 font-semibold text-gray-800">This was wrong</h2>
-<p class="leading-relaxed font-display mb-4 mt-4 text-lg text-gray-900">We updated with a new script, that works correctly and explained it in more detail here.</p>
-<h2 class="leading-relaxed font-display text-2xl mb-6 mt-12 font-semibold text-gray-800">🧠 What Happened</h2>
-<p class="leading-relaxed font-display mb-4 mt-4 text-lg text-gray-900">A friend of mine recently got locked out of their Poshmark store. They had built up over <strong class="text-lg font-semibold text-gray-800">20,000 listings</strong> over the years — detailed titles, prices, photos, descriptions, the whole deal. But with no way to log in and no official export tool, they had no way to get it all back.</p>
-<p class="leading-relaxed font-display mb-4 mt-4 text-lg text-gray-900">So I built them a script to do exactly that, ethically.</p>
-<p class="leading-relaxed font-display mb-4 mt-4 text-lg text-gray-900">This post walks through how I used <strong class="text-lg font-semibold text-gray-800">Node.js</strong> and <strong class="text-lg font-semibold text-gray-800">Puppeteer</strong> to scrape and back up every listing from a public Poshmark store, complete with images, folders, and a full CSV file. You can run it for your own store, or to help a friend who needs it.</p>
-<hr>
-<h2 class="leading-relaxed font-display text-2xl mb-6 mt-12 font-semibold text-gray-800">🧰 What You’ll Need</h2>
-<ul class="leading-relaxed list-disc list-inside mt-4 space-y-2 pl-6 text-lg font-display ml-6 mb-8 text-gray-900">
-<li class="leading-relaxed mb-2 text-lg font-display text-gray-900 flex items-center">Node.js installed</li>
-<li class="leading-relaxed mb-2 text-lg font-display text-gray-900 flex items-center">A code editor (VS Code is great)</li>
-<li class="leading-relaxed mb-2 text-lg font-display text-gray-900 flex items-center">A terminal</li>
-<li class="leading-relaxed mb-2 text-lg font-display text-gray-900 flex items-center">The Poshmark store URL (like <code>https://poshmark.com/closet/jscola10</code>)</li>
-</ul>
-<hr>
-<h2 class="leading-relaxed font-display text-2xl mb-6 mt-12 font-semibold text-gray-800">🧪 What This Script Does</h2>
-<p class="leading-relaxed font-display mb-4 mt-4 text-lg text-gray-900">This script automates the following:</p>
-<ol class="leading-relaxed list-decimal list-inside mt-4 space-y-2 pl-6 text-lg font-display ml-6 mb-8 text-gray-900">
-<li class="leading-relaxed mb-2 text-lg font-display text-gray-900 flex items-center">Visits the Poshmark store</li>
-<li class="leading-relaxed mb-2 text-lg font-display text-gray-900 flex items-center">Scrolls to load every listing</li>
-<li class="leading-relaxed mb-2 text-lg font-display text-gray-900 flex items-center">Clicks each listing, one by one</li>
-<li class="leading-relaxed mb-2 text-lg font-display text-gray-900 flex items-center">Scrapes the title, price, description, and images</li>
-<li class="leading-relaxed mb-2 text-lg font-display text-gray-900 flex items-center">Saves everything to folders</li>
-<li class="leading-relaxed mb-2 text-lg font-display text-gray-900 flex items-center">Compiles a clean <code>listings.csv</code> with everything</li>
-</ol>
-<p class="leading-relaxed font-display mb-4 mt-4 text-lg text-gray-900">It mimics human browsing and respects site structure — no flooding, no abuse, and no logins needed.</p>
-<hr>
-<h2 class="leading-relaxed font-display text-2xl mb-6 mt-12 font-semibold text-gray-800">🧑‍💻 Installing Puppeteer</h2>
-<p class="leading-relaxed font-display mb-4 mt-4 text-lg text-gray-900">First, create a folder and install Puppeteer:</p>
-<pre><code class="language-bash">npm init -y
-npm install puppeteer
-</code></pre>
-<p class="leading-relaxed font-display mb-4 mt-4 text-lg text-gray-900">Then create a file:</p>
-<pre><code class="language-bash">touch poshmark_scraper.js
-</code></pre>
-<hr>
-<h2 class="leading-relaxed font-display text-2xl mb-6 mt-12 font-semibold text-gray-800">📜 The Code</h2>
-<p class="leading-relaxed font-display mb-4 mt-4 text-lg text-gray-900">Here’s the full script:</p>
-<p class="leading-relaxed font-display mb-4 mt-4 text-lg text-gray-900">You can download it <a href="https://github.com/coffee-and-fun/poshmark_scrapper" class="leading-relaxed font-sans text-lg text-blue-500 hover:text-blue-700 underline">here</a> or paste it directly into <code>poshmark_scraper.js</code>.</p>
-<pre><code class="language-js">
-const puppeteer = require(&quot;puppeteer&quot;);
-const PAGE_TO_STEAL_FROM = &quot;https://poshmark.com/closet/xxxxxx&quot;;
-const https = require(&quot;https&quot;);
-
-
-
-const fs = require(&quot;fs&quot;);
-const path = require(&quot;path&quot;);
-const csvPath = path.join(__dirname, 'listings.csv');
-const maxImagesPerListing = 20; // adjust if you want more/less columns
-
-const csvHeaders = [
-    'Title',
-    'URL',
-    'Current Price',
-    'Description',
-    'Folder',
-    'Image Count',
-    ...Array.from({ length: maxImagesPerListing }, (_, i) =&gt; `Image ${i + 1}`)
-];
-
-const csvRows = [];
-const sleep = (ms) =&gt; new Promise((resolve) =&gt; setTimeout(resolve, ms));
-const BASE_SAVE_DIR = path.join(__dirname, &quot;poshmark_listings&quot;);
-
-if (!fs.existsSync(BASE_SAVE_DIR)) {
-    fs.mkdirSync(BASE_SAVE_DIR);
-}
-
-function downloadImage(url, filepath) {
-    return new Promise((resolve, reject) =&gt; {
-        const file = fs.createWriteStream(filepath);
-        https
-            .get(url, (response) =&gt; {
-                response.pipe(file);
-                file.on(&quot;finish&quot;, () =&gt; {
-                    file.close(resolve);
-                });
-            })
-            .on(&quot;error&quot;, (err) =&gt; {
-                fs.unlink(filepath, () =&gt; { });
-                reject(err);
-            });
-    });
-}
-(async () =&gt; {
-    const browser = await puppeteer.launch({
-        headless: false,
-        defaultViewport: null,
-        args: [&quot;--no-sandbox&quot;, &quot;--disable-setuid-sandbox&quot;],
-    });
-
-    const page = await browser.newPage();
-    await page.goto(PAGE_TO_STEAL_FROM, { waitUntil: &quot;networkidle2&quot; });
-
-    await sleep(5000);
-    await page.waitForSelector('[data-test=&quot;closet_listings_count&quot;]');
-
-    const totalListings = await page.$eval(
-        '[data-test=&quot;closet_listings_count&quot;]',
-        (el) =&gt; parseInt(el.innerText.replace(/[^0-9]/g, &quot;&quot;), 10)
-    );
-    console.log(`🧮 Total listings: ${totalListings}`);
-
-    // Scroll function
-    async function scrollUntilDone() {
-        let prevCount = 0;
-        let keepScrolling = true;
-
-        while (keepScrolling) {
-            await page.waitForSelector(&quot;.tiles_container.m--t--1&quot;);
-            const visibleTiles = await page.$$eval(
-                &quot;.tiles_container.m--t--1 &gt; div:not(.hide)&quot;,
-                (tiles) =&gt; tiles.length
-            );
-            console.log(`📦 Loaded listings: ${visibleTiles}`);
-
-            if (visibleTiles &gt;= totalListings || visibleTiles === prevCount) {
-                keepScrolling = false;
-            } else {
-                prevCount = visibleTiles;
-                await page.evaluate(() =&gt;
-                    window.scrollTo(0, document.body.scrollHeight)
-                );
-                await sleep(3000);
-            }
-        }
-    }
-
-    await scrollUntilDone();
-
-    const totalTileCount = await page.$$eval(
-        &quot;.tiles_container.m--t--1 &gt; div:not(.hide)&quot;,
-        (tiles) =&gt; tiles.length
-    );
-
-    for (let i = 0; i &lt; totalTileCount; i++) {
-        console.log(`🖱️ Clicking tile ${i + 1} of ${totalTileCount}`);
-
-        try {
-            // Refresh the list of tiles in case they’ve shifted after going back
-            await scrollUntilDone();
-            const tiles = await page.$$(&quot;.tiles_container.m--t--1 &gt; div:not(.hide)&quot;);
-            const tile = tiles[i];
-            if (!tile) {
-                console.warn(`⚠️ Tile ${i} not found, skipping...`);
-                continue;
-            }
-
-            // Click and wait for listing to load
-            await Promise.all([
-                tile.click(),
-                page.waitForNavigation({ waitUntil: &quot;domcontentloaded&quot; }),
-            ]);
-
-            await sleep(2000);
-
-            // Scrape content
-            const titleSelector = &quot;.fw--light.m--r--2.listing__title-container&quot;;
-            await page.waitForSelector(titleSelector, { timeout: 5000 });
-
-            const title = await page.$eval(titleSelector, (el) =&gt;
-                el.innerText.trim()
-            );
-            const safeTitle = title.replace(/[\/\\?%*:|&quot;&lt;&gt;]/g, &quot;-&quot;).substring(0, 100);
-            const folderPath = path.join(BASE_SAVE_DIR, safeTitle);
-            if (!fs.existsSync(folderPath)) {
-                fs.mkdirSync(folderPath);
-                console.log(`📁 Folder created: ${folderPath}`);
-            }
-
-            const priceWrapperSelector =
-                &quot;.listing__ipad-centered.d--fl.ai--c.m--t--5&quot;;
-            await page.waitForSelector(`${priceWrapperSelector} .h1`, {
-                timeout: 5000,
-            });
-
-            const { currentPrice } = await page.$eval(
-                `${priceWrapperSelector} .h1`,
-                (el) =&gt; {
-                    const current = Array.from(el.childNodes)
-                        .filter((node) =&gt; node.nodeType === Node.TEXT_NODE)
-                        .map((node) =&gt; node.textContent.trim())
-                        .join(&quot; &quot;)
-                        .trim();
-
-                    const original = el.querySelector(&quot;span&quot;)?.innerText.trim() || &quot;N/A&quot;;
-
-                    return {
-                        currentPrice: current,
-                    };
-                }
-            );
-
-            const description = await page
-                .$eval(&quot;.listing__description&quot;, (el) =&gt; el.innerText.trim())
-                .catch(() =&gt; &quot;N/A&quot;);
-            const pageUrl = page.url();
-
-            const textContent = `
-Title: ${title}
-URL: ${pageUrl}
-Current Price: ${currentPrice}
-Description:
-${description}
-      `.trim();
-
-            const filePath = path.join(folderPath, `${safeTitle}.txt`);
-            fs.writeFileSync(filePath, textContent, &quot;utf-8&quot;);
-            console.log(`📄 Text file saved: ${filePath}`);
-
-            // 📸 Grab images inside the slideshow block
-            // Gather local image paths
-            const imageHandles = await page.$$(
-                '.slideshow.slideshow--desktop .img__container--square.img__container img'
-            );
-
-            // Build full image paths (absolute)
-            const imagePaths = [];
-
-            for (let j = 0; j &lt; imageHandles.length; j++) {
-                try {
-                    const imgSrc = await imageHandles[j].evaluate(img =&gt; img.getAttribute('src'));
-                    const imgFileName = `${j + 1}.jpg`;
-                    const imgPath = path.join(folderPath, imgFileName);
-                    await downloadImage(imgSrc, imgPath);
-                    imagePaths.push(imgPath); // Save full path
-                    console.log(`🖼️ Saved image ${j + 1}: ${imgPath}`);
-                } catch (err) {
-                    console.warn(`⚠️ Could not save image ${j + 1}: ${err.message}`);
-                }
-            }
-
-            // Pad missing image columns with empty strings
-            const paddedImagePaths = [...imagePaths];
-            while (paddedImagePaths.length &lt; maxImagesPerListing) {
-                paddedImagePaths.push('');
-            }
-
-            // Add to CSV
-            csvRows.push([
-                title,
-                pageUrl,
-                currentPrice,
-                description.replace(/\n/g, ' '),
-                safeTitle,
-                imagePaths.length,
-                ...paddedImagePaths
-            ]);
-
-
-            // Go back and wait for listings to reload
-            await page.goBack({ waitUntil: &quot;domcontentloaded&quot; });
-            await sleep(2000);
-        } catch (err) {
-            console.error(`❌ Error on tile ${i + 1}:`, err.message);
-        }
-    }
-
-
-    // Write CSV file
-    const csvContent = [csvHeaders, ...csvRows]
-        .map(row =&gt; row.map(val =&gt; `&quot;${val.toString().replace(/&quot;/g, '&quot;&quot;')}&quot;`).join(','))
-        .join('\n');
-
-    fs.writeFileSync(csvPath, csvContent, 'utf-8');
-    console.log(`📄 CSV saved: ${csvPath}`);
-
-    console.log(&quot;🎉 All listings scraped&quot;);
-    await browser.close();
-})();
-
-
-
-</code></pre>
+                  <h1 class="leading-relaxed font-display text-3xl mb-8 font-bold text-gray-900">Scraping 20,000 Poshmark Listings (For Real This Time)</h1>
+<p class="leading-relaxed font-display mb-4 mt-4 text-lg text-gray-900">Back last week, I wrote a blog post titled <em><a href="blog/ethically-scrape-poshmark-listings-node-puppeteer" class="leading-relaxed font-sans text-lg text-blue-500 hover:text-blue-700 underline">How I Scraped 20,000 Poshmark Listings Using Node.js and Puppeteer</a></em>. The idea seemed solid: scroll through a Poshmark closet, grab every listing URL, and scrape each listing one by one.</p>
+<p class="leading-relaxed font-display mb-4 mt-4 text-lg text-gray-900">But in reality? The script crashed constantly.</p>
+<p class="leading-relaxed font-display mb-4 mt-4 text-lg text-gray-900">It would hang, freeze, or get stuck on a single listing. Chrome would balloon in memory, and Puppeteer would throw vague timeout errors like:</p>
 <blockquote class="border-l-4 border-gray-300 pl-4 italic text-gray-700 my-4">
-<p class="leading-relaxed font-display mb-4 mt-4 text-lg text-gray-900">⚠️ Don’t forget to replace the username in the URL:
-<code>https://poshmark.com/closet/jscola10</code> with your own or the one you're backing up.</p>
+<p class="leading-relaxed font-display mb-4 mt-4 text-lg text-gray-900"><code>Runtime.callFunctionOn timed out. Increase the 'protocolTimeout' setting in launch/connect calls...</code></p>
 </blockquote>
+<p class="leading-relaxed font-display mb-4 mt-4 text-lg text-gray-900">After way too many failed runs, I finally figured out why — and how to actually fix it. This post is the follow-up to that original blog, walking through what went wrong and how I made it right.</p>
 <hr>
-<h2 class="leading-relaxed font-display text-2xl mb-6 mt-12 font-semibold text-gray-800">▶️ How to Run It</h2>
-<p class="leading-relaxed font-display mb-4 mt-4 text-lg text-gray-900">Just run:</p>
-<pre><code class="language-bash">node poshmark_scraper.js
+<h2 class="leading-relaxed font-display text-2xl mb-6 mt-12 font-semibold text-gray-800">🧨 What Went Wrong</h2>
+<p class="leading-relaxed font-display mb-4 mt-4 text-lg text-gray-900">Here’s how my original scraper worked:</p>
+<pre><code class="language-js">const browser = await puppeteer.launch();
+const page = await browser.newPage();
+
+for (let url of allListingUrls) {
+  await page.goto(url);
+  const images = await page.$$eval(...);
+  await saveImages(images);
+}
 </code></pre>
-<p class="leading-relaxed font-display mb-4 mt-4 text-lg text-gray-900">It’ll open a browser window, scroll through the closet, click into each listing, grab the info, save the images and create the folders.</p>
-<p class="leading-relaxed font-display mb-4 mt-4 text-lg text-gray-900">You’ll see:</p>
+<p class="leading-relaxed font-display mb-4 mt-4 text-lg text-gray-900">It looked simple, but under the hood, there were big issues:</p>
 <ul class="leading-relaxed list-disc list-inside mt-4 space-y-2 pl-6 text-lg font-display ml-6 mb-8 text-gray-900">
-<li class="leading-relaxed mb-2 text-lg font-display text-gray-900 flex items-center"><code>/poshmark_listings/</code> with folders like <code>Red Nike Sneakers</code></li>
-<li class="leading-relaxed mb-2 text-lg font-display text-gray-900 flex items-center">Inside each folder:
-<ul class="leading-relaxed list-disc list-inside mt-4 space-y-2 pl-6 text-lg font-display ml-6 mb-8 text-gray-900">
-<li class="leading-relaxed mb-2 text-lg font-display text-gray-900 flex items-center">A <code>.txt</code> file with the description, price, etc.</li>
-<li class="leading-relaxed mb-2 text-lg font-display text-gray-900 flex items-center">Images saved as <code>1.jpg</code>, <code>2.jpg</code>, etc.</li>
-</ul>
+<li class="leading-relaxed mb-2 text-lg font-display text-gray-900 flex items-center">
+<p class="leading-relaxed font-display mb-4 mt-4 text-lg text-gray-900">One long browser session for 20,000 listings = eventual crash</p>
 </li>
-<li class="leading-relaxed mb-2 text-lg font-display text-gray-900 flex items-center">A CSV file with every listing and full image paths</li>
-</ul>
-<hr>
-<h2 class="leading-relaxed font-display text-2xl mb-6 mt-12 font-semibold text-gray-800">🧠 How It Works (Behind the Scenes)</h2>
-<p class="leading-relaxed font-display mb-4 mt-4 text-lg text-gray-900">This script might look simple at a glance, but it actually handles some cool stuff under the hood — especially when you realize it’s mimicking human behavior in a really smooth way.</p>
-<hr>
-<h3 class="leading-relaxed font-display text-xl mb-4 mt-10 font-semibold text-gray-700">🌀 Scrolling Listings</h3>
-<p class="leading-relaxed font-display mb-4 mt-4 text-lg text-gray-900">Poshmark doesn’t load all listings at once — they load dynamically as you scroll. So the script uses this function:</p>
-<pre><code class="language-js">window.scrollTo(0, document.body.scrollHeight);
-</code></pre>
-<p class="leading-relaxed font-display mb-4 mt-4 text-lg text-gray-900">and does it in a loop, waiting between scrolls (<code>sleep(3000)</code>) to give the page time to load new listings. It also checks if no new tiles were added — which is a slick way of knowing, “hey, we’re done scrolling.”</p>
-<p class="leading-relaxed font-display mb-4 mt-4 text-lg text-gray-900">This lets it work with <strong class="text-lg font-semibold text-gray-800">10 listings or 20,000</strong> without changing anything. Super flexible.</p>
-<hr>
-<h3 class="leading-relaxed font-display text-xl mb-4 mt-10 font-semibold text-gray-700">🖱️ Clicking Each Listing</h3>
-<p class="leading-relaxed font-display mb-4 mt-4 text-lg text-gray-900">Instead of using hardcoded URLs (which don’t exist), it simulates a user clicking the listing tile. Then it waits for:</p>
-<pre><code class="language-js">page.waitForNavigation({ waitUntil: 'domcontentloaded' })
-</code></pre>
-<p class="leading-relaxed font-display mb-4 mt-4 text-lg text-gray-900">This tells Puppeteer to hang tight until the page is fully loaded — which is a great way to avoid scraping before the content is ready.</p>
-<p class="leading-relaxed font-display mb-4 mt-4 text-lg text-gray-900">This also means it’ll work even if Poshmark updates their URL structure, as long as the page UI stays mostly the same.</p>
-<hr>
-<h3 class="leading-relaxed font-display text-xl mb-4 mt-10 font-semibold text-gray-700">✍️ Scraping the Data</h3>
-<p class="leading-relaxed font-display mb-4 mt-4 text-lg text-gray-900">Once inside a listing, it pulls:</p>
-<ul class="leading-relaxed list-disc list-inside mt-4 space-y-2 pl-6 text-lg font-display ml-6 mb-8 text-gray-900">
-<li class="leading-relaxed mb-2 text-lg font-display text-gray-900 flex items-center">The title (used for naming folders)</li>
-<li class="leading-relaxed mb-2 text-lg font-display text-gray-900 flex items-center">The current price (from the <code>.h1</code> that contains mixed elements)</li>
-<li class="leading-relaxed mb-2 text-lg font-display text-gray-900 flex items-center">The description (if it exists — and gracefully skips it if not)</li>
-<li class="leading-relaxed mb-2 text-lg font-display text-gray-900 flex items-center">The current URL (for linking back)</li>
-<li class="leading-relaxed mb-2 text-lg font-display text-gray-900 flex items-center">All images from the slideshow (using <code>.img__container--square</code> containers)</li>
-</ul>
-<p class="leading-relaxed font-display mb-4 mt-4 text-lg text-gray-900">What's neat here is how the price is scraped:</p>
-<pre><code class="language-js">Array.from(el.childNodes)
-  .filter(n =&gt; n.nodeType === Node.TEXT_NODE)
-  .map(n =&gt; n.textContent.trim()).join(' ')
-</code></pre>
-<p class="leading-relaxed font-display mb-4 mt-4 text-lg text-gray-900">That little snippet is low-key clever — it grabs just the visible price text and skips things like the original crossed-out price or embedded spans.</p>
-<hr>
-<h3 class="leading-relaxed font-display text-xl mb-4 mt-10 font-semibold text-gray-700">🖼️ Downloading Images</h3>
-<p class="leading-relaxed font-display mb-4 mt-4 text-lg text-gray-900">Instead of just copying the image URLs, it <strong class="text-lg font-semibold text-gray-800">downloads every image</strong> and saves them into the folder with names like <code>1.jpg</code>, <code>2.jpg</code>, etc.</p>
-<p class="leading-relaxed font-display mb-4 mt-4 text-lg text-gray-900">The download uses native Node.js <code>https</code> streams — so there are no external libraries or dependencies. Just clean, raw file writing:</p>
-<pre><code class="language-js">https.get(url, response =&gt; {
-  response.pipe(file);
-});
-</code></pre>
-<p class="leading-relaxed font-display mb-4 mt-4 text-lg text-gray-900">And it retries or skips gracefully if something fails — so the script doesn’t crash halfway through a big run.</p>
-<hr>
-<h3 class="leading-relaxed font-display text-xl mb-4 mt-10 font-semibold text-gray-700">🗂️ Organizing It All</h3>
-<p class="leading-relaxed font-display mb-4 mt-4 text-lg text-gray-900">The most satisfying part?</p>
-<ul class="leading-relaxed list-disc list-inside mt-4 space-y-2 pl-6 text-lg font-display ml-6 mb-8 text-gray-900">
-<li class="leading-relaxed mb-2 text-lg font-display text-gray-900 flex items-center">A folder is created for every listing (named after the product title)</li>
-<li class="leading-relaxed mb-2 text-lg font-display text-gray-900 flex items-center">Inside is:
-<ul class="leading-relaxed list-disc list-inside mt-4 space-y-2 pl-6 text-lg font-display ml-6 mb-8 text-gray-900">
-<li class="leading-relaxed mb-2 text-lg font-display text-gray-900 flex items-center">A <code>.txt</code> file with the title, description, price, and link</li>
-<li class="leading-relaxed mb-2 text-lg font-display text-gray-900 flex items-center">The images</li>
-</ul>
+<li class="leading-relaxed mb-2 text-lg font-display text-gray-900 flex items-center">
+<p class="leading-relaxed font-display mb-4 mt-4 text-lg text-gray-900">No timeout protection meant a single slow page could freeze everything</p>
 </li>
-<li class="leading-relaxed mb-2 text-lg font-display text-gray-900 flex items-center">And the CSV file includes everything, <strong class="text-lg font-semibold text-gray-800">even the full image paths</strong> — so you can import it into a spreadsheet and sort/search easily</li>
+<li class="leading-relaxed mb-2 text-lg font-display text-gray-900 flex items-center">
+<p class="leading-relaxed font-display mb-4 mt-4 text-lg text-gray-900">No resume support, so if it crashed at item #1375, I’d have to start all over</p>
+</li>
+<li class="leading-relaxed mb-2 text-lg font-display text-gray-900 flex items-center">
+<p class="leading-relaxed font-display mb-4 mt-4 text-lg text-gray-900">No skip logic, so re-running would re-scrape everything</p>
+</li>
 </ul>
-<h2 class="leading-relaxed font-display text-2xl mb-6 mt-12 font-semibold text-gray-800">🛡️ Why It’s Ethical</h2>
-<p class="leading-relaxed font-display mb-4 mt-4 text-lg text-gray-900">All data is scraped <strong class="text-lg font-semibold text-gray-800">client-side</strong> from publicly available listings. We don’t log in, spam, or go beyond normal use. This script is slow, respectful, and designed to help <strong class="text-lg font-semibold text-gray-800">you back up your own content</strong> or help a friend recover theirs.</p>
+<h2 class="leading-relaxed font-display text-2xl mb-6 mt-12 font-semibold text-gray-800">✅ The New Approach: Batch It, Restart It, Skip It</h2>
+<p class="leading-relaxed font-display mb-4 mt-4 text-lg text-gray-900">I rewrote the entire scraper with resilience in mind. The result is a scraper that:</p>
+<ul class="leading-relaxed list-disc list-inside mt-4 space-y-2 pl-6 text-lg font-display ml-6 mb-8 text-gray-900">
+<li class="leading-relaxed mb-2 text-lg font-display text-gray-900 flex items-center">Splits all listings into <strong class="text-lg font-semibold text-gray-800">batches of 10</strong></li>
+<li class="leading-relaxed mb-2 text-lg font-display text-gray-900 flex items-center">Starts a <strong class="text-lg font-semibold text-gray-800">fresh Puppeteer browser</strong> for each batch</li>
+<li class="leading-relaxed mb-2 text-lg font-display text-gray-900 flex items-center"><strong class="text-lg font-semibold text-gray-800">Skips already-scraped listings</strong></li>
+<li class="leading-relaxed mb-2 text-lg font-display text-gray-900 flex items-center">Handles <strong class="text-lg font-semibold text-gray-800">timeouts gracefully</strong></li>
+<li class="leading-relaxed mb-2 text-lg font-display text-gray-900 flex items-center"><strong class="text-lg font-semibold text-gray-800">Saves progress</strong> with a simple text file so I can resume anytime</li>
+</ul>
+<h3 class="leading-relaxed font-display text-xl mb-4 mt-10 font-semibold text-gray-700">🔁 Batching the Work</h3>
+<pre><code class="language-js">const BATCH_SIZE = 10;
+const totalBatches = Math.ceil(allListingUrls.length / BATCH_SIZE);
+
+for (let b = 0; b &lt; totalBatches; b++) {
+  const batch = allListingUrls.slice(b * BATCH_SIZE, (b + 1) * BATCH_SIZE);
+  // process this batch
+}
+</code></pre>
+<p class="leading-relaxed font-display mb-4 mt-4 text-lg text-gray-900">This keeps memory usage low and makes failures isolated and easy to recover from.</p>
 <hr>
-<h2 class="leading-relaxed font-display text-2xl mb-6 mt-12 font-semibold text-gray-800">🧾 Final Thoughts</h2>
-<p class="leading-relaxed font-display mb-4 mt-4 text-lg text-gray-900">I built this tool to solve a real problem. If you're a seller on Poshmark, you deserve a way to own your own data. This script helps you do that safely and ethically — and it works.</p>
-<p class="leading-relaxed font-display mb-4 mt-4 text-lg text-gray-900">Need help running it or want to export to Google Sheets, JSON, or even zip the folders? Let me know — happy to help.</p>
-<p class="leading-relaxed font-display mb-4 mt-4 text-lg text-gray-900">Built with ☕️ and code by<br>
-<strong class="text-lg font-semibold text-gray-800">The Coffee and Fun Team</strong></p>
+<h3 class="leading-relaxed font-display text-xl mb-4 mt-10 font-semibold text-gray-700">🧼 Fresh Browser Per Batch</h3>
+<pre><code class="language-js">
+const { browser, page } = await createBrowser();
+// ... scrape listings ...
+await browser.close();
+
+</code></pre>
+<p class="leading-relaxed font-display mb-4 mt-4 text-lg text-gray-900">No more memory leaks, zombie tabs, or weird state.</p>
+<hr>
+<h3 class="leading-relaxed font-display text-xl mb-4 mt-10 font-semibold text-gray-700">⏱️ Timeout Safety with Promise.race</h3>
+<pre><code class="language-js">
+await Promise.race([
+  page.goto(url, { timeout: 3000 }),
+  sleep(4000).then(() =&gt; { throw new Error(&quot;Timeout!&quot;) })
+]);
+</code></pre>
+<p class="leading-relaxed font-display mb-4 mt-4 text-lg text-gray-900">If a page doesn't load quickly, we kill it and move on.</p>
+<hr>
+<h3 class="leading-relaxed font-display text-xl mb-4 mt-10 font-semibold text-gray-700">🧠 Skip Already-Scraped Listings</h3>
+<pre><code class="language-js">
+if (fs.existsSync(folderPath)) {
+  console.log(&quot;Already scraped, skipping.&quot;);
+  continue;
+}
+
+</code></pre>
+<p class="leading-relaxed font-display mb-4 mt-4 text-lg text-gray-900">Let’s me run the scraper over and over again without repeating work.</p>
+<h3 class="leading-relaxed font-display text-xl mb-4 mt-10 font-semibold text-gray-700">💾 Save and Resume with last_batch.txt</h3>
+<pre><code class="language-js">writeLastBatchIndex(currentBatchIndex);
+</code></pre>
+<p class="leading-relaxed font-display mb-4 mt-4 text-lg text-gray-900">On each batch, the script saves its progress. So even if I kill it, crash it, or lose power — it’ll pick right back up where it left off.</p>
+<hr>
+<h2 class="leading-relaxed font-display text-2xl mb-6 mt-12 font-semibold text-gray-800">🤯 The Difference</h2>
+<table class="table-auto w-full border-collapse border border-gray-300 text-lg font-display text-gray-900 mt-4 mb-8">
+<thead class="bg-gray-100">
+<tr class="odd:bg-gray-50 even:bg-white">
+<th class="border border-gray-300 px-4 py-2 text-left text-gray-700 font-medium">Feature</th>
+<th class="border border-gray-300 px-4 py-2 text-left text-gray-700 font-medium">Old Script ❌</th>
+<th class="border border-gray-300 px-4 py-2 text-left text-gray-700 font-medium">New Script ✅</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd:bg-gray-50 even:bg-white">
+<td class="border border-gray-300 px-4 py-2 text-gray-900">One browser for all listings</td>
+<td class="border border-gray-300 px-4 py-2 text-gray-900">Yes</td>
+<td class="border border-gray-300 px-4 py-2 text-gray-900">No — fresh browser per batch</td>
+</tr>
+<tr class="odd:bg-gray-50 even:bg-white">
+<td class="border border-gray-300 px-4 py-2 text-gray-900">Timeout handling</td>
+<td class="border border-gray-300 px-4 py-2 text-gray-900">No</td>
+<td class="border border-gray-300 px-4 py-2 text-gray-900">Yes — fast fail and move on</td>
+</tr>
+<tr class="odd:bg-gray-50 even:bg-white">
+<td class="border border-gray-300 px-4 py-2 text-gray-900">Resume support</td>
+<td class="border border-gray-300 px-4 py-2 text-gray-900">No</td>
+<td class="border border-gray-300 px-4 py-2 text-gray-900">Yes — <code>last_batch.txt</code></td>
+</tr>
+<tr class="odd:bg-gray-50 even:bg-white">
+<td class="border border-gray-300 px-4 py-2 text-gray-900">Re-scrape protection</td>
+<td class="border border-gray-300 px-4 py-2 text-gray-900">No</td>
+<td class="border border-gray-300 px-4 py-2 text-gray-900">Yes — skips done folders</td>
+</tr>
+<tr class="odd:bg-gray-50 even:bg-white">
+<td class="border border-gray-300 px-4 py-2 text-gray-900">Batching</td>
+<td class="border border-gray-300 px-4 py-2 text-gray-900">No (1 big loop)</td>
+<td class="border border-gray-300 px-4 py-2 text-gray-900">Yes — smaller and stable</td>
+</tr>
+<tr class="odd:bg-gray-50 even:bg-white">
+<td class="border border-gray-300 px-4 py-2 text-gray-900">Reliable over 1,000+ listings</td>
+<td class="border border-gray-300 px-4 py-2 text-gray-900">Unstable</td>
+<td class="border border-gray-300 px-4 py-2 text-gray-900">Solid and scalable 🚀</td>
+</tr>
+</tbody>
+</table>
+<hr>
+<h2 class="leading-relaxed font-display text-2xl mb-6 mt-12 font-semibold text-gray-800">🚀 Final Thoughts</h2>
+<p class="leading-relaxed font-display mb-4 mt-4 text-lg text-gray-900">The first version was a cool proof-of-concept, but the new version is a production-grade scraper I can actually trust. It’s crash-safe, restartable, and skips already-processed listings.</p>
+<p class="leading-relaxed font-display mb-4 mt-4 text-lg text-gray-900">If you're trying to scrape large datasets with Puppeteer and running into crashes, batching and timeout management will save your sanity.</p>
+<p class="leading-relaxed font-display mb-4 mt-4 text-lg text-gray-900">Want the final working code? <a href="https://www.twitter.com/bycoffeeanfun" class="leading-relaxed font-sans text-lg text-blue-500 hover:text-blue-700 underline">DM me on Twitter</a> or <a href="mailto:hello@robertgabriel.ninja" class="leading-relaxed font-sans text-lg text-blue-500 hover:text-blue-700 underline">email me</a>, happy to share!</p>
 
                 </div>
               </article>
