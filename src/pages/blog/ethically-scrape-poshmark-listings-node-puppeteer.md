@@ -23,6 +23,10 @@ tags:
 ---
 
 
+## This was wrong
+
+We updated with a new script, that works correctly and explained it in more detail here.
+
 
 ## 🧠 What Happened
 
