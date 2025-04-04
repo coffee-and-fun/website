@@ -30,7 +30,11 @@ But in reality? The script crashed constantly.
 
 It would hang, freeze, or get stuck on a single listing. Chrome would balloon in memory, and Puppeteer would throw vague timeout errors like:
 
-> `Runtime.callFunctionOn timed out. Increase the 'protocolTimeout' setting in launch/connect calls...`
+```bash 
+
+Runtime.callFunctionOn timed out. Increase the 'protocolTimeout' setting in launch/connect calls...
+
+```
 
 After way too many failed runs, I finally figured out why — and how to actually fix it. This post is the follow-up to that original blog, walking through what went wrong and how I made it right.
 
