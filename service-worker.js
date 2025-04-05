@@ -43,6 +43,10 @@ self.__precacheManifest = [
     "revision": "2a7059739e521a8816bb195039e5ca07"
   },
   {
+    "url": "assets/images/apps/bible.png",
+    "revision": "c85d2e96d084877ef7517cb0865dde80"
+  },
+  {
     "url": "assets/images/apps/bill.png",
     "revision": "2acfb5c86b07f2e3db316809c8a6d329"
   },
@@ -157,6 +161,10 @@ self.__precacheManifest = [
   {
     "url": "assets/images/blog/airtag/4.webp",
     "revision": "6cbfab9464797b034cd756870deac5ff"
+  },
+  {
+    "url": "assets/images/blog/app-store-promo.png",
+    "revision": "4787e17553dd023121c0fc933cdcf1e6"
   },
   {
     "url": "assets/images/blog/apple-passwords-app-coffee-and-fun.png",
@@ -380,95 +388,99 @@ self.__precacheManifest = [
   },
   {
     "url": "assets/js/main.css",
-    "revision": "37bd9b7f6e3328c4df92539c3c46817c"
+    "revision": "c3559501b14f0c50c936a4aeb541d9dc"
   },
   {
     "url": "blog/apple-passwords-app-review-coffee-and-fun/index.html",
-    "revision": "f9b03b03b7ad7e76a5bb3d20851cc75b"
+    "revision": "33b224e54ad69d98c42da95b5eef9721"
   },
   {
     "url": "blog/coffee-and-fun-quarterly-update-spring-2025/index.html",
-    "revision": "02164e719b131490f0546a1a8d6a5704"
+    "revision": "bb71c0d8a679f599f54aea192f2665fd"
   },
   {
     "url": "blog/delete-tweets-retweets-likes-without-apps/index.html",
-    "revision": "80b3f2b647ab9935a854ba800349cbad"
+    "revision": "2f048ab037689e08f07aed3b97607ed7"
   },
   {
     "url": "blog/ethically-hack-woobox-voting-node-puppeteer/index.html",
-    "revision": "d111417e1067cafdd728803712de11de"
+    "revision": "5e5291a0e83f1aa7dc3de5c376adbdf5"
   },
   {
     "url": "blog/ethically-scrape-poshmark-listings-node-puppeteer-update/index.html",
-    "revision": "a1ade009c27f8245aa03d7f12e0d0239"
+    "revision": "d4f230d91eac23d3a9c48bc6063813a9"
   },
   {
     "url": "blog/ethically-scrape-poshmark-listings-node-puppeteer/index.html",
-    "revision": "c7a18be4d1051eb38a4a012f7c4979c6"
+    "revision": "715b15f1065555f17dbbd07c4cc4fe40"
   },
   {
     "url": "blog/how-i-would-improve-chrome-web-store/index.html",
-    "revision": "d2b4fb270c93b9d0edfe4fb9cbfb8b79"
+    "revision": "fde202371f1e0c977ca1c5da13dab66a"
   },
   {
     "url": "blog/how-psa-grades-pokemon-cards-research-guide/index.html",
-    "revision": "4b2eb1135e0ce70ba8b5a1ba00c0c7b8"
+    "revision": "9aac5c46973dbf0e1c7c06a20dadbc65"
   },
   {
     "url": "blog/how-to-change-battery-in-an-apple-airtag/index.html",
-    "revision": "ec2b6191c42bf6fd70f7c66049db2081"
+    "revision": "eb34554b9f609d9d7c3ef85887179845"
   },
   {
     "url": "blog/how-to-delete-or-deactivate-your-facebook-account/index.html",
-    "revision": "f8c2e604e2b365731d9373abbc437f6e"
+    "revision": "6e8ccca06f535db1bc0961312e9b5ee7"
+  },
+  {
+    "url": "blog/how-to-redeem-app-store-promo-code/index.html",
+    "revision": "e1fb67bec0c78e6b191b0c6226792170"
   },
   {
     "url": "blog/how-to-replace-the-battery-in-your-nintendo-switch/index.html",
-    "revision": "dc80277af850f1cb6ad3cd5a52da0e4f"
+    "revision": "9d46d48893f0e10f8ea35d6d196a7eba"
   },
   {
     "url": "blog/index.html",
-    "revision": "92cf7d413fab75e7497424fa488d7f91"
+    "revision": "8a7ea9f9903f464bba37d7c726039592"
   },
   {
     "url": "blog/introducing-autopause-control-your-media/index.html",
-    "revision": "769fd7a6626d452a08e17816d4d113b0"
+    "revision": "64e849edfa589edd45bbffce3352d885"
   },
   {
     "url": "blog/introducing-hide-spoilers/index.html",
-    "revision": "97585190f0d8e846133aba2412fe4b7b"
+    "revision": "f8a3799295918678a19a28de48049bca"
   },
   {
     "url": "blog/our-first-thoughts-on-the-vision-pro/index.html",
-    "revision": "f608a679def1e650bf2fc09e1f97ee0b"
+    "revision": "df3931ba51093d45b9ddb4fb0ea89a7f"
   },
   {
     "url": "blog/procrastinot-maths-challenge-update/index.html",
-    "revision": "27bdccbfac397c98fd4492d77c613d2d"
+    "revision": "82b86afc0b1e8a259ef1c97956587231"
   },
   {
     "url": "blog/should-you-test-your-code-in-production/index.html",
-    "revision": "f5ecc26c05a82b5bbb5bfa98d133d514"
+    "revision": "8f99a363d05fc345b5ab4c2833b82425"
   },
   {
     "url": "blog/skip-movie-trailers-trick/index.html",
-    "revision": "e06bd5bbc3b992d1a769e19ca3278fd2"
+    "revision": "ddb1f278aaf2d8f39e30086c3c075d2d"
   },
   {
     "url": "blog/testing-redbox-kiosk-offline-hack-for-free-dvds/index.html",
-    "revision": "5b70c2bca2c08243752cec8a2eb0f7c2"
+    "revision": "776a63801f3c594a2276175d74df0bf3"
   },
   {
     "url": "blog/whats-coming-for-coffee-and-fun-llc-in-2025/index.html",
-    "revision": "7c7688d0393090f415bf47673a01e154"
+    "revision": "5e25e2ca8d6b87c376fdb9e6943dc45c"
   },
   {
     "url": "flash-cards/index.html",
-    "revision": "8ed88db243fee1ee531c60ed88339bd8"
+    "revision": "a37cee8265c310171187cf4ba4ad6598"
   },
   {
     "url": "forever-advert/index.html",
-    "revision": "182d8722a492b8ddfc67b02297cae111"
+    "revision": "e7e889a2af3a7d885b25fefea7839472"
   },
   {
     "url": "forgotten-cards/index.html",
@@ -476,27 +488,27 @@ self.__precacheManifest = [
   },
   {
     "url": "hide-spoilers-extension/index.html",
-    "revision": "2e12a2189bdc2850c46ba7d2a86631ce"
+    "revision": "a98caf7c2462d9b33f131ae78b7e8d7b"
   },
   {
     "url": "index.html",
-    "revision": "b762c9bbf0cac475d7d4dbee8c1c9cfa"
+    "revision": "617b516f1b2e1415f42b55fcd4b44080"
   },
   {
     "url": "instant-incognito/index.html",
-    "revision": "c06e4fbf1b649ead5b14805f4b949efb"
+    "revision": "d06cf1cc7d5e512e7cbd7c2a235c15ab"
   },
   {
     "url": "privacy/index.html",
-    "revision": "01f17701f357007ff895c1857a478957"
+    "revision": "e9b2ad86de7eea5a0594b253069450e9"
   },
   {
     "url": "procrastinot/index.html",
-    "revision": "006cbe107134db6a1cac867bdeec1e24"
+    "revision": "6cb37c8da44c65f4aef46caa37c26fc5"
   },
   {
     "url": "reviews/index.html",
-    "revision": "0622f76b32e9c151da6771f0dbbea5db"
+    "revision": "f239a3c8aa4d46313f0226ff865c0fb3"
   },
   {
     "url": "stop-wasting/index.html",
@@ -504,7 +516,7 @@ self.__precacheManifest = [
   },
   {
     "url": "trivia/index.html",
-    "revision": "430cd3b10fb4b2591840242d00863fba"
+    "revision": "ea827a4e6e400ca894db1ba727a9b9b6"
   }
 ].concat(self.__precacheManifest || []);
 workbox.precaching.precacheAndRoute(self.__precacheManifest, {});
