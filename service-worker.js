@@ -28,7 +28,7 @@ workbox.core.clientsClaim();
 self.__precacheManifest = [
   {
     "url": "assets/css/styles.css",
-    "revision": "f7c291c2c58f84ba52f01a400c8a4a93"
+    "revision": "7c3e381a12e46769cb383b146fbf4333"
   },
   {
     "url": "assets/images/1024.png",
@@ -388,7 +388,7 @@ self.__precacheManifest = [
   },
   {
     "url": "assets/js/main.css",
-    "revision": "c3559501b14f0c50c936a4aeb541d9dc"
+    "revision": "c1312f585f0e85d5e328821fabcf880f"
   },
   {
     "url": "blog/apple-passwords-app-review-coffee-and-fun/index.html",
@@ -440,7 +440,7 @@ self.__precacheManifest = [
   },
   {
     "url": "blog/index.html",
-    "revision": "8a7ea9f9903f464bba37d7c726039592"
+    "revision": "0dfd745e3dee06b7498813064f45a419"
   },
   {
     "url": "blog/introducing-autopause-control-your-media/index.html",
@@ -492,7 +492,7 @@ self.__precacheManifest = [
   },
   {
     "url": "index.html",
-    "revision": "617b516f1b2e1415f42b55fcd4b44080"
+    "revision": "0b676df894ddb09ac1d483c4694de4b6"
   },
   {
     "url": "instant-incognito/index.html",
