@@ -179,6 +179,10 @@ self.__precacheManifest = [
     "revision": "d202df7b5728fe18e4a1ce4824aa9ecf"
   },
   {
+    "url": "assets/images/blog/daily-bible-verse-app.png",
+    "revision": "5b43597fe40feb6e40eabbdf8e6bbf5f"
+  },
+  {
     "url": "assets/images/blog/delete-tweets-retweets-likes-without-apps.png",
     "revision": "8617d8fb9e16852b71bf9acb8ccedfcc"
   },
@@ -440,11 +444,15 @@ self.__precacheManifest = [
   },
   {
     "url": "blog/index.html",
-    "revision": "0dfd745e3dee06b7498813064f45a419"
+    "revision": "38475c8aa7d57987d6f8c427e3d60bb3"
   },
   {
     "url": "blog/introducing-autopause-control-your-media/index.html",
     "revision": "64e849edfa589edd45bbffce3352d885"
+  },
+  {
+    "url": "blog/introducing-daily-bible-verse/index.html",
+    "revision": "22dfe698d93f6b355faab3c5a1905aa3"
   },
   {
     "url": "blog/introducing-hide-spoilers/index.html",
@@ -492,7 +500,7 @@ self.__precacheManifest = [
   },
   {
     "url": "index.html",
-    "revision": "0176ea42b5ae0d3e99adf59f151db07f"
+    "revision": "71c7e7d63318f864655fa69e3c1d0f4d"
   },
   {
     "url": "instant-incognito/index.html",
