@@ -215,6 +215,10 @@ self.__precacheManifest = [
     "revision": "2a57290f8fdb7837d4645e324161b388"
   },
   {
+    "url": "assets/images/blog/mcdvoice-code-breakdown.png",
+    "revision": "de152a67a815990beb01d2bc2067135f"
+  },
+  {
     "url": "assets/images/blog/psa-grading-research.png",
     "revision": "cdddf462238eaee0f71477792f8b436a"
   },
@@ -392,7 +396,7 @@ self.__precacheManifest = [
   },
   {
     "url": "assets/js/main.css",
-    "revision": "c1312f585f0e85d5e328821fabcf880f"
+    "revision": "c47fa4ff6ac2b1a1baa0e3590c536073"
   },
   {
     "url": "blog/apple-passwords-app-review-coffee-and-fun/index.html",
@@ -444,7 +448,7 @@ self.__precacheManifest = [
   },
   {
     "url": "blog/index.html",
-    "revision": "38475c8aa7d57987d6f8c427e3d60bb3"
+    "revision": "10f87cf6ecfbcbb88bce2daba363ad3f"
   },
   {
     "url": "blog/introducing-autopause-control-your-media/index.html",
@@ -457,6 +461,10 @@ self.__precacheManifest = [
   {
     "url": "blog/introducing-hide-spoilers/index.html",
     "revision": "f8a3799295918678a19a28de48049bca"
+  },
+  {
+    "url": "blog/mcdvoice-code-breakdown/index.html",
+    "revision": "9b2d97b071b603876900bf0743ccbe0a"
   },
   {
     "url": "blog/our-first-thoughts-on-the-vision-pro/index.html",
