@@ -14,7 +14,24 @@
 	<link rel="icon" href="/assets/images/favicon.png" />
 
 	<meta name="title" content="Coffee & Fun LLC - Crafting Software, One Brew at a Time" />
-    <link rel="manifest" href="/assets/images/social/site.webmanifest" />
+
+<!-- PWA Manifest -->
+<link rel="manifest" href="/assets/images/social/site.webmanifest" />
+
+<!-- Theme & Mobile Meta -->
+<meta name="theme-color" content="#fef5ec" />
+<meta name="mobile-web-app-capable" content="yes" />
+<meta name="apple-mobile-web-app-capable" content="yes" />
+<meta name="apple-mobile-web-app-status-bar-style" content="default" />
+
+<!-- Icons -->
+<link rel="apple-touch-icon" href="/assets/images/social/192.png" />
+<link rel="icon" href="/assets/images/social/192.png" sizes="192x192" type="image/png" />
+<!-- PWA Meta Tags -->
+<meta name="apple-mobile-web-app-capable" content="yes" />
+<meta name="apple-mobile-web-app-status-bar-style" content="black" />
+<meta name="mobile-web-app-capable" content="yes" />
+
 	<!-- Open Graph Meta Tags -->
 	<meta property="og:title" content="Coffee & Fun LLC - Crafting Software, One Brew at a Time" />
 	<meta property="og:site_name" content="Coffee & Fun" />
@@ -35,6 +52,8 @@
 	<meta name="twitter:image" content="https://www.coffeeandfun.com/assets/images/social-icon.png" />
 	<meta name="twitter:image:alt" content=" Coffee & Fun" />
 
+
+
 	<script type="application/ld+json">
 			{
 				"@context": "http://schema.org/",
@@ -48,11 +67,13 @@
 			}
 		</script>
 
-	<link href="/assets/js/main.css" rel="stylesheet" />
+	<link href="/assets/css/engine.css" rel="stylesheet" />
 	<script>
-		if ('serviceWorker' in navigator) {
-			navigator.serviceWorker.register('/service-worker.js');
-		}
+ if ('serviceWorker' in navigator) {
+    navigator.serviceWorker.register('/service-worker.js')
+      .then(() => console.log('✅ Service worker registered'))
+      .catch((err) => console.log('Service worker error:', err));
+  }
 	</script>
 
 
@@ -210,17 +231,30 @@ document.addEventListener("DOMContentLoaded", (event) => {
 
 
 
-<header class="navbar ">
+
+<header class="navbar mx-auto max-w-7xl px-8" role="navigation" aria-label="main navigation">
 
     <div class="navbar-start">
+
+    
+    
+
+        <a href="/" class="px-0 link link-ghost">
+            <img alt="Logo of Coffee & Fun LLC featuring a stylized cup with a coffee bean pattern, representing the company's focus on creativity and innovation in software development."
+            src="/assets/images/coffee-and-fun-logo-dark.png" class="h-16 w-16 aspect-square" decoding="async" data-nimg="future"
+                loading="lazy" />
+            <span class="sr-only font-title text-base-content text-lg md:text-2xl">Coffee & Fun</span>
+        </a>
+    
+
+
         
         
 
     </div>
 
     <div class="navbar-center">
-
-
+       
         
 
         
@@ -346,874 +380,815 @@ document.addEventListener("DOMContentLoaded", (event) => {
 
 	<main id="main-content" class="mx-auto max-w-7xl">
 		<div class="mb-16 mt-16 sm:mb-24 sm:mt-24 sm:px-8">
-			<div class="mx-auto max-w-7xl lg:px-8">
-				<div class="relative px-12 sm:px-8 lg:px-12">
+
+
+		<div class="relative">
+  <div
+  class="absolute inset-2 bottom-0 rounded-4xl ring-1 ring-black/5 ring-inset bg-gradient-to-br from-[#fcd683] via-[#f7c4ba] to-[#e25440]"
+  ></div>
+  <div class="relative px-6 lg:px-8">
+    <div class="mx-auto max-w-2xl lg:max-w-7xl">
+
+      <div class="pt-16 pb-24 sm:pt-24 sm:pb-32 md:pt-32 md:pb-48">
+	
+        <h1
+          class="font-display text-5xl font-medium tracking-tight text-balance text-gray-950 sm:text-6xl/[0.8] md:text-7xl/[0.8]"
+        >
+		Crafting Software, One Brew at a Time
+
+        </h1>
+        <p
+          class="mt-8 max-w-xl text-xl/7 font-medium text-gray-950/75 sm:text-2xl/8"
+        >
+		Coffee & Fun LLC is a modern development studio creating award-winning tools that blend thoughtful design with everyday usefulness.
+		<br> 	<br>
+From productivity to accessibility, we build apps that help people do more, faster, easier, and with a little joy baked in.
+        </p>
+        <div class="mt-12 flex flex-col gap-x-6 gap-y-4 sm:flex-row">
+          <button
+            class=" inline-flex items-center justify-center px-4 btn btn-lg  btn-neutral	 "
+           
+
+			onclick="my_modal_site_menu.showModal()"
+			title="Open the contact support form" 
+			aria-label="Open the contact support form"
+			aria-controls="my_modal_site_menu" 
+			role="menuitem"
+            >Everything</button
+          ><a
+            class="relative inline-flex items-center justify-center px-4 btn btn-lg btn-dash btn-neutral	  "
+
+            href="#apps"
+            >See Apps</a
+          >
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+
+			<div class="mx-auto max-w-7xl">
+
+
+			
+				<div class="relative">
+
+
+
+				
 					<div class="mx-auto max-w-7xl">
-						<div class="max-w-xl text-base  mx-auto">
-							<div class="mx-auto mb-4 mt-4">
-								<img alt="Logo of Coffee & Fun LLC featuring a stylized cup with a coffee bean pattern, representing the company's focus on creativity and innovation in software development."
-									src="assets/images/coffee-and-fun-logo-dark.png" width="200" height="200"
-									decoding="async" data-nimg="future" loading="lazy"
-									class="aspect-square mx-auto block" />
-							</div>
+				
 
-						</div>
-
-						<div class="max-w-xl text-base  mx-auto">
-
-
-							<div class="card my-8 bg-base-100 shadow-md">
-								<div class="card-body">
-									<h3 class="card-title mb-4 text-2xl">Welcome to Coffee & Fun 👋</h3>
-									<h3 class="mb-4 text-xl font-semibold">
-										Where fresh ideas are always brewing ☕
-									</h3>
-									<p class="mb-2 text-lg text-black">
-										Launched in 2023, our goal is simple: to mix the spark of innovation with
-										the comfort of everyday tools.
-									</p>
-									<p class="mb-2 text-lg text-black">
-										From the nifty tricks of
-
-										<a href="https://apps.apple.com/vn/app/simple-screenshot-pro/id6451333294"
-											class="text-blue-500 hover:underline">Simple Screenshot Pro
-										</a>
-										to the quick wit of
-										<a href="https://apps.apple.com/us/app/instant-flash-cards/id6478512461"
-											class="text-blue-500 hover:underline">Instant Flash Cards</a>, our apps are
-										your go-to for a smarter digital journey.
-									</p>
-
-									<p class="mb-6 text-lg text-black">
-										Dive into our collection and find your new favorite way to do more, stress
-										less, and keep it all fun.
-									</p>
-								</div>
-							</div>
-
-						</div>
-
-						<div class="max-w-8xl text-base  mx-auto" id="apps">
-
-
-							<div class="card my-8 ">
-								<div class="my-8">
-									<h2 class="card-title mb-10 text-3xl">Our Family of Apps</h2>
-
-									<div
-										class="not-prose grid grid-cols-1 gap-x-8 gap-y-8 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 xl:grid-cols-3">
-										
-
-										<a 								class="card card-compact bg-base-100 shadow-md transition-all duration-200 card-app hover:-translate-y-1"
-										target="_blank"
-										href="https://apps.apple.com/us/app/daily-bible-verse/id6744124711">
-											<figure class="px-4 pt-4">
-												<img loading="lazy" src="/assets/images/apps/bible.png"
-													class="rounded-lg border border-base-content border-opacity-5 bg-base-300"
-													alt="Daily Bible Verse+" />
-											</figure>
-											<div class="card-body">
-												<h2 class="card-title">Daily Bible Verse+</h2>
-												<p class="text-base">Start your day with a dose of hope. BibleVerse brings you a thoughtfully chosen Bible verse every day, wrapped in beautiful themes and spoken aloud in a voice you choose, all with accessibility and peace in mind.</p>
-
-												<div class="flex flex-wrap gap-2 mt-6 mb-6">
-													
-													<div class="badge badge-neutral  gap-2   
-
-													
-														badge-neutral
-													
-													"> iOs</div>
-
-													
-													<div class="badge badge-neutral  gap-2   
-
-													
-														badge-neutral
-													
-													"> iPad</div>
-
-													
-												</div>
+				
+						<div class="max-w-8xl text-base mx-auto my-8" id="apps">
+							<div class="card my-24">
+							  <div class="my-8">
+								<h2 class="card-title mb-10 text-4xl font-medium tracking-tighter text-pretty">Our Family of Apps</h2>
+						  
+							
+							
+								  <div class="flex overflow-x-auto snap-x snap-mandatory scroll-smooth gap-6 px-4 pb-8 ">
+									
+									<div class="shrink-0 snap-start w-[20rem]">
+									  <a class="min-h-[30rem] flex flex-col justify-between h-full card card-compact bg-base-100 shadow-md transition-all duration-200 hover:-translate-y-1 rounded-4xl"
+										target="_blank" href="https://apps.apple.com/us/app/daily-bible-verse/id6744124711">
+										<figure class="px-4 pt-4">
+										  <img loading="lazy" src="/assets/images/apps/bible.png"
+											class="rounded-2xl border border-base-content border-opacity-5 bg-base-300"
+											alt="Daily Bible Verse+" />
+										</figure>
+										<div class="card-body flex flex-col justify-between flex-grow">
+										  <div>
+											<h2 class="card-title">Daily Bible Verse+</h2>
+											<p class="text-base">Start your day with a dose of hope. BibleVerse brings you a thoughtfully chosen Bible verse every day, wrapped in beautiful themes and spoken aloud in a voice you choose, all with accessibility and peace in mind.</p>
+										  </div>
+										  <div class="flex flex-wrap gap-2 mt-6">
+											
+											<div class="badge badge-neutral gap-2
+											  badge-neutral">
+											  iOs
 											</div>
-										</a>
-
-										
-
-										<a 								class="card card-compact bg-base-100 shadow-md transition-all duration-200 card-app hover:-translate-y-1"
-										target="_blank"
-										href="https://apps.apple.com/us/app/procrastinot-website-blocker/id6569216739?platform=ipad">
-											<figure class="px-4 pt-4">
-												<img loading="lazy" src="/assets/images/apps/procrastinot-2.png"
-													class="rounded-lg border border-base-content border-opacity-5 bg-base-300"
-													alt="ProcrastiNOT " />
-											</figure>
-											<div class="card-body">
-												<h2 class="card-title">ProcrastiNOT </h2>
-												<p class="text-base"> Say goodbye to procrastination and hello to productivity with ProcrastiNOT! This extension is your personal productivity guardian, helping you stay focused and accomplish more, by blocking websites when your trying to get work done!</p>
-
-												<div class="flex flex-wrap gap-2 mt-6 mb-6">
-													
-													<div class="badge badge-neutral  gap-2   
-
-													
-														badge-accent
-													
-													"> macOs</div>
-
-													
-													<div class="badge badge-neutral  gap-2   
-
-													
-														badge-secondary
-													
-													"> Safari</div>
-
-													
-												</div>
+											
+											<div class="badge badge-neutral gap-2
+											  badge-neutral">
+											  iPad
 											</div>
-										</a>
-
-										
-
-										<a 								class="card card-compact bg-base-100 shadow-md transition-all duration-200 card-app hover:-translate-y-1"
-										target="_blank"
-										href="https://chromewebstore.google.com/detail/hide-spoilers-block-blur/dglgbepdhdpfihbiklibdcecpadcdcln">
-											<figure class="px-4 pt-4">
-												<img loading="lazy" src="/assets/images/apps/spoilers.png"
-													class="rounded-lg border border-base-content border-opacity-5 bg-base-300"
-													alt="Hide Spoilers" />
-											</figure>
-											<div class="card-body">
-												<h2 class="card-title">Hide Spoilers</h2>
-												<p class="text-base">Blur & Block spoilers on any website with Hide Spoilers. This extension will help you avoid spoilers for your favorite shows, movies, and games.</p>
-
-												<div class="flex flex-wrap gap-2 mt-6 mb-6">
-													
-													<div class="badge badge-neutral  gap-2   
-
-													
-														badge-error
-													
-													"> Chrome</div>
-
-													
-													<div class="badge badge-neutral  gap-2   
-
-													
-														badge-neutral
-													
-													"> iOs</div>
-
-													
-												</div>
-											</div>
-										</a>
-
-										
-
-										<a 								class="card card-compact bg-base-100 shadow-md transition-all duration-200 card-app hover:-translate-y-1"
-										target="_blank"
-										href="https://chromewebstore.google.com/detail/auto-pause/abheodopcahdogobgajpakhakjcjckhk">
-											<figure class="px-4 pt-4">
-												<img loading="lazy" src="/assets/images/apps/autopause.png"
-													class="rounded-lg border border-base-content border-opacity-5 bg-base-300"
-													alt="Auto Pause" />
-											</figure>
-											<div class="card-body">
-												<h2 class="card-title">Auto Pause</h2>
-												<p class="text-base">Ever find yourself dozing off while a video keeps playing? Or need a break but forget to pause the music? AutoPause has you covered. Set a timer, and let AutoPause handle stopping your browser's media</p>
-
-												<div class="flex flex-wrap gap-2 mt-6 mb-6">
-													
-													<div class="badge badge-neutral  gap-2   
-
-													
-														badge-error
-													
-													"> Chrome</div>
-
-													
-												</div>
-											</div>
-										</a>
-
-										
-
-										<a 								class="card card-compact bg-base-100 shadow-md transition-all duration-200 card-app hover:-translate-y-1"
-										target="_blank"
-										href="https://apps.apple.com/us/app/confetti-cannon-for-safari/id6670409741?mt=12">
-											<figure class="px-4 pt-4">
-												<img loading="lazy" src="/assets/images/apps/confetti.png"
-													class="rounded-lg border border-base-content border-opacity-5 bg-base-300"
-													alt="Confetti Cannon: Page Party" />
-											</figure>
-											<div class="card-body">
-												<h2 class="card-title">Confetti Cannon: Page Party</h2>
-												<p class="text-base">Add a burst of joy to any webpage with a single click, turning your screen into a fun confetti celebration whenever you need it!</p>
-
-												<div class="flex flex-wrap gap-2 mt-6 mb-6">
-													
-													<div class="badge badge-neutral  gap-2   
-
-													
-														badge-accent
-													
-													"> macOs</div>
-
-													
-													<div class="badge badge-neutral  gap-2   
-
-													
-														badge-secondary
-													
-													"> Safari</div>
-
-													
-													<div class="badge badge-neutral  gap-2   
-
-													
-														badge-error
-													
-													"> Chrome</div>
-
-													
-												</div>
-											</div>
-										</a>
-
-										
-
-										<a 								class="card card-compact bg-base-100 shadow-md transition-all duration-200 card-app hover:-translate-y-1"
-										target="_blank"
-										href="https://apps.apple.com/us/app/markdown-editor-for-safari/id6578456621">
-											<figure class="px-4 pt-4">
-												<img loading="lazy" src="/assets/images/apps/markdown.png"
-													class="rounded-lg border border-base-content border-opacity-5 bg-base-300"
-													alt="Markdown Editor for Safari" />
-											</figure>
-											<div class="card-body">
-												<h2 class="card-title">Markdown Editor for Safari</h2>
-												<p class="text-base">Create and view markdown files easily from anywhere with our simple and easy, GitHub-flavored markdown editor.</p>
-
-												<div class="flex flex-wrap gap-2 mt-6 mb-6">
-													
-													<div class="badge badge-neutral  gap-2   
-
-													
-														badge-accent
-													
-													"> macOs</div>
-
-													
-													<div class="badge badge-neutral  gap-2   
-
-													
-														badge-secondary
-													
-													"> Safari</div>
-
-													
-												</div>
-											</div>
-										</a>
-
-										
-
-										<a 								class="card card-compact bg-base-100 shadow-md transition-all duration-200 card-app hover:-translate-y-1"
-										target="_blank"
-										href="https://chromewebstore.google.com/detail/yeti-remove-google-search/oabpkkceeoccgofdohlalinahlcpmkeh?hl=en">
-											<figure class="px-4 pt-4">
-												<img loading="lazy" src="/assets/images/apps/yeti.png"
-													class="rounded-lg border border-base-content border-opacity-5 bg-base-300"
-													alt="Yeti" />
-											</figure>
-											<div class="card-body">
-												<h2 class="card-title">Yeti</h2>
-												<p class="text-base">Customize your browsing by removing unwanted AI search results on Google™ and applying your own custom CSS to any webpage.</p>
-
-												<div class="flex flex-wrap gap-2 mt-6 mb-6">
-													
-													<div class="badge badge-neutral  gap-2   
-
-													
-														badge-accent
-													
-													"> macOs</div>
-
-													
-													<div class="badge badge-neutral  gap-2   
-
-													
-														badge-secondary
-													
-													"> Safari</div>
-
-													
-													<div class="badge badge-neutral  gap-2   
-
-													
-														badge-error
-													
-													"> Chrome</div>
-
-													
-												</div>
-											</div>
-										</a>
-
-										
-
-										<a 								class="card card-compact bg-base-100 shadow-md transition-all duration-200 card-app hover:-translate-y-1"
-										target="_blank"
-										href="https://www.coffeeandfun.com/instant-incognito/">
-											<figure class="px-4 pt-4">
-												<img loading="lazy" src="/assets/images/apps/instant-incognito.png"
-													class="rounded-lg border border-base-content border-opacity-5 bg-base-300"
-													alt="Instant Incognito" />
-											</figure>
-											<div class="card-body">
-												<h2 class="card-title">Instant Incognito</h2>
-												<p class="text-base">Instant Incognito automatically opens specific websites in incognito mode for enhanced privacy.</p>
-
-												<div class="flex flex-wrap gap-2 mt-6 mb-6">
-													
-													<div class="badge badge-neutral  gap-2   
-
-													
-														badge-info
-													
-													"> Edge</div>
-
-													
-													<div class="badge badge-neutral  gap-2   
-
-													
-														badge-error
-													
-													"> Chrome</div>
-
-													
-													<div class="badge badge-neutral  gap-2   
-
-													
-														badge-warning
-													
-													"> Firefox</div>
-
-													
-												</div>
-											</div>
-										</a>
-
-										
-
-										<a 								class="card card-compact bg-base-100 shadow-md transition-all duration-200 card-app hover:-translate-y-1"
-										target="_blank"
-										href="https://www.incognitomode.app">
-											<figure class="px-4 pt-4">
-												<img loading="lazy" src="/assets/images/apps/bear.png"
-													class="rounded-lg border border-base-content border-opacity-5 bg-base-300"
-													alt="Incognito Bear" />
-											</figure>
-											<div class="card-body">
-												<h2 class="card-title">Incognito Bear</h2>
-												<p class="text-base">Just one click, Incognito Bear removes all NSFW contents or a list of your own from your browsing history, so you can enjoy worry-free browsing.      </p>
-
-												<div class="flex flex-wrap gap-2 mt-6 mb-6">
-													
-													<div class="badge badge-neutral  gap-2   
-
-													
-														badge-error
-													
-													"> Chrome</div>
-
-													
-												</div>
-											</div>
-										</a>
-
-										
-
-										<a 								class="card card-compact bg-base-100 shadow-md transition-all duration-200 card-app hover:-translate-y-1"
-										target="_blank"
-										href="https://apps.apple.com/us/app/simple-screenshot-pro/id6451333294">
-											<figure class="px-4 pt-4">
-												<img loading="lazy" src="/assets/images/apps/screenshot.png"
-													class="rounded-lg border border-base-content border-opacity-5 bg-base-300"
-													alt="Simple Screenshot Pro" />
-											</figure>
-											<div class="card-body">
-												<h2 class="card-title">Simple Screenshot Pro</h2>
-												<p class="text-base"> This tool brings ease and precision to capturing entire webpages or just the visible parts.</p>
-
-												<div class="flex flex-wrap gap-2 mt-6 mb-6">
-													
-													<div class="badge badge-neutral  gap-2   
-
-													
-														badge-accent
-													
-													"> macOs</div>
-
-													
-													<div class="badge badge-neutral  gap-2   
-
-													
-														badge-secondary
-													
-													"> Safari</div>
-
-													
-												</div>
-											</div>
-										</a>
-
-										
-
-
-
-										
-
-										<a 								class="card card-compact bg-base-100 shadow-md transition-all duration-200 card-app hover:-translate-y-1"
-											href="/trivia/">
-											<figure class="px-4 pt-4">
-												<img loading="lazy" src="/assets/images/apps/coco.png"
-													class="rounded-lg border border-base-content border-opacity-5 bg-base-300"
-													alt="Coco's Trivia Corner" />
-											</figure>
-											<div class="card-body">
-												<h2 class="card-title">Coco's Trivia Corner</h2>
-												<p class="text-base">Coco's Trivia Corner offers over 53,000 unique and random questions to keep you entertained. Perfect for quizzes, game nights, or just challenging yourself!</p>
-												<div class="flex flex-wrap gap-2 mt-6 mb-6">
-													
-													<div class="badge badge-neutral  gap-2   
-
-															
-																badge-accent
-															
-													"> macOs</div>
-
-													
-													<div class="badge badge-neutral  gap-2   
-
-															
-																badge-secondary
-															
-													"> Safari</div>
-
-													
-													<div class="badge badge-neutral  gap-2   
-
-															
-																badge-error
-															
-													"> Chrome</div>
-
-													
-												</div>
-											</div>
-										</a>
-
-										
-
-										<a 								class="card card-compact bg-base-100 shadow-md transition-all duration-200 card-app hover:-translate-y-1"
-											href="https://github.com/coffee-and-fun/google-profanity-words">
-											<figure class="px-4 pt-4">
-												<img loading="lazy" src="/assets/images/apps/google.png"
-													class="rounded-lg border border-base-content border-opacity-5 bg-base-300"
-													alt="Google Profanity Words" />
-											</figure>
-											<div class="card-body">
-												<h2 class="card-title">Google Profanity Words</h2>
-												<p class="text-base">Full list of bad words and top swear words banned by Google.</p>
-												<div class="flex flex-wrap gap-2 mt-6 mb-6">
-													
-													<div class="badge badge-neutral  gap-2   
-
-															
-																badge-neutral
-															
-													"> Open Source</div>
-
-													
-												</div>
-											</div>
-										</a>
-
-										
-
-										<a 								class="card card-compact bg-base-100 shadow-md transition-all duration-200 card-app hover:-translate-y-1"
-											href="https://shouldyoutestinproduction.com/">
-											<figure class="px-4 pt-4">
-												<img loading="lazy" src="/assets/images/apps/bill.png"
-													class="rounded-lg border border-base-content border-opacity-5 bg-base-300"
-													alt="Should You Test in Production?" />
-											</figure>
-											<div class="card-body">
-												<h2 class="card-title">Should You Test in Production?</h2>
-												<p class="text-base">Should You Test in Production? A lighthearted nod to every developer's worst (or best) idea, this site redirects to the iconic Bill O'Reilly clip: 'F*** it, we'll do it live!' Because sometimes, that's just how it feels. 😂</p>
-												<div class="flex flex-wrap gap-2 mt-6 mb-6">
-													
-													<div class="badge badge-neutral  gap-2   
-
-															
-																badge-neutral
-															
-													"> Web</div>
-
-													
-												</div>
-											</div>
-										</a>
-
-										
-
-										<a 								class="card card-compact bg-base-100 shadow-md transition-all duration-200 card-app hover:-translate-y-1"
-											href="https://github.com/coffee-and-fun/remove-pii">
-											<figure class="px-4 pt-4">
-												<img loading="lazy" src="/assets/images/apps/pii.png"
-													class="rounded-lg border border-base-content border-opacity-5 bg-base-300"
-													alt="Remove PII" />
-											</figure>
-											<div class="card-body">
-												<h2 class="card-title">Remove PII</h2>
-												<p class="text-base">Designed to help with privacy by removing personally identifiable information (PII) from text.</p>
-												<div class="flex flex-wrap gap-2 mt-6 mb-6">
-													
-													<div class="badge badge-neutral  gap-2   
-
-															
-																badge-neutral
-															
-													"> Open Source</div>
-
-													
-												</div>
-											</div>
-										</a>
-
-										
-
-										<a 								class="card card-compact bg-base-100 shadow-md transition-all duration-200 card-app hover:-translate-y-1"
-											href="https://www.npmjs.com/package/@coffeeandfun/maths-captcha">
-											<figure class="px-4 pt-4">
-												<img loading="lazy" src="/assets/images/apps/maths.png"
-													class="rounded-lg border border-base-content border-opacity-5 bg-base-300"
-													alt="Maths Captcha" />
-											</figure>
-											<div class="card-body">
-												<h2 class="card-title">Maths Captcha</h2>
-												<p class="text-base">Maths-Captcha is a simple Node.js module that generates random math questions and verifies user answers.</p>
-												<div class="flex flex-wrap gap-2 mt-6 mb-6">
-													
-													<div class="badge badge-neutral  gap-2   
-
-															
-																badge-neutral
-															
-													"> Open Source</div>
-
-													
-												</div>
-											</div>
-										</a>
-
-										
-
+											
+										  </div>
+										</div>
+									  </a>
 									</div>
-								</div>
-							</div>
-
-						</div>
-
-
-
-
-
-
-						<div class="max-w-8xl text-base  mx-auto mt-12" id="graveyard">
-
-
-							<div class="card my-8 ">
-								<div class="my-8">
-									<h2 class="card-title mb-10 text-3xl">The Graveyard ⚰️
-									</h2>
-
-									<div
-										class="not-prose grid grid-cols-1 gap-x-8 gap-y-8 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 xl:grid-cols-3">
-
-
-
-
-										
-
-										<div
-											class="card card-compact bg-base-100 shadow-md transition-all duration-200 card-app hover:-translate-y-1">
-											<figure class="px-4 pt-4">
-												<img loading="lazy" src="/assets/images/apps/cards.png"
-													class="rounded-lg border border-base-content border-opacity-5 bg-base-300"
-													alt="Forgotten Membership Cards" />
-											</figure>
-											<div class="card-body">
-												<h2 class="card-title">Forgotten Membership Cards</h2>
-												<p class="text-base">Ever been at the checkout and realized you forgot your membership card? Quickly access discounts and rewards at popular stores, even when you’ve left your card at home. Just pull up our site, scan, and save—no need to miss out on deals. Plus, find links to sign up for your own account if you’d like to earn rewards personally. Perfect for those “Oh no!” moments at the counter!</p>
-												<div class="flex flex-wrap gap-2 mt-6 mb-6">
-													
-													<div class="badge badge-neutral  gap-2   
-
-															
-																badge-neutral
-															
-													"> Web</div>
-
-													
-												</div>
+									
+									<div class="shrink-0 snap-start w-[20rem]">
+									  <a class="min-h-[30rem] flex flex-col justify-between h-full card card-compact bg-base-100 shadow-md transition-all duration-200 hover:-translate-y-1 rounded-4xl"
+										target="_blank" href="https://apps.apple.com/us/app/procrastinot-website-blocker/id6569216739?platform=ipad">
+										<figure class="px-4 pt-4">
+										  <img loading="lazy" src="/assets/images/apps/procrastinot-2.png"
+											class="rounded-2xl border border-base-content border-opacity-5 bg-base-300"
+											alt="ProcrastiNOT " />
+										</figure>
+										<div class="card-body flex flex-col justify-between flex-grow">
+										  <div>
+											<h2 class="card-title">ProcrastiNOT </h2>
+											<p class="text-base"> Say goodbye to procrastination and hello to productivity with ProcrastiNOT! This extension is your personal productivity guardian, helping you stay focused and accomplish more, by blocking websites when your trying to get work done!</p>
+										  </div>
+										  <div class="flex flex-wrap gap-2 mt-6">
+											
+											<div class="badge badge-neutral gap-2
+											  badge-accent
+											  ">
+											  macOs
 											</div>
-										</div>
-
-										
-
-										<div
-											class="card card-compact bg-base-100 shadow-md transition-all duration-200 card-app hover:-translate-y-1">
-											<figure class="px-4 pt-4">
-												<img loading="lazy" src="/assets/images/apps/rank.png"
-													class="rounded-lg border border-base-content border-opacity-5 bg-base-300"
-													alt="Mystery Rank" />
-											</figure>
-											<div class="card-body">
-												<h2 class="card-title">Mystery Rank</h2>
-												<p class="text-base">Join Mystery Rank to secure your spot and climb the ranks in various categories. The more you contribute, the higher you rank—but the twist is, you’ll never know what others paid. Embrace the excitement of mystery and competition!</p>
-												<div class="flex flex-wrap gap-2 mt-6 mb-6">
-													
-													<div class="badge badge-neutral  gap-2   
-
-															
-																badge-accent
-															
-													"> macOs</div>
-
-													
-													<div class="badge badge-neutral  gap-2   
-
-															
-																badge-secondary
-															
-													"> Safari</div>
-
-													
-													<div class="badge badge-neutral  gap-2   
-
-															
-																badge-error
-															
-													"> Chrome</div>
-
-													
-												</div>
+											
+											<div class="badge badge-neutral gap-2
+											  badge-secondary
+											  ">
+											  Safari
 											</div>
+											
+										  </div>
 										</div>
-
-										
-
-										<div
-											class="card card-compact bg-base-100 shadow-md transition-all duration-200 card-app hover:-translate-y-1">
-											<figure class="px-4 pt-4">
-												<img loading="lazy" src="/assets/images/apps/flash.png"
-													class="rounded-lg border border-base-content border-opacity-5 bg-base-300"
-													alt="Instant Flash Cards" />
-											</figure>
-											<div class="card-body">
-												<h2 class="card-title">Instant Flash Cards</h2>
-												<p class="text-base"> Turn any site into study vibes with one click. Instant Flash Cards is your hack to making learning stick.</p>
-												<div class="flex flex-wrap gap-2 mt-6 mb-6">
-													
-													<div class="badge badge-neutral  gap-2   
-
-															
-																badge-accent
-															
-													"> macOs</div>
-
-													
-													<div class="badge badge-neutral  gap-2   
-
-															
-																badge-secondary
-															
-													"> Safari</div>
-
-													
-													<div class="badge badge-neutral  gap-2   
-
-															
-																badge-error
-															
-													"> Chrome</div>
-
-													
-													<div class="badge badge-neutral  gap-2   
-
-															
-																badge-warning
-															
-													"> Firefox</div>
-
-													
-												</div>
-											</div>
-										</div>
-
-										
-
-										<div
-											class="card card-compact bg-base-100 shadow-md transition-all duration-200 card-app hover:-translate-y-1">
-											<figure class="px-4 pt-4">
-												<img loading="lazy" src="/assets/images/apps/humans.png"
-													class="rounded-lg border border-base-content border-opacity-5 bg-base-300"
-													alt="I Support Humans" />
-											</figure>
-											<div class="card-body">
-												<h2 class="card-title">I Support Humans</h2>
-												<p class="text-base">Take a stand for human creativity and originality. Sign the pledge, support human-made work, and download a badge to show you value people over automation.</p>
-												<div class="flex flex-wrap gap-2 mt-6 mb-6">
-													
-													<div class="badge badge-neutral  gap-2   
-
-															
-																badge-neutral
-															
-													"> Web</div>
-
-													
-												</div>
-											</div>
-										</div>
-
-										
-
-										<div
-											class="card card-compact bg-base-100 shadow-md transition-all duration-200 card-app hover:-translate-y-1">
-											<figure class="px-4 pt-4">
-												<img loading="lazy" src="/assets/images/apps/coffee.png"
-													class="rounded-lg border border-base-content border-opacity-5 bg-base-300"
-													alt="What Coffee should I have?" />
-											</figure>
-											<div class="card-body">
-												<h2 class="card-title">What Coffee should I have?</h2>
-												<p class="text-base">Not sure what coffee to have in the morning? Let us pick for you with over 35 different coffees and growing.</p>
-												<div class="flex flex-wrap gap-2 mt-6 mb-6">
-													
-													<div class="badge badge-neutral  gap-2   
-
-															
-																badge-error
-															
-													"> Chrome</div>
-
-													
-												</div>
-											</div>
-										</div>
-
-										
-
-										<div
-											class="card card-compact bg-base-100 shadow-md transition-all duration-200 card-app hover:-translate-y-1">
-											<figure class="px-4 pt-4">
-												<img loading="lazy" src="/assets/images/apps/reddit.png"
-													class="rounded-lg border border-base-content border-opacity-5 bg-base-300"
-													alt="Reddit: Random subreddit button" />
-											</figure>
-											<div class="card-body">
-												<h2 class="card-title">Reddit: Random subreddit button</h2>
-												<p class="text-base">Reddits new redesign removed the random button. I wanted it back. So here it is as a chrome extension.</p>
-												<div class="flex flex-wrap gap-2 mt-6 mb-6">
-													
-													<div class="badge badge-neutral  gap-2   
-
-															
-																badge-error
-															
-													"> Chrome</div>
-
-													
-												</div>
-											</div>
-										</div>
-
-										
-
-										<div
-											class="card card-compact bg-base-100 shadow-md transition-all duration-200 card-app hover:-translate-y-1">
-											<figure class="px-4 pt-4">
-												<img loading="lazy" src="/assets/images/apps/clean.png"
-													class="rounded-lg border border-base-content border-opacity-5 bg-base-300"
-													alt="Clean my history" />
-											</figure>
-											<div class="card-body">
-												<h2 class="card-title">Clean my history</h2>
-												<p class="text-base">Sometimes you forget to delete your history after viewing NSFW sites. Clean my History is a privacy focused Chrome extension that removes over 15,000 NSFW websites and terms from your history in one click.</p>
-												<div class="flex flex-wrap gap-2 mt-6 mb-6">
-													
-													<div class="badge badge-neutral  gap-2   
-
-															
-																badge-error
-															
-													"> Chrome</div>
-
-													
-												</div>
-											</div>
-										</div>
-
-										
-
-										<div
-											class="card card-compact bg-base-100 shadow-md transition-all duration-200 card-app hover:-translate-y-1">
-											<figure class="px-4 pt-4">
-												<img loading="lazy" src="/assets/images/apps/netflix.png"
-													class="rounded-lg border border-base-content border-opacity-5 bg-base-300"
-													alt="Netflix Hidden Categories" />
-											</figure>
-											<div class="card-body">
-												<h2 class="card-title">Netflix Hidden Categories</h2>
-												<p class="text-base">Netflix Hidden Categories for Chrome allows you to search thousands of hidden categories that Netflix hides from you.</p>
-												<div class="flex flex-wrap gap-2 mt-6 mb-6">
-													
-													<div class="badge badge-neutral  gap-2   
-
-															
-																badge-error
-															
-													"> Chrome</div>
-
-													
-												</div>
-											</div>
-										</div>
-
-										
-
+									  </a>
 									</div>
-								</div>
+									
+									<div class="shrink-0 snap-start w-[20rem]">
+									  <a class="min-h-[30rem] flex flex-col justify-between h-full card card-compact bg-base-100 shadow-md transition-all duration-200 hover:-translate-y-1 rounded-4xl"
+										target="_blank" href="https://chromewebstore.google.com/detail/hide-spoilers-block-blur/dglgbepdhdpfihbiklibdcecpadcdcln">
+										<figure class="px-4 pt-4">
+										  <img loading="lazy" src="/assets/images/apps/spoilers.png"
+											class="rounded-2xl border border-base-content border-opacity-5 bg-base-300"
+											alt="Hide Spoilers" />
+										</figure>
+										<div class="card-body flex flex-col justify-between flex-grow">
+										  <div>
+											<h2 class="card-title">Hide Spoilers</h2>
+											<p class="text-base">Blur & Block spoilers on any website with Hide Spoilers. This extension will help you avoid spoilers for your favorite shows, movies, and games.</p>
+										  </div>
+										  <div class="flex flex-wrap gap-2 mt-6">
+											
+											<div class="badge badge-neutral gap-2
+											  badge-error
+											  ">
+											  Chrome
+											</div>
+											
+											<div class="badge badge-neutral gap-2
+											  badge-neutral">
+											  iOs
+											</div>
+											
+										  </div>
+										</div>
+									  </a>
+									</div>
+									
+									<div class="shrink-0 snap-start w-[20rem]">
+									  <a class="min-h-[30rem] flex flex-col justify-between h-full card card-compact bg-base-100 shadow-md transition-all duration-200 hover:-translate-y-1 rounded-4xl"
+										target="_blank" href="https://chromewebstore.google.com/detail/auto-pause/abheodopcahdogobgajpakhakjcjckhk">
+										<figure class="px-4 pt-4">
+										  <img loading="lazy" src="/assets/images/apps/autopause.png"
+											class="rounded-2xl border border-base-content border-opacity-5 bg-base-300"
+											alt="Auto Pause" />
+										</figure>
+										<div class="card-body flex flex-col justify-between flex-grow">
+										  <div>
+											<h2 class="card-title">Auto Pause</h2>
+											<p class="text-base">Ever find yourself dozing off while a video keeps playing? Or need a break but forget to pause the music? AutoPause has you covered. Set a timer, and let AutoPause handle stopping your browser's media</p>
+										  </div>
+										  <div class="flex flex-wrap gap-2 mt-6">
+											
+											<div class="badge badge-neutral gap-2
+											  badge-error
+											  ">
+											  Chrome
+											</div>
+											
+										  </div>
+										</div>
+									  </a>
+									</div>
+									
+									<div class="shrink-0 snap-start w-[20rem]">
+									  <a class="min-h-[30rem] flex flex-col justify-between h-full card card-compact bg-base-100 shadow-md transition-all duration-200 hover:-translate-y-1 rounded-4xl"
+										target="_blank" href="https://apps.apple.com/us/app/confetti-cannon-for-safari/id6670409741?mt=12">
+										<figure class="px-4 pt-4">
+										  <img loading="lazy" src="/assets/images/apps/confetti.png"
+											class="rounded-2xl border border-base-content border-opacity-5 bg-base-300"
+											alt="Confetti Cannon: Page Party" />
+										</figure>
+										<div class="card-body flex flex-col justify-between flex-grow">
+										  <div>
+											<h2 class="card-title">Confetti Cannon: Page Party</h2>
+											<p class="text-base">Add a burst of joy to any webpage with a single click, turning your screen into a fun confetti celebration whenever you need it!</p>
+										  </div>
+										  <div class="flex flex-wrap gap-2 mt-6">
+											
+											<div class="badge badge-neutral gap-2
+											  badge-accent
+											  ">
+											  macOs
+											</div>
+											
+											<div class="badge badge-neutral gap-2
+											  badge-secondary
+											  ">
+											  Safari
+											</div>
+											
+											<div class="badge badge-neutral gap-2
+											  badge-error
+											  ">
+											  Chrome
+											</div>
+											
+										  </div>
+										</div>
+									  </a>
+									</div>
+									
+									<div class="shrink-0 snap-start w-[20rem]">
+									  <a class="min-h-[30rem] flex flex-col justify-between h-full card card-compact bg-base-100 shadow-md transition-all duration-200 hover:-translate-y-1 rounded-4xl"
+										target="_blank" href="https://apps.apple.com/us/app/markdown-editor-for-safari/id6578456621">
+										<figure class="px-4 pt-4">
+										  <img loading="lazy" src="/assets/images/apps/markdown.png"
+											class="rounded-2xl border border-base-content border-opacity-5 bg-base-300"
+											alt="Markdown Editor for Safari" />
+										</figure>
+										<div class="card-body flex flex-col justify-between flex-grow">
+										  <div>
+											<h2 class="card-title">Markdown Editor for Safari</h2>
+											<p class="text-base">Create and view markdown files easily from anywhere with our simple and easy, GitHub-flavored markdown editor.</p>
+										  </div>
+										  <div class="flex flex-wrap gap-2 mt-6">
+											
+											<div class="badge badge-neutral gap-2
+											  badge-accent
+											  ">
+											  macOs
+											</div>
+											
+											<div class="badge badge-neutral gap-2
+											  badge-secondary
+											  ">
+											  Safari
+											</div>
+											
+										  </div>
+										</div>
+									  </a>
+									</div>
+									
+									<div class="shrink-0 snap-start w-[20rem]">
+									  <a class="min-h-[30rem] flex flex-col justify-between h-full card card-compact bg-base-100 shadow-md transition-all duration-200 hover:-translate-y-1 rounded-4xl"
+										target="_blank" href="https://chromewebstore.google.com/detail/yeti-remove-google-search/oabpkkceeoccgofdohlalinahlcpmkeh?hl=en">
+										<figure class="px-4 pt-4">
+										  <img loading="lazy" src="/assets/images/apps/yeti.png"
+											class="rounded-2xl border border-base-content border-opacity-5 bg-base-300"
+											alt="Yeti" />
+										</figure>
+										<div class="card-body flex flex-col justify-between flex-grow">
+										  <div>
+											<h2 class="card-title">Yeti</h2>
+											<p class="text-base">Customize your browsing by removing unwanted AI search results on Google™ and applying your own custom CSS to any webpage.</p>
+										  </div>
+										  <div class="flex flex-wrap gap-2 mt-6">
+											
+											<div class="badge badge-neutral gap-2
+											  badge-accent
+											  ">
+											  macOs
+											</div>
+											
+											<div class="badge badge-neutral gap-2
+											  badge-secondary
+											  ">
+											  Safari
+											</div>
+											
+											<div class="badge badge-neutral gap-2
+											  badge-error
+											  ">
+											  Chrome
+											</div>
+											
+										  </div>
+										</div>
+									  </a>
+									</div>
+									
+									<div class="shrink-0 snap-start w-[20rem]">
+									  <a class="min-h-[30rem] flex flex-col justify-between h-full card card-compact bg-base-100 shadow-md transition-all duration-200 hover:-translate-y-1 rounded-4xl"
+										target="_blank" href="https://www.coffeeandfun.com/instant-incognito/">
+										<figure class="px-4 pt-4">
+										  <img loading="lazy" src="/assets/images/apps/instant-incognito.png"
+											class="rounded-2xl border border-base-content border-opacity-5 bg-base-300"
+											alt="Instant Incognito" />
+										</figure>
+										<div class="card-body flex flex-col justify-between flex-grow">
+										  <div>
+											<h2 class="card-title">Instant Incognito</h2>
+											<p class="text-base">Instant Incognito automatically opens specific websites in incognito mode for enhanced privacy.</p>
+										  </div>
+										  <div class="flex flex-wrap gap-2 mt-6">
+											
+											<div class="badge badge-neutral gap-2
+											  badge-info
+											  ">
+											  Edge
+											</div>
+											
+											<div class="badge badge-neutral gap-2
+											  badge-error
+											  ">
+											  Chrome
+											</div>
+											
+											<div class="badge badge-neutral gap-2
+											  badge-warning
+											  ">
+											  Firefox
+											</div>
+											
+										  </div>
+										</div>
+									  </a>
+									</div>
+									
+									<div class="shrink-0 snap-start w-[20rem]">
+									  <a class="min-h-[30rem] flex flex-col justify-between h-full card card-compact bg-base-100 shadow-md transition-all duration-200 hover:-translate-y-1 rounded-4xl"
+										target="_blank" href="https://www.incognitomode.app">
+										<figure class="px-4 pt-4">
+										  <img loading="lazy" src="/assets/images/apps/bear.png"
+											class="rounded-2xl border border-base-content border-opacity-5 bg-base-300"
+											alt="Incognito Bear" />
+										</figure>
+										<div class="card-body flex flex-col justify-between flex-grow">
+										  <div>
+											<h2 class="card-title">Incognito Bear</h2>
+											<p class="text-base">Just one click, Incognito Bear removes all NSFW contents or a list of your own from your browsing history, so you can enjoy worry-free browsing.      </p>
+										  </div>
+										  <div class="flex flex-wrap gap-2 mt-6">
+											
+											<div class="badge badge-neutral gap-2
+											  badge-error
+											  ">
+											  Chrome
+											</div>
+											
+										  </div>
+										</div>
+									  </a>
+									</div>
+									
+									<div class="shrink-0 snap-start w-[20rem]">
+									  <a class="min-h-[30rem] flex flex-col justify-between h-full card card-compact bg-base-100 shadow-md transition-all duration-200 hover:-translate-y-1 rounded-4xl"
+										target="_blank" href="https://apps.apple.com/us/app/simple-screenshot-pro/id6451333294">
+										<figure class="px-4 pt-4">
+										  <img loading="lazy" src="/assets/images/apps/screenshot.png"
+											class="rounded-2xl border border-base-content border-opacity-5 bg-base-300"
+											alt="Simple Screenshot Pro" />
+										</figure>
+										<div class="card-body flex flex-col justify-between flex-grow">
+										  <div>
+											<h2 class="card-title">Simple Screenshot Pro</h2>
+											<p class="text-base"> This tool brings ease and precision to capturing entire webpages or just the visible parts.</p>
+										  </div>
+										  <div class="flex flex-wrap gap-2 mt-6">
+											
+											<div class="badge badge-neutral gap-2
+											  badge-accent
+											  ">
+											  macOs
+											</div>
+											
+											<div class="badge badge-neutral gap-2
+											  badge-secondary
+											  ">
+											  Safari
+											</div>
+											
+										  </div>
+										</div>
+									  </a>
+									</div>
+									
+						  
+									
+									<div class="shrink-0 snap-start w-[20rem]">
+									  <a class="min-h-[30rem] flex flex-col justify-between h-full card card-compact bg-base-100 shadow-md transition-all duration-200 hover:-translate-y-1 rounded-4xl"
+										target="_blank" href="/trivia/">
+										<figure class="px-4 pt-4">
+										  <img loading="lazy" src="/assets/images/apps/coco.png"
+											class="rounded-2xl border border-base-content border-opacity-5 bg-base-300"
+											alt="Coco's Trivia Corner" />
+										</figure>
+										<div class="card-body flex flex-col justify-between flex-grow">
+										  <div>
+											<h2 class="card-title">Coco's Trivia Corner</h2>
+											<p class="text-base">Coco's Trivia Corner offers over 53,000 unique and random questions to keep you entertained. Perfect for quizzes, game nights, or just challenging yourself!</p>
+										  </div>
+										  <div class="flex flex-wrap gap-2 mt-6">
+											
+											<div class="badge badge-neutral gap-2
+											  badge-accent
+											  ">
+											  macOs
+											</div>
+											
+											<div class="badge badge-neutral gap-2
+											  badge-secondary
+											  ">
+											  Safari
+											</div>
+											
+											<div class="badge badge-neutral gap-2
+											  badge-error
+											  ">
+											  Chrome
+											</div>
+											
+										  </div>
+										</div>
+									  </a>
+									</div>
+									
+									<div class="shrink-0 snap-start w-[20rem]">
+									  <a class="min-h-[30rem] flex flex-col justify-between h-full card card-compact bg-base-100 shadow-md transition-all duration-200 hover:-translate-y-1 rounded-4xl"
+										target="_blank" href="https://github.com/coffee-and-fun/google-profanity-words">
+										<figure class="px-4 pt-4">
+										  <img loading="lazy" src="/assets/images/apps/google.png"
+											class="rounded-2xl border border-base-content border-opacity-5 bg-base-300"
+											alt="Google Profanity Words" />
+										</figure>
+										<div class="card-body flex flex-col justify-between flex-grow">
+										  <div>
+											<h2 class="card-title">Google Profanity Words</h2>
+											<p class="text-base">Full list of bad words and top swear words banned by Google.</p>
+										  </div>
+										  <div class="flex flex-wrap gap-2 mt-6">
+											
+											<div class="badge badge-neutral gap-2
+											  badge-neutral">
+											  Open Source
+											</div>
+											
+										  </div>
+										</div>
+									  </a>
+									</div>
+									
+									<div class="shrink-0 snap-start w-[20rem]">
+									  <a class="min-h-[30rem] flex flex-col justify-between h-full card card-compact bg-base-100 shadow-md transition-all duration-200 hover:-translate-y-1 rounded-4xl"
+										target="_blank" href="https://shouldyoutestinproduction.com/">
+										<figure class="px-4 pt-4">
+										  <img loading="lazy" src="/assets/images/apps/bill.png"
+											class="rounded-2xl border border-base-content border-opacity-5 bg-base-300"
+											alt="Should You Test in Production?" />
+										</figure>
+										<div class="card-body flex flex-col justify-between flex-grow">
+										  <div>
+											<h2 class="card-title">Should You Test in Production?</h2>
+											<p class="text-base">Should You Test in Production? A lighthearted nod to every developer's worst (or best) idea, this site redirects to the iconic Bill O'Reilly clip: 'F*** it, we'll do it live!' Because sometimes, that's just how it feels. 😂</p>
+										  </div>
+										  <div class="flex flex-wrap gap-2 mt-6">
+											
+											<div class="badge badge-neutral gap-2
+											  badge-neutral">
+											  Web
+											</div>
+											
+										  </div>
+										</div>
+									  </a>
+									</div>
+									
+									<div class="shrink-0 snap-start w-[20rem]">
+									  <a class="min-h-[30rem] flex flex-col justify-between h-full card card-compact bg-base-100 shadow-md transition-all duration-200 hover:-translate-y-1 rounded-4xl"
+										target="_blank" href="https://github.com/coffee-and-fun/remove-pii">
+										<figure class="px-4 pt-4">
+										  <img loading="lazy" src="/assets/images/apps/pii.png"
+											class="rounded-2xl border border-base-content border-opacity-5 bg-base-300"
+											alt="Remove PII" />
+										</figure>
+										<div class="card-body flex flex-col justify-between flex-grow">
+										  <div>
+											<h2 class="card-title">Remove PII</h2>
+											<p class="text-base">Designed to help with privacy by removing personally identifiable information (PII) from text.</p>
+										  </div>
+										  <div class="flex flex-wrap gap-2 mt-6">
+											
+											<div class="badge badge-neutral gap-2
+											  badge-neutral">
+											  Open Source
+											</div>
+											
+										  </div>
+										</div>
+									  </a>
+									</div>
+									
+									<div class="shrink-0 snap-start w-[20rem]">
+									  <a class="min-h-[30rem] flex flex-col justify-between h-full card card-compact bg-base-100 shadow-md transition-all duration-200 hover:-translate-y-1 rounded-4xl"
+										target="_blank" href="https://www.npmjs.com/package/@coffeeandfun/maths-captcha">
+										<figure class="px-4 pt-4">
+										  <img loading="lazy" src="/assets/images/apps/maths.png"
+											class="rounded-2xl border border-base-content border-opacity-5 bg-base-300"
+											alt="Maths Captcha" />
+										</figure>
+										<div class="card-body flex flex-col justify-between flex-grow">
+										  <div>
+											<h2 class="card-title">Maths Captcha</h2>
+											<p class="text-base">Maths-Captcha is a simple Node.js module that generates random math questions and verifies user answers.</p>
+										  </div>
+										  <div class="flex flex-wrap gap-2 mt-6">
+											
+											<div class="badge badge-neutral gap-2
+											  badge-neutral">
+											  Open Source
+											</div>
+											
+										  </div>
+										</div>
+									  </a>
+									</div>
+									
+								  </div>
+							
+							  </div>
 							</div>
+						</div>
+						  
 
+
+
+						<div class="max-w-8xl text-base mx-auto my-8" id="graveyard">
+							<div class="card my-24">
+							  <div class="my-8">
+								<h2 class="card-title mb-10 text-4xl font-medium tracking-tighter text-pretty">⚰️ The Graveyard</h2>
+						  
+							
+							
+								  <div class="flex overflow-x-auto snap-x snap-mandatory scroll-smooth gap-6 px-4 pb-8 ">
+									
+									<div class="shrink-0 snap-start w-[20rem]">
+									  <a class="min-h-[30rem] flex flex-col justify-between h-full card card-compact bg-base-100 shadow-md transition-all duration-200 hover:-translate-y-1 rounded-4xl"
+										target="_blank" href="https://www.coffeeandfun.com/forgotten-cards/">
+										<figure class="px-4 pt-4">
+										  <img loading="lazy" src="/assets/images/apps/cards.png"
+											class="rounded-2xl border border-base-content border-opacity-5 bg-base-300"
+											alt="Forgotten Membership Cards" />
+										</figure>
+										<div class="card-body flex flex-col justify-between flex-grow">
+										  <div>
+											<h2 class="card-title">Forgotten Membership Cards</h2>
+											<p class="text-base">Ever been at the checkout and realized you forgot your membership card? Quickly access discounts and rewards at popular stores, even when you’ve left your card at home. Just pull up our site, scan, and save—no need to miss out on deals. Plus, find links to sign up for your own account if you’d like to earn rewards personally. Perfect for those “Oh no!” moments at the counter!</p>
+										  </div>
+										  <div class="flex flex-wrap gap-2 mt-6">
+											
+											<div class="badge badge-neutral gap-2
+											  badge-neutral">
+											  Web
+											</div>
+											
+										  </div>
+										</div>
+									  </a>
+									</div>
+									
+									<div class="shrink-0 snap-start w-[20rem]">
+									  <a class="min-h-[30rem] flex flex-col justify-between h-full card card-compact bg-base-100 shadow-md transition-all duration-200 hover:-translate-y-1 rounded-4xl"
+										target="_blank" href="/forever-advert/">
+										<figure class="px-4 pt-4">
+										  <img loading="lazy" src="/assets/images/apps/rank.png"
+											class="rounded-2xl border border-base-content border-opacity-5 bg-base-300"
+											alt="Mystery Rank" />
+										</figure>
+										<div class="card-body flex flex-col justify-between flex-grow">
+										  <div>
+											<h2 class="card-title">Mystery Rank</h2>
+											<p class="text-base">Join Mystery Rank to secure your spot and climb the ranks in various categories. The more you contribute, the higher you rank—but the twist is, you’ll never know what others paid. Embrace the excitement of mystery and competition!</p>
+										  </div>
+										  <div class="flex flex-wrap gap-2 mt-6">
+											
+											<div class="badge badge-neutral gap-2
+											  badge-accent
+											  ">
+											  macOs
+											</div>
+											
+											<div class="badge badge-neutral gap-2
+											  badge-secondary
+											  ">
+											  Safari
+											</div>
+											
+											<div class="badge badge-neutral gap-2
+											  badge-error
+											  ">
+											  Chrome
+											</div>
+											
+										  </div>
+										</div>
+									  </a>
+									</div>
+									
+									<div class="shrink-0 snap-start w-[20rem]">
+									  <a class="min-h-[30rem] flex flex-col justify-between h-full card card-compact bg-base-100 shadow-md transition-all duration-200 hover:-translate-y-1 rounded-4xl"
+										target="_blank" href="https://www.coffeeandfun.com/flash-cards/">
+										<figure class="px-4 pt-4">
+										  <img loading="lazy" src="/assets/images/apps/flash.png"
+											class="rounded-2xl border border-base-content border-opacity-5 bg-base-300"
+											alt="Instant Flash Cards" />
+										</figure>
+										<div class="card-body flex flex-col justify-between flex-grow">
+										  <div>
+											<h2 class="card-title">Instant Flash Cards</h2>
+											<p class="text-base"> Turn any site into study vibes with one click. Instant Flash Cards is your hack to making learning stick.</p>
+										  </div>
+										  <div class="flex flex-wrap gap-2 mt-6">
+											
+											<div class="badge badge-neutral gap-2
+											  badge-accent
+											  ">
+											  macOs
+											</div>
+											
+											<div class="badge badge-neutral gap-2
+											  badge-secondary
+											  ">
+											  Safari
+											</div>
+											
+											<div class="badge badge-neutral gap-2
+											  badge-error
+											  ">
+											  Chrome
+											</div>
+											
+											<div class="badge badge-neutral gap-2
+											  badge-warning
+											  ">
+											  Firefox
+											</div>
+											
+										  </div>
+										</div>
+									  </a>
+									</div>
+									
+									<div class="shrink-0 snap-start w-[20rem]">
+									  <a class="min-h-[30rem] flex flex-col justify-between h-full card card-compact bg-base-100 shadow-md transition-all duration-200 hover:-translate-y-1 rounded-4xl"
+										target="_blank" href="https://www.isupporthumans.com/">
+										<figure class="px-4 pt-4">
+										  <img loading="lazy" src="/assets/images/apps/humans.png"
+											class="rounded-2xl border border-base-content border-opacity-5 bg-base-300"
+											alt="I Support Humans" />
+										</figure>
+										<div class="card-body flex flex-col justify-between flex-grow">
+										  <div>
+											<h2 class="card-title">I Support Humans</h2>
+											<p class="text-base">Take a stand for human creativity and originality. Sign the pledge, support human-made work, and download a badge to show you value people over automation.</p>
+										  </div>
+										  <div class="flex flex-wrap gap-2 mt-6">
+											
+											<div class="badge badge-neutral gap-2
+											  badge-neutral">
+											  Web
+											</div>
+											
+										  </div>
+										</div>
+									  </a>
+									</div>
+									
+									<div class="shrink-0 snap-start w-[20rem]">
+									  <a class="min-h-[30rem] flex flex-col justify-between h-full card card-compact bg-base-100 shadow-md transition-all duration-200 hover:-translate-y-1 rounded-4xl"
+										target="_blank" href="https://github.com/coffee-and-fun/google-profanity-words">
+										<figure class="px-4 pt-4">
+										  <img loading="lazy" src="/assets/images/apps/coffee.png"
+											class="rounded-2xl border border-base-content border-opacity-5 bg-base-300"
+											alt="What Coffee should I have?" />
+										</figure>
+										<div class="card-body flex flex-col justify-between flex-grow">
+										  <div>
+											<h2 class="card-title">What Coffee should I have?</h2>
+											<p class="text-base">Not sure what coffee to have in the morning? Let us pick for you with over 35 different coffees and growing.</p>
+										  </div>
+										  <div class="flex flex-wrap gap-2 mt-6">
+											
+											<div class="badge badge-neutral gap-2
+											  badge-error
+											  ">
+											  Chrome
+											</div>
+											
+										  </div>
+										</div>
+									  </a>
+									</div>
+									
+									<div class="shrink-0 snap-start w-[20rem]">
+									  <a class="min-h-[30rem] flex flex-col justify-between h-full card card-compact bg-base-100 shadow-md transition-all duration-200 hover:-translate-y-1 rounded-4xl"
+										target="_blank" href="https://github.com/coffee-and-fun/google-profanity-words">
+										<figure class="px-4 pt-4">
+										  <img loading="lazy" src="/assets/images/apps/reddit.png"
+											class="rounded-2xl border border-base-content border-opacity-5 bg-base-300"
+											alt="Reddit: Random subreddit button" />
+										</figure>
+										<div class="card-body flex flex-col justify-between flex-grow">
+										  <div>
+											<h2 class="card-title">Reddit: Random subreddit button</h2>
+											<p class="text-base">Reddits new redesign removed the random button. I wanted it back. So here it is as a chrome extension.</p>
+										  </div>
+										  <div class="flex flex-wrap gap-2 mt-6">
+											
+											<div class="badge badge-neutral gap-2
+											  badge-error
+											  ">
+											  Chrome
+											</div>
+											
+										  </div>
+										</div>
+									  </a>
+									</div>
+									
+									<div class="shrink-0 snap-start w-[20rem]">
+									  <a class="min-h-[30rem] flex flex-col justify-between h-full card card-compact bg-base-100 shadow-md transition-all duration-200 hover:-translate-y-1 rounded-4xl"
+										target="_blank" href="https://github.com/coffee-and-fun/google-profanity-words">
+										<figure class="px-4 pt-4">
+										  <img loading="lazy" src="/assets/images/apps/clean.png"
+											class="rounded-2xl border border-base-content border-opacity-5 bg-base-300"
+											alt="Clean my history" />
+										</figure>
+										<div class="card-body flex flex-col justify-between flex-grow">
+										  <div>
+											<h2 class="card-title">Clean my history</h2>
+											<p class="text-base">Sometimes you forget to delete your history after viewing NSFW sites. Clean my History is a privacy focused Chrome extension that removes over 15,000 NSFW websites and terms from your history in one click.</p>
+										  </div>
+										  <div class="flex flex-wrap gap-2 mt-6">
+											
+											<div class="badge badge-neutral gap-2
+											  badge-error
+											  ">
+											  Chrome
+											</div>
+											
+										  </div>
+										</div>
+									  </a>
+									</div>
+									
+									<div class="shrink-0 snap-start w-[20rem]">
+									  <a class="min-h-[30rem] flex flex-col justify-between h-full card card-compact bg-base-100 shadow-md transition-all duration-200 hover:-translate-y-1 rounded-4xl"
+										target="_blank" href="https://github.com/coffee-and-fun/remove-pii">
+										<figure class="px-4 pt-4">
+										  <img loading="lazy" src="/assets/images/apps/netflix.png"
+											class="rounded-2xl border border-base-content border-opacity-5 bg-base-300"
+											alt="Netflix Hidden Categories" />
+										</figure>
+										<div class="card-body flex flex-col justify-between flex-grow">
+										  <div>
+											<h2 class="card-title">Netflix Hidden Categories</h2>
+											<p class="text-base">Netflix Hidden Categories for Chrome allows you to search thousands of hidden categories that Netflix hides from you.</p>
+										  </div>
+										  <div class="flex flex-wrap gap-2 mt-6">
+											
+											<div class="badge badge-neutral gap-2
+											  badge-error
+											  ">
+											  Chrome
+											</div>
+											
+										  </div>
+										</div>
+									  </a>
+									</div>
+									
+						  
+								  </div>
+							
+							  </div>
+							</div>
 						</div>
 
+
+			
 
 
 
 						<div class="max-w-8xl text-base  mx-auto mt-12" id="contact">
 
 							<div class="my-8">
-								<h2 class="card-title mb-10 text-3xl"> 👋 Support & Help
+								<h2 class="card-title mb-10 text-4xl font-medium tracking-tighter text-pretty"> 👋 Support & Help
 								</h2>
 
 								<div class="grid grid-cols-1 md:grid-cols-2 md:gap-8">
-									<div class="card my-8 bg-base-100 shadow-md">
+									<div class="card my-8 bg-base-100 shadow-md rounded-4xl">
 										<div class="card-body">
 											<h2 class="card-title mb-4 text-2xl">Support ✉️</h2>
 
@@ -1246,7 +1221,7 @@ document.addEventListener("DOMContentLoaded", (event) => {
 									</div>
 
 
-									<div class="card my-8 bg-base-100 shadow-md">
+									<div class="card my-8 bg-base-100 shadow-md rounded-4xl">
 										<div class="card-body">
 											<h2 class="card-title mb-4 text-2xl">Contact Us ✉️</h2>
 
@@ -1275,7 +1250,7 @@ document.addEventListener("DOMContentLoaded", (event) => {
 	
 		<div >
   <div class="mx-auto max-w-7xl py-12 sm:px-6 sm:py-32 lg:px-8">
-    <div class="relative isolate overflow-hidden bg-gray-900 px-6 py-12 text-center shadow-md rounded-2xl " style="background-color: #7289DA;">
+    <div class="relative isolate overflow-hidden bg-gray-900 px-6 py-12 text-center shadow-md rounded-4xl " style="background-color: #7289DA;">
 
 
 
@@ -1743,38 +1718,42 @@ document.addEventListener("DOMContentLoaded", (event) => {
 </dialog>
 
 
-	
-
-<footer class="footer footer-center  rounded p-10 brand-color-background">
-
+	<footer class="p-10 brand-color-background">
+  <div class="mx-auto max-w-7xl overflow-hidden px-6 py-20 sm:py-24 lg:px-8 justify-cente">
+<div class="mx-auto flex max-w-2xl flex-col items-center justify-center">
   <a href="/" title="Coffee & Fun Home page" >
     <span class="sr-only"> Visit the Coffee & Fun Homepage</span>
   <img alt="Coffee and Fun Logo" src="/assets/images/coffee-and-fun-logo-dark.png" width="200" height="200"
     decoding="async" data-nimg="future" loading="lazy"
     class="h-24 w-24 flex-none fill-cyan-500 inline-block fill-current" />
     </a>
-  <p class="  mb-4">
+  <p class="  mb-4 mt-4">
     <span class="font-bold text-lg">
     Coffee & Fun LLC
     </span>
 
-  <span class="text-base font-normal">Crafting Software, One Brew at a Time</span>
+  
 </p>
-  <nav>
-    <div class="grid grid-flow-col gap-4">
 
-      <a href="https://www.twitter.com/bycoffeeandfun" target="_blank" rel="noopener noreferrer"
-        class="text-black hover:text-blue-400" title="Follow Coffee & Fun on Twitter">
-        <span class="sr-only">Follow us on Twitter</span>
-        <svg class="h-7 w-7" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-          <path
-            d="M8.29 20.251c7.547 0 11.675-6.253 11.675-11.675 0-.178 0-.355-.012-.53A8.348 8.348 0 0022 5.92a8.19 8.19 0 01-2.357.646 4.118 4.118 0 001.804-2.27 8.224 8.224 0 01-2.605.996 4.107 4.107 0 00-6.993 3.743 11.65 11.65 0 01-8.457-4.287 4.106 4.106 0 001.27 5.477A4.072 4.072 0 012.8 9.713v.052a4.105 4.105 0 003.292 4.022 4.095 4.095 0 01-1.853.07 4.108 4.108 0 003.834 2.85A8.233 8.233 0 012 18.407a11.616 11.616 0 006.29 1.84">
-          </path>
-        </svg>
-      </a>
-      <a href="https://www.instagram.com/coffeeandfunllc" target="_blank" rel="noopener noreferrer"
-      class="text-black hover:text-pink-400" title="Follow Coffee & Fun on Instagram">
-      <svg aria-hidden="true" role="img" fill="currentColor" viewBox="0 0 24 24" class="h-7 w-7"><title>Instagram</title><desc>Visit Helperbird's official Instagram page</desc><path clip-rule="evenodd" d="M12.315 2c2.43 0 2.784.013 3.808.06 1.064.049 1.791.218 2.427.465a4.902 4.902 0 011.772 1.153 4.902 4.902 0 011.153 1.772c.247.636.416 1.363.465 2.427.048 1.067.06 1.407.06 4.123v.08c0 2.643-.012 2.987-.06 4.043-.049 1.064-.218 1.791-.465 2.427a4.902 4.902 0 01-1.153 1.772 4.902 4.902 0 01-1.772 1.153c-.636.247-1.363.416-2.427.465-1.067.048-1.407.06-4.123.06h-.08c-2.643 0-2.987-.012-4.043-.06-1.064-.049-1.791-.218-2.427-.465a4.902 4.902 0 01-1.772-1.153 4.902 4.902 0 01-1.153-1.772c-.247-.636-.416-1.363-.465-2.427-.047-1.024-.06-1.379-.06-3.808v-.63c0-2.43.013-2.784.06-3.808.049-1.064.218-1.791.465-2.427a4.902 4.902 0 011.153-1.772A4.902 4.902 0 015.45 2.525c.636-.247 1.363-.416 2.427-.465C8.901 2.013 9.256 2 11.685 2h.63zm-.081 1.802h-.468c-2.456 0-2.784.011-3.807.058-.975.045-1.504.207-1.857.344-.467.182-.8.398-1.15.748-.35.35-.566.683-.748 1.15-.137.353-.3.882-.344 1.857-.047 1.023-.058 1.351-.058 3.807v.468c0 2.456.011 2.784.058 3.807.045.975.207 1.504.344 1.857.182.466.399.8.748 1.15.35.35.683.566 1.15.748.353.137.882.3 1.857.344 1.054.048 1.37.058 4.041.058h.08c2.597 0 2.917-.01 3.96-.058.976-.045 1.505-.207 1.858-.344.466-.182.8-.398 1.15-.748.35-.35.566-.683.748-1.15.137-.353.3-.882.344-1.857.048-1.055.058-1.37.058-4.041v-.08c0-2.597-.01-2.917-.058-3.96-.045-.976-.207-1.505-.344-1.858a3.097 3.097 0 00-.748-1.15 3.098 3.098 0 00-1.15-.748c-.353-.137-.882-.3-1.857-.344-1.023-.047-1.351-.058-3.807-.058zM12 6.865a5.135 5.135 0 110 10.27 5.135 5.135 0 010-10.27zm0 1.802a3.333 3.333 0 100 6.666 3.333 3.333 0 000-6.666zm5.338-3.205a1.2 1.2 0 110 2.4 1.2 1.2 0 010-2.4z" fill-rule="evenodd"></path></svg>
+
+  <span class="text-base font-normal">Crafting Software, One Brew at a Time</span>
+
+</div>
+
+    <div class="mt-16  justify-center grid grid-flow-col gap-4">
+    
+    <a href="https://www.twitter.com/bycoffeeandfun" target="_blank" rel="noopener noreferrer"
+    class="text-black hover:text-blue-400" title="Follow Coffee & Fun on Twitter">
+    <span class="sr-only">Follow us on Twitter</span>
+    <svg class="h-7 w-7" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+      <path
+        d="M8.29 20.251c7.547 0 11.675-6.253 11.675-11.675 0-.178 0-.355-.012-.53A8.348 8.348 0 0022 5.92a8.19 8.19 0 01-2.357.646 4.118 4.118 0 001.804-2.27 8.224 8.224 0 01-2.605.996 4.107 4.107 0 00-6.993 3.743 11.65 11.65 0 01-8.457-4.287 4.106 4.106 0 001.27 5.477A4.072 4.072 0 012.8 9.713v.052a4.105 4.105 0 003.292 4.022 4.095 4.095 0 01-1.853.07 4.108 4.108 0 003.834 2.85A8.233 8.233 0 012 18.407a11.616 11.616 0 006.29 1.84">
+      </path>
+    </svg>
+  </a>
+  <a href="https://www.instagram.com/coffeeandfunllc" target="_blank" rel="noopener noreferrer"
+  class="text-black hover:text-pink-400" title="Follow Coffee & Fun on Instagram">
+  <svg aria-hidden="true" role="img" fill="currentColor" viewBox="0 0 24 24" class="h-7 w-7"><title>Instagram</title><desc>Visit Helperbird's official Instagram page</desc><path clip-rule="evenodd" d="M12.315 2c2.43 0 2.784.013 3.808.06 1.064.049 1.791.218 2.427.465a4.902 4.902 0 011.772 1.153 4.902 4.902 0 011.153 1.772c.247.636.416 1.363.465 2.427.048 1.067.06 1.407.06 4.123v.08c0 2.643-.012 2.987-.06 4.043-.049 1.064-.218 1.791-.465 2.427a4.902 4.902 0 01-1.153 1.772 4.902 4.902 0 01-1.772 1.153c-.636.247-1.363.416-2.427.465-1.067.048-1.407.06-4.123.06h-.08c-2.643 0-2.987-.012-4.043-.06-1.064-.049-1.791-.218-2.427-.465a4.902 4.902 0 01-1.772-1.153 4.902 4.902 0 01-1.153-1.772c-.247-.636-.416-1.363-.465-2.427-.047-1.024-.06-1.379-.06-3.808v-.63c0-2.43.013-2.784.06-3.808.049-1.064.218-1.791.465-2.427a4.902 4.902 0 011.153-1.772A4.902 4.902 0 015.45 2.525c.636-.247 1.363-.416 2.427-.465C8.901 2.013 9.256 2 11.685 2h.63zm-.081 1.802h-.468c-2.456 0-2.784.011-3.807.058-.975.045-1.504.207-1.857.344-.467.182-.8.398-1.15.748-.35.35-.566.683-.748 1.15-.137.353-.3.882-.344 1.857-.047 1.023-.058 1.351-.058 3.807v.468c0 2.456.011 2.784.058 3.807.045.975.207 1.504.344 1.857.182.466.399.8.748 1.15.35.35.683.566 1.15.748.353.137.882.3 1.857.344 1.054.048 1.37.058 4.041.058h.08c2.597 0 2.917-.01 3.96-.058.976-.045 1.505-.207 1.858-.344.466-.182.8-.398 1.15-.748.35-.35.566-.683.748-1.15.137-.353.3-.882.344-1.857.048-1.055.058-1.37.058-4.041v-.08c0-2.597-.01-2.917-.058-3.96-.045-.976-.207-1.505-.344-1.858a3.097 3.097 0 00-.748-1.15 3.098 3.098 0 00-1.15-.748c-.353-.137-.882-.3-1.857-.344-1.023-.047-1.351-.058-3.807-.058zM12 6.865a5.135 5.135 0 110 10.27 5.135 5.135 0 010-10.27zm0 1.802a3.333 3.333 0 100 6.666 3.333 3.333 0 000-6.666zm5.338-3.205a1.2 1.2 0 110 2.4 1.2 1.2 0 010-2.4z" fill-rule="evenodd"></path></svg>
 </a>
 
 
@@ -1782,43 +1761,51 @@ document.addEventListener("DOMContentLoaded", (event) => {
 title="Joing our Discord" class="text-black hover:text-purple-700">
 <span class="sr-only">Joing our Discord</span>
 <svg class="h-7 w-7" fill="currentColor" viewBox="0 -28.5 256 256" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" preserveAspectRatio="xMidYMid">
-  <g>
-      <path d="M216.856339,16.5966031 C200.285002,8.84328665 182.566144,3.2084988 164.041564,0 C161.766523,4.11318106 159.108624,9.64549908 157.276099,14.0464379 C137.583995,11.0849896 118.072967,11.0849896 98.7430163,14.0464379 C96.9108417,9.64549908 94.1925838,4.11318106 91.8971895,0 C73.3526068,3.2084988 55.6133949,8.86399117 39.0420583,16.6376612 C5.61752293,67.146514 -3.4433191,116.400813 1.08711069,164.955721 C23.2560196,181.510915 44.7403634,191.567697 65.8621325,198.148576 C71.0772151,190.971126 75.7283628,183.341335 79.7352139,175.300261 C72.104019,172.400575 64.7949724,168.822202 57.8887866,164.667963 C59.7209612,163.310589 61.5131304,161.891452 63.2445898,160.431257 C105.36741,180.133187 151.134928,180.133187 192.754523,160.431257 C194.506336,161.891452 196.298154,163.310589 198.110326,164.667963 C191.183787,168.842556 183.854737,172.420929 176.223542,175.320965 C180.230393,183.341335 184.861538,190.991831 190.096624,198.16893 C211.238746,191.588051 232.743023,181.531619 254.911949,164.955721 C260.227747,108.668201 245.831087,59.8662432 216.856339,16.5966031 Z M85.4738752,135.09489 C72.8290281,135.09489 62.4592217,123.290155 62.4592217,108.914901 C62.4592217,94.5396472 72.607595,82.7145587 85.4738752,82.7145587 C98.3405064,82.7145587 108.709962,94.5189427 108.488529,108.914901 C108.508531,123.290155 98.3405064,135.09489 85.4738752,135.09489 Z M170.525237,135.09489 C157.88039,135.09489 147.510584,123.290155 147.510584,108.914901 C147.510584,94.5396472 157.658606,82.7145587 170.525237,82.7145587 C183.391518,82.7145587 193.761324,94.5189427 193.539891,108.914901 C193.539891,123.290155 183.391518,135.09489 170.525237,135.09489 Z" fill="currentColor" fill-rule="nonzero">
+<g>
+  <path d="M216.856339,16.5966031 C200.285002,8.84328665 182.566144,3.2084988 164.041564,0 C161.766523,4.11318106 159.108624,9.64549908 157.276099,14.0464379 C137.583995,11.0849896 118.072967,11.0849896 98.7430163,14.0464379 C96.9108417,9.64549908 94.1925838,4.11318106 91.8971895,0 C73.3526068,3.2084988 55.6133949,8.86399117 39.0420583,16.6376612 C5.61752293,67.146514 -3.4433191,116.400813 1.08711069,164.955721 C23.2560196,181.510915 44.7403634,191.567697 65.8621325,198.148576 C71.0772151,190.971126 75.7283628,183.341335 79.7352139,175.300261 C72.104019,172.400575 64.7949724,168.822202 57.8887866,164.667963 C59.7209612,163.310589 61.5131304,161.891452 63.2445898,160.431257 C105.36741,180.133187 151.134928,180.133187 192.754523,160.431257 C194.506336,161.891452 196.298154,163.310589 198.110326,164.667963 C191.183787,168.842556 183.854737,172.420929 176.223542,175.320965 C180.230393,183.341335 184.861538,190.991831 190.096624,198.16893 C211.238746,191.588051 232.743023,181.531619 254.911949,164.955721 C260.227747,108.668201 245.831087,59.8662432 216.856339,16.5966031 Z M85.4738752,135.09489 C72.8290281,135.09489 62.4592217,123.290155 62.4592217,108.914901 C62.4592217,94.5396472 72.607595,82.7145587 85.4738752,82.7145587 C98.3405064,82.7145587 108.709962,94.5189427 108.488529,108.914901 C108.508531,123.290155 98.3405064,135.09489 85.4738752,135.09489 Z M170.525237,135.09489 C157.88039,135.09489 147.510584,123.290155 147.510584,108.914901 C147.510584,94.5396472 157.658606,82.7145587 170.525237,82.7145587 C183.391518,82.7145587 193.761324,94.5189427 193.539891,108.914901 C193.539891,123.290155 183.391518,135.09489 170.525237,135.09489 Z" fill="currentColor" fill-rule="nonzero">
 
 </path>
-  </g>
+</g>
 </svg>
 </a>
 
-      <a href="https://www.github.com/coffee-and-fun" target="_blank" rel="noopener noreferrer"
-        title="Follow Coffee & Fun on Github" class="text-black hover:text-gray-700">
-        <span class="sr-only">Follow us on GitHub</span>
-        <svg class="h-7 w-7" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-          <path fill-rule="evenodd"
-            d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z"
-            clip-rule="evenodd"></path>
-        </svg>
-      </a>
+  <a href="https://www.github.com/coffee-and-fun" target="_blank" rel="noopener noreferrer"
+    title="Follow Coffee & Fun on Github" class="text-black hover:text-gray-700">
+    <span class="sr-only">Follow us on GitHub</span>
+    <svg class="h-7 w-7" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+      <path fill-rule="evenodd"
+        d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z"
+        clip-rule="evenodd"></path>
+    </svg>
+  </a>
 
 
-  
 
-      <a href="https://www.youtube.com/bycoffeeandfun" target="_blank" rel="noopener noreferrer"
-        title="Follow Coffee & Fun on Youtube" class="text-black hover:text-red-600">
-        <span class="sr-only">Follow us on Youtube</span>
-        <svg class="h-7 w-7" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-          <path fill-rule="evenodd"
-            d="M19.812 5.418c.861.23 1.538.907 1.768 1.768C21.998 8.746 22 12 22 12s0 3.255-.418 4.814a2.504 2.504 0 0 1-1.768 1.768c-1.56.419-7.814.419-7.814.419s-6.255 0-7.814-.419a2.505 2.505 0 0 1-1.768-1.768C2 15.255 2 12 2 12s0-3.255.417-4.814a2.507 2.507 0 0 1 1.768-1.768C5.744 5 11.998 5 11.998 5s6.255 0 7.814.418ZM15.194 12 10 15V9l5.194 3Z"
-            clip-rule="evenodd"></path>
-        </svg>
-      </a>
+
+  <a href="https://www.youtube.com/bycoffeeandfun" target="_blank" rel="noopener noreferrer"
+    title="Follow Coffee & Fun on Youtube" class="text-black hover:text-red-600">
+    <span class="sr-only">Follow us on Youtube</span>
+    <svg class="h-7 w-7" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+      <path fill-rule="evenodd"
+        d="M19.812 5.418c.861.23 1.538.907 1.768 1.768C21.998 8.746 22 12 22 12s0 3.255-.418 4.814a2.504 2.504 0 0 1-1.768 1.768c-1.56.419-7.814.419-7.814.419s-6.255 0-7.814-.419a2.505 2.505 0 0 1-1.768-1.768C2 15.255 2 12 2 12s0-3.255.417-4.814a2.507 2.507 0 0 1 1.768-1.768C5.744 5 11.998 5 11.998 5s6.255 0 7.814.418ZM15.194 12 10 15V9l5.194 3Z"
+        clip-rule="evenodd"></path>
+    </svg>
+  </a>
+
 
     </div>
-  </nav>
-  <aside>
-    <p> &copy; 2025 <b>Coffee & Fun LLC</b>. All rights reserved.</p>
-  </aside>
+    <p class="mt-10 text-center text-md text-black"> &copy; 2025 <b>Coffee & Fun LLC</b>. All rights reserved.</p>
+  </div>
 </footer>
+
+
+
+
+
+
+
+
+
 
 
 <script type="text/javascript">

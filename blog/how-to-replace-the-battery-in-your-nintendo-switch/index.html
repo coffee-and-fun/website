@@ -16,6 +16,39 @@
 	<meta name="title" content="How to Replace the Battery in Your Nintendo Switch - Coffee & Fun LLC" />
     <meta name="keywords" content="Change battery in Apple AirTag, Replace AirTag battery, How to change AirTag battery, Apple AirTag battery replacement, AirTag battery change guide, AirTag battery replacement tutorial, AirTag battery life, Replace battery in AirTag, Change battery in an Apple AirTag" />
 
+    <!-- PWA Manifest -->
+<!-- PWA Manifest -->
+<link rel="manifest" href="/assets/images/social/site.webmanifest" />
+
+<!-- Theme & Mobile Meta -->
+<meta name="theme-color" content="#fef5ec" />
+<meta name="mobile-web-app-capable" content="yes" />
+<meta name="apple-mobile-web-app-capable" content="yes" />
+<meta name="apple-mobile-web-app-status-bar-style" content="default" />
+
+<!-- Icons -->
+<link rel="apple-touch-icon" href="/assets/images/social/192.png" />
+<link rel="icon" href="/assets/images/social/192.png" sizes="192x192" type="image/png" />
+<!-- PWA Meta Tags -->
+<meta name="apple-mobile-web-app-capable" content="yes" />
+<meta name="apple-mobile-web-app-status-bar-style" content="black" />
+<meta name="mobile-web-app-capable" content="yes" />
+
+
+<!-- Theme & Mobile Meta -->
+<meta name="theme-color" content="#fef5ec" />
+<meta name="mobile-web-app-capable" content="yes" />
+<meta name="apple-mobile-web-app-capable" content="yes" />
+<meta name="apple-mobile-web-app-status-bar-style" content="default" />
+
+<!-- Icons -->
+<link rel="apple-touch-icon" href="/assets/images/social/192.png" />
+<link rel="icon" href="/assets/images/social/192.png" sizes="192x192" type="image/png" />
+<!-- PWA Meta Tags -->
+<meta name="apple-mobile-web-app-capable" content="yes" />
+<meta name="apple-mobile-web-app-status-bar-style" content="black" />
+<meta name="mobile-web-app-capable" content="yes" />
+
 	<!-- Open Graph Meta Tags -->
 	<meta property="og:title" content="How to Replace the Battery in Your Nintendo Switch - Coffee & Fun LLC" />
 	<meta property="og:site_name" content="Coffee & Fun LLC" />
@@ -50,12 +83,16 @@
 			}
 		</script>
 
-	<link href="/assets/js/main.css" rel="stylesheet" />
-	<script>
-		if ('serviceWorker' in navigator) {
-			navigator.serviceWorker.register('/service-worker.js');
-		}
-	</script>
+    	<link href="/assets/css/engine.css" rel="stylesheet" />
+
+
+    <script>
+   if ('serviceWorker' in navigator) {
+      navigator.serviceWorker.register('/service-worker.js')
+        .then(() => console.log('✅ Service worker registered'))
+        .catch((err) => console.log('Service worker error:', err));
+    }
+    </script>
 
 
 	<style>
@@ -212,17 +249,21 @@ document.addEventListener("DOMContentLoaded", (event) => {
 
 
 
-<header class="navbar ">
+
+<header class="navbar mx-auto max-w-7xl px-8" role="navigation" aria-label="main navigation">
 
     <div class="navbar-start">
+
+    
+
+
         
         
 
     </div>
 
     <div class="navbar-center">
-
-
+       
         
     
 
@@ -391,12 +432,13 @@ document.addEventListener("DOMContentLoaded", (event) => {
                   <div class="flex">
                     <div class="flex-1 gap-4">
                       <div class="badge badge-neutral">Robert James Gabriel</div>
-                      <span class="badge badge-neutral ">5 min</span>
-                    </div>
-                    <div class="flex-0">
+                    
                       <time datetime="October 11th, 2024" class="items-center text-base">
                         <span class="badge badge-neutral">October 11th, 2024</span>
                       </time>
+                    </div>
+                    <div class="flex-1">
+                      <span class="badge badge-neutral ">5 min</span>
                     </div>
                   </div>
                 </header>
@@ -405,27 +447,27 @@ document.addEventListener("DOMContentLoaded", (event) => {
                   <img
                     src="/assets/images/blog/switch-battery.png"
                     alt="How to Replace the Battery in Your Nintendo Switch"
-                    class="aspect-square rounded-xl mb-10"
+                    class="rounded-3xl mb-10"
                     title="How to Replace the Battery in Your Nintendo Switch"
                   />
       
                   <p class="leading-relaxed font-display mb-4 mt-4 text-lg text-gray-900">Is your Nintendo Switch not holding its charge like it used to? It's probably time to replace that battery. While it might sound tricky, I'll walk you through every single step, with detailed instructions on the screws and parts you'll encounter along the way!</p>
-<h2 class="leading-relaxed font-display text-2xl mb-6 mt-12 font-semibold text-gray-800">What You’ll Need:</h2>
-<ul class="leading-relaxed list-disc list-inside mt-4 space-y-2 pl-6 text-lg font-display ml-6 mb-8 text-gray-900">
-<li class="leading-relaxed mb-2 text-lg font-display text-gray-900 flex items-center">A new Nintendo Switch battery (you can <a href="#" class="leading-relaxed font-sans text-lg text-blue-500 hover:text-blue-700 underline">grab one on Amazon here</a>)</li>
-<li class="leading-relaxed mb-2 text-lg font-display text-gray-900 flex items-center">A small Phillips-head screwdriver (size #00 works best)</li>
-<li class="leading-relaxed mb-2 text-lg font-display text-gray-900 flex items-center">A triangle (tri-wing) screwdriver (size Y00)</li>
-<li class="leading-relaxed mb-2 text-lg font-display text-gray-900 flex items-center">Isopropyl alcohol (IPA) (90% or higher)</li>
-<li class="leading-relaxed mb-2 text-lg font-display text-gray-900 flex items-center">An eyedropper (for the IPA)</li>
-<li class="leading-relaxed mb-2 text-lg font-display text-gray-900 flex items-center">A plastic opening tool or old credit card (something non-metal to pry open)</li>
-<li class="leading-relaxed mb-2 text-lg font-display text-gray-900 flex items-center">Patience (this part is key!)</li>
+<h2 class="leading-relaxed font-display text-2xl mb-6 mt-12 font-semibold text-gray-800" id="what-you%E2%80%99ll-need%3A" tabindex="-1">What You’ll Need:</h2>
+<ul class="list-disc list-inside mt-4 space-y-2 pl-6 text-lg font-display ml-6 mb-8 text-gray-900">
+<li class="mb-2 text-lg font-display text-gray-900 flex items-center">A new Nintendo Switch battery (you can <a href="#" class="text-lg text-blue-500 hover:text-blue-700 underline">grab one on Amazon here</a>)</li>
+<li class="mb-2 text-lg font-display text-gray-900 flex items-center">A small Phillips-head screwdriver (size #00 works best)</li>
+<li class="mb-2 text-lg font-display text-gray-900 flex items-center">A triangle (tri-wing) screwdriver (size Y00)</li>
+<li class="mb-2 text-lg font-display text-gray-900 flex items-center">Isopropyl alcohol (IPA) (90% or higher)</li>
+<li class="mb-2 text-lg font-display text-gray-900 flex items-center">An eyedropper (for the IPA)</li>
+<li class="mb-2 text-lg font-display text-gray-900 flex items-center">A plastic opening tool or old credit card (something non-metal to pry open)</li>
+<li class="mb-2 text-lg font-display text-gray-900 flex items-center">Patience (this part is key!)</li>
 </ul>
 <p class="leading-relaxed font-display mb-4 mt-4 text-lg text-gray-900"><em>Quick Note: If you purchase through our Amazon link, we might get a small kickback that helps support the blog at no extra cost to you!</em></p>
-<h2 class="leading-relaxed font-display text-2xl mb-6 mt-12 font-semibold text-gray-800">Steps to Replace the Battery</h2>
-<h3 class="leading-relaxed font-display text-xl mb-4 mt-10 font-semibold text-gray-700">1. Power Off Your Switch</h3>
+<h2 class="leading-relaxed font-display text-2xl mb-6 mt-12 font-semibold text-gray-800" id="steps-to-replace-the-battery" tabindex="-1">Steps to Replace the Battery</h2>
+<h3 class="leading-relaxed font-display text-xl mb-4 mt-10 font-semibold text-gray-700" id="1.-power-off-your-switch" tabindex="-1">1. Power Off Your Switch</h3>
 <p class="leading-relaxed font-display mb-4 mt-4 text-lg text-gray-900">Before starting, make sure your Nintendo Switch is completely turned off. Holding down the power button for a few seconds will bring up the Power Options menu. Select &quot;Turn Off&quot; from the list to shut it down fully.</p>
 <p class="leading-relaxed font-display mb-4 mt-4 text-lg text-gray-900"><strong class="text-lg font-semibold text-gray-800">Important</strong>: Don’t just put it to sleep! Powering down completely avoids any risk of short-circuiting when you’re working with the internals.</p>
-<h3 class="leading-relaxed font-display text-xl mb-4 mt-10 font-semibold text-gray-700">2. Remove the Screws on the Back, Sides, and Top</h3>
+<h3 class="leading-relaxed font-display text-xl mb-4 mt-10 font-semibold text-gray-700" id="2.-remove-the-screws-on-the-back%2C-sides%2C-and-top" tabindex="-1">2. Remove the Screws on the Back, Sides, and Top</h3>
 <p class="leading-relaxed font-display mb-4 mt-4 text-lg text-gray-900">Time to grab your tools! You’ll need both your Phillips-head and triangle (tri-wing) screwdrivers. Here's a more detailed breakdown of where each screw is located:</p>
 <p class="leading-relaxed font-display mb-4 mt-4 text-lg text-gray-900"><strong class="text-lg font-semibold text-gray-800">Back of the Switch</strong>:</p>
 <p class="leading-relaxed font-display mb-4 mt-4 text-lg text-gray-900">Remove four <strong class="text-lg font-semibold text-gray-800">Phillips screws</strong> (size #00) at the four corners of the back panel. These screws hold the back shell securely in place.</p>
@@ -434,21 +476,21 @@ document.addEventListener("DOMContentLoaded", (event) => {
 <p class="leading-relaxed font-display mb-4 mt-4 text-lg text-gray-900"><strong class="text-lg font-semibold text-gray-800">Top and Bottom</strong>:
 At the top, remove <strong class="text-lg font-semibold text-gray-800">one triangle (tri-wing) screw</strong> next to the game card slot. This helps secure the internal frame.</p>
 <p class="leading-relaxed font-display mb-4 mt-4 text-lg text-gray-900">At the bottom, remove <strong class="text-lg font-semibold text-gray-800">two triangle (tri-wing) screws</strong> near the USB-C charging port. These help keep the bottom of the console firmly locked.</p>
-<h3 class="leading-relaxed font-display text-xl mb-4 mt-10 font-semibold text-gray-700">3. Remove the SD Card Slot</h3>
+<h3 class="leading-relaxed font-display text-xl mb-4 mt-10 font-semibold text-gray-700" id="3.-remove-the-sd-card-slot" tabindex="-1">3. Remove the SD Card Slot</h3>
 <p class="leading-relaxed font-display mb-4 mt-4 text-lg text-gray-900">Before you can remove the back cover, you’ll need to take out the SD card slot. This is held in place by <strong class="text-lg font-semibold text-gray-800">one small Phillips screw</strong>.</p>
-<ul class="leading-relaxed list-disc list-inside mt-4 space-y-2 pl-6 text-lg font-display ml-6 mb-8 text-gray-900">
-<li class="leading-relaxed mb-2 text-lg font-display text-gray-900 flex items-center">Carefully unscrew the Phillips screw holding the SD card slot in place.</li>
-<li class="leading-relaxed mb-2 text-lg font-display text-gray-900 flex items-center">Gently pull the SD card slot out of the Switch using your fingers. Be careful here; don’t yank it out too quickly, as the slot is a little fragile.</li>
-<li class="leading-relaxed mb-2 text-lg font-display text-gray-900 flex items-center">Put the SD card slot and its screw aside somewhere safe.</li>
+<ul class="list-disc list-inside mt-4 space-y-2 pl-6 text-lg font-display ml-6 mb-8 text-gray-900">
+<li class="mb-2 text-lg font-display text-gray-900 flex items-center">Carefully unscrew the Phillips screw holding the SD card slot in place.</li>
+<li class="mb-2 text-lg font-display text-gray-900 flex items-center">Gently pull the SD card slot out of the Switch using your fingers. Be careful here; don’t yank it out too quickly, as the slot is a little fragile.</li>
+<li class="mb-2 text-lg font-display text-gray-900 flex items-center">Put the SD card slot and its screw aside somewhere safe.</li>
 </ul>
-<h3 class="leading-relaxed font-display text-xl mb-4 mt-10 font-semibold text-gray-700">4. Pop Off the Back Cover</h3>
+<h3 class="leading-relaxed font-display text-xl mb-4 mt-10 font-semibold text-gray-700" id="4.-pop-off-the-back-cover" tabindex="-1">4. Pop Off the Back Cover</h3>
 <p class="leading-relaxed font-display mb-4 mt-4 text-lg text-gray-900">With the screws and SD card slot removed, you’re ready to take off the back cover.</p>
 <p class="leading-relaxed font-display mb-4 mt-4 text-lg text-gray-900">Use a plastic opening tool (or an old credit card) to gently pry around the edges of the back cover. Start at the bottom near the charging port and work your way up.</p>
 <p class="leading-relaxed font-display mb-4 mt-4 text-lg text-gray-900">Take your time and avoid using too much force, as the plastic clips holding the back cover in place can be sensitive.</p>
-<ul class="leading-relaxed list-disc list-inside mt-4 space-y-2 pl-6 text-lg font-display ml-6 mb-8 text-gray-900">
-<li class="leading-relaxed mb-2 text-lg font-display text-gray-900 flex items-center">Once the back cover is loose, carefully lift it away and set it aside.</li>
+<ul class="list-disc list-inside mt-4 space-y-2 pl-6 text-lg font-display ml-6 mb-8 text-gray-900">
+<li class="mb-2 text-lg font-display text-gray-900 flex items-center">Once the back cover is loose, carefully lift it away and set it aside.</li>
 </ul>
-<h3 class="leading-relaxed font-display text-xl mb-4 mt-10 font-semibold text-gray-700">5. Remove the Metal Cooling Case</h3>
+<h3 class="leading-relaxed font-display text-xl mb-4 mt-10 font-semibold text-gray-700" id="5.-remove-the-metal-cooling-case" tabindex="-1">5. Remove the Metal Cooling Case</h3>
 <p class="leading-relaxed font-display mb-4 mt-4 text-lg text-gray-900">Underneath the back cover, you’ll find a <strong class="text-lg font-semibold text-gray-800">metal cooling case</strong> that covers the battery and other internal components.</p>
 <p class="leading-relaxed font-display mb-4 mt-4 text-lg text-gray-900">There are <strong class="text-lg font-semibold text-gray-800">five Phillips screws</strong> securing the metal case in place:
 Two at the top (near the heat sink)
@@ -456,52 +498,52 @@ Two near the center (next to the battery compartment)
 One at the bottom (near the fan)</p>
 <p class="leading-relaxed font-display mb-4 mt-4 text-lg text-gray-900">Once you’ve removed the screws, carefully lift the metal case off and set it aside. Be careful not to bend the metal, as it's important for heat dissipation.</p>
 <p class="leading-relaxed font-display mb-4 mt-4 text-lg text-gray-900"><em>Here’s what the metal cooling case looks like after removal.</em></p>
-<h3 class="leading-relaxed font-display text-xl mb-4 mt-10 font-semibold text-gray-700">6. Apply IPA to Loosen the Battery Glue</h3>
+<h3 class="leading-relaxed font-display text-xl mb-4 mt-10 font-semibold text-gray-700" id="6.-apply-ipa-to-loosen-the-battery-glue" tabindex="-1">6. Apply IPA to Loosen the Battery Glue</h3>
 <p class="leading-relaxed font-display mb-4 mt-4 text-lg text-gray-900">Nintendo secures the battery with adhesive, so you’ll need to loosen it a bit before trying to remove the battery.</p>
-<ul class="leading-relaxed list-disc list-inside mt-4 space-y-2 pl-6 text-lg font-display ml-6 mb-8 text-gray-900">
-<li class="leading-relaxed mb-2 text-lg font-display text-gray-900 flex items-center">Using an eyedropper, carefully apply a few drops of isopropyl alcohol (IPA) around the edges of the battery. Let it sit for a minute or two to soften the glue.</li>
+<ul class="list-disc list-inside mt-4 space-y-2 pl-6 text-lg font-display ml-6 mb-8 text-gray-900">
+<li class="mb-2 text-lg font-display text-gray-900 flex items-center">Using an eyedropper, carefully apply a few drops of isopropyl alcohol (IPA) around the edges of the battery. Let it sit for a minute or two to soften the glue.</li>
 </ul>
 <p class="leading-relaxed font-display mb-4 mt-4 text-lg text-gray-900"><strong class="text-lg font-semibold text-gray-800">Tip</strong>: The IPA will help break down the adhesive without damaging the internal components, so it’s safe to use in this context.</p>
-<h3 class="leading-relaxed font-display text-xl mb-4 mt-10 font-semibold text-gray-700">7. Disconnect the Battery Cable</h3>
+<h3 class="leading-relaxed font-display text-xl mb-4 mt-10 font-semibold text-gray-700" id="7.-disconnect-the-battery-cable" tabindex="-1">7. Disconnect the Battery Cable</h3>
 <p class="leading-relaxed font-display mb-4 mt-4 text-lg text-gray-900">Before removing the battery, you need to disconnect its cable from the motherboard.</p>
 <p class="leading-relaxed font-display mb-4 mt-4 text-lg text-gray-900">Locate the <strong class="text-lg font-semibold text-gray-800">battery connector</strong> near the battery compartment. It’s a small, rectangular connector that clips into the board.</p>
 <p class="leading-relaxed font-display mb-4 mt-4 text-lg text-gray-900">Using your fingers or a plastic tool, gently pull the connector out of its slot to disconnect the battery.</p>
-<h3 class="leading-relaxed font-display text-xl mb-4 mt-10 font-semibold text-gray-700">8. Remove the Battery</h3>
+<h3 class="leading-relaxed font-display text-xl mb-4 mt-10 font-semibold text-gray-700" id="8.-remove-the-battery" tabindex="-1">8. Remove the Battery</h3>
 <p class="leading-relaxed font-display mb-4 mt-4 text-lg text-gray-900">Now that the glue is loosened and the battery cable is disconnected, it’s time to take out the battery.</p>
 <p class="leading-relaxed font-display mb-4 mt-4 text-lg text-gray-900">Use your plastic opening tool or an old credit card to gently pry the battery out. Start from one corner and slowly work your way around the edges. If the adhesive is still a little sticky, apply a few more drops of IPA.</p>
-<ul class="leading-relaxed list-disc list-inside mt-4 space-y-2 pl-6 text-lg font-display ml-6 mb-8 text-gray-900">
-<li class="leading-relaxed mb-2 text-lg font-display text-gray-900 flex items-center">Once loose, carefully lift the battery out of its compartment.</li>
+<ul class="list-disc list-inside mt-4 space-y-2 pl-6 text-lg font-display ml-6 mb-8 text-gray-900">
+<li class="mb-2 text-lg font-display text-gray-900 flex items-center">Once loose, carefully lift the battery out of its compartment.</li>
 </ul>
-<h3 class="leading-relaxed font-display text-xl mb-4 mt-10 font-semibold text-gray-700">9. Insert the New Battery</h3>
+<h3 class="leading-relaxed font-display text-xl mb-4 mt-10 font-semibold text-gray-700" id="9.-insert-the-new-battery" tabindex="-1">9. Insert the New Battery</h3>
 <p class="leading-relaxed font-display mb-4 mt-4 text-lg text-gray-900">With the old battery removed, it’s time to pop in the new one!</p>
-<ul class="leading-relaxed list-disc list-inside mt-4 space-y-2 pl-6 text-lg font-display ml-6 mb-8 text-gray-900">
-<li class="leading-relaxed mb-2 text-lg font-display text-gray-900 flex items-center">Place the new battery into the compartment, making sure it sits snugly in place.</li>
-<li class="leading-relaxed mb-2 text-lg font-display text-gray-900 flex items-center">Reconnect the battery cable to the motherboard by gently pushing the connector back into its slot. You’ll hear a slight click when it’s secure.</li>
+<ul class="list-disc list-inside mt-4 space-y-2 pl-6 text-lg font-display ml-6 mb-8 text-gray-900">
+<li class="mb-2 text-lg font-display text-gray-900 flex items-center">Place the new battery into the compartment, making sure it sits snugly in place.</li>
+<li class="mb-2 text-lg font-display text-gray-900 flex items-center">Reconnect the battery cable to the motherboard by gently pushing the connector back into its slot. You’ll hear a slight click when it’s secure.</li>
 </ul>
-<h3 class="leading-relaxed font-display text-xl mb-4 mt-10 font-semibold text-gray-700">10. Reattach the Metal Cooling Case and Back Cover</h3>
+<h3 class="leading-relaxed font-display text-xl mb-4 mt-10 font-semibold text-gray-700" id="10.-reattach-the-metal-cooling-case-and-back-cover" tabindex="-1">10. Reattach the Metal Cooling Case and Back Cover</h3>
 <p class="leading-relaxed font-display mb-4 mt-4 text-lg text-gray-900">Now that the new battery is in place, it’s time to reassemble your Switch. Follow these steps carefully:</p>
-<ol class="leading-relaxed list-decimal list-inside mt-4 space-y-2 pl-6 text-lg font-display ml-6 mb-8 text-gray-900">
-<li class="leading-relaxed mb-2 text-lg font-display text-gray-900 flex items-center"><strong class="text-lg font-semibold text-gray-800">Reattach the metal cooling case</strong></li>
+<ol class="list-decimal list-inside mt-4 space-y-2 pl-6 text-lg font-display ml-6 mb-8 text-gray-900">
+<li class="mb-2 text-lg font-display text-gray-900 flex items-center"><strong class="text-lg font-semibold text-gray-800">Reattach the metal cooling case</strong></li>
 </ol>
 <p class="leading-relaxed font-display mb-4 mt-4 text-lg text-gray-900">Place the metal case back over the battery and other components, lining it up with the screw holes.
 Secure it with the five Phillips screws you removed earlier (two at the top, two in the middle, and one at the bottom).</p>
-<ol start="2" class="leading-relaxed list-decimal list-inside mt-4 space-y-2 pl-6 text-lg font-display ml-6 mb-8 text-gray-900">
-<li class="leading-relaxed mb-2 text-lg font-display text-gray-900 flex items-center"><strong class="text-lg font-semibold text-gray-800">Reinstall the SD card slot</strong></li>
+<ol start="2" class="list-decimal list-inside mt-4 space-y-2 pl-6 text-lg font-display ml-6 mb-8 text-gray-900">
+<li class="mb-2 text-lg font-display text-gray-900 flex items-center"><strong class="text-lg font-semibold text-gray-800">Reinstall the SD card slot</strong></li>
 </ol>
 <p class="leading-relaxed font-display mb-4 mt-4 text-lg text-gray-900">Slot the SD card reader back into its position, aligning it carefully.
 Secure it with the small Phillips screw you removed earlier.</p>
-<ol start="3" class="leading-relaxed list-decimal list-inside mt-4 space-y-2 pl-6 text-lg font-display ml-6 mb-8 text-gray-900">
-<li class="leading-relaxed mb-2 text-lg font-display text-gray-900 flex items-center"><strong class="text-lg font-semibold text-gray-800">Pop the back cover on</strong></li>
+<ol start="3" class="list-decimal list-inside mt-4 space-y-2 pl-6 text-lg font-display ml-6 mb-8 text-gray-900">
+<li class="mb-2 text-lg font-display text-gray-900 flex items-center"><strong class="text-lg font-semibold text-gray-800">Pop the back cover on</strong></li>
 </ol>
 <p class="leading-relaxed font-display mb-4 mt-4 text-lg text-gray-900">Align the back cover with the edges of the Switch and gently press it into place.
 Make sure all edges are properly snapped back in.</p>
-<ol start="4" class="leading-relaxed list-decimal list-inside mt-4 space-y-2 pl-6 text-lg font-display ml-6 mb-8 text-gray-900">
-<li class="leading-relaxed mb-2 text-lg font-display text-gray-900 flex items-center"><strong class="text-lg font-semibold text-gray-800">Replace the screws</strong></li>
+<ol start="4" class="list-decimal list-inside mt-4 space-y-2 pl-6 text-lg font-display ml-6 mb-8 text-gray-900">
+<li class="mb-2 text-lg font-display text-gray-900 flex items-center"><strong class="text-lg font-semibold text-gray-800">Replace the screws</strong></li>
 </ol>
 <p class="leading-relaxed font-display mb-4 mt-4 text-lg text-gray-900">Begin by screwing in the four Phillips screws on the back of the Switch.</p>
 <p class="leading-relaxed font-display mb-4 mt-4 text-lg text-gray-900">Then, move to the two Phillips screws on each side near the Joy-Con rails.</p>
 <p class="leading-relaxed font-display mb-4 mt-4 text-lg text-gray-900">Finally, secure the three triangle screws at the top and bottom of the Switch.</p>
-<h3 class="leading-relaxed font-display text-xl mb-4 mt-10 font-semibold text-gray-700">11. Power On and Play!</h3>
+<h3 class="leading-relaxed font-display text-xl mb-4 mt-10 font-semibold text-gray-700" id="11.-power-on-and-play!" tabindex="-1">11. Power On and Play!</h3>
 <p class="leading-relaxed font-display mb-4 mt-4 text-lg text-gray-900">Once everything is reassembled, turn your Switch back on to make sure the new battery is working.</p>
 <p class="leading-relaxed font-display mb-4 mt-4 text-lg text-gray-900">If all is good, you’re ready to enjoy your Switch with a fresh, long-lasting battery!</p>
 
@@ -949,38 +991,42 @@ Make sure all edges are properly snapped back in.</p>
 </dialog>
 
 
-	
-
-<footer class="footer footer-center  rounded p-10 brand-color-background">
-
+	<footer class="p-10 brand-color-background">
+  <div class="mx-auto max-w-7xl overflow-hidden px-6 py-20 sm:py-24 lg:px-8 justify-cente">
+<div class="mx-auto flex max-w-2xl flex-col items-center justify-center">
   <a href="/" title="Coffee & Fun Home page" >
     <span class="sr-only"> Visit the Coffee & Fun Homepage</span>
   <img alt="Coffee and Fun Logo" src="/assets/images/coffee-and-fun-logo-dark.png" width="200" height="200"
     decoding="async" data-nimg="future" loading="lazy"
     class="h-24 w-24 flex-none fill-cyan-500 inline-block fill-current" />
     </a>
-  <p class="  mb-4">
+  <p class="  mb-4 mt-4">
     <span class="font-bold text-lg">
     Coffee & Fun LLC
     </span>
 
-  <span class="text-base font-normal">Crafting Software, One Brew at a Time</span>
+  
 </p>
-  <nav>
-    <div class="grid grid-flow-col gap-4">
 
-      <a href="https://www.twitter.com/bycoffeeandfun" target="_blank" rel="noopener noreferrer"
-        class="text-black hover:text-blue-400" title="Follow Coffee & Fun on Twitter">
-        <span class="sr-only">Follow us on Twitter</span>
-        <svg class="h-7 w-7" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-          <path
-            d="M8.29 20.251c7.547 0 11.675-6.253 11.675-11.675 0-.178 0-.355-.012-.53A8.348 8.348 0 0022 5.92a8.19 8.19 0 01-2.357.646 4.118 4.118 0 001.804-2.27 8.224 8.224 0 01-2.605.996 4.107 4.107 0 00-6.993 3.743 11.65 11.65 0 01-8.457-4.287 4.106 4.106 0 001.27 5.477A4.072 4.072 0 012.8 9.713v.052a4.105 4.105 0 003.292 4.022 4.095 4.095 0 01-1.853.07 4.108 4.108 0 003.834 2.85A8.233 8.233 0 012 18.407a11.616 11.616 0 006.29 1.84">
-          </path>
-        </svg>
-      </a>
-      <a href="https://www.instagram.com/coffeeandfunllc" target="_blank" rel="noopener noreferrer"
-      class="text-black hover:text-pink-400" title="Follow Coffee & Fun on Instagram">
-      <svg aria-hidden="true" role="img" fill="currentColor" viewBox="0 0 24 24" class="h-7 w-7"><title>Instagram</title><desc>Visit Helperbird's official Instagram page</desc><path clip-rule="evenodd" d="M12.315 2c2.43 0 2.784.013 3.808.06 1.064.049 1.791.218 2.427.465a4.902 4.902 0 011.772 1.153 4.902 4.902 0 011.153 1.772c.247.636.416 1.363.465 2.427.048 1.067.06 1.407.06 4.123v.08c0 2.643-.012 2.987-.06 4.043-.049 1.064-.218 1.791-.465 2.427a4.902 4.902 0 01-1.153 1.772 4.902 4.902 0 01-1.772 1.153c-.636.247-1.363.416-2.427.465-1.067.048-1.407.06-4.123.06h-.08c-2.643 0-2.987-.012-4.043-.06-1.064-.049-1.791-.218-2.427-.465a4.902 4.902 0 01-1.772-1.153 4.902 4.902 0 01-1.153-1.772c-.247-.636-.416-1.363-.465-2.427-.047-1.024-.06-1.379-.06-3.808v-.63c0-2.43.013-2.784.06-3.808.049-1.064.218-1.791.465-2.427a4.902 4.902 0 011.153-1.772A4.902 4.902 0 015.45 2.525c.636-.247 1.363-.416 2.427-.465C8.901 2.013 9.256 2 11.685 2h.63zm-.081 1.802h-.468c-2.456 0-2.784.011-3.807.058-.975.045-1.504.207-1.857.344-.467.182-.8.398-1.15.748-.35.35-.566.683-.748 1.15-.137.353-.3.882-.344 1.857-.047 1.023-.058 1.351-.058 3.807v.468c0 2.456.011 2.784.058 3.807.045.975.207 1.504.344 1.857.182.466.399.8.748 1.15.35.35.683.566 1.15.748.353.137.882.3 1.857.344 1.054.048 1.37.058 4.041.058h.08c2.597 0 2.917-.01 3.96-.058.976-.045 1.505-.207 1.858-.344.466-.182.8-.398 1.15-.748.35-.35.566-.683.748-1.15.137-.353.3-.882.344-1.857.048-1.055.058-1.37.058-4.041v-.08c0-2.597-.01-2.917-.058-3.96-.045-.976-.207-1.505-.344-1.858a3.097 3.097 0 00-.748-1.15 3.098 3.098 0 00-1.15-.748c-.353-.137-.882-.3-1.857-.344-1.023-.047-1.351-.058-3.807-.058zM12 6.865a5.135 5.135 0 110 10.27 5.135 5.135 0 010-10.27zm0 1.802a3.333 3.333 0 100 6.666 3.333 3.333 0 000-6.666zm5.338-3.205a1.2 1.2 0 110 2.4 1.2 1.2 0 010-2.4z" fill-rule="evenodd"></path></svg>
+
+  <span class="text-base font-normal">Crafting Software, One Brew at a Time</span>
+
+</div>
+
+    <div class="mt-16  justify-center grid grid-flow-col gap-4">
+    
+    <a href="https://www.twitter.com/bycoffeeandfun" target="_blank" rel="noopener noreferrer"
+    class="text-black hover:text-blue-400" title="Follow Coffee & Fun on Twitter">
+    <span class="sr-only">Follow us on Twitter</span>
+    <svg class="h-7 w-7" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+      <path
+        d="M8.29 20.251c7.547 0 11.675-6.253 11.675-11.675 0-.178 0-.355-.012-.53A8.348 8.348 0 0022 5.92a8.19 8.19 0 01-2.357.646 4.118 4.118 0 001.804-2.27 8.224 8.224 0 01-2.605.996 4.107 4.107 0 00-6.993 3.743 11.65 11.65 0 01-8.457-4.287 4.106 4.106 0 001.27 5.477A4.072 4.072 0 012.8 9.713v.052a4.105 4.105 0 003.292 4.022 4.095 4.095 0 01-1.853.07 4.108 4.108 0 003.834 2.85A8.233 8.233 0 012 18.407a11.616 11.616 0 006.29 1.84">
+      </path>
+    </svg>
+  </a>
+  <a href="https://www.instagram.com/coffeeandfunllc" target="_blank" rel="noopener noreferrer"
+  class="text-black hover:text-pink-400" title="Follow Coffee & Fun on Instagram">
+  <svg aria-hidden="true" role="img" fill="currentColor" viewBox="0 0 24 24" class="h-7 w-7"><title>Instagram</title><desc>Visit Helperbird's official Instagram page</desc><path clip-rule="evenodd" d="M12.315 2c2.43 0 2.784.013 3.808.06 1.064.049 1.791.218 2.427.465a4.902 4.902 0 011.772 1.153 4.902 4.902 0 011.153 1.772c.247.636.416 1.363.465 2.427.048 1.067.06 1.407.06 4.123v.08c0 2.643-.012 2.987-.06 4.043-.049 1.064-.218 1.791-.465 2.427a4.902 4.902 0 01-1.153 1.772 4.902 4.902 0 01-1.772 1.153c-.636.247-1.363.416-2.427.465-1.067.048-1.407.06-4.123.06h-.08c-2.643 0-2.987-.012-4.043-.06-1.064-.049-1.791-.218-2.427-.465a4.902 4.902 0 01-1.772-1.153 4.902 4.902 0 01-1.153-1.772c-.247-.636-.416-1.363-.465-2.427-.047-1.024-.06-1.379-.06-3.808v-.63c0-2.43.013-2.784.06-3.808.049-1.064.218-1.791.465-2.427a4.902 4.902 0 011.153-1.772A4.902 4.902 0 015.45 2.525c.636-.247 1.363-.416 2.427-.465C8.901 2.013 9.256 2 11.685 2h.63zm-.081 1.802h-.468c-2.456 0-2.784.011-3.807.058-.975.045-1.504.207-1.857.344-.467.182-.8.398-1.15.748-.35.35-.566.683-.748 1.15-.137.353-.3.882-.344 1.857-.047 1.023-.058 1.351-.058 3.807v.468c0 2.456.011 2.784.058 3.807.045.975.207 1.504.344 1.857.182.466.399.8.748 1.15.35.35.683.566 1.15.748.353.137.882.3 1.857.344 1.054.048 1.37.058 4.041.058h.08c2.597 0 2.917-.01 3.96-.058.976-.045 1.505-.207 1.858-.344.466-.182.8-.398 1.15-.748.35-.35.566-.683.748-1.15.137-.353.3-.882.344-1.857.048-1.055.058-1.37.058-4.041v-.08c0-2.597-.01-2.917-.058-3.96-.045-.976-.207-1.505-.344-1.858a3.097 3.097 0 00-.748-1.15 3.098 3.098 0 00-1.15-.748c-.353-.137-.882-.3-1.857-.344-1.023-.047-1.351-.058-3.807-.058zM12 6.865a5.135 5.135 0 110 10.27 5.135 5.135 0 010-10.27zm0 1.802a3.333 3.333 0 100 6.666 3.333 3.333 0 000-6.666zm5.338-3.205a1.2 1.2 0 110 2.4 1.2 1.2 0 010-2.4z" fill-rule="evenodd"></path></svg>
 </a>
 
 
@@ -988,43 +1034,51 @@ Make sure all edges are properly snapped back in.</p>
 title="Joing our Discord" class="text-black hover:text-purple-700">
 <span class="sr-only">Joing our Discord</span>
 <svg class="h-7 w-7" fill="currentColor" viewBox="0 -28.5 256 256" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" preserveAspectRatio="xMidYMid">
-  <g>
-      <path d="M216.856339,16.5966031 C200.285002,8.84328665 182.566144,3.2084988 164.041564,0 C161.766523,4.11318106 159.108624,9.64549908 157.276099,14.0464379 C137.583995,11.0849896 118.072967,11.0849896 98.7430163,14.0464379 C96.9108417,9.64549908 94.1925838,4.11318106 91.8971895,0 C73.3526068,3.2084988 55.6133949,8.86399117 39.0420583,16.6376612 C5.61752293,67.146514 -3.4433191,116.400813 1.08711069,164.955721 C23.2560196,181.510915 44.7403634,191.567697 65.8621325,198.148576 C71.0772151,190.971126 75.7283628,183.341335 79.7352139,175.300261 C72.104019,172.400575 64.7949724,168.822202 57.8887866,164.667963 C59.7209612,163.310589 61.5131304,161.891452 63.2445898,160.431257 C105.36741,180.133187 151.134928,180.133187 192.754523,160.431257 C194.506336,161.891452 196.298154,163.310589 198.110326,164.667963 C191.183787,168.842556 183.854737,172.420929 176.223542,175.320965 C180.230393,183.341335 184.861538,190.991831 190.096624,198.16893 C211.238746,191.588051 232.743023,181.531619 254.911949,164.955721 C260.227747,108.668201 245.831087,59.8662432 216.856339,16.5966031 Z M85.4738752,135.09489 C72.8290281,135.09489 62.4592217,123.290155 62.4592217,108.914901 C62.4592217,94.5396472 72.607595,82.7145587 85.4738752,82.7145587 C98.3405064,82.7145587 108.709962,94.5189427 108.488529,108.914901 C108.508531,123.290155 98.3405064,135.09489 85.4738752,135.09489 Z M170.525237,135.09489 C157.88039,135.09489 147.510584,123.290155 147.510584,108.914901 C147.510584,94.5396472 157.658606,82.7145587 170.525237,82.7145587 C183.391518,82.7145587 193.761324,94.5189427 193.539891,108.914901 C193.539891,123.290155 183.391518,135.09489 170.525237,135.09489 Z" fill="currentColor" fill-rule="nonzero">
+<g>
+  <path d="M216.856339,16.5966031 C200.285002,8.84328665 182.566144,3.2084988 164.041564,0 C161.766523,4.11318106 159.108624,9.64549908 157.276099,14.0464379 C137.583995,11.0849896 118.072967,11.0849896 98.7430163,14.0464379 C96.9108417,9.64549908 94.1925838,4.11318106 91.8971895,0 C73.3526068,3.2084988 55.6133949,8.86399117 39.0420583,16.6376612 C5.61752293,67.146514 -3.4433191,116.400813 1.08711069,164.955721 C23.2560196,181.510915 44.7403634,191.567697 65.8621325,198.148576 C71.0772151,190.971126 75.7283628,183.341335 79.7352139,175.300261 C72.104019,172.400575 64.7949724,168.822202 57.8887866,164.667963 C59.7209612,163.310589 61.5131304,161.891452 63.2445898,160.431257 C105.36741,180.133187 151.134928,180.133187 192.754523,160.431257 C194.506336,161.891452 196.298154,163.310589 198.110326,164.667963 C191.183787,168.842556 183.854737,172.420929 176.223542,175.320965 C180.230393,183.341335 184.861538,190.991831 190.096624,198.16893 C211.238746,191.588051 232.743023,181.531619 254.911949,164.955721 C260.227747,108.668201 245.831087,59.8662432 216.856339,16.5966031 Z M85.4738752,135.09489 C72.8290281,135.09489 62.4592217,123.290155 62.4592217,108.914901 C62.4592217,94.5396472 72.607595,82.7145587 85.4738752,82.7145587 C98.3405064,82.7145587 108.709962,94.5189427 108.488529,108.914901 C108.508531,123.290155 98.3405064,135.09489 85.4738752,135.09489 Z M170.525237,135.09489 C157.88039,135.09489 147.510584,123.290155 147.510584,108.914901 C147.510584,94.5396472 157.658606,82.7145587 170.525237,82.7145587 C183.391518,82.7145587 193.761324,94.5189427 193.539891,108.914901 C193.539891,123.290155 183.391518,135.09489 170.525237,135.09489 Z" fill="currentColor" fill-rule="nonzero">
 
 </path>
-  </g>
+</g>
 </svg>
 </a>
 
-      <a href="https://www.github.com/coffee-and-fun" target="_blank" rel="noopener noreferrer"
-        title="Follow Coffee & Fun on Github" class="text-black hover:text-gray-700">
-        <span class="sr-only">Follow us on GitHub</span>
-        <svg class="h-7 w-7" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-          <path fill-rule="evenodd"
-            d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z"
-            clip-rule="evenodd"></path>
-        </svg>
-      </a>
+  <a href="https://www.github.com/coffee-and-fun" target="_blank" rel="noopener noreferrer"
+    title="Follow Coffee & Fun on Github" class="text-black hover:text-gray-700">
+    <span class="sr-only">Follow us on GitHub</span>
+    <svg class="h-7 w-7" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+      <path fill-rule="evenodd"
+        d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z"
+        clip-rule="evenodd"></path>
+    </svg>
+  </a>
 
 
-  
 
-      <a href="https://www.youtube.com/bycoffeeandfun" target="_blank" rel="noopener noreferrer"
-        title="Follow Coffee & Fun on Youtube" class="text-black hover:text-red-600">
-        <span class="sr-only">Follow us on Youtube</span>
-        <svg class="h-7 w-7" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-          <path fill-rule="evenodd"
-            d="M19.812 5.418c.861.23 1.538.907 1.768 1.768C21.998 8.746 22 12 22 12s0 3.255-.418 4.814a2.504 2.504 0 0 1-1.768 1.768c-1.56.419-7.814.419-7.814.419s-6.255 0-7.814-.419a2.505 2.505 0 0 1-1.768-1.768C2 15.255 2 12 2 12s0-3.255.417-4.814a2.507 2.507 0 0 1 1.768-1.768C5.744 5 11.998 5 11.998 5s6.255 0 7.814.418ZM15.194 12 10 15V9l5.194 3Z"
-            clip-rule="evenodd"></path>
-        </svg>
-      </a>
+
+  <a href="https://www.youtube.com/bycoffeeandfun" target="_blank" rel="noopener noreferrer"
+    title="Follow Coffee & Fun on Youtube" class="text-black hover:text-red-600">
+    <span class="sr-only">Follow us on Youtube</span>
+    <svg class="h-7 w-7" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+      <path fill-rule="evenodd"
+        d="M19.812 5.418c.861.23 1.538.907 1.768 1.768C21.998 8.746 22 12 22 12s0 3.255-.418 4.814a2.504 2.504 0 0 1-1.768 1.768c-1.56.419-7.814.419-7.814.419s-6.255 0-7.814-.419a2.505 2.505 0 0 1-1.768-1.768C2 15.255 2 12 2 12s0-3.255.417-4.814a2.507 2.507 0 0 1 1.768-1.768C5.744 5 11.998 5 11.998 5s6.255 0 7.814.418ZM15.194 12 10 15V9l5.194 3Z"
+        clip-rule="evenodd"></path>
+    </svg>
+  </a>
+
 
     </div>
-  </nav>
-  <aside>
-    <p> &copy; 2025 <b>Coffee & Fun LLC</b>. All rights reserved.</p>
-  </aside>
+    <p class="mt-10 text-center text-md text-black"> &copy; 2025 <b>Coffee & Fun LLC</b>. All rights reserved.</p>
+  </div>
 </footer>
+
+
+
+
+
+
+
+
+
 
 
 <script type="text/javascript">

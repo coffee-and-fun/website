@@ -16,6 +16,39 @@
 	<meta name="title" content="How I would Improve the Chrome Web Store - Coffee & Fun LLC" />
     <meta name="keywords" content="Chrome Web Store, Extension Development, Google Chrome Extensions, Trusted Badge, Best Standards, User Engagement, Security Breaches, Two-Factor Authentication (2FA), Developer Fees, Smarter Reviews, Version-Specific Feedback, Temporary Badge Removal, Monthly Active Users (MAU), Collection & Ranking Badges, Spam Prevention, Accessibility Tools, Material Design M3, Extension Marketplace, User Transparency, Developer Advocates" />
 
+    <!-- PWA Manifest -->
+<!-- PWA Manifest -->
+<link rel="manifest" href="/assets/images/social/site.webmanifest" />
+
+<!-- Theme & Mobile Meta -->
+<meta name="theme-color" content="#fef5ec" />
+<meta name="mobile-web-app-capable" content="yes" />
+<meta name="apple-mobile-web-app-capable" content="yes" />
+<meta name="apple-mobile-web-app-status-bar-style" content="default" />
+
+<!-- Icons -->
+<link rel="apple-touch-icon" href="/assets/images/social/192.png" />
+<link rel="icon" href="/assets/images/social/192.png" sizes="192x192" type="image/png" />
+<!-- PWA Meta Tags -->
+<meta name="apple-mobile-web-app-capable" content="yes" />
+<meta name="apple-mobile-web-app-status-bar-style" content="black" />
+<meta name="mobile-web-app-capable" content="yes" />
+
+
+<!-- Theme & Mobile Meta -->
+<meta name="theme-color" content="#fef5ec" />
+<meta name="mobile-web-app-capable" content="yes" />
+<meta name="apple-mobile-web-app-capable" content="yes" />
+<meta name="apple-mobile-web-app-status-bar-style" content="default" />
+
+<!-- Icons -->
+<link rel="apple-touch-icon" href="/assets/images/social/192.png" />
+<link rel="icon" href="/assets/images/social/192.png" sizes="192x192" type="image/png" />
+<!-- PWA Meta Tags -->
+<meta name="apple-mobile-web-app-capable" content="yes" />
+<meta name="apple-mobile-web-app-status-bar-style" content="black" />
+<meta name="mobile-web-app-capable" content="yes" />
+
 	<!-- Open Graph Meta Tags -->
 	<meta property="og:title" content="How I would Improve the Chrome Web Store - Coffee & Fun LLC" />
 	<meta property="og:site_name" content="Coffee & Fun LLC" />
@@ -50,12 +83,16 @@
 			}
 		</script>
 
-	<link href="/assets/js/main.css" rel="stylesheet" />
-	<script>
-		if ('serviceWorker' in navigator) {
-			navigator.serviceWorker.register('/service-worker.js');
-		}
-	</script>
+    	<link href="/assets/css/engine.css" rel="stylesheet" />
+
+
+    <script>
+   if ('serviceWorker' in navigator) {
+      navigator.serviceWorker.register('/service-worker.js')
+        .then(() => console.log('✅ Service worker registered'))
+        .catch((err) => console.log('Service worker error:', err));
+    }
+    </script>
 
 
 	<style>
@@ -212,17 +249,21 @@ document.addEventListener("DOMContentLoaded", (event) => {
 
 
 
-<header class="navbar ">
+
+<header class="navbar mx-auto max-w-7xl px-8" role="navigation" aria-label="main navigation">
 
     <div class="navbar-start">
+
+    
+
+
         
         
 
     </div>
 
     <div class="navbar-center">
-
-
+       
         
     
 
@@ -391,12 +432,13 @@ document.addEventListener("DOMContentLoaded", (event) => {
                   <div class="flex">
                     <div class="flex-1 gap-4">
                       <div class="badge badge-neutral">Robert James Gabriel</div>
-                      <span class="badge badge-neutral ">5 min</span>
-                    </div>
-                    <div class="flex-0">
+                    
                       <time datetime="November 6th, 2024" class="items-center text-base">
                         <span class="badge badge-neutral">November 6th, 2024</span>
                       </time>
+                    </div>
+                    <div class="flex-1">
+                      <span class="badge badge-neutral ">5 min</span>
                     </div>
                   </div>
                 </header>
@@ -405,7 +447,7 @@ document.addEventListener("DOMContentLoaded", (event) => {
                   <img
                     src="/assets/images/blog/how-i-would-improve.png"
                     alt="How I would Improve the Chrome Web Store"
-                    class="aspect-square rounded-xl mb-10"
+                    class="rounded-3xl mb-10"
                     title="How I would Improve the Chrome Web Store"
                   />
       
@@ -413,16 +455,16 @@ document.addEventListener("DOMContentLoaded", (event) => {
 <p class="leading-relaxed font-display mb-4 mt-4 text-lg text-gray-900">I’ve been publishing Chrome extensions for over a decade, and during that time, I’ve watched the Web Store transform into something miles better than it was, when I first started. Google’s developer advocates have been hugely supportive, and the Store has definitely leveled up in terms of security, design, and ease of use.</p>
 <p class="leading-relaxed font-display mb-4 mt-4 text-lg text-gray-900">That said, I’ve got a few ideas for how it could get even better. Below, I’ll share my top suggestions, along with a mockup screenshot to give you a sense of what I’m imagining.</p>
 <hr>
-<h2 class="leading-relaxed font-display text-2xl mb-6 mt-12 font-semibold text-gray-800">Current Landscape</h2>
-<h3 class="leading-relaxed font-display text-xl mb-4 mt-10 font-semibold text-gray-700">Developer Advocates</h3>
+<h2 class="leading-relaxed font-display text-2xl mb-6 mt-12 font-semibold text-gray-800" id="current-landscape" tabindex="-1">Current Landscape</h2>
+<h3 class="leading-relaxed font-display text-xl mb-4 mt-10 font-semibold text-gray-700" id="developer-advocates" tabindex="-1">Developer Advocates</h3>
 <p class="leading-relaxed font-display mb-4 mt-4 text-lg text-gray-900">Hats off to them! They’re always ready to listen, provide tips, and share insights, making the entire developer community feel welcome. Huge shout out to Oliver!</p>
-<h3 class="leading-relaxed font-display text-xl mb-4 mt-10 font-semibold text-gray-700">Security Checks</h3>
+<h3 class="leading-relaxed font-display text-xl mb-4 mt-10 font-semibold text-gray-700" id="security-checks" tabindex="-1">Security Checks</h3>
 <p class="leading-relaxed font-display mb-4 mt-4 text-lg text-gray-900">The team has gotten much faster at spotting and removing malicious extensions, which is a big win for users and devs alike.</p>
-<h3 class="leading-relaxed font-display text-xl mb-4 mt-10 font-semibold text-gray-700">User-Friendly Dashboard</h3>
+<h3 class="leading-relaxed font-display text-xl mb-4 mt-10 font-semibold text-gray-700" id="user-friendly-dashboard" tabindex="-1">User-Friendly Dashboard</h3>
 <p class="leading-relaxed font-display mb-4 mt-4 text-lg text-gray-900">Managing extensions is a lot easier now than it was a few years back, which saves loads of time for those of us who maintain multiple projects.</p>
 <p class="leading-relaxed font-display mb-4 mt-4 text-lg text-gray-900">Alright, let’s dive into the improvements!</p>
 <hr>
-<h2 class="leading-relaxed font-display text-2xl mb-6 mt-12 font-semibold text-gray-800">After &amp; Before</h2>
+<h2 class="leading-relaxed font-display text-2xl mb-6 mt-12 font-semibold text-gray-800" id="after-%26-before" tabindex="-1">After &amp; Before</h2>
 <p class="leading-relaxed font-display mb-4 mt-4 text-lg text-gray-900">Drag the middle circle to see the difference.</p>
 <div class="diff aspect-[16/9] shadow-md rounded-lg">
     <div class="diff-item-1">
@@ -437,50 +479,50 @@ document.addEventListener("DOMContentLoaded", (event) => {
     <div class="diff-resizer"></div>
   </div>
 <hr>
-<h2 class="leading-relaxed font-display text-2xl mb-6 mt-12 font-semibold text-gray-800">1. The “Trusted” Badge</h2>
+<h2 class="leading-relaxed font-display text-2xl mb-6 mt-12 font-semibold text-gray-800" id="1.-the-%E2%80%9Ctrusted%E2%80%9D-badge" tabindex="-1">1. The “Trusted” Badge</h2>
 <p class="leading-relaxed font-display mb-4 mt-4 text-lg text-gray-900">Right now, you’ll often see just a publisher name and maybe a link to their website. Let’s convert that into a clear <strong class="text-lg font-semibold text-gray-800">Trusted</strong> badge, which would signify:</p>
-<ul class="leading-relaxed list-disc list-inside mt-4 space-y-2 pl-6 text-lg font-display ml-6 mb-8 text-gray-900">
-<li class="leading-relaxed mb-2 text-lg font-display text-gray-900 flex items-center">Verified developer domain.</li>
-<li class="leading-relaxed mb-2 text-lg font-display text-gray-900 flex items-center">Extra security measures, like two-factor authentication (2FA).</li>
-<li class="leading-relaxed mb-2 text-lg font-display text-gray-900 flex items-center">A history free from major policy violations or malicious flags.</li>
+<ul class="list-disc list-inside mt-4 space-y-2 pl-6 text-lg font-display ml-6 mb-8 text-gray-900">
+<li class="mb-2 text-lg font-display text-gray-900 flex items-center">Verified developer domain.</li>
+<li class="mb-2 text-lg font-display text-gray-900 flex items-center">Extra security measures, like two-factor authentication (2FA).</li>
+<li class="mb-2 text-lg font-display text-gray-900 flex items-center">A history free from major policy violations or malicious flags.</li>
 </ul>
 <p class="leading-relaxed font-display mb-4 mt-4 text-lg text-gray-900">Spotting a <strong class="text-lg font-semibold text-gray-800">Trusted</strong> badge at a glance would help users feel more confident about installing an extension.</p>
 <hr>
-<h2 class="leading-relaxed font-display text-2xl mb-6 mt-12 font-semibold text-gray-800">2. The “Best Standards” Badge</h2>
+<h2 class="leading-relaxed font-display text-2xl mb-6 mt-12 font-semibold text-gray-800" id="2.-the-%E2%80%9Cbest-standards%E2%80%9D-badge" tabindex="-1">2. The “Best Standards” Badge</h2>
 <p class="leading-relaxed font-display mb-4 mt-4 text-lg text-gray-900">Currently, there’s a <strong class="text-lg font-semibold text-gray-800">Featured</strong> label that often causes confusion.</p>
 <p class="leading-relaxed font-display mb-4 mt-4 text-lg text-gray-900">Why? <strong class="text-lg font-semibold text-gray-800">Featured</strong> sounds like the extension is simply promoted. <strong class="text-lg font-semibold text-gray-800">Best Standards</strong> makes it clear that the extension meets Google’s code and design benchmarks.</p>
 <p class="leading-relaxed font-display mb-4 mt-4 text-lg text-gray-900">That’s super helpful for anyone who wants only top-tier, polished extensions.</p>
 <p class="leading-relaxed font-display mb-4 mt-4 text-lg text-gray-900">It tells them: <strong class="text-lg font-semibold text-gray-800">Hey, this extension follows the latest design guidelines (like Material Design M3) and adheres to best coding practices.</strong></p>
 <hr>
-<h3 class="leading-relaxed font-display text-xl mb-4 mt-10 font-semibold text-gray-700">3. Collection &amp; Ranking Badges</h3>
-<h3 class="leading-relaxed font-display text-xl mb-4 mt-10 font-semibold text-gray-700">Collection Badges</h3>
+<h3 class="leading-relaxed font-display text-xl mb-4 mt-10 font-semibold text-gray-700" id="3.-collection-%26-ranking-badges" tabindex="-1">3. Collection &amp; Ranking Badges</h3>
+<h3 class="leading-relaxed font-display text-xl mb-4 mt-10 font-semibold text-gray-700" id="collection-badges" tabindex="-1">Collection Badges</h3>
 <p class="leading-relaxed font-display mb-4 mt-4 text-lg text-gray-900">If your extension is part of <strong class="text-lg font-semibold text-gray-800">Editor’s Picks</strong>, <strong class="text-lg font-semibold text-gray-800">Top Accessibility Tools</strong> or something similar, let’s showcase that.</p>
 <p class="leading-relaxed font-display mb-4 mt-4 text-lg text-gray-900">Seeing a badge like <strong class="text-lg font-semibold text-gray-800">Editor’s Pick</strong> or <strong class="text-lg font-semibold text-gray-800">#34 in Accessibility</strong> adds immediate credibility.</p>
-<h3 class="leading-relaxed font-display text-xl mb-4 mt-10 font-semibold text-gray-700">Ranking Display</h3>
+<h3 class="leading-relaxed font-display text-xl mb-4 mt-10 font-semibold text-gray-700" id="ranking-display" tabindex="-1">Ranking Display</h3>
 <p class="leading-relaxed font-display mb-4 mt-4 text-lg text-gray-900">Hitting a certain rank, say, top 200, in a category should also be worth celebrating. A label like <strong class="text-lg font-semibold text-gray-800">#196 in Productivity</strong> can help users see which extensions are genuinely popular or useful in specific niches.</p>
 <hr>
-<h2 class="leading-relaxed font-display text-2xl mb-6 mt-12 font-semibold text-gray-800">4. Temporary Badge Removal</h2>
+<h2 class="leading-relaxed font-display text-2xl mb-6 mt-12 font-semibold text-gray-800" id="4.-temporary-badge-removal" tabindex="-1">4. Temporary Badge Removal</h2>
 <p class="leading-relaxed font-display mb-4 mt-4 text-lg text-gray-900">Even the most careful devs can fall victim to phishing or have malicious code sneak in.</p>
 <p class="leading-relaxed font-display mb-4 mt-4 text-lg text-gray-900">In cases like that, I think the store should temporarily suspend badges (like <strong class="text-lg font-semibold text-gray-800">Trusted</strong> or <strong class="text-lg font-semibold text-gray-800">Best Standards</strong>) for 30 days or until the extension is confirmed secure again. This encourages rapid fixes from devs and reassures users that the badge system actually means something.</p>
 <hr>
-<h2 class="leading-relaxed font-display text-2xl mb-6 mt-12 font-semibold text-gray-800">5. Smarter Reviews and Ratings</h2>
-<h3 class="leading-relaxed font-display text-xl mb-4 mt-10 font-semibold text-gray-700">Version-Specific Reviews</h3>
+<h2 class="leading-relaxed font-display text-2xl mb-6 mt-12 font-semibold text-gray-800" id="5.-smarter-reviews-and-ratings" tabindex="-1">5. Smarter Reviews and Ratings</h2>
+<h3 class="leading-relaxed font-display text-xl mb-4 mt-10 font-semibold text-gray-700" id="version-specific-reviews" tabindex="-1">Version-Specific Reviews</h3>
 <p class="leading-relaxed font-display mb-4 mt-4 text-lg text-gray-900">It’s frustrating to see a negative review complaining about a bug that was fixed months ago. Tying reviews to specific versions would give potential users a clearer picture of how an extension has evolved over time.</p>
-<h3 class="leading-relaxed font-display text-xl mb-4 mt-10 font-semibold text-gray-700">Delayed Posting for New Accounts</h3>
+<h3 class="leading-relaxed font-display text-xl mb-4 mt-10 font-semibold text-gray-700" id="delayed-posting-for-new-accounts" tabindex="-1">Delayed Posting for New Accounts</h3>
 <p class="leading-relaxed font-display mb-4 mt-4 text-lg text-gray-900">Requiring new Google accounts to be at least 14 days old and maybe have used the extension for at least an hour before they can leave a review would help minimize fake or impulsive reviews. It’s a simple tweak that could significantly improve the overall quality of feedback.</p>
-<h3 class="leading-relaxed font-display text-xl mb-4 mt-10 font-semibold text-gray-700">Reset Option for Major Updates</h3>
+<h3 class="leading-relaxed font-display text-xl mb-4 mt-10 font-semibold text-gray-700" id="reset-option-for-major-updates" tabindex="-1">Reset Option for Major Updates</h3>
 <p class="leading-relaxed font-display mb-4 mt-4 text-lg text-gray-900">Sometimes you put out a massive overhaul that fixes everything folks were unhappy about. In that case, having an option to start fresh on the overall rating would be great, while still keeping older reviews in an archive for transparency’s sake.</p>
 <hr>
-<h2 class="leading-relaxed font-display text-2xl mb-6 mt-12 font-semibold text-gray-800">6. Annual Developer Fee</h2>
+<h2 class="leading-relaxed font-display text-2xl mb-6 mt-12 font-semibold text-gray-800" id="6.-annual-developer-fee" tabindex="-1">6. Annual Developer Fee</h2>
 <p class="leading-relaxed font-display mb-4 mt-4 text-lg text-gray-900">An annual fee of around $50/$99 could weed out some of the spammy or low effort extensions that clutter the store. It might also help Google offset the costs of more thorough reviews. Serious developers would likely see it as a reasonable investment, while those churning out questionable extensions might think twice.</p>
 <hr>
-<h2 class="leading-relaxed font-display text-2xl mb-6 mt-12 font-semibold text-gray-800">7. Real Engagement Stats</h2>
+<h2 class="leading-relaxed font-display text-2xl mb-6 mt-12 font-semibold text-gray-800" id="7.-real-engagement-stats" tabindex="-1">7. Real Engagement Stats</h2>
 <p class="leading-relaxed font-display mb-4 mt-4 text-lg text-gray-900">Right now, the store displays a running count of <strong class="text-lg font-semibold text-gray-800">users</strong>, which doesn’t always reflect actual engagement. Switching to download counts, or even hiding those numbers, might be more accurate and less confusing. It’s a small detail, but one that could make a big difference in how users perceive an extension’s popularity.</p>
 <hr>
-<h2 class="leading-relaxed font-display text-2xl mb-6 mt-12 font-semibold text-gray-800">8. A 2FA or Security Badge</h2>
+<h2 class="leading-relaxed font-display text-2xl mb-6 mt-12 font-semibold text-gray-800" id="8.-a-2fa-or-security-badge" tabindex="-1">8. A 2FA or Security Badge</h2>
 <p class="leading-relaxed font-display mb-4 mt-4 text-lg text-gray-900">Developers who enable two-factor authentication on their accounts demonstrate a real commitment to security. Why not reward them with a <strong class="text-lg font-semibold text-gray-800">Security</strong> badge? It’d be a quick way to show users that these devs go the extra mile to protect their extensions from hacks or malicious updates.</p>
 <hr>
-<h2 class="leading-relaxed font-display text-2xl mb-6 mt-12 font-semibold text-gray-800">Wrapping It Up</h2>
+<h2 class="leading-relaxed font-display text-2xl mb-6 mt-12 font-semibold text-gray-800" id="wrapping-it-up" tabindex="-1">Wrapping It Up</h2>
 <p class="leading-relaxed font-display mb-4 mt-4 text-lg text-gray-900">I’m a massive fan of the Chrome Web Store and believe these changes, a clearer badge system, improved reviews, transparent engagement stats, and more.</p>
 <p class="leading-relaxed font-display mb-4 mt-4 text-lg text-gray-900">It would help everyone get the most out of it. By making these updates, we can ensure the Store remains safe, friendly, and fair for both developers and the millions of people who rely on extensions every day.</p>
 <p class="leading-relaxed font-display mb-4 mt-4 text-lg text-gray-900">If you’re new here, I’m Robert James Gabriel, a longtime developer committed to making the web more accessible, productive, and secure. If you’d like to chat more about these ideas or have suggestions of your own, please don’t hesitate to reach out. Let’s keep building a better Web Store together!</p>
@@ -929,38 +971,42 @@ document.addEventListener("DOMContentLoaded", (event) => {
 </dialog>
 
 
-	
-
-<footer class="footer footer-center  rounded p-10 brand-color-background">
-
+	<footer class="p-10 brand-color-background">
+  <div class="mx-auto max-w-7xl overflow-hidden px-6 py-20 sm:py-24 lg:px-8 justify-cente">
+<div class="mx-auto flex max-w-2xl flex-col items-center justify-center">
   <a href="/" title="Coffee & Fun Home page" >
     <span class="sr-only"> Visit the Coffee & Fun Homepage</span>
   <img alt="Coffee and Fun Logo" src="/assets/images/coffee-and-fun-logo-dark.png" width="200" height="200"
     decoding="async" data-nimg="future" loading="lazy"
     class="h-24 w-24 flex-none fill-cyan-500 inline-block fill-current" />
     </a>
-  <p class="  mb-4">
+  <p class="  mb-4 mt-4">
     <span class="font-bold text-lg">
     Coffee & Fun LLC
     </span>
 
-  <span class="text-base font-normal">Crafting Software, One Brew at a Time</span>
+  
 </p>
-  <nav>
-    <div class="grid grid-flow-col gap-4">
 
-      <a href="https://www.twitter.com/bycoffeeandfun" target="_blank" rel="noopener noreferrer"
-        class="text-black hover:text-blue-400" title="Follow Coffee & Fun on Twitter">
-        <span class="sr-only">Follow us on Twitter</span>
-        <svg class="h-7 w-7" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-          <path
-            d="M8.29 20.251c7.547 0 11.675-6.253 11.675-11.675 0-.178 0-.355-.012-.53A8.348 8.348 0 0022 5.92a8.19 8.19 0 01-2.357.646 4.118 4.118 0 001.804-2.27 8.224 8.224 0 01-2.605.996 4.107 4.107 0 00-6.993 3.743 11.65 11.65 0 01-8.457-4.287 4.106 4.106 0 001.27 5.477A4.072 4.072 0 012.8 9.713v.052a4.105 4.105 0 003.292 4.022 4.095 4.095 0 01-1.853.07 4.108 4.108 0 003.834 2.85A8.233 8.233 0 012 18.407a11.616 11.616 0 006.29 1.84">
-          </path>
-        </svg>
-      </a>
-      <a href="https://www.instagram.com/coffeeandfunllc" target="_blank" rel="noopener noreferrer"
-      class="text-black hover:text-pink-400" title="Follow Coffee & Fun on Instagram">
-      <svg aria-hidden="true" role="img" fill="currentColor" viewBox="0 0 24 24" class="h-7 w-7"><title>Instagram</title><desc>Visit Helperbird's official Instagram page</desc><path clip-rule="evenodd" d="M12.315 2c2.43 0 2.784.013 3.808.06 1.064.049 1.791.218 2.427.465a4.902 4.902 0 011.772 1.153 4.902 4.902 0 011.153 1.772c.247.636.416 1.363.465 2.427.048 1.067.06 1.407.06 4.123v.08c0 2.643-.012 2.987-.06 4.043-.049 1.064-.218 1.791-.465 2.427a4.902 4.902 0 01-1.153 1.772 4.902 4.902 0 01-1.772 1.153c-.636.247-1.363.416-2.427.465-1.067.048-1.407.06-4.123.06h-.08c-2.643 0-2.987-.012-4.043-.06-1.064-.049-1.791-.218-2.427-.465a4.902 4.902 0 01-1.772-1.153 4.902 4.902 0 01-1.153-1.772c-.247-.636-.416-1.363-.465-2.427-.047-1.024-.06-1.379-.06-3.808v-.63c0-2.43.013-2.784.06-3.808.049-1.064.218-1.791.465-2.427a4.902 4.902 0 011.153-1.772A4.902 4.902 0 015.45 2.525c.636-.247 1.363-.416 2.427-.465C8.901 2.013 9.256 2 11.685 2h.63zm-.081 1.802h-.468c-2.456 0-2.784.011-3.807.058-.975.045-1.504.207-1.857.344-.467.182-.8.398-1.15.748-.35.35-.566.683-.748 1.15-.137.353-.3.882-.344 1.857-.047 1.023-.058 1.351-.058 3.807v.468c0 2.456.011 2.784.058 3.807.045.975.207 1.504.344 1.857.182.466.399.8.748 1.15.35.35.683.566 1.15.748.353.137.882.3 1.857.344 1.054.048 1.37.058 4.041.058h.08c2.597 0 2.917-.01 3.96-.058.976-.045 1.505-.207 1.858-.344.466-.182.8-.398 1.15-.748.35-.35.566-.683.748-1.15.137-.353.3-.882.344-1.857.048-1.055.058-1.37.058-4.041v-.08c0-2.597-.01-2.917-.058-3.96-.045-.976-.207-1.505-.344-1.858a3.097 3.097 0 00-.748-1.15 3.098 3.098 0 00-1.15-.748c-.353-.137-.882-.3-1.857-.344-1.023-.047-1.351-.058-3.807-.058zM12 6.865a5.135 5.135 0 110 10.27 5.135 5.135 0 010-10.27zm0 1.802a3.333 3.333 0 100 6.666 3.333 3.333 0 000-6.666zm5.338-3.205a1.2 1.2 0 110 2.4 1.2 1.2 0 010-2.4z" fill-rule="evenodd"></path></svg>
+
+  <span class="text-base font-normal">Crafting Software, One Brew at a Time</span>
+
+</div>
+
+    <div class="mt-16  justify-center grid grid-flow-col gap-4">
+    
+    <a href="https://www.twitter.com/bycoffeeandfun" target="_blank" rel="noopener noreferrer"
+    class="text-black hover:text-blue-400" title="Follow Coffee & Fun on Twitter">
+    <span class="sr-only">Follow us on Twitter</span>
+    <svg class="h-7 w-7" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+      <path
+        d="M8.29 20.251c7.547 0 11.675-6.253 11.675-11.675 0-.178 0-.355-.012-.53A8.348 8.348 0 0022 5.92a8.19 8.19 0 01-2.357.646 4.118 4.118 0 001.804-2.27 8.224 8.224 0 01-2.605.996 4.107 4.107 0 00-6.993 3.743 11.65 11.65 0 01-8.457-4.287 4.106 4.106 0 001.27 5.477A4.072 4.072 0 012.8 9.713v.052a4.105 4.105 0 003.292 4.022 4.095 4.095 0 01-1.853.07 4.108 4.108 0 003.834 2.85A8.233 8.233 0 012 18.407a11.616 11.616 0 006.29 1.84">
+      </path>
+    </svg>
+  </a>
+  <a href="https://www.instagram.com/coffeeandfunllc" target="_blank" rel="noopener noreferrer"
+  class="text-black hover:text-pink-400" title="Follow Coffee & Fun on Instagram">
+  <svg aria-hidden="true" role="img" fill="currentColor" viewBox="0 0 24 24" class="h-7 w-7"><title>Instagram</title><desc>Visit Helperbird's official Instagram page</desc><path clip-rule="evenodd" d="M12.315 2c2.43 0 2.784.013 3.808.06 1.064.049 1.791.218 2.427.465a4.902 4.902 0 011.772 1.153 4.902 4.902 0 011.153 1.772c.247.636.416 1.363.465 2.427.048 1.067.06 1.407.06 4.123v.08c0 2.643-.012 2.987-.06 4.043-.049 1.064-.218 1.791-.465 2.427a4.902 4.902 0 01-1.153 1.772 4.902 4.902 0 01-1.772 1.153c-.636.247-1.363.416-2.427.465-1.067.048-1.407.06-4.123.06h-.08c-2.643 0-2.987-.012-4.043-.06-1.064-.049-1.791-.218-2.427-.465a4.902 4.902 0 01-1.772-1.153 4.902 4.902 0 01-1.153-1.772c-.247-.636-.416-1.363-.465-2.427-.047-1.024-.06-1.379-.06-3.808v-.63c0-2.43.013-2.784.06-3.808.049-1.064.218-1.791.465-2.427a4.902 4.902 0 011.153-1.772A4.902 4.902 0 015.45 2.525c.636-.247 1.363-.416 2.427-.465C8.901 2.013 9.256 2 11.685 2h.63zm-.081 1.802h-.468c-2.456 0-2.784.011-3.807.058-.975.045-1.504.207-1.857.344-.467.182-.8.398-1.15.748-.35.35-.566.683-.748 1.15-.137.353-.3.882-.344 1.857-.047 1.023-.058 1.351-.058 3.807v.468c0 2.456.011 2.784.058 3.807.045.975.207 1.504.344 1.857.182.466.399.8.748 1.15.35.35.683.566 1.15.748.353.137.882.3 1.857.344 1.054.048 1.37.058 4.041.058h.08c2.597 0 2.917-.01 3.96-.058.976-.045 1.505-.207 1.858-.344.466-.182.8-.398 1.15-.748.35-.35.566-.683.748-1.15.137-.353.3-.882.344-1.857.048-1.055.058-1.37.058-4.041v-.08c0-2.597-.01-2.917-.058-3.96-.045-.976-.207-1.505-.344-1.858a3.097 3.097 0 00-.748-1.15 3.098 3.098 0 00-1.15-.748c-.353-.137-.882-.3-1.857-.344-1.023-.047-1.351-.058-3.807-.058zM12 6.865a5.135 5.135 0 110 10.27 5.135 5.135 0 010-10.27zm0 1.802a3.333 3.333 0 100 6.666 3.333 3.333 0 000-6.666zm5.338-3.205a1.2 1.2 0 110 2.4 1.2 1.2 0 010-2.4z" fill-rule="evenodd"></path></svg>
 </a>
 
 
@@ -968,43 +1014,51 @@ document.addEventListener("DOMContentLoaded", (event) => {
 title="Joing our Discord" class="text-black hover:text-purple-700">
 <span class="sr-only">Joing our Discord</span>
 <svg class="h-7 w-7" fill="currentColor" viewBox="0 -28.5 256 256" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" preserveAspectRatio="xMidYMid">
-  <g>
-      <path d="M216.856339,16.5966031 C200.285002,8.84328665 182.566144,3.2084988 164.041564,0 C161.766523,4.11318106 159.108624,9.64549908 157.276099,14.0464379 C137.583995,11.0849896 118.072967,11.0849896 98.7430163,14.0464379 C96.9108417,9.64549908 94.1925838,4.11318106 91.8971895,0 C73.3526068,3.2084988 55.6133949,8.86399117 39.0420583,16.6376612 C5.61752293,67.146514 -3.4433191,116.400813 1.08711069,164.955721 C23.2560196,181.510915 44.7403634,191.567697 65.8621325,198.148576 C71.0772151,190.971126 75.7283628,183.341335 79.7352139,175.300261 C72.104019,172.400575 64.7949724,168.822202 57.8887866,164.667963 C59.7209612,163.310589 61.5131304,161.891452 63.2445898,160.431257 C105.36741,180.133187 151.134928,180.133187 192.754523,160.431257 C194.506336,161.891452 196.298154,163.310589 198.110326,164.667963 C191.183787,168.842556 183.854737,172.420929 176.223542,175.320965 C180.230393,183.341335 184.861538,190.991831 190.096624,198.16893 C211.238746,191.588051 232.743023,181.531619 254.911949,164.955721 C260.227747,108.668201 245.831087,59.8662432 216.856339,16.5966031 Z M85.4738752,135.09489 C72.8290281,135.09489 62.4592217,123.290155 62.4592217,108.914901 C62.4592217,94.5396472 72.607595,82.7145587 85.4738752,82.7145587 C98.3405064,82.7145587 108.709962,94.5189427 108.488529,108.914901 C108.508531,123.290155 98.3405064,135.09489 85.4738752,135.09489 Z M170.525237,135.09489 C157.88039,135.09489 147.510584,123.290155 147.510584,108.914901 C147.510584,94.5396472 157.658606,82.7145587 170.525237,82.7145587 C183.391518,82.7145587 193.761324,94.5189427 193.539891,108.914901 C193.539891,123.290155 183.391518,135.09489 170.525237,135.09489 Z" fill="currentColor" fill-rule="nonzero">
+<g>
+  <path d="M216.856339,16.5966031 C200.285002,8.84328665 182.566144,3.2084988 164.041564,0 C161.766523,4.11318106 159.108624,9.64549908 157.276099,14.0464379 C137.583995,11.0849896 118.072967,11.0849896 98.7430163,14.0464379 C96.9108417,9.64549908 94.1925838,4.11318106 91.8971895,0 C73.3526068,3.2084988 55.6133949,8.86399117 39.0420583,16.6376612 C5.61752293,67.146514 -3.4433191,116.400813 1.08711069,164.955721 C23.2560196,181.510915 44.7403634,191.567697 65.8621325,198.148576 C71.0772151,190.971126 75.7283628,183.341335 79.7352139,175.300261 C72.104019,172.400575 64.7949724,168.822202 57.8887866,164.667963 C59.7209612,163.310589 61.5131304,161.891452 63.2445898,160.431257 C105.36741,180.133187 151.134928,180.133187 192.754523,160.431257 C194.506336,161.891452 196.298154,163.310589 198.110326,164.667963 C191.183787,168.842556 183.854737,172.420929 176.223542,175.320965 C180.230393,183.341335 184.861538,190.991831 190.096624,198.16893 C211.238746,191.588051 232.743023,181.531619 254.911949,164.955721 C260.227747,108.668201 245.831087,59.8662432 216.856339,16.5966031 Z M85.4738752,135.09489 C72.8290281,135.09489 62.4592217,123.290155 62.4592217,108.914901 C62.4592217,94.5396472 72.607595,82.7145587 85.4738752,82.7145587 C98.3405064,82.7145587 108.709962,94.5189427 108.488529,108.914901 C108.508531,123.290155 98.3405064,135.09489 85.4738752,135.09489 Z M170.525237,135.09489 C157.88039,135.09489 147.510584,123.290155 147.510584,108.914901 C147.510584,94.5396472 157.658606,82.7145587 170.525237,82.7145587 C183.391518,82.7145587 193.761324,94.5189427 193.539891,108.914901 C193.539891,123.290155 183.391518,135.09489 170.525237,135.09489 Z" fill="currentColor" fill-rule="nonzero">
 
 </path>
-  </g>
+</g>
 </svg>
 </a>
 
-      <a href="https://www.github.com/coffee-and-fun" target="_blank" rel="noopener noreferrer"
-        title="Follow Coffee & Fun on Github" class="text-black hover:text-gray-700">
-        <span class="sr-only">Follow us on GitHub</span>
-        <svg class="h-7 w-7" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-          <path fill-rule="evenodd"
-            d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z"
-            clip-rule="evenodd"></path>
-        </svg>
-      </a>
+  <a href="https://www.github.com/coffee-and-fun" target="_blank" rel="noopener noreferrer"
+    title="Follow Coffee & Fun on Github" class="text-black hover:text-gray-700">
+    <span class="sr-only">Follow us on GitHub</span>
+    <svg class="h-7 w-7" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+      <path fill-rule="evenodd"
+        d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z"
+        clip-rule="evenodd"></path>
+    </svg>
+  </a>
 
 
-  
 
-      <a href="https://www.youtube.com/bycoffeeandfun" target="_blank" rel="noopener noreferrer"
-        title="Follow Coffee & Fun on Youtube" class="text-black hover:text-red-600">
-        <span class="sr-only">Follow us on Youtube</span>
-        <svg class="h-7 w-7" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-          <path fill-rule="evenodd"
-            d="M19.812 5.418c.861.23 1.538.907 1.768 1.768C21.998 8.746 22 12 22 12s0 3.255-.418 4.814a2.504 2.504 0 0 1-1.768 1.768c-1.56.419-7.814.419-7.814.419s-6.255 0-7.814-.419a2.505 2.505 0 0 1-1.768-1.768C2 15.255 2 12 2 12s0-3.255.417-4.814a2.507 2.507 0 0 1 1.768-1.768C5.744 5 11.998 5 11.998 5s6.255 0 7.814.418ZM15.194 12 10 15V9l5.194 3Z"
-            clip-rule="evenodd"></path>
-        </svg>
-      </a>
+
+  <a href="https://www.youtube.com/bycoffeeandfun" target="_blank" rel="noopener noreferrer"
+    title="Follow Coffee & Fun on Youtube" class="text-black hover:text-red-600">
+    <span class="sr-only">Follow us on Youtube</span>
+    <svg class="h-7 w-7" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+      <path fill-rule="evenodd"
+        d="M19.812 5.418c.861.23 1.538.907 1.768 1.768C21.998 8.746 22 12 22 12s0 3.255-.418 4.814a2.504 2.504 0 0 1-1.768 1.768c-1.56.419-7.814.419-7.814.419s-6.255 0-7.814-.419a2.505 2.505 0 0 1-1.768-1.768C2 15.255 2 12 2 12s0-3.255.417-4.814a2.507 2.507 0 0 1 1.768-1.768C5.744 5 11.998 5 11.998 5s6.255 0 7.814.418ZM15.194 12 10 15V9l5.194 3Z"
+        clip-rule="evenodd"></path>
+    </svg>
+  </a>
+
 
     </div>
-  </nav>
-  <aside>
-    <p> &copy; 2025 <b>Coffee & Fun LLC</b>. All rights reserved.</p>
-  </aside>
+    <p class="mt-10 text-center text-md text-black"> &copy; 2025 <b>Coffee & Fun LLC</b>. All rights reserved.</p>
+  </div>
 </footer>
+
+
+
+
+
+
+
+
+
 
 
 <script type="text/javascript">

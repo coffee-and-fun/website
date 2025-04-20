@@ -1,6 +1,5 @@
-// css
 
-import 'tailwindcss/tailwind.css';
+
 
 import * as app from './core/app';
 
