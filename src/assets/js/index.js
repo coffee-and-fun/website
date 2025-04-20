@@ -1,6 +1,10 @@
 // css
 
-import 'tailwindcss/tailwind.css';
+// CSS
+import 'tailwindcss'; // Update to Tailwind CSS v2 or v3 path if needed
+import 'daisyui/daisyui.css'; // Import DaisyUI v5 CSS
+
+
 
 import * as app from './core/app';
 

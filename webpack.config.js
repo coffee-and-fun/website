@@ -58,15 +58,17 @@ module.exports = {
 			{
 				test: /\.css$/,
 				use: [
+					"style-loader",
+					"css-loader",
 					{
-						loader: MiniCssExtractPlugin.loader,
-						options: {
-							esModule: false
-						}
+					  loader: "postcss-loader",
+					  options: {
+						postcssOptions: {
+						  config: path.resolve(__dirname, "./postcss.config.js"),
+						},
+					  },
 					},
-					'css-loader',
-					'postcss-loader'
-				]
+				  ],
 			}
 		]
 	},
