@@ -6,7 +6,11 @@
 module.exports = {
 	enabled: true,
 	content: [
-'./src/**/**/*.html',
+		'./src/**/**/*.html',
+		'./pages/**/**/*.html',
+		'./pages/**/**/*.md',
+		'./pages/**/**/*.liquid',
+		'./pages/**/**/*.njk',
 		'./src/**/**/*.md',
 		'./src/**/**/*.liquid',
 		'./src/**/**/*.njk',

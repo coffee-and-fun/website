@@ -16,6 +16,39 @@
 	<meta name="title" content="{{ title }} - Coffee & Fun LLC" />
     <meta name="keywords" content="{{ keywords }}" />
 
+    <!-- PWA Manifest -->
+<!-- PWA Manifest -->
+<link rel="manifest" href="/assets/images/social/site.webmanifest" />
+
+<!-- Theme & Mobile Meta -->
+<meta name="theme-color" content="#fef5ec" />
+<meta name="mobile-web-app-capable" content="yes" />
+<meta name="apple-mobile-web-app-capable" content="yes" />
+<meta name="apple-mobile-web-app-status-bar-style" content="default" />
+
+<!-- Icons -->
+<link rel="apple-touch-icon" href="/assets/images/social/192.png" />
+<link rel="icon" href="/assets/images/social/192.png" sizes="192x192" type="image/png" />
+<!-- PWA Meta Tags -->
+<meta name="apple-mobile-web-app-capable" content="yes" />
+<meta name="apple-mobile-web-app-status-bar-style" content="black" />
+<meta name="mobile-web-app-capable" content="yes" />
+
+
+<!-- Theme & Mobile Meta -->
+<meta name="theme-color" content="#fef5ec" />
+<meta name="mobile-web-app-capable" content="yes" />
+<meta name="apple-mobile-web-app-capable" content="yes" />
+<meta name="apple-mobile-web-app-status-bar-style" content="default" />
+
+<!-- Icons -->
+<link rel="apple-touch-icon" href="/assets/images/social/192.png" />
+<link rel="icon" href="/assets/images/social/192.png" sizes="192x192" type="image/png" />
+<!-- PWA Meta Tags -->
+<meta name="apple-mobile-web-app-capable" content="yes" />
+<meta name="apple-mobile-web-app-status-bar-style" content="black" />
+<meta name="mobile-web-app-capable" content="yes" />
+
 	<!-- Open Graph Meta Tags -->
 	<meta property="og:title" content="{{ title }} - Coffee & Fun LLC" />
 	<meta property="og:site_name" content="Coffee & Fun LLC" />
@@ -50,12 +83,16 @@
 			}
 		</script>
 
-	{% bundledCss %}
-	<script>
-		if ('serviceWorker' in navigator) {
-			navigator.serviceWorker.register('/service-worker.js');
-		}
-	</script>
+    	{% bundledCss %}
+
+
+    <script>
+   if ('serviceWorker' in navigator) {
+      navigator.serviceWorker.register('/service-worker.js')
+        .then(() => console.log('✅ Service worker registered'))
+        .catch((err) => console.log('Service worker error:', err));
+    }
+    </script>
 
 
 	{% include scripts.html %}
@@ -104,12 +141,13 @@
                   <div class="flex">
                     <div class="flex-1 gap-4">
                       <div class="badge badge-neutral">{{name}}</div>
-                      <span class="badge badge-neutral ">{{time}}</span>
-                    </div>
-                    <div class="flex-0">
+                    
                       <time datetime="{{date | formatDateWithOrdinal }}" class="items-center text-base">
                         <span class="badge badge-neutral">{{date | formatDateWithOrdinal }}</span>
                       </time>
+                    </div>
+                    <div class="flex-1">
+                      <span class="badge badge-neutral ">{{time}}</span>
                     </div>
                   </div>
                 </header>
@@ -118,7 +156,7 @@
                   <img
                     src="{{img}}"
                     alt="{{title}}"
-                    class="aspect-square rounded-xl mb-10"
+                    class="rounded-3xl mb-10"
                     title="{{title}}"
                   />
       

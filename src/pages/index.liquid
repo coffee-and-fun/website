@@ -14,7 +14,24 @@
 	<link rel="icon" href="/assets/images/favicon.png" />
 
 	<meta name="title" content="Coffee & Fun LLC - Crafting Software, One Brew at a Time" />
-    <link rel="manifest" href="/assets/images/social/site.webmanifest" />
+
+<!-- PWA Manifest -->
+<link rel="manifest" href="/assets/images/social/site.webmanifest" />
+
+<!-- Theme & Mobile Meta -->
+<meta name="theme-color" content="#fef5ec" />
+<meta name="mobile-web-app-capable" content="yes" />
+<meta name="apple-mobile-web-app-capable" content="yes" />
+<meta name="apple-mobile-web-app-status-bar-style" content="default" />
+
+<!-- Icons -->
+<link rel="apple-touch-icon" href="/assets/images/social/192.png" />
+<link rel="icon" href="/assets/images/social/192.png" sizes="192x192" type="image/png" />
+<!-- PWA Meta Tags -->
+<meta name="apple-mobile-web-app-capable" content="yes" />
+<meta name="apple-mobile-web-app-status-bar-style" content="black" />
+<meta name="mobile-web-app-capable" content="yes" />
+
 	<!-- Open Graph Meta Tags -->
 	<meta property="og:title" content="Coffee & Fun LLC - Crafting Software, One Brew at a Time" />
 	<meta property="og:site_name" content="Coffee & Fun" />
@@ -35,6 +52,8 @@
 	<meta name="twitter:image" content="https://www.coffeeandfun.com/assets/images/social-icon.png" />
 	<meta name="twitter:image:alt" content=" Coffee & Fun" />
 
+
+
 	<script type="application/ld+json">
 			{
 				"@context": "http://schema.org/",
@@ -50,9 +69,11 @@
 
 	{% bundledCss %}
 	<script>
-		if ('serviceWorker' in navigator) {
-			navigator.serviceWorker.register('/service-worker.js');
-		}
+ if ('serviceWorker' in navigator) {
+    navigator.serviceWorker.register('/service-worker.js')
+      .then(() => console.log('✅ Service worker registered'))
+      .catch((err) => console.log('Service worker error:', err));
+  }
 	</script>
 
 
@@ -62,228 +83,214 @@
 <body>
 
 	{% assign showFun = true %}
-	{% assign showMiddleBadge = false %}
+	{% assign showMiddleBadgeWithText = true %}
 	{% include header.liquid %}
 
 
 	<main id="main-content" class="mx-auto max-w-7xl">
 		<div class="mb-16 mt-16 sm:mb-24 sm:mt-24 sm:px-8">
-			<div class="mx-auto max-w-7xl lg:px-8">
-				<div class="relative px-12 sm:px-8 lg:px-12">
+
+
+		<div class="relative">
+  <div
+  class="absolute inset-2 bottom-0 rounded-4xl ring-1 ring-black/5 ring-inset bg-gradient-to-br from-[#fcd683] via-[#f7c4ba] to-[#e25440]"
+  ></div>
+  <div class="relative px-6 lg:px-8">
+    <div class="mx-auto max-w-2xl lg:max-w-7xl">
+
+      <div class="pt-16 pb-24 sm:pt-24 sm:pb-32 md:pt-32 md:pb-48">
+	
+        <h1
+          class="font-display text-5xl font-medium tracking-tight text-balance text-gray-950 sm:text-6xl/[0.8] md:text-7xl/[0.8]"
+        >
+		Crafting Software, One Brew at a Time
+
+        </h1>
+        <p
+          class="mt-8 max-w-xl text-xl/7 font-medium text-gray-950/75 sm:text-2xl/8"
+        >
+		Coffee & Fun LLC is a modern development studio creating award-winning tools that blend thoughtful design with everyday usefulness.
+		<br> 	<br>
+From productivity to accessibility, we build apps that help people do more, faster, easier, and with a little joy baked in.
+        </p>
+        <div class="mt-12 flex flex-col gap-x-6 gap-y-4 sm:flex-row">
+          <button
+            class=" inline-flex items-center justify-center px-4 btn btn-lg  btn-neutral	 "
+           
+
+			onclick="my_modal_site_menu.showModal()"
+			title="Open the contact support form" 
+			aria-label="Open the contact support form"
+			aria-controls="my_modal_site_menu" 
+			role="menuitem"
+            >Everything</button
+          ><a
+            class="relative inline-flex items-center justify-center px-4 btn btn-lg btn-dash btn-neutral	  "
+
+            href="#apps"
+            >See Apps</a
+          >
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+
+			<div class="mx-auto max-w-7xl">
+
+
+			
+				<div class="relative">
+
+
+
+				
 					<div class="mx-auto max-w-7xl">
-						<div class="max-w-xl text-base  mx-auto">
-							<div class="mx-auto mb-4 mt-4">
-								<img alt="Logo of Coffee & Fun LLC featuring a stylized cup with a coffee bean pattern, representing the company's focus on creativity and innovation in software development."
-									src="assets/images/coffee-and-fun-logo-dark.png" width="200" height="200"
-									decoding="async" data-nimg="future" loading="lazy"
-									class="aspect-square mx-auto block" />
-							</div>
+				
 
-						</div>
-
-						<div class="max-w-xl text-base  mx-auto">
-
-
-							<div class="card my-8 bg-base-100 shadow-md">
-								<div class="card-body">
-									<h3 class="card-title mb-4 text-2xl">Welcome to Coffee & Fun 👋</h3>
-									<h3 class="mb-4 text-xl font-semibold">
-										Where fresh ideas are always brewing ☕
-									</h3>
-									<p class="mb-2 text-lg text-black">
-										Launched in 2023, our goal is simple: to mix the spark of innovation with
-										the comfort of everyday tools.
-									</p>
-									<p class="mb-2 text-lg text-black">
-										From the nifty tricks of
-
-										<a href="https://apps.apple.com/vn/app/simple-screenshot-pro/id6451333294"
-											class="text-blue-500 hover:underline">Simple Screenshot Pro
-										</a>
-										to the quick wit of
-										<a href="https://apps.apple.com/us/app/instant-flash-cards/id6478512461"
-											class="text-blue-500 hover:underline">Instant Flash Cards</a>, our apps are
-										your go-to for a smarter digital journey.
-									</p>
-
-									<p class="mb-6 text-lg text-black">
-										Dive into our collection and find your new favorite way to do more, stress
-										less, and keep it all fun.
-									</p>
-								</div>
-							</div>
-
-						</div>
-
-						<div class="max-w-8xl text-base  mx-auto" id="apps">
-
-
-							<div class="card my-8 ">
-								<div class="my-8">
-									<h2 class="card-title mb-10 text-3xl">Our Family of Apps</h2>
-
-									<div
-										class="not-prose grid grid-cols-1 gap-x-8 gap-y-8 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 xl:grid-cols-3">
-										{% for app in apps.apps %}
-
-										<a 								class="card card-compact bg-base-100 shadow-md transition-all duration-200 card-app hover:-translate-y-1"
-										target="_blank"
-										href="{{ app.link }}">
-											<figure class="px-4 pt-4">
-												<img loading="lazy" src="{{ app.image }}"
-													class="rounded-lg border border-base-content border-opacity-5 bg-base-300"
-													alt="{{ app.name }}" />
-											</figure>
-											<div class="card-body">
-												<h2 class="card-title">{{ app.name }}</h2>
-												<p class="text-base">{{ app.description }}</p>
-
-												<div class="flex flex-wrap gap-2 mt-6 mb-6">
-													{% for platform in app.platform %}
-													<div class="badge badge-neutral  gap-2   
-
-													{% if platform == 'Edge' %}
-														badge-info
-													{% elsif platform == 'Chrome' %}
-														badge-error
-													{% elsif platform == 'macOs' %}
-														badge-accent
-													{% elsif platform == 'Safari' %}
-														badge-secondary
-													{% elsif platform == 'Firefox' %}
-														badge-warning
-													{% else %}
-														badge-neutral
-													{% endif %}
-													"> {{ platform }}</div>
-
-													{% endfor %}
-												</div>
+				
+						<div class="max-w-8xl text-base mx-auto my-8" id="apps">
+							<div class="card my-24">
+							  <div class="my-8">
+								<h2 class="card-title mb-10 text-4xl font-medium tracking-tighter text-pretty">Our Family of Apps</h2>
+						  
+							
+							
+								  <div class="flex overflow-x-auto snap-x snap-mandatory scroll-smooth gap-6 px-4 pb-8 ">
+									{% for app in apps.apps %}
+									<div class="shrink-0 snap-start w-[20rem]">
+									  <a class="min-h-[30rem] flex flex-col justify-between h-full card card-compact bg-base-100 shadow-md transition-all duration-200 hover:-translate-y-1 rounded-4xl"
+										target="_blank" href="{{ app.link }}">
+										<figure class="px-4 pt-4">
+										  <img loading="lazy" src="{{ app.image }}"
+											class="rounded-2xl border border-base-content border-opacity-5 bg-base-300"
+											alt="{{ app.name }}" />
+										</figure>
+										<div class="card-body flex flex-col justify-between flex-grow">
+										  <div>
+											<h2 class="card-title">{{ app.name }}</h2>
+											<p class="text-base">{{ app.description }}</p>
+										  </div>
+										  <div class="flex flex-wrap gap-2 mt-6">
+											{% for platform in app.platform %}
+											<div class="badge badge-neutral gap-2
+											  {% if platform == 'Edge' %}badge-info
+											  {% elsif platform == 'Chrome' %}badge-error
+											  {% elsif platform == 'macOs' %}badge-accent
+											  {% elsif platform == 'Safari' %}badge-secondary
+											  {% elsif platform == 'Firefox' %}badge-warning
+											  {% else %}badge-neutral{% endif %}">
+											  {{ platform }}
 											</div>
-										</a>
-
-										{% endfor %}
-
-
-
-										{% for app in apps.opensource %}
-
-										<a 								class="card card-compact bg-base-100 shadow-md transition-all duration-200 card-app hover:-translate-y-1"
-											href="{{ app.link }}">
-											<figure class="px-4 pt-4">
-												<img loading="lazy" src="{{ app.image }}"
-													class="rounded-lg border border-base-content border-opacity-5 bg-base-300"
-													alt="{{ app.name }}" />
-											</figure>
-											<div class="card-body">
-												<h2 class="card-title">{{ app.name }}</h2>
-												<p class="text-base">{{ app.description }}</p>
-												<div class="flex flex-wrap gap-2 mt-6 mb-6">
-													{% for platform in app.platform %}
-													<div class="badge badge-neutral  gap-2   
-
-															{% if platform == 'Edge' %}
-																badge-info
-															{% elsif platform == 'Chrome' %}
-																badge-error
-															{% elsif platform == 'macOs' %}
-																badge-accent
-															{% elsif platform == 'Safari' %}
-																badge-secondary
-															{% elsif platform == 'Firefox' %}
-																badge-warning
-															{% else %}
-																badge-neutral
-															{% endif %}
-													"> {{ platform }}</div>
-
-													{% endfor %}
-												</div>
-											</div>
-										</a>
-
-										{% endfor %}
-
-									</div>
-								</div>
-							</div>
-
-						</div>
-
-
-
-
-
-
-						<div class="max-w-8xl text-base  mx-auto mt-12" id="graveyard">
-
-
-							<div class="card my-8 ">
-								<div class="my-8">
-									<h2 class="card-title mb-10 text-3xl">The Graveyard ⚰️
-									</h2>
-
-									<div
-										class="not-prose grid grid-cols-1 gap-x-8 gap-y-8 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 xl:grid-cols-3">
-
-
-
-
-										{% for app in apps.graveyard %}
-
-										<div
-											class="card card-compact bg-base-100 shadow-md transition-all duration-200 card-app hover:-translate-y-1">
-											<figure class="px-4 pt-4">
-												<img loading="lazy" src="{{ app.image }}"
-													class="rounded-lg border border-base-content border-opacity-5 bg-base-300"
-													alt="{{ app.name }}" />
-											</figure>
-											<div class="card-body">
-												<h2 class="card-title">{{ app.name }}</h2>
-												<p class="text-base">{{ app.description }}</p>
-												<div class="flex flex-wrap gap-2 mt-6 mb-6">
-													{% for platform in app.platform %}
-													<div class="badge badge-neutral  gap-2   
-
-															{% if platform == 'Edge' %}
-																badge-info
-															{% elsif platform == 'Chrome' %}
-																badge-error
-															{% elsif platform == 'macOs' %}
-																badge-accent
-															{% elsif platform == 'Safari' %}
-																badge-secondary
-															{% elsif platform == 'Firefox' %}
-																badge-warning
-															{% else %}
-																badge-neutral
-															{% endif %}
-													"> {{ platform }}</div>
-
-													{% endfor %}
-												</div>
-											</div>
+											{% endfor %}
+										  </div>
 										</div>
-
-										{% endfor %}
-
+									  </a>
 									</div>
-								</div>
+									{% endfor %}
+						  
+									{% for app in apps.opensource %}
+									<div class="shrink-0 snap-start w-[20rem]">
+									  <a class="min-h-[30rem] flex flex-col justify-between h-full card card-compact bg-base-100 shadow-md transition-all duration-200 hover:-translate-y-1 rounded-4xl"
+										target="_blank" href="{{ app.link }}">
+										<figure class="px-4 pt-4">
+										  <img loading="lazy" src="{{ app.image }}"
+											class="rounded-2xl border border-base-content border-opacity-5 bg-base-300"
+											alt="{{ app.name }}" />
+										</figure>
+										<div class="card-body flex flex-col justify-between flex-grow">
+										  <div>
+											<h2 class="card-title">{{ app.name }}</h2>
+											<p class="text-base">{{ app.description }}</p>
+										  </div>
+										  <div class="flex flex-wrap gap-2 mt-6">
+											{% for platform in app.platform %}
+											<div class="badge badge-neutral gap-2
+											  {% if platform == 'Edge' %}badge-info
+											  {% elsif platform == 'Chrome' %}badge-error
+											  {% elsif platform == 'macOs' %}badge-accent
+											  {% elsif platform == 'Safari' %}badge-secondary
+											  {% elsif platform == 'Firefox' %}badge-warning
+											  {% else %}badge-neutral{% endif %}">
+											  {{ platform }}
+											</div>
+											{% endfor %}
+										  </div>
+										</div>
+									  </a>
+									</div>
+									{% endfor %}
+								  </div>
+							
+							  </div>
 							</div>
+						</div>
+						  
 
+
+
+						<div class="max-w-8xl text-base mx-auto my-8" id="graveyard">
+							<div class="card my-24">
+							  <div class="my-8">
+								<h2 class="card-title mb-10 text-4xl font-medium tracking-tighter text-pretty">⚰️ The Graveyard</h2>
+						  
+							
+							
+								  <div class="flex overflow-x-auto snap-x snap-mandatory scroll-smooth gap-6 px-4 pb-8 ">
+									{% for app in apps.graveyard %}
+									<div class="shrink-0 snap-start w-[20rem]">
+									  <a class="min-h-[30rem] flex flex-col justify-between h-full card card-compact bg-base-100 shadow-md transition-all duration-200 hover:-translate-y-1 rounded-4xl"
+										target="_blank" href="{{ app.link }}">
+										<figure class="px-4 pt-4">
+										  <img loading="lazy" src="{{ app.image }}"
+											class="rounded-2xl border border-base-content border-opacity-5 bg-base-300"
+											alt="{{ app.name }}" />
+										</figure>
+										<div class="card-body flex flex-col justify-between flex-grow">
+										  <div>
+											<h2 class="card-title">{{ app.name }}</h2>
+											<p class="text-base">{{ app.description }}</p>
+										  </div>
+										  <div class="flex flex-wrap gap-2 mt-6">
+											{% for platform in app.platform %}
+											<div class="badge badge-neutral gap-2
+											  {% if platform == 'Edge' %}badge-info
+											  {% elsif platform == 'Chrome' %}badge-error
+											  {% elsif platform == 'macOs' %}badge-accent
+											  {% elsif platform == 'Safari' %}badge-secondary
+											  {% elsif platform == 'Firefox' %}badge-warning
+											  {% else %}badge-neutral{% endif %}">
+											  {{ platform }}
+											</div>
+											{% endfor %}
+										  </div>
+										</div>
+									  </a>
+									</div>
+									{% endfor %}
+						  
+								  </div>
+							
+							  </div>
+							</div>
 						</div>
 
+
+			
 
 
 
 						<div class="max-w-8xl text-base  mx-auto mt-12" id="contact">
 
 							<div class="my-8">
-								<h2 class="card-title mb-10 text-3xl"> 👋 Support & Help
+								<h2 class="card-title mb-10 text-4xl font-medium tracking-tighter text-pretty"> 👋 Support & Help
 								</h2>
 
 								<div class="grid grid-cols-1 md:grid-cols-2 md:gap-8">
-									<div class="card my-8 bg-base-100 shadow-md">
+									<div class="card my-8 bg-base-100 shadow-md rounded-4xl">
 										<div class="card-body">
 											<h2 class="card-title mb-4 text-2xl">Support ✉️</h2>
 
@@ -316,7 +323,7 @@
 									</div>
 
 
-									<div class="card my-8 bg-base-100 shadow-md">
+									<div class="card my-8 bg-base-100 shadow-md rounded-4xl">
 										<div class="card-body">
 											<h2 class="card-title mb-4 text-2xl">Contact Us ✉️</h2>
 

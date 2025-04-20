@@ -20,7 +20,23 @@
 		<meta property="og:description" content="ProcrastiNOT is Safari extension for macOS, iPhone & iPad that blocks time-wasting sites so you can focus on your goals." />
 		<meta property="og:type" content="website" />
 		<meta property="og:image" content="/assets/images/social-icon.png" />
-		<link rel="manifest" href="/assets/images/social/site.webmanifest" />
+<!-- PWA Manifest -->
+<link rel="manifest" href="/assets/images/social/site.webmanifest" />
+
+<!-- Theme & Mobile Meta -->
+<meta name="theme-color" content="#fef5ec" />
+<meta name="mobile-web-app-capable" content="yes" />
+<meta name="apple-mobile-web-app-capable" content="yes" />
+<meta name="apple-mobile-web-app-status-bar-style" content="default" />
+
+<!-- Icons -->
+<link rel="apple-touch-icon" href="/assets/images/social/192.png" />
+<link rel="icon" href="/assets/images/social/192.png" sizes="192x192" type="image/png" />
+<!-- PWA Meta Tags -->
+<meta name="apple-mobile-web-app-capable" content="yes" />
+<meta name="apple-mobile-web-app-status-bar-style" content="black" />
+<meta name="mobile-web-app-capable" content="yes" />
+
 		<!-- Twitter Meta Tags -->
 		<meta property="twitter:domain" content="coffeeandfun.com" />
 		<meta property="twitter:url" content="https://www.coffeeandfun.com/procrastinot/" />
@@ -43,12 +59,15 @@
 				}
 			}
 		</script>
+			{% bundledCss %}
 
-		{% bundledCss %}
+
 		<script>
-			if ('serviceWorker' in navigator) {
-				navigator.serviceWorker.register('/service-worker.js');
-			}
+	   if ('serviceWorker' in navigator) {
+		  navigator.serviceWorker.register('/service-worker.js')
+			.then(() => console.log('✅ Service worker registered'))
+			.catch((err) => console.log('Service worker error:', err));
+		}
 		</script>
 
 		{% include scripts.html %}
@@ -69,7 +88,7 @@
 		{% include header.liquid %}
 		<main id="main-content" class="mx-auto max-w-7xl pb-12 pt-12">
 			<div class="relative my-16">
-				<div class="rounded-xl bg-white py-24 sm:py-32">
+				<div class="rounded-3xl bg-white py-24 sm:py-32">
 					<div class="mx-auto max-w-7xl px-6 lg:px-8">
 						<div class="mx-auto max-w-3xl text-center">
 							<img
@@ -147,7 +166,7 @@
 							</div>
 						</div>
 						<div class="mx-auto mt-16 flow-root max-w-4xl sm:mt-24">
-							<div class="-m-2 rounded-xl bg-stone-600 p-2 lg:-m-4 lg:rounded-2xl lg:p-4">
+							<div class="-m-2 rounded-3xl bg-stone-600 p-2 lg:-m-4 lg:rounded-3xl lg:p-4">
 								<video
 									aria-label="Demonstration of ProcrastiNot features blocking websites."
 									autoplay="autoplay"
@@ -167,7 +186,7 @@
 				</div>
 			</div>
 
-			<div class="mb-16 mt-16 rounded-xl bg-white" id="privacy">
+			<div class="mb-16 mt-16 rounded-3xl bg-white" id="privacy">
 				<div class="mx-auto max-w-7xl divide-y divide-gray-900/10 px-6 py-24 lg:px-8">
 					<h2 class="text-3xl font-bold leading-10 tracking-tight text-black">
 						Frequently asked questions

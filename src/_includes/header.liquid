@@ -6,12 +6,26 @@
 {% assign showProcrastinot = showProcrastinot | default: false %}
 {% assign showFun = showFun | default: false %}
 {% assign showMiddleBadge = showMiddleBadge | default: false %}
-{%  assign showSpoilers = showSpoilers |  default: false  %}
+{% assign showMiddleBadgeWithText = showMiddleBadgeWithText |  default: false %}
+{% assign showSpoilers = showSpoilers |  default: false  %}
 
 
-<header class="navbar ">
+<header class="navbar mx-auto max-w-7xl px-8" role="navigation" aria-label="main navigation">
 
     <div class="navbar-start">
+
+    {% if showMiddleBadgeWithText %}
+    
+
+        <a href="/" class="px-0 link link-ghost">
+            <img alt="Logo of Coffee & Fun LLC featuring a stylized cup with a coffee bean pattern, representing the company's focus on creativity and innovation in software development."
+            src="/assets/images/coffee-and-fun-logo-dark.png" class="h-16 w-16 aspect-square" decoding="async" data-nimg="future"
+                loading="lazy" />
+            <span class="sr-only font-title text-base-content text-lg md:text-2xl">Coffee & Fun</span>
+        </a>
+    {% endif %}
+
+
         {% if showDonation %}
         <a class="btn btn-secondary btn-sm" href="https://payments.coffeeandfun.com/b/00gbKHdise1e8Le6oZ"
             title="Donate to Coffee & Fun LLC" target="_blank" aria-label="Donate to Coffee & Fun LLC"
@@ -30,8 +44,7 @@
     </div>
 
     <div class="navbar-center">
-
-
+       
         {% if showMiddleBadge %}
     
 

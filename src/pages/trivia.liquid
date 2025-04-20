@@ -14,7 +14,23 @@
     <link rel="icon" href="/assets/images/favicon.png" />
 
     <meta name="title" content="Coco's Trivia Corner: Explore 53,000+ Fun and Random Questions - Coffee & Fun LLC" />
-    <link rel="manifest" href="/assets/images/social/site.webmanifest" />
+<!-- PWA Manifest -->
+<link rel="manifest" href="/assets/images/social/site.webmanifest" />
+
+<!-- Theme & Mobile Meta -->
+<meta name="theme-color" content="#fef5ec" />
+<meta name="mobile-web-app-capable" content="yes" />
+<meta name="apple-mobile-web-app-capable" content="yes" />
+<meta name="apple-mobile-web-app-status-bar-style" content="default" />
+
+<!-- Icons -->
+<link rel="apple-touch-icon" href="/assets/images/social/192.png" />
+<link rel="icon" href="/assets/images/social/192.png" sizes="192x192" type="image/png" />
+<!-- PWA Meta Tags -->
+<meta name="apple-mobile-web-app-capable" content="yes" />
+<meta name="apple-mobile-web-app-status-bar-style" content="black" />
+<meta name="mobile-web-app-capable" content="yes" />
+
     <!-- Open Graph Meta Tags -->
     <meta property="og:title" content="Coco's Trivia Corner: Explore 53,000+ Fun and Random Questions - Coffee & Fun LLC" />
     <meta property="og:site_name" content="Coffee & Fun" />
@@ -47,7 +63,16 @@
             }
         }
     </script>
-    {% bundledCss %}
+    	{% bundledCss %}
+
+
+    <script>
+   if ('serviceWorker' in navigator) {
+      navigator.serviceWorker.register('/service-worker.js')
+        .then(() => console.log('✅ Service worker registered'))
+        .catch((err) => console.log('Service worker error:', err));
+    }
+    </script>
 
     <script src="https://unpkg.com/vue@3"></script>
     <script src="https://unpkg.com/hotkeys-js/dist/hotkeys.min.js"></script>

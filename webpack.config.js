@@ -17,6 +17,10 @@ module.exports = {
 	module: {
 		rules: [
 			{
+				test: /\.styl(us)?$/,
+				use: ["style-loader", "css-loader", "stylus-loader"],
+			  },
+			{
 				test: /\.mp4$/,
 				use: 'file-loader?name=videos/[name].[ext]'
 			},
@@ -62,11 +66,7 @@ module.exports = {
 					"css-loader",
 					{
 					  loader: "postcss-loader",
-					  options: {
-						postcssOptions: {
-						  config: path.resolve(__dirname, "./postcss.config.js"),
-						},
-					  },
+					
 					},
 				  ],
 			}
