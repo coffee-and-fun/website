@@ -148,13 +148,13 @@ module.exports = function (eleventyConfig) {
 	};
 
 	const mapping = {
-		h1: 'font-display text-3xl tracking-tight text-black  mb-4',
-		h2: 'font-display text-2xl text-black mb-6 font-extrabold',
-		h3: 'font-display text-xl text-black mb-6 font-bold',
-		p: 'text-black mb-4 mt-4 text-lg',
-		strong: 'text-black text-base text-lg',
+		h1: 'font-display text-pretty text-3xl tracking-tight text-pretty text-black  mb-4',
+		h2: 'font-display text-pretty text-2xl text-pretty text-black mb-6 font-extrabold',
+		h3: 'font-display text-pretty text-xl text-pretty text-black mb-6 font-bold',
+		p: 'text-black mb-4 mt-4 text-pretty text-lg',
+		strong: 'text-black text-pretty text-base text-pretty text-lg',
 		bold: 'text-black',
-		ul: 'list-none mt-4 space-y-2 border-l border-slate-200 pl-6 text-base',
+		ul: 'list-none mt-4 space-y-2 border-l border-slate-200 pl-6 text-pretty text-base',
 		ol: 'list-none',
 		li: 'list-none',
 		a: 'underline decoration-wavy hover:underline hover:decoration-wavy decoration-blue-500 hover:decoration-pink-500',

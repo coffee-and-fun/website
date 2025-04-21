@@ -94,7 +94,7 @@
 				<div class="mx-auto max-w-7xl lg:px-8">
 					<div class="relative px-4 sm:px-8 lg:px-12">
 						<div class="mx-auto grid max-w-2xl grid-cols-1">
-							<div class="max-w-xl text-base leading-7 lg:col-span-8">
+							<div class="max-w-xl text-pretty text-base leading-7 lg:col-span-8">
 								<div class="mx-auto mb-4 mt-4">
 									<img
 										alt="Coffee and Fun Logo"
@@ -109,22 +109,22 @@
 								</div>
 
 								<div>
-									<h1 class="mb-4 mt-8 text-3xl font-bold leading-none">
+									<h1 class="mb-4 mt-8 text-pretty text-3xl font-bold leading-none">
 										Finding the best Coffee shop
 									</h1>
-									<p class="font-title py-4 text-xl text-black">
+									<p class="font-title py-4 text-pretty text-xl text-pretty text-black">
 										At Coffee & Fun, we know that finding the ideal coffee shop is an art. It's
 										about more than just the taste of the coffee; it's the complete experience,
 										encompassing quality, atmosphere, service, food, seating, value, and
 										workability.
 									</p>
-									<p class="font-title py-4 text-xl text-black">
+									<p class="font-title py-4 text-pretty text-xl text-pretty text-black">
 										That's why we've created a comprehensive review scale to guide you towards the
 										coffee shop that suits all your preferences.
 									</p>
 								</div>
 
-								<article class="mt-16 space-y-7 text-base text-black">
+								<article class="mt-16 space-y-7 text-pretty text-base text-pretty text-black">
 									<div class="mx-auto overflow-x-auto">
 										<ul role="list" class="grid grid-cols-1 gap-x-6 gap-y-8 xl:gap-x-8">
 											{% for coffeeShop in collections.orderedCoffeeShops %}
@@ -138,14 +138,14 @@
 														class="h-12 w-12 flex-none rounded-lg bg-white object-cover ring-1 ring-stone-900/10"
 													/>
 													<div class="flex flex-1">
-														<div class="text-lg font-bold leading-6 text-stone-900">
+														<div class="text-lg font-bold leading-6 text-pretty text-stone-900">
 															{{ coffeeShop.name }}
 															<div class="text-base font-medium"></div>
 														</div>
 													</div>
 													<div class="flex flex-none">
 														<div class="avatar placeholder mask mask-hexagon-2">
-															<div class="bg-neutral-focus w-12 rounded-full text-neutral-content">
+															<div class="bg-neutral-focus w-12 rounded-full text-pretty text-neutral-content">
 																<span>
 																	{% if forloop.index == 1 %} 🥇 {% elsif forloop.index == 2 %} 🥈
 																	{% elsif forloop.index == 3 %} 🥉 {% elsif forloop.index >= 4 %}
@@ -156,7 +156,7 @@
 													</div>
 												</div>
 												<dl
-													class="-my-3 divide-y divide-stone-100 bg-white px-6 py-4 text-base leading-6"
+													class="-my-3 divide-y divide-stone-100 bg-white px-6 py-4 text-pretty text-base leading-6"
 												>
 													<div class="flex justify-between gap-x-4 py-3">
 														<dt class="text-stone-600">Location</dt>
@@ -196,7 +196,7 @@
 														</dt>
 
 														<dd class="flex items-start gap-x-2">
-															<div class="font-medium text-stone-900">
+															<div class="font-medium text-pretty text-stone-900">
 																{% for i in (1..5) %} {% if i <=
 																coffeeShop.categories.qualityOfCoffee.rating %} ⭐️ {% else %} ☆ {%
 																endif %} {% endfor %}
@@ -215,7 +215,7 @@
 														</dt>
 
 														<dd class="flex items-start gap-x-2">
-															<div class="font-medium text-stone-900">
+															<div class="font-medium text-pretty text-stone-900">
 																{% for i in (1..5) %} {% if i <=
 																coffeeShop.categories.atmosphere.rating %} ⭐️ {% else %} ☆ {% endif
 																%} {% endfor %}
@@ -234,7 +234,7 @@
 														</dt>
 
 														<dd class="flex items-start gap-x-2">
-															<div class="font-medium text-stone-900">
+															<div class="font-medium text-pretty text-stone-900">
 																{% for i in (1..5) %} {% if i <=
 																coffeeShop.categories.service.rating %} ⭐️ {% else %} ☆ {% endif %}
 																{% endfor %}
@@ -253,7 +253,7 @@
 														</dt>
 
 														<dd class="flex items-start gap-x-2">
-															<div class="font-medium text-stone-900">
+															<div class="font-medium text-pretty text-stone-900">
 																{% for i in (1..5) %} {% if i <=
 																coffeeShop.categories.foodOfferings.rating %} ⭐️ {% else %} ☆ {%
 																endif %} {% endfor %}
@@ -271,7 +271,7 @@
 															</div>
 														</dt>
 														<dd class="flex items-start gap-x-2">
-															<div class="font-medium text-stone-900">
+															<div class="font-medium text-pretty text-stone-900">
 																{% for i in (1..5) %} {% if i <= coffeeShop.categories.seats.rating
 																%} ⭐️ {% else %} ☆ {% endif %} {% endfor %}
 															</div>
@@ -288,7 +288,7 @@
 															</div>
 														</dt>
 														<dd class="flex items-start gap-x-2">
-															<div class="font-medium text-stone-900">
+															<div class="font-medium text-pretty text-stone-900">
 																{% for i in (1..5) %} {% if i <= coffeeShop.categories.value.rating
 																%} ⭐️ {% else %} ☆ {% endif %} {% endfor %}
 															</div>
@@ -305,7 +305,7 @@
 															</div>
 														</dt>
 														<dd class="flex items-start gap-x-2">
-															<div class="font-medium text-stone-900">
+															<div class="font-medium text-pretty text-stone-900">
 																{% for i in (1..5) %} {% if i <=
 																coffeeShop.categories.workability.rating %} ⭐️ {% else %} ☆ {%
 																endif %} {% endfor %}
@@ -314,14 +314,14 @@
 													</div>
 
 													<div class="flex justify-between gap-x-4 py-3">
-														<dt class="text-lg text-stone-600">
+														<dt class="text-lg text-pretty text-stone-600">
 															<div class="tooltip tooltip-right" data-tip="hello">
 																<b>Final Score</b>
 															</div>
 														</dt>
 
 														<dd class="flex items-start gap-x-2">
-															<div class="text-lg font-medium text-stone-900">
+															<div class="text-lg font-medium text-pretty text-stone-900">
 																<div class="tooltip" data-tip=" {{coffeeShop.totalScore}}/5">
 																	{% assign starIndex = forloop.index0 | divided_by: 2 | plus: 0.5
 																	%} {% for i in (1..5) %} {% if starIndex < coffeeShop.totalScore
