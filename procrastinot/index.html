@@ -62,13 +62,22 @@
 			<link href="/assets/css/engine.css" rel="stylesheet" />
 
 
-		<script>
-	   if ('serviceWorker' in navigator) {
-		  navigator.serviceWorker.register('/service-worker.js')
-			.then(() => console.log('✅ Service worker registered'))
-			.catch((err) => console.log('Service worker error:', err));
-		}
-		</script>
+			<script>
+				if ('serviceWorker' in navigator) {
+				  navigator.serviceWorker.getRegistrations().then((registrations) => {
+					for (const registration of registrations) {
+					  registration.unregister().then(() => {
+						console.log('🧹 Old service worker unregistered');
+					  });
+					}
+			  
+					// After clearing, register the new one
+					navigator.serviceWorker.register('/service-worker.js')
+					  .then(() => console.log('✅ New service worker registered'))
+					  .catch((err) => console.log('Service worker error:', err));
+				  });
+				}
+			  </script>
 
 		<style>
     .brand-color-background {
