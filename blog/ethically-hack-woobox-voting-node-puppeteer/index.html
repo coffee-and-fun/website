@@ -271,7 +271,7 @@ document.addEventListener("DOMContentLoaded", (event) => {
                 <img alt="Logo of Coffee & Fun LLC featuring a stylized cup with a coffee bean pattern, representing the company's focus on creativity and innovation in software development."
                 src="/assets/images/favicon.png" class="h-10 w-10 aspect-square" decoding="async" data-nimg="future"
                     loading="lazy" />
-                <span class="sr-only font-title text-base-content text-lg md:text-2xl">Coffee & Fun</span>
+                <span class="sr-only font-title text-pretty text-base-content text-pretty text-lg md:text-2xl">Coffee & Fun</span>
             </a>
         
 
@@ -299,15 +299,15 @@ document.addEventListener("DOMContentLoaded", (event) => {
 
             <a
             class="btn btn-error  btn-circle transition-all duration-200 hover:-translate-y-1"
-            href="https://payments.coffeeandfun.com/b/00gbKHdise1e8Le6oZ"
+            href="/#donate"
             title="Donate to Coffee & Fun LLC"
             aria-label="Donate to Coffee & Fun LLC"
             aria-controls="Donate to Coffee & Fun LLC"
             role="menuitem"
         >
 
+        <svg xmlns="http://www.w3.org/2000/svg"  viewBox="0 -960 960 960" class="w-6 h-6" fill="currentColor" ><path d="M640-520q17 0 28.5-11.5T680-560q0-17-11.5-28.5T640-600q-17 0-28.5 11.5T600-560q0 17 11.5 28.5T640-520Zm-320-80h200v-80H320v80ZM180-120q-34-114-67-227.5T80-580q0-92 64-156t156-64h200q29-38 70.5-59t89.5-21q25 0 42.5 17.5T720-820q0 6-1.5 12t-3.5 11q-4 11-7.5 22.5T702-751l91 91h87v279l-113 37-67 224H480v-80h-80v80H180Zm60-80h80v-80h240v80h80l62-206 98-33v-141h-40L620-720q0-20 2.5-38.5T630-796q-29 8-51 27.5T547-720H300q-58 0-99 41t-41 99q0 98 27 191.5T240-200Zm240-298Z"/></svg>
 
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 -960 960 960" class="w-6 h-6" fill="currentColor"><path d="M441-120v-86q-53-12-91.5-46T293-348l74-30q15 48 44.5 73t77.5 25q41 0 69.5-18.5T587-356q0-35-22-55.5T463-458q-86-27-118-64.5T313-614q0-65 42-101t86-41v-84h80v84q50 8 82.5 36.5T651-650l-74 32q-12-32-34-48t-60-16q-44 0-67 19.5T393-614q0 33 30 52t104 40q69 20 104.5 63.5T667-358q0 71-42 108t-104 46v84h-80Z"/></svg>
 </a>
 
    
@@ -437,7 +437,7 @@ document.addEventListener("DOMContentLoaded", (event) => {
                       </svg>
                     </a>
                   </div>
-                  <h1 id="article-title" class="mt-6 text-2xl font-bold tracking-tight text-black sm:text-4xl">
+                  <h1 id="article-title" class="mt-6 text-pretty text-2xl font-bold tracking-tight text-pretty text-black sm:text-4xl">
                     How to Ethically Hack Woobox Voting with Node.js and Puppeteer
                   </h1>
                   <div class="divider"></div>
@@ -446,7 +446,7 @@ document.addEventListener("DOMContentLoaded", (event) => {
                     <div class="flex-1 gap-4">
                       <div class="badge badge-neutral">Robert James Gabriel</div>
                     
-                      <time datetime="November 6th, 2024" class="items-center text-base">
+                      <time datetime="November 6th, 2024" class="items-center text-pretty text-base">
                         <span class="badge badge-neutral">November 6th, 2024</span>
                       </time>
                     </div>
@@ -464,29 +464,29 @@ document.addEventListener("DOMContentLoaded", (event) => {
                     title="How to Ethically Hack Woobox Voting with Node.js and Puppeteer"
                   />
       
-                  <h2 class="leading-relaxed font-display text-2xl mb-6 mt-12 font-semibold text-gray-800" id="introduction" tabindex="-1">Introduction</h2>
-<p class="leading-relaxed font-display mb-4 mt-4 text-lg text-gray-900">Online voting platforms like Woobox play a significant role in digital competitions and community-driven events.
-In this blog, I'll walk through how I used <a href="https://nodejs.org/en" class="text-lg text-blue-500 hover:text-blue-700 underline">Node.js</a> and <a href="https://developer.chrome.com/docs/puppeteer" class="text-lg text-blue-500 hover:text-blue-700 underline">Puppeteer</a> to explore a public voting system for a cat photo contest hosted by Woobox.</p>
-<p class="leading-relaxed font-display mb-4 mt-4 text-lg text-gray-900">This project demonstrates the use of automation to understand how online voting works, including URL masking, vote management, and basic security measures. I left no stone unturned looking for an exploit, as all winnings were going to support animal shelters.</p>
-<h2 class="leading-relaxed font-display text-2xl mb-6 mt-12 font-semibold text-gray-800" id="understanding-the-url-structure-and-masking" tabindex="-1">Understanding the URL Structure and Masking</h2>
-<p class="leading-relaxed font-display mb-4 mt-4 text-lg text-gray-900">One of the first things I noticed was that the voting platform was integrated into another site. <strong class="text-lg font-semibold text-gray-800">Your Cat Backpack</strong> but the actual voting page was hosted on <a href="https://woobox.com/" class="text-lg text-blue-500 hover:text-blue-700 underline">Woobox</a>. This is a common practice, where a branded competition page (like <a href="https://yourcatbackpack.com/pages/entry-form-fhh-contest" class="text-lg text-blue-500 hover:text-blue-700 underline">https://yourcatbackpack.com/pages/entry-form-fhh-contest</a>) masks the original URL (in this case, <a href="https://woobox.com/rvm7pj/gallery" class="text-lg text-blue-500 hover:text-blue-700 underline">https://woobox.com/rvm7pj/gallery</a>). This practice allows a brand to keep users on their own website, even though the voting system is managed by an external provider.</p>
-<p class="leading-relaxed font-display mb-4 mt-4 text-lg text-gray-900">The URL structure itself offered valuable clues</p>
-<h3 class="leading-relaxed font-display text-xl mb-4 mt-10 font-semibold text-gray-700" id="main-gallery" tabindex="-1">Main Gallery</h3>
-<p class="leading-relaxed font-display mb-4 mt-4 text-lg text-gray-900">The URL <a href="https://woobox.com/rvm7pj/gallery" class="text-lg text-blue-500 hover:text-blue-700 underline">https://woobox.com/rvm7pj/gallery</a> displays the entire gallery of photos for the contest.</p>
-<h3 class="leading-relaxed font-display text-xl mb-4 mt-10 font-semibold text-gray-700" id="specific-photo-url" tabindex="-1">Specific Photo URL</h3>
-<p class="leading-relaxed font-display mb-4 mt-4 text-lg text-gray-900">Each photo in the contest had a unique identifier, such as <a href="https://woobox.com/rvm7pj/gallery/xxxxxxxx" class="text-lg text-blue-500 hover:text-blue-700 underline">https://woobox.com/rvm7pj/gallery/xxxxxxxx</a>, where xxxxxxxx represents the specific photo ID.</p>
-<p class="leading-relaxed font-display mb-4 mt-4 text-lg text-gray-900">Navigating to <strong class="text-lg font-semibold text-gray-800"><a href="https://woobox.com/rvm7pj/gallery/xxxxxxxx" class="text-lg text-blue-500 hover:text-blue-700 underline">https://woobox.com/rvm7pj/gallery/xxxxxxxx</a></strong> directly loads a specific photo, allowing us to vote for it without having to navigate through the entire gallery. This structure made it easier to target specific entries.</p>
-<h2 class="leading-relaxed font-display text-2xl mb-6 mt-12 font-semibold text-gray-800" id="using-goto-to-interact-with-dynamic-urls" tabindex="-1">Using goto to Interact with Dynamic URLs</h2>
-<p class="leading-relaxed font-display mb-4 mt-4 text-lg text-gray-900">In Puppeteer, <strong class="text-lg font-semibold text-gray-800">page.goto(url)</strong> is the core function to navigate to a URL. Because each photo had its unique URL, I used <strong class="text-lg font-semibold text-gray-800">page.goto()</strong> with a specific photo ID, which allowed the script to load a particular photo’s voting page directly. This meant I could target multiple entries with different photo IDs, making the process flexible for automating votes across several contestants.</p>
-<p class="leading-relaxed font-display mb-4 mt-4 text-lg text-gray-900">Here’s how goto works in this context:</p>
+                  <h2 class="leading-relaxed font-display text-pretty text-2xl mb-6 mt-12 font-semibold text-pretty text-gray-800" id="introduction" tabindex="-1">Introduction</h2>
+<p class="leading-relaxed font-display mb-4 mt-4 text-pretty text-lg text-pretty text-gray-900">Online voting platforms like Woobox play a significant role in digital competitions and community-driven events.
+In this blog, I'll walk through how I used <a href="https://nodejs.org/en" class="text-lg text-pretty text-blue-500 hover:text-blue-700 underline">Node.js</a> and <a href="https://developer.chrome.com/docs/puppeteer" class="text-lg text-pretty text-blue-500 hover:text-blue-700 underline">Puppeteer</a> to explore a public voting system for a cat photo contest hosted by Woobox.</p>
+<p class="leading-relaxed font-display mb-4 mt-4 text-pretty text-lg text-pretty text-gray-900">This project demonstrates the use of automation to understand how online voting works, including URL masking, vote management, and basic security measures. I left no stone unturned looking for an exploit, as all winnings were going to support animal shelters.</p>
+<h2 class="leading-relaxed font-display text-pretty text-2xl mb-6 mt-12 font-semibold text-pretty text-gray-800" id="understanding-the-url-structure-and-masking" tabindex="-1">Understanding the URL Structure and Masking</h2>
+<p class="leading-relaxed font-display mb-4 mt-4 text-pretty text-lg text-pretty text-gray-900">One of the first things I noticed was that the voting platform was integrated into another site. <strong class="text-lg font-semibold text-pretty text-gray-800">Your Cat Backpack</strong> but the actual voting page was hosted on <a href="https://woobox.com/" class="text-lg text-pretty text-blue-500 hover:text-blue-700 underline">Woobox</a>. This is a common practice, where a branded competition page (like <a href="https://yourcatbackpack.com/pages/entry-form-fhh-contest" class="text-lg text-pretty text-blue-500 hover:text-blue-700 underline">https://yourcatbackpack.com/pages/entry-form-fhh-contest</a>) masks the original URL (in this case, <a href="https://woobox.com/rvm7pj/gallery" class="text-lg text-pretty text-blue-500 hover:text-blue-700 underline">https://woobox.com/rvm7pj/gallery</a>). This practice allows a brand to keep users on their own website, even though the voting system is managed by an external provider.</p>
+<p class="leading-relaxed font-display mb-4 mt-4 text-pretty text-lg text-pretty text-gray-900">The URL structure itself offered valuable clues</p>
+<h3 class="leading-relaxed font-display text-pretty text-xl mb-4 mt-10 font-semibold text-pretty text-gray-700" id="main-gallery" tabindex="-1">Main Gallery</h3>
+<p class="leading-relaxed font-display mb-4 mt-4 text-pretty text-lg text-pretty text-gray-900">The URL <a href="https://woobox.com/rvm7pj/gallery" class="text-lg text-pretty text-blue-500 hover:text-blue-700 underline">https://woobox.com/rvm7pj/gallery</a> displays the entire gallery of photos for the contest.</p>
+<h3 class="leading-relaxed font-display text-pretty text-xl mb-4 mt-10 font-semibold text-pretty text-gray-700" id="specific-photo-url" tabindex="-1">Specific Photo URL</h3>
+<p class="leading-relaxed font-display mb-4 mt-4 text-pretty text-lg text-pretty text-gray-900">Each photo in the contest had a unique identifier, such as <a href="https://woobox.com/rvm7pj/gallery/xxxxxxxx" class="text-lg text-pretty text-blue-500 hover:text-blue-700 underline">https://woobox.com/rvm7pj/gallery/xxxxxxxx</a>, where xxxxxxxx represents the specific photo ID.</p>
+<p class="leading-relaxed font-display mb-4 mt-4 text-pretty text-lg text-pretty text-gray-900">Navigating to <strong class="text-lg font-semibold text-pretty text-gray-800"><a href="https://woobox.com/rvm7pj/gallery/xxxxxxxx" class="text-lg text-pretty text-blue-500 hover:text-blue-700 underline">https://woobox.com/rvm7pj/gallery/xxxxxxxx</a></strong> directly loads a specific photo, allowing us to vote for it without having to navigate through the entire gallery. This structure made it easier to target specific entries.</p>
+<h2 class="leading-relaxed font-display text-pretty text-2xl mb-6 mt-12 font-semibold text-pretty text-gray-800" id="using-goto-to-interact-with-dynamic-urls" tabindex="-1">Using goto to Interact with Dynamic URLs</h2>
+<p class="leading-relaxed font-display mb-4 mt-4 text-pretty text-lg text-pretty text-gray-900">In Puppeteer, <strong class="text-lg font-semibold text-pretty text-gray-800">page.goto(url)</strong> is the core function to navigate to a URL. Because each photo had its unique URL, I used <strong class="text-lg font-semibold text-pretty text-gray-800">page.goto()</strong> with a specific photo ID, which allowed the script to load a particular photo’s voting page directly. This meant I could target multiple entries with different photo IDs, making the process flexible for automating votes across several contestants.</p>
+<p class="leading-relaxed font-display mb-4 mt-4 text-pretty text-lg text-pretty text-gray-900">Here’s how goto works in this context:</p>
 <pre><code class="language-js">    await page.goto('https://woobox.com/rvm7pj/gallery/xxxxxxx');
 </code></pre>
-<p class="leading-relaxed font-display mb-4 mt-4 text-lg text-gray-900">By changing the URL in goto to include a different photo ID, the script can switch between entries, automating votes for multiple photos without navigating back to the main gallery each time. This saves time and reduces server requests, which helps avoid detection.</p>
-<h2 class="leading-relaxed font-display text-2xl mb-6 mt-12 font-semibold text-gray-800" id="automating-the-voting-process-with-random-data" tabindex="-1">Automating the Voting Process with Random Data</h2>
-<p class="leading-relaxed font-display mb-4 mt-4 text-lg text-gray-900">Woobox required a name and email address for each vote, but there was no login required, meaning anyone could submit a vote with minimal information.
+<p class="leading-relaxed font-display mb-4 mt-4 text-pretty text-lg text-pretty text-gray-900">By changing the URL in goto to include a different photo ID, the script can switch between entries, automating votes for multiple photos without navigating back to the main gallery each time. This saves time and reduces server requests, which helps avoid detection.</p>
+<h2 class="leading-relaxed font-display text-pretty text-2xl mb-6 mt-12 font-semibold text-pretty text-gray-800" id="automating-the-voting-process-with-random-data" tabindex="-1">Automating the Voting Process with Random Data</h2>
+<p class="leading-relaxed font-display mb-4 mt-4 text-pretty text-lg text-pretty text-gray-900">Woobox required a name and email address for each vote, but there was no login required, meaning anyone could submit a vote with minimal information.
 Here’s how I automated this process:</p>
-<h3 class="leading-relaxed font-display text-xl mb-4 mt-10 font-semibold text-gray-700" id="generate-random-names-and-emails" tabindex="-1">Generate Random Names and Emails</h3>
-<p class="leading-relaxed font-display mb-4 mt-4 text-lg text-gray-900">To simulate unique users, I created a function to generate random first and last names, along with randomized email addresses.</p>
+<h3 class="leading-relaxed font-display text-pretty text-xl mb-4 mt-10 font-semibold text-pretty text-gray-700" id="generate-random-names-and-emails" tabindex="-1">Generate Random Names and Emails</h3>
+<p class="leading-relaxed font-display mb-4 mt-4 text-pretty text-lg text-pretty text-gray-900">To simulate unique users, I created a function to generate random first and last names, along with randomized email addresses.</p>
 <pre><code class="language-js">    function generateRandomData() {
         const firstNames = ['Alice', 'Bob', 'Charlie'];
         const lastNames = ['Smith', 'Johnson', 'Williams'];
@@ -500,9 +500,9 @@ Here’s how I automated this process:</p>
         return { firstName, lastName, email };
     }
 </code></pre>
-<p class="leading-relaxed font-display mb-4 mt-4 text-lg text-gray-900">Each time the script runs, it generates a new name and email, which are then entered into the voting form.</p>
-<h3 class="leading-relaxed font-display text-xl mb-4 mt-10 font-semibold text-gray-700" id="interacting-with-form-elements" tabindex="-1">Interacting with Form Elements</h3>
-<p class="leading-relaxed font-display mb-4 mt-4 text-lg text-gray-900">After navigating to the specific photo URL, I used Puppeteer’s <strong class="text-lg font-semibold text-gray-800">page.waitForSelector()</strong> and <strong class="text-lg font-semibold text-gray-800">page.type()</strong> functions to fill in the form fields and submit the vote. Here’s how the core voting automation looked:</p>
+<p class="leading-relaxed font-display mb-4 mt-4 text-pretty text-lg text-pretty text-gray-900">Each time the script runs, it generates a new name and email, which are then entered into the voting form.</p>
+<h3 class="leading-relaxed font-display text-pretty text-xl mb-4 mt-10 font-semibold text-pretty text-gray-700" id="interacting-with-form-elements" tabindex="-1">Interacting with Form Elements</h3>
+<p class="leading-relaxed font-display mb-4 mt-4 text-pretty text-lg text-pretty text-gray-900">After navigating to the specific photo URL, I used Puppeteer’s <strong class="text-lg font-semibold text-pretty text-gray-800">page.waitForSelector()</strong> and <strong class="text-lg font-semibold text-pretty text-gray-800">page.type()</strong> functions to fill in the form fields and submit the vote. Here’s how the core voting automation looked:</p>
 <pre><code class="language-js">    // Wait for the form, type in the generated data, and submit
     const { firstName, lastName, email } = generateRandomData();
     await page.type('input[name=&quot;voter_first&quot;]', firstName);
@@ -510,34 +510,34 @@ Here’s how I automated this process:</p>
     await page.type('input[name=&quot;voter_email&quot;]', email);
     await page.click('.vote-submit');
 </code></pre>
-<h2 class="leading-relaxed font-display text-2xl mb-6 mt-12 font-semibold text-gray-800" id="clearing-cookies%2C-cache%2C-and-local-storage" tabindex="-1">Clearing Cookies, Cache, and Local Storage</h2>
-<p class="leading-relaxed font-display mb-4 mt-4 text-lg text-gray-900">Woobox attempted to limit voting frequency by storing data in cookies, cache, and localStorage, which Puppeteer could clear before each vote. Clearing this data helps mimic the behavior of a fresh user session.</p>
-<h3 class="leading-relaxed font-display text-xl mb-4 mt-10 font-semibold text-gray-700" id="clearing-cookies-and-cache" tabindex="-1">Clearing Cookies and Cache</h3>
-<p class="leading-relaxed font-display mb-4 mt-4 text-lg text-gray-900">Puppeteer provides commands to clear cookies and cache, which can be done via the Chrome DevTools Protocol.</p>
+<h2 class="leading-relaxed font-display text-pretty text-2xl mb-6 mt-12 font-semibold text-pretty text-gray-800" id="clearing-cookies%2C-cache%2C-and-local-storage" tabindex="-1">Clearing Cookies, Cache, and Local Storage</h2>
+<p class="leading-relaxed font-display mb-4 mt-4 text-pretty text-lg text-pretty text-gray-900">Woobox attempted to limit voting frequency by storing data in cookies, cache, and localStorage, which Puppeteer could clear before each vote. Clearing this data helps mimic the behavior of a fresh user session.</p>
+<h3 class="leading-relaxed font-display text-pretty text-xl mb-4 mt-10 font-semibold text-pretty text-gray-700" id="clearing-cookies-and-cache" tabindex="-1">Clearing Cookies and Cache</h3>
+<p class="leading-relaxed font-display mb-4 mt-4 text-pretty text-lg text-pretty text-gray-900">Puppeteer provides commands to clear cookies and cache, which can be done via the Chrome DevTools Protocol.</p>
 <pre><code class="language-js">    const client = await page.target().createCDPSession();
     await client.send('Network.clearBrowserCookies');
     await client.send('Network.clearBrowserCache');
 </code></pre>
-<h3 class="leading-relaxed font-display text-xl mb-4 mt-10 font-semibold text-gray-700" id="clearing-local-storage" tabindex="-1">Clearing Local Storage</h3>
-<p class="leading-relaxed font-display mb-4 mt-4 text-lg text-gray-900">I used <strong class="text-lg font-semibold text-gray-800">page.evaluate()</strong> to clear <strong class="text-lg font-semibold text-gray-800">localStorage</strong> and <strong class="text-lg font-semibold text-gray-800">sessionStorage</strong> each time a vote was submitted, bypassing local session restrictions.</p>
+<h3 class="leading-relaxed font-display text-pretty text-xl mb-4 mt-10 font-semibold text-pretty text-gray-700" id="clearing-local-storage" tabindex="-1">Clearing Local Storage</h3>
+<p class="leading-relaxed font-display mb-4 mt-4 text-pretty text-lg text-pretty text-gray-900">I used <strong class="text-lg font-semibold text-pretty text-gray-800">page.evaluate()</strong> to clear <strong class="text-lg font-semibold text-pretty text-gray-800">localStorage</strong> and <strong class="text-lg font-semibold text-pretty text-gray-800">sessionStorage</strong> each time a vote was submitted, bypassing local session restrictions.</p>
 <pre><code class="language-js">   await page.evaluate(() =&gt; {
        localStorage.clear();
        sessionStorage.clear();
    });
 </code></pre>
-<h2 class="leading-relaxed font-display text-2xl mb-6 mt-12 font-semibold text-gray-800" id="how-woobox-could-strengthen-their-voting-security" tabindex="-1">How Woobox Could Strengthen Their Voting Security</h2>
-<p class="leading-relaxed font-display mb-4 mt-4 text-lg text-gray-900">After automating the process, a few areas where Woobox could add extra protections became clear:</p>
-<h3 class="leading-relaxed font-display text-xl mb-4 mt-10 font-semibold text-gray-700" id="captcha-integration" tabindex="-1">CAPTCHA Integration</h3>
-<p class="leading-relaxed font-display mb-4 mt-4 text-lg text-gray-900">A CAPTCHA system, such as Google’s reCAPTCHA, could effectively differentiate between automated and genuine votes. By requiring a CAPTCHA, Woobox could limit automated access significantly.</p>
-<h3 class="leading-relaxed font-display text-xl mb-4 mt-10 font-semibold text-gray-700" id="email-verification" tabindex="-1">Email Verification</h3>
-<p class="leading-relaxed font-display mb-4 mt-4 text-lg text-gray-900">By verifying each email before counting a vote, Woobox could prevent users from using randomized or throwaway emails. This could be done with a one-time password (OTP) or email confirmation.</p>
-<h3 class="leading-relaxed font-display text-xl mb-4 mt-10 font-semibold text-gray-700" id="ip-based-rate-limiting" tabindex="-1">IP-Based Rate Limiting</h3>
-<p class="leading-relaxed font-display mb-4 mt-4 text-lg text-gray-900">Rate limiting based on IP addresses could prevent high volumes of requests from a single IP. Additionally, implementing fingerprinting could help track users across sessions and limit repeated votes.</p>
-<h3 class="leading-relaxed font-display text-xl mb-4 mt-10 font-semibold text-gray-700" id="session-timeouts-and-browser-fingerprinting" tabindex="-1">Session Timeouts and Browser Fingerprinting</h3>
-<p class="leading-relaxed font-display mb-4 mt-4 text-lg text-gray-900">Implementing session timeouts and advanced fingerprinting techniques (like analyzing screen resolution, device type, etc.) could help identify repeat visitors or automated scripts, flagging votes that appear automated.</p>
-<h2 class="leading-relaxed font-display text-2xl mb-6 mt-12 font-semibold text-gray-800" id="conclusion" tabindex="-1">Conclusion</h2>
-<p class="leading-relaxed font-display mb-4 mt-4 text-lg text-gray-900">This project demonstrated how to automate form interactions with <a href="https://nodejs.org/en" class="text-lg text-blue-500 hover:text-blue-700 underline">Node.js</a> and <a href="https://developer.chrome.com/docs/puppeteer" class="text-lg text-blue-500 hover:text-blue-700 underline">Puppeteer</a> while highlighting the security limitations in online voting systems. In environments where voting is public and unrestricted, automation can exploit these open structures if there are no safeguards like email verification or CAPTCHA in place.</p>
-<p class="leading-relaxed font-display mb-4 mt-4 text-lg text-gray-900">Using <a href="https://developer.chrome.com/docs/puppeteer" class="text-lg text-blue-500 hover:text-blue-700 underline">Puppeteer</a> to interact with URLs, manage page navigation, and simulate different user inputs offers a practical way to study web automation. By implementing security best practices, voting platforms like Woobox can ensure fair participation and prevent automation abuse, fostering a more trustworthy user experience.</p>
+<h2 class="leading-relaxed font-display text-pretty text-2xl mb-6 mt-12 font-semibold text-pretty text-gray-800" id="how-woobox-could-strengthen-their-voting-security" tabindex="-1">How Woobox Could Strengthen Their Voting Security</h2>
+<p class="leading-relaxed font-display mb-4 mt-4 text-pretty text-lg text-pretty text-gray-900">After automating the process, a few areas where Woobox could add extra protections became clear:</p>
+<h3 class="leading-relaxed font-display text-pretty text-xl mb-4 mt-10 font-semibold text-pretty text-gray-700" id="captcha-integration" tabindex="-1">CAPTCHA Integration</h3>
+<p class="leading-relaxed font-display mb-4 mt-4 text-pretty text-lg text-pretty text-gray-900">A CAPTCHA system, such as Google’s reCAPTCHA, could effectively differentiate between automated and genuine votes. By requiring a CAPTCHA, Woobox could limit automated access significantly.</p>
+<h3 class="leading-relaxed font-display text-pretty text-xl mb-4 mt-10 font-semibold text-pretty text-gray-700" id="email-verification" tabindex="-1">Email Verification</h3>
+<p class="leading-relaxed font-display mb-4 mt-4 text-pretty text-lg text-pretty text-gray-900">By verifying each email before counting a vote, Woobox could prevent users from using randomized or throwaway emails. This could be done with a one-time password (OTP) or email confirmation.</p>
+<h3 class="leading-relaxed font-display text-pretty text-xl mb-4 mt-10 font-semibold text-pretty text-gray-700" id="ip-based-rate-limiting" tabindex="-1">IP-Based Rate Limiting</h3>
+<p class="leading-relaxed font-display mb-4 mt-4 text-pretty text-lg text-pretty text-gray-900">Rate limiting based on IP addresses could prevent high volumes of requests from a single IP. Additionally, implementing fingerprinting could help track users across sessions and limit repeated votes.</p>
+<h3 class="leading-relaxed font-display text-pretty text-xl mb-4 mt-10 font-semibold text-pretty text-gray-700" id="session-timeouts-and-browser-fingerprinting" tabindex="-1">Session Timeouts and Browser Fingerprinting</h3>
+<p class="leading-relaxed font-display mb-4 mt-4 text-pretty text-lg text-pretty text-gray-900">Implementing session timeouts and advanced fingerprinting techniques (like analyzing screen resolution, device type, etc.) could help identify repeat visitors or automated scripts, flagging votes that appear automated.</p>
+<h2 class="leading-relaxed font-display text-pretty text-2xl mb-6 mt-12 font-semibold text-pretty text-gray-800" id="conclusion" tabindex="-1">Conclusion</h2>
+<p class="leading-relaxed font-display mb-4 mt-4 text-pretty text-lg text-pretty text-gray-900">This project demonstrated how to automate form interactions with <a href="https://nodejs.org/en" class="text-lg text-pretty text-blue-500 hover:text-blue-700 underline">Node.js</a> and <a href="https://developer.chrome.com/docs/puppeteer" class="text-lg text-pretty text-blue-500 hover:text-blue-700 underline">Puppeteer</a> while highlighting the security limitations in online voting systems. In environments where voting is public and unrestricted, automation can exploit these open structures if there are no safeguards like email verification or CAPTCHA in place.</p>
+<p class="leading-relaxed font-display mb-4 mt-4 text-pretty text-lg text-pretty text-gray-900">Using <a href="https://developer.chrome.com/docs/puppeteer" class="text-lg text-pretty text-blue-500 hover:text-blue-700 underline">Puppeteer</a> to interact with URLs, manage page navigation, and simulate different user inputs offers a practical way to study web automation. By implementing security best practices, voting platforms like Woobox can ensure fair participation and prevent automation abuse, fostering a more trustworthy user experience.</p>
 <pre><code class="language-js">    const puppeteer = require('puppeteer');
     const LIMIT = 12;
     const TARGET = 'https://woobox.com/rvm7pj/gallery/xxxxxxxx'
@@ -727,7 +727,7 @@ Here’s how I automated this process:</p>
 
         <div class="mb-12 mt-4">
 
-            <p class="py-4 text-base">
+            <p class="py-4 text-pretty text-base">
                 In Mystery Rank, you contribute to earn a spot in different categories. The more you give, the higher
                 your rank. But here’s the catch—no one knows how much anyone else has paid. It’s this mystery that makes
                 the competition even more exciting.
@@ -742,7 +742,7 @@ Here’s how I automated this process:</p>
 
             <h3 class="text-lg font-semibold mb-2">One-Time Contribution</h3>
 
-            <p class="py-4 text-base">
+            <p class="py-4 text-pretty text-base">
                 When you contribute to Mystery Rank, it’s a one-time payment that secures your spot in the credits.
                 Please keep in mind that once the payment is made, it’s final—there are no refunds or changes. We want
                 to keep the process fair and transparent for everyone involved.
@@ -758,7 +758,7 @@ Here’s how I automated this process:</p>
 
             <h3 class="text-lg font-semibold mb-2">How Your Rank is Determined</h3>
 
-            <p class="py-4 text-base">
+            <p class="py-4 text-pretty text-base">
                 Your rank within your chosen category is based on how much you contribute. The more you contribute, the
                 higher your rank will be. However, the amount you’ve paid, and what others have paid, will remain
                 private. This adds a layer of mystery and excitement to the competition.
@@ -773,7 +773,7 @@ Here’s how I automated this process:</p>
 
             <h3 class="text-lg font-semibold mb-2">When Your Credit Appears</h3>
 
-            <p class="py-4 text-base">
+            <p class="py-4 text-pretty text-base">
                 After your payment is confirmed, your credit will be posted within 12 hours. We work hard to ensure that
                 everyone’s contributions are recognized promptly. If for some reason there’s a delay, we’ll do our best
                 to keep you informed.
@@ -787,7 +787,7 @@ Here’s how I automated this process:</p>
 
             <h3 class="text-lg font-semibold mb-2">Handling Chargebacks</h3>
 
-            <p class="py-4 text-base">
+            <p class="py-4 text-pretty text-base">
                 If a chargeback occurs, your credit will be immediately removed from the list, and unfortunately, you’ll
                 be blocked from participating in Mystery Rank in the future. We do this to protect the integrity of the
                 rankings and ensure fairness for all contributors.
@@ -802,7 +802,7 @@ Here’s how I automated this process:</p>
 
             <h3 class="text-lg font-semibold mb-2">Updating Your Listing or Link</h3>
 
-            <p class="py-4 text-base">
+            <p class="py-4 text-pretty text-base">
                 We understand that sometimes things change. If you need to update your listing or link after it’s been
                 posted, just send us an email at <a
                     href="mailto:hello@coffeeandfun.com?subject=Inquiry%20about%20Mystery%20Rank%20Credits&body=Hi%20there,%0D%0A%0D%0AI%20have%20a%20question%20about%20Mystery%20Rank%20Credits.%0D%0A%0D%0AThank%20you!"
@@ -818,7 +818,7 @@ Here’s how I automated this process:</p>
 
             <h3 class="text-lg font-semibold mb-2">Need Help or Have Questions?</h3>
 
-            <p class="py-4 text-base">
+            <p class="py-4 text-pretty text-base">
                 If you have any questions about the process, or if something isn’t clear, please don’t hesitate to reach
                 out. We’re here to help and want to make sure your experience with Mystery Rank is as smooth and
                 enjoyable as possible.
@@ -851,7 +851,7 @@ Here’s how I automated this process:</p>
 
             <div class="mb-4 mt-4">
 
-                <h3 class="pb-2 text-base font-bold">
+                <h3 class="pb-2 text-pretty text-base font-bold">
                     Show Answer
                 </h3>
 
@@ -863,7 +863,7 @@ Here’s how I automated this process:</p>
 
             <div class="mb-4">
 
-                <h3 class="pb-2 text-base font-bold">
+                <h3 class="pb-2 text-pretty text-base font-bold">
                     Hide Answer
                 </h3>
 
@@ -873,7 +873,7 @@ Here’s how I automated this process:</p>
 
             <div class="mb-4">
 
-                <h3 class="pb-2 text-base font-bold">
+                <h3 class="pb-2 text-pretty text-base font-bold">
                     Next Question
                 </h3>
 
@@ -885,7 +885,7 @@ Here’s how I automated this process:</p>
 
             <div class="mb-4">
 
-                <h3 class="pb-2 text-base font-bold">
+                <h3 class="pb-2 text-pretty text-base font-bold">
                     Previous Question
                 </h3>
 
@@ -1117,7 +1117,7 @@ Here’s how I automated this process:</p>
     class="h-24 w-24 flex-none fill-cyan-500 inline-block fill-current" />
     </a>
   <p class="  mb-4 mt-4">
-    <span class="font-bold text-lg">
+    <span class="font-bold text-pretty text-lg">
     Coffee & Fun LLC
     </span>
 
@@ -1183,7 +1183,7 @@ title="Joing our Discord" class="text-black hover:text-purple-700">
 
 
     </div>
-    <p class="mt-10 text-center text-md text-black"> &copy; 2025 <b>Coffee & Fun LLC</b>. All rights reserved.</p>
+    <p class="mt-10 text-pretty text-center text-pretty text-md text-pretty text-black"> &copy; 2025 <b>Coffee & Fun LLC</b>. All rights reserved.</p>
   </div>
 </footer>
 
