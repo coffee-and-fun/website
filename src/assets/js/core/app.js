@@ -1,7 +1,6 @@
 import Vue from 'vue';
 import { crisp, loadManager, tagManager } from './third-party';
 
-
 function load() {
 	new Vue({
 		el: '#too-shy-to-ask-website',

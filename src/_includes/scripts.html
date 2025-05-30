@@ -1,137 +1,130 @@
 <style>
-    .brand-color-background {
-        background-color: #fef5ec;
-    }
+	.brand-color-background {
+		background-color: #fef5ec;
+	}
 </style>
-
 
 <!-- Google Tag Manager Script -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-RC4JGW9PVN"></script>
 <script>
-    window.dataLayer = window.dataLayer || [];
-    function gtag() { dataLayer.push(arguments); }
-    gtag('js', new Date());
+	window.dataLayer = window.dataLayer || [];
+	function gtag() {
+		dataLayer.push(arguments);
+	}
+	gtag('js', new Date());
 
-    gtag('config', 'G-RC4JGW9PVN');
+	gtag('config', 'G-RC4JGW9PVN');
 </script>
-
-
 
 <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.3/dist/confetti.browser.min.js"></script>
 <script src="https://unpkg.com/cursor-effects@latest/dist/browser.js"></script>
 
-<link rel="stylesheet" href="https://unpkg.com/prismjs@1.20.0/themes/prism-okaidia.css">
+<link rel="stylesheet" href="https://unpkg.com/prismjs@1.20.0/themes/prism-okaidia.css" />
 <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
 <script>
+	// Function to launch the confetti animation
+	function launchConfetti() {
+		const totalParticles = 300; // Total number of confetti particles
 
+		// Default configuration for the confetti
+		const confettiDefaults = {
+			angle: 75, // Initial angle for the confetti
+			zIndex: 2147483647 // Ensure confetti is displayed on top of other elements
+		};
 
+		// Function to trigger the confetti animation with different configurations
+		function triggerConfetti(particleProportion, options) {
+			// Launch confetti from the left side
+			confetti({
+				...confettiDefaults,
+				...options,
+				origin: { y: 1, x: 0 }, // Confetti originates from the bottom left
+				angle: 30, // Angle at which confetti is launched
+				particleCount: Math.floor(totalParticles * particleProportion) // Number of particles
+			});
 
+			// Launch confetti from the right side
+			confetti({
+				...confettiDefaults,
+				...options,
+				origin: { y: 1, x: 1 }, // Confetti originates from the bottom right
+				angle: 150, // Angle at which confetti is launched
+				particleCount: Math.floor(totalParticles * particleProportion) // Number of particles
+			});
 
-// Function to launch the confetti animation
-function launchConfetti() {
-  const totalParticles = 300; // Total number of confetti particles
+			// Launch confetti from the center
+			confetti({
+				...confettiDefaults,
+				...options,
+				origin: { y: 1, x: 0.5 }, // Confetti originates from the bottom center
+				particleCount: Math.floor(totalParticles * particleProportion) // Number of particles
+			});
+		}
 
-  // Default configuration for the confetti
-  const confettiDefaults = {
-    angle: 75, // Initial angle for the confetti
-    zIndex: 2147483647, // Ensure confetti is displayed on top of other elements
-  };
+		// Different configurations for the confetti bursts
+		triggerConfetti(0.3, {
+			spread: 30, // How much the confetti spreads out
+			startVelocity: 80 // Initial velocity of the confetti
+		});
 
-  // Function to trigger the confetti animation with different configurations
-  function triggerConfetti(particleProportion, options) {
-    // Launch confetti from the left side
-    confetti({
-      ...confettiDefaults,
-      ...options,
-      origin: { y: 1, x: 0 }, // Confetti originates from the bottom left
-      angle: 30, // Angle at which confetti is launched
-      particleCount: Math.floor(totalParticles * particleProportion), // Number of particles
-    });
+		triggerConfetti(0.25, {
+			spread: 50 // Spread is wider here
+		});
 
-    // Launch confetti from the right side
-    confetti({
-      ...confettiDefaults,
-      ...options,
-      origin: { y: 1, x: 1 }, // Confetti originates from the bottom right
-      angle: 150, // Angle at which confetti is launched
-      particleCount: Math.floor(totalParticles * particleProportion), // Number of particles
-    });
+		triggerConfetti(0.4, {
+			spread: 90, // Even wider spread
+			decay: 0.89 // How quickly the confetti slows down
+		});
 
-    // Launch confetti from the center
-    confetti({
-      ...confettiDefaults,
-      ...options,
-      origin: { y: 1, x: 0.5 }, // Confetti originates from the bottom center
-      particleCount: Math.floor(totalParticles * particleProportion), // Number of particles
-    });
-  }
+		triggerConfetti(0.15, {
+			spread: 110, // Very wide spread
+			startVelocity: 40, // Slower initial velocity
+			decay: 0.9 // Slightly slower decay
+		});
 
-  // Different configurations for the confetti bursts
-  triggerConfetti(0.3, {
-    spread: 30, // How much the confetti spreads out
-    startVelocity: 80, // Initial velocity of the confetti
-  });
+		triggerConfetti(0.1, {
+			spread: 130, // Maximum spread
+			startVelocity: 70 // Moderate initial velocity
+		});
+	}
 
-  triggerConfetti(0.25, {
-    spread: 50, // Spread is wider here
-  });
+	let cursorEffect = null;
+	let cursorEffectsEnabled = false;
+	let currentEffectIndex = -1; // Start before first
 
-  triggerConfetti(0.4, {
-    spread: 90, // Even wider spread
-    decay: 0.89, // How quickly the confetti slows down
-  });
+	const availableEffects = [
+		'rainbowCursor',
+		'followingDotCursor',
+		'clockCursor',
+		'ghostCursor',
+		'bubbleCursor',
+		'fairyDustCursor'
+	];
 
-  triggerConfetti(0.15, {
-    spread: 110, // Very wide spread
-    startVelocity: 40, // Slower initial velocity
-    decay: 0.90, // Slightly slower decay
-  });
+	function applyCursorEffect() {
+		if (cursorEffectsEnabled) {
+			// Turn OFF
+			if (cursorEffect && typeof cursorEffect.destroy === 'function') {
+				cursorEffect.destroy();
+			}
+			cursorEffect = null;
+			cursorEffectsEnabled = false;
+		} else {
+			// Move to the next effect in the list
+			currentEffectIndex = (currentEffectIndex + 1) % availableEffects.length;
+			const effectName = availableEffects[currentEffectIndex];
 
-  triggerConfetti(0.1, {
-    spread: 130, // Maximum spread
-    startVelocity: 70, // Moderate initial velocity
-  });
-}
+			// Create new effect instance
+			cursorEffect = new cursoreffects[effectName]();
+			cursorEffectsEnabled = true;
 
+			// Optional: log the current effect
+		}
+	}
 
-let cursorEffect = null;
-let cursorEffectsEnabled = false;
-let currentEffectIndex = -1; // Start before first
-
-const availableEffects = [
-  'rainbowCursor',
-  'followingDotCursor',
-  'clockCursor',
-  'ghostCursor',
-  'bubbleCursor',
-  'fairyDustCursor'
-];
-
-function applyCursorEffect() {
-  if (cursorEffectsEnabled) {
-    // Turn OFF
-    if (cursorEffect && typeof cursorEffect.destroy === "function") {
-      cursorEffect.destroy();
-    }
-    cursorEffect = null;
-    cursorEffectsEnabled = false;
-  } else {
-    // Move to the next effect in the list
-    currentEffectIndex = (currentEffectIndex + 1) % availableEffects.length;
-    const effectName = availableEffects[currentEffectIndex];
-
-    // Create new effect instance
-    cursorEffect = new cursoreffects[effectName]();
-    cursorEffectsEnabled = true;
-
-    // Optional: log the current effect
-
-  }
-}
-
-document.addEventListener("DOMContentLoaded", (event) => {
-        document.querySelectorAll('pre code').forEach((block) => {
-            hljs.highlightElement(block);
-        });
-    });
+	document.addEventListener('DOMContentLoaded', (event) => {
+		document.querySelectorAll('pre code').forEach((block) => {
+			hljs.highlightElement(block);
+		});
+	});
 </script>

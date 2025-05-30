@@ -4,10 +4,14 @@ submit: false
 footer: true
 header: true
 layout: templates/post.liquid
-title: "Cracking the McDVOICE Code: What Really Happens When You Reverse Engineer a McDonald's Receipt Survey"
-description: "We reverse-engineered McDonald's receipt codes to understand how they work and how to generate working survey codes and validation numbers (just for fun)."
+title:
+  "Cracking the McDVOICE Code: What Really Happens When You Reverse Engineer a McDonald's Receipt
+  Survey"
+description:
+  "We reverse-engineered McDonald's receipt codes to understand how they work and how to generate
+  working survey codes and validation numbers (just for fun)."
 keywords:
-  - "McDonald’s Survey Hack"
+  - 'McDonald’s Survey Hack'
   - McDVOICE Code
   - Receipt Code Format
   - Validation Code Generator
@@ -19,8 +23,10 @@ url: blog/mcdvoice-code-breakdown/
 isBlog: true
 blog_cat: Reverse Engineering
 youtubeId: ''
-cardTitle: "We Cracked McDonald’s Survey Code System (For Fun)"
-blog_snip: "We went into McDonald’s, got two receipts, reverse-engineered the code, generated fake ones, and tested them online. Here’s how it all worked."
+cardTitle: 'We Cracked McDonald’s Survey Code System (For Fun)'
+blog_snip:
+  'We went into McDonald’s, got two receipts, reverse-engineered the code, generated fake ones, and
+  tested them online. Here’s how it all worked.'
 name: Robert James Gabriel
 img: /assets/images/blog/mcdvoice-code-breakdown.png
 date: 2025-04-10T21:43:57.317930
@@ -29,21 +35,19 @@ tags:
   - reverse engineering
   - code
   - mcdonalds
-
 ---
-
-
-
 
 ## 🧾 The Mission
 
-I wanted to understand how McDonald’s receipt survey codes work. Specifically, the ones you see on your receipt that look like:
+I wanted to understand how McDonald’s receipt survey codes work. Specifically, the ones you see on
+your receipt that look like:
 
 ```
 03963-06000-41025-14028-00024-6
 ```
 
-That string of numbers holds all the data about your visit: store ID, register, date, time, item, and a checksum. My goal was to see:
+That string of numbers holds all the data about your visit: store ID, register, date, time, item,
+and a checksum. My goal was to see:
 
 1. Can I decode it?
 2. Can I generate a valid code?
@@ -56,14 +60,17 @@ Let’s walk through it.
 
 ## 🏪 The Real-World Test: Going to McDonald’s
 
-I went into a local McDonald’s and ordered the *exact same items* twice from two separate kiosks. Both receipts printed out slightly different codes.
+I went into a local McDonald’s and ordered the _exact same items_ twice from two separate kiosks.
+Both receipts printed out slightly different codes.
 
 ### First Receipt:
+
 ```
 03963-06000-41025-14028-00024-6
 ```
 
 ### Second Receipt:
+
 ```
 03963-06000-41025-14033-00024-7
 ```
@@ -110,7 +117,8 @@ def decode_us_mcd_survey_code(code: str):
     }
 ```
 
-This gave us clarity on how McDonald's structures their survey codes. Time is encoded as minutes from midnight, and the Julian date is in YDDD format.
+This gave us clarity on how McDonald's structures their survey codes. Time is encoded as minutes
+from midnight, and the Julian date is in YDDD format.
 
 ---
 
@@ -122,18 +130,19 @@ We wrote a Node.js script to brute force valid combinations. Here’s a simplifi
 
 ```js
 function pad(num, len) {
-  return num.toString().padStart(len, '0');
+	return num.toString().padStart(len, '0');
 }
 
 function generateCode(store, register, date, time, item, check) {
-  return `${pad(store,5)}-${pad(register,5)}-${date}-${time}-${pad(item,5)}-${check}`;
+	return `${pad(store, 5)}-${pad(register, 5)}-${date}-${time}-${pad(item, 5)}-${check}`;
 }
 
 const validExample = generateCode(3963, 6000, '41025', '14028', 24, 6);
 console.log(validExample);
 ```
 
-We generated dozens of codes and tested them against [https://www.mcdvoice.com](https://www.mcdvoice.com).
+We generated dozens of codes and tested them against
+[https://www.mcdvoice.com](https://www.mcdvoice.com).
 
 ### ✅ These Worked
 
@@ -143,7 +152,9 @@ We generated dozens of codes and tested them against [https://www.mcdvoice.com](
 
 If the code matched a real format, McDVoice accepted it and launched the survey.
 
-We were also able to complete the full survey flow using these codes and collected **real validation codes**, like:
+We were also able to complete the full survey flow using these codes and collected **real validation
+codes**, like:
+
 - `64538`
 - `92147`
 - `19832`
@@ -152,35 +163,42 @@ We were also able to complete the full survey flow using these codes and collect
 
 ## 🧪 Cracking the Validation Code
 
-After completing the survey, McDVOICE provides a 5-digit validation code. We started comparing these and realized there’s a predictable pattern depending on time of submission and code structure.
+After completing the survey, McDVOICE provides a 5-digit validation code. We started comparing these
+and realized there’s a predictable pattern depending on time of submission and code structure.
 
 We wrote a brute force tool to try and replicate or pre-generate codes. Here's a sample:
 
 ```js
-const crypto = require("crypto");
+const crypto = require('crypto');
 
 function fakeValidation(seed) {
-  const hash = crypto.createHash("sha1").update(seed).digest("hex");
-  return parseInt(hash.slice(0, 5), 16).toString().slice(0, 5);
+	const hash = crypto.createHash('sha1').update(seed).digest('hex');
+	return parseInt(hash.slice(0, 5), 16).toString().slice(0, 5);
 }
 
-console.log(fakeValidation("03963-06000-41025-14028-00024-6"));
+console.log(fakeValidation('03963-06000-41025-14028-00024-6'));
 ```
 
-Did it match every time? No. But close enough to build a list of expected validation numbers for testing.
+Did it match every time? No. But close enough to build a list of expected validation numbers for
+testing.
 
 ---
 
 ## ✅ So… Can You Actually Use This?
 
-Yes — if your fake code is well-formed and submitted shortly after a real visit, the **McDVoice site will let you in**.
+Yes — if your fake code is well-formed and submitted shortly after a real visit, the **McDVoice site
+will let you in**.
 
-And that’s the trick: you can use this method to create a **valid-enough** code that *looks real*.
+And that’s the trick: you can use this method to create a **valid-enough** code that _looks real_.
 
 ### Here's the catch:
-Most employees **only check the receipt** for the validation code. They don’t run it against a system unless something seems off.
 
-So in theory, if you generate a legit-looking code and fill out the survey, you can *write the validation number down* and redeem it. And if asked, just say you lost the receipt but remember the number. 🫣
+Most employees **only check the receipt** for the validation code. They don’t run it against a
+system unless something seems off.
+
+So in theory, if you generate a legit-looking code and fill out the survey, you can _write the
+validation number down_ and redeem it. And if asked, just say you lost the receipt but remember the
+number. 🫣
 
 But unless you have a real printed receipt with matching details, it’s a coin toss.
 
@@ -198,6 +216,9 @@ So… was this a cool way to get free food? Not really.
 Was it a fun dive into code systems and backend validation? 100%.
 
 ### 🧵 Shoutout to Reddit
-We found several discussions and compared validation code outputs with others posting in /r/mcdonalds. Turns out a few folks were on the same journey.
 
-If you want the full code, shoot me a message or find me at [your handle]. And remember respect systems, don’t exploit them.
+We found several discussions and compared validation code outputs with others posting in
+/r/mcdonalds. Turns out a few folks were on the same journey.
+
+If you want the full code, shoot me a message or find me at [your handle]. And remember respect
+systems, don’t exploit them.

@@ -1,6 +1,3 @@
-
-
-
 import * as app from './core/app';
 
 app.load();

@@ -1,8 +1,3 @@
-
-
-
-
-
 module.exports = {
 	enabled: true,
 	content: [
@@ -18,9 +13,8 @@ module.exports = {
 	],
 	theme: {},
 	variants: {
-	  extend: {
-		fill: ["hover"],
-	  },
-	},
-  };
-  
+		extend: {
+			fill: ['hover']
+		}
+	}
+};
