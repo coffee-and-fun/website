@@ -1,42 +1,63 @@
 <!DOCTYPE html>
-<html class="brand-color-background scroll-smooth antialiased" lang="en" data-theme="light"> 
-
-<head>
+<html
+  class="brand-color-background scroll-smooth antialiased"
+  lang="en"
+  data-theme="light"
+>
+  <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Coco's Trivia Corner: Explore 53,000+ Fun and Random Questions - Coffee & Fun LLC</title>
-    <meta name="description"
-        content="Coco's Trivia Corner offers over 53,000 unique and random questions to keep you entertained. Perfect for quizzes, game nights, or just challenging yourself!" />
+    <title>
+      Coco's Trivia Corner: Explore 53,000+ Fun and Random Questions - Coffee &
+      Fun LLC
+    </title>
+    <meta
+      name="description"
+      content="Coco's Trivia Corner offers over 53,000 unique and random questions to keep you entertained. Perfect for quizzes, game nights, or just challenging yourself!"
+    />
     <meta name="author" content="Coffee & Fun LLC" />
     <meta name="robots" content="index, follow" />
     <meta name="rating" content="safe for kids" />
 
     <link rel="icon" href="/assets/images/favicon.png" />
 
-    <meta name="title" content="Coco's Trivia Corner: Explore 53,000+ Fun and Random Questions - Coffee & Fun LLC" />
-<!-- PWA Manifest -->
-<link rel="manifest" href="/assets/images/social/site.webmanifest" />
+    <meta
+      name="title"
+      content="Coco's Trivia Corner: Explore 53,000+ Fun and Random Questions - Coffee & Fun LLC"
+    />
+    <!-- PWA Manifest -->
+    <link rel="manifest" href="/assets/images/social/site.webmanifest" />
 
-<!-- Theme & Mobile Meta -->
-<meta name="theme-color" content="#fef5ec" />
-<meta name="mobile-web-app-capable" content="yes" />
-<meta name="apple-mobile-web-app-capable" content="yes" />
-<meta name="apple-mobile-web-app-status-bar-style" content="default" />
+    <!-- Theme & Mobile Meta -->
+    <meta name="theme-color" content="#fef5ec" />
+    <meta name="mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="default" />
 
-<!-- Icons -->
-<link rel="apple-touch-icon" href="/assets/images/social/192.png" />
-<link rel="icon" href="/assets/images/social/192.png" sizes="192x192" type="image/png" />
-<!-- PWA Meta Tags -->
-<meta name="apple-mobile-web-app-capable" content="yes" />
-<meta name="apple-mobile-web-app-status-bar-style" content="black" />
-<meta name="mobile-web-app-capable" content="yes" />
+    <!-- Icons -->
+    <link rel="apple-touch-icon" href="/assets/images/social/192.png" />
+    <link
+      rel="icon"
+      href="/assets/images/social/192.png"
+      sizes="192x192"
+      type="image/png"
+    />
+    <!-- PWA Meta Tags -->
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+    <meta name="mobile-web-app-capable" content="yes" />
 
     <!-- Open Graph Meta Tags -->
-    <meta property="og:title" content="Coco's Trivia Corner: Explore 53,000+ Fun and Random Questions - Coffee & Fun LLC" />
+    <meta
+      property="og:title"
+      content="Coco's Trivia Corner: Explore 53,000+ Fun and Random Questions - Coffee & Fun LLC"
+    />
     <meta property="og:site_name" content="Coffee & Fun" />
     <meta property="og:url" content="https://www.coffeeandfun.com/" />
-    <meta property="og:description"
-        content="Coco's Trivia Corner offers over 53,000 unique and random questions to keep you entertained. Perfect for quizzes, game nights, or just challenging yourself!" />
+    <meta
+      property="og:description"
+      content="Coco's Trivia Corner offers over 53,000 unique and random questions to keep you entertained. Perfect for quizzes, game nights, or just challenging yourself!"
+    />
     <meta property="og:type" content="website" />
     <meta property="og:image" content="/assets/images/apps/coco.png" />
 
@@ -44,399 +65,512 @@
     <meta property="twitter:domain" content="coffeeandfun.com" />
     <meta property="twitter:url" content="https://www.coffeeandfun.com" />
     <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:title" content="Coco's Trivia Corner: Explore 53,000+ Fun and Random Questions - Coffee & Fun LLC" />
+    <meta
+      name="twitter:title"
+      content="Coco's Trivia Corner: Explore 53,000+ Fun and Random Questions - Coffee & Fun LLC"
+    />
     <meta name="twitter:site" content="@bycoffeeandfun" />
-    <meta name="twitter:description"
-        content="Coco's Trivia Corner offers over 53,000 unique and random questions to keep you entertained. Perfect for quizzes, game nights, or just challenging yourself!" />
-    <meta name="twitter:image" content="https://www.coffeeandfun.com/assets/images/apps/coco.png" />
+    <meta
+      name="twitter:description"
+      content="Coco's Trivia Corner offers over 53,000 unique and random questions to keep you entertained. Perfect for quizzes, game nights, or just challenging yourself!"
+    />
+    <meta
+      name="twitter:image"
+      content="https://www.coffeeandfun.com/assets/images/apps/coco.png"
+    />
     <meta name="twitter:image:alt" content=" Coffee & Fun" />
 
     <script type="application/ld+json">
-        {
-            "@context": "http://schema.org/",
-            "@type": "WebSite",
-            "url": "https://www.coffeeandfun.com",
-            "potentialAction": {
-                "@type": "SearchAction",
-                "target": "{search_term_string}",
-                "query-input": "required name=search_term_string"
-            }
+      {
+        "@context": "http://schema.org/",
+        "@type": "WebSite",
+        "url": "https://www.coffeeandfun.com",
+        "potentialAction": {
+          "@type": "SearchAction",
+          "target": "{search_term_string}",
+          "query-input": "required name=search_term_string"
         }
+      }
     </script>
-    	{% bundledCss %}
+    {% bundledCss %}
 
+    <script>
+      if ("serviceWorker" in navigator) {
+        navigator.serviceWorker.getRegistrations().then((registrations) => {
+          for (const registration of registrations) {
+            registration.unregister().then(() => {
+              console.log("🧹 Old service worker unregistered");
+            });
+          }
 
-        <script>
-            if ('serviceWorker' in navigator) {
-              navigator.serviceWorker.getRegistrations().then((registrations) => {
-                for (const registration of registrations) {
-                  registration.unregister().then(() => {
-                    console.log('🧹 Old service worker unregistered');
-                  });
-                }
-          
-                // After clearing, register the new one
-                navigator.serviceWorker.register('/service-worker.js')
-                  .then(() => console.log('✅ New service worker registered'))
-                  .catch((err) => console.log('Service worker error:', err));
-              });
-            }
-          </script>
+          // After clearing, register the new one
+          navigator.serviceWorker
+            .register("/service-worker.js")
+            .then(() => console.log("✅ New service worker registered"))
+            .catch((err) => console.log("Service worker error:", err));
+        });
+      }
+    </script>
 
     <script src="https://unpkg.com/vue@3"></script>
     <script src="https://unpkg.com/hotkeys-js/dist/hotkeys.min.js"></script>
 
     <script>
-        if ('serviceWorker' in navigator) {
-            navigator.serviceWorker.register('/service-worker.js');
-        }
+      if ("serviceWorker" in navigator) {
+        navigator.serviceWorker.register("/service-worker.js");
+      }
     </script>
 
-<style>
-    @keyframes ticker {
+    <style>
+      @keyframes ticker {
         0% {
-            transform: translateX(100%);
+          transform: translateX(100%);
         }
 
         100% {
-            transform: translateX(-100%);
+          transform: translateX(-100%);
         }
-    }
+      }
 
-    .animate-ticker {
+      .animate-ticker {
         animation: ticker 10s linear infinite;
-    }
+      }
 
-    .animate-ticker:hover {
+      .animate-ticker:hover {
         animation-play-state: paused;
-    }
+      }
 
-    .card-body {
+      .card-body {
         transition: transform 0.3s ease-in-out;
-    }
+      }
 
-    .draggable-card {
-        transition: top 0.3s ease, left 0.3s ease;
+      .draggable-card {
+        transition:
+          top 0.3s ease,
+          left 0.3s ease;
         position: absolute;
-    }
-</style>
+      }
+    </style>
+
+    {% include scripts.html %}
+  </head>
+
+  <body>
+    {% assign showDonation = false %} {% assign showKeyboardModal = false %}
+    {%assign showMiddleBadge = false %} {% include header.liquid %}
+
+    <main id="main-content" class="mx-auto max-w-7xl mb-12 p-6">
+      <img
+        src="{{ '/assets/images/trivia.png' | asset_url }}"
+        alt="…"
+        class="mx-auto mb-6"
+        width="170"
+      />
+      <div v-if="isLoading" class="max-w-md mx-auto skeleton h-full"></div>
+
+      <div
+        v-else
+        class="card max-w-md mx-auto bg-base-200 shadow-lg rounded-2xl p-6"
+      >
+        <!-- QUESTION -->
+        {% raw %}
+        <h2 v-if="!quizFinished" class="text-2xl font-bold mb-4 text-center">
+          {{ currentQuestion.question }}
+        </h2>
+        {% endraw %}
+
+        <!-- in your template -->
+        <!-- OPTIONS -->
+        <div v-if="!quizFinished" class="grid grid-cols-1 gap-4 mb-6 mt-12">
+          <button
+            v-for="(opt, idx) in currentQuestion.options"
+            :key="idx"
+            @click="selectOption(idx)"
+            class="btn btn-outline btn-lg"
+            :class="[
+      // 1) if it's been answered, override with success/error
+      answers[currentCardIndex] !== undefined
+        ? ( idx === currentQuestion.options.indexOf(currentQuestion.answer)
+            ? 'btn-success'
+            : ( idx === answers[currentCardIndex] ? 'btn-error' : 'opacity-50 cursor-not-allowed' )
+          )
+        // 2) otherwise use a per-idx color
+        : `btn-${optionColors[idx]}`
+    ]"
+            :disabled="answers[currentCardIndex] !== undefined"
+          >
+            {% raw %}{{ opt }}{% endraw %}
+          </button>
+        </div>
+
+        <!-- NAVIGATION -->
+        <div v-if="!quizFinished" class="flex justify-between">
+          <button
+            @click="prevQuestion"
+            class="btn btn-circle btn-soft btn-info"
+            :disabled="currentCardIndex===0"
+          >
+            ◀
+          </button>
+          {% raw %}
+          <span>Question {{ currentCardIndex+1 }}/{{ cards.length }}</span>
+          {% endraw %}
+          <button
+            @click="nextQuestion"
+            class="btn btn-circle btn-soft btn-info"
+            :disabled="answers[currentCardIndex]===undefined"
+          >
+            ▶
+          </button>
+        </div>
+
+        <!-- SUMMARY -->
+        <div v-if="quizFinished" class="w-full max-w-md mx-auto space-y-6">
+          <h2 class="text-3xl font-extrabold text-center">Quiz Complete!</h2>
+          <p class="text-center text-lg">
+            Come back tomorrow for 10 more questions
+          </p>
+          <div class="divider my-4"></div>
+          <!-- stats row -->
+          <div class="flex justify-center items-center space-x-4">
+            <span class="inline-flex items-center space-x-1   px-4 py-2 bg-success text-primary-content rounded-full font-semibold">
+              <span class="text-2xl">🟢</span>
+              {% raw %}
+              <span
+                >Correct:
+                <strong>{{ correctCount }}/{{ cards.length }}</strong></span
+              >
+              {% endraw %}
+            </span>
+            <span class="inline-flex items-center  px-4 py-2 space-x-1 bg-info text-primary-content rounded-full font-semibold">
+              <span class="text-2xl">🔴</span>
+              {% raw %}
+              <span
+                >Wrong: <strong>{{ cards.length - correctCount }}</strong></span
+              >
+              {% endraw %}
+            </span>
+          </div>
+         <div class="flex justify-center items-center space-x-4">
+          <!-- percentile badge -->
+          <div class="text-center">
+            <span
+              class="inline-block px-4 py-2 bg-primary text-primary-content rounded-full font-semibold"
+            >
+              {% raw %} 📈 Top: {{ percentile }} {% endraw %}
+            </span>
+          </div>
 
 
-{% include scripts.html %}
-</head>
 
-<body>
-    {% assign showDonation = false %}
-    {% assign showKeyboardModal = true %}
-    {%assign showMiddleBadge = true %}
-    {% include header.liquid %}
+               <!-- percentile badge -->
+          <div class="text-center">
+            <span
+              class="inline-block px-4 py-2 bg-primary text-primary-content rounded-full font-semibold"
+            >
+              {% raw %} Rank: {{ rank }} {% endraw %}
+            </span>
+          </div>
+</div>
+
+        <h3 class="text-2xl font-bold text-left  mt-12">
+            Results Breakdown
+          </h3>
+
+          <div class="divider my-4"></div>
+         
+<!-- results row -->
+<div class="flex justify-center space-x-4 mt-4">
+  <div
+    v-for="r in results"
+    :key="r.index"
+    class="flex flex-col items-center"
+  >
+    <!-- circle -->
+    <span
+      class="text-2xl"
+      :class="r.correct ? 'text-success' : 'text-error'"
+      v-text="r.correct ? '🟢' : '🔴'"
+    ></span>
+    <!-- question number -->
+    <span class="text-sm mt-1 text-base-content" v-text="r.index"></span>
+  </div>
+</div>
 
 
 
-    <main id="main-content" class="mx-auto max-w-7xl mb-12">
 
 
-    <div class="flex flex-col items-center min-h-screen  p-6">
-        <!-- Logo -->
+          <button
+            @click="copyShareText"
+            class="btn btn-block btn-primary btn-lg font-bold"
+          >
+            SHARE YOUR SCORE
+          </button>
+        </div>
+      </div>
+    </main>
+
+    <script>
+      var app = Vue.createApp({
+        data() {
+          return {
+            optionColors: ["primary", "secondary", "sucess", "info"],
+            percentileTiers: {
+              10: "1%",
+              9: "5%",
+              8: "10%",
+              7: "25%",
+              6: "50%",
+            },
+            isLoading: true,
+            allQuestions: [],
+            dailyQuestions: [],
+            cards: [],
+            currentCardIndex: 0,
+            answers: [], // stores selected option index per question
+            startTime: null,
+            endTime: null,
+            quizFinished: false,
+            // tweakable bonus thresholds (in seconds)
+            bonusConfig: {
+              fast: { time: 60, bonus: 5 },
+              medium: { time: 120, bonus: 2 },
+            },
+          };
+        },
+        computed: {
+             score() {
+    const basePoints   = this.correctCount * 10;
+    const timePenalty  = Math.round(this.totalTime);
+    return Math.max(0, basePoints - timePenalty);
+  },  rank() {
+    if (this.score >= 80)   return "🏆 Legend";
+    if (this.score >= 50)   return "🔥 Hotshot";
+    if (this.score >= 20)   return "👍 Good";
+    return "😂 Awful";
+  },
+
+results() {
+    return this.answers.map((sel,i) => ({
+      correct: this.cards[i].options[sel] === this.cards[i].answer,
+      index:   i+1
+    }));
+  },
+    circles() {
+    return this.results.map(r => r.correct ? '🟢' : '🔴').join('');
+  },
+
+          percentile() {
+            if (!this.cards.length) return "—";
+            // What % of players you’ve beaten = (your score/total)*100
+            const beatPct = Math.round(
+              (this.correctCount / this.cards.length) * 100,
+            );
+            // “Top” is the complement: e.g. score 4/10 → beat 40% → you’re top 60%
+            const topPct = 100 - beatPct;
+            return `${topPct}%`;
+          },
+          percentileEmoji() {
+            // give a trophy for top 1%
+            return this.percentile === "1%" ? "🏆" : "";
+          },
+          today() {
+            return new Date().toLocaleDateString("en-US", {
+              month: "short",
+              day: "numeric",
+            }); // e.g. “May 30”
+          },
+          currentQuestion() {
+            return this.cards[this.currentCardIndex];
+          },
+          totalTime() {
+            if (!this.endTime || !this.startTime) return 0;
+            return Math.round((this.endTime - this.startTime) / 1000);
+          },
+          bonus() {
+            if (!this.quizFinished) return 0;
+            if (this.totalTime <= this.bonusConfig.fast.time)
+              return this.bonusConfig.fast.bonus;
+            if (this.totalTime <= this.bonusConfig.medium.time)
+              return this.bonusConfig.medium.bonus;
+            return 0;
+          },
+          correctCount() {
+            return this.answers.filter(
+              (sel, i) => this.cards[i].options[sel] === this.cards[i].answer,
+            ).length;
+          },
+
+          shareText() {
+    // e.g. “✏️ Daily 10 – May 30\nScore: 7/10”
+    return [
+      `✏️ 10 Daily Trivia  – ${this.today}`,
+        `Top ${this.percentile} ${this.percentileEmoji}`,
+      `Correct: ${this.correctCount}/${this.cards.length}`,
+      `Score: ${this.score}`,
+      this.rank
+    ].join('\n');
+  },
+  rank() {
+    if (this.score >= 80)   return "🏆 Legend";
+    if (this.score >= 50)   return "🔥 Hotshot";
+    if (this.score >= 20)   return "👍 Good";
+    return "😂 Awful ";
+  },
+
 
 
       
+        },
+        mounted() {
+          this.initQuiz();
+        },
+        methods: {
+          copyShareText() {
+            navigator.clipboard.writeText(this.shareText).then(() => {
+              // you can swap in your favorite toast here
+              alert("Copied to clipboard!");
+            });
+          },
+          initQuiz() {
+            fetch("/assets/js/trivia_options.json")
+              .then((r) => r.json())
+              .then((data) => {
+                this.allQuestions = data.questions;
+                console.table(this.allQuestions.slice(0, 5)); // log first 5 for debugging
+                console.log(`Loaded ${this.allQuestions.length} questions`);
+                this.setupDaily();
+                this.loadState();
+              })
+              .catch(console.error);
+          },
 
-
-
-        <div class="mx-auto max-w-7xl lg:px-8">
-            <div class="mx-auto grid max-w-xl grid-cols-1">
-                <div class="text-base  lg:col-span-8">
-                    <div class="p-4 h-fit mx-auto w-full items-center ">
-
-
-                        <article class="text-base text-pretty text-black mx-auto">
-
-        
-
-                            <div
-                                class="card flex card-compact my-8 bg-base-100 shadow-md  w-full sm:w-96 mt-8 min-h-[500px] mx-auto">
-                                <div class="card-body flex flex-col h-full" @touchstart="touchStart"
-                                    @touchend="touchEnd">
-                                    <div v-if="isQuestionsEmpty === true">
-                                        <div class="flex flex-col gap-4">
-                                            <div class="skeleton bg-base-200 h-24 w-full" :class="
-                                                    [
-                                                        {
-                                                          'animate-none': isLoading === false,
-                                                        },
-                                                    ]">
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                    <!-- Question Section -->
-                                    <h1 class="mb-4 font-bold card-title text-pretty text-2xl text-pretty text-center mx-auto"
-                                        v-if="isQuestionsEmpty === false" 
-                                        v-html="cards[currentCardIndex].question">
-                                    </h1>
-
-                                    <!-- Answer Section -->
-                                    <div class="flex-grow flex items-center justify-center">
-                                        <p v-if="isQuestionsEmpty === false"
-                                            class="text-2xl text-pretty text-center font-black text-pretty text-red-500 "
-                                            v-text="currentCardIndex === visibleCardIndex ? cards[currentCardIndex].answer : '**********'">
-
-                                        </p>
-                                    </div>
-
-                                    <!-- Button at the Bottom -->
-                                    <div class="mt-auto">
-                                        <button 
-                                            class="btn btn-lg btn-natural w-full h-16 flex justify-center items-center group grow rounded-full"
-                                            aria-label="currentCardIndex !== visibleCardIndex ? 'Show Answer' : 'Hide Answer' "
-                                            :class="{
-                                                'btn-active': currentCardIndex === visibleCardIndex,
-                                            }" @click="toggleAnswer" v-on:keyup.enter="toggleAnswer">
-                                            <span
-                                                v-text="currentCardIndex !== visibleCardIndex ? 'Show Answer' : 'Hide Answer' ">
-
-                                            </span>
-                                        </button>
-                                    </div>
-                                </div>
-                            </div>
-
-
-
-
-<div v-if="isQuestionsEmpty === false" class="join justify-between w-full mt-2">
-
-
-<div class="tooltip" data-tip="Previous" id="prevTooltip">
-                                    <button class="join-item btn btn-ghost btn-primary btn-circle btn-sm"
-                                        aria-label="Previous question" aria-describedby="prevTooltip" @click="prevCard"
-                                        v-on:keyup.enter="prevCard">
-                                        ◀︎
-                            
-                            </button>
-                                </div>
-
-                                  <div v-for="(card, index) in cards" :key="card.id">
-                                    <div class="tooltip" data-tip="Go to Question">
-                                        <button class="join-item btn btn-ghost btn-circle btn-sm" :class="{
-                                                    'btn-active': index === currentCardIndex
-                                                }" @click="goToCard(index + 1)" v-on:keyup.enter="goToCard(index + 1)"
-                                            aria-label="Go to Question" v-html="currentBatchStartIndex + index + 1">
-                      
-                                        </button>
-                                    </div>
-</div>
-
-                                <div class="tooltip" data-tip="Next" id="nextTooltip">
-                                    <button class="join-item btn btn-ghost btn-primary btn-circle btn-sm"
-                                        aria-label="Next question" aria-describedby="nextTooltip" @click="nextCard"
-                                        v-on:keyup.enter="nextCard">
-                                        ▶︎
-                                    </button>
-                                </div>
-                            </div>
-
-
-                      
-</div>
-                        </article>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-
-
-    </main>
-
-
-
-
-    <script>
-        var app = Vue.createApp({
-            data() {
-                return {
-                    isLoading: true,
-                    cards: [],
-                    allQuestions: [], // Store all questions here
-                    currentCardIndex: 0,
-                    currentBatchStartIndex: 0,
-                    visibleCardIndex: -1,
-                    skelectionLimit: 6,
-                    batchSize: 6, // Adjust to your desired batch size
-                    touchStartX: 0,
-                    touchEndX: 0,
-                    totalQuestions: 53000 // Adjust to your actual number
-                }
-            },
-            computed: {
-                isQuestionsEmpty() {
-                    return this.cards.length === 0;
-                },
-            },
-            async mounted() {
-                this.loadAllQuestions();
-                this.setKeyCommands();
-            },
-            methods: {
-             
-                touchStart(event) {
-                    // Capture the X coordinate where the touch started
-                    this.touchStartX = event.changedTouches[0].screenX;
-                },
-                touchEnd(event) {
-                    // Capture the X coordinate where the touch ended
-                    this.touchEndX = event.changedTouches[0].screenX;
-                    this.handleSwipeGesture();
-                },
-                handleSwipeGesture() {
-                    const swipeDistance = this.touchStartX - this.touchEndX;
-
-                    if (swipeDistance > 50) {
-                        // Swipe left detected
-                        this.onSwipeRight();
-                    } else if (swipeDistance < -50) {
-                        // Swipe right detected
-                        this.onSwipeLeft();
-                    }
-                },
-                onSwipeLeft() {
-                    // Handle swipe left action here
-
-                    this.prevCard(); // Example: Go to the next card
-                },
-                onSwipeRight() {
-                    // Handle swipe right action here
-
-                    this.nextCard(); // Example: Go to the previous card
-                },
-
-                setKeyCommands() {
-                    hotkeys("right", (event) => {
-                        // Prevent the default refresh event under WINDOWS system
-                        event.preventDefault();
-                        this.nextCard();
-                    });
-
-                    hotkeys("left", (event) => {
-                        // Prevent the default refresh event under WINDOWS system
-                        event.preventDefault();
-                        this.prevCard();
-                    });
-
-                    hotkeys("down", (event) => {
-                        // Prevent the default refresh event under WINDOWS system
-                        event.preventDefault();
-                        this.toggleAnswer();
-                    });
-
-                    hotkeys("up", (event) => {
-                        // Prevent the default refresh event under WINDOWS system
-                        event.preventDefault();
-                        this.toggleAnswer();
-                    });
-                },
-                toggleAnswer() {
-                    let showAnswer = this.visibleCardIndex === this.currentCardIndex;
-                    this.visibleCardIndex = showAnswer ? -1 : this.currentCardIndex;
-                },
-                goToCard(number = 0) {
-                    this.currentCardIndex = number - 1;
-                },
-
-                startDrag(event) {
-                    this.isDragging = true;
-                    const { clientX, clientY } = event.type.includes('mouse') ? event : event.touches[0];
-                    this.startCoords.x = clientX - this.position.x;
-                    this.startCoords.y = clientY - this.position.y;
-                },
-                // Function to drag the card
-                drag(event) {
-                    if (!this.isDragging) return;
-                    const { clientX, clientY } = event.type.includes('mouse') ? event : event.touches[0];
-                    this.position.x = clientX - this.startCoords.x;
-                    this.position.y = clientY - this.startCoords.y;
-                },
-                // Function to end dragging with a "fall" effect
-                endDrag() {
-                    this.isDragging = false;
-                    this.position.y += 150; // Apply a "fall" effect
-                },
-
-                prevCard() {
-                    if (this.currentCardIndex > 0) {
-                        this.currentCardIndex--;
-                    } else if (this.currentCardIndex === 0 && this.cards[0].id > 1) {
-                        const previousBatchStartIndex = Math.max(0, this.cards[0].id - this.batchSize - 1);
-                        this.loadJSON(this.batchSize, previousBatchStartIndex);
-                    }
-                    this.visibleCardIndex = -1;
-
-                },
-                nextCard() {
-                    if (this.currentCardIndex < this.cards.length - 1) {
-                        this.currentCardIndex++;
-                    } else if (this.currentCardIndex === this.cards.length - 1) {
-                        const newStartIndex = this.cards[this.cards.length - 1].id;
-                        this.loadJSON(this.batchSize, newStartIndex);
-                    }
-                    this.visibleCardIndex = -1;
-
-            
-                },
-
-
-                loadAllQuestions() {
-                    fetch('/assets/js/trivia.json')
-                        .then(response => response.json())
-                        .then(data => {
-                            if (data.questions) {
-                                // Shuffle the entire array of questions
-                                this.allQuestions = this.shuffleArray(data.questions);
-                                // Load the first batch of questions
-                                this.loadJSON();
-                            } else {
-                                console.error('Invalid questions format:', data);
-                            }
-                        })
-                        .catch(error => console.error('Error loading JSON:', error));
-                },
-
-                loadJSON(batchSize = this.batchSize, startIndex = 0) {
-                    // Slice the array to get the current batch
-                    let questions = this.allQuestions.slice(startIndex, startIndex + batchSize);
-                    // Assign unique IDs to each question
-                    this.cards = questions.map((question, index) => ({
-                        ...question,
-                        id: startIndex + index + 1
-                    }));
-                    this.currentBatchStartIndex = startIndex; // Update the current batch start index
-                    this.currentCardIndex = 0; // Start at the first question of the new batch
-                    this.isLoading = false;
-
-                 
-                },
-                shuffleArray(array) {
-                    for (let i = array.length - 1; i > 0; i--) {
-                        const j = Math.floor(Math.random() * (i + 1));
-                        [array[i], array[j]] = [array[j], array[i]]; // Swap elements
-                    }
-                    return array;
-                }
+          // 1) Pick a deterministic 10 for today & store in localStorage
+          setupDaily() {
+            const today = new Date().toISOString().slice(0, 10);
+            if (localStorage.getItem("dailyDate") !== today) {
+              // new day → clear old quiz
+              ["dailyDate", "dailyQuestions", "quizState"].forEach((k) =>
+                localStorage.removeItem(k),
+              );
+              localStorage.setItem("dailyDate", today);
             }
-        });
+            let dq = JSON.parse(localStorage.getItem("dailyQuestions"));
+            if (!dq) {
+              dq = this.pickDailyQuestions(10);
+              localStorage.setItem("dailyQuestions", JSON.stringify(dq));
+            }
+            this.dailyQuestions = dq;
+          },
+          pickDailyQuestions(count) {
+            const dateNum = parseInt(
+              new Date().toISOString().slice(0, 10).replace(/-/g, ""),
+              10,
+            );
+            return this.allQuestions
+              .map((q, i) => {
+                // simple sin-based seed for pseudo-random sortKey
+                const seed = i + dateNum;
+                const rnd = Math.sin(seed) * 10000;
+                return { q, key: rnd - Math.floor(rnd) };
+              })
+              .sort((a, b) => a.key - b.key)
+              .slice(0, count)
+              .map((obj) => ({
+                ...obj.q,
+                options: this.shuffle(obj.q.options), // randomize order
+              }));
+          },
+          shuffle(arr) {
+            return arr.slice().sort(() => Math.random() - 0.5);
+          },
 
-        app.mount("#main-content");
+          // 2) load or start quizState
+          loadState() {
+            const today = localStorage.getItem("dailyDate");
+            const st = JSON.parse(localStorage.getItem("quizState") || "null");
+            if (st && st.date === today) {
+              this.cards = this.dailyQuestions;
+              this.currentCardIndex = st.currentCardIndex;
+              this.answers = st.answers;
+              this.startTime = st.startTime;
+              if (st.finished) {
+                this.endTime = st.endTime;
+                this.quizFinished = true;
+              }
+            } else {
+              this.cards = this.dailyQuestions;
+              this.currentCardIndex = 0;
+              this.answers = [];
+              this.startTime = Date.now();
+              this.quizFinished = false;
+              this.saveState();
+            }
+            this.isLoading = false;
+          },
+          saveState() {
+            const st = {
+              date: localStorage.getItem("dailyDate"),
+              currentCardIndex: this.currentCardIndex,
+              answers: this.answers,
+              startTime: this.startTime,
+              endTime: this.endTime,
+              finished: this.quizFinished,
+            };
+            localStorage.setItem("quizState", JSON.stringify(st));
+          },
+
+          // 3) user picks an option
+          selectOption(idx) {
+            if (
+              this.quizFinished ||
+              this.answers[this.currentCardIndex] != null
+            )
+              return;
+
+            // Vue 3 will track this just fine:
+
+            if (this.answers.length <= this.currentCardIndex) {
+              this.answers.push(idx);
+            } else {
+              this.answers[this.currentCardIndex] = idx;
+            }
+            this.saveState();
+            // auto-advance after they see feedback
+            setTimeout(this.nextQuestion, 600);
+          },
+
+          nextQuestion() {
+            if (this.currentCardIndex < this.cards.length - 1) {
+              this.currentCardIndex++;
+            } else {
+              this.finishQuiz();
+            }
+            this.saveState();
+          },
+          prevQuestion() {
+            if (this.currentCardIndex > 0) {
+              this.currentCardIndex--;
+              this.saveState();
+            }
+          },
+
+          finishQuiz() {
+            this.endTime = Date.now();
+            this.quizFinished = true;
+            this.saveState();
+          },
+
+          copyShareText() {
+            navigator.clipboard.writeText(this.shareText).then(() => {
+              alert("Copied to clipboard!");
+            });
+          },
+        },
+      }).mount("#main-content");
     </script>
 
-    {% include modals.liquid %}
-
-
-    {% include footer.liquid %}
-
-
-
-</body>
-
+    {% include modals.liquid %} {% include footer.liquid %}
+  </body>
 </html>
