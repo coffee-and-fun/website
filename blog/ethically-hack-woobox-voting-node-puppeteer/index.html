@@ -105,142 +105,136 @@
 
 
 	<style>
-    .brand-color-background {
-        background-color: #fef5ec;
-    }
+	.brand-color-background {
+		background-color: #fef5ec;
+	}
 </style>
-
 
 <!-- Google Tag Manager Script -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-RC4JGW9PVN"></script>
 <script>
-    window.dataLayer = window.dataLayer || [];
-    function gtag() { dataLayer.push(arguments); }
-    gtag('js', new Date());
+	window.dataLayer = window.dataLayer || [];
+	function gtag() {
+		dataLayer.push(arguments);
+	}
+	gtag('js', new Date());
 
-    gtag('config', 'G-RC4JGW9PVN');
+	gtag('config', 'G-RC4JGW9PVN');
 </script>
-
-
 
 <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.3/dist/confetti.browser.min.js"></script>
 <script src="https://unpkg.com/cursor-effects@latest/dist/browser.js"></script>
 
-<link rel="stylesheet" href="https://unpkg.com/prismjs@1.20.0/themes/prism-okaidia.css">
+<link rel="stylesheet" href="https://unpkg.com/prismjs@1.20.0/themes/prism-okaidia.css" />
 <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
 <script>
+	// Function to launch the confetti animation
+	function launchConfetti() {
+		const totalParticles = 300; // Total number of confetti particles
 
+		// Default configuration for the confetti
+		const confettiDefaults = {
+			angle: 75, // Initial angle for the confetti
+			zIndex: 2147483647 // Ensure confetti is displayed on top of other elements
+		};
 
+		// Function to trigger the confetti animation with different configurations
+		function triggerConfetti(particleProportion, options) {
+			// Launch confetti from the left side
+			confetti({
+				...confettiDefaults,
+				...options,
+				origin: { y: 1, x: 0 }, // Confetti originates from the bottom left
+				angle: 30, // Angle at which confetti is launched
+				particleCount: Math.floor(totalParticles * particleProportion) // Number of particles
+			});
 
+			// Launch confetti from the right side
+			confetti({
+				...confettiDefaults,
+				...options,
+				origin: { y: 1, x: 1 }, // Confetti originates from the bottom right
+				angle: 150, // Angle at which confetti is launched
+				particleCount: Math.floor(totalParticles * particleProportion) // Number of particles
+			});
 
-// Function to launch the confetti animation
-function launchConfetti() {
-  const totalParticles = 300; // Total number of confetti particles
+			// Launch confetti from the center
+			confetti({
+				...confettiDefaults,
+				...options,
+				origin: { y: 1, x: 0.5 }, // Confetti originates from the bottom center
+				particleCount: Math.floor(totalParticles * particleProportion) // Number of particles
+			});
+		}
 
-  // Default configuration for the confetti
-  const confettiDefaults = {
-    angle: 75, // Initial angle for the confetti
-    zIndex: 2147483647, // Ensure confetti is displayed on top of other elements
-  };
+		// Different configurations for the confetti bursts
+		triggerConfetti(0.3, {
+			spread: 30, // How much the confetti spreads out
+			startVelocity: 80 // Initial velocity of the confetti
+		});
 
-  // Function to trigger the confetti animation with different configurations
-  function triggerConfetti(particleProportion, options) {
-    // Launch confetti from the left side
-    confetti({
-      ...confettiDefaults,
-      ...options,
-      origin: { y: 1, x: 0 }, // Confetti originates from the bottom left
-      angle: 30, // Angle at which confetti is launched
-      particleCount: Math.floor(totalParticles * particleProportion), // Number of particles
-    });
+		triggerConfetti(0.25, {
+			spread: 50 // Spread is wider here
+		});
 
-    // Launch confetti from the right side
-    confetti({
-      ...confettiDefaults,
-      ...options,
-      origin: { y: 1, x: 1 }, // Confetti originates from the bottom right
-      angle: 150, // Angle at which confetti is launched
-      particleCount: Math.floor(totalParticles * particleProportion), // Number of particles
-    });
+		triggerConfetti(0.4, {
+			spread: 90, // Even wider spread
+			decay: 0.89 // How quickly the confetti slows down
+		});
 
-    // Launch confetti from the center
-    confetti({
-      ...confettiDefaults,
-      ...options,
-      origin: { y: 1, x: 0.5 }, // Confetti originates from the bottom center
-      particleCount: Math.floor(totalParticles * particleProportion), // Number of particles
-    });
-  }
+		triggerConfetti(0.15, {
+			spread: 110, // Very wide spread
+			startVelocity: 40, // Slower initial velocity
+			decay: 0.9 // Slightly slower decay
+		});
 
-  // Different configurations for the confetti bursts
-  triggerConfetti(0.3, {
-    spread: 30, // How much the confetti spreads out
-    startVelocity: 80, // Initial velocity of the confetti
-  });
+		triggerConfetti(0.1, {
+			spread: 130, // Maximum spread
+			startVelocity: 70 // Moderate initial velocity
+		});
+	}
 
-  triggerConfetti(0.25, {
-    spread: 50, // Spread is wider here
-  });
+	let cursorEffect = null;
+	let cursorEffectsEnabled = false;
+	let currentEffectIndex = -1; // Start before first
 
-  triggerConfetti(0.4, {
-    spread: 90, // Even wider spread
-    decay: 0.89, // How quickly the confetti slows down
-  });
+	const availableEffects = [
+		'rainbowCursor',
+		'followingDotCursor',
+		'clockCursor',
+		'ghostCursor',
+		'bubbleCursor',
+		'fairyDustCursor'
+	];
 
-  triggerConfetti(0.15, {
-    spread: 110, // Very wide spread
-    startVelocity: 40, // Slower initial velocity
-    decay: 0.90, // Slightly slower decay
-  });
+	function applyCursorEffect() {
+		if (cursorEffectsEnabled) {
+			// Turn OFF
+			if (cursorEffect && typeof cursorEffect.destroy === 'function') {
+				cursorEffect.destroy();
+			}
+			cursorEffect = null;
+			cursorEffectsEnabled = false;
+		} else {
+			// Move to the next effect in the list
+			currentEffectIndex = (currentEffectIndex + 1) % availableEffects.length;
+			const effectName = availableEffects[currentEffectIndex];
 
-  triggerConfetti(0.1, {
-    spread: 130, // Maximum spread
-    startVelocity: 70, // Moderate initial velocity
-  });
-}
+			// Create new effect instance
+			cursorEffect = new cursoreffects[effectName]();
+			cursorEffectsEnabled = true;
 
+			// Optional: log the current effect
+		}
+	}
 
-let cursorEffect = null;
-let cursorEffectsEnabled = false;
-let currentEffectIndex = -1; // Start before first
-
-const availableEffects = [
-  'rainbowCursor',
-  'followingDotCursor',
-  'clockCursor',
-  'ghostCursor',
-  'bubbleCursor',
-  'fairyDustCursor'
-];
-
-function applyCursorEffect() {
-  if (cursorEffectsEnabled) {
-    // Turn OFF
-    if (cursorEffect && typeof cursorEffect.destroy === "function") {
-      cursorEffect.destroy();
-    }
-    cursorEffect = null;
-    cursorEffectsEnabled = false;
-  } else {
-    // Move to the next effect in the list
-    currentEffectIndex = (currentEffectIndex + 1) % availableEffects.length;
-    const effectName = availableEffects[currentEffectIndex];
-
-    // Create new effect instance
-    cursorEffect = new cursoreffects[effectName]();
-    cursorEffectsEnabled = true;
-
-    // Optional: log the current effect
-
-  }
-}
-
-document.addEventListener("DOMContentLoaded", (event) => {
-        document.querySelectorAll('pre code').forEach((block) => {
-            hljs.highlightElement(block);
-        });
-    });
+	document.addEventListener('DOMContentLoaded', (event) => {
+		document.querySelectorAll('pre code').forEach((block) => {
+			hljs.highlightElement(block);
+		});
+	});
 </script>
+
 </head>
 
 <body>
@@ -306,18 +300,6 @@ document.addEventListener("DOMContentLoaded", (event) => {
             
 
 
-            <a
-            class="btn btn-error  btn-circle transition-all duration-200 hover:-translate-y-1"
-            href="/#donate"
-            title="Donate to Coffee & Fun LLC"
-            aria-label="Donate to Coffee & Fun LLC"
-            aria-controls="Donate to Coffee & Fun LLC"
-            role="menuitem"
-        >
-
-        <svg xmlns="http://www.w3.org/2000/svg"  viewBox="0 -960 960 960" class="w-6 h-6" fill="currentColor" ><path d="M640-520q17 0 28.5-11.5T680-560q0-17-11.5-28.5T640-600q-17 0-28.5 11.5T600-560q0 17 11.5 28.5T640-520Zm-320-80h200v-80H320v80ZM180-120q-34-114-67-227.5T80-580q0-92 64-156t156-64h200q29-38 70.5-59t89.5-21q25 0 42.5 17.5T720-820q0 6-1.5 12t-3.5 11q-4 11-7.5 22.5T702-751l91 91h87v279l-113 37-67 224H480v-80h-80v80H180Zm60-80h80v-80h240v80h80l62-206 98-33v-141h-40L620-720q0-20 2.5-38.5T630-796q-29 8-51 27.5T547-720H300q-58 0-99 41t-41 99q0 98 27 191.5T240-200Zm240-298Z"/></svg>
-
-</a>
 
    
             
@@ -474,202 +456,404 @@ document.addEventListener("DOMContentLoaded", (event) => {
                   />
       
                   <h2 class="leading-relaxed font-display text-pretty text-2xl mb-6 mt-12 font-semibold text-pretty text-gray-800" id="introduction" tabindex="-1">Introduction</h2>
-<p class="leading-relaxed font-display mb-4 mt-4 text-pretty text-lg text-pretty text-gray-900">Online voting platforms like Woobox play a significant role in digital competitions and community-driven events.
-In this blog, I'll walk through how I used <a href="https://nodejs.org/en" class="text-lg text-pretty text-blue-500 hover:text-blue-700 underline">Node.js</a> and <a href="https://developer.chrome.com/docs/puppeteer" class="text-lg text-pretty text-blue-500 hover:text-blue-700 underline">Puppeteer</a> to explore a public voting system for a cat photo contest hosted by Woobox.</p>
-<p class="leading-relaxed font-display mb-4 mt-4 text-pretty text-lg text-pretty text-gray-900">This project demonstrates the use of automation to understand how online voting works, including URL masking, vote management, and basic security measures. I left no stone unturned looking for an exploit, as all winnings were going to support animal shelters.</p>
+<p class="leading-relaxed font-display mb-4 mt-4 text-pretty text-lg text-pretty text-gray-900">Online voting platforms like Woobox play a significant role in digital competitions and
+community-driven events. In this blog, I'll walk through how I used <a href="https://nodejs.org/en" class="text-lg text-pretty text-blue-500 hover:text-blue-700 underline">Node.js</a>
+and <a href="https://developer.chrome.com/docs/puppeteer" class="text-lg text-pretty text-blue-500 hover:text-blue-700 underline">Puppeteer</a> to explore a public voting system for a
+cat photo contest hosted by Woobox.</p>
+<p class="leading-relaxed font-display mb-4 mt-4 text-pretty text-lg text-pretty text-gray-900">This project demonstrates the use of automation to understand how online voting works, including URL
+masking, vote management, and basic security measures. I left no stone unturned looking for an
+exploit, as all winnings were going to support animal shelters.</p>
 <h2 class="leading-relaxed font-display text-pretty text-2xl mb-6 mt-12 font-semibold text-pretty text-gray-800" id="understanding-the-url-structure-and-masking" tabindex="-1">Understanding the URL Structure and Masking</h2>
-<p class="leading-relaxed font-display mb-4 mt-4 text-pretty text-lg text-pretty text-gray-900">One of the first things I noticed was that the voting platform was integrated into another site. <strong class="text-lg font-semibold text-pretty text-gray-800">Your Cat Backpack</strong> but the actual voting page was hosted on <a href="https://woobox.com/" class="text-lg text-pretty text-blue-500 hover:text-blue-700 underline">Woobox</a>. This is a common practice, where a branded competition page (like <a href="https://yourcatbackpack.com/pages/entry-form-fhh-contest" class="text-lg text-pretty text-blue-500 hover:text-blue-700 underline">https://yourcatbackpack.com/pages/entry-form-fhh-contest</a>) masks the original URL (in this case, <a href="https://woobox.com/rvm7pj/gallery" class="text-lg text-pretty text-blue-500 hover:text-blue-700 underline">https://woobox.com/rvm7pj/gallery</a>). This practice allows a brand to keep users on their own website, even though the voting system is managed by an external provider.</p>
+<p class="leading-relaxed font-display mb-4 mt-4 text-pretty text-lg text-pretty text-gray-900">One of the first things I noticed was that the voting platform was integrated into another site.
+<strong class="text-lg font-semibold text-pretty text-gray-800">Your Cat Backpack</strong> but the actual voting page was hosted on <a href="https://woobox.com/" class="text-lg text-pretty text-blue-500 hover:text-blue-700 underline">Woobox</a>. This
+is a common practice, where a branded competition page (like
+<a href="https://yourcatbackpack.com/pages/entry-form-fhh-contest" class="text-lg text-pretty text-blue-500 hover:text-blue-700 underline">https://yourcatbackpack.com/pages/entry-form-fhh-contest</a>)
+masks the original URL (in this case,
+<a href="https://woobox.com/rvm7pj/gallery" class="text-lg text-pretty text-blue-500 hover:text-blue-700 underline">https://woobox.com/rvm7pj/gallery</a>). This practice allows a
+brand to keep users on their own website, even though the voting system is managed by an external
+provider.</p>
 <p class="leading-relaxed font-display mb-4 mt-4 text-pretty text-lg text-pretty text-gray-900">The URL structure itself offered valuable clues</p>
 <h3 class="leading-relaxed font-display text-pretty text-xl mb-4 mt-10 font-semibold text-pretty text-gray-700" id="main-gallery" tabindex="-1">Main Gallery</h3>
-<p class="leading-relaxed font-display mb-4 mt-4 text-pretty text-lg text-pretty text-gray-900">The URL <a href="https://woobox.com/rvm7pj/gallery" class="text-lg text-pretty text-blue-500 hover:text-blue-700 underline">https://woobox.com/rvm7pj/gallery</a> displays the entire gallery of photos for the contest.</p>
+<p class="leading-relaxed font-display mb-4 mt-4 text-pretty text-lg text-pretty text-gray-900">The URL <a href="https://woobox.com/rvm7pj/gallery" class="text-lg text-pretty text-blue-500 hover:text-blue-700 underline">https://woobox.com/rvm7pj/gallery</a> displays the entire
+gallery of photos for the contest.</p>
 <h3 class="leading-relaxed font-display text-pretty text-xl mb-4 mt-10 font-semibold text-pretty text-gray-700" id="specific-photo-url" tabindex="-1">Specific Photo URL</h3>
-<p class="leading-relaxed font-display mb-4 mt-4 text-pretty text-lg text-pretty text-gray-900">Each photo in the contest had a unique identifier, such as <a href="https://woobox.com/rvm7pj/gallery/xxxxxxxx" class="text-lg text-pretty text-blue-500 hover:text-blue-700 underline">https://woobox.com/rvm7pj/gallery/xxxxxxxx</a>, where xxxxxxxx represents the specific photo ID.</p>
-<p class="leading-relaxed font-display mb-4 mt-4 text-pretty text-lg text-pretty text-gray-900">Navigating to <strong class="text-lg font-semibold text-pretty text-gray-800"><a href="https://woobox.com/rvm7pj/gallery/xxxxxxxx" class="text-lg text-pretty text-blue-500 hover:text-blue-700 underline">https://woobox.com/rvm7pj/gallery/xxxxxxxx</a></strong> directly loads a specific photo, allowing us to vote for it without having to navigate through the entire gallery. This structure made it easier to target specific entries.</p>
+<p class="leading-relaxed font-display mb-4 mt-4 text-pretty text-lg text-pretty text-gray-900">Each photo in the contest had a unique identifier, such as
+<a href="https://woobox.com/rvm7pj/gallery/xxxxxxxx" class="text-lg text-pretty text-blue-500 hover:text-blue-700 underline">https://woobox.com/rvm7pj/gallery/xxxxxxxx</a>, where
+xxxxxxxx represents the specific photo ID.</p>
+<p class="leading-relaxed font-display mb-4 mt-4 text-pretty text-lg text-pretty text-gray-900">Navigating to <strong class="text-lg font-semibold text-pretty text-gray-800"><a href="https://woobox.com/rvm7pj/gallery/xxxxxxxx" class="text-lg text-pretty text-blue-500 hover:text-blue-700 underline">https://woobox.com/rvm7pj/gallery/xxxxxxxx</a></strong> directly loads a specific photo,
+allowing us to vote for it without having to navigate through the entire gallery. This structure
+made it easier to target specific entries.</p>
 <h2 class="leading-relaxed font-display text-pretty text-2xl mb-6 mt-12 font-semibold text-pretty text-gray-800" id="using-goto-to-interact-with-dynamic-urls" tabindex="-1">Using goto to Interact with Dynamic URLs</h2>
-<p class="leading-relaxed font-display mb-4 mt-4 text-pretty text-lg text-pretty text-gray-900">In Puppeteer, <strong class="text-lg font-semibold text-pretty text-gray-800">page.goto(url)</strong> is the core function to navigate to a URL. Because each photo had its unique URL, I used <strong class="text-lg font-semibold text-pretty text-gray-800">page.goto()</strong> with a specific photo ID, which allowed the script to load a particular photo’s voting page directly. This meant I could target multiple entries with different photo IDs, making the process flexible for automating votes across several contestants.</p>
+<p class="leading-relaxed font-display mb-4 mt-4 text-pretty text-lg text-pretty text-gray-900">In Puppeteer, <strong class="text-lg font-semibold text-pretty text-gray-800">page.goto(url)</strong> is the core function to navigate to a URL. Because each photo had
+its unique URL, I used <strong class="text-lg font-semibold text-pretty text-gray-800">page.goto()</strong> with a specific photo ID, which allowed the script to load a
+particular photo’s voting page directly. This meant I could target multiple entries with different
+photo IDs, making the process flexible for automating votes across several contestants.</p>
 <p class="leading-relaxed font-display mb-4 mt-4 text-pretty text-lg text-pretty text-gray-900">Here’s how goto works in this context:</p>
-<pre><code class="language-js">    await page.goto('https://woobox.com/rvm7pj/gallery/xxxxxxx');
+<pre><code class="language-js">await page.goto('https://woobox.com/rvm7pj/gallery/xxxxxxx');
 </code></pre>
-<p class="leading-relaxed font-display mb-4 mt-4 text-pretty text-lg text-pretty text-gray-900">By changing the URL in goto to include a different photo ID, the script can switch between entries, automating votes for multiple photos without navigating back to the main gallery each time. This saves time and reduces server requests, which helps avoid detection.</p>
+<p class="leading-relaxed font-display mb-4 mt-4 text-pretty text-lg text-pretty text-gray-900">By changing the URL in goto to include a different photo ID, the script can switch between entries,
+automating votes for multiple photos without navigating back to the main gallery each time. This
+saves time and reduces server requests, which helps avoid detection.</p>
 <h2 class="leading-relaxed font-display text-pretty text-2xl mb-6 mt-12 font-semibold text-pretty text-gray-800" id="automating-the-voting-process-with-random-data" tabindex="-1">Automating the Voting Process with Random Data</h2>
-<p class="leading-relaxed font-display mb-4 mt-4 text-pretty text-lg text-pretty text-gray-900">Woobox required a name and email address for each vote, but there was no login required, meaning anyone could submit a vote with minimal information.
-Here’s how I automated this process:</p>
+<p class="leading-relaxed font-display mb-4 mt-4 text-pretty text-lg text-pretty text-gray-900">Woobox required a name and email address for each vote, but there was no login required, meaning
+anyone could submit a vote with minimal information. Here’s how I automated this process:</p>
 <h3 class="leading-relaxed font-display text-pretty text-xl mb-4 mt-10 font-semibold text-pretty text-gray-700" id="generate-random-names-and-emails" tabindex="-1">Generate Random Names and Emails</h3>
-<p class="leading-relaxed font-display mb-4 mt-4 text-pretty text-lg text-pretty text-gray-900">To simulate unique users, I created a function to generate random first and last names, along with randomized email addresses.</p>
-<pre><code class="language-js">    function generateRandomData() {
-        const firstNames = ['Alice', 'Bob', 'Charlie'];
-        const lastNames = ['Smith', 'Johnson', 'Williams'];
-        const emailProviders = ['gmail.com', 'yahoo.com', 'outlook.com'];
+<p class="leading-relaxed font-display mb-4 mt-4 text-pretty text-lg text-pretty text-gray-900">To simulate unique users, I created a function to generate random first and last names, along with
+randomized email addresses.</p>
+<pre><code class="language-js">function generateRandomData() {
+	const firstNames = ['Alice', 'Bob', 'Charlie'];
+	const lastNames = ['Smith', 'Johnson', 'Williams'];
+	const emailProviders = ['gmail.com', 'yahoo.com', 'outlook.com'];
 
-        const firstName = firstNames[Math.floor(Math.random() * firstNames.length)];
-        const lastName = lastNames[Math.floor(Math.random() * lastNames.length)];
-        const emailProvider = emailProviders[Math.floor(Math.random() * emailProviders.length)];
-        const email = `${firstName.toLowerCase()}.${lastName.toLowerCase()}+${Math.floor(Math.random() * 1000)}@${emailProvider}`;
+	const firstName = firstNames[Math.floor(Math.random() * firstNames.length)];
+	const lastName = lastNames[Math.floor(Math.random() * lastNames.length)];
+	const emailProvider = emailProviders[Math.floor(Math.random() * emailProviders.length)];
+	const email = `${firstName.toLowerCase()}.${lastName.toLowerCase()}+${Math.floor(
+		Math.random() * 1000
+	)}@${emailProvider}`;
 
-        return { firstName, lastName, email };
-    }
+	return { firstName, lastName, email };
+}
 </code></pre>
-<p class="leading-relaxed font-display mb-4 mt-4 text-pretty text-lg text-pretty text-gray-900">Each time the script runs, it generates a new name and email, which are then entered into the voting form.</p>
+<p class="leading-relaxed font-display mb-4 mt-4 text-pretty text-lg text-pretty text-gray-900">Each time the script runs, it generates a new name and email, which are then entered into the voting
+form.</p>
 <h3 class="leading-relaxed font-display text-pretty text-xl mb-4 mt-10 font-semibold text-pretty text-gray-700" id="interacting-with-form-elements" tabindex="-1">Interacting with Form Elements</h3>
-<p class="leading-relaxed font-display mb-4 mt-4 text-pretty text-lg text-pretty text-gray-900">After navigating to the specific photo URL, I used Puppeteer’s <strong class="text-lg font-semibold text-pretty text-gray-800">page.waitForSelector()</strong> and <strong class="text-lg font-semibold text-pretty text-gray-800">page.type()</strong> functions to fill in the form fields and submit the vote. Here’s how the core voting automation looked:</p>
-<pre><code class="language-js">    // Wait for the form, type in the generated data, and submit
-    const { firstName, lastName, email } = generateRandomData();
-    await page.type('input[name=&quot;voter_first&quot;]', firstName);
-    await page.type('input[name=&quot;voter_last&quot;]', lastName);
-    await page.type('input[name=&quot;voter_email&quot;]', email);
-    await page.click('.vote-submit');
+<p class="leading-relaxed font-display mb-4 mt-4 text-pretty text-lg text-pretty text-gray-900">After navigating to the specific photo URL, I used Puppeteer’s <strong class="text-lg font-semibold text-pretty text-gray-800">page.waitForSelector()</strong> and
+<strong class="text-lg font-semibold text-pretty text-gray-800">page.type()</strong> functions to fill in the form fields and submit the vote. Here’s how the core voting
+automation looked:</p>
+<pre><code class="language-js">// Wait for the form, type in the generated data, and submit
+const { firstName, lastName, email } = generateRandomData();
+await page.type('input[name=&quot;voter_first&quot;]', firstName);
+await page.type('input[name=&quot;voter_last&quot;]', lastName);
+await page.type('input[name=&quot;voter_email&quot;]', email);
+await page.click('.vote-submit');
 </code></pre>
 <h2 class="leading-relaxed font-display text-pretty text-2xl mb-6 mt-12 font-semibold text-pretty text-gray-800" id="clearing-cookies%2C-cache%2C-and-local-storage" tabindex="-1">Clearing Cookies, Cache, and Local Storage</h2>
-<p class="leading-relaxed font-display mb-4 mt-4 text-pretty text-lg text-pretty text-gray-900">Woobox attempted to limit voting frequency by storing data in cookies, cache, and localStorage, which Puppeteer could clear before each vote. Clearing this data helps mimic the behavior of a fresh user session.</p>
+<p class="leading-relaxed font-display mb-4 mt-4 text-pretty text-lg text-pretty text-gray-900">Woobox attempted to limit voting frequency by storing data in cookies, cache, and localStorage,
+which Puppeteer could clear before each vote. Clearing this data helps mimic the behavior of a fresh
+user session.</p>
 <h3 class="leading-relaxed font-display text-pretty text-xl mb-4 mt-10 font-semibold text-pretty text-gray-700" id="clearing-cookies-and-cache" tabindex="-1">Clearing Cookies and Cache</h3>
-<p class="leading-relaxed font-display mb-4 mt-4 text-pretty text-lg text-pretty text-gray-900">Puppeteer provides commands to clear cookies and cache, which can be done via the Chrome DevTools Protocol.</p>
-<pre><code class="language-js">    const client = await page.target().createCDPSession();
-    await client.send('Network.clearBrowserCookies');
-    await client.send('Network.clearBrowserCache');
+<p class="leading-relaxed font-display mb-4 mt-4 text-pretty text-lg text-pretty text-gray-900">Puppeteer provides commands to clear cookies and cache, which can be done via the Chrome DevTools
+Protocol.</p>
+<pre><code class="language-js">const client = await page.target().createCDPSession();
+await client.send('Network.clearBrowserCookies');
+await client.send('Network.clearBrowserCache');
 </code></pre>
 <h3 class="leading-relaxed font-display text-pretty text-xl mb-4 mt-10 font-semibold text-pretty text-gray-700" id="clearing-local-storage" tabindex="-1">Clearing Local Storage</h3>
-<p class="leading-relaxed font-display mb-4 mt-4 text-pretty text-lg text-pretty text-gray-900">I used <strong class="text-lg font-semibold text-pretty text-gray-800">page.evaluate()</strong> to clear <strong class="text-lg font-semibold text-pretty text-gray-800">localStorage</strong> and <strong class="text-lg font-semibold text-pretty text-gray-800">sessionStorage</strong> each time a vote was submitted, bypassing local session restrictions.</p>
-<pre><code class="language-js">   await page.evaluate(() =&gt; {
-       localStorage.clear();
-       sessionStorage.clear();
-   });
+<p class="leading-relaxed font-display mb-4 mt-4 text-pretty text-lg text-pretty text-gray-900">I used <strong class="text-lg font-semibold text-pretty text-gray-800">page.evaluate()</strong> to clear <strong class="text-lg font-semibold text-pretty text-gray-800">localStorage</strong> and <strong class="text-lg font-semibold text-pretty text-gray-800">sessionStorage</strong> each time a vote was
+submitted, bypassing local session restrictions.</p>
+<pre><code class="language-js">await page.evaluate(() =&gt; {
+	localStorage.clear();
+	sessionStorage.clear();
+});
 </code></pre>
 <h2 class="leading-relaxed font-display text-pretty text-2xl mb-6 mt-12 font-semibold text-pretty text-gray-800" id="how-woobox-could-strengthen-their-voting-security" tabindex="-1">How Woobox Could Strengthen Their Voting Security</h2>
 <p class="leading-relaxed font-display mb-4 mt-4 text-pretty text-lg text-pretty text-gray-900">After automating the process, a few areas where Woobox could add extra protections became clear:</p>
 <h3 class="leading-relaxed font-display text-pretty text-xl mb-4 mt-10 font-semibold text-pretty text-gray-700" id="captcha-integration" tabindex="-1">CAPTCHA Integration</h3>
-<p class="leading-relaxed font-display mb-4 mt-4 text-pretty text-lg text-pretty text-gray-900">A CAPTCHA system, such as Google’s reCAPTCHA, could effectively differentiate between automated and genuine votes. By requiring a CAPTCHA, Woobox could limit automated access significantly.</p>
+<p class="leading-relaxed font-display mb-4 mt-4 text-pretty text-lg text-pretty text-gray-900">A CAPTCHA system, such as Google’s reCAPTCHA, could effectively differentiate between automated and
+genuine votes. By requiring a CAPTCHA, Woobox could limit automated access significantly.</p>
 <h3 class="leading-relaxed font-display text-pretty text-xl mb-4 mt-10 font-semibold text-pretty text-gray-700" id="email-verification" tabindex="-1">Email Verification</h3>
-<p class="leading-relaxed font-display mb-4 mt-4 text-pretty text-lg text-pretty text-gray-900">By verifying each email before counting a vote, Woobox could prevent users from using randomized or throwaway emails. This could be done with a one-time password (OTP) or email confirmation.</p>
+<p class="leading-relaxed font-display mb-4 mt-4 text-pretty text-lg text-pretty text-gray-900">By verifying each email before counting a vote, Woobox could prevent users from using randomized or
+throwaway emails. This could be done with a one-time password (OTP) or email confirmation.</p>
 <h3 class="leading-relaxed font-display text-pretty text-xl mb-4 mt-10 font-semibold text-pretty text-gray-700" id="ip-based-rate-limiting" tabindex="-1">IP-Based Rate Limiting</h3>
-<p class="leading-relaxed font-display mb-4 mt-4 text-pretty text-lg text-pretty text-gray-900">Rate limiting based on IP addresses could prevent high volumes of requests from a single IP. Additionally, implementing fingerprinting could help track users across sessions and limit repeated votes.</p>
+<p class="leading-relaxed font-display mb-4 mt-4 text-pretty text-lg text-pretty text-gray-900">Rate limiting based on IP addresses could prevent high volumes of requests from a single IP.
+Additionally, implementing fingerprinting could help track users across sessions and limit repeated
+votes.</p>
 <h3 class="leading-relaxed font-display text-pretty text-xl mb-4 mt-10 font-semibold text-pretty text-gray-700" id="session-timeouts-and-browser-fingerprinting" tabindex="-1">Session Timeouts and Browser Fingerprinting</h3>
-<p class="leading-relaxed font-display mb-4 mt-4 text-pretty text-lg text-pretty text-gray-900">Implementing session timeouts and advanced fingerprinting techniques (like analyzing screen resolution, device type, etc.) could help identify repeat visitors or automated scripts, flagging votes that appear automated.</p>
+<p class="leading-relaxed font-display mb-4 mt-4 text-pretty text-lg text-pretty text-gray-900">Implementing session timeouts and advanced fingerprinting techniques (like analyzing screen
+resolution, device type, etc.) could help identify repeat visitors or automated scripts, flagging
+votes that appear automated.</p>
 <h2 class="leading-relaxed font-display text-pretty text-2xl mb-6 mt-12 font-semibold text-pretty text-gray-800" id="conclusion" tabindex="-1">Conclusion</h2>
-<p class="leading-relaxed font-display mb-4 mt-4 text-pretty text-lg text-pretty text-gray-900">This project demonstrated how to automate form interactions with <a href="https://nodejs.org/en" class="text-lg text-pretty text-blue-500 hover:text-blue-700 underline">Node.js</a> and <a href="https://developer.chrome.com/docs/puppeteer" class="text-lg text-pretty text-blue-500 hover:text-blue-700 underline">Puppeteer</a> while highlighting the security limitations in online voting systems. In environments where voting is public and unrestricted, automation can exploit these open structures if there are no safeguards like email verification or CAPTCHA in place.</p>
-<p class="leading-relaxed font-display mb-4 mt-4 text-pretty text-lg text-pretty text-gray-900">Using <a href="https://developer.chrome.com/docs/puppeteer" class="text-lg text-pretty text-blue-500 hover:text-blue-700 underline">Puppeteer</a> to interact with URLs, manage page navigation, and simulate different user inputs offers a practical way to study web automation. By implementing security best practices, voting platforms like Woobox can ensure fair participation and prevent automation abuse, fostering a more trustworthy user experience.</p>
-<pre><code class="language-js">    const puppeteer = require('puppeteer');
-    const LIMIT = 12;
-    const TARGET = 'https://woobox.com/rvm7pj/gallery/xxxxxxxx'
-    // Function to generate random name and email data
-    function generateRandomData() {
-    const firstNames = [
-        'Alice', 'Bob', 'Charlie', 'Diana', 'Eve', 'Frank', 'Grace', 'Hank', 'Ivy', 'Jack',
-        'Karen', 'Liam', 'Mona', 'Nathan', 'Olivia', 'Paul', 'Quincy', 'Rachel', 'Steve', 'Tina',
-        'Uma', 'Victor', 'Wendy', 'Xander', 'Yasmine', 'Zane', 'Aiden', 'Bella', 'Caleb', 'Daisy',
-        'Ethan', 'Fiona', 'George', 'Holly', 'Isla', 'Jonas', 'Kylie', 'Leo', 'Maya', 'Noah',
-        'Ophelia', 'Piper', 'Ronan', 'Sophie', 'Tristan', 'Ursula', 'Violet', 'Wyatt', 'Xena',
-        'Yara', 'Zara', 'Abigail', 'Brandon', 'Charlotte', 'Daniel', 'Elena', 'Finn', 'Gina', 
-        'Hunter', 'Irene', 'Jordan', 'Kara', 'Logan', 'Mason', 'Nina', 'Oscar', 'Paige', 'Reed',
-        'Sara', 'Theo', 'Ulysses', 'Vanessa', 'Willow', 'Xiomara', 'Yosef', 'Zoey'
-    ];
-    
-    const lastNames = [
-        'Smith', 'Johnson', 'Williams', 'Brown', 'Jones', 'Garcia', 'Miller', 'Davis', 
-        'Martinez', 'Lopez', 'Wilson', 'Anderson', 'Taylor', 'Thomas', 'Hernandez', 
-        'Moore', 'Martin', 'Jackson', 'Thompson', 'White', 'Harris', 'Clark', 'Lewis', 
-        'Walker', 'Hall', 'Allen', 'Young', 'King', 'Scott', 'Green', 'Adams', 'Baker', 
-        'Gonzalez', 'Nelson', 'Carter', 'Mitchell', 'Perez', 'Roberts', 'Turner', 'Phillips',
-        'Campbell', 'Parker', 'Evans', 'Edwards', 'Collins', 'Stewart', 'Sanchez', 'Morris', 
-        'Rogers', 'Reed', 'Cook', 'Morgan', 'Bell', 'Murphy', 'Bailey', 'Rivera', 'Cooper', 
-        'Richardson', 'Cox', 'Howard', 'Ward', 'Torres', 'Peterson', 'Gray', 'Ramirez', 
-        'James', 'Watson', 'Brooks', 'Kelly', 'Sanders', 'Price', 'Bennett', 'Wood', 
-        'Barnes', 'Ross', 'Henderson', 'Coleman', 'Jenkins', 'Perry', 'Powell', 'Long', 
-        'Patterson', 'Hughes', 'Flores', 'Washington', 'Butler', 'Simmons', 'Foster', 'Gonzales'
-    ];
-    
-    const emailProviders = [
-    'gmail.com', 'yahoo.com', 'outlook.com', 'hotmail.com', 
-        'mail.com', 'aol.com', 'protonmail.com', 'icloud.com', 'gmx.com'
-    ];
+<p class="leading-relaxed font-display mb-4 mt-4 text-pretty text-lg text-pretty text-gray-900">This project demonstrated how to automate form interactions with <a href="https://nodejs.org/en" class="text-lg text-pretty text-blue-500 hover:text-blue-700 underline">Node.js</a>
+and <a href="https://developer.chrome.com/docs/puppeteer" class="text-lg text-pretty text-blue-500 hover:text-blue-700 underline">Puppeteer</a> while highlighting the security
+limitations in online voting systems. In environments where voting is public and unrestricted,
+automation can exploit these open structures if there are no safeguards like email verification or
+CAPTCHA in place.</p>
+<p class="leading-relaxed font-display mb-4 mt-4 text-pretty text-lg text-pretty text-gray-900">Using <a href="https://developer.chrome.com/docs/puppeteer" class="text-lg text-pretty text-blue-500 hover:text-blue-700 underline">Puppeteer</a> to interact with URLs, manage page
+navigation, and simulate different user inputs offers a practical way to study web automation. By
+implementing security best practices, voting platforms like Woobox can ensure fair participation and
+prevent automation abuse, fostering a more trustworthy user experience.</p>
+<pre><code class="language-js">const puppeteer = require('puppeteer');
+const LIMIT = 12;
+const TARGET = 'https://woobox.com/rvm7pj/gallery/xxxxxxxx';
+// Function to generate random name and email data
+function generateRandomData() {
+	const firstNames = [
+		'Alice',
+		'Bob',
+		'Charlie',
+		'Diana',
+		'Eve',
+		'Frank',
+		'Grace',
+		'Hank',
+		'Ivy',
+		'Jack',
+		'Karen',
+		'Liam',
+		'Mona',
+		'Nathan',
+		'Olivia',
+		'Paul',
+		'Quincy',
+		'Rachel',
+		'Steve',
+		'Tina',
+		'Uma',
+		'Victor',
+		'Wendy',
+		'Xander',
+		'Yasmine',
+		'Zane',
+		'Aiden',
+		'Bella',
+		'Caleb',
+		'Daisy',
+		'Ethan',
+		'Fiona',
+		'George',
+		'Holly',
+		'Isla',
+		'Jonas',
+		'Kylie',
+		'Leo',
+		'Maya',
+		'Noah',
+		'Ophelia',
+		'Piper',
+		'Ronan',
+		'Sophie',
+		'Tristan',
+		'Ursula',
+		'Violet',
+		'Wyatt',
+		'Xena',
+		'Yara',
+		'Zara',
+		'Abigail',
+		'Brandon',
+		'Charlotte',
+		'Daniel',
+		'Elena',
+		'Finn',
+		'Gina',
+		'Hunter',
+		'Irene',
+		'Jordan',
+		'Kara',
+		'Logan',
+		'Mason',
+		'Nina',
+		'Oscar',
+		'Paige',
+		'Reed',
+		'Sara',
+		'Theo',
+		'Ulysses',
+		'Vanessa',
+		'Willow',
+		'Xiomara',
+		'Yosef',
+		'Zoey'
+	];
 
-    const firstName = firstNames[Math.floor(Math.random() * firstNames.length)];
-    const lastName = lastNames[Math.floor(Math.random() * lastNames.length)];
-    const emailProvider = emailProviders[Math.floor(Math.random() * emailProviders.length)];
-    const email = `${firstName.toLowerCase()}.${lastName.toLowerCase()}+${Math.floor(Math.random() * 1000)}@${emailProvider}`;
-    
-    return { firstName, lastName, email };
-    }
+	const lastNames = [
+		'Smith',
+		'Johnson',
+		'Williams',
+		'Brown',
+		'Jones',
+		'Garcia',
+		'Miller',
+		'Davis',
+		'Martinez',
+		'Lopez',
+		'Wilson',
+		'Anderson',
+		'Taylor',
+		'Thomas',
+		'Hernandez',
+		'Moore',
+		'Martin',
+		'Jackson',
+		'Thompson',
+		'White',
+		'Harris',
+		'Clark',
+		'Lewis',
+		'Walker',
+		'Hall',
+		'Allen',
+		'Young',
+		'King',
+		'Scott',
+		'Green',
+		'Adams',
+		'Baker',
+		'Gonzalez',
+		'Nelson',
+		'Carter',
+		'Mitchell',
+		'Perez',
+		'Roberts',
+		'Turner',
+		'Phillips',
+		'Campbell',
+		'Parker',
+		'Evans',
+		'Edwards',
+		'Collins',
+		'Stewart',
+		'Sanchez',
+		'Morris',
+		'Rogers',
+		'Reed',
+		'Cook',
+		'Morgan',
+		'Bell',
+		'Murphy',
+		'Bailey',
+		'Rivera',
+		'Cooper',
+		'Richardson',
+		'Cox',
+		'Howard',
+		'Ward',
+		'Torres',
+		'Peterson',
+		'Gray',
+		'Ramirez',
+		'James',
+		'Watson',
+		'Brooks',
+		'Kelly',
+		'Sanders',
+		'Price',
+		'Bennett',
+		'Wood',
+		'Barnes',
+		'Ross',
+		'Henderson',
+		'Coleman',
+		'Jenkins',
+		'Perry',
+		'Powell',
+		'Long',
+		'Patterson',
+		'Hughes',
+		'Flores',
+		'Washington',
+		'Butler',
+		'Simmons',
+		'Foster',
+		'Gonzales'
+	];
 
-    // Delay function for random wait times
-    function delay(time) {
-    return new Promise(resolve =&gt; setTimeout(resolve, time));
-    }
+	const emailProviders = [
+		'gmail.com',
+		'yahoo.com',
+		'outlook.com',
+		'hotmail.com',
+		'mail.com',
+		'aol.com',
+		'protonmail.com',
+		'icloud.com',
+		'gmx.com'
+	];
 
-    // Main function to automate the voting process
-    async function automateVoting() {
-    const browser = await puppeteer.launch({
-        headless: true, // Set to true to run in the background
-        args: ['--start-fullscreen', '--window-size=1920,1080']
-    });
+	const firstName = firstNames[Math.floor(Math.random() * firstNames.length)];
+	const lastName = lastNames[Math.floor(Math.random() * lastNames.length)];
+	const emailProvider = emailProviders[Math.floor(Math.random() * emailProviders.length)];
+	const email = `${firstName.toLowerCase()}.${lastName.toLowerCase()}+${Math.floor(
+		Math.random() * 1000
+	)}@${emailProvider}`;
 
-    for (let i = 1; i &lt;= LIMIT; i++) {
-        const page = await browser.newPage(); // Open a new page in the default context
-        await page.setViewport({ width: 1920, height: 1080 });
+	return { firstName, lastName, email };
+}
 
-        try {
-        console.log(`Starting vote #${i}`);
+// Delay function for random wait times
+function delay(time) {
+	return new Promise((resolve) =&gt; setTimeout(resolve, time));
+}
 
-        // Clear cookies, cache, and storage manually
-        const client = await page.target().createCDPSession();
-        await client.send('Network.clearBrowserCookies');
-        await client.send('Network.clearBrowserCache');
+// Main function to automate the voting process
+async function automateVoting() {
+	const browser = await puppeteer.launch({
+		headless: true, // Set to true to run in the background
+		args: ['--start-fullscreen', '--window-size=1920,1080']
+	});
 
-        // Attempt to clear localStorage and sessionStorage, with a try-catch for restricted access
-        try {
-            await page.evaluate(() =&gt; {
-            localStorage.clear();
-            sessionStorage.clear();
-            });
-        } catch (error) {
-            console.warn(`Unable to clear localStorage/sessionStorage for vote #${i}:`, error.message);
-        }
+	for (let i = 1; i &lt;= LIMIT; i++) {
+		const page = await browser.newPage(); // Open a new page in the default context
+		await page.setViewport({ width: 1920, height: 1080 });
 
-        // Go to the target URL
-        await page.goto(TARGET);
+		try {
+			console.log(`Starting vote #${i}`);
 
-        // Wait for the vote button link to be visible and click it
-        await page.waitForSelector('#gallery-media-container .btn.vote-button.gallery-media-vote', { visible: true });
-        await page.evaluate(() =&gt; {
-            const voteButton = document.querySelector('#gallery-media-container .btn.vote-button.gallery-media-vote');
-            if (voteButton) voteButton.click();
-        });
+			// Clear cookies, cache, and storage manually
+			const client = await page.target().createCDPSession();
+			await client.send('Network.clearBrowserCookies');
+			await client.send('Network.clearBrowserCache');
 
-        // Random wait before interacting with the form
-        await delay(1000);
+			// Attempt to clear localStorage and sessionStorage, with a try-catch for restricted access
+			try {
+				await page.evaluate(() =&gt; {
+					localStorage.clear();
+					sessionStorage.clear();
+				});
+			} catch (error) {
+				console.warn(`Unable to clear localStorage/sessionStorage for vote #${i}:`, error.message);
+			}
 
-        // Generate random form data
-        const { firstName, lastName, email } = generateRandomData();
+			// Go to the target URL
+			await page.goto(TARGET);
 
-        // Fill out the form fields
-        await page.type('input[name=&quot;voter_first&quot;]', firstName);
-        await page.type('input[name=&quot;voter_last&quot;]', lastName);
-        await page.type('input[name=&quot;voter_email&quot;]', email);
+			// Wait for the vote button link to be visible and click it
+			await page.waitForSelector('#gallery-media-container .btn.vote-button.gallery-media-vote', {
+				visible: true
+			});
+			await page.evaluate(() =&gt; {
+				const voteButton = document.querySelector(
+					'#gallery-media-container .btn.vote-button.gallery-media-vote'
+				);
+				if (voteButton) voteButton.click();
+			});
 
-        // Submit the form
-        await page.click('.vote-submit');
+			// Random wait before interacting with the form
+			await delay(1000);
 
-        // Wait a few seconds to allow submission to process
-        await delay(500);
+			// Generate random form data
+			const { firstName, lastName, email } = generateRandomData();
 
-        console.log(`Vote #${i} submitted successfully`);
+			// Fill out the form fields
+			await page.type('input[name=&quot;voter_first&quot;]', firstName);
+			await page.type('input[name=&quot;voter_last&quot;]', lastName);
+			await page.type('input[name=&quot;voter_email&quot;]', email);
 
-        } catch (error) {
-        console.error(`An error occurred on vote #${i}:`, error);
-        } finally {
-        // Close the page after each vote
-        await page.close();
-        }
+			// Submit the form
+			await page.click('.vote-submit');
 
-        // Wait 30 seconds between votes to avoid detection
-    //   await delay(1000);
-    }
+			// Wait a few seconds to allow submission to process
+			await delay(500);
 
-    // Close the browser after completing all votes
-    await browser.close();
-    }
+			console.log(`Vote #${i} submitted successfully`);
+		} catch (error) {
+			console.error(`An error occurred on vote #${i}:`, error);
+		} finally {
+			// Close the page after each vote
+			await page.close();
+		}
 
-    // Run the voting automation
-    automateVoting();
+		// Wait 30 seconds between votes to avoid detection
+		//   await delay(1000);
+	}
+
+	// Close the browser after completing all votes
+	await browser.close();
+}
+
+// Run the voting automation
+automateVoting();
 </code></pre>
 
                 </div>
@@ -682,438 +866,404 @@ Here’s how I automated this process:</p>
 	</main>
 
 
-	<dialog id="my_modal_contact" class="modal" role="dialog" aria-labelledby="supporters-title">
-    <div class="modal-box">
-        <form method="dialog">
-            <button class="btn btn-sm btn-circle btn-ghost absolute right-2 top-2" aria-label="Close">✕</button>
-        </form>
+	<dialog
+  id="my_modal_contact"
+  class="modal"
+  role="dialog"
+  aria-labelledby="supporters-title"
+>
+  <div class="modal-box">
+    <form method="dialog">
+      <button
+        class="btn btn-circle btn-ghost absolute right-2 top-2"
+        aria-label="Close"
+      >
+        ✕
+      </button>
+    </form>
 
-        <div>
-            <h2 id="supporters-title" class="text-2xl mb-4 font-bold">List of Supporters</h2>
-            <p class="text-base mb-2">A huge thank you to all the users who have donated.</p>
+    <div>
+      <h2 id="supporters-title" class="text-2xl mb-4 font-bold">
+        List of Supporters
+      </h2>
+      <p class="text-base mb-2">
+        A huge thank you to all the users who have donated.
+      </p>
 
-            <ul class="grid grid-cols-1 gap-4 sm:grid-cols-3 mb-6 mt-6">
-                <li>Boulo</li>
-                <li>Roger Nowlan</li>
-                <li>이광현</li>
-                <li>Arturo Jimenez</li>
-                <li>OH JUNHO</li>
-            </ul>
+      <ul class="grid grid-cols-1 gap-4 sm:grid-cols-3 mb-6 mt-6">
+        <li>Boulo</li>
+        <li>Roger Nowlan</li>
+        <li>이광현</li>
+        <li>Arturo Jimenez</li>
+        <li>OH JUNHO</li>
+      </ul>
 
-            <a class="btn btn-primary btn-block w-full mt-4"
-                href="https://payments.coffeeandfun.com/b/00gbKHdise1e8Le6oZ" target="_blank">
-                Donate to Coffee & Fun LLC
-            </a>
-        </div>
+      <a
+        class="btn btn-primary btn-block w-full mt-4"
+        href="https://payments.coffeeandfun.com/b/00gbKHdise1e8Le6oZ"
+        target="_blank"
+      >
+        Donate to Coffee & Fun LLC
+      </a>
     </div>
+  </div>
 </dialog>
 
 <dialog id="my_modal_supports" class="modal" title="Support Form" role="dialog">
-    <div class="modal-box">
-        <form method="dialog">
-            <button class="btn btn-sm btn-circle btn-ghost absolute right-2 top-2" aria-label="Close">✕</button>
-        </form>
+  <div class="modal-box">
+    <form method="dialog">
+      <button
+        class="btn btn-circle btn-ghost absolute right-2 top-2"
+        aria-label="Close"
+      >
+        ✕
+      </button>
+    </form>
 
-        <iframe
-            src="https://docs.google.com/forms/d/e/1FAIpQLSeOBpyxmu3enhScTOuJtYAx2jNK2wr9scFKtbQrj0AjqJfdEQ/viewform?embedded=true"
-            width="100%" height="500" frameborder="0" title="Supporters Form">Loading…</iframe>
-    </div>
+    <iframe
+      src="https://docs.google.com/forms/d/e/1FAIpQLSeOBpyxmu3enhScTOuJtYAx2jNK2wr9scFKtbQrj0AjqJfdEQ/viewform?embedded=true"
+      width="100%"
+      height="500"
+      frameborder="0"
+      title="Supporters Form"
+      >Loading…</iframe
+    >
+  </div>
 </dialog>
-
-
-
-
-
 
 <dialog id="my_modal_rank" class="modal" title="TriviaFlix" role="dialog">
-    <div class="modal-box">
-        <form method="dialog">
-            <button class="btn btn-sm btn-circle btn-ghost absolute right-2 top-2" aria-label="Close">✕</button>
-        </form>
+  <div class="modal-box">
+    <form method="dialog">
+      <button
+        class="btn btn-circle btn-ghost absolute right-2 top-2"
+        aria-label="Close"
+      >
+        ✕
+      </button>
+    </form>
 
+    <h2 class="text-lg font-bold">About Mystery Rank</h2>
 
-        <h2 class="text-lg font-bold">About Mystery Rank</h2>
-
-        <div class="mb-12 mt-4">
-
-            <p class="py-4 text-pretty text-base">
-                In Mystery Rank, you contribute to earn a spot in different categories. The more you give, the higher
-                your rank. But here’s the catch—no one knows how much anyone else has paid. It’s this mystery that makes
-                the competition even more exciting.
-            </p>
-
-
-        </div>
-
-        <h2 class="text-lg font-bold mb-8">Terms and Refunds for Mystery Rank</h2>
-
-        <div class="mb-4 mt-4">
-
-            <h3 class="text-lg font-semibold mb-2">One-Time Contribution</h3>
-
-            <p class="py-4 text-pretty text-base">
-                When you contribute to Mystery Rank, it’s a one-time payment that secures your spot in the credits.
-                Please keep in mind that once the payment is made, it’s final—there are no refunds or changes. We want
-                to keep the process fair and transparent for everyone involved.
-
-            </p>
-
-
-        </div>
-
-
-
-        <div class="mb-4 mt-4">
-
-            <h3 class="text-lg font-semibold mb-2">How Your Rank is Determined</h3>
-
-            <p class="py-4 text-pretty text-base">
-                Your rank within your chosen category is based on how much you contribute. The more you contribute, the
-                higher your rank will be. However, the amount you’ve paid, and what others have paid, will remain
-                private. This adds a layer of mystery and excitement to the competition.
-
-            </p>
-
-
-        </div>
-
-
-        <div class="mb-4 mt-4">
-
-            <h3 class="text-lg font-semibold mb-2">When Your Credit Appears</h3>
-
-            <p class="py-4 text-pretty text-base">
-                After your payment is confirmed, your credit will be posted within 12 hours. We work hard to ensure that
-                everyone’s contributions are recognized promptly. If for some reason there’s a delay, we’ll do our best
-                to keep you informed.
-
-            </p>
-
-
-        </div>
-
-        <div class="mb-4 mt-4">
-
-            <h3 class="text-lg font-semibold mb-2">Handling Chargebacks</h3>
-
-            <p class="py-4 text-pretty text-base">
-                If a chargeback occurs, your credit will be immediately removed from the list, and unfortunately, you’ll
-                be blocked from participating in Mystery Rank in the future. We do this to protect the integrity of the
-                rankings and ensure fairness for all contributors.
-
-            </p>
-
-
-        </div>
-
-
-        <div class="mb-4 mt-4">
-
-            <h3 class="text-lg font-semibold mb-2">Updating Your Listing or Link</h3>
-
-            <p class="py-4 text-pretty text-base">
-                We understand that sometimes things change. If you need to update your listing or link after it’s been
-                posted, just send us an email at <a
-                    href="mailto:hello@coffeeandfun.com?subject=Inquiry%20about%20Mystery%20Rank%20Credits&body=Hi%20there,%0D%0A%0D%0AI%20have%20a%20question%20about%20Mystery%20Rank%20Credits.%0D%0A%0D%0AThank%20you!"
-                    class="link link-hover link-primary">hello@coffeeandfun.com</a>
-                . We’re happy to make one-time updates to ensure your information is correct.
-
-            </p>
-
-
-        </div>
-
-        <div class="mb-4 mt-4">
-
-            <h3 class="text-lg font-semibold mb-2">Need Help or Have Questions?</h3>
-
-            <p class="py-4 text-pretty text-base">
-                If you have any questions about the process, or if something isn’t clear, please don’t hesitate to reach
-                out. We’re here to help and want to make sure your experience with Mystery Rank is as smooth and
-                enjoyable as possible.
-
-            </p>
-
-
-        </div>
-
-
-
-
-
-
-
-
+    <div class="mb-12 mt-4">
+      <p class="py-4 text-pretty text-base">
+        In Mystery Rank, you contribute to earn a spot in different categories.
+        The more you give, the higher your rank. But here’s the catch—no one
+        knows how much anyone else has paid. It’s this mystery that makes the
+        competition even more exciting.
+      </p>
     </div>
+
+    <h2 class="text-lg font-bold mb-8">Terms and Refunds for Mystery Rank</h2>
+
+    <div class="mb-4 mt-4">
+      <h3 class="text-lg font-semibold mb-2">One-Time Contribution</h3>
+
+      <p class="py-4 text-pretty text-base">
+        When you contribute to Mystery Rank, it’s a one-time payment that
+        secures your spot in the credits. Please keep in mind that once the
+        payment is made, it’s final—there are no refunds or changes. We want to
+        keep the process fair and transparent for everyone involved.
+      </p>
+    </div>
+
+    <div class="mb-4 mt-4">
+      <h3 class="text-lg font-semibold mb-2">How Your Rank is Determined</h3>
+
+      <p class="py-4 text-pretty text-base">
+        Your rank within your chosen category is based on how much you
+        contribute. The more you contribute, the higher your rank will be.
+        However, the amount you’ve paid, and what others have paid, will remain
+        private. This adds a layer of mystery and excitement to the competition.
+      </p>
+    </div>
+
+    <div class="mb-4 mt-4">
+      <h3 class="text-lg font-semibold mb-2">When Your Credit Appears</h3>
+
+      <p class="py-4 text-pretty text-base">
+        After your payment is confirmed, your credit will be posted within 12
+        hours. We work hard to ensure that everyone’s contributions are
+        recognized promptly. If for some reason there’s a delay, we’ll do our
+        best to keep you informed.
+      </p>
+    </div>
+
+    <div class="mb-4 mt-4">
+      <h3 class="text-lg font-semibold mb-2">Handling Chargebacks</h3>
+
+      <p class="py-4 text-pretty text-base">
+        If a chargeback occurs, your credit will be immediately removed from the
+        list, and unfortunately, you’ll be blocked from participating in Mystery
+        Rank in the future. We do this to protect the integrity of the rankings
+        and ensure fairness for all contributors.
+      </p>
+    </div>
+
+    <div class="mb-4 mt-4">
+      <h3 class="text-lg font-semibold mb-2">Updating Your Listing or Link</h3>
+
+      <p class="py-4 text-pretty text-base">
+        We understand that sometimes things change. If you need to update your
+        listing or link after it’s been posted, just send us an email at
+        <a
+          href="mailto:hello@coffeeandfun.com?subject=Inquiry%20about%20Mystery%20Rank%20Credits&body=Hi%20there,%0D%0A%0D%0AI%20have%20a%20question%20about%20Mystery%20Rank%20Credits.%0D%0A%0D%0AThank%20you!"
+          class="link link-hover link-primary"
+          >hello@coffeeandfun.com</a
+        >
+        . We’re happy to make one-time updates to ensure your information is
+        correct.
+      </p>
+    </div>
+
+    <div class="mb-4 mt-4">
+      <h3 class="text-lg font-semibold mb-2">Need Help or Have Questions?</h3>
+
+      <p class="py-4 text-pretty text-base">
+        If you have any questions about the process, or if something isn’t
+        clear, please don’t hesitate to reach out. We’re here to help and want
+        to make sure your experience with Mystery Rank is as smooth and
+        enjoyable as possible.
+      </p>
+    </div>
+  </div>
 </dialog>
-
-
 
 <dialog id="my_modal_69" class="modal" title="TriviaFlix" role="dialog">
-    <div class="modal-box">
-        <form method="dialog">
-            <button class="btn btn-sm btn-circle btn-ghost absolute right-2 top-2" aria-label="Close">✕</button>
-        </form>
+  <div class="modal-box">
+    <form method="dialog">
+      <button
+        class="btn btn-circle btn-ghost absolute right-2 top-2"
+        aria-label="Close"
+      >
+        ✕
+      </button>
+    </form>
 
+    <h2 class="text-lg font-bold">Keyboard Shortcuts</h2>
 
-        <h2 class="text-lg font-bold">Keyboard Shortcuts</h3>
+    <div class="mb-4 mt-4">
+      <h3 class="pb-2 text-pretty text-base font-bold">Show Answer</h3>
 
-            <div class="mb-4 mt-4">
-
-                <h3 class="pb-2 text-pretty text-base font-bold">
-                    Show Answer
-                </h3>
-
-                <kbd class="kbd kbd-sm">▲</kbd>
-            </div>
-
-
-
-
-            <div class="mb-4">
-
-                <h3 class="pb-2 text-pretty text-base font-bold">
-                    Hide Answer
-                </h3>
-
-                <kbd class="kbd kbd-sm">▼</kbd>
-            </div>
-
-
-            <div class="mb-4">
-
-                <h3 class="pb-2 text-pretty text-base font-bold">
-                    Next Question
-                </h3>
-
-                <kbd class="kbd kbd-sm">▶︎</kbd>
-            </div>
-
-
-
-
-            <div class="mb-4">
-
-                <h3 class="pb-2 text-pretty text-base font-bold">
-                    Previous Question
-                </h3>
-
-                <kbd class="kbd kbd-sm">◀︎</kbd>
-            </div>
-
-
+      <kbd class="kbd kbd-sm">▲</kbd>
     </div>
+
+    <div class="mb-4">
+      <h3 class="pb-2 text-pretty text-base font-bold">Hide Answer</h3>
+
+      <kbd class="kbd kbd-sm">▼</kbd>
+    </div>
+
+    <div class="mb-4">
+      <h3 class="pb-2 text-pretty text-base font-bold">Next Question</h3>
+
+      <kbd class="kbd kbd-sm">▶︎</kbd>
+    </div>
+
+    <div class="mb-4">
+      <h3 class="pb-2 text-pretty text-base font-bold">Previous Question</h3>
+
+      <kbd class="kbd kbd-sm">◀︎</kbd>
+    </div>
+  </div>
 </dialog>
-
-
 
 <dialog id="my_modal_site_menu" class="modal" title="Menu" role="dialog">
-    <div class="modal-box">
-
-
-        <form method="dialog">
-            <button class="btn btn-sm btn-circle btn-ghost absolute right-2 top-2 " aria-label="Close">
-                <span class="sr-only">Close the modal popup</span>
-                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 -960 960 960" fill="currentColor" aria-hidden="true"
-                    class="h-6 w-6">
-                    <path
-                        d="m256-200-56-56 224-224-224-224 56-56 224 224 224-224 56 56-224 224 224 224-56 56-224-224-224 224Z">
-                    </path>
-                </svg>
-            </button>
-
-        </form>
-        <div class="w-full items-start mt-12">
-
-            <h2 class="text-2xl mb-4 font-bold ">Coffee & Fun</h2>
-            <div class="divider mb-2"></div>
-            <ul class="grid grid-cols-2 gap-4 mb-8">
-                <li class="text-left">
-
-
-                    <a href="/#apps" rel="noopener noreferrer" title="Visit Coffee & Fun Apps"
-                    class="btn  btn-neutral btn-outline btn-sm btn-block  font-semibold   mt-2 gap-2">
-                        <span>Apps</span>
-                    </a>
-
-                </li>
-
-                <li class="text-left">
-
-
-                <a href="/blog/" rel="noopener noreferrer" title="Visit Coffee & Fun Blog"
-                class="btn  btn-neutral btn-outline btn-sm btn-block  font-semibold  mt-2 gap-2">
-                    <span>Blog</span>
-                </a>
-
-            </li>
-
-            <li class="text-left">
-
-
-                <a href="https://sharing.clickup.com/36059453/b/12ce9x-577/board" target="_blank" rel="noopener noreferrer" title="Visit Coffee & Fun Roadmap"
-                class="btn  btn-neutral btn-outline btn-sm btn-block  font-semibold  mt-2 gap-2">
-                    <span>Roadmap</span>
-                </a>
-
-            </li>
-
-                <li class="text-left">
-
-                    <a href="/#graveyard" rel="noopener noreferrer" title="Visit the Graveyard"
-                        class="btn  btn-neutral btn-outline btn-sm btn-block  font-semibold   mt-2 gap-2">
-                        <span>The Graveyard</span>
-                    </a>
-
-                </li>
-
-                <li class="text-left">
-
-
-                    <button onclick="my_modal_supports.showModal()" title="Contact Support"
-                    class="btn  btn-neutral btn-outline btn-sm btn-block  font-semibold   mt-2 gap-2">
-
-                        <span>Supports</span>
-                    </button>
-
-                </li>
-
-
-
-
-                <li class="text-left">
-
-
-                    <button onclick="my_modal_contact.showModal()" title="Contact Support"
-                    class="btn  btn-neutral btn-outline btn-sm btn-block  font-semibold   mt-2 gap-2">
-
-                        <span>Contact Us</span>
-                    </button>
-
-                </li>
-
-
-            </ul>
-
-
-            <h2 class="text-2xl  mt-24 font-bold mb-4">Apps</h2>
-            <div class="divider mb-2"></div>
-
-            <ul class="grid grid-cols-2 gap-4">
-                
-                <li class="text-left mb-4">
-
-
-                    <a href="https://apps.apple.com/us/app/daily-bible-verse/id6744124711" target="_blank" rel="noopener noreferrer" title="Visit Coffee & Fun Apps"
-                    class="btn  btn-neutral btn-outline  btn-sm btn-block  font-semibold   mt-2 gap-2">
-                        <span>Daily Bible Verse+</span>
-                    </a>
-
-                </li>
-			
-                <li class="text-left mb-4">
-
-
-                    <a href="https://apps.apple.com/us/app/procrastinot-website-blocker/id6569216739?platform=ipad" target="_blank" rel="noopener noreferrer" title="Visit Coffee & Fun Apps"
-                    class="btn  btn-neutral btn-outline  btn-sm btn-block  font-semibold   mt-2 gap-2">
-                        <span>ProcrastiNOT </span>
-                    </a>
-
-                </li>
-			
-                <li class="text-left mb-4">
-
-
-                    <a href="https://chromewebstore.google.com/detail/hide-spoilers-block-blur/dglgbepdhdpfihbiklibdcecpadcdcln" target="_blank" rel="noopener noreferrer" title="Visit Coffee & Fun Apps"
-                    class="btn  btn-neutral btn-outline  btn-sm btn-block  font-semibold   mt-2 gap-2">
-                        <span>Hide Spoilers</span>
-                    </a>
-
-                </li>
-			
-                <li class="text-left mb-4">
-
-
-                    <a href="https://chromewebstore.google.com/detail/auto-pause/abheodopcahdogobgajpakhakjcjckhk" target="_blank" rel="noopener noreferrer" title="Visit Coffee & Fun Apps"
-                    class="btn  btn-neutral btn-outline  btn-sm btn-block  font-semibold   mt-2 gap-2">
-                        <span>Auto Pause</span>
-                    </a>
-
-                </li>
-			
-                <li class="text-left mb-4">
-
-
-                    <a href="https://apps.apple.com/us/app/confetti-cannon-for-safari/id6670409741?mt=12" target="_blank" rel="noopener noreferrer" title="Visit Coffee & Fun Apps"
-                    class="btn  btn-neutral btn-outline  btn-sm btn-block  font-semibold   mt-2 gap-2">
-                        <span>Confetti Cannon: Page Party</span>
-                    </a>
-
-                </li>
-			
-                <li class="text-left mb-4">
-
-
-                    <a href="https://apps.apple.com/us/app/markdown-editor-for-safari/id6578456621" target="_blank" rel="noopener noreferrer" title="Visit Coffee & Fun Apps"
-                    class="btn  btn-neutral btn-outline  btn-sm btn-block  font-semibold   mt-2 gap-2">
-                        <span>Markdown Editor for Safari</span>
-                    </a>
-
-                </li>
-			
-                <li class="text-left mb-4">
-
-
-                    <a href="https://chromewebstore.google.com/detail/yeti-remove-google-search/oabpkkceeoccgofdohlalinahlcpmkeh?hl=en" target="_blank" rel="noopener noreferrer" title="Visit Coffee & Fun Apps"
-                    class="btn  btn-neutral btn-outline  btn-sm btn-block  font-semibold   mt-2 gap-2">
-                        <span>Yeti</span>
-                    </a>
-
-                </li>
-			
-                <li class="text-left mb-4">
-
-
-                    <a href="https://www.coffeeandfun.com/instant-incognito/" target="_blank" rel="noopener noreferrer" title="Visit Coffee & Fun Apps"
-                    class="btn  btn-neutral btn-outline  btn-sm btn-block  font-semibold   mt-2 gap-2">
-                        <span>Instant Incognito</span>
-                    </a>
-
-                </li>
-			
-                <li class="text-left mb-4">
-
-
-                    <a href="https://www.incognitomode.app" target="_blank" rel="noopener noreferrer" title="Visit Coffee & Fun Apps"
-                    class="btn  btn-neutral btn-outline  btn-sm btn-block  font-semibold   mt-2 gap-2">
-                        <span>Incognito Bear</span>
-                    </a>
-
-                </li>
-			
-                <li class="text-left mb-4">
-
-
-                    <a href="https://apps.apple.com/us/app/simple-screenshot-pro/id6451333294" target="_blank" rel="noopener noreferrer" title="Visit Coffee & Fun Apps"
-                    class="btn  btn-neutral btn-outline  btn-sm btn-block  font-semibold   mt-2 gap-2">
-                        <span>Simple Screenshot Pro</span>
-                    </a>
-
-                </li>
-			
-            </ul>
-        </div>
-
-
-
-
-
-
-
-
-
+  <div class="modal-box">
+    <form method="dialog">
+      <button
+        class="btn btn-circle btn-ghost absolute right-2 top-2"
+        aria-label="Close"
+      >
+        <span class="sr-only">Close the modal popup</span>
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          viewBox="0 -960 960 960"
+          fill="currentColor"
+          aria-hidden="true"
+          class="h-6 w-6"
+        >
+          <path
+            d="m256-200-56-56 224-224-224-224 56-56 224 224 224-224 56 56-224 224 224 224-56 56-224-224-224 224Z"
+          ></path>
+        </svg>
+      </button>
+    </form>
+    <div class="w-full items-start mt-12">
+      <h2 class="text-2xl mb-4 font-bold">Coffee & Fun</h2>
+      <div class="divider mb-2"></div>
+      <ul class="grid grid-cols-2 gap-4 mb-8">
+        <li class="text-left">
+          <a
+            href="/#apps"
+            rel="noopener noreferrer"
+            title="Visit Coffee & Fun Apps"
+            class="btn btn-neutral btn-outline btn-block font-semibold mt-2 gap-2"
+          >
+            <span>Apps</span>
+          </a>
+        </li>
+
+        <li class="text-left">
+          <a
+            href="/blog/"
+            rel="noopener noreferrer"
+            title="Visit Coffee & Fun Blog"
+            class="btn btn-neutral btn-outline btn-block font-semibold mt-2 gap-2"
+          >
+            <span>Blog</span>
+          </a>
+        </li>
+
+        <li class="text-left">
+          <a
+            href="https://sharing.clickup.com/36059453/b/12ce9x-577/board"
+            target="_blank"
+            rel="noopener noreferrer"
+            title="Visit Coffee & Fun Roadmap"
+            class="btn btn-neutral btn-outline btn-block font-semibold mt-2 gap-2"
+          >
+            <span>Roadmap</span>
+          </a>
+        </li>
+
+        <li class="text-left">
+          <a
+            href="/#graveyard"
+            rel="noopener noreferrer"
+            title="Visit the Graveyard"
+            class="btn btn-neutral btn-outline btn-block font-semibold mt-2 gap-2"
+          >
+            <span>The Graveyard</span>
+          </a>
+        </li>
+
+        <li class="text-left">
+          <button
+            onclick="my_modal_supports.showModal()"
+            title="Contact Support"
+            class="btn btn-neutral btn-outline btn-block font-semibold mt-2 gap-2"
+          >
+            <span>Supports</span>
+          </button>
+        </li>
+
+        <li class="text-left">
+          <button
+            onclick="my_modal_contact.showModal()"
+            title="Contact Support"
+            class="btn btn-neutral btn-outline btn-block font-semibold mt-2 gap-2"
+          >
+            <span>Contact Us</span>
+          </button>
+        </li>
+      </ul>
+
+      <h2 class="text-2xl mt-24 font-bold mb-4">Apps</h2>
+      <div class="divider mb-2"></div>
+
+      <ul class="grid grid-cols-2 gap-4">
+        
+        <li class="text-left mb-4">
+          <a
+            href="https://apps.apple.com/us/app/daily-bible-verse/id6744124711"
+            target="_blank"
+            rel="noopener noreferrer"
+            title="Visit Coffee & Fun Apps"
+            class="btn btn-neutral btn-outline btn-block font-semibold mt-2 gap-2"
+          >
+            <span>Daily Bible Verse+</span>
+          </a>
+        </li>
+        
+        <li class="text-left mb-4">
+          <a
+            href="https://apps.apple.com/us/app/procrastinot-website-blocker/id6569216739?platform=ipad"
+            target="_blank"
+            rel="noopener noreferrer"
+            title="Visit Coffee & Fun Apps"
+            class="btn btn-neutral btn-outline btn-block font-semibold mt-2 gap-2"
+          >
+            <span>ProcrastiNOT </span>
+          </a>
+        </li>
+        
+        <li class="text-left mb-4">
+          <a
+            href="https://chromewebstore.google.com/detail/hide-spoilers-block-blur/dglgbepdhdpfihbiklibdcecpadcdcln"
+            target="_blank"
+            rel="noopener noreferrer"
+            title="Visit Coffee & Fun Apps"
+            class="btn btn-neutral btn-outline btn-block font-semibold mt-2 gap-2"
+          >
+            <span>Hide Spoilers</span>
+          </a>
+        </li>
+        
+        <li class="text-left mb-4">
+          <a
+            href="https://apps.apple.com/us/app/confetti-cannon-for-safari/id6670409741?mt=12"
+            target="_blank"
+            rel="noopener noreferrer"
+            title="Visit Coffee & Fun Apps"
+            class="btn btn-neutral btn-outline btn-block font-semibold mt-2 gap-2"
+          >
+            <span>Confetti Cannon</span>
+          </a>
+        </li>
+        
+        <li class="text-left mb-4">
+          <a
+            href="https://apps.apple.com/us/app/markdown-editor-for-safari/id6578456621"
+            target="_blank"
+            rel="noopener noreferrer"
+            title="Visit Coffee & Fun Apps"
+            class="btn btn-neutral btn-outline btn-block font-semibold mt-2 gap-2"
+          >
+            <span>Markdown Editor</span>
+          </a>
+        </li>
+        
+        <li class="text-left mb-4">
+          <a
+            href="https://chromewebstore.google.com/detail/yeti-remove-google-search/oabpkkceeoccgofdohlalinahlcpmkeh?hl=en"
+            target="_blank"
+            rel="noopener noreferrer"
+            title="Visit Coffee & Fun Apps"
+            class="btn btn-neutral btn-outline btn-block font-semibold mt-2 gap-2"
+          >
+            <span>Yeti</span>
+          </a>
+        </li>
+        
+        <li class="text-left mb-4">
+          <a
+            href="https://www.incognitomode.app"
+            target="_blank"
+            rel="noopener noreferrer"
+            title="Visit Coffee & Fun Apps"
+            class="btn btn-neutral btn-outline btn-block font-semibold mt-2 gap-2"
+          >
+            <span>Incognito Bear</span>
+          </a>
+        </li>
+        
+        <li class="text-left mb-4">
+          <a
+            href="https://apps.apple.com/us/app/simple-screenshot-pro/id6451333294"
+            target="_blank"
+            rel="noopener noreferrer"
+            title="Visit Coffee & Fun Apps"
+            class="btn btn-neutral btn-outline btn-block font-semibold mt-2 gap-2"
+          >
+            <span>Simple Screenshot Pro</span>
+          </a>
+        </li>
+        
+      </ul>
     </div>
+  </div>
 </dialog>
+
 
 
 	<footer class="p-10 brand-color-background">

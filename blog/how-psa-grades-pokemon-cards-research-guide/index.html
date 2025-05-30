@@ -105,142 +105,136 @@
 
 
 	<style>
-    .brand-color-background {
-        background-color: #fef5ec;
-    }
+	.brand-color-background {
+		background-color: #fef5ec;
+	}
 </style>
-
 
 <!-- Google Tag Manager Script -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-RC4JGW9PVN"></script>
 <script>
-    window.dataLayer = window.dataLayer || [];
-    function gtag() { dataLayer.push(arguments); }
-    gtag('js', new Date());
+	window.dataLayer = window.dataLayer || [];
+	function gtag() {
+		dataLayer.push(arguments);
+	}
+	gtag('js', new Date());
 
-    gtag('config', 'G-RC4JGW9PVN');
+	gtag('config', 'G-RC4JGW9PVN');
 </script>
-
-
 
 <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.3/dist/confetti.browser.min.js"></script>
 <script src="https://unpkg.com/cursor-effects@latest/dist/browser.js"></script>
 
-<link rel="stylesheet" href="https://unpkg.com/prismjs@1.20.0/themes/prism-okaidia.css">
+<link rel="stylesheet" href="https://unpkg.com/prismjs@1.20.0/themes/prism-okaidia.css" />
 <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
 <script>
+	// Function to launch the confetti animation
+	function launchConfetti() {
+		const totalParticles = 300; // Total number of confetti particles
 
+		// Default configuration for the confetti
+		const confettiDefaults = {
+			angle: 75, // Initial angle for the confetti
+			zIndex: 2147483647 // Ensure confetti is displayed on top of other elements
+		};
 
+		// Function to trigger the confetti animation with different configurations
+		function triggerConfetti(particleProportion, options) {
+			// Launch confetti from the left side
+			confetti({
+				...confettiDefaults,
+				...options,
+				origin: { y: 1, x: 0 }, // Confetti originates from the bottom left
+				angle: 30, // Angle at which confetti is launched
+				particleCount: Math.floor(totalParticles * particleProportion) // Number of particles
+			});
 
+			// Launch confetti from the right side
+			confetti({
+				...confettiDefaults,
+				...options,
+				origin: { y: 1, x: 1 }, // Confetti originates from the bottom right
+				angle: 150, // Angle at which confetti is launched
+				particleCount: Math.floor(totalParticles * particleProportion) // Number of particles
+			});
 
-// Function to launch the confetti animation
-function launchConfetti() {
-  const totalParticles = 300; // Total number of confetti particles
+			// Launch confetti from the center
+			confetti({
+				...confettiDefaults,
+				...options,
+				origin: { y: 1, x: 0.5 }, // Confetti originates from the bottom center
+				particleCount: Math.floor(totalParticles * particleProportion) // Number of particles
+			});
+		}
 
-  // Default configuration for the confetti
-  const confettiDefaults = {
-    angle: 75, // Initial angle for the confetti
-    zIndex: 2147483647, // Ensure confetti is displayed on top of other elements
-  };
+		// Different configurations for the confetti bursts
+		triggerConfetti(0.3, {
+			spread: 30, // How much the confetti spreads out
+			startVelocity: 80 // Initial velocity of the confetti
+		});
 
-  // Function to trigger the confetti animation with different configurations
-  function triggerConfetti(particleProportion, options) {
-    // Launch confetti from the left side
-    confetti({
-      ...confettiDefaults,
-      ...options,
-      origin: { y: 1, x: 0 }, // Confetti originates from the bottom left
-      angle: 30, // Angle at which confetti is launched
-      particleCount: Math.floor(totalParticles * particleProportion), // Number of particles
-    });
+		triggerConfetti(0.25, {
+			spread: 50 // Spread is wider here
+		});
 
-    // Launch confetti from the right side
-    confetti({
-      ...confettiDefaults,
-      ...options,
-      origin: { y: 1, x: 1 }, // Confetti originates from the bottom right
-      angle: 150, // Angle at which confetti is launched
-      particleCount: Math.floor(totalParticles * particleProportion), // Number of particles
-    });
+		triggerConfetti(0.4, {
+			spread: 90, // Even wider spread
+			decay: 0.89 // How quickly the confetti slows down
+		});
 
-    // Launch confetti from the center
-    confetti({
-      ...confettiDefaults,
-      ...options,
-      origin: { y: 1, x: 0.5 }, // Confetti originates from the bottom center
-      particleCount: Math.floor(totalParticles * particleProportion), // Number of particles
-    });
-  }
+		triggerConfetti(0.15, {
+			spread: 110, // Very wide spread
+			startVelocity: 40, // Slower initial velocity
+			decay: 0.9 // Slightly slower decay
+		});
 
-  // Different configurations for the confetti bursts
-  triggerConfetti(0.3, {
-    spread: 30, // How much the confetti spreads out
-    startVelocity: 80, // Initial velocity of the confetti
-  });
+		triggerConfetti(0.1, {
+			spread: 130, // Maximum spread
+			startVelocity: 70 // Moderate initial velocity
+		});
+	}
 
-  triggerConfetti(0.25, {
-    spread: 50, // Spread is wider here
-  });
+	let cursorEffect = null;
+	let cursorEffectsEnabled = false;
+	let currentEffectIndex = -1; // Start before first
 
-  triggerConfetti(0.4, {
-    spread: 90, // Even wider spread
-    decay: 0.89, // How quickly the confetti slows down
-  });
+	const availableEffects = [
+		'rainbowCursor',
+		'followingDotCursor',
+		'clockCursor',
+		'ghostCursor',
+		'bubbleCursor',
+		'fairyDustCursor'
+	];
 
-  triggerConfetti(0.15, {
-    spread: 110, // Very wide spread
-    startVelocity: 40, // Slower initial velocity
-    decay: 0.90, // Slightly slower decay
-  });
+	function applyCursorEffect() {
+		if (cursorEffectsEnabled) {
+			// Turn OFF
+			if (cursorEffect && typeof cursorEffect.destroy === 'function') {
+				cursorEffect.destroy();
+			}
+			cursorEffect = null;
+			cursorEffectsEnabled = false;
+		} else {
+			// Move to the next effect in the list
+			currentEffectIndex = (currentEffectIndex + 1) % availableEffects.length;
+			const effectName = availableEffects[currentEffectIndex];
 
-  triggerConfetti(0.1, {
-    spread: 130, // Maximum spread
-    startVelocity: 70, // Moderate initial velocity
-  });
-}
+			// Create new effect instance
+			cursorEffect = new cursoreffects[effectName]();
+			cursorEffectsEnabled = true;
 
+			// Optional: log the current effect
+		}
+	}
 
-let cursorEffect = null;
-let cursorEffectsEnabled = false;
-let currentEffectIndex = -1; // Start before first
-
-const availableEffects = [
-  'rainbowCursor',
-  'followingDotCursor',
-  'clockCursor',
-  'ghostCursor',
-  'bubbleCursor',
-  'fairyDustCursor'
-];
-
-function applyCursorEffect() {
-  if (cursorEffectsEnabled) {
-    // Turn OFF
-    if (cursorEffect && typeof cursorEffect.destroy === "function") {
-      cursorEffect.destroy();
-    }
-    cursorEffect = null;
-    cursorEffectsEnabled = false;
-  } else {
-    // Move to the next effect in the list
-    currentEffectIndex = (currentEffectIndex + 1) % availableEffects.length;
-    const effectName = availableEffects[currentEffectIndex];
-
-    // Create new effect instance
-    cursorEffect = new cursoreffects[effectName]();
-    cursorEffectsEnabled = true;
-
-    // Optional: log the current effect
-
-  }
-}
-
-document.addEventListener("DOMContentLoaded", (event) => {
-        document.querySelectorAll('pre code').forEach((block) => {
-            hljs.highlightElement(block);
-        });
-    });
+	document.addEventListener('DOMContentLoaded', (event) => {
+		document.querySelectorAll('pre code').forEach((block) => {
+			hljs.highlightElement(block);
+		});
+	});
 </script>
+
 </head>
 
 <body>
@@ -306,18 +300,6 @@ document.addEventListener("DOMContentLoaded", (event) => {
             
 
 
-            <a
-            class="btn btn-error  btn-circle transition-all duration-200 hover:-translate-y-1"
-            href="/#donate"
-            title="Donate to Coffee & Fun LLC"
-            aria-label="Donate to Coffee & Fun LLC"
-            aria-controls="Donate to Coffee & Fun LLC"
-            role="menuitem"
-        >
-
-        <svg xmlns="http://www.w3.org/2000/svg"  viewBox="0 -960 960 960" class="w-6 h-6" fill="currentColor" ><path d="M640-520q17 0 28.5-11.5T680-560q0-17-11.5-28.5T640-600q-17 0-28.5 11.5T600-560q0 17 11.5 28.5T640-520Zm-320-80h200v-80H320v80ZM180-120q-34-114-67-227.5T80-580q0-92 64-156t156-64h200q29-38 70.5-59t89.5-21q25 0 42.5 17.5T720-820q0 6-1.5 12t-3.5 11q-4 11-7.5 22.5T702-751l91 91h87v279l-113 37-67 224H480v-80h-80v80H180Zm60-80h80v-80h240v80h80l62-206 98-33v-141h-40L620-720q0-20 2.5-38.5T630-796q-29 8-51 27.5T547-720H300q-58 0-99 41t-41 99q0 98 27 191.5T240-200Zm240-298Z"/></svg>
-
-</a>
 
    
             
@@ -473,14 +455,21 @@ document.addEventListener("DOMContentLoaded", (event) => {
                     title="How PSA Grades Pokémon Cards - A Research Guide"
                   />
       
-                  <p class="leading-relaxed font-display mb-4 mt-4 text-pretty text-lg text-pretty text-gray-900">This post is part of our research into creating an AI/ChatGPT grading estimator for Pokémon cards. As part of this experiment, we’ve ordered three professionally graded cards—a PSA 10, PSA 9, and PSA 8—to study the differences in how cards are evaluated.</p>
-<p class="leading-relaxed font-display mb-4 mt-4 text-pretty text-lg text-pretty text-gray-900">By understanding PSA’s grading criteria and seeing these grades in action, we aim to replicate the grading process with an AI-powered tool that can analyze centering, edges, corners, and surface conditions.</p>
+                  <p class="leading-relaxed font-display mb-4 mt-4 text-pretty text-lg text-pretty text-gray-900">This post is part of our research into creating an AI/ChatGPT grading estimator for Pokémon cards.
+As part of this experiment, we’ve ordered three professionally graded cards—a PSA 10, PSA 9, and PSA
+8—to study the differences in how cards are evaluated.</p>
+<p class="leading-relaxed font-display mb-4 mt-4 text-pretty text-lg text-pretty text-gray-900">By understanding PSA’s grading criteria and seeing these grades in action, we aim to replicate the
+grading process with an AI-powered tool that can analyze centering, edges, corners, and surface
+conditions.</p>
 <h2 class="leading-relaxed font-display text-pretty text-2xl mb-6 mt-12 font-semibold text-pretty text-gray-800" id="how-psa-grades-pok%C3%A9mon-cards" tabindex="-1">How PSA Grades Pokémon Cards</h2>
 <h2 class="leading-relaxed font-display text-pretty text-2xl mb-6 mt-12 font-semibold text-pretty text-gray-800" id="1.-centering" tabindex="-1">1. Centering</h2>
-<p class="leading-relaxed font-display mb-4 mt-4 text-pretty text-lg text-pretty text-gray-900">Centering refers to how evenly the card's artwork is positioned between its borders. PSA evaluates centering on both the <strong class="text-lg font-semibold text-pretty text-gray-800">front</strong> and <strong class="text-lg font-semibold text-pretty text-gray-800">back</strong> of the card, but the front is given more weight since it is the focal point.</p>
+<p class="leading-relaxed font-display mb-4 mt-4 text-pretty text-lg text-pretty text-gray-900">Centering refers to how evenly the card's artwork is positioned between its borders. PSA evaluates
+centering on both the <strong class="text-lg font-semibold text-pretty text-gray-800">front</strong> and <strong class="text-lg font-semibold text-pretty text-gray-800">back</strong> of the card, but the front is given more weight since
+it is the focal point.</p>
 <h3 class="leading-relaxed font-display text-pretty text-xl mb-4 mt-10 font-semibold text-pretty text-gray-700" id="centering-measurements" tabindex="-1">Centering Measurements</h3>
-<p class="leading-relaxed font-display mb-4 mt-4 text-pretty text-lg text-pretty text-gray-900">PSA measures centering as a percentage, comparing the thickness of opposite borders (e.g., left vs. right or top vs. bottom).
-<strong class="text-lg font-semibold text-pretty text-gray-800">Example:</strong> If the left border is 55% of the total width and the right border is 45%, the centering is <strong class="text-lg font-semibold text-pretty text-gray-800">55/45</strong>.</p>
+<p class="leading-relaxed font-display mb-4 mt-4 text-pretty text-lg text-pretty text-gray-900">PSA measures centering as a percentage, comparing the thickness of opposite borders (e.g., left vs.
+right or top vs. bottom). <strong class="text-lg font-semibold text-pretty text-gray-800">Example:</strong> If the left border is 55% of the total width and the right
+border is 45%, the centering is <strong class="text-lg font-semibold text-pretty text-gray-800">55/45</strong>.</p>
 <h3 class="leading-relaxed font-display text-pretty text-xl mb-4 mt-10 font-semibold text-pretty text-gray-700" id="centering-tolerances" tabindex="-1">Centering Tolerances</h3>
 <h4 class="leading-relaxed font-display text-pretty text-lg mb-4 mt-8 font-semibold text-pretty text-gray-600" id="sa-10-(gem-mint)" tabindex="-1">SA 10 (Gem Mint)</h4>
 <ul class="list-disc list-inside mt-4 space-y-2 pl-6 text-pretty text-lg font-display ml-6 mb-8 text-pretty text-gray-900">
@@ -495,7 +484,8 @@ document.addEventListener("DOMContentLoaded", (event) => {
 <p class="leading-relaxed font-display mb-4 mt-4 text-pretty text-lg text-pretty text-gray-900">Cards outside these tolerances receive lower grades because off-centering affects the visual appeal.</p>
 <hr>
 <h2 class="leading-relaxed font-display text-pretty text-2xl mb-6 mt-12 font-semibold text-pretty text-gray-800" id="2.-corners" tabindex="-1">2. Corners</h2>
-<p class="leading-relaxed font-display mb-4 mt-4 text-pretty text-lg text-pretty text-gray-900">Corners are evaluated for sharpness, wear, and overall cleanliness. Perfect corners are sharp and free of fuzziness, bends, or dings.</p>
+<p class="leading-relaxed font-display mb-4 mt-4 text-pretty text-lg text-pretty text-gray-900">Corners are evaluated for sharpness, wear, and overall cleanliness. Perfect corners are sharp and
+free of fuzziness, bends, or dings.</p>
 <h3 class="leading-relaxed font-display text-pretty text-xl mb-4 mt-10 font-semibold text-pretty text-gray-700" id="how-psa-evaluates-corners" tabindex="-1">How PSA Evaluates Corners</h3>
 <h4 class="leading-relaxed font-display text-pretty text-lg mb-4 mt-8 font-semibold text-pretty text-gray-600" id="sharpness" tabindex="-1">Sharpness</h4>
 <p class="leading-relaxed font-display mb-4 mt-4 text-pretty text-lg text-pretty text-gray-900">Perfect corners will have crisp, sharp edges. Rounded or fuzzy corners lower the grade.</p>
@@ -546,7 +536,8 @@ document.addEventListener("DOMContentLoaded", (event) => {
 <p class="leading-relaxed font-display mb-4 mt-4 text-pretty text-lg text-pretty text-gray-900">Cards must meet the original Pokémon card dimensions.</p>
 <p class="leading-relaxed font-display mb-4 mt-4 text-pretty text-lg text-pretty text-gray-900">If the card is miscut (factory error), it will either get a lower grade or receive a &quot;miscut&quot; label.</p>
 <h3 class="leading-relaxed font-display text-pretty text-xl mb-4 mt-10 font-semibold text-pretty text-gray-700" id="ink-quality" tabindex="-1">Ink Quality</h3>
-<p class="leading-relaxed font-display mb-4 mt-4 text-pretty text-lg text-pretty text-gray-900">PSA evaluates the print quality, ensuring no discoloration or fading. Misprints are graded based on demand and quality.</p>
+<p class="leading-relaxed font-display mb-4 mt-4 text-pretty text-lg text-pretty text-gray-900">PSA evaluates the print quality, ensuring no discoloration or fading. Misprints are graded based on
+demand and quality.</p>
 <hr>
 <h2 class="leading-relaxed font-display text-pretty text-2xl mb-6 mt-12 font-semibold text-pretty text-gray-800" id="psa-grading-scale-recap" tabindex="-1">PSA Grading Scale Recap</h2>
 <table class="table-auto w-full border-collapse border border-gray-300 text-pretty text-lg font-display text-pretty text-gray-900 mt-4 mb-8">
@@ -621,7 +612,8 @@ document.addEventListener("DOMContentLoaded", (event) => {
 <p class="leading-relaxed font-display mb-4 mt-4 text-pretty text-lg text-pretty text-gray-900"><strong class="text-lg font-semibold text-pretty text-gray-800">Grade Assignment</strong></p>
 <p class="leading-relaxed font-display mb-4 mt-4 text-pretty text-lg text-pretty text-gray-900">Multiple graders evaluate the card, and the final grade is assigned based on consensus.</p>
 <p class="leading-relaxed font-display mb-4 mt-4 text-pretty text-lg text-pretty text-gray-900"><strong class="text-lg font-semibold text-pretty text-gray-800">Encapsulation</strong></p>
-<p class="leading-relaxed font-display mb-4 mt-4 text-pretty text-lg text-pretty text-gray-900">The card is sealed in a tamper-proof plastic case with a label showing its grade, serial number, and details.</p>
+<p class="leading-relaxed font-display mb-4 mt-4 text-pretty text-lg text-pretty text-gray-900">The card is sealed in a tamper-proof plastic case with a label showing its grade, serial number, and
+details.</p>
 <hr>
 <h2 class="leading-relaxed font-display text-pretty text-2xl mb-6 mt-12 font-semibold text-pretty text-gray-800" id="pro-tips-for-submitting-cards" tabindex="-1">Pro Tips for Submitting Cards</h2>
 <p class="leading-relaxed font-display mb-4 mt-4 text-pretty text-lg text-pretty text-gray-900"><strong class="text-lg font-semibold text-pretty text-gray-800">Use Card Sleeves and Toploaders</strong></p>
@@ -641,438 +633,404 @@ document.addEventListener("DOMContentLoaded", (event) => {
 	</main>
 
 
-	<dialog id="my_modal_contact" class="modal" role="dialog" aria-labelledby="supporters-title">
-    <div class="modal-box">
-        <form method="dialog">
-            <button class="btn btn-sm btn-circle btn-ghost absolute right-2 top-2" aria-label="Close">✕</button>
-        </form>
+	<dialog
+  id="my_modal_contact"
+  class="modal"
+  role="dialog"
+  aria-labelledby="supporters-title"
+>
+  <div class="modal-box">
+    <form method="dialog">
+      <button
+        class="btn btn-circle btn-ghost absolute right-2 top-2"
+        aria-label="Close"
+      >
+        ✕
+      </button>
+    </form>
 
-        <div>
-            <h2 id="supporters-title" class="text-2xl mb-4 font-bold">List of Supporters</h2>
-            <p class="text-base mb-2">A huge thank you to all the users who have donated.</p>
+    <div>
+      <h2 id="supporters-title" class="text-2xl mb-4 font-bold">
+        List of Supporters
+      </h2>
+      <p class="text-base mb-2">
+        A huge thank you to all the users who have donated.
+      </p>
 
-            <ul class="grid grid-cols-1 gap-4 sm:grid-cols-3 mb-6 mt-6">
-                <li>Boulo</li>
-                <li>Roger Nowlan</li>
-                <li>이광현</li>
-                <li>Arturo Jimenez</li>
-                <li>OH JUNHO</li>
-            </ul>
+      <ul class="grid grid-cols-1 gap-4 sm:grid-cols-3 mb-6 mt-6">
+        <li>Boulo</li>
+        <li>Roger Nowlan</li>
+        <li>이광현</li>
+        <li>Arturo Jimenez</li>
+        <li>OH JUNHO</li>
+      </ul>
 
-            <a class="btn btn-primary btn-block w-full mt-4"
-                href="https://payments.coffeeandfun.com/b/00gbKHdise1e8Le6oZ" target="_blank">
-                Donate to Coffee & Fun LLC
-            </a>
-        </div>
+      <a
+        class="btn btn-primary btn-block w-full mt-4"
+        href="https://payments.coffeeandfun.com/b/00gbKHdise1e8Le6oZ"
+        target="_blank"
+      >
+        Donate to Coffee & Fun LLC
+      </a>
     </div>
+  </div>
 </dialog>
 
 <dialog id="my_modal_supports" class="modal" title="Support Form" role="dialog">
-    <div class="modal-box">
-        <form method="dialog">
-            <button class="btn btn-sm btn-circle btn-ghost absolute right-2 top-2" aria-label="Close">✕</button>
-        </form>
+  <div class="modal-box">
+    <form method="dialog">
+      <button
+        class="btn btn-circle btn-ghost absolute right-2 top-2"
+        aria-label="Close"
+      >
+        ✕
+      </button>
+    </form>
 
-        <iframe
-            src="https://docs.google.com/forms/d/e/1FAIpQLSeOBpyxmu3enhScTOuJtYAx2jNK2wr9scFKtbQrj0AjqJfdEQ/viewform?embedded=true"
-            width="100%" height="500" frameborder="0" title="Supporters Form">Loading…</iframe>
-    </div>
+    <iframe
+      src="https://docs.google.com/forms/d/e/1FAIpQLSeOBpyxmu3enhScTOuJtYAx2jNK2wr9scFKtbQrj0AjqJfdEQ/viewform?embedded=true"
+      width="100%"
+      height="500"
+      frameborder="0"
+      title="Supporters Form"
+      >Loading…</iframe
+    >
+  </div>
 </dialog>
-
-
-
-
-
 
 <dialog id="my_modal_rank" class="modal" title="TriviaFlix" role="dialog">
-    <div class="modal-box">
-        <form method="dialog">
-            <button class="btn btn-sm btn-circle btn-ghost absolute right-2 top-2" aria-label="Close">✕</button>
-        </form>
+  <div class="modal-box">
+    <form method="dialog">
+      <button
+        class="btn btn-circle btn-ghost absolute right-2 top-2"
+        aria-label="Close"
+      >
+        ✕
+      </button>
+    </form>
 
+    <h2 class="text-lg font-bold">About Mystery Rank</h2>
 
-        <h2 class="text-lg font-bold">About Mystery Rank</h2>
-
-        <div class="mb-12 mt-4">
-
-            <p class="py-4 text-pretty text-base">
-                In Mystery Rank, you contribute to earn a spot in different categories. The more you give, the higher
-                your rank. But here’s the catch—no one knows how much anyone else has paid. It’s this mystery that makes
-                the competition even more exciting.
-            </p>
-
-
-        </div>
-
-        <h2 class="text-lg font-bold mb-8">Terms and Refunds for Mystery Rank</h2>
-
-        <div class="mb-4 mt-4">
-
-            <h3 class="text-lg font-semibold mb-2">One-Time Contribution</h3>
-
-            <p class="py-4 text-pretty text-base">
-                When you contribute to Mystery Rank, it’s a one-time payment that secures your spot in the credits.
-                Please keep in mind that once the payment is made, it’s final—there are no refunds or changes. We want
-                to keep the process fair and transparent for everyone involved.
-
-            </p>
-
-
-        </div>
-
-
-
-        <div class="mb-4 mt-4">
-
-            <h3 class="text-lg font-semibold mb-2">How Your Rank is Determined</h3>
-
-            <p class="py-4 text-pretty text-base">
-                Your rank within your chosen category is based on how much you contribute. The more you contribute, the
-                higher your rank will be. However, the amount you’ve paid, and what others have paid, will remain
-                private. This adds a layer of mystery and excitement to the competition.
-
-            </p>
-
-
-        </div>
-
-
-        <div class="mb-4 mt-4">
-
-            <h3 class="text-lg font-semibold mb-2">When Your Credit Appears</h3>
-
-            <p class="py-4 text-pretty text-base">
-                After your payment is confirmed, your credit will be posted within 12 hours. We work hard to ensure that
-                everyone’s contributions are recognized promptly. If for some reason there’s a delay, we’ll do our best
-                to keep you informed.
-
-            </p>
-
-
-        </div>
-
-        <div class="mb-4 mt-4">
-
-            <h3 class="text-lg font-semibold mb-2">Handling Chargebacks</h3>
-
-            <p class="py-4 text-pretty text-base">
-                If a chargeback occurs, your credit will be immediately removed from the list, and unfortunately, you’ll
-                be blocked from participating in Mystery Rank in the future. We do this to protect the integrity of the
-                rankings and ensure fairness for all contributors.
-
-            </p>
-
-
-        </div>
-
-
-        <div class="mb-4 mt-4">
-
-            <h3 class="text-lg font-semibold mb-2">Updating Your Listing or Link</h3>
-
-            <p class="py-4 text-pretty text-base">
-                We understand that sometimes things change. If you need to update your listing or link after it’s been
-                posted, just send us an email at <a
-                    href="mailto:hello@coffeeandfun.com?subject=Inquiry%20about%20Mystery%20Rank%20Credits&body=Hi%20there,%0D%0A%0D%0AI%20have%20a%20question%20about%20Mystery%20Rank%20Credits.%0D%0A%0D%0AThank%20you!"
-                    class="link link-hover link-primary">hello@coffeeandfun.com</a>
-                . We’re happy to make one-time updates to ensure your information is correct.
-
-            </p>
-
-
-        </div>
-
-        <div class="mb-4 mt-4">
-
-            <h3 class="text-lg font-semibold mb-2">Need Help or Have Questions?</h3>
-
-            <p class="py-4 text-pretty text-base">
-                If you have any questions about the process, or if something isn’t clear, please don’t hesitate to reach
-                out. We’re here to help and want to make sure your experience with Mystery Rank is as smooth and
-                enjoyable as possible.
-
-            </p>
-
-
-        </div>
-
-
-
-
-
-
-
-
+    <div class="mb-12 mt-4">
+      <p class="py-4 text-pretty text-base">
+        In Mystery Rank, you contribute to earn a spot in different categories.
+        The more you give, the higher your rank. But here’s the catch—no one
+        knows how much anyone else has paid. It’s this mystery that makes the
+        competition even more exciting.
+      </p>
     </div>
+
+    <h2 class="text-lg font-bold mb-8">Terms and Refunds for Mystery Rank</h2>
+
+    <div class="mb-4 mt-4">
+      <h3 class="text-lg font-semibold mb-2">One-Time Contribution</h3>
+
+      <p class="py-4 text-pretty text-base">
+        When you contribute to Mystery Rank, it’s a one-time payment that
+        secures your spot in the credits. Please keep in mind that once the
+        payment is made, it’s final—there are no refunds or changes. We want to
+        keep the process fair and transparent for everyone involved.
+      </p>
+    </div>
+
+    <div class="mb-4 mt-4">
+      <h3 class="text-lg font-semibold mb-2">How Your Rank is Determined</h3>
+
+      <p class="py-4 text-pretty text-base">
+        Your rank within your chosen category is based on how much you
+        contribute. The more you contribute, the higher your rank will be.
+        However, the amount you’ve paid, and what others have paid, will remain
+        private. This adds a layer of mystery and excitement to the competition.
+      </p>
+    </div>
+
+    <div class="mb-4 mt-4">
+      <h3 class="text-lg font-semibold mb-2">When Your Credit Appears</h3>
+
+      <p class="py-4 text-pretty text-base">
+        After your payment is confirmed, your credit will be posted within 12
+        hours. We work hard to ensure that everyone’s contributions are
+        recognized promptly. If for some reason there’s a delay, we’ll do our
+        best to keep you informed.
+      </p>
+    </div>
+
+    <div class="mb-4 mt-4">
+      <h3 class="text-lg font-semibold mb-2">Handling Chargebacks</h3>
+
+      <p class="py-4 text-pretty text-base">
+        If a chargeback occurs, your credit will be immediately removed from the
+        list, and unfortunately, you’ll be blocked from participating in Mystery
+        Rank in the future. We do this to protect the integrity of the rankings
+        and ensure fairness for all contributors.
+      </p>
+    </div>
+
+    <div class="mb-4 mt-4">
+      <h3 class="text-lg font-semibold mb-2">Updating Your Listing or Link</h3>
+
+      <p class="py-4 text-pretty text-base">
+        We understand that sometimes things change. If you need to update your
+        listing or link after it’s been posted, just send us an email at
+        <a
+          href="mailto:hello@coffeeandfun.com?subject=Inquiry%20about%20Mystery%20Rank%20Credits&body=Hi%20there,%0D%0A%0D%0AI%20have%20a%20question%20about%20Mystery%20Rank%20Credits.%0D%0A%0D%0AThank%20you!"
+          class="link link-hover link-primary"
+          >hello@coffeeandfun.com</a
+        >
+        . We’re happy to make one-time updates to ensure your information is
+        correct.
+      </p>
+    </div>
+
+    <div class="mb-4 mt-4">
+      <h3 class="text-lg font-semibold mb-2">Need Help or Have Questions?</h3>
+
+      <p class="py-4 text-pretty text-base">
+        If you have any questions about the process, or if something isn’t
+        clear, please don’t hesitate to reach out. We’re here to help and want
+        to make sure your experience with Mystery Rank is as smooth and
+        enjoyable as possible.
+      </p>
+    </div>
+  </div>
 </dialog>
-
-
 
 <dialog id="my_modal_69" class="modal" title="TriviaFlix" role="dialog">
-    <div class="modal-box">
-        <form method="dialog">
-            <button class="btn btn-sm btn-circle btn-ghost absolute right-2 top-2" aria-label="Close">✕</button>
-        </form>
+  <div class="modal-box">
+    <form method="dialog">
+      <button
+        class="btn btn-circle btn-ghost absolute right-2 top-2"
+        aria-label="Close"
+      >
+        ✕
+      </button>
+    </form>
 
+    <h2 class="text-lg font-bold">Keyboard Shortcuts</h2>
 
-        <h2 class="text-lg font-bold">Keyboard Shortcuts</h3>
+    <div class="mb-4 mt-4">
+      <h3 class="pb-2 text-pretty text-base font-bold">Show Answer</h3>
 
-            <div class="mb-4 mt-4">
-
-                <h3 class="pb-2 text-pretty text-base font-bold">
-                    Show Answer
-                </h3>
-
-                <kbd class="kbd kbd-sm">▲</kbd>
-            </div>
-
-
-
-
-            <div class="mb-4">
-
-                <h3 class="pb-2 text-pretty text-base font-bold">
-                    Hide Answer
-                </h3>
-
-                <kbd class="kbd kbd-sm">▼</kbd>
-            </div>
-
-
-            <div class="mb-4">
-
-                <h3 class="pb-2 text-pretty text-base font-bold">
-                    Next Question
-                </h3>
-
-                <kbd class="kbd kbd-sm">▶︎</kbd>
-            </div>
-
-
-
-
-            <div class="mb-4">
-
-                <h3 class="pb-2 text-pretty text-base font-bold">
-                    Previous Question
-                </h3>
-
-                <kbd class="kbd kbd-sm">◀︎</kbd>
-            </div>
-
-
+      <kbd class="kbd kbd-sm">▲</kbd>
     </div>
+
+    <div class="mb-4">
+      <h3 class="pb-2 text-pretty text-base font-bold">Hide Answer</h3>
+
+      <kbd class="kbd kbd-sm">▼</kbd>
+    </div>
+
+    <div class="mb-4">
+      <h3 class="pb-2 text-pretty text-base font-bold">Next Question</h3>
+
+      <kbd class="kbd kbd-sm">▶︎</kbd>
+    </div>
+
+    <div class="mb-4">
+      <h3 class="pb-2 text-pretty text-base font-bold">Previous Question</h3>
+
+      <kbd class="kbd kbd-sm">◀︎</kbd>
+    </div>
+  </div>
 </dialog>
-
-
 
 <dialog id="my_modal_site_menu" class="modal" title="Menu" role="dialog">
-    <div class="modal-box">
-
-
-        <form method="dialog">
-            <button class="btn btn-sm btn-circle btn-ghost absolute right-2 top-2 " aria-label="Close">
-                <span class="sr-only">Close the modal popup</span>
-                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 -960 960 960" fill="currentColor" aria-hidden="true"
-                    class="h-6 w-6">
-                    <path
-                        d="m256-200-56-56 224-224-224-224 56-56 224 224 224-224 56 56-224 224 224 224-56 56-224-224-224 224Z">
-                    </path>
-                </svg>
-            </button>
-
-        </form>
-        <div class="w-full items-start mt-12">
-
-            <h2 class="text-2xl mb-4 font-bold ">Coffee & Fun</h2>
-            <div class="divider mb-2"></div>
-            <ul class="grid grid-cols-2 gap-4 mb-8">
-                <li class="text-left">
-
-
-                    <a href="/#apps" rel="noopener noreferrer" title="Visit Coffee & Fun Apps"
-                    class="btn  btn-neutral btn-outline btn-sm btn-block  font-semibold   mt-2 gap-2">
-                        <span>Apps</span>
-                    </a>
-
-                </li>
-
-                <li class="text-left">
-
-
-                <a href="/blog/" rel="noopener noreferrer" title="Visit Coffee & Fun Blog"
-                class="btn  btn-neutral btn-outline btn-sm btn-block  font-semibold  mt-2 gap-2">
-                    <span>Blog</span>
-                </a>
-
-            </li>
-
-            <li class="text-left">
-
-
-                <a href="https://sharing.clickup.com/36059453/b/12ce9x-577/board" target="_blank" rel="noopener noreferrer" title="Visit Coffee & Fun Roadmap"
-                class="btn  btn-neutral btn-outline btn-sm btn-block  font-semibold  mt-2 gap-2">
-                    <span>Roadmap</span>
-                </a>
-
-            </li>
-
-                <li class="text-left">
-
-                    <a href="/#graveyard" rel="noopener noreferrer" title="Visit the Graveyard"
-                        class="btn  btn-neutral btn-outline btn-sm btn-block  font-semibold   mt-2 gap-2">
-                        <span>The Graveyard</span>
-                    </a>
-
-                </li>
-
-                <li class="text-left">
-
-
-                    <button onclick="my_modal_supports.showModal()" title="Contact Support"
-                    class="btn  btn-neutral btn-outline btn-sm btn-block  font-semibold   mt-2 gap-2">
-
-                        <span>Supports</span>
-                    </button>
-
-                </li>
-
-
-
-
-                <li class="text-left">
-
-
-                    <button onclick="my_modal_contact.showModal()" title="Contact Support"
-                    class="btn  btn-neutral btn-outline btn-sm btn-block  font-semibold   mt-2 gap-2">
-
-                        <span>Contact Us</span>
-                    </button>
-
-                </li>
-
-
-            </ul>
-
-
-            <h2 class="text-2xl  mt-24 font-bold mb-4">Apps</h2>
-            <div class="divider mb-2"></div>
-
-            <ul class="grid grid-cols-2 gap-4">
-                
-                <li class="text-left mb-4">
-
-
-                    <a href="https://apps.apple.com/us/app/daily-bible-verse/id6744124711" target="_blank" rel="noopener noreferrer" title="Visit Coffee & Fun Apps"
-                    class="btn  btn-neutral btn-outline  btn-sm btn-block  font-semibold   mt-2 gap-2">
-                        <span>Daily Bible Verse+</span>
-                    </a>
-
-                </li>
-			
-                <li class="text-left mb-4">
-
-
-                    <a href="https://apps.apple.com/us/app/procrastinot-website-blocker/id6569216739?platform=ipad" target="_blank" rel="noopener noreferrer" title="Visit Coffee & Fun Apps"
-                    class="btn  btn-neutral btn-outline  btn-sm btn-block  font-semibold   mt-2 gap-2">
-                        <span>ProcrastiNOT </span>
-                    </a>
-
-                </li>
-			
-                <li class="text-left mb-4">
-
-
-                    <a href="https://chromewebstore.google.com/detail/hide-spoilers-block-blur/dglgbepdhdpfihbiklibdcecpadcdcln" target="_blank" rel="noopener noreferrer" title="Visit Coffee & Fun Apps"
-                    class="btn  btn-neutral btn-outline  btn-sm btn-block  font-semibold   mt-2 gap-2">
-                        <span>Hide Spoilers</span>
-                    </a>
-
-                </li>
-			
-                <li class="text-left mb-4">
-
-
-                    <a href="https://chromewebstore.google.com/detail/auto-pause/abheodopcahdogobgajpakhakjcjckhk" target="_blank" rel="noopener noreferrer" title="Visit Coffee & Fun Apps"
-                    class="btn  btn-neutral btn-outline  btn-sm btn-block  font-semibold   mt-2 gap-2">
-                        <span>Auto Pause</span>
-                    </a>
-
-                </li>
-			
-                <li class="text-left mb-4">
-
-
-                    <a href="https://apps.apple.com/us/app/confetti-cannon-for-safari/id6670409741?mt=12" target="_blank" rel="noopener noreferrer" title="Visit Coffee & Fun Apps"
-                    class="btn  btn-neutral btn-outline  btn-sm btn-block  font-semibold   mt-2 gap-2">
-                        <span>Confetti Cannon: Page Party</span>
-                    </a>
-
-                </li>
-			
-                <li class="text-left mb-4">
-
-
-                    <a href="https://apps.apple.com/us/app/markdown-editor-for-safari/id6578456621" target="_blank" rel="noopener noreferrer" title="Visit Coffee & Fun Apps"
-                    class="btn  btn-neutral btn-outline  btn-sm btn-block  font-semibold   mt-2 gap-2">
-                        <span>Markdown Editor for Safari</span>
-                    </a>
-
-                </li>
-			
-                <li class="text-left mb-4">
-
-
-                    <a href="https://chromewebstore.google.com/detail/yeti-remove-google-search/oabpkkceeoccgofdohlalinahlcpmkeh?hl=en" target="_blank" rel="noopener noreferrer" title="Visit Coffee & Fun Apps"
-                    class="btn  btn-neutral btn-outline  btn-sm btn-block  font-semibold   mt-2 gap-2">
-                        <span>Yeti</span>
-                    </a>
-
-                </li>
-			
-                <li class="text-left mb-4">
-
-
-                    <a href="https://www.coffeeandfun.com/instant-incognito/" target="_blank" rel="noopener noreferrer" title="Visit Coffee & Fun Apps"
-                    class="btn  btn-neutral btn-outline  btn-sm btn-block  font-semibold   mt-2 gap-2">
-                        <span>Instant Incognito</span>
-                    </a>
-
-                </li>
-			
-                <li class="text-left mb-4">
-
-
-                    <a href="https://www.incognitomode.app" target="_blank" rel="noopener noreferrer" title="Visit Coffee & Fun Apps"
-                    class="btn  btn-neutral btn-outline  btn-sm btn-block  font-semibold   mt-2 gap-2">
-                        <span>Incognito Bear</span>
-                    </a>
-
-                </li>
-			
-                <li class="text-left mb-4">
-
-
-                    <a href="https://apps.apple.com/us/app/simple-screenshot-pro/id6451333294" target="_blank" rel="noopener noreferrer" title="Visit Coffee & Fun Apps"
-                    class="btn  btn-neutral btn-outline  btn-sm btn-block  font-semibold   mt-2 gap-2">
-                        <span>Simple Screenshot Pro</span>
-                    </a>
-
-                </li>
-			
-            </ul>
-        </div>
-
-
-
-
-
-
-
-
-
+  <div class="modal-box">
+    <form method="dialog">
+      <button
+        class="btn btn-circle btn-ghost absolute right-2 top-2"
+        aria-label="Close"
+      >
+        <span class="sr-only">Close the modal popup</span>
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          viewBox="0 -960 960 960"
+          fill="currentColor"
+          aria-hidden="true"
+          class="h-6 w-6"
+        >
+          <path
+            d="m256-200-56-56 224-224-224-224 56-56 224 224 224-224 56 56-224 224 224 224-56 56-224-224-224 224Z"
+          ></path>
+        </svg>
+      </button>
+    </form>
+    <div class="w-full items-start mt-12">
+      <h2 class="text-2xl mb-4 font-bold">Coffee & Fun</h2>
+      <div class="divider mb-2"></div>
+      <ul class="grid grid-cols-2 gap-4 mb-8">
+        <li class="text-left">
+          <a
+            href="/#apps"
+            rel="noopener noreferrer"
+            title="Visit Coffee & Fun Apps"
+            class="btn btn-neutral btn-outline btn-block font-semibold mt-2 gap-2"
+          >
+            <span>Apps</span>
+          </a>
+        </li>
+
+        <li class="text-left">
+          <a
+            href="/blog/"
+            rel="noopener noreferrer"
+            title="Visit Coffee & Fun Blog"
+            class="btn btn-neutral btn-outline btn-block font-semibold mt-2 gap-2"
+          >
+            <span>Blog</span>
+          </a>
+        </li>
+
+        <li class="text-left">
+          <a
+            href="https://sharing.clickup.com/36059453/b/12ce9x-577/board"
+            target="_blank"
+            rel="noopener noreferrer"
+            title="Visit Coffee & Fun Roadmap"
+            class="btn btn-neutral btn-outline btn-block font-semibold mt-2 gap-2"
+          >
+            <span>Roadmap</span>
+          </a>
+        </li>
+
+        <li class="text-left">
+          <a
+            href="/#graveyard"
+            rel="noopener noreferrer"
+            title="Visit the Graveyard"
+            class="btn btn-neutral btn-outline btn-block font-semibold mt-2 gap-2"
+          >
+            <span>The Graveyard</span>
+          </a>
+        </li>
+
+        <li class="text-left">
+          <button
+            onclick="my_modal_supports.showModal()"
+            title="Contact Support"
+            class="btn btn-neutral btn-outline btn-block font-semibold mt-2 gap-2"
+          >
+            <span>Supports</span>
+          </button>
+        </li>
+
+        <li class="text-left">
+          <button
+            onclick="my_modal_contact.showModal()"
+            title="Contact Support"
+            class="btn btn-neutral btn-outline btn-block font-semibold mt-2 gap-2"
+          >
+            <span>Contact Us</span>
+          </button>
+        </li>
+      </ul>
+
+      <h2 class="text-2xl mt-24 font-bold mb-4">Apps</h2>
+      <div class="divider mb-2"></div>
+
+      <ul class="grid grid-cols-2 gap-4">
+        
+        <li class="text-left mb-4">
+          <a
+            href="https://apps.apple.com/us/app/daily-bible-verse/id6744124711"
+            target="_blank"
+            rel="noopener noreferrer"
+            title="Visit Coffee & Fun Apps"
+            class="btn btn-neutral btn-outline btn-block font-semibold mt-2 gap-2"
+          >
+            <span>Daily Bible Verse+</span>
+          </a>
+        </li>
+        
+        <li class="text-left mb-4">
+          <a
+            href="https://apps.apple.com/us/app/procrastinot-website-blocker/id6569216739?platform=ipad"
+            target="_blank"
+            rel="noopener noreferrer"
+            title="Visit Coffee & Fun Apps"
+            class="btn btn-neutral btn-outline btn-block font-semibold mt-2 gap-2"
+          >
+            <span>ProcrastiNOT </span>
+          </a>
+        </li>
+        
+        <li class="text-left mb-4">
+          <a
+            href="https://chromewebstore.google.com/detail/hide-spoilers-block-blur/dglgbepdhdpfihbiklibdcecpadcdcln"
+            target="_blank"
+            rel="noopener noreferrer"
+            title="Visit Coffee & Fun Apps"
+            class="btn btn-neutral btn-outline btn-block font-semibold mt-2 gap-2"
+          >
+            <span>Hide Spoilers</span>
+          </a>
+        </li>
+        
+        <li class="text-left mb-4">
+          <a
+            href="https://apps.apple.com/us/app/confetti-cannon-for-safari/id6670409741?mt=12"
+            target="_blank"
+            rel="noopener noreferrer"
+            title="Visit Coffee & Fun Apps"
+            class="btn btn-neutral btn-outline btn-block font-semibold mt-2 gap-2"
+          >
+            <span>Confetti Cannon</span>
+          </a>
+        </li>
+        
+        <li class="text-left mb-4">
+          <a
+            href="https://apps.apple.com/us/app/markdown-editor-for-safari/id6578456621"
+            target="_blank"
+            rel="noopener noreferrer"
+            title="Visit Coffee & Fun Apps"
+            class="btn btn-neutral btn-outline btn-block font-semibold mt-2 gap-2"
+          >
+            <span>Markdown Editor</span>
+          </a>
+        </li>
+        
+        <li class="text-left mb-4">
+          <a
+            href="https://chromewebstore.google.com/detail/yeti-remove-google-search/oabpkkceeoccgofdohlalinahlcpmkeh?hl=en"
+            target="_blank"
+            rel="noopener noreferrer"
+            title="Visit Coffee & Fun Apps"
+            class="btn btn-neutral btn-outline btn-block font-semibold mt-2 gap-2"
+          >
+            <span>Yeti</span>
+          </a>
+        </li>
+        
+        <li class="text-left mb-4">
+          <a
+            href="https://www.incognitomode.app"
+            target="_blank"
+            rel="noopener noreferrer"
+            title="Visit Coffee & Fun Apps"
+            class="btn btn-neutral btn-outline btn-block font-semibold mt-2 gap-2"
+          >
+            <span>Incognito Bear</span>
+          </a>
+        </li>
+        
+        <li class="text-left mb-4">
+          <a
+            href="https://apps.apple.com/us/app/simple-screenshot-pro/id6451333294"
+            target="_blank"
+            rel="noopener noreferrer"
+            title="Visit Coffee & Fun Apps"
+            class="btn btn-neutral btn-outline btn-block font-semibold mt-2 gap-2"
+          >
+            <span>Simple Screenshot Pro</span>
+          </a>
+        </li>
+        
+      </ul>
     </div>
+  </div>
 </dialog>
+
 
 
 	<footer class="p-10 brand-color-background">

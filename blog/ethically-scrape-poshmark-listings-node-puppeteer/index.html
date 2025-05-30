@@ -105,142 +105,136 @@
 
 
 	<style>
-    .brand-color-background {
-        background-color: #fef5ec;
-    }
+	.brand-color-background {
+		background-color: #fef5ec;
+	}
 </style>
-
 
 <!-- Google Tag Manager Script -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-RC4JGW9PVN"></script>
 <script>
-    window.dataLayer = window.dataLayer || [];
-    function gtag() { dataLayer.push(arguments); }
-    gtag('js', new Date());
+	window.dataLayer = window.dataLayer || [];
+	function gtag() {
+		dataLayer.push(arguments);
+	}
+	gtag('js', new Date());
 
-    gtag('config', 'G-RC4JGW9PVN');
+	gtag('config', 'G-RC4JGW9PVN');
 </script>
-
-
 
 <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.3/dist/confetti.browser.min.js"></script>
 <script src="https://unpkg.com/cursor-effects@latest/dist/browser.js"></script>
 
-<link rel="stylesheet" href="https://unpkg.com/prismjs@1.20.0/themes/prism-okaidia.css">
+<link rel="stylesheet" href="https://unpkg.com/prismjs@1.20.0/themes/prism-okaidia.css" />
 <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
 <script>
+	// Function to launch the confetti animation
+	function launchConfetti() {
+		const totalParticles = 300; // Total number of confetti particles
 
+		// Default configuration for the confetti
+		const confettiDefaults = {
+			angle: 75, // Initial angle for the confetti
+			zIndex: 2147483647 // Ensure confetti is displayed on top of other elements
+		};
 
+		// Function to trigger the confetti animation with different configurations
+		function triggerConfetti(particleProportion, options) {
+			// Launch confetti from the left side
+			confetti({
+				...confettiDefaults,
+				...options,
+				origin: { y: 1, x: 0 }, // Confetti originates from the bottom left
+				angle: 30, // Angle at which confetti is launched
+				particleCount: Math.floor(totalParticles * particleProportion) // Number of particles
+			});
 
+			// Launch confetti from the right side
+			confetti({
+				...confettiDefaults,
+				...options,
+				origin: { y: 1, x: 1 }, // Confetti originates from the bottom right
+				angle: 150, // Angle at which confetti is launched
+				particleCount: Math.floor(totalParticles * particleProportion) // Number of particles
+			});
 
-// Function to launch the confetti animation
-function launchConfetti() {
-  const totalParticles = 300; // Total number of confetti particles
+			// Launch confetti from the center
+			confetti({
+				...confettiDefaults,
+				...options,
+				origin: { y: 1, x: 0.5 }, // Confetti originates from the bottom center
+				particleCount: Math.floor(totalParticles * particleProportion) // Number of particles
+			});
+		}
 
-  // Default configuration for the confetti
-  const confettiDefaults = {
-    angle: 75, // Initial angle for the confetti
-    zIndex: 2147483647, // Ensure confetti is displayed on top of other elements
-  };
+		// Different configurations for the confetti bursts
+		triggerConfetti(0.3, {
+			spread: 30, // How much the confetti spreads out
+			startVelocity: 80 // Initial velocity of the confetti
+		});
 
-  // Function to trigger the confetti animation with different configurations
-  function triggerConfetti(particleProportion, options) {
-    // Launch confetti from the left side
-    confetti({
-      ...confettiDefaults,
-      ...options,
-      origin: { y: 1, x: 0 }, // Confetti originates from the bottom left
-      angle: 30, // Angle at which confetti is launched
-      particleCount: Math.floor(totalParticles * particleProportion), // Number of particles
-    });
+		triggerConfetti(0.25, {
+			spread: 50 // Spread is wider here
+		});
 
-    // Launch confetti from the right side
-    confetti({
-      ...confettiDefaults,
-      ...options,
-      origin: { y: 1, x: 1 }, // Confetti originates from the bottom right
-      angle: 150, // Angle at which confetti is launched
-      particleCount: Math.floor(totalParticles * particleProportion), // Number of particles
-    });
+		triggerConfetti(0.4, {
+			spread: 90, // Even wider spread
+			decay: 0.89 // How quickly the confetti slows down
+		});
 
-    // Launch confetti from the center
-    confetti({
-      ...confettiDefaults,
-      ...options,
-      origin: { y: 1, x: 0.5 }, // Confetti originates from the bottom center
-      particleCount: Math.floor(totalParticles * particleProportion), // Number of particles
-    });
-  }
+		triggerConfetti(0.15, {
+			spread: 110, // Very wide spread
+			startVelocity: 40, // Slower initial velocity
+			decay: 0.9 // Slightly slower decay
+		});
 
-  // Different configurations for the confetti bursts
-  triggerConfetti(0.3, {
-    spread: 30, // How much the confetti spreads out
-    startVelocity: 80, // Initial velocity of the confetti
-  });
+		triggerConfetti(0.1, {
+			spread: 130, // Maximum spread
+			startVelocity: 70 // Moderate initial velocity
+		});
+	}
 
-  triggerConfetti(0.25, {
-    spread: 50, // Spread is wider here
-  });
+	let cursorEffect = null;
+	let cursorEffectsEnabled = false;
+	let currentEffectIndex = -1; // Start before first
 
-  triggerConfetti(0.4, {
-    spread: 90, // Even wider spread
-    decay: 0.89, // How quickly the confetti slows down
-  });
+	const availableEffects = [
+		'rainbowCursor',
+		'followingDotCursor',
+		'clockCursor',
+		'ghostCursor',
+		'bubbleCursor',
+		'fairyDustCursor'
+	];
 
-  triggerConfetti(0.15, {
-    spread: 110, // Very wide spread
-    startVelocity: 40, // Slower initial velocity
-    decay: 0.90, // Slightly slower decay
-  });
+	function applyCursorEffect() {
+		if (cursorEffectsEnabled) {
+			// Turn OFF
+			if (cursorEffect && typeof cursorEffect.destroy === 'function') {
+				cursorEffect.destroy();
+			}
+			cursorEffect = null;
+			cursorEffectsEnabled = false;
+		} else {
+			// Move to the next effect in the list
+			currentEffectIndex = (currentEffectIndex + 1) % availableEffects.length;
+			const effectName = availableEffects[currentEffectIndex];
 
-  triggerConfetti(0.1, {
-    spread: 130, // Maximum spread
-    startVelocity: 70, // Moderate initial velocity
-  });
-}
+			// Create new effect instance
+			cursorEffect = new cursoreffects[effectName]();
+			cursorEffectsEnabled = true;
 
+			// Optional: log the current effect
+		}
+	}
 
-let cursorEffect = null;
-let cursorEffectsEnabled = false;
-let currentEffectIndex = -1; // Start before first
-
-const availableEffects = [
-  'rainbowCursor',
-  'followingDotCursor',
-  'clockCursor',
-  'ghostCursor',
-  'bubbleCursor',
-  'fairyDustCursor'
-];
-
-function applyCursorEffect() {
-  if (cursorEffectsEnabled) {
-    // Turn OFF
-    if (cursorEffect && typeof cursorEffect.destroy === "function") {
-      cursorEffect.destroy();
-    }
-    cursorEffect = null;
-    cursorEffectsEnabled = false;
-  } else {
-    // Move to the next effect in the list
-    currentEffectIndex = (currentEffectIndex + 1) % availableEffects.length;
-    const effectName = availableEffects[currentEffectIndex];
-
-    // Create new effect instance
-    cursorEffect = new cursoreffects[effectName]();
-    cursorEffectsEnabled = true;
-
-    // Optional: log the current effect
-
-  }
-}
-
-document.addEventListener("DOMContentLoaded", (event) => {
-        document.querySelectorAll('pre code').forEach((block) => {
-            hljs.highlightElement(block);
-        });
-    });
+	document.addEventListener('DOMContentLoaded', (event) => {
+		document.querySelectorAll('pre code').forEach((block) => {
+			hljs.highlightElement(block);
+		});
+	});
 </script>
+
 </head>
 
 <body>
@@ -306,18 +300,6 @@ document.addEventListener("DOMContentLoaded", (event) => {
             
 
 
-            <a
-            class="btn btn-error  btn-circle transition-all duration-200 hover:-translate-y-1"
-            href="/#donate"
-            title="Donate to Coffee & Fun LLC"
-            aria-label="Donate to Coffee & Fun LLC"
-            aria-controls="Donate to Coffee & Fun LLC"
-            role="menuitem"
-        >
-
-        <svg xmlns="http://www.w3.org/2000/svg"  viewBox="0 -960 960 960" class="w-6 h-6" fill="currentColor" ><path d="M640-520q17 0 28.5-11.5T680-560q0-17-11.5-28.5T640-600q-17 0-28.5 11.5T600-560q0 17 11.5 28.5T640-520Zm-320-80h200v-80H320v80ZM180-120q-34-114-67-227.5T80-580q0-92 64-156t156-64h200q29-38 70.5-59t89.5-21q25 0 42.5 17.5T720-820q0 6-1.5 12t-3.5 11q-4 11-7.5 22.5T702-751l91 91h87v279l-113 37-67 224H480v-80h-80v80H180Zm60-80h80v-80h240v80h80l62-206 98-33v-141h-40L620-720q0-20 2.5-38.5T630-796q-29 8-51 27.5T547-720H300q-58 0-99 41t-41 99q0 98 27 191.5T240-200Zm240-298Z"/></svg>
-
-</a>
 
    
             
@@ -476,9 +458,13 @@ document.addEventListener("DOMContentLoaded", (event) => {
                   <h2 class="leading-relaxed font-display text-pretty text-2xl mb-6 mt-12 font-semibold text-pretty text-gray-800" id="this-was-wrong" tabindex="-1">This was wrong</h2>
 <p class="leading-relaxed font-display mb-4 mt-4 text-pretty text-lg text-pretty text-gray-900">We updated with a new script, that works correctly and explained it in more detail here.</p>
 <h2 class="leading-relaxed font-display text-pretty text-2xl mb-6 mt-12 font-semibold text-pretty text-gray-800" id="%F0%9F%A7%A0-what-happened" tabindex="-1">🧠 What Happened</h2>
-<p class="leading-relaxed font-display mb-4 mt-4 text-pretty text-lg text-pretty text-gray-900">A friend of mine recently got locked out of their Poshmark store. They had built up over <strong class="text-lg font-semibold text-pretty text-gray-800">20,000 listings</strong> over the years — detailed titles, prices, photos, descriptions, the whole deal. But with no way to log in and no official export tool, they had no way to get it all back.</p>
+<p class="leading-relaxed font-display mb-4 mt-4 text-pretty text-lg text-pretty text-gray-900">A friend of mine recently got locked out of their Poshmark store. They had built up over <strong class="text-lg font-semibold text-pretty text-gray-800">20,000
+listings</strong> over the years — detailed titles, prices, photos, descriptions, the whole deal. But with
+no way to log in and no official export tool, they had no way to get it all back.</p>
 <p class="leading-relaxed font-display mb-4 mt-4 text-pretty text-lg text-pretty text-gray-900">So I built them a script to do exactly that, ethically.</p>
-<p class="leading-relaxed font-display mb-4 mt-4 text-pretty text-lg text-pretty text-gray-900">This post walks through how I used <strong class="text-lg font-semibold text-pretty text-gray-800">Node.js</strong> and <strong class="text-lg font-semibold text-pretty text-gray-800">Puppeteer</strong> to scrape and back up every listing from a public Poshmark store, complete with images, folders, and a full CSV file. You can run it for your own store, or to help a friend who needs it.</p>
+<p class="leading-relaxed font-display mb-4 mt-4 text-pretty text-lg text-pretty text-gray-900">This post walks through how I used <strong class="text-lg font-semibold text-pretty text-gray-800">Node.js</strong> and <strong class="text-lg font-semibold text-pretty text-gray-800">Puppeteer</strong> to scrape and back up every listing
+from a public Poshmark store, complete with images, folders, and a full CSV file. You can run it for
+your own store, or to help a friend who needs it.</p>
 <hr>
 <h2 class="leading-relaxed font-display text-pretty text-2xl mb-6 mt-12 font-semibold text-pretty text-gray-800" id="%F0%9F%A7%B0-what-you%E2%80%99ll-need" tabindex="-1">🧰 What You’ll Need</h2>
 <ul class="list-disc list-inside mt-4 space-y-2 pl-6 text-pretty text-lg font-display ml-6 mb-8 text-pretty text-gray-900">
@@ -511,168 +497,154 @@ npm install puppeteer
 <hr>
 <h2 class="leading-relaxed font-display text-pretty text-2xl mb-6 mt-12 font-semibold text-pretty text-gray-800" id="%F0%9F%93%9C-the-code" tabindex="-1">📜 The Code</h2>
 <p class="leading-relaxed font-display mb-4 mt-4 text-pretty text-lg text-pretty text-gray-900">Here’s the full script:</p>
-<p class="leading-relaxed font-display mb-4 mt-4 text-pretty text-lg text-pretty text-gray-900">You can download it <a href="https://github.com/coffee-and-fun/poshmark_scrapper" class="text-lg text-pretty text-blue-500 hover:text-blue-700 underline">here</a> or paste it directly into <code>poshmark_scraper.js</code>.</p>
-<pre><code class="language-js">
-const puppeteer = require(&quot;puppeteer&quot;);
-const PAGE_TO_STEAL_FROM = &quot;https://poshmark.com/closet/xxxxxx&quot;;
-const https = require(&quot;https&quot;);
+<p class="leading-relaxed font-display mb-4 mt-4 text-pretty text-lg text-pretty text-gray-900">You can download it <a href="https://github.com/coffee-and-fun/poshmark_scrapper" class="text-lg text-pretty text-blue-500 hover:text-blue-700 underline">here</a> or paste it directly
+into <code>poshmark_scraper.js</code>.</p>
+<pre><code class="language-js">const puppeteer = require('puppeteer');
+const PAGE_TO_STEAL_FROM = 'https://poshmark.com/closet/xxxxxx';
+const https = require('https');
 
-
-
-const fs = require(&quot;fs&quot;);
-const path = require(&quot;path&quot;);
+const fs = require('fs');
+const path = require('path');
 const csvPath = path.join(__dirname, 'listings.csv');
 const maxImagesPerListing = 20; // adjust if you want more/less columns
 
 const csvHeaders = [
-    'Title',
-    'URL',
-    'Current Price',
-    'Description',
-    'Folder',
-    'Image Count',
-    ...Array.from({ length: maxImagesPerListing }, (_, i) =&gt; `Image ${i + 1}`)
+	'Title',
+	'URL',
+	'Current Price',
+	'Description',
+	'Folder',
+	'Image Count',
+	...Array.from({ length: maxImagesPerListing }, (_, i) =&gt; `Image ${i + 1}`)
 ];
 
 const csvRows = [];
 const sleep = (ms) =&gt; new Promise((resolve) =&gt; setTimeout(resolve, ms));
-const BASE_SAVE_DIR = path.join(__dirname, &quot;poshmark_listings&quot;);
+const BASE_SAVE_DIR = path.join(__dirname, 'poshmark_listings');
 
 if (!fs.existsSync(BASE_SAVE_DIR)) {
-    fs.mkdirSync(BASE_SAVE_DIR);
+	fs.mkdirSync(BASE_SAVE_DIR);
 }
 
 function downloadImage(url, filepath) {
-    return new Promise((resolve, reject) =&gt; {
-        const file = fs.createWriteStream(filepath);
-        https
-            .get(url, (response) =&gt; {
-                response.pipe(file);
-                file.on(&quot;finish&quot;, () =&gt; {
-                    file.close(resolve);
-                });
-            })
-            .on(&quot;error&quot;, (err) =&gt; {
-                fs.unlink(filepath, () =&gt; { });
-                reject(err);
-            });
-    });
+	return new Promise((resolve, reject) =&gt; {
+		const file = fs.createWriteStream(filepath);
+		https
+			.get(url, (response) =&gt; {
+				response.pipe(file);
+				file.on('finish', () =&gt; {
+					file.close(resolve);
+				});
+			})
+			.on('error', (err) =&gt; {
+				fs.unlink(filepath, () =&gt; {});
+				reject(err);
+			});
+	});
 }
 (async () =&gt; {
-    const browser = await puppeteer.launch({
-        headless: false,
-        defaultViewport: null,
-        args: [&quot;--no-sandbox&quot;, &quot;--disable-setuid-sandbox&quot;],
-    });
+	const browser = await puppeteer.launch({
+		headless: false,
+		defaultViewport: null,
+		args: ['--no-sandbox', '--disable-setuid-sandbox']
+	});
 
-    const page = await browser.newPage();
-    await page.goto(PAGE_TO_STEAL_FROM, { waitUntil: &quot;networkidle2&quot; });
+	const page = await browser.newPage();
+	await page.goto(PAGE_TO_STEAL_FROM, { waitUntil: 'networkidle2' });
 
-    await sleep(5000);
-    await page.waitForSelector('[data-test=&quot;closet_listings_count&quot;]');
+	await sleep(5000);
+	await page.waitForSelector('[data-test=&quot;closet_listings_count&quot;]');
 
-    const totalListings = await page.$eval(
-        '[data-test=&quot;closet_listings_count&quot;]',
-        (el) =&gt; parseInt(el.innerText.replace(/[^0-9]/g, &quot;&quot;), 10)
-    );
-    console.log(`🧮 Total listings: ${totalListings}`);
+	const totalListings = await page.$eval('[data-test=&quot;closet_listings_count&quot;]', (el) =&gt;
+		parseInt(el.innerText.replace(/[^0-9]/g, ''), 10)
+	);
+	console.log(`🧮 Total listings: ${totalListings}`);
 
-    // Scroll function
-    async function scrollUntilDone() {
-        let prevCount = 0;
-        let keepScrolling = true;
+	// Scroll function
+	async function scrollUntilDone() {
+		let prevCount = 0;
+		let keepScrolling = true;
 
-        while (keepScrolling) {
-            await page.waitForSelector(&quot;.tiles_container.m--t--1&quot;);
-            const visibleTiles = await page.$$eval(
-                &quot;.tiles_container.m--t--1 &gt; div:not(.hide)&quot;,
-                (tiles) =&gt; tiles.length
-            );
-            console.log(`📦 Loaded listings: ${visibleTiles}`);
+		while (keepScrolling) {
+			await page.waitForSelector('.tiles_container.m--t--1');
+			const visibleTiles = await page.$$eval(
+				'.tiles_container.m--t--1 &gt; div:not(.hide)',
+				(tiles) =&gt; tiles.length
+			);
+			console.log(`📦 Loaded listings: ${visibleTiles}`);
 
-            if (visibleTiles &gt;= totalListings || visibleTiles === prevCount) {
-                keepScrolling = false;
-            } else {
-                prevCount = visibleTiles;
-                await page.evaluate(() =&gt;
-                    window.scrollTo(0, document.body.scrollHeight)
-                );
-                await sleep(3000);
-            }
-        }
-    }
+			if (visibleTiles &gt;= totalListings || visibleTiles === prevCount) {
+				keepScrolling = false;
+			} else {
+				prevCount = visibleTiles;
+				await page.evaluate(() =&gt; window.scrollTo(0, document.body.scrollHeight));
+				await sleep(3000);
+			}
+		}
+	}
 
-    await scrollUntilDone();
+	await scrollUntilDone();
 
-    const totalTileCount = await page.$$eval(
-        &quot;.tiles_container.m--t--1 &gt; div:not(.hide)&quot;,
-        (tiles) =&gt; tiles.length
-    );
+	const totalTileCount = await page.$$eval(
+		'.tiles_container.m--t--1 &gt; div:not(.hide)',
+		(tiles) =&gt; tiles.length
+	);
 
-    for (let i = 0; i &lt; totalTileCount; i++) {
-        console.log(`🖱️ Clicking tile ${i + 1} of ${totalTileCount}`);
+	for (let i = 0; i &lt; totalTileCount; i++) {
+		console.log(`🖱️ Clicking tile ${i + 1} of ${totalTileCount}`);
 
-        try {
-            // Refresh the list of tiles in case they’ve shifted after going back
-            await scrollUntilDone();
-            const tiles = await page.$$(&quot;.tiles_container.m--t--1 &gt; div:not(.hide)&quot;);
-            const tile = tiles[i];
-            if (!tile) {
-                console.warn(`⚠️ Tile ${i} not found, skipping...`);
-                continue;
-            }
+		try {
+			// Refresh the list of tiles in case they’ve shifted after going back
+			await scrollUntilDone();
+			const tiles = await page.$$('.tiles_container.m--t--1 &gt; div:not(.hide)');
+			const tile = tiles[i];
+			if (!tile) {
+				console.warn(`⚠️ Tile ${i} not found, skipping...`);
+				continue;
+			}
 
-            // Click and wait for listing to load
-            await Promise.all([
-                tile.click(),
-                page.waitForNavigation({ waitUntil: &quot;domcontentloaded&quot; }),
-            ]);
+			// Click and wait for listing to load
+			await Promise.all([tile.click(), page.waitForNavigation({ waitUntil: 'domcontentloaded' })]);
 
-            await sleep(2000);
+			await sleep(2000);
 
-            // Scrape content
-            const titleSelector = &quot;.fw--light.m--r--2.listing__title-container&quot;;
-            await page.waitForSelector(titleSelector, { timeout: 5000 });
+			// Scrape content
+			const titleSelector = '.fw--light.m--r--2.listing__title-container';
+			await page.waitForSelector(titleSelector, { timeout: 5000 });
 
-            const title = await page.$eval(titleSelector, (el) =&gt;
-                el.innerText.trim()
-            );
-            const safeTitle = title.replace(/[\/\\?%*:|&quot;&lt;&gt;]/g, &quot;-&quot;).substring(0, 100);
-            const folderPath = path.join(BASE_SAVE_DIR, safeTitle);
-            if (!fs.existsSync(folderPath)) {
-                fs.mkdirSync(folderPath);
-                console.log(`📁 Folder created: ${folderPath}`);
-            }
+			const title = await page.$eval(titleSelector, (el) =&gt; el.innerText.trim());
+			const safeTitle = title.replace(/[\/\\?%*:|&quot;&lt;&gt;]/g, '-').substring(0, 100);
+			const folderPath = path.join(BASE_SAVE_DIR, safeTitle);
+			if (!fs.existsSync(folderPath)) {
+				fs.mkdirSync(folderPath);
+				console.log(`📁 Folder created: ${folderPath}`);
+			}
 
-            const priceWrapperSelector =
-                &quot;.listing__ipad-centered.d--fl.ai--c.m--t--5&quot;;
-            await page.waitForSelector(`${priceWrapperSelector} .h1`, {
-                timeout: 5000,
-            });
+			const priceWrapperSelector = '.listing__ipad-centered.d--fl.ai--c.m--t--5';
+			await page.waitForSelector(`${priceWrapperSelector} .h1`, {
+				timeout: 5000
+			});
 
-            const { currentPrice } = await page.$eval(
-                `${priceWrapperSelector} .h1`,
-                (el) =&gt; {
-                    const current = Array.from(el.childNodes)
-                        .filter((node) =&gt; node.nodeType === Node.TEXT_NODE)
-                        .map((node) =&gt; node.textContent.trim())
-                        .join(&quot; &quot;)
-                        .trim();
+			const { currentPrice } = await page.$eval(`${priceWrapperSelector} .h1`, (el) =&gt; {
+				const current = Array.from(el.childNodes)
+					.filter((node) =&gt; node.nodeType === Node.TEXT_NODE)
+					.map((node) =&gt; node.textContent.trim())
+					.join(' ')
+					.trim();
 
-                    const original = el.querySelector(&quot;span&quot;)?.innerText.trim() || &quot;N/A&quot;;
+				const original = el.querySelector('span')?.innerText.trim() || 'N/A';
 
-                    return {
-                        currentPrice: current,
-                    };
-                }
-            );
+				return {
+					currentPrice: current
+				};
+			});
 
-            const description = await page
-                .$eval(&quot;.listing__description&quot;, (el) =&gt; el.innerText.trim())
-                .catch(() =&gt; &quot;N/A&quot;);
-            const pageUrl = page.url();
+			const description = await page
+				.$eval('.listing__description', (el) =&gt; el.innerText.trim())
+				.catch(() =&gt; 'N/A');
+			const pageUrl = page.url();
 
-            const textContent = `
+			const textContent = `
 Title: ${title}
 URL: ${pageUrl}
 Current Price: ${currentPrice}
@@ -680,84 +652,80 @@ Description:
 ${description}
       `.trim();
 
-            const filePath = path.join(folderPath, `${safeTitle}.txt`);
-            fs.writeFileSync(filePath, textContent, &quot;utf-8&quot;);
-            console.log(`📄 Text file saved: ${filePath}`);
+			const filePath = path.join(folderPath, `${safeTitle}.txt`);
+			fs.writeFileSync(filePath, textContent, 'utf-8');
+			console.log(`📄 Text file saved: ${filePath}`);
 
-            // 📸 Grab images inside the slideshow block
-            // Gather local image paths
-            const imageHandles = await page.$$(
-                '.slideshow.slideshow--desktop .img__container--square.img__container img'
-            );
+			// 📸 Grab images inside the slideshow block
+			// Gather local image paths
+			const imageHandles = await page.$$(
+				'.slideshow.slideshow--desktop .img__container--square.img__container img'
+			);
 
-            // Build full image paths (absolute)
-            const imagePaths = [];
+			// Build full image paths (absolute)
+			const imagePaths = [];
 
-            for (let j = 0; j &lt; imageHandles.length; j++) {
-                try {
-                    const imgSrc = await imageHandles[j].evaluate(img =&gt; img.getAttribute('src'));
-                    const imgFileName = `${j + 1}.jpg`;
-                    const imgPath = path.join(folderPath, imgFileName);
-                    await downloadImage(imgSrc, imgPath);
-                    imagePaths.push(imgPath); // Save full path
-                    console.log(`🖼️ Saved image ${j + 1}: ${imgPath}`);
-                } catch (err) {
-                    console.warn(`⚠️ Could not save image ${j + 1}: ${err.message}`);
-                }
-            }
+			for (let j = 0; j &lt; imageHandles.length; j++) {
+				try {
+					const imgSrc = await imageHandles[j].evaluate((img) =&gt; img.getAttribute('src'));
+					const imgFileName = `${j + 1}.jpg`;
+					const imgPath = path.join(folderPath, imgFileName);
+					await downloadImage(imgSrc, imgPath);
+					imagePaths.push(imgPath); // Save full path
+					console.log(`🖼️ Saved image ${j + 1}: ${imgPath}`);
+				} catch (err) {
+					console.warn(`⚠️ Could not save image ${j + 1}: ${err.message}`);
+				}
+			}
 
-            // Pad missing image columns with empty strings
-            const paddedImagePaths = [...imagePaths];
-            while (paddedImagePaths.length &lt; maxImagesPerListing) {
-                paddedImagePaths.push('');
-            }
+			// Pad missing image columns with empty strings
+			const paddedImagePaths = [...imagePaths];
+			while (paddedImagePaths.length &lt; maxImagesPerListing) {
+				paddedImagePaths.push('');
+			}
 
-            // Add to CSV
-            csvRows.push([
-                title,
-                pageUrl,
-                currentPrice,
-                description.replace(/\n/g, ' '),
-                safeTitle,
-                imagePaths.length,
-                ...paddedImagePaths
-            ]);
+			// Add to CSV
+			csvRows.push([
+				title,
+				pageUrl,
+				currentPrice,
+				description.replace(/\n/g, ' '),
+				safeTitle,
+				imagePaths.length,
+				...paddedImagePaths
+			]);
 
+			// Go back and wait for listings to reload
+			await page.goBack({ waitUntil: 'domcontentloaded' });
+			await sleep(2000);
+		} catch (err) {
+			console.error(`❌ Error on tile ${i + 1}:`, err.message);
+		}
+	}
 
-            // Go back and wait for listings to reload
-            await page.goBack({ waitUntil: &quot;domcontentloaded&quot; });
-            await sleep(2000);
-        } catch (err) {
-            console.error(`❌ Error on tile ${i + 1}:`, err.message);
-        }
-    }
+	// Write CSV file
+	const csvContent = [csvHeaders, ...csvRows]
+		.map((row) =&gt; row.map((val) =&gt; `&quot;${val.toString().replace(/&quot;/g, '&quot;&quot;')}&quot;`).join(','))
+		.join('\n');
 
+	fs.writeFileSync(csvPath, csvContent, 'utf-8');
+	console.log(`📄 CSV saved: ${csvPath}`);
 
-    // Write CSV file
-    const csvContent = [csvHeaders, ...csvRows]
-        .map(row =&gt; row.map(val =&gt; `&quot;${val.toString().replace(/&quot;/g, '&quot;&quot;')}&quot;`).join(','))
-        .join('\n');
-
-    fs.writeFileSync(csvPath, csvContent, 'utf-8');
-    console.log(`📄 CSV saved: ${csvPath}`);
-
-    console.log(&quot;🎉 All listings scraped&quot;);
-    await browser.close();
+	console.log('🎉 All listings scraped');
+	await browser.close();
 })();
-
-
-
 </code></pre>
 <blockquote class="border-l-4 border-gray-300 pl-4 italic text-pretty text-gray-700 my-4">
-<p class="leading-relaxed font-display mb-4 mt-4 text-pretty text-lg text-pretty text-gray-900">⚠️ Don’t forget to replace the username in the URL:
-<code>https://poshmark.com/closet/jscola10</code> with your own or the one you're backing up.</p>
+<p class="leading-relaxed font-display mb-4 mt-4 text-pretty text-lg text-pretty text-gray-900">⚠️ Don’t forget to replace the username in the URL: <code>https://poshmark.com/closet/jscola10</code> with
+your own or the one you're backing up.</p>
 </blockquote>
 <hr>
 <h2 class="leading-relaxed font-display text-pretty text-2xl mb-6 mt-12 font-semibold text-pretty text-gray-800" id="%E2%96%B6%EF%B8%8F-how-to-run-it" tabindex="-1">▶️ How to Run It</h2>
 <p class="leading-relaxed font-display mb-4 mt-4 text-pretty text-lg text-pretty text-gray-900">Just run:</p>
 <pre><code class="language-bash">node poshmark_scraper.js
 </code></pre>
-<p class="leading-relaxed font-display mb-4 mt-4 text-pretty text-lg text-pretty text-gray-900">It’ll open a browser window, scroll through the closet, click into each listing, grab the info, save the images and create the folders.</p>
+<p class="leading-relaxed font-display mb-4 mt-4 text-pretty text-lg text-pretty text-gray-900">It’ll open a browser window, scroll through the closet, click into each listing, grab the info, save
+the images and create the folders.</p>
 <p class="leading-relaxed font-display mb-4 mt-4 text-pretty text-lg text-pretty text-gray-900">You’ll see:</p>
 <ul class="list-disc list-inside mt-4 space-y-2 pl-6 text-pretty text-lg font-display ml-6 mb-8 text-pretty text-gray-900">
 <li class="mb-2 text-pretty text-lg font-display text-pretty text-gray-900 flex items-center"><code>/poshmark_listings/</code> with folders like <code>Red Nike Sneakers</code></li>
@@ -771,21 +739,28 @@ ${description}
 </ul>
 <hr>
 <h2 class="leading-relaxed font-display text-pretty text-2xl mb-6 mt-12 font-semibold text-pretty text-gray-800" id="%F0%9F%A7%A0-how-it-works-(behind-the-scenes)" tabindex="-1">🧠 How It Works (Behind the Scenes)</h2>
-<p class="leading-relaxed font-display mb-4 mt-4 text-pretty text-lg text-pretty text-gray-900">This script might look simple at a glance, but it actually handles some cool stuff under the hood — especially when you realize it’s mimicking human behavior in a really smooth way.</p>
+<p class="leading-relaxed font-display mb-4 mt-4 text-pretty text-lg text-pretty text-gray-900">This script might look simple at a glance, but it actually handles some cool stuff under the hood —
+especially when you realize it’s mimicking human behavior in a really smooth way.</p>
 <hr>
 <h3 class="leading-relaxed font-display text-pretty text-xl mb-4 mt-10 font-semibold text-pretty text-gray-700" id="%F0%9F%8C%80-scrolling-listings" tabindex="-1">🌀 Scrolling Listings</h3>
-<p class="leading-relaxed font-display mb-4 mt-4 text-pretty text-lg text-pretty text-gray-900">Poshmark doesn’t load all listings at once — they load dynamically as you scroll. So the script uses this function:</p>
+<p class="leading-relaxed font-display mb-4 mt-4 text-pretty text-lg text-pretty text-gray-900">Poshmark doesn’t load all listings at once — they load dynamically as you scroll. So the script uses
+this function:</p>
 <pre><code class="language-js">window.scrollTo(0, document.body.scrollHeight);
 </code></pre>
-<p class="leading-relaxed font-display mb-4 mt-4 text-pretty text-lg text-pretty text-gray-900">and does it in a loop, waiting between scrolls (<code>sleep(3000)</code>) to give the page time to load new listings. It also checks if no new tiles were added — which is a slick way of knowing, “hey, we’re done scrolling.”</p>
+<p class="leading-relaxed font-display mb-4 mt-4 text-pretty text-lg text-pretty text-gray-900">and does it in a loop, waiting between scrolls (<code>sleep(3000)</code>) to give the page time to load new
+listings. It also checks if no new tiles were added — which is a slick way of knowing, “hey, we’re
+done scrolling.”</p>
 <p class="leading-relaxed font-display mb-4 mt-4 text-pretty text-lg text-pretty text-gray-900">This lets it work with <strong class="text-lg font-semibold text-pretty text-gray-800">10 listings or 20,000</strong> without changing anything. Super flexible.</p>
 <hr>
 <h3 class="leading-relaxed font-display text-pretty text-xl mb-4 mt-10 font-semibold text-pretty text-gray-700" id="%F0%9F%96%B1%EF%B8%8F-clicking-each-listing" tabindex="-1">🖱️ Clicking Each Listing</h3>
-<p class="leading-relaxed font-display mb-4 mt-4 text-pretty text-lg text-pretty text-gray-900">Instead of using hardcoded URLs (which don’t exist), it simulates a user clicking the listing tile. Then it waits for:</p>
-<pre><code class="language-js">page.waitForNavigation({ waitUntil: 'domcontentloaded' })
+<p class="leading-relaxed font-display mb-4 mt-4 text-pretty text-lg text-pretty text-gray-900">Instead of using hardcoded URLs (which don’t exist), it simulates a user clicking the listing tile.
+Then it waits for:</p>
+<pre><code class="language-js">page.waitForNavigation({ waitUntil: 'domcontentloaded' });
 </code></pre>
-<p class="leading-relaxed font-display mb-4 mt-4 text-pretty text-lg text-pretty text-gray-900">This tells Puppeteer to hang tight until the page is fully loaded — which is a great way to avoid scraping before the content is ready.</p>
-<p class="leading-relaxed font-display mb-4 mt-4 text-pretty text-lg text-pretty text-gray-900">This also means it’ll work even if Poshmark updates their URL structure, as long as the page UI stays mostly the same.</p>
+<p class="leading-relaxed font-display mb-4 mt-4 text-pretty text-lg text-pretty text-gray-900">This tells Puppeteer to hang tight until the page is fully loaded — which is a great way to avoid
+scraping before the content is ready.</p>
+<p class="leading-relaxed font-display mb-4 mt-4 text-pretty text-lg text-pretty text-gray-900">This also means it’ll work even if Poshmark updates their URL structure, as long as the page UI
+stays mostly the same.</p>
 <hr>
 <h3 class="leading-relaxed font-display text-pretty text-xl mb-4 mt-10 font-semibold text-pretty text-gray-700" id="%E2%9C%8D%EF%B8%8F-scraping-the-data" tabindex="-1">✍️ Scraping the Data</h3>
 <p class="leading-relaxed font-display mb-4 mt-4 text-pretty text-lg text-pretty text-gray-900">Once inside a listing, it pulls:</p>
@@ -798,19 +773,24 @@ ${description}
 </ul>
 <p class="leading-relaxed font-display mb-4 mt-4 text-pretty text-lg text-pretty text-gray-900">What's neat here is how the price is scraped:</p>
 <pre><code class="language-js">Array.from(el.childNodes)
-  .filter(n =&gt; n.nodeType === Node.TEXT_NODE)
-  .map(n =&gt; n.textContent.trim()).join(' ')
+	.filter((n) =&gt; n.nodeType === Node.TEXT_NODE)
+	.map((n) =&gt; n.textContent.trim())
+	.join(' ');
 </code></pre>
-<p class="leading-relaxed font-display mb-4 mt-4 text-pretty text-lg text-pretty text-gray-900">That little snippet is low-key clever — it grabs just the visible price text and skips things like the original crossed-out price or embedded spans.</p>
+<p class="leading-relaxed font-display mb-4 mt-4 text-pretty text-lg text-pretty text-gray-900">That little snippet is low-key clever — it grabs just the visible price text and skips things like
+the original crossed-out price or embedded spans.</p>
 <hr>
 <h3 class="leading-relaxed font-display text-pretty text-xl mb-4 mt-10 font-semibold text-pretty text-gray-700" id="%F0%9F%96%BC%EF%B8%8F-downloading-images" tabindex="-1">🖼️ Downloading Images</h3>
-<p class="leading-relaxed font-display mb-4 mt-4 text-pretty text-lg text-pretty text-gray-900">Instead of just copying the image URLs, it <strong class="text-lg font-semibold text-pretty text-gray-800">downloads every image</strong> and saves them into the folder with names like <code>1.jpg</code>, <code>2.jpg</code>, etc.</p>
-<p class="leading-relaxed font-display mb-4 mt-4 text-pretty text-lg text-pretty text-gray-900">The download uses native Node.js <code>https</code> streams — so there are no external libraries or dependencies. Just clean, raw file writing:</p>
-<pre><code class="language-js">https.get(url, response =&gt; {
-  response.pipe(file);
+<p class="leading-relaxed font-display mb-4 mt-4 text-pretty text-lg text-pretty text-gray-900">Instead of just copying the image URLs, it <strong class="text-lg font-semibold text-pretty text-gray-800">downloads every image</strong> and saves them into the folder
+with names like <code>1.jpg</code>, <code>2.jpg</code>, etc.</p>
+<p class="leading-relaxed font-display mb-4 mt-4 text-pretty text-lg text-pretty text-gray-900">The download uses native Node.js <code>https</code> streams — so there are no external libraries or
+dependencies. Just clean, raw file writing:</p>
+<pre><code class="language-js">https.get(url, (response) =&gt; {
+	response.pipe(file);
 });
 </code></pre>
-<p class="leading-relaxed font-display mb-4 mt-4 text-pretty text-lg text-pretty text-gray-900">And it retries or skips gracefully if something fails — so the script doesn’t crash halfway through a big run.</p>
+<p class="leading-relaxed font-display mb-4 mt-4 text-pretty text-lg text-pretty text-gray-900">And it retries or skips gracefully if something fails — so the script doesn’t crash halfway through
+a big run.</p>
 <hr>
 <h3 class="leading-relaxed font-display text-pretty text-xl mb-4 mt-10 font-semibold text-pretty text-gray-700" id="%F0%9F%97%82%EF%B8%8F-organizing-it-all" tabindex="-1">🗂️ Organizing It All</h3>
 <p class="leading-relaxed font-display mb-4 mt-4 text-pretty text-lg text-pretty text-gray-900">The most satisfying part?</p>
@@ -822,14 +802,19 @@ ${description}
 <li class="mb-2 text-pretty text-lg font-display text-pretty text-gray-900 flex items-center">The images</li>
 </ul>
 </li>
-<li class="mb-2 text-pretty text-lg font-display text-pretty text-gray-900 flex items-center">And the CSV file includes everything, <strong class="text-lg font-semibold text-pretty text-gray-800">even the full image paths</strong> — so you can import it into a spreadsheet and sort/search easily</li>
+<li class="mb-2 text-pretty text-lg font-display text-pretty text-gray-900 flex items-center">And the CSV file includes everything, <strong class="text-lg font-semibold text-pretty text-gray-800">even the full image paths</strong> — so you can import it into a
+spreadsheet and sort/search easily</li>
 </ul>
 <h2 class="leading-relaxed font-display text-pretty text-2xl mb-6 mt-12 font-semibold text-pretty text-gray-800" id="%F0%9F%9B%A1%EF%B8%8F-why-it%E2%80%99s-ethical" tabindex="-1">🛡️ Why It’s Ethical</h2>
-<p class="leading-relaxed font-display mb-4 mt-4 text-pretty text-lg text-pretty text-gray-900">All data is scraped <strong class="text-lg font-semibold text-pretty text-gray-800">client-side</strong> from publicly available listings. We don’t log in, spam, or go beyond normal use. This script is slow, respectful, and designed to help <strong class="text-lg font-semibold text-pretty text-gray-800">you back up your own content</strong> or help a friend recover theirs.</p>
+<p class="leading-relaxed font-display mb-4 mt-4 text-pretty text-lg text-pretty text-gray-900">All data is scraped <strong class="text-lg font-semibold text-pretty text-gray-800">client-side</strong> from publicly available listings. We don’t log in, spam, or go
+beyond normal use. This script is slow, respectful, and designed to help <strong class="text-lg font-semibold text-pretty text-gray-800">you back up your own
+content</strong> or help a friend recover theirs.</p>
 <hr>
 <h2 class="leading-relaxed font-display text-pretty text-2xl mb-6 mt-12 font-semibold text-pretty text-gray-800" id="%F0%9F%A7%BE-final-thoughts" tabindex="-1">🧾 Final Thoughts</h2>
-<p class="leading-relaxed font-display mb-4 mt-4 text-pretty text-lg text-pretty text-gray-900">I built this tool to solve a real problem. If you're a seller on Poshmark, you deserve a way to own your own data. This script helps you do that safely and ethically — and it works.</p>
-<p class="leading-relaxed font-display mb-4 mt-4 text-pretty text-lg text-pretty text-gray-900">Need help running it or want to export to Google Sheets, JSON, or even zip the folders? Let me know — happy to help.</p>
+<p class="leading-relaxed font-display mb-4 mt-4 text-pretty text-lg text-pretty text-gray-900">I built this tool to solve a real problem. If you're a seller on Poshmark, you deserve a way to own
+your own data. This script helps you do that safely and ethically — and it works.</p>
+<p class="leading-relaxed font-display mb-4 mt-4 text-pretty text-lg text-pretty text-gray-900">Need help running it or want to export to Google Sheets, JSON, or even zip the folders? Let me know
+— happy to help.</p>
 <p class="leading-relaxed font-display mb-4 mt-4 text-pretty text-lg text-pretty text-gray-900">Built with ☕️ and code by<br>
 <strong class="text-lg font-semibold text-pretty text-gray-800">The Coffee and Fun Team</strong></p>
 
@@ -843,438 +828,404 @@ ${description}
 	</main>
 
 
-	<dialog id="my_modal_contact" class="modal" role="dialog" aria-labelledby="supporters-title">
-    <div class="modal-box">
-        <form method="dialog">
-            <button class="btn btn-sm btn-circle btn-ghost absolute right-2 top-2" aria-label="Close">✕</button>
-        </form>
+	<dialog
+  id="my_modal_contact"
+  class="modal"
+  role="dialog"
+  aria-labelledby="supporters-title"
+>
+  <div class="modal-box">
+    <form method="dialog">
+      <button
+        class="btn btn-circle btn-ghost absolute right-2 top-2"
+        aria-label="Close"
+      >
+        ✕
+      </button>
+    </form>
 
-        <div>
-            <h2 id="supporters-title" class="text-2xl mb-4 font-bold">List of Supporters</h2>
-            <p class="text-base mb-2">A huge thank you to all the users who have donated.</p>
+    <div>
+      <h2 id="supporters-title" class="text-2xl mb-4 font-bold">
+        List of Supporters
+      </h2>
+      <p class="text-base mb-2">
+        A huge thank you to all the users who have donated.
+      </p>
 
-            <ul class="grid grid-cols-1 gap-4 sm:grid-cols-3 mb-6 mt-6">
-                <li>Boulo</li>
-                <li>Roger Nowlan</li>
-                <li>이광현</li>
-                <li>Arturo Jimenez</li>
-                <li>OH JUNHO</li>
-            </ul>
+      <ul class="grid grid-cols-1 gap-4 sm:grid-cols-3 mb-6 mt-6">
+        <li>Boulo</li>
+        <li>Roger Nowlan</li>
+        <li>이광현</li>
+        <li>Arturo Jimenez</li>
+        <li>OH JUNHO</li>
+      </ul>
 
-            <a class="btn btn-primary btn-block w-full mt-4"
-                href="https://payments.coffeeandfun.com/b/00gbKHdise1e8Le6oZ" target="_blank">
-                Donate to Coffee & Fun LLC
-            </a>
-        </div>
+      <a
+        class="btn btn-primary btn-block w-full mt-4"
+        href="https://payments.coffeeandfun.com/b/00gbKHdise1e8Le6oZ"
+        target="_blank"
+      >
+        Donate to Coffee & Fun LLC
+      </a>
     </div>
+  </div>
 </dialog>
 
 <dialog id="my_modal_supports" class="modal" title="Support Form" role="dialog">
-    <div class="modal-box">
-        <form method="dialog">
-            <button class="btn btn-sm btn-circle btn-ghost absolute right-2 top-2" aria-label="Close">✕</button>
-        </form>
+  <div class="modal-box">
+    <form method="dialog">
+      <button
+        class="btn btn-circle btn-ghost absolute right-2 top-2"
+        aria-label="Close"
+      >
+        ✕
+      </button>
+    </form>
 
-        <iframe
-            src="https://docs.google.com/forms/d/e/1FAIpQLSeOBpyxmu3enhScTOuJtYAx2jNK2wr9scFKtbQrj0AjqJfdEQ/viewform?embedded=true"
-            width="100%" height="500" frameborder="0" title="Supporters Form">Loading…</iframe>
-    </div>
+    <iframe
+      src="https://docs.google.com/forms/d/e/1FAIpQLSeOBpyxmu3enhScTOuJtYAx2jNK2wr9scFKtbQrj0AjqJfdEQ/viewform?embedded=true"
+      width="100%"
+      height="500"
+      frameborder="0"
+      title="Supporters Form"
+      >Loading…</iframe
+    >
+  </div>
 </dialog>
-
-
-
-
-
 
 <dialog id="my_modal_rank" class="modal" title="TriviaFlix" role="dialog">
-    <div class="modal-box">
-        <form method="dialog">
-            <button class="btn btn-sm btn-circle btn-ghost absolute right-2 top-2" aria-label="Close">✕</button>
-        </form>
+  <div class="modal-box">
+    <form method="dialog">
+      <button
+        class="btn btn-circle btn-ghost absolute right-2 top-2"
+        aria-label="Close"
+      >
+        ✕
+      </button>
+    </form>
 
+    <h2 class="text-lg font-bold">About Mystery Rank</h2>
 
-        <h2 class="text-lg font-bold">About Mystery Rank</h2>
-
-        <div class="mb-12 mt-4">
-
-            <p class="py-4 text-pretty text-base">
-                In Mystery Rank, you contribute to earn a spot in different categories. The more you give, the higher
-                your rank. But here’s the catch—no one knows how much anyone else has paid. It’s this mystery that makes
-                the competition even more exciting.
-            </p>
-
-
-        </div>
-
-        <h2 class="text-lg font-bold mb-8">Terms and Refunds for Mystery Rank</h2>
-
-        <div class="mb-4 mt-4">
-
-            <h3 class="text-lg font-semibold mb-2">One-Time Contribution</h3>
-
-            <p class="py-4 text-pretty text-base">
-                When you contribute to Mystery Rank, it’s a one-time payment that secures your spot in the credits.
-                Please keep in mind that once the payment is made, it’s final—there are no refunds or changes. We want
-                to keep the process fair and transparent for everyone involved.
-
-            </p>
-
-
-        </div>
-
-
-
-        <div class="mb-4 mt-4">
-
-            <h3 class="text-lg font-semibold mb-2">How Your Rank is Determined</h3>
-
-            <p class="py-4 text-pretty text-base">
-                Your rank within your chosen category is based on how much you contribute. The more you contribute, the
-                higher your rank will be. However, the amount you’ve paid, and what others have paid, will remain
-                private. This adds a layer of mystery and excitement to the competition.
-
-            </p>
-
-
-        </div>
-
-
-        <div class="mb-4 mt-4">
-
-            <h3 class="text-lg font-semibold mb-2">When Your Credit Appears</h3>
-
-            <p class="py-4 text-pretty text-base">
-                After your payment is confirmed, your credit will be posted within 12 hours. We work hard to ensure that
-                everyone’s contributions are recognized promptly. If for some reason there’s a delay, we’ll do our best
-                to keep you informed.
-
-            </p>
-
-
-        </div>
-
-        <div class="mb-4 mt-4">
-
-            <h3 class="text-lg font-semibold mb-2">Handling Chargebacks</h3>
-
-            <p class="py-4 text-pretty text-base">
-                If a chargeback occurs, your credit will be immediately removed from the list, and unfortunately, you’ll
-                be blocked from participating in Mystery Rank in the future. We do this to protect the integrity of the
-                rankings and ensure fairness for all contributors.
-
-            </p>
-
-
-        </div>
-
-
-        <div class="mb-4 mt-4">
-
-            <h3 class="text-lg font-semibold mb-2">Updating Your Listing or Link</h3>
-
-            <p class="py-4 text-pretty text-base">
-                We understand that sometimes things change. If you need to update your listing or link after it’s been
-                posted, just send us an email at <a
-                    href="mailto:hello@coffeeandfun.com?subject=Inquiry%20about%20Mystery%20Rank%20Credits&body=Hi%20there,%0D%0A%0D%0AI%20have%20a%20question%20about%20Mystery%20Rank%20Credits.%0D%0A%0D%0AThank%20you!"
-                    class="link link-hover link-primary">hello@coffeeandfun.com</a>
-                . We’re happy to make one-time updates to ensure your information is correct.
-
-            </p>
-
-
-        </div>
-
-        <div class="mb-4 mt-4">
-
-            <h3 class="text-lg font-semibold mb-2">Need Help or Have Questions?</h3>
-
-            <p class="py-4 text-pretty text-base">
-                If you have any questions about the process, or if something isn’t clear, please don’t hesitate to reach
-                out. We’re here to help and want to make sure your experience with Mystery Rank is as smooth and
-                enjoyable as possible.
-
-            </p>
-
-
-        </div>
-
-
-
-
-
-
-
-
+    <div class="mb-12 mt-4">
+      <p class="py-4 text-pretty text-base">
+        In Mystery Rank, you contribute to earn a spot in different categories.
+        The more you give, the higher your rank. But here’s the catch—no one
+        knows how much anyone else has paid. It’s this mystery that makes the
+        competition even more exciting.
+      </p>
     </div>
+
+    <h2 class="text-lg font-bold mb-8">Terms and Refunds for Mystery Rank</h2>
+
+    <div class="mb-4 mt-4">
+      <h3 class="text-lg font-semibold mb-2">One-Time Contribution</h3>
+
+      <p class="py-4 text-pretty text-base">
+        When you contribute to Mystery Rank, it’s a one-time payment that
+        secures your spot in the credits. Please keep in mind that once the
+        payment is made, it’s final—there are no refunds or changes. We want to
+        keep the process fair and transparent for everyone involved.
+      </p>
+    </div>
+
+    <div class="mb-4 mt-4">
+      <h3 class="text-lg font-semibold mb-2">How Your Rank is Determined</h3>
+
+      <p class="py-4 text-pretty text-base">
+        Your rank within your chosen category is based on how much you
+        contribute. The more you contribute, the higher your rank will be.
+        However, the amount you’ve paid, and what others have paid, will remain
+        private. This adds a layer of mystery and excitement to the competition.
+      </p>
+    </div>
+
+    <div class="mb-4 mt-4">
+      <h3 class="text-lg font-semibold mb-2">When Your Credit Appears</h3>
+
+      <p class="py-4 text-pretty text-base">
+        After your payment is confirmed, your credit will be posted within 12
+        hours. We work hard to ensure that everyone’s contributions are
+        recognized promptly. If for some reason there’s a delay, we’ll do our
+        best to keep you informed.
+      </p>
+    </div>
+
+    <div class="mb-4 mt-4">
+      <h3 class="text-lg font-semibold mb-2">Handling Chargebacks</h3>
+
+      <p class="py-4 text-pretty text-base">
+        If a chargeback occurs, your credit will be immediately removed from the
+        list, and unfortunately, you’ll be blocked from participating in Mystery
+        Rank in the future. We do this to protect the integrity of the rankings
+        and ensure fairness for all contributors.
+      </p>
+    </div>
+
+    <div class="mb-4 mt-4">
+      <h3 class="text-lg font-semibold mb-2">Updating Your Listing or Link</h3>
+
+      <p class="py-4 text-pretty text-base">
+        We understand that sometimes things change. If you need to update your
+        listing or link after it’s been posted, just send us an email at
+        <a
+          href="mailto:hello@coffeeandfun.com?subject=Inquiry%20about%20Mystery%20Rank%20Credits&body=Hi%20there,%0D%0A%0D%0AI%20have%20a%20question%20about%20Mystery%20Rank%20Credits.%0D%0A%0D%0AThank%20you!"
+          class="link link-hover link-primary"
+          >hello@coffeeandfun.com</a
+        >
+        . We’re happy to make one-time updates to ensure your information is
+        correct.
+      </p>
+    </div>
+
+    <div class="mb-4 mt-4">
+      <h3 class="text-lg font-semibold mb-2">Need Help or Have Questions?</h3>
+
+      <p class="py-4 text-pretty text-base">
+        If you have any questions about the process, or if something isn’t
+        clear, please don’t hesitate to reach out. We’re here to help and want
+        to make sure your experience with Mystery Rank is as smooth and
+        enjoyable as possible.
+      </p>
+    </div>
+  </div>
 </dialog>
-
-
 
 <dialog id="my_modal_69" class="modal" title="TriviaFlix" role="dialog">
-    <div class="modal-box">
-        <form method="dialog">
-            <button class="btn btn-sm btn-circle btn-ghost absolute right-2 top-2" aria-label="Close">✕</button>
-        </form>
+  <div class="modal-box">
+    <form method="dialog">
+      <button
+        class="btn btn-circle btn-ghost absolute right-2 top-2"
+        aria-label="Close"
+      >
+        ✕
+      </button>
+    </form>
 
+    <h2 class="text-lg font-bold">Keyboard Shortcuts</h2>
 
-        <h2 class="text-lg font-bold">Keyboard Shortcuts</h3>
+    <div class="mb-4 mt-4">
+      <h3 class="pb-2 text-pretty text-base font-bold">Show Answer</h3>
 
-            <div class="mb-4 mt-4">
-
-                <h3 class="pb-2 text-pretty text-base font-bold">
-                    Show Answer
-                </h3>
-
-                <kbd class="kbd kbd-sm">▲</kbd>
-            </div>
-
-
-
-
-            <div class="mb-4">
-
-                <h3 class="pb-2 text-pretty text-base font-bold">
-                    Hide Answer
-                </h3>
-
-                <kbd class="kbd kbd-sm">▼</kbd>
-            </div>
-
-
-            <div class="mb-4">
-
-                <h3 class="pb-2 text-pretty text-base font-bold">
-                    Next Question
-                </h3>
-
-                <kbd class="kbd kbd-sm">▶︎</kbd>
-            </div>
-
-
-
-
-            <div class="mb-4">
-
-                <h3 class="pb-2 text-pretty text-base font-bold">
-                    Previous Question
-                </h3>
-
-                <kbd class="kbd kbd-sm">◀︎</kbd>
-            </div>
-
-
+      <kbd class="kbd kbd-sm">▲</kbd>
     </div>
+
+    <div class="mb-4">
+      <h3 class="pb-2 text-pretty text-base font-bold">Hide Answer</h3>
+
+      <kbd class="kbd kbd-sm">▼</kbd>
+    </div>
+
+    <div class="mb-4">
+      <h3 class="pb-2 text-pretty text-base font-bold">Next Question</h3>
+
+      <kbd class="kbd kbd-sm">▶︎</kbd>
+    </div>
+
+    <div class="mb-4">
+      <h3 class="pb-2 text-pretty text-base font-bold">Previous Question</h3>
+
+      <kbd class="kbd kbd-sm">◀︎</kbd>
+    </div>
+  </div>
 </dialog>
-
-
 
 <dialog id="my_modal_site_menu" class="modal" title="Menu" role="dialog">
-    <div class="modal-box">
-
-
-        <form method="dialog">
-            <button class="btn btn-sm btn-circle btn-ghost absolute right-2 top-2 " aria-label="Close">
-                <span class="sr-only">Close the modal popup</span>
-                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 -960 960 960" fill="currentColor" aria-hidden="true"
-                    class="h-6 w-6">
-                    <path
-                        d="m256-200-56-56 224-224-224-224 56-56 224 224 224-224 56 56-224 224 224 224-56 56-224-224-224 224Z">
-                    </path>
-                </svg>
-            </button>
-
-        </form>
-        <div class="w-full items-start mt-12">
-
-            <h2 class="text-2xl mb-4 font-bold ">Coffee & Fun</h2>
-            <div class="divider mb-2"></div>
-            <ul class="grid grid-cols-2 gap-4 mb-8">
-                <li class="text-left">
-
-
-                    <a href="/#apps" rel="noopener noreferrer" title="Visit Coffee & Fun Apps"
-                    class="btn  btn-neutral btn-outline btn-sm btn-block  font-semibold   mt-2 gap-2">
-                        <span>Apps</span>
-                    </a>
-
-                </li>
-
-                <li class="text-left">
-
-
-                <a href="/blog/" rel="noopener noreferrer" title="Visit Coffee & Fun Blog"
-                class="btn  btn-neutral btn-outline btn-sm btn-block  font-semibold  mt-2 gap-2">
-                    <span>Blog</span>
-                </a>
-
-            </li>
-
-            <li class="text-left">
-
-
-                <a href="https://sharing.clickup.com/36059453/b/12ce9x-577/board" target="_blank" rel="noopener noreferrer" title="Visit Coffee & Fun Roadmap"
-                class="btn  btn-neutral btn-outline btn-sm btn-block  font-semibold  mt-2 gap-2">
-                    <span>Roadmap</span>
-                </a>
-
-            </li>
-
-                <li class="text-left">
-
-                    <a href="/#graveyard" rel="noopener noreferrer" title="Visit the Graveyard"
-                        class="btn  btn-neutral btn-outline btn-sm btn-block  font-semibold   mt-2 gap-2">
-                        <span>The Graveyard</span>
-                    </a>
-
-                </li>
-
-                <li class="text-left">
-
-
-                    <button onclick="my_modal_supports.showModal()" title="Contact Support"
-                    class="btn  btn-neutral btn-outline btn-sm btn-block  font-semibold   mt-2 gap-2">
-
-                        <span>Supports</span>
-                    </button>
-
-                </li>
-
-
-
-
-                <li class="text-left">
-
-
-                    <button onclick="my_modal_contact.showModal()" title="Contact Support"
-                    class="btn  btn-neutral btn-outline btn-sm btn-block  font-semibold   mt-2 gap-2">
-
-                        <span>Contact Us</span>
-                    </button>
-
-                </li>
-
-
-            </ul>
-
-
-            <h2 class="text-2xl  mt-24 font-bold mb-4">Apps</h2>
-            <div class="divider mb-2"></div>
-
-            <ul class="grid grid-cols-2 gap-4">
-                
-                <li class="text-left mb-4">
-
-
-                    <a href="https://apps.apple.com/us/app/daily-bible-verse/id6744124711" target="_blank" rel="noopener noreferrer" title="Visit Coffee & Fun Apps"
-                    class="btn  btn-neutral btn-outline  btn-sm btn-block  font-semibold   mt-2 gap-2">
-                        <span>Daily Bible Verse+</span>
-                    </a>
-
-                </li>
-			
-                <li class="text-left mb-4">
-
-
-                    <a href="https://apps.apple.com/us/app/procrastinot-website-blocker/id6569216739?platform=ipad" target="_blank" rel="noopener noreferrer" title="Visit Coffee & Fun Apps"
-                    class="btn  btn-neutral btn-outline  btn-sm btn-block  font-semibold   mt-2 gap-2">
-                        <span>ProcrastiNOT </span>
-                    </a>
-
-                </li>
-			
-                <li class="text-left mb-4">
-
-
-                    <a href="https://chromewebstore.google.com/detail/hide-spoilers-block-blur/dglgbepdhdpfihbiklibdcecpadcdcln" target="_blank" rel="noopener noreferrer" title="Visit Coffee & Fun Apps"
-                    class="btn  btn-neutral btn-outline  btn-sm btn-block  font-semibold   mt-2 gap-2">
-                        <span>Hide Spoilers</span>
-                    </a>
-
-                </li>
-			
-                <li class="text-left mb-4">
-
-
-                    <a href="https://chromewebstore.google.com/detail/auto-pause/abheodopcahdogobgajpakhakjcjckhk" target="_blank" rel="noopener noreferrer" title="Visit Coffee & Fun Apps"
-                    class="btn  btn-neutral btn-outline  btn-sm btn-block  font-semibold   mt-2 gap-2">
-                        <span>Auto Pause</span>
-                    </a>
-
-                </li>
-			
-                <li class="text-left mb-4">
-
-
-                    <a href="https://apps.apple.com/us/app/confetti-cannon-for-safari/id6670409741?mt=12" target="_blank" rel="noopener noreferrer" title="Visit Coffee & Fun Apps"
-                    class="btn  btn-neutral btn-outline  btn-sm btn-block  font-semibold   mt-2 gap-2">
-                        <span>Confetti Cannon: Page Party</span>
-                    </a>
-
-                </li>
-			
-                <li class="text-left mb-4">
-
-
-                    <a href="https://apps.apple.com/us/app/markdown-editor-for-safari/id6578456621" target="_blank" rel="noopener noreferrer" title="Visit Coffee & Fun Apps"
-                    class="btn  btn-neutral btn-outline  btn-sm btn-block  font-semibold   mt-2 gap-2">
-                        <span>Markdown Editor for Safari</span>
-                    </a>
-
-                </li>
-			
-                <li class="text-left mb-4">
-
-
-                    <a href="https://chromewebstore.google.com/detail/yeti-remove-google-search/oabpkkceeoccgofdohlalinahlcpmkeh?hl=en" target="_blank" rel="noopener noreferrer" title="Visit Coffee & Fun Apps"
-                    class="btn  btn-neutral btn-outline  btn-sm btn-block  font-semibold   mt-2 gap-2">
-                        <span>Yeti</span>
-                    </a>
-
-                </li>
-			
-                <li class="text-left mb-4">
-
-
-                    <a href="https://www.coffeeandfun.com/instant-incognito/" target="_blank" rel="noopener noreferrer" title="Visit Coffee & Fun Apps"
-                    class="btn  btn-neutral btn-outline  btn-sm btn-block  font-semibold   mt-2 gap-2">
-                        <span>Instant Incognito</span>
-                    </a>
-
-                </li>
-			
-                <li class="text-left mb-4">
-
-
-                    <a href="https://www.incognitomode.app" target="_blank" rel="noopener noreferrer" title="Visit Coffee & Fun Apps"
-                    class="btn  btn-neutral btn-outline  btn-sm btn-block  font-semibold   mt-2 gap-2">
-                        <span>Incognito Bear</span>
-                    </a>
-
-                </li>
-			
-                <li class="text-left mb-4">
-
-
-                    <a href="https://apps.apple.com/us/app/simple-screenshot-pro/id6451333294" target="_blank" rel="noopener noreferrer" title="Visit Coffee & Fun Apps"
-                    class="btn  btn-neutral btn-outline  btn-sm btn-block  font-semibold   mt-2 gap-2">
-                        <span>Simple Screenshot Pro</span>
-                    </a>
-
-                </li>
-			
-            </ul>
-        </div>
-
-
-
-
-
-
-
-
-
+  <div class="modal-box">
+    <form method="dialog">
+      <button
+        class="btn btn-circle btn-ghost absolute right-2 top-2"
+        aria-label="Close"
+      >
+        <span class="sr-only">Close the modal popup</span>
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          viewBox="0 -960 960 960"
+          fill="currentColor"
+          aria-hidden="true"
+          class="h-6 w-6"
+        >
+          <path
+            d="m256-200-56-56 224-224-224-224 56-56 224 224 224-224 56 56-224 224 224 224-56 56-224-224-224 224Z"
+          ></path>
+        </svg>
+      </button>
+    </form>
+    <div class="w-full items-start mt-12">
+      <h2 class="text-2xl mb-4 font-bold">Coffee & Fun</h2>
+      <div class="divider mb-2"></div>
+      <ul class="grid grid-cols-2 gap-4 mb-8">
+        <li class="text-left">
+          <a
+            href="/#apps"
+            rel="noopener noreferrer"
+            title="Visit Coffee & Fun Apps"
+            class="btn btn-neutral btn-outline btn-block font-semibold mt-2 gap-2"
+          >
+            <span>Apps</span>
+          </a>
+        </li>
+
+        <li class="text-left">
+          <a
+            href="/blog/"
+            rel="noopener noreferrer"
+            title="Visit Coffee & Fun Blog"
+            class="btn btn-neutral btn-outline btn-block font-semibold mt-2 gap-2"
+          >
+            <span>Blog</span>
+          </a>
+        </li>
+
+        <li class="text-left">
+          <a
+            href="https://sharing.clickup.com/36059453/b/12ce9x-577/board"
+            target="_blank"
+            rel="noopener noreferrer"
+            title="Visit Coffee & Fun Roadmap"
+            class="btn btn-neutral btn-outline btn-block font-semibold mt-2 gap-2"
+          >
+            <span>Roadmap</span>
+          </a>
+        </li>
+
+        <li class="text-left">
+          <a
+            href="/#graveyard"
+            rel="noopener noreferrer"
+            title="Visit the Graveyard"
+            class="btn btn-neutral btn-outline btn-block font-semibold mt-2 gap-2"
+          >
+            <span>The Graveyard</span>
+          </a>
+        </li>
+
+        <li class="text-left">
+          <button
+            onclick="my_modal_supports.showModal()"
+            title="Contact Support"
+            class="btn btn-neutral btn-outline btn-block font-semibold mt-2 gap-2"
+          >
+            <span>Supports</span>
+          </button>
+        </li>
+
+        <li class="text-left">
+          <button
+            onclick="my_modal_contact.showModal()"
+            title="Contact Support"
+            class="btn btn-neutral btn-outline btn-block font-semibold mt-2 gap-2"
+          >
+            <span>Contact Us</span>
+          </button>
+        </li>
+      </ul>
+
+      <h2 class="text-2xl mt-24 font-bold mb-4">Apps</h2>
+      <div class="divider mb-2"></div>
+
+      <ul class="grid grid-cols-2 gap-4">
+        
+        <li class="text-left mb-4">
+          <a
+            href="https://apps.apple.com/us/app/daily-bible-verse/id6744124711"
+            target="_blank"
+            rel="noopener noreferrer"
+            title="Visit Coffee & Fun Apps"
+            class="btn btn-neutral btn-outline btn-block font-semibold mt-2 gap-2"
+          >
+            <span>Daily Bible Verse+</span>
+          </a>
+        </li>
+        
+        <li class="text-left mb-4">
+          <a
+            href="https://apps.apple.com/us/app/procrastinot-website-blocker/id6569216739?platform=ipad"
+            target="_blank"
+            rel="noopener noreferrer"
+            title="Visit Coffee & Fun Apps"
+            class="btn btn-neutral btn-outline btn-block font-semibold mt-2 gap-2"
+          >
+            <span>ProcrastiNOT </span>
+          </a>
+        </li>
+        
+        <li class="text-left mb-4">
+          <a
+            href="https://chromewebstore.google.com/detail/hide-spoilers-block-blur/dglgbepdhdpfihbiklibdcecpadcdcln"
+            target="_blank"
+            rel="noopener noreferrer"
+            title="Visit Coffee & Fun Apps"
+            class="btn btn-neutral btn-outline btn-block font-semibold mt-2 gap-2"
+          >
+            <span>Hide Spoilers</span>
+          </a>
+        </li>
+        
+        <li class="text-left mb-4">
+          <a
+            href="https://apps.apple.com/us/app/confetti-cannon-for-safari/id6670409741?mt=12"
+            target="_blank"
+            rel="noopener noreferrer"
+            title="Visit Coffee & Fun Apps"
+            class="btn btn-neutral btn-outline btn-block font-semibold mt-2 gap-2"
+          >
+            <span>Confetti Cannon</span>
+          </a>
+        </li>
+        
+        <li class="text-left mb-4">
+          <a
+            href="https://apps.apple.com/us/app/markdown-editor-for-safari/id6578456621"
+            target="_blank"
+            rel="noopener noreferrer"
+            title="Visit Coffee & Fun Apps"
+            class="btn btn-neutral btn-outline btn-block font-semibold mt-2 gap-2"
+          >
+            <span>Markdown Editor</span>
+          </a>
+        </li>
+        
+        <li class="text-left mb-4">
+          <a
+            href="https://chromewebstore.google.com/detail/yeti-remove-google-search/oabpkkceeoccgofdohlalinahlcpmkeh?hl=en"
+            target="_blank"
+            rel="noopener noreferrer"
+            title="Visit Coffee & Fun Apps"
+            class="btn btn-neutral btn-outline btn-block font-semibold mt-2 gap-2"
+          >
+            <span>Yeti</span>
+          </a>
+        </li>
+        
+        <li class="text-left mb-4">
+          <a
+            href="https://www.incognitomode.app"
+            target="_blank"
+            rel="noopener noreferrer"
+            title="Visit Coffee & Fun Apps"
+            class="btn btn-neutral btn-outline btn-block font-semibold mt-2 gap-2"
+          >
+            <span>Incognito Bear</span>
+          </a>
+        </li>
+        
+        <li class="text-left mb-4">
+          <a
+            href="https://apps.apple.com/us/app/simple-screenshot-pro/id6451333294"
+            target="_blank"
+            rel="noopener noreferrer"
+            title="Visit Coffee & Fun Apps"
+            class="btn btn-neutral btn-outline btn-block font-semibold mt-2 gap-2"
+          >
+            <span>Simple Screenshot Pro</span>
+          </a>
+        </li>
+        
+      </ul>
     </div>
+  </div>
 </dialog>
+
 
 
 	<footer class="p-10 brand-color-background">
