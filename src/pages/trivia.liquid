@@ -467,7 +467,7 @@
 
           // 1) Pick a deterministic 10 for today & store in localStorage
           setupDaily() {
-            const today = new Date().toISOString().slice(0, 10);
+            const today = new Date().toLocaleDateString('en-CA'); 
             if (localStorage.getItem("dailyDate") !== today) {
               // new day → clear old quiz
               ["dailyDate", "dailyQuestions", "quizState"].forEach((k) =>
