@@ -1,0 +1,339 @@
+<!DOCTYPE html>
+<html
+  class="brand-color-background scroll-smooth antialiased"
+  lang="en"
+  data-theme="light"
+>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>MP3 to Transcript - Coffee & Fun LLC</title>
+    <meta
+      name="description"
+      content="For when you need to quickly transcribe MP3 audio files into text using the Chrome AI LanguageModel API. Perfect for quick decisions or settling debates!"
+    />
+    <meta name="keywords" content="coin flip, decision maker, random flip" />
+    <meta name="author" content="Coffee & Fun LLC" />
+    <meta name="robots" content="index, follow" />
+    <meta name="rating" content="safe for kids" />
+
+    <link rel="icon" href="/assets/images/favicon.png" />
+    <link rel="apple-touch-icon" href="/assets/images/social/192.png" />
+    <link
+      rel="icon"
+      href="/assets/images/social/192.png"
+      sizes="192x192"
+      type="image/png"
+    />
+    <link rel="manifest" href="/assets/images/social/site.webmanifest" />
+    <link rel="canonical" href="https://www.coffeeandfun.com/test/" />
+
+    <!-- Theme & Mobile Meta -->
+    <meta name="theme-color" content="#fef5ec" />
+    <meta name="mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="default" />
+
+    <!-- Open Graph -->
+    <meta property="og:title" content="MP3 to Transcript - Coffee & Fun LLC" />
+    <meta property="og:site_name" content="Coffee & Fun" />
+    <meta property="og:url" content="https://www.coffeeandfun.com/test/" />
+    <meta
+      property="og:description"
+      content="For when you need to quickly transcribe MP3 audio files into text using the Chrome AI LanguageModel API. Perfect for quick decisions or settling debates!"
+    />
+    <meta property="og:type" content="website" />
+    <meta property="og:image" content="/assets/images/apps/flip.png" />
+
+    <!-- Twitter Cards -->
+    <meta property="twitter:domain" content="coffeeandfun.com" />
+    <meta property="twitter:url" content="https://www.coffeeandfun.com/test/" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="MP3 to Transcript - Coffee & Fun LLC" />
+    <meta name="twitter:site" content="@bycoffeeandfun" />
+    <meta
+      name="twitter:description"
+      content="For when you need to quickly transcribe MP3 audio files into text using the Chrome AI LanguageModel API. Perfect for quick decisions or settling debates!"
+    />
+    <meta
+      name="twitter:image"
+      content="https://www.coffeeandfun.com/assets/images/apps/flip.png"
+    />
+    <meta name="twitter:image:alt" content="Coffee & Fun" />
+
+    <!-- SEO Structured Data -->
+    <script type="application/ld+json">
+      {
+        "@context": "http://schema.org/",
+        "@type": "WebSite",
+        "url": "https://www.coffeeandfun.com/test/",
+        "potentialAction": {
+          "@type": "SearchAction",
+          "target": "{search_term_string}",
+          "query-input": "required name=search_term_string"
+        }
+      }
+    </script>
+    <script type="application/ld+json">
+      {
+        "@context": "http://schema.org/",
+        "@type": "FlipAction",
+        "name": "MP3 to Transcript",
+        "target": "https://www.coffeeandfun.com/flip"
+      }
+    </script>
+
+    {% bundledCss %} {% include scripts.html %}
+    <!-- Preload favicon -->
+    <link rel="preload" href="/assets/images/favicon.png" as="image" />
+
+    <script>
+      if ("serviceWorker" in navigator) {
+        navigator.serviceWorker.getRegistrations().then((registrations) => {
+          for (const registration of registrations) {
+            registration.unregister().then(() => {
+              console.log("🧹 Old service worker unregistered");
+            });
+          }
+
+          // After clearing, register the new one
+          navigator.serviceWorker
+            .register("/service-worker.js")
+            .then(() => console.log("✅ New service worker registered"))
+            .catch((err) => console.log("Service worker error:", err));
+        });
+      }
+    </script>
+
+
+
+
+    <script>
+      if ("serviceWorker" in navigator) {
+        navigator.serviceWorker.register("/service-worker.js");
+      }
+    </script>
+
+    <style>
+      body {
+        font-family: sans-serif;
+        padding: 2rem;
+      }
+      #transcript {
+        margin-top: 1rem;
+        white-space: pre-wrap;
+      }
+    </style>
+  </head>
+
+  <body class="brand-color-background scroll-smooth antialiased">
+    {% include header.liquid %}
+
+    <main id="main-content" class="mx-auto max-w-7xl p-6 space-y-6">
+      <h1 class="text-3xl">🎙️ MP3 to Text using Chrome AI (Prompt API)</h1>
+
+        <div
+    role="alert"
+    class="alert alert-info  items-center p-4 "
+  >
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      fill="none"
+      viewBox="0 0 24 24"
+      class="h-6 w-6 shrink-0 stroke-current"
+    >
+      <path
+        stroke-linecap="round"
+        stroke-linejoin="round"
+        stroke-width="2"
+        d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
+      ></path>
+    </svg>
+    <span id="messageAI">New software update available.</span>
+  </div>
+      <p class="text-lg">
+        This page demonstrates how to use the Chrome AI LanguageModel API to
+        transcribe MP3 audio files into text. It checks for model availability
+        and allows you to upload an MP3 file for transcription.
+      </p>
+      <hr class="my-4" />
+      <p class="text-sm text-gray-600">
+        Note: This feature requires the Chrome AI LanguageModel API, which is
+        currently available in Chrome Canary. Ensure you have enabled the
+        necessary flags:
+      </p>
+
+
+      <ul class="list-disc pl-6 text-sm text-gray-600">
+        <li>
+          <a
+            href="chrome://flags/#enable-language-model-api"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="text-blue-500 hover:underline"
+          >
+            Enable LanguageModel API
+          </a>
+        </li>
+        <li>
+          <a
+            href="chrome://flags/#enable-language-model-api-prompting"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="text-blue-500 hover:underline"
+          >
+            Enable Prompting for LanguageModel API
+          </a>
+        </li>
+      </ul>
+
+      <fieldset class="fieldset">
+        <legend class="fieldset-legend">Pick a file</legend>
+        <input
+          type="file"
+          id="audioInput"
+          accept=".mp3"
+          class="file-input file-input-info"
+        />
+        <label class="label">Max size 2MB</label>
+      </fieldset>
+
+      <button class="btn btn-lg btn-info" id="transcribe">Transcribe</button>
+
+      <div id="transcript"></div>
+    </main>
+
+    <script>
+      const btn = document.getElementById("transcribe");
+      const input = document.getElementById("audioInput");
+      const alertMessage = document.getElementById("messageAI");
+
+      // Replace div with a textarea for animated typing
+      const transcriptArea = document.createElement("textarea");
+      transcriptArea.id = "transcriptArea";
+      transcriptArea.className = "textarea textarea-bordered w-full mt-4";
+      transcriptArea.rows = 12;
+      transcriptArea.placeholder = "Transcription will appear here...";
+      transcriptArea.readOnly = true;
+      const oldDiv = document.getElementById("transcript");
+      oldDiv.replaceWith(transcriptArea);
+
+      async function waitForModel(maxWait = 600000, interval = 5000) {
+        const start = Date.now();
+
+        while (Date.now() - start < maxWait) {
+          const status = await LanguageModel.availability({
+            expectedInputs: [{ type: "audio" }],
+          });
+
+          console.log("Model status:", status);
+
+          if (status === "available") return "available";
+          if (status === "unavailable") return "unavailable";
+
+          let message = `⏳ Waiting for model… (${status})`;
+
+          if (status === "downloadable") {
+            message +=
+              "\n🧠 Downloading model in the background. This may take a few minutes.";
+          }
+
+          if (status === "maybe_available") {
+            message += "\n🌀 Model is being initialized. Hold tight!";
+          }
+
+          transcriptArea.value = message;
+          await new Promise((res) => setTimeout(res, interval));
+        }
+
+        return "timeout";
+      }
+
+      async function init() {
+        if (!window.LanguageModel) {
+          alertMessage.innerText =
+            "❌ LanguageModel API is not available in this browser.";
+          btn.disabled = true;
+          transcriptArea.disabled = true;
+          return;
+        }
+
+        const status = await waitForModel();
+        console.log("Final model status:", status);
+
+        if (status === "available") {
+          alertMessage.innerText =
+            "✅ Model is ready! Load an MP3 to transcribe.";
+          btn.disabled = false;
+          transcriptArea.disabled = false;
+        } else if (status === "timeout") {
+          alertMessage.innerText = `⚠️ Model is taking too long.\nTry restarting Chrome Canary and checking flags.`;
+          btn.disabled = true;
+          transcriptArea.disabled = true;
+        } else {
+          alertMessage.innerText = `❌ Model not ready: ${status}.\nCheck your Chrome version and participation in the early preview.`;
+          btn.disabled = true;
+          transcriptArea.disabled = true;
+        }
+      }
+
+      async function typeWriter(text, speed = 15) {
+        for (let i = 0; i < text.length; i++) {
+          transcriptArea.value += text[i];
+          transcriptArea.scrollTop = transcriptArea.scrollHeight;
+          await new Promise((r) => setTimeout(r, speed));
+        }
+      }
+
+      btn.addEventListener("click", async () => {
+        const file = input.files[0];
+        if (!file) return alert("Select an MP3 file first!");
+
+        transcriptArea.placeholder = "📤 Transcribing...\n";
+        btn.disabled = true;
+
+        try {
+          const blob = new Blob([file]);
+          const arrayBuffer = await blob.arrayBuffer();
+
+          const params = await LanguageModel.params();
+          const session = await LanguageModel.create({
+            expectedInputs: [{ type: "audio" }],
+            temperature: 0.1,
+            topK: params.defaultTopK,
+          });
+
+          const stream = session.promptStreaming([
+            {
+              role: "user",
+              content: [
+                {
+                  type: "text",
+                  value:
+                    "Please transcribe the entire audio file word-for-word. Include all spoken words clearly, do not summarize or skip any parts. This is important for accuracy. Even listen for skips or pauses in speech.",
+                },
+
+                { type: "audio", value: arrayBuffer },
+              ],
+            },
+          ]);
+
+          for await (const chunk of stream) {
+            await typeWriter(chunk);
+          }
+        } catch (err) {
+          console.log("❌ Transcription error:", err);
+          alertMessage.innerText =
+            "❌ Error: " + (err.message || "Unknown issue");
+        } finally {
+          btn.disabled = false;
+        }
+      });
+
+      window.addEventListener("DOMContentLoaded", init);
+    </script>
+
+    {% include modals.liquid %} 
+    {% include footer.liquid %}
+  </body>
+</html>
