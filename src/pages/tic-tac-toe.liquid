@@ -118,9 +118,13 @@
     </script>
 
     <script src="https://unpkg.com/vue@3"></script>
+   
+        <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css">
+
+    <!-- PeerJS -->
     <script src="https://unpkg.com/hotkeys-js/dist/hotkeys.min.js"></script>
      <script src="https://unpkg.com/peerjs@1.4.7/dist/peerjs.min.js"></script>
-
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
     <script>
       if ("serviceWorker" in navigator) {
         navigator.serviceWorker.register("/service-worker.js");
@@ -214,9 +218,7 @@
        
        
 
-        <div v-if="toast" class="alert alert-info mt-2 w-full max-w-xs">
-           {% raw %}      {{ toast }} {% endraw %}
-        </div>
+     
       </div>
 
       <div class="grid grid-cols-3 gap-4 mb-4">
@@ -233,9 +235,9 @@
       </div>
 
       <div class="text-lg mb-4">
-         <span v-if="winner">🏆 Player    {% raw %} {{ getEmoji(winner) }} {%endraw %}wins!</span>
-        <span v-else-if="isDraw">🤝 It's a draw!</span>
-        <span v-else>Current Player:    {% raw %} {{ getEmoji(currentPlayer) }} {%endraw %}</span>
+         <span class="badge badge-neutral badge-outline" v-if="winner">🏆 Player    {% raw %} {{ getEmoji(winner) }} {%endraw %}wins!</span>
+        <span class="badge badge-neutral badge-outline" v-else-if="isDraw">🤝 It's a draw!</span>
+        <span class="badge badge-neutral badge-outline" v-else>Current Player:    {% raw %} {{ getEmoji(currentPlayer) }} {%endraw %}</span>
       </div>
 
 
@@ -276,14 +278,17 @@
 
 
 
-            <div v-if="peerId" class="alert alert-info" @click="copyPeerIdToClipboard">
-           {% raw %}      Your Game ID: <code>{{ peerId }}</code> (click to copy) {% endraw %}
+   
+
+          <button @click="createGame" class="btn touch-manipulation btn-block  btn-accent my-8">Create Game</button>
+
+                   <div v-if="peerId" class="btn touch-manipulation btn-soft btn-accent btn-block my-8" @click="copyPeerIdToClipboard">
+          Invite Link
+
+<svg xmlns="http://www.w3.org/2000/svg"  viewBox="0 -960 960 960" class=" h-4 w-4" fill="currentColor"><path d="M360-240q-33 0-56.5-23.5T280-320v-480q0-33 23.5-56.5T360-880h360q33 0 56.5 23.5T800-800v480q0 33-23.5 56.5T720-240H360Zm0-80h360v-480H360v480ZM200-80q-33 0-56.5-23.5T120-160v-560h80v560h440v80H200Zm160-240v-480 480Z"/></svg>
         </div>
 
-          <button @click="createGame" class="btn touch-manipulation  btn-accent mb-8">Create Game</button>
-
-<hr class="my-4" />
-          <div class="join">
+          <div class="join hidden">
 
             <input v-model="peerIdToConnect" placeholder="Enter game ID" class="input  w-full join-item" />
    
@@ -310,158 +315,173 @@
 
 
    <script>
-     var app = Vue.createApp({
-      data() {
-        return {
-          cells: Array(9).fill(null),
-          currentPlayer: 'X',
-          winner: null,
-          isDraw: false,
-          winningCombo: [],
-          score: { X: 0, O: 0 },
-          emojiThemes: [
-            { X: '❌', O: '⭕' },
-            { X: '🐶', O: '🐱' },
-            { X: '🍕', O: '🍔' },
-            { X: '🦄', O: '🐉' }
-          ],
-          themeIndex: 0,
-          peer: null,
-          conn: null,
-          peerId: '',
-          peerIdToConnect: '',
-          isHost: false,
-          toast: '',
-          extremeMode: false
-        };
-      },
-      computed: {
-        emojiSet() {
-          return this.emojiThemes[this.themeIndex];
+ 
+      const { createApp } = Vue;
+    
+      const app = createApp({
+        data() {
+          return {
+            cells: Array(9).fill(null),
+            currentPlayer: 'X',
+            winner: null,
+            isDraw: false,
+            winningCombo: [],
+            score: { X: 0, O: 0 },
+            emojiThemes: [
+              { X: '❌', O: '⭕' },
+              { X: '🐶', O: '🐱' },
+              { X: '🍕', O: '🍔' },
+              { X: '🦄', O: '🐉' }
+            ],
+            themeIndex: 0,
+            peer: null,
+            conn: null,
+            peerId: '',
+            peerIdToConnect: '',
+            isHost: false
+          };
         },
-        isMyTurn() {
-          if (!this.conn) return true;
-          return (this.isHost && this.currentPlayer === 'X') || (!this.isHost && this.currentPlayer === 'O');
-        }
-      },
-      methods: {
-        getEmoji(val) {
-          return this.emojiSet[val] || '';
+        computed: {
+          emojiSet() { return this.emojiThemes[this.themeIndex]; },
+          isMyTurn() {
+            if (!this.conn) return true;
+            return (this.isHost && this.currentPlayer === 'X') || (!this.isHost && this.currentPlayer === 'O');
+          }
         },
-        toggleEmojiTheme() {
-          this.themeIndex = (this.themeIndex + 1) % this.emojiThemes.length;
+        watch: {
+          // Remind when it's your turn
+          isMyTurn(newVal) {
+            if (newVal && !this.winner && !this.isDraw) {
+              this.toaster('Your move!');
+            }
+          }
         },
-        showToast(msg) {
-          this.toast = msg;
-          setTimeout(() => this.toast = '', 3000);
-        },
-        copyPeerIdToClipboard() {
-          navigator.clipboard.writeText(this.peerId).then(() => this.showToast('Game ID copied!'));
-        },
-        createGame() {
-          this.isHost = true;
-          this.peer = new Peer();
-          this.peer.on('open', id => {
-            this.peerId = id;
-            this.showToast('Game created! Share the ID.');
-          });
-          this.peer.on('connection', connection => {
-            this.conn = connection;
-            this.setupConnection();
-            this.showToast('Player joined the game!');
-          });
-        },
-        connectToPeer() {
-          this.isHost = false;
-          this.peer = new Peer();
-          this.peer.on('open', () => {
-            this.conn = this.peer.connect(this.peerIdToConnect);
-            this.conn.on('open', () => {
+         mounted() {
+    // as soon as the component is up, check for ?gameId=…
+    const gameId = this.getUrlParameter('gameId');
+    if (gameId) {
+      // prefill the connect field and auto-connect
+      this.peerIdToConnect = gameId;
+      this.connectToPeer();
+    }
+  },
+        methods: {
+          toaster(msg) {
+      window.Toastify({
+  text: msg,
+   className: "btn btn-info rounded-full",
+  duration: 3000,
+  destination: "https://github.com/apvarun/toastify-js",
+  newWindow: true,
+  close: true,
+  gravity: "bottom", // `top` or `bottom`
+  position: "center", // `left`, `center` or `right`
+  stopOnFocus: true, // Prevents dismissing of toast on hover
+  onClick: function(){} // Callback after click
+}).showToast();
+          },
+          getEmoji(val) { return this.emojiSet[val] || ''; },
+          toggleEmojiTheme() { this.themeIndex = (this.themeIndex + 1) % this.emojiThemes.length; },
+          setupConnection() {
+            this.conn.on('data', data => {
+              if (data.type === 'move') {
+                this.cells = data.cells;
+                this.currentPlayer = data.currentPlayer;
+                this.winner = data.winner;
+                this.isDraw = data.isDraw;
+                this.winningCombo = data.winningCombo;
+                this.score = data.score;
+                // Opponent moved
+                this.toaster('Opponent moved!');
+              } else if (data.type === 'reset') {
+                this.resetGame(false);
+              }
+            });
+            // Handle player disconnect
+            this.conn.on('close', () => {
+              this.toaster('Player disconnected');
+            });
+          },
+          createGame() {
+            this.isHost = true;
+            this.peer = new Peer();
+            this.peer.on('open', id => {
+              this.peerId = id;
+              this.toaster('Game created! Share the ID.');
+            });
+            this.peer.on('connection', connection => {
+              this.conn = connection;
               this.setupConnection();
-              this.showToast('Connected to host!');
+              this.toaster('Player joined the game!');
             });
-          });
-        },
-        setupConnection() {
-          this.conn.on('data', data => {
-            if (data.type === 'move') {
-              this.cells = data.cells;
-              this.currentPlayer = data.currentPlayer;
-              this.winner = data.winner;
-              this.isDraw = data.isDraw;
-              this.winningCombo = data.winningCombo;
-              this.score = data.score;
-            } else if (data.type === 'reset') {
-              this.resetGame(false);
-            }
-          });
-        },
-        makeMove(index) {
-          if (this.cells[index] || this.winner || this.isDraw || !this.isMyTurn) return;
-          this.cells[index] = this.currentPlayer;
-          this.checkGameState();
-          if (!this.winner && !this.isDraw) {
-            this.currentPlayer = this.currentPlayer === 'X' ? 'O' : 'X';
-          }
-          this.sendUpdate();
-        },
-        checkGameState() {
-          const wins = [
-            [0,1,2],[3,4,5],[6,7,8],
-            [0,3,6],[1,4,7],[2,5,8],
-            [0,4,8],[2,4,6]
-          ];
-          for (let combo of wins) {
-            const [a,b,c] = combo;
-            if (this.cells[a] && this.cells[a] === this.cells[b] && this.cells[a] === this.cells[c]) {
-              this.winner = this.cells[a];
-              this.winningCombo = combo;
-              this.score[this.winner]++;
-              if (typeof confetti === 'function') this.launchConfetti();
-              return;
-            }
-          }
-          if (!this.cells.includes(null)) {
-            this.isDraw = true;
-          }
-        },
-        launchConfetti() {
-          const duration = 15000;
-          const animationEnd = Date.now() + duration;
-          const defaults = { startVelocity: 30, spread: 360, ticks: 60, zIndex: 0 };
-          const interval = setInterval(function() {
-            const timeLeft = animationEnd - Date.now();
-            if (timeLeft <= 0) return clearInterval(interval);
-            const particleCount = 50 * (timeLeft / duration);
-            confetti({ ...defaults, particleCount, origin: { x: Math.random() * 0.3 + 0.1, y: Math.random() - 0.2 } });
-            confetti({ ...defaults, particleCount, origin: { x: Math.random() * 0.2 + 0.7, y: Math.random() - 0.2 } });
-          }, 250);
-        },
-        resetGame(sync = true) {
-          this.cells = Array(9).fill(null);
-          this.currentPlayer = 'X';
-          this.winner = null;
-          this.isDraw = false;
-          this.winningCombo = [];
-          if (sync && this.conn?.open) {
-            this.conn.send({ type: 'reset' });
-          }
-        },
-        sendUpdate() {
-          if (this.conn?.open) {
-            this.conn.send({
-              type: 'move',
-              cells: this.cells,
-              currentPlayer: this.currentPlayer,
-              winner: this.winner,
-              isDraw: this.isDraw,
-              winningCombo: this.winningCombo,
-              score: this.score
+          },
+          // Grab any named query-param from the URL, e.g. ?gameId=123
+ getUrlParameter(name) {
+  const params = new URLSearchParams(window.location.search);
+  return params.get(name);
+},
+          connectToPeer() {
+            this.isHost = false;
+            this.peer = new Peer();
+            this.peer.on('open', () => {
+              this.conn = this.peer.connect(this.peerIdToConnect);
+              this.conn.on('open', () => {
+                this.setupConnection();
+                this.toaster('Connected to host!');
+              });
             });
+          },
+          copyPeerIdToClipboard() {
+            let link = `${window.location.origin}/?gameId=${this.peerId}`;
+          
+            navigator.clipboard.writeText(link)
+              .then(() => {
+                this.toaster('Copied Link to clipboard!');
+              })
+              .catch(err => {
+                console.warn('Failed to copy: ', err);
+                this.toaster('Failed to copy Game Link');
+              });
+          },
+          makeMove(index) {
+            if (this.cells[index] || this.winner || this.isDraw || !this.isMyTurn) return;
+            this.cells[index] = this.currentPlayer;
+            this.checkGameState();
+            if (!this.winner && !this.isDraw) {
+              this.currentPlayer = this.currentPlayer === 'X' ? 'O' : 'X';
+            }
+            if (this.conn?.open) {
+              this.conn.send({ type: 'move', cells: this.cells, currentPlayer: this.currentPlayer, winner: this.winner, isDraw: this.isDraw, winningCombo: this.winningCombo, score: this.score });
+            }
+          },
+          checkGameState() {
+            const wins = [[0,1,2],[3,4,5],[6,7,8],[0,3,6],[1,4,7],[2,5,8],[0,4,8],[2,4,6]];
+            for (let combo of wins) {
+              const [a,b,c] = combo;
+              if (this.cells[a] && this.cells[a] === this.cells[b] && this.cells[a] === this.cells[c]) {
+                this.winner = this.cells[a];
+                this.winningCombo = combo;
+                this.score[this.winner]++;
+                this.toaster(`🏆 Player ${this.getEmoji(this.winner)} wins!`);
+                return;
+              }
+            }
+            if (!this.cells.includes(null)) this.isDraw = true;
+          },
+          resetGame(sync = true) {
+            this.cells = Array(9).fill(null);
+            this.currentPlayer = 'X';
+            this.winner = null;
+            this.isDraw = false;
+            this.winningCombo = [];
+            if (sync && this.conn?.open) this.conn.send({ type: 'reset' });
           }
         }
-      }
-    }).mount('#app');
+      });
+
+
+      // Mount the app
+      app.mount('#app');
   </script>
     {% include modals.liquid %} 
 
