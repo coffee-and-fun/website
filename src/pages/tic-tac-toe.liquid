@@ -7,13 +7,12 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>
-      Coco's Trivia Corner: Explore 53,000+ Fun and Random Questions - Coffee &
-      Fun LLC
-    </title>
+    <title>Play Online Tic-Tac-Toe – Emoji Multiplayer Game | Coffee & Fun LLC</title>
+
+ 
     <meta
       name="description"
-      content="Coco's Trivia Corner offers over 53,000 unique and random questions to keep you entertained. Perfect for quizzes, game nights, or just challenging yourself!"
+      content="Challenge your friends to a fun, animated Tic-Tac-Toe game with emojis and real-time multiplayer. No account needed. Built with Vue, Tailwind, and Peer-to-Peer magic!"
     />
     <meta name="author" content="Coffee & Fun LLC" />
     <meta name="robots" content="index, follow" />
@@ -23,7 +22,7 @@
 
     <meta
       name="title"
-      content="Coco's Trivia Corner: Explore 53,000+ Fun and Random Questions - Coffee & Fun LLC"
+      content="Play Online Tic-Tac-Toe – Emoji Multiplayer Game | Coffee & Fun LLC"
     />
     <!-- PWA Manifest -->
     <link rel="manifest" href="/assets/images/social/site.webmanifest" />
@@ -50,13 +49,13 @@
     <!-- Open Graph Meta Tags -->
     <meta
       property="og:title"
-      content="Coco's Trivia Corner: Explore 53,000+ Fun and Random Questions - Coffee & Fun LLC"
+      content="Play Online Tic-Tac-Toe – Emoji Multiplayer Game | Coffee & Fun LLC"
     />
     <meta property="og:site_name" content="Coffee & Fun" />
     <meta property="og:url" content="https://www.coffeeandfun.com/" />
     <meta
       property="og:description"
-      content="Coco's Trivia Corner offers over 53,000 unique and random questions to keep you entertained. Perfect for quizzes, game nights, or just challenging yourself!"
+      content="Challenge your friends to a fun, animated Tic-Tac-Toe game with emojis and real-time multiplayer. No account needed. Built with Vue, Tailwind, and Peer-to-Peer magic!"
     />
     <meta property="og:type" content="website" />
     <meta property="og:image" content="/assets/images/apps/coco.png" />
@@ -67,12 +66,12 @@
     <meta name="twitter:card" content="summary_large_image" />
     <meta
       name="twitter:title"
-      content="Coco's Trivia Corner: Explore 53,000+ Fun and Random Questions - Coffee & Fun LLC"
+      content="Play Online Tic-Tac-Toe – Emoji Multiplayer Game | Coffee & Fun LLC"
     />
     <meta name="twitter:site" content="@bycoffeeandfun" />
     <meta
       name="twitter:description"
-      content="Coco's Trivia Corner offers over 53,000 unique and random questions to keep you entertained. Perfect for quizzes, game nights, or just challenging yourself!"
+      content="Challenge your friends to a fun, animated Tic-Tac-Toe game with emojis and real-time multiplayer. No account needed. Built with Vue, Tailwind, and Peer-to-Peer magic!"
     />
     <meta
       name="twitter:image"
@@ -96,6 +95,9 @@
 
     <style>
   [v-cloak] { display: none; }
+  button {
+    touch-action: manipulation;
+  }
 </style>
     <script>
       if ("serviceWorker" in navigator) {
@@ -172,13 +174,13 @@
       <div class="text-lg font-medium mb-2">
         {% raw %}   Score — {{  emojiThemes[this.themeIndex].X }}: {{ score.X }} {{emojiThemes[this.themeIndex].O}}: {{ score.O }} {{  }} {% endraw %}
       </div>
-      <button @click="toggleEmojiTheme" class="btn btn-sm btn-outline mb-4">Toggle Emoji Theme</button>
+      <button @click="toggleEmojiTheme" class="btn touch-manipulation btn-sm btn-outline mb-4">Toggle Emoji Theme</button>
 
 
   <div class="mb-4 flex flex-col items-center space-y-2">
         <div class="flex gap-2">
-          <button @click="createGame" class="btn btn-sm btn-accent">Create Game</button>
-          <button @click="connectToPeer" class="btn btn-sm btn-secondary">Join Game</button>
+          <button @click="createGame" class="btn touch-manipulation btn-sm btn-accent">Create Game</button>
+          <button @click="connectToPeer" class="btn touch-manipulation btn-sm btn-secondary">Join Game</button>
         </div>
         <input v-model="peerIdToConnect" placeholder="Enter game ID" class="input input-bordered w-full max-w-xs" />
         <div v-if="peerId" class="text-sm text-gray-500 cursor-pointer" @click="copyPeerIdToClipboard">
@@ -194,7 +196,7 @@
           v-for="(cell, index) in cells"
           :key="index"
           @click="makeMove(index)"
-          class="btn btn-lg w-24 h-24 text-3xl font-bold transition-transform duration-200 hover:scale-105"
+          class="btn touch-manipulation btn-lg w-24 h-24 text-3xl font-bold transition-transform duration-200 hover:scale-105"
           :class="{ 'bg-green-100 animate-pulse': winner && winningCombo.includes(index), 'cursor-not-allowed opacity-50': !isMyTurn }"
           :disabled="!isMyTurn || cell"
         >
@@ -208,7 +210,7 @@
         <span v-else>Current Player:    {% raw %} {{ getEmoji(currentPlayer) }} {%endraw %}</span>
       </div>
 
-      <button @click="resetGame" class="btn btn-primary">Restart Game</button>
+      <button @click="resetGame" class="btn touch-manipulation btn-primary">Restart Game</button>
     </div>
   </main>
 
