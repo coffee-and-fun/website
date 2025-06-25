@@ -101,6 +101,10 @@
       button {
         touch-action: manipulation;
       }
+      .fade-out {
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
     </style>
     <script>
       if ("serviceWorker" in navigator) {
@@ -236,7 +240,7 @@
         </div>
 
         <div class="dock dock-xl">
-          <button class="touch-manipulation" @click="resetGame">
+          <button class="touch-manipulation" v-if="gameOver" @click="resetGame">
             <svg
               xmlns="http://www.w3.org/2000/svg"
               class="size-[1.2em]"
@@ -363,15 +367,18 @@
         },
         computed: {
           emojiSet() {
-            return this.emojiThemes[this.themeIndex];
-          },
-          isMyTurn() {
-            if (!this.conn) return true;
-            return (
-              (this.isHost && this.currentPlayer === "X") ||
-              (!this.isHost && this.currentPlayer === "O")
-            );
-          },
+      return this.emojiThemes[this.themeIndex];
+    },
+    isMyTurn() {
+      if (!this.conn) return true;
+      return (
+        (this.isHost && this.currentPlayer === "X") ||
+        (!this.isHost && this.currentPlayer === "O")
+      );
+    },
+    gameOver() {
+      return this.winner || this.isDraw;
+    },
         },
         watch: {
           // Remind when it's your turn
@@ -380,39 +387,45 @@
               this.toaster("Your move!");
             }
           },
+          score: {
+      handler(val) {
+        localStorage.setItem("tictactoe-score", JSON.stringify(val));
+      },
+      deep: true
+    }
         },
         mounted() {
+           const saved = JSON.parse(localStorage.getItem("tictactoe-score"));
+    if (saved) this.score = saved;
+
+    const gameId = this.getUrlParameter("gameId");
+    if (gameId) {
+      this.peerIdToConnect = gameId;
+      this.connectToPeer();
+    }
           // as soon as the component is up, check for ?gameId=…
-          const gameId = this.getUrlParameter("gameId");
-          if (gameId) {
-            // prefill the connect field and auto-connect
-            this.peerIdToConnect = gameId;
-            this.connectToPeer();
-          }
+          
         },
         methods: {
           toaster(msg) {
-            window
-              .Toastify({
-                text: msg,
-                className: "btn btn-info rounded-full",
-                duration: 3000,
-                destination: "https://github.com/apvarun/toastify-js",
-                newWindow: true,
-                close: true,
-                gravity: "bottom", // `top` or `bottom`
-                position: "center", // `left`, `center` or `right`
-                stopOnFocus: true, // Prevents dismissing of toast on hover
-                onClick: function () {}, // Callback after click
-              })
-              .showToast();
+            window.
+ 
+      Toastify({
+        text: msg,
+        className: "btn btn-info rounded-full",
+        duration: 3000,
+        gravity: "bottom",
+        position: "center",
+        stopOnFocus: true,
+      }).showToast();
+
           },
-          getEmoji(val) {
-            return this.emojiSet[val] || "";
-          },
-          toggleEmojiTheme() {
-            this.themeIndex = (this.themeIndex + 1) % this.emojiThemes.length;
-          },
+     getEmoji(val) {
+      return this.emojiSet[val] || "";
+    },
+    toggleEmojiTheme() {
+      this.themeIndex = (this.themeIndex + 1) % this.emojiThemes.length;
+    },
           setupConnection() {
             this.conn.on("data", (data) => {
               if (data.type === "move") {
@@ -553,13 +566,19 @@ var interval = setInterval(function() {
           },
 
           resetGame(sync = true) {
-            this.cells = Array(9).fill(null);
-            this.currentPlayer = "X";
-            this.winner = null;
-            this.isDraw = false;
-            this.winningCombo = [];
-            if (sync && this.conn?.open) this.conn.send({ type: "reset" });
-          },
+      const grid = document.querySelector(".grid");
+      if (grid) grid.classList.add("fade-out");
+
+      setTimeout(() => {
+        this.cells = Array(9).fill(null);
+        this.currentPlayer = "X";
+        this.winner = null;
+        this.isDraw = false;
+        this.winningCombo = [];
+        if (grid) grid.classList.remove("fade-out");
+        if (sync && this.conn?.open) this.conn.send({ type: "reset" });
+      }, 300);
+    },
         },
       });
 
