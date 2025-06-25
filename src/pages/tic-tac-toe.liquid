@@ -239,6 +239,40 @@
           >
         </div>
 
+
+<div class="dock dock-md">
+  <!-- Add undo button to your UI -->
+<button
+  v-if="!gameOver && !hasUsedUndo[currentPlayer]"
+  @click="undoMove"
+  class="btn btn-warning mt-2"
+>
+  ⏪ Undo Move
+</button>
+<!-- Add remove power button to your UI -->
+<button
+  v-if="!gameOver && !hasUsedRemove[currentPlayer]"
+  @click="showRemoveMode = true"
+  class="btn btn-error mt-2"
+>
+  ❌ Remove Opponent Piece
+</button>
+
+<!-- Highlight board for remove action -->
+<button
+  v-for="(cell, index) in cells"
+  :key="index"
+  @click="showRemoveMode ? removeOpponentPiece(index) : makeMove(index)"
+  :class="{
+    'ring-4 ring-red-500': showRemoveMode && cell === (currentPlayer === 'X' ? 'O' : 'X')
+  }"
+>
+ {% raw %} {{ getEmoji(cell) }} {% endraw %}
+</button>
+
+</div>
+
+
         <div class="dock dock-xl">
           <button class="touch-manipulation" v-if="gameOver" @click="resetGame">
             <svg
@@ -346,6 +380,7 @@
         data() {
           return {
             cells: Array(9).fill(null),
+               moveHistory: [],
             currentPlayer: "X",
             winner: null,
             isDraw: false,
@@ -363,6 +398,9 @@
             peerId: "",
             peerIdToConnect: "",
             isHost: false,
+                  hasUsedUndo: { X: false, O: false },
+                        hasUsedRemove: { X: false, O: false },
+                         showRemoveMode: false
           };
         },
         computed: {
@@ -407,6 +445,47 @@
           
         },
         methods: {
+            removeOpponentPiece(index) {
+      const opponent = this.currentPlayer === 'X' ? 'O' : 'X';
+      if (this.hasUsedRemove[this.currentPlayer]) return;
+      if (this.cells[index] !== opponent) return;
+
+      this.cells[index] = null;
+      this.hasUsedRemove[this.currentPlayer] = true;
+      this.toaster(`${this.getEmoji(this.currentPlayer)} removed opponent's piece!`);
+
+      if (this.conn?.open) {
+        this.conn.send({
+          type: "remove",
+          cells: this.cells,
+          currentPlayer: this.currentPlayer,
+          hasUsedRemove: this.hasUsedRemove
+        });
+      }
+    },
+        undoMove() {
+      const last = this.moveHistory.pop();
+      if (!last || this.hasUsedUndo[last.player]) return;
+      this.cells[last.index] = null;
+      this.winner = null;
+      this.isDraw = false;
+      this.winningCombo = [];
+      this.currentPlayer = last.player;
+      this.hasUsedUndo[last.player] = true;
+      this.toaster(`${this.getEmoji(last.player)} undid their last move!`);
+      if (this.conn?.open) {
+        this.conn.send({
+          type: "undo",
+          cells: this.cells,
+          currentPlayer: this.currentPlayer,
+          winner: this.winner,
+          isDraw: this.isDraw,
+          winningCombo: this.winningCombo,
+          moveHistory: this.moveHistory,
+          hasUsedUndo: this.hasUsedUndo
+        });
+      }
+    },
           toaster(msg) {
             window.
  
@@ -488,31 +567,34 @@
                 this.toaster("Failed to copy Game Link");
               });
           },
-          makeMove(index) {
-            if (
-              this.cells[index] ||
-              this.winner ||
-              this.isDraw ||
-              !this.isMyTurn
-            )
-              return;
-            this.cells[index] = this.currentPlayer;
-            this.checkGameState();
-            if (!this.winner && !this.isDraw) {
-              this.currentPlayer = this.currentPlayer === "X" ? "O" : "X";
-            }
-            if (this.conn?.open) {
-              this.conn.send({
-                type: "move",
-                cells: this.cells,
-                currentPlayer: this.currentPlayer,
-                winner: this.winner,
-                isDraw: this.isDraw,
-                winningCombo: this.winningCombo,
-                score: this.score,
-              });
-            }
-          },
+       makeMove(index) {
+      if (
+        this.cells[index] ||
+        this.winner ||
+        this.isDraw ||
+        !this.isMyTurn
+      ) return;
+      this.moveHistory.push({ index, player: this.currentPlayer });
+      this.cells[index] = this.currentPlayer;
+      this.checkGameState();
+      if (!this.winner && !this.isDraw) {
+        this.currentPlayer = this.currentPlayer === "X" ? "O" : "X";
+      }
+      if (this.conn?.open) {
+        this.conn.send({
+          type: "move",
+          cells: this.cells,
+          currentPlayer: this.currentPlayer,
+          winner: this.winner,
+          isDraw: this.isDraw,
+          winningCombo: this.winningCombo,
+          score: this.score,
+          moveHistory: this.moveHistory,
+          hasUsedUndo: this.hasUsedUndo,
+          hasUsedRemove: this.hasUsedRemove
+        });
+      }
+    },
           checkGameState() {
             const wins = [
               [0, 1, 2],
@@ -565,21 +647,28 @@ var interval = setInterval(function() {
 }, 250);
           },
 
-          resetGame(sync = true) {
+
+
+ resetGame(sync = true) {
       const grid = document.querySelector(".grid");
       if (grid) grid.classList.add("fade-out");
 
       setTimeout(() => {
-        this.toaster("Game reset!");
+                this.toaster("Game reset!");
+
         this.cells = Array(9).fill(null);
+        this.moveHistory = [];
         this.currentPlayer = "X";
         this.winner = null;
         this.isDraw = false;
         this.winningCombo = [];
+        this.hasUsedUndo = { X: false, O: false };
+        this.hasUsedRemove = { X: false, O: false };
         if (grid) grid.classList.remove("fade-out");
         if (sync && this.conn?.open) this.conn.send({ type: "reset" });
       }, 300);
     },
+
         },
       });
 
