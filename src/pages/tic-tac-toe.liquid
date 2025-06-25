@@ -570,6 +570,7 @@ var interval = setInterval(function() {
       if (grid) grid.classList.add("fade-out");
 
       setTimeout(() => {
+        this.toaster("Game reset!");
         this.cells = Array(9).fill(null);
         this.currentPlayer = "X";
         this.winner = null;
