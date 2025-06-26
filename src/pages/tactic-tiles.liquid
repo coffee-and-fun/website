@@ -239,42 +239,44 @@
           >
         </div>
 
-        <div class="dock dock-md" style="    bottom: 4rem;">
+        <div class="dock dock-xl" style="    bottom: 4rem;" v-if="isMultiplayer">
           <!-- Add undo button to your UI -->
           <button
             v-if="!gameOver && !hasUsedUndo[currentPlayer]"
             @click="undoMove"
-            class="btn btn-warning mt-2"
+          
           >
-            ⏪ Undo Move
+
+
+
+<svg xmlns="http://www.w3.org/2000/svg"         class="size-[1.5em]"  viewBox="0 -960 960 960"  fill="currentColor"><path d="m313-440 224 224-57 56-320-320 320-320 57 56-224 224h487v80H313Z"/></svg>
+            <span class="dock-label">Undo</span>
+
+       
           </button>
           <!-- Add remove power button to your UI -->
           <button
             v-if="!gameOver && !hasUsedRemove[currentPlayer]"
-            @click="showRemoveMode = true"
-            class="btn btn-error mt-2"
+        
+            onclick="my_modal_6.showModal()"
+  
           >
-            ❌ Remove Opponent Piece
+
+
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 -960 960 960"   class="size-[1.5em]"  fill="currentColor"><path d="M280-120q-33 0-56.5-23.5T200-200v-520h-40v-80h200v-40h240v40h200v80h-40v520q0 33-23.5 56.5T680-120H280Zm400-600H280v520h400v-520ZM360-280h80v-360h-80v360Zm160 0h80v-360h-80v360ZM280-720v520-520Z"/></svg>
+
+
+                   <span class="dock-label">    Remove Piece</span>
           </button>
 
-          <!-- Highlight board for remove action -->
-          <button
-            v-for="(cell, index) in cells"
-            :key="index"
-            @click="showRemoveMode ? removeOpponentPiece(index) : makeMove(index)"
-            :class="{
-    'ring-4 ring-red-500': showRemoveMode && cell === (currentPlayer === 'X' ? 'O' : 'X')
-  }"
-          >
-            {% raw %} {{ getEmoji(cell) }} {% endraw %}
-          </button>
+      
         </div>
 
         <div class="dock dock-xl">
           <button class="touch-manipulation" v-if="gameOver" @click="resetGame">
             <svg
               xmlns="http://www.w3.org/2000/svg"
-              class="size-[1.2em]"
+              class="size-[1.5em]"
               viewBox="0 -960 960 960"
               fill="currentColor"
             >
@@ -313,6 +315,35 @@
             <span class="dock-label">Themes</span>
           </button>
         </div>
+
+
+          <dialog id="my_modal_6" class="modal modal-bottom sm:modal-middle">
+<div class="modal-box">
+            <h3 class="text-lg font-bold">Remove Piece</h3>
+
+   <div class="grid grid-cols-3 gap-4 mb-4">
+    <!-- Highlight board for remove action -->
+          <button
+            v-for="(cell, index) in cells"
+            :key="index"
+            @click="showRemoveMode ? removeOpponentPiece(index) : makeMove(index)"
+            :class="{
+    'ring-4 ring-red-500': showRemoveMode && cell === (currentPlayer === 'X' ? 'O' : 'X')
+  }"
+          >
+            {% raw %} {{ getEmoji(cell) }} {% endraw %}
+          </button>
+
+</div>
+ <div class="modal-action">
+              <form method="dialog">
+                <!-- if there is a button in form, it will close the modal -->
+                <button class="btn">Close</button>
+              </form>
+            </div>
+            </div>
+
+          </dialog>
 
         <dialog id="my_modal_5" class="modal modal-bottom sm:modal-middle">
           <div class="modal-box">
@@ -397,10 +428,13 @@
             isHost: false,
             hasUsedUndo: { X: false, O: false },
             hasUsedRemove: { X: false, O: false },
-            showRemoveMode: false,
+            showRemoveMode: true,
           };
         },
         computed: {
+           isMultiplayer() {
+    return this.conn && this.conn.open === true;
+  },
           emojiSet() {
             return this.emojiThemes[this.themeIndex];
           },
@@ -554,7 +588,7 @@
             });
           },
           copyPeerIdToClipboard() {
-            let link = `${window.location.origin}/tic-tac-toe/?gameId=${this.peerId}`;
+            let link = `${window.location.origin}/tactic-tiles/?gameId=${this.peerId}`;
 
             navigator.clipboard
               .writeText(link)
