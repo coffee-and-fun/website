@@ -76,7 +76,7 @@
     />
     <meta
       name="twitter:image"
-      content="https://www.coffeeandfun.com/assets/images/apps/coco.png"
+      content="https://www.coffeeandfun.com/assets/images/apps/tic-tac.png"
     />
     <meta name="twitter:image:alt" content=" Coffee & Fun" />
 
@@ -321,14 +321,19 @@
 <div class="modal-box">
             <h3 class="text-lg font-bold">Remove Piece</h3>
 
-   <div class="grid grid-cols-3 gap-4 mb-4">
+   <div class="grid grid-cols-3 gap-2 mb-2">
     <!-- Highlight board for remove action -->
           <button
             v-for="(cell, index) in cells"
             :key="index"
             @click="showRemoveMode ? removeOpponentPiece(index) : makeMove(index)"
+
+
+              class="btn touch-manipulation btn-lg w-12 h-12 text-2xl font-bold transition-transform duration-200 hover:scale-105"
+    
+
             :class="{
-    'ring-4 ring-red-500': showRemoveMode && cell === (currentPlayer === 'X' ? 'O' : 'X')
+    'ring-1 ring-red-500': showRemoveMode && cell === (currentPlayer === 'X' ? 'O' : 'X')
   }"
           >
             {% raw %} {{ getEmoji(cell) }} {% endraw %}
@@ -433,7 +438,7 @@
         },
         computed: {
            isMultiplayer() {
-    return this.conn && this.conn.open === true;
+    return this.conn;
   },
           emojiSet() {
             return this.emojiThemes[this.themeIndex];
