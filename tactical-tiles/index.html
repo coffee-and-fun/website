@@ -382,9 +382,9 @@
                     @click="undoMove"
                     class="btn btn-secondary "
                     :class="{
-                        'btn-disabled opacity-50': hasUsedUndo[currentPlayer] || moveHistory.length === 0 || gameOver
+                        'btn-disabled opacity-50': hasUsedUndo[currentPlayer] || moveHistory.length === 0 || gameOver || !isMyTurn
                     }"
-                    :disabled="hasUsedUndo[currentPlayer] || moveHistory.length === 0 || gameOver"
+                    :disabled="hasUsedUndo[currentPlayer] || moveHistory.length === 0 || gameOver || !isMyTurn"
                 >
                     Undo Move
                 </button>
@@ -393,8 +393,8 @@
                 <button
                     @click="showSwapPowerModal"
                     class="btn btn-info "
-                    :class="{ 'btn-disabled opacity-50': hasUsedSwap[currentPlayer] || cells.filter(cell => cell !== null).length < 2 || gameOver }"
-                    :disabled="hasUsedSwap[currentPlayer] || cells.filter(cell => cell !== null).length < 2 || gameOver"
+                    :class="{ 'btn-disabled opacity-50': hasUsedSwap[currentPlayer] || cells.filter(cell => cell !== null).length < 2 || gameOver || !isMyTurn }"
+                    :disabled="hasUsedSwap[currentPlayer] || cells.filter(cell => cell !== null).length < 2 || gameOver || !isMyTurn"
                 >
                     Swap Pieces
                 </button>
@@ -404,9 +404,9 @@
                     @click="showRemovePowerModal"
                     class="btn btn-neutral "
                     :class="{
-                        'btn-disabled opacity-50': hasUsedRemove[currentPlayer] || !cells.some(cell => cell !== null) || gameOver
+                        'btn-disabled opacity-50': hasUsedRemove[currentPlayer] || !cells.some(cell => cell !== null) || gameOver || !isMyTurn
                     }"
-                    :disabled="hasUsedRemove[currentPlayer] || !cells.some(cell => cell !== null) || gameOver"
+                    :disabled="hasUsedRemove[currentPlayer] || !cells.some(cell => cell !== null) || gameOver || !isMyTurn"
                 >
                     Remove Piece
                 </button>
@@ -416,9 +416,9 @@
                     @click="expandGrid"
                     class="btn btn-warning"
                     :class="{
-                        'btn-disabled opacity-50': hasUsedExpand[currentPlayer] || gridRows === 6 || gameOver
+                        'btn-disabled opacity-50': hasUsedExpand[currentPlayer] || gridRows === 6 || gameOver || !isMyTurn
                     }"
-                    :disabled="hasUsedExpand[currentPlayer] || gridRows === 6 || gameOver"
+                    :disabled="hasUsedExpand[currentPlayer] || gridRows === 6 || gameOver || !isMyTurn"
                 >
                   Add Row
                 </button>
