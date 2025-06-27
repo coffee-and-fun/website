@@ -112,6 +112,73 @@
         .grid-transition {
             transition: all 0.5s ease-in-out;
         }
+
+        @keyframes earthquake {
+            0%, 100% { transform: translate(0, 0) rotate(0deg); }
+            10% { transform: translate(-2px, -1px) rotate(-0.5deg); }
+            20% { transform: translate(-3px, 0px) rotate(0.5deg); }
+            30% { transform: translate(3px, 2px) rotate(0deg); }
+            40% { transform: translate(1px, -1px) rotate(0.5deg); }
+            50% { transform: translate(-1px, 2px) rotate(-0.5deg); }
+            60% { transform: translate(-3px, 1px) rotate(0deg); }
+            70% { transform: translate(3px, 1px) rotate(-0.5deg); }
+            80% { transform: translate(-1px, -1px) rotate(0.5deg); }
+            90% { transform: translate(1px, 2px) rotate(0deg); }
+        }
+
+        .earthquake {
+            animation: earthquake 0.8s ease-in-out;
+        }
+
+        @keyframes tilt-n-move-shaking {
+            0% { transform: translate(0, 0) rotate(0deg); }
+            25% { transform: translate(5px, 5px) rotate(5deg); }
+            50% { transform: translate(0, 0) rotate(0deg); }
+            75% { transform: translate(-5px, 5px) rotate(-5deg); }
+            100% { transform: translate(0, 0) rotate(0deg); }
+        }
+        .tilt-n-move-shaking {
+            animation: tilt-n-move-shaking 0.5s ease-in-out;
+        }
+
+        @keyframes flash-effect {
+            0% { transform: scale(1); background-color: transparent; }
+            50% { transform: scale(1.05); background-color: rgba(59, 130, 246, 0.3); }
+            100% { transform: scale(1); background-color: transparent; }
+        }
+
+        .flash-effect {
+            animation: flash-effect 0.6s ease-in-out;
+        }
+
+    
+
+        @keyframes tile-bounce {
+            0%, 100% { transform: scale(1) translateY(0); }
+            25% { transform: scale(1.1) translateY(-5px); }
+            50% { transform: scale(1.05) translateY(-2px); }
+            75% { transform: scale(1.02) translateY(-1px); }
+        }
+
+        .tile-bounce {
+            animation: tile-bounce 0.5s ease-out;
+        }
+
+        @keyframes expand-grid {
+            0% { transform: scale(0.8); opacity: 0.5; }
+            50% { transform: scale(1.1); }
+            100% { transform: scale(1); opacity: 1; }
+        }
+
+        .expand-animation {
+            animation: expand-grid 0.8s ease-out;
+        }
+
+        .grid-transition {
+            transition: all 0.5s ease-in-out;
+        }
+
+
     </style>
     <meta name="author" content="Coffee & Fun LLC" />
     <meta name="robots" content="index, follow" />
@@ -968,22 +1035,27 @@ const app = createApp({
 
             this.conn.on("data", (data) => {
                 console.log("Received data:", data);
-                if (data.type === "move") {
-                    this.cells = [...data.cells];
-                    this.currentPlayer = data.currentPlayer;
-                    this.winner = data.winner;
-                    this.isDraw = data.isDraw;
-                    this.winningCombo = [...(data.winningCombo || [])];
-                    this.score = { ...data.score };
-                    this.moveHistory = [...(data.moveHistory || [])];
-                    this.hasUsedUndo = { ...data.hasUsedUndo };
-                    this.hasUsedRemove = { ...data.hasUsedRemove };
-                    this.hasUsedSwap = { ...data.hasUsedSwap || { X: false, O: false } };
-                    this.hasUsedExpand = { ...data.hasUsedExpand || { X: false, O: false } }; // NEW
+             if (data.type === "move") {
+    this.cells = [...data.cells];
+    this.currentPlayer = data.currentPlayer;
+    this.winner = data.winner;
+    this.isDraw = data.isDraw;
+    this.winningCombo = [...(data.winningCombo || [])];
+    this.score = { ...data.score };
+    this.moveHistory = [...(data.moveHistory || [])];
+    this.hasUsedUndo = { ...data.hasUsedUndo };
+    this.hasUsedRemove = { ...data.hasUsedRemove };
+    this.hasUsedSwap = { ...data.hasUsedSwap || { X: false, O: false } };
+    this.hasUsedExpand = { ...data.hasUsedExpand || { X: false, O: false } };
 
-                    this.toaster("Opponent moved!", "info", 1500);
-                    this.shakeScreen();
-                } else if (data.type === "reset") {
+    // Flash the tile that was just played
+    if (this.moveHistory.length > 0) {
+        const lastMove = this.moveHistory[this.moveHistory.length - 1];
+        this.flashSquare(lastMove.index);
+    }
+
+    this.toaster("Opponent moved!", "info", 1500);
+} else if (data.type === "reset") {
                     this.resetGame(false);
                 } else if (data.type === "undo") {
                     this.cells = [...data.cells];
@@ -994,13 +1066,13 @@ const app = createApp({
                     this.moveHistory = [...(data.moveHistory || [])];
                     this.hasUsedUndo = { ...data.hasUsedUndo };
                     this.toaster("Opponent used undo!", "warning");
-                    this.shakeScreen();
+                    // this.shakeScreen();
                 } else if (data.type === "remove") {
                     this.cells = [...data.cells];
                     this.currentPlayer = data.currentPlayer;
                     this.hasUsedRemove = { ...data.hasUsedRemove };
                     this.toaster("Opponent removed a piece!", "warning");
-                    this.shakeScreen();
+                    // this.shakeScreen();
                 } else if (data.type === "swap") {
                     this.cells = [...data.cells];
                     this.currentPlayer = data.currentPlayer;
@@ -1009,7 +1081,7 @@ const app = createApp({
                     this.isDraw = data.isDraw;
                     this.winningCombo = [...(data.winningCombo || [])];
                     this.toaster("Opponent used swap!", "info");
-                    this.shakeScreen();
+                    // this.shakeScreen();
                 } else if (data.type === "expand") { // NEW: Handle expand message
                     this.isExpanding = true;
                     this.cells = [...data.cells];
@@ -1023,7 +1095,7 @@ const app = createApp({
                     }, 800);
                     
                     this.toaster(`Opponent added row ${this.gridRows}! Now 4×${this.gridRows}`, "warning");
-                    this.shakeScreen();
+                    // this.shakeScreen();
                 }
             });
             
