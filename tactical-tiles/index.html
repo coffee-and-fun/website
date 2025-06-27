@@ -374,14 +374,14 @@
         
             <!-- Power-ups (Always visible) -->
             <h2 class="text-2xl font-bold text-lect mb-4 text-primary-content mt-12 pt-12">
-                Power-ups
+              ⭐  Power-ups
             </h2>
             <hr class="my-4 border-t-2 border-primary" />
             <div class="grid grid-cols-2 gap-3 mb-6">
                 <!-- Undo Power-up -->
                 <button
                     @click="undoMove"
-                    class="btn btn-secondary btn-sm"
+                    class="btn btn-secondary "
                     :class="{
                         'btn-disabled opacity-50': hasUsedUndo[currentPlayer] || moveHistory.length === 0 || gameOver
                     }"
@@ -393,7 +393,7 @@
                 <!-- Swap Power-up -->
                 <button
                     @click="showSwapPowerModal"
-                    class="btn btn-info btn-sm"
+                    class="btn btn-info "
                     :class="{ 'btn-disabled opacity-50': hasUsedSwap[currentPlayer] || cells.filter(cell => cell !== null).length < 2 || gameOver }"
                     :disabled="hasUsedSwap[currentPlayer] || cells.filter(cell => cell !== null).length < 2 || gameOver"
                 >
@@ -403,7 +403,7 @@
                 <!-- Remove Power-up -->
                 <button
                     @click="showRemovePowerModal"
-                    class="btn btn-neutral btn-sm"
+                    class="btn btn-neutral "
                     :class="{
                         'btn-disabled opacity-50': hasUsedRemove[currentPlayer] || !cells.some(cell => cell !== null) || gameOver
                     }"
@@ -415,13 +415,13 @@
                 <!-- NEW: Expand Grid Power-up -->
                 <button
                     @click="expandGrid"
-                    class="btn btn-warning btn-sm"
+                    class="btn btn-warning"
                     :class="{
                         'btn-disabled opacity-50': hasUsedExpand[currentPlayer] || gridRows === 6 || gameOver
                     }"
                     :disabled="hasUsedExpand[currentPlayer] || gridRows === 6 || gameOver"
                 >
-                    🔳 Add Row
+                  Add Row
                 </button>
             </div>
 
