@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Play Online Tic-Tac-Toe – Emoji Multiplayer Game | Coffee & Fun LLC</title>
+    <title>Play Tactial Tiles – Tic Tac Toe Multiplayer Game | Coffee & Fun LLC</title>
     
     <meta name="description" content="Challenge your friends to a fun, animated Tic-Tac-Toe game with emojis and real-time multiplayer. No account needed. Built with Vue, Tailwind, and Peer-to-Peer magic!" />
     <meta name="author" content="Coffee & Fun LLC" />
@@ -43,7 +43,151 @@
             0%, 100% { transform: scale(1); }
             50% { transform: scale(1.05); }
         }
+
+        @keyframes earthquake {
+  0%, 100% { transform: translate(0, 0) rotate(0deg); }
+  10% { transform: translate(-2px, -1px) rotate(-0.5deg); }
+  20% { transform: translate(-3px, 0px) rotate(0.5deg); }
+  30% { transform: translate(3px, 2px) rotate(0deg); }
+  40% { transform: translate(1px, -1px) rotate(0.5deg); }
+  50% { transform: translate(-1px, 2px) rotate(-0.5deg); }
+  60% { transform: translate(-3px, 1px) rotate(0deg); }
+  70% { transform: translate(3px, 1px) rotate(-0.5deg); }
+  80% { transform: translate(-1px, -1px) rotate(0.5deg); }
+  90% { transform: translate(1px, 2px) rotate(0deg); }
+}
+
+.earthquake {
+  animation: earthquake 0.8s ease-in-out;
+}
+
+@keyframes tilt-n-move-shaking {
+  0% { transform: translate(0, 0) rotate(0deg); }
+  25% { transform: translate(5px, 5px) rotate(5deg); }
+  50% { transform: translate(0, 0) rotate(0eg); }
+  75% { transform: translate(-5px, 5px) rotate(-5deg); }
+  100% { transform: translate(0, 0) rotate(0deg); }
+}
+.tilt-n-move-shaking {
+    animation: tilt-n-move-shaking 0.5s ease-in-out;
+
+}
+
+@keyframes flash-effect {
+  0% { transform: scale(1); background-color: transparent; }
+  50% { transform: scale(1.05); background-color: rgba(59, 130, 246, 0.3); }
+  100% { transform: scale(1); background-color: transparent; }
+}
+
+.flash-effect {
+  animation: flash-effect 0.6s ease-in-out;
+}
+
     </style>
+
+    <meta name="author" content="Coffee & Fun LLC" />
+    <meta name="robots" content="index, follow" />
+    <meta name="rating" content="safe for kids" />
+
+    <link rel="icon" href="/assets/images/favicon.png" />
+    <!-- PWA Manifest -->
+    <link rel="manifest" href="/assets/images/social/site.webmanifest" />
+
+    <!-- Theme & Mobile Meta -->
+    <meta name="theme-color" content="#fef5ec" />
+    <meta name="mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="default" />
+
+
+
+    <!-- Icons -->
+    <link rel="apple-touch-icon" href="/assets/images/social/192.png" />
+    <link
+      rel="icon"
+      href="/assets/images/social/192.png"
+      sizes="192x192"
+      type="image/png"
+    />
+    <!-- PWA Meta Tags -->
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+    <meta name="mobile-web-app-capable" content="yes" />
+
+
+        <!-- Open Graph Meta Tags -->
+    <meta
+      property="og:title"
+      content="Play Tactial Tiles – Tic Tac Toe Multiplayer Game | Coffee & Fun LLC"
+    />
+    <meta property="og:site_name" content="Coffee & Fun" />
+    <meta property="og:url" content="https://www.coffeeandfun.com/" />
+    <meta
+      property="og:description"
+      content="Challenge your friends to a fun, animated Tic-Tac-Toe game with emojis and real-time multiplayer. No account needed. Built with Vue, Tailwind, and Peer-to-Peer magic!"
+    />
+    <meta property="og:type" content="website" />
+    <meta property="og:image" content="/assets/images/apps/tic-tac.png" />
+
+    <!-- Twitter Meta Tags -->
+    <meta property="twitter:domain" content="coffeeandfun.com" />
+    <meta property="twitter:url" content="https://www.coffeeandfun.com" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta
+      name="twitter:title"
+      content="Play Tactial Tiles – Tic Tac Toe Multiplayer Game | Coffee & Fun LLC"
+    />
+    <meta name="twitter:site" content="@bycoffeeandfun" />
+    <meta
+      name="twitter:description"
+      content="Challenge your friends to a fun, animated Tic-Tac-Toe game with emojis and real-time multiplayer. No account needed. Built with Vue, Tailwind, and Peer-to-Peer magic!"
+    />
+    <meta
+      name="twitter:image"
+      content="https://www.coffeeandfun.com/assets/images/apps/tic-tac.png"
+    />
+    <meta name="twitter:image:alt" content=" Coffee & Fun" />
+
+    <script type="application/ld+json">
+      {
+        "@context": "http://schema.org/",
+        "@type": "WebSite",
+        "url": "https://www.coffeeandfun.com",
+        "potentialAction": {
+          "@type": "SearchAction",
+          "target": "{search_term_string}",
+          "query-input": "required name=search_term_string"
+        }
+      }
+    </script>
+
+
+       <script>
+      if ("serviceWorker" in navigator) {
+        navigator.serviceWorker.getRegistrations().then((registrations) => {
+          for (const registration of registrations) {
+            registration.unregister().then(() => {
+              console.log("🧹 Old service worker unregistered");
+            });
+          }
+
+          // After clearing, register the new one
+          navigator.serviceWorker
+            .register("/service-worker.js")
+            .then(() => console.log("✅ New service worker registered"))
+            .catch((err) => console.log("Service worker error:", err));
+        });
+      }
+    </script>
+
+        <script>
+      if ("serviceWorker" in navigator) {
+        navigator.serviceWorker.register("/service-worker.js");
+      }
+    </script>
+
+    
+
 </head>
 
 <body class="bg-base-100 min-h-screen">
@@ -132,6 +276,7 @@ class="btn game-cell mx-auto text-4xl font-bold transition-all duration-200 hove
 
                             :class="{
                                 'winning-cell': winner && winningCombo.includes(index),
+                                  'flash-effect': squareEffects[index], // Add this line
                                 'btn-disabled': !isMyTurn || cell,
                                 'btn-primary': !cell && isMyTurn,
                                 'btn-ghost': cell
@@ -188,7 +333,7 @@ class="btn game-cell mx-auto text-4xl font-bold transition-all duration-200 hove
                      <div class="tooltip tooltip-top" data-tip="Swap Pieces">
                     <button
                        @click="showSwapPowerModal"
-                        class="btn btn-circle btn-warning"
+                        class="btn btn-circle btn-info"
                         :class="{
                             'btn-disabled opacity-50': hasUsedSwap[currentPlayer] || moveHistory.length === 0 || gameOver
                         }"
@@ -513,6 +658,7 @@ class="btn game-cell mx-auto text-4xl font-bold transition-all duration-200 hove
                     hasUsedSwap: { X: false, O: false },
                     swapSelection: [],
                     showRemoveMode: false,
+                    squareEffects: Array(12).fill(false), // Track which squares have effects
                 };
             },
             computed: {
@@ -576,6 +722,23 @@ class="btn game-cell mx-auto text-4xl font-bold transition-all duration-200 hove
                 }, 1000);
             },
             methods: {
+                flashSquare(index) {
+    // Add effect class
+    this.squareEffects[index] = true;
+    
+    // Remove it after a short time
+    setTimeout(() => {
+      this.squareEffects[index] = false;
+    }, 600); // Effect lasts 600ms
+  },
+            shakeScreen() {
+                document.body.classList.add('tilt-n-move-shaking');
+                setTimeout(() => {
+                    document.body.classList.remove('tilt-n-move-shaking');
+                }, 500);
+
+
+},
                 showMultiplayerModal() {
                     document.getElementById('multiplayer-modal').showModal();
                 },
@@ -606,7 +769,8 @@ class="btn game-cell mx-auto text-4xl font-bold transition-all duration-200 hove
                     if (this.swapSelection.length !== 2) return;
                     
                     const [index1, index2] = this.swapSelection;
-                    
+                      this.flashSquare(index1); // Flash both squares
+  this.flashSquare(index2);
                     // Swap the pieces
                     const temp = this.cells[index1];
                     this.cells[index1] = this.cells[index2];
@@ -648,6 +812,7 @@ class="btn game-cell mx-auto text-4xl font-bold transition-all duration-200 hove
                     document.getElementById('remove-modal').showModal();
                 },
                 removeOpponentPiece(index) {
+                    this.flashSquare(index); // Flash the square
                     const opponent = this.currentPlayer === "X" ? "O" : "X";
                     if (this.hasUsedRemove[this.currentPlayer]) return;
                     
@@ -677,7 +842,7 @@ class="btn game-cell mx-auto text-4xl font-bold transition-all duration-200 hove
                 undoMove() {
                     const last = this.moveHistory.pop();
                     if (!last || this.hasUsedUndo[last.player]) return;
-                    
+                     this.flashSquare(last.index); // Flash the undone square
                     this.cells[last.index] = null;
                     this.winner = null;
                     this.isDraw = false;
@@ -747,6 +912,7 @@ class="btn game-cell mx-auto text-4xl font-bold transition-all duration-200 hove
                             this.hasUsedUndo = { ...data.hasUsedUndo };
                             this.hasUsedRemove = { ...data.hasUsedRemove };
                             this.toaster("Opponent moved!", "info", 1500);
+                            this.shakeScreen();
                         } else if (data.type === "reset") {
                             this.resetGame(false);
                         } else if (data.type === "undo") {
@@ -758,11 +924,13 @@ class="btn game-cell mx-auto text-4xl font-bold transition-all duration-200 hove
                             this.moveHistory = [...(data.moveHistory || [])];
                             this.hasUsedUndo = { ...data.hasUsedUndo };
                             this.toaster("Opponent used undo!", "warning");
+                                   this.shakeScreen();
                         } else if (data.type === "remove") {
                             this.cells = [...data.cells];
                             this.currentPlayer = data.currentPlayer;
                             this.hasUsedRemove = { ...data.hasUsedRemove };
                             this.toaster("Opponent removed a piece!", "warning");
+                                   this.shakeScreen();
                         } else if (data.type === "swap") {
                             this.cells = [...data.cells];
                             this.currentPlayer = data.currentPlayer;
@@ -771,6 +939,7 @@ class="btn game-cell mx-auto text-4xl font-bold transition-all duration-200 hove
                             this.isDraw = data.isDraw;
                             this.winningCombo = [...(data.winningCombo || [])];
                             this.toaster("Opponent used swap!", "info");
+                                   this.shakeScreen();
                         }
                     });
                     
