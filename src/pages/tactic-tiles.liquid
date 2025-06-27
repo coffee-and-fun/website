@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html class="scroll-smooth antialiased" lang="en" data-theme="light">
+<html class="scroll-smooth antialiased" lang="en" data-theme="retro">
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -33,7 +33,7 @@
         .fade-out { opacity: 0; transition: opacity 0.3s ease; }
         .game-cell { 
             aspect-ratio: 1;
-            min-height: 80px;
+            min-height: 110px;
         }
         .winning-cell {
             animation: pulse 1s infinite;
@@ -47,128 +47,45 @@
 </head>
 
 <body class="bg-base-100 min-h-screen">
-    <main class="container mx-auto px-4 py-8">
-        <div id="app" v-cloak class="max-w-md mx-auto space-y-6">
-            
-            <!-- Header with Scores -->
-            <div class="card bg-base-200 shadow-lg">
-                <div class="card-body p-4">
-                    <h1 class="card-title text-2xl font-bold text-center justify-center mb-4">
-                        🎮 Tic-Tac-Toe
-                    </h1>
-                    
-                    <div class="stats stats-horizontal shadow">
-                        <div class="stat place-items-center">
-                            <div class="stat-figure text-4xl">
-                                {% raw %}{{ emojiThemes[themeIndex].X }}{% endraw %}
-                            </div>
-                            <div class="stat-value text-primary">{% raw %}{{ score.X }}{% endraw %}</div>
-                            <div class="stat-title">Player X</div>
-                        </div>
-                        
-                        <div class="stat place-items-center">
-                            <div class="stat-figure text-4xl">
-                                {% raw %}{{ emojiThemes[themeIndex].O }}{% endraw %}
-                            </div>
-                            <div class="stat-value text-secondary">{% raw %}{{ score.O }}{% endraw %}</div>
-                            <div class="stat-title">Player O</div>
-                        </div>
-                    </div>
-                </div>
-            </div>
+    <main id="app">
+      <div class="navbar border-b-4 border-primary text-primary-content">
+  
 
-            <!-- Game Status -->
-            <div class="text-center">
-                <div v-if="winner" class="alert alert-success">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="stroke-current shrink-0 h-6 w-6" fill="none" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
-                    </svg>
-                    <span>🏆 Player {% raw %}{{ getEmoji(winner) }}{% endraw %} wins!</span>
-                </div>
-                
-                <div v-else-if="isDraw" class="alert alert-warning">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="stroke-current shrink-0 h-6 w-6" fill="none" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-2.5L13.732 4c-.77-.833-1.964-.833-2.732 0L3.732 16.5c-.77.833.192 2.5 1.732 2.5z" />
-                    </svg>
-                    <span>🤝 It's a draw!</span>
-                </div>
-                
-                <div v-else class="alert alert-info">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="stroke-current shrink-0 h-6 w-6" fill="none" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-                    </svg>
-                    <span>Current Player: {% raw %}{{ getEmoji(currentPlayer) }}{% endraw %}</span>
-                    <span v-if="isMultiplayer && !isMyTurn" class="text-sm opacity-70">(Waiting for opponent)</span>
-                </div>
-            </div>
+  <div class="navbar-start"><button class="btn btn-ghost text-xl">Tactial Tiles</button></div>
 
-            <!-- Game Board -->
-            <div class="card bg-base-200 shadow-lg">
-                <div class="card-body p-4">
-                    <div class="grid grid-cols-3 gap-2">
-                        <button
-                            v-for="(cell, index) in cells"
-                            :key="index"
-                            @click="makeMove(index)"
-                            class="btn game-cell text-4xl font-bold transition-all duration-200 hover:scale-105"
-                            :class="{
-                                'winning-cell': winner && winningCombo.includes(index),
-                                'btn-disabled': !isMyTurn || cell,
-                                'btn-primary': !cell && isMyTurn,
-                                'btn-ghost': cell
-                            }"
-                            :disabled="!isMyTurn || cell"
-                        >
-                            {% raw %}{{ getEmoji(cell) }}{% endraw %}
-                        </button>
-                    </div>
-                </div>
-            </div>
+    <div class="navbar-center hidden lg:flex">
 
-            <!-- Power-ups (Multiplayer only) -->
-            <div v-if="isMultiplayer && !gameOver" class="card bg-base-200 shadow-lg">
-                <div class="card-body p-4">
-                    <h3 class="card-title text-lg mb-3">Power-ups</h3>
-                    <div class="flex gap-2 justify-center">
-                        <button
-                            v-if="!hasUsedUndo[currentPlayer] && isMyTurn"
-                            @click="undoMove"
-                            class="btn btn-warning btn-sm gap-2"
-                        >
-                            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" viewBox="0 -960 960 960" fill="currentColor">
-                                <path d="m313-440 224 224-57 56-320-320 320-320 57 56-224 224h487v80H313Z"/>
-                            </svg>
-                            Undo Move
-                        </button>
-                        
-                        <button
-                            v-if="!hasUsedRemove[currentPlayer] && isMyTurn"
-                            @click="showRemovePowerModal"
-                            class="btn btn-error btn-sm gap-2"
-                        >
-                            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" viewBox="0 -960 960 960" fill="currentColor">
-                                <path d="M280-120q-33 0-56.5-23.5T200-200v-520h-40v-80h200v-40h240v40h200v80h-40v520q0 33-23.5 56.5T680-120H280Zm400-600H280v520h400v-520ZM360-280h80v-360h-80v360Zm160 0h80v-360h-80v360ZM280-720v520-520Z"/>
-                            </svg>
-                            Remove Piece
-                        </button>
-                    </div>
-                </div>
-            </div>
 
-            <!-- Control Buttons -->
-            <div class="flex flex-wrap gap-2 justify-center">
-                <button
-                    v-if="gameOver"
-                    @click="resetGame"
-                    class="btn btn-success gap-2"
+              <!-- Game Status -->
+        
+                <!-- Clean score display -->
+                <div class="badge badge-lg bg-base-100 text-base-content gap-2 px-4">
+                    {% raw %}{{ emojiThemes[themeIndex].X }}{% endraw %} 
+                    <span class="font-bold text-primary">{% raw %}{{ score.X }}{% endraw %}</span>
+                    -
+                    <span class="font-bold text-secondary">{% raw %}{{ score.O }}{% endraw %}</span>
+                    {% raw %}{{ emojiThemes[themeIndex].O }}{% endraw %}
+                </div>
+  
+
+
+
+    </div>
+
+    <div class="navbar-end gap-2">
+
+  <button
+                    @click="showAboutModal"
+                    class="btn btn-primary gap-2"
                 >
-                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 -960 960 960" fill="currentColor">
-                        <path d="M482-160q-134 0-228-93t-94-227v-7l-64 64-56-56 160-160 160 160-56 56-64-64v7q0 100 70.5 170T482-240q26 0 51-6t49-18l60 60q-38 22-78 33t-82 11Zm278-161L600-481l56-56 64 64v-7q0-100-70.5-170T478-720q-26 0-51 6t-49 18l-60-60q38-22 78-33t82-11q134 0 228 93t94 227v7l64-64 56 56-160 160Z"/>
-                    </svg>
-                    New Game
+                   
+
+
+<svg xmlns="http://www.w3.org/2000/svg"  class="h-5 w-5" viewBox="0 -960 960 960" fill="currentColor" ><path d="M160-120v-80h480v80H160Zm226-194L160-540l84-86 228 226-86 86Zm254-254L414-796l86-84 226 226-86 86Zm184 408L302-682l56-56 522 522-56 56Z"/></svg>
+                    Rules
                 </button>
 
-                <button
+  <button
                     @click="showMultiplayerModal"
                     class="btn btn-primary gap-2"
                 >
@@ -187,7 +104,201 @@
                     </svg>
                     Themes
                 </button>
+  </div>
+
+</div>
+        <div v-cloak class="max-w-xl mx-auto space-y-6 px-4 py-8">
+
+        
+         
+
+  
+
+            <!-- Game Board -->
+            <div class="card">
+                <div class="card-body p-4">
+                    <div class="grid grid-cols-3 gap-8">
+                        <button
+                            v-for="(cell, index) in cells"
+                            :key="index"
+                            @click="makeMove(index)"
+class="btn game-cell mx-auto text-4xl font-bold transition-all duration-200 hover:scale-105 flex items-center justify-center"
+
+                            :class="{
+                                'winning-cell': winner && winningCombo.includes(index),
+                                'btn-disabled': !isMyTurn || cell,
+                                'btn-primary': !cell && isMyTurn,
+                                'btn-ghost': cell
+                            }"
+                            :disabled="!isMyTurn || cell"
+                        >
+                            {% raw %}{{ getEmoji(cell) }}{% endraw %}
+                        </button>
+                    </div>
+                </div>
             </div>
+
+            <!-- Power-ups (Multiplayer only) -->
+            <div class="card bg-base-200 shadow-lg">
+                <div class="card-body p-4">
+                    <h3 class="card-title text-lg mb-3">⚡ Power-ups Available</h3>
+                    <div class="flex gap-2 justify-center">
+                        <button
+                            v-if="!hasUsedUndo[currentPlayer]"
+                            @click="undoMove"
+                            class="btn btn-warning gap-2"
+                            :disabled="isMultiplayer && !gameOver && isMyTurn"
+                        >
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" viewBox="0 -960 960 960" fill="currentColor">
+                                <path d="m313-440 224 224-57 56-320-320 320-320 57 56-224 224h487v80H313Z"/>
+                            </svg>
+                            Undo Move
+                        </button>
+                        
+                        <button
+                            v-if="!hasUsedRemove[currentPlayer]"
+                            @click="showRemovePowerModal"
+                            class="btn btn-error  gap-2"
+                            :disabled="isMultiplayer && !gameOver && isMyTurn"
+                        >
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" viewBox="0 -960 960 960" fill="currentColor">
+                                <path d="M280-120q-33 0-56.5-23.5T200-200v-520h-40v-80h200v-40h240v40h200v80h-40v520q0 33-23.5 56.5T680-120H280Zm400-600H280v520h400v-520ZM360-280h80v-360h-80v360Zm160 0h80v-360h-80v360ZM280-720v520-520Z"/>
+                            </svg>
+                            Remove Piece
+                        </button>
+                    </div>
+                    <div v-if="hasUsedUndo[currentPlayer] && hasUsedRemove[currentPlayer]" class="text-center text-sm text-base-content/60 mt-2">
+                        All power-ups used
+                    </div>
+                </div>
+            </div>
+
+            <!-- Control Buttons -->
+            <div class="flex flex-wrap gap-2 justify-center">
+                <button
+                    v-if="gameOver"
+                    @click="resetGame"
+                    class="btn btn-success btn-block gap-2"
+                >
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 -960 960 960" fill="currentColor">
+                        <path d="M482-160q-134 0-228-93t-94-227v-7l-64 64-56-56 160-160 160 160-56 56-64-64v7q0 100 70.5 170T482-240q26 0 51-6t49-18l60 60q-38 22-78 33t-82 11Zm278-161L600-481l56-56 64 64v-7q0-100-70.5-170T478-720q-26 0-51 6t-49 18l-60-60q38-22 78-33t82-11q134 0 228 93t94 227v7l64-64 56 56-160 160Z"/>
+                    </svg>
+                    New Game
+                </button>
+
+               
+            </div>
+
+<!-- Game modal -->
+
+
+<!-- About Modal -->
+<dialog id="about-modal" class="modal">
+    <div class="modal-box max-w-2xl">
+        <h3 class="font-bold text-2xl mb-6 text-center">🎮 About Tactical Tiles</h3>
+        
+        <div class="space-y-6">
+            <!-- What makes it different -->
+            <div>
+                <h4 class="font-bold text-lg mb-3 text-primary">🚀 What Makes This Different?</h4>
+                <div class="space-y-2 text-base-content/80">
+                    <p>• <strong>Real-time multiplayer</strong> - Play instantly with friends anywhere in the world</p>
+                    <p>• <strong>Power-ups</strong> - Strategic abilities to turn the tide of battle</p>
+                    <p>• <strong>Customizable themes</strong> - Choose from fun emoji pairs like 🐶 vs 🐱</p>
+                    <p>• <strong>No registration required</strong> - Just share a link and start playing</p>
+                    <p>• <strong>Cross-platform</strong> - Works on phones, tablets, and computers</p>
+                </div>
+            </div>
+
+            <!-- How to play -->
+            <div>
+                <h4 class="font-bold text-lg mb-3 text-secondary">📋 How to Play</h4>
+                <div class="space-y-3">
+                    <div>
+                        <h5 class="font-semibold text-base mb-1">Basic Rules:</h5>
+                        <div class="text-base-content/80 space-y-1">
+                            <p>• Take turns placing your emoji on the 3×3 grid</p>
+                            <p>• Get three in a row (horizontal, vertical, or diagonal) to win</p>
+                            <p>• If all 9 spaces are filled without a winner, it's a draw</p>
+                        </div>
+                    </div>
+                    
+                    <div>
+                        <h5 class="font-semibold text-base mb-1">Single Player:</h5>
+                        <p class="text-base-content/80">• Play against yourself or use it to practice strategies</p>
+                    </div>
+                    
+                    <div>
+                        <h5 class="font-semibold text-base mb-1">Multiplayer:</h5>
+                        <div class="text-base-content/80 space-y-1">
+                            <p>• Click "Multiplayer" to create a game or join one</p>
+                            <p>• Share the invite link with your friend</p>
+                            <p>• Host plays as ❌ (or first emoji), guest plays as ⭕ (or second emoji)</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Power-ups -->
+            <div>
+                <h4 class="font-bold text-lg mb-3 text-warning">⚡ Power-ups (Multiplayer Only)</h4>
+                <div class="space-y-2">
+                    <div class="flex items-start gap-3">
+                        <div class="badge badge-warning badge-sm mt-1">UNDO</div>
+                        <div class="text-base-content/80">
+                            <strong>Undo Move:</strong> Take back your last move. Each player gets one undo per game.
+                        </div>
+                    </div>
+                    <div class="flex items-start gap-3">
+                        <div class="badge badge-error badge-sm mt-1">REMOVE</div>
+                        <div class="text-base-content/80">
+                            <strong>Remove Piece:</strong> Eliminate one of your opponent's pieces from the board. Each player gets one removal per game.
+                        </div>
+                    </div>
+                    <div class="alert alert-info mt-3">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="stroke-current shrink-0 h-5 w-5" fill="none" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                        </svg>
+                        <span class="text-sm">Power-ups add strategy! Use them wisely - you only get one of each per game.</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Tips -->
+            <div>
+                <h4 class="font-bold text-lg mb-3 text-accent">💡 Pro Tips</h4>
+                <div class="space-y-2 text-base-content/80">
+                    <p>• <strong>Control the center:</strong> The middle square gives you the most winning opportunities</p>
+                    <p>• <strong>Block and build:</strong> Always block your opponent's winning moves</p>
+                    <p>• <strong>Think ahead:</strong> Look for moves that create multiple winning threats</p>
+                    <p>• <strong>Save power-ups:</strong> Don't use them too early - wait for the perfect moment</p>
+                    <p>• <strong>Corner strategy:</strong> If you can't get the center, corners are your next best bet</p>
+                </div>
+            </div>
+
+            <!-- Fun facts -->
+            <div class="bg-base-200 p-4 rounded-lg">
+                <h4 class="font-bold text-lg mb-2">🎯 Fun Facts</h4>
+                <div class="text-sm text-base-content/70 space-y-1">
+                    <p>• Tic-tac-toe has been played for over 2,000 years</p>
+                    <p>• A perfect game always ends in a draw</p>
+                    <p>• There are 255,168 possible game states</p>
+                    <p>• This version adds power-ups to break the "always draw" rule!</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="modal-action">
+            <form method="dialog">
+                <button class="btn btn-primary">Got it, let's play! 🎮</button>
+            </form>
+        </div>
+    </div>
+    <form method="dialog" class="modal-backdrop">
+        <button>close</button>
+    </form>
+</dialog>
+
 
             <!-- Multiplayer Modal -->
             <dialog id="multiplayer-modal" class="modal">
@@ -258,12 +369,14 @@
                     <h3 class="font-bold text-lg mb-4">🗑️ Remove Opponent's Piece</h3>
                     <p class="text-sm text-base-content/70 mb-4">Click on an opponent's piece to remove it:</p>
                     
-                    <div class="grid grid-cols-3 gap-2 mb-4">
+                    <div class="grid grid-cols-3 gap-8 mb-4">
                         <button
                             v-for="(cell, index) in cells"
                             :key="index"
                             @click="removeOpponentPiece(index)"
-                            class="btn game-cell text-3xl font-bold transition-all duration-200"
+class="btn game-cell mx-auto text-4xl font-bold transition-all duration-200 hover:scale-105 flex items-center justify-center"
+
+
                             :class="{
                                 'btn-error': cell === (currentPlayer === 'X' ? 'O' : 'X'),
                                 'btn-ghost': !cell || cell === currentPlayer,
@@ -288,7 +401,7 @@
         </div>
     </main>
 
-    <script>
+   <script>
         const { createApp } = Vue;
 
         const app = createApp({
@@ -322,13 +435,13 @@
             },
             computed: {
                 isMultiplayer() {
-                    return this.conn && this.conn.open;
+                    return this.conn !== null;
                 },
                 emojiSet() {
                     return this.emojiThemes[this.themeIndex];
                 },
                 isMyTurn() {
-                    if (!this.isMultiplayer) return true;
+                    if (!this.conn) return true;
                     return (
                         (this.isHost && this.currentPlayer === "X") ||
                         (!this.isHost && this.currentPlayer === "O")
@@ -341,7 +454,7 @@
             watch: {
                 isMyTurn(newVal) {
                     if (newVal && !this.winner && !this.isDraw && this.isMultiplayer) {
-                        this.toaster("🎯 Your turn!", "info");
+                        this.toaster("🎯 Your turn!", "info", 2000);
                     }
                 },
                 score: {
@@ -350,6 +463,20 @@
                     },
                     deep: true,
                 },
+                // Watch for game start to show initial status
+                currentPlayer: {
+                    handler(newPlayer) {
+                        // Only show turn notification if game just started and it's not the first load
+                        if (this.cells.every(cell => cell === null) && this.moveHistory.length === 0) {
+                            setTimeout(() => {
+                                if (!this.winner && !this.isDraw) {
+                                    this.toaster(`${this.getEmoji(newPlayer)} goes first!`, "info", 2000);
+                                }
+                            }, 500);
+                        }
+                    },
+                    immediate: false
+                }
             },
             mounted() {
                 const saved = JSON.parse(localStorage.getItem("tictactoe-score"));
@@ -360,10 +487,18 @@
                     this.peerIdToConnect = gameId;
                     this.connectToPeer();
                 }
+
+                // Show initial game status
+                setTimeout(() => {
+                    this.toaster(`${this.getEmoji(this.currentPlayer)} goes first!`, "info", 2000);
+                }, 1000);
             },
             methods: {
                 showMultiplayerModal() {
                     document.getElementById('multiplayer-modal').showModal();
+                },
+                showAboutModal() {
+                    document.getElementById('about-modal').showModal();
                 },
                 showRemovePowerModal() {
                     document.getElementById('remove-modal').showModal();
@@ -376,7 +511,6 @@
                     this.cells[index] = null;
                     this.hasUsedRemove[this.currentPlayer] = true;
                     
-                    // Close modal
                     document.getElementById('remove-modal').close();
                     
                     this.toaster(
@@ -384,12 +518,12 @@
                         "warning"
                     );
 
-                    if (this.isMultiplayer) {
+                    if (this.conn && this.conn.open) {
                         this.conn.send({
                             type: "remove",
-                            cells: this.cells,
+                            cells: [...this.cells],
                             currentPlayer: this.currentPlayer,
-                            hasUsedRemove: this.hasUsedRemove,
+                            hasUsedRemove: { ...this.hasUsedRemove },
                         });
                     }
                 },
@@ -409,20 +543,20 @@
                         "warning"
                     );
                     
-                    if (this.isMultiplayer) {
+                    if (this.conn && this.conn.open) {
                         this.conn.send({
                             type: "undo",
-                            cells: this.cells,
+                            cells: [...this.cells],
                             currentPlayer: this.currentPlayer,
                             winner: this.winner,
                             isDraw: this.isDraw,
-                            winningCombo: this.winningCombo,
-                            moveHistory: this.moveHistory,
-                            hasUsedUndo: this.hasUsedUndo,
+                            winningCombo: [...this.winningCombo],
+                            moveHistory: [...this.moveHistory],
+                            hasUsedUndo: { ...this.hasUsedUndo },
                         });
                     }
                 },
-                toaster(msg, type = "info") {
+                toaster(msg, type = "info", duration = 3000) {
                     const colors = {
                         info: "#3b82f6",
                         success: "#10b981", 
@@ -432,11 +566,11 @@
                     
                     window.Toastify({
                         text: msg,
-                        duration: 3000,
-                        gravity: "top",
+                        duration: duration,
+                        gravity: "bottom",
                         position: "center",
                         backgroundColor: colors[type],
-                        className: "rounded-lg shadow-lg",
+                        className: "rounded-full shadow-lg",
                         stopOnFocus: true,
                     }).showToast();
                 },
@@ -448,40 +582,52 @@
                     this.toaster(`Theme changed to ${this.emojiSet.X} vs ${this.emojiSet.O}!`, "info");
                 },
                 setupConnection() {
+                    this.conn.on("open", () => {
+                        console.log("Connection opened");
+                        this.toaster("Connection established!", "success");
+                    });
+
                     this.conn.on("data", (data) => {
+                        console.log("Received data:", data);
                         if (data.type === "move") {
-                            this.cells = data.cells;
+                            this.cells = [...data.cells];
                             this.currentPlayer = data.currentPlayer;
                             this.winner = data.winner;
                             this.isDraw = data.isDraw;
-                            this.winningCombo = data.winningCombo;
-                            this.score = data.score;
-                            this.moveHistory = data.moveHistory || [];
-                            this.hasUsedUndo = data.hasUsedUndo || { X: false, O: false };
-                            this.hasUsedRemove = data.hasUsedRemove || { X: false, O: false };
-                            this.toaster("Opponent moved!", "info");
+                            this.winningCombo = [...(data.winningCombo || [])];
+                            this.score = { ...data.score };
+                            this.moveHistory = [...(data.moveHistory || [])];
+                            this.hasUsedUndo = { ...data.hasUsedUndo };
+                            this.hasUsedRemove = { ...data.hasUsedRemove };
+                            this.toaster("Opponent moved!", "info", 1500);
                         } else if (data.type === "reset") {
                             this.resetGame(false);
                         } else if (data.type === "undo") {
-                            this.cells = data.cells;
+                            this.cells = [...data.cells];
                             this.currentPlayer = data.currentPlayer;
                             this.winner = data.winner;
                             this.isDraw = data.isDraw;
-                            this.winningCombo = data.winningCombo;
-                            this.moveHistory = data.moveHistory;
-                            this.hasUsedUndo = data.hasUsedUndo;
+                            this.winningCombo = [...(data.winningCombo || [])];
+                            this.moveHistory = [...(data.moveHistory || [])];
+                            this.hasUsedUndo = { ...data.hasUsedUndo };
                             this.toaster("Opponent used undo!", "warning");
                         } else if (data.type === "remove") {
-                            this.cells = data.cells;
+                            this.cells = [...data.cells];
                             this.currentPlayer = data.currentPlayer;
-                            this.hasUsedRemove = data.hasUsedRemove;
+                            this.hasUsedRemove = { ...data.hasUsedRemove };
                             this.toaster("Opponent removed a piece!", "warning");
                         }
                     });
                     
                     this.conn.on("close", () => {
+                        console.log("Connection closed");
                         this.toaster("Player disconnected", "error");
                         this.conn = null;
+                    });
+
+                    this.conn.on("error", (err) => {
+                        console.error("Connection error:", err);
+                        this.toaster("Connection error occurred", "error");
                     });
                 },
                 createGame() {
@@ -511,17 +657,25 @@
                     this.peer = new Peer();
                     
                     this.peer.on("open", () => {
+                        console.log("Peer opened, connecting to:", this.peerIdToConnect);
                         this.conn = this.peer.connect(this.peerIdToConnect);
                         
                         this.conn.on("open", () => {
+                            console.log("Connected to host!");
                             this.setupConnection();
                             this.toaster("Connected to host!", "success");
                             document.getElementById('multiplayer-modal').close();
                         });
                         
-                        this.conn.on("error", () => {
+                        this.conn.on("error", (err) => {
+                            console.error("Connection error:", err);
                             this.toaster("Failed to connect to game", "error");
                         });
+                    });
+
+                    this.peer.on("error", (err) => {
+                        console.error("Peer error:", err);
+                        this.toaster("Failed to initialize connection", "error");
                     });
                 },
                 copyPeerIdToClipboard() {
@@ -539,27 +693,37 @@
                 makeMove(index) {
                     if (this.cells[index] || this.winner || this.isDraw || !this.isMyTurn) return;
                     
+                    console.log("Making move at index:", index, "Current player:", this.currentPlayer);
+                    
                     this.moveHistory.push({ index, player: this.currentPlayer });
                     this.cells[index] = this.currentPlayer;
                     this.checkGameState();
                     
                     if (!this.winner && !this.isDraw) {
                         this.currentPlayer = this.currentPlayer === "X" ? "O" : "X";
+                        // Show whose turn it is next (only in single player or for the current player in multiplayer)
+                        if (!this.isMultiplayer || this.isMyTurn) {
+                            this.toaster(`${this.getEmoji(this.currentPlayer)}'s turn`, "info", 1500);
+                        }
                     }
                     
-                    if (this.isMultiplayer) {
-                        this.conn.send({
+                    if (this.conn) {
+                        const moveData = {
                             type: "move",
-                            cells: this.cells,
+                            cells: [...this.cells],
                             currentPlayer: this.currentPlayer,
                             winner: this.winner,
                             isDraw: this.isDraw,
-                            winningCombo: this.winningCombo,
-                            score: this.score,
-                            moveHistory: this.moveHistory,
-                            hasUsedUndo: this.hasUsedUndo,
-                            hasUsedRemove: this.hasUsedRemove,
-                        });
+                            winningCombo: [...this.winningCombo],
+                            score: { ...this.score },
+                            moveHistory: [...this.moveHistory],
+                            hasUsedUndo: { ...this.hasUsedUndo },
+                            hasUsedRemove: { ...this.hasUsedRemove },
+                        };
+                        console.log("Sending move data:", moveData);
+                        this.conn.send(moveData);
+                    } else {
+                        console.log("No connection available to send move");
                     }
                 },
                 checkGameState() {
@@ -579,7 +743,7 @@
                             this.winner = this.cells[a];
                             this.winningCombo = combo;
                             this.score[this.winner]++;
-                            this.toaster(`🏆 Player ${this.getEmoji(this.winner)} wins!`, "success");
+                            this.toaster(`🏆 ${this.getEmoji(this.winner)} wins!`, "success", 5000);
                             this.celebrationFireworks();
                             return;
                         }
@@ -587,7 +751,7 @@
                     
                     if (!this.cells.includes(null)) {
                         this.isDraw = true;
-                        this.toaster("🤝 It's a draw!", "warning");
+                        this.toaster("🤝 It's a draw!", "warning", 4000);
                     }
                 },
                 celebrationFireworks() {
@@ -638,8 +802,11 @@
                         if (gameBoard) gameBoard.classList.remove("fade-out");
                         
                         this.toaster("New game started!", "info");
+                        setTimeout(() => {
+                            this.toaster(`${this.getEmoji(this.currentPlayer)} goes first!`, "info", 2000);
+                        }, 500);
                         
-                        if (sync && this.isMultiplayer) {
+                        if (sync && this.conn && this.conn.open) {
                             this.conn.send({ type: "reset" });
                         }
                     }, 300);
@@ -649,7 +816,5 @@
 
         app.mount("#app");
     </script>
-        {% include modals.liquid %}
-
 </body>
 </html>
