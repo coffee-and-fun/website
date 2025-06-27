@@ -64,7 +64,7 @@
 @keyframes tilt-n-move-shaking {
   0% { transform: translate(0, 0) rotate(0deg); }
   25% { transform: translate(5px, 5px) rotate(5deg); }
-  50% { transform: translate(0, 0) rotate(0eg); }
+  50% { transform: translate(0, 0) rotate(0deg); }
   75% { transform: translate(-5px, 5px) rotate(-5deg); }
   100% { transform: translate(0, 0) rotate(0deg); }
 }
@@ -267,7 +267,7 @@
             <!-- Game Board -->
             <div class="card">
                 <div class="card-body p-4">
-                    <div class="grid grid-cols-3 gap-8">
+                    <div class="grid grid-cols-4 gap-6">
                         <button
                             v-for="(cell, index) in cells"
                             :key="index"
@@ -314,54 +314,48 @@ class="btn game-cell mx-auto text-4xl font-bold transition-all duration-200 hove
             <hr class="my-4 border-t-2 border-primary" />
             <div class="flex gap-4 justify-evenly items-center mb-6">
                 <!-- Undo Power-up -->
-                <div class="tooltip tooltip-top" data-tip="Undo last move">
+                
                     <button
                         @click="undoMove"
-                        class="btn btn-circle btn-warning"
+                        class="btn  btn-secondary"
                         :class="{
                             'btn-disabled opacity-50': hasUsedUndo[currentPlayer] || moveHistory.length === 0 || gameOver
                         }"
                         :disabled="hasUsedUndo[currentPlayer] || moveHistory.length === 0 || gameOver"
                     >
-                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 -960 960 960" fill="currentColor">
-                            <path d="m313-440 224 224-57 56-320-320 320-320 57 56-224 224h487v80H313Z"/>
-                        </svg>
+                       Undo Move
                     </button>
-                </div>
+               
 
 
                      <div class="tooltip tooltip-top" data-tip="Swap Pieces">
                     <button
                        @click="showSwapPowerModal"
-                        class="btn btn-circle btn-info"
+                        class="btn  btn-info"
                         :class="{
                             'btn-disabled opacity-50': hasUsedSwap[currentPlayer] || moveHistory.length === 0 || gameOver
                         }"
-                        :disabled="hasUsedSwap[currentPlayer] || moveHistory.length === 0 || gameOver"
+:disabled="hasUsedSwap[currentPlayer] || cells.filter(cell => cell !== null).length < 2 || gameOver"
                     >
                      
 
-
-<svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 -960 960 960" fill="currentColor"><path d="m320-160-56-57 103-103H80v-80h287L264-503l56-57 200 200-200 200Zm320-240L440-600l200-200 56 57-103 103h287v80H593l103 103-56 57Z"/></svg>
-
+Swap Pieces
                     </button>
                 </div>
                 
                 <!-- Remove Power-up -->
-                <div class="tooltip tooltip-top" data-tip="Remove a piece">
+       
                     <button
                         @click="showRemovePowerModal"
-                        class="btn btn-circle btn-error"
+                        class="btn btn-neutral"
                         :class="{
                             'btn-disabled opacity-50': hasUsedRemove[currentPlayer] || !cells.some(cell => cell !== null) || gameOver
                         }"
                         :disabled="hasUsedRemove[currentPlayer] || !cells.some(cell => cell !== null) || gameOver"
                     >
-                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 -960 960 960" fill="currentColor">
-                            <path d="M280-120q-33 0-56.5-23.5T200-200v-520h-40v-80h200v-40h240v40h200v80h-40v520q0 33-23.5 56.5T680-120H280Zm400-600H280v520h400v-520ZM360-280h80v-360h-80v360Zm160 0h80v-360h-80v360ZM280-720v520-520Z"/>
-                        </svg>
+                        Remove Piece
                     </button>
-                </div>
+            
             </div>
 
 
@@ -378,7 +372,7 @@ class="btn game-cell mx-auto text-4xl font-bold transition-all duration-200 hove
                         Selected: {% raw %} {{ getEmoji(cells[swapSelection[0]]) }} {% endraw %} - Now pick a second piece to swap with
                     </p>
                     
-                    <div class="grid grid-cols-3 gap-4 mb-4">
+                    <div class="grid grid-cols-4 gap-6 mb-4">
                         <button
                             v-for="(cell, index) in cells"
                             :key="index"
@@ -434,7 +428,7 @@ class="btn game-cell mx-auto text-4xl font-bold transition-all duration-200 hove
                         <div class="text-base-content/80 space-y-1">
                             <p>• Take turns placing your emoji on the 3×3 grid</p>
                             <p>• Get three in a row (horizontal, vertical, or diagonal) to win</p>
-                            <p>• If all 12 spaces are filled without a winner, it's a draw</p>
+                            <p>• If all 16 spaces are filled without a winner, it's a draw</p>
                         </div>
                     </div>
                     
@@ -594,7 +588,7 @@ class="btn game-cell mx-auto text-4xl font-bold transition-all duration-200 hove
                         <span v-else>Click on any piece to remove it:</span>
                     </p>
                     
-                    <div class="grid grid-cols-3 gap-8 mb-4">
+                    <div class="grid grid-cols-4 gap-6 mb-4">
                         <button
                             v-for="(cell, index) in cells"
                             :key="index"
@@ -632,7 +626,7 @@ class="btn game-cell mx-auto text-4xl font-bold transition-all duration-200 hove
         const app = createApp({
             data() {
                 return {
-                    cells: Array(12).fill(null),
+                    cells: Array(16).fill(null),
                     moveHistory: [],
                     currentPlayer: "X",
                     winner: null,
@@ -658,7 +652,7 @@ class="btn game-cell mx-auto text-4xl font-bold transition-all duration-200 hove
                     hasUsedSwap: { X: false, O: false },
                     swapSelection: [],
                     showRemoveMode: false,
-                    squareEffects: Array(12).fill(false), // Track which squares have effects
+                    squareEffects: Array(16).fill(false), // Track which squares have effects
                 };
             },
             computed: {
@@ -731,13 +725,14 @@ class="btn game-cell mx-auto text-4xl font-bold transition-all duration-200 hove
       this.squareEffects[index] = false;
     }, 600); // Effect lasts 600ms
   },
-            shakeScreen() {
-                document.body.classList.add('tilt-n-move-shaking');
-                setTimeout(() => {
-                    document.body.classList.remove('tilt-n-move-shaking');
-                }, 500);
-
-
+    shakeScreen() {
+  if (this.isShaking) return;
+  this.isShaking = true;
+  document.body.classList.add('tilt-n-move-shaking');
+  setTimeout(() => {
+    document.body.classList.remove('tilt-n-move-shaking');
+    this.isShaking = false;
+  }, 500);
 },
                 showMultiplayerModal() {
                     document.getElementById('multiplayer-modal').showModal();
@@ -1043,6 +1038,7 @@ class="btn game-cell mx-auto text-4xl font-bold transition-all duration-200 hove
                             moveHistory: [...this.moveHistory],
                             hasUsedUndo: { ...this.hasUsedUndo },
                             hasUsedRemove: { ...this.hasUsedRemove },
+                            hasUsedSwap: { ...this.hasUsedSwap },
                         };
                         console.log("Sending move data:", moveData);
                         this.conn.send(moveData);
@@ -1051,13 +1047,25 @@ class="btn game-cell mx-auto text-4xl font-bold transition-all duration-200 hove
                     }
                 },
                 checkGameState() {
-                    const wins = [
-                        [0, 1, 2], [3, 4, 5], [6, 7, 8], // rows
-                        [0, 3, 6], [1, 4, 7], [2, 5, 8], // columns
-                        [0, 4, 8], [2, 4, 6], // diagonals
+                const wins = [
+                        // Horizontal rows (3-in-a-row)
+                        [0, 1, 2], [1, 2, 3],                    // Row 1: positions 0-3
+                        [4, 5, 6], [5, 6, 7],                    // Row 2: positions 4-7  
+                        [8, 9, 10], [9, 10, 11],                 // Row 3: positions 8-11
+                        [12, 13, 14], [13, 14, 15],              // Row 4: positions 12-15
+                        
+                        // Vertical columns (3-in-a-row) 
+                        [0, 4, 8], [4, 8, 12],                   // Column 1: full + sliding
+                        [1, 5, 9], [5, 9, 13],                   // Column 2: full + sliding
+                        [2, 6, 10], [6, 10, 14],                 // Column 3: full + sliding  
+                        [3, 7, 11], [7, 11, 15],                 // Column 4: full + sliding
+                        
+                        // Diagonal lines (3-in-a-row)
+                        [0, 5, 10], [1, 6, 11], [4, 9, 14], [5, 10, 15],  // Top-left to bottom-right
+                        [2, 5, 8], [3, 6, 9], [6, 9, 12], [7, 10, 13],    // Top-right to bottom-left
                     ];
                     
-                    for (let combo of wins) {
+                       for (let combo of wins) {
                         const [a, b, c] = combo;
                         if (
                             this.cells[a] &&
@@ -1077,6 +1085,8 @@ class="btn game-cell mx-auto text-4xl font-bold transition-all duration-200 hove
                         this.isDraw = true;
                         this.toaster("🤝 It's a draw!", "warning", 4000);
                     }
+                    
+                  
                 },
                 celebrationFireworks() {
                     if (typeof confetti === 'undefined') return;
@@ -1114,7 +1124,7 @@ class="btn game-cell mx-auto text-4xl font-bold transition-all duration-200 hove
                     if (gameBoard) gameBoard.classList.add("fade-out");
 
                     setTimeout(() => {
-                        this.cells = Array(12).fill(null);
+                        this.cells = Array(16).fill(null);
                         this.moveHistory = [];
                         this.currentPlayer = "X";
                         this.winner = null;
@@ -1122,7 +1132,8 @@ class="btn game-cell mx-auto text-4xl font-bold transition-all duration-200 hove
                         this.winningCombo = [];
                         this.hasUsedUndo = { X: false, O: false };
                         this.hasUsedRemove = { X: false, O: false };
-                        
+                        this.hasUsedSwap = { X: false, O: false };
+                        this.swapSelection = [];
                         if (gameBoard) gameBoard.classList.remove("fade-out");
                         
                         this.toaster("New game started!", "info");
