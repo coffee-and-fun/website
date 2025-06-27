@@ -94,7 +94,7 @@
                     </svg>
                     Multiplayer
                 </button>
-
+<!--
                 <button
                     @click="toggleEmojiTheme"
                     class="btn btn-accent gap-2"
@@ -104,6 +104,8 @@
                     </svg>
                     Themes
                 </button>
+
+                --->
   </div>
 
 </div>
@@ -138,38 +140,34 @@ class="btn game-cell mx-auto text-4xl font-bold transition-all duration-200 hove
                 </div>
             </div>
 
-            <!-- Power-ups (Multiplayer only) -->
-            <div class="card bg-base-200 shadow-lg">
-                <div class="card-body p-4">
-                    <h3 class="card-title text-lg mb-3">⚡ Power-ups Available</h3>
-                    <div class="flex gap-2 justify-center">
-                        <button
-                            v-if="!hasUsedUndo[currentPlayer]"
-                            @click="undoMove"
-                            class="btn btn-warning gap-2"
-                            :disabled="isMultiplayer && !gameOver && isMyTurn"
-                        >
-                            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" viewBox="0 -960 960 960" fill="currentColor">
-                                <path d="m313-440 224 224-57 56-320-320 320-320 57 56-224 224h487v80H313Z"/>
-                            </svg>
-                            Undo Move
-                        </button>
-                        
-                        <button
-                            v-if="!hasUsedRemove[currentPlayer]"
-                            @click="showRemovePowerModal"
-                            class="btn btn-error  gap-2"
-                            :disabled="isMultiplayer && !gameOver && isMyTurn"
-                        >
-                            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" viewBox="0 -960 960 960" fill="currentColor">
-                                <path d="M280-120q-33 0-56.5-23.5T200-200v-520h-40v-80h200v-40h240v40h200v80h-40v520q0 33-23.5 56.5T680-120H280Zm400-600H280v520h400v-520ZM360-280h80v-360h-80v360Zm160 0h80v-360h-80v360ZM280-720v520-520Z"/>
-                            </svg>
-                            Remove Piece
-                        </button>
-                    </div>
-                    <div v-if="hasUsedUndo[currentPlayer] && hasUsedRemove[currentPlayer]" class="text-center text-sm text-base-content/60 mt-2">
-                        All power-ups used
-                    </div>
+            <!-- Power-ups (Available for all games) -->
+            <div class="flex gap-4 justify-center">
+                <!-- Undo Power-up -->
+                <div class="tooltip tooltip-top" data-tip="Undo last move">
+                    <button
+                        v-if="!hasUsedUndo[currentPlayer] && moveHistory.length > 0"
+                        @click="undoMove"
+                        class="btn btn-circle btn-warning"
+                        :disabled="!gameOver"
+                    >
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 -960 960 960" fill="currentColor">
+                            <path d="m313-440 224 224-57 56-320-320 320-320 57 56-224 224h487v80H313Z"/>
+                        </svg>
+                    </button>
+                </div>
+                
+                <!-- Remove Power-up -->
+                <div class="tooltip tooltip-top" data-tip="Remove a piece">
+                    <button
+                        v-if="!hasUsedRemove[currentPlayer] && cells.some(cell => cell !== null)"
+                        @click="showRemovePowerModal"
+                        class="btn btn-circle btn-error"
+                        :disabled="!gameOver"
+                    >
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 -960 960 960" fill="currentColor">
+                            <path d="M280-120q-33 0-56.5-23.5T200-200v-520h-40v-80h200v-40h240v40h200v80h-40v520q0 33-23.5 56.5T680-120H280Zm400-600H280v520h400v-520ZM360-280h80v-360h-80v360Zm160 0h80v-360h-80v360ZM280-720v520-520Z"/>
+                        </svg>
+                    </button>
                 </div>
             </div>
 
@@ -241,7 +239,7 @@ class="btn game-cell mx-auto text-4xl font-bold transition-all duration-200 hove
 
             <!-- Power-ups -->
             <div>
-                <h4 class="font-bold text-lg mb-3 text-warning">⚡ Power-ups (Multiplayer Only)</h4>
+                <h4 class="font-bold text-lg mb-3 text-warning">⚡ Power-ups</h4>
                 <div class="space-y-2">
                     <div class="flex items-start gap-3">
                         <div class="badge badge-warning badge-sm mt-1">UNDO</div>
@@ -252,7 +250,7 @@ class="btn game-cell mx-auto text-4xl font-bold transition-all duration-200 hove
                     <div class="flex items-start gap-3">
                         <div class="badge badge-error badge-sm mt-1">REMOVE</div>
                         <div class="text-base-content/80">
-                            <strong>Remove Piece:</strong> Eliminate one of your opponent's pieces from the board. Each player gets one removal per game.
+                            <strong>Remove Piece:</strong> Eliminate a piece from the board. Each player gets one removal per game.
                         </div>
                     </div>
                     <div class="alert alert-info mt-3">
@@ -366,8 +364,11 @@ class="btn game-cell mx-auto text-4xl font-bold transition-all duration-200 hove
             <!-- Remove Piece Modal -->
             <dialog id="remove-modal" class="modal">
                 <div class="modal-box">
-                    <h3 class="font-bold text-lg mb-4">🗑️ Remove Opponent's Piece</h3>
-                    <p class="text-sm text-base-content/70 mb-4">Click on an opponent's piece to remove it:</p>
+                    <h3 class="font-bold text-lg mb-4">🗑️ Remove a Piece</h3>
+                    <p class="text-sm text-base-content/70 mb-4">
+                        <span v-if="isMultiplayer">Click on an opponent's piece to remove it:</span>
+                        <span v-else>Click on any piece to remove it:</span>
+                    </p>
                     
                     <div class="grid grid-cols-3 gap-8 mb-4">
                         <button
@@ -378,11 +379,11 @@ class="btn game-cell mx-auto text-4xl font-bold transition-all duration-200 hove
 
 
                             :class="{
-                                'btn-error': cell === (currentPlayer === 'X' ? 'O' : 'X'),
-                                'btn-ghost': !cell || cell === currentPlayer,
-                                'btn-disabled': !cell || cell === currentPlayer
+                                'btn-error': isMultiplayer ? cell === (currentPlayer === 'X' ? 'O' : 'X') : cell !== null,
+                                'btn-ghost': !cell,
+                                'btn-disabled': !cell || (isMultiplayer && cell === currentPlayer)
                             }"
-                            :disabled="!cell || cell === currentPlayer"
+                            :disabled="!cell || (isMultiplayer && cell === currentPlayer)"
                         >
                             {% raw %}{{ getEmoji(cell) }}{% endraw %}
                         </button>
@@ -506,7 +507,10 @@ class="btn game-cell mx-auto text-4xl font-bold transition-all duration-200 hove
                 removeOpponentPiece(index) {
                     const opponent = this.currentPlayer === "X" ? "O" : "X";
                     if (this.hasUsedRemove[this.currentPlayer]) return;
-                    if (this.cells[index] !== opponent) return;
+                    
+                    // In single player, allow removing any piece. In multiplayer, only opponent pieces
+                    if (this.isMultiplayer && this.cells[index] !== opponent) return;
+                    if (!this.isMultiplayer && this.cells[index] === null) return;
 
                     this.cells[index] = null;
                     this.hasUsedRemove[this.currentPlayer] = true;
@@ -514,7 +518,7 @@ class="btn game-cell mx-auto text-4xl font-bold transition-all duration-200 hove
                     document.getElementById('remove-modal').close();
                     
                     this.toaster(
-                        `${this.getEmoji(this.currentPlayer)} removed opponent's piece!`,
+                        `${this.getEmoji(this.currentPlayer)} removed a piece!`,
                         "warning"
                     );
 
