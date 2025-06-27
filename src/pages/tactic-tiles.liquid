@@ -1,729 +1,655 @@
 <!DOCTYPE html>
-<html
-  class="brand-color-background scroll-smooth antialiased"
-  lang="en"
-  data-theme="light"
->
-  <head>
+<html class="scroll-smooth antialiased" lang="en" data-theme="light">
+<head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>
-      Play Online Tic-Tac-Toe – Emoji Multiplayer Game | Coffee & Fun LLC
-    </title>
-
-    <meta
-      name="description"
-      content="Challenge your friends to a fun, animated Tic-Tac-Toe game with emojis and real-time multiplayer. No account needed. Built with Vue, Tailwind, and Peer-to-Peer magic!"
-    />
+    <title>Play Online Tic-Tac-Toe – Emoji Multiplayer Game | Coffee & Fun LLC</title>
+    
+    <meta name="description" content="Challenge your friends to a fun, animated Tic-Tac-Toe game with emojis and real-time multiplayer. No account needed. Built with Vue, Tailwind, and Peer-to-Peer magic!" />
     <meta name="author" content="Coffee & Fun LLC" />
     <meta name="robots" content="index, follow" />
     <meta name="rating" content="safe for kids" />
-
-    <link rel="icon" href="/assets/images/favicon.png" />
-
-    <meta
-      name="title"
-      content="Play Online Tic-Tac-Toe – Emoji Multiplayer Game | Coffee & Fun LLC"
-    />
-    <!-- PWA Manifest -->
-    <link rel="manifest" href="/assets/images/social/site.webmanifest" />
-
-    <!-- Theme & Mobile Meta -->
-    <meta name="theme-color" content="#fef5ec" />
-    <meta name="mobile-web-app-capable" content="yes" />
-    <meta name="apple-mobile-web-app-capable" content="yes" />
-    <meta name="apple-mobile-web-app-status-bar-style" content="default" />
-
-    <!-- Icons -->
-    <link rel="apple-touch-icon" href="/assets/images/social/192.png" />
-    <link
-      rel="icon"
-      href="/assets/images/social/192.png"
-      sizes="192x192"
-      type="image/png"
-    />
-    <!-- PWA Meta Tags -->
-    <meta name="apple-mobile-web-app-capable" content="yes" />
-    <meta name="apple-mobile-web-app-status-bar-style" content="black" />
-    <meta name="mobile-web-app-capable" content="yes" />
-
-    <!-- Open Graph Meta Tags -->
-    <meta
-      property="og:title"
-      content="Play Online Tic-Tac-Toe – Emoji Multiplayer Game | Coffee & Fun LLC"
-    />
-    <meta property="og:site_name" content="Coffee & Fun" />
-    <meta property="og:url" content="https://www.coffeeandfun.com/" />
-    <meta
-      property="og:description"
-      content="Challenge your friends to a fun, animated Tic-Tac-Toe game with emojis and real-time multiplayer. No account needed. Built with Vue, Tailwind, and Peer-to-Peer magic!"
-    />
-    <meta property="og:type" content="website" />
-    <meta property="og:image" content="/assets/images/apps/coco.png" />
-
-    <!-- Twitter Meta Tags -->
-    <meta property="twitter:domain" content="coffeeandfun.com" />
-    <meta property="twitter:url" content="https://www.coffeeandfun.com" />
-    <meta name="twitter:card" content="summary_large_image" />
-    <meta
-      name="twitter:title"
-      content="Play Online Tic-Tac-Toe – Emoji Multiplayer Game | Coffee & Fun LLC"
-    />
-    <meta name="twitter:site" content="@bycoffeeandfun" />
-    <meta
-      name="twitter:description"
-      content="Challenge your friends to a fun, animated Tic-Tac-Toe game with emojis and real-time multiplayer. No account needed. Built with Vue, Tailwind, and Peer-to-Peer magic!"
-    />
-    <meta
-      name="twitter:image"
-      content="https://www.coffeeandfun.com/assets/images/apps/tic-tac.png"
-    />
-    <meta name="twitter:image:alt" content=" Coffee & Fun" />
-
-    <script type="application/ld+json">
-      {
-        "@context": "http://schema.org/",
-        "@type": "WebSite",
-        "url": "https://www.coffeeandfun.com",
-        "potentialAction": {
-          "@type": "SearchAction",
-          "target": "{search_term_string}",
-          "query-input": "required name=search_term_string"
-        }
-      }
-    </script>
-    {% bundledCss %}
-
-    <style>
-      [v-cloak] {
-        display: none;
-      }
-      button {
-        touch-action: manipulation;
-      }
-      .fade-out {
-        opacity: 0;
-        transition: opacity 0.3s ease;
-      }
-    </style>
-    <script>
-      if ("serviceWorker" in navigator) {
-        navigator.serviceWorker.getRegistrations().then((registrations) => {
-          for (const registration of registrations) {
-            registration.unregister().then(() => {
-              console.log("🧹 Old service worker unregistered");
-            });
-          }
-
-          // After clearing, register the new one
-          navigator.serviceWorker
-            .register("/service-worker.js")
-            .then(() => console.log("✅ New service worker registered"))
-            .catch((err) => console.log("Service worker error:", err));
-        });
-      }
-    </script>
-
-    <script src="https://unpkg.com/vue@3"></script>
-
-    <link
-      rel="stylesheet"
-      type="text/css"
-      href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css"
-    />
-
-    <!-- PeerJS -->
-    <script src="https://unpkg.com/hotkeys-js/dist/hotkeys.min.js"></script>
-    <script src="https://unpkg.com/peerjs@1.4.7/dist/peerjs.min.js"></script>
-    <script
-      type="text/javascript"
-      src="https://cdn.jsdelivr.net/npm/toastify-js"
-    ></script>
-    <script>
-      if ("serviceWorker" in navigator) {
-        navigator.serviceWorker.register("/service-worker.js");
-      }
-    </script>
-
-    <style>
-      @keyframes ticker {
-        0% {
-          transform: translateX(100%);
-        }
-
-        100% {
-          transform: translateX(-100%);
-        }
-      }
-
-      .animate-ticker {
-        animation: ticker 10s linear infinite;
-      }
-
-      .animate-ticker:hover {
-        animation-play-state: paused;
-      }
-
-      .card-body {
-        transition: transform 0.3s ease-in-out;
-      }
-
-      .draggable-card {
-        transition:
-          top 0.3s ease,
-          left 0.3s ease;
-        position: absolute;
-      }
-    </style>
-
-    {% include scripts.html %}
-  </head>
-
-  <body>
-    {% assign showDonation = false %} {% assign showKeyboardModal = false %} {%
-    assign showMiddleBadge = false %} {% assign showDiscordApp = false %} {%
-    assign showMenu = false %}
-
-    <main
-      id="main-content"
-      class="min-h-screen flex flex-col items-center justify-center p-6"
-    >
-      <div id="app" class="w-full flex flex-col items-center">
-        <div class="stats">
-          <div class="stat">
-            <div class="stat-figure text-secondary">
-              <div class="avatar">
-                {% raw %} {{ emojiThemes[this.themeIndex].X }} {% endraw %}
-              </div>
-            </div>
-            <div class="stat-value">{% raw %} {{ score.X }} {% endraw %}</div>
-            <div class="stat-title">Score</div>
-          </div>
-
-          <div class="stat">
-            <div class="stat-figure text-secondary">
-              <div class="avatar">
-                {% raw %} {{ emojiThemes[this.themeIndex].O }} {% endraw %}
-              </div>
-            </div>
-            <div class="stat-value">{% raw %}{{ score.O }} {% endraw %}</div>
-            <div class="stat-title">Score</div>
-          </div>
-        </div>
-
-        <div class="mb-4 flex flex-col items-center space-y-2"></div>
-
-        <div class="grid grid-cols-3 gap-4 mb-4">
-          <button
-            v-for="(cell, index) in cells"
-            :key="index"
-            @click="makeMove(index)"
-            class="btn touch-manipulation btn-lg w-24 h-24 text-3xl font-bold transition-transform duration-200 hover:scale-105"
-            :class="{ 'bg-green-100 animate-pulse': winner && winningCombo.includes(index), 'cursor-not-allowed opacity-50': !isMyTurn }"
-            :disabled="!isMyTurn || cell"
-          >
-            {% raw %} {{ getEmoji(cell) }} {% endraw %}
-          </button>
-        </div>
-
-        <div class="text-lg mb-4">
-          <span class="badge badge-neutral badge-outline" v-if="winner"
-            >🏆 Player {% raw %} {{ getEmoji(winner) }} {%endraw %}wins!</span
-          >
-          <span class="badge badge-neutral badge-outline" v-else-if="isDraw"
-            >🤝 It's a draw!</span
-          >
-          <span class="badge badge-neutral badge-outline" v-else
-            >Current Player: {% raw %} {{ getEmoji(currentPlayer) }} {%endraw
-            %}</span
-          >
-        </div>
-
-        <div class="dock dock-xl" style="    bottom: 4rem;" v-if="isMultiplayer">
-          <!-- Add undo button to your UI -->
-          <button
-            v-if="!gameOver && !hasUsedUndo[currentPlayer]"
-            @click="undoMove"
-          
-          >
-
-
-
-<svg xmlns="http://www.w3.org/2000/svg"         class="size-[1.5em]"  viewBox="0 -960 960 960"  fill="currentColor"><path d="m313-440 224 224-57 56-320-320 320-320 57 56-224 224h487v80H313Z"/></svg>
-            <span class="dock-label">Undo</span>
-
-       
-          </button>
-          <!-- Add remove power button to your UI -->
-          <button
-            v-if="!gameOver && !hasUsedRemove[currentPlayer]"
-        
-            onclick="my_modal_6.showModal()"
-  
-          >
-
-
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 -960 960 960"   class="size-[1.5em]"  fill="currentColor"><path d="M280-120q-33 0-56.5-23.5T200-200v-520h-40v-80h200v-40h240v40h200v80h-40v520q0 33-23.5 56.5T680-120H280Zm400-600H280v520h400v-520ZM360-280h80v-360h-80v360Zm160 0h80v-360h-80v360ZM280-720v520-520Z"/></svg>
-
-
-                   <span class="dock-label">    Remove Piece</span>
-          </button>
-
-      
-        </div>
-
-        <div class="dock dock-xl">
-          <button class="touch-manipulation" v-if="gameOver" @click="resetGame">
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              class="size-[1.5em]"
-              viewBox="0 -960 960 960"
-              fill="currentColor"
-            >
-              <path
-                d="M482-160q-134 0-228-93t-94-227v-7l-64 64-56-56 160-160 160 160-56 56-64-64v7q0 100 70.5 170T482-240q26 0 51-6t49-18l60 60q-38 22-78 33t-82 11Zm278-161L600-481l56-56 64 64v-7q0-100-70.5-170T478-720q-26 0-51 6t-49 18l-60-60q38-22 78-33t82-11q134 0 228 93t94 227v7l64-64 56 56-160 160Z"
-              />
-            </svg>
-            <span class="dock-label">Restart</span>
-          </button>
-
-          <button onclick="my_modal_5.showModal()" class="touch-manipulation">
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              class="size-[1.5em]"
-              viewBox="0 -960 960 960"
-              fill="currentColor"
-            >
-              <path
-                d="m272-440 208 120 208-120-168-97v137h-80v-137l-168 97Zm168-189v-17q-44-13-72-49.5T340-780q0-58 41-99t99-41q58 0 99 41t41 99q0 48-28 84.5T520-646v17l280 161q19 11 29.5 29.5T840-398v76q0 22-10.5 40.5T800-252L520-91q-19 11-40 11t-40-11L160-252q-19-11-29.5-29.5T120-322v-76q0-22 10.5-40.5T160-468l280-161Zm0 378L200-389v67l280 162 280-162v-67L520-251q-19 11-40 11t-40-11Zm40-469q25 0 42.5-17.5T540-780q0-25-17.5-42.5T480-840q-25 0-42.5 17.5T420-780q0 25 17.5 42.5T480-720Zm0 560Z"
-              />
-            </svg>
-            <span class="dock-label">Multiplayer</span>
-          </button>
-
-          <button @click="toggleEmojiTheme" class="touch-manipulation">
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              class="size-[1.5em]"
-              viewBox="0 -960 960 960"
-              fill="currentColor"
-            >
-              <path
-                d="M480-40q-149 0-254.5-42.5T120-200q0-32 20-57.5t56-45.5l65 58q-24 8-42.5 20.5T200-200q0 26 81 53t199 27q118 0 199-27t81-53q0-12-18.5-24.5T699-245l65-58q36 20 56 45.5t20 57.5q0 75-105.5 117.5T480-40Zm0-160q-22 0-42.5-7.5T400-230L148-453q-13-11-20.5-27t-7.5-33v-80q0-17 6.5-33t19.5-27l252-235q17-16 38-24t44-8q23 0 44 8t38 24l252 235q13 11 19.5 27t6.5 33v80q0 17-7.5 33T812-453L560-230q-17 15-37.5 22.5T480-200Zm-4-188q14 0 26.5-4.5T526-407l222-197-240-226q-7-5-14-7.5t-15-2.5q-8 0-15 2.5t-12 7.5L208-600l218 193q11 10 23.5 14.5T476-388ZM360-550q21 0 35.5-14.5T410-600q0-21-14.5-35.5T360-650q-21 0-35.5 14.5T310-600q0 21 14.5 35.5T360-550Zm50 54q43 21 90.5 13.5T584-522q34-29 44.5-73T618-678L410-496Zm70-174q21 0 35.5-14.5T530-720q0-21-14.5-35.5T480-770q-21 0-35.5 14.5T430-720q0 21 14.5 35.5T480-670Zm-2 56Z"
-              />
-            </svg>
-            <span class="dock-label">Themes</span>
-          </button>
-        </div>
-
-
-          <dialog id="my_modal_6" class="modal modal-bottom sm:modal-middle">
-<div class="modal-box">
-            <h3 class="text-lg font-bold">Remove Piece</h3>
-
-   <div class="grid grid-cols-3 gap-2 mb-2">
-    <!-- Highlight board for remove action -->
-          <button
-            v-for="(cell, index) in cells"
-            :key="index"
-            @click="showRemoveMode ? removeOpponentPiece(index) : makeMove(index)"
-
-
-              class="btn touch-manipulation btn-lg w-12 h-12 text-2xl font-bold transition-transform duration-200 hover:scale-105"
     
+    <!-- DaisyUI + Tailwind CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/daisyui@4.4.20/dist/full.min.css" rel="stylesheet" type="text/css" />
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Vue 3 -->
+    <script src="https://unpkg.com/vue@3"></script>
+    
+    <!-- Toast notifications -->
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css" />
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
+    
+    <!-- PeerJS for multiplayer -->
+    <script src="https://unpkg.com/peerjs@1.4.7/dist/peerjs.min.js"></script>
+    
+    <!-- Confetti for celebrations -->
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+    
+    <style>
+        [v-cloak] { display: none; }
+        button { touch-action: manipulation; }
+        .fade-out { opacity: 0; transition: opacity 0.3s ease; }
+        .game-cell { 
+            aspect-ratio: 1;
+            min-height: 80px;
+        }
+        .winning-cell {
+            animation: pulse 1s infinite;
+            background: linear-gradient(45deg, #10b981, #34d399);
+        }
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+        }
+    </style>
+</head>
 
-            :class="{
-    'ring-1 ring-red-500': showRemoveMode && cell === (currentPlayer === 'X' ? 'O' : 'X')
-  }"
-          >
-            {% raw %} {{ getEmoji(cell) }} {% endraw %}
-          </button>
-
-</div>
- <div class="modal-action">
-              <form method="dialog">
-                <!-- if there is a button in form, it will close the modal -->
-                <button class="btn">Close</button>
-              </form>
+<body class="bg-base-100 min-h-screen">
+    <main class="container mx-auto px-4 py-8">
+        <div id="app" v-cloak class="max-w-md mx-auto space-y-6">
+            
+            <!-- Header with Scores -->
+            <div class="card bg-base-200 shadow-lg">
+                <div class="card-body p-4">
+                    <h1 class="card-title text-2xl font-bold text-center justify-center mb-4">
+                        🎮 Tic-Tac-Toe
+                    </h1>
+                    
+                    <div class="stats stats-horizontal shadow">
+                        <div class="stat place-items-center">
+                            <div class="stat-figure text-4xl">
+                                {% raw %}{{ emojiThemes[themeIndex].X }}{% endraw %}
+                            </div>
+                            <div class="stat-value text-primary">{% raw %}{{ score.X }}{% endraw %}</div>
+                            <div class="stat-title">Player X</div>
+                        </div>
+                        
+                        <div class="stat place-items-center">
+                            <div class="stat-figure text-4xl">
+                                {% raw %}{{ emojiThemes[themeIndex].O }}{% endraw %}
+                            </div>
+                            <div class="stat-value text-secondary">{% raw %}{{ score.O }}{% endraw %}</div>
+                            <div class="stat-title">Player O</div>
+                        </div>
+                    </div>
+                </div>
             </div>
+
+            <!-- Game Status -->
+            <div class="text-center">
+                <div v-if="winner" class="alert alert-success">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="stroke-current shrink-0 h-6 w-6" fill="none" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                    </svg>
+                    <span>🏆 Player {% raw %}{{ getEmoji(winner) }}{% endraw %} wins!</span>
+                </div>
+                
+                <div v-else-if="isDraw" class="alert alert-warning">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="stroke-current shrink-0 h-6 w-6" fill="none" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-2.5L13.732 4c-.77-.833-1.964-.833-2.732 0L3.732 16.5c-.77.833.192 2.5 1.732 2.5z" />
+                    </svg>
+                    <span>🤝 It's a draw!</span>
+                </div>
+                
+                <div v-else class="alert alert-info">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="stroke-current shrink-0 h-6 w-6" fill="none" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                    </svg>
+                    <span>Current Player: {% raw %}{{ getEmoji(currentPlayer) }}{% endraw %}</span>
+                    <span v-if="isMultiplayer && !isMyTurn" class="text-sm opacity-70">(Waiting for opponent)</span>
+                </div>
             </div>
 
-          </dialog>
-
-        <dialog id="my_modal_5" class="modal modal-bottom sm:modal-middle">
-          <div class="modal-box">
-            <h3 class="text-lg font-bold">Multiplayer!</h3>
-
-            <button
-              @click="createGame"
-              class="btn touch-manipulation btn-block btn-accent my-8"
-            >
-              Create Game
-            </button>
-
-            <div
-              v-if="peerId"
-              class="btn touch-manipulation btn-soft btn-accent btn-block my-8"
-              @click="copyPeerIdToClipboard"
-            >
-              Invite Link
-
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                viewBox="0 -960 960 960"
-                class="h-4 w-4"
-                fill="currentColor"
-              >
-                <path
-                  d="M360-240q-33 0-56.5-23.5T280-320v-480q0-33 23.5-56.5T360-880h360q33 0 56.5 23.5T800-800v480q0 33-23.5 56.5T720-240H360Zm0-80h360v-480H360v480ZM200-80q-33 0-56.5-23.5T120-160v-560h80v560h440v80H200Zm160-240v-480 480Z"
-                />
-              </svg>
+            <!-- Game Board -->
+            <div class="card bg-base-200 shadow-lg">
+                <div class="card-body p-4">
+                    <div class="grid grid-cols-3 gap-2">
+                        <button
+                            v-for="(cell, index) in cells"
+                            :key="index"
+                            @click="makeMove(index)"
+                            class="btn game-cell text-4xl font-bold transition-all duration-200 hover:scale-105"
+                            :class="{
+                                'winning-cell': winner && winningCombo.includes(index),
+                                'btn-disabled': !isMyTurn || cell,
+                                'btn-primary': !cell && isMyTurn,
+                                'btn-ghost': cell
+                            }"
+                            :disabled="!isMyTurn || cell"
+                        >
+                            {% raw %}{{ getEmoji(cell) }}{% endraw %}
+                        </button>
+                    </div>
+                </div>
             </div>
 
-            <div class="join hidden">
-              <input
-                v-model="peerIdToConnect"
-                placeholder="Enter game ID"
-                class="input w-full join-item"
-              />
-
-              <button
-                class="btn join-item rounded-r-full"
-                @click="connectToPeer"
-              >
-                Join Game
-              </button>
+            <!-- Power-ups (Multiplayer only) -->
+            <div v-if="isMultiplayer && !gameOver" class="card bg-base-200 shadow-lg">
+                <div class="card-body p-4">
+                    <h3 class="card-title text-lg mb-3">Power-ups</h3>
+                    <div class="flex gap-2 justify-center">
+                        <button
+                            v-if="!hasUsedUndo[currentPlayer] && isMyTurn"
+                            @click="undoMove"
+                            class="btn btn-warning btn-sm gap-2"
+                        >
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" viewBox="0 -960 960 960" fill="currentColor">
+                                <path d="m313-440 224 224-57 56-320-320 320-320 57 56-224 224h487v80H313Z"/>
+                            </svg>
+                            Undo Move
+                        </button>
+                        
+                        <button
+                            v-if="!hasUsedRemove[currentPlayer] && isMyTurn"
+                            @click="showRemovePowerModal"
+                            class="btn btn-error btn-sm gap-2"
+                        >
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" viewBox="0 -960 960 960" fill="currentColor">
+                                <path d="M280-120q-33 0-56.5-23.5T200-200v-520h-40v-80h200v-40h240v40h200v80h-40v520q0 33-23.5 56.5T680-120H280Zm400-600H280v520h400v-520ZM360-280h80v-360h-80v360Zm160 0h80v-360h-80v360ZM280-720v520-520Z"/>
+                            </svg>
+                            Remove Piece
+                        </button>
+                    </div>
+                </div>
             </div>
 
-            <div class="modal-action">
-              <form method="dialog">
-                <!-- if there is a button in form, it will close the modal -->
-                <button class="btn">Close</button>
-              </form>
+            <!-- Control Buttons -->
+            <div class="flex flex-wrap gap-2 justify-center">
+                <button
+                    v-if="gameOver"
+                    @click="resetGame"
+                    class="btn btn-success gap-2"
+                >
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 -960 960 960" fill="currentColor">
+                        <path d="M482-160q-134 0-228-93t-94-227v-7l-64 64-56-56 160-160 160 160-56 56-64-64v7q0 100 70.5 170T482-240q26 0 51-6t49-18l60 60q-38 22-78 33t-82 11Zm278-161L600-481l56-56 64 64v-7q0-100-70.5-170T478-720q-26 0-51 6t-49 18l-60-60q38-22 78-33t82-11q134 0 228 93t94 227v7l64-64 56 56-160 160Z"/>
+                    </svg>
+                    New Game
+                </button>
+
+                <button
+                    @click="showMultiplayerModal"
+                    class="btn btn-primary gap-2"
+                >
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 -960 960 960" fill="currentColor">
+                        <path d="m272-440 208 120 208-120-168-97v137h-80v-137l-168 97Zm168-189v-17q-44-13-72-49.5T340-780q0-58 41-99t99-41q58 0 99 41t41 99q0 48-28 84.5T520-646v17l280 161q19 11 29.5 29.5T840-398v76q0 22-10.5 40.5T800-252L520-91q-19 11-40 11t-40-11L160-252q-19-11-29.5-29.5T120-322v-76q0-22 10.5-40.5T160-468l280-161Zm0 378L200-389v67l280 162 280-162v-67L520-251q-19 11-40 11t-40-11Zm40-469q25 0 42.5-17.5T540-780q0-25-17.5-42.5T480-840q-25 0-42.5 17.5T420-780q0 25 17.5 42.5T480-720Zm0 560Z"/>
+                    </svg>
+                    Multiplayer
+                </button>
+
+                <button
+                    @click="toggleEmojiTheme"
+                    class="btn btn-accent gap-2"
+                >
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 -960 960 960" fill="currentColor">
+                        <path d="M480-40q-149 0-254.5-42.5T120-200q0-32 20-57.5t56-45.5l65 58q-24 8-42.5 20.5T200-200q0 26 81 53t199 27q118 0 199-27t81-53q0-12-18.5-24.5T699-245l65-58q36 20 56 45.5t20 57.5q0 75-105.5 117.5T480-40Zm0-160q-22 0-42.5-7.5T400-230L148-453q-13-11-20.5-27t-7.5-33v-80q0-17 6.5-33t19.5-27l252-235q17-16 38-24t44-8q23 0 44 8t38 24l252 235q13 11 19.5 27t6.5 33v80q0 17-7.5 33T812-453L560-230q-17 15-37.5 22.5T480-200Zm-4-188q14 0 26.5-4.5T526-407l222-197-240-226q-7-5-14-7.5t-15-2.5q-8 0-15 2.5t-12 7.5L208-600l218 193q11 10 23.5 14.5T476-388ZM360-550q21 0 35.5-14.5T410-600q0-21-14.5-35.5T360-650q-21 0-35.5 14.5T310-600q0 21 14.5 35.5T360-550Zm50 54q43 21 90.5 13.5T584-522q34-29 44.5-73T618-678L410-496Zm70-174q21 0 35.5-14.5T530-720q0-21-14.5-35.5T480-770q-21 0-35.5 14.5T430-720q0 21 14.5 35.5T480-670Zm-2 56Z"/>
+                    </svg>
+                    Themes
+                </button>
             </div>
-          </div>
-        </dialog>
-      </div>
+
+            <!-- Multiplayer Modal -->
+            <dialog id="multiplayer-modal" class="modal">
+                <div class="modal-box">
+                    <h3 class="font-bold text-lg mb-4">🌐 Multiplayer Game</h3>
+                    
+                    <div class="space-y-4">
+                        <button
+                            @click="createGame"
+                            class="btn btn-primary btn-block gap-2"
+                        >
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6" />
+                            </svg>
+                            Create New Game
+                        </button>
+
+                        <div v-if="peerId" class="space-y-2">
+                            <p class="text-sm text-base-content/70">Game created! Share this link:</p>
+                            <button
+                                @click="copyPeerIdToClipboard"
+                                class="btn btn-outline btn-block gap-2"
+                            >
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" viewBox="0 -960 960 960" fill="currentColor">
+                                    <path d="M360-240q-33 0-56.5-23.5T280-320v-480q0-33 23.5-56.5T360-880h360q33 0 56.5 23.5T800-800v480q0 33-23.5 56.5T720-240H360Zm0-80h360v-480H360v480ZM200-80q-33 0-56.5-23.5T120-160v-560h80v560h440v80H200Zm160-240v-480 480Z"/>
+                                </svg>
+                                Copy Invite Link
+                            </button>
+                        </div>
+
+                        <div class="divider">OR</div>
+
+                        <div class="space-y-2">
+                            <label class="label">
+                                <span class="label-text">Join existing game:</span>
+                            </label>
+                            <div class="join w-full">
+                                <input
+                                    v-model="peerIdToConnect"
+                                    placeholder="Enter game ID"
+                                    class="input input-bordered join-item flex-1"
+                                />
+                                <button
+                                    @click="connectToPeer"
+                                    class="btn btn-primary join-item"
+                                    :disabled="!peerIdToConnect.trim()"
+                                >
+                                    Join
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="modal-action">
+                        <form method="dialog">
+                            <button class="btn">Close</button>
+                        </form>
+                    </div>
+                </div>
+                <form method="dialog" class="modal-backdrop">
+                    <button>close</button>
+                </form>
+            </dialog>
+
+            <!-- Remove Piece Modal -->
+            <dialog id="remove-modal" class="modal">
+                <div class="modal-box">
+                    <h3 class="font-bold text-lg mb-4">🗑️ Remove Opponent's Piece</h3>
+                    <p class="text-sm text-base-content/70 mb-4">Click on an opponent's piece to remove it:</p>
+                    
+                    <div class="grid grid-cols-3 gap-2 mb-4">
+                        <button
+                            v-for="(cell, index) in cells"
+                            :key="index"
+                            @click="removeOpponentPiece(index)"
+                            class="btn game-cell text-3xl font-bold transition-all duration-200"
+                            :class="{
+                                'btn-error': cell === (currentPlayer === 'X' ? 'O' : 'X'),
+                                'btn-ghost': !cell || cell === currentPlayer,
+                                'btn-disabled': !cell || cell === currentPlayer
+                            }"
+                            :disabled="!cell || cell === currentPlayer"
+                        >
+                            {% raw %}{{ getEmoji(cell) }}{% endraw %}
+                        </button>
+                    </div>
+
+                    <div class="modal-action">
+                        <form method="dialog">
+                            <button class="btn">Cancel</button>
+                        </form>
+                    </div>
+                </div>
+                <form method="dialog" class="modal-backdrop">
+                    <button>close</button>
+                </form>
+            </dialog>
+        </div>
     </main>
 
     <script>
-      const { createApp } = Vue;
+        const { createApp } = Vue;
 
-      const app = createApp({
-        data() {
-          return {
-            cells: Array(9).fill(null),
-            moveHistory: [],
-            currentPlayer: "X",
-            winner: null,
-            isDraw: false,
-            winningCombo: [],
-            score: { X: 0, O: 0 },
-            emojiThemes: [
-              { X: "❌", O: "⭕" },
-              { X: "🐶", O: "🐱" },
-              { X: "🍕", O: "🍔" },
-              { X: "🦄", O: "🐉" },
-            ],
-            themeIndex: 0,
-            peer: null,
-            conn: null,
-            peerId: "",
-            peerIdToConnect: "",
-            isHost: false,
-            hasUsedUndo: { X: false, O: false },
-            hasUsedRemove: { X: false, O: false },
-            showRemoveMode: true,
-          };
-        },
-        computed: {
-           isMultiplayer() {
-    return this.conn;
-  },
-          emojiSet() {
-            return this.emojiThemes[this.themeIndex];
-          },
-          isMyTurn() {
-            if (!this.conn) return true;
-            return (
-              (this.isHost && this.currentPlayer === "X") ||
-              (!this.isHost && this.currentPlayer === "O")
-            );
-          },
-          gameOver() {
-            return this.winner || this.isDraw;
-          },
-        },
-        watch: {
-          // Remind when it's your turn
-          isMyTurn(newVal) {
-            if (newVal && !this.winner && !this.isDraw) {
-              this.toaster("Your move!");
-            }
-          },
-          score: {
-            handler(val) {
-              localStorage.setItem("tictactoe-score", JSON.stringify(val));
+        const app = createApp({
+            data() {
+                return {
+                    cells: Array(9).fill(null),
+                    moveHistory: [],
+                    currentPlayer: "X",
+                    winner: null,
+                    isDraw: false,
+                    winningCombo: [],
+                    score: { X: 0, O: 0 },
+                    emojiThemes: [
+                        { X: "❌", O: "⭕" },
+                        { X: "🐶", O: "🐱" },
+                        { X: "🍕", O: "🍔" },
+                        { X: "🦄", O: "🐉" },
+                        { X: "🌟", O: "🌙" },
+                        { X: "🔥", O: "❄️" }
+                    ],
+                    themeIndex: 0,
+                    peer: null,
+                    conn: null,
+                    peerId: "",
+                    peerIdToConnect: "",
+                    isHost: false,
+                    hasUsedUndo: { X: false, O: false },
+                    hasUsedRemove: { X: false, O: false },
+                    showRemoveMode: false,
+                };
             },
-            deep: true,
-          },
-        },
-        mounted() {
-          const saved = JSON.parse(localStorage.getItem("tictactoe-score"));
-          if (saved) this.score = saved;
+            computed: {
+                isMultiplayer() {
+                    return this.conn && this.conn.open;
+                },
+                emojiSet() {
+                    return this.emojiThemes[this.themeIndex];
+                },
+                isMyTurn() {
+                    if (!this.isMultiplayer) return true;
+                    return (
+                        (this.isHost && this.currentPlayer === "X") ||
+                        (!this.isHost && this.currentPlayer === "O")
+                    );
+                },
+                gameOver() {
+                    return this.winner || this.isDraw;
+                },
+            },
+            watch: {
+                isMyTurn(newVal) {
+                    if (newVal && !this.winner && !this.isDraw && this.isMultiplayer) {
+                        this.toaster("🎯 Your turn!", "info");
+                    }
+                },
+                score: {
+                    handler(val) {
+                        localStorage.setItem("tictactoe-score", JSON.stringify(val));
+                    },
+                    deep: true,
+                },
+            },
+            mounted() {
+                const saved = JSON.parse(localStorage.getItem("tictactoe-score"));
+                if (saved) this.score = saved;
 
-          const gameId = this.getUrlParameter("gameId");
-          if (gameId) {
-            this.peerIdToConnect = gameId;
-            this.connectToPeer();
-          }
-          // as soon as the component is up, check for ?gameId=…
-        },
-        methods: {
-          removeOpponentPiece(index) {
-            const opponent = this.currentPlayer === "X" ? "O" : "X";
-            if (this.hasUsedRemove[this.currentPlayer]) return;
-            if (this.cells[index] !== opponent) return;
+                const gameId = this.getUrlParameter("gameId");
+                if (gameId) {
+                    this.peerIdToConnect = gameId;
+                    this.connectToPeer();
+                }
+            },
+            methods: {
+                showMultiplayerModal() {
+                    document.getElementById('multiplayer-modal').showModal();
+                },
+                showRemovePowerModal() {
+                    document.getElementById('remove-modal').showModal();
+                },
+                removeOpponentPiece(index) {
+                    const opponent = this.currentPlayer === "X" ? "O" : "X";
+                    if (this.hasUsedRemove[this.currentPlayer]) return;
+                    if (this.cells[index] !== opponent) return;
 
-            this.cells[index] = null;
-            this.hasUsedRemove[this.currentPlayer] = true;
-            this.toaster(
-              `${this.getEmoji(this.currentPlayer)} removed opponent's piece!`,
-            );
+                    this.cells[index] = null;
+                    this.hasUsedRemove[this.currentPlayer] = true;
+                    
+                    // Close modal
+                    document.getElementById('remove-modal').close();
+                    
+                    this.toaster(
+                        `${this.getEmoji(this.currentPlayer)} removed opponent's piece!`,
+                        "warning"
+                    );
 
-            if (this.conn?.open) {
-              this.conn.send({
-                type: "remove",
-                cells: this.cells,
-                currentPlayer: this.currentPlayer,
-                hasUsedRemove: this.hasUsedRemove,
-              });
-            }
-          },
-          undoMove() {
-            const last = this.moveHistory.pop();
-            if (!last || this.hasUsedUndo[last.player]) return;
-            this.cells[last.index] = null;
-            this.winner = null;
-            this.isDraw = false;
-            this.winningCombo = [];
-            this.currentPlayer = last.player;
-            this.hasUsedUndo[last.player] = true;
-            this.toaster(
-              `${this.getEmoji(last.player)} undid their last move!`,
-            );
-            if (this.conn?.open) {
-              this.conn.send({
-                type: "undo",
-                cells: this.cells,
-                currentPlayer: this.currentPlayer,
-                winner: this.winner,
-                isDraw: this.isDraw,
-                winningCombo: this.winningCombo,
-                moveHistory: this.moveHistory,
-                hasUsedUndo: this.hasUsedUndo,
-              });
-            }
-          },
-          toaster(msg) {
-            window
-              .Toastify({
-                text: msg,
-                className: "btn btn-info rounded-full",
-                duration: 3000,
-                gravity: "bottom",
-                position: "center",
-                stopOnFocus: true,
-              })
-              .showToast();
-          },
-          getEmoji(val) {
-            return this.emojiSet[val] || "";
-          },
-          toggleEmojiTheme() {
-            this.themeIndex = (this.themeIndex + 1) % this.emojiThemes.length;
-          },
-          setupConnection() {
-            this.conn.on("data", (data) => {
-              if (data.type === "move") {
-                this.cells = data.cells;
-                this.currentPlayer = data.currentPlayer;
-                this.winner = data.winner;
-                this.isDraw = data.isDraw;
-                this.winningCombo = data.winningCombo;
-                this.score = data.score;
-                // Opponent moved
-                this.toaster("Opponent moved!");
-              } else if (data.type === "reset") {
-                this.resetGame(false);
-              }
-            });
-            // Handle player disconnect
-            this.conn.on("close", () => {
-              this.toaster("Player disconnected");
-            });
-          },
-          createGame() {
-            this.isHost = true;
-            this.peer = new Peer();
-            this.peer.on("open", (id) => {
-              this.peerId = id;
-              this.toaster("Game created! Share the ID.");
-            });
-            this.peer.on("connection", (connection) => {
-              this.conn = connection;
-              this.setupConnection();
-              this.toaster("Player joined the game!");
-            });
-          },
-          // Grab any named query-param from the URL, e.g. ?gameId=123
-          getUrlParameter(name) {
-            const params = new URLSearchParams(window.location.search);
-            return params.get(name);
-          },
-          connectToPeer() {
-            this.isHost = false;
-            this.peer = new Peer();
-            this.peer.on("open", () => {
-              this.conn = this.peer.connect(this.peerIdToConnect);
-              this.conn.on("open", () => {
-                this.setupConnection();
-                this.toaster("Connected to host!");
-              });
-            });
-          },
-          copyPeerIdToClipboard() {
-            let link = `${window.location.origin}/tactic-tiles/?gameId=${this.peerId}`;
+                    if (this.isMultiplayer) {
+                        this.conn.send({
+                            type: "remove",
+                            cells: this.cells,
+                            currentPlayer: this.currentPlayer,
+                            hasUsedRemove: this.hasUsedRemove,
+                        });
+                    }
+                },
+                undoMove() {
+                    const last = this.moveHistory.pop();
+                    if (!last || this.hasUsedUndo[last.player]) return;
+                    
+                    this.cells[last.index] = null;
+                    this.winner = null;
+                    this.isDraw = false;
+                    this.winningCombo = [];
+                    this.currentPlayer = last.player;
+                    this.hasUsedUndo[last.player] = true;
+                    
+                    this.toaster(
+                        `${this.getEmoji(last.player)} undid their last move!`,
+                        "warning"
+                    );
+                    
+                    if (this.isMultiplayer) {
+                        this.conn.send({
+                            type: "undo",
+                            cells: this.cells,
+                            currentPlayer: this.currentPlayer,
+                            winner: this.winner,
+                            isDraw: this.isDraw,
+                            winningCombo: this.winningCombo,
+                            moveHistory: this.moveHistory,
+                            hasUsedUndo: this.hasUsedUndo,
+                        });
+                    }
+                },
+                toaster(msg, type = "info") {
+                    const colors = {
+                        info: "#3b82f6",
+                        success: "#10b981", 
+                        warning: "#f59e0b",
+                        error: "#ef4444"
+                    };
+                    
+                    window.Toastify({
+                        text: msg,
+                        duration: 3000,
+                        gravity: "top",
+                        position: "center",
+                        backgroundColor: colors[type],
+                        className: "rounded-lg shadow-lg",
+                        stopOnFocus: true,
+                    }).showToast();
+                },
+                getEmoji(val) {
+                    return this.emojiSet[val] || "";
+                },
+                toggleEmojiTheme() {
+                    this.themeIndex = (this.themeIndex + 1) % this.emojiThemes.length;
+                    this.toaster(`Theme changed to ${this.emojiSet.X} vs ${this.emojiSet.O}!`, "info");
+                },
+                setupConnection() {
+                    this.conn.on("data", (data) => {
+                        if (data.type === "move") {
+                            this.cells = data.cells;
+                            this.currentPlayer = data.currentPlayer;
+                            this.winner = data.winner;
+                            this.isDraw = data.isDraw;
+                            this.winningCombo = data.winningCombo;
+                            this.score = data.score;
+                            this.moveHistory = data.moveHistory || [];
+                            this.hasUsedUndo = data.hasUsedUndo || { X: false, O: false };
+                            this.hasUsedRemove = data.hasUsedRemove || { X: false, O: false };
+                            this.toaster("Opponent moved!", "info");
+                        } else if (data.type === "reset") {
+                            this.resetGame(false);
+                        } else if (data.type === "undo") {
+                            this.cells = data.cells;
+                            this.currentPlayer = data.currentPlayer;
+                            this.winner = data.winner;
+                            this.isDraw = data.isDraw;
+                            this.winningCombo = data.winningCombo;
+                            this.moveHistory = data.moveHistory;
+                            this.hasUsedUndo = data.hasUsedUndo;
+                            this.toaster("Opponent used undo!", "warning");
+                        } else if (data.type === "remove") {
+                            this.cells = data.cells;
+                            this.currentPlayer = data.currentPlayer;
+                            this.hasUsedRemove = data.hasUsedRemove;
+                            this.toaster("Opponent removed a piece!", "warning");
+                        }
+                    });
+                    
+                    this.conn.on("close", () => {
+                        this.toaster("Player disconnected", "error");
+                        this.conn = null;
+                    });
+                },
+                createGame() {
+                    this.isHost = true;
+                    this.peer = new Peer();
+                    
+                    this.peer.on("open", (id) => {
+                        this.peerId = id;
+                        this.toaster("Game created! Share the invite link.", "success");
+                    });
+                    
+                    this.peer.on("connection", (connection) => {
+                        this.conn = connection;
+                        this.setupConnection();
+                        this.toaster("Player joined the game!", "success");
+                        document.getElementById('multiplayer-modal').close();
+                    });
+                },
+                getUrlParameter(name) {
+                    const params = new URLSearchParams(window.location.search);
+                    return params.get(name);
+                },
+                connectToPeer() {
+                    if (!this.peerIdToConnect.trim()) return;
+                    
+                    this.isHost = false;
+                    this.peer = new Peer();
+                    
+                    this.peer.on("open", () => {
+                        this.conn = this.peer.connect(this.peerIdToConnect);
+                        
+                        this.conn.on("open", () => {
+                            this.setupConnection();
+                            this.toaster("Connected to host!", "success");
+                            document.getElementById('multiplayer-modal').close();
+                        });
+                        
+                        this.conn.on("error", () => {
+                            this.toaster("Failed to connect to game", "error");
+                        });
+                    });
+                },
+                copyPeerIdToClipboard() {
+                    const link = `${window.location.origin}${window.location.pathname}?gameId=${this.peerId}`;
+                    
+                    navigator.clipboard
+                        .writeText(link)
+                        .then(() => {
+                            this.toaster("Invite link copied to clipboard!", "success");
+                        })
+                        .catch(() => {
+                            this.toaster("Failed to copy link", "error");
+                        });
+                },
+                makeMove(index) {
+                    if (this.cells[index] || this.winner || this.isDraw || !this.isMyTurn) return;
+                    
+                    this.moveHistory.push({ index, player: this.currentPlayer });
+                    this.cells[index] = this.currentPlayer;
+                    this.checkGameState();
+                    
+                    if (!this.winner && !this.isDraw) {
+                        this.currentPlayer = this.currentPlayer === "X" ? "O" : "X";
+                    }
+                    
+                    if (this.isMultiplayer) {
+                        this.conn.send({
+                            type: "move",
+                            cells: this.cells,
+                            currentPlayer: this.currentPlayer,
+                            winner: this.winner,
+                            isDraw: this.isDraw,
+                            winningCombo: this.winningCombo,
+                            score: this.score,
+                            moveHistory: this.moveHistory,
+                            hasUsedUndo: this.hasUsedUndo,
+                            hasUsedRemove: this.hasUsedRemove,
+                        });
+                    }
+                },
+                checkGameState() {
+                    const wins = [
+                        [0, 1, 2], [3, 4, 5], [6, 7, 8], // rows
+                        [0, 3, 6], [1, 4, 7], [2, 5, 8], // columns
+                        [0, 4, 8], [2, 4, 6], // diagonals
+                    ];
+                    
+                    for (let combo of wins) {
+                        const [a, b, c] = combo;
+                        if (
+                            this.cells[a] &&
+                            this.cells[a] === this.cells[b] &&
+                            this.cells[a] === this.cells[c]
+                        ) {
+                            this.winner = this.cells[a];
+                            this.winningCombo = combo;
+                            this.score[this.winner]++;
+                            this.toaster(`🏆 Player ${this.getEmoji(this.winner)} wins!`, "success");
+                            this.celebrationFireworks();
+                            return;
+                        }
+                    }
+                    
+                    if (!this.cells.includes(null)) {
+                        this.isDraw = true;
+                        this.toaster("🤝 It's a draw!", "warning");
+                    }
+                },
+                celebrationFireworks() {
+                    if (typeof confetti === 'undefined') return;
+                    
+                    const duration = 3000;
+                    const animationEnd = Date.now() + duration;
+                    const defaults = { startVelocity: 30, spread: 360, ticks: 60, zIndex: 0 };
 
-            navigator.clipboard
-              .writeText(link)
-              .then(() => {
-                this.toaster("Copied Link to clipboard!");
-              })
-              .catch((err) => {
-                console.warn("Failed to copy: ", err);
-                this.toaster("Failed to copy Game Link");
-              });
-          },
-          makeMove(index) {
-            if (
-              this.cells[index] ||
-              this.winner ||
-              this.isDraw ||
-              !this.isMyTurn
-            )
-              return;
-            this.moveHistory.push({ index, player: this.currentPlayer });
-            this.cells[index] = this.currentPlayer;
-            this.checkGameState();
-            if (!this.winner && !this.isDraw) {
-              this.currentPlayer = this.currentPlayer === "X" ? "O" : "X";
-            }
-            if (this.conn?.open) {
-              this.conn.send({
-                type: "move",
-                cells: this.cells,
-                currentPlayer: this.currentPlayer,
-                winner: this.winner,
-                isDraw: this.isDraw,
-                winningCombo: this.winningCombo,
-                score: this.score,
-                moveHistory: this.moveHistory,
-                hasUsedUndo: this.hasUsedUndo,
-                hasUsedRemove: this.hasUsedRemove,
-              });
-            }
-          },
-          checkGameState() {
-            const wins = [
-              [0, 1, 2],
-              [3, 4, 5],
-              [6, 7, 8],
-              [0, 3, 6],
-              [1, 4, 7],
-              [2, 5, 8],
-              [0, 4, 8],
-              [2, 4, 6],
-            ];
-            for (let combo of wins) {
-              const [a, b, c] = combo;
-              if (
-                this.cells[a] &&
-                this.cells[a] === this.cells[b] &&
-                this.cells[a] === this.cells[c]
-              ) {
-                this.winner = this.cells[a];
-                this.winningCombo = combo;
-                this.score[this.winner]++;
-                this.toaster(`🏆 Player ${this.getEmoji(this.winner)} wins!`);
-                this.celebrationFireworks();
-                return;
-              }
-            }
-            if (!this.cells.includes(null)) this.isDraw = true;
-          },
+                    function randomInRange(min, max) {
+                        return Math.random() * (max - min) + min;
+                    }
 
-          celebrationFireworks() {
-            var duration = 15 * 1000;
-            var animationEnd = Date.now() + duration;
-            var defaults = {
-              startVelocity: 30,
-              spread: 360,
-              ticks: 60,
-              zIndex: 0,
-            };
+                    const interval = setInterval(() => {
+                        const timeLeft = animationEnd - Date.now();
 
-            function randomInRange(min, max) {
-              return Math.random() * (max - min) + min;
-            }
+                        if (timeLeft <= 0) {
+                            return clearInterval(interval);
+                        }
 
-            var interval = setInterval(function () {
-              var timeLeft = animationEnd - Date.now();
+                        const particleCount = 50 * (timeLeft / duration);
+                        confetti({
+                            ...defaults,
+                            particleCount,
+                            origin: { x: randomInRange(0.1, 0.3), y: Math.random() - 0.2 },
+                        });
+                        confetti({
+                            ...defaults,
+                            particleCount,
+                            origin: { x: randomInRange(0.7, 0.9), y: Math.random() - 0.2 },
+                        });
+                    }, 250);
+                },
+                resetGame(sync = true) {
+                    const gameBoard = document.querySelector(".grid");
+                    if (gameBoard) gameBoard.classList.add("fade-out");
 
-              if (timeLeft <= 0) {
-                return clearInterval(interval);
-              }
+                    setTimeout(() => {
+                        this.cells = Array(9).fill(null);
+                        this.moveHistory = [];
+                        this.currentPlayer = "X";
+                        this.winner = null;
+                        this.isDraw = false;
+                        this.winningCombo = [];
+                        this.hasUsedUndo = { X: false, O: false };
+                        this.hasUsedRemove = { X: false, O: false };
+                        
+                        if (gameBoard) gameBoard.classList.remove("fade-out");
+                        
+                        this.toaster("New game started!", "info");
+                        
+                        if (sync && this.isMultiplayer) {
+                            this.conn.send({ type: "reset" });
+                        }
+                    }, 300);
+                },
+            },
+        });
 
-              var particleCount = 50 * (timeLeft / duration);
-              // since particles fall down, start a bit higher than random
-              confetti({
-                ...defaults,
-                particleCount,
-                origin: { x: randomInRange(0.1, 0.3), y: Math.random() - 0.2 },
-              });
-              confetti({
-                ...defaults,
-                particleCount,
-                origin: { x: randomInRange(0.7, 0.9), y: Math.random() - 0.2 },
-              });
-            }, 250);
-          },
-
-          resetGame(sync = true) {
-            const grid = document.querySelector(".grid");
-            if (grid) grid.classList.add("fade-out");
-
-            setTimeout(() => {
-              this.toaster("Game reset!");
-
-              this.cells = Array(9).fill(null);
-              this.moveHistory = [];
-              this.currentPlayer = "X";
-              this.winner = null;
-              this.isDraw = false;
-              this.winningCombo = [];
-              this.hasUsedUndo = { X: false, O: false };
-              this.hasUsedRemove = { X: false, O: false };
-              if (grid) grid.classList.remove("fade-out");
-              if (sync && this.conn?.open) this.conn.send({ type: "reset" });
-            }, 300);
-          },
-        },
-      });
-
-      // Mount the app
-      app.mount("#app");
+        app.mount("#app");
     </script>
-    {% include modals.liquid %}
-  </body>
+        {% include modals.liquid %}
+
+</body>
 </html>
