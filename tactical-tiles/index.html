@@ -445,8 +445,8 @@
                             :key="index"
                             @click="selectSwapPiece(index)"
                             :class="[
-                                'btn mx-auto text-4xl font-bold transition-all duration-200 hover:scale-105 flex items-center justify-center',
-                                gridRows === 4 ? 'game-cell' : gridRows === 5 ? 'game-cell-5row' : 'game-cell-6row',
+                                'btn mx-auto text-4xl font-bold transition-all duration-200 hover:scale-105 flex items-center justify-center game-cell',
+                                
                                 {
                                     'btn-info': swapSelection.includes(index),
                                     'btn-secondary': cell !== null && !swapSelection.includes(index),
