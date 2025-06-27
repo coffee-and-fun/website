@@ -32,8 +32,7 @@
         button { touch-action: manipulation; }
         @media (max-width: 640px) {
             .game-cell { min-height: 75px; font-size: 1.5rem; }
-            .game-cell-5row { min-height: 70px; font-size: 1.25rem; }
-            .game-cell-6row { min-height: 65px; font-size: 1.125rem; }
+           
             .grid { gap: 0.75rem; }
         }
         .fade-out { opacity: 0; transition: opacity 0.3s ease; }
@@ -340,8 +339,8 @@
                             :key="index"
                             @click="makeMove(index)"
                             :class="[
-                                'btn mx-auto text-4xl font-bold transition-all duration-200 hover:scale-105 flex items-center justify-center',
-                                gridRows === 4 ? 'game-cell' : gridRows === 5 ? 'game-cell-5row' : 'game-cell-6row',
+                                'btn mx-auto text-4xl font-bold transition-all duration-200 hover:scale-105 flex items-center justify-center game-cell',
+                             
                                 {
                                     'winning-cell': winner && winningCombo.includes(index),
                                     'flash-effect': squareEffects[index],
