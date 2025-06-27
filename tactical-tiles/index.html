@@ -537,12 +537,7 @@
                                     </div>
                                 </div>
 
-                                   <div class="flex items-start gap-3">
-                                    <div class="badge badge-info badge-sm mt-1">Add Row</div>
-                                    <div class="text-base-content/80">
-                                        <strong>Add Row:</strong> Add an extra row to the grid. The grid can expand from 4×4 to 4×5 to 4×6 as each player uses their expansion. Each player gets one row expansion per game.
-                                    </div>
-                                </div>
+                                 
                                 <div class="flex items-start gap-3">
                                     <div class="badge badge-error badge-sm mt-1">REMOVE</div>
                                     <div class="text-base-content/80">
@@ -682,8 +677,8 @@
                             :key="index"
                             @click="removeOpponentPiece(index)"
                             :class="[
-                                'btn mx-auto text-4xl font-bold transition-all duration-200 hover:scale-105 flex items-center justify-center',
-                                gridRows === 4 ? 'game-cell' : gridRows === 5 ? 'game-cell-5row' : 'game-cell-6row',
+                                'btn mx-auto text-4xl font-bold transition-all duration-200 hover:scale-105 flex items-center justify-center game-cell',
+                             
                                 {
                                     'btn-error': isMultiplayer ? cell === (currentPlayer === 'X' ? 'O' : 'X') : cell !== null,
                                     'btn-ghost': !cell,
@@ -1036,6 +1031,7 @@ const app = createApp({
                 console.log("Received data:", data);
              if (data.type === "move") {
     this.cells = [...data.cells];
+    this.gridRows = data.gridRows;
     this.currentPlayer = data.currentPlayer;
     this.winner = data.winner;
     this.isDraw = data.isDraw;
