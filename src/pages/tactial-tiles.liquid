@@ -48,10 +48,14 @@
 
 <body class="bg-base-100 min-h-screen">
     <main id="app">
-      <div class="navbar border-b-4 border-primary text-primary-content">
+      <div class="navbar border-b-2 border-primary text-primary-content">
   
 
-  <div class="navbar-start"><button class="btn btn-ghost text-xl">Tactial Tiles</button></div>
+  <div class="navbar-start"><button class="btn btn-ghost text-xl">
+    
+  
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 -960 960 960"  fill="currentColor" class="h-5 w-5"><path d="M80-80v-240h240v240H80Zm280 0v-240h240v240H360Zm280 0v-240h240v240H640ZM80-360v-240h240v240H80Zm280 0v-240h240v240H360Zm280 0v-240h240v240H640ZM80-640v-240h240v240H80Zm280 0v-240h240v240H360Zm280 0v-240h240v240H640ZM240-240Zm200 0h80-80Zm280 0ZM240-440v-80 80Zm240-40Zm240 40v-80 80ZM440-720h80-80Zm280 0ZM160-160h80v-80h-80v80Zm280 0h80v-80h-80v80Zm280 0h80v-80h-80v80ZM160-440h80v-80h-80v80Zm280 0h80v-80h-80v80Zm280 0h80v-80h-80v80ZM440-720h80v-80h-80v80Zm280 0h80v-80h-80v80Z"/></svg>
+  Tactial Tiles</button></div>
 
     <div class="navbar-center hidden lg:flex">
 
@@ -140,39 +144,9 @@ class="btn game-cell mx-auto text-4xl font-bold transition-all duration-200 hove
                 </div>
             </div>
 
-            <!-- Power-ups (Available for all games) -->
-            <div class="flex gap-4 justify-center">
-                <!-- Undo Power-up -->
-                <div class="tooltip tooltip-top" data-tip="Undo last move">
-                    <button
-                        v-if="!hasUsedUndo[currentPlayer] && moveHistory.length > 0"
-                        @click="undoMove"
-                        class="btn btn-circle btn-warning"
-                        :disabled="!gameOver"
-                    >
-                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 -960 960 960" fill="currentColor">
-                            <path d="m313-440 224 224-57 56-320-320 320-320 57 56-224 224h487v80H313Z"/>
-                        </svg>
-                    </button>
-                </div>
-                
-                <!-- Remove Power-up -->
-                <div class="tooltip tooltip-top" data-tip="Remove a piece">
-                    <button
-                        v-if="!hasUsedRemove[currentPlayer] && cells.some(cell => cell !== null)"
-                        @click="showRemovePowerModal"
-                        class="btn btn-circle btn-error"
-                        :disabled="!gameOver"
-                    >
-                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 -960 960 960" fill="currentColor">
-                            <path d="M280-120q-33 0-56.5-23.5T200-200v-520h-40v-80h200v-40h240v40h200v80h-40v520q0 33-23.5 56.5T680-120H280Zm400-600H280v520h400v-520ZM360-280h80v-360h-80v360Zm160 0h80v-360h-80v360ZM280-720v520-520Z"/>
-                        </svg>
-                    </button>
-                </div>
-            </div>
 
-            <!-- Control Buttons -->
-            <div class="flex flex-wrap gap-2 justify-center">
+             <!-- Control Buttons -->
+            <div class="flex flex-wrap gap-2 justify-center my-8">
                 <button
                     v-if="gameOver"
                     @click="resetGame"
@@ -186,9 +160,107 @@ class="btn game-cell mx-auto text-4xl font-bold transition-all duration-200 hove
 
                
             </div>
+        
+            <!-- Power-ups (Always visible) -->
 
-<!-- Game modal -->
+                              <h2 class="text-2xl font-bold text-lect mb-4 text-primary-content mt-12 pt-12">
+                                Power-ups
+                              </h2>
+            <hr class="my-4 border-t-2 border-primary" />
+            <div class="flex gap-4 justify-evenly items-center mb-6">
+                <!-- Undo Power-up -->
+                <div class="tooltip tooltip-top" data-tip="Undo last move">
+                    <button
+                        @click="undoMove"
+                        class="btn btn-circle btn-warning"
+                        :class="{
+                            'btn-disabled opacity-50': hasUsedUndo[currentPlayer] || moveHistory.length === 0 || gameOver
+                        }"
+                        :disabled="hasUsedUndo[currentPlayer] || moveHistory.length === 0 || gameOver"
+                    >
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 -960 960 960" fill="currentColor">
+                            <path d="m313-440 224 224-57 56-320-320 320-320 57 56-224 224h487v80H313Z"/>
+                        </svg>
+                    </button>
+                </div>
 
+
+                     <div class="tooltip tooltip-top" data-tip="Swap Pieces">
+                    <button
+                       @click="showSwapPowerModal"
+                        class="btn btn-circle btn-warning"
+                        :class="{
+                            'btn-disabled opacity-50': hasUsedSwap[currentPlayer] || moveHistory.length === 0 || gameOver
+                        }"
+                        :disabled="hasUsedSwap[currentPlayer] || moveHistory.length === 0 || gameOver"
+                    >
+                     
+
+
+<svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 -960 960 960" fill="currentColor"><path d="m320-160-56-57 103-103H80v-80h287L264-503l56-57 200 200-200 200Zm320-240L440-600l200-200 56 57-103 103h287v80H593l103 103-56 57Z"/></svg>
+
+                    </button>
+                </div>
+                
+                <!-- Remove Power-up -->
+                <div class="tooltip tooltip-top" data-tip="Remove a piece">
+                    <button
+                        @click="showRemovePowerModal"
+                        class="btn btn-circle btn-error"
+                        :class="{
+                            'btn-disabled opacity-50': hasUsedRemove[currentPlayer] || !cells.some(cell => cell !== null) || gameOver
+                        }"
+                        :disabled="hasUsedRemove[currentPlayer] || !cells.some(cell => cell !== null) || gameOver"
+                    >
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 -960 960 960" fill="currentColor">
+                            <path d="M280-120q-33 0-56.5-23.5T200-200v-520h-40v-80h200v-40h240v40h200v80h-40v520q0 33-23.5 56.5T680-120H280Zm400-600H280v520h400v-520ZM360-280h80v-360h-80v360Zm160 0h80v-360h-80v360ZM280-720v520-520Z"/>
+                        </svg>
+                    </button>
+                </div>
+            </div>
+
+
+           
+
+ <!-- Swap Piece Modal -->
+            <dialog id="swap-modal" class="modal">
+                <div class="modal-box">
+                    <h3 class="font-bold text-lg mb-4">🔄 Swap Two Pieces</h3>
+                    <p class="text-sm text-base-content/70 mb-4">
+                        Click on two pieces to swap their positions:
+                    </p>
+                    <p class="text-xs text-info mb-4" v-if="swapSelection.length === 1">
+                        Selected: {% raw %} {{ getEmoji(cells[swapSelection[0]]) }} {% endraw %} - Now pick a second piece to swap with
+                    </p>
+                    
+                    <div class="grid grid-cols-3 gap-4 mb-4">
+                        <button
+                            v-for="(cell, index) in cells"
+                            :key="index"
+                            @click="selectSwapPiece(index)"
+                            class="btn game-cell mx-auto text-4xl font-bold transition-all duration-200 hover:scale-105 flex items-center justify-center"
+                            :class="{
+                                'btn-info': swapSelection.includes(index),
+                                'btn-secondary': cell !== null && !swapSelection.includes(index),
+                                'btn-ghost': !cell,
+                                'btn-disabled': !cell
+                            }"
+                            :disabled="!cell"
+                        >
+                            {% raw %}{{ getEmoji(cell) }}{% endraw %}
+                        </button>
+                    </div>
+
+                    <div class="modal-action">
+                        <form method="dialog">
+                            <button class="btn" @click="resetSwapSelection">Cancel</button>
+                        </form>
+                    </div>
+                </div>
+                <form method="dialog" class="modal-backdrop">
+                    <button @click="resetSwapSelection">close</button>
+                </form>
+            </dialog>
 
 <!-- About Modal -->
 <dialog id="about-modal" class="modal">
@@ -217,7 +289,7 @@ class="btn game-cell mx-auto text-4xl font-bold transition-all duration-200 hove
                         <div class="text-base-content/80 space-y-1">
                             <p>• Take turns placing your emoji on the 3×3 grid</p>
                             <p>• Get three in a row (horizontal, vertical, or diagonal) to win</p>
-                            <p>• If all 9 spaces are filled without a winner, it's a draw</p>
+                            <p>• If all 12 spaces are filled without a winner, it's a draw</p>
                         </div>
                     </div>
                     
@@ -248,6 +320,13 @@ class="btn game-cell mx-auto text-4xl font-bold transition-all duration-200 hove
                         </div>
                     </div>
                     <div class="flex items-start gap-3">
+                        <div class="badge badge-info badge-sm mt-1">SWAP</div>
+                        <div class="text-base-content/80">
+                            <strong>Swap Piece:</strong> Swap two pieces on the board. Each player gets one swap per game.
+                        </div>
+                    </div>
+
+                        <div class="flex items-start gap-3">
                         <div class="badge badge-error badge-sm mt-1">REMOVE</div>
                         <div class="text-base-content/80">
                             <strong>Remove Piece:</strong> Eliminate a piece from the board. Each player gets one removal per game.
@@ -408,7 +487,7 @@ class="btn game-cell mx-auto text-4xl font-bold transition-all duration-200 hove
         const app = createApp({
             data() {
                 return {
-                    cells: Array(9).fill(null),
+                    cells: Array(12).fill(null),
                     moveHistory: [],
                     currentPlayer: "X",
                     winner: null,
@@ -431,6 +510,8 @@ class="btn game-cell mx-auto text-4xl font-bold transition-all duration-200 hove
                     isHost: false,
                     hasUsedUndo: { X: false, O: false },
                     hasUsedRemove: { X: false, O: false },
+                    hasUsedSwap: { X: false, O: false },
+                    swapSelection: [],
                     showRemoveMode: false,
                 };
             },
@@ -500,6 +581,68 @@ class="btn game-cell mx-auto text-4xl font-bold transition-all duration-200 hove
                 },
                 showAboutModal() {
                     document.getElementById('about-modal').showModal();
+                },
+                showSwapPowerModal() {
+                    this.swapSelection = [];
+                    document.getElementById('swap-modal').showModal();
+                },
+                      selectSwapPiece(index) {
+                    if (this.cells[index] === null) return;
+                    
+                    if (this.swapSelection.includes(index)) {
+                        // Deselect if already selected
+                        this.swapSelection = this.swapSelection.filter(i => i !== index);
+                    } else if (this.swapSelection.length < 2) {
+                        // Select piece
+                        this.swapSelection.push(index);
+                        
+                        // If we have 2 pieces selected, perform the swap
+                        if (this.swapSelection.length === 2) {
+                            this.performSwap();
+                        }
+                    }
+                },
+                performSwap() {
+                    if (this.swapSelection.length !== 2) return;
+                    
+                    const [index1, index2] = this.swapSelection;
+                    
+                    // Swap the pieces
+                    const temp = this.cells[index1];
+                    this.cells[index1] = this.cells[index2];
+                    this.cells[index2] = temp;
+                    
+                    // Mark power-up as used
+                    this.hasUsedSwap[this.currentPlayer] = true;
+                    
+                    // Close modal and reset selection
+                    document.getElementById('swap-modal').close();
+                    this.resetSwapSelection();
+                    
+                    // Show notification
+                    this.toaster(
+                        `${this.getEmoji(this.currentPlayer)} swapped two pieces!`,
+                        "info"
+                    );
+                    
+                    // Check if this created a winning condition
+                    this.checkGameState();
+                    
+                    // Send to multiplayer opponent
+                    if (this.conn && this.conn.open) {
+                        this.conn.send({
+                            type: "swap",
+                            cells: [...this.cells],
+                            currentPlayer: this.currentPlayer,
+                            hasUsedSwap: { ...this.hasUsedSwap },
+                            winner: this.winner,
+                            isDraw: this.isDraw,
+                            winningCombo: [...this.winningCombo],
+                        });
+                    }
+                },
+                resetSwapSelection() {
+                    this.swapSelection = [];
                 },
                 showRemovePowerModal() {
                     document.getElementById('remove-modal').showModal();
@@ -620,6 +763,14 @@ class="btn game-cell mx-auto text-4xl font-bold transition-all duration-200 hove
                             this.currentPlayer = data.currentPlayer;
                             this.hasUsedRemove = { ...data.hasUsedRemove };
                             this.toaster("Opponent removed a piece!", "warning");
+                        } else if (data.type === "swap") {
+                            this.cells = [...data.cells];
+                            this.currentPlayer = data.currentPlayer;
+                            this.hasUsedSwap = { ...data.hasUsedSwap };
+                            this.winner = data.winner;
+                            this.isDraw = data.isDraw;
+                            this.winningCombo = [...(data.winningCombo || [])];
+                            this.toaster("Opponent used swap!", "info");
                         }
                     });
                     
@@ -794,7 +945,7 @@ class="btn game-cell mx-auto text-4xl font-bold transition-all duration-200 hove
                     if (gameBoard) gameBoard.classList.add("fade-out");
 
                     setTimeout(() => {
-                        this.cells = Array(9).fill(null);
+                        this.cells = Array(12).fill(null);
                         this.moveHistory = [];
                         this.currentPlayer = "X";
                         this.winner = null;
