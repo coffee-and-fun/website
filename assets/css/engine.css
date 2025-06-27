@@ -2151,6 +2151,16 @@
       inset: 50% auto auto calc(var(--tt-tail) + 1px);
     }
   }
+  .tooltip-top {
+    > .tooltip-content, &[data-tip]:before {
+      transform: translateX(-50%) translateY(var(--tt-pos, 0.25rem));
+      inset: auto auto var(--tt-off) 50%;
+    }
+    &:after {
+      transform: translateX(-50%) translateY(var(--tt-pos, 0.25rem));
+      inset: auto auto var(--tt-tail) 50%;
+    }
+  }
   .inset-2 {
     inset: calc(var(--spacing) * 2);
   }
@@ -4424,12 +4434,6 @@
   }
   .text-base-content {
     color: var(--color-base-content);
-  }
-  .text-base-content\/60 {
-    color: var(--color-base-content);
-    @supports (color: color-mix(in lab, red, red)) {
-      color: color-mix(in oklab, var(--color-base-content) 60%, transparent);
-    }
   }
   .text-base-content\/70 {
     color: var(--color-base-content);
