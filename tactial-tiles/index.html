@@ -30,11 +30,15 @@
     <style>
         [v-cloak] { display: none; }
         button { touch-action: manipulation; }
+        @media (max-width: 640px) {
+  .game-cell { min-height: 80px; }
+}
         .fade-out { opacity: 0; transition: opacity 0.3s ease; }
         .game-cell { 
             aspect-ratio: 1;
             min-height: 110px;
         }
+        
         .winning-cell {
             animation: pulse 1s infinite;
             background: linear-gradient(45deg, #10b981, #34d399);
@@ -332,9 +336,8 @@ class="btn game-cell mx-auto text-4xl font-bold transition-all duration-200 hove
                     <button
                        @click="showSwapPowerModal"
                         class="btn  btn-info"
-                        :class="{
-                            'btn-disabled opacity-50': hasUsedSwap[currentPlayer] || moveHistory.length === 0 || gameOver
-                        }"
+                 :class="{ 'btn-disabled opacity-50': hasUsedSwap[currentPlayer] || cells.filter(cell => cell !== null).length < 2 || gameOver }"
+
 :disabled="hasUsedSwap[currentPlayer] || cells.filter(cell => cell !== null).length < 2 || gameOver"
                     >
                      
@@ -426,7 +429,7 @@ Swap Pieces
                     <div>
                         <h5 class="font-semibold text-base mb-1">Basic Rules:</h5>
                         <div class="text-base-content/80 space-y-1">
-                            <p>• Take turns placing your emoji on the 3×3 grid</p>
+                            <p>• Take turns placing your emoji on the 4×4 grid</p>
                             <p>• Get three in a row (horizontal, vertical, or diagonal) to win</p>
                             <p>• If all 16 spaces are filled without a winner, it's a draw</p>
                         </div>
@@ -628,6 +631,7 @@ class="btn game-cell mx-auto text-4xl font-bold transition-all duration-200 hove
                 return {
                     cells: Array(16).fill(null),
                     moveHistory: [],
+                    isShaking: false, // Add this to prevent multiple shake animations
                     currentPlayer: "X",
                     winner: null,
                     isDraw: false,
@@ -906,6 +910,8 @@ class="btn game-cell mx-auto text-4xl font-bold transition-all duration-200 hove
                             this.moveHistory = [...(data.moveHistory || [])];
                             this.hasUsedUndo = { ...data.hasUsedUndo };
                             this.hasUsedRemove = { ...data.hasUsedRemove };
+                            this.hasUsedSwap = { ...data.hasUsedSwap || { X: false, O: false } };
+
                             this.toaster("Opponent moved!", "info", 1500);
                             this.shakeScreen();
                         } else if (data.type === "reset") {
