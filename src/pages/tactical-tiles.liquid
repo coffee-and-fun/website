@@ -4,7 +4,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>Play Tactial Tiles – Tic Tac Toe Multiplayer Game with Power Ups | Coffee & Fun LLC</title>
-    <meta name="keywords" content="tic tac toe, multiplayer game, online game, power-ups, strategy game">
+    <meta name="keywords" content="tic tac toe, multiplayer game, online game, Power Ups, strategy game">
 <meta name="language" content="English">
     <meta name="description" content="Challenge your friends to a fun, animated Tic-Tac-Toe game with emojis and real-time multiplayer. No account needed. Includes Power Ups!!" />
     <meta name="author" content="Coffee & Fun LLC" />
@@ -32,7 +32,7 @@
   "@context": "http://schema.org/",
   "@type": "Game",
   "name": "Tactical Tiles",
-  "description": "Multiplayer Tic-Tac-Toe with Power-ups",
+  "description": "Multiplayer Tic-Tac-Toe with Power Ups",
   "genre": "Strategy Game",
   "playMode": "MultiPlayer",
   "applicationCategory": "GameApplication"
@@ -301,7 +301,7 @@
         <div v-cloak class="max-w-xl mx-auto space-y-6 px-4 py-8">
             <!-- Game Board -->
             <div class="card">
-                <div class="card-body p-4">
+                <div class="card-body ">
                     <div 
                         :class="[
                             'grid gap-6 grid-transition grid-cols-4',
@@ -319,6 +319,7 @@
                                 {
                                     'winning-cell': winner && winningCombo.includes(index),
                                     'flash-effect': squareEffects[index],
+                                    'ring-2 ring-green-400': shieldedSquares[index],
                                     'btn-disabled': !isMyTurn || cell,
                                     'btn-primary': !cell && isMyTurn,
                                     'btn-ghost': cell
@@ -327,6 +328,8 @@
                             :disabled="!isMyTurn || cell"
                         >
                             {% raw %}{{ getEmoji(cell) }}{% endraw %}
+                                    <span v-if="shieldedSquares[index]" class="absolute top-0 right-0 text-xs">🛡️</span>
+
                         </button>
                     </div>
                 </div>
@@ -337,7 +340,7 @@
                 <button
                     v-if="gameOver"
                     @click="resetGame"
-                    class="btn btn-success btn-block gap-2"
+                    class="btn btn-success btn-wide gap-2"
                     aria-label="Start a New Game"
                 >
                     <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 -960 960 960" fill="currentColor">
@@ -347,9 +350,9 @@
                 </button>
             </div>
         
-            <!-- Power-ups (Always visible) -->
+            <!-- Power Ups (Always visible) -->
             <h2 class="text-2xl font-bold text-lect mb-4 text-primary-content mt-12 pt-12">
-              ⭐  Power-ups
+              ⭐  Power Ups
             </h2>
             <hr class="my-4 border-t-2 border-primary" />
             <div class="grid grid-cols-2 gap-3 mb-6">
@@ -402,7 +405,224 @@
                 >
                   Add Row
                 </button>
+
+                <!-- NEW POWER-UPS -->
+ <button
+    @click="showSlidePowerModal"
+    aria-label="Slide a Piece"
+    class="btn btn-accent"
+    :class="{
+        'btn-disabled opacity-50': hasUsedSlide[currentPlayer] || 
+                                  !cells.some((cell, index) => cell === currentPlayer && getValidSlideCount(index) > 0) || 
+                                  gameOver || !isMyTurn
+    }"
+    :disabled="hasUsedSlide[currentPlayer] || 
+              !cells.some((cell, index) => cell === currentPlayer && getValidSlideCount(index) > 0) || 
+              gameOver || !isMyTurn"
+>
+    Slide Piece
+</button>
+
+    <button
+        @click="showShieldPowerModal"
+        aria-label="Shield a Piece"
+        class="btn btn-success"
+        :class="{
+            'btn-disabled opacity-50': hasUsedShield[currentPlayer] || !cells.some(cell => cell === currentPlayer) || gameOver || !isMyTurn
+        }"
+        :disabled="hasUsedShield[currentPlayer] || !cells.some(cell => cell === currentPlayer) || gameOver || !isMyTurn"
+    >
+        Shield Piece
+    </button>
+
+    <button
+        @click="showTeleportPowerModal"
+        aria-label="Teleport a Piece"
+        class="btn btn-error"
+        :class="{
+            'btn-disabled opacity-50': hasUsedTeleport[currentPlayer] || !cells.some(cell => cell === currentPlayer) || cells.filter(cell => cell === null).length === 0 || gameOver || !isMyTurn
+        }"
+        :disabled="hasUsedTeleport[currentPlayer] || !cells.some(cell => cell === currentPlayer) || cells.filter(cell => cell === null).length === 0 || gameOver || !isMyTurn"
+    >
+        Teleport
+    </button>
             </div>
+
+
+
+
+            <dialog id="shield-modal" class="modal">
+    <div class="modal-box">
+        <h3 class="font-bold text-lg mb-4">🛡️ Shield a Piece</h3>
+        <p class="text-sm text-base-content/70 mb-4">
+            Click on one of your pieces to protect it from removal:
+        </p>
+        
+        <div class="grid gap-4 mb-4 grid-cols-4">
+            <button
+                v-for="(cell, index) in cells"
+                :key="index"
+                aria-label="Shield this Piece"
+                @click="shieldPiece(index)"
+                :class="[
+                    'btn mx-auto text-4xl font-bold transition-all duration-200 hover:scale-105 flex items-center justify-center game-cell relative',
+                    {
+                        'btn-success': cell === currentPlayer && !shieldedSquares[index],
+                        'btn-ghost': !cell || cell !== currentPlayer,
+                        'btn-disabled': !cell || cell !== currentPlayer || shieldedSquares[index],
+                        'ring-2 ring-green-400': shieldedSquares[index]
+                    }
+                ]"
+                :disabled="!cell || cell !== currentPlayer || shieldedSquares[index]"
+            >
+              {% raw  %}    {{ getEmoji(cell) }} {% endraw %}
+                <span v-if="shieldedSquares[index]" class="absolute top-0 right-0 text-xs">🛡️</span>
+            </button>
+        </div>
+
+        <div class="modal-action">
+            <form method="dialog">
+                <button class="btn" aria-label="Close Modal">Cancel</button>
+            </form>
+        </div>
+    </div>
+    <form method="dialog" class="modal-backdrop">
+        <button aria-label="Close Modal">close</button>
+    </form>
+</dialog>
+
+
+
+<!-- Teleport Piece Modal -->
+<dialog id="teleport-modal" class="modal">
+    <div class="modal-box">
+        <h3 class="font-bold text-lg mb-4">🚀 Teleport a Piece</h3>
+        <p class="text-sm text-base-content/70 mb-4">
+            <span v-if="teleportSelection.length === 0">Click on one of your pieces to teleport:</span>
+            <span v-else>Click on any empty square to teleport to:</span>
+        </p>
+        <p class="text-xs text-error mb-4" v-if="teleportSelection.length === 1">
+            Selected: {% raw  %} {{ getEmoji(cells[teleportSelection[0]]) }} {% endraw %} - Now pick any empty space
+        </p>
+        
+        <div class="grid gap-4 mb-4 grid-cols-4">
+            <button
+                v-for="(cell, index) in cells"
+                :key="index"
+                aria-label="Select for Teleport"
+                @click="selectTeleportPiece(index)"
+                :class="[
+                    'btn mx-auto text-4xl font-bold transition-all duration-200 hover:scale-105 flex items-center justify-center game-cell relative',
+                    {
+                        'btn-error': teleportSelection.includes(index),
+                        'btn-primary': teleportSelection.length === 1 && cell === null,
+                        'btn-secondary': cell === currentPlayer && !teleportSelection.includes(index),
+                        'btn-ghost': !cell && teleportSelection.length === 0,
+                        'btn-disabled': (teleportSelection.length === 0 && cell !== currentPlayer) || 
+                                      (teleportSelection.length === 1 && cell !== null)
+                    }
+                ]"
+                :disabled="(teleportSelection.length === 0 && cell !== currentPlayer) || 
+                          (teleportSelection.length === 1 && cell !== null)"
+            >
+            {% raw %}     {{ getEmoji(cell) }} {% endraw %}
+                <span v-if="shieldedSquares[index]" class="absolute top-0 right-0 text-xs">🛡️</span>
+            </button>
+        </div>
+
+        <div class="modal-action">
+            <form method="dialog">
+                <button class="btn" aria-label="Close Modal" @click="resetTeleportSelection">Cancel</button>
+            </form>
+        </div>
+    </div>
+    <form method="dialog" class="modal-backdrop">
+        <button aria-label="Close Modal" @click="resetTeleportSelection">close</button>
+    </form>
+</dialog>
+
+
+            <!-- Slide Piece Modal -->
+<dialog id="slide-modal" class="modal">
+    <div class="modal-box">
+        <h3 class="font-bold text-lg mb-4">🔀 Slide a Piece</h3>
+        
+
+
+ <p class="text-sm text-base-content/70 mb-4">
+            <span  v-if="slideMode === 'select'"><strong>Step 1:</strong> Click on one of your pieces to slide</span>
+            <span v-else>Click on any empty square to teleport to:</span>
+        </p>
+
+    
+        
+        <!-- Show selected piece info -->
+        <p class="text-xs text-accent mb-4" v-if="slideSelection.length === 1">
+            Selected piece: {% raw %} {{ getEmoji(cells[slideSelection[0]]) }} {% endraw %}
+            <span v-if="getSlideDestinations.length === 0" class="text-warning"> - No valid moves available!</span>
+            <span v-else class="text-success"> - {{ getSlideDestinations.length }} possible moves</span>
+        </p>
+        
+        <div class="grid gap-4 mb-4 grid-cols-4">
+            <button
+                v-for="(cell, index) in cells"
+                :key="index"
+                aria-label="Select this Tile for Sliding"
+                @click="selectSlidePiece(index)"
+                :class="[
+                    'btn mx-auto text-4xl font-bold transition-all duration-200 hover:scale-105 flex items-center justify-center game-cell relative',
+                    {
+                        // Selected piece
+                        'btn-accent border-4 border-accent': slideSelection.includes(index),
+                        
+                        // Valid destinations (step 2)
+                        'btn-primary ring-2 ring-primary animate-pulse': slideMode === 'destination' && getSlideDestinations.includes(index),
+                        
+                        // Your pieces available for selection (step 1)
+                        'btn-secondary hover:btn-accent': cell === currentPlayer && slideMode === 'select' && !slideSelection.includes(index),
+                        
+                        // Empty squares (not selectable in step 1, only in step 2 if valid)
+                        'btn-ghost': !cell && (slideMode === 'select' || !getSlideDestinations.includes(index)),
+                        
+                        // Opponent pieces or invalid squares
+                        'btn-disabled opacity-30': (slideMode === 'select' && cell !== currentPlayer && cell !== null) || 
+                                                 (slideMode === 'destination' && !getSlideDestinations.includes(index) && cell !== currentPlayer),
+                                                 
+                        // Pieces with shields
+                        'ring-2 ring-green-400': shieldedSquares[index]
+                    }
+                ]"
+                :disabled="(slideMode === 'select' && cell !== currentPlayer && cell !== null) || 
+                          (slideMode === 'destination' && !getSlideDestinations.includes(index) && cell !== currentPlayer)"
+            >
+             {% raw %}   {{ getEmoji(cell) }} {% endraw %}
+                <span v-if="shieldedSquares[index]" class="absolute top-0 right-0 text-xs">🛡️</span>
+                
+                <!-- Show move indicator for valid destinations -->
+                <span v-if="slideMode === 'destination' && getSlideDestinations.includes(index)" 
+                      class="absolute inset-0 flex items-center justify-center text-2xl">
+                    ✨
+                </span>
+            </button>
+        </div>
+
+        <!-- Helper text -->
+        <div class="text-xs text-base-content/70 mb-4">
+            <p v-if="slideMode === 'select'">💡 <strong>Tip:</strong> Pieces can slide to any adjacent empty square, including diagonally</p>
+            <p v-else>💡 <strong>Tip:</strong> Click on your selected piece again to choose a different piece to slide</p>
+        </div>
+
+        <div class="modal-action">
+            <form method="dialog">
+                <button class="btn" aria-label="Close Modal" @click="resetSlideSelection">Cancel</button>
+            </form>
+        </div>
+    </div>
+    <form method="dialog" class="modal-backdrop">
+        <button aria-label="Close Modal" @click="resetSlideSelection">close</button>
+    </form>
+</dialog>
+
 
             <!-- Swap Piece Modal -->
             <dialog id="swap-modal" class="modal">
@@ -463,7 +683,7 @@
                             <h4 class="font-bold text-lg mb-3 text-primary">🚀 What Makes This Different?</h4>
                             <div class="space-y-2 text-base-content/80">
                                 <p>• <strong>Real-time multiplayer</strong> - Play instantly with friends anywhere in the world</p>
-                                <p>• <strong>Power-ups</strong> - Strategic abilities to turn the tide of battle</p>
+                                <p>• <strong>Power Ups</strong> - Strategic abilities to turn the tide of battle</p>
                                 <p>• <strong>Dynamic grid expansion</strong> - Expand from 4×4 to 5×5 mid-game!</p>
                                 <p>• <strong>Customizable themes</strong> - Choose from fun emoji pairs like 🐶 vs 🐱</p>
                                 <p>• <strong>No registration required</strong> - Just share a link and start playing</p>
@@ -480,7 +700,7 @@
                                     <div class="text-base-content/80 space-y-1">
                                         <p>• Take turns placing your emoji on the grid</p>
                                         <p>• Get three in a row (horizontal, vertical, or diagonal) to win</p>
-                                        <p>• The grid starts as 4×4 but can be expanded to 4×6 with power-ups (each player can add one row)</p>
+                                        <p>• The grid starts as 4×4 but can be expanded to 4×6 with Power Ups (each player can add one row)</p>
                                         <p>• If all spaces are filled without a winner, it's a draw</p>
                                     </div>
                                 </div>
@@ -501,9 +721,9 @@
                             </div>
                         </div>
 
-                        <!-- Power-ups -->
+                        <!-- Power Ups -->
                         <div>
-                            <h4 class="font-bold text-lg mb-3 text-warning">⚡ Power-ups</h4>
+                            <h4 class="font-bold text-lg mb-3 text-warning">⚡ Power Ups</h4>
                             <div class="space-y-2">
                                 <div class="flex items-start gap-3">
                                     <div class="badge badge-warning badge-sm mt-1">UNDO</div>
@@ -518,6 +738,25 @@
                                     </div>
                                 </div>
 
+                                  <!-- NEW Power Ups -->
+        <div class="flex items-start gap-3">
+            <div class="badge badge-accent badge-sm mt-1">SLIDE</div>
+            <div class="text-base-content/80">
+                <strong>Slide Piece:</strong> Move one of your pieces to an adjacent empty square (including diagonally). Great for positioning and last-minute saves.
+            </div>
+        </div>
+        <div class="flex items-start gap-3">
+            <div class="badge badge-success badge-sm mt-1">SHIELD</div>
+            <div class="text-base-content/80">
+                <strong>Shield Piece:</strong> Protect one of your pieces from the next removal attempt. Shielded pieces show a 🛡️ icon and block one removal.
+            </div>
+        </div>
+        <div class="flex items-start gap-3">
+            <div class="badge badge-error badge-sm mt-1">TELEPORT</div>
+            <div class="text-base-content/80">
+                <strong>Teleport:</strong> Move any of your pieces to any empty square on the board. The ultimate positioning power-up!
+            </div>
+        </div>
                                  
                                 <div class="flex items-start gap-3">
                                     <div class="badge badge-error badge-sm mt-1">REMOVE</div>
@@ -531,27 +770,30 @@
                                         <strong>Add Row:</strong> Add an extra row to the grid. The grid can expand from 4×4 to 4×5 to 4×6 as each player uses their expansion. Each player gets one row expansion per game.
                                     </div>
                                 </div>
-                                <div class="alert alert-info mt-3">
-                                    <svg xmlns="http://www.w3.org/2000/svg" class="stroke-current shrink-0 h-5 w-5" fill="none" viewBox="0 0 24 24">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-                                    </svg>
-                                    <span class="text-sm">Power-ups add strategy! Use them wisely - you only get one of each per game.</span>
-                                </div>
+                                   <div class="alert alert-info mt-3">
+            <svg xmlns="http://www.w3.org/2000/svg" class="stroke-current shrink-0 h-5 w-5" fill="none" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+            </svg>
+            <span class="text-sm">Each player gets ONE of each power-up per game. Use them strategically - timing is everything!</span>
+        </div>
                             </div>
                         </div>
 
-                        <!-- Tips -->
-                        <div>
-                            <h4 class="font-bold text-lg mb-3 text-accent">💡 Pro Tips</h4>
-                            <div class="space-y-2 text-base-content/80">
-                                <p>• <strong>Control the center:</strong> The middle square gives you the most winning opportunities</p>
-                                <p>• <strong>Block and build:</strong> Always block your opponent's winning moves</p>
-                                <p>• <strong>Think ahead:</strong> Look for moves that create multiple winning threats</p>
-                                <p>• <strong>Save power-ups:</strong> Don't use them too early - wait for the perfect moment</p>
-                                <p>• <strong>Grid expansion strategy:</strong> Adding rows can break deadlocks and create new winning paths</p>
-                                <p>• <strong>Corner strategy:</strong> If you can't get the center, corners are your next best bet</p>
-                            </div>
-                        </div>
+                     <!-- UPDATE the Pro Tips section to include new strategies: -->
+<div>
+    <h4 class="font-bold text-lg mb-3 text-accent">💡 Pro Tips</h4>
+    <div class="space-y-2 text-base-content/80">
+        <p>• <strong>Control the center:</strong> The middle squares give you the most winning opportunities</p>
+        <p>• <strong>Block and build:</strong> Always block your opponent's winning moves</p>
+        <p>• <strong>Think ahead:</strong> Look for moves that create multiple winning threats</p>
+        <p>• <strong>Save Power Ups:</strong> Don't use them too early - wait for the perfect moment</p>
+        <p>• <strong>Shield strategically:</strong> Protect key pieces that are part of potential winning combinations</p>
+        <p>• <strong>Slide for setup:</strong> Use slide to create unexpected winning patterns or escape threats</p>
+        <p>• <strong>Teleport timing:</strong> Best used for surprise attacks or defensive repositioning</p>
+        <p>• <strong>Grid expansion strategy:</strong> Adding rows can break deadlocks and create new winning paths</p>
+        <p>• <strong>Power-up combos:</strong> Think about how different Power Ups work together (shield then expand, slide then teleport)</p>
+    </div>
+</div>
 
                         <!-- Fun facts -->
                         <div class="bg-base-200 p-4 rounded-lg">
@@ -559,7 +801,7 @@
                             <div class="text-sm text-base-content/70 space-y-1">
                                 <p>• Tic-tac-toe has been played for over 2,000 years</p>
                                 <p>• A perfect 3×3 game always ends in a draw</p>
-                                <p>• This version's power-ups break the "always draw" rule!</p>
+                                <p>• This version's Power Ups break the "always draw" rule!</p>
                                 <p>• Grid expansion creates 255,168 new possible game states</p>
                             </div>
                         </div>
@@ -723,9 +965,55 @@ const app = createApp({
             swapSelection: [],
             showRemoveMode: false,
             squareEffects: Array(24).fill(false), // Support up to 4x6 grid
+
+
+
+              hasUsedSlide: { X: false, O: false }, // NEW
+        hasUsedShield: { X: false, O: false }, // NEW
+        hasUsedTeleport: { X: false, O: false }, // NEW
+        shieldedSquares: Array(24).fill(false), // NEW: Track shielded pieces
+        slideSelection: [], // NEW: For slide power-up selection
+        teleportSelection: [], // NEW: For teleport power-up selection
+        slideMode: 'select', // NEW: 'select' or 'destination'
         };
     },
     computed: {
+
+       getSlideDestinations() {
+        if (this.slideSelection.length !== 1) return [];
+        
+        const selectedIndex = this.slideSelection[0];
+        
+        // Double-check that the selected piece belongs to current player
+        if (this.cells[selectedIndex] !== this.currentPlayer) return [];
+        
+        const row = Math.floor(selectedIndex / 4);
+        const col = selectedIndex % 4;
+        const destinations = [];
+        
+        // Check all 8 directions
+        const directions = [
+            [-1, -1], [-1, 0], [-1, 1], // Top row
+            [0, -1],           [0, 1],  // Middle row (skip center)
+            [1, -1],  [1, 0],  [1, 1]   // Bottom row
+        ];
+        
+        directions.forEach(([deltaRow, deltaCol]) => {
+            const newRow = row + deltaRow;
+            const newCol = col + deltaCol;
+            const newIndex = newRow * 4 + newCol;
+            
+            // Comprehensive bounds checking
+            if (newRow >= 0 && newRow < this.gridRows && 
+                newCol >= 0 && newCol < 4 && 
+                newIndex >= 0 && newIndex < this.cells.length &&
+                this.cells[newIndex] === null) {
+                destinations.push(newIndex);
+            }
+        });
+        
+        return destinations;
+    },
         isMultiplayer() {
             return this.conn !== null;
         },
@@ -800,6 +1088,272 @@ const app = createApp({
         }, 1000);
     },
     methods: {
+        getValidSlideCount(index) {
+    if (this.cells[index] !== this.currentPlayer) return 0;
+    
+    const row = Math.floor(index / 4);
+    const col = index % 4;
+    let count = 0;
+    
+    // Check all 8 directions
+    const directions = [
+        [-1, -1], [-1, 0], [-1, 1],
+        [0, -1],           [0, 1],
+        [1, -1],  [1, 0],  [1, 1]
+    ];
+    
+    directions.forEach(([deltaRow, deltaCol]) => {
+        const newRow = row + deltaRow;
+        const newCol = col + deltaCol;
+        const newIndex = newRow * 4 + newCol;
+        
+        if (newRow >= 0 && newRow < this.gridRows && 
+            newCol >= 0 && newCol < 4 && 
+            newIndex < this.cells.length && 
+            this.cells[newIndex] === null) {
+            count++;
+        }
+    });
+    
+    return count;
+},
+hasValidSlideMove() {
+    return this.cells.some((cell, index) => 
+        cell === this.currentPlayer && this.getValidSlideCount(index) > 0
+    );
+},
+  showSlidePowerModal() {
+    try {
+        this.slideSelection = [];
+        this.slideMode = 'select';
+        document.getElementById('slide-modal').showModal();
+    } catch (error) {
+        this.handleError('Show slide modal', error);
+    }
+},
+performSlide(destinationIndex) {
+    try {
+        if (this.slideSelection.length !== 1) return;
+        
+        const sourceIndex = this.slideSelection[0];
+        
+        // Validate the move one more time
+        const validDestinations = this.getSlideDestinations;
+        if (!validDestinations.includes(destinationIndex)) {
+            this.toaster("Invalid slide destination!", "error");
+            return;
+        }
+        
+        this.flashSquare(sourceIndex);
+        this.flashSquare(destinationIndex);
+        
+        // Move the piece
+        this.cells[destinationIndex] = this.cells[sourceIndex];
+        this.cells[sourceIndex] = null;
+        
+        // Transfer shield if piece was shielded
+        if (this.shieldedSquares[sourceIndex]) {
+            this.shieldedSquares[sourceIndex] = false;
+            this.shieldedSquares[destinationIndex] = true;
+        }
+        
+        this.hasUsedSlide[this.currentPlayer] = true;
+        
+        document.getElementById('slide-modal').close();
+        this.resetSlideSelection();
+        
+        this.toaster(
+            `${this.getEmoji(this.currentPlayer)} slid a piece!`,
+            "info"
+        );
+        
+        this.checkGameState();
+        
+        // Switch turn after using power-up (only if game hasn't ended)
+        if (!this.winner && !this.isDraw) {
+            this.switchTurn();
+        }
+        
+        if (this.conn && this.conn.open) {
+            this.conn.send({
+                type: "slide",
+                cells: [...this.cells],
+                currentPlayer: this.currentPlayer,
+                hasUsedSlide: { ...this.hasUsedSlide },
+                shieldedSquares: [...this.shieldedSquares], // ADDED: Include shields
+                winner: this.winner,
+                isDraw: this.isDraw,
+                winningCombo: [...this.winningCombo],
+            });
+        }
+    } catch (error) {
+        this.handleError('Slide piece', error);
+    }
+},
+
+resetSlideSelection() {
+    this.slideSelection = [];
+    this.slideMode = 'select';
+},
+
+
+// SHIELD POWER-UP METHODS
+showShieldPowerModal() {
+    try {
+        document.getElementById('shield-modal').showModal();
+    } catch (error) {
+        this.handleError('Show shield modal', error);
+    }
+},
+
+shieldPiece(index) {
+    try {
+        if (this.hasUsedShield[this.currentPlayer]) return;
+        if (this.cells[index] !== this.currentPlayer) return;
+        
+        this.flashSquare(index);
+        this.shieldedSquares[index] = true;
+        this.hasUsedShield[this.currentPlayer] = true;
+        
+        document.getElementById('shield-modal').close();
+        
+        this.toaster(
+            `${this.getEmoji(this.currentPlayer)} shielded a piece!`,
+            "success"
+        );
+        
+        // Switch turn after using power-up
+        this.switchTurn();
+        
+        if (this.conn && this.conn.open) {
+            this.conn.send({
+                type: "shield",
+                currentPlayer: this.currentPlayer,
+                hasUsedShield: { ...this.hasUsedShield },
+                shieldedSquares: [...this.shieldedSquares],
+            });
+        }
+    } catch (error) {
+        this.handleError('Shield piece', error);
+    }
+},
+
+// TELEPORT POWER-UP METHODS
+showTeleportPowerModal() {
+    try {
+        this.teleportSelection = [];
+        document.getElementById('teleport-modal').showModal();
+    } catch (error) {
+        this.handleError('Show teleport modal', error);
+    }
+},
+
+selectTeleportPiece(index) {
+    if (this.teleportSelection.length === 0) {
+        // First step: select piece to teleport
+        if (this.cells[index] === this.currentPlayer) {
+            this.teleportSelection = [index];
+        }
+    } else if (this.teleportSelection.length === 1) {
+        // Second step: select destination
+        if (this.cells[index] === null) {
+            this.performTeleport(index);
+        }
+    }
+},
+
+performTeleport(destinationIndex) {
+    try {
+        if (this.teleportSelection.length !== 1) return;
+        
+        const sourceIndex = this.teleportSelection[0];
+        this.flashSquare(sourceIndex);
+        this.flashSquare(destinationIndex);
+        
+        // Move the piece
+        this.cells[destinationIndex] = this.cells[sourceIndex];
+        this.cells[sourceIndex] = null;
+        
+        // Transfer shield if piece was shielded
+        if (this.shieldedSquares[sourceIndex]) {
+            this.shieldedSquares[sourceIndex] = false;
+            this.shieldedSquares[destinationIndex] = true;
+        }
+        
+        this.hasUsedTeleport[this.currentPlayer] = true;
+        
+        document.getElementById('teleport-modal').close();
+        this.resetTeleportSelection();
+        
+        this.toaster(
+            `${this.getEmoji(this.currentPlayer)} teleported a piece!`,
+            "warning"
+        );
+        
+        this.checkGameState();
+        
+        // Switch turn after using power-up (only if game hasn't ended)
+        if (!this.winner && !this.isDraw) {
+            this.switchTurn();
+        }
+        
+        if (this.conn && this.conn.open) {
+            this.conn.send({
+                type: "teleport",
+                cells: [...this.cells],
+                currentPlayer: this.currentPlayer,
+                hasUsedTeleport: { ...this.hasUsedTeleport },
+                shieldedSquares: [...this.shieldedSquares],
+                winner: this.winner,
+                isDraw: this.isDraw,
+                winningCombo: [...this.winningCombo],
+            });
+        }
+    } catch (error) {
+        this.handleError('Teleport piece', error);
+    }
+},
+
+resetTeleportSelection() {
+    this.teleportSelection = [];
+},
+
+
+selectSlidePiece(index) {
+    if (this.slideMode === 'select') {
+        // First step: select a piece to slide
+        if (this.cells[index] === this.currentPlayer) {
+            this.slideSelection = [index];
+            this.slideMode = 'destination';
+            
+            // Check if piece has any valid moves
+            const validDestinations = this.getSlideDestinations;
+            if (validDestinations.length === 0) {
+                this.toaster("This piece cannot slide - no adjacent empty squares!", "warning", 3000);
+                this.resetSlideSelection();
+                return;
+            }
+        }
+    } else if (this.slideMode === 'destination') {
+        // Second step: select destination
+        const validDestinations = this.getSlideDestinations;
+        if (validDestinations.includes(index)) {
+            this.performSlide(index);
+        } else {
+            // Allow user to select a different piece to slide
+            if (this.cells[index] === this.currentPlayer) {
+                this.slideSelection = [index];
+                // Re-check if this piece can move
+                const newValidDestinations = this.getSlideDestinations;
+                if (newValidDestinations.length === 0) {
+                    this.toaster("This piece cannot slide - no adjacent empty squares!", "warning", 3000);
+                    this.resetSlideSelection();
+                }
+            }
+        }
+    }
+},
+
         // Error handling utility
         handleError(operation, error) {
             console.error(`Error in ${operation}:`, error);
@@ -1009,40 +1563,49 @@ const app = createApp({
             }
         },
 
-        removeOpponentPiece(index) {
-            try {
-                this.flashSquare(index);
-                const opponent = this.currentPlayer === "X" ? "O" : "X";
-                if (this.hasUsedRemove[this.currentPlayer]) return;
-                
-                if (this.isMultiplayer && this.cells[index] !== opponent) return;
-                if (!this.isMultiplayer && this.cells[index] === null) return;
+  removeOpponentPiece(index) {
+    try {
+        this.flashSquare(index);
+        const opponent = this.currentPlayer === "X" ? "O" : "X";
+        if (this.hasUsedRemove[this.currentPlayer]) return;
+        
+        if (this.isMultiplayer && this.cells[index] !== opponent) return;
+        if (!this.isMultiplayer && this.cells[index] === null) return;
+        
+        // Check if piece is shielded
+        if (this.shieldedSquares[index]) {
+            // Remove shield instead of piece
+            this.shieldedSquares[index] = false;
+            this.toaster("Shield blocked the removal!", "info");
+        } else {
+            // Remove piece normally
+            this.cells[index] = null;
+        }
+        
+        this.hasUsedRemove[this.currentPlayer] = true;
+        
+        document.getElementById('remove-modal').close();
+        
+        this.toaster(
+            `${this.getEmoji(this.currentPlayer)} used remove!`,
+            "warning"
+        );
 
-                this.cells[index] = null;
-                this.hasUsedRemove[this.currentPlayer] = true;
-                
-                document.getElementById('remove-modal').close();
-                
-                this.toaster(
-                    `${this.getEmoji(this.currentPlayer)} removed a piece!`,
-                    "warning"
-                );
+        this.switchTurn();
 
-                // Switch turn after using power-up
-                this.switchTurn();
-
-                if (this.conn && this.conn.open) {
-                    this.conn.send({
-                        type: "remove",
-                        cells: [...this.cells],
-                        currentPlayer: this.currentPlayer,
-                        hasUsedRemove: { ...this.hasUsedRemove },
-                    });
-                }
-            } catch (error) {
-                this.handleError('Remove piece', error);
-            }
-        },
+        if (this.conn && this.conn.open) {
+            this.conn.send({
+                type: "remove",
+                cells: [...this.cells],
+                currentPlayer: this.currentPlayer,
+                hasUsedRemove: { ...this.hasUsedRemove },
+                shieldedSquares: [...this.shieldedSquares],
+            });
+        }
+    } catch (error) {
+        this.handleError('Remove piece', error);
+    }
+},
 
         undoMove() {
             try {
@@ -1105,7 +1668,7 @@ const app = createApp({
         },
 
         getEmoji(val) {
-            return this.emojiSet[val] || "";
+            return this.emojiSet[val] || " ";
         },
 
         toggleEmojiTheme() {
@@ -1155,7 +1718,50 @@ const app = createApp({
                         }
 
                         this.toaster("Opponent moved!", "info", 1500);
-                    } else if (data.type === "reset") {
+                    
+                    
+                    } else if (data.type === "slide") {
+     this.cells = [...data.cells];
+    this.currentPlayer = data.currentPlayer;
+    this.hasUsedSlide = { ...data.hasUsedSlide };
+    this.shieldedSquares = [...(data.shieldedSquares || Array(24).fill(false))]; // ADDED
+    this.winner = data.winner;
+    this.isDraw = data.isDraw;
+    this.winningCombo = [...(data.winningCombo || [])];
+
+    this.toaster("Opponent used slide!", "info");
+         // Flash the tile that was just played
+                        if (this.moveHistory.length > 0) {
+                            const lastMove = this.moveHistory[this.moveHistory.length - 1];
+                            this.flashSquare(lastMove.index);
+                        }
+} else if (data.type === "shield") {
+    this.currentPlayer = data.currentPlayer;
+    this.hasUsedShield = { ...data.hasUsedShield };
+    this.shieldedSquares = [...data.shieldedSquares];
+    this.toaster("Opponent used shield!", "success");
+         // Flash the tile that was just played
+                        if (this.moveHistory.length > 0) {
+                            const lastMove = this.moveHistory[this.moveHistory.length - 1];
+                            this.flashSquare(lastMove.index);
+                        }
+} else if (data.type === "teleport") {
+    this.cells = [...data.cells];
+    this.currentPlayer = data.currentPlayer;
+    this.hasUsedTeleport = { ...data.hasUsedTeleport };
+    this.shieldedSquares = [...data.shieldedSquares];
+    this.winner = data.winner;
+    this.isDraw = data.isDraw;
+    this.winningCombo = [...(data.winningCombo || [])];
+    this.toaster("Opponent used teleport!", "warning");
+         // Flash the tile that was just played
+                        if (this.moveHistory.length > 0) {
+                            const lastMove = this.moveHistory[this.moveHistory.length - 1];
+                            this.flashSquare(lastMove.index);
+                        }
+                            }
+                    
+                    else if (data.type === "reset") {
                         this.resetGame(false);
                     } else if (data.type === "undo") {
                         this.cells = [...data.cells];
@@ -1478,37 +2084,44 @@ const app = createApp({
             }, 250);
         },
 
-        resetGame(sync = true) {
-            const gameBoard = document.querySelector(".grid");
-            if (gameBoard) gameBoard.classList.add("fade-out");
+      resetGame(sync = true) {
+    const gameBoard = document.querySelector(".grid");
+    if (gameBoard) gameBoard.classList.add("fade-out");
 
-            setTimeout(() => {
-                this.cells = Array(16).fill(null);
-                this.gridRows = 4; // NEW: Reset grid rows
-                this.isExpanding = false; // NEW: Reset expansion state
-                this.moveHistory = [];
-                this.currentPlayer = "X";
-                this.winner = null;
-                this.isDraw = false;
-                this.winningCombo = [];
-                this.hasUsedUndo = { X: false, O: false };
-                this.hasUsedRemove = { X: false, O: false };
-                this.hasUsedSwap = { X: false, O: false };
-                this.hasUsedExpand = { X: false, O: false }; // NEW: Reset expand power-up
-                this.swapSelection = [];
-                this.squareEffects = Array(24).fill(false); // Reset effects array for max 4x6
-                if (gameBoard) gameBoard.classList.remove("fade-out");
-                
-                this.toaster("New game started!", "info");
-                setTimeout(() => {
-                    this.toaster(`${this.getEmoji(this.currentPlayer)} goes first!`, "info", 2000);
-                }, 500);
-                
-                if (sync && this.conn && this.conn.open) {
-                    this.conn.send({ type: "reset" });
-                }
-            }, 300);
-        },
+    setTimeout(() => {
+        this.cells = Array(16).fill(null);
+        this.gridRows = 4;
+        this.isExpanding = false;
+        this.moveHistory = [];
+        this.currentPlayer = "X";
+        this.winner = null;
+        this.isDraw = false;
+        this.winningCombo = [];
+        this.hasUsedUndo = { X: false, O: false };
+        this.hasUsedRemove = { X: false, O: false };
+        this.hasUsedSwap = { X: false, O: false };
+        this.hasUsedExpand = { X: false, O: false };
+        this.hasUsedSlide = { X: false, O: false }; // NEW
+        this.hasUsedShield = { X: false, O: false }; // NEW
+        this.hasUsedTeleport = { X: false, O: false }; // NEW
+        this.swapSelection = [];
+        this.slideSelection = []; // NEW
+        this.teleportSelection = []; // NEW
+        this.slideMode = 'select'; // NEW
+        this.shieldedSquares = Array(24).fill(false); // NEW
+        this.squareEffects = Array(24).fill(false);
+        if (gameBoard) gameBoard.classList.remove("fade-out");
+        
+        this.toaster("New game started!", "info");
+        setTimeout(() => {
+            this.toaster(`${this.getEmoji(this.currentPlayer)} goes first!`, "info", 2000);
+        }, 500);
+        
+        if (sync && this.conn && this.conn.open) {
+            this.conn.send({ type: "reset" });
+        }
+    }, 300);
+}
     },
 });
 
