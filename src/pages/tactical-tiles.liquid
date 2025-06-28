@@ -100,7 +100,19 @@
     <style>
       /* Critical styles that must load immediately */
       [v-cloak] { display: none; }
-      
+      /* Ensure grid layout works properly */
+[role="grid"] {
+  width: 100%;
+  max-width: 400px;
+  margin: 0 auto;
+}
+
+@media (max-width: 640px) {
+  [role="grid"] {
+    gap: 0.75rem !important;
+    max-width: 320px;
+  }
+}
       /* Improved loading state */
       .app-loading {
         position: fixed;
@@ -126,14 +138,16 @@
       }
       
       @media (max-width: 640px) {
-        .game-cell {
-          min-height: clamp(44px, 15vw, 80px);
-          font-size: clamp(1.25rem, 4vw, 1.75rem);
-        }
+.game-cell {
+    min-height: clamp(44px, 15vw, 80px);
+    font-size: clamp(1.25rem, 4vw, 1.75rem);
+  }
 
-        .grid {
-          gap: 0.75rem;
-        }
+  [role="grid"] {
+    gap: 0.75rem !important;
+    max-width: 320px;
+  }
+      
       }
       .fade-out {
         opacity: 0;
@@ -455,14 +469,20 @@
         <!-- Game Board with enhanced accessibility -->
         <div class="card">
           <div class="card-body">
-            <div
-              role="grid"
-              aria-label="Tic-tac-toe game board"
-              aria-describedby="game-instructions"
-              :class="[
-                'grid gap-6 grid-transition grid-cols-4',
+          <div
+            role="grid"
+            aria-label="Tic-tac-toe game board"
+            aria-describedby="game-instructions"
+            :style="{
+                display: 'grid',
+                gridTemplateColumns: 'repeat(4, 1fr)',
+                gridTemplateRows: `repeat(${gridRows}, 1fr)`,
+                gap: '1.5rem'
+            }"
+            :class="[
+                'grid-transition',
                 isExpanding ? 'expand-animation' : ''
-              ]"
+            ]"
             >
               <button
                 v-for="(cell, index) in cells"
@@ -2299,7 +2319,7 @@ function initializeApp() {
                   this.moveHistory[this.moveHistory.length - 1];
                 this.flashSquare(lastMove.index);
               }
-              this.playSound("move");
+            //  this.playSound("move");
               this.toaster("Opponent moved!", "info", 1500);
             } else if (data.type === "slide") {
               this.cells = [...data.cells];
@@ -2313,13 +2333,13 @@ function initializeApp() {
               this.winningCombo = [...(data.winningCombo || [])];
 
               this.toaster("Opponent used slide!", "info");
-              this.playSound("power");
+            // //// this.playSound("power");
             } else if (data.type === "shield") {
               this.currentPlayer = data.currentPlayer;
               this.hasUsedShield = { ...data.hasUsedShield };
               this.shieldedSquares = [...data.shieldedSquares];
               this.toaster("Opponent used shield!", "success");
-              this.playSound("power");
+             //// this.playSound("power");
             } else if (data.type === "teleport") {
               this.cells = [...data.cells];
               this.currentPlayer = data.currentPlayer;
@@ -2329,7 +2349,7 @@ function initializeApp() {
               this.isDraw = data.isDraw;
               this.winningCombo = [...(data.winningCombo || [])];
               this.toaster("Opponent used teleport!", "warning");
-              this.playSound("power");
+             ////// this.playSound("power");
             } else if (data.type === "reset") {
               this.resetGame(false);
             } else if (data.type === "undo") {
@@ -2341,14 +2361,14 @@ function initializeApp() {
               this.moveHistory = [...(data.moveHistory || [])];
               this.hasUsedUndo = { ...data.hasUsedUndo };
               this.toaster("Opponent used undo!", "warning");
-              this.playSound("power");
+             ////// this.playSound("power");
             } else if (data.type === "remove") {
               this.cells = [...data.cells];
               this.currentPlayer = data.currentPlayer;
               this.hasUsedRemove = { ...data.hasUsedRemove };
               this.shieldedSquares = [...(data.shieldedSquares || Array(24).fill(false))];
               this.toaster("Opponent removed a piece!", "warning");
-              this.playSound("power");
+             ////// this.playSound("power");
             } else if (data.type === "swap") {
               this.cells = [...data.cells];
               this.currentPlayer = data.currentPlayer;
@@ -2358,7 +2378,7 @@ function initializeApp() {
               this.isDraw = data.isDraw;
               this.winningCombo = [...(data.winningCombo || [])];
               this.toaster("Opponent used swap!", "info");
-              this.playSound("power");
+             //// this.playSound("power");
             } else if (data.type === "expand") {
               this.isExpanding = true;
               this.cells = [...data.cells];
@@ -2366,7 +2386,7 @@ function initializeApp() {
               this.currentPlayer = data.currentPlayer;
               this.hasUsedExpand = { ...data.hasUsedExpand };
               this.squareEffects = Array(this.gridRows * 4).fill(false);
-              this.playSound("power");
+             //// this.playSound("power");
 
               setTimeout(() => {
                 this.isExpanding = false;
