@@ -41,6 +41,7 @@
       type="text/javascript"
       src="https://cdn.jsdelivr.net/npm/toastify-js"
     ></script>
+<link rel="sitemap" type="application/xml" href="/sitemap.xml">
 
     <!-- PeerJS for multiplayer -->
     <script src="https://unpkg.com/peerjs@1.4.7/dist/peerjs.min.js"></script>
@@ -59,9 +60,24 @@
       }
     </script>
     <style>
-      [v-cloak] {
-        display: none;
-      }
+  
+  @media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+  
+  .expand-animation,
+  .flash-effect,
+  .tile-bounce,
+  .earthquake,
+  .tilt-n-move-shaking {
+    animation: none !important;
+  }
+}
       button {
         touch-action: manipulation;
       }
@@ -81,6 +97,8 @@
       }
       .game-cell {
         aspect-ratio: 1;
+          touch-action: manipulation;
+  -webkit-tap-highlight-color: transparent;
         height: 100%;
         width: 100%;
       }
@@ -309,7 +327,39 @@
       content="https://www.coffeeandfun.com/assets/images/apps/tic-tac.png"
     />
     <meta name="twitter:image:alt" content=" Coffee & Fun" />
-
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": ["Game", "WebApplication"],
+  "name": "Tactical Tiles",
+  "alternateName": "Multiplayer Tic-Tac-Toe with Power Ups",
+  "description": "Challenge your friends to a fun, animated Tic-Tac-Toe game with emojis and real-time multiplayer. No account needed. Includes Power Ups!",
+  "url": "https://www.coffeeandfun.com/games/tactical-tiles",
+  "image": "https://www.coffeeandfun.com/assets/images/apps/tic-tac.png",
+  "genre": ["Strategy Game", "Puzzle Game", "Multiplayer Game"],
+  "playMode": ["MultiPlayer", "SinglePlayer"],
+  "applicationCategory": "GameApplication",
+  "operatingSystem": "Web Browser",
+  "offers": {
+    "@type": "Offer",
+    "price": "0",
+    "priceCurrency": "USD"
+  },
+  "creator": {
+    "@type": "Organization",
+    "name": "Coffee & Fun LLC",
+    "url": "https://www.coffeeandfun.com"
+  },
+  "dateCreated": "2025-01-01",
+  "inLanguage": "en",
+  "isAccessibleForFree": true,
+  "interactionStatistic": {
+    "@type": "InteractionCounter",
+    "interactionType": "https://schema.org/PlayAction",
+    "userInteractionCount": 0
+  }
+}
+</script>
     <script type="application/ld+json">
       {
         "@context": "http://schema.org/",
@@ -424,12 +474,15 @@
                             'grid gap-6 grid-transition grid-cols-4',
                             isExpanding ? 'expand-animation' : ''
                         ]"
+                          :aria-describedby="gameStatusId"
             >
               <button
                 v-for="(cell, index) in cells"
                 :key="index"
                 @click="makeMove(index)"
                 aria-label="Play this Tile"
+                 :aria-label="getCellAriaLabel(index, cell)"
+            :aria-describedby="cell ? null : 'empty-cell-hint'"
                 :class="[
     'btn mx-auto text-4xl font-bold transition-all duration-200 hover:scale-105 flex items-center justify-center game-cell relative',
                              
@@ -448,7 +501,7 @@
                 {% raw %}{{ getEmoji(cell) }}{% endraw %}
                 <span
                   v-if="shieldedSquares[index]"
-                  class="absolute top-0 right-0 text-xs"
+                  class="absolute top-0 right-0 text-lg"
                   >🛡️</span
                 >
               </button>
@@ -1361,6 +1414,15 @@
           };
         },
         computed: {
+             gameStatusMessage() {
+    if (this.winner) {
+      return `Game over. ${this.getEmoji(this.winner)} wins!`;
+    } else if (this.isDraw) {
+      return 'Game over. It\'s a draw!';
+    } else {
+      return `Current turn: ${this.getEmoji(this.currentPlayer)}`;
+    }
+  },
           getSlideDestinations() {
             if (this.slideSelection.length !== 1) return [];
 
@@ -1492,7 +1554,20 @@
           }, 1000);
         },
         methods: {
-
+// Add to Vue methods
+getCellAriaLabel(index, cell) {
+  const row = Math.floor(index / 4) + 1;
+  const col = (index % 4) + 1;
+  const position = `Row ${row}, Column ${col}`;
+  
+  if (cell) {
+    const player = cell === 'X' ? 'Player X' : 'Player O';
+    const emoji = this.getEmoji(cell);
+    return `${position}, occupied by ${player} ${emoji}`;
+  } else {
+    return `${position}, empty cell, click to place your piece`;
+  }
+},
         // Simple audio file approach
 playSound(soundName) {
     //if (!this.soundEnabled) return;
@@ -2179,7 +2254,7 @@ playSound(soundName) {
                       this.moveHistory[this.moveHistory.length - 1];
                     this.flashSquare(lastMove.index);
                   }
-
+this.playSound("move");
                   this.toaster("Opponent moved!", "info", 1500);
                 } else if (data.type === "slide") {
                   this.cells = [...data.cells];
@@ -2193,6 +2268,7 @@ playSound(soundName) {
                   this.winningCombo = [...(data.winningCombo || [])];
 
                   this.toaster("Opponent used slide!", "info");
+                     this.playSound("power");
                   // Flash the tile that was just played
                   if (this.moveHistory.length > 0) {
                     const lastMove =
@@ -2210,6 +2286,7 @@ playSound(soundName) {
                       this.moveHistory[this.moveHistory.length - 1];
                     this.flashSquare(lastMove.index);
                   }
+                  this.playSound("power");
                 } else if (data.type === "teleport") {
                   this.cells = [...data.cells];
                   this.currentPlayer = data.currentPlayer;
@@ -2225,6 +2302,7 @@ playSound(soundName) {
                       this.moveHistory[this.moveHistory.length - 1];
                     this.flashSquare(lastMove.index);
                   }
+                  this.playSound("power");
                 } else if (data.type === "reset") {
                   this.resetGame(false);
                 } else if (data.type === "undo") {
@@ -2242,6 +2320,7 @@ playSound(soundName) {
                       this.moveHistory[this.moveHistory.length - 1];
                     this.flashSquare(lastMove.index);
                   }
+                  this.playSound("power");
                 } else if (data.type === "remove") {
                   this.cells = [...data.cells];
                   this.currentPlayer = data.currentPlayer;
@@ -2253,6 +2332,7 @@ playSound(soundName) {
                       this.moveHistory[this.moveHistory.length - 1];
                     this.flashSquare(lastMove.index);
                   }
+                  this.playSound("power");
                 } else if (data.type === "swap") {
                   this.cells = [...data.cells];
                   this.currentPlayer = data.currentPlayer;
@@ -2267,6 +2347,7 @@ playSound(soundName) {
                       this.moveHistory[this.moveHistory.length - 1];
                     this.flashSquare(lastMove.index);
                   }
+                  this.playSound("power");
                 } else if (data.type === "expand") {
                   this.isExpanding = true;
                   this.cells = [...data.cells];
@@ -2274,7 +2355,7 @@ playSound(soundName) {
                   this.currentPlayer = data.currentPlayer;
                   this.hasUsedExpand = { ...data.hasUsedExpand };
                   this.squareEffects = Array(this.gridRows * 4).fill(false);
-
+this.playSound("power");
                   setTimeout(() => {
                     this.isExpanding = false;
                   }, 800);
@@ -2633,6 +2714,7 @@ playSound(soundName) {
               if (gameBoard) gameBoard.classList.remove("fade-out");
 
               this.toaster("New game started!", "info");
+              this.playSound("theme");
               setTimeout(() => {
                 this.toaster(
                   `${this.getEmoji(this.currentPlayer)} goes first!`,
