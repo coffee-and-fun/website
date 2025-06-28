@@ -115,13 +115,7 @@
         z-index: 9999;
       }
       
-      /* Improved button touch targets */
-      button {
-        touch-action: manipulation;
-        -webkit-tap-highlight-color: transparent;
-        min-height: 44px;
-        min-width: 44px;
-      }
+     
       
       /* Performance: Use transform instead of changing layout properties */
       .game-cell {
@@ -709,6 +703,637 @@
         <!-- All the modals would continue here exactly as in your original code... -->
         <!-- For brevity, I'm including just the structure. You'd add all your existing modals here -->
 
+                <!-- Shield Power-up Modal -->
+        <dialog id="shield-modal" class="modal">
+          <div class="modal-box">
+            <h3 class="font-bold text-lg mb-4">🛡️ Shield a Piece</h3>
+            <p class="text-sm text-base-content/70 mb-4">
+              Click on one of your pieces to protect it from removal:
+            </p>
+
+            <div class="grid gap-4 mb-4 grid-cols-4">
+              <button
+                v-for="(cell, index) in cells"
+                :key="index"
+                aria-label="Shield this Piece"
+                @click="shieldPiece(index)"
+                :class="[
+                  'btn mx-auto text-4xl font-bold transition-all duration-200 hover:scale-105 flex items-center justify-center game-cell relative',
+                  {
+                    'btn-success': cell === currentPlayer && !shieldedSquares[index],
+                    'btn-ghost': !cell || cell !== currentPlayer,
+                    'btn-disabled': !cell || cell !== currentPlayer || shieldedSquares[index],
+                    'ring-2 ring-green-400': shieldedSquares[index]
+                  }
+                ]"
+                :disabled="!cell || cell !== currentPlayer || shieldedSquares[index]"
+              >
+                {% raw %}{{ getEmoji(cell) }}{% endraw %}
+                <span
+                  v-if="shieldedSquares[index]"
+                  class="absolute top-0 right-0 text-xs"
+                  >🛡️</span
+                >
+              </button>
+            </div>
+
+            <div class="modal-action">
+              <form method="dialog">
+                <button class="btn" aria-label="Close Modal">Cancel</button>
+              </form>
+            </div>
+          </div>
+          <form method="dialog" class="modal-backdrop">
+            <button aria-label="Close Modal">close</button>
+          </form>
+        </dialog>
+
+        <!-- Teleport Piece Modal -->
+        <dialog id="teleport-modal" class="modal">
+          <div class="modal-box">
+            <h3 class="font-bold text-lg mb-4">🚀 Teleport a Piece</h3>
+            <p class="text-sm text-base-content/70 mb-4">
+              <span v-if="teleportSelection.length === 0"
+                ><strong>Step 1:</strong>Click on one of your pieces to
+                teleport:</span
+              >
+              <span v-else
+                ><strong>Step 2:</strong>Click on any empty square to teleport
+                to:</span
+              >
+            </p>
+            <p
+              class="text-xs text-error mb-4"
+              v-if="teleportSelection.length === 1"
+            >
+              Selected: {% raw %}{{ getEmoji(cells[teleportSelection[0]]) }}{% endraw %} - Now pick any empty space
+            </p>
+
+            <div class="grid gap-4 mb-4 grid-cols-4">
+              <button
+                v-for="(cell, index) in cells"
+                :key="index"
+                aria-label="Select for Teleport"
+                @click="selectTeleportPiece(index)"
+                :class="[
+                  'btn mx-auto text-4xl font-bold transition-all duration-200 hover:scale-105 flex items-center justify-center game-cell relative',
+                  {
+                    'btn-error': teleportSelection.includes(index),
+                    'btn-primary': teleportSelection.length === 1 && cell === null,
+                    'btn-secondary': cell === currentPlayer && !teleportSelection.includes(index),
+                    'btn-ghost': !cell && teleportSelection.length === 0,
+                    'btn-disabled': (teleportSelection.length === 0 && cell !== currentPlayer) || 
+                                  (teleportSelection.length === 1 && cell !== null)
+                  }
+                ]"
+                :disabled="(teleportSelection.length === 0 && cell !== currentPlayer) || 
+                          (teleportSelection.length === 1 && cell !== null)"
+              >
+                {% raw %}{{ getEmoji(cell) }}{% endraw %}
+                <span
+                  v-if="shieldedSquares[index]"
+                  class="absolute top-0 right-0 text-xs"
+                  >🛡️</span
+                >
+              </button>
+            </div>
+
+            <div class="modal-action">
+              <form method="dialog">
+                <button
+                  class="btn"
+                  aria-label="Close Modal"
+                  @click="resetTeleportSelection"
+                >
+                  Cancel
+                </button>
+              </form>
+            </div>
+          </div>
+          <form method="dialog" class="modal-backdrop">
+            <button aria-label="Close Modal" @click="resetTeleportSelection">
+              close
+            </button>
+          </form>
+        </dialog>
+
+        <!-- Slide Piece Modal -->
+        <dialog id="slide-modal" class="modal">
+          <div class="modal-box">
+            <h3 class="font-bold text-lg mb-4">🔀 Slide a Piece</h3>
+
+            <p class="text-sm text-base-content/70 mb-4">
+              <span v-if="slideMode === 'select'"
+                ><strong>Step 1:</strong> Click on one of your pieces to
+                slide</span
+              >
+              <span v-else>Click on any empty square to teleport to:</span>
+            </p>
+
+            <p
+              class="text-xs text-accent mb-4"
+              v-if="slideSelection.length === 1"
+            >
+              Selected piece: {% raw %}{{ getEmoji(cells[slideSelection[0]]) }}{% endraw %}
+              <span
+                v-if="getSlideDestinations.length === 0"
+                class="text-warning"
+              >
+                - No valid moves available!</span
+              >
+              <span v-else class="text-success">
+                - {% raw %}{{ getSlideDestinations.length }}{% endraw %} possible moves</span
+              >
+            </p>
+
+            <div class="grid gap-4 mb-4 grid-cols-4">
+              <button
+                v-for="(cell, index) in cells"
+                :key="index"
+                aria-label="Select this Tile for Sliding"
+                @click="selectSlidePiece(index)"
+                :class="[
+                  'btn mx-auto text-4xl font-bold transition-all duration-200 hover:scale-105 flex items-center justify-center game-cell relative',
+                  {
+                    'btn-accent border-4 border-accent': slideSelection.includes(index),
+                    'btn-primary ring-2 ring-primary animate-pulse': slideMode === 'destination' && getSlideDestinations.includes(index),
+                    'btn-secondary hover:btn-accent': cell === currentPlayer && slideMode === 'select' && !slideSelection.includes(index),
+                    'btn-ghost': !cell && (slideMode === 'select' || !getSlideDestinations.includes(index)),
+                    'btn-disabled opacity-30': (slideMode === 'select' && cell !== currentPlayer && cell !== null) || 
+                                             (slideMode === 'destination' && !getSlideDestinations.includes(index) && cell !== currentPlayer),
+                    'ring-2 ring-green-400': shieldedSquares[index]
+                  }
+                ]"
+                :disabled="(slideMode === 'select' && cell !== currentPlayer && cell !== null) || 
+                          (slideMode === 'destination' && !getSlideDestinations.includes(index) && cell !== currentPlayer)"
+              >
+                {% raw %}{{ getEmoji(cell) }}{% endraw %}
+                <span
+                  v-if="shieldedSquares[index]"
+                  class="absolute top-0 right-0 text-xs"
+                  >🛡️</span
+                >
+
+                <span
+                  v-if="slideMode === 'destination' && getSlideDestinations.includes(index)"
+                  class="absolute inset-0 flex items-center justify-center text-2xl"
+                >
+                  ✨
+                </span>
+              </button>
+            </div>
+
+            <div class="text-xs text-base-content/70 mb-4">
+              <p v-if="slideMode === 'select'">
+                💡 <strong>Tip:</strong> Pieces can slide to any adjacent empty
+                square, including diagonally
+              </p>
+              <p v-else>
+                💡 <strong>Tip:</strong> Click on your selected piece again to
+                choose a different piece to slide
+              </p>
+            </div>
+
+            <div class="modal-action">
+              <form method="dialog">
+                <button
+                  class="btn"
+                  aria-label="Close Modal"
+                  @click="resetSlideSelection"
+                >
+                  Cancel
+                </button>
+              </form>
+            </div>
+          </div>
+          <form method="dialog" class="modal-backdrop">
+            <button aria-label="Close Modal" @click="resetSlideSelection">
+              close
+            </button>
+          </form>
+        </dialog>
+
+        <!-- Swap Piece Modal -->
+        <dialog id="swap-modal" class="modal">
+          <div class="modal-box">
+            <h3 class="font-bold text-lg mb-4">🔄 Swap Two Pieces</h3>
+            <p class="text-sm text-base-content/70 mb-4">
+              Click on two pieces to swap their positions:
+            </p>
+            <p class="text-xs text-info mb-4" v-if="swapSelection.length === 1">
+              Selected: {% raw %}{{ getEmoji(cells[swapSelection[0]]) }}{% endraw %} - Now pick a second piece to swap with
+            </p>
+
+            <div class="grid gap-4 mb-4 grid-cols-4">
+              <button
+                v-for="(cell, index) in cells"
+                :key="index"
+                aria-label="Select this Tile to Swap"
+                @click="selectSwapPiece(index)"
+                :class="[
+                  'btn mx-auto text-4xl font-bold transition-all duration-200 hover:scale-105 flex items-center justify-center game-cell relative',
+                  {
+                    'btn-info': swapSelection.includes(index),
+                    'btn-secondary': cell !== null && !swapSelection.includes(index),
+                    'btn-ghost': !cell,
+                    'btn-disabled': !cell
+                  }
+                ]"
+                :disabled="!cell"
+              >
+                {% raw %}{{ getEmoji(cell) }}{% endraw %}
+                <span
+                  v-if="shieldedSquares[index]"
+                  class="absolute top-0 right-0 text-xs"
+                  >🛡️</span
+                >
+              </button>
+            </div>
+
+            <div class="modal-action">
+              <form method="dialog">
+                <button
+                  class="btn"
+                  aria-label="Close Modal"
+                  @click="resetSwapSelection"
+                >
+                  Cancel
+                </button>
+              </form>
+            </div>
+          </div>
+          <form method="dialog" class="modal-backdrop">
+            <button aria-label="Close Modal" @click="resetSwapSelection">
+              close
+            </button>
+          </form>
+        </dialog>
+
+        <!-- About Modal -->
+        <dialog id="about-modal" class="modal">
+          <div class="modal-box max-w-2xl">
+            <h3 class="font-bold text-2xl mb-6 text-center">
+              🎮 About Tactical Tiles
+            </h3>
+
+            <div class="space-y-6">
+              <div>
+                <h4 class="font-bold text-lg mb-3 text-primary">
+                  🚀 What Makes This Different?
+                </h4>
+                <div class="space-y-2 text-base-content/80">
+                  <p>
+                    • <strong>Real-time multiplayer</strong> - Play instantly
+                    with friends anywhere in the world
+                  </p>
+                  <p>
+                    • <strong>Power Ups</strong> - Strategic abilities to turn
+                    the tide of battle
+                  </p>
+                  <p>
+                    • <strong>Dynamic grid expansion</strong> - Expand from 4×4
+                    to 5×5 mid-game!
+                  </p>
+                  <p>
+                    • <strong>Customizable themes</strong> - Choose from fun
+                    emoji pairs like 🐶 vs 🐱
+                  </p>
+                  <p>
+                    • <strong>No registration required</strong> - Just share a
+                    link and start playing
+                  </p>
+                  <p>
+                    • <strong>Cross-platform</strong> - Works on phones,
+                    tablets, and computers
+                  </p>
+                </div>
+              </div>
+
+              <div>
+                <h4 class="font-bold text-lg mb-3 text-secondary">
+                  📋 How to Play
+                </h4>
+                <div class="space-y-3">
+                  <div>
+                    <h5 class="font-semibold text-base mb-1">Basic Rules:</h5>
+                    <div class="text-base-content/80 space-y-1">
+                      <p>• Take turns placing your emoji on the grid</p>
+                      <p>
+                        • Get three in a row (horizontal, vertical, or diagonal)
+                        to win
+                      </p>
+                      <p>
+                        • The grid starts as 4×4 but can be expanded to 4×6 with
+                        Power Ups (each player can add one row)
+                      </p>
+                      <p>
+                        • If all spaces are filled without a winner, it's a draw
+                      </p>
+                    </div>
+                  </div>
+
+                  <div>
+                    <h5 class="font-semibold text-base mb-1">Single Player:</h5>
+                    <p class="text-base-content/80">
+                      • Play against yourself or use it to practice strategies
+                    </p>
+                  </div>
+
+                  <div>
+                    <h5 class="font-semibold text-base mb-1">Multiplayer:</h5>
+                    <div class="text-base-content/80 space-y-1">
+                      <p>• Click "Multiplayer" to create a game or join one</p>
+                      <p>• Share the invite link with your friend</p>
+                      <p>
+                        • Host plays as ❌ (or first emoji), guest plays as ⭕
+                        (or second emoji)
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div>
+                <h4 class="font-bold text-lg mb-3 text-warning">
+                  ⚡ Power Ups
+                </h4>
+                <div class="space-y-2">
+                  <div class="flex items-start gap-3">
+                    <div class="badge badge-warning badge-sm mt-1">UNDO</div>
+                    <div class="text-base-content/80">
+                      <strong>Undo Move:</strong> Take back your last move. Each
+                      player gets one undo per game.
+                    </div>
+                  </div>
+                  <div class="flex items-start gap-3">
+                    <div class="badge badge-info badge-sm mt-1">SWAP</div>
+                    <div class="text-base-content/80">
+                      <strong>Swap Piece:</strong> Swap two pieces on the board.
+                      Each player gets one swap per game.
+                    </div>
+                  </div>
+                  <div class="flex items-start gap-3">
+                    <div class="badge badge-accent badge-sm mt-1">SLIDE</div>
+                    <div class="text-base-content/80">
+                      <strong>Slide Piece:</strong> Move one of your pieces to
+                      an adjacent empty square (including diagonally). Great for
+                      positioning and last-minute saves.
+                    </div>
+                  </div>
+                  <div class="flex items-start gap-3">
+                    <div class="badge badge-success badge-sm mt-1">SHIELD</div>
+                    <div class="text-base-content/80">
+                      <strong>Shield Piece:</strong> Protect one of your pieces
+                      from the next removal attempt. Shielded pieces show a 🛡️
+                      icon and will block ONE removal - the shield disappears
+                      after blocking.
+                    </div>
+                  </div>
+                  <div class="flex items-start gap-3">
+                    <div class="badge badge-error badge-sm mt-1">TELEPORT</div>
+                    <div class="text-base-content/80">
+                      <strong>Teleport:</strong> Move any of your pieces to any
+                      empty square on the board. The ultimate positioning
+                      power-up!
+                    </div>
+                  </div>
+                  <div class="flex items-start gap-3">
+                    <div class="badge badge-error badge-sm mt-1">REMOVE</div>
+                    <div class="text-base-content/80">
+                      <strong>Remove Piece:</strong> Eliminate a piece from the
+                      board. Each player gets one removal per game.
+                    </div>
+                  </div>
+                  <div class="flex items-start gap-3">
+                    <div class="badge badge-accent badge-sm mt-1">EXPAND</div>
+                    <div class="text-base-content/80">
+                      <strong>Add Row:</strong> Add an extra row to the grid.
+                      The grid can expand from 4×4 to 4×5 to 4×6 as each player
+                      uses their expansion. Each player gets one row expansion
+                      per game.
+                    </div>
+                  </div>
+                  <div class="alert alert-info mt-3">
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      class="stroke-current shrink-0 h-5 w-5"
+                      fill="none"
+                      viewBox="0 0 24 24"
+                    >
+                      <path
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        stroke-width="2"
+                        d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
+                      />
+                    </svg>
+                    <span class="text-sm"
+                      >Each player gets ONE of each power-up per game. Use them
+                      strategically - timing is everything!</span
+                    >
+                  </div>
+                </div>
+              </div>
+
+              <div>
+                <h4 class="font-bold text-lg mb-3 text-accent">💡 Pro Tips</h4>
+                <div class="space-y-2 text-base-content/80">
+                  <p>
+                    • <strong>Control the center:</strong> The middle squares
+                    give you the most winning opportunities
+                  </p>
+                  <p>
+                    • <strong>Block and build:</strong> Always block your
+                    opponent's winning moves
+                  </p>
+                  <p>
+                    • <strong>Think ahead:</strong> Look for moves that create
+                    multiple winning threats
+                  </p>
+                  <p>
+                    • <strong>Save Power Ups:</strong> Don't use them too early
+                    - wait for the perfect moment
+                  </p>
+                  <p>
+                    • <strong>Shield strategically:</strong> Protect key pieces
+                    that are part of potential winning combinations
+                  </p>
+                  <p>
+                    • <strong>Slide for setup:</strong> Use slide to create
+                    unexpected winning patterns or escape threats
+                  </p>
+                  <p>
+                    • <strong>Teleport timing:</strong> Best used for surprise
+                    attacks or defensive repositioning
+                  </p>
+                  <p>
+                    • <strong>Grid expansion strategy:</strong> Adding rows can
+                    break deadlocks and create new winning paths
+                  </p>
+                  <p>
+                    • <strong>Power-up combos:</strong> Think about how
+                    different Power Ups work together (shield then expand, slide
+                    then teleport)
+                  </p>
+                </div>
+              </div>
+
+              <div class="bg-base-200 p-4 rounded-lg">
+                <h4 class="font-bold text-lg mb-2">🎯 Fun Facts</h4>
+                <div class="text-sm text-base-content/70 space-y-1">
+                  <p>• Tic-tac-toe has been played for over 2,000 years</p>
+                  <p>• A perfect 3×3 game always ends in a draw</p>
+                  <p>
+                    • This version's Power Ups break the "always draw" rule!
+                  </p>
+                  <p>
+                    • Grid expansion creates 255,168 new possible game states
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            <div class="modal-action">
+              <form method="dialog">
+                <button class="btn btn-primary">Got it, let's play! 🎮</button>
+              </form>
+            </div>
+          </div>
+          <form method="dialog" class="modal-backdrop">
+            <button>close</button>
+          </form>
+        </dialog>
+
+        <!-- Multiplayer Modal -->
+        <dialog id="multiplayer-modal" class="modal">
+          <div class="modal-box">
+            <h3 class="font-bold text-lg mb-4">🌐 Multiplayer Game</h3>
+
+            <div class="space-y-4">
+              <button
+                @click="createGame"
+                class="btn btn-primary btn-block gap-2"
+              >
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  class="h-5 w-5"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M12 6v6m0 0v6m0-6h6m-6 0H6"
+                  />
+                </svg>
+                Create New Game
+              </button>
+
+              <div v-if="peerId" class="space-y-2">
+                <p class="text-sm text-base-content/70">
+                  Game created! Share this link:
+                </p>
+                <button
+                  @click="copyPeerIdToClipboard"
+                  class="btn btn-outline btn-block gap-2"
+                >
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    class="h-4 w-4"
+                    viewBox="0 -960 960 960"
+                    fill="currentColor"
+                  >
+                    <path
+                      d="M360-240q-33 0-56.5-23.5T280-320v-480q0-33 23.5-56.5T360-880h360q33 0 56.5 23.5T800-800v480q0 33-23.5 56.5T720-240H360Zm0-80h360v-480H360v480ZM200-80q-33 0-56.5-23.5T120-160v-560h80v560h440v80H200Zm160-240v-480 480Z"
+                    />
+                  </svg>
+                  Copy Invite Link
+                </button>
+              </div>
+
+              <div class="divider">OR</div>
+
+              <div class="space-y-2">
+                <label class="label">
+                  <span class="label-text">Join existing game:</span>
+                </label>
+                <div class="join w-full">
+                  <input
+                    v-model="peerIdToConnect"
+                    placeholder="Enter game ID"
+                    class="input input-bordered join-item flex-1"
+                  />
+                  <button
+                    @click="connectToPeer"
+                    class="btn btn-primary join-item"
+                    :disabled="!peerIdToConnect.trim()"
+                  >
+                    Join
+                  </button>
+                </div>
+              </div>
+            </div>
+
+            <div class="modal-action">
+              <form method="dialog">
+                <button aria-label="Close Modal" class="btn">Close</button>
+              </form>
+            </div>
+          </div>
+          <form method="dialog" class="modal-backdrop">
+            <button aria-label="Close Modal">close</button>
+          </form>
+        </dialog>
+
+        <!-- Remove Piece Modal -->
+        <dialog id="remove-modal" class="modal">
+          <div class="modal-box">
+            <h3 class="font-bold text-lg mb-4">🗑️ Remove a Piece</h3>
+            <p class="text-sm text-base-content/70 mb-4">
+              <span v-if="isMultiplayer"
+                >Click on an opponent's piece to remove it:</span
+              >
+              <span v-else>Click on any piece to remove it:</span>
+            </p>
+
+            <div class="grid gap-4 mb-4 grid-cols-4">
+              <button
+                v-for="(cell, index) in cells"
+                :key="index"
+                aria-label="Remove this Tile"
+                @click="removeOpponentPiece(index)"
+                :class="[
+                  'btn mx-auto text-4xl font-bold transition-all duration-200 hover:scale-105 flex items-center justify-center game-cell relative',
+                  {
+                    'btn-error': isMultiplayer ? cell === (currentPlayer === 'X' ? 'O' : 'X') : cell !== null,
+                    'btn-ghost': !cell,
+                    'btn-disabled': !cell || (isMultiplayer && cell === currentPlayer),
+                    'ring-2 ring-green-400': shieldedSquares[index]
+                  }
+                ]"
+                :disabled="!cell || (isMultiplayer && cell === currentPlayer)"
+              >
+                {% raw %}{{ getEmoji(cell) }}{% endraw %}
+                <span
+                  v-if="shieldedSquares[index]"
+                  class="absolute top-0 right-0 text-xs"
+                  >🛡️</span
+                >
+              </button>
+            </div>
+
+            <div class="modal-action">
+              <form method="dialog">
+                <button aria-label="Close Modal" class="btn">Cancel</button>
+              </form>
+            </div>
+          </div>
+          <form method="dialog" class="modal-backdrop">
+            <button aria-label="Close Modal">close</button>
+          </form>
+        </dialog>
       </section>
     </main>
 
