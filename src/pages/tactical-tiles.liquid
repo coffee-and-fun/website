@@ -1457,6 +1457,7 @@
         },
         mounted() {
           // Load saved score with error handling
+              this.playSound("theme");
           try {
             const saved = localStorage.getItem("tictactoe-score");
             if (saved) {
@@ -1491,6 +1492,15 @@
           }, 1000);
         },
         methods: {
+
+        // Simple audio file approach
+playSound(soundName) {
+    //if (!this.soundEnabled) return;
+    
+    const audio = new Audio(`/assets/sounds/${soundName}.mp3`);
+    audio.volume = 0.3;
+    audio.play().catch(e => console.warn('Sound play failed:', e));
+},
           getValidSlideCount(index) {
             if (this.cells[index] !== this.currentPlayer) return 0;
 
@@ -1956,7 +1966,7 @@
               // MISSING: Transfer shields when swapping
               const tempShield = this.shieldedSquares[index1];
               this.shieldedSquares[index1] = this.shieldedSquares[index2];
-              this.shieldedSquares[index2] = tempShi;
+              this.shieldedSquares[index2] = tempShield;
 
               this.hasUsedSwap[this.currentPlayer] = true;
 
@@ -2408,6 +2418,8 @@
             )
               return;
 
+
+              this.playSound("move");
             console.log(
               "Making move at index:",
               index,
@@ -2544,6 +2556,7 @@
                   5000,
                 );
                 this.celebrationFireworks();
+                this.playSound("clapping");
                 return;
               }
             }

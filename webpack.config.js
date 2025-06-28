@@ -24,6 +24,10 @@ module.exports = {
 				test: /\.mp4$/,
 				use: 'file-loader?name=videos/[name].[ext]'
 			},
+				{
+				test: /\.mp3$/,
+				use: 'file-loader?name=videos/[name].[ext]'
+			},
 			{
 				test: /\.js$/,
 				exclude: /node_modules/,
