@@ -42,7 +42,8 @@
         [v-cloak] { display: none; }
         button { touch-action: manipulation; }
         @media (max-width: 640px) {
-            .game-cell { min-height: 75px; font-size: 1.5rem; }
+            .game-cell {      min-height: clamp(60px, 15vw, 80px);
+        font-size: clamp(1.25rem, 4vw, 1.75rem); }
            
             .grid { gap: 0.75rem; }
         }
@@ -71,33 +72,9 @@
             50% { transform: scale(1.05); }
         }
 
-        @keyframes earthquake {
-            0%, 100% { transform: translate(0, 0) rotate(0deg); }
-            10% { transform: translate(-2px, -1px) rotate(-0.5deg); }
-            20% { transform: translate(-3px, 0px) rotate(0.5deg); }
-            30% { transform: translate(3px, 2px) rotate(0deg); }
-            40% { transform: translate(1px, -1px) rotate(0.5deg); }
-            50% { transform: translate(-1px, 2px) rotate(-0.5deg); }
-            60% { transform: translate(-3px, 1px) rotate(0deg); }
-            70% { transform: translate(3px, 1px) rotate(-0.5deg); }
-            80% { transform: translate(-1px, -1px) rotate(0.5deg); }
-            90% { transform: translate(1px, 2px) rotate(0deg); }
-        }
+   
 
-        .earthquake {
-            animation: earthquake 0.8s ease-in-out;
-        }
-
-        @keyframes tilt-n-move-shaking {
-            0% { transform: translate(0, 0) rotate(0deg); }
-            25% { transform: translate(5px, 5px) rotate(5deg); }
-            50% { transform: translate(0, 0) rotate(0deg); }
-            75% { transform: translate(-5px, 5px) rotate(-5deg); }
-            100% { transform: translate(0, 0) rotate(0deg); }
-        }
-        .tilt-n-move-shaking {
-            animation: tilt-n-move-shaking 0.5s ease-in-out;
-        }
+   
 
         @keyframes flash-effect {
             0% { transform: scale(1); background-color: transparent; }
@@ -151,15 +128,6 @@
             animation: tilt-n-move-shaking 0.5s ease-in-out;
         }
 
-        @keyframes flash-effect {
-            0% { transform: scale(1); background-color: transparent; }
-            50% { transform: scale(1.05); background-color: rgba(59, 130, 246, 0.3); }
-            100% { transform: scale(1); background-color: transparent; }
-        }
-
-        .flash-effect {
-            animation: flash-effect 0.6s ease-in-out;
-        }
 
     
 
@@ -285,11 +253,6 @@
       }
     </script>
 
-        <script>
-      if ("serviceWorker" in navigator) {
-        navigator.serviceWorker.register("/service-worker.js");
-      }
-    </script>
 
     
 
@@ -723,7 +686,7 @@
         </div>
     </main>
 
-   <script>
+<script>
   const { createApp } = Vue;
 
 const app = createApp({
@@ -806,75 +769,140 @@ const app = createApp({
         }
     },
     mounted() {
-        const saved = JSON.parse(localStorage.getItem("tictactoe-score"));
-        if (saved) this.score = saved;
+        // Load saved score with error handling
+        try {
+            const saved = localStorage.getItem("tictactoe-score");
+            if (saved) {
+                this.score = JSON.parse(saved);
+            }
+        } catch (error) {
+            console.warn('Failed to load saved score:', error);
+            this.score = { X: 0, O: 0 };
+        }
 
+        // Handle gameId parameter with error handling and cleanup
         const gameId = this.getUrlParameter("gameId");
         if (gameId) {
             this.peerIdToConnect = gameId;
-            this.connectToPeer();
+            this.toaster("Connecting to game...", "info", 3000);
+            
+            try {
+                this.connectToPeer();
+            } catch (error) {
+                this.handleConnectionFailure('Failed to connect to game', error);
+            }
         }
 
         setTimeout(() => {
-            this.toaster(`${this.getEmoji(this.currentPlayer)} goes first!`, "info", 2000);
+            if (!this.winner && !this.isDraw) {
+                this.toaster(`${this.getEmoji(this.currentPlayer)} goes first!`, "info", 2000);
+            }
         }, 1000);
     },
     methods: {
-switchTurn() {
-    if (!this.winner && !this.isDraw) {
-        this.currentPlayer = this.currentPlayer === "X" ? "O" : "X";
-        if (!this.isMultiplayer || this.isMyTurn) {
-            this.toaster(`${this.getEmoji(this.currentPlayer)}'s turn`, "info", 1500);
-        }
-    }
-},
-   expandGrid() {
-    if (this.hasUsedExpand[this.currentPlayer] || this.gridRows === 6 || this.gameOver) return;
-    
-    this.isExpanding = true;
-    this.hasUsedExpand[this.currentPlayer] = true;
-    
-    const newRowCount = this.gridRows + 1;
-    const currentCellCount = this.gridRows * 4;
-    const newCellCount = newRowCount * 4;
-    
-    // Create new grid with additional row
-    const newCells = Array(newCellCount).fill(null);
-    
-    // Copy existing cells
-    for (let i = 0; i < currentCellCount; i++) {
-        newCells[i] = this.cells[i];
-    }
-    
-    this.cells = newCells;
-    this.gridRows = newRowCount;
-    this.squareEffects = Array(newCellCount).fill(false);
-    
-    setTimeout(() => {
-        this.isExpanding = false;
-    }, 800);
-    
-    this.toaster(
-        `${this.getEmoji(this.currentPlayer)} added row ${newRowCount}! Now ${4}×${newRowCount}`,
-        "warning",
-        3000
-    );
-    
-    // Switch turn after using power-up
-    this.switchTurn();
-    
-    // Send to multiplayer opponent
-    if (this.conn && this.conn.open) {
-        this.conn.send({
-            type: "expand",
-            cells: [...this.cells],
-            gridRows: this.gridRows,
-            currentPlayer: this.currentPlayer, // Send updated current player
-            hasUsedExpand: { ...this.hasUsedExpand },
-        });
-    }
-},
+        // Error handling utility
+        handleError(operation, error) {
+            console.error(`Error in ${operation}:`, error);
+            this.toaster(`${operation} failed: ${error.message || 'Unknown error'}`, "error", 4000);
+        },
 
+        // Clean URL parameters
+        cleanUrl() {
+            const url = new URL(window.location);
+            url.searchParams.delete('gameId');
+            window.history.replaceState({}, document.title, url.pathname);
+        },
+
+        // Handle connection failures and cleanup
+        handleConnectionFailure(message, error = null) {
+            if (error) {
+                console.error("Connection error:", error);
+            }
+            
+            this.toaster(message, "error", 4000);
+            
+            // Clean up connection state
+            if (this.peer) {
+                try {
+                    this.peer.destroy();
+                } catch (e) {
+                    console.warn('Error destroying peer:', e);
+                }
+                this.peer = null;
+            }
+            this.conn = null;
+            this.peerId = "";
+            this.peerIdToConnect = "";
+            
+            // Remove gameId from URL and close modal
+            this.cleanUrl();
+            const modal = document.getElementById('multiplayer-modal');
+            if (modal && modal.open) {
+                modal.close();
+            }
+            
+            this.toaster("Switched to single player mode", "info", 3000);
+        },
+
+        switchTurn() {
+            if (!this.winner && !this.isDraw) {
+                this.currentPlayer = this.currentPlayer === "X" ? "O" : "X";
+                if (!this.isMultiplayer || this.isMyTurn) {
+                    this.toaster(`${this.getEmoji(this.currentPlayer)}'s turn`, "info", 1500);
+                }
+            }
+        },
+
+        expandGrid() {
+            try {
+                if (this.hasUsedExpand[this.currentPlayer] || this.gridRows === 6 || this.gameOver) return;
+                
+                this.isExpanding = true;
+                this.hasUsedExpand[this.currentPlayer] = true;
+                
+                const newRowCount = this.gridRows + 1;
+                const currentCellCount = this.gridRows * 4;
+                const newCellCount = newRowCount * 4;
+                
+                // Create new grid with additional row
+                const newCells = Array(newCellCount).fill(null);
+                
+                // Copy existing cells
+                for (let i = 0; i < currentCellCount; i++) {
+                    newCells[i] = this.cells[i];
+                }
+                
+                this.cells = newCells;
+                this.gridRows = newRowCount;
+                this.squareEffects = Array(newCellCount).fill(false);
+                
+                setTimeout(() => {
+                    this.isExpanding = false;
+                }, 800);
+                
+                this.toaster(
+                    `${this.getEmoji(this.currentPlayer)} added row ${newRowCount}! Now ${4}×${newRowCount}`,
+                    "warning",
+                    3000
+                );
+                
+                // Switch turn after using power-up
+                this.switchTurn();
+                
+                // Send to multiplayer opponent
+                if (this.conn && this.conn.open) {
+                    this.conn.send({
+                        type: "expand",
+                        cells: [...this.cells],
+                        gridRows: this.gridRows,
+                        currentPlayer: this.currentPlayer,
+                        hasUsedExpand: { ...this.hasUsedExpand },
+                    });
+                }
+            } catch (error) {
+                this.handleError('Expand grid', error);
+            }
+        },
 
         flashSquare(index) {
             this.squareEffects[index] = true;
@@ -902,8 +930,12 @@ switchTurn() {
         },
 
         showSwapPowerModal() {
-            this.swapSelection = [];
-            document.getElementById('swap-modal').showModal();
+            try {
+                this.swapSelection = [];
+                document.getElementById('swap-modal').showModal();
+            } catch (error) {
+                this.handleError('Show swap modal', error);
+            }
         },
 
         selectSwapPiece(index) {
@@ -920,119 +952,134 @@ switchTurn() {
             }
         },
 
-       performSwap() {
-    if (this.swapSelection.length !== 2) return;
-    
-    const [index1, index2] = this.swapSelection;
-    this.flashSquare(index1);
-    this.flashSquare(index2);
-    
-    const temp = this.cells[index1];
-    this.cells[index1] = this.cells[index2];
-    this.cells[index2] = temp;
-    
-    this.hasUsedSwap[this.currentPlayer] = true;
-    
-    document.getElementById('swap-modal').close();
-    this.resetSwapSelection();
-    
-    this.toaster(
-        `${this.getEmoji(this.currentPlayer)} swapped two pieces!`,
-        "info"
-    );
-    
-    this.checkGameState();
-    
-    // Switch turn after using power-up (only if game hasn't ended)
-    if (!this.winner && !this.isDraw) {
-        this.switchTurn();
-    }
-    
-    if (this.conn && this.conn.open) {
-        this.conn.send({
-            type: "swap",
-            cells: [...this.cells],
-            currentPlayer: this.currentPlayer, // Send updated current player
-            hasUsedSwap: { ...this.hasUsedSwap },
-            winner: this.winner,
-            isDraw: this.isDraw,
-            winningCombo: [...this.winningCombo],
-        });
-    }
-},
+        performSwap() {
+            try {
+                if (this.swapSelection.length !== 2) return;
+                
+                const [index1, index2] = this.swapSelection;
+                this.flashSquare(index1);
+                this.flashSquare(index2);
+                
+                const temp = this.cells[index1];
+                this.cells[index1] = this.cells[index2];
+                this.cells[index2] = temp;
+                
+                this.hasUsedSwap[this.currentPlayer] = true;
+                
+                document.getElementById('swap-modal').close();
+                this.resetSwapSelection();
+                
+                this.toaster(
+                    `${this.getEmoji(this.currentPlayer)} swapped two pieces!`,
+                    "info"
+                );
+                
+                this.checkGameState();
+                
+                // Switch turn after using power-up (only if game hasn't ended)
+                if (!this.winner && !this.isDraw) {
+                    this.switchTurn();
+                }
+                
+                if (this.conn && this.conn.open) {
+                    this.conn.send({
+                        type: "swap",
+                        cells: [...this.cells],
+                        currentPlayer: this.currentPlayer,
+                        hasUsedSwap: { ...this.hasUsedSwap },
+                        winner: this.winner,
+                        isDraw: this.isDraw,
+                        winningCombo: [...this.winningCombo],
+                    });
+                }
+            } catch (error) {
+                this.handleError('Swap pieces', error);
+            }
+        },
 
         resetSwapSelection() {
             this.swapSelection = [];
         },
 
         showRemovePowerModal() {
-            document.getElementById('remove-modal').showModal();
+            try {
+                document.getElementById('remove-modal').showModal();
+            } catch (error) {
+                this.handleError('Show remove modal', error);
+            }
         },
 
-     removeOpponentPiece(index) {
-    this.flashSquare(index);
-    const opponent = this.currentPlayer === "X" ? "O" : "X";
-    if (this.hasUsedRemove[this.currentPlayer]) return;
-    
-    if (this.isMultiplayer && this.cells[index] !== opponent) return;
-    if (!this.isMultiplayer && this.cells[index] === null) return;
+        removeOpponentPiece(index) {
+            try {
+                this.flashSquare(index);
+                const opponent = this.currentPlayer === "X" ? "O" : "X";
+                if (this.hasUsedRemove[this.currentPlayer]) return;
+                
+                if (this.isMultiplayer && this.cells[index] !== opponent) return;
+                if (!this.isMultiplayer && this.cells[index] === null) return;
 
-    this.cells[index] = null;
-    this.hasUsedRemove[this.currentPlayer] = true;
-    
-    document.getElementById('remove-modal').close();
-    
-    this.toaster(
-        `${this.getEmoji(this.currentPlayer)} removed a piece!`,
-        "warning"
-    );
+                this.cells[index] = null;
+                this.hasUsedRemove[this.currentPlayer] = true;
+                
+                document.getElementById('remove-modal').close();
+                
+                this.toaster(
+                    `${this.getEmoji(this.currentPlayer)} removed a piece!`,
+                    "warning"
+                );
 
-    // Switch turn after using power-up
-    this.switchTurn();
+                // Switch turn after using power-up
+                this.switchTurn();
 
-    if (this.conn && this.conn.open) {
-        this.conn.send({
-            type: "remove",
-            cells: [...this.cells],
-            currentPlayer: this.currentPlayer, // Send updated current player
-            hasUsedRemove: { ...this.hasUsedRemove },
-        });
-    }
-},
+                if (this.conn && this.conn.open) {
+                    this.conn.send({
+                        type: "remove",
+                        cells: [...this.cells],
+                        currentPlayer: this.currentPlayer,
+                        hasUsedRemove: { ...this.hasUsedRemove },
+                    });
+                }
+            } catch (error) {
+                this.handleError('Remove piece', error);
+            }
+        },
 
-      undoMove() {
-    const last = this.moveHistory.pop();
-    if (!last || this.hasUsedUndo[last.player]) return;
-    
-    this.flashSquare(last.index);
-    this.cells[last.index] = null;
-    this.winner = null;
-    this.isDraw = false;
-    this.winningCombo = [];
-    // Don't change currentPlayer back to last.player - keep current player
-    this.hasUsedUndo[this.currentPlayer] = true; // Use current player, not last.player
-    
-    this.toaster(
-        `${this.getEmoji(this.currentPlayer)} undid their last move!`,
-        "warning"
-    );
-    
-    // Switch turn after using power-up
-    this.switchTurn();
-    
-    if (this.conn && this.conn.open) {
-        this.conn.send({
-            type: "undo",
-            cells: [...this.cells],
-            currentPlayer: this.currentPlayer, // Send updated current player
-            winner: this.winner,
-            isDraw: this.isDraw,
-            winningCombo: [...this.winningCombo],
-            moveHistory: [...this.moveHistory],
-            hasUsedUndo: { ...this.hasUsedUndo },
-        });
-    }
-},
+        undoMove() {
+            try {
+                const last = this.moveHistory.pop();
+                if (!last || this.hasUsedUndo[this.currentPlayer]) return;
+                
+                this.flashSquare(last.index);
+                this.cells[last.index] = null;
+                this.winner = null;
+                this.isDraw = false;
+                this.winningCombo = [];
+                this.hasUsedUndo[this.currentPlayer] = true;
+                
+                this.toaster(
+                    `${this.getEmoji(this.currentPlayer)} undid their last move!`,
+                    "warning"
+                );
+                
+                // Switch turn after using power-up
+                this.switchTurn();
+                
+                if (this.conn && this.conn.open) {
+                    this.conn.send({
+                        type: "undo",
+                        cells: [...this.cells],
+                        currentPlayer: this.currentPlayer,
+                        winner: this.winner,
+                        isDraw: this.isDraw,
+                        winningCombo: [...this.winningCombo],
+                        moveHistory: [...this.moveHistory],
+                        hasUsedUndo: { ...this.hasUsedUndo },
+                    });
+                }
+            } catch (error) {
+                this.handleError('Undo move', error);
+            }
+        },
 
         toaster(msg, type = "info", duration = 3000) {
             const colors = {
@@ -1042,15 +1089,19 @@ switchTurn() {
                 error: "#ef4444"
             };
             
-            window.Toastify({
-                text: msg,
-                duration: duration,
-                gravity: "bottom",
-                position: "right",
-                backgroundColor: colors[type],
-                className: "rounded-xl shadow-lg",
-                stopOnFocus: true,
-            }).showToast();
+            if (window.Toastify) {
+                window.Toastify({
+                    text: msg,
+                    duration: duration,
+                    gravity: "bottom",
+                    position: "right",
+                    backgroundColor: colors[type],
+                    className: "rounded-xl shadow-lg",
+                    stopOnFocus: true,
+                }).showToast();
+            } else {
+                console.log(`Toast [${type}]: ${msg}`);
+            }
         },
 
         getEmoji(val) {
@@ -1063,75 +1114,103 @@ switchTurn() {
         },
 
         setupConnection() {
+            if (!this.conn) return;
+
             this.conn.on("open", () => {
                 console.log("Connection opened");
                 this.toaster("Connection established!", "success");
             });
 
             this.conn.on("data", (data) => {
-                console.log("Received data:", data);
-             if (data.type === "move") {
-    this.cells = [...data.cells];
-    this.gridRows = data.gridRows;
-    this.currentPlayer = data.currentPlayer;
-    this.winner = data.winner;
-    this.isDraw = data.isDraw;
-    this.winningCombo = [...(data.winningCombo || [])];
-    this.score = { ...data.score };
-    this.moveHistory = [...(data.moveHistory || [])];
-    this.hasUsedUndo = { ...data.hasUsedUndo };
-    this.hasUsedRemove = { ...data.hasUsedRemove };
-    this.hasUsedSwap = { ...data.hasUsedSwap || { X: false, O: false } };
-    this.hasUsedExpand = { ...data.hasUsedExpand || { X: false, O: false } };
-
-    // Flash the tile that was just played
-    if (this.moveHistory.length > 0) {
-        const lastMove = this.moveHistory[this.moveHistory.length - 1];
-        this.flashSquare(lastMove.index);
-    }
-
-    this.toaster("Opponent moved!", "info", 1500);
-} else if (data.type === "reset") {
-                    this.resetGame(false);
-                } else if (data.type === "undo") {
-                    this.cells = [...data.cells];
-                    this.currentPlayer = data.currentPlayer;
-                    this.winner = data.winner;
-                    this.isDraw = data.isDraw;
-                    this.winningCombo = [...(data.winningCombo || [])];
-                    this.moveHistory = [...(data.moveHistory || [])];
-                    this.hasUsedUndo = { ...data.hasUsedUndo };
-                    this.toaster("Opponent used undo!", "warning");
-                    // this.shakeScreen();
-                } else if (data.type === "remove") {
-                    this.cells = [...data.cells];
-                    this.currentPlayer = data.currentPlayer;
-                    this.hasUsedRemove = { ...data.hasUsedRemove };
-                    this.toaster("Opponent removed a piece!", "warning");
-                    // this.shakeScreen();
-                } else if (data.type === "swap") {
-                    this.cells = [...data.cells];
-                    this.currentPlayer = data.currentPlayer;
-                    this.hasUsedSwap = { ...data.hasUsedSwap };
-                    this.winner = data.winner;
-                    this.isDraw = data.isDraw;
-                    this.winningCombo = [...(data.winningCombo || [])];
-                    this.toaster("Opponent used swap!", "info");
-                    // this.shakeScreen();
-                } else if (data.type === "expand") { // NEW: Handle expand message
-                    this.isExpanding = true;
-                    this.cells = [...data.cells];
-                    this.gridRows = data.gridRows;
-                    this.currentPlayer = data.currentPlayer;
-                    this.hasUsedExpand = { ...data.hasUsedExpand };
-                    this.squareEffects = Array(this.gridRows * 4).fill(false);
+                try {
+                    console.log("Received data:", data);
                     
-                    setTimeout(() => {
-                        this.isExpanding = false;
-                    }, 800);
+                    if (!data || typeof data !== 'object') {
+                        throw new Error('Invalid data received');
+                    }
                     
-                    this.toaster(`Opponent added row ${this.gridRows}! Now 4×${this.gridRows}`, "warning");
-                    // this.shakeScreen();
+                    if (data.type === "move") {
+                        // Validate move data
+                        if (!Array.isArray(data.cells) || typeof data.gridRows !== 'number') {
+                            throw new Error('Invalid move data structure');
+                        }
+                        
+                        this.cells = [...data.cells];
+                        this.gridRows = data.gridRows;
+                        this.currentPlayer = data.currentPlayer;
+                        this.winner = data.winner;
+                        this.isDraw = data.isDraw;
+                        this.winningCombo = [...(data.winningCombo || [])];
+                        this.score = { ...data.score };
+                        this.moveHistory = [...(data.moveHistory || [])];
+                        this.hasUsedUndo = { ...data.hasUsedUndo };
+                        this.hasUsedRemove = { ...data.hasUsedRemove };
+                        this.hasUsedSwap = { ...data.hasUsedSwap || { X: false, O: false } };
+                        this.hasUsedExpand = { ...data.hasUsedExpand || { X: false, O: false } };
+
+                        // Flash the tile that was just played
+                        if (this.moveHistory.length > 0) {
+                            const lastMove = this.moveHistory[this.moveHistory.length - 1];
+                            this.flashSquare(lastMove.index);
+                        }
+
+                        this.toaster("Opponent moved!", "info", 1500);
+                    } else if (data.type === "reset") {
+                        this.resetGame(false);
+                    } else if (data.type === "undo") {
+                        this.cells = [...data.cells];
+                        this.currentPlayer = data.currentPlayer;
+                        this.winner = data.winner;
+                        this.isDraw = data.isDraw;
+                        this.winningCombo = [...(data.winningCombo || [])];
+                        this.moveHistory = [...(data.moveHistory || [])];
+                        this.hasUsedUndo = { ...data.hasUsedUndo };
+                        this.toaster("Opponent used undo!", "warning");
+                             // Flash the tile that was just played
+                        if (this.moveHistory.length > 0) {
+                            const lastMove = this.moveHistory[this.moveHistory.length - 1];
+                            this.flashSquare(lastMove.index);
+                        }
+                        
+                    } else if (data.type === "remove") {
+                        this.cells = [...data.cells];
+                        this.currentPlayer = data.currentPlayer;
+                        this.hasUsedRemove = { ...data.hasUsedRemove };
+                        this.toaster("Opponent removed a piece!", "warning");
+                             // Flash the tile that was just played
+                        if (this.moveHistory.length > 0) {
+                            const lastMove = this.moveHistory[this.moveHistory.length - 1];
+                            this.flashSquare(lastMove.index);
+                        }
+                    } else if (data.type === "swap") {
+                        this.cells = [...data.cells];
+                        this.currentPlayer = data.currentPlayer;
+                        this.hasUsedSwap = { ...data.hasUsedSwap };
+                        this.winner = data.winner;
+                        this.isDraw = data.isDraw;
+                        this.winningCombo = [...(data.winningCombo || [])];
+                        this.toaster("Opponent used swap!", "info");
+                             // Flash the tile that was just played
+                        if (this.moveHistory.length > 0) {
+                            const lastMove = this.moveHistory[this.moveHistory.length - 1];
+                            this.flashSquare(lastMove.index);
+                        }
+                    } else if (data.type === "expand") {
+                        this.isExpanding = true;
+                        this.cells = [...data.cells];
+                        this.gridRows = data.gridRows;
+                        this.currentPlayer = data.currentPlayer;
+                        this.hasUsedExpand = { ...data.hasUsedExpand };
+                        this.squareEffects = Array(this.gridRows * 4).fill(false);
+                        
+                        setTimeout(() => {
+                            this.isExpanding = false;
+                        }, 800);
+                        
+                        this.toaster(`Opponent added row ${this.gridRows}! Now 4×${this.gridRows}`, "warning");
+                    }
+                } catch (error) {
+                    this.handleError('Processing opponent data', error);
                 }
             });
             
@@ -1142,26 +1221,34 @@ switchTurn() {
             });
 
             this.conn.on("error", (err) => {
-                console.error("Connection error:", err);
-                this.toaster("Connection error occurred", "error");
+                this.handleError('Connection error', err);
+                this.conn = null;
             });
         },
 
         createGame() {
-            this.isHost = true;
-            this.peer = new Peer();
-            
-            this.peer.on("open", (id) => {
-                this.peerId = id;
-                this.toaster("Game created! Share the invite link.", "success");
-            });
-            
-            this.peer.on("connection", (connection) => {
-                this.conn = connection;
-                this.setupConnection();
-                this.toaster("Player joined the game!", "success");
-                document.getElementById('multiplayer-modal').close();
-            });
+            try {
+                this.isHost = true;
+                this.peer = new Peer();
+                
+                this.peer.on("open", (id) => {
+                    this.peerId = id;
+                    this.toaster("Game created! Share the invite link.", "success");
+                });
+                
+                this.peer.on("connection", (connection) => {
+                    this.conn = connection;
+                    this.setupConnection();
+                    this.toaster("Player joined the game!", "success");
+                    document.getElementById('multiplayer-modal').close();
+                });
+
+                this.peer.on("error", (err) => {
+                    this.handleError('Failed to create game', err);
+                });
+            } catch (error) {
+                this.handleError('Create game', error);
+            }
         },
 
         getUrlParameter(name) {
@@ -1175,77 +1262,109 @@ switchTurn() {
             this.isHost = false;
             this.peer = new Peer();
             
+            // Set connection timeout
+            const connectionTimeout = setTimeout(() => {
+                this.handleConnectionFailure('Connection timeout - removing invalid game ID from URL');
+            }, 10000); // 10 second timeout
+            
             this.peer.on("open", () => {
                 console.log("Peer opened, connecting to:", this.peerIdToConnect);
                 this.conn = this.peer.connect(this.peerIdToConnect);
                 
                 this.conn.on("open", () => {
-                    console.log("Connected to host!");
+                    clearTimeout(connectionTimeout);
+                    console.log("Connected to Game!");
                     this.setupConnection();
-                    this.toaster("Connected to host!", "success");
+                    this.toaster("Connected to Game!", "success");
                     document.getElementById('multiplayer-modal').close();
                 });
                 
                 this.conn.on("error", (err) => {
-                    console.error("Connection error:", err);
-                    this.toaster("Failed to connect to game", "error");
+                    clearTimeout(connectionTimeout);
+                    this.handleConnectionFailure('Failed to join game', err);
                 });
             });
 
             this.peer.on("error", (err) => {
-                console.error("Peer error:", err);
-                this.toaster("Failed to initialize connection", "error");
+                clearTimeout(connectionTimeout);
+                this.handleConnectionFailure('Failed to join game', err);
             });
         },
 
         copyPeerIdToClipboard() {
             const link = `${window.location.origin}${window.location.pathname}?gameId=${this.peerId}`;
             
-            navigator.clipboard
-                .writeText(link)
-                .then(() => {
-                    this.toaster("Invite link copied to clipboard!", "success");
-                })
-                .catch(() => {
-                    this.toaster("Failed to copy link", "error");
-                });
+            if (navigator.clipboard && navigator.clipboard.writeText) {
+                navigator.clipboard
+                    .writeText(link)
+                    .then(() => {
+                        this.toaster("Invite link copied to clipboard!", "success");
+                    })
+                    .catch((error) => {
+                        this.handleError('Copy to clipboard', error);
+                        this.fallbackCopyToClipboard(link);
+                    });
+            } else {
+                this.fallbackCopyToClipboard(link);
+            }
         },
-makeMove(index) {
-    if (this.cells[index] || this.winner || this.isDraw || !this.isMyTurn) return;
-    
-    console.log("Making move at index:", index, "Current player:", this.currentPlayer);
-    
-    this.moveHistory.push({ index, player: this.currentPlayer });
-    this.cells[index] = this.currentPlayer;
-    this.checkGameState();
-    
-    // Switch turn after making a move (only if game hasn't ended)
-    if (!this.winner && !this.isDraw) {
-        this.switchTurn();
-    }
-    
-    if (this.conn) {
-        const moveData = {
-            type: "move",
-            cells: [...this.cells],
-            gridRows: this.gridRows,
-            currentPlayer: this.currentPlayer,
-            winner: this.winner,
-            isDraw: this.isDraw,
-            winningCombo: [...this.winningCombo],
-            score: { ...this.score },
-            moveHistory: [...this.moveHistory],
-            hasUsedUndo: { ...this.hasUsedUndo },
-            hasUsedRemove: { ...this.hasUsedRemove },
-            hasUsedSwap: { ...this.hasUsedSwap },
-            hasUsedExpand: { ...this.hasUsedExpand },
-        };
-        console.log("Sending move data:", moveData);
-        this.conn.send(moveData);
-    } else {
-        console.log("No connection available to send move");
-    }
-},
+
+        // Fallback copy method for older browsers
+        fallbackCopyToClipboard(text) {
+            try {
+                const textArea = document.createElement("textarea");
+                textArea.value = text;
+                textArea.style.position = "fixed";
+                textArea.style.left = "-999999px";
+                textArea.style.top = "-999999px";
+                document.body.appendChild(textArea);
+                textArea.focus();
+                textArea.select();
+                document.execCommand('copy');
+                textArea.remove();
+                this.toaster("Invite link copied to clipboard!", "success");
+            } catch (error) {
+                this.toaster("Please copy this link manually: " + text, "info", 8000);
+            }
+        },
+
+        makeMove(index) {
+            if (this.cells[index] || this.winner || this.isDraw || !this.isMyTurn) return;
+            
+            console.log("Making move at index:", index, "Current player:", this.currentPlayer);
+            
+            this.moveHistory.push({ index, player: this.currentPlayer });
+            this.cells[index] = this.currentPlayer;
+            this.checkGameState();
+            
+            // Switch turn after making a move (only if game hasn't ended)
+            if (!this.winner && !this.isDraw) {
+                this.switchTurn();
+            }
+            
+            if (this.conn) {
+                const moveData = {
+                    type: "move",
+                    cells: [...this.cells],
+                    gridRows: this.gridRows,
+                    currentPlayer: this.currentPlayer,
+                    winner: this.winner,
+                    isDraw: this.isDraw,
+                    winningCombo: [...this.winningCombo],
+                    score: { ...this.score },
+                    moveHistory: [...this.moveHistory],
+                    hasUsedUndo: { ...this.hasUsedUndo },
+                    hasUsedRemove: { ...this.hasUsedRemove },
+                    hasUsedSwap: { ...this.hasUsedSwap },
+                    hasUsedExpand: { ...this.hasUsedExpand },
+                };
+                console.log("Sending move data:", moveData);
+                this.conn.send(moveData);
+            } else {
+                console.log("No connection available to send move");
+            }
+        },
+
         checkGameState() {
             let wins = [];
             
@@ -1394,6 +1513,6 @@ makeMove(index) {
 });
 
 app.mount("#app");
-    </script>
+</script>
 </body>
 </html>
