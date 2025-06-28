@@ -409,7 +409,7 @@
       <!-- Enhanced navbar with better semantics -->
       <nav class="navbar border-b-2 border-primary text-primary-content" role="navigation" aria-label="Main navigation">
         <div class="navbar-start">
-          <h1 class="btn btn-ghost text-xl" role="banner">
+          <h1 class="btn btn-soft btn-ghost text-xl" role="banner">
             <svg
               xmlns="http://www.w3.org/2000/svg"
               viewBox="0 -960 960 960"
@@ -437,7 +437,7 @@
         <div class="navbar-end gap-2">
           <button
             @click="showAboutModal"
-            class="btn btn-primary gap-2 hidden sm:flex"
+            class="btn btn-soft btn-primary gap-2 hidden sm:flex"
             aria-label="Open game rules and information"
           >
             <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 -960 960 960" fill="currentColor" aria-hidden="true">
@@ -448,7 +448,7 @@
 
           <button
             @click="showMultiplayerModal"
-            class="btn btn-primary gap-2"
+            class="btn btn-soft btn-primary gap-2"
             aria-label="Set up multiplayer game"
           >
             <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 -960 960 960" fill="currentColor" aria-hidden="true">
@@ -498,9 +498,9 @@
                     'winning-cell': winner && winningCombo.includes(index),
                     'flash-effect': squareEffects[index],
                     'ring-2 ring-green-400': shieldedSquares[index],
-                    'btn-disabled': !isMyTurn || cell,
-                    'btn-primary': !cell && isMyTurn,
-                    'btn-ghost': cell
+                    'btn-soft btn-disabled': !isMyTurn || cell,
+                    'btn-soft btn-primary': !cell && isMyTurn,
+                    'btn-soft btn-ghost': cell
                   }
                 ]"
                 :disabled="!isMyTurn || cell"
@@ -528,7 +528,7 @@
           <button
             v-if="gameOver"
             @click="resetGame"
-            class="btn btn-success btn-wide gap-2"
+            class="btn btn-soft btn-success btn-soft btn-wide gap-2"
             aria-label="Start a New Game"
           >
             <svg
@@ -555,10 +555,10 @@
           <div class="tooltip" data-tip="Undo Last Move">
             <button
               @click="undoMove"
-              class="btn btn-secondary btn-circle btn-lg"
+              class="btn btn-soft btn-secondary btn-soft btn-circle btn-soft btn-lg"
               aria-label="Undo Last Move"
               :class="{
-                'btn-disabled opacity-50': hasUsedUndo[currentPlayer] || moveHistory.length === 0 || gameOver || !isMyTurn
+                'btn-soft btn-disabled opacity-50': hasUsedUndo[currentPlayer] || moveHistory.length === 0 || gameOver || !isMyTurn
               }"
               :disabled="hasUsedUndo[currentPlayer] || moveHistory.length === 0 || gameOver || !isMyTurn"
             >
@@ -580,8 +580,8 @@
             <button
               @click="showSwapPowerModal"
               aria-label="Swap Two Pieces"
-              class="btn btn-info btn-circle btn-lg"
-              :class="{ 'btn-disabled opacity-50': hasUsedSwap[currentPlayer] || cells.filter(cell => cell !== null).length < 2 || gameOver || !isMyTurn }"
+              class="btn btn-soft btn-info btn-soft btn-circle btn-soft btn-lg"
+              :class="{ 'btn-soft btn-disabled opacity-50': hasUsedSwap[currentPlayer] || cells.filter(cell => cell !== null).length < 2 || gameOver || !isMyTurn }"
               :disabled="hasUsedSwap[currentPlayer] || cells.filter(cell => cell !== null).length < 2 || gameOver || !isMyTurn"
             >
               <svg
@@ -602,9 +602,9 @@
             <button
               @click="showRemovePowerModal"
               aria-label="Remove a Piece"
-              class="btn btn-neutral btn-circle btn-lg"
+              class="btn btn-soft btn-neutral btn-soft btn-circle btn-soft btn-lg"
               :class="{
-                'btn-disabled opacity-50': hasUsedRemove[currentPlayer] || !cells.some(cell => cell !== null) || gameOver || !isMyTurn
+                'btn-soft btn-disabled opacity-50': hasUsedRemove[currentPlayer] || !cells.some(cell => cell !== null) || gameOver || !isMyTurn
               }"
               :disabled="hasUsedRemove[currentPlayer] || !cells.some(cell => cell !== null) || gameOver || !isMyTurn"
             >
@@ -626,9 +626,9 @@
             <button
               @click="expandGrid"
               aria-label="Add a new Row"
-              class="btn btn-warning btn-circle btn-lg"
+              class="btn btn-soft btn-warning btn-soft btn-circle btn-soft btn-lg"
               :class="{
-                'btn-disabled opacity-50': hasUsedExpand[currentPlayer] || gridRows === 6 || gameOver || !isMyTurn
+                'btn-soft btn-disabled opacity-50': hasUsedExpand[currentPlayer] || gridRows === 6 || gameOver || !isMyTurn
               }"
               :disabled="hasUsedExpand[currentPlayer] || gridRows === 6 || gameOver || !isMyTurn"
             >
@@ -650,9 +650,9 @@
             <button
               @click="showSlidePowerModal"
               aria-label="Slide a Piece"
-              class="btn btn-accent btn-circle btn-lg"
+              class="btn btn-soft btn-accent btn-soft btn-circle btn-soft btn-lg"
               :class="{
-                'btn-disabled opacity-50': hasUsedSlide[currentPlayer] || 
+                'btn-soft btn-disabled opacity-50': hasUsedSlide[currentPlayer] || 
                   !cells.some((cell, index) => cell === currentPlayer && getValidSlideCount(index) > 0) || 
                   gameOver || !isMyTurn
               }"
@@ -677,9 +677,9 @@
             <button
               @click="showShieldPowerModal"
               aria-label="Shield a Piece"
-              class="btn btn-success btn-circle btn-lg"
+              class="btn btn-soft btn-success btn-soft btn-circle btn-soft btn-lg"
               :class="{
-                'btn-disabled opacity-50': hasUsedShield[currentPlayer] || !cells.some(cell => cell === currentPlayer) || gameOver || !isMyTurn
+                'btn-soft btn-disabled opacity-50': hasUsedShield[currentPlayer] || !cells.some(cell => cell === currentPlayer) || gameOver || !isMyTurn
               }"
               :disabled="hasUsedShield[currentPlayer] || !cells.some(cell => cell === currentPlayer) || gameOver || !isMyTurn"
             >
@@ -700,9 +700,9 @@
             <button
               @click="showTeleportPowerModal"
               aria-label="Teleport a Piece"
-              class="btn btn-error btn-circle btn-lg"
+              class="btn btn-soft btn-error btn-soft btn-circle btn-soft btn-lg"
               :class="{
-                'btn-disabled opacity-50': hasUsedTeleport[currentPlayer] || !cells.some(cell => cell === currentPlayer) || cells.filter(cell => cell === null).length === 0 || gameOver || !isMyTurn
+                'btn-soft btn-disabled opacity-50': hasUsedTeleport[currentPlayer] || !cells.some(cell => cell === currentPlayer) || cells.filter(cell => cell === null).length === 0 || gameOver || !isMyTurn
               }"
               :disabled="hasUsedTeleport[currentPlayer] || !cells.some(cell => cell === currentPlayer) || cells.filter(cell => cell === null).length === 0 || gameOver || !isMyTurn"
             >
@@ -740,9 +740,9 @@
                 :class="[
                   'btn mx-auto text-4xl font-bold transition-all duration-200 hover:scale-105 flex items-center justify-center game-cell relative',
                   {
-                    'btn-success': cell === currentPlayer && !shieldedSquares[index],
-                    'btn-ghost': !cell || cell !== currentPlayer,
-                    'btn-disabled': !cell || cell !== currentPlayer || shieldedSquares[index],
+                    'btn-soft btn-success': cell === currentPlayer && !shieldedSquares[index],
+                    'btn-soft btn-ghost': !cell || cell !== currentPlayer,
+                    'btn-soft btn-disabled': !cell || cell !== currentPlayer || shieldedSquares[index],
                     'ring-2 ring-green-400': shieldedSquares[index]
                   }
                 ]"
@@ -798,11 +798,11 @@
                 :class="[
                   'btn mx-auto text-4xl font-bold transition-all duration-200 hover:scale-105 flex items-center justify-center game-cell relative',
                   {
-                    'btn-error': teleportSelection.includes(index),
-                    'btn-primary': teleportSelection.length === 1 && cell === null,
-                    'btn-secondary': cell === currentPlayer && !teleportSelection.includes(index),
-                    'btn-ghost': !cell && teleportSelection.length === 0,
-                    'btn-disabled': (teleportSelection.length === 0 && cell !== currentPlayer) || 
+                    'btn-soft btn-error': teleportSelection.includes(index),
+                    'btn-soft btn-primary': teleportSelection.length === 1 && cell === null,
+                    'btn-soft btn-secondary': cell === currentPlayer && !teleportSelection.includes(index),
+                    'btn-soft btn-ghost': !cell && teleportSelection.length === 0,
+                    'btn-soft btn-disabled': (teleportSelection.length === 0 && cell !== currentPlayer) || 
                                   (teleportSelection.length === 1 && cell !== null)
                   }
                 ]"
@@ -875,11 +875,11 @@
                 :class="[
                   'btn mx-auto text-4xl font-bold transition-all duration-200 hover:scale-105 flex items-center justify-center game-cell relative',
                   {
-                    'btn-accent border-4 border-accent': slideSelection.includes(index),
-                    'btn-primary ring-2 ring-primary animate-pulse': slideMode === 'destination' && getSlideDestinations.includes(index),
-                    'btn-secondary hover:btn-accent': cell === currentPlayer && slideMode === 'select' && !slideSelection.includes(index),
-                    'btn-ghost': !cell && (slideMode === 'select' || !getSlideDestinations.includes(index)),
-                    'btn-disabled opacity-30': (slideMode === 'select' && cell !== currentPlayer && cell !== null) || 
+                    'btn-soft btn-accent border-4 border-accent': slideSelection.includes(index),
+                    'btn-soft btn-primary ring-2 ring-primary animate-pulse': slideMode === 'destination' && getSlideDestinations.includes(index),
+                    'btn-soft btn-secondary hover:btn-soft btn-accent': cell === currentPlayer && slideMode === 'select' && !slideSelection.includes(index),
+                    'btn-soft btn-ghost': !cell && (slideMode === 'select' || !getSlideDestinations.includes(index)),
+                    'btn-soft btn-disabled opacity-30': (slideMode === 'select' && cell !== currentPlayer && cell !== null) || 
                                              (slideMode === 'destination' && !getSlideDestinations.includes(index) && cell !== currentPlayer),
                     'ring-2 ring-green-400': shieldedSquares[index]
                   }
@@ -953,10 +953,10 @@
                 :class="[
                   'btn mx-auto text-4xl font-bold transition-all duration-200 hover:scale-105 flex items-center justify-center game-cell relative',
                   {
-                    'btn-info': swapSelection.includes(index),
-                    'btn-secondary': cell !== null && !swapSelection.includes(index),
-                    'btn-ghost': !cell,
-                    'btn-disabled': !cell
+                    'btn-soft btn-info': swapSelection.includes(index),
+                    'btn-soft btn-secondary': cell !== null && !swapSelection.includes(index),
+                    'btn-soft btn-ghost': !cell,
+                    'btn-soft btn-disabled': !cell
                   }
                 ]"
                 :disabled="!cell"
@@ -1215,7 +1215,7 @@
 
             <div class="modal-action">
               <form method="dialog">
-                <button class="btn btn-primary">Got it, let's play! 🎮</button>
+                <button class="btn btn-soft btn-primary">Got it, let's play! 🎮</button>
               </form>
             </div>
           </div>
@@ -1232,7 +1232,7 @@
             <div class="space-y-4">
               <button
                 @click="createGame"
-                class="btn btn-primary btn-block gap-2"
+                class="btn btn-soft btn-primary btn-soft btn-block gap-2"
               >
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
@@ -1257,7 +1257,7 @@
                 </p>
                 <button
                   @click="copyPeerIdToClipboard"
-                  class="btn btn-outline btn-block gap-2"
+                  class="btn btn-soft btn-outline btn-soft btn-block gap-2"
                 >
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
@@ -1287,7 +1287,7 @@
                   />
                   <button
                     @click="connectToPeer"
-                    class="btn btn-primary join-item"
+                    class="btn btn-soft btn-primary join-item"
                     :disabled="!peerIdToConnect.trim()"
                   >
                     Join
@@ -1327,9 +1327,9 @@
                 :class="[
                   'btn mx-auto text-4xl font-bold transition-all duration-200 hover:scale-105 flex items-center justify-center game-cell relative',
                   {
-                    'btn-error': isMultiplayer ? cell === (currentPlayer === 'X' ? 'O' : 'X') : cell !== null,
-                    'btn-ghost': !cell,
-                    'btn-disabled': !cell || (isMultiplayer && cell === currentPlayer),
+                    'btn-soft btn-error': isMultiplayer ? cell === (currentPlayer === 'X' ? 'O' : 'X') : cell !== null,
+                    'btn-soft btn-ghost': !cell,
+                    'btn-soft btn-disabled': !cell || (isMultiplayer && cell === currentPlayer),
                     'ring-2 ring-green-400': shieldedSquares[index]
                   }
                 ]"
@@ -1362,7 +1362,7 @@
       <div class="bg-white p-8 rounded-lg shadow-lg max-w-md text-center">
         <h2 class="text-xl font-bold text-red-600 mb-4">Oops! Something went wrong</h2>
         <p class="text-gray-600 mb-4">The game encountered an error. Please refresh the page to try again.</p>
-        <button onclick="window.location.reload()" class="btn btn-primary">
+        <button onclick="window.location.reload()" class="btn btn-soft btn-primary">
           Refresh Page
         </button>
       </div>
