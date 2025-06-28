@@ -435,7 +435,9 @@
         </div>
 
         <div class="navbar-end gap-2">
-          <button
+
+
+             <button
             @click="showAboutModal"
             class="btn btn-soft btn-primary gap-2 hidden sm:flex"
             aria-label="Open game rules and information"
@@ -446,16 +448,50 @@
             Rules
           </button>
 
-          <button
-            @click="showMultiplayerModal"
-            class="btn btn-soft btn-primary gap-2"
-            aria-label="Set up multiplayer game"
-          >
-            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 -960 960 960" fill="currentColor" aria-hidden="true">
-              <path d="m272-440 208 120 208-120-168-97v137h-80v-137l-168 97Zm168-189v-17q-44-13-72-49.5T340-780q0-58 41-99t99-41q58 0 99 41t41 99q0 48-28 84.5T520-646v17l280 161q19 11 29.5 29.5T840-398v76q0 22-10.5 40.5T800-252L520-91q-19 11-40 11t-40-11L160-252q-19-11-29.5-29.5T120-322v-76q0-22 10.5-40.5T160-468l280-161Zm0 378L200-389v67l280 162 280-162v-67L520-251q-19 11-40 11t-40-11Zm40-469q25 0 42.5-17.5T540-780q0-25-17.5-42.5T480-840q-25 0-42.5 17.5T420-780q0 25 17.5 42.5T480-720Zm0 560Z"/>
-            </svg>
-            Multiplayer
-          </button>
+
+          <div class="dropdown dropdown-end">
+    <div tabindex="0" role="button" class="btn btn-soft btn-primary gap-2">
+      <template v-if="gameMode === 'offline'">
+        
+<svg xmlns="http://www.w3.org/2000/svg"   class="h-5 w-5" viewBox="0 -960 960 960" fill="currentColor"><path d="M40-160v-112q0-34 17.5-62.5T104-378q62-31 126-46.5T360-440q66 0 130 15.5T616-378q29 15 46.5 43.5T680-272v112H40Zm720 0v-120q0-44-24.5-84.5T666-434q51 6 96 20.5t84 35.5q36 20 55 44.5t19 53.5v120H760ZM360-480q-66 0-113-47t-47-113q0-66 47-113t113-47q66 0 113 47t47 113q0 66-47 113t-113 47Zm400-160q0 66-47 113t-113 47q-11 0-28-2.5t-28-5.5q27-32 41.5-71t14.5-81q0-42-14.5-81T544-792q14-5 28-6.5t28-1.5q66 0 113 47t47 113ZM120-240h480v-32q0-11-5.5-20T580-306q-54-27-109-40.5T360-360q-56 0-111 13.5T140-306q-9 5-14.5 14t-5.5 20v32Zm240-320q33 0 56.5-23.5T440-640q0-33-23.5-56.5T360-720q-33 0-56.5 23.5T280-640q0 33 23.5 56.5T360-560Zm0 320Zm0-400Z"/></svg> Local  Play</template>
+      <template v-if="gameMode === 'ai'">
+        
+      
+<svg xmlns="http://www.w3.org/2000/svg"   class="h-5 w-5" viewBox="0 -960 960 960" fill="currentColor"><path d="M160-360q-50 0-85-35t-35-85q0-50 35-85t85-35v-80q0-33 23.5-56.5T240-760h120q0-50 35-85t85-35q50 0 85 35t35 85h120q33 0 56.5 23.5T800-680v80q50 0 85 35t35 85q0 50-35 85t-85 35v160q0 33-23.5 56.5T720-120H240q-33 0-56.5-23.5T160-200v-160Zm200-80q25 0 42.5-17.5T420-500q0-25-17.5-42.5T360-560q-25 0-42.5 17.5T300-500q0 25 17.5 42.5T360-440Zm240 0q25 0 42.5-17.5T660-500q0-25-17.5-42.5T600-560q-25 0-42.5 17.5T540-500q0 25 17.5 42.5T600-440ZM320-280h320v-80H320v80Zm-80 80h480v-480H240v480Zm240-240Z"/></svg>
+      AI </template>
+      <template v-if="gameMode === 'multiplayer'">
+      
+      
+<svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 -960 960 960" fill="currentColor"><path d="M480-80q-83 0-156-31.5T197-197q-54-54-85.5-127T80-480q0-83 31.5-156T197-763q54-54 127-85.5T480-880q83 0 156 31.5T763-763q54 54 85.5 127T880-480q0 83-31.5 156T763-197q-54 54-127 85.5T480-80Zm0-80q134 0 227-93t93-227q0-7-.5-14.5T799-507q-5 29-27 48t-52 19h-80q-33 0-56.5-23.5T560-520v-40H400v-80q0-33 23.5-56.5T480-720h40q0-23 12.5-40.5T563-789q-20-5-40.5-8t-42.5-3q-134 0-227 93t-93 227h200q66 0 113 47t47 113v40H400v110q20 5 39.5 7.5T480-160Z"/></svg>
+      Multiplayer</template>
+      {{ gameStatusText }}
+    </div>
+    <ul tabindex="0" class="dropdown-content z-[1] menu p-2 shadow bg-base-300 rounded-box w-48">
+      <li><a @click="setGameMode('offline')" :class="{'active': gameMode === 'offline'}"><svg xmlns="http://www.w3.org/2000/svg"   class="h-5 w-5" viewBox="0 -960 960 960" fill="currentColor"><path d="M40-160v-112q0-34 17.5-62.5T104-378q62-31 126-46.5T360-440q66 0 130 15.5T616-378q29 15 46.5 43.5T680-272v112H40Zm720 0v-120q0-44-24.5-84.5T666-434q51 6 96 20.5t84 35.5q36 20 55 44.5t19 53.5v120H760ZM360-480q-66 0-113-47t-47-113q0-66 47-113t113-47q66 0 113 47t47 113q0 66-47 113t-113 47Zm400-160q0 66-47 113t-113 47q-11 0-28-2.5t-28-5.5q27-32 41.5-71t14.5-81q0-42-14.5-81T544-792q14-5 28-6.5t28-1.5q66 0 113 47t47 113ZM120-240h480v-32q0-11-5.5-20T580-306q-54-27-109-40.5T360-360q-56 0-111 13.5T140-306q-9 5-14.5 14t-5.5 20v32Zm240-320q33 0 56.5-23.5T440-640q0-33-23.5-56.5T360-720q-33 0-56.5 23.5T280-640q0 33 23.5 56.5T360-560Zm0 320Zm0-400Z"/></svg> Local  Play</span>
+    </a></li>
+      <li><a @click="setGameMode('ai')" :class="{'active': gameMode === 'ai'}">
+      <svg xmlns="http://www.w3.org/2000/svg"   class="h-5 w-5" viewBox="0 -960 960 960" fill="currentColor"><path d="M160-360q-50 0-85-35t-35-85q0-50 35-85t85-35v-80q0-33 23.5-56.5T240-760h120q0-50 35-85t85-35q50 0 85 35t35 85h120q33 0 56.5 23.5T800-680v80q50 0 85 35t35 85q0 50-35 85t-85 35v160q0 33-23.5 56.5T720-120H240q-33 0-56.5-23.5T160-200v-160Zm200-80q25 0 42.5-17.5T420-500q0-25-17.5-42.5T360-560q-25 0-42.5 17.5T300-500q0 25 17.5 42.5T360-440Zm240 0q25 0 42.5-17.5T660-500q0-25-17.5-42.5T600-560q-25 0-42.5 17.5T540-500q0 25 17.5 42.5T600-440ZM320-280h320v-80H320v80Zm-80 80h480v-480H240v480Zm240-240Z"/></svg>
+      AI  
+      </a></li>
+      <li><a @click="setGameMode('multiplayer')" :class="{'active': gameMode === 'multiplayer'}">
+        
+<svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 -960 960 960" fill="currentColor"><path d="M480-80q-83 0-156-31.5T197-197q-54-54-85.5-127T80-480q0-83 31.5-156T197-763q54-54 127-85.5T480-880q83 0 156 31.5T763-763q54 54 85.5 127T880-480q0 83-31.5 156T763-197q-54 54-127 85.5T480-80Zm0-80q134 0 227-93t93-227q0-7-.5-14.5T799-507q-5 29-27 48t-52 19h-80q-33 0-56.5-23.5T560-520v-40H400v-80q0-33 23.5-56.5T480-720h40q0-23 12.5-40.5T563-789q-20-5-40.5-8t-42.5-3q-134 0-227 93t-93 227h200q66 0 113 47t47 113v40H400v110q20 5 39.5 7.5T480-160Z"/></svg>
+      Multiplayer
+
+      </a></li>
+      <div v-if="gameMode === 'ai'" class="divider my-1"></div>
+      <li v-if="gameMode === 'ai'"><a class="btn btn-ghost btn-sm gap-2" @click="setAIDifficulty('easy')">🟢 Novice</a></li>
+      <li v-if="gameMode === 'ai'"><a class="btn btn-ghost btn-sm gap-2" @click="setAIDifficulty('medium')">🟡 Skilled</a></li>
+      <li v-if="gameMode === 'ai'"><a class="btn btn-ghost btn-sm gap-2" @click="setAIDifficulty('hard')">🔴 Expert</a></li>
+      <li v-if="gameMode === 'ai'"><a class="btn btn-ghost btn-sm gap-2" @click="setAIDifficulty('random')">🎲 Random</a></li>
+    </ul>
+  </div>
+  
+
+
+     
+
+        
         </div>
       </nav>
 
@@ -492,23 +528,24 @@
                 :aria-label="getCellAriaLabel(index, cell)"
                 :aria-pressed="cell !== null"
                 :tabindex="getTabIndex(index)"
-                :class="[
-                  'btn mx-auto text-4xl font-bold transition-all duration-200 hover:scale-105 flex items-center justify-center game-cell relative',
-                  {
-                    'winning-cell': winner && winningCombo.includes(index),
-                    'flash-effect': squareEffects[index],
-                    'ring-2 ring-green-400': shieldedSquares[index],
-                    'btn-soft btn-disabled': !isMyTurn || cell,
-                    'btn-soft btn-primary': !cell && isMyTurn,
-                    'btn-soft btn-ghost': cell
-                  }
-                ]"
-                :disabled="!isMyTurn || cell"
+          :class="[
+    'btn mx-auto text-4xl font-bold transition-all duration-200 hover:scale-105 flex items-center justify-center game-cell relative',
+    {
+      'winning-cell': winner && winningCombo.includes(index),
+      'flash-effect': squareEffects[index],
+      'ring-2 ring-green-400': shieldedSquares[index],
+      'btn-soft btn-disabled': !canMakeMove(index),
+      'btn-soft btn-primary': !cell && canMakeMove(index),
+      'btn-soft btn-ghost': cell
+    }
+  ]"
+       :disabled="!canMakeMove(index)"
+
               >
                 {% raw %}{{ getEmoji(cell) }}{% endraw %}
                 <span
                   v-if="shieldedSquares[index]"
-                  class="absolute top-0 right-0 text-xs"
+                  class="absolute top-0 right-0 text-base"
                   aria-label="Shielded"
                   role="img"
                 >🛡️</span>
@@ -557,11 +594,9 @@
               @click="undoMove"
               class="btn btn-soft btn-secondary btn-soft btn-circle btn-soft btn-lg"
               aria-label="Undo Last Move"
-              :class="{
-                'btn-soft btn-disabled opacity-50': hasUsedUndo[currentPlayer] || moveHistory.length === 0 || gameOver || !isMyTurn
-              }"
-              :disabled="hasUsedUndo[currentPlayer] || moveHistory.length === 0 || gameOver || !isMyTurn"
-            >
+           :class="{ 'btn-soft btn-disabled opacity-50': isPowerUpDisabled('undo') }"
+:disabled="isPowerUpDisabled('undo')"
+>
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 viewBox="0 -960 960 960"
@@ -580,9 +615,10 @@
             <button
               @click="showSwapPowerModal"
               aria-label="Swap Two Pieces"
-              class="btn btn-soft btn-info btn-soft btn-circle btn-soft btn-lg"
-              :class="{ 'btn-soft btn-disabled opacity-50': hasUsedSwap[currentPlayer] || cells.filter(cell => cell !== null).length < 2 || gameOver || !isMyTurn }"
-              :disabled="hasUsedSwap[currentPlayer] || cells.filter(cell => cell !== null).length < 2 || gameOver || !isMyTurn"
+              class="btn btn-soft btn-info  btn-circle  btn-lg"
+  :class="{ 'btn-soft btn-disabled opacity-50': isPowerUpDisabled('swap') }"
+
+:disabled="isPowerUpDisabled('swap')"
             >
               <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -603,11 +639,8 @@
               @click="showRemovePowerModal"
               aria-label="Remove a Piece"
               class="btn btn-soft btn-neutral btn-soft btn-circle btn-soft btn-lg"
-              :class="{
-                'btn-soft btn-disabled opacity-50': hasUsedRemove[currentPlayer] || !cells.some(cell => cell !== null) || gameOver || !isMyTurn
-              }"
-              :disabled="hasUsedRemove[currentPlayer] || !cells.some(cell => cell !== null) || gameOver || !isMyTurn"
-            >
+           :class="{ 'btn-soft btn-disabled opacity-50': isPowerUpDisabled('remove') }"
+:disabled="isPowerUpDisabled('remove')" >
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 viewBox="0 -960 960 960"
@@ -627,11 +660,8 @@
               @click="expandGrid"
               aria-label="Add a new Row"
               class="btn btn-soft btn-warning btn-soft btn-circle btn-soft btn-lg"
-              :class="{
-                'btn-soft btn-disabled opacity-50': hasUsedExpand[currentPlayer] || gridRows === 6 || gameOver || !isMyTurn
-              }"
-              :disabled="hasUsedExpand[currentPlayer] || gridRows === 6 || gameOver || !isMyTurn"
-            >
+           :class="{ 'btn-soft btn-disabled opacity-50': isPowerUpDisabled('expand') }"
+:disabled="isPowerUpDisabled('expand')" >
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 viewBox="0 -960 960 960"
@@ -651,14 +681,8 @@
               @click="showSlidePowerModal"
               aria-label="Slide a Piece"
               class="btn btn-soft btn-accent btn-soft btn-circle btn-soft btn-lg"
-              :class="{
-                'btn-soft btn-disabled opacity-50': hasUsedSlide[currentPlayer] || 
-                  !cells.some((cell, index) => cell === currentPlayer && getValidSlideCount(index) > 0) || 
-                  gameOver || !isMyTurn
-              }"
-              :disabled="hasUsedSlide[currentPlayer] || 
-              !cells.some((cell, index) => cell === currentPlayer && getValidSlideCount(index) > 0) || 
-              gameOver || !isMyTurn"
+            :class="{ 'btn-soft btn-disabled opacity-50': isPowerUpDisabled('slide') }"
+:disabled="isPowerUpDisabled('slide')"
             >
               <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -678,11 +702,10 @@
               @click="showShieldPowerModal"
               aria-label="Shield a Piece"
               class="btn btn-soft btn-success btn-soft btn-circle btn-soft btn-lg"
-              :class="{
-                'btn-soft btn-disabled opacity-50': hasUsedShield[currentPlayer] || !cells.some(cell => cell === currentPlayer) || gameOver || !isMyTurn
-              }"
-              :disabled="hasUsedShield[currentPlayer] || !cells.some(cell => cell === currentPlayer) || gameOver || !isMyTurn"
-            >
+             :class="{ 'btn-soft btn-disabled opacity-50': isPowerUpDisabled('shield') }"
+:disabled="isPowerUpDisabled('shield')"
+             
+              >
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 viewBox="0 -960 960 960"
@@ -701,11 +724,9 @@
               @click="showTeleportPowerModal"
               aria-label="Teleport a Piece"
               class="btn btn-soft btn-error btn-soft btn-circle btn-soft btn-lg"
-              :class="{
-                'btn-soft btn-disabled opacity-50': hasUsedTeleport[currentPlayer] || !cells.some(cell => cell === currentPlayer) || cells.filter(cell => cell === null).length === 0 || gameOver || !isMyTurn
-              }"
-              :disabled="hasUsedTeleport[currentPlayer] || !cells.some(cell => cell === currentPlayer) || cells.filter(cell => cell === null).length === 0 || gameOver || !isMyTurn"
-            >
+       :class="{ 'btn-soft btn-disabled opacity-50': isPowerUpDisabled('teleport') }"
+:disabled="isPowerUpDisabled('teleport')"
+              >
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 viewBox="0 -960 960 960"
@@ -1448,6 +1469,30 @@ function initializeApp() {
   const app = createApp({
     data() {
       return {
+ // Game Mode Management
+    gameMode: 'offline', // 'offline', 'ai', 'multiplayer'
+    isAIMode: false,
+    aiDifficulty: 'random',
+    aiPlayer: 'O',
+    aiThinking: false,
+    aiPersonality: null,
+    
+    // AI skill parameters (randomized each game)
+    aiSkills: {
+      strategicThinking: 0.5,
+      powerUpTiming: 0.5,
+      defensivePlay: 0.5,
+      riskTaking: 0.5,
+      adaptability: 0.5,
+    },
+    
+    // AI thinking delay ranges
+    aiDelayRanges: {
+      easy: [800, 1500],
+      medium: [1200, 2500],
+      hard: [1500, 3000],
+      random: [800, 3000]
+    },
         cells: Array(16).fill(null),
         gridRows: 4,
         isExpanding: false,
@@ -1495,19 +1540,49 @@ function initializeApp() {
     },
     
     computed: {
-      isMultiplayer() {
-        return this.conn !== null;
-      },
+        aiShouldMove() {
+    return this.gameMode === 'ai' && this.currentPlayer === this.aiPlayer && !this.gameOver;
+  },
+  
+  isPlayerTurn() {
+    return this.gameMode !== 'ai' || this.currentPlayer !== this.aiPlayer;
+  },
+  
+  isMultiplayer() {
+    return this.gameMode === 'multiplayer' && this.conn !== null;
+  },
+  
+  gameStatusText() {
+    switch(this.gameMode) {
+      case 'offline':
+        return 'Local Play';
+      case 'ai':
+        return `vs AI (${this.getAIDifficultyName()})`;
+      case 'multiplayer':
+        return this.conn ? 'Online Multiplayer' : 'Connecting...';
+      default:
+        return 'Game';
+    }
+  },
       emojiSet() {
         return this.emojiThemes[this.themeIndex];
       },
       isMyTurn() {
-        if (!this.conn) return true;
-        return (
-          (this.isHost && this.currentPlayer === "X") ||
-          (!this.isHost && this.currentPlayer === "O")
-        );
+     if (this.gameMode === 'ai') {
+    return this.currentPlayer === 'X' || this.gameOver;
+  }
+  
+  // In multiplayer mode, check connection and player role
+  if (!this.conn) return true;
+  return (
+    (this.isHost && this.currentPlayer === "X") ||
+    (!this.isHost && this.currentPlayer === "O")
+  );
       },
+
+
+
+
       gameOver() {
         return this.winner || this.isDraw;
       },
@@ -1550,6 +1625,35 @@ function initializeApp() {
     },
     
     watch: {
+currentPlayer: {
+  handler(newPlayer) {
+    // Trigger AI move when it's AI's turn
+    if (this.gameMode === 'ai' && newPlayer === this.aiPlayer && !this.gameOver) {
+      console.log("AI's turn - triggering AI move");
+      this.$nextTick(() => {
+        this.makeAIMove();
+      });
+    }
+    
+    // Game start announcement (keep existing logic)
+    if (
+      this.cells.every((cell) => cell === null) &&
+      this.moveHistory.length === 0
+    ) {
+      setTimeout(() => {
+        if (!this.winner && !this.isDraw) {
+          this.toaster(
+            `${this.getEmoji(newPlayer)} goes first!`,
+            "info",
+            2000,
+          );
+        }
+      }, 500);
+    }
+  },
+  immediate: false,
+},
+
       isMyTurn(newVal) {
         if (newVal && !this.winner && !this.isDraw && this.isMultiplayer) {
           this.toaster("🎯 Your turn!", "info", 2000);
@@ -1583,6 +1687,1019 @@ function initializeApp() {
     },
     
     methods: {
+
+    isPowerUpDisabled(powerUpType) {
+  // Game is over
+  if (this.gameOver) return true;
+  
+  // In AI mode, only human player can use power-ups
+  if (this.gameMode === 'ai' && this.currentPlayer !== 'X') return true;
+  
+  // In multiplayer mode, check if it's player's turn
+  if (this.gameMode === 'multiplayer' && !this.isMyTurn) return true;
+  
+  // Check specific power-up conditions
+  switch(powerUpType) {
+    case 'undo':
+      return this.hasUsedUndo[this.currentPlayer] || this.moveHistory.length === 0;
+    case 'swap':
+      return this.hasUsedSwap[this.currentPlayer] || this.cells.filter(cell => cell !== null).length < 2;
+    case 'remove':
+      return this.hasUsedRemove[this.currentPlayer] || !this.cells.some(cell => cell !== null);
+    case 'expand':
+      return this.hasUsedExpand[this.currentPlayer] || this.gridRows === 6;
+    case 'slide':
+      return this.hasUsedSlide[this.currentPlayer] || !this.cells.some((cell, index) => cell === this.currentPlayer && this.getValidSlideCount(index) > 0);
+    case 'shield':
+      return this.hasUsedShield[this.currentPlayer] || !this.cells.some(cell => cell === this.currentPlayer);
+    case 'teleport':
+      return this.hasUsedTeleport[this.currentPlayer] || !this.cells.some(cell => cell === this.currentPlayer) || this.cells.filter(cell => cell === null).length === 0;
+    default:
+      return false;
+  }
+},
+
+      canMakeMove(index) {
+  // Cell is already occupied
+  if (this.cells[index]) return false;
+  
+  // Game is over
+  if (this.gameOver) return false;
+  
+  // In AI mode, only allow human player (X) to move on their turn
+  if (this.gameMode === 'ai') {
+    return this.currentPlayer === 'X';
+  }
+  
+  // In other modes, use the existing logic
+  return this.isMyTurn;
+},
+      toggleAI() {
+  if (this.gameMode === 'ai') {
+    this.setGameMode('offline');
+  } else {
+    this.setGameMode('ai');
+  }
+},
+      setGameMode(mode) {
+  // Clean up previous mode
+  this.cleanupCurrentMode();
+  
+  // Set new mode
+  this.gameMode = mode;
+  
+  switch(mode) {
+    case 'offline':
+      this.setupOfflineMode();
+      break;
+    case 'ai':
+      this.setupAIMode();
+      break;
+    case 'multiplayer':
+      this.setupMultiplayerMode();
+      break;
+  }
+  
+  this.resetGame(false);
+},
+cleanupCurrentMode() {
+  // Stop AI if running
+  if (this.gameMode === 'ai') {
+    this.aiThinking = false;
+    this.aiPersonality = null;
+  }
+  
+  // Disconnect multiplayer if connected
+  if (this.gameMode === 'multiplayer' && this.conn) {
+    this.conn.close();
+    this.conn = null;
+  }
+  
+  if (this.peer) {
+    this.peer.destroy();
+    this.peer = null;
+  }
+  
+  this.peerId = "";
+  this.peerIdToConnect = "";
+  this.cleanUrl();
+},
+setupOfflineMode() {
+  this.isAIMode = false;
+  this.toaster("👥 Local play mode - pass the device!", "info", 2000);
+},
+
+setupAIMode() {
+  this.isAIMode = true;
+  this.aiPlayer = 'O';
+  this.generateAIPersonality();
+  this.toaster(`🤖 AI opponent ready! Difficulty: ${this.getAIDifficultyName()}`, "success", 3000);
+},
+setupMultiplayerMode() {
+  this.isAIMode = false;
+  this.showMultiplayerModal();
+},
+startAIGame() {
+    this.setGameMode('ai');
+    
+    // Close multiplayer modal if open
+    const modal = document.getElementById("multiplayer-modal");
+    if (modal && modal.open) {
+      modal.close();
+    }
+  },
+  
+  stopAIGame() {
+    this.setGameMode('offline');
+  },
+  
+  setAIDifficulty(difficulty) {
+    this.aiDifficulty = difficulty;
+    if (this.gameMode === 'ai') {
+      this.generateAIPersonality();
+      this.toaster(`🎯 AI difficulty set to ${this.getAIDifficultyName()}`, "info", 2000);
+    }
+  },
+
+   generateAIPersonality() {
+    // Randomize AI skills for this game
+    const skillVariation = 0.4; // How much skills can vary
+    
+    if (this.aiDifficulty === 'random') {
+      // Completely random personality
+      this.aiSkills = {
+        strategicThinking: Math.random(),
+        powerUpTiming: Math.random(),
+        defensivePlay: Math.random(),
+        riskTaking: Math.random(),
+        adaptability: Math.random(),
+      };
+    } else {
+      // Base skills on difficulty with some randomization
+      const baseSkills = {
+        easy: 0.3,
+        medium: 0.6,
+        hard: 0.8
+      };
+      
+      const base = baseSkills[this.aiDifficulty] || 0.5;
+      
+      Object.keys(this.aiSkills).forEach(skill => {
+        this.aiSkills[skill] = Math.max(0.1, Math.min(0.9, 
+          base + (Math.random() - 0.5) * skillVariation
+        ));
+      });
+    }
+    
+    // Generate personality description
+    this.aiPersonality = this.generatePersonalityDescription();
+    console.log("AI Personality:", this.aiPersonality);
+  },
+  generatePersonalityDescription() {
+    const traits = [];
+    
+    if (this.aiSkills.strategicThinking > 0.7) traits.push("Strategic");
+    else if (this.aiSkills.strategicThinking < 0.3) traits.push("Impulsive");
+    
+    if (this.aiSkills.defensivePlay > 0.7) traits.push("Defensive");
+    else if (this.aiSkills.defensivePlay < 0.3) traits.push("Aggressive");
+    
+    if (this.aiSkills.riskTaking > 0.7) traits.push("Bold");
+    else if (this.aiSkills.riskTaking < 0.3) traits.push("Cautious");
+    
+    if (this.aiSkills.powerUpTiming > 0.7) traits.push("Tactical");
+    
+    return traits.join(", ") || "Balanced";
+  },
+  
+  getAIDifficultyName() {
+    const names = {
+      easy: "Novice",
+      medium: "Skilled",
+      hard: "Expert",
+      random: "Unpredictable"
+    };
+    return names[this.aiDifficulty] || "Unknown";
+  },
+
+  // ===== AI DECISION MAKING =====
+  
+  makeAIMove() {
+    if (!this.aiShouldMove || this.aiThinking) return;
+    
+    this.aiThinking = true;
+    const delay = this.getAIThinkingDelay();
+    
+    setTimeout(() => {
+      try {
+        // Decide whether to use a power-up or make a regular move
+        if (this.shouldAIUsePowerUp()) {
+          this.executeAIPowerUp();
+        } else {
+          this.makeAIRegularMove();
+        }
+      } catch (error) {
+        console.error("AI move error:", error);
+        // Fallback to random move
+        this.makeRandomMove();
+      } finally {
+        this.aiThinking = false;
+      }
+    }, delay);
+  },
+  
+  getAIThinkingDelay() {
+    const range = this.aiDelayRanges[this.aiDifficulty] || this.aiDelayRanges.random;
+    return Math.random() * (range[1] - range[0]) + range[0];
+  },
+  
+  shouldAIUsePowerUp() {
+    // Check if AI has any power-ups available
+    const availablePowerUps = this.getAvailableAIPowerUps();
+    if (availablePowerUps.length === 0) return false;
+    
+    // AI decides based on power-up timing skill and game state
+    const urgency = this.calculateGameUrgency();
+    const timingSkill = this.aiSkills.powerUpTiming;
+    
+    // Higher urgency + better timing skill = more likely to use power-up
+    const usePowerUpChance = (urgency * 0.6 + timingSkill * 0.4) * 0.3;
+    
+    return Math.random() < usePowerUpChance;
+  },
+  
+  calculateGameUrgency() {
+    // Calculate how urgent the game situation is (0-1)
+    let urgency = 0;
+    
+    // Check if player is about to win
+    if (this.canPlayerWinNextMove('X')) {
+      urgency += 0.8;
+    }
+    
+    // Check if AI can win
+    if (this.canPlayerWinNextMove(this.aiPlayer)) {
+      urgency += 0.6;
+    }
+    
+    // Check board fullness
+    const filledSquares = this.cells.filter(cell => cell !== null).length;
+    const totalSquares = this.gridRows * 4;
+    urgency += (filledSquares / totalSquares) * 0.4;
+    
+    return Math.min(1, urgency);
+  },
+  
+  getAvailableAIPowerUps() {
+    const powerUps = [];
+    
+    if (!this.hasUsedUndo[this.aiPlayer] && this.moveHistory.length > 0) {
+      powerUps.push('undo');
+    }
+    
+    if (!this.hasUsedRemove[this.aiPlayer] && this.cells.some(cell => cell === 'X')) {
+      powerUps.push('remove');
+    }
+    
+    if (!this.hasUsedSwap[this.aiPlayer] && this.cells.filter(cell => cell !== null).length >= 2) {
+      powerUps.push('swap');
+    }
+    
+    if (!this.hasUsedExpand[this.aiPlayer] && this.gridRows < 6) {
+      powerUps.push('expand');
+    }
+    
+    if (!this.hasUsedSlide[this.aiPlayer] && this.hasValidAISlideMove()) {
+      powerUps.push('slide');
+    }
+    
+    if (!this.hasUsedShield[this.aiPlayer] && this.cells.some(cell => cell === this.aiPlayer)) {
+      powerUps.push('shield');
+    }
+    
+    if (!this.hasUsedTeleport[this.aiPlayer] && 
+        this.cells.some(cell => cell === this.aiPlayer) && 
+        this.cells.filter(cell => cell === null).length > 0) {
+      powerUps.push('teleport');
+    }
+    
+    return powerUps;
+  },
+  
+  hasValidAISlideMove() {
+    return this.cells.some((cell, index) => 
+      cell === this.aiPlayer && this.getValidSlideCount(index) > 0
+    );
+  },
+// ===== AI POWER-UP EXECUTION =====
+  
+  executeAIPowerUp() {
+    const availablePowerUps = this.getAvailableAIPowerUps();
+    if (availablePowerUps.length === 0) {
+      this.makeAIRegularMove();
+      return;
+    }
+    
+    // Choose power-up based on AI personality and game state
+    const chosenPowerUp = this.chooseAIPowerUp(availablePowerUps);
+    
+    this.toaster(`🤖 AI is using ${chosenPowerUp}...`, "warning", 2000);
+    
+    switch (chosenPowerUp) {
+      case 'undo':
+        this.executeAIUndo();
+        break;
+      case 'remove':
+        this.executeAIRemove();
+        break;
+      case 'swap':
+        this.executeAISwap();
+        break;
+      case 'expand':
+        this.executeAIExpand();
+        break;
+      case 'slide':
+        this.executeAISlide();
+        break;
+      case 'shield':
+        this.executeAIShield();
+        break;
+      case 'teleport':
+        this.executeAITeleport();
+        break;
+      default:
+        this.makeAIRegularMove();
+    }
+  },
+  
+  chooseAIPowerUp(availablePowerUps) {
+    // Weight power-ups based on AI personality and game state
+    const weights = {};
+    
+    availablePowerUps.forEach(powerUp => {
+      weights[powerUp] = this.calculatePowerUpWeight(powerUp);
+    });
+    
+    // Choose weighted random power-up
+    return this.weightedRandomChoice(weights);
+  },
+  calculatePowerUpWeight(powerUp) {
+    let weight = 1;
+    
+    switch (powerUp) {
+      case 'undo':
+        // Defensive AIs use undo more
+        weight *= (1 + this.aiSkills.defensivePlay);
+        break;
+        
+      case 'remove':
+        // Aggressive AIs use remove more, especially if player is threatening
+        weight *= (1 + (1 - this.aiSkills.defensivePlay));
+        if (this.canPlayerWinNextMove('X')) weight *= 3;
+        break;
+        
+      case 'swap':
+        // Strategic AIs use swap more
+        weight *= (1 + this.aiSkills.strategicThinking);
+        break;
+        
+      case 'expand':
+        // Risk-taking AIs expand more when behind
+        const aiAdvantage = this.calculatePositionAdvantage(this.aiPlayer);
+        if (aiAdvantage < 0) weight *= (1 + this.aiSkills.riskTaking);
+        break;
+        
+      case 'slide':
+        // Tactical AIs use slide for positioning
+        weight *= (1 + this.aiSkills.powerUpTiming);
+        break;
+        
+      case 'shield':
+        // Defensive AIs shield valuable pieces
+        weight *= (1 + this.aiSkills.defensivePlay);
+        break;
+        
+      case 'teleport':
+        // Bold AIs teleport for surprise attacks
+        weight *= (1 + this.aiSkills.riskTaking);
+        if (this.canPlayerWinNextMove(this.aiPlayer)) weight *= 2;
+        break;
+    }
+    
+    return weight;
+  },
+  
+  weightedRandomChoice(weights) {
+    const totalWeight = Object.values(weights).reduce((sum, weight) => sum + weight, 0);
+    let random = Math.random() * totalWeight;
+    
+    for (const [choice, weight] of Object.entries(weights)) {
+      random -= weight;
+      if (random <= 0) return choice;
+    }
+    
+    return Object.keys(weights)[0]; // Fallback
+  },
+
+  executeAIUndo() {
+    if (this.moveHistory.length > 0 && !this.hasUsedUndo[this.aiPlayer]) {
+      this.undoMove();
+    } else {
+      this.makeAIRegularMove();
+    }
+  },
+  
+  executeAIRemove() {
+    const playerPieces = this.cells
+      .map((cell, index) => ({ cell, index }))
+      .filter(({ cell }) => cell === 'X');
+    
+    if (playerPieces.length === 0) {
+      this.makeAIRegularMove();
+      return;
+    }
+    
+    // Prioritize removing pieces that threaten AI or help player win
+    let targetIndex = this.findBestRemoveTarget(playerPieces);
+    
+    if (targetIndex === -1) {
+      // Random selection as fallback
+      targetIndex = playerPieces[Math.floor(Math.random() * playerPieces.length)].index;
+    }
+    
+    this.removeOpponentPiece(targetIndex);
+  },
+  
+  findBestRemoveTarget(playerPieces) {
+    // Look for pieces that are part of winning threats
+    for (const { index } of playerPieces) {
+      if (this.isPiecePartOfThreat(index, 'X')) {
+        return index;
+      }
+    }
+    
+    // Look for pieces in strategic positions (center, corners)
+    for (const { index } of playerPieces) {
+      if (this.isStrategicPosition(index)) {
+        return index;
+      }
+    }
+    
+    return -1;
+  },
+  
+  executeAISwap() {
+    const allPieces = this.cells
+      .map((cell, index) => ({ cell, index }))
+      .filter(({ cell }) => cell !== null);
+    
+    if (allPieces.length < 2) {
+      this.makeAIRegularMove();
+      return;
+    }
+    
+    // Find best swap combination
+    const bestSwap = this.findBestSwapMove(allPieces);
+    
+    if (bestSwap) {
+      this.swapSelection = [bestSwap.index1, bestSwap.index2];
+      this.performSwap();
+    } else {
+      this.makeAIRegularMove();
+    }
+  },
+    findBestSwapMove(pieces) {
+    let bestMove = null;
+    let bestScore = -Infinity;
+    
+    for (let i = 0; i < pieces.length; i++) {
+      for (let j = i + 1; j < pieces.length; j++) {
+        const score = this.evaluateSwapMove(pieces[i].index, pieces[j].index);
+        if (score > bestScore) {
+          bestScore = score;
+          bestMove = { index1: pieces[i].index, index2: pieces[j].index };
+        }
+      }
+    }
+    
+    return bestMove;
+  },
+  evaluateSwapMove(index1, index2) {
+    // Simulate the swap and evaluate the resulting position
+    const originalCell1 = this.cells[index1];
+    const originalCell2 = this.cells[index2];
+    
+    // Temporarily perform swap
+    this.cells[index1] = originalCell2;
+    this.cells[index2] = originalCell1;
+    
+    const score = this.evaluatePosition(this.aiPlayer);
+    
+    // Restore original position
+    this.cells[index1] = originalCell1;
+    this.cells[index2] = originalCell2;
+    
+    return score;
+  },
+  
+  executeAIExpand() {
+    if (!this.hasUsedExpand[this.aiPlayer] && this.gridRows < 6) {
+      this.expandGrid();
+    } else {
+      this.makeAIRegularMove();
+    }
+  },
+  executeAISlide() {
+    const aiPieces = this.cells
+      .map((cell, index) => ({ cell, index }))
+      .filter(({ cell, index }) => cell === this.aiPlayer && this.getValidSlideCount(index) > 0);
+    
+    if (aiPieces.length === 0) {
+      this.makeAIRegularMove();
+      return;
+    }
+    
+    const bestSlide = this.findBestSlideMove(aiPieces);
+    
+    if (bestSlide) {
+      this.slideSelection = [bestSlide.fromIndex];
+      this.slideMode = "destination";
+      this.performSlide(bestSlide.toIndex);
+    } else {
+      this.makeAIRegularMove();
+    }
+  },
+  findBestSlideMove(pieces) {
+    let bestMove = null;
+    let bestScore = -Infinity;
+    
+    for (const { index } of pieces) {
+      const destinations = this.getSlideDestinationsForIndex(index);
+      
+      for (const destIndex of destinations) {
+        const score = this.evaluateSlideMove(index, destIndex);
+        if (score > bestScore) {
+          bestScore = score;
+          bestMove = { fromIndex: index, toIndex: destIndex };
+        }
+      }
+    }
+    
+    return bestMove;
+  },
+
+    getSlideDestinationsForIndex(index) {
+    const row = Math.floor(index / 4);
+    const col = index % 4;
+    const destinations = [];
+    
+    const directions = [
+      [-1, -1], [-1, 0], [-1, 1],
+      [0, -1], [0, 1],
+      [1, -1], [1, 0], [1, 1],
+    ];
+    
+    directions.forEach(([deltaRow, deltaCol]) => {
+      const newRow = row + deltaRow;
+      const newCol = col + deltaCol;
+      const newIndex = newRow * 4 + newCol;
+      
+      if (
+        newRow >= 0 &&
+        newRow < this.gridRows &&
+        newCol >= 0 &&
+        newCol < 4 &&
+        newIndex >= 0 &&
+        newIndex < this.cells.length &&
+        this.cells[newIndex] === null
+      ) {
+        destinations.push(newIndex);
+      }
+    });
+    
+    return destinations;
+  },
+
+  evaluateSlideMove(fromIndex, toIndex) {
+    // Temporarily perform slide
+    const originalPiece = this.cells[fromIndex];
+    this.cells[fromIndex] = null;
+    this.cells[toIndex] = originalPiece;
+    
+    const score = this.evaluatePosition(this.aiPlayer);
+    
+    // Restore original position
+    this.cells[fromIndex] = originalPiece;
+    this.cells[toIndex] = null;
+    
+    return score;
+  },
+  
+  executeAIShield() {
+    const aiPieces = this.cells
+      .map((cell, index) => ({ cell, index }))
+      .filter(({ cell, index }) => cell === this.aiPlayer && !this.shieldedSquares[index]);
+    
+    if (aiPieces.length === 0) {
+      this.makeAIRegularMove();
+      return;
+    }
+    
+    // Find most valuable piece to shield
+    let bestPiece = null;
+    let bestValue = -1;
+    
+    for (const { index } of aiPieces) {
+      const value = this.calculatePieceValue(index, this.aiPlayer);
+      if (value > bestValue) {
+        bestValue = value;
+        bestPiece = index;
+      }
+    }
+    
+    if (bestPiece !== null) {
+      this.shieldPiece(bestPiece);
+    } else {
+      this.makeAIRegularMove();
+    }
+  },
+  
+  executeAITeleport() {
+    const aiPieces = this.cells
+      .map((cell, index) => ({ cell, index }))
+      .filter(({ cell }) => cell === this.aiPlayer);
+    
+    const emptySquares = this.cells
+      .map((cell, index) => ({ cell, index }))
+      .filter(({ cell }) => cell === null);
+    
+    if (aiPieces.length === 0 || emptySquares.length === 0) {
+      this.makeAIRegularMove();
+      return;
+    }
+    
+    const bestTeleport = this.findBestTeleportMove(aiPieces, emptySquares);
+    
+    if (bestTeleport) {
+      this.teleportSelection = [bestTeleport.fromIndex];
+      this.performTeleport(bestTeleport.toIndex);
+    } else {
+      this.makeAIRegularMove();
+    }
+  },
+  
+  findBestTeleportMove(pieces, emptySquares) {
+    let bestMove = null;
+    let bestScore = -Infinity;
+    
+    for (const { index: fromIndex } of pieces) {
+      for (const { index: toIndex } of emptySquares) {
+        const score = this.evaluateTeleportMove(fromIndex, toIndex);
+        if (score > bestScore) {
+          bestScore = score;
+          bestMove = { fromIndex, toIndex };
+        }
+      }
+    }
+    
+    return bestMove;
+  },
+  evaluateTeleportMove(fromIndex, toIndex) {
+    // Temporarily perform teleport
+    const originalPiece = this.cells[fromIndex];
+    this.cells[fromIndex] = null;
+    this.cells[toIndex] = originalPiece;
+    
+    const score = this.evaluatePosition(this.aiPlayer);
+    
+    // Restore original position
+    this.cells[fromIndex] = originalPiece;
+    this.cells[toIndex] = null;
+    
+    return score;
+  },
+
+  // ===== AI REGULAR MOVE =====
+  
+  makeAIRegularMove() {
+    const emptySquares = this.cells
+      .map((cell, index) => ({ cell, index }))
+      .filter(({ cell }) => cell === null);
+    
+    if (emptySquares.length === 0) return;
+    
+    let chosenIndex;
+    
+    // Check if AI can win immediately
+    const winningMove = this.findWinningMove(this.aiPlayer);
+    if (winningMove !== -1) {
+      chosenIndex = winningMove;
+    }
+    // Check if AI needs to block player from winning
+    else if (this.aiSkills.defensivePlay > 0.3) {
+      const blockingMove = this.findWinningMove('X');
+      if (blockingMove !== -1) {
+        chosenIndex = blockingMove;
+      }
+    }
+    
+    // If no immediate win/block, use strategic move
+    if (chosenIndex === undefined) {
+      chosenIndex = this.findBestStrategicMove(emptySquares);
+    }
+    
+    // Fallback to random move
+    if (chosenIndex === undefined || this.cells[chosenIndex] !== null) {
+      chosenIndex = emptySquares[Math.floor(Math.random() * emptySquares.length)].index;
+    }
+    
+    this.makeMove(chosenIndex);
+  },
+  
+  findWinningMove(player) {
+    for (let i = 0; i < this.cells.length; i++) {
+      if (this.cells[i] === null) {
+        // Temporarily place piece
+        this.cells[i] = player;
+        
+        // Check if this creates a win
+        const isWin = this.wouldCreateWin(i, player);
+        
+        // Remove temporary piece
+        this.cells[i] = null;
+        
+        if (isWin) return i;
+      }
+    }
+    return -1;
+  },
+
+  wouldCreateWin(index, player) {
+    // Check all possible winning combinations that include this index
+    let wins = this.getWinningCombinations();
+    
+    for (let combo of wins) {
+      if (combo.includes(index)) {
+        const [a, b, c] = combo;
+        if (this.cells[a] === player && this.cells[b] === player && this.cells[c] === player) {
+          return true;
+        }
+      }
+    }
+    return false;
+  },
+  
+  findBestStrategicMove(emptySquares) {
+    let bestMove = null;
+    let bestScore = -Infinity;
+    
+    for (const { index } of emptySquares) {
+      const score = this.evaluateMovePosition(index);
+      
+      // Add some randomness based on AI skill
+      const randomFactor = (1 - this.aiSkills.strategicThinking) * 0.3;
+      const adjustedScore = score + (Math.random() - 0.5) * randomFactor;
+      
+      if (adjustedScore > bestScore) {
+        bestScore = adjustedScore;
+        bestMove = index;
+      }
+    }
+    
+    return bestMove;
+  },
+  evaluateMovePosition(index) {
+    // Temporarily place AI piece
+    this.cells[index] = this.aiPlayer;
+    
+    const score = this.evaluatePosition(this.aiPlayer);
+    
+    // Remove temporary piece
+    this.cells[index] = null;
+    
+    return score;
+  },
+// ===== AI EVALUATION FUNCTIONS =====
+  
+  evaluatePosition(player) {
+    let score = 0;
+    
+    // Evaluate winning opportunities
+    score += this.countWinningOpportunities(player) * 10;
+    score -= this.countWinningOpportunities(player === 'X' ? 'O' : 'X') * 10;
+    
+    // Evaluate position control
+    score += this.evaluatePositionControl(player) * 3;
+    
+    // Evaluate piece safety
+    score += this.evaluatePieceSafety(player) * 2;
+    
+    return score;
+  },
+  
+  countWinningOpportunities(player) {
+    let opportunities = 0;
+    const wins = this.getWinningCombinations();
+    
+    for (let combo of wins) {
+      const [a, b, c] = combo;
+      const playerCount = [this.cells[a], this.cells[b], this.cells[c]]
+        .filter(cell => cell === player).length;
+      const emptyCount = [this.cells[a], this.cells[b], this.cells[c]]
+        .filter(cell => cell === null).length;
+      const opponentCount = 3 - playerCount - emptyCount;
+      
+      if (opponentCount === 0) {
+        if (playerCount === 2 && emptyCount === 1) opportunities += 3; // One move to win
+        else if (playerCount === 1 && emptyCount === 2) opportunities += 1; // Two moves to win
+      }
+    }
+    
+    return opportunities;
+  },
+  
+  evaluatePositionControl(player) {
+    let control = 0;
+    
+    // Center positions are more valuable
+    const centerPositions = this.getCenterPositions();
+    for (const pos of centerPositions) {
+      if (this.cells[pos] === player) control += 2;
+    }
+    
+    // Corner positions
+    const cornerPositions = this.getCornerPositions();
+    for (const pos of cornerPositions) {
+      if (this.cells[pos] === player) control += 1;
+    }
+    
+    return control;
+  },
+  
+  evaluatePieceSafety(player) {
+    let safety = 0;
+    
+    for (let i = 0; i < this.cells.length; i++) {
+      if (this.cells[i] === player) {
+        if (this.shieldedSquares[i]) safety += 2;
+        safety += this.calculatePieceValue(i, player);
+      }
+    }
+    
+    return safety;
+  },
+  
+  calculatePieceValue(index, player) {
+    // Calculate how valuable this piece is based on its position and threats
+    let value = 0;
+    
+    // Strategic position value
+    if (this.isStrategicPosition(index)) value += 2;
+    
+    // Part of potential winning combinations
+    value += this.countPotentialWins(index, player);
+    
+    return value;
+  },
+  
+  isStrategicPosition(index) {
+    const centerPositions = this.getCenterPositions();
+    const cornerPositions = this.getCornerPositions();
+    
+    return centerPositions.includes(index) || cornerPositions.includes(index);
+  },
+  
+  getCenterPositions() {
+    // Return center positions based on current grid size
+    const centers = [];
+    if (this.gridRows >= 4) {
+      centers.push(5, 6, 9, 10); // 4x4 centers
+    }
+    if (this.gridRows >= 5) {
+      centers.push(13, 14); // 4x5 additional centers
+    }
+    if (this.gridRows >= 6) {
+      centers.push(17, 18); // 4x6 additional centers
+    }
+    return centers.filter(pos => pos < this.cells.length);
+  },
+  
+  getCornerPositions() {
+    const corners = [0, 3]; // Top corners
+    corners.push((this.gridRows - 1) * 4, (this.gridRows - 1) * 4 + 3); // Bottom corners
+    return corners.filter(pos => pos < this.cells.length);
+  },
+  
+  countPotentialWins(index, player) {
+    let count = 0;
+    const wins = this.getWinningCombinations();
+    
+    for (let combo of wins) {
+      if (combo.includes(index)) {
+        const [a, b, c] = combo;
+        const opponentCount = [this.cells[a], this.cells[b], this.cells[c]]
+          .filter(cell => cell !== null && cell !== player).length;
+        
+        if (opponentCount === 0) count++;
+      }
+    }
+    
+    return count;
+  },
+  
+  isPiecePartOfThreat(index, player) {
+    const wins = this.getWinningCombinations();
+    
+    for (let combo of wins) {
+      if (combo.includes(index)) {
+        const [a, b, c] = combo;
+        const playerCount = [this.cells[a], this.cells[b], this.cells[c]]
+          .filter(cell => cell === player).length;
+        const emptyCount = [this.cells[a], this.cells[b], this.cells[c]]
+          .filter(cell => cell === null).length;
+        
+        if (playerCount >= 2 && emptyCount >= 1) return true;
+      }
+    }
+    
+    return false;
+  },
+  
+  canPlayerWinNextMove(player) {
+    return this.findWinningMove(player) !== -1;
+  },
+  
+  calculatePositionAdvantage(player) {
+    const playerScore = this.evaluatePosition(player);
+    const opponentScore = this.evaluatePosition(player === 'X' ? 'O' : 'X');
+    return playerScore - opponentScore;
+  },
+  
+  getWinningCombinations() {
+    // Return all possible winning combinations for current grid size
+    let wins = [];
+    
+    if (this.gridRows === 4) {
+      wins = [
+        [0, 1, 2], [1, 2, 3], [4, 5, 6], [5, 6, 7],
+        [8, 9, 10], [9, 10, 11], [12, 13, 14], [13, 14, 15],
+        [0, 4, 8], [4, 8, 12], [1, 5, 9], [5, 9, 13],
+        [2, 6, 10], [6, 10, 14], [3, 7, 11], [7, 11, 15],
+        [0, 5, 10], [1, 6, 11], [4, 9, 14], [5, 10, 15],
+        [2, 5, 8], [3, 6, 9], [6, 9, 12], [7, 10, 13],
+      ];
+    } else {
+      // Dynamic calculation for expanded grids
+      wins = [];
+      
+      // Horizontal wins
+      for (let row = 0; row < this.gridRows; row++) {
+        for (let col = 0; col <= 1; col++) {
+          const start = row * 4 + col;
+          wins.push([start, start + 1, start + 2]);
+        }
+      }
+      
+      // Vertical wins
+      for (let col = 0; col < 4; col++) {
+        for (let row = 0; row <= this.gridRows - 3; row++) {
+          const start = row * 4 + col;
+          wins.push([start, start + 4, start + 8]);
+        }
+      }
+      
+      // Diagonal wins (top-left to bottom-right)
+      for (let row = 0; row <= this.gridRows - 3; row++) {
+        for (let col = 0; col <= 1; col++) {
+          const start = row * 4 + col;
+          wins.push([start, start + 5, start + 10]);
+        }
+      }
+      
+      // Diagonal wins (top-right to bottom-left)
+      for (let row = 0; row <= this.gridRows - 3; row++) {
+        for (let col = 2; col <= 3; col++) {
+          const start = row * 4 + col;
+          wins.push([start, start + 3, start + 6]);
+        }
+      }
+    }
+    
+    return wins;
+  },
+
+  // ===== UTILITY FUNCTIONS =====
+  
+  makeRandomMove() {
+    const emptySquares = this.cells
+      .map((cell, index) => ({ cell, index }))
+      .filter(({ cell }) => cell === null);
+    
+    if (emptySquares.length > 0) {
+      const randomIndex = Math.floor(Math.random() * emptySquares.length);
+      this.makeMove(emptySquares[randomIndex].index);
+    }
+  },
       // Enhanced accessibility methods
       getCellAriaLabel(index, cell) {
         const row = Math.floor(index / 4) + 1;
@@ -2414,72 +3531,75 @@ function initializeApp() {
         });
       },
 
-      createGame() {
-        try {
-          this.isHost = true;
-          this.peer = new Peer();
+   createGame() {
+  try {
+    this.setGameMode('multiplayer');
+    this.isHost = true;
+    this.peer = new Peer();
 
-          this.peer.on("open", (id) => {
-            this.peerId = id;
-            this.toaster("Game created! Share the invite link.", "success");
-          });
+    this.peer.on("open", (id) => {
+      this.peerId = id;
+      this.toaster("Game created! Share the invite link.", "success");
+    });
 
-          this.peer.on("connection", (connection) => {
-            this.conn = connection;
-            this.setupConnection();
-            this.toaster("Player joined the game!", "success");
-            document.getElementById("multiplayer-modal").close();
-          });
+    this.peer.on("connection", (connection) => {
+      this.conn = connection;
+      this.setupConnection();
+      this.toaster("Player joined the game!", "success");
+      document.getElementById("multiplayer-modal").close();
+    });
 
-          this.peer.on("error", (err) => {
-            this.handleError("Failed to create game", err);
-          });
-        } catch (error) {
-          this.handleError("Create game", error);
-        }
-      },
+    this.peer.on("error", (err) => {
+      this.handleError("Failed to create game", err);
+    });
+  } catch (error) {
+    this.handleError("Create game", error);
+  }
+},
+
 
       getUrlParameter(name) {
         const params = new URLSearchParams(window.location.search);
         return params.get(name);
       },
 
-      connectToPeer() {
-        if (!this.peerIdToConnect.trim()) return;
+ // Update existing connectToPeer method  
+connectToPeer() {
+  if (!this.peerIdToConnect.trim()) return;
 
-        this.isHost = false;
-        this.peer = new Peer();
+  this.setGameMode('multiplayer');
+  this.isHost = false;
+  this.peer = new Peer();
 
-        const connectionTimeout = setTimeout(() => {
-          this.handleConnectionFailure(
-            "Connection timeout - removing invalid game ID from URL",
-          );
-        }, 10000);
+  const connectionTimeout = setTimeout(() => {
+    this.handleConnectionFailure(
+      "Connection timeout - removing invalid game ID from URL",
+    );
+  }, 10000);
 
-        this.peer.on("open", () => {
-          console.log("Peer opened, connecting to:", this.peerIdToConnect);
-          this.conn = this.peer.connect(this.peerIdToConnect);
+  this.peer.on("open", () => {
+    console.log("Peer opened, connecting to:", this.peerIdToConnect);
+    this.conn = this.peer.connect(this.peerIdToConnect);
 
-          this.conn.on("open", () => {
-            clearTimeout(connectionTimeout);
-            console.log("Connected to Game!");
-            this.setupConnection();
-            this.toaster("Connected to Game!", "success");
-            document.getElementById("multiplayer-modal").close();
-          });
+    this.conn.on("open", () => {
+      clearTimeout(connectionTimeout);
+      console.log("Connected to Game!");
+      this.setupConnection();
+      this.toaster("Connected to Game!", "success");
+      document.getElementById("multiplayer-modal").close();
+    });
 
-          this.conn.on("error", (err) => {
-            clearTimeout(connectionTimeout);
-            this.handleConnectionFailure("Failed to join game", err);
-          });
-        });
+    this.conn.on("error", (err) => {
+      clearTimeout(connectionTimeout);
+      this.handleConnectionFailure("Failed to join game", err);
+    });
+  });
 
-        this.peer.on("error", (err) => {
-          clearTimeout(connectionTimeout);
-          this.handleConnectionFailure("Failed to join game", err);
-        });
-      },
-
+  this.peer.on("error", (err) => {
+    clearTimeout(connectionTimeout);
+    this.handleConnectionFailure("Failed to join game", err);
+  });
+},
       copyPeerIdToClipboard() {
         const link = `${window.location.origin}${window.location.pathname}?gameId=${this.peerId}`;
 
@@ -2520,61 +3640,49 @@ function initializeApp() {
         }
       },
 
-      makeMove(index) {
-        if (
-          this.cells[index] ||
-          this.winner ||
-          this.isDraw ||
-          !this.isMyTurn
-        )
-          return;
+makeMove(index) {
+  if (!this.canMakeMove(index)) return;  // <-- CHANGE THIS LINE
 
-        this.playSound("move");
-        console.log(
-          "Making move at index:",
-          index,
-          "Current player:",
-          this.currentPlayer,
-        );
+  console.log("Making move at index:", index, "Current player:", this.currentPlayer);
 
-        this.moveHistory.push({ index, player: this.currentPlayer });
-        this.cells[index] = this.currentPlayer;
-        this.checkGameState();
+  this.moveHistory.push({ index, player: this.currentPlayer });
+  this.cells[index] = this.currentPlayer;
+  this.checkGameState();
 
-        this.focusedCellIndex = index;
+  this.focusedCellIndex = index;
 
-        if (!this.winner && !this.isDraw) {
-          this.switchTurn();
-        }
+  if (!this.winner && !this.isDraw) {
+    this.switchTurn();
+  }
 
-        this.announceGameState(`${this.getEmoji(this.currentPlayer)} placed in ${this.getCellAriaLabel(index, this.currentPlayer)}`);
+  this.announceGameState(`${this.getEmoji(this.currentPlayer)} placed in ${this.getCellAriaLabel(index, this.currentPlayer)}`);
 
-        if (this.conn) {
-          const moveData = {
-            type: "move",
-            cells: [...this.cells],
-            gridRows: this.gridRows,
-            currentPlayer: this.currentPlayer,
-            winner: this.winner,
-            isDraw: this.isDraw,
-            winningCombo: [...this.winningCombo],
-            score: { ...this.score },
-            moveHistory: [...this.moveHistory],
-            hasUsedUndo: { ...this.hasUsedUndo },
-            hasUsedRemove: { ...this.hasUsedRemove },
-            hasUsedSwap: { ...this.hasUsedSwap },
-            hasUsedExpand: { ...this.hasUsedExpand },
-            hasUsedSlide: { ...this.hasUsedSlide },
-            hasUsedShield: { ...this.hasUsedShield },
-            hasUsedTeleport: { ...this.hasUsedTeleport },
-            shieldedSquares: [...this.shieldedSquares],
-          };
-          console.log("Sending move data:", moveData);
-          this.conn.send(moveData);
-        } else {
-          console.log("No connection available to send move");
-        }
-      },
+  // Only send multiplayer data if in multiplayer mode
+  if (this.gameMode === 'multiplayer' && this.conn) {  // <-- ADD this condition check
+    const moveData = {
+      type: "move",
+      cells: [...this.cells],
+      gridRows: this.gridRows,
+      currentPlayer: this.currentPlayer,
+      winner: this.winner,
+      isDraw: this.isDraw,
+      winningCombo: [...this.winningCombo],
+      score: { ...this.score },
+      moveHistory: [...this.moveHistory],
+      hasUsedUndo: { ...this.hasUsedUndo },
+      hasUsedRemove: { ...this.hasUsedRemove },
+      hasUsedSwap: { ...this.hasUsedSwap },
+      hasUsedExpand: { ...this.hasUsedExpand },
+      hasUsedSlide: { ...this.hasUsedSlide },
+      hasUsedShield: { ...this.hasUsedShield },
+      hasUsedTeleport: { ...this.hasUsedTeleport },
+      shieldedSquares: [...this.shieldedSquares],
+    };
+    console.log("Sending move data:", moveData);
+    this.conn.send(moveData);
+  }
+},
+
 
       checkGameState() {
         let wins = [];
@@ -2717,7 +3825,7 @@ function initializeApp() {
           if (gameBoard) gameBoard.classList.remove("fade-out");
 
           this.toaster("New game started!", "info");
-          this.playSound("theme");
+       //   this.playSound("theme");
           setTimeout(() => {
             this.announceGameState(`${this.getEmoji(this.currentPlayer)} goes first!`);
           }, 500);
@@ -2741,7 +3849,7 @@ function initializeApp() {
         document.getElementById('app').style.display = 'block';
         
         this.setupKeyboardNavigation();
-        this.playSound("theme");
+      //  this.playSound("theme");
         
         try {
           const saved = localStorage.getItem("tictactoe-score");
