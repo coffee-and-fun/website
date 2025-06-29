@@ -2137,35 +2137,42 @@ createGame() {
 
               this.resetGame(false);
             },
-            cleanupCurrentMode() {
-              // MISSING: Clear any pending AI timeouts
-              if (this.aiMoveTimeout) {
-                clearTimeout(this.aiMoveTimeout);
-                this.aiMoveTimeout = null;
-              }
+          cleanupCurrentMode() {
+  // Store peerIdToConnect if we're trying to join a game
+  const preservePeerIdToConnect = this.peerIdToConnect && !this.isHost;
+  
+  // Clear any pending AI timeouts
+  if (this.aiMoveTimeout) {
+    clearTimeout(this.aiMoveTimeout);
+    this.aiMoveTimeout = null;
+  }
 
-              // Stop AI if running
-              if (this.gameMode === "ai") {
-                this.aiThinking = false;
-                this.aiPersonality = null;
-              }
+  // Stop AI if running
+  if (this.gameMode === "ai") {
+    this.aiThinking = false;
+    this.aiPersonality = null;
+  }
 
-              // Disconnect multiplayer if connected
-              if (this.gameMode === "multiplayer" && this.conn) {
-                this.conn.close();
-                this.conn = null;
-              }
+  // Disconnect multiplayer if connected
+  if (this.gameMode === "multiplayer" && this.conn) {
+    this.conn.close();
+    this.conn = null;
+  }
 
-              if (this.peer) {
-                this.peer.destroy();
-                this.peer = null;
-              }
+  if (this.peer) {
+    this.peer.destroy();
+    this.peer = null;
+  }
 
-             // this.peerId = "";
-            //  this.peerIdToConnect = "";
-              console.log("Cleaned up previous game mode:", this.gameMode);
-              this.cleanUrl();
-            },
+  // Only clear peer IDs if we're not trying to join
+  if (!preservePeerIdToConnect) {
+    this.peerId = "";
+    this.peerIdToConnect = "";
+  }
+  
+  this.cleanUrl();
+},
+
             setupOfflineMode() {
               this.isAIMode = false;
               this.toaster(
