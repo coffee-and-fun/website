@@ -1923,37 +1923,6 @@
       opacity: 100%;
     }
   }
-  .swap\! {
-    position: relative !important;
-    display: inline-grid !important;
-    cursor: pointer !important;
-    place-content: center !important;
-    vertical-align: middle !important;
-    webkit-user-select: none !important;
-    user-select: none !important;
-    input {
-      appearance: none !important;
-      border: none !important;
-    }
-    > * {
-      grid-column-start: 1 !important;
-      grid-row-start: 1 !important;
-      transition-property: transform, rotate, opacity !important;
-      transition-duration: 0.2s !important;
-      transition-timing-function: cubic-bezier(0, 0, 0.2, 1) !important;
-    }
-    .swap-on, .swap-indeterminate, input:indeterminate ~ .swap-on {
-      opacity: 0% !important;
-    }
-    input:is(:checked, :indeterminate) {
-      & ~ .swap-off {
-        opacity: 0% !important;
-      }
-    }
-    input:checked ~ .swap-on, input:indeterminate ~ .swap-indeterminate {
-      opacity: 100% !important;
-    }
-  }
   .sr-only {
     position: absolute;
     width: 1px;
@@ -3917,6 +3886,9 @@
   }
   .cursor-not-allowed {
     cursor: not-allowed;
+  }
+  .resize {
+    resize: both;
   }
   .snap-x {
     scroll-snap-type: x var(--tw-scroll-snap-strictness);
