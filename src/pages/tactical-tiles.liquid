@@ -77,7 +77,7 @@
 
     <!-- PeerJS for multiplayer -->
     <script
-      src="https://unpkg.com/peerjs@1.4.7/dist/peerjs.min.js"
+      src="https://unpkg.com/peerjs@1.5.5/dist/peerjs.min.js"
       defer
     ></script>
 
@@ -1880,35 +1880,32 @@
 
           watch: {
             currentPlayer: {
-              handler(newPlayer, oldPlayer) {
-                // Prevent infinite loops by checking if player actually changed
-                if (newPlayer === oldPlayer) return;
+    handler(newPlayer, oldPlayer) {
+      // Prevent infinite loops and duplicate calls
+      if (newPlayer === oldPlayer || this.gameOver) return;
+      
+      console.log(`Player changed from ${oldPlayer} to ${newPlayer}`);
+      
+      // Only trigger AI if it's actually AI's turn and game is active
+      if (this.gameMode === 'ai' && 
+          newPlayer === this.aiPlayer && 
+          !this.gameOver && 
+          !this.aiThinking) {
+        
+        console.log("Triggering AI move");
+        // Use nextTick to ensure all reactive updates are complete
+        this.$nextTick(() => {
+          if (this.currentPlayer === this.aiPlayer && 
+              !this.gameOver && 
+              !this.aiThinking) {
+            this.makeAIMove();
+          }
+        });
+      }
+    },
+    immediate: false,
+  },
 
-                // Add extra safety checks
-                if (
-                  this.gameMode === "ai" &&
-                  newPlayer === this.aiPlayer &&
-                  !this.gameOver &&
-                  !this.aiThinking
-                ) {
-                  console.log("AI's turn - triggering AI move");
-
-                  // Use a small delay to prevent stack overflow
-                  setTimeout(() => {
-                    if (
-                      this.currentPlayer === this.aiPlayer &&
-                      !this.gameOver &&
-                      !this.aiThinking
-                    ) {
-                      this.makeAIMove();
-                    }
-                  }, 100);
-                }
-
-                // Rest of the watcher logic...
-              },
-              immediate: false,
-            },
 
             isMyTurn(newVal) {
               if (
@@ -1929,6 +1926,98 @@
           },
 
           methods: {
+            // Complete createGame method - add this to your methods section
+
+
+
+
+createGame() {
+  console.log("Creating new multiplayer game...");
+  
+  // Clean up any existing peer connection
+  if (this.peer) {
+    try {
+      this.peer.destroy();
+    } catch (error) {
+      console.warn("Error destroying existing peer:", error);
+    }
+    this.peer = null;
+  }
+
+  // Reset connection state
+  this.isHost = true;
+  this.conn = null;
+  this.peerId = "";
+  
+  // Create new peer with enhanced configuration
+  this.peer = new Peer({
+    debug: 1, // Reduced debug level
+    config: {
+      iceServers: [
+        { urls: 'stun:stun.l.google.com:19302' },
+        { urls: 'stun:global.stun.twilio.com:3478' },
+        { urls: 'stun:stun1.l.google.com:19302' }
+      ]
+    }
+  });
+
+  // Set up peer event handlers
+  this.peer.on("open", (id) => {
+    this.peerId = id;
+    console.log("Game created with ID:", id);
+    
+    // Update URL with game ID
+    try {
+      const url = new URL(window.location);
+      url.searchParams.set('gameId', id);
+      window.history.pushState({}, document.title, url.toString());
+    } catch (error) {
+      console.warn("Failed to update URL:", error);
+    }
+    
+    this.toaster("Game created! Share the invite link below.", "success", 4000);
+  });
+
+  // FIXED: Handle incoming connections properly
+  this.peer.on("connection", (incomingConn) => {
+    console.log("Incoming connection from:", incomingConn.peer);
+  
+  incomingConn.on("open", () => {
+    this.conn = incomingConn;
+    this.setupConnection();
+    this.toaster("Player joined the game! You are X, they are O.", "success", 4000);
+    
+    const modal = document.getElementById("multiplayer-modal");
+    if (modal && modal.open) {
+      modal.close();
+    }
+  });
+  });
+
+  // Handle peer errors
+  this.peer.on("error", (err) => {
+    console.error("Peer creation error:", err);
+    this.handleConnectionFailure("Failed to create game: " + (err.message || 'Unknown error'), err);
+  });
+
+  // Handle peer disconnection
+  this.peer.on("disconnected", () => {
+    console.log("Peer disconnected from signaling server");
+    
+    if (this.peer && !this.peer.destroyed) {
+      console.log("Attempting to reconnect to signaling server...");
+      this.peer.reconnect();
+    }
+  });
+},
+
+
+
+
+
+
+
+
             isPowerUpDisabled(powerUpType) {
               // Game is over
               if (this.gameOver) return true;
@@ -2072,8 +2161,9 @@
                 this.peer = null;
               }
 
-              this.peerId = "";
-              this.peerIdToConnect = "";
+             // this.peerId = "";
+            //  this.peerIdToConnect = "";
+              console.log("Cleaned up previous game mode:", this.gameMode);
               this.cleanUrl();
             },
             setupOfflineMode() {
@@ -2196,27 +2286,63 @@
 
             // ===== AI DECISION MAKING =====
 
-            makeAIMove() {
-              if (!this.aiShouldMove || this.aiThinking) {
-                return;
-              }
+           // Fixed makeAIMove with better error handling
+makeAIMove() {
+  if (!this.aiShouldMove || this.aiThinking || this.gameOver) {
+    console.log("AI move skipped:", { 
+      aiShouldMove: this.aiShouldMove, 
+      aiThinking: this.aiThinking, 
+      gameOver: this.gameOver 
+    });
+    return;
+  }
 
-              this.aiThinking = true;
-              const delay = this.getAIThinkingDelay();
-
-              // FIXED: Store timeout for cleanup
-              this.aiMoveTimeout = setTimeout(() => {
-                try {
-                  this.makeAIRegularMove();
-                } catch (error) {
-                  console.error("AI move error:", error);
-                  this.makeRandomMove();
-                } finally {
-                  this.aiThinking = false;
-                  this.aiMoveTimeout = null;
-                }
-              }, delay);
-            },
+  console.log("AI starting move process");
+  this.aiThinking = true;
+  
+  const delay = this.getAIThinkingDelay();
+  
+  // Clear any existing timeout
+  if (this.aiMoveTimeout) {
+    clearTimeout(this.aiMoveTimeout);
+  }
+  
+  this.aiMoveTimeout = setTimeout(() => {
+    try {
+      // Double-check conditions before making move
+      if (!this.aiShouldMove || this.gameOver) {
+        console.log("AI move cancelled - game state changed");
+        return;
+      }
+      
+      // Decide whether to use power-up or make regular move
+      if (this.shouldAIUsePowerUp()) {
+        this.executeAIPowerUp();
+      } else {
+        this.makeAIRegularMove();
+      }
+      
+    } catch (error) {
+      console.error("AI move error:", error);
+      // Fallback to random move
+      try {
+        this.makeRandomMove();
+      } catch (fallbackError) {
+        console.error("AI fallback move failed:", fallbackError);
+      }
+    } finally {
+      this.aiThinking = false;
+      this.aiMoveTimeout = null;
+    }
+  }, delay);
+},
+canAIMakeMove() {
+  return this.gameMode === 'ai' && 
+         this.currentPlayer === this.aiPlayer && 
+         !this.gameOver && 
+         !this.aiThinking &&
+         this.cells.some(cell => cell === null);
+},
             getAIThinkingDelay() {
               const range =
                 this.aiDelayRanges[this.aiDifficulty] ||
@@ -3832,74 +3958,181 @@
               );
             },
 
-            setupConnection() {
-              if (!this.conn) return;
+  
+setupConnection() {
+  if (!this.conn) {
+    console.error("setupConnection called but no connection exists");
+    return;
+  }
 
-              this.conn.on("data", (data) => {
-                try {
-                  console.log("Received data:", data);
+  console.log("Setting up connection data handlers...");
 
-                  if (!data || typeof data !== "object") {
-                    throw new Error("Invalid data received");
-                  }
+  // FIXED: Only set up data handler, connection state is already handled
+  this.conn.on("data", (data) => {
+    try {
+      console.log("Received data:", data);
 
-                  // ADDED: Validate player turn to prevent race conditions
-                  if (data.type === "move") {
-                    // Check if it's actually the opponent's turn
-                    if (this.isMyTurn) {
-                      console.warn(
-                        "Received move when it's my turn - ignoring",
-                      );
-                      return;
-                    }
+      if (!data || typeof data !== "object") {
+        console.error("Invalid data received:", data);
+        return;
+      }
 
-                    // ADDED: Validate array lengths
-                    if (
-                      !Array.isArray(data.cells) ||
-                      data.cells.length !== data.gridRows * 4
-                    ) {
-                      throw new Error("Invalid cells array");
-                    }
+      // Handle different message types
+      this.handleIncomingMessage(data);
+      
+    } catch (error) {
+      console.error("Error processing received data:", error);
+      this.toaster("Error syncing with opponent", "error");
+    }
+  });
 
-                    if (
-                      typeof data.gridRows !== "number" ||
-                      data.gridRows < 4 ||
-                      data.gridRows > 6
-                    ) {
-                      throw new Error("Invalid grid rows");
-                    }
+  // FIXED: Don't re-add close/error handlers if they're already set
+  if (!this.conn._events || !this.conn._events.close) {
+    this.conn.on("close", () => {
+      console.log("Connection closed");
+      this.toaster("Opponent disconnected", "error");
+      this.conn = null;
+      this.setGameMode("offline");
+    });
+  }
 
-                    // ADDED: Validate current player
-                    const expectedPlayer =
-                      this.currentPlayer === "X" ? "O" : "X";
-                    if (data.currentPlayer !== expectedPlayer) {
-                      console.warn("Player turn mismatch - syncing");
-                    }
+  if (!this.conn._events || !this.conn._events.error) {
+    this.conn.on("error", (err) => {
+      console.error("Connection error:", err);
+      this.toaster("Connection error: " + (err.message || 'Unknown error'), "error");
+      this.conn = null;
+      this.setGameMode("offline");
+    });
+  }
+},
 
-                    this.cells = [...data.cells];
-                    this.gridRows = data.gridRows;
-                    this.currentPlayer = data.currentPlayer;
-                    // ... rest of the sync logic
-                  }
 
-                  // ADDED: Similar validation for other message types
-                  else if (data.type === "slide") {
-                    if (!this.isOpponentPowerUpValid(data)) {
-                      console.warn("Invalid slide data received");
-                      return;
-                    }
-                    // ... process slide
-                  }
-                } catch (error) {
-                  this.handleError("Processing opponent data", error);
-                  // ADDED: Request full game state sync on error
-                  if (this.conn && this.conn.open) {
-                    this.conn.send({ type: "requestSync" });
-                  }
-                }
-              });
-            },
 
+// Helper method to validate incoming game data
+isValidGameData(data) {
+  if (!data || typeof data !== 'object') return false;
+  
+  // Check required fields based on message type
+  switch (data.type) {
+    case 'move':
+      return Array.isArray(data.cells) && 
+             typeof data.currentPlayer === 'string' &&
+             data.cells.length === (data.gridRows || this.gridRows) * 4;
+    case 'reset':
+    case 'requestSync':
+      return true; // These messages don't need additional validation
+    case 'slide':
+    case 'teleport':
+    case 'swap':
+      return Array.isArray(data.cells) && data.cells.length > 0;
+    case 'shield':
+    case 'undo':
+    case 'remove':
+    case 'expand':
+      return typeof data.currentPlayer === 'string';
+    default:
+      return data.type && typeof data.type === 'string';
+  }
+},
+
+// Centralized message handler
+handleIncomingMessage(data) {
+  switch (data.type) {
+    case "move":
+      this.handleMoveData(data);
+      break;
+    case "slide":
+      this.handleSlideData(data);
+      break;
+    case "shield":
+      this.handleShieldData(data);
+      break;
+    case "teleport":
+      this.handleTeleportData(data);
+      break;
+    case "reset":
+      this.resetGame(false);
+      this.toaster("Opponent started a new game!", "info");
+      break;
+    case "undo":
+      this.handleUndoData(data);
+      break;
+    case "remove":
+      this.handleRemoveData(data);
+      break;
+    case "swap":
+      this.handleSwapData(data);
+      break;
+    case "expand":
+      this.handleExpandData(data);
+      break;
+    case "requestSync":
+      // Send current game state
+      this.sendGameSync();
+      break;
+    case "gameSync":
+      // Handle full game state sync
+      this.handleGameSync(data);
+      break;
+    case "disconnect":
+      this.toaster(`Opponent disconnected: ${data.reason || 'Unknown reason'}`, "warning");
+      this.setGameMode("offline");
+      break;
+    default:
+      console.warn("Unknown message type:", data.type);
+  }
+},
+
+// Handle full game state synchronization
+handleGameSync(data) {
+  console.log("Receiving full game sync");
+  
+  try {
+    // Update all game state from sync data
+    this.cells = [...data.cells];
+    this.gridRows = data.gridRows || 4;
+    this.currentPlayer = data.currentPlayer;
+    this.winner = data.winner;
+    this.isDraw = data.isDraw;
+    this.winningCombo = [...(data.winningCombo || [])];
+    this.score = { ...data.score };
+    this.moveHistory = [...(data.moveHistory || [])];
+    
+    // Update all power-up states
+    this.hasUsedUndo = { ...data.hasUsedUndo };
+    this.hasUsedRemove = { ...data.hasUsedRemove };
+    this.hasUsedSwap = { ...data.hasUsedSwap };
+    this.hasUsedExpand = { ...data.hasUsedExpand };
+    this.hasUsedSlide = { ...data.hasUsedSlide };
+    this.hasUsedShield = { ...data.hasUsedShield };
+    this.hasUsedTeleport = { ...data.hasUsedTeleport };
+    this.shieldedSquares = [...data.shieldedSquares];
+    
+    // Ensure arrays are properly sized
+    const expectedSize = this.gridRows * 4;
+    if (this.cells.length !== expectedSize) {
+      console.warn("Resizing cells array to match grid");
+      this.cells = this.cells.slice(0, expectedSize);
+      while (this.cells.length < expectedSize) {
+        this.cells.push(null);
+      }
+    }
+    
+    if (this.shieldedSquares.length !== expectedSize) {
+      console.warn("Resizing shielded squares array to match grid");
+      this.shieldedSquares = this.shieldedSquares.slice(0, expectedSize);
+      while (this.shieldedSquares.length < expectedSize) {
+        this.shieldedSquares.push(false);
+      }
+    }
+    
+    this.toaster("Game synchronized with opponent", "info");
+    
+  } catch (error) {
+    console.error("Error handling game sync:", error);
+    this.toaster("Failed to sync game state", "error");
+  }
+},
             // ADDED: Helper method to validate opponent power-up data
             isOpponentPowerUpValid(data) {
               // Basic validation for power-up messages
@@ -3912,80 +4145,443 @@
               return true;
             },
 
-            createGame() {
-              try {
-                this.setGameMode("multiplayer");
-                this.isHost = true;
-                this.peer = new Peer();
+sendGameSync() {
+  if (!this.conn || !this.conn.open) return;
+  
+  this.conn.send({
+    type: "gameSync",
+    cells: [...this.cells],
+    gridRows: this.gridRows,
+    currentPlayer: this.currentPlayer,
+    winner: this.winner,
+    isDraw: this.isDraw,
+    winningCombo: [...this.winningCombo],
+    score: { ...this.score },
+    moveHistory: [...this.moveHistory],
+    hasUsedUndo: { ...this.hasUsedUndo },
+    hasUsedRemove: { ...this.hasUsedRemove },
+    hasUsedSwap: { ...this.hasUsedSwap },
+    hasUsedExpand: { ...this.hasUsedExpand },
+    hasUsedSlide: { ...this.hasUsedSlide },
+    hasUsedShield: { ...this.hasUsedShield },
+    hasUsedTeleport: { ...this.hasUsedTeleport },
+    shieldedSquares: [...this.shieldedSquares],
+  });
+},
 
-                this.peer.on("open", (id) => {
-                  this.peerId = id;
-                  this.toaster(
-                    "Game created! Share the invite link.",
-                    "success",
-                  );
-                });
+handleExpandData(data) {
+  this.isExpanding = true;
+  this.cells = [...data.cells];
+  this.gridRows = data.gridRows;
+  this.currentPlayer = data.currentPlayer;
+  this.hasUsedExpand = { ...data.hasUsedExpand };
+  this.squareEffects = Array(this.gridRows * 4).fill(false);
+  this.shieldedSquares = [...(data.shieldedSquares || Array(this.gridRows * 4).fill(false))];
 
-                this.peer.on("connection", (connection) => {
-                  this.conn = connection;
-                  this.setupConnection();
-                  this.toaster("Player joined the game!", "success");
-                  document.getElementById("multiplayer-modal").close();
-                });
+  setTimeout(() => {
+    this.isExpanding = false;
+  }, 800);
 
-                this.peer.on("error", (err) => {
-                  this.handleError("Failed to create game", err);
-                });
-              } catch (error) {
-                this.handleError("Create game", error);
-              }
-            },
+  this.toaster(`Opponent added row ${this.gridRows}! Now 4×${this.gridRows}`, "warning");
+},
 
+
+// Helper methods to handle different data types
+handleMoveData(data) {
+  // Validate move data
+  if (this.isMyTurn) {
+    console.warn("Received move when it's my turn - ignoring");
+    return;
+  }
+  
+  if (!Array.isArray(data.cells) || data.cells.length !== (data.gridRows || this.gridRows) * 4) {
+    console.error("Invalid cells array in move data");
+    return;
+  }
+
+  // Apply the move
+  this.cells = [...data.cells];
+  this.gridRows = data.gridRows || this.gridRows;
+  this.currentPlayer = data.currentPlayer;
+  this.winner = data.winner;
+  this.isDraw = data.isDraw;
+  this.winningCombo = [...(data.winningCombo || [])];
+  this.score = { ...data.score };
+  this.moveHistory = [...(data.moveHistory || [])];
+  
+  // Update power-up states
+  this.hasUsedUndo = { ...data.hasUsedUndo };
+  this.hasUsedRemove = { ...data.hasUsedRemove };
+  this.hasUsedSwap = { ...(data.hasUsedSwap || { X: false, O: false }) };
+  this.hasUsedExpand = { ...(data.hasUsedExpand || { X: false, O: false }) };
+  this.hasUsedSlide = { ...(data.hasUsedSlide || { X: false, O: false }) };
+  this.hasUsedShield = { ...(data.hasUsedShield || { X: false, O: false }) };
+  this.hasUsedTeleport = { ...(data.hasUsedTeleport || { X: false, O: false }) };
+  this.shieldedSquares = [...(data.shieldedSquares || Array(24).fill(false))];
+
+  // Visual feedback
+  if (this.moveHistory.length > 0) {
+    const lastMove = this.moveHistory[this.moveHistory.length - 1];
+    this.flashSquare(lastMove.index);
+  }
+  
+  this.toaster("Opponent moved!", "info", 1500);
+},
+
+handleSlideData(data) {
+  this.cells = [...data.cells];
+  this.currentPlayer = data.currentPlayer;
+  this.hasUsedSlide = { ...data.hasUsedSlide };
+  this.shieldedSquares = [...(data.shieldedSquares || Array(24).fill(false))];
+  this.winner = data.winner;
+  this.isDraw = data.isDraw;
+  this.winningCombo = [...(data.winningCombo || [])];
+  this.toaster("Opponent used slide!", "info");
+},
+
+handleShieldData(data) {
+  this.currentPlayer = data.currentPlayer;
+  this.hasUsedShield = { ...data.hasUsedShield };
+  this.shieldedSquares = [...data.shieldedSquares];
+  this.toaster("Opponent used shield!", "success");
+},
+
+handleTeleportData(data) {
+  this.cells = [...data.cells];
+  this.currentPlayer = data.currentPlayer;
+  this.hasUsedTeleport = { ...data.hasUsedTeleport };
+  this.shieldedSquares = [...data.shieldedSquares];
+  this.winner = data.winner;
+  this.isDraw = data.isDraw;
+  this.winningCombo = [...(data.winningCombo || [])];
+  this.toaster("Opponent used teleport!", "warning");
+},
+
+handleUndoData(data) {
+  this.cells = [...data.cells];
+  this.currentPlayer = data.currentPlayer;
+  this.winner = data.winner;
+  this.isDraw = data.isDraw;
+  this.winningCombo = [...(data.winningCombo || [])];
+  this.moveHistory = [...(data.moveHistory || [])];
+  this.hasUsedUndo = { ...data.hasUsedUndo };
+  this.toaster("Opponent used undo!", "warning");
+},
+
+handleRemoveData(data) {
+  this.cells = [...data.cells];
+  this.currentPlayer = data.currentPlayer;
+  this.hasUsedRemove = { ...data.hasUsedRemove };
+  this.shieldedSquares = [...(data.shieldedSquares || Array(24).fill(false))];
+  this.toaster("Opponent removed a piece!", "warning");
+},
+
+handleSwapData(data) {
+  this.cells = [...data.cells];
+  this.currentPlayer = data.currentPlayer;
+  this.hasUsedSwap = { ...data.hasUsedSwap };
+  this.shieldedSquares = [...(data.shieldedSquares || Array(24).fill(false))];
+  this.winner = data.winner;
+  this.isDraw = data.isDraw;
+  this.winningCombo = [...(data.winningCombo || [])];
+  this.toaster("Opponent used swap!", "info");
+},
+
+// Replace your setupConnection method with this simpler version:
+
+setupConnection() {
+  if (!this.conn) {
+    console.error("setupConnection called but no connection exists");
+    return;
+  }
+
+  console.log("Setting up connection handlers...");
+
+  // Don't try to remove existing listeners - just add new ones
+  // PeerJS 1.5.5 handles this internally
+
+  this.conn.on("data", (data) => {
+    try {
+      console.log("Received data:", data);
+
+      if (!data || typeof data !== "object") {
+        console.error("Invalid data received:", data);
+        return;
+      }
+
+      // Handle different message types
+      switch (data.type) {
+        case "move":
+          // Validate move data
+          if (this.isMyTurn) {
+            console.warn("Received move when it's my turn - ignoring");
+            return;
+          }
+          
+          if (!Array.isArray(data.cells) || data.cells.length !== (data.gridRows || this.gridRows) * 4) {
+            console.error("Invalid cells array in move data");
+            return;
+          }
+
+          // Apply the move
+          this.cells = [...data.cells];
+          this.gridRows = data.gridRows || this.gridRows;
+          this.currentPlayer = data.currentPlayer;
+          this.winner = data.winner;
+          this.isDraw = data.isDraw;
+          this.winningCombo = [...(data.winningCombo || [])];
+          this.score = { ...data.score };
+          this.moveHistory = [...(data.moveHistory || [])];
+          
+          // Update power-up states
+          this.hasUsedUndo = { ...data.hasUsedUndo };
+          this.hasUsedRemove = { ...data.hasUsedRemove };
+          this.hasUsedSwap = { ...(data.hasUsedSwap || { X: false, O: false }) };
+          this.hasUsedExpand = { ...(data.hasUsedExpand || { X: false, O: false }) };
+          this.hasUsedSlide = { ...(data.hasUsedSlide || { X: false, O: false }) };
+          this.hasUsedShield = { ...(data.hasUsedShield || { X: false, O: false }) };
+          this.hasUsedTeleport = { ...(data.hasUsedTeleport || { X: false, O: false }) };
+          this.shieldedSquares = [...(data.shieldedSquares || Array(24).fill(false))];
+
+          // Visual feedback
+          if (this.moveHistory.length > 0) {
+            const lastMove = this.moveHistory[this.moveHistory.length - 1];
+            this.flashSquare(lastMove.index);
+          }
+          
+          this.toaster("Opponent moved!", "info", 1500);
+          break;
+
+        case "slide":
+          this.cells = [...data.cells];
+          this.currentPlayer = data.currentPlayer;
+          this.hasUsedSlide = { ...data.hasUsedSlide };
+          this.shieldedSquares = [...(data.shieldedSquares || Array(24).fill(false))];
+          this.winner = data.winner;
+          this.isDraw = data.isDraw;
+          this.winningCombo = [...(data.winningCombo || [])];
+          this.toaster("Opponent used slide!", "info");
+          break;
+
+        case "shield":
+          this.currentPlayer = data.currentPlayer;
+          this.hasUsedShield = { ...data.hasUsedShield };
+          this.shieldedSquares = [...data.shieldedSquares];
+          this.toaster("Opponent used shield!", "success");
+          break;
+
+        case "teleport":
+          this.cells = [...data.cells];
+          this.currentPlayer = data.currentPlayer;
+          this.hasUsedTeleport = { ...data.hasUsedTeleport };
+          this.shieldedSquares = [...data.shieldedSquares];
+          this.winner = data.winner;
+          this.isDraw = data.isDraw;
+          this.winningCombo = [...(data.winningCombo || [])];
+          this.toaster("Opponent used teleport!", "warning");
+          break;
+
+        case "reset":
+          this.resetGame(false);
+          this.toaster("Opponent started a new game!", "info");
+          break;
+
+        case "undo":
+          this.cells = [...data.cells];
+          this.currentPlayer = data.currentPlayer;
+          this.winner = data.winner;
+          this.isDraw = data.isDraw;
+          this.winningCombo = [...(data.winningCombo || [])];
+          this.moveHistory = [...(data.moveHistory || [])];
+          this.hasUsedUndo = { ...data.hasUsedUndo };
+          this.toaster("Opponent used undo!", "warning");
+          break;
+
+        case "remove":
+          this.cells = [...data.cells];
+          this.currentPlayer = data.currentPlayer;
+          this.hasUsedRemove = { ...data.hasUsedRemove };
+          this.shieldedSquares = [...(data.shieldedSquares || Array(24).fill(false))];
+          this.toaster("Opponent removed a piece!", "warning");
+          break;
+
+        case "swap":
+          this.cells = [...data.cells];
+          this.currentPlayer = data.currentPlayer;
+          this.hasUsedSwap = { ...data.hasUsedSwap };
+          this.shieldedSquares = [...(data.shieldedSquares || Array(24).fill(false))];
+          this.winner = data.winner;
+          this.isDraw = data.isDraw;
+          this.winningCombo = [...(data.winningCombo || [])];
+          this.toaster("Opponent used swap!", "info");
+          break;
+
+        case "expand":
+          this.isExpanding = true;
+          this.cells = [...data.cells];
+          this.gridRows = data.gridRows;
+          this.currentPlayer = data.currentPlayer;
+          this.hasUsedExpand = { ...data.hasUsedExpand };
+          this.squareEffects = Array(this.gridRows * 4).fill(false);
+          this.shieldedSquares = [...(data.shieldedSquares || Array(this.gridRows * 4).fill(false))];
+
+          setTimeout(() => {
+            this.isExpanding = false;
+          }, 800);
+
+          this.toaster(`Opponent added row ${this.gridRows}! Now 4×${this.gridRows}`, "warning");
+          break;
+
+        default:
+          console.warn("Unknown message type:", data.type);
+      }
+      
+    } catch (error) {
+      console.error("Error processing received data:", error);
+      this.toaster("Error syncing with opponent", "error");
+    }
+  });
+
+  this.conn.on("close", () => {
+    console.log("Connection closed");
+    this.toaster("Player disconnected", "error");
+    this.conn = null;
+    this.setGameMode("offline");
+  });
+
+  this.conn.on("error", (err) => {
+    console.error("Connection error:", err);
+    this.toaster(`Connection error: ${err.message || 'Unknown error'}`, "error");
+    this.conn = null;
+    
+    if (this.peer) {
+      this.peer.destroy();
+      this.peer = null;
+    }
+  });
+},
             getUrlParameter(name) {
               const params = new URLSearchParams(window.location.search);
               return params.get(name);
             },
 
-            // Update existing connectToPeer method
-            connectToPeer() {
-              if (!this.peerIdToConnect.trim()) return;
+       
 
-              this.setGameMode("multiplayer");
-              this.isHost = false;
-              this.peer = new Peer();
 
-              const connectionTimeout = setTimeout(() => {
-                this.handleConnectionFailure(
-                  "Connection timeout - removing invalid game ID from URL",
-                );
-              }, 10000);
 
-              this.peer.on("open", () => {
-                console.log(
-                  "Peer opened, connecting to:",
-                  this.peerIdToConnect,
-                );
-                this.conn = this.peer.connect(this.peerIdToConnect);
 
-                this.conn.on("open", () => {
-                  clearTimeout(connectionTimeout);
-                  console.log("Connected to Game!");
-                  this.setupConnection();
-                  this.toaster("Connected to Game!", "success");
-                  document.getElementById("multiplayer-modal").close();
-                });
+// FIXED: Enhanced connectToPeer method with better timing and error handling
+connectToPeer() {
+  if (!this.peerIdToConnect.trim()) {
+    this.toaster("Please enter a game ID", "error");
+    return;
+  }
 
-                this.conn.on("error", (err) => {
-                  clearTimeout(connectionTimeout);
-                  this.handleConnectionFailure("Failed to join game", err);
-                });
-              });
+  console.log("Attempting to connect to:", this.peerIdToConnect);
+  
+  this.setGameMode('multiplayer');
+  this.isHost = false;
+  
+  // Clean up existing peer
+  if (this.peer) {
+    try {
+      this.peer.destroy();
+    } catch (error) {
+      console.warn("Error destroying existing peer:", error);
+    }
+    this.peer = null;
+  }
 
-              this.peer.on("error", (err) => {
-                clearTimeout(connectionTimeout);
-                this.handleConnectionFailure("Failed to join game", err);
-              });
-            },
+  // Create new peer for connecting
+  this.peer = new Peer();
+
+  // Set connection timeout
+  const connectionTimeout = setTimeout(() => {
+    console.log("Connection timeout");
+    this.handleConnectionFailure("Connection timeout - unable to connect to game");
+  }, 30000);
+
+  this.peer.on("open", (myId) => {
+    console.log("My peer ID:", myId);
+          console.log("Attempting to connect to peer:", this.peerIdToConnect);
+    // FIXED: Wait a bit for peer to be fully ready, then connect
+    setTimeout(() => {
+      console.log("Attempting to connect to peer:", this.peerIdToConnect);
+      
+      this.conn = this.peer.connect(this.peerIdToConnect);
+
+      if (!this.conn) {
+        console.error("Failed to create connection object");
+        clearTimeout(connectionTimeout);
+        this.handleConnectionFailure("Failed to create connection");
+        return;
+      }
+
+      // FIXED: Set up connection handlers immediately after creating connection
+      this.conn.on("open", () => {
+        clearTimeout(connectionTimeout);
+        console.log("Connection established successfully!");
+        
+        // Set up data handlers
+        this.setupConnection();
+        
+        this.toaster("Connected to game! You are O, host is X.", "success");
+        
+        // Close modal
+        const modal = document.getElementById("multiplayer-modal");
+        if (modal && modal.open) {
+          modal.close();
+        }
+      });
+
+      this.conn.on("error", (err) => {
+        clearTimeout(connectionTimeout);
+        console.error("Connection error:", err);
+        this.handleConnectionFailure("Failed to connect: " + (err.message || 'Unknown error'));
+      });
+
+      this.conn.on("close", () => {
+        console.log("Connection closed");
+        this.toaster("Connection closed by host", "warning");
+        this.setGameMode("offline");
+      });
+
+      // Additional timeout for connection establishment
+      setTimeout(() => {
+        if (!this.conn || !this.conn.open) {
+          clearTimeout(connectionTimeout);
+          this.handleConnectionFailure("Connection failed to establish - game may not exist");
+        }
+      }, 20000);
+      
+    }, 2000); // Increased wait time for peer stability
+  });
+
+  this.peer.on("error", (err) => {
+    clearTimeout(connectionTimeout);
+    console.error("Peer error:", err);
+    
+    let errorMessage = "Connection failed";
+    
+    if (err.type === 'peer-unavailable') {
+      errorMessage = "Game not found - please check the game ID";
+    } else if (err.type === 'network') {
+      errorMessage = "Network error - check your internet connection";
+    } else if (err.type === 'disconnected') {
+      errorMessage = "Disconnected from signaling server";
+    } else {
+      errorMessage = "Failed to connect: " + (err.message || 'Unknown error');
+    }
+    
+    this.handleConnectionFailure(errorMessage);
+  });
+},
+
+
+
+
+
+
             copyPeerIdToClipboard() {
               const link = `${window.location.origin}${window.location.pathname}?gameId=${this.peerId}`;
 
@@ -4283,6 +4879,7 @@
               }
 
               const gameId = this.getUrlParameter("gameId");
+              console.log("Game ID from URL:", gameId);
               if (gameId) {
                 this.peerIdToConnect = gameId;
                 this.toaster("Connecting to game...", "info", 3000);
