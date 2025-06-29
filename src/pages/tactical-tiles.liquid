@@ -2022,13 +2022,20 @@ createGame() {
               // Game is over
               if (this.gameOver) return true;
 
-              // In AI mode, only human player can use power-ups
-              if (this.gameMode === "ai" && this.currentPlayer !== "X")
-                return true;
 
-              // In multiplayer mode, check if it's player's turn
-              if (this.gameMode === "multiplayer" && !this.isMyTurn)
-                return true;
+
+      
+
+
+                  // NEW: Only allow power-ups during opponent's turn
+  if (this.gameMode === "multiplayer" && this.isMyTurn) {
+    return true; // Disable power-ups during your own turn
+  }
+  
+  // For AI mode, only allow during AI's turn
+  if (this.gameMode === "ai" && this.currentPlayer === "X") {
+    return true; // Disable during human player's turn
+  }
 
               // Check specific power-up conditions
               switch (powerUpType) {
