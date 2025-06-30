@@ -2406,6 +2406,14 @@
       cursor: not-allowed;
     }
   }
+  .btn-active {
+    --btn-bg: var(--btn-color, var(--color-base-200));
+    @supports (color: color-mix(in lab, red, red)) {
+      --btn-bg: color-mix(in oklab, var(--btn-color, var(--color-base-200)), #000 7%);
+    }
+    --btn-shadow: 0 0 0 0 oklch(0% 0 0/0), 0 0 0 0 oklch(0% 0 0/0);
+    isolation: isolate;
+  }
   .isolate {
     isolation: isolate;
   }
@@ -3765,6 +3773,9 @@
   .h-96 {
     height: calc(var(--spacing) * 96);
   }
+  .h-auto {
+    height: auto;
+  }
   .h-full {
     height: 100%;
   }
@@ -4604,6 +4615,9 @@
   }
   .text-info {
     color: var(--color-info);
+  }
+  .text-neutral {
+    color: var(--color-neutral);
   }
   .text-neutral-content {
     color: var(--color-neutral-content);
