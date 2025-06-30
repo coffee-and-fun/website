@@ -813,17 +813,19 @@
           ⭐ Power Ups
         </h2>
         <p class="text-base text-neutral mb-4">
-   You get three power-ups per game, so use them wisely.
+          You get three power-ups per game, so use them wisely.
+        </p>
+
         <hr class="my-4 border-t-2 border-primary" />
         <div class="grid grid-cols-4 gap-4 mb-6">
           <!-- Undo Power-up -->
           <div class="tooltip" data-tip="Undo Last Move">
             <button
-        @click="usePowerUp('undo')"
-      class="btn btn-soft btn-secondary btn-soft btn-circle btn-soft btn-lg"
-      aria-label="Undo Last Move"
-      :class="{ 'btn-soft btn-disabled opacity-50': isPowerUpDisabled('undo') }"
-      :disabled="isPowerUpDisabled('undo')"
+              @click="usePowerUp('undo')"
+              class="btn btn-soft btn-secondary btn-soft btn-circle btn-soft btn-lg"
+              aria-label="Undo Last Move"
+              :class="{ 'btn-soft btn-disabled opacity-50': isPowerUpDisabled('undo') }"
+              :disabled="isPowerUpDisabled('undo')"
             >
               <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -839,30 +841,34 @@
           </div>
 
           <div class="tooltip" data-tip="Switch Theme">
-  <button
-    @click="usePowerUp('themeSwitch')"
-      aria-label="Switch Theme"
-      class="btn btn-soft btn-primary btn-circle btn-lg"
-      :class="{ 'btn-disabled opacity-50': isPowerUpDisabled('themeSwitch') }"
-      :disabled="isPowerUpDisabled('themeSwitch')"
-  >
-
-<svg    xmlns="http://www.w3.org/2000/svg"
-      viewBox="0 -960 960 960"
-      class="size-[1.2em]"
-      fill="currentColor"><path d="M396-396q-32-32-58.5-67T289-537q-5 14-6.5 28.5T281-480q0 83 58 141t141 58q14 0 28.5-2t28.5-6q-39-22-74-48.5T396-396Zm57-56q51 51 114 87.5T702-308q-40 51-98 79.5T481-200q-117 0-198.5-81.5T201-480q0-65 28.5-123t79.5-98q20 72 56.5 135T453-452Zm290 72q-20-5-39.5-11T665-405q8-18 11.5-36.5T680-480q0-83-58.5-141.5T480-680q-20 0-38.5 3.5T405-665q-8-19-13.5-38T381-742q24-9 49-13.5t51-4.5q117 0 198.5 81.5T761-480q0 26-4.5 51T743-380ZM440-840v-120h80v120h-80Zm0 840v-120h80V0h-80Zm323-706-57-57 85-84 57 56-85 85ZM169-113l-57-56 85-85 57 57-85 84Zm671-327v-80h120v80H840ZM0-440v-80h120v80H0Zm791 328-85-85 57-57 84 85-56 57ZM197-706l-84-85 56-57 85 85-57 57Zm199 310Z"/></svg>
-  
-  </button>
-</div>
+            <button
+              @click="usePowerUp('themeSwitch')"
+              aria-label="Switch Theme"
+              class="btn btn-soft btn-primary btn-circle btn-lg"
+              :class="{ 'btn-disabled opacity-50': isPowerUpDisabled('themeSwitch') }"
+              :disabled="isPowerUpDisabled('themeSwitch')"
+            >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 -960 960 960"
+                class="size-[1.2em]"
+                fill="currentColor"
+              >
+                <path
+                  d="M396-396q-32-32-58.5-67T289-537q-5 14-6.5 28.5T281-480q0 83 58 141t141 58q14 0 28.5-2t28.5-6q-39-22-74-48.5T396-396Zm57-56q51 51 114 87.5T702-308q-40 51-98 79.5T481-200q-117 0-198.5-81.5T201-480q0-65 28.5-123t79.5-98q20 72 56.5 135T453-452Zm290 72q-20-5-39.5-11T665-405q8-18 11.5-36.5T680-480q0-83-58.5-141.5T480-680q-20 0-38.5 3.5T405-665q-8-19-13.5-38T381-742q24-9 49-13.5t51-4.5q117 0 198.5 81.5T761-480q0 26-4.5 51T743-380ZM440-840v-120h80v120h-80Zm0 840v-120h80V0h-80Zm323-706-57-57 85-84 57 56-85 85ZM169-113l-57-56 85-85 57 57-85 84Zm671-327v-80h120v80H840ZM0-440v-80h120v80H0Zm791 328-85-85 57-57 84 85-56 57ZM197-706l-84-85 56-57 85 85-57 57Zm199 310Z"
+                />
+              </svg>
+            </button>
+          </div>
 
           <div class="tooltip" data-tip="Swap Two Pieces">
             <!-- Swap Power-up -->
             <button
-         @click="usePowerUp('swap')"
-      aria-label="Swap Two Pieces"
-      class="btn btn-soft btn-info btn-circle btn-lg"
-      :class="{ 'btn-soft btn-disabled opacity-50': isPowerUpDisabled('swap') }"
-      :disabled="isPowerUpDisabled('swap')"
+              @click="usePowerUp('swap')"
+              aria-label="Swap Two Pieces"
+              class="btn btn-soft btn-info btn-circle btn-lg"
+              :class="{ 'btn-soft btn-disabled opacity-50': isPowerUpDisabled('swap') }"
+              :disabled="isPowerUpDisabled('swap')"
             >
               <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -880,11 +886,11 @@
           <div class="tooltip" data-tip="Remove a Piece">
             <!-- Remove Power-up -->
             <button
-            @click="usePowerUp('remove')"
-      aria-label="Remove a Piece"
-      class="btn btn-soft btn-neutral btn-soft btn-circle btn-soft btn-lg"
-      :class="{ 'btn-soft btn-disabled opacity-50': isPowerUpDisabled('remove') }"
-      :disabled="isPowerUpDisabled('remove')"
+              @click="usePowerUp('remove')"
+              aria-label="Remove a Piece"
+              class="btn btn-soft btn-neutral btn-soft btn-circle btn-soft btn-lg"
+              :class="{ 'btn-soft btn-disabled opacity-50': isPowerUpDisabled('remove') }"
+              :disabled="isPowerUpDisabled('remove')"
             >
               <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -902,11 +908,11 @@
           <div class="tooltip" data-tip="Add a New Row">
             <!-- Expand Grid Power-up -->
             <button
-           @click="usePowerUp('expand')"
-      aria-label="Add a new Row"
-      class="btn btn-soft btn-warning btn-soft btn-circle btn-soft btn-lg"
-      :class="{ 'btn-soft btn-disabled opacity-50': isPowerUpDisabled('expand') }"
-      :disabled="isPowerUpDisabled('expand')"
+              @click="usePowerUp('expand')"
+              aria-label="Add a new Row"
+              class="btn btn-soft btn-warning btn-soft btn-circle btn-soft btn-lg"
+              :class="{ 'btn-soft btn-disabled opacity-50': isPowerUpDisabled('expand') }"
+              :disabled="isPowerUpDisabled('expand')"
             >
               <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -924,11 +930,11 @@
           <div class="tooltip" data-tip="Slide a Piece">
             <!-- Slide Power-up -->
             <button
-            @click="usePowerUp('slide')"
-      aria-label="Slide a Piece"
-      class="btn btn-soft btn-accent btn-soft btn-circle btn-soft btn-lg"
-      :class="{ 'btn-soft btn-disabled opacity-50': isPowerUpDisabled('slide') }"
-      :disabled="isPowerUpDisabled('slide')"
+              @click="usePowerUp('slide')"
+              aria-label="Slide a Piece"
+              class="btn btn-soft btn-accent btn-soft btn-circle btn-soft btn-lg"
+              :class="{ 'btn-soft btn-disabled opacity-50': isPowerUpDisabled('slide') }"
+              :disabled="isPowerUpDisabled('slide')"
             >
               <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -946,10 +952,10 @@
           <div class="tooltip" data-tip="Shield a Piece">
             <button
               @click="usePowerUp('shield')"
-      aria-label="Shield a Piece"
-      class="btn btn-soft btn-success btn-soft btn-circle btn-soft btn-lg"
-      :class="{ 'btn-soft btn-disabled opacity-50': isPowerUpDisabled('shield') }"
-      :disabled="isPowerUpDisabled('shield')"
+              aria-label="Shield a Piece"
+              class="btn btn-soft btn-success btn-soft btn-circle btn-soft btn-lg"
+              :class="{ 'btn-soft btn-disabled opacity-50': isPowerUpDisabled('shield') }"
+              :disabled="isPowerUpDisabled('shield')"
             >
               <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -966,11 +972,11 @@
 
           <div class="tooltip" data-tip="Teleport a Piece">
             <button
-             @click="usePowerUp('teleport')"
-      aria-label="Teleport a Piece"
-      class="btn btn-soft btn-error btn-soft btn-circle btn-soft btn-lg"
-      :class="{ 'btn-soft btn-disabled opacity-50': isPowerUpDisabled('teleport') }"
-      :disabled="isPowerUpDisabled('teleport')"
+              @click="usePowerUp('teleport')"
+              aria-label="Teleport a Piece"
+              class="btn btn-soft btn-error btn-soft btn-circle btn-soft btn-lg"
+              :class="{ 'btn-soft btn-disabled opacity-50': isPowerUpDisabled('teleport') }"
+              :disabled="isPowerUpDisabled('teleport')"
             >
               <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -986,21 +992,20 @@
           </div>
         </div>
 
-
         <!-- Theme Switch Modal -->
-<dialog id="theme-switch-modal" class="modal">
-  <div class="modal-box">
-    <h3 class="font-bold text-lg mb-4">🎨 Switch Theme</h3>
-    <p class="text-sm text-base-content/70 mb-4">
-      Choose a new theme for the game:
-    </p>
+        <dialog id="theme-switch-modal" class="modal">
+          <div class="modal-box">
+            <h3 class="font-bold text-lg mb-4">🎨 Switch Theme</h3>
+            <p class="text-sm text-base-content/70 mb-4">
+              Choose a new theme for the game:
+            </p>
 
-    <div class="grid grid-cols-2 gap-4 mb-4">
-      <button
-        v-for="(theme, index) in emojiThemes"
-        :key="index"
-        @click="switchToTheme(index)"
-        :class="[
+            <div class="grid grid-cols-2 gap-4 mb-4">
+              <button
+                v-for="(theme, index) in emojiThemes"
+                :key="index"
+                @click="switchToTheme(index)"
+                :class="[
           'btn btn-outline p-4 h-auto flex-col gap-2',
           {
             'btn-active': index === themeIndex,
@@ -1008,42 +1013,45 @@
 
           }
         ]"
-   :disabled="usedRandomPowerUps[currentPlayer].includes('themeSwitch') && index !== themeIndex"
+                :disabled="usedRandomPowerUps[currentPlayer].includes('themeSwitch') && index !== themeIndex"
+              >
+                <div class="text-2xl">{{ theme.X }} vs {{ theme.O }}</div>
+                <div class="text-sm font-semibold">
+                  {% raw %}{{ getThemeName(index) }} {% endraw %}
+                </div>
+              </button>
+            </div>
 
-      >
-        <div class="text-2xl">{{ theme.X }} vs {{ theme.O }}</div>
-          <div class="text-sm font-semibold"> {% raw %}{{ getThemeName(index) }} {% endraw %}</div>
-      </button>
-    </div>
+            <div
+              class="alert alert-info mt-3"
+              v-if="!usedRandomPowerUps[currentPlayer].includes('themeSwitch')"
+            >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                class="stroke-current shrink-0 h-5 w-5"
+                fill="none"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
+                />
+              </svg>
+              <span class="text-sm">You can switch themes once per game!</span>
+            </div>
 
-   <div class="alert alert-info mt-3" v-if="!usedRandomPowerUps[currentPlayer].includes('themeSwitch')">
-
-      <svg
-        xmlns="http://www.w3.org/2000/svg"
-        class="stroke-current shrink-0 h-5 w-5"
-        fill="none"
-        viewBox="0 0 24 24"
-      >
-        <path
-          stroke-linecap="round"
-          stroke-linejoin="round"
-          stroke-width="2"
-          d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
-        />
-      </svg>
-      <span class="text-sm">You can switch themes once per game!</span>
-    </div>
-
-    <div class="modal-action">
-      <form method="dialog">
-        <button class="btn" aria-label="Close Modal">Cancel</button>
-      </form>
-    </div>
-  </div>
-  <form method="dialog" class="modal-backdrop">
-    <button aria-label="Close Modal">close</button>
-  </form>
-</dialog>
+            <div class="modal-action">
+              <form method="dialog">
+                <button class="btn" aria-label="Close Modal">Cancel</button>
+              </form>
+            </div>
+          </div>
+          <form method="dialog" class="modal-backdrop">
+            <button aria-label="Close Modal">close</button>
+          </form>
+        </dialog>
 
         <!-- All the modals would continue here exactly as in your original code... -->
         <!-- For brevity, I'm including just the structure. You'd add all your existing modals here -->
@@ -1800,7 +1808,7 @@
               aiPlayer: "O",
               aiThinking: false,
               aiPersonality: null,
-aiMoveTimeout:null,
+              aiMoveTimeout: null,
               // AI skill parameters (randomized each game)
               aiSkills: {
                 strategicThinking: 0.5,
@@ -1841,9 +1849,8 @@ aiMoveTimeout:null,
               peerId: "",
               peerIdToConnect: "",
               isHost: false,
-           
 
-               swapSelection: [],
+              swapSelection: [],
               showRemoveMode: false,
               squareEffects: Array(24).fill(false),
 
@@ -1857,11 +1864,11 @@ aiMoveTimeout:null,
               gameAnnouncement: "",
               focusedCellIndex: 0,
 
-           powerUpCategories: {
-  gameChanging: ["teleport", "remove", "expand"],
-  tactical: ["slide", "swap", "themeSwitch"], // ADD themeSwitch here
-  defensive: ["shield", "undo"],
-},
+              powerUpCategories: {
+                gameChanging: ["teleport", "remove", "expand"],
+                tactical: ["slide", "swap", "themeSwitch"], // ADD themeSwitch here
+                defensive: ["shield", "undo"],
+              },
 
               // Each player gets 3 power-ups (1 from each category)
               playerPowerUps: {
@@ -1874,7 +1881,7 @@ aiMoveTimeout:null,
                 X: [],
                 O: [],
               },
-                 _processingPlayerChange: false,
+              _processingPlayerChange: false,
             };
           },
 
@@ -1921,29 +1928,27 @@ aiMoveTimeout:null,
             emojiSet() {
               return this.emojiThemes[this.themeIndex];
             },
-       // FIXED: Update the isMyTurn computed property
-isMyTurn() {
-  if (this.gameMode === "ai") {
-    return this.currentPlayer === "X" && !this.aiThinking;
-  }
+            // FIXED: Update the isMyTurn computed property
+            isMyTurn() {
+              if (this.gameMode === "ai") {
+                return this.currentPlayer === "X" && !this.aiThinking;
+              }
 
-  if (this.gameMode === "multiplayer") {
-    // Must have active connection
-    if (!this.conn || !this.conn.open) return false;
-    
-    // Host (X) can play when it's X's turn
-    // Guest (O) can play when it's O's turn
-    return (
-      (this.isHost && this.currentPlayer === "X") ||
-      (!this.isHost && this.currentPlayer === "O")
-    );
-  }
+              if (this.gameMode === "multiplayer") {
+                // Must have active connection
+                if (!this.conn || !this.conn.open) return false;
 
-  // Offline mode - always allow moves
-  return true;
-},
+                // Host (X) can play when it's X's turn
+                // Guest (O) can play when it's O's turn
+                return (
+                  (this.isHost && this.currentPlayer === "X") ||
+                  (!this.isHost && this.currentPlayer === "O")
+                );
+              }
 
-
+              // Offline mode - always allow moves
+              return true;
+            },
 
             gameOver() {
               return this.winner || this.isDraw;
@@ -1992,23 +1997,27 @@ isMyTurn() {
           },
 
           watch: {
-             currentPlayer: {
-    handler(newPlayer, oldPlayer) {
-      if (newPlayer === oldPlayer || this.gameOver) return;
-      
-      // Use a flag to prevent re-entry
-      if (this._processingPlayerChange) return;
-      this._processingPlayerChange = true;
-      
-      this.$nextTick(() => {
-        if (this.gameMode === "ai" && newPlayer === this.aiPlayer && !this.aiThinking) {
-          this.makeAIMove();
-        }
-        this._processingPlayerChange = false;
-      });
-    },
-    immediate: false,
-  },
+            currentPlayer: {
+              handler(newPlayer, oldPlayer) {
+                if (newPlayer === oldPlayer || this.gameOver) return;
+
+                // Use a flag to prevent re-entry
+                if (this._processingPlayerChange) return;
+                this._processingPlayerChange = true;
+
+                this.$nextTick(() => {
+                  if (
+                    this.gameMode === "ai" &&
+                    newPlayer === this.aiPlayer &&
+                    !this.aiThinking
+                  ) {
+                    this.makeAIMove();
+                  }
+                  this._processingPlayerChange = false;
+                });
+              },
+              immediate: false,
+            },
 
             isMyTurn(newVal) {
               if (
@@ -2030,68 +2039,67 @@ isMyTurn() {
 
           methods: {
             debugMultiplayerState() {
-  console.log("=== MULTIPLAYER DEBUG ===");
-  console.log("Game Mode:", this.gameMode);
-  console.log("Is Host:", this.isHost);
-  console.log("Current Player:", this.currentPlayer);
-  console.log("Connection exists:", !!this.conn);
-  console.log("Connection open:", this.conn?.open);
-  console.log("Is My Turn:", this.isMyTurn);
-  console.log("Can Make Move at 0:", this.canMakeMoveAtIndex(0));
-  console.log("========================");
-},
+              console.log("=== MULTIPLAYER DEBUG ===");
+              console.log("Game Mode:", this.gameMode);
+              console.log("Is Host:", this.isHost);
+              console.log("Current Player:", this.currentPlayer);
+              console.log("Connection exists:", !!this.conn);
+              console.log("Connection open:", this.conn?.open);
+              console.log("Is My Turn:", this.isMyTurn);
+              console.log("Can Make Move at 0:", this.canMakeMoveAtIndex(0));
+              console.log("========================");
+            },
             // Complete createGame method - add this to your methods section
-// FIXED: Ensure power-ups are properly initialized for all modes
-generateBalancedPowerUps() {
-  // Shuffle each category
-  const shuffledGameChanging = [
-    ...this.powerUpCategories.gameChanging,
-  ].sort(() => Math.random() - 0.5);
-  const shuffledTactical = [
-    ...this.powerUpCategories.tactical,
-  ].sort(() => Math.random() - 0.5);
-  const shuffledDefensive = [
-    ...this.powerUpCategories.defensive,
-  ].sort(() => Math.random() - 0.5);
+            // FIXED: Ensure power-ups are properly initialized for all modes
+            generateBalancedPowerUps() {
+              // Shuffle each category
+              const shuffledGameChanging = [
+                ...this.powerUpCategories.gameChanging,
+              ].sort(() => Math.random() - 0.5);
+              const shuffledTactical = [
+                ...this.powerUpCategories.tactical,
+              ].sort(() => Math.random() - 0.5);
+              const shuffledDefensive = [
+                ...this.powerUpCategories.defensive,
+              ].sort(() => Math.random() - 0.5);
 
-  // FIXED: Ensure both players get power-ups in all game modes
-  this.playerPowerUps.X = [
-    shuffledGameChanging[0],
-    shuffledTactical[0],
-    shuffledDefensive[0],
-  ];
+              // FIXED: Ensure both players get power-ups in all game modes
+              this.playerPowerUps.X = [
+                shuffledGameChanging[0],
+                shuffledTactical[0],
+                shuffledDefensive[0],
+              ];
 
-  this.playerPowerUps.O = [
-    shuffledGameChanging[1] || shuffledGameChanging[0],
-    shuffledTactical[1] || shuffledTactical[0], 
-    shuffledDefensive[1] || shuffledDefensive[0],
-  ];
+              this.playerPowerUps.O = [
+                shuffledGameChanging[1] || shuffledGameChanging[0],
+                shuffledTactical[1] || shuffledTactical[0],
+                shuffledDefensive[1] || shuffledDefensive[0],
+              ];
 
-  // FIXED: Ensure arrays are properly initialized
-  this.usedRandomPowerUps.X = this.usedRandomPowerUps.X || [];
-  this.usedRandomPowerUps.O = this.usedRandomPowerUps.O || [];
+              // FIXED: Ensure arrays are properly initialized
+              this.usedRandomPowerUps.X = this.usedRandomPowerUps.X || [];
+              this.usedRandomPowerUps.O = this.usedRandomPowerUps.O || [];
 
-  console.log("Power-ups assigned:");
-  console.log("Player X:", this.playerPowerUps.X);
-  console.log("Player O:", this.playerPowerUps.O);
+              console.log("Power-ups assigned:");
+              console.log("Player X:", this.playerPowerUps.X);
+              console.log("Player O:", this.playerPowerUps.O);
 
-  // FIXED: Only show preview in offline mode to avoid confusion
-  if (this.gameMode === "offline") {
-    this.showPowerUpPreview();
-  }
-},
-
+              // FIXED: Only show preview in offline mode to avoid confusion
+              if (this.gameMode === "offline") {
+                this.showPowerUpPreview();
+              }
+            },
 
             // Add these methods to your methods object:
- // Show theme switch modal
-  showThemeSwitchModal() {
-    try {
-      document.getElementById("theme-switch-modal").showModal();
-    } catch (error) {
-      this.handleError("Show theme switch modal", error);
-    }
-  },
-          
+            // Show theme switch modal
+            showThemeSwitchModal() {
+              try {
+                document.getElementById("theme-switch-modal").showModal();
+              } catch (error) {
+                this.handleError("Show theme switch modal", error);
+              }
+            },
+
             // Show what power-ups each player has
             showPowerUpPreview() {
               const xPowerUps = this.playerPowerUps.X.map(
@@ -2107,78 +2115,98 @@ generateBalancedPowerUps() {
               }, 1500);
             },
 
-switchToTheme(themeIndex) {
-  try {
-// Use array system instead of boolean
-if (this.usedRandomPowerUps[this.currentPlayer].includes('themeSwitch')) {
-  this.toaster("You've already switched themes this game!", "warning");
-  return;
-}
+            switchToTheme(themeIndex) {
+              try {
+                // Use array system instead of boolean
+                if (
+                  this.usedRandomPowerUps[this.currentPlayer].includes(
+                    "themeSwitch",
+                  )
+                ) {
+                  this.toaster(
+                    "You've already switched themes this game!",
+                    "warning",
+                  );
+                  return;
+                }
 
-// FIXED: Check if player has this power-up available
-if (!this.playerPowerUps[this.currentPlayer].includes('themeSwitch')) {
-  this.toaster("Theme switch power-up not available!", "warning");
-  return;
-}
+                // FIXED: Check if player has this power-up available
+                if (
+                  !this.playerPowerUps[this.currentPlayer].includes(
+                    "themeSwitch",
+                  )
+                ) {
+                  this.toaster(
+                    "Theme switch power-up not available!",
+                    "warning",
+                  );
+                  return;
+                }
 
-    if (themeIndex === this.themeIndex) {
-      this.toaster("This theme is already active!", "info");
-      return;
-    }
+                if (themeIndex === this.themeIndex) {
+                  this.toaster("This theme is already active!", "info");
+                  return;
+                }
 
-    const oldTheme = this.emojiThemes[this.themeIndex];
-    this.themeIndex = themeIndex;
-    const newTheme = this.emojiThemes[this.themeIndex];
+                const oldTheme = this.emojiThemes[this.themeIndex];
+                this.themeIndex = themeIndex;
+                const newTheme = this.emojiThemes[this.themeIndex];
 
-    // Use array system
-    this.usedRandomPowerUps[this.currentPlayer].push('themeSwitch');
-    document.getElementById("theme-switch-modal").close();
+                // Use array system
+                this.usedRandomPowerUps[this.currentPlayer].push("themeSwitch");
+                document.getElementById("theme-switch-modal").close();
 
-    this.toaster(
-      `${this.getEmoji(this.currentPlayer)} switched theme to ${newTheme.X} vs ${newTheme.O}!`,
-      "info",
-      3000,
-    );
+                this.toaster(
+                  `${this.getEmoji(this.currentPlayer)} switched theme to ${newTheme.X} vs ${newTheme.O}!`,
+                  "info",
+                  3000,
+                );
 
-    if (!this.winner && !this.isDraw) {
-      this.switchTurn();
-    }
+                if (!this.winner && !this.isDraw) {
+                  this.switchTurn();
+                }
 
-    if (this.conn && this.conn.open) {
-      this.conn.send({
-        type: "themeSwitch",
-        themeIndex: this.themeIndex,
-        currentPlayer: this.currentPlayer,
-        usedRandomPowerUps: { ...this.usedRandomPowerUps }, // Send array system
-      });
-    }
-  } catch (error) {
-    this.handleError("Switch theme", error);
-  }
-},
-  // Get theme display name
-  getThemeName(index) {
-    const names = [
-      "Classic",
-      "Pets", 
-      "Food",
-      "Fantasy",
-      "Space",
-      "Elements",
-    ];
-    return names[index] || `Theme ${index + 1}`;
-  },
+                if (this.conn && this.conn.open) {
+                  this.conn.send({
+                    type: "themeSwitch",
+                    themeIndex: this.themeIndex,
+                    currentPlayer: this.currentPlayer,
+                    usedRandomPowerUps: { ...this.usedRandomPowerUps }, // Send array system
+                  });
+                }
+              } catch (error) {
+                this.handleError("Switch theme", error);
+              }
+            },
+            // Get theme display name
+            getThemeName(index) {
+              const names = [
+                "Classic",
+                "Pets",
+                "Food",
+                "Fantasy",
+                "Space",
+                "Elements",
+              ];
+              return names[index] || `Theme ${index + 1}`;
+            },
 
-  // Toggle through themes (alternative method)
-  toggleEmojiTheme() {
-    if (this.hasUsedThemeSwitch[this.currentPlayer]) {
-      this.toaster("You've already switched themes this game!", "warning");
-      return;
-    }
+            toggleEmojiTheme() {
+              if (
+                this.usedRandomPowerUps[this.currentPlayer].includes(
+                  "themeSwitch",
+                )
+              ) {
+                this.toaster(
+                  "You've already switched themes this game!",
+                  "warning",
+                );
+                return;
+              }
 
-    const nextIndex = (this.themeIndex + 1) % this.emojiThemes.length;
-    this.switchToTheme(nextIndex);
-  },
+              const nextIndex = (this.themeIndex + 1) % this.emojiThemes.length;
+              this.switchToTheme(nextIndex);
+            },
 
             // Random power-up modal
             showRandomPowerModal() {
@@ -2230,59 +2258,60 @@ if (!this.playerPowerUps[this.currentPlayer].includes('themeSwitch')) {
               }
             },
 
-     executeRandomPowerUp(powerUpType) {
-  switch (powerUpType) {
-    case "undo":
-      this.undoMove();
-      break;
-    case "remove":
-      this.showRemovePowerModal();
-      break;
-    case "swap":
-      this.showSwapPowerModal();
-      break;
-    case "expand":
-      this.expandGrid();
-      break;
-    case "slide":
-      this.showSlidePowerModal();
-      break;
-    case "shield":
-      this.showShieldPowerModal();
-      break;
-    case "teleport":
-      this.showTeleportPowerModal();
-      break;
-    case "themeSwitch":
-      this.showThemeSwitchModal();
-      break;
-    default:
-      console.warn("Unknown power-up type:", powerUpType);
-  }
-},
+            executeRandomPowerUp(powerUpType) {
+              switch (powerUpType) {
+                case "undo":
+                  this.undoMove();
+                  break;
+                case "remove":
+                  this.showRemovePowerModal();
+                  break;
+                case "swap":
+                  this.showSwapPowerModal();
+                  break;
+                case "expand":
+                  this.expandGrid();
+                  break;
+                case "slide":
+                  this.showSlidePowerModal();
+                  break;
+                case "shield":
+                  this.showShieldPowerModal();
+                  break;
+                case "teleport":
+                  this.showTeleportPowerModal();
+                  break;
+                case "themeSwitch":
+                  this.showThemeSwitchModal();
+                  break;
+                default:
+                  console.warn("Unknown power-up type:", powerUpType);
+              }
+            },
 
-
-           getPowerUpInfo(powerUpType) {
-  const info = {
-    undo: { icon: "↶", name: "Undo", color: "btn-secondary" },
-    remove: { icon: "🗑️", name: "Remove", color: "btn-neutral" },
-    swap: { icon: "🔄", name: "Swap", color: "btn-info" },
-    expand: { icon: "📏", name: "Expand", color: "btn-warning" },
-    slide: { icon: "➡️", name: "Slide", color: "btn-accent" },
-    shield: { icon: "🛡️", name: "Shield", color: "btn-success" },
-    teleport: { icon: "🚀", name: "Teleport", color: "btn-error" },
-    themeSwitch: { icon: "🎨", name: "Theme Switch", color: "btn-primary" },
-  };
-  return (
-    info[powerUpType] || {
-      icon: "❓",
-      name: "Unknown",
-      color: "btn-ghost",
-    }
-  );
-},
-
-          
+            getPowerUpInfo(powerUpType) {
+              const info = {
+                undo: { icon: "↶", name: "Undo", color: "btn-secondary" },
+                remove: { icon: "🗑️", name: "Remove", color: "btn-neutral" },
+                swap: { icon: "🔄", name: "Swap", color: "btn-info" },
+                expand: { icon: "📏", name: "Expand", color: "btn-warning" },
+                slide: { icon: "➡️", name: "Slide", color: "btn-accent" },
+                shield: { icon: "🛡️", name: "Shield", color: "btn-success" },
+                teleport: { icon: "🚀", name: "Teleport", color: "btn-error" },
+                themeSwitch: {
+                  icon: "🎨",
+                  name: "Theme Switch",
+                  color: "btn-primary",
+                },
+              };
+              return (
+                info[powerUpType] || {
+                  icon: "❓",
+                  name: "Unknown",
+                  color: "btn-ghost",
+                }
+              );
+            },
 
             // Check if random power-up is available
             isRandomPowerUpDisabled(powerUpType) {
@@ -2365,18 +2394,24 @@ if (!this.playerPowerUps[this.currentPlayer].includes('themeSwitch')) {
                 );
               });
 
-              // FIXED: Handle incoming connections properly
-           this.peer.on("connection", (incomingConn) => {
+              // In the peer.on("connection") handler, add this:
+this.peer.on("connection", (incomingConn) => {
   console.log("Incoming connection from:", incomingConn.peer);
 
   incomingConn.on("open", () => {
     this.conn = incomingConn;
     this.setupConnection();
-    
-    // IMPORTANT: Send initial game state to guest
-    this.sendGameSync();
-    
-    this.toaster("Player joined the game! You are X, they are O.", "success", 4000);
+
+    // FIXED: Send complete game state immediately
+    setTimeout(() => {
+      this.sendGameSync();
+    }, 500);
+
+    this.toaster(
+      "Player joined the game! You are X, they are O.",
+      "success",
+      4000,
+    );
 
     const modal = document.getElementById("multiplayer-modal");
     if (modal && modal.open) {
@@ -2404,104 +2439,120 @@ if (!this.playerPowerUps[this.currentPlayer].includes('themeSwitch')) {
                 }
               });
             },
-// REPLACE your isPowerUpDisabled method with this fixed version:
+            // REPLACE your isPowerUpDisabled method with this fixed version:
 
-isPowerUpDisabled(powerUpType) {
-  if (this.gameOver) return true;
+            isPowerUpDisabled(powerUpType) {
+              if (this.gameOver) return true;
 
-  // Check turn permissions
-  if (this.gameMode === "ai" && this.currentPlayer !== "X") return true;
-  if (this.gameMode === "multiplayer" && !this.isMyTurn) return true;
+              // Check turn permissions
+              if (this.gameMode === "ai" && this.currentPlayer !== "X")
+                return true;
+              if (this.gameMode === "multiplayer" && !this.isMyTurn)
+                return true;
 
-  // Use array system consistently for ALL power-ups
-  if (!this.playerPowerUps[this.currentPlayer] || 
-      !this.playerPowerUps[this.currentPlayer].includes(powerUpType)) {
-    return true;
-  }
+              // Use array system consistently for ALL power-ups
+              if (
+                !this.playerPowerUps[this.currentPlayer] ||
+                !this.playerPowerUps[this.currentPlayer].includes(powerUpType)
+              ) {
+                return true;
+              }
 
-  if (this.usedRandomPowerUps[this.currentPlayer] && 
-      this.usedRandomPowerUps[this.currentPlayer].includes(powerUpType)) {
-    return true;
-  }
+              if (
+                this.usedRandomPowerUps[this.currentPlayer] &&
+                this.usedRandomPowerUps[this.currentPlayer].includes(
+                  powerUpType,
+                )
+              ) {
+                return true;
+              }
 
-  // Specific constraints (keep these)
-  switch (powerUpType) {
-    case "undo":
-      return this.moveHistory.length === 0;
-    case "swap":
-      return this.cells.filter((cell) => cell !== null).length < 2;
-    case "remove":
-      if (this.isMultiplayer) {
-        const opponent = this.currentPlayer === "X" ? "O" : "X";
-        return !this.cells.some((cell) => cell === opponent);
-      } else {
-        return !this.cells.some((cell) => cell !== null);
-      }
-    case "expand":
-      return this.gridRows === 6;
-    case "slide":
-      return !this.cells.some((cell, index) => {
-        if (cell !== this.currentPlayer) return false;
-        return this.getValidSlideCount(index) > 0;
-      });
-    case "shield":
-      return !this.cells.some((cell) => cell === this.currentPlayer);
-    case "teleport":
-      return (!this.cells.some((cell) => cell === this.currentPlayer) ||
-              this.cells.filter((cell) => cell === null).length === 0);
-    default:
-      return false;
-  }
-},
+              // Specific constraints (keep these)
+              switch (powerUpType) {
+                case "undo":
+                  return this.moveHistory.length === 0;
+                case "swap":
+                  return this.cells.filter((cell) => cell !== null).length < 2;
+                case "remove":
+                  if (this.isMultiplayer) {
+                    const opponent = this.currentPlayer === "X" ? "O" : "X";
+                    return !this.cells.some((cell) => cell === opponent);
+                  } else {
+                    return !this.cells.some((cell) => cell !== null);
+                  }
+                case "expand":
+                  return this.gridRows === 6;
+                case "slide":
+                  return !this.cells.some((cell, index) => {
+                    if (cell !== this.currentPlayer) return false;
+                    return this.getValidSlideCount(index) > 0;
+                  });
+                case "shield":
+                  return !this.cells.some(
+                    (cell) => cell === this.currentPlayer,
+                  );
+                case "teleport":
+                  return (
+                    !this.cells.some((cell) => cell === this.currentPlayer) ||
+                    this.cells.filter((cell) => cell === null).length === 0
+                  );
+                default:
+                  return false;
+              }
+            },
 
-usePowerUp(powerUpType) {
-  try {
-    if (this.isPowerUpDisabled(powerUpType)) {
-      this.toaster("Power-up not available!", "warning");
-      return;
-    }
+            usePowerUp(powerUpType) {
+              try {
+                if (this.isPowerUpDisabled(powerUpType)) {
+                  this.toaster("Power-up not available!", "warning");
+                  return;
+                }
 
-    // Validate game state before using power-up
-    if (this.gameOver) {
-      this.toaster("Cannot use power-ups after game ends!", "warning");
-      return;
-    }
+                // Validate game state before using power-up
+                if (this.gameOver) {
+                  this.toaster(
+                    "Cannot use power-ups after game ends!",
+                    "warning",
+                  );
+                  return;
+                }
 
-    // Mark as used BEFORE execution to prevent double-use
-    this.usedRandomPowerUps[this.currentPlayer].push(powerUpType);
+                // Mark as used BEFORE execution to prevent double-use
+                this.usedRandomPowerUps[this.currentPlayer].push(powerUpType);
 
-    this.executeRandomPowerUp(powerUpType);
-    
-  } catch (error) {
-    // If error occurs, remove the power-up from used list
-    const index = this.usedRandomPowerUps[this.currentPlayer].indexOf(powerUpType);
-    if (index > -1) {
-      this.usedRandomPowerUps[this.currentPlayer].splice(index, 1);
-    }
-    this.handleError("Use power-up", error);
-  }
-},
-        // FIXED: Update canMakeMoveAtIndex for clarity
-canMakeMoveAtIndex(index) {
-  if (this.cells[index]) return false;
-  if (this.gameOver) return false;
-  
-  // FIXED: Use isMyTurn for all modes consistently
-  return this.isMyTurn;
-},
-// FIXED: Add a debug method to check power-up states
-debugPowerUpState() {
-  console.log("=== Power-Up Debug ===");
-  console.log("Current Player:", this.currentPlayer);
-  console.log("Game Mode:", this.gameMode);
-  console.log("Is My Turn:", this.isMyTurn);
-  console.log("Player X Power-Ups:", this.playerPowerUps.X);
-  console.log("Player O Power-Ups:", this.playerPowerUps.O);
-  console.log("Player X Used:", this.usedRandomPowerUps.X);
-  console.log("Player O Used:", this.usedRandomPowerUps.O);
-  console.log("===================");
-},
+                this.executeRandomPowerUp(powerUpType);
+              } catch (error) {
+                // If error occurs, remove the power-up from used list
+                const index =
+                  this.usedRandomPowerUps[this.currentPlayer].indexOf(
+                    powerUpType,
+                  );
+                if (index > -1) {
+                  this.usedRandomPowerUps[this.currentPlayer].splice(index, 1);
+                }
+                this.handleError("Use power-up", error);
+              }
+            },
+            // FIXED: Update canMakeMoveAtIndex for clarity
+            canMakeMoveAtIndex(index) {
+              if (this.cells[index]) return false;
+              if (this.gameOver) return false;
 
+              // FIXED: Use isMyTurn for all modes consistently
+              return this.isMyTurn;
+            },
+            // FIXED: Add a debug method to check power-up states
+            debugPowerUpState() {
+              console.log("=== Power-Up Debug ===");
+              console.log("Current Player:", this.currentPlayer);
+              console.log("Game Mode:", this.gameMode);
+              console.log("Is My Turn:", this.isMyTurn);
+              console.log("Player X Power-Ups:", this.playerPowerUps.X);
+              console.log("Player O Power-Ups:", this.playerPowerUps.O);
+              console.log("Player X Used:", this.usedRandomPowerUps.X);
+              console.log("Player O Used:", this.usedRandomPowerUps.O);
+              console.log("===================");
+            },
 
             canMakeMove(index) {
               if (this.cells[index]) return false;
@@ -2521,35 +2572,34 @@ debugPowerUpState() {
                 this.setGameMode("ai");
               }
             },
-           setGameMode(mode) {
-  console.log(`Switching from ${this.gameMode} to ${mode}`);
-  
-  // Store current state to avoid unnecessary resets
-  const wasMultiplayer = this.gameMode === 'multiplayer';
-  const wasConnected = this.conn && this.conn.open;
-  
-  // Clean up previous mode without resetting game
-  this.cleanupCurrentMode();
-  
-  
-  // Set new mode
-  this.gameMode = mode;
-  
-  switch (mode) {
-    case "offline":
-      this.setupOfflineMode();
-      break;
-    case "ai":
-      this.setupAIMode();
-      break;
-    case "multiplayer":
-      this.setupMultiplayerMode();
-      break;
-  }
-  
-  // Always reset the game when switching modes
-  this.resetGame(false);
-},
+            setGameMode(mode) {
+              console.log(`Switching from ${this.gameMode} to ${mode}`);
+
+              // Store current state to avoid unnecessary resets
+              const wasMultiplayer = this.gameMode === "multiplayer";
+              const wasConnected = this.conn && this.conn.open;
+
+              // Clean up previous mode without resetting game
+              this.cleanupCurrentMode();
+
+              // Set new mode
+              this.gameMode = mode;
+
+              switch (mode) {
+                case "offline":
+                  this.setupOfflineMode();
+                  break;
+                case "ai":
+                  this.setupAIMode();
+                  break;
+                case "multiplayer":
+                  this.setupMultiplayerMode();
+                  break;
+              }
+
+              // Always reset the game when switching modes
+              this.resetGame(false);
+            },
             cleanupCurrentMode() {
               // Store peerIdToConnect if we're trying to join a game
               const preservePeerIdToConnect =
@@ -2587,30 +2637,34 @@ debugPowerUpState() {
               this.cleanUrl();
             },
 
-       // Update setupOfflineMode, setupAIMode, setupMultiplayerMode methods
-setupOfflineMode() {
-  this.isAIMode = false;
-  this.generateBalancedPowerUps(); // Add this line
-  this.toaster("👥 Local play mode - pass the device!", "info", 2000);
-},
+            // Update setupOfflineMode, setupAIMode, setupMultiplayerMode methods
+            setupOfflineMode() {
+              this.isAIMode = false;
+              this.generateBalancedPowerUps(); // Add this line
+              this.toaster(
+                "👥 Local play mode - pass the device!",
+                "info",
+                2000,
+              );
+            },
 
-         setupAIMode() {
-  this.isAIMode = true;
-  this.aiPlayer = "O";
-  this.generateAIPersonality();
-  this.generateBalancedPowerUps(); // Add this line
-  console.log("AI mode setup - AI is player:", this.aiPlayer);
-  this.toaster(
-    `🤖 AI opponent ready! Difficulty: ${this.getAIDifficultyName()}`,
-    "success",
-    3000,
-  );
-},
+            setupAIMode() {
+              this.isAIMode = true;
+              this.aiPlayer = "O";
+              this.generateAIPersonality();
+              this.generateBalancedPowerUps(); // Add this line
+              console.log("AI mode setup - AI is player:", this.aiPlayer);
+              this.toaster(
+                `🤖 AI opponent ready! Difficulty: ${this.getAIDifficultyName()}`,
+                "success",
+                3000,
+              );
+            },
             setupMultiplayerMode() {
               this.isAIMode = false;
-   if (!this.peerIdToConnect) {
-    this.showMultiplayerModal();
-  }
+              if (!this.peerIdToConnect) {
+                this.showMultiplayerModal();
+              }
             },
             startAIGame() {
               this.setGameMode("ai");
@@ -2813,14 +2867,15 @@ setupOfflineMode() {
               return Math.min(1, urgency);
             },
 
- getAvailableAIPowerUps() {
-  if (!this.playerPowerUps[this.aiPlayer]) return [];
-  
-  return this.playerPowerUps[this.aiPlayer].filter(
-    (powerUp) => !this.usedRandomPowerUps[this.aiPlayer].includes(powerUp) && 
-                 !this.isPowerUpDisabled(powerUp)
-  );
-},
+            getAvailableAIPowerUps() {
+              if (!this.playerPowerUps[this.aiPlayer]) return [];
+
+              return this.playerPowerUps[this.aiPlayer].filter(
+                (powerUp) =>
+                  !this.usedRandomPowerUps[this.aiPlayer].includes(powerUp) &&
+                  !this.isPowerUpDisabled(powerUp),
+              );
+            },
 
             hasValidAISlideMove() {
               return this.cells.some(
@@ -2947,43 +3002,58 @@ setupOfflineMode() {
               return Object.keys(weights)[0]; // Fallback
             },
 
-      executeAIUndo() {
+       executeAIUndo() {
   if (
     this.moveHistory.length > 0 &&
-    !this.usedRandomPowerUps[this.aiPlayer].includes('undo')
+    !this.usedRandomPowerUps[this.aiPlayer].includes("undo")
   ) {
-    this.usedRandomPowerUps[this.aiPlayer].push('undo');
-    this.undoMove();
+    this.usedRandomPowerUps[this.aiPlayer].push("undo");
+    // FIXED: Store the last move before undoing it
+    const lastMove = this.moveHistory[this.moveHistory.length - 1];
+    this.flashSquare(lastMove.index);
+    this.cells[lastMove.index] = null;
+    this.moveHistory.pop();
+    this.winner = null;
+    this.isDraw = false;
+    this.winningCombo = [];
+    
+    // FIXED: Set current player to whoever made the undone move
+    this.currentPlayer = lastMove.player;
+    
+    this.toaster(
+      `🤖 AI undid the last move!`,
+      "warning",
+    );
   } else {
     this.makeAIRegularMove();
   }
 },
 
             executeAIRemove() {
-  const playerPieces = this.cells
-    .map((cell, index) => ({ cell, index }))
-    .filter(({ cell }) => cell === "X");
+              const playerPieces = this.cells
+                .map((cell, index) => ({ cell, index }))
+                .filter(({ cell }) => cell === "X");
 
-  if (playerPieces.length === 0) {
-    this.makeAIRegularMove();
-    return;
-  }
+              if (playerPieces.length === 0) {
+                this.makeAIRegularMove();
+                return;
+              }
 
-  // Mark as used first
-  this.usedRandomPowerUps[this.aiPlayer].push('remove');
+              // Mark as used first
+              this.usedRandomPowerUps[this.aiPlayer].push("remove");
 
-  // Prioritize removing pieces that threaten AI or help player win
-  let targetIndex = this.findBestRemoveTarget(playerPieces);
+              // Prioritize removing pieces that threaten AI or help player win
+              let targetIndex = this.findBestRemoveTarget(playerPieces);
 
-  if (targetIndex === -1) {
-    // Random selection as fallback
-    targetIndex =
-      playerPieces[Math.floor(Math.random() * playerPieces.length)]
-        .index;
-  }
+              if (targetIndex === -1) {
+                // Random selection as fallback
+                targetIndex =
+                  playerPieces[Math.floor(Math.random() * playerPieces.length)]
+                    .index;
+              }
 
-  this.removeOpponentPiece(targetIndex);
-},
+              this.removeOpponentPiece(targetIndex);
+            },
 
             findBestRemoveTarget(playerPieces) {
               // Look for pieces that are part of winning threats
@@ -3004,28 +3074,28 @@ setupOfflineMode() {
             },
 
             executeAISwap() {
-  const allPieces = this.cells
-    .map((cell, index) => ({ cell, index }))
-    .filter(({ cell }) => cell !== null);
+              const allPieces = this.cells
+                .map((cell, index) => ({ cell, index }))
+                .filter(({ cell }) => cell !== null);
 
-  if (allPieces.length < 2) {
-    this.makeAIRegularMove();
-    return;
-  }
+              if (allPieces.length < 2) {
+                this.makeAIRegularMove();
+                return;
+              }
 
-  // Mark as used first
-  this.usedRandomPowerUps[this.aiPlayer].push('swap');
+              // Mark as used first
+              this.usedRandomPowerUps[this.aiPlayer].push("swap");
 
-  // Find best swap combination
-  const bestSwap = this.findBestSwapMove(allPieces);
+              // Find best swap combination
+              const bestSwap = this.findBestSwapMove(allPieces);
 
-  if (bestSwap) {
-    this.swapSelection = [bestSwap.index1, bestSwap.index2];
-    this.performSwap();
-  } else {
-    this.makeAIRegularMove();
-  }
-},
+              if (bestSwap) {
+                this.swapSelection = [bestSwap.index1, bestSwap.index2];
+                this.performSwap();
+              } else {
+                this.makeAIRegularMove();
+              }
+            },
             findBestSwapMove(pieces) {
               let bestMove = null;
               let bestScore = -Infinity;
@@ -3066,40 +3136,43 @@ setupOfflineMode() {
               return score;
             },
 
-          executeAIExpand() {
-  if (!this.usedRandomPowerUps[this.aiPlayer].includes('expand') && this.gridRows < 6) {
-    this.expandGrid();
-  } else {
-    this.makeAIRegularMove();
-  }
-},
+            executeAIExpand() {
+              if (
+                !this.usedRandomPowerUps[this.aiPlayer].includes("expand") &&
+                this.gridRows < 6
+              ) {
+                this.expandGrid();
+              } else {
+                this.makeAIRegularMove();
+              }
+            },
             executeAISlide() {
-  // Mark as used first
-  this.usedRandomPowerUps[this.aiPlayer].push('slide');
+              // Mark as used first
+              this.usedRandomPowerUps[this.aiPlayer].push("slide");
 
-  const aiPieces = this.cells
-    .map((cell, index) => ({ cell, index }))
-    .filter(
-      ({ cell, index }) =>
-        cell === this.aiPlayer &&
-        this.getValidSlideCount(index) > 0,
-    );
+              const aiPieces = this.cells
+                .map((cell, index) => ({ cell, index }))
+                .filter(
+                  ({ cell, index }) =>
+                    cell === this.aiPlayer &&
+                    this.getValidSlideCount(index) > 0,
+                );
 
-  if (aiPieces.length === 0) {
-    this.makeAIRegularMove();
-    return;
-  }
+              if (aiPieces.length === 0) {
+                this.makeAIRegularMove();
+                return;
+              }
 
-  const bestSlide = this.findBestSlideMove(aiPieces);
+              const bestSlide = this.findBestSlideMove(aiPieces);
 
-  if (bestSlide) {
-    this.slideSelection = [bestSlide.fromIndex];
-    this.slideMode = "destination";
-    this.performSlide(bestSlide.toIndex);
-  } else {
-    this.makeAIRegularMove();
-  }
-},
+              if (bestSlide) {
+                this.slideSelection = [bestSlide.fromIndex];
+                this.slideMode = "destination";
+                this.performSlide(bestSlide.toIndex);
+              } else {
+                this.makeAIRegularMove();
+              }
+            },
             findBestSlideMove(pieces) {
               let bestMove = null;
               let bestScore = -Infinity;
@@ -3172,7 +3245,7 @@ setupOfflineMode() {
             },
 
             executeAIShield() {
-                this.usedRandomPowerUps[this.aiPlayer].push('shield');
+              this.usedRandomPowerUps[this.aiPlayer].push("shield");
 
               const aiPieces = this.cells
                 .map((cell, index) => ({ cell, index }))
@@ -3206,7 +3279,7 @@ setupOfflineMode() {
             },
 
             executeAITeleport() {
-                this.usedRandomPowerUps[this.aiPlayer].push('teleport');
+              this.usedRandomPowerUps[this.aiPlayer].push("teleport");
 
               const aiPieces = this.cells
                 .map((cell, index) => ({ cell, index }))
@@ -3801,62 +3874,62 @@ setupOfflineMode() {
               }
             },
 
-           // ADD turn switching to power-up methods that are missing it:
-performSlide(destinationIndex) {
-  try {
-    if (this.slideSelection.length !== 1) return;
+            // ADD turn switching to power-up methods that are missing it:
+            performSlide(destinationIndex) {
+              try {
+                if (this.slideSelection.length !== 1) return;
 
-    const sourceIndex = this.slideSelection[0];
-    const validDestinations = this.getSlideDestinations;
-    if (!validDestinations.includes(destinationIndex)) {
-      this.toaster("Invalid slide destination!", "error");
-      return;
-    }
+                const sourceIndex = this.slideSelection[0];
+                const validDestinations = this.getSlideDestinations;
+                if (!validDestinations.includes(destinationIndex)) {
+                  this.toaster("Invalid slide destination!", "error");
+                  return;
+                }
 
-    this.flashSquare(sourceIndex);
-    this.flashSquare(destinationIndex);
+                this.flashSquare(sourceIndex);
+                this.flashSquare(destinationIndex);
 
-    this.cells[destinationIndex] = this.cells[sourceIndex];
-    this.cells[sourceIndex] = null;
+                this.cells[destinationIndex] = this.cells[sourceIndex];
+                this.cells[sourceIndex] = null;
 
-    if (this.shieldedSquares[sourceIndex]) {
-      this.shieldedSquares[sourceIndex] = false;
-      this.shieldedSquares[destinationIndex] = true;
-    }
+                if (this.shieldedSquares[sourceIndex]) {
+                  this.shieldedSquares[sourceIndex] = false;
+                  this.shieldedSquares[destinationIndex] = true;
+                }
 
-    // FIXED: Use array system
-    this.usedRandomPowerUps[this.currentPlayer].push('slide');
-    document.getElementById("slide-modal").close();
-    this.resetSlideSelection();
+                // FIXED: Use array system
+                this.usedRandomPowerUps[this.currentPlayer].push("slide");
+                document.getElementById("slide-modal").close();
+                this.resetSlideSelection();
 
-    this.toaster(
-      `${this.getEmoji(this.currentPlayer)} slid a piece!`,
-      "info",
-    );
+                this.toaster(
+                  `${this.getEmoji(this.currentPlayer)} slid a piece!`,
+                  "info",
+                );
 
-    this.checkGameState();
+                this.checkGameState();
 
-    // FIXED: Add turn switching
-    if (!this.winner && !this.isDraw) {
-      this.switchTurn();
-    }
+                // FIXED: Add turn switching
+                if (!this.winner && !this.isDraw) {
+                  this.switchTurn();
+                }
 
-    if (this.conn && this.conn.open) {
-      this.conn.send({
-        type: "slide",
-        cells: [...this.cells],
-        currentPlayer: this.currentPlayer,
-        usedRandomPowerUps: { ...this.usedRandomPowerUps }, // FIXED: Send array system
-        shieldedSquares: [...this.shieldedSquares],
-        winner: this.winner,
-        isDraw: this.isDraw,
-        winningCombo: [...this.winningCombo],
-      });
-    }
-  } catch (error) {
-    this.handleError("Slide piece", error);
-  }
-},
+                if (this.conn && this.conn.open) {
+                  this.conn.send({
+                    type: "slide",
+                    cells: [...this.cells],
+                    currentPlayer: this.currentPlayer,
+                    usedRandomPowerUps: { ...this.usedRandomPowerUps }, // FIXED: Send array system
+                    shieldedSquares: [...this.shieldedSquares],
+                    winner: this.winner,
+                    isDraw: this.isDraw,
+                    winningCombo: [...this.winningCombo],
+                  });
+                }
+              } catch (error) {
+                this.handleError("Slide piece", error);
+              }
+            },
 
             resetSlideSelection() {
               this.slideSelection = [];
@@ -3871,40 +3944,43 @@ performSlide(destinationIndex) {
               }
             },
 
-           shieldPiece(index) {
-  try {
-    if (this.usedRandomPowerUps[this.currentPlayer].includes('shield')) return;
-    if (this.cells[index] !== this.currentPlayer) return;
+            shieldPiece(index) {
+              try {
+                if (
+                  this.usedRandomPowerUps[this.currentPlayer].includes("shield")
+                )
+                  return;
+                if (this.cells[index] !== this.currentPlayer) return;
 
-    this.flashSquare(index);
-    this.shieldedSquares[index] = true;
-    // FIXED: Use array system
-    this.usedRandomPowerUps[this.currentPlayer].push('shield');
+                this.flashSquare(index);
+                this.shieldedSquares[index] = true;
+                // FIXED: Use array system
+                this.usedRandomPowerUps[this.currentPlayer].push("shield");
 
-    document.getElementById("shield-modal").close();
+                document.getElementById("shield-modal").close();
 
-    this.toaster(
-      `${this.getEmoji(this.currentPlayer)} shielded a piece!`,
-      "success",
-    );
+                this.toaster(
+                  `${this.getEmoji(this.currentPlayer)} shielded a piece!`,
+                  "success",
+                );
 
-    // FIXED: Add turn switching
-    if (!this.winner && !this.isDraw) {
-      this.switchTurn();
-    }
+                // FIXED: Add turn switching
+                if (!this.winner && !this.isDraw) {
+                  this.switchTurn();
+                }
 
-    if (this.conn && this.conn.open) {
-      this.conn.send({
-        type: "shield",
-        currentPlayer: this.currentPlayer,
-        usedRandomPowerUps: { ...this.usedRandomPowerUps }, // FIXED
-        shieldedSquares: [...this.shieldedSquares],
-      });
-    }
-  } catch (error) {
-    this.handleError("Shield piece", error);
-  }
-},
+                if (this.conn && this.conn.open) {
+                  this.conn.send({
+                    type: "shield",
+                    currentPlayer: this.currentPlayer,
+                    usedRandomPowerUps: { ...this.usedRandomPowerUps }, // FIXED
+                    shieldedSquares: [...this.shieldedSquares],
+                  });
+                }
+              } catch (error) {
+                this.handleError("Shield piece", error);
+              }
+            },
 
             showTeleportPowerModal() {
               try {
@@ -3927,57 +4003,56 @@ performSlide(destinationIndex) {
               }
             },
 
-           
-// REPLACE performTeleport with this fixed version:
-performTeleport(destinationIndex) {
-  try {
-    if (this.teleportSelection.length !== 1) return;
+            // REPLACE performTeleport with this fixed version:
+            performTeleport(destinationIndex) {
+              try {
+                if (this.teleportSelection.length !== 1) return;
 
-    const sourceIndex = this.teleportSelection[0];
-    this.flashSquare(sourceIndex);
-    this.flashSquare(destinationIndex);
+                const sourceIndex = this.teleportSelection[0];
+                this.flashSquare(sourceIndex);
+                this.flashSquare(destinationIndex);
 
-    this.cells[destinationIndex] = this.cells[sourceIndex];
-    this.cells[sourceIndex] = null;
+                this.cells[destinationIndex] = this.cells[sourceIndex];
+                this.cells[sourceIndex] = null;
 
-    if (this.shieldedSquares[sourceIndex]) {
-      this.shieldedSquares[sourceIndex] = false;
-      this.shieldedSquares[destinationIndex] = true;
-    }
+                if (this.shieldedSquares[sourceIndex]) {
+                  this.shieldedSquares[sourceIndex] = false;
+                  this.shieldedSquares[destinationIndex] = true;
+                }
 
-    // FIXED: Use array system
-    this.usedRandomPowerUps[this.currentPlayer].push('teleport');
-    document.getElementById("teleport-modal").close();
-    this.resetTeleportSelection();
+                // FIXED: Use array system
+                this.usedRandomPowerUps[this.currentPlayer].push("teleport");
+                document.getElementById("teleport-modal").close();
+                this.resetTeleportSelection();
 
-    this.toaster(
-      `${this.getEmoji(this.currentPlayer)} teleported a piece!`,
-      "warning",
-    );
+                this.toaster(
+                  `${this.getEmoji(this.currentPlayer)} teleported a piece!`,
+                  "warning",
+                );
 
-    this.checkGameState();
+                this.checkGameState();
 
-    // FIXED: Add turn switching
-    if (!this.winner && !this.isDraw) {
-      this.switchTurn();
-    }
+                // FIXED: Add turn switching
+                if (!this.winner && !this.isDraw) {
+                  this.switchTurn();
+                }
 
-    if (this.conn && this.conn.open) {
-      this.conn.send({
-        type: "teleport",
-        cells: [...this.cells],
-        currentPlayer: this.currentPlayer,
-        usedRandomPowerUps: { ...this.usedRandomPowerUps }, // FIXED
-        shieldedSquares: [...this.shieldedSquares],
-        winner: this.winner,
-        isDraw: this.isDraw,
-        winningCombo: [...this.winningCombo],
-      });
-    }
-  } catch (error) {
-    this.handleError("Teleport piece", error);
-  }
-},
+                if (this.conn && this.conn.open) {
+                  this.conn.send({
+                    type: "teleport",
+                    cells: [...this.cells],
+                    currentPlayer: this.currentPlayer,
+                    usedRandomPowerUps: { ...this.usedRandomPowerUps }, // FIXED
+                    shieldedSquares: [...this.shieldedSquares],
+                    winner: this.winner,
+                    isDraw: this.isDraw,
+                    winningCombo: [...this.winningCombo],
+                  });
+                }
+              } catch (error) {
+                this.handleError("Teleport piece", error);
+              }
+            },
 
             resetTeleportSelection() {
               this.teleportSelection = [];
@@ -4077,62 +4152,68 @@ performTeleport(destinationIndex) {
               }
             },
 
-     expandGrid() {
-  try {
-    if (
-      this.usedRandomPowerUps[this.currentPlayer].includes('expand') ||
-      this.gridRows === 6 ||
-      this.gameOver
-    )
-      return;
-      
-    this.isExpanding = true;
-    // FIXED: Use array system
-    this.usedRandomPowerUps[this.currentPlayer].push('expand');
+            expandGrid() {
+              try {
+                if (
+                  this.usedRandomPowerUps[this.currentPlayer].includes(
+                    "expand",
+                  ) ||
+                  this.gridRows === 6 ||
+                  this.gameOver
+                )
+                  return;
 
-    const newRowCount = this.gridRows + 1;
-    const currentCellCount = this.gridRows * 4;
-    const newCellCount = newRowCount * 4;
+                this.isExpanding = true;
+                // FIXED: Use array system
+                this.usedRandomPowerUps[this.currentPlayer].push("expand");
 
-    // FIXED: Properly resize all arrays
-    // FIXED: Properly resize ALL arrays to exact size needed
-    this.cells = [...this.cells, ...Array(4).fill(null)];
-    this.shieldedSquares = [...this.shieldedSquares, ...Array(4).fill(false)];
-    this.squareEffects = [...this.squareEffects, ...Array(4).fill(false)];
-    
-    this.gridRows = newRowCount;
+                const newRowCount = this.gridRows + 1;
+                const currentCellCount = this.gridRows * 4;
+                const newCellCount = newRowCount * 4;
 
+                // FIXED: Properly resize all arrays
+                // FIXED: Properly resize ALL arrays to exact size needed
+                this.cells = [...this.cells, ...Array(4).fill(null)];
+                this.shieldedSquares = [
+                  ...this.shieldedSquares,
+                  ...Array(4).fill(false),
+                ];
+                this.squareEffects = [
+                  ...this.squareEffects,
+                  ...Array(4).fill(false),
+                ];
 
+                this.gridRows = newRowCount;
 
-    setTimeout(() => {
-      this.isExpanding = false;
-    }, 800);
+                setTimeout(() => {
+                  this.isExpanding = false;
+                }, 800);
 
-    this.toaster(
-      `${this.getEmoji(this.currentPlayer)} added row ${newRowCount}! Now ${4}×${newRowCount}`,
-      "warning",
-      3000,
-    );
+                this.toaster(
+                  `${this.getEmoji(this.currentPlayer)} added row ${newRowCount}! Now ${4}×${newRowCount}`,
+                  "warning",
+                  3000,
+                );
 
-    // FIXED: Add turn switching
-    if (!this.winner && !this.isDraw) {
-      this.switchTurn();
-    }
+                // FIXED: Add turn switching
+                if (!this.winner && !this.isDraw) {
+                  this.switchTurn();
+                }
 
-    if (this.conn && this.conn.open) {
-      this.conn.send({
-        type: "expand",
-        cells: [...this.cells],
-        gridRows: this.gridRows,
-        currentPlayer: this.currentPlayer,
-        usedRandomPowerUps: { ...this.usedRandomPowerUps }, // FIXED
-        shieldedSquares: [...this.shieldedSquares],
-      });
-    }
-  } catch (error) {
-    this.handleError("Expand grid", error);
-  }
-},
+                if (this.conn && this.conn.open) {
+                  this.conn.send({
+                    type: "expand",
+                    cells: [...this.cells],
+                    gridRows: this.gridRows,
+                    currentPlayer: this.currentPlayer,
+                    usedRandomPowerUps: { ...this.usedRandomPowerUps }, // FIXED
+                    shieldedSquares: [...this.shieldedSquares],
+                  });
+                }
+              } catch (error) {
+                this.handleError("Expand grid", error);
+              }
+            },
 
             flashSquare(index) {
               this.squareEffects[index] = true;
@@ -4185,55 +4266,55 @@ performTeleport(destinationIndex) {
             },
 
             performSwap() {
-  try {
-    if (this.swapSelection.length !== 2) return;
+              try {
+                if (this.swapSelection.length !== 2) return;
 
-    const [index1, index2] = this.swapSelection;
-    this.flashSquare(index1);
-    this.flashSquare(index2);
+                const [index1, index2] = this.swapSelection;
+                this.flashSquare(index1);
+                this.flashSquare(index2);
 
-    const temp = this.cells[index1];
-    this.cells[index1] = this.cells[index2];
-    this.cells[index2] = temp;
+                const temp = this.cells[index1];
+                this.cells[index1] = this.cells[index2];
+                this.cells[index2] = temp;
 
-    const tempShield = this.shieldedSquares[index1];
-    this.shieldedSquares[index1] = this.shieldedSquares[index2];
-    this.shieldedSquares[index2] = tempShield;
+                const tempShield = this.shieldedSquares[index1];
+                this.shieldedSquares[index1] = this.shieldedSquares[index2];
+                this.shieldedSquares[index2] = tempShield;
 
-    // FIXED: Use array system
-    this.usedRandomPowerUps[this.currentPlayer].push('swap');
+                // FIXED: Use array system
+                this.usedRandomPowerUps[this.currentPlayer].push("swap");
 
-    document.getElementById("swap-modal").close();
-    this.resetSwapSelection();
+                document.getElementById("swap-modal").close();
+                this.resetSwapSelection();
 
-    this.toaster(
-      `${this.getEmoji(this.currentPlayer)} swapped two pieces!`,
-      "info",
-    );
+                this.toaster(
+                  `${this.getEmoji(this.currentPlayer)} swapped two pieces!`,
+                  "info",
+                );
 
-    this.checkGameState();
+                this.checkGameState();
 
-    // FIXED: Add turn switching
-    if (!this.winner && !this.isDraw) {
-      this.switchTurn();
-    }
+                // FIXED: Add turn switching
+                if (!this.winner && !this.isDraw) {
+                  this.switchTurn();
+                }
 
-    if (this.conn && this.conn.open) {
-      this.conn.send({
-        type: "swap",
-        cells: [...this.cells],
-        currentPlayer: this.currentPlayer,
-        usedRandomPowerUps: { ...this.usedRandomPowerUps }, // FIXED
-        shieldedSquares: [...this.shieldedSquares],
-        winner: this.winner,
-        isDraw: this.isDraw,
-        winningCombo: [...this.winningCombo],
-      });
-    }
-  } catch (error) {
-    this.handleError("Swap pieces", error);
-  }
-},
+                if (this.conn && this.conn.open) {
+                  this.conn.send({
+                    type: "swap",
+                    cells: [...this.cells],
+                    currentPlayer: this.currentPlayer,
+                    usedRandomPowerUps: { ...this.usedRandomPowerUps }, // FIXED
+                    shieldedSquares: [...this.shieldedSquares],
+                    winner: this.winner,
+                    isDraw: this.isDraw,
+                    winningCombo: [...this.winningCombo],
+                  });
+                }
+              } catch (error) {
+                this.handleError("Swap pieces", error);
+              }
+            },
 
             resetSwapSelection() {
               this.swapSelection = [];
@@ -4247,75 +4328,84 @@ performTeleport(destinationIndex) {
               }
             },
 
-          // REPLACE removeOpponentPiece with this fixed version:
-removeOpponentPiece(index) {
-  try {
-    this.flashSquare(index);
-    const opponent = this.currentPlayer === "X" ? "O" : "X";
-    if (this.usedRandomPowerUps[this.currentPlayer].includes('remove')) return;
+            // REPLACE removeOpponentPiece with this fixed version:
+            removeOpponentPiece(index) {
+              try {
+                this.flashSquare(index);
+                const opponent = this.currentPlayer === "X" ? "O" : "X";
+                if (
+                  this.usedRandomPowerUps[this.currentPlayer].includes("remove")
+                )
+                  return;
 
-    if (this.isMultiplayer && this.cells[index] !== opponent) return;
-    if (!this.isMultiplayer && this.cells[index] === null) return;
+                if (this.isMultiplayer && this.cells[index] !== opponent)
+                  return;
+                if (!this.isMultiplayer && this.cells[index] === null) return;
 
-    if (this.shieldedSquares[index]) {
-      this.shieldedSquares[index] = false;
-      this.toaster("Shield blocked the removal!", "info");
-    } else {
-      this.cells[index] = null;
-    }
+                if (this.shieldedSquares[index]) {
+                  this.shieldedSquares[index] = false;
+                  this.toaster("Shield blocked the removal!", "info");
+                } else {
+                  this.cells[index] = null;
+                }
 
-    // FIXED: Use array system
-    this.usedRandomPowerUps[this.currentPlayer].push('remove');
-    document.getElementById("remove-modal").close();
+                // FIXED: Use array system
+                this.usedRandomPowerUps[this.currentPlayer].push("remove");
+                document.getElementById("remove-modal").close();
 
-    this.toaster(
-      `${this.getEmoji(this.currentPlayer)} used remove!`,
-      "warning",
-    );
+                this.toaster(
+                  `${this.getEmoji(this.currentPlayer)} used remove!`,
+                  "warning",
+                );
 
-    // FIXED: Add turn switching
-    if (!this.winner && !this.isDraw) {
-      this.switchTurn();
-    }
+                // FIXED: Add turn switching
+                if (!this.winner && !this.isDraw) {
+                  this.switchTurn();
+                }
 
-    if (this.conn && this.conn.open) {
-      this.conn.send({
-        type: "remove",
-        cells: [...this.cells],
-        currentPlayer: this.currentPlayer,
-        usedRandomPowerUps: { ...this.usedRandomPowerUps }, // FIXED
-        shieldedSquares: [...this.shieldedSquares],
-      });
-    }
-  } catch (error) {
-    this.handleError("Remove piece", error);
-  }
-},
+                if (this.conn && this.conn.open) {
+                  this.conn.send({
+                    type: "remove",
+                    cells: [...this.cells],
+                    currentPlayer: this.currentPlayer,
+                    usedRandomPowerUps: { ...this.usedRandomPowerUps }, // FIXED
+                    shieldedSquares: [...this.shieldedSquares],
+                  });
+                }
+              } catch (error) {
+                this.handleError("Remove piece", error);
+              }
+            },
 
-       undoMove() {
+            undoMove() {
   try {
     const last = this.moveHistory.pop();
-    if (!last || this.usedRandomPowerUps[this.currentPlayer].includes('undo')) return;
+    if (
+      !last ||
+      this.usedRandomPowerUps[this.currentPlayer].includes("undo")
+    )
+      return;
 
     this.flashSquare(last.index);
     this.cells[last.index] = null;
     this.winner = null;
     this.isDraw = false;
     this.winningCombo = [];
-    this.usedRandomPowerUps[this.currentPlayer].push('undo');
+    this.usedRandomPowerUps[this.currentPlayer].push("undo");
 
     this.toaster(
       `${this.getEmoji(this.currentPlayer)} undid their last move!`,
       "warning",
     );
 
-    // Don't switch turns for undo - it's the same player's turn again
+    // FIXED: Switch back to the player who made the undone move
+    this.currentPlayer = last.player;
 
     if (this.conn && this.conn.open) {
       this.conn.send({
         type: "undo",
         cells: [...this.cells],
-        currentPlayer: this.currentPlayer,
+        currentPlayer: this.currentPlayer, // This should be the player who made the original move
         winner: this.winner,
         isDraw: this.isDraw,
         winningCombo: [...this.winningCombo],
@@ -4364,8 +4454,6 @@ removeOpponentPiece(index) {
               );
             },
 
-        
-
             // Helper method to validate incoming game data
             isValidGameData(data) {
               if (!data || typeof data !== "object") return false;
@@ -4398,31 +4486,33 @@ removeOpponentPiece(index) {
             // Centralized message handler
             handleIncomingMessage(data) {
               switch (data.type) {
-        case "themeSwitch":
-  this.themeIndex = data.themeIndex;
-  this.currentPlayer = data.currentPlayer;
-  this.usedRandomPowerUps = { ...data.usedRandomPowerUps };
-  this.toaster("Opponent switched the theme!", "info");
-  break;
-  
-case "powerUpUsed":
-  this.usedRandomPowerUps = { ...data.usedRandomPowerUps };
-  const powerUpName = this.getPowerUpInfo(data.powerUpType).name;
-  this.toaster(`Opponent used ${powerUpName}!`, "info");
-  break;
-                  
-                   case "reset":
-  this.resetGame(false);
-  // FIXED: Sync power-ups from host
-  if (data.playerPowerUps) {
-    this.playerPowerUps = { ...data.playerPowerUps };
-  }
-  if (data.usedRandomPowerUps) {
-    this.usedRandomPowerUps = { ...data.usedRandomPowerUps };
-  }
-  this.toaster("Opponent started a new game!", "info");
-  break;
-   
+                case "themeSwitch":
+                  this.themeIndex = data.themeIndex;
+                  this.currentPlayer = data.currentPlayer;
+                  this.usedRandomPowerUps = { ...data.usedRandomPowerUps };
+                  this.toaster("Opponent switched the theme!", "info");
+                  break;
+
+                case "powerUpUsed":
+                  this.usedRandomPowerUps = { ...data.usedRandomPowerUps };
+                  const powerUpName = this.getPowerUpInfo(
+                    data.powerUpType,
+                  ).name;
+                  this.toaster(`Opponent used ${powerUpName}!`, "info");
+                  break;
+
+                case "reset":
+                  this.resetGame(false);
+                  // FIXED: Sync power-ups from host
+                  if (data.playerPowerUps) {
+                    this.playerPowerUps = { ...data.playerPowerUps };
+                  }
+                  if (data.usedRandomPowerUps) {
+                    this.usedRandomPowerUps = { ...data.usedRandomPowerUps };
+                  }
+                  this.toaster("Opponent started a new game!", "info");
+                  break;
+
                 case "move":
                   this.handleMoveData(data);
                   break;
@@ -4471,7 +4561,6 @@ case "powerUpUsed":
               }
             },
 
-            // Handle full game state synchronization
             handleGameSync(data) {
   console.log("Receiving full game sync", data);
 
@@ -4487,23 +4576,22 @@ case "powerUpUsed":
     this.moveHistory = [...(data.moveHistory || [])];
 
     // CRITICAL: Sync power-ups properly
-    this.usedRandomPowerUps = { 
-      X: [...(data.usedRandomPowerUps?.X || [])], 
-      O: [...(data.usedRandomPowerUps?.O || [])] 
+    this.usedRandomPowerUps = {
+      X: [...(data.usedRandomPowerUps?.X || [])],
+      O: [...(data.usedRandomPowerUps?.O || [])],
     };
-    this.playerPowerUps = { 
-      X: [...(data.playerPowerUps?.X || [])], 
-      O: [...(data.playerPowerUps?.O || [])] 
+    this.playerPowerUps = {
+      X: [...(data.playerPowerUps?.X || [])],
+      O: [...(data.playerPowerUps?.O || [])],
     };
-    this.shieldedSquares = [...(data.shieldedSquares || Array(this.gridRows * 4).fill(false))];
+    this.shieldedSquares = [
+      ...(data.shieldedSquares ||
+        Array(this.gridRows * 4).fill(false)),
+    ];
 
-    // Ensure arrays are properly sized
-    const expectedSize = this.gridRows * 4;
-    while (this.cells.length < expectedSize) {
-      this.cells.push(null);
-    }
-    while (this.shieldedSquares.length < expectedSize) {
-      this.shieldedSquares.push(false);
+    // FIXED: Request sync from guest when they connect
+    if (!this.isHost && this.conn && this.conn.open) {
+      this.conn.send({ type: "requestSync" });
     }
 
     console.log("Game sync complete. My turn:", this.isMyTurn);
@@ -4526,45 +4614,45 @@ case "powerUpUsed":
             },
 
             sendGameSync() {
-  if (!this.conn || !this.conn.open) return;
+              if (!this.conn || !this.conn.open) return;
 
-  this.conn.send({
-    type: "gameSync",
-    cells: [...this.cells],
-    gridRows: this.gridRows,
-    currentPlayer: this.currentPlayer,
-    winner: this.winner,
-    isDraw: this.isDraw,
-    winningCombo: [...this.winningCombo],
-    score: { ...this.score },
-    moveHistory: [...this.moveHistory],
-    usedRandomPowerUps: { ...this.usedRandomPowerUps },
-    playerPowerUps: { ...this.playerPowerUps },
-    shieldedSquares: [...this.shieldedSquares],
-  });
-},
+              this.conn.send({
+                type: "gameSync",
+                cells: [...this.cells],
+                gridRows: this.gridRows,
+                currentPlayer: this.currentPlayer,
+                winner: this.winner,
+                isDraw: this.isDraw,
+                winningCombo: [...this.winningCombo],
+                score: { ...this.score },
+                moveHistory: [...this.moveHistory],
+                usedRandomPowerUps: { ...this.usedRandomPowerUps },
+                playerPowerUps: { ...this.playerPowerUps },
+                shieldedSquares: [...this.shieldedSquares],
+              });
+            },
 
-        handleExpandData(data) {
-  this.isExpanding = true;
-  this.cells = [...data.cells];
-  this.gridRows = data.gridRows;
-  this.currentPlayer = data.currentPlayer;
-  this.usedRandomPowerUps = { ...data.usedRandomPowerUps };
-  this.squareEffects = Array(this.gridRows * 4).fill(false);
-  this.shieldedSquares = [
-    ...(data.shieldedSquares ||
-      Array(this.gridRows * 4).fill(false)),
-  ];
+            handleExpandData(data) {
+              this.isExpanding = true;
+              this.cells = [...data.cells];
+              this.gridRows = data.gridRows;
+              this.currentPlayer = data.currentPlayer;
+              this.usedRandomPowerUps = { ...data.usedRandomPowerUps };
+              this.squareEffects = Array(this.gridRows * 4).fill(false);
+              this.shieldedSquares = [
+                ...(data.shieldedSquares ||
+                  Array(this.gridRows * 4).fill(false)),
+              ];
 
-  setTimeout(() => {
-    this.isExpanding = false;
-  }, 800);
+              setTimeout(() => {
+                this.isExpanding = false;
+              }, 800);
 
-  this.toaster(
-    `Opponent added row ${this.gridRows}! Now 4×${this.gridRows}`,
-    "warning",
-  );
-},
+              this.toaster(
+                `Opponent added row ${this.gridRows}! Now 4×${this.gridRows}`,
+                "warning",
+              );
+            },
 
             // Helper methods to handle different data types
             handleMoveData(data) {
@@ -4593,8 +4681,8 @@ case "powerUpUsed":
               this.moveHistory = [...(data.moveHistory || [])];
 
               // Update power-up states
-            this.usedRandomPowerUps = { ...data.usedRandomPowerUps };
-this.playerPowerUps = { ...data.playerPowerUps };
+              this.usedRandomPowerUps = { ...data.usedRandomPowerUps };
+              this.playerPowerUps = { ...data.playerPowerUps };
 
               // Visual feedback
               if (this.moveHistory.length > 0) {
@@ -4606,39 +4694,39 @@ this.playerPowerUps = { ...data.playerPowerUps };
             },
 
             handleSlideData(data) {
-  this.cells = [...data.cells];
-  this.currentPlayer = data.currentPlayer;
-  this.usedRandomPowerUps = { ...data.usedRandomPowerUps };
-  this.shieldedSquares = [
-    ...(data.shieldedSquares || Array(24).fill(false)),
-  ];
-  this.winner = data.winner;
-  this.isDraw = data.isDraw;
-  this.winningCombo = [...(data.winningCombo || [])];
-  this.toaster("Opponent used slide!", "info");
-},
+              this.cells = [...data.cells];
+              this.currentPlayer = data.currentPlayer;
+              this.usedRandomPowerUps = { ...data.usedRandomPowerUps };
+              this.shieldedSquares = [
+                ...(data.shieldedSquares || Array(24).fill(false)),
+              ];
+              this.winner = data.winner;
+              this.isDraw = data.isDraw;
+              this.winningCombo = [...(data.winningCombo || [])];
+              this.toaster("Opponent used slide!", "info");
+            },
 
-          handleShieldData(data) {
-  this.currentPlayer = data.currentPlayer;
-  this.usedRandomPowerUps = { ...data.usedRandomPowerUps };
-  this.shieldedSquares = [...data.shieldedSquares];
-  this.toaster("Opponent used shield!", "success");
-},
+            handleShieldData(data) {
+              this.currentPlayer = data.currentPlayer;
+              this.usedRandomPowerUps = { ...data.usedRandomPowerUps };
+              this.shieldedSquares = [...data.shieldedSquares];
+              this.toaster("Opponent used shield!", "success");
+            },
 
             handleTeleportData(data) {
-  this.cells = [...data.cells];
-  this.currentPlayer = data.currentPlayer;
-  this.usedRandomPowerUps = { ...data.usedRandomPowerUps };
-  this.shieldedSquares = [...data.shieldedSquares];
-  this.winner = data.winner;
-  this.isDraw = data.isDraw;
-  this.winningCombo = [...(data.winningCombo || [])];
-  this.toaster("Opponent used teleport!", "warning");
-},
+              this.cells = [...data.cells];
+              this.currentPlayer = data.currentPlayer;
+              this.usedRandomPowerUps = { ...data.usedRandomPowerUps };
+              this.shieldedSquares = [...data.shieldedSquares];
+              this.winner = data.winner;
+              this.isDraw = data.isDraw;
+              this.winningCombo = [...(data.winningCombo || [])];
+              this.toaster("Opponent used teleport!", "warning");
+            },
 
-            handleUndoData(data) {
+handleUndoData(data) {
   this.cells = [...data.cells];
-  this.currentPlayer = data.currentPlayer;
+  this.currentPlayer = data.currentPlayer; // This should be the player who made the original move
   this.winner = data.winner;
   this.isDraw = data.isDraw;
   this.winningCombo = [...(data.winningCombo || [])];
@@ -4647,49 +4735,50 @@ this.playerPowerUps = { ...data.playerPowerUps };
   this.toaster("Opponent used undo!", "warning");
 },
 
-           handleRemoveData(data) {
-  this.cells = [...data.cells];
-  this.currentPlayer = data.currentPlayer;
-  this.usedRandomPowerUps = { ...data.usedRandomPowerUps };
-  this.shieldedSquares = [
-    ...(data.shieldedSquares || Array(24).fill(false)),
-  ];
-  this.toaster("Opponent removed a piece!", "warning");
-},
+            handleRemoveData(data) {
+              this.cells = [...data.cells];
+              this.currentPlayer = data.currentPlayer;
+              this.usedRandomPowerUps = { ...data.usedRandomPowerUps };
+              this.shieldedSquares = [
+                ...(data.shieldedSquares || Array(24).fill(false)),
+              ];
+              this.toaster("Opponent removed a piece!", "warning");
+            },
 
-    handleSwapData(data) {
-  this.cells = [...data.cells];
-  this.currentPlayer = data.currentPlayer;
-  this.usedRandomPowerUps = { ...data.usedRandomPowerUps };
-  this.shieldedSquares = [
-    ...(data.shieldedSquares || Array(24).fill(false)),
-  ];
-  this.winner = data.winner;
-  this.isDraw = data.isDraw;
-  this.winningCombo = [...(data.winningCombo || [])];
-  this.toaster("Opponent used swap!", "info");
-},
+            handleSwapData(data) {
+              this.cells = [...data.cells];
+              this.currentPlayer = data.currentPlayer;
+              this.usedRandomPowerUps = { ...data.usedRandomPowerUps };
+              this.shieldedSquares = [
+                ...(data.shieldedSquares || Array(24).fill(false)),
+              ];
+              this.winner = data.winner;
+              this.isDraw = data.isDraw;
+              this.winningCombo = [...(data.winningCombo || [])];
+              this.toaster("Opponent used swap!", "info");
+            },
 
             // Replace your setupConnection method with this simpler version:
 
             setupConnection() {
               if (!this.conn) {
-    console.error("setupConnection called but no connection exists");
-    return;
-  }
+                console.error(
+                  "setupConnection called but no connection exists",
+                );
+                return;
+              }
 
-  console.log("Setting up connection handlers...");
-  console.log("I am host:", this.isHost);
-  console.log("Current player:", this.currentPlayer);
+              console.log("Setting up connection handlers...");
+              console.log("I am host:", this.isHost);
+              console.log("Current player:", this.currentPlayer);
 
-  // IMPORTANT: Ensure proper role assignment
-  if (!this.isHost) {
-    // Guest should wait for host to start, but be ready for O turns
-    console.log("I am the guest (O player)");
-  } else {
-    console.log("I am the host (X player)");
-  }
-
+              // IMPORTANT: Ensure proper role assignment
+              if (!this.isHost) {
+                // Guest should wait for host to start, but be ready for O turns
+                console.log("I am the guest (O player)");
+              } else {
+                console.log("I am the host (X player)");
+              }
 
               this.conn.on("data", (data) => {
                 try {
@@ -4703,9 +4792,9 @@ this.playerPowerUps = { ...data.playerPowerUps };
                   // Handle different message types
                   switch (data.type) {
                     case "requestSync":
-  console.log("Guest requesting game sync");
-  this.sendGameSync();
-  break;
+                      console.log("Guest requesting game sync");
+                      this.sendGameSync();
+                      break;
                     case "move":
                       // Validate move data
                       if (this.isMyTurn) {
@@ -4735,18 +4824,22 @@ this.playerPowerUps = { ...data.playerPowerUps };
                       this.moveHistory = [...(data.moveHistory || [])];
 
                       // Update power-up states
-                      
-         // FIXED: Ensure all arrays are properly synced
-  this.usedRandomPowerUps = data.usedRandomPowerUps ? 
-    { ...data.usedRandomPowerUps } : { X: [], O: [] };
-  this.playerPowerUps = data.playerPowerUps ? 
-    { ...data.playerPowerUps } : { X: [], O: [] };
-  
-  // Ensure arrays exist for both players
-  if (!this.usedRandomPowerUps.X) this.usedRandomPowerUps.X = [];
-  if (!this.usedRandomPowerUps.O) this.usedRandomPowerUps.O = [];
-  if (!this.playerPowerUps.X) this.playerPowerUps.X = [];
-  if (!this.playerPowerUps.O) this.playerPowerUps.O = [];
+
+                      // FIXED: Ensure all arrays are properly synced
+                      this.usedRandomPowerUps = data.usedRandomPowerUps
+                        ? { ...data.usedRandomPowerUps }
+                        : { X: [], O: [] };
+                      this.playerPowerUps = data.playerPowerUps
+                        ? { ...data.playerPowerUps }
+                        : { X: [], O: [] };
+
+                      // Ensure arrays exist for both players
+                      if (!this.usedRandomPowerUps.X)
+                        this.usedRandomPowerUps.X = [];
+                      if (!this.usedRandomPowerUps.O)
+                        this.usedRandomPowerUps.O = [];
+                      if (!this.playerPowerUps.X) this.playerPowerUps.X = [];
+                      if (!this.playerPowerUps.O) this.playerPowerUps.O = [];
 
                       // Visual feedback
                       if (this.moveHistory.length > 0) {
@@ -4758,7 +4851,7 @@ this.playerPowerUps = { ...data.playerPowerUps };
                       this.toaster("Opponent moved!", "info", 1500);
                       break;
 
-case "slide":
+                    case "slide":
                       this.cells = [...data.cells];
                       this.currentPlayer = data.currentPlayer;
                       this.usedRandomPowerUps = { ...data.usedRandomPowerUps };
@@ -4771,14 +4864,14 @@ case "slide":
                       this.toaster("Opponent used slide!", "info");
                       break;
 
-case "shield":
+                    case "shield":
                       this.currentPlayer = data.currentPlayer;
                       this.usedRandomPowerUps = { ...data.usedRandomPowerUps };
                       this.shieldedSquares = [...data.shieldedSquares];
                       this.toaster("Opponent used shield!", "success");
                       break;
 
-case "teleport":
+                    case "teleport":
                       this.cells = [...data.cells];
                       this.currentPlayer = data.currentPlayer;
                       this.usedRandomPowerUps = { ...data.usedRandomPowerUps };
@@ -4809,7 +4902,7 @@ case "teleport":
                     case "remove":
                       this.cells = [...data.cells];
                       this.currentPlayer = data.currentPlayer;
-                                      this.usedRandomPowerUps = { ...data.usedRandomPowerUps };
+                      this.usedRandomPowerUps = { ...data.usedRandomPowerUps };
 
                       this.shieldedSquares = [
                         ...(data.shieldedSquares || Array(24).fill(false)),
@@ -4820,7 +4913,7 @@ case "teleport":
                     case "swap":
                       this.cells = [...data.cells];
                       this.currentPlayer = data.currentPlayer;
-              this.usedRandomPowerUps = { ...data.usedRandomPowerUps };
+                      this.usedRandomPowerUps = { ...data.usedRandomPowerUps };
                       this.shieldedSquares = [
                         ...(data.shieldedSquares || Array(24).fill(false)),
                       ];
@@ -4835,7 +4928,7 @@ case "teleport":
                       this.cells = [...data.cells];
                       this.gridRows = data.gridRows;
                       this.currentPlayer = data.currentPlayer;
-     this.usedRandomPowerUps = { ...data.usedRandomPowerUps };
+                      this.usedRandomPowerUps = { ...data.usedRandomPowerUps };
                       this.squareEffects = Array(this.gridRows * 4).fill(false);
                       this.shieldedSquares = [
                         ...(data.shieldedSquares ||
@@ -5077,20 +5170,20 @@ case "teleport":
               // Only send multiplayer data if in multiplayer mode
               if (this.gameMode === "multiplayer" && this.conn) {
                 // <-- ADD this condition check
-               const moveData = {
-  type: "move",
-  cells: [...this.cells],
-  gridRows: this.gridRows,
-  currentPlayer: this.currentPlayer,
-  winner: this.winner,
-  isDraw: this.isDraw,
-  winningCombo: [...this.winningCombo],
-  score: { ...this.score },
-  moveHistory: [...this.moveHistory],
-  usedRandomPowerUps: { ...this.usedRandomPowerUps },
-  playerPowerUps: { ...this.playerPowerUps },
-  shieldedSquares: [...this.shieldedSquares],
-};
+                const moveData = {
+                  type: "move",
+                  cells: [...this.cells],
+                  gridRows: this.gridRows,
+                  currentPlayer: this.currentPlayer,
+                  winner: this.winner,
+                  isDraw: this.isDraw,
+                  winningCombo: [...this.winningCombo],
+                  score: { ...this.score },
+                  moveHistory: [...this.moveHistory],
+                  usedRandomPowerUps: { ...this.usedRandomPowerUps },
+                  playerPowerUps: { ...this.playerPowerUps },
+                  shieldedSquares: [...this.shieldedSquares],
+                };
                 console.log("Sending move data:", moveData);
                 this.conn.send(moveData);
               }
@@ -5232,62 +5325,52 @@ case "teleport":
               }, 250);
             },
 
-resetGame(sync = true) {
-  const gameBoard = document.querySelector(".grid");
-  if (gameBoard) gameBoard.classList.add("fade-out");
+            resetGame(sync = true) {
+              const gameBoard = document.querySelector(".grid");
+              if (gameBoard) gameBoard.classList.add("fade-out");
 
-  setTimeout(() => {
-    this.cells = Array(16).fill(null);
-    this.gridRows = 4;
-    this.isExpanding = false;
-    this.moveHistory = [];
-    this.currentPlayer = "X";
-    this.winner = null;
-    this.isDraw = false;
-    this.winningCombo = [];
+              setTimeout(() => {
+                this.cells = Array(16).fill(null);
+                this.gridRows = 4;
+                this.isExpanding = false;
+                this.moveHistory = [];
+                this.currentPlayer = "X";
+                this.winner = null;
+                this.isDraw = false;
+                this.winningCombo = [];
 
-    // Reset ALL power-ups
-    this.hasUsedUndo = { X: false, O: false };
-    this.hasUsedRemove = { X: false, O: false };
-    this.hasUsedSwap = { X: false, O: false };
-    this.hasUsedExpand = { X: false, O: false };
-    this.hasUsedSlide = { X: false, O: false };
-    this.hasUsedShield = { X: false, O: false };
-    this.hasUsedTeleport = { X: false, O: false };
-    this.hasUsedThemeSwitch = { X: false, O: false };
+                this.swapSelection = [];
+                this.slideSelection = [];
+                this.teleportSelection = [];
+                this.slideMode = "select";
+                this.shieldedSquares = Array(24).fill(false);
+                this.squareEffects = Array(24).fill(false);
+                this.focusedCellIndex = 0;
 
-    this.swapSelection = [];
-    this.slideSelection = [];
-    this.teleportSelection = [];
-    this.slideMode = "select";
-    this.shieldedSquares = Array(24).fill(false);
-    this.squareEffects = Array(24).fill(false);
-    this.focusedCellIndex = 0;
+                // FIXED: Always reset and regenerate power-ups for new game
+                this.usedRandomPowerUps = { X: [], O: [] };
+                this.playerPowerUps = { X: [], O: [] };
+                this.generateBalancedPowerUps();
 
-    // FIXED: Always reset and regenerate power-ups for new game
-    this.usedRandomPowerUps = { X: [], O: [] };
-    this.playerPowerUps = { X: [], O: [] };
-    this.generateBalancedPowerUps();
+                if (gameBoard) gameBoard.classList.remove("fade-out");
 
-    if (gameBoard) gameBoard.classList.remove("fade-out");
+                this.toaster("New game started!", "info");
 
-    this.toaster("New game started!", "info");
+                setTimeout(() => {
+                  this.announceGameState(
+                    `${this.getEmoji(this.currentPlayer)} goes first!`,
+                  );
+                }, 500);
 
-    setTimeout(() => {
-      this.announceGameState(
-        `${this.getEmoji(this.currentPlayer)} goes first!`,
-      );
-    }, 500);
-
-    if (sync && this.conn && this.conn.open) {
-      this.conn.send({
-        type: "reset",
-        playerPowerUps: { ...this.playerPowerUps },
-        usedRandomPowerUps: { ...this.usedRandomPowerUps },
-      });
-    }
-  }, 300);
-},
+                if (sync && this.conn && this.conn.open) {
+                  this.conn.send({
+                    type: "reset",
+                    playerPowerUps: { ...this.playerPowerUps },
+                    usedRandomPowerUps: { ...this.usedRandomPowerUps },
+                  });
+                }
+              }, 300);
+            },
             playSound(soundName) {
               const audio = new Audio(`/assets/sounds/${soundName}.mp3`);
               audio.volume = 0.3;
@@ -5302,7 +5385,7 @@ resetGame(sync = true) {
 
               this.setupKeyboardNavigation();
               //  this.playSound("theme");
- this.generateBalancedPowerUps();
+              this.generateBalancedPowerUps();
               try {
                 const saved = localStorage.getItem("tictactoe-score");
                 if (saved) {
