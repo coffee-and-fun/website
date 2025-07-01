@@ -36,17 +36,19 @@ async function fetchWithRetry(url, options = {}, retries = CONFIG.MAX_RETRIES) {
   const controller = new AbortController();
   const timeoutId = setTimeout(() => controller.abort(), CONFIG.REQUEST_TIMEOUT);
   
-  const defaultHeaders = {
-    'User-Agent': 'Mozilla/5.0 (compatible; NewsBot/1.0; +https://coffeeandfun.com/headlines)',
-    'Accept': 'application/json, text/html, */*',
-    'Accept-Language': 'en-US,en;q=0.9',
-    'Accept-Encoding': 'gzip, deflate, br',
-    'Cache-Control': 'no-cache',
-    'Pragma': 'no-cache',
-    'DNT': '1',
-    'Connection': 'keep-alive',
-    'Upgrade-Insecure-Requests': '1'
-  };
+const defaultHeaders = {
+  'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36',
+  'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8',
+  'Accept-Language': 'en-US,en;q=0.5',
+  'Accept-Encoding': 'gzip, deflate, br',
+  'Referer': 'https://www.reddit.com/',
+  'DNT': '1',
+  'Connection': 'keep-alive',
+  'Upgrade-Insecure-Requests': '1',
+  'Sec-Fetch-Dest': 'document',
+  'Sec-Fetch-Mode': 'navigate',
+  'Sec-Fetch-Site': 'none'
+};
   
   try {
     const response = await fetch(url, {
@@ -87,6 +89,7 @@ async function fetchWithRetry(url, options = {}, retries = CONFIG.MAX_RETRIES) {
 // Fetch from multiple free sources (no API key needed)
 async function fetchFreeNews() {
   await ensureFetch(); // Ensure fetch is available
+
   
   const sources = [
     {
@@ -121,7 +124,7 @@ async function fetchFreeNews() {
     },
     {
       name: 'Reddit WorldNews',
-      url: 'https://www.reddit.com/r/worldnews/hot.json?limit=25',
+      url: 'https://old.reddit.com/r/worldnews/hot.json?limit=25',
       parser: async (data) => {
         if (!data.data || !data.data.children) return [];
         
@@ -139,7 +142,7 @@ async function fetchFreeNews() {
     },
     {
       name: 'Reddit Technology',
-      url: 'https://www.reddit.com/r/technology/hot.json?limit=25',
+      url: 'https://old.reddit.com/r/technology/hot.json?limit=25',
       parser: async (data) => {
         if (!data.data || !data.data.children) return [];
         
@@ -157,7 +160,7 @@ async function fetchFreeNews() {
     },
     {
       name: 'Reddit Science',
-      url: 'https://www.reddit.com/r/science/hot.json?limit=25',
+      url: 'https://old.reddit.com/r/science/hot.json?limit=25',
       parser: async (data) => {
         if (!data.data || !data.data.children) return [];
         
@@ -175,7 +178,7 @@ async function fetchFreeNews() {
     },
     {
       name: 'Reddit Entertainment',
-      url: 'https://www.reddit.com/r/entertainment/hot.json?limit=25',
+      url: 'https://old.reddit.com/r/entertainment/hot.json?limit=25',
       parser: async (data) => {
         if (!data.data || !data.data.children) return [];
         
@@ -193,7 +196,7 @@ async function fetchFreeNews() {
     },
     {
       name: 'Reddit Politics',
-      url: 'https://www.reddit.com/r/politics/hot.json?limit=25',
+      url: 'https://old.reddit.com/r/politics/hot.json?limit=25',
       parser: async (data) => {
         if (!data.data || !data.data.children) return [];
         
@@ -211,7 +214,7 @@ async function fetchFreeNews() {
     },
     {
       name: 'Reddit Sports',
-      url: 'https://www.reddit.com/r/sports/hot.json?limit=25',
+      url: 'https://old.reddit.com/r/sports/hot.json?limit=25',
       parser: async (data) => {
         if (!data.data || !data.data.children) return [];
         
@@ -229,7 +232,7 @@ async function fetchFreeNews() {
     },
     {
       name: 'Reddit Soccer',
-      url: 'https://www.reddit.com/r/soccer/hot.json?limit=25',
+      url: 'https://old.reddit.com/r/soccer/hot.json?limit=25',
       parser: async (data) => {
         if (!data.data || !data.data.children) return [];
         
@@ -247,7 +250,7 @@ async function fetchFreeNews() {
     },
     {
       name: 'Reddit Baseball',
-      url: 'https://www.reddit.com/r/baseball/hot.json?limit=25',
+      url: 'https://old.reddit.com/r/baseball/hot.json?limit=25',
       parser: async (data) => {
         if (!data.data || !data.data.children) return [];
         
@@ -265,7 +268,7 @@ async function fetchFreeNews() {
     },
     {
       name: 'Reddit Gaming',
-      url: 'https://www.reddit.com/r/gaming/hot.json?limit=25',
+      url: 'https://old.reddit.com/r/gaming/hot.json?limit=25',
       parser: async (data) => {
         if (!data.data || !data.data.children) return [];
         
@@ -283,12 +286,19 @@ async function fetchFreeNews() {
     }
   ];
 
+
+  
+
   const allNews = [];
   
   for (const source of sources) {
     try {
       console.log(`📡 Fetching from ${source.name}...`);
-      
+      if (source.name.includes('Reddit')) {
+  await delay(CONFIG.DELAY_BETWEEN_REQUESTS * 2); // 4 seconds for Reddit
+} else {
+  await delay(CONFIG.DELAY_BETWEEN_REQUESTS); // 2 seconds for others
+}
       // Use enhanced fetch with proper headers and retry logic
       const response = await fetchWithRetry(source.url);
       const data = await response.json();
