@@ -4750,11 +4750,13 @@ handleUndoData(data) {
 
                   // Handle different message types
                   switch (data.type) {
-          case 'themeSwitch':
-      // apply the new emoji‐theme
+     case 'themeSwitch':
+      // apply the new emoji theme
       this.themeIndex           = data.themeIndex;
       this.usedRandomPowerUps   = { ...data.usedRandomPowerUps };
-      // toast so the other player knows
+      // sync whose turn it is now
+      this.currentPlayer        = data.currentPlayer;
+      // let them know
       this.toaster('🎨 Opponent switched theme!', 'info', 2000);
       break;
                     case "requestSync":
