@@ -2,21 +2,92 @@
 const fs = require('fs').promises;
 const path = require('path');
 
+// Ensure fetch is available (for GitHub Actions/older Node versions)
+const ensureFetch = async () => {
+  if (!globalThis.fetch) {
+    try {
+      const { default: fetch } = await import('node-fetch');
+      globalThis.fetch = fetch;
+    } catch (error) {
+      console.error('❌ fetch not available and node-fetch not installed. Run: npm install node-fetch');
+      process.exit(1);
+    }
+  }
+};
+
 // Configuration
 const CONFIG = {
   // Output settings
   OUTPUT_DIR: './docs',
   ARTICLES_PER_SOURCE: 15,
   
-  // Rate limiting (milliseconds between requests)
-  DELAY_BETWEEN_REQUESTS: 1000
+  // Rate limiting (increased for GitHub Actions)
+  DELAY_BETWEEN_REQUESTS: 2000, // 2 seconds
+  RETRY_DELAY: 5000, // 5 seconds for retries
+  MAX_RETRIES: 2,
+  REQUEST_TIMEOUT: 15000 // 15 seconds
 };
 
 // Utility function to delay execution
 const delay = (ms) => new Promise(resolve => setTimeout(resolve, ms));
 
+// Enhanced fetch with timeout and headers
+async function fetchWithRetry(url, options = {}, retries = CONFIG.MAX_RETRIES) {
+  const controller = new AbortController();
+  const timeoutId = setTimeout(() => controller.abort(), CONFIG.REQUEST_TIMEOUT);
+  
+  const defaultHeaders = {
+    'User-Agent': 'Mozilla/5.0 (compatible; NewsBot/1.0; +https://coffeeandfun.com/headlines)',
+    'Accept': 'application/json, text/html, */*',
+    'Accept-Language': 'en-US,en;q=0.9',
+    'Accept-Encoding': 'gzip, deflate, br',
+    'Cache-Control': 'no-cache',
+    'Pragma': 'no-cache',
+    'DNT': '1',
+    'Connection': 'keep-alive',
+    'Upgrade-Insecure-Requests': '1'
+  };
+  
+  try {
+    const response = await fetch(url, {
+      ...options,
+      signal: controller.signal,
+      headers: { ...defaultHeaders, ...options.headers }
+    });
+    
+    clearTimeout(timeoutId);
+    
+    if (!response.ok) {
+      if (response.status === 429 && retries > 0) {
+        console.log(`⏰ Rate limited on ${url}, waiting ${CONFIG.RETRY_DELAY/1000}s before retry...`);
+        await delay(CONFIG.RETRY_DELAY);
+        return fetchWithRetry(url, options, retries - 1);
+      }
+      throw new Error(`HTTP ${response.status}: ${response.statusText}`);
+    }
+    
+    return response;
+  } catch (error) {
+    clearTimeout(timeoutId);
+    
+    if (error.name === 'AbortError') {
+      throw new Error('Request timeout');
+    }
+    
+    if (retries > 0 && (error.message.includes('timeout') || error.message.includes('ECONNRESET') || error.message.includes('ENOTFOUND'))) {
+      console.log(`🔄 Network error on ${url}, retrying in ${CONFIG.RETRY_DELAY/1000}s... (${retries} retries left)`);
+      await delay(CONFIG.RETRY_DELAY);
+      return fetchWithRetry(url, options, retries - 1);
+    }
+    
+    throw error;
+  }
+}
+
 // Fetch from multiple free sources (no API key needed)
 async function fetchFreeNews() {
+  await ensureFetch(); // Ensure fetch is available
+  
   const sources = [
     {
       name: 'Hacker News',
@@ -28,7 +99,7 @@ async function fetchFreeNews() {
         
         for (const id of topIds) {
           try {
-            const storyResponse = await fetch(`https://hacker-news.firebaseio.com/v0/item/${id}.json`);
+            const storyResponse = await fetchWithRetry(`https://hacker-news.firebaseio.com/v0/item/${id}.json`);
             const story = await storyResponse.json();
             
             if (story && story.title && story.url && !story.url.includes('item?id=')) {
@@ -40,7 +111,7 @@ async function fetchFreeNews() {
                 category: 'technology'
               });
             }
-            await delay(100); // Small delay between requests
+            await delay(200); // Slightly longer delay for individual HN items
           } catch (err) {
             console.error(`Error fetching story ${id}:`, err.message);
           }
@@ -103,7 +174,7 @@ async function fetchFreeNews() {
       }
     },
     {
-      name: 'Reddit Pop Culture',
+      name: 'Reddit Entertainment',
       url: 'https://www.reddit.com/r/entertainment/hot.json?limit=25',
       parser: async (data) => {
         if (!data.data || !data.data.children) return [];
@@ -217,20 +288,27 @@ async function fetchFreeNews() {
   for (const source of sources) {
     try {
       console.log(`📡 Fetching from ${source.name}...`);
-      const response = await fetch(source.url);
       
-      if (!response.ok) {
-        throw new Error(`HTTP ${response.status}: ${response.statusText}`);
-      }
-      
+      // Use enhanced fetch with proper headers and retry logic
+      const response = await fetchWithRetry(source.url);
       const data = await response.json();
       const parsed = await source.parser(data);
+      
       allNews.push(...parsed);
       console.log(`✅ Got ${parsed.length} articles from ${source.name}`);
       
+      // Longer delay for GitHub Actions environment
       await delay(CONFIG.DELAY_BETWEEN_REQUESTS);
     } catch (error) {
       console.error(`❌ Error fetching from ${source.name}:`, error.message);
+      
+      // Continue with other sources even if one fails
+      if (error.message.includes('Rate limited') || error.message.includes('429')) {
+        console.log(`⏸️  Skipping ${source.name} due to rate limiting, continuing with other sources...`);
+        await delay(CONFIG.RETRY_DELAY);
+      } else {
+        console.log(`⏸️  Skipping ${source.name}, continuing with other sources...`);
+      }
     }
   }
   
@@ -276,7 +354,8 @@ async function saveToFile(data, filename) {
 // Main function - scrape free news sources
 async function scrapeFreeNews() {
   console.log('🚀 Starting free news scraper...');
-  console.log('📰 Fetching from Hacker News, Reddit WorldNews, Technology & Science...\n');
+  console.log('📰 Fetching from multiple Reddit communities + Hacker News...\n');
+  console.log('📊 Categories: General, Technology, Science, Entertainment, Politics, Sports, Soccer, Baseball, Gaming\n');
   
   const articles = await fetchFreeNews();
   const processed = processArticles(articles);
@@ -294,11 +373,24 @@ async function scrapeFreeNews() {
     console.log(`📊 Total unique articles: ${uniqueArticles.length}`);
     console.log(`📁 File saved to: ${CONFIG.OUTPUT_DIR}/news.json`);
     
-    // Show breakdown by category
+    // Show breakdown by category with emojis
+    const categoryEmojis = {
+      'general': '🌍',
+      'technology': '💻',
+      'science': '🔬',
+      'entertainment': '🎬',
+      'politics': '🏛️',
+      'sports': '⚽',
+      'soccer': '⚽',
+      'baseball': '⚾',
+      'gaming': '🎮'
+    };
+    
     const categories = [...new Set(uniqueArticles.map(a => a.category))];
     categories.forEach(cat => {
       const count = uniqueArticles.filter(a => a.category === cat).length;
-      console.log(`   ${cat}: ${count} articles`);
+      const emoji = categoryEmojis[cat] || '📰';
+      console.log(`   ${emoji} ${cat}: ${count} articles`);
     });
   } else {
     console.log('❌ No articles found');
