@@ -4297,53 +4297,50 @@ this.peer.on("connection", (incomingConn) => {
 
         
             // REPLACE removeOpponentPiece with this fixed version:
-            removeOpponentPiece(index) {
-              try {
-                this.flashSquare(index);
-                const opponent = this.currentPlayer === "X" ? "O" : "X";
-                if (
-                  this.usedRandomPowerUps[this.currentPlayer].includes("remove")
-                )
-                  return;
+    removeOpponentPiece(index) {
+  try {
+    this.flashSquare(index);
 
-                if (this.isMultiplayer && this.cells[index] !== opponent)
-                  return;
-                if (!this.isMultiplayer && this.cells[index] === null) return;
+    // Only allow one “remove” per player
+    if (this.usedRandomPowerUps[this.currentPlayer].includes('remove')) return;
 
-                if (this.shieldedSquares[index]) {
-                  this.shieldedSquares[index] = false;
-                  this.toaster("Shield blocked the removal!", "info");
-                } else {
-                  this.cells[index] = null;
-                }
+    const opponent = this.currentPlayer === 'X' ? 'O' : 'X';
+    if (this.isMultiplayer && this.cells[index] !== opponent) return;
+    if (!this.isMultiplayer && this.cells[index] === null) return;
 
-                // FIXED: Use array system
-                this.usedRandomPowerUps[this.currentPlayer].push("remove");
-                document.getElementById("remove-modal").close();
+    // Shield check
+    if (this.shieldedSquares[index]) {
+      this.shieldedSquares[index] = false;
+      this.toaster('🛡️ Shield blocked the removal!', 'info');
+    } else {
+      // Just null out the cell:
+      this.cells[index] = null;
+    }
 
-                this.toaster(
-                  `${this.getEmoji(this.currentPlayer)} used remove!`,
-                  "warning",
-                );
+    // Mark it used, close modal, toast, switch turn
+    this.usedRandomPowerUps[this.currentPlayer].push('remove');
+    document.getElementById('remove-modal').close();
+    this.toaster(`${this.getEmoji(this.currentPlayer)} used Remove!`, 'warning');
 
-                // FIXED: Add turn switching
-                if (!this.winner && !this.isDraw) {
-                  this.switchTurn();
-                }
+    if (!this.winner && !this.isDraw) {
+      this.switchTurn();
+    }
 
-                if (this.conn && this.conn.open) {
-                  this.conn.send({
-                    type: "remove",
-                    cells: [...this.cells],
-                    currentPlayer: this.currentPlayer,
-                    usedRandomPowerUps: { ...this.usedRandomPowerUps }, // FIXED
-                    shieldedSquares: [...this.shieldedSquares],
-                  });
-                }
-              } catch (error) {
-                this.handleError("Remove piece", error);
-              }
-            },
+    // And notify your opponent
+    if (this.conn?.open) {
+      this.conn.send({
+        type: 'remove',
+        cells: [...this.cells],
+        currentPlayer: this.currentPlayer,
+        usedRandomPowerUps: { ...this.usedRandomPowerUps },
+        shieldedSquares: [...this.shieldedSquares],
+      });
+    }
+  } catch (err) {
+    this.handleError('Remove piece', err);
+  }
+},
+
 
       undoMove() {
   try {
@@ -4753,6 +4750,13 @@ handleUndoData(data) {
 
                   // Handle different message types
                   switch (data.type) {
+          case 'themeSwitch':
+      // apply the new emoji‐theme
+      this.themeIndex           = data.themeIndex;
+      this.usedRandomPowerUps   = { ...data.usedRandomPowerUps };
+      // toast so the other player knows
+      this.toaster('🎨 Opponent switched theme!', 'info', 2000);
+      break;
                     case "requestSync":
                       console.log("Guest requesting game sync");
                       this.sendGameSync();
