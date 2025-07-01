@@ -8,7 +8,7 @@
 		"start": " eleventy --serve",
 		"format": "prettier  --write .",
     "scrape:free": "node news-scraper.js --free",
-		"build": " NODE_ENV=production  webpack --mode production && eleventy"
+		"build": " NODE_ENV=production  webpack --mode production && eleventy && node news-scraper.js --free"
 	},
 	"repository": {
 		"type": "git",
