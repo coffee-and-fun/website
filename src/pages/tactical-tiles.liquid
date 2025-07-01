@@ -1812,14 +1812,14 @@
           data() {
             return {
   
-              gameMode: "offline", // 'offline', 'ai', 'multiplayer'
+              gameMode: "offline",
               isAIMode: false,
               aiDifficulty: "random",
               aiPlayer: "O",
               aiThinking: false,
               aiPersonality: null,
               aiMoveTimeout: null,
-              // AI skill parameters (randomized each game)
+
               aiSkills: {
                 strategicThinking: 0.5,
                 powerUpTiming: 0.5,
@@ -2505,8 +2505,7 @@
                 }
               });
             },
-            // REPLACE your isPowerUpDisabled method with this fixed version:
-
+        
             isPowerUpDisabled(powerUpType) {
               if (this.gameOver) return true;
 
@@ -4216,17 +4215,14 @@
               }
             },
 
-            // REPLACE performTeleport with this fixed version:
+         
             performTeleport(destinationIndex) {
               try {
                 if (this.teleportSelection.length !== 1) return;
 
                 const sourceIndex = this.teleportSelection[0];
 
-                /*
-                      this.cells[destinationIndex] = this.cells[sourceIndex];
-                      this.cells[sourceIndex] = null;
-      */
+          
 
                 this.flashSquare(sourceIndex);
                 this.flashSquare(destinationIndex);
@@ -4509,7 +4505,6 @@
               this.swapSelection = [];
             },
 
-            // REPLACE removeOpponentPiece with this fixed version:
             removeOpponentPiece(index) {
               try {
                 this.flashSquare(index);
@@ -4935,8 +4930,7 @@
               this.toaster("Opponent used swap!", "info");
             },
 
-            // Replace your setupConnection method with this simpler version:
-
+   
             setupConnection() {
               if (!this.conn) {
                 console.error(
@@ -5336,8 +5330,6 @@
                 );
               }
             },
-
-            // 1. REPLACE your makeMove method with this version:
             makeMove(index) {
               if (!this.canMakeMoveAtIndex(index)) return;
 
