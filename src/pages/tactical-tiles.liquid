@@ -1213,7 +1213,7 @@
                   {
                     'btn-soft btn-accent border-4 border-accent': slideSelection.includes(index),
                     'btn-soft btn-primary ring-2 ring-primary animate-pulse': slideMode === 'destination' && getSlideDestinations.includes(index),
-                    'btn-soft btn-secondary hover:btn-soft btn-accent': cell === currentPlayer && slideMode === 'select' && !slideSelection.includes(index),
+                    'btn-soft hover:btn-soft btn-accent': cell === currentPlayer && slideMode === 'select' && !slideSelection.includes(index),
                     'btn-soft btn-ghost': !cell && (slideMode === 'select' || !getSlideDestinations.includes(index)),
                     'btn-soft btn-disabled opacity-30': (slideMode === 'select' && cell !== currentPlayer && cell !== null) || 
                                              (slideMode === 'destination' && !getSlideDestinations.includes(index) && cell !== currentPlayer),
@@ -2166,7 +2166,7 @@ switchToTheme(themeIndex) {
   }
 },
         showRemovePowerModal() {
-  if (this.myUsedPUs.includes('remove')) {
+  if (this.usedRandomPowerUps[this.currentPlayer].includes('remove')) {
     return this.toaster("You've already used Remove!", 'warning');
   }
   document.getElementById('remove-modal').showModal();
@@ -2535,7 +2535,7 @@ this.peer.on("connection", (incomingConn) => {
             // FIXED: Update canMakeMoveAtIndex for clarity
             canMakeMoveAtIndex(index) {
 
-  return !this.cells[i] &&
+  return !this.cells[index] &&
          !this.gameOver &&
          (this.gameMode==='ai' || this.gameMode==='offline' || this.isMyTurn);
 
@@ -3884,6 +3884,7 @@ this.peer.on("connection", (incomingConn) => {
               try {
                 if (this.slideSelection.length !== 1) return;
 
+                /*
                 const sourceIndex = this.slideSelection[0];
                 const validDestinations = this.getSlideDestinations;
                 if (!validDestinations.includes(destinationIndex)) {
@@ -3891,11 +3892,25 @@ this.peer.on("connection", (incomingConn) => {
                   return;
                 }
 
+                        this.cells[destinationIndex] = this.cells[sourceIndex];
+                this.cells[sourceIndex] = null;
+
+          
                 this.flashSquare(sourceIndex);
                 this.flashSquare(destinationIndex);
+      */
+                const row = Math.floor(sourceIndex / 4), col = sourceIndex % 4;
+// (optional) if you still want to restrict range, check adjacency:
+// if (Math.abs(destRow - row) > 1 || Math.abs(destCol - col) > 1) return;
 
-                this.cells[destinationIndex] = this.cells[sourceIndex];
-                this.cells[sourceIndex] = null;
+this.flashSquare(sourceIndex);
+this.flashSquare(destinationIndex);
+
+// **Kick off any piece at the destination**
+this.cells[destinationIndex] = this.cells[sourceIndex];
+this.cells[sourceIndex] = null;
+
+        
 
                 if (this.shieldedSquares[sourceIndex]) {
                   this.shieldedSquares[sourceIndex] = false;
@@ -4013,11 +4028,18 @@ this.peer.on("connection", (incomingConn) => {
                 if (this.teleportSelection.length !== 1) return;
 
                 const sourceIndex = this.teleportSelection[0];
-                this.flashSquare(sourceIndex);
-                this.flashSquare(destinationIndex);
-
+      
+/*
                 this.cells[destinationIndex] = this.cells[sourceIndex];
                 this.cells[sourceIndex] = null;
+*/
+
+this.flashSquare(sourceIndex);
+this.flashSquare(destinationIndex);
+
+// **Override whatever’s there**  
+this.cells[destinationIndex] = this.cells[sourceIndex];
+this.cells[sourceIndex] = null;
 
                 if (this.shieldedSquares[sourceIndex]) {
                   this.shieldedSquares[sourceIndex] = false;
