@@ -1,0 +1,669 @@
+<!DOCTYPE html>
+<html class="scroll-smooth antialiased" lang="en" data-theme="coffee">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    
+    <!-- Enhanced Title with Brand -->
+    <title>Just the Headlines - Clean News Without Ads | Coffee & Fun</title>
+    
+    <!-- Enhanced Meta Description -->
+    <meta name="description" content="Get just the headlines you need from trusted sources. Clean, minimal news from around the world without ads, clutter, or distractions. Features breaking news, tech updates, sports, politics, entertainment, and gaming news updated every hour." />
+    
+    <!-- Expanded Keywords -->
+    <meta name="keywords" content="headlines, news, minimal news, clean news, breaking news, world news, technology news, science news, latest news, ad-free news, politics, sports, entertainment, gaming news, news aggregator, Coffee and Fun" />
+    
+    <!-- Enhanced Author and Publisher Info -->
+    <meta name="author" content="Coffee & Fun LLC" />
+    <meta name="publisher" content="Coffee & Fun LLC" />
+    <meta name="copyright" content="Coffee & Fun LLC" />
+    
+    <!-- Enhanced Robots Instructions -->
+    <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1, noimageindex" />
+    <meta name="googlebot" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1" />
+    <meta name="bingbot" content="index, follow" />
+    
+    <!-- Content Classification -->
+    <meta name="rating" content="general" />
+    <meta name="language" content="en-US" />
+    <meta name="geo.region" content="US" />
+    <meta name="geo.country" content="United States" />
+    <meta name="distribution" content="global" />
+    <meta name="audience" content="all" />
+    <meta name="revisit-after" content="1 hour" />
+    <meta name="expires" content="never" />
+    
+    <!-- News-Specific Meta Tags -->
+    <meta name="news_keywords" content="breaking news, headlines, current events, world news, technology, politics, sports, entertainment" />
+    <meta name="article:publisher" content="https://www.coffeeandfun.com/" />
+    
+    <!-- Canonical URL -->
+    <link rel="canonical" href="https://www.coffeeandfun.com/headlines" />
+    
+    <!-- Alternate URLs for different formats -->
+    <link rel="alternate" type="application/rss+xml" title="Just the Headlines RSS Feed" href="https://www.coffeeandfun.com/headlines/rss" />
+    <link rel="alternate" type="application/json" title="Just the Headlines JSON Feed" href="https://www.coffeeandfun.com/news-data/news.json" />
+    
+    <!-- Enhanced Favicon Package -->
+    <link rel="icon" href="/assets/images/favicon.png" sizes="any" />
+
+
+  
+    <!-- Enhanced Open Graph -->
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="Coffee & Fun" />
+    <meta property="og:title" content="Just the Headlines - Clean News Without Ads" />
+    <meta property="og:description" content="Get just the headlines you need from trusted sources. Clean, minimal news covering breaking news, tech, politics, sports, entertainment, and gaming - updated hourly without ads or clutter." />
+    <meta property="og:url" content="https://www.coffeeandfun.com/headlines" />
+    <meta property="og:image" content="https://www.coffeeandfun.com/assets/images/headlines-og.jpg" />
+    <meta property="og:image:secure_url" content="https://www.coffeeandfun.com/assets/images/headlines-og.jpg" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content="Just the Headlines - Clean News by Coffee & Fun" />
+    <meta property="og:image:type" content="image/jpeg" />
+    <meta property="og:locale" content="en_US" />
+    <meta property="og:updated_time" content="2025-07-01T12:00:00Z" />
+    
+    <!-- Additional Open Graph for News -->
+    <meta property="article:author" content="Coffee & Fun LLC" />
+    <meta property="article:publisher" content="https://www.coffeeandfun.com/" />
+    <meta property="article:section" content="News" />
+    <meta property="article:tag" content="headlines" />
+    <meta property="article:tag" content="news" />
+    <meta property="article:tag" content="breaking news" />
+    <meta property="article:tag" content="current events" />
+    
+    <!-- Enhanced Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:site" content="@bycoffeeandfun" />
+    <meta name="twitter:creator" content="@bycoffeeandfun" />
+    <meta name="twitter:title" content="Just the Headlines - Clean News Without Ads" />
+    <meta name="twitter:description" content="Get just the headlines you need from trusted sources. Clean, minimal news updated hourly without ads or clutter." />
+    <meta name="twitter:image" content="https://www.coffeeandfun.com/assets/images/headlines-og.jpg" />
+    <meta name="twitter:image:alt" content="Just the Headlines - Clean News by Coffee & Fun" />
+    <meta name="twitter:domain" content="coffeeandfun.com" />
+    <meta name="twitter:label1" content="Categories" />
+    <meta name="twitter:data1" content="Tech, Politics, Sports, Entertainment, Gaming" />
+    <meta name="twitter:label2" content="Updated" />
+    <meta name="twitter:data2" content="Hourly" />
+    
+    <!-- PWA and Mobile Enhancement -->
+    <meta name="theme-color" content="#8B4513" media="(prefers-color-scheme: light)" />
+    <meta name="theme-color" content="#D4A574" media="(prefers-color-scheme: dark)" />
+    <meta name="msapplication-TileColor" content="#8B4513" />
+    <meta name="msapplication-config" content="/browserconfig.xml" />
+    <meta name="mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+    <meta name="apple-mobile-web-app-title" content="Headlines" />
+    <meta name="format-detection" content="telephone=no" />
+    
+    <!-- Preconnect to External Resources -->
+    <link rel="preconnect" href="https://cdn.tailwindcss.com" />
+    <link rel="preconnect" href="https://cdn.jsdelivr.net" />
+    <link rel="preconnect" href="https://unpkg.com" />
+    
+    <!-- DNS Prefetch for potential external links -->
+    <link rel="dns-prefetch" href="//reddit.com" />
+    <link rel="dns-prefetch" href="//news.ycombinator.com" />
+    
+    <!-- Enhanced Structured Data -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@graph": [
+            {
+                "@type": "WebSite",
+                "@id": "https://www.coffeeandfun.com/#website",
+                "name": "Coffee & Fun",
+                "description": "Apps, games, and digital experiences by Coffee & Fun LLC",
+                "url": "https://www.coffeeandfun.com/",
+                "potentialAction": {
+                    "@type": "SearchAction",
+                    "target": {
+                        "@type": "EntryPoint",
+                        "urlTemplate": "https://www.coffeeandfun.com/headlines?q={search_term_string}"
+                    },
+                    "query-input": "required name=search_term_string"
+                },
+                "publisher": {
+                    "@id": "https://www.coffeeandfun.com/#organization"
+                }
+            },
+            {
+                "@type": "WebPage",
+                "@id": "https://www.coffeeandfun.com/headlines#webpage",
+                "url": "https://www.coffeeandfun.com/headlines",
+                "name": "Just the Headlines - Clean News Without Ads",
+                "description": "Get just the headlines you need from trusted sources. Clean, minimal news covering breaking news, tech, politics, sports, entertainment, and gaming.",
+                "isPartOf": {
+                    "@id": "https://www.coffeeandfun.com/#website"
+                },
+                "about": {
+                    "@type": "Thing",
+                    "name": "News Headlines"
+                },
+                "mainEntity": {
+                    "@type": "NewsMediaOrganization",
+                    "name": "Just the Headlines",
+                    "description": "Clean news aggregator providing headlines without ads or clutter",
+                    "url": "https://www.coffeeandfun.com/headlines",
+                    "parentOrganization": {
+                        "@id": "https://www.coffeeandfun.com/#organization"
+                    }
+                },
+                "datePublished": "2025-07-01T12:00:00Z",
+                "dateModified": "2025-07-01T12:00:00Z",
+                "breadcrumb": {
+                    "@type": "BreadcrumbList",
+                    "itemListElement": [
+                        {
+                            "@type": "ListItem",
+                            "position": 1,
+                            "name": "Home",
+                            "item": "https://www.coffeeandfun.com/"
+                        },
+                        {
+                            "@type": "ListItem",
+                            "position": 2,
+                            "name": "Headlines",
+                            "item": "https://www.coffeeandfun.com/headlines"
+                        }
+                    ]
+                }
+            },
+            {
+                "@type": "Organization",
+                "@id": "https://www.coffeeandfun.com/#organization",
+                "name": "Coffee & Fun LLC",
+                "legalName": "Coffee & Fun LLC",
+                "url": "https://www.coffeeandfun.com/",
+                "logo": {
+                    "@type": "ImageObject",
+                    "url": "https://www.coffeeandfun.com/assets/images/logo.png",
+                    "width": 512,
+                    "height": 512
+                },
+                "contactPoint": {
+                    "@type": "ContactPoint",
+                    "contactType": "customer service",
+                    "availableLanguage": "English"
+                },
+                "sameAs": [
+                    "https://twitter.com/bycoffeeandfun"
+                ],
+                "foundingDate": "2024",
+                "description": "Digital experiences and applications company specializing in clean, user-friendly web applications."
+            },
+            {
+                "@type": "CollectionPage",
+                "@id": "https://www.coffeeandfun.com/headlines#collection",
+                "name": "News Headlines Collection",
+                "description": "Curated collection of news headlines from trusted sources",
+                "url": "https://www.coffeeandfun.com/headlines",
+                "mainEntity": {
+                    "@type": "ItemList",
+                    "name": "Latest Headlines",
+                    "description": "Current news headlines across multiple categories",
+                    "numberOfItems": "150+",
+                    "itemListOrder": "https://schema.org/ItemListOrderDescending"
+                }
+            }
+        ]
+    }
+    </script>
+    
+    <!-- Verification Meta Tags (add your actual verification codes) -->
+    <!-- <meta name="google-site-verification" content="your-google-verification-code" /> -->
+    <!-- <meta name="msvalidate.01" content="your-bing-verification-code" /> -->
+    <!-- <meta name="yandex-verification" content="your-yandex-verification-code" /> -->
+    
+    <!-- Hreflang for International SEO (if you plan to expand) -->
+    <link rel="alternate" hreflang="en" href="https://www.coffeeandfun.com/headlines" />
+    <link rel="alternate" hreflang="x-default" href="https://www.coffeeandfun.com/headlines" />
+
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- DaisyUI -->
+    <link href="https://cdn.jsdelivr.net/npm/daisyui@4.4.24/dist/full.min.css" rel="stylesheet" type="text/css" />
+    
+    <!-- Vue 3 -->
+    <script src="https://unpkg.com/vue@3"></script>
+    
+    <style>
+        [v-cloak] { display: none; }
+        
+        .fade-in {
+            animation: fadeIn 0.5s ease-in;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .headline-card {
+            transition: all 0.2s ease;
+        }
+        
+        .headline-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.1);
+        }
+    </style>
+
+<script>
+        if ("serviceWorker" in navigator) {
+        window.addEventListener("load", () => {
+          navigator.serviceWorker.getRegistrations().then((registrations) => {
+            for (const registration of registrations) {
+              registration.unregister().then(() => {
+                console.log("🧹 Old service worker unregistered");
+              });
+            }
+
+            navigator.serviceWorker
+              .register("/service-worker.js")
+              .then((registration) => {
+                console.log(
+                  "✅ Service Worker registered:",
+                  registration.scope,
+                );
+
+                registration.addEventListener("updatefound", () => {
+                  console.log("🔄 Service Worker update found");
+                });
+              })
+              .catch((error) => {
+                console.warn("❌ Service Worker registration failed:", error);
+              });
+          });
+        });
+      }
+</script>
+
+
+    <!-- PWA Manifest -->
+    <link rel="manifest" href="/assets/images/social/site-headlines.webmanifest" />
+
+
+</head>
+
+<body class="bg-base-100 min-h-screen">
+    <div v-cloak id="app" class="container mx-auto max-w-4xl p-6">
+        <!-- Header -->
+        <header class="text-center mb-12">
+            <h1 class="text-4xl font-bold text-base-content mb-2">Just the Headlines</h1>
+            <p class="text-base-content/70">Clean news without the noise</p>
+        </header>
+
+        <!-- Loading State -->
+        <div v-if="isLoading" class="space-y-4">
+            <div v-for="n in 6" :key="n" class="card bg-base-200 shadow-sm">
+                <div class="card-body p-6">
+                    <div class="animate-pulse">
+                        <div class="h-4 bg-base-300 rounded w-3/4 mb-3"></div>
+                        <div class="h-3 bg-base-300 rounded w-1/2"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Error State -->
+        <div v-else-if="error" class="alert alert-error shadow-sm">
+            <svg xmlns="http://www.w3.org/2000/svg" class="stroke-current shrink-0 h-6 w-6" fill="none" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z" />
+            </svg>
+            <div>
+                <h3 class="font-bold">Failed to load news</h3>
+<div class="text-xs">{% raw %}{{ error }} {% endraw %}</div>
+            </div>
+            <button @click="fetchNews" class="btn btn-sm btn-outline">Retry</button>
+        </div>
+
+        <!-- Category Filter -->
+        <div v-else class="mb-8">
+            <div class="flex flex-wrap justify-center gap-2 mb-6">
+                <button 
+                    v-for="cat in availableCategories" 
+                    :key="cat"
+                    @click="selectedCategory = cat"
+                    class="btn btn-sm"
+                    :class="selectedCategory === cat ? 'btn-primary' : 'btn-outline btn-primary'"
+                >
+                 {% raw %}   {{ getCategoryLabel(cat) }} {% endraw %}
+                </button>
+            </div>
+            
+            <!-- Refresh Button -->
+            <div class="text-center mb-6">
+                <button @click="fetchNews" class="btn btn-circle btn-outline btn-sm">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
+                    </svg>
+                </button>
+            </div>
+        </div>
+
+        <!-- News Articles -->
+        <div v-if="!isLoading && !error" class="space-y-4">
+            <!-- Trending Section -->
+            <div v-if="trendingArticles.length > 0" class="mb-8">
+                <h2 class="text-xl font-bold mb-4 text-base-content">🔥 Trending Now</h2>
+                <div class="grid gap-3 mb-6">
+                    <article 
+                        v-for="(article, index) in trendingArticles" 
+                        :key="'trending-' + index"
+                        class="card bg-gradient-to-r from-primary/10 to-secondary/10 border border-primary/20 shadow-sm headline-card fade-in cursor-pointer"
+                        @click="openArticle(article.link)"
+                        :style="{ animationDelay: (index * 0.1) + 's' }"
+                    >
+                        <div class="card-body p-4">
+                            <div class="flex items-start justify-between mb-2">
+                                <span class="badge badge-primary badge-sm">TRENDING</span>
+                                <span class="text-xs text-base-content/60"> {% raw %} {{ article.relativeTime }} {% endraw %}</span>
+                            </div>
+                            <h3 class="font-semibold leading-tight text-base-content hover:text-primary transition-colors text-sm">
+                            {% raw %}    {{ article.headline }} {% endraw %}
+                            </h3>
+                            <div class="flex items-center justify-between mt-3 text-xs text-base-content/60">
+                                <div class="flex items-center gap-2">
+                                    <span class="badge badge-outline badge-xs">{{ article.source }}</span>
+                            <span>{% raw %} {{ article.credibility.badge }} {% endraw %}</span>
+                                </div>
+                                <span>{% raw %} {{ article.readTime }} {% endraw %}</span>
+                            </div>
+                        </div>
+                    </article>
+                </div>
+            </div>
+
+            <!-- All Articles -->
+            <article 
+                v-for="(article, index) in filteredArticles" 
+                :key="index"
+                class="card bg-base-200 shadow-sm headline-card fade-in cursor-pointer relative"
+                @click="openArticle(article.link)"
+                :style="{ animationDelay: (index * 0.05) + 's' }"
+            >
+                <!-- Trending/Popular Badge -->
+                <div v-if="article.isTrending || article.isPopular" class="absolute top-3 right-3 z-10">
+                    <span v-if="article.isTrending" class="badge badge-error badge-xs">🔥 HOT</span>
+                    <span v-else-if="article.isPopular" class="badge badge-warning badge-xs">⭐ POPULAR</span>
+                </div>
+
+                <div class="card-body p-6">
+                    <div class="flex items-start justify-between mb-3">
+                        <div class="flex items-center gap-2">
+                            <span class="badge badge-outline badge-sm">{% raw %}{{ article.source }} {% endraw %}</span>
+                            <span class="text-lg" :title="`Credibility Score: ${article.credibility.score}%`">
+                           {% raw %}     {{ article.credibility.badge }} {% endraw %}
+                            </span>
+                        </div>
+                        <div class="text-right text-xs text-base-content/60">
+                            <div>{% raw %} {{ article.relativeTime }} {% endraw %} </div>
+                            <div class="mt-1">{% raw %} {{ article.readTime }} {% endraw %}</div>
+                        </div>
+                    </div>
+                    
+                    <h2 class="card-title text-lg font-semibold leading-tight text-base-content hover:text-primary transition-colors">
+                     {% raw %}    {{ article.headline }} {% endraw %}
+                    </h2>
+                </div>
+            </article>
+        </div>
+
+        <!-- Footer -->
+        <footer class="text-center mt-16 text-base-content/50 text-sm">
+            <p>Just the Headlines • Updated regularly</p>
+                        <p>Built by Coffee & Fun LLC </p>
+        </footer>
+    </div>
+
+    <script>
+        const { createApp } = Vue;
+        
+        createApp({
+            data() {
+                return {
+                    allArticles: [],
+                    isLoading: true,
+                    error: null,
+                    selectedCategory: 'all',
+                    categoryLabels: {
+                        'all': '📰 All',
+                        'general': '🌍 General',
+                        'technology': '💻 Technology',
+                        'science': '🔬 Science',
+                        'entertainment': '🎬 Entertainment',
+                        'politics': '🏛️ Politics',
+                        'sports': '⚽ Sports',
+                        'soccer': '⚽ Soccer',
+                        'baseball': '⚾ Baseball',
+                        'gaming': '🎮 Gaming'
+                    },
+                    sourceCredibility: {
+                        'BBC News': { score: 95, badge: '🏆' },
+                        'Reuters': { score: 95, badge: '🏆' },
+                        'Associated Press': { score: 94, badge: '🏆' },
+                        'NPR': { score: 92, badge: '🥇' },
+                        'The Guardian': { score: 90, badge: '🥇' },
+                        'CNN': { score: 85, badge: '🥈' },
+                        'Bloomberg': { score: 88, badge: '🥈' },
+                        'Hacker News': { score: 82, badge: '🥉' },
+                        'Reddit WorldNews': { score: 75, badge: '📰' },
+                        'Reddit Technology': { score: 75, badge: '📰' },
+                        'Reddit Science': { score: 78, badge: '📰' },
+                        'Reddit Entertainment': { score: 72, badge: '📰' },
+                        'Reddit Politics': { score: 70, badge: '📰' },
+                        'Reddit Sports': { score: 74, badge: '📰' },
+                        'Reddit Soccer': { score: 76, badge: '📰' },
+                        'Reddit Baseball': { score: 74, badge: '📰' },
+                        'Reddit Gaming': { score: 71, badge: '📰' },
+                        'Demo': { score: 100, badge: '✨' }
+                    }
+                };
+            },
+            computed: {
+                availableCategories() {
+                    const categories = ['all', ...new Set(this.allArticles.map(a => a.category))];
+                    return categories.filter(cat => cat); // Remove any undefined categories
+                },
+                filteredArticles() {
+                    let articles = this.selectedCategory === 'all' 
+                        ? this.allArticles 
+                        : this.allArticles.filter(article => article.category === this.selectedCategory);
+                    
+                    // Add computed properties to each article
+                    return articles.map(article => ({
+                        ...article,
+                        relativeTime: this.getRelativeTime(article.publishedAt),
+                        readTime: this.estimateReadTime(article.headline),
+                        credibility: this.getSourceCredibility(article.source),
+                        isPopular: this.isPopularArticle(article),
+                        isTrending: this.isTrendingArticle(article)
+                    })).sort((a, b) => {
+                        // Sort by trending first, then popular, then by date
+                        if (a.isTrending && !b.isTrending) return -1;
+                        if (!a.isTrending && b.isTrending) return 1;
+                        if (a.isPopular && !b.isPopular) return -1;
+                        if (!a.isPopular && b.isPopular) return 1;
+                        return new Date(b.publishedAt) - new Date(a.publishedAt);
+                    });
+                },
+                trendingArticles() {
+                    return this.filteredArticles.filter(a => a.isTrending).slice(0, 3);
+                },
+                popularArticles() {
+                    return this.filteredArticles.filter(a => a.isPopular).slice(0, 5);
+                }
+            },
+            mounted() {
+                this.fetchNews();
+            },
+            methods: {
+                async fetchNews() {
+                    this.isLoading = true;
+                    this.error = null;
+                    
+                    try {
+                        // Load from your local JSON file
+                        const response = await fetch('../news.json');
+                        
+                        if (!response.ok) {
+                            throw new Error(`Failed to load news data: ${response.status} ${response.statusText}`);
+                        }
+                        
+                        this.allArticles = await response.json();
+                        
+                        if (!Array.isArray(this.allArticles)) {
+                            throw new Error('Invalid news data format');
+                        }
+                        
+                        console.log(`✅ Loaded ${this.allArticles.length} articles`);
+                        
+                    } catch (err) {
+                        this.error = err.message;
+                        console.error('Error loading news:', err);
+                        
+                        // Fallback to demo data if local file fails
+                        console.log('📝 Using demo data...');
+                        this.allArticles = this.getDemoData();
+                    } finally {
+                        this.isLoading = false;
+                    }
+                },
+                
+                getDemoData() {
+                    return [
+                        {
+                            headline: "Welcome to Just the Headlines!",
+                            link: "#",
+                            source: "Demo",
+                            publishedAt: new Date(Date.now() - 30 * 60 * 1000).toISOString(), // 30 mins ago
+                            category: "general"
+                        },
+                        {
+                            headline: "Breaking: Revolutionary AI Development Announced",
+                            link: "#",
+                            source: "Demo",
+                            publishedAt: new Date(Date.now() - 15 * 60 * 1000).toISOString(), // 15 mins ago
+                            category: "technology"
+                        },
+                        {
+                            headline: "Major Gaming Studio Reveals Next-Gen Console Features",
+                            link: "#",
+                            source: "Demo", 
+                            publishedAt: new Date(Date.now() - 45 * 60 * 1000).toISOString(), // 45 mins ago
+                            category: "gaming"
+                        },
+                        {
+                            headline: "Exclusive: Celebrity Couple Announces Engagement at Awards Show",
+                            link: "#",
+                            source: "Demo", 
+                            publishedAt: new Date(Date.now() - 1 * 60 * 60 * 1000).toISOString(), // 1 hour ago
+                            category: "entertainment"
+                        },
+                        {
+                            headline: "Baseball Season Kicks Off with Record-Breaking Opening Day",
+                            link: "#",
+                            source: "Demo", 
+                            publishedAt: new Date(Date.now() - 90 * 60 * 1000).toISOString(), // 1.5 hours ago
+                            category: "baseball"
+                        },
+                        {
+                            headline: "Clean news without ads, clutter, or distractions - experience the difference",
+                            link: "#",
+                            source: "Demo", 
+                            publishedAt: new Date(Date.now() - 2 * 60 * 60 * 1000).toISOString(), // 2 hours ago
+                            category: "general"
+                        }
+                    ];
+                },
+                
+                getCategoryLabel(category) {
+                    return this.categoryLabels[category] || `📄 ${category.charAt(0).toUpperCase() + category.slice(1)}`;
+                },
+                
+                getRelativeTime(dateString) {
+                    const date = new Date(dateString);
+                    const now = new Date();
+                    const diffMs = now - date;
+                    const diffMins = Math.floor(diffMs / (1000 * 60));
+                    const diffHours = Math.floor(diffMs / (1000 * 60 * 60));
+                    const diffDays = Math.floor(diffMs / (1000 * 60 * 60 * 24));
+                    
+                    if (diffMins < 1) return 'Just now';
+                    if (diffMins < 60) return `${diffMins}m ago`;
+                    if (diffHours < 24) return `${diffHours}h ago`;
+                    if (diffDays < 7) return `${diffDays}d ago`;
+                    
+                    return date.toLocaleDateString('en-US', {
+                        month: 'short',
+                        day: 'numeric'
+                    });
+                },
+                
+                estimateReadTime(headline) {
+                    // Assume average reading speed of 200 words per minute
+                    // Headlines are quick reads, so we estimate based on complexity
+                    const wordCount = headline.split(' ').length;
+                    const complexity = headline.length;
+                    
+                    if (wordCount <= 5) return '15s read';
+                    if (wordCount <= 10) return '30s read';
+                    if (complexity > 100) return '1m read';
+                    return '45s read';
+                },
+                
+                getSourceCredibility(source) {
+                    return this.sourceCredibility[source] || { 
+                        score: 70, 
+                        badge: '📰' 
+                    };
+                },
+                
+                isPopularArticle(article) {
+                    // Simple heuristic: articles from high-credibility sources or with engaging headlines
+                    const credibilityScore = this.getSourceCredibility(article.source).score;
+                    const hasEngagingWords = /breaking|exclusive|major|announces|reveals|update/i.test(article.headline);
+                    const isRecent = (new Date() - new Date(article.publishedAt)) < (6 * 60 * 60 * 1000); // 6 hours
+                    
+                    return (credibilityScore >= 90 && hasEngagingWords) || (credibilityScore >= 85 && isRecent);
+                },
+                
+                isTrendingArticle(article) {
+                    // More strict criteria for trending
+                    const credibilityScore = this.getSourceCredibility(article.source).score;
+                    const hasViralWords = /breaking|urgent|alert|developing|exclusive|major/i.test(article.headline);
+                    const isFresh = (new Date() - new Date(article.publishedAt)) < (2 * 60 * 60 * 1000); // 2 hours
+                    
+                    return hasViralWords && isFresh && credibilityScore >= 80;
+                },
+                
+                openArticle(url) {
+                    if (url !== '#') {
+                        window.open(url, '_blank');
+                    }
+                },
+                
+                formatDate(dateString) {
+                    const date = new Date(dateString);
+                    const now = new Date();
+                    const diffHours = Math.floor((now - date) / (1000 * 60 * 60));
+                    
+                    if (diffHours < 1) return 'Just now';
+                    if (diffHours < 24) return `${diffHours}h ago`;
+                    
+                    return date.toLocaleDateString('en-US', {
+                        month: 'short',
+                        day: 'numeric'
+                    });
+                }
+            }
+        }).mount('#app');
+    </script>
+</body>
+</html>
