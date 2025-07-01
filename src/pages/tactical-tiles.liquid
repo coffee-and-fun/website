@@ -2165,12 +2165,11 @@ switchToTheme(themeIndex) {
     this.handleError("Switch theme", error);
   }
 },
-            showRemovePowerModal() {
-  try {
-    document.getElementById("remove-modal").showModal();
-  } catch (error) {
-    this.handleError("Show remove modal", error);
+        showRemovePowerModal() {
+  if (this.myUsedPUs.includes('remove')) {
+    return this.toaster("You've already used Remove!", 'warning');
   }
+  document.getElementById('remove-modal').showModal();
 },
             // Get theme display name
             getThemeName(index) {
@@ -2444,7 +2443,7 @@ this.peer.on("connection", (incomingConn) => {
 
   // Check turn permissions
   if (this.gameMode === "ai" && this.currentPlayer !== "X") return true;
-//  if (this.gameMode === "multiplayer" && !this.isMyTurn) return true;
+ if (this.gameMode === "multiplayer" && !this.isMyTurn) return true;
 
   // Check if this power-up was assigned to the current player
   if (!this.playerPowerUps[this.currentPlayer] || 
@@ -2508,10 +2507,20 @@ this.peer.on("connection", (incomingConn) => {
  
 
  // Only push immediately for power-ups that don’t require a second click
-   const delayed = ['undo','themeSwitch','shield','expand'];
+   const delayed = [  'undo','themeSwitch','shield','expand',
+  'remove','swap','slide','teleport'];
     if (!delayed.includes(powerUpType)) {
       this.usedRandomPowerUps[this.currentPlayer].push(powerUpType);
     }
+
+     // Notify opponent instantly
+  if (this.conn?.open) {
+    this.conn.send({
+      type: 'powerUpUsed',
+      powerUpType: powerUpType,
+      by: this.currentPlayer   // optional, but can help if you want “X used…” vs “O used…”
+    });
+  }
  
        this.executeRandomPowerUp(powerUpType);
      } catch (error) {
@@ -2525,11 +2534,17 @@ this.peer.on("connection", (incomingConn) => {
    },
             // FIXED: Update canMakeMoveAtIndex for clarity
             canMakeMoveAtIndex(index) {
-              if (this.cells[index]) return false;
+
+  return !this.cells[i] &&
+         !this.gameOver &&
+         (this.gameMode==='ai' || this.gameMode==='offline' || this.isMyTurn);
+
+           /*   if (this.cells[index]) return false;
               if (this.gameOver) return false;
 
               // FIXED: Use isMyTurn for all modes consistently
               return this.isMyTurn;
+              */
             },
             // FIXED: Add a debug method to check power-up states
             debugPowerUpState() {
@@ -4750,6 +4765,17 @@ handleUndoData(data) {
 
                   // Handle different message types
                   switch (data.type) {
+                    case 'powerUpUsed':
+      // show a toast immediately
+      const who = data.by === this.currentPlayer ? 'You' : 'Opponent';
+      const name = this.getPowerUpInfo(data.powerUpType).name;
+      this.toaster(
+        `${who} used ${name}!`,
+        'info',
+        2000
+      );
+      break;
+
      case 'themeSwitch':
       // apply the new emoji theme
       this.themeIndex           = data.themeIndex;
