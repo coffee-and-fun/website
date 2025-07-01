@@ -1140,8 +1140,11 @@
                                   (teleportSelection.length === 1 && cell !== null)
                   }
                 ]"
-                :disabled="(teleportSelection.length === 0 && cell !== currentPlayer) || 
-                          (teleportSelection.length === 1 && cell !== null)"
+      :disabled="
+    teleportSelection.length === 0
+      ? cell !== currentPlayer
+      : false
+  "
               >
                 {% raw %}{{ getEmoji(cell) }}{% endraw %}
                 <span
@@ -1181,7 +1184,7 @@
                 ><strong>Step 1:</strong> Click on one of your pieces to
                 slide</span
               >
-              <span v-else>Click on any empty square to teleport to:</span>
+              <span v-else>Click on any square to teleport to:</span>
             </p>
 
             <p
@@ -1207,7 +1210,8 @@
                 v-for="(cell, index) in cells"
                 :key="index"
                 aria-label="Select this Tile for Sliding"
-                @click="selectSlidePiece(index)"
+       @click="selectSlidePiece(index)"
+
                 :class="[
                   'btn mx-auto text-4xl font-bold transition-all duration-200 hover:scale-105 flex items-center justify-center game-cell relative',
                   {
@@ -1220,8 +1224,11 @@
                     'ring-2 ring-green-400': shieldedSquares[index]
                   }
                 ]"
-                :disabled="(slideMode === 'select' && cell !== currentPlayer && cell !== null) || 
-                          (slideMode === 'destination' && !getSlideDestinations.includes(index) && cell !== currentPlayer)"
+  :disabled="
+    slideMode === 'select'
+      ? cell !== currentPlayer
+      : false
+  "
               >
                 {% raw %}{{ getEmoji(cell) }}{% endraw %}
                 <span
@@ -4010,17 +4017,16 @@ this.cells[sourceIndex] = null;
               }
             },
 
-            selectTeleportPiece(index) {
-              if (this.teleportSelection.length === 0) {
-                if (this.cells[index] === this.currentPlayer) {
-                  this.teleportSelection = [index];
-                }
-              } else if (this.teleportSelection.length === 1) {
-                if (this.cells[index] === null) {
-                  this.performTeleport(index);
-                }
-              }
-            },
+           selectTeleportPiece(index) {
+  if (this.teleportSelection.length === 0) {
+    if (this.cells[index] === this.currentPlayer) {
+      this.teleportSelection = [index];
+    }
+  } else {
+    // now allow landing on ANY square
+    this.performTeleport(index);
+  }
+},
 
             // REPLACE performTeleport with this fixed version:
             performTeleport(destinationIndex) {
@@ -4085,42 +4091,17 @@ this.cells[sourceIndex] = null;
             },
 
             selectSlidePiece(index) {
-              if (this.slideMode === "select") {
-                if (this.cells[index] === this.currentPlayer) {
-                  this.slideSelection = [index];
-                  this.slideMode = "destination";
+  if (this.slideMode === 'select') {
+    if (this.cells[index] === this.currentPlayer) {
+      this.slideSelection = [index];
+      this.slideMode = 'destination';
+    }
+  } else {
+    // now allow landing on ANY square
+    this.performSlide(index);
+  }
+},
 
-                  const validDestinations = this.getSlideDestinations;
-                  if (validDestinations.length === 0) {
-                    this.toaster(
-                      "This piece cannot slide - no adjacent empty squares!",
-                      "warning",
-                      3000,
-                    );
-                    this.resetSlideSelection();
-                    return;
-                  }
-                }
-              } else if (this.slideMode === "destination") {
-                const validDestinations = this.getSlideDestinations;
-                if (validDestinations.includes(index)) {
-                  this.performSlide(index);
-                } else {
-                  if (this.cells[index] === this.currentPlayer) {
-                    this.slideSelection = [index];
-                    const newValidDestinations = this.getSlideDestinations;
-                    if (newValidDestinations.length === 0) {
-                      this.toaster(
-                        "This piece cannot slide - no adjacent empty squares!",
-                        "warning",
-                        3000,
-                      );
-                      this.resetSlideSelection();
-                    }
-                  }
-                }
-              }
-            },
 
             handleError(operation, error) {
               console.error(`Error in ${operation}:`, error);
