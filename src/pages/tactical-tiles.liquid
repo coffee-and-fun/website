@@ -2150,7 +2150,7 @@ switchToTheme(themeIndex) {
     );
 
     if (!this.winner && !this.isDraw) {
-      this.switchTurn();
+    //  this.switchTurn();
     }
 
     if (this.conn && this.conn.open) {
@@ -2444,7 +2444,7 @@ this.peer.on("connection", (incomingConn) => {
 
   // Check turn permissions
   if (this.gameMode === "ai" && this.currentPlayer !== "X") return true;
-  if (this.gameMode === "multiplayer" && !this.isMyTurn) return true;
+//  if (this.gameMode === "multiplayer" && !this.isMyTurn) return true;
 
   // Check if this power-up was assigned to the current player
   if (!this.playerPowerUps[this.currentPlayer] || 
@@ -3901,7 +3901,7 @@ this.peer.on("connection", (incomingConn) => {
 
                 // FIXED: Add turn switching
                 if (!this.winner && !this.isDraw) {
-                  this.switchTurn();
+                 // this.switchTurn();
                 }
 
                 if (this.conn && this.conn.open) {
@@ -3955,7 +3955,7 @@ this.peer.on("connection", (incomingConn) => {
     );
 
     if (!this.winner && !this.isDraw) {
-      this.switchTurn();
+   //   this.switchTurn();
     }
 
     if (this.conn && this.conn.open) {
@@ -4023,7 +4023,7 @@ this.peer.on("connection", (incomingConn) => {
 
                 // FIXED: Add turn switching
                 if (!this.winner && !this.isDraw) {
-                  this.switchTurn();
+                //  this.switchTurn();
                 }
 
                 if (this.conn && this.conn.open) {
@@ -4173,7 +4173,7 @@ this.peer.on("connection", (incomingConn) => {
     );
 
     if (!this.winner && !this.isDraw) {
-      this.switchTurn();
+    //  this.switchTurn();
     }
 
     if (this.conn && this.conn.open) {
@@ -4271,7 +4271,7 @@ this.peer.on("connection", (incomingConn) => {
 
                 // FIXED: Add turn switching
                 if (!this.winner && !this.isDraw) {
-                  this.switchTurn();
+                //  this.switchTurn();
                 }
 
                 if (this.conn && this.conn.open) {
@@ -4323,7 +4323,7 @@ this.peer.on("connection", (incomingConn) => {
     this.toaster(`${this.getEmoji(this.currentPlayer)} used Remove!`, 'warning');
 
     if (!this.winner && !this.isDraw) {
-      this.switchTurn();
+    //  this.switchTurn();
     }
 
     // And notify your opponent
