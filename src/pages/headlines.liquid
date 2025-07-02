@@ -46,8 +46,6 @@
     
     <!-- Enhanced Favicon Package -->
     <link rel="icon" href="/assets/images/favicon.png" sizes="any" />
-
-
   
     <!-- Enhanced Open Graph -->
     <meta property="og:type" content="website" />
@@ -284,10 +282,8 @@
       }
 </script>
 
-
     <!-- PWA Manifest -->
     <link rel="manifest" href="/assets/images/social/site-headlines.webmanifest" />
-
 
 </head>
 
@@ -299,32 +295,8 @@
             <p class="text-base-content/70">Clean news without the noise</p>
         </header>
 
-        <!-- Loading State -->
-        <div v-if="isLoading" class="space-y-4">
-            <div v-for="n in 6" :key="n" class="card bg-base-200 shadow-sm">
-                <div class="card-body p-6">
-                    <div class="animate-pulse">
-                        <div class="h-4 bg-base-300 rounded w-3/4 mb-3"></div>
-                        <div class="h-3 bg-base-300 rounded w-1/2"></div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- Error State -->
-        <div v-else-if="error" class="alert alert-error shadow-sm">
-            <svg xmlns="http://www.w3.org/2000/svg" class="stroke-current shrink-0 h-6 w-6" fill="none" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z" />
-            </svg>
-            <div>
-                <h3 class="font-bold">Failed to load news</h3>
-<div class="text-xs">{% raw %}{{ error }} {% endraw %}</div>
-            </div>
-            <button @click="fetchNews" class="btn btn-sm btn-outline">Retry</button>
-        </div>
-
         <!-- Category Filter -->
-        <div v-else class="mb-8">
+        <div class="mb-8">
             <div class="flex flex-wrap justify-center gap-2 mb-6">
                 <button 
                     v-for="cat in availableCategories" 
@@ -333,22 +305,13 @@
                     class="btn btn-sm"
                     :class="selectedCategory === cat ? 'btn-primary' : 'btn-outline btn-primary'"
                 >
-                 {% raw %}   {{ getCategoryLabel(cat) }} {% endraw %}
-                </button>
-            </div>
-            
-            <!-- Refresh Button -->
-            <div class="text-center mb-6">
-                <button @click="fetchNews" class="btn btn-circle btn-outline btn-sm">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
-                    </svg>
+                    {% raw %}{{ getCategoryLabel(cat) }}{% endraw %}
                 </button>
             </div>
         </div>
 
         <!-- News Articles -->
-        <div v-if="!isLoading && !error" class="space-y-4">
+        <div class="space-y-4">
             <!-- Trending Section -->
             <div v-if="trendingArticles.length > 0" class="mb-8">
                 <h2 class="text-xl font-bold mb-4 text-base-content">🔥 Trending Now</h2>
@@ -363,17 +326,17 @@
                         <div class="card-body p-4">
                             <div class="flex items-start justify-between mb-2">
                                 <span class="badge badge-primary badge-sm">TRENDING</span>
-                                <span class="text-xs text-base-content/60"> {% raw %} {{ article.relativeTime }} {% endraw %}</span>
+                                <span class="text-xs text-base-content/60">{% raw %}{{ article.relativeTime }}{% endraw %}</span>
                             </div>
                             <h3 class="font-semibold leading-tight text-base-content hover:text-primary transition-colors text-sm">
-                            {% raw %}    {{ article.headline }} {% endraw %}
+                                {% raw %}{{ article.headline }}{% endraw %}
                             </h3>
                             <div class="flex items-center justify-between mt-3 text-xs text-base-content/60">
                                 <div class="flex items-center gap-2">
-                                    <span class="badge badge-outline badge-xs">{{ article.source }}</span>
-                            <span>{% raw %} {{ article.credibility.badge }} {% endraw %}</span>
+                                    <span class="badge badge-outline badge-xs">{% raw %}{{ article.source }}{% endraw %}</span>
+                                    <span>{% raw %}{{ article.credibility.badge }}{% endraw %}</span>
                                 </div>
-                                <span>{% raw %} {{ article.readTime }} {% endraw %}</span>
+                                <span>{% raw %}{{ article.readTime }}{% endraw %}</span>
                             </div>
                         </div>
                     </article>
@@ -397,19 +360,19 @@
                 <div class="card-body p-6">
                     <div class="flex items-start justify-between mb-3">
                         <div class="flex items-center gap-2">
-                            <span class="badge badge-outline badge-sm">{% raw %}{{ article.source }} {% endraw %}</span>
+                            <span class="badge badge-outline badge-sm">{% raw %}{{ article.source }}{% endraw %}</span>
                             <span class="text-lg" :title="`Credibility Score: ${article.credibility.score}%`">
-                           {% raw %}     {{ article.credibility.badge }} {% endraw %}
+                                {% raw %}{{ article.credibility.badge }}{% endraw %}
                             </span>
                         </div>
                         <div class="text-right text-xs text-base-content/60">
-                            <div>{% raw %} {{ article.relativeTime }} {% endraw %} </div>
-                            <div class="mt-1">{% raw %} {{ article.readTime }} {% endraw %}</div>
+                            <div>{% raw %}{{ article.relativeTime }}{% endraw %}</div>
+                            <div class="mt-1">{% raw %}{{ article.readTime }}{% endraw %}</div>
                         </div>
                     </div>
                     
                     <h2 class="card-title text-lg font-semibold leading-tight text-base-content hover:text-primary transition-colors">
-                     {% raw %}    {{ article.headline }} {% endraw %}
+                        {% raw %}{{ article.headline }}{% endraw %}
                     </h2>
                 </div>
             </article>
@@ -418,7 +381,7 @@
         <!-- Footer -->
         <footer class="text-center mt-16 text-base-content/50 text-sm">
             <p>Just the Headlines • Updated regularly</p>
-                        <p>Built by Coffee & Fun LLC </p>
+            <p>Built by Coffee & Fun LLC</p>
         </footer>
     </div>
 
@@ -428,8 +391,8 @@
         createApp({
             data() {
                 return {
-                    allArticles: [],
-                    isLoading: true,
+                    allArticles: {{ news | json }}, // Direct from _data/news.json
+                    isLoading: false, // No loading needed - data is pre-loaded!
                     error: null,
                     selectedCategory: 'all',
                     categoryLabels: {
@@ -439,10 +402,15 @@
                         'science': '🔬 Science',
                         'entertainment': '🎬 Entertainment',
                         'politics': '🏛️ Politics',
-                        'sports': '⚽ Sports',
+                        'nfl': '🏈 NFL',
+                        'basketball': '🏀 Basketball',
                         'soccer': '⚽ Soccer',
                         'baseball': '⚾ Baseball',
-                        'gaming': '🎮 Gaming'
+                        'sports': '🏃 Sports',
+                        'gaming': '🎮 Gaming',
+                        'videogames': '🕹️ Video Games',
+                        'music': '🎵 Music',
+                        'skateboarding': '🛹 Skateboarding'
                     },
                     sourceCredibility: {
                         'BBC News': { score: 95, badge: '🏆' },
@@ -458,10 +426,15 @@
                         'Reddit Science': { score: 78, badge: '📰' },
                         'Reddit Entertainment': { score: 72, badge: '📰' },
                         'Reddit Politics': { score: 70, badge: '📰' },
+                        'Reddit NFL': { score: 74, badge: '📰' },
+                        'Reddit NBA': { score: 74, badge: '📰' },
                         'Reddit Sports': { score: 74, badge: '📰' },
                         'Reddit Soccer': { score: 76, badge: '📰' },
                         'Reddit Baseball': { score: 74, badge: '📰' },
                         'Reddit Gaming': { score: 71, badge: '📰' },
+                        'Reddit Games': { score: 73, badge: '📰' },
+                        'Reddit Music': { score: 70, badge: '📰' },
+                        'Reddit Skateboarding': { score: 69, badge: '📰' },
                         'Demo': { score: 100, badge: '✨' }
                     }
                 };
@@ -501,88 +474,9 @@
                 }
             },
             mounted() {
-                this.fetchNews();
+                console.log(`✅ Loaded ${this.allArticles.length} articles from _data`);
             },
             methods: {
-                async fetchNews() {
-                    this.isLoading = true;
-                    this.error = null;
-                    
-                    try {
-                        // Load from your local JSON file
-                        const response = await fetch('../news.json');
-                        
-                        if (!response.ok) {
-                            throw new Error(`Failed to load news data: ${response.status} ${response.statusText}`);
-                        }
-                        
-                        this.allArticles = await response.json();
-                        
-                        if (!Array.isArray(this.allArticles)) {
-                            throw new Error('Invalid news data format');
-                        }
-                        
-                        console.log(`✅ Loaded ${this.allArticles.length} articles`);
-                        
-                    } catch (err) {
-                        this.error = err.message;
-                        console.error('Error loading news:', err);
-                        
-                        // Fallback to demo data if local file fails
-                        console.log('📝 Using demo data...');
-                        this.allArticles = this.getDemoData();
-                    } finally {
-                        this.isLoading = false;
-                    }
-                },
-                
-                getDemoData() {
-                    return [
-                        {
-                            headline: "Welcome to Just the Headlines!",
-                            link: "#",
-                            source: "Demo",
-                            publishedAt: new Date(Date.now() - 30 * 60 * 1000).toISOString(), // 30 mins ago
-                            category: "general"
-                        },
-                        {
-                            headline: "Breaking: Revolutionary AI Development Announced",
-                            link: "#",
-                            source: "Demo",
-                            publishedAt: new Date(Date.now() - 15 * 60 * 1000).toISOString(), // 15 mins ago
-                            category: "technology"
-                        },
-                        {
-                            headline: "Major Gaming Studio Reveals Next-Gen Console Features",
-                            link: "#",
-                            source: "Demo", 
-                            publishedAt: new Date(Date.now() - 45 * 60 * 1000).toISOString(), // 45 mins ago
-                            category: "gaming"
-                        },
-                        {
-                            headline: "Exclusive: Celebrity Couple Announces Engagement at Awards Show",
-                            link: "#",
-                            source: "Demo", 
-                            publishedAt: new Date(Date.now() - 1 * 60 * 60 * 1000).toISOString(), // 1 hour ago
-                            category: "entertainment"
-                        },
-                        {
-                            headline: "Baseball Season Kicks Off with Record-Breaking Opening Day",
-                            link: "#",
-                            source: "Demo", 
-                            publishedAt: new Date(Date.now() - 90 * 60 * 1000).toISOString(), // 1.5 hours ago
-                            category: "baseball"
-                        },
-                        {
-                            headline: "Clean news without ads, clutter, or distractions - experience the difference",
-                            link: "#",
-                            source: "Demo", 
-                            publishedAt: new Date(Date.now() - 2 * 60 * 60 * 1000).toISOString(), // 2 hours ago
-                            category: "general"
-                        }
-                    ];
-                },
-                
                 getCategoryLabel(category) {
                     return this.categoryLabels[category] || `📄 ${category.charAt(0).toUpperCase() + category.slice(1)}`;
                 },
@@ -647,20 +541,6 @@
                     if (url !== '#') {
                         window.open(url, '_blank');
                     }
-                },
-                
-                formatDate(dateString) {
-                    const date = new Date(dateString);
-                    const now = new Date();
-                    const diffHours = Math.floor((now - date) / (1000 * 60 * 60));
-                    
-                    if (diffHours < 1) return 'Just now';
-                    if (diffHours < 24) return `${diffHours}h ago`;
-                    
-                    return date.toLocaleDateString('en-US', {
-                        month: 'short',
-                        day: 'numeric'
-                    });
                 }
             }
         }).mount('#app');
