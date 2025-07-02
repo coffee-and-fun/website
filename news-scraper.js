@@ -18,7 +18,7 @@ const ensureFetch = async () => {
 // Configuration
 const CONFIG = {
   // Output settings
-  OUTPUT_DIR: './docs',
+  OUTPUT_DIR: './src/_data',
   ARTICLES_PER_SOURCE: 15,
   
   // Rate limiting (increased for GitHub Actions)
