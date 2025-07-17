@@ -1,6 +1,6 @@
 // .eleventy.js (ESM style for Eleventy v3)
 
-import lodash from 'lodash';
+
 import htmlmin from 'html-minifier';
 import svgContents from 'eleventy-plugin-svg-contents';
 //import pluginPWA from './tools/eleventy-plugin-pwa';
@@ -94,7 +94,7 @@ export default function (eleventyConfig) {
 			return dateString;
 		}
 	});
-	eleventyConfig.addFilter('shuffle', (arr) => lodash.shuffle(arr));
+
 	eleventyConfig.addFilter('dateDisplay', (input) => moment(input).format('MMMM Do YYYY'));
 
 	const markdownOptions = {
