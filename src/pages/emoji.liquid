@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html class="scroll-smooth antialiased" lang="en" data-theme="coffee">
+<html class="scroll-smooth antialiased" lang="en" data-theme="valentine">
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -204,7 +204,7 @@
                             placeholder="Search emojis by name, category, or description..." 
                             class="input input-bordered w-full input-lg"
                             v-model="searchQuery"
-                            @input="performSearch"
+                            @input="debouncedSearch"
                             autofocus
                         >
                         <button 
@@ -219,8 +219,8 @@
                 
                 <!-- Search Stats -->
                 <div class="text-center mt-3 text-sm text-base-content/60">
-                    Showing {{ filteredEmojis.length }} of {{ allEmojis.length }} emojis
-                    <span v-if="searchQuery"> for "{{ searchQuery }}"</span>
+                    Showing {%  raw  %}  {{  filteredEmojis.length }} {%  endraw  %}  of {%  raw  %}  {{  allEmojis.length }} {%  endraw  %}  emojis
+                    <span v-if="searchQuery"> for "{%  raw  %}  {{  searchQuery }} {%  endraw  %} "</span>
                 </div>
             </div>
         </div>
@@ -235,7 +235,7 @@
                     class="btn btn-sm"
                     :class="selectedGroup === category ? 'btn-primary' : 'btn-outline btn-primary'"
                 >
-                    {{ getCategoryLabel(category) }}
+                    {%  raw  %}  {{  getCategoryLabel(category) }} {%  endraw  %} 
                 </button>
             </div>
         </div>
@@ -244,7 +244,7 @@
         <div v-if="showCopyFeedback" class="fixed top-20 left-1/2 transform -translate-x-1/2 z-50">
             <div class="alert alert-success shadow-lg">
                 <div>
-                    <span class="text-2xl">{{ lastCopiedEmoji }}</span>
+                    <span class="text-2xl">{%  raw  %}  {{  lastCopiedEmoji }} {%  endraw  %} </span>
                     <span>Copied to clipboard!</span>
                 </div>
             </div>
@@ -268,9 +268,9 @@
                     data-tip="Click to copy"
                 >
                     <div class="card-body p-3 text-center">
-                        <div class="emoji-char mb-1">{{ emoji.char }}</div>
+                        <div class="emoji-char mb-1">{%  raw  %}  {{  emoji.char }} {%  endraw  %} </div>
                         <div class="text-xs text-base-content/60 leading-tight line-clamp-2">
-                            <span v-html="highlightSearch(emoji.name)"></span>
+                            <span v-html="emoji.name"></span>
                         </div>
                     </div>
                 </div>
@@ -289,7 +289,7 @@
                     data-tip="Click to copy"
                 >
                     <div class="card-body p-3 text-center">
-                        <div class="emoji-char">{{ emoji.char }}</div>
+                        <div class="emoji-char">{%  raw  %}  {{  emoji.char }} {%  endraw  %} </div>
                     </div>
                 </div>
             </div>
@@ -307,7 +307,7 @@
                     data-tip="Click to copy"
                 >
                     <div class="card-body p-3 text-center">
-                        <div class="emoji-char">{{ emoji.char }}</div>
+                        <div class="emoji-char">{%  raw  %}  {{  emoji.char }} {%  endraw  %} </div>
                     </div>
                 </div>
             </div>
@@ -327,7 +327,7 @@
             data() {
                 return {
                     // Demo data - replace with your emoji JSON
-                    allEmojis: {{ emojis | json }}, // Direct from _data/news.json,
+                    allEmojis:  {{ emojis | json }}, // Direct from _data/news.json,
                     searchQuery: '',
                     selectedGroup: 'all',
                     showCopyFeedback: false,
@@ -353,6 +353,14 @@
                     return groups.filter(group => group);
                 },
                 filteredEmojis() {
+                    const cacheKey = `${this.searchQuery}-${this.selectedGroup}`;
+                    
+                    /*
+                    if (this.searchCache.has(cacheKey)) {
+                        const cached = this.searchCache.get(cacheKey);
+                        return this.showMore ? cached : cached.slice(0, this.displayLimit);
+                    }
+                    */
                     let emojis = this.allEmojis;
                     
                     // Filter by group if not 'all' and no search
@@ -360,18 +368,57 @@
                         emojis = emojis.filter(emoji => emoji.group === this.selectedGroup);
                     }
                     
-                    // Filter by search query
+                    // Filter by search query with improved algorithm
                     if (this.searchQuery) {
-                        const query = this.searchQuery.toLowerCase();
-                        emojis = emojis.filter(emoji => 
-                            emoji.name.toLowerCase().includes(query) ||
-                            emoji.group.toLowerCase().includes(query) ||
-                            emoji.subgroup.toLowerCase().includes(query) ||
-                            emoji.category.toLowerCase().includes(query)
-                        );
+                        const query = this.searchQuery.toLowerCase().trim();
+                        if (query.length < 2) {
+                            // For single character searches, prioritize exact matches
+                            emojis = emojis.filter(emoji => 
+                                emoji.name.toLowerCase().startsWith(query) ||
+                                emoji.char === this.searchQuery
+                            );
+                        } else {
+                            // Multi-word search support
+                            const queryWords = query.split(/\s+/);
+                            emojis = emojis.filter(emoji => {
+                                const searchText = `${emoji.name} ${emoji.group} ${emoji.subgroup}`.toLowerCase();
+                                return queryWords.every(word => searchText.includes(word));
+                            });
+                            
+                            // Sort by relevance
+                            emojis.sort((a, b) => {
+                                const aName = a.name.toLowerCase();
+                                const bName = b.name.toLowerCase();
+                                
+                                // Exact name match first
+                                if (aName === query) return -1;
+                                if (bName === query) return 1;
+                                
+                                // Name starts with query
+                                if (aName.startsWith(query) && !bName.startsWith(query)) return -1;
+                                if (bName.startsWith(query) && !aName.startsWith(query)) return 1;
+                                
+                                // Name includes query
+                                const aIncludes = aName.includes(query);
+                                const bIncludes = bName.includes(query);
+                                if (aIncludes && !bIncludes) return -1;
+                                if (bIncludes && !aIncludes) return 1;
+                                
+                                return 0;
+                            });
+                        }
                     }
                     
-                    return emojis.slice(0, 200); // Limit for performance
+                    // Cache the result
+                    this.searchCache.set(cacheKey, emojis);
+                    
+                    // Limit cache size
+                    if (this.searchCache.size > 50) {
+                        const firstKey = this.searchCache.keys().next().value;
+                        this.searchCache.delete(firstKey);
+                    }
+                    
+                    return this.showMore ? emojis : emojis.slice(0, this.displayLimit);
                 },
                 popularEmojis() {
                     // Most commonly used emojis
@@ -381,6 +428,14 @@
             },
             mounted() {
                 console.log(`✅ Loaded ${this.allEmojis.length} emojis`);
+                
+                // Load recent emojis after component is fully initialized
+                this.recentEmojis = this.loadRecentEmojis();
+                
+                // Pre-compute search index for better performance
+                this.allEmojis.forEach(emoji => {
+                    emoji.searchText = `${emoji.name} ${emoji.group} ${emoji.subgroup}`.toLowerCase();
+                });
                 
                 // Handle URL search parameter
                 const urlParams = new URLSearchParams(window.location.search);
@@ -392,6 +447,20 @@
             methods: {
                 getCategoryLabel(group) {
                     return this.groupLabels[group] || `📄 ${group}`;
+                },
+                
+                debouncedSearch() {
+                    // Clear previous timer
+                    if (this.searchDebounceTimer) {
+                        clearTimeout(this.searchDebounceTimer);
+                    }
+                    
+                    // Set new timer
+                    this.searchDebounceTimer = setTimeout(() => {
+                        this.performSearch();
+                        this.showMore = false; // Reset pagination
+                        this.searchCache.clear(); // Clear cache on new search
+                    }, 150); // 150ms debounce
                 },
                 
                 performSearch() {
@@ -407,7 +476,50 @@
                 
                 clearSearch() {
                     this.searchQuery = '';
+                    this.showMore = false;
                     this.performSearch();
+                },
+                
+                loadMore() {
+                    this.showMore = true;
+                },
+                
+                hasMoreResults() {
+                    const total = this.getTotalResults();
+                    return !this.showMore && total > this.displayLimit;
+                },
+                
+                getRemainingCount() {
+                    const total = this.getTotalResults();
+                    return Math.max(0, total - this.displayLimit);
+                },
+                
+                getTotalResults() {
+                    const cacheKey = `${this.searchQuery}-${this.selectedGroup}`;
+                 //   if (this.searchCache.has(cacheKey)) {
+                   //     return this.searchCache.get(cacheKey).length;
+                   // }
+                    
+                    let emojis = this.allEmojis;
+                    if (this.selectedGroup !== 'all' && !this.searchQuery) {
+                        emojis = emojis.filter(emoji => emoji.group === this.selectedGroup);
+                    }
+                    if (this.searchQuery) {
+                        const query = this.searchQuery.toLowerCase().trim();
+                        if (query.length < 2) {
+                            emojis = emojis.filter(emoji => 
+                                emoji.name.toLowerCase().startsWith(query) ||
+                                emoji.char === this.searchQuery
+                            );
+                        } else {
+                            const queryWords = query.split(/\s+/);
+                            emojis = emojis.filter(emoji => {
+                                const searchText = emoji.searchText || `${emoji.name} ${emoji.group} ${emoji.subgroup}`.toLowerCase();
+                                return queryWords.every(word => searchText.includes(word));
+                            });
+                        }
+                    }
+                    return emojis.length;
                 },
                 
                 async copyEmoji(emoji) {
@@ -479,12 +591,7 @@
                     }
                 },
                 
-                highlightSearch(text) {
-                    if (!this.searchQuery) return text;
-                    const query = this.searchQuery.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'); // Escape regex
-                    const regex = new RegExp(`(${query})`, 'gi');
-                    return text.replace(regex, '<span class="search-highlight">$1</span>');
-                }
+               
             }
         }).mount('#app');
     </script>
