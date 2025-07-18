@@ -1,599 +1,227 @@
 <!DOCTYPE html>
 <html class="scroll-smooth antialiased" lang="en" data-theme="valentine">
+
 <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    
-    <!-- Enhanced Title with Brand -->
-    <title>Emoji Search & Copy - Find Any Emoji Fast | Coffee & Fun</title>
-    
-    <!-- Enhanced Meta Description -->
-    <meta name="description" content="Search, discover, and copy emojis instantly. Clean, fast emoji finder with categories, search, and one-click copy. Find the perfect emoji for any message or post." />
-    
-    <!-- Expanded Keywords -->
-    <meta name="keywords" content="emoji, emoji search, copy emoji, emoji finder, emoticons, unicode, symbols, emoji copy paste, emoji tool, Coffee and Fun" />
-    
-    <!-- Enhanced Author and Publisher Info -->
-    <meta name="author" content="Coffee & Fun LLC" />
-    <meta name="publisher" content="Coffee & Fun LLC" />
-    <meta name="copyright" content="Coffee & Fun LLC" />
-    
-    <!-- Enhanced Robots Instructions -->
-    <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1" />
-    <meta name="googlebot" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1" />
-    
-    <!-- Content Classification -->
-    <meta name="rating" content="general" />
-    <meta name="language" content="en-US" />
-    <meta name="geo.region" content="US" />
-    <meta name="geo.country" content="United States" />
-    <meta name="distribution" content="global" />
-    <meta name="audience" content="all" />
-    
-    <!-- Canonical URL -->
-    <link rel="canonical" href="https://www.coffeeandfun.com/emoji" />
-    
-    <!-- Enhanced Favicon Package -->
-    <link rel="icon" href="/assets/images/favicon.png" sizes="any" />
-  
-    <!-- Enhanced Open Graph -->
-    <meta property="og:type" content="website" />
-    <meta property="og:site_name" content="Coffee & Fun" />
-    <meta property="og:title" content="Emoji Search & Copy - Find Any Emoji Fast" />
-    <meta property="og:description" content="Search, discover, and copy emojis instantly. Clean, fast emoji finder with categories and one-click copy." />
-    <meta property="og:url" content="https://www.coffeeandfun.com/emoji" />
-    <meta property="og:image" content="https://www.coffeeandfun.com/assets/images/emoji-og.jpg" />
-    <meta property="og:image:width" content="1200" />
-    <meta property="og:image:height" content="630" />
-    <meta property="og:image:alt" content="Emoji Search & Copy Tool by Coffee & Fun" />
-    <meta property="og:locale" content="en_US" />
-    
-    <!-- Enhanced Twitter Card -->
-    <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:site" content="@bycoffeeandfun" />
-    <meta name="twitter:creator" content="@bycoffeeandfun" />
-    <meta name="twitter:title" content="Emoji Search & Copy - Find Any Emoji Fast" />
-    <meta name="twitter:description" content="Search, discover, and copy emojis instantly. Clean, fast emoji finder with one-click copy." />
-    <meta name="twitter:image" content="https://www.coffeeandfun.com/assets/images/emoji-og.jpg" />
-    
-    <!-- PWA and Mobile Enhancement -->
-    <meta name="theme-color" content="#8B4513" media="(prefers-color-scheme: light)" />
-    <meta name="theme-color" content="#D4A574" media="(prefers-color-scheme: dark)" />
-    <meta name="mobile-web-app-capable" content="yes" />
-    <meta name="apple-mobile-web-app-capable" content="yes" />
-    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
-    <meta name="apple-mobile-web-app-title" content="Emoji Search" />
-    
-    <!-- Enhanced Structured Data -->
-    <script type="application/ld+json">
-    {
-        "@context": "https://schema.org",
-        "@graph": [
-            {
-                "@type": "WebSite",
-                "@id": "https://www.coffeeandfun.com/#website",
-                "name": "Coffee & Fun",
-                "description": "Apps, games, and digital experiences by Coffee & Fun LLC",
-                "url": "https://www.coffeeandfun.com/",
-                "potentialAction": {
-                    "@type": "SearchAction",
-                    "target": {
-                        "@type": "EntryPoint",
-                        "urlTemplate": "https://www.coffeeandfun.com/emoji?q={search_term_string}"
-                    },
-                    "query-input": "required name=search_term_string"
-                },
-                "publisher": {
-                    "@id": "https://www.coffeeandfun.com/#organization"
-                }
-            },
-            {
-                "@type": "WebPage",
-                "@id": "https://www.coffeeandfun.com/emoji#webpage",
-                "url": "https://www.coffeeandfun.com/emoji",
-                "name": "Emoji Search & Copy Tool",
-                "description": "Search, discover, and copy emojis instantly with our clean, fast emoji finder.",
-                "isPartOf": {
-                    "@id": "https://www.coffeeandfun.com/#website"
-                },
-                "about": {
-                    "@type": "Thing",
-                    "name": "Emoji Search Tool"
-                },
-                "mainEntity": {
-                    "@type": "SoftwareApplication",
-                    "name": "Emoji Search & Copy",
-                    "description": "Web-based emoji search and copy tool",
-                    "url": "https://www.coffeeandfun.com/emoji",
-                    "applicationCategory": "Utility",
-                    "operatingSystem": "Web Browser"
-                }
-            },
-            {
-                "@type": "Organization",
-                "@id": "https://www.coffeeandfun.com/#organization",
-                "name": "Coffee & Fun LLC",
-                "legalName": "Coffee & Fun LLC",
-                "url": "https://www.coffeeandfun.com/",
-                "logo": {
-                    "@type": "ImageObject",
-                    "url": "https://www.coffeeandfun.com/assets/images/logo.png",
-                    "width": 512,
-                    "height": 512
-                },
-                "description": "Digital experiences and applications company specializing in clean, user-friendly web applications."
-            }
-        ]
-    }
-    </script>
-    
-    <!-- Tailwind CSS -->
-    <script src="https://cdn.tailwindcss.com"></script>
-    
-    <!-- DaisyUI -->
-    <link href="https://cdn.jsdelivr.net/npm/daisyui@4.4.24/dist/full.min.css" rel="stylesheet" type="text/css" />
-    
-    <!-- Vue 3 -->
-    <script src="https://unpkg.com/vue@3"></script>
-    
-    <style>
-        [v-cloak] { display: none; }
-        
-        .fade-in {
-            animation: fadeIn 0.5s ease-in;
-        }
-        
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(10px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-        
-        .emoji-card {
-            transition: all 0.2s ease;
-            user-select: none;
-        }
-        
-        .emoji-card:hover {
-            transform: scale(1.05);
-            box-shadow: 0 8px 25px rgba(0,0,0,0.15);
-            z-index: 10;
-            position: relative;
-        }
-        
-        .emoji-char {
-            font-size: 2rem;
-            line-height: 1;
-            cursor: pointer;
-        }
-        
-        .copy-feedback {
-            animation: copyPulse 0.6s ease-out;
-        }
-        
-        @keyframes copyPulse {
-            0% { transform: scale(1); }
-            50% { transform: scale(1.2); background-color: rgb(34, 197, 94); }
-            100% { transform: scale(1); }
-        }
-        
-        .search-highlight {
-            background-color: rgba(250, 204, 21, 0.3);
-            padding: 0 2px;
-            border-radius: 2px;
-        }
-        
-
-    </style>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Emoji Search & Copy - Find Any Emoji Fast | Coffee & Fun</title>
+  <meta name="description" content="Search, discover, and copy emojis instantly. Clean, fast emoji finder with categories, search, and one-click copy. Find the perfect emoji for any message or post." />
+  <meta name="keywords" content="emoji, emoji search, copy emoji, emoji finder, emoticons, unicode, symbols, emoji copy paste, emoji tool, Coffee and Fun" />
+  <meta name="author" content="Coffee & Fun LLC" />
+  <meta name="publisher" content="Coffee & Fun LLC" />
+  <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1" />
+  <link rel="canonical" href="https://www.coffeeandfun.com/emoji" />
+  <link rel="icon" href="/assets/images/favicon.png" sizes="any" />
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://cdn.jsdelivr.net/npm/daisyui@4.4.24/dist/full.min.css" rel="stylesheet" />
+  <script src="https://unpkg.com/vue@3"></script>
+  <style>
+    [v-cloak] { display: none; }
+    .fade-in { animation: fadeIn 0.5s ease-in; }
+    @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+    .emoji-card { transition: all 0.2s ease; user-select: none; }
+    .emoji-card:hover { transform: scale(1.05); box-shadow: 0 8px 25px rgba(0,0,0,0.15); position: relative; }
+    .emoji-char { font-size: 2rem; line-height: 1; cursor: pointer; }
+    .copy-feedback { animation: copyPulse 0.6s ease-out; }
+    @keyframes copyPulse { 0% { transform: scale(1); } 50% { transform: scale(1.2); background-color: rgb(34, 197, 94); } 100% { transform: scale(1); } }
+    .search-highlight { background-color: rgba(250, 204, 21, 0.3); padding: 0 2px; border-radius: 2px; }
+  </style>
 </head>
-
 <body class="bg-base-100 min-h-screen">
-    <div v-cloak id="app" class="container mx-auto max-w-6xl p-6">
-        <!-- Header -->
-        <header class="text-center mb-12">
-            <h1 class="text-4xl font-bold text-base-content mb-2">🔍 Emoji Search & Copy</h1>
-            <p class="text-base-content/70">Find and copy any emoji in seconds</p>
-        </header>
+  <div v-cloak id="app" class="container mx-auto max-w-6xl p-6">
+    <header class="text-center mb-12">
+      <h1 class="text-4xl font-bold mb-2">🔍 Emoji Search & Copy</h1>
+      <p class="text-base-content/70">Find and copy any emoji in seconds</p>
+    </header>
 
-        <!-- Search Bar -->
-        <div class="mb-8">
-            <div class="max-w-2xl mx-auto">
-                <div class="form-control">
-                    <div class="input-group">
-                        <input 
-                            type="text" 
-                            placeholder="Search emojis by name, category, or description..." 
-                            class="input input-bordered w-full input-lg"
-                            v-model="searchQuery"
-                            @input="debouncedSearch"
-                            autofocus
-                        >
-                        <button 
-                            class="btn btn-square btn-lg"
-                            @click="clearSearch"
-                            v-if="searchQuery"
-                        >
-                            ✕
-                        </button>
-                    </div>
-                </div>
-                
-                <!-- Search Stats -->
-                <div class="text-center mt-3 text-sm text-base-content/60">
-                    Showing {%  raw  %}  {{  filteredEmojis.length }} {%  endraw  %}  of {%  raw  %}  {{  allEmojis.length }} {%  endraw  %}  emojis
-                    <span v-if="searchQuery"> for "{%  raw  %}  {{  searchQuery }} {%  endraw  %} "</span>
-                </div>
-            </div>
+    <div class="mb-8">
+      <div class="max-w-2xl mx-auto">
+        <div class="form-control">
+          <div class="input-group">
+            <input
+              type="text"
+              placeholder="Search emojis by name, category, or description..."
+              class="input input-bordered w-full input-lg"
+              v-model="searchQuery"
+              @input="debouncedSearch"
+              autofocus
+            />
+          
+          </div>
         </div>
-
-        <!-- Category Filter -->
-        <div class="mb-8" v-if="!searchQuery">
-            <div class="flex flex-wrap justify-center gap-2 mb-6">
-                <button 
-                    v-for="category in availableGroups" 
-                    :key="category"
-                    @click="selectedGroup = category"
-                    class="btn btn-sm"
-                    :class="selectedGroup === category ? 'btn-primary' : 'btn-outline btn-primary'"
-                >
-                    {%  raw  %}  {{  getCategoryLabel(category) }} {%  endraw  %} 
-                </button>
-            </div>
+        <div class="text-center mt-3 text-sm text-base-content/60">
+          Showing {% raw %}{{ filteredEmojis.length }}{% endraw %} of {% raw %}{{ allEmojis.length }}{% endraw %} emojis
+          <span v-if="searchQuery"> for "{% raw %}{{ searchQuery }}{% endraw %}"</span>
         </div>
-
-        <!-- Copy Feedback -->
-        <div v-if="showCopyFeedback" class="fixed top-20 left-1/2 transform -translate-x-1/2 z-50">
-            <div class="alert alert-success shadow-lg">
-                <div>
-                    <span class="text-2xl">{%  raw  %}  {{  lastCopiedEmoji }} {%  endraw  %} </span>
-                    <span>Copied to clipboard!</span>
-                </div>
-            </div>
-        </div>
-
-        <!-- Emoji Grid -->
-        <div class="mb-8">
-            <div v-if="filteredEmojis.length === 0" class="text-center py-16">
-                <div class="text-6xl mb-4">😕</div>
-                <h3 class="text-xl font-semibold mb-2">No emojis found</h3>
-                <p class="text-base-content/60">Try a different search term or browse by category</p>
-            </div>
-            
-            <div v-else class="grid grid-cols-4 sm:grid-cols-6 md:grid-cols-8 lg:grid-cols-10 xl:grid-cols-12 gap-3">
-                <div 
-                    v-for="(emoji, index) in filteredEmojis" 
-                    :key="emoji.codes"
-                    class="emoji-card card bg-base-200 shadow-sm hover:shadow-md cursor-pointer tooltip fade-in"
-                    @click="copyEmoji(emoji)"
-                    :style="{ animationDelay: (index * 0.02) + 's' }"
-                    data-tip="Click to copy"
-                >
-                    <div class="card-body p-3 text-center">
-                        <div class="emoji-char mb-1">{%  raw  %}  {{  emoji.char }} {%  endraw  %} </div>
-                        <div class="text-xs text-base-content/60 leading-tight line-clamp-2">
-                            <span v-html="emoji.name"></span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- Quick Access -->
-        <div v-if="!searchQuery && recentEmojis.length > 0" class="mb-8">
-            <h2 class="text-xl font-bold mb-4 text-base-content">⏱️ Recently Used</h2>
-            <div class="flex flex-wrap gap-3">
-                <div 
-                    v-for="emoji in recentEmojis" 
-                    :key="'recent-' + emoji.codes"
-                    class="emoji-card card bg-gradient-to-r from-primary/10 to-secondary/10 border border-primary/20 shadow-sm cursor-pointer tooltip"
-                    @click="copyEmoji(emoji)"
-                    data-tip="Click to copy"
-                >
-                    <div class="card-body p-3 text-center">
-                        <div class="emoji-char">{%  raw  %}  {{  emoji.char }} {%  endraw  %} </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- Popular Emojis -->
-        <div v-if="!searchQuery" class="mb-8">
-            <h2 class="text-xl font-bold mb-4 text-base-content">🔥 Popular</h2>
-            <div class="grid grid-cols-6 sm:grid-cols-8 md:grid-cols-10 lg:grid-cols-12 xl:grid-cols-16 gap-3">
-                <div 
-                    v-for="emoji in popularEmojis" 
-                    :key="'popular-' + emoji.codes"
-                    class="emoji-card card bg-base-200 shadow-sm hover:shadow-md cursor-pointer tooltip"
-                    @click="copyEmoji(emoji)"
-                    data-tip="Click to copy"
-                >
-                    <div class="card-body p-3 text-center">
-                        <div class="emoji-char">{%  raw  %}  {{  emoji.char }} {%  endraw  %} </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- Footer -->
-        <footer class="text-center mt-16 text-base-content/50 text-sm">
-            <p>Emoji Search & Copy • Find the perfect emoji instantly</p>
-            <p>Built by Coffee & Fun LLC</p>
-        </footer>
+      </div>
     </div>
 
-    <script>
-        const { createApp } = Vue;
-        
-        createApp({
-            data() {
-                return {
-                    // Demo data - replace with your emoji JSON
-                    allEmojis:  {{ emojis | json }}, // Direct from _data/news.json,
-                    searchQuery: '',
-                    selectedGroup: 'all',
-                    showCopyFeedback: false,
-                    lastCopiedEmoji: '',
-                    recentEmojis: this.loadRecentEmojis(),
-                    groupLabels: {
-                        'all': '🌟 All',
-                        'Smileys & Emotion': '😀 Smileys',
-                        'People & Body': '👤 People',
-                        'Animals & Nature': '🐱 Animals',
-                        'Food & Drink': '🍕 Food',
-                        'Travel & Places': '✈️ Travel',
-                        'Activities': '⚽ Activities',
-                        'Objects': '📱 Objects',
-                        'Symbols': '❤️ Symbols',
-                        'Flags': '🏁 Flags'
-                    }
-                };
-            },
-            computed: {
-                availableGroups() {
-                    const groups = ['all', ...new Set(this.allEmojis.map(e => e.group))];
-                    return groups.filter(group => group);
-                },
-                filteredEmojis() {
-                    const cacheKey = `${this.searchQuery}-${this.selectedGroup}`;
-                    
-                    /*
-                    if (this.searchCache.has(cacheKey)) {
-                        const cached = this.searchCache.get(cacheKey);
-                        return this.showMore ? cached : cached.slice(0, this.displayLimit);
-                    }
-                    */
-                    let emojis = this.allEmojis;
-                    
-                    // Filter by group if not 'all' and no search
-                    if (this.selectedGroup !== 'all' && !this.searchQuery) {
-                        emojis = emojis.filter(emoji => emoji.group === this.selectedGroup);
-                    }
-                    
-                    // Filter by search query with improved algorithm
-                    if (this.searchQuery) {
-                        const query = this.searchQuery.toLowerCase().trim();
-                        if (query.length < 2) {
-                            // For single character searches, prioritize exact matches
-                            emojis = emojis.filter(emoji => 
-                                emoji.name.toLowerCase().startsWith(query) ||
-                                emoji.char === this.searchQuery
-                            );
-                        } else {
-                            // Multi-word search support
-                            const queryWords = query.split(/\s+/);
-                            emojis = emojis.filter(emoji => {
-                                const searchText = `${emoji.name} ${emoji.group} ${emoji.subgroup}`.toLowerCase();
-                                return queryWords.every(word => searchText.includes(word));
-                            });
-                            
-                            // Sort by relevance
-                            emojis.sort((a, b) => {
-                                const aName = a.name.toLowerCase();
-                                const bName = b.name.toLowerCase();
-                                
-                                // Exact name match first
-                                if (aName === query) return -1;
-                                if (bName === query) return 1;
-                                
-                                // Name starts with query
-                                if (aName.startsWith(query) && !bName.startsWith(query)) return -1;
-                                if (bName.startsWith(query) && !aName.startsWith(query)) return 1;
-                                
-                                // Name includes query
-                                const aIncludes = aName.includes(query);
-                                const bIncludes = bName.includes(query);
-                                if (aIncludes && !bIncludes) return -1;
-                                if (bIncludes && !aIncludes) return 1;
-                                
-                                return 0;
-                            });
-                        }
-                    }
-                    
-                    // Cache the result
-                    this.searchCache.set(cacheKey, emojis);
-                    
-                    // Limit cache size
-                    if (this.searchCache.size > 50) {
-                        const firstKey = this.searchCache.keys().next().value;
-                        this.searchCache.delete(firstKey);
-                    }
-                    
-                    return this.showMore ? emojis : emojis.slice(0, this.displayLimit);
-                },
-                popularEmojis() {
-                    // Most commonly used emojis
-                    const popularCodes = ['1F602', '2764', '1F602', '1F970', '1F618', '1F44D', '1F525', '1F4AF', '1F923', '1F60D'];
-                    return this.allEmojis.filter(emoji => popularCodes.includes(emoji.codes)).slice(0, 12);
-                }
-            },
-            mounted() {
-                console.log(`✅ Loaded ${this.allEmojis.length} emojis`);
-                
-                // Load recent emojis after component is fully initialized
-                this.recentEmojis = this.loadRecentEmojis();
-                
-                // Pre-compute search index for better performance
-                this.allEmojis.forEach(emoji => {
-                    emoji.searchText = `${emoji.name} ${emoji.group} ${emoji.subgroup}`.toLowerCase();
-                });
-                
-                // Handle URL search parameter
-                const urlParams = new URLSearchParams(window.location.search);
-                const searchParam = urlParams.get('q');
-                if (searchParam) {
-                    this.searchQuery = searchParam;
-                }
-            },
-            methods: {
-                getCategoryLabel(group) {
-                    return this.groupLabels[group] || `📄 ${group}`;
-                },
-                
-                debouncedSearch() {
-                    // Clear previous timer
-                    if (this.searchDebounceTimer) {
-                        clearTimeout(this.searchDebounceTimer);
-                    }
-                    
-                    // Set new timer
-                    this.searchDebounceTimer = setTimeout(() => {
-                        this.performSearch();
-                        this.showMore = false; // Reset pagination
-                        this.searchCache.clear(); // Clear cache on new search
-                    }, 150); // 150ms debounce
-                },
-                
-                performSearch() {
-                    // Update URL with search parameter
-                    const url = new URL(window.location);
-                    if (this.searchQuery) {
-                        url.searchParams.set('q', this.searchQuery);
-                    } else {
-                        url.searchParams.delete('q');
-                    }
-                    window.history.replaceState({}, '', url);
-                },
-                
-                clearSearch() {
-                    this.searchQuery = '';
-                    this.showMore = false;
-                    this.performSearch();
-                },
-                
-                loadMore() {
-                    this.showMore = true;
-                },
-                
-                hasMoreResults() {
-                    const total = this.getTotalResults();
-                    return !this.showMore && total > this.displayLimit;
-                },
-                
-                getRemainingCount() {
-                    const total = this.getTotalResults();
-                    return Math.max(0, total - this.displayLimit);
-                },
-                
-                getTotalResults() {
-                    const cacheKey = `${this.searchQuery}-${this.selectedGroup}`;
-                 //   if (this.searchCache.has(cacheKey)) {
-                   //     return this.searchCache.get(cacheKey).length;
-                   // }
-                    
-                    let emojis = this.allEmojis;
-                    if (this.selectedGroup !== 'all' && !this.searchQuery) {
-                        emojis = emojis.filter(emoji => emoji.group === this.selectedGroup);
-                    }
-                    if (this.searchQuery) {
-                        const query = this.searchQuery.toLowerCase().trim();
-                        if (query.length < 2) {
-                            emojis = emojis.filter(emoji => 
-                                emoji.name.toLowerCase().startsWith(query) ||
-                                emoji.char === this.searchQuery
-                            );
-                        } else {
-                            const queryWords = query.split(/\s+/);
-                            emojis = emojis.filter(emoji => {
-                                const searchText = emoji.searchText || `${emoji.name} ${emoji.group} ${emoji.subgroup}`.toLowerCase();
-                                return queryWords.every(word => searchText.includes(word));
-                            });
-                        }
-                    }
-                    return emojis.length;
-                },
-                
-                async copyEmoji(emoji) {
-                    try {
-                        await navigator.clipboard.writeText(emoji.char);
-                        
-                        // Show feedback
-                        this.lastCopiedEmoji = emoji.char;
-                        this.showCopyFeedback = true;
-                        setTimeout(() => {
-                            this.showCopyFeedback = false;
-                        }, 2000);
-                        
-                        // Add to recent emojis
-                        this.addToRecentEmojis(emoji);
-                        
-                        console.log(`✅ Copied: ${emoji.char} (${emoji.name})`);
-                    } catch (err) {
-                        console.error('Failed to copy emoji:', err);
-                        // Fallback for older browsers
-                        this.fallbackCopyTextToClipboard(emoji.char);
-                    }
-                },
-                
-                fallbackCopyTextToClipboard(text) {
-                    const textArea = document.createElement("textarea");
-                    textArea.value = text;
-                    document.body.appendChild(textArea);
-                    textArea.focus();
-                    textArea.select();
-                    try {
-                        document.execCommand('copy');
-                        this.lastCopiedEmoji = text;
-                        this.showCopyFeedback = true;
-                        setTimeout(() => {
-                            this.showCopyFeedback = false;
-                        }, 2000);
-                    } catch (err) {
-                        console.error('Fallback: Failed to copy', err);
-                    }
-                    document.body.removeChild(textArea);
-                },
-                
-                addToRecentEmojis(emoji) {
-                    // Remove if already exists
-                    this.recentEmojis = this.recentEmojis.filter(e => e.codes !== emoji.codes);
-                    // Add to beginning
-                    this.recentEmojis.unshift(emoji);
-                    // Keep only last 10
-                    this.recentEmojis = this.recentEmojis.slice(0, 10);
-                    // Save to localStorage
-                    this.saveRecentEmojis();
-                },
-                
-                loadRecentEmojis() {
-                    try {
-                        const saved = localStorage.getItem('recentEmojis');
-                        return saved ? JSON.parse(saved) : [];
-                    } catch {
-                        return [];
-                    }
-                },
-                
-                saveRecentEmojis() {
-                    try {
-                        localStorage.setItem('recentEmojis', JSON.stringify(this.recentEmojis));
-                    } catch (err) {
-                        console.warn('Could not save recent emojis:', err);
-                    }
-                },
-                
-               
+    <div class="mb-8" v-if="!searchQuery">
+      <div class="flex flex-wrap justify-center gap-2 mb-6">
+        <button
+          v-for="category in availableGroups"
+          :key="category"
+          @click="selectedGroup = category"
+          class="btn btn-sm"
+          :class="selectedGroup === category ? 'btn-primary' : 'btn-outline btn-primary'"
+        >
+          {% raw %}{{ getCategoryLabel(category) }}{% endraw %}
+        </button>
+      </div>
+    </div>
+
+    <div v-if="showCopyFeedback" class="fixed top-20 left-1/2 transform -translate-x-1/2 z-50">
+      <div class="alert alert-success shadow-lg">
+        <div>
+          <span class="text-2xl">{% raw %}{{ lastCopiedEmoji }}{% endraw %}</span>
+          <span>Copied to clipboard!</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="mb-8">
+      <div v-if="filteredEmojis.length === 0" class="text-center py-16">
+        <div class="text-6xl mb-4">😕</div>
+        <h3 class="text-xl font-semibold mb-2">No emojis found</h3>
+        <p class="text-base-content/60">Try a different search term or browse by category</p>
+      </div>
+      <div v-else class="grid grid-cols-4 sm:grid-cols-6 md:grid-cols-8 lg:grid-cols-10 xl:grid-cols-12 gap-3">
+        <div
+          v-for="(emoji, index) in filteredEmojis"
+          :key="emoji.codes"
+          class="emoji-card card bg-base-200 shadow-sm hover:shadow-md cursor-pointer tooltip fade-in"
+          @click="copyEmoji(emoji)"
+          :style="{ animationDelay: (index * 0.02) + 's' }"
+          data-tip="Click to copy"
+        >
+          <div class="card-body p-3 text-center">
+            <div class="emoji-char mb-1">{% raw %}{{ emoji.char }}{% endraw %}</div>
+            <div class="text-xs text-base-content/60 leading-tight line-clamp-2">
+              {% raw %}{{ emoji.name }}{% endraw %}
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div v-if="!searchQuery && recentEmojis.length" class="mb-8">
+      <h2 class="text-xl font-bold mb-4">⏱️ Recently Used</h2>
+      <div class="flex flex-wrap gap-3">
+        <div
+          v-for="emoji in recentEmojis"
+          :key="'recent-' + emoji.codes"
+          class="emoji-card card bg-gradient-to-r from-primary/10 to-secondary/10 border border-primary/20 shadow-sm cursor-pointer tooltip"
+          @click="copyEmoji(emoji)"
+          data-tip="Click to copy"
+        >
+          <div class="card-body p-3 text-center">
+            <div class="emoji-char">{% raw %}{{ emoji.char }}{% endraw %}</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div v-if="!searchQuery" class="mb-8">
+      <h2 class="text-xl font-bold mb-4">🔥 Popular</h2>
+      <div class="grid grid-cols-6 sm:grid-cols-8 md:grid-cols-10 lg:grid-cols-12 xl:grid-cols-12 gap-3">
+        <div
+          v-for="emoji in popularEmojis"
+          :key="'popular-' + emoji.codes"
+          class="emoji-card card bg-base-200 shadow-sm hover:shadow-md cursor-pointer tooltip"
+          @click="copyEmoji(emoji)"
+          data-tip="Click to copy"
+        >
+          <div class="card-body p-3 text-center">
+            <div class="emoji-char">{% raw %}{{ emoji.char }}{% endraw %}</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <footer class="text-center mt-16 text-base-content/50 text-sm">
+      <p>Emoji Search & Copy • Find the perfect emoji instantly</p>
+      <p>Built by Coffee & Fun LLC</p>
+    </footer>
+  </div>
+
+  <script>
+    const { createApp } = Vue;
+    createApp({
+      data() {
+        return {
+          allEmojis:{{  emojis | json }},
+          searchQuery: '',
+          selectedGroup: 'all',
+          showCopyFeedback: false,
+          lastCopiedEmoji: '',
+          recentEmojis: [],
+          searchCache: new Map(),
+          displayLimit: 200,
+          showMore: false,
+          groupLabels: {
+            all: '🌟 All',
+            'Smileys & Emotion': '😀 Smileys',
+            'People & Body': '👤 People',
+            'Animals & Nature': '🐱 Animals',
+            'Food & Drink': '🍕 Food',
+            'Travel & Places': '✈️ Travel',
+            Activities: '⚽ Activities',
+            Objects: '📱 Objects',
+            Symbols: '❤️ Symbols',
+            Flags: '🏁 Flags'
+          }
+        };
+      },
+      computed: {
+        availableGroups() {
+          return ['all', ...new Set(this.allEmojis.map(e => e.group))].filter(Boolean);
+        },
+        filteredEmojis() {
+          const cacheKey = `${this.searchQuery}-${this.selectedGroup}`;
+          if (this.searchCache.has(cacheKey)) {
+            const list = this.searchCache.get(cacheKey);
+            return this.showMore ? list : list.slice(0, this.displayLimit);
+          }
+          let list = [...this.allEmojis];
+          if (this.selectedGroup !== 'all' && !this.searchQuery) list = list.filter(e => e.group === this.selectedGroup);
+          if (this.searchQuery) {
+            const q = this.searchQuery.toLowerCase().trim();
+            if (q.length < 2) list = list.filter(e => e.name.toLowerCase().startsWith(q) || e.char === this.searchQuery);
+            else {
+              const words = q.split(/\s+/);
+              list = list.filter(e => words.every(w => (`${e.name} ${e.group} ${e.subgroup}`.toLowerCase()).includes(w)));
+              list.sort((a,b) => {
+                const na=a.name.toLowerCase(),nb=b.name.toLowerCase(); if(na===q)return-1; if(nb===q)return1; if(na.startsWith(q)&&!nb.startsWith(q))return-1; if(nb.startsWith(q)&&!na.startsWith(q))return1; const ia=na.includes(q),ib=nb.includes(q); if(ia&&!ib)return-1; if(ib&&!ia)return1; return0;
+              });
             }
-        }).mount('#app');
-    </script>
+          }
+          this.searchCache.set(cacheKey, list);
+          if (this.searchCache.size>50) this.searchCache.delete(this.searchCache.keys().next().value);
+          return this.showMore ? list : list.slice(0, this.displayLimit);
+        },
+        popularEmojis() {
+          const popular = ['1F602','2764','1F970','1F618','1F44D','1F525','1F4AF','1F923','1F60D'];
+          return this.allEmojis.filter(e => popular.includes(e.codes)).slice(0,12);
+        }
+      },
+      mounted() {
+        this.recentEmojis=this.loadRecentEmojis();
+        this.allEmojis.forEach(e=>e.searchText=`${e.name} ${e.group} ${e.subgroup}`.toLowerCase());
+        const p=new URLSearchParams(window.location.search);
+        if(p.get('q'))this.searchQuery=p.get('q');
+      },
+      methods: {
+        getCategoryLabel(g){return this.groupLabels[g]||`📄 ${g}`;},
+        debouncedSearch(){clearTimeout(this._timer);this._timer=setTimeout(()=>{this.performSearch();this.showMore=false;this.searchCache.clear()},150);},
+        performSearch(){const u=new URL(window.location);this.searchQuery?u.searchParams.set('q',this.searchQuery):u.searchParams.delete('q');window.history.replaceState({},'',u);},
+        clearSearch(){this.searchQuery='';this.showMore=false;this.performSearch();},
+        async copyEmoji(e){try{await navigator.clipboard.writeText(e.char)}catch{this.fallbackCopyTextToClipboard(e.char);}this.lastCopiedEmoji=e.char;this.showCopyFeedback=true;setTimeout(()=>this.showCopyFeedback=false,2000);this.addToRecentEmojis(e);},
+        fallbackCopyTextToClipboard(t){const ta=document.createElement('textarea');ta.value=t;document.body.appendChild(ta);ta.focus();ta.select();document.execCommand('copy');document.body.removeChild(ta);this.lastCopiedEmoji=t;this.showCopyFeedback=true;setTimeout(()=>this.showCopyFeedback=false,2000);},
+        addToRecentEmojis(e){this.recentEmojis=this.recentEmojis.filter(x=>x.codes!==e.codes);this.recentEmojis.unshift(e);this.recentEmojis=this.recentEmojis.slice(0,10);this.saveRecentEmojis();},
+        loadRecentEmojis(){try{const s=localStorage.getItem('recentEmojis');return s?JSON.parse(s):[]}catch{return[];}},
+        saveRecentEmojis(){try{localStorage.setItem('recentEmojis',JSON.stringify(this.recentEmojis));}catch{} }
+      }
+    }).mount('#app');
+  </script>
 </body>
 </html>
