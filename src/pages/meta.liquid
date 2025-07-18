@@ -1,0 +1,738 @@
+<!DOCTYPE html>
+<html class="scroll-smooth antialiased" lang="en" data-theme="caramellatte">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    
+    <!-- Enhanced Title with Brand -->
+    <title>Image Metadata Viewer & Editor - EXIF Data Tool | Coffee & Fun LLC</title>
+    
+    <!-- Enhanced Meta Description -->
+    <meta name="description" content="View, analyze, and remove EXIF metadata from images. Privacy-focused image metadata editor with instant processing and download." />
+    
+    <!-- Expanded Keywords -->
+    <meta name="keywords" content="EXIF data, image metadata, photo privacy, metadata removal, EXIF viewer, image editor, Coffee and Fun" />
+    
+    <!-- Enhanced Author and Publisher Info -->
+    <meta name="author" content="Coffee & Fun LLC" />
+    <meta name="publisher" content="Coffee & Fun LLC" />
+    <meta name="copyright" content="Coffee & Fun LLC" />
+    
+    <!-- Enhanced Robots Instructions -->
+    <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1" />
+    <meta name="googlebot" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1" />
+    
+    <!-- Content Classification -->
+    <meta name="rating" content="general" />
+    <meta name="language" content="en-US" />
+    <meta name="geo.region" content="US" />
+    <meta name="geo.country" content="United States" />
+    <meta name="distribution" content="global" />
+    <meta name="audience" content="all" />
+    
+    <!-- Canonical URL -->
+    <link rel="canonical" href="https://www.coffeeandfun.com/image-metadata" />
+    
+    <!-- Enhanced Favicon Package -->
+    <link rel="icon" href="/assets/images/favicon.png" sizes="any" />
+  
+    <!-- Enhanced Open Graph -->
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="Coffee & Fun" />
+    <meta property="og:title" content="Image Metadata Viewer & Editor - EXIF Data Tool" />
+    <meta property="og:description" content="View, analyze, and remove EXIF metadata from images. Privacy-focused image metadata editor." />
+    <meta property="og:url" content="https://www.coffeeandfun.com/image-metadata" />
+    <meta property="og:image" content="https://www.coffeeandfun.com/assets/images/metadata-og.jpg" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content="Image Metadata Viewer & Editor by Coffee & Fun" />
+    <meta property="og:locale" content="en_US" />
+    
+    <!-- Enhanced Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:site" content="@bycoffeeandfun" />
+    <meta name="twitter:creator" content="@bycoffeeandfun" />
+    <meta name="twitter:title" content="Image Metadata Viewer & Editor - EXIF Data Tool" />
+    <meta name="twitter:description" content="View, analyze, and remove EXIF metadata from images. Privacy-focused tool." />
+    <meta name="twitter:image" content="https://www.coffeeandfun.com/assets/images/metadata-og.jpg" />
+    
+    <!-- PWA and Mobile Enhancement -->
+    <meta name="theme-color" content="#8B4513" media="(prefers-color-scheme: light)" />
+    <meta name="theme-color" content="#D4A574" media="(prefers-color-scheme: dark)" />
+    <meta name="mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+    <meta name="apple-mobile-web-app-title" content="Image Metadata" />
+    
+    <!-- Enhanced Structured Data -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@graph": [
+            {
+                "@type": "WebSite",
+                "@id": "https://www.coffeeandfun.com/#website",
+                "name": "Coffee & Fun",
+                "description": "Apps, games, and digital experiences by Coffee & Fun LLC",
+                "url": "https://www.coffeeandfun.com/",
+                "publisher": {
+                    "@id": "https://www.coffeeandfun.com/#organization"
+                }
+            },
+            {
+                "@type": "WebPage",
+                "@id": "https://www.coffeeandfun.com/image-metadata#webpage",
+                "url": "https://www.coffeeandfun.com/image-metadata",
+                "name": "Image Metadata Viewer & Editor",
+                "description": "View, analyze, and remove EXIF metadata from images with our privacy-focused tool.",
+                "isPartOf": {
+                    "@id": "https://www.coffeeandfun.com/#website"
+                },
+                "about": {
+                    "@type": "Thing",
+                    "name": "Image Metadata Tool"
+                },
+                "mainEntity": {
+                    "@type": "SoftwareApplication",
+                    "name": "Image Metadata Viewer & Editor",
+                    "description": "Web-based tool for viewing and editing image metadata",
+                    "url": "https://www.coffeeandfun.com/image-metadata",
+                    "applicationCategory": "Utility",
+                    "operatingSystem": "Web Browser"
+                }
+            },
+            {
+                "@type": "Organization",
+                "@id": "https://www.coffeeandfun.com/#organization",
+                "name": "Coffee & Fun LLC",
+                "legalName": "Coffee & Fun LLC",
+                "url": "https://www.coffeeandfun.com/",
+                "logo": {
+                    "@type": "ImageObject",
+                    "url": "https://www.coffeeandfun.com/assets/images/logo.png",
+                    "width": 512,
+                    "height": 512
+                },
+                "description": "Digital experiences and applications company specializing in clean, user-friendly web applications."
+            }
+        ]
+    }
+    </script>
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- DaisyUI -->
+    <link href="https://cdn.jsdelivr.net/npm/daisyui@4.4.24/dist/full.min.css" rel="stylesheet" type="text/css" />
+    
+    <!-- Vue 3 -->
+    <script src="https://unpkg.com/vue@3"></script>
+    
+    <!-- ExifReader for EXIF data -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/exif-js/2.3.0/exif.js"></script>
+    
+    <style>
+        [v-cloak] { display: none; }
+        
+        .fade-in {
+            animation: fadeIn 0.5s ease-in;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .drop-zone {
+            transition: all 0.3s ease;
+            border: 2px dashed #cbd5e1;
+            background: linear-gradient(135deg, rgba(59, 130, 246, 0.05), rgba(147, 51, 234, 0.05));
+        }
+        
+        .drop-zone.dragover {
+            border-color: #3b82f6;
+            background: linear-gradient(135deg, rgba(59, 130, 246, 0.1), rgba(147, 51, 234, 0.1));
+            transform: scale(1.02);
+        }
+        
+        .metadata-card {
+            transition: all 0.2s ease;
+        }
+        
+        .metadata-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+        }
+        
+        .image-preview {
+            max-height: 400px;
+            object-fit: contain;
+            border-radius: 12px;
+            box-shadow: 0 8px 32px rgba(0,0,0,0.12);
+        }
+        
+        .processing {
+            animation: pulse 2s infinite;
+        }
+        
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.5; }
+        }
+        
+        .metadata-grid {
+            display: grid;
+            grid-template-columns: 1fr 2fr;
+            gap: 8px;
+            align-items: start;
+        }
+        
+        .metadata-key {
+            font-weight: 600;
+            color: rgb(75, 85, 99);
+            word-break: break-word;
+        }
+        
+        .metadata-value {
+            color: rgb(107, 114, 128);
+            word-break: break-all;
+            font-family: ui-monospace, 'Courier New', monospace;
+            font-size: 0.875rem;
+        }
+        
+        .privacy-warning {
+            background: linear-gradient(135deg, rgba(239, 68, 68, 0.1), rgba(245, 158, 11, 0.1));
+            border: 1px solid rgba(239, 68, 68, 0.2);
+        }
+        
+        .success-message {
+            background: linear-gradient(135deg, rgba(34, 197, 94, 0.1), rgba(59, 130, 246, 0.1));
+            border: 1px solid rgba(34, 197, 94, 0.2);
+        }
+    </style>
+</head>
+
+<body class="bg-base-100 min-h-screen">
+    <div v-cloak id="app" class="container mx-auto max-w-6xl p-6">
+        <!-- Header -->
+        <header class="text-center mb-12">
+            <h1 class="text-4xl font-bold text-base-content mb-2">📸 Image Metadata Viewer & Editor</h1>
+            <p class="text-base-content/70">View EXIF data and remove metadata for privacy</p>
+        </header>
+
+        <!-- Privacy Notice -->
+        <div class="alert alert-info mb-8">
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" class="stroke-current shrink-0 w-6 h-6"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                <div>
+                    <h3 class="font-bold">🔒 Your Privacy is Protected</h3>
+                    <div class="text-xs">All processing happens locally in your browser. No images are uploaded to servers.</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Upload Section -->
+        <div class="mb-8">
+            <div class="card bg-base-200 shadow-lg">
+                <div class="card-body">
+                    <h2 class="card-title text-2xl mb-4">📁 Upload Image</h2>
+                    
+                    <!-- Drop Zone -->
+                    <div 
+                        class="drop-zone p-12 rounded-lg text-center cursor-pointer"
+                        :class="{ 'dragover': isDragOver, 'processing': isProcessing }"
+                        @click="triggerFileInput"
+                        @drop.prevent="handleDrop"
+                        @dragover.prevent="isDragOver = true"
+                        @dragleave.prevent="isDragOver = false"
+                    >
+                        <input 
+                            type="file" 
+                            ref="fileInput" 
+                            @change="handleFileSelect" 
+                            accept="image/*" 
+                            class="hidden"
+                        >
+                        
+                        <div v-if="!isProcessing">
+                            <svg class="mx-auto h-16 w-16 text-base-content/40 mb-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12" />
+                            </svg>
+                            <h3 class="text-lg font-semibold mb-2">Drop your image here</h3>
+                            <p class="text-base-content/60">or click to browse files</p>
+                            <p class="text-sm text-base-content/50 mt-2">Supports JPEG, PNG, TIFF, and most image formats</p>
+                        </div>
+                        
+                        <div v-else class="processing">
+                            <div class="loading loading-spinner loading-lg mb-4"></div>
+                            <p class="text-lg font-semibold">Processing image...</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Image Preview and Results -->
+        <div v-if="currentImage" class="grid md:grid-cols-2 gap-8 mb-8">
+            <!-- Image Preview -->
+            <div class="card bg-base-200 shadow-lg fade-in">
+                <div class="card-body">
+                    <h3 class="card-title mb-4">🖼️ Image Preview</h3>
+                    <div class="text-center">
+                        <img :src="currentImage.preview" :alt="currentImage.name" class="image-preview mx-auto mb-4">
+                        <div class="text-sm text-base-content/60">
+                            <p><strong>File:</strong> {% raw %}{{ currentImage.name }}{% endraw %}</p>
+                            <p><strong>Size:</strong> {% raw %}{{ formatFileSize(currentImage.size) }}{% endraw %}</p>
+                            <p><strong>Type:</strong> {% raw %}{{ currentImage.type }}{% endraw %}</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Metadata Summary -->
+            <div class="card bg-base-200 shadow-lg fade-in">
+                <div class="card-body">
+                    <h3 class="card-title mb-4">📊 Metadata Summary</h3>
+                    
+                    <div class="stats stats-vertical shadow w-full">
+                        <div class="stat">
+                            <div class="stat-title">Total Fields</div>
+                            <div class="stat-value text-primary">{% raw %}{{ Object.keys(metadata).length }}{% endraw %}</div>
+                        </div>
+                        <div class="stat" v-if="hasGpsData">
+                            <div class="stat-title">⚠️ GPS Location</div>
+                            <div class="stat-value text-warning">Found</div>
+                            <div class="stat-desc">Privacy risk detected</div>
+                        </div>
+                        <div class="stat" v-if="hasPersonalData">
+                            <div class="stat-title">👤 Personal Data</div>
+                            <div class="stat-value text-error">Found</div>
+                            <div class="stat-desc">Contains identifying info</div>
+                        </div>
+                    </div>
+
+                    <!-- Quick Actions -->
+                    <div class="flex flex-wrap gap-2 mt-6">
+                        <button 
+                            class="btn btn-primary btn-sm"
+                            @click="showAllMetadata = !showAllMetadata"
+                        >
+                            {% raw %}{{ showAllMetadata ? 'Hide' : 'View All' }}{% endraw %} Metadata
+                        </button>
+                        <button 
+                            class="btn btn-warning btn-sm"
+                            @click="removeMetadata"
+                            :disabled="isProcessing"
+                        >
+                            <span v-if="!isProcessing">🧹 Remove Metadata</span>
+                            <span v-else class="loading loading-spinner loading-xs"></span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Detailed Metadata View -->
+        <div v-if="currentImage && showAllMetadata" class="card bg-base-200 shadow-lg mb-8 fade-in">
+            <div class="card-body">
+                <h3 class="card-title mb-4">🔍 Detailed Metadata</h3>
+                
+                <!-- Privacy Warnings -->
+                <div v-if="hasGpsData || hasPersonalData" class="privacy-warning rounded-lg p-4 mb-6">
+                    <h4 class="font-bold text-error mb-2">⚠️ Privacy Concerns Detected</h4>
+                    <ul class="text-sm space-y-1">
+                        <li v-if="hasGpsData">📍 GPS coordinates found - reveals photo location</li>
+                        <li v-if="hasPersonalData">👤 Personal information detected in metadata</li>
+                        <li v-if="metadata['Camera Make'] || metadata['Camera Model']">📷 Camera information reveals device details</li>
+                        <li v-if="metadata['Software']">💻 Software information may reveal editing tools</li>
+                    </ul>
+                </div>
+
+                <!-- Metadata Tabs -->
+                <div class="tabs tabs-boxed mb-6">
+                    <button 
+                        v-for="category in metadataCategories" 
+                        :key="category"
+                        class="tab"
+                        :class="{ 'tab-active': activeTab === category }"
+                        @click="activeTab = category"
+                    >
+                        {% raw %}{{ category }}{% endraw %}
+                    </button>
+                </div>
+
+                <!-- Metadata Display -->
+                <div class="metadata-card bg-base-100 rounded-lg p-6">
+                    <div v-if="filteredMetadata.length > 0" class="space-y-4">
+                        <div v-for="item in filteredMetadata" :key="item.key" class="metadata-grid">
+                            <div class="metadata-key">{% raw %}{{ item.key }}{% endraw %}</div>
+                            <div class="metadata-value">{% raw %}{{ item.value }}{% endraw %}</div>
+                        </div>
+                    </div>
+                    <div v-else class="text-center text-base-content/60 py-8">
+                        <p>No {% raw %}{{ activeTab.toLowerCase() }}{% endraw %} metadata found</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Success Message -->
+        <div v-if="cleanedImage" class="card bg-base-200 shadow-lg mb-8 fade-in">
+            <div class="card-body">
+                <div class="success-message rounded-lg p-6">
+                    <h3 class="text-xl font-bold text-success mb-4">✅ Metadata Successfully Removed!</h3>
+                    <p class="mb-4">Your image has been processed and all metadata has been stripped for privacy.</p>
+                    
+                    <div class="flex flex-wrap gap-4">
+                        <button class="btn btn-success" @click="downloadCleanImage">
+                            💾 Download Clean Image
+                        </button>
+                        <button class="btn btn-outline" @click="processAnother">
+                            🔄 Process Another Image
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Help Section -->
+        <div class="card bg-base-200 shadow-lg">
+            <div class="card-body">
+                <h3 class="card-title mb-4">❓ About Image Metadata</h3>
+                
+                <div class="grid md:grid-cols-2 gap-6">
+                    <div>
+                        <h4 class="font-bold mb-2">What is EXIF data?</h4>
+                        <p class="text-sm text-base-content/70 mb-4">
+                            EXIF (Exchangeable Image File Format) data contains information about how a photo was taken, 
+                            including camera settings, GPS location, timestamps, and device information.
+                        </p>
+                    </div>
+                    
+                    <div>
+                        <h4 class="font-bold mb-2">Why remove metadata?</h4>
+                        <p class="text-sm text-base-content/70 mb-4">
+                            Metadata can reveal personal information like your location, camera equipment, and when/where 
+                            photos were taken. Removing it protects your privacy when sharing images online.
+                        </p>
+                    </div>
+                </div>
+
+                <div class="divider"></div>
+
+                <div class="text-center">
+                    <h4 class="font-bold mb-2">🔒 Privacy Guarantee</h4>
+                    <p class="text-sm text-base-content/60">
+                        This tool processes images entirely in your browser using JavaScript. 
+                        No images or data are sent to external servers.
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Footer -->
+        <footer class="text-center mt-16 text-base-content/50 text-sm">
+            <p>Image Metadata Viewer & Editor • Protect your privacy</p>
+            <p>Built by Coffee & Fun LLC</p>
+        </footer>
+    </div>
+
+    <script>
+        const { createApp } = Vue;
+        
+        createApp({
+            data() {
+                return {
+                    currentImage: null,
+                    metadata: {},
+                    isProcessing: false,
+                    isDragOver: false,
+                    showAllMetadata: false,
+                    cleanedImage: null,
+                    activeTab: 'Camera',
+                };
+            },
+            computed: {
+                hasGpsData() {
+                    return this.metadata['GPSLatitude'] || this.metadata['GPSLongitude'] || 
+                           this.metadata['GPSPosition'] || this.metadata['GPS Latitude'] || 
+                           this.metadata['GPS Longitude'] || this.metadata['GPSLatitudeRef'] ||
+                           this.metadata['GPSLongitudeRef'];
+                },
+                hasPersonalData() {
+                    return this.metadata['Artist'] || this.metadata['Copyright'] || 
+                           this.metadata['Creator'] || this.metadata['Author'] ||
+                           this.metadata['Owner Name'] || this.metadata['Camera Owner Name'];
+                },
+                metadataCategories() {
+                    const categories = ['All', 'Camera', 'Settings', 'DateTime', 'GPS', 'Software', 'Other'];
+                    return categories.filter(cat => {
+                        if (cat === 'All') return Object.keys(this.metadata).length > 0;
+                        return this.getMetadataByCategory(cat).length > 0;
+                    });
+                },
+                filteredMetadata() {
+                    const items = this.activeTab === 'All' 
+                        ? Object.entries(this.metadata)
+                        : this.getMetadataByCategory(this.activeTab);
+                    
+                    return items.map(([key, value]) => ({
+                        key: this.formatKey(key),
+                        value: this.formatValue(value)
+                    }));
+                }
+            },
+            mounted() {
+                // Set default active tab when metadata is loaded
+                this.$watch('metadata', (newVal) => {
+                    if (Object.keys(newVal).length > 0 && this.metadataCategories.includes('Camera')) {
+                        this.activeTab = 'Camera';
+                    } else if (this.metadataCategories.length > 0) {
+                        this.activeTab = this.metadataCategories[0];
+                    }
+                });
+            },
+            methods: {
+                triggerFileInput() {
+                    this.$refs.fileInput.click();
+                },
+                
+                handleFileSelect(event) {
+                    const file = event.target.files[0];
+                    if (file) {
+                        this.processFile(file);
+                    }
+                },
+                
+                handleDrop(event) {
+                    this.isDragOver = false;
+                    const file = event.dataTransfer.files[0];
+                    if (file && file.type.startsWith('image/')) {
+                        this.processFile(file);
+                    }
+                },
+                
+                async processFile(file) {
+                    this.isProcessing = true;
+                    this.cleanedImage = null;
+                    
+                    try {
+                        // Create preview
+                        const preview = await this.createImagePreview(file);
+                        
+                        this.currentImage = {
+                            file: file,
+                            name: file.name,
+                            size: file.size,
+                            type: file.type,
+                            preview: preview
+                        };
+                        
+                        // Extract metadata
+                        await this.extractMetadata(file);
+                        
+                    } catch (error) {
+                        console.error('Error processing file:', error);
+                        this.showAlert('Error processing image. Please try another file.', 'error');
+                    } finally {
+                        this.isProcessing = false;
+                    }
+                },
+                
+                createImagePreview(file) {
+                    return new Promise((resolve) => {
+                        const reader = new FileReader();
+                        reader.onload = (e) => resolve(e.target.result);
+                        reader.readAsDataURL(file);
+                    });
+                },
+                
+                async extractMetadata(file) {
+                    try {
+                        // Check if EXIF library is available
+                        if (typeof EXIF === 'undefined') {
+                            console.warn('EXIF library not loaded, using basic metadata extraction');
+                            this.extractBasicMetadata(file);
+                            return;
+                        }
+
+                        this.metadata = {};
+                        
+                        // Use EXIF.js to extract metadata
+                        EXIF.getData(file, () => {
+                            const allMetaData = EXIF.getAllTags(file);
+                            
+                            // Process and clean up metadata
+                            Object.entries(allMetaData).forEach(([key, value]) => {
+                                if (value !== null && value !== undefined && value !== '') {
+                                    this.metadata[key] = value;
+                                }
+                            });
+                            
+                            // Add some basic file info if no metadata found
+                            if (Object.keys(this.metadata).length === 0) {
+                                this.extractBasicMetadata(file);
+                            }
+                            
+                            console.log('Extracted metadata:', this.metadata);
+                        });
+                        
+                    } catch (error) {
+                        console.error('Error extracting metadata:', error);
+                        this.extractBasicMetadata(file);
+                        this.showAlert('Could not extract EXIF metadata. Showing basic file information.', 'warning');
+                    }
+                },
+                
+                extractBasicMetadata(file) {
+                    // Fallback to basic file information
+                    this.metadata = {
+                        'File Name': file.name,
+                        'File Size': this.formatFileSize(file.size),
+                        'File Type': file.type,
+                        'Last Modified': new Date(file.lastModified).toLocaleString(),
+                    };
+                    
+                    // Try to get image dimensions
+                    const img = new Image();
+                    img.onload = () => {
+                        this.metadata['Image Width'] = img.width + ' pixels';
+                        this.metadata['Image Height'] = img.height + ' pixels';
+                        this.metadata['Aspect Ratio'] = (img.width / img.height).toFixed(2);
+                    };
+                    img.src = this.currentImage.preview;
+                },
+                
+                async removeMetadata() {
+                    if (!this.currentImage) return;
+                    
+                    this.isProcessing = true;
+                    
+                    try {
+                        // Create a new image without metadata
+                        const canvas = document.createElement('canvas');
+                        const ctx = canvas.getContext('2d');
+                        const img = new Image();
+                        
+                        await new Promise((resolve, reject) => {
+                            img.onload = resolve;
+                            img.onerror = reject;
+                            img.src = this.currentImage.preview;
+                        });
+                        
+                        canvas.width = img.width;
+                        canvas.height = img.height;
+                        ctx.drawImage(img, 0, 0);
+                        
+                        // Convert to blob without metadata
+                        canvas.toBlob((blob) => {
+                            this.cleanedImage = {
+                                blob: blob,
+                                name: this.generateCleanFileName(this.currentImage.name),
+                                originalSize: this.currentImage.size,
+                                cleanedSize: blob.size
+                            };
+                            this.isProcessing = false;
+                        }, this.currentImage.type, 0.95);
+                        
+                    } catch (error) {
+                        console.error('Error removing metadata:', error);
+                        this.showAlert('Error removing metadata. Please try again.', 'error');
+                        this.isProcessing = false;
+                    }
+                },
+                
+                downloadCleanImage() {
+                    if (!this.cleanedImage) return;
+                    
+                    const url = URL.createObjectURL(this.cleanedImage.blob);
+                    const a = document.createElement('a');
+                    a.href = url;
+                    a.download = this.cleanedImage.name;
+                    document.body.appendChild(a);
+                    a.click();
+                    document.body.removeChild(a);
+                    URL.revokeObjectURL(url);
+                },
+                
+                processAnother() {
+                    this.currentImage = null;
+                    this.metadata = {};
+                    this.cleanedImage = null;
+                    this.showAllMetadata = false;
+                    this.$refs.fileInput.value = '';
+                },
+                
+                getMetadataByCategory(category) {
+                    const entries = Object.entries(this.metadata);
+                    
+                    switch (category) {
+                        case 'Camera':
+                            return entries.filter(([key]) => 
+                                /make|model|camera|lens/i.test(key)
+                            );
+                        case 'Settings':
+                            return entries.filter(([key]) => 
+                                /iso|aperture|shutter|focal|exposure|flash|white.*balance/i.test(key)
+                            );
+                        case 'DateTime':
+                            return entries.filter(([key]) => 
+                                /date|time/i.test(key)
+                            );
+                        case 'GPS':
+                            return entries.filter(([key]) => 
+                                /gps|latitude|longitude|altitude|position/i.test(key)
+                            );
+                        case 'Software':
+                            return entries.filter(([key]) => 
+                                /software|program|application|editor/i.test(key)
+                            );
+                        case 'Other':
+                            return entries.filter(([key]) => 
+                                !/make|model|camera|lens|iso|aperture|shutter|focal|exposure|flash|white.*balance|date|time|gps|latitude|longitude|altitude|position|software|program|application|editor/i.test(key)
+                            );
+                        default:
+                            return entries;
+                    }
+                },
+                
+                formatKey(key) {
+                    // Convert camelCase and other formats to readable text
+                    return key
+                        .replace(/([A-Z])/g, ' $1')
+                        .replace(/^./, str => str.toUpperCase())
+                        .replace(/\s+/g, ' ')
+                        .trim();
+                },
+                
+                formatValue(value) {
+                    if (value === null || value === undefined) return 'N/A';
+                    if (typeof value === 'string' && value.length > 100) {
+                        return value.substring(0, 100) + '...';
+                    }
+                    return String(value);
+                },
+                
+                formatFileSize(bytes) {
+                    if (bytes === 0) return '0 Bytes';
+                    const k = 1024;
+                    const sizes = ['Bytes', 'KB', 'MB', 'GB'];
+                    const i = Math.floor(Math.log(bytes) / Math.log(k));
+                    return parseFloat((bytes / Math.pow(k, i)).toFixed(2)) + ' ' + sizes[i];
+                },
+                
+                generateCleanFileName(originalName) {
+                    const ext = originalName.split('.').pop();
+                    const name = originalName.replace(/\.[^/.]+$/, '');
+                    return `${name}_cleaned.${ext}`;
+                },
+                
+                showAlert(message, type = 'info') {
+                    // Simple alert for now - could be enhanced with a toast system
+                    alert(message);
+                }
+            }
+        }).mount('#app');
+    </script>
+</body>
+</html>
