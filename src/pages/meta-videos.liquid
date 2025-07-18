@@ -1,0 +1,909 @@
+<!DOCTYPE html>
+<html class="scroll-smooth antialiased" lang="en" data-theme="valentine">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    
+    <!-- Enhanced Title with Brand -->
+    <title>Video Metadata Viewer & Editor - Remove Video EXIF Data | Coffee & Fun</title>
+    
+    <!-- Enhanced Meta Description -->
+    <meta name="description" content="View, analyze, and remove metadata from video files. Privacy-focused video metadata editor with instant processing and download." />
+    
+    <!-- Expanded Keywords -->
+    <meta name="keywords" content="video metadata, video EXIF, video privacy, metadata removal, video editor, MP4 metadata, Coffee and Fun" />
+    
+    <!-- Enhanced Author and Publisher Info -->
+    <meta name="author" content="Coffee & Fun LLC" />
+    <meta name="publisher" content="Coffee & Fun LLC" />
+    <meta name="copyright" content="Coffee & Fun LLC" />
+    
+    <!-- Enhanced Robots Instructions -->
+    <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1" />
+    <meta name="googlebot" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1" />
+    
+    <!-- Content Classification -->
+    <meta name="rating" content="general" />
+    <meta name="language" content="en-US" />
+    <meta name="geo.region" content="US" />
+    <meta name="geo.country" content="United States" />
+    <meta name="distribution" content="global" />
+    <meta name="audience" content="all" />
+    
+    <!-- Canonical URL -->
+    <link rel="canonical" href="https://www.coffeeandfun.com/video-metadata" />
+    
+    <!-- Enhanced Favicon Package -->
+    <link rel="icon" href="/assets/images/favicon.png" sizes="any" />
+  
+    <!-- Enhanced Open Graph -->
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="Coffee & Fun" />
+    <meta property="og:title" content="Video Metadata Viewer & Editor - Remove Video EXIF Data" />
+    <meta property="og:description" content="View, analyze, and remove metadata from video files. Privacy-focused video metadata editor." />
+    <meta property="og:url" content="https://www.coffeeandfun.com/video-metadata" />
+    <meta property="og:image" content="https://www.coffeeandfun.com/assets/images/video-metadata-og.jpg" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content="Video Metadata Viewer & Editor by Coffee & Fun" />
+    <meta property="og:locale" content="en_US" />
+    
+    <!-- Enhanced Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:site" content="@bycoffeeandfun" />
+    <meta name="twitter:creator" content="@bycoffeeandfun" />
+    <meta name="twitter:title" content="Video Metadata Viewer & Editor - Remove Video EXIF Data" />
+    <meta name="twitter:description" content="View, analyze, and remove metadata from video files. Privacy-focused tool." />
+    <meta name="twitter:image" content="https://www.coffeeandfun.com/assets/images/video-metadata-og.jpg" />
+    
+    <!-- PWA and Mobile Enhancement -->
+    <meta name="theme-color" content="#8B4513" media="(prefers-color-scheme: light)" />
+    <meta name="theme-color" content="#D4A574" media="(prefers-color-scheme: dark)" />
+    <meta name="mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+    <meta name="apple-mobile-web-app-title" content="Video Metadata" />
+    
+    <!-- Enhanced Structured Data -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@graph": [
+            {
+                "@type": "WebSite",
+                "@id": "https://www.coffeeandfun.com/#website",
+                "name": "Coffee & Fun",
+                "description": "Apps, games, and digital experiences by Coffee & Fun LLC",
+                "url": "https://www.coffeeandfun.com/",
+                "publisher": {
+                    "@id": "https://www.coffeeandfun.com/#organization"
+                }
+            },
+            {
+                "@type": "WebPage",
+                "@id": "https://www.coffeeandfun.com/video-metadata#webpage",
+                "url": "https://www.coffeeandfun.com/video-metadata",
+                "name": "Video Metadata Viewer & Editor",
+                "description": "View, analyze, and remove metadata from video files with our privacy-focused tool.",
+                "isPartOf": {
+                    "@id": "https://www.coffeeandfun.com/#website"
+                },
+                "about": {
+                    "@type": "Thing",
+                    "name": "Video Metadata Tool"
+                },
+                "mainEntity": {
+                    "@type": "SoftwareApplication",
+                    "name": "Video Metadata Viewer & Editor",
+                    "description": "Web-based tool for viewing and editing video metadata",
+                    "url": "https://www.coffeeandfun.com/video-metadata",
+                    "applicationCategory": "Utility",
+                    "operatingSystem": "Web Browser"
+                }
+            },
+            {
+                "@type": "Organization",
+                "@id": "https://www.coffeeandfun.com/#organization",
+                "name": "Coffee & Fun LLC",
+                "legalName": "Coffee & Fun LLC",
+                "url": "https://www.coffeeandfun.com/",
+                "logo": {
+                    "@type": "ImageObject",
+                    "url": "https://www.coffeeandfun.com/assets/images/logo.png",
+                    "width": 512,
+                    "height": 512
+                },
+                "description": "Digital experiences and applications company specializing in clean, user-friendly web applications."
+            }
+        ]
+    }
+    </script>
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- DaisyUI -->
+    <link href="https://cdn.jsdelivr.net/npm/daisyui@4.4.24/dist/full.min.css" rel="stylesheet" type="text/css" />
+    
+    <!-- Vue 3 -->
+    <script src="https://unpkg.com/vue@3"></script>
+    
+    <!-- FFmpeg for video processing -->
+    <script src="https://unpkg.com/@ffmpeg/ffmpeg@0.12.7/dist/esm/index.js" type="module"></script>
+    <script src="https://unpkg.com/@ffmpeg/util@0.12.1/dist/index.js"></script>
+    
+    <style>
+        [v-cloak] { display: none; }
+        
+        .fade-in {
+            animation: fadeIn 0.5s ease-in;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .drop-zone {
+            transition: all 0.3s ease;
+            border: 2px dashed #cbd5e1;
+            background: linear-gradient(135deg, rgba(139, 69, 19, 0.05), rgba(212, 165, 116, 0.05));
+        }
+        
+        .drop-zone.dragover {
+            border-color: #8B4513;
+            background: linear-gradient(135deg, rgba(139, 69, 19, 0.1), rgba(212, 165, 116, 0.1));
+            transform: scale(1.02);
+        }
+        
+        .metadata-card {
+            transition: all 0.2s ease;
+        }
+        
+        .metadata-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+        }
+        
+        .video-preview {
+            max-height: 400px;
+            max-width: 100%;
+            border-radius: 12px;
+            box-shadow: 0 8px 32px rgba(0,0,0,0.12);
+        }
+        
+        .processing {
+            animation: pulse 2s infinite;
+        }
+        
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.5; }
+        }
+        
+        .metadata-grid {
+            display: grid;
+            grid-template-columns: 1fr 2fr;
+            gap: 8px;
+            align-items: start;
+        }
+        
+        .metadata-key {
+            font-weight: 600;
+            color: rgb(75, 85, 99);
+            word-break: break-word;
+        }
+        
+        .metadata-value {
+            color: rgb(107, 114, 128);
+            word-break: break-all;
+            font-family: ui-monospace, 'Courier New', monospace;
+            font-size: 0.875rem;
+        }
+        
+        .privacy-warning {
+            background: linear-gradient(135deg, rgba(239, 68, 68, 0.1), rgba(245, 158, 11, 0.1));
+            border: 1px solid rgba(239, 68, 68, 0.2);
+        }
+        
+        .success-message {
+            background: linear-gradient(135deg, rgba(34, 197, 94, 0.1), rgba(59, 130, 246, 0.1));
+            border: 1px solid rgba(34, 197, 94, 0.2);
+        }
+        
+        .progress-bar {
+            transition: width 0.3s ease;
+        }
+        
+        .codec-info {
+            background: linear-gradient(135deg, rgba(59, 130, 246, 0.1), rgba(147, 51, 234, 0.1));
+            border: 1px solid rgba(59, 130, 246, 0.2);
+        }
+    </style>
+</head>
+
+<body class="bg-base-100 min-h-screen">
+    <div v-cloak id="app" class="container mx-auto max-w-6xl p-6">
+        <!-- Header -->
+        <header class="text-center mb-12">
+            <h1 class="text-4xl font-bold text-base-content mb-2">🎬 Video Metadata Viewer & Editor</h1>
+            <p class="text-base-content/70">Analyze and remove metadata from video files for privacy</p>
+        </header>
+
+        <!-- Privacy Notice -->
+        <div class="alert alert-info mb-8">
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" class="stroke-current shrink-0 w-6 h-6"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                <div>
+                    <h3 class="font-bold">🔒 Your Privacy is Protected</h3>
+                    <div class="text-xs">All processing happens locally in your browser. No videos are uploaded to servers.</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- FFmpeg Loading Notice -->
+        <div v-if="!ffmpegLoaded && !ffmpegError" class="alert alert-warning mb-8">
+            <div>
+                <div class="loading loading-spinner loading-sm"></div>
+                <div>
+                    <h3 class="font-bold">Loading Video Processing Engine...</h3>
+                    <div class="text-xs">FFmpeg is loading for advanced video processing capabilities.</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Upload Section -->
+        <div class="mb-8">
+            <div class="card bg-base-200 shadow-lg">
+                <div class="card-body">
+                    <h2 class="card-title text-2xl mb-4">📁 Upload Video</h2>
+                    
+                    <!-- Drop Zone -->
+                    <div 
+                        class="drop-zone p-12 rounded-lg text-center cursor-pointer"
+                        :class="{ 'dragover': isDragOver, 'processing': isProcessing }"
+                        @click="triggerFileInput"
+                        @drop.prevent="handleDrop"
+                        @dragover.prevent="isDragOver = true"
+                        @dragleave.prevent="isDragOver = false"
+                    >
+                        <input 
+                            type="file" 
+                            ref="fileInput" 
+                            @change="handleFileSelect" 
+                            accept="video/*" 
+                            class="hidden"
+                        >
+                        
+                        <div v-if="!isProcessing">
+                            <svg class="mx-auto h-16 w-16 text-base-content/40 mb-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 10l4.553-2.276A1 1 0 0121 8.618v6.764a1 1 0 01-1.447.894L15 14M5 18h8a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z" />
+                            </svg>
+                            <h3 class="text-lg font-semibold mb-2">Drop your video here</h3>
+                            <p class="text-base-content/60">or click to browse files</p>
+                            <p class="text-sm text-base-content/50 mt-2">Supports MP4, MOV, AVI, MKV, and most video formats</p>
+                        </div>
+                        
+                        <div v-else class="processing">
+                            <div class="loading loading-spinner loading-lg mb-4"></div>
+                            <p class="text-lg font-semibold">{% raw %}{{ processingStatus }}{% endraw %}...</p>
+                            <div v-if="processingProgress > 0" class="w-full bg-base-300 rounded-full h-2 mt-4">
+                                <div class="bg-primary h-2 rounded-full progress-bar" :style="{ width: processingProgress + '%' }"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Video Preview and Results -->
+        <div v-if="currentVideo" class="grid md:grid-cols-2 gap-8 mb-8">
+            <!-- Video Preview -->
+            <div class="card bg-base-200 shadow-lg fade-in">
+                <div class="card-body">
+                    <h3 class="card-title mb-4">🎥 Video Preview</h3>
+                    <div class="text-center">
+                        <video :src="currentVideo.preview" controls class="video-preview mx-auto mb-4" preload="metadata">
+                            Your browser does not support the video tag.
+                        </video>
+                        <div class="text-sm text-base-content/60">
+                            <p><strong>File:</strong> {% raw %}{{ currentVideo.name }}{% endraw %}</p>
+                            <p><strong>Size:</strong> {% raw %}{{ formatFileSize(currentVideo.size) }}{% endraw %}</p>
+                            <p><strong>Type:</strong> {% raw %}{{ currentVideo.type }}{% endraw %}</p>
+                            <p v-if="videoInfo.duration"><strong>Duration:</strong> {% raw %}{{ formatDuration(videoInfo.duration) }}{% endraw %}</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Metadata Summary -->
+            <div class="card bg-base-200 shadow-lg fade-in">
+                <div class="card-body">
+                    <h3 class="card-title mb-4">📊 Video Analysis</h3>
+                    
+                    <div class="stats stats-vertical shadow w-full">
+                        <div class="stat">
+                            <div class="stat-title">Metadata Fields</div>
+                            <div class="stat-value text-primary">{% raw %}{{ Object.keys(metadata).length }}{% endraw %}</div>
+                        </div>
+                        <div class="stat" v-if="hasGpsData">
+                            <div class="stat-title">⚠️ Location Data</div>
+                            <div class="stat-value text-warning">Found</div>
+                            <div class="stat-desc">Privacy risk detected</div>
+                        </div>
+                        <div class="stat" v-if="hasPersonalData">
+                            <div class="stat-title">👤 Personal Info</div>
+                            <div class="stat-value text-error">Found</div>
+                            <div class="stat-desc">Contains identifying data</div>
+                        </div>
+                        <div class="stat" v-if="videoInfo.bitrate">
+                            <div class="stat-title">📈 Bitrate</div>
+                            <div class="stat-value text-info">{% raw %}{{ Math.round(videoInfo.bitrate / 1000) }}{% endraw %}k</div>
+                            <div class="stat-desc">kbps</div>
+                        </div>
+                    </div>
+
+                    <!-- Video Technical Info -->
+                    <div v-if="videoInfo.width || videoInfo.height" class="codec-info rounded-lg p-4 mt-6">
+                        <h4 class="font-bold mb-2">🎬 Technical Details</h4>
+                        <div class="text-sm space-y-1">
+                            <p v-if="videoInfo.width && videoInfo.height">
+                                <strong>Resolution:</strong> {% raw %}{{ videoInfo.width }}{% endraw %} × {% raw %}{{ videoInfo.height }}{% endraw %}
+                            </p>
+                            <p v-if="videoInfo.framerate">
+                                <strong>Frame Rate:</strong> {% raw %}{{ videoInfo.framerate }}{% endraw %} fps
+                            </p>
+                            <p v-if="videoInfo.codec">
+                                <strong>Video Codec:</strong> {% raw %}{{ videoInfo.codec }}{% endraw %}
+                            </p>
+                            <p v-if="videoInfo.audioCodec">
+                                <strong>Audio Codec:</strong> {% raw %}{{ videoInfo.audioCodec }}{% endraw %}
+                            </p>
+                        </div>
+                    </div>
+
+                    <!-- Quick Actions -->
+                    <div class="flex flex-wrap gap-2 mt-6">
+                        <button 
+                            class="btn btn-primary btn-sm"
+                            @click="showAllMetadata = !showAllMetadata"
+                        >
+                            {% raw %}{{ showAllMetadata ? 'Hide' : 'View All' }}{% endraw %} Metadata
+                        </button>
+                        <button 
+                            class="btn btn-warning btn-sm"
+                            @click="removeMetadata"
+                            :disabled="isProcessing || !ffmpegLoaded"
+                        >
+                            <span v-if="!isProcessing">🧹 Remove Metadata</span>
+                            <span v-else class="loading loading-spinner loading-xs"></span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Detailed Metadata View -->
+        <div v-if="currentVideo && showAllMetadata" class="card bg-base-200 shadow-lg mb-8 fade-in">
+            <div class="card-body">
+                <h3 class="card-title mb-4">🔍 Detailed Metadata</h3>
+                
+                <!-- Privacy Warnings -->
+                <div v-if="hasGpsData || hasPersonalData" class="privacy-warning rounded-lg p-4 mb-6">
+                    <h4 class="font-bold text-error mb-2">⚠️ Privacy Concerns Detected</h4>
+                    <ul class="text-sm space-y-1">
+                        <li v-if="hasGpsData">📍 GPS coordinates found - reveals recording location</li>
+                        <li v-if="hasPersonalData">👤 Personal information detected in metadata</li>
+                        <li v-if="metadata['Device Make'] || metadata['Device Model']">📱 Device information reveals recording equipment</li>
+                        <li v-if="metadata['Software'] || metadata['Encoder']">💻 Software information may reveal editing tools</li>
+                        <li v-if="metadata['Creation Time'] || metadata['Modification Time']">⏰ Timestamp data reveals when video was created</li>
+                    </ul>
+                </div>
+
+                <!-- Metadata Tabs -->
+                <div class="tabs tabs-boxed mb-6">
+                    <button 
+                        v-for="category in metadataCategories" 
+                        :key="category"
+                        class="tab"
+                        :class="{ 'tab-active': activeTab === category }"
+                        @click="activeTab = category"
+                    >
+                        {% raw %}{{ category }}{% endraw %}
+                    </button>
+                </div>
+
+                <!-- Metadata Display -->
+                <div class="metadata-card bg-base-100 rounded-lg p-6">
+                    <div v-if="filteredMetadata.length > 0" class="space-y-4">
+                        <div v-for="item in filteredMetadata" :key="item.key" class="metadata-grid">
+                            <div class="metadata-key">{% raw %}{{ item.key }}{% endraw %}</div>
+                            <div class="metadata-value">{% raw %}{{ item.value }}{% endraw %}</div>
+                        </div>
+                    </div>
+                    <div v-else class="text-center text-base-content/60 py-8">
+                        <p>No {% raw %}{{ activeTab.toLowerCase() }}{% endraw %} metadata found</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Success Message -->
+        <div v-if="cleanedVideo" class="card bg-base-200 shadow-lg mb-8 fade-in">
+            <div class="card-body">
+                <div class="success-message rounded-lg p-6">
+                    <h3 class="text-xl font-bold text-success mb-4">✅ Video Metadata Successfully Removed!</h3>
+                    <p class="mb-4">Your video has been processed and all metadata has been stripped for privacy.</p>
+                    
+                    <div class="flex flex-wrap gap-4">
+                        <button class="btn btn-success" @click="downloadCleanVideo">
+                            💾 Download Clean Video
+                        </button>
+                        <button class="btn btn-outline" @click="processAnother">
+                            🔄 Process Another Video
+                        </button>
+                    </div>
+                    
+                    <div class="mt-4 text-sm text-base-content/60">
+                        <p><strong>Original:</strong> {% raw %}{{ formatFileSize(currentVideo.size) }}{% endraw %}</p>
+                        <p><strong>Cleaned:</strong> {% raw %}{{ formatFileSize(cleanedVideo.size) }}{% endraw %}</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- FFmpeg Error -->
+        <div v-if="ffmpegError" class="alert alert-error mb-8">
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="stroke-current shrink-0 h-6 w-6" fill="none" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
+                <div>
+                    <h3 class="font-bold">Video Processing Engine Failed to Load</h3>
+                    <div class="text-xs">Metadata viewing is still available, but metadata removal requires FFmpeg.</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Help Section -->
+        <div class="card bg-base-200 shadow-lg">
+            <div class="card-body">
+                <h3 class="card-title mb-4">❓ About Video Metadata</h3>
+                
+                <div class="grid md:grid-cols-2 gap-6">
+                    <div>
+                        <h4 class="font-bold mb-2">What is video metadata?</h4>
+                        <p class="text-sm text-base-content/70 mb-4">
+                            Video files contain extensive metadata including GPS coordinates, device information, 
+                            timestamps, codec details, and sometimes personal data like device owner names.
+                        </p>
+                    </div>
+                    
+                    <div>
+                        <h4 class="font-bold mb-2">Why remove video metadata?</h4>
+                        <p class="text-sm text-base-content/70 mb-4">
+                            Video metadata can reveal when and where videos were recorded, what device was used, 
+                            and sometimes personal information. Removing it protects privacy when sharing videos.
+                        </p>
+                    </div>
+                </div>
+
+                <div class="divider"></div>
+
+                <div class="text-center">
+                    <h4 class="font-bold mb-2">🔒 Privacy Guarantee</h4>
+                    <p class="text-sm text-base-content/60">
+                        This tool processes videos entirely in your browser using WebAssembly. 
+                        No videos or data are sent to external servers.
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Footer -->
+        <footer class="text-center mt-16 text-base-content/50 text-sm">
+            <p>Video Metadata Viewer & Editor • Protect your privacy</p>
+            <p>Built by Coffee & Fun LLC</p>
+        </footer>
+    </div>
+
+    <script type="module">
+        import { FFmpeg } from 'https://unpkg.com/@ffmpeg/ffmpeg@0.12.7/dist/esm/index.js';
+        import { fetchFile, toBlobURL } from 'https://unpkg.com/@ffmpeg/util@0.12.1/dist/index.js';
+        
+        const { createApp } = Vue;
+        
+        window.videoApp = createApp({
+            data() {
+                return {
+                    currentVideo: null,
+                    metadata: {},
+                    videoInfo: {},
+                    isProcessing: false,
+                    isDragOver: false,
+                    showAllMetadata: false,
+                    cleanedVideo: null,
+                    activeTab: 'Technical',
+                    ffmpeg: null,
+                    ffmpegLoaded: false,
+                    ffmpegError: false,
+                    processingStatus: 'Analyzing video',
+                    processingProgress: 0,
+                };
+            },
+            computed: {
+                hasGpsData() {
+                    return this.metadata['GPS'] || this.metadata['Location'] || 
+                           this.metadata['Latitude'] || this.metadata['Longitude'] ||
+                           this.metadata['GPS Coordinates'] || this.metadata['com.apple.quicktime.location.ISO6709'];
+                },
+                hasPersonalData() {
+                    return this.metadata['Artist'] || this.metadata['Copyright'] || 
+                           this.metadata['Creator'] || this.metadata['Author'] ||
+                           this.metadata['Device Make'] || this.metadata['Device Model'] ||
+                           this.metadata['User Comment'] || this.metadata['Description'] ||
+                           this.metadata['com.apple.quicktime.author'] || this.metadata['com.apple.quicktime.artist'];
+                },
+                metadataCategories() {
+                    const categories = ['All', 'Technical', 'Device', 'DateTime', 'Location', 'Personal', 'Other'];
+                    return categories.filter(cat => {
+                        if (cat === 'All') return Object.keys(this.metadata).length > 0;
+                        return this.getMetadataByCategory(cat).length > 0;
+                    });
+                },
+                filteredMetadata() {
+                    const items = this.activeTab === 'All' 
+                        ? Object.entries(this.metadata)
+                        : this.getMetadataByCategory(this.activeTab);
+                    
+                    return items.map(([key, value]) => ({
+                        key: this.formatKey(key),
+                        value: this.formatValue(value)
+                    }));
+                }
+            },
+            async mounted() {
+                await this.initFFmpeg();
+                
+                // Set default active tab when metadata is loaded
+                this.$watch('metadata', (newVal) => {
+                    if (Object.keys(newVal).length > 0 && this.metadataCategories.includes('Technical')) {
+                        this.activeTab = 'Technical';
+                    } else if (this.metadataCategories.length > 0) {
+                        this.activeTab = this.metadataCategories[0];
+                    }
+                });
+            },
+            methods: {
+                async initFFmpeg() {
+                    try {
+                        this.ffmpeg = new FFmpeg();
+                        
+                        this.ffmpeg.on('log', ({ message }) => {
+                            console.log('FFmpeg log:', message);
+                            // Update processing status based on FFmpeg output
+                            if (message.includes('frame=')) {
+                                this.processingStatus = 'Processing video frames';
+                            } else if (message.includes('time=')) {
+                                this.processingStatus = 'Encoding video';
+                            }
+                        });
+                        
+                        this.ffmpeg.on('progress', ({ progress }) => {
+                            this.processingProgress = Math.round(progress * 100);
+                        });
+                        
+                        const baseURL = 'https://unpkg.com/@ffmpeg/core@0.12.6/dist/esm';
+                        await this.ffmpeg.load({
+                            coreURL: await toBlobURL(`${baseURL}/ffmpeg-core.js`, 'text/javascript'),
+                            wasmURL: await toBlobURL(`${baseURL}/ffmpeg-core.wasm`, 'application/wasm'),
+                        });
+                        
+                        this.ffmpegLoaded = true;
+                        console.log('FFmpeg loaded successfully');
+                    } catch (error) {
+                        console.error('Error loading FFmpeg:', error);
+                        this.ffmpegError = true;
+                    }
+                },
+                
+                triggerFileInput() {
+                    this.$refs.fileInput.click();
+                },
+                
+                handleFileSelect(event) {
+                    const file = event.target.files[0];
+                    if (file) {
+                        this.processFile(file);
+                    }
+                },
+                
+                handleDrop(event) {
+                    this.isDragOver = false;
+                    const file = event.dataTransfer.files[0];
+                    if (file && file.type.startsWith('video/')) {
+                        this.processFile(file);
+                    }
+                },
+                
+                async processFile(file) {
+                    this.isProcessing = true;
+                    this.cleanedVideo = null;
+                    this.processingStatus = 'Analyzing video';
+                    this.processingProgress = 0;
+                    
+                    try {
+                        // Create preview
+                        const preview = await this.createVideoPreview(file);
+                        
+                        this.currentVideo = {
+                            file: file,
+                            name: file.name,
+                            size: file.size,
+                            type: file.type,
+                            preview: preview
+                        };
+                        
+                        // Extract metadata and video info
+                        await this.extractVideoInfo(file);
+                        await this.extractMetadata(file);
+                        
+                    } catch (error) {
+                        console.error('Error processing file:', error);
+                        this.showAlert('Error processing video. Please try another file.', 'error');
+                    } finally {
+                        this.isProcessing = false;
+                        this.processingProgress = 0;
+                    }
+                },
+                
+                createVideoPreview(file) {
+                    return new Promise((resolve) => {
+                        const reader = new FileReader();
+                        reader.onload = (e) => resolve(e.target.result);
+                        reader.readAsDataURL(file);
+                    });
+                },
+                
+                async extractVideoInfo(file) {
+                    return new Promise((resolve) => {
+                        const video = document.createElement('video');
+                        video.preload = 'metadata';
+                        
+                        video.onloadedmetadata = () => {
+                            this.videoInfo = {
+                                duration: video.duration,
+                                width: video.videoWidth,
+                                height: video.videoHeight,
+                                // These would require more advanced analysis
+                                framerate: null,
+                                bitrate: null,
+                                codec: null,
+                                audioCodec: null
+                            };
+                            resolve();
+                        };
+                        
+                        video.onerror = () => {
+                            console.warn('Could not extract video info');
+                            resolve();
+                        };
+                        
+                        video.src = this.currentVideo.preview;
+                    });
+                },
+                
+                async extractMetadata(file) {
+                    try {
+                        // Basic file metadata
+                        this.metadata = {
+                            'File Name': file.name,
+                            'File Size': this.formatFileSize(file.size),
+                            'File Type': file.type,
+                            'Last Modified': new Date(file.lastModified).toLocaleString(),
+                        };
+                        
+                        // Add video technical info
+                        if (this.videoInfo.duration) {
+                            this.metadata['Duration'] = this.formatDuration(this.videoInfo.duration);
+                        }
+                        if (this.videoInfo.width && this.videoInfo.height) {
+                            this.metadata['Resolution'] = `${this.videoInfo.width} × ${this.videoInfo.height}`;
+                            this.metadata['Aspect Ratio'] = (this.videoInfo.width / this.videoInfo.height).toFixed(2);
+                        }
+                        
+                        // If FFmpeg is loaded, try to extract more detailed metadata
+                        if (this.ffmpegLoaded && this.ffmpeg) {
+                            await this.extractDetailedMetadata(file);
+                        }
+                        
+                        console.log('Extracted metadata:', this.metadata);
+                        
+                    } catch (error) {
+                        console.error('Error extracting metadata:', error);
+                        this.showAlert('Could not extract detailed metadata from this video.', 'warning');
+                    }
+                },
+                
+                async extractDetailedMetadata(file) {
+                    try {
+                        // Write file to FFmpeg filesystem
+                        await this.ffmpeg.writeFile('input.mp4', await fetchFile(file));
+                        
+                        // Use ffprobe to extract metadata (via FFmpeg)
+                        await this.ffmpeg.exec(['-i', 'input.mp4', '-f', 'ffmetadata', 'metadata.txt']);
+                        
+                        // Read the metadata file
+                        const metadataData = await this.ffmpeg.readFile('metadata.txt');
+                        const metadataText = new TextDecoder().decode(metadataData);
+                        
+                        // Parse metadata
+                        const lines = metadataText.split('\n');
+                        lines.forEach(line => {
+                            if (line.includes('=')) {
+                                const [key, value] = line.split('=', 2);
+                                if (key && value && key.trim() && value.trim()) {
+                                    this.metadata[key.trim()] = value.trim();
+                                }
+                            }
+                        });
+                        
+                        // Clean up FFmpeg filesystem
+                        await this.ffmpeg.deleteFile('input.mp4');
+                        await this.ffmpeg.deleteFile('metadata.txt');
+                        
+                    } catch (error) {
+                        console.warn('Could not extract detailed metadata with FFmpeg:', error);
+                    }
+                },
+                
+                async removeMetadata() {
+                    if (!this.currentVideo || !this.ffmpegLoaded) return;
+                    
+                    this.isProcessing = true;
+                    this.processingStatus = 'Removing metadata';
+                    this.processingProgress = 0;
+                    
+                    try {
+                        const inputFileName = 'input.' + this.currentVideo.name.split('.').pop();
+                        const outputFileName = 'output.' + this.currentVideo.name.split('.').pop();
+                        
+                        // Write file to FFmpeg filesystem
+                        await this.ffmpeg.writeFile(inputFileName, await fetchFile(this.currentVideo.file));
+                        
+                        this.processingStatus = 'Processing video';
+                        
+                        // Remove metadata using FFmpeg
+                        await this.ffmpeg.exec([
+                            '-i', inputFileName,
+                            '-map_metadata', '-1',  // Remove all metadata
+                            '-c', 'copy',           // Copy streams without re-encoding (faster)
+                            outputFileName
+                        ]);
+                        
+                        // Read the processed file
+                        const processedData = await this.ffmpeg.readFile(outputFileName);
+                        
+                        this.cleanedVideo = {
+                            data: processedData,
+                            name: this.generateCleanFileName(this.currentVideo.name),
+                            size: processedData.length
+                        };
+                        
+                        // Clean up FFmpeg filesystem
+                        await this.ffmpeg.deleteFile(inputFileName);
+                        await this.ffmpeg.deleteFile(outputFileName);
+                        
+                    } catch (error) {
+                        console.error('Error removing metadata:', error);
+                        this.showAlert('Error removing metadata. Please try again.', 'error');
+                    } finally {
+                        this.isProcessing = false;
+                        this.processingProgress = 0;
+                    }
+                },
+                
+                downloadCleanVideo() {
+                    if (!this.cleanedVideo) return;
+                    
+                    const blob = new Blob([this.cleanedVideo.data], { type: this.currentVideo.type });
+                    const url = URL.createObjectURL(blob);
+                    const a = document.createElement('a');
+                    a.href = url;
+                    a.download = this.cleanedVideo.name;
+                    document.body.appendChild(a);
+                    a.click();
+                    document.body.removeChild(a);
+                    URL.revokeObjectURL(url);
+                },
+                
+                processAnother() {
+                    this.currentVideo = null;
+                    this.metadata = {};
+                    this.videoInfo = {};
+                    this.cleanedVideo = null;
+                    this.showAllMetadata = false;
+                    this.$refs.fileInput.value = '';
+                },
+                
+                getMetadataByCategory(category) {
+                    const entries = Object.entries(this.metadata);
+                    
+                    switch (category) {
+                        case 'Technical':
+                            return entries.filter(([key]) => 
+                                /duration|resolution|bitrate|framerate|codec|format|fps|width|height|aspect/i.test(key)
+                            );
+                        case 'Device':
+                            return entries.filter(([key]) => 
+                                /device|camera|make|model|manufacturer|brand|hardware/i.test(key)
+                            );
+                        case 'DateTime':
+                            return entries.filter(([key]) => 
+                                /date|time|created|modified|timestamp/i.test(key)
+                            );
+                        case 'Location':
+                            return entries.filter(([key]) => 
+                                /gps|location|latitude|longitude|altitude|position|coordinates/i.test(key)
+                            );
+                        case 'Personal':
+                            return entries.filter(([key]) => 
+                                /artist|author|creator|copyright|owner|user|comment|description/i.test(key)
+                            );
+                        case 'Other':
+                            return entries.filter(([key]) => 
+                                !/duration|resolution|bitrate|framerate|codec|format|fps|width|height|aspect|device|camera|make|model|manufacturer|brand|hardware|date|time|created|modified|timestamp|gps|location|latitude|longitude|altitude|position|coordinates|artist|author|creator|copyright|owner|user|comment|description/i.test(key)
+                            );
+                        default:
+                            return entries;
+                    }
+                },
+                
+                formatKey(key) {
+                    return key
+                        .replace(/([A-Z])/g, ' $1')
+                        .replace(/^./, str => str.toUpperCase())
+                        .replace(/\s+/g, ' ')
+                        .trim();
+                },
+                
+                formatValue(value) {
+                    if (value === null || value === undefined) return 'N/A';
+                    if (typeof value === 'string' && value.length > 150) {
+                        return value.substring(0, 150) + '...';
+                    }
+                    return String(value);
+                },
+                
+                formatFileSize(bytes) {
+                    if (bytes === 0) return '0 Bytes';
+                    const k = 1024;
+                    const sizes = ['Bytes', 'KB', 'MB', 'GB'];
+                    const i = Math.floor(Math.log(bytes) / Math.log(k));
+                    return parseFloat((bytes / Math.pow(k, i)).toFixed(2)) + ' ' + sizes[i];
+                },
+                
+                formatDuration(seconds) {
+                    const hrs = Math.floor(seconds / 3600);
+                    const mins = Math.floor((seconds % 3600) / 60);
+                    const secs = Math.floor(seconds % 60);
+                    
+                    if (hrs > 0) {
+                        return `${hrs}:${mins.toString().padStart(2, '0')}:${secs.toString().padStart(2, '0')}`;
+                    } else {
+                        return `${mins}:${secs.toString().padStart(2, '0')}`;
+                    }
+                },
+                
+                generateCleanFileName(originalName) {
+                    const ext = originalName.split('.').pop();
+                    const name = originalName.replace(/\.[^/.]+$/, '');
+                    return `${name}_cleaned.${ext}`;
+                },
+                
+                showAlert(message, type = 'info') {
+                    alert(message);
+                }
+            }
+        }).mount('#app');
+    </script>
+</body>
+</html>
