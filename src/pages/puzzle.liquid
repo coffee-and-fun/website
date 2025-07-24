@@ -74,7 +74,7 @@
             </div>
           </div>
         </div>
-        <p class="text-xs mt-2 text-base-content/60">{% raw %} {{ getProgressMessage() }} {% endraw %} </p>
+<p class="text-xs mt-2 text-base-content/60"> {% raw %} {{ getProgressMessage() }} {% endraw %}</p>
       </div>
     </header>
 
@@ -89,7 +89,7 @@
         <div class="bg-base-300 p-4 rounded-lg mb-4">
           <div class="cipher-grid text-center">
             <p class="text-lg font-bold mb-2">Cipher Text:</p>
-            <p class="break-all">RNFRGGUTYYUBDHAZVYBASBHEFVATNGFHAQNLWHAR</p>
+            <p class="break-all">FTHBIQTIZSDIBYVBMKETEVK</p>
           </div>
         </div>
 
@@ -159,10 +159,10 @@
         </div>
         <!-- Easter Egg Hunt -->
         <div class="mt-6 p-4 bg-gradient-to-r from-purple-500/10 to-pink-500/10 rounded-lg border border-purple-300/30">
-          <h3 class="font-bold text-sm mb-2">🥚 Hidden Bonus Challenge</h3>
+          <h3 class="font-bold text-sm mb-2">🔍 Hidden Elements</h3>
           <p class="text-xs text-base-content/70">
-            There are <span class="font-bold text-purple-400">{{ foundEasterEggs.length }}/5</span> hidden Critical Role references in this puzzle. 
-            Can you spot them all?
+            There are secret elements hidden throughout this challenge.
+            <span v-if="foundEasterEggs.length > 0" class="font-bold text-purple-400"> ({{ foundEasterEggs.length }} discovered)</span>
           </p>
           <div v-if="foundEasterEggs.length > 0" class="mt-2">
             <div class="flex flex-wrap gap-1">
@@ -187,14 +187,10 @@
         <div class="bg-base-300 p-4 rounded-lg mb-4">
           <p class="text-center text-lg font-bold mb-4">Encrypted Message with Steganography:</p>
           <div class="grid grid-cols-1 gap-2 font-mono text-sm">
-            <p>The 3rd letter of: <span class="font-bold">CASTLE</span></p>
-            <p>Fibonacci(7) mod 26 + 1 = ?th letter of alphabet</p>
-            <p>Prime number position 9 = ?th letter of alphabet</p>
-            <p>Binary: 01110100 = ? (ASCII to char)</p>
-            <p>The 9th letter of: <span class="font-bold">CRITICAL</span></p>
-            <p>2^3 + 3 = ?th letter of alphabet</p>
-            <p>The 1st letter of: <span class="font-bold">ADVENTURE</span></p>
-            <p>Perfect square √121 = ?th letter of alphabet</p>
+            <p>The 1st letter of: <span class="font-bold">JOURNEY</span></p>
+            <p>The 21st letter of the alphabet = ?</p>
+            <p>The 1st letter of: <span class="font-bold">NATURAL</span></p>
+            <p>The 4th letter of: <span class="font-bold">GAME</span></p>
           </div>
         </div>
 
@@ -364,8 +360,8 @@
           foundEasterEggs: [],
           startTime: Date.now(),
           // Correct answers - much more complex now!
-          step1Correct: 'crittingatsundayiune', // After ROT13 + Reverse + Atbash
-          step2Correct: 'critical', // From mathematical sequence
+          step1Correct: 'criticalrolejunetwelfth', // After ROT13 + Reverse + Atbash
+          step2Correct: 'june', // From mathematical sequence
           step3Correct: 'iunetwelfth', // From Playfair decode (I/J combined)
           easterEggs: [
             { trigger: 'vox machina', name: 'Vox Machina' },
