@@ -1,0 +1,1249 @@
+<!DOCTYPE html>
+<html class="brand-color-background scroll-smooth antialiased" lang="en" data-theme="light">
+
+<head>
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1" />
+	<title>Building Just the Headlines - Why I Created a Clean News Experience - Coffee & Fun LLC</title>
+	<meta name="description"
+		content="I got tired of modern news websites with their ads, pop-ups, and information overload. So I built something different - a clean, minimal news site that shows just the headlines without all the noise. Here's how I did it with Node.js, Eleventy, and free APIs." />
+	<meta name="author" content="Coffee & Fun LLC" />
+	<meta name="robots" content="index, follow" />
+	<meta name="rating" content="safe for kids" />
+
+	<link rel="icon" href="https://www.coffeeandfun.com/assets/images/favicon.png" />
+
+	<meta name="title" content="Building Just the Headlines - Why I Created a Clean News Experience - Coffee & Fun LLC" />
+    <meta name="keywords" content="clean news website, minimal news aggregator, Node.js news scraper, Reddit API news, Hacker News API, static site generator, Eleventy news site, Vue.js news app, GitHub Actions automation, ad-free news, news without ads, simple news reader, headlines only news site, Coffee and Fun" />
+
+    <!-- PWA Manifest -->
+<!-- PWA Manifest -->
+<link rel="manifest" href="/assets/images/social/site.webmanifest" />
+
+<!-- Theme & Mobile Meta -->
+<meta name="theme-color" content="#fef5ec" />
+<meta name="mobile-web-app-capable" content="yes" />
+<meta name="apple-mobile-web-app-capable" content="yes" />
+<meta name="apple-mobile-web-app-status-bar-style" content="default" />
+
+<!-- Icons -->
+<link rel="apple-touch-icon" href="/assets/images/social/192.png" />
+<link rel="icon" href="/assets/images/social/192.png" sizes="192x192" type="image/png" />
+<!-- PWA Meta Tags -->
+<meta name="apple-mobile-web-app-capable" content="yes" />
+<meta name="apple-mobile-web-app-status-bar-style" content="black" />
+<meta name="mobile-web-app-capable" content="yes" />
+
+
+<!-- Theme & Mobile Meta -->
+<meta name="theme-color" content="#fef5ec" />
+<meta name="mobile-web-app-capable" content="yes" />
+<meta name="apple-mobile-web-app-capable" content="yes" />
+<meta name="apple-mobile-web-app-status-bar-style" content="default" />
+
+<!-- Icons -->
+<link rel="apple-touch-icon" href="/assets/images/social/192.png" />
+<link rel="icon" href="/assets/images/social/192.png" sizes="192x192" type="image/png" />
+<!-- PWA Meta Tags -->
+<meta name="apple-mobile-web-app-capable" content="yes" />
+<meta name="apple-mobile-web-app-status-bar-style" content="black" />
+<meta name="mobile-web-app-capable" content="yes" />
+
+	<!-- Open Graph Meta Tags -->
+	<meta property="og:title" content="Building Just the Headlines - Why I Created a Clean News Experience - Coffee & Fun LLC" />
+	<meta property="og:site_name" content="Coffee & Fun LLC" />
+	<meta property="og:url" content="https://www.coffeeandfun.com//blog/building-just-the-headlines-clean-news-experience/" />
+	<meta property="og:description"
+		content="I got tired of modern news websites with their ads, pop-ups, and information overload. So I built something different - a clean, minimal news site that shows just the headlines without all the noise. Here's how I did it with Node.js, Eleventy, and free APIs." />
+	<meta property="og:type" content="website" />
+	<meta property="og:image" content="https://www.coffeeandfun.com/assets/images/blog/just-the-headlines.png" />
+
+	<!-- Twitter Meta Tags -->
+	<meta property="twitter:domain" content="coffeeandfun.com" />
+	<meta property="twitter:url" content="https://www.coffeeandfun.com/blog/building-just-the-headlines-clean-news-experience/" />
+	<meta name="twitter:card" content="summary_large_image" />
+	<meta name="twitter:title" content="Building Just the Headlines - Why I Created a Clean News Experience - Coffee & Fun LLC" />
+	<meta name="twitter:site" content="@bycoffeeandfun" />
+
+	<meta name="twitter:description"
+		content="I got tired of modern news websites with their ads, pop-ups, and information overload. So I built something different - a clean, minimal news site that shows just the headlines without all the noise. Here's how I did it with Node.js, Eleventy, and free APIs." />
+	<meta name="twitter:image" content="https://www.coffeeandfun.com/assets/images/blog/just-the-headlines.png" />
+	<meta name="twitter:image:alt" content=" Coffee & Fun LLC" />
+
+	<script type="application/ld+json">
+			{
+				"@context": "http://schema.org/",
+				"@type": "WebSite",
+				"url": "https://www.coffeeandfun.com",
+				"potentialAction": {
+					"@type": "SearchAction",
+					"target": "{search_term_string}",
+					"query-input": "required name=search_term_string"
+				}
+			}
+		</script>
+
+    	<link href="/assets/css/engine.css" rel="stylesheet" />
+
+
+      <script>
+        if ('serviceWorker' in navigator) {
+          navigator.serviceWorker.getRegistrations().then((registrations) => {
+          for (const registration of registrations) {
+            registration.unregister().then(() => {
+            console.log('🧹 Old service worker unregistered');
+            });
+          }
+        
+          // After clearing, register the new one
+          navigator.serviceWorker.register('/service-worker.js')
+            .then(() => console.log('✅ New service worker registered'))
+            .catch((err) => console.log('Service worker error:', err));
+          });
+        }
+        </script>
+
+
+	<style>
+	.brand-color-background {
+		background-color: #fef5ec;
+	}
+</style>
+
+<!-- Google Tag Manager Script -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-RC4JGW9PVN"></script>
+<script>
+	window.dataLayer = window.dataLayer || [];
+	function gtag() {
+		dataLayer.push(arguments);
+	}
+	gtag('js', new Date());
+
+	gtag('config', 'G-RC4JGW9PVN');
+</script>
+
+<script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.3/dist/confetti.browser.min.js"></script>
+<script src="https://unpkg.com/cursor-effects@latest/dist/browser.js"></script>
+
+<link rel="stylesheet" href="https://unpkg.com/prismjs@1.20.0/themes/prism-okaidia.css" />
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+<script>
+	// Function to launch the confetti animation
+	function launchConfetti() {
+		const totalParticles = 300; // Total number of confetti particles
+
+		// Default configuration for the confetti
+		const confettiDefaults = {
+			angle: 75, // Initial angle for the confetti
+			zIndex: 2147483647 // Ensure confetti is displayed on top of other elements
+		};
+
+		// Function to trigger the confetti animation with different configurations
+		function triggerConfetti(particleProportion, options) {
+			// Launch confetti from the left side
+			confetti({
+				...confettiDefaults,
+				...options,
+				origin: { y: 1, x: 0 }, // Confetti originates from the bottom left
+				angle: 30, // Angle at which confetti is launched
+				particleCount: Math.floor(totalParticles * particleProportion) // Number of particles
+			});
+
+			// Launch confetti from the right side
+			confetti({
+				...confettiDefaults,
+				...options,
+				origin: { y: 1, x: 1 }, // Confetti originates from the bottom right
+				angle: 150, // Angle at which confetti is launched
+				particleCount: Math.floor(totalParticles * particleProportion) // Number of particles
+			});
+
+			// Launch confetti from the center
+			confetti({
+				...confettiDefaults,
+				...options,
+				origin: { y: 1, x: 0.5 }, // Confetti originates from the bottom center
+				particleCount: Math.floor(totalParticles * particleProportion) // Number of particles
+			});
+		}
+
+		// Different configurations for the confetti bursts
+		triggerConfetti(0.3, {
+			spread: 30, // How much the confetti spreads out
+			startVelocity: 80 // Initial velocity of the confetti
+		});
+
+		triggerConfetti(0.25, {
+			spread: 50 // Spread is wider here
+		});
+
+		triggerConfetti(0.4, {
+			spread: 90, // Even wider spread
+			decay: 0.89 // How quickly the confetti slows down
+		});
+
+		triggerConfetti(0.15, {
+			spread: 110, // Very wide spread
+			startVelocity: 40, // Slower initial velocity
+			decay: 0.9 // Slightly slower decay
+		});
+
+		triggerConfetti(0.1, {
+			spread: 130, // Maximum spread
+			startVelocity: 70 // Moderate initial velocity
+		});
+	}
+
+	let cursorEffect = null;
+	let cursorEffectsEnabled = false;
+	let currentEffectIndex = -1; // Start before first
+
+	const availableEffects = [
+		'rainbowCursor',
+		'followingDotCursor',
+		'clockCursor',
+		'ghostCursor',
+		'bubbleCursor',
+		'fairyDustCursor'
+	];
+
+	function applyCursorEffect() {
+		if (cursorEffectsEnabled) {
+			// Turn OFF
+			if (cursorEffect && typeof cursorEffect.destroy === 'function') {
+				cursorEffect.destroy();
+			}
+			cursorEffect = null;
+			cursorEffectsEnabled = false;
+		} else {
+			// Move to the next effect in the list
+			currentEffectIndex = (currentEffectIndex + 1) % availableEffects.length;
+			const effectName = availableEffects[currentEffectIndex];
+
+			// Create new effect instance
+			cursorEffect = new cursoreffects[effectName]();
+			cursorEffectsEnabled = true;
+
+			// Optional: log the current effect
+		}
+	}
+
+	document.addEventListener('DOMContentLoaded', (event) => {
+		document.querySelectorAll('pre code').forEach((block) => {
+			hljs.highlightElement(block);
+		});
+	});
+</script>
+
+</head>
+
+<body>
+
+	
+	
+	
+
+
+
+
+
+
+
+
+
+
+
+
+
+<header class="navbar mx-auto max-w-7xl px-8" role="navigation" aria-label="main navigation">
+
+    <div class="navbar-start">
+
+    
+
+
+        
+        
+
+    </div>
+
+    <div class="navbar-center">
+       
+        
+    
+
+            <a href="/" class="btn btn-ghost gap-1 px-2 md:gap-2">
+                <img alt="Logo of Coffee & Fun LLC featuring a stylized cup with a coffee bean pattern, representing the company's focus on creativity and innovation in software development."
+                src="/assets/images/favicon.png" class="h-10 w-10 aspect-square" decoding="async" data-nimg="future"
+                    loading="lazy" />
+                <span class="sr-only font-title text-pretty text-base-content text-pretty text-lg md:text-2xl">Coffee & Fun</span>
+            </a>
+        
+
+        
+ 
+
+
+        
+
+        
+
+        
+
+
+        
+    </div>
+
+    <div class="navbar-end">
+        <div class="flex items-center gap-4">
+            
+
+
+            
+
+
+
+   
+            
+                <button
+                    class="btn btn-warning  btn-circle transition-all duration-200 hover:-translate-y-1"
+                    onclick="applyCursorEffect()"
+                    title="Party"
+                    aria-label="Party"
+                    aria-controls="Party"
+                    role="menuitem"
+                >
+
+
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 -960 960 960"   class="w-6 h-6" fill="currentColor"><path d="M331-651 211-771l57-57 120 120-57 57Zm149-95v-170h80v170h-80Zm291 535L651-331l57-57 120 120-57 57Zm-63-440-57-57 120-120 57 57-120 120Zm38 171v-80h170v80H746ZM205-92 92-205q-12-12-12-28t12-28l363-364q35-35 85-35t85 35q35 35 35 85t-35 85L261-92q-12 12-28 12t-28-12Zm279-335-14.5-14-14.5-14-14-14-14-14 28 28 29 28ZM233-176l251-251-57-56-250 250 56 57Z"/></svg>
+                 
+                </button>
+
+                <button
+                    class="btn btn-secondary  btn-circle transition-all duration-200 hover:-translate-y-1"
+                    onclick="launchConfetti()"
+                    title="Party"
+                    aria-label="Party"
+                    aria-controls="Party"
+                    role="menuitem"
+                >
+                    <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    enable-background="new 0 0 24 24"
+                    viewBox="0 0 24 24"
+                    class="w-6 h-6"
+                    fill="currentColor"
+                    >
+                    <g><rect fill="none" height="24" width="24" /></g>
+                    <g>
+                        <g>
+                        <polygon points="2,22 16,17 7,8" />
+                        <path
+                            d="M14.53,12.53l5.59-5.59c0.49-0.49,1.28-0.49,1.77,0l0.59,0.59l1.06-1.06l-0.59-0.59c-1.07-1.07-2.82-1.07-3.89,0 l-5.59,5.59L14.53,12.53z"
+                        />
+                        <path
+                            d="M10.06,6.88L9.47,7.47l1.06,1.06l0.59-0.59c1.07-1.07,1.07-2.82,0-3.89l-0.59-0.59L9.47,4.53l0.59,0.59 C10.54,5.6,10.54,6.4,10.06,6.88z"
+                        />
+                        <path
+                            d="M17.06,11.88l-1.59,1.59l1.06,1.06l1.59-1.59c0.49-0.49,1.28-0.49,1.77,0l1.61,1.61l1.06-1.06l-1.61-1.61 C19.87,10.81,18.13,10.81,17.06,11.88z"
+                        />
+                        <path
+                            d="M15.06,5.88l-3.59,3.59l1.06,1.06l3.59-3.59c1.07-1.07,1.07-2.82,0-3.89l-1.59-1.59l-1.06,1.06l1.59,1.59 C15.54,4.6,15.54,5.4,15.06,5.88z"
+                        />
+                        </g>
+                    </g>
+                    </svg>
+                </button>
+
+
+            
+              
+            <a
+              class="btn btn-primary btn-circle transition-all duration-200 hover:-translate-y-1"
+              href="https://discord.gg/J6EeMvSBYg"
+              title="Join our Discord"
+              target="_blank"
+              aria-label="Join our Discord"
+              aria-controls="Join our Discord"
+              role="menuitem"
+            >
+              <svg
+                class="w-6 h-6"
+                fill="currentColor"
+                viewBox="0 -28.5 256 256"
+                xmlns="http://www.w3.org/2000/svg"
+                preserveAspectRatio="xMidYMid"
+              >
+                <path
+                  d="M216.856339,16.5966031 C200.285002,8.84328665 182.566144,3.2084988 164.041564,0 C161.766523,4.11318106 159.108624,9.64549908 157.276099,14.0464379 C137.583995,11.0849896 118.072967,11.0849896 98.7430163,14.0464379 C96.9108417,9.64549908 94.1925838,4.11318106 91.8971895,0 C73.3526068,3.2084988 55.6133949,8.86399117 39.0420583,16.6376612 C5.61752293,67.146514 -3.4433191,116.400813 1.08711069,164.955721 C23.2560196,181.510915 44.7403634,191.567697 65.8621325,198.148576 C71.0772151,190.971126 75.7283628,183.341335 79.7352139,175.300261 C72.104019,172.400575 64.7949724,168.822202 57.8887866,164.667963 C59.7209612,163.310589 61.5131304,161.891452 63.2445898,160.431257 C105.36741,180.133187 151.134928,180.133187 192.754523,160.431257 C194.506336,161.891452 196.298154,163.310589 198.110326,164.667963 C191.183787,168.842556 183.854737,172.420929 176.223542,175.320965 C180.230393,183.341335 184.861538,190.991831 190.096624,198.16893 C211.238746,191.588051 232.743023,181.531619 254.911949,164.955721 C260.227747,108.668201 245.831087,59.8662432 216.856339,16.5966031 Z M85.4738752,135.09489 C72.8290281,135.09489 62.4592217,123.290155 62.4592217,108.914901 C62.4592217,94.5396472 72.607595,82.7145587 85.4738752,82.7145587 C98.3405064,82.7145587 108.709962,94.5189427 108.488529,108.914901 C108.508531,123.290155 98.3405064,135.09489 85.4738752,135.09489 Z M170.525237,135.09489 C157.88039,135.09489 147.510584,123.290155 147.510584,108.914901 C147.510584,94.5396472 157.658606,82.7145587 170.525237,82.7145587 C183.391518,82.7145587 193.761324,94.5189427 193.539891,108.914901 C193.539891,123.290155 183.391518,135.09489 170.525237,135.09489 Z"
+                  fill="currentColor"
+                  fill-rule="nonzero"
+                ></path>
+              </svg>
+            </a>
+               
+        
+               
+            <button 
+              class="btn btn-info btn-circle"
+              onclick="my_modal_site_menu.showModal()"
+              title="Open the contact support form" 
+              aria-label="Open the contact support form"
+              aria-controls="my_modal_site_menu" 
+              role="menuitem"
+            >
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 -960 960 960" class="w-6 h-6" fill="currentColor">
+                <path d="M120-240v-80h720v80H120Zm0-200v-80h720v80H120Zm0-200v-80h720v80H120Z" />
+              </svg>
+            </button>
+                   
+          </div>
+          
+
+    </div>
+</header>
+
+
+
+	<main id="main-content" class="mx-auto max-w-7xl">
+        <main class="mx-auto max-w-7xl pt-12 pb-12 px-6" id="content">
+            <div class="mx-auto max-w-3xl">
+              <article aria-labelledby="article-title">
+                <header class="flex flex-col">
+                  <div class="flex gap-4">
+                    <a
+                      href="/blog/"
+                      type="button"
+                      aria-label="Go back to articles"
+                      class="btn btn-circle btn-sm btn-secondary focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+                    >
+                      <svg
+                        viewBox="0 0 16 16"
+                        fill="none"
+                        aria-hidden="true"
+                        stroke="currentColor"
+                        class="h-6 w-6"
+                      >
+                        <path
+                          d="M7.25 11.25 3.75 8m0 0 3.5-3.25M3.75 8h8.5"
+                          stroke-width="1.5"
+                          stroke-linecap="round"
+                          stroke-linejoin="round"
+                        ></path>
+                      </svg>
+                    </a>
+                  </div>
+                  <h1 id="article-title" class="mt-6 text-pretty text-2xl font-bold tracking-tight text-pretty text-black sm:text-4xl">
+                    Building Just the Headlines - A Clean News Experience
+                  </h1>
+                  <div class="divider"></div>
+      
+                  <div class="flex">
+                    <div class="flex-1 gap-4">
+                      <div class="badge badge-neutral">Robert James Gabriel</div>
+                    
+                      <time datetime="July 1st, 2025" class="items-center text-pretty text-base">
+                        <span class="badge badge-neutral">July 1st, 2025</span>
+                      </time>
+                    </div>
+                    <div class="flex-1">
+                      <span class="badge badge-neutral ">8 min</span>
+                    </div>
+                  </div>
+                </header>
+      
+                <div class="mt-10">
+                  <img
+                    src="/assets/images/blog/just-the-headlines.png"
+                    alt="Building Just the Headlines - Why I Created a Clean News Experience"
+                    class="rounded-3xl mb-10"
+                    title="Building Just the Headlines - Why I Created a Clean News Experience"
+                  />
+      
+                  <p class="leading-relaxed font-display mb-4 mt-4 text-pretty text-lg text-pretty text-gray-900">I got tired of modern news websites. You know what I'm talking about - you click on a headline and suddenly you're drowning in ads, pop-ups, cookie banners, newsletter signup forms, and autoplay videos. All you wanted was to read the news, but instead you're playing digital whack-a-mole with intrusive elements.</p>
+<p class="leading-relaxed font-display mb-4 mt-4 text-pretty text-lg text-pretty text-gray-900">So I built something different: <strong class="text-lg font-semibold text-pretty text-gray-800">Just the Headlines</strong>.</p>
+<h2 class="leading-relaxed font-display text-pretty text-2xl mb-6 mt-12 font-semibold text-pretty text-gray-800" id="the-problem-with-news-today" tabindex="-1">The Problem with News Today</h2>
+<p class="leading-relaxed font-display mb-4 mt-4 text-pretty text-lg text-pretty text-gray-900">Modern news consumption is broken. Here's what frustrated me:</p>
+<p class="leading-relaxed font-display mb-4 mt-4 text-pretty text-lg text-pretty text-gray-900"><strong class="text-lg font-semibold text-pretty text-gray-800">Information Overload</strong>: Most news sites bombard you with dozens of stories, infinite scroll, and related articles that pull you into rabbit holes. Sometimes you just want to catch up quickly.</p>
+<p class="leading-relaxed font-display mb-4 mt-4 text-pretty text-lg text-pretty text-gray-900"><strong class="text-lg font-semibold text-pretty text-gray-800">Ad Hell</strong>: News sites are basically advertising platforms that happen to have some journalism sprinkled in. The ads often take up more screen space than the actual content.</p>
+<p class="leading-relaxed font-display mb-4 mt-4 text-pretty text-lg text-pretty text-gray-900"><strong class="text-lg font-semibold text-pretty text-gray-800">Clickbait Everything</strong>: Headlines are written to generate clicks, not inform. You end up clicking through multiple articles just to find out what actually happened.</p>
+<p class="leading-relaxed font-display mb-4 mt-4 text-pretty text-lg text-pretty text-gray-900"><strong class="text-lg font-semibold text-pretty text-gray-800">Slow and Bloated</strong>: News sites load slowly because they're packed with tracking scripts, ad networks, and unnecessary features.</p>
+<p class="leading-relaxed font-display mb-4 mt-4 text-pretty text-lg text-pretty text-gray-900">I wanted something simpler. Just give me the headlines. Let me decide what's worth my time.</p>
+<h2 class="leading-relaxed font-display text-pretty text-2xl mb-6 mt-12 font-semibold text-pretty text-gray-800" id="what-i-built" tabindex="-1">What I Built</h2>
+<p class="leading-relaxed font-display mb-4 mt-4 text-pretty text-lg text-pretty text-gray-900">Just the Headlines is exactly what it sounds like - a clean, minimal website that shows you news headlines without all the noise. Here's what makes it different:</p>
+<h3 class="leading-relaxed font-display text-pretty text-xl mb-4 mt-10 font-semibold text-pretty text-gray-700" id="clean-design" tabindex="-1">Clean Design</h3>
+<p class="leading-relaxed font-display mb-4 mt-4 text-pretty text-lg text-pretty text-gray-900">No ads. No pop-ups. No autoplay videos. Just headlines in a simple, readable format with plenty of white space. It loads instantly and gets out of your way.</p>
+<h3 class="leading-relaxed font-display text-pretty text-xl mb-4 mt-10 font-semibold text-pretty text-gray-700" id="smart-categorization" tabindex="-1">Smart Categorization</h3>
+<p class="leading-relaxed font-display mb-4 mt-4 text-pretty text-lg text-pretty text-gray-900">Instead of overwhelming you with everything at once, I organized news into clear categories:</p>
+<ul class="list-disc list-inside mt-4 space-y-2 pl-6 text-pretty text-lg font-display ml-6 mb-8 text-pretty text-gray-900">
+<li class="mb-2 text-pretty text-lg font-display text-pretty text-gray-900 flex items-center">🌍 General world news</li>
+<li class="mb-2 text-pretty text-lg font-display text-pretty text-gray-900 flex items-center">💻 Technology updates</li>
+<li class="mb-2 text-pretty text-lg font-display text-pretty text-gray-900 flex items-center">🏈 NFL, 🏀 Basketball, ⚽ Soccer, ⚾ Baseball</li>
+<li class="mb-2 text-pretty text-lg font-display text-pretty text-gray-900 flex items-center">🎬 Entertainment, 🎵 Music, 🎮 Gaming</li>
+<li class="mb-2 text-pretty text-lg font-display text-pretty text-gray-900 flex items-center">And more</li>
+</ul>
+<p class="leading-relaxed font-display mb-4 mt-4 text-pretty text-lg text-pretty text-gray-900">You can filter to exactly what interests you, or view everything at once.</p>
+<h3 class="leading-relaxed font-display text-pretty text-xl mb-4 mt-10 font-semibold text-pretty text-gray-700" id="quality-sources" tabindex="-1">Quality Sources</h3>
+<p class="leading-relaxed font-display mb-4 mt-4 text-pretty text-lg text-pretty text-gray-900">I pull from trusted sources like Hacker News for tech content and Reddit communities for different topics. Each source gets a credibility score so you know what you're reading.</p>
+<h3 class="leading-relaxed font-display text-pretty text-xl mb-4 mt-10 font-semibold text-pretty text-gray-700" id="smart-features" tabindex="-1">Smart Features</h3>
+<p class="leading-relaxed font-display mb-4 mt-4 text-pretty text-lg text-pretty text-gray-900">The site automatically identifies trending stories and popular articles. It shows you how long ago something was posted and estimates reading time. Articles that are actually breaking news get highlighted.</p>
+<h2 class="leading-relaxed font-display text-pretty text-2xl mb-6 mt-12 font-semibold text-pretty text-gray-800" id="how-it-actually-works-(the-technical-details)" tabindex="-1">How It Actually Works (The Technical Details)</h2>
+<p class="leading-relaxed font-display mb-4 mt-4 text-pretty text-lg text-pretty text-gray-900">The whole system is built around a simple Node.js script that collects news and a static website that displays it. Here's how each piece works:</p>
+<h3 class="leading-relaxed font-display text-pretty text-xl mb-4 mt-10 font-semibold text-pretty text-gray-700" id="the-node.js-news-scraper" tabindex="-1">The Node.js News Scraper</h3>
+<p class="leading-relaxed font-display mb-4 mt-4 text-pretty text-lg text-pretty text-gray-900">The heart of the system is a Node.js script (<code>news-scraper.js</code>) that runs every few hours to collect fresh headlines. Here's what it does:</p>
+<p class="leading-relaxed font-display mb-4 mt-4 text-pretty text-lg text-pretty text-gray-900"><strong class="text-lg font-semibold text-pretty text-gray-800">Data Sources</strong>: Instead of paying for expensive news APIs, I use free sources:</p>
+<ul class="list-disc list-inside mt-4 space-y-2 pl-6 text-pretty text-lg font-display ml-6 mb-8 text-pretty text-gray-900">
+<li class="mb-2 text-pretty text-lg font-display text-pretty text-gray-900 flex items-center">Hacker News API for quality tech content</li>
+<li class="mb-2 text-pretty text-lg font-display text-pretty text-gray-900 flex items-center">Reddit's JSON endpoints for different communities</li>
+<li class="mb-2 text-pretty text-lg font-display text-pretty text-gray-900 flex items-center">Each source covers different categories (tech, sports, entertainment, etc.)</li>
+</ul>
+<p class="leading-relaxed font-display mb-4 mt-4 text-pretty text-lg text-pretty text-gray-900"><strong class="text-lg font-semibold text-pretty text-gray-800">Smart Fetching</strong>: The script includes built-in protections:</p>
+<ul class="list-disc list-inside mt-4 space-y-2 pl-6 text-pretty text-lg font-display ml-6 mb-8 text-pretty text-gray-900">
+<li class="mb-2 text-pretty text-lg font-display text-pretty text-gray-900 flex items-center">Rate limiting to avoid getting blocked</li>
+<li class="mb-2 text-pretty text-lg font-display text-pretty text-gray-900 flex items-center">Retry logic for failed requests</li>
+<li class="mb-2 text-pretty text-lg font-display text-pretty text-gray-900 flex items-center">Browser-like headers to appear human</li>
+<li class="mb-2 text-pretty text-lg font-display text-pretty text-gray-900 flex items-center">Different delays for different sources (Reddit needs more time between requests)</li>
+</ul>
+<p class="leading-relaxed font-display mb-4 mt-4 text-pretty text-lg text-pretty text-gray-900"><strong class="text-lg font-semibold text-pretty text-gray-800">Data Processing</strong>: Raw data gets cleaned up:</p>
+<ul class="list-disc list-inside mt-4 space-y-2 pl-6 text-pretty text-lg font-display ml-6 mb-8 text-pretty text-gray-900">
+<li class="mb-2 text-pretty text-lg font-display text-pretty text-gray-900 flex items-center">Filters out self-posts and Reddit internal links</li>
+<li class="mb-2 text-pretty text-lg font-display text-pretty text-gray-900 flex items-center">Standardizes the format (headline, link, source, category, timestamp)</li>
+<li class="mb-2 text-pretty text-lg font-display text-pretty text-gray-900 flex items-center">Removes duplicates based on URL</li>
+<li class="mb-2 text-pretty text-lg font-display text-pretty text-gray-900 flex items-center">Adds metadata like when it was fetched</li>
+</ul>
+<p class="leading-relaxed font-display mb-4 mt-4 text-pretty text-lg text-pretty text-gray-900"><strong class="text-lg font-semibold text-pretty text-gray-800">Output</strong>: Everything gets saved as a single <code>news.json</code> file with about 225 articles across 14 categories.</p>
+<h3 class="leading-relaxed font-display text-pretty text-xl mb-4 mt-10 font-semibold text-pretty text-gray-700" id="the-configuration" tabindex="-1">The Configuration</h3>
+<p class="leading-relaxed font-display mb-4 mt-4 text-pretty text-lg text-pretty text-gray-900">The scraper is configurable without touching code:</p>
+<pre><code class="language-javascript">const CONFIG = {
+  OUTPUT_DIR: './src/_data',     // Where to save the JSON
+  ARTICLES_PER_SOURCE: 15,       // How many per source
+  DELAY_BETWEEN_REQUESTS: 2000,  // Rate limiting
+  REQUEST_TIMEOUT: 15000         // How long to wait
+};
+</code></pre>
+<h3 class="leading-relaxed font-display text-pretty text-xl mb-4 mt-10 font-semibold text-pretty text-gray-700" id="source-management" tabindex="-1">Source Management</h3>
+<p class="leading-relaxed font-display mb-4 mt-4 text-pretty text-lg text-pretty text-gray-900">Each news source is defined as an object with:</p>
+<ul class="list-disc list-inside mt-4 space-y-2 pl-6 text-pretty text-lg font-display ml-6 mb-8 text-pretty text-gray-900">
+<li class="mb-2 text-pretty text-lg font-display text-pretty text-gray-900 flex items-center"><strong class="text-lg font-semibold text-pretty text-gray-800">URL</strong>: Where to fetch data from</li>
+<li class="mb-2 text-pretty text-lg font-display text-pretty text-gray-900 flex items-center"><strong class="text-lg font-semibold text-pretty text-gray-800">Parser</strong>: Function to convert raw data into our format</li>
+<li class="mb-2 text-pretty text-lg font-display text-pretty text-gray-900 flex items-center"><strong class="text-lg font-semibold text-pretty text-gray-800">Category</strong>: What type of news this represents</li>
+</ul>
+<p class="leading-relaxed font-display mb-4 mt-4 text-pretty text-lg text-pretty text-gray-900">For example, here's how Hacker News works:</p>
+<pre><code class="language-javascript">{
+  name: 'Hacker News',
+  url: 'https://hacker-news.firebaseio.com/v0/topstories.json',
+  parser: async (data) =&gt; {
+    // Gets list of story IDs, then fetches each story individually
+    // Filters for stories with external URLs
+    // Returns formatted article objects
+  }
+}
+</code></pre>
+<p class="leading-relaxed font-display mb-4 mt-4 text-pretty text-lg text-pretty text-gray-900">Reddit sources are simpler since they provide everything in one request:</p>
+<pre><code class="language-javascript">{
+  name: 'Reddit Technology',
+  url: 'https://old.reddit.com/r/technology/hot.json?limit=25',
+  parser: async (data) =&gt; {
+    // Filters out self-posts and Reddit links
+    // Maps Reddit data to our article format
+  }
+}
+</code></pre>
+<h3 class="leading-relaxed font-display text-pretty text-xl mb-4 mt-10 font-semibold text-pretty text-gray-700" id="error-handling" tabindex="-1">Error Handling</h3>
+<p class="leading-relaxed font-display mb-4 mt-4 text-pretty text-lg text-pretty text-gray-900">The script is designed to keep working even when things go wrong:</p>
+<ul class="list-disc list-inside mt-4 space-y-2 pl-6 text-pretty text-lg font-display ml-6 mb-8 text-pretty text-gray-900">
+<li class="mb-2 text-pretty text-lg font-display text-pretty text-gray-900 flex items-center">If one source fails, others continue</li>
+<li class="mb-2 text-pretty text-lg font-display text-pretty text-gray-900 flex items-center">Network errors trigger automatic retries</li>
+<li class="mb-2 text-pretty text-lg font-display text-pretty text-gray-900 flex items-center">Rate limiting gets detected and handled gracefully</li>
+<li class="mb-2 text-pretty text-lg font-display text-pretty text-gray-900 flex items-center">The script logs everything so you can see what happened</li>
+</ul>
+<h3 class="leading-relaxed font-display text-pretty text-xl mb-4 mt-10 font-semibold text-pretty text-gray-700" id="the-website-integration" tabindex="-1">The Website Integration</h3>
+<p class="leading-relaxed font-display mb-4 mt-4 text-pretty text-lg text-pretty text-gray-900">The brilliant part is how this connects to the website. Instead of building a complex backend, I use <strong class="text-lg font-semibold text-pretty text-gray-800">Eleventy</strong> (a static site generator) with the <code>_data</code> folder approach:</p>
+<ol class="list-decimal list-inside mt-4 space-y-2 pl-6 text-pretty text-lg font-display ml-6 mb-8 text-pretty text-gray-900">
+<li class="mb-2 text-pretty text-lg font-display text-pretty text-gray-900 flex items-center"><strong class="text-lg font-semibold text-pretty text-gray-800">Scraper saves</strong> to <code>src/_data/news.json</code></li>
+<li class="mb-2 text-pretty text-lg font-display text-pretty text-gray-900 flex items-center"><strong class="text-lg font-semibold text-pretty text-gray-800">Eleventy builds</strong> the site with that data pre-loaded</li>
+<li class="mb-2 text-pretty text-lg font-display text-pretty text-gray-900 flex items-center"><strong class="text-lg font-semibold text-pretty text-gray-800">Website renders</strong> with all articles instantly available</li>
+<li class="mb-2 text-pretty text-lg font-display text-pretty text-gray-900 flex items-center"><strong class="text-lg font-semibold text-pretty text-gray-800">No API calls</strong> needed when users visit</li>
+</ol>
+<p class="leading-relaxed font-display mb-4 mt-4 text-pretty text-lg text-pretty text-gray-900">This means:</p>
+<ul class="list-disc list-inside mt-4 space-y-2 pl-6 text-pretty text-lg font-display ml-6 mb-8 text-pretty text-gray-900">
+<li class="mb-2 text-pretty text-lg font-display text-pretty text-gray-900 flex items-center">Lightning fast loading (no waiting for API calls)</li>
+<li class="mb-2 text-pretty text-lg font-display text-pretty text-gray-900 flex items-center">Works offline once loaded</li>
+<li class="mb-2 text-pretty text-lg font-display text-pretty text-gray-900 flex items-center">Costs almost nothing to host</li>
+<li class="mb-2 text-pretty text-lg font-display text-pretty text-gray-900 flex items-center">No complex server infrastructure needed</li>
+</ul>
+<h3 class="leading-relaxed font-display text-pretty text-xl mb-4 mt-10 font-semibold text-pretty text-gray-700" id="the-frontend" tabindex="-1">The Frontend</h3>
+<p class="leading-relaxed font-display mb-4 mt-4 text-pretty text-lg text-pretty text-gray-900">The website uses Vue.js for interactivity, but all the data is pre-loaded:</p>
+<pre><code class="language-javascript">// Data comes from Eleventy's _data processing
+allArticles: [{&quot;headline&quot;:&quot;Exploiting the IKKO Activebuds \&quot;AI powered\&quot; earbuds&quot;,&quot;link&quot;:&quot;https://blog.mgdproductions.com/ikko-activebuds/&quot;,&quot;source&quot;:&quot;Hacker News&quot;,&quot;publishedAt&quot;:&quot;2025-07-02T14:06:43.000Z&quot;,&quot;category&quot;:&quot;technology&quot;,&quot;fetchedAt&quot;:&quot;2025-07-02T17:38:25.950Z&quot;},{&quot;headline&quot;:&quot;Gene therapy restored hearing in deaf patients&quot;,&quot;link&quot;:&quot;https://news.ki.se/gene-therapy-restored-hearing-in-deaf-patients&quot;,&quot;source&quot;:&quot;Hacker News&quot;,&quot;publishedAt&quot;:&quot;2025-07-02T15:03:09.000Z&quot;,&quot;category&quot;:&quot;technology&quot;,&quot;fetchedAt&quot;:&quot;2025-07-02T17:38:25.950Z&quot;},{&quot;headline&quot;:&quot;Don’t use “click here” as link text (2001)&quot;,&quot;link&quot;:&quot;https://www.w3.org/QA/Tips/noClickHere&quot;,&quot;source&quot;:&quot;Hacker News&quot;,&quot;publishedAt&quot;:&quot;2025-07-02T11:39:12.000Z&quot;,&quot;category&quot;:&quot;technology&quot;,&quot;fetchedAt&quot;:&quot;2025-07-02T17:38:25.950Z&quot;},{&quot;headline&quot;:&quot;Sony's Mark Cerny Has Worked on \&quot;Big Chunks of RDNA 5\&quot; with AMD&quot;,&quot;link&quot;:&quot;https://overclock3d.net/news/gpu-displays/sonys-mark-cerny-has-worked-on-big-chunks-of-rdna-5-with-amd/&quot;,&quot;source&quot;:&quot;Hacker News&quot;,&quot;publishedAt&quot;:&quot;2025-07-02T16:10:46.000Z&quot;,&quot;category&quot;:&quot;technology&quot;,&quot;fetchedAt&quot;:&quot;2025-07-02T17:38:25.950Z&quot;},{&quot;headline&quot;:&quot;Double Is Winding Down&quot;,&quot;link&quot;:&quot;https://double.finance/blog/wind_down&quot;,&quot;source&quot;:&quot;Hacker News&quot;,&quot;publishedAt&quot;:&quot;2025-07-02T15:33:09.000Z&quot;,&quot;category&quot;:&quot;technology&quot;,&quot;fetchedAt&quot;:&quot;2025-07-02T17:38:25.950Z&quot;},{&quot;headline&quot;:&quot;MindsDB (YC W20) Is Hiring for an AI Solutions Engineer&quot;,&quot;link&quot;:&quot;https://job-boards.greenhouse.io/mindsdb/jobs/4770283007&quot;,&quot;source&quot;:&quot;Hacker News&quot;,&quot;publishedAt&quot;:&quot;2025-07-02T17:29:55.000Z&quot;,&quot;category&quot;:&quot;technology&quot;,&quot;fetchedAt&quot;:&quot;2025-07-02T17:38:25.950Z&quot;},{&quot;headline&quot;:&quot;The Zen of Quakerism (2016)&quot;,&quot;link&quot;:&quot;https://www.friendsjournal.org/the-zen-of-quakerism/&quot;,&quot;source&quot;:&quot;Hacker News&quot;,&quot;publishedAt&quot;:&quot;2025-06-29T13:40:19.000Z&quot;,&quot;category&quot;:&quot;technology&quot;,&quot;fetchedAt&quot;:&quot;2025-07-02T17:38:25.950Z&quot;},{&quot;headline&quot;:&quot;Azure API vulnerability and roles misconfiguration compromise corporate networks&quot;,&quot;link&quot;:&quot;https://www.token.security/blog/azures-role-roulette-how-over-privileged-roles-and-api-vulnerabilities-expose-enterprise-networks&quot;,&quot;source&quot;:&quot;Hacker News&quot;,&quot;publishedAt&quot;:&quot;2025-07-02T13:59:55.000Z&quot;,&quot;category&quot;:&quot;technology&quot;,&quot;fetchedAt&quot;:&quot;2025-07-02T17:38:25.950Z&quot;},{&quot;headline&quot;:&quot;A List Is a Monad&quot;,&quot;link&quot;:&quot;https://alexyorke.github.io//2025/06/29/a-list-is-a-monad/&quot;,&quot;source&quot;:&quot;Hacker News&quot;,&quot;publishedAt&quot;:&quot;2025-06-29T17:53:42.000Z&quot;,&quot;category&quot;:&quot;technology&quot;,&quot;fetchedAt&quot;:&quot;2025-07-02T17:38:25.950Z&quot;},{&quot;headline&quot;:&quot;How large are large language models?&quot;,&quot;link&quot;:&quot;https://gist.github.com/rain-1/cf0419958250d15893d8873682492c3e&quot;,&quot;source&quot;:&quot;Hacker News&quot;,&quot;publishedAt&quot;:&quot;2025-07-02T10:39:38.000Z&quot;,&quot;category&quot;:&quot;technology&quot;,&quot;fetchedAt&quot;:&quot;2025-07-02T17:38:25.950Z&quot;},{&quot;headline&quot;:&quot;Stop Killing Games&quot;,&quot;link&quot;:&quot;https://www.stopkillinggames.com/&quot;,&quot;source&quot;:&quot;Hacker News&quot;,&quot;publishedAt&quot;:&quot;2025-07-02T16:45:32.000Z&quot;,&quot;category&quot;:&quot;technology&quot;,&quot;fetchedAt&quot;:&quot;2025-07-02T17:38:25.950Z&quot;},{&quot;headline&quot;:&quot;Huawei releases an open weight model trained on Huawei Ascend GPUs&quot;,&quot;link&quot;:&quot;https://arxiv.org/abs/2505.21411&quot;,&quot;source&quot;:&quot;Hacker News&quot;,&quot;publishedAt&quot;:&quot;2025-07-02T07:36:41.000Z&quot;,&quot;category&quot;:&quot;technology&quot;,&quot;fetchedAt&quot;:&quot;2025-07-02T17:38:25.950Z&quot;},{&quot;headline&quot;:&quot;Show HN: CSS generator for a high-def glass effect&quot;,&quot;link&quot;:&quot;https://glass3d.dev/&quot;,&quot;source&quot;:&quot;Hacker News&quot;,&quot;publishedAt&quot;:&quot;2025-07-02T15:51:03.000Z&quot;,&quot;category&quot;:&quot;technology&quot;,&quot;fetchedAt&quot;:&quot;2025-07-02T17:38:25.950Z&quot;},{&quot;headline&quot;:&quot;ICEBlock climbs to the top of the App Store charts after officials slam it&quot;,&quot;link&quot;:&quot;https://www.engadget.com/social-media/iceblock-climbs-to-the-top-of-the-app-store-charts-after-officials-slam-it-004319963.html&quot;,&quot;source&quot;:&quot;Hacker News&quot;,&quot;publishedAt&quot;:&quot;2025-07-02T15:47:32.000Z&quot;,&quot;category&quot;:&quot;technology&quot;,&quot;fetchedAt&quot;:&quot;2025-07-02T17:38:25.950Z&quot;},{&quot;headline&quot;:&quot;Private sector lost 33k jobs, badly missing expectations of 100k increase&quot;,&quot;link&quot;:&quot;https://www.cnbc.com/2025/07/02/adp-jobs-report-june-2025.html&quot;,&quot;source&quot;:&quot;Hacker News&quot;,&quot;publishedAt&quot;:&quot;2025-07-02T13:40:33.000Z&quot;,&quot;category&quot;:&quot;technology&quot;,&quot;fetchedAt&quot;:&quot;2025-07-02T17:38:25.950Z&quot;},{&quot;headline&quot;:&quot;Plane crash near Kazakhstan's Aktau: recording surfaces of Russian giving order to open fire – photo, video&quot;,&quot;link&quot;:&quot;https://www.pravda.com.ua/eng/news/2025/07/2/7519759/&quot;,&quot;source&quot;:&quot;Reddit WorldNews&quot;,&quot;publishedAt&quot;:&quot;2025-07-02T10:29:20.000Z&quot;,&quot;category&quot;:&quot;general&quot;,&quot;fetchedAt&quot;:&quot;2025-07-02T17:38:25.950Z&quot;},{&quot;headline&quot;:&quot;North Korea to Reinforce Moscow With 30,000 Troops, Officials Say&quot;,&quot;link&quot;:&quot;https://www.kyivpost.com/post/55585&quot;,&quot;source&quot;:&quot;Reddit WorldNews&quot;,&quot;publishedAt&quot;:&quot;2025-07-02T13:17:06.000Z&quot;,&quot;category&quot;:&quot;general&quot;,&quot;fetchedAt&quot;:&quot;2025-07-02T17:38:25.950Z&quot;},{&quot;headline&quot;:&quot;Ukraine summons US diplomat as Washington halts military aid shipments - Türkiye Today&quot;,&quot;link&quot;:&quot;https://www.turkiyetoday.com/world/ukraine-summons-us-diplomat-as-washington-halts-military-aid-shipments-3203742&quot;,&quot;source&quot;:&quot;Reddit WorldNews&quot;,&quot;publishedAt&quot;:&quot;2025-07-02T10:57:38.000Z&quot;,&quot;category&quot;:&quot;general&quot;,&quot;fetchedAt&quot;:&quot;2025-07-02T17:38:25.950Z&quot;},{&quot;headline&quot;:&quot;Kremlin obtains missile chips via dummy companies while Trump stalls sanctions – NYT&quot;,&quot;link&quot;:&quot;https://www.pravda.com.ua/eng/news/2025/07/2/7519840/&quot;,&quot;source&quot;:&quot;Reddit WorldNews&quot;,&quot;publishedAt&quot;:&quot;2025-07-02T15:15:30.000Z&quot;,&quot;category&quot;:&quot;general&quot;,&quot;fetchedAt&quot;:&quot;2025-07-02T17:38:25.950Z&quot;},{&quot;headline&quot;:&quot;Kremlin Welcomes Halt in U.S. Arms Shipments to Ukraine&quot;,&quot;link&quot;:&quot;https://www.themoscowtimes.com/2025/07/02/kremlin-welcomes-halt-in-us-arms-shipments-to-ukraine-a89648&quot;,&quot;source&quot;:&quot;Reddit WorldNews&quot;,&quot;publishedAt&quot;:&quot;2025-07-02T12:53:20.000Z&quot;,&quot;category&quot;:&quot;general&quot;,&quot;fetchedAt&quot;:&quot;2025-07-02T17:38:25.950Z&quot;},{&quot;headline&quot;:&quot;Ukraine warns halt of US weapons shipments will 'encourage Russia'&quot;,&quot;link&quot;:&quot;https://www.bbc.co.uk/news/articles/cgk33k204ddo&quot;,&quot;source&quot;:&quot;Reddit WorldNews&quot;,&quot;publishedAt&quot;:&quot;2025-07-02T13:47:00.000Z&quot;,&quot;category&quot;:&quot;general&quot;,&quot;fetchedAt&quot;:&quot;2025-07-02T17:38:25.950Z&quot;},{&quot;headline&quot;:&quot;The Dalai Lama says he plans to reincarnate, ensuring the institution will continue&quot;,&quot;link&quot;:&quot;https://apnews.com/article/india-dalai-lama-reincarnate-tibetan-buddhism-734d8d5d62f9cd29a35fc358abee0aa3&quot;,&quot;source&quot;:&quot;Reddit WorldNews&quot;,&quot;publishedAt&quot;:&quot;2025-07-02T09:15:17.000Z&quot;,&quot;category&quot;:&quot;general&quot;,&quot;fetchedAt&quot;:&quot;2025-07-02T17:38:25.950Z&quot;},{&quot;headline&quot;:&quot;Armenia proposes banning broadcasting of Russian channels&quot;,&quot;link&quot;:&quot;https://prm.ua/en/armenia-proposes-banning-broadcasting-of-russian-channels/&quot;,&quot;source&quot;:&quot;Reddit WorldNews&quot;,&quot;publishedAt&quot;:&quot;2025-07-02T11:02:56.000Z&quot;,&quot;category&quot;:&quot;general&quot;,&quot;fetchedAt&quot;:&quot;2025-07-02T17:38:25.950Z&quot;},{&quot;headline&quot;:&quot;US suspends supply of critical missiles and munitions to Ukraine&quot;,&quot;link&quot;:&quot;https://novayagazeta.eu/articles/2025/07/02/us-suspends-supply-of-critical-missiles-and-munitions-to-ukraine-en-news&quot;,&quot;source&quot;:&quot;Reddit WorldNews&quot;,&quot;publishedAt&quot;:&quot;2025-07-02T09:39:38.000Z&quot;,&quot;category&quot;:&quot;general&quot;,&quot;fetchedAt&quot;:&quot;2025-07-02T17:38:25.950Z&quot;},{&quot;headline&quot;:&quot;North Korea to send as many as 30,000 troops to bolster Russia’s forces, Ukrainian officials say&quot;,&quot;link&quot;:&quot;https://www.cnn.com/2025/07/02/europe/north-korea-troops-russia-ukraine-intl-cmd&quot;,&quot;source&quot;:&quot;Reddit WorldNews&quot;,&quot;publishedAt&quot;:&quot;2025-07-02T10:34:34.000Z&quot;,&quot;category&quot;:&quot;general&quot;,&quot;fetchedAt&quot;:&quot;2025-07-02T17:38:25.950Z&quot;},{&quot;headline&quot;:&quot;Inquiry finds British committed genocide on Indigenous Australians&quot;,&quot;link&quot;:&quot;https://www.bbc.com/news/articles/cn413zlld4mo&quot;,&quot;source&quot;:&quot;Reddit WorldNews&quot;,&quot;publishedAt&quot;:&quot;2025-07-02T14:00:32.000Z&quot;,&quot;category&quot;:&quot;general&quot;,&quot;fetchedAt&quot;:&quot;2025-07-02T17:38:25.950Z&quot;},{&quot;headline&quot;:&quot;Latvia to supply Ukraine with 42 Patria 6x6 armoured vehicles&quot;,&quot;link&quot;:&quot;https://www.pravda.com.ua/eng/news/2025/07/1/7519711/&quot;,&quot;source&quot;:&quot;Reddit WorldNews&quot;,&quot;publishedAt&quot;:&quot;2025-07-02T05:09:33.000Z&quot;,&quot;category&quot;:&quot;general&quot;,&quot;fetchedAt&quot;:&quot;2025-07-02T17:38:25.950Z&quot;},{&quot;headline&quot;:&quot;UK and Germany prepare to sign wide-ranging mutual defense treaty&quot;,&quot;link&quot;:&quot;https://www.politico.eu/article/uk-germany-mutual-defense-treaty-nation-olaf-scholz-joint/&quot;,&quot;source&quot;:&quot;Reddit WorldNews&quot;,&quot;publishedAt&quot;:&quot;2025-07-02T05:30:31.000Z&quot;,&quot;category&quot;:&quot;general&quot;,&quot;fetchedAt&quot;:&quot;2025-07-02T17:38:25.950Z&quot;},{&quot;headline&quot;:&quot;New evidence suggests Russian forces shot down Azerbaijan Airlines Flight 8243&quot;,&quot;link&quot;:&quot;https://www.euronews.com/2025/07/01/new-evidence-suggests-russian-forces-shot-down-azerbaijan-airlines-flight-8432&quot;,&quot;source&quot;:&quot;Reddit WorldNews&quot;,&quot;publishedAt&quot;:&quot;2025-07-01T19:59:04.000Z&quot;,&quot;category&quot;:&quot;general&quot;,&quot;fetchedAt&quot;:&quot;2025-07-02T17:38:25.950Z&quot;},{&quot;headline&quot;:&quot;Dalai Lama defies China to say successor will be chosen by Tibetan tradition&quot;,&quot;link&quot;:&quot;https://www.theguardian.com/world/2025/jul/02/dalai-lama-says-there-will-be-search-for-his-successor-ending-years-of-speculation&quot;,&quot;source&quot;:&quot;Reddit WorldNews&quot;,&quot;publishedAt&quot;:&quot;2025-07-02T13:00:40.000Z&quot;,&quot;category&quot;:&quot;general&quot;,&quot;fetchedAt&quot;:&quot;2025-07-02T17:38:25.950Z&quot;},{&quot;headline&quot;:&quot;ICEBlock climbs to the top of the App Store charts after officials slam it&quot;,&quot;link&quot;:&quot;https://www.engadget.com/social-media/iceblock-climbs-to-the-top-of-the-app-store-charts-after-officials-slam-it-004319963.html?src=rss&quot;,&quot;source&quot;:&quot;Reddit Technology&quot;,&quot;publishedAt&quot;:&quot;2025-07-02T07:46:59.000Z&quot;,&quot;category&quot;:&quot;technology&quot;,&quot;fetchedAt&quot;:&quot;2025-07-02T17:38:25.950Z&quot;},{&quot;headline&quot;:&quot;Trump’s ‘Big, Beautiful Bill’ is a middle finger to US solar energy&quot;,&quot;link&quot;:&quot;https://www.engadget.com/general/trumps-big-beautiful-bill-is-a-middle-finger-to-us-solar-energy-152042835.html&quot;,&quot;source&quot;:&quot;Reddit Technology&quot;,&quot;publishedAt&quot;:&quot;2025-07-02T16:07:06.000Z&quot;,&quot;category&quot;:&quot;technology&quot;,&quot;fetchedAt&quot;:&quot;2025-07-02T17:38:25.950Z&quot;},{&quot;headline&quot;:&quot;Microsoft laying off about 9,000 employees in latest round of cuts&quot;,&quot;link&quot;:&quot;https://www.cnbc.com/2025/07/02/microsoft-laying-off-about-9000-employees-in-latest-round-of-cuts.html&quot;,&quot;source&quot;:&quot;Reddit Technology&quot;,&quot;publishedAt&quot;:&quot;2025-07-02T13:08:51.000Z&quot;,&quot;category&quot;:&quot;technology&quot;,&quot;fetchedAt&quot;:&quot;2025-07-02T17:38:25.950Z&quot;},{&quot;headline&quot;:&quot;Anthropic tasked an AI with running a vending machine in its offices, and it not only sold some products at a big loss but it invented people, meetings, and experienced a bizarre identity crisis&quot;,&quot;link&quot;:&quot;https://www.pcgamer.com/software/ai/anthropic-tasked-an-ai-with-running-a-vending-machine-in-its-offices-and-it-not-only-sold-some-products-at-a-big-loss-but-it-invented-people-meetings-and-experienced-a-bizarre-identity-crisis/&quot;,&quot;source&quot;:&quot;Reddit Technology&quot;,&quot;publishedAt&quot;:&quot;2025-07-02T12:11:33.000Z&quot;,&quot;category&quot;:&quot;technology&quot;,&quot;fetchedAt&quot;:&quot;2025-07-02T17:38:25.950Z&quot;},{&quot;headline&quot;:&quot;Crunchyroll Accidentally Reveals They've Been Using ChatGPT for Sub Translations&quot;,&quot;link&quot;:&quot;https://www.cbr.com/crunchyroll-chatgpt-sub-anime/&quot;,&quot;source&quot;:&quot;Reddit Technology&quot;,&quot;publishedAt&quot;:&quot;2025-07-02T01:22:33.000Z&quot;,&quot;category&quot;:&quot;technology&quot;,&quot;fetchedAt&quot;:&quot;2025-07-02T17:38:25.950Z&quot;},{&quot;headline&quot;:&quot;Lorde Fans Say ‘Virgin’ CD Doesn’t Work in Most Players&quot;,&quot;link&quot;:&quot;https://www.billboard.com/music/pop/lorde-clear-virgin-cd-doesnt-work-players-1236012372/&quot;,&quot;source&quot;:&quot;Reddit Technology&quot;,&quot;publishedAt&quot;:&quot;2025-07-02T09:06:53.000Z&quot;,&quot;category&quot;:&quot;technology&quot;,&quot;fetchedAt&quot;:&quot;2025-07-02T17:38:25.950Z&quot;},{&quot;headline&quot;:&quot;Tesla’s Global Vehicle Deliveries Plunged in Second Quarter. Global vehicle sales fall 13.5% as the electric vehicle maker struggles to reverse months of declining sales&quot;,&quot;link&quot;:&quot;https://www.wsj.com/business/autos/tesla-sales-q2-2025-e2087c11&quot;,&quot;source&quot;:&quot;Reddit Technology&quot;,&quot;publishedAt&quot;:&quot;2025-07-02T13:18:40.000Z&quot;,&quot;category&quot;:&quot;technology&quot;,&quot;fetchedAt&quot;:&quot;2025-07-02T17:38:25.950Z&quot;},{&quot;headline&quot;:&quot;RFK Jr. Says AI Will Approve New Drugs at FDA ‘Very, Very Quickly’&quot;,&quot;link&quot;:&quot;https://gizmodo.com/rfk-jr-says-ai-will-approve-new-drugs-at-fda-very-very-quickly-2000622778&quot;,&quot;source&quot;:&quot;Reddit Technology&quot;,&quot;publishedAt&quot;:&quot;2025-07-01T21:25:13.000Z&quot;,&quot;category&quot;:&quot;technology&quot;,&quot;fetchedAt&quot;:&quot;2025-07-02T17:38:25.950Z&quot;},{&quot;headline&quot;:&quot;RFK Jr.’s health department calls Nature “junk science,” cancels subscriptions.  The move comes after RFK Jr. called top medical journals \&quot;corrupt.\&quot;&quot;,&quot;link&quot;:&quot;https://arstechnica.com/health/2025/07/rfk-jr-s-health-department-calls-nature-junk-science-cancels-subscriptions/&quot;,&quot;source&quot;:&quot;Reddit Technology&quot;,&quot;publishedAt&quot;:&quot;2025-07-01T23:45:03.000Z&quot;,&quot;category&quot;:&quot;technology&quot;,&quot;fetchedAt&quot;:&quot;2025-07-02T17:38:25.950Z&quot;},{&quot;headline&quot;:&quot;Rivian receives the next $1B from Volkswagen as sales struggles continue&quot;,&quot;link&quot;:&quot;https://techcrunch.com/2025/07/02/rivian-receives-the-next-1b-from-volkswagen-as-sales-struggles-continue/&quot;,&quot;source&quot;:&quot;Reddit Technology&quot;,&quot;publishedAt&quot;:&quot;2025-07-02T13:25:40.000Z&quot;,&quot;category&quot;:&quot;technology&quot;,&quot;fetchedAt&quot;:&quot;2025-07-02T17:38:25.950Z&quot;},{&quot;headline&quot;:&quot;Earth's atmosphere hasn't had this much CO2 in millions of years&quot;,&quot;link&quot;:&quot;https://www.nbcnews.com/science/climate-change/earth-co2-record-global-warming-rcna210974&quot;,&quot;source&quot;:&quot;Reddit Technology&quot;,&quot;publishedAt&quot;:&quot;2025-07-02T12:23:47.000Z&quot;,&quot;category&quot;:&quot;technology&quot;,&quot;fetchedAt&quot;:&quot;2025-07-02T17:38:25.950Z&quot;},{&quot;headline&quot;:&quot;A Trans Pilot Was Falsely Blamed for a Plane Crash. Now She’s Fighting the Right-Wing Disinfo Machine&quot;,&quot;link&quot;:&quot;https://www.wired.com/story/a-trans-pilot-was-falsely-blamed-for-a-plane-crash-now-shes-fighting-the-right-wing-disinfo-machine/&quot;,&quot;source&quot;:&quot;Reddit Technology&quot;,&quot;publishedAt&quot;:&quot;2025-07-02T17:10:47.000Z&quot;,&quot;category&quot;:&quot;technology&quot;,&quot;fetchedAt&quot;:&quot;2025-07-02T17:38:25.950Z&quot;},{&quot;headline&quot;:&quot;A Texas man died in a burning Tesla Cybertruck. Now his family is suing.&quot;,&quot;link&quot;:&quot;https://www.chron.com/culture/article/tesla-cybertruck-lawsuit-death-fire-20402725.php&quot;,&quot;source&quot;:&quot;Reddit Technology&quot;,&quot;publishedAt&quot;:&quot;2025-07-01T23:57:35.000Z&quot;,&quot;category&quot;:&quot;technology&quot;,&quot;fetchedAt&quot;:&quot;2025-07-02T17:38:25.950Z&quot;},{&quot;headline&quot;:&quot;Young Americans Are Spending A Whole Lot Less On Video Games This Year&quot;,&quot;link&quot;:&quot;https://www.gamespot.com/articles/young-americans-are-spending-a-whole-lot-less-on-video-games-this-year/1100-6532877/?ftag=CAD-01-10abi2f&quot;,&quot;source&quot;:&quot;Reddit Technology&quot;,&quot;publishedAt&quot;:&quot;2025-07-01T18:21:39.000Z&quot;,&quot;category&quot;:&quot;technology&quot;,&quot;fetchedAt&quot;:&quot;2025-07-02T17:38:25.950Z&quot;},{&quot;headline&quot;:&quot;Drinking a modest dose of peppermint tea improved cognitive performance compared to a placebo. Drinkers showed greater improvements in episodic memory, working memory, short-term word recall, and visuospatial memory compared to the placebo group. These differences were statistically significant.&quot;,&quot;link&quot;:&quot;https://www.psypost.org/peppermint-tea-boosts-memory-and-attention-but-why/&quot;,&quot;source&quot;:&quot;Reddit Science&quot;,&quot;publishedAt&quot;:&quot;2025-07-02T12:01:55.000Z&quot;,&quot;category&quot;:&quot;science&quot;,&quot;fetchedAt&quot;:&quot;2025-07-02T17:38:25.950Z&quot;},{&quot;headline&quot;:&quot;More than 39,000 deaths, nearly 100,000 non-fatal heart attacks and up to 65,000 strokes in the U.S. could be prevented if people eligible for statins and other cholesterol-lowering drugs were taking them&quot;,&quot;link&quot;:&quot;https://www.newsmax.com/health/health-news/heart-attack-stroke-cholesterol/2025/07/02/id/1217293/&quot;,&quot;source&quot;:&quot;Reddit Science&quot;,&quot;publishedAt&quot;:&quot;2025-07-02T15:33:02.000Z&quot;,&quot;category&quot;:&quot;science&quot;,&quot;fetchedAt&quot;:&quot;2025-07-02T17:38:25.950Z&quot;},{&quot;headline&quot;:&quot;U.S. preschoolers exposed to potentially harmful chemicals. Urine samples from 201 children found 96 chemicals in at least 5, 48 chemicals in over half and 34 chemicals in more than 90%. Many of these chemicals are known or suspected to interfere with hormones, brain development and immune function.&quot;,&quot;link&quot;:&quot;https://health.ucdavis.edu/news/headlines/new-study-us-preschoolers-exposed-to-broad-range-of-potentially-harmful-chemicals/2025/07&quot;,&quot;source&quot;:&quot;Reddit Science&quot;,&quot;publishedAt&quot;:&quot;2025-07-02T10:04:35.000Z&quot;,&quot;category&quot;:&quot;science&quot;,&quot;fetchedAt&quot;:&quot;2025-07-02T17:38:25.950Z&quot;},{&quot;headline&quot;:&quot;Scientists discover certain species of microbe in the human gut can absorb PFAS, the toxic and long-lasting ‘forever chemicals.’ When 9 of these species were introduced into guts of mice to ‘humanise’ their microbiome, the bacteria rapidly accumulated PFAS eaten which were then excreted in faeces.&quot;,&quot;link&quot;:&quot;https://www.cam.ac.uk/research/news/gut-microbes-could-protect-us-from-toxic-forever-chemicals&quot;,&quot;source&quot;:&quot;Reddit Science&quot;,&quot;publishedAt&quot;:&quot;2025-07-02T01:38:59.000Z&quot;,&quot;category&quot;:&quot;science&quot;,&quot;fetchedAt&quot;:&quot;2025-07-02T17:38:25.950Z&quot;},{&quot;headline&quot;:&quot;A climate tipping point was crossed when ancient tropical forests vanished 252 million years ago—triggering unstoppable warming that trapped Earth in a 5-million-year super-greenhouse. Vegetation loss can push the planet past the point of no return.&quot;,&quot;link&quot;:&quot;https://www.nature.com/articles/s41467-025-60396-y.pdf&quot;,&quot;source&quot;:&quot;Reddit Science&quot;,&quot;publishedAt&quot;:&quot;2025-07-02T14:11:05.000Z&quot;,&quot;category&quot;:&quot;science&quot;,&quot;fetchedAt&quot;:&quot;2025-07-02T17:38:25.950Z&quot;},{&quot;headline&quot;:&quot;For Dolphins, Echolocation May Be More Like ‘Touching’ Than ‘Seeing’ | Dolphins seem to “feel” their way across the sea with narrow, sweeping beams of sonar&quot;,&quot;link&quot;:&quot;https://www.scientificamerican.com/article/for-dolphins-echolocation-may-be-more-like-touching-than-seeing/&quot;,&quot;source&quot;:&quot;Reddit Science&quot;,&quot;publishedAt&quot;:&quot;2025-07-02T14:33:53.000Z&quot;,&quot;category&quot;:&quot;science&quot;,&quot;fetchedAt&quot;:&quot;2025-07-02T17:38:25.950Z&quot;},{&quot;headline&quot;:&quot;Body fat percentage was a stronger and more consistent predictor of attractiveness for men than either body mass index or shoulder-to-waist ratio. The most attractive male bodies had approximately 13 to 14% body fat, a level that corresponds closely with what is considered metabolically healthy.&quot;,&quot;link&quot;:&quot;https://www.psypost.org/what-is-the-most-attractive-body-fat-percentage-for-men-new-research-offers-an-answer/&quot;,&quot;source&quot;:&quot;Reddit Science&quot;,&quot;publishedAt&quot;:&quot;2025-07-01T17:22:15.000Z&quot;,&quot;category&quot;:&quot;science&quot;,&quot;fetchedAt&quot;:&quot;2025-07-02T17:38:25.950Z&quot;},{&quot;headline&quot;:&quot;Myth busted: Men don’t sleep through baby cries after all. New study debunks the myth of women's special ability to hear baby crying. Researchers found only minimal differences between men's and women's hearing, but mothers still handle nighttime childcare three times as often as fathers.&quot;,&quot;link&quot;:&quot;https://health.au.dk/en/display/artikel/myth-busted-men-dont-sleep-through-baby-cries-after-all&quot;,&quot;source&quot;:&quot;Reddit Science&quot;,&quot;publishedAt&quot;:&quot;2025-07-02T17:28:03.000Z&quot;,&quot;category&quot;:&quot;science&quot;,&quot;fetchedAt&quot;:&quot;2025-07-02T17:38:25.950Z&quot;},{&quot;headline&quot;:&quot;Gene therapy restored hearing in deaf patients&quot;,&quot;link&quot;:&quot;https://www.eurekalert.org/news-releases/1089246&quot;,&quot;source&quot;:&quot;Reddit Science&quot;,&quot;publishedAt&quot;:&quot;2025-07-02T13:36:48.000Z&quot;,&quot;category&quot;:&quot;science&quot;,&quot;fetchedAt&quot;:&quot;2025-07-02T17:38:25.950Z&quot;},{&quot;headline&quot;:&quot;Killer whales found sharing food with humans for first time. This behaviour may represent some of the first accounts of a wild predator intentionally using prey, and other items, to directly explore human behaviour,&quot;,&quot;link&quot;:&quot;https://uk.news.yahoo.com/killer-whales-found-sharing-food-050432849.html&quot;,&quot;source&quot;:&quot;Reddit Science&quot;,&quot;publishedAt&quot;:&quot;2025-07-01T13:04:13.000Z&quot;,&quot;category&quot;:&quot;science&quot;,&quot;fetchedAt&quot;:&quot;2025-07-02T17:38:25.950Z&quot;},{&quot;headline&quot;:&quot;A study of 1,100 Bavarians found when considering energy-adjusted diets, higher emissions are associated with being female, having a higher waist circumference, and following an omnivorous diet. Increased consumption of animal products, coffee, and tea contributed to greater environmental impacts.&quot;,&quot;link&quot;:&quot;https://www.frontiersin.org/journals/nutrition/articles/10.3389/fnut.2025.1542254/full&quot;,&quot;source&quot;:&quot;Reddit Science&quot;,&quot;publishedAt&quot;:&quot;2025-07-02T11:32:03.000Z&quot;,&quot;category&quot;:&quot;science&quot;,&quot;fetchedAt&quot;:&quot;2025-07-02T17:38:25.950Z&quot;},{&quot;headline&quot;:&quot;A new study shows that our brains respond differently to the same music depending on what we heard before. Emotional shifts are real, fast, and shaped by context.&quot;,&quot;link&quot;:&quot;https://doi.org/10.1523/ENEURO.0184-24.2025&quot;,&quot;source&quot;:&quot;Reddit Science&quot;,&quot;publishedAt&quot;:&quot;2025-07-02T04:26:14.000Z&quot;,&quot;category&quot;:&quot;science&quot;,&quot;fetchedAt&quot;:&quot;2025-07-02T17:38:25.950Z&quot;},{&quot;headline&quot;:&quot;New brain stimulation method shows promise for treating mood, anxiety, and trauma disorders | The approach was found to be safe, well tolerated, and potentially effective, but the authors stress that more rigorous trials are needed before it can be considered a viable treatment.&quot;,&quot;link&quot;:&quot;https://www.psypost.org/new-brain-stimulation-method-shows-promise-for-treating-mood-anxiety-and-trauma-disorders/&quot;,&quot;source&quot;:&quot;Reddit Science&quot;,&quot;publishedAt&quot;:&quot;2025-07-02T14:01:23.000Z&quot;,&quot;category&quot;:&quot;science&quot;,&quot;fetchedAt&quot;:&quot;2025-07-02T17:38:25.950Z&quot;},{&quot;headline&quot;:&quot;Emitted Cooling Water from Fukushima-Daiichi Nuclear Plant led to lower Tritium Concentration than previously estimated&quot;,&quot;link&quot;:&quot;https://doi.org/10.1016/j.marpolbul.2025.118294&quot;,&quot;source&quot;:&quot;Reddit Science&quot;,&quot;publishedAt&quot;:&quot;2025-07-02T15:05:08.000Z&quot;,&quot;category&quot;:&quot;science&quot;,&quot;fetchedAt&quot;:&quot;2025-07-02T17:38:25.950Z&quot;},{&quot;headline&quot;:&quot;A new tool allows researchers to peer deep into cells' inner compartments to watch and control ribosome assembly, shedding new light on the machinery responsible for making proteins. The system opens the door to new treatments and medicines [Nature]&quot;,&quot;link&quot;:&quot;https://engineering.princeton.edu/news/new-tool-allows-researchers-to-track-assembly-of-cells-protein-making-machines&quot;,&quot;source&quot;:&quot;Reddit Science&quot;,&quot;publishedAt&quot;:&quot;2025-07-02T16:10:45.000Z&quot;,&quot;category&quot;:&quot;science&quot;,&quot;fetchedAt&quot;:&quot;2025-07-02T17:38:25.950Z&quot;},{&quot;headline&quot;:&quot;Join r/LosAngeles in Supporting the Wildfire Relief Fund&quot;,&quot;link&quot;:&quot;/r/LosAngeles/comments/1i01yym/join_rlosangeles_in_supporting_the_wildfire/&quot;,&quot;source&quot;:&quot;Reddit Entertainment&quot;,&quot;publishedAt&quot;:&quot;2025-01-13T21:30:20.000Z&quot;,&quot;category&quot;:&quot;entertainment&quot;,&quot;fetchedAt&quot;:&quot;2025-07-02T17:38:25.950Z&quot;},{&quot;headline&quot;:&quot;Australia says it cancelled Kanye West's visa over 'Heil Hitler' song&quot;,&quot;link&quot;:&quot;https://www.reuters.com/business/media-telecom/australia-says-it-cancelled-kanye-wests-visa-over-heil-hitler-song-2025-07-02/&quot;,&quot;source&quot;:&quot;Reddit Entertainment&quot;,&quot;publishedAt&quot;:&quot;2025-07-02T09:10:09.000Z&quot;,&quot;category&quot;:&quot;entertainment&quot;,&quot;fetchedAt&quot;:&quot;2025-07-02T17:38:25.950Z&quot;},{&quot;headline&quot;:&quot;P Diddy pumps fist as he's found guilty on two of five charges&quot;,&quot;link&quot;:&quot;https://www.irishstar.com/culture/entertainment/breaking-p-diddy-trial-verdict-35453234&quot;,&quot;source&quot;:&quot;Reddit Entertainment&quot;,&quot;publishedAt&quot;:&quot;2025-07-02T14:24:22.000Z&quot;,&quot;category&quot;:&quot;entertainment&quot;,&quot;fetchedAt&quot;:&quot;2025-07-02T17:38:25.950Z&quot;},{&quot;headline&quot;:&quot;Travis Kelce Says the ‘Hardest’ Part of Hosting ‘SNL’ Was the Table Read Because He ‘Can’t Really Read That Well’: ‘Kind of a F–ed Situation’&quot;,&quot;link&quot;:&quot;https://variety.com/2025/tv/news/travis-kelce-hardest-part-hosting-snl-cant-really-read-1236445700/&quot;,&quot;source&quot;:&quot;Reddit Entertainment&quot;,&quot;publishedAt&quot;:&quot;2025-07-02T01:17:24.000Z&quot;,&quot;category&quot;:&quot;entertainment&quot;,&quot;fetchedAt&quot;:&quot;2025-07-02T17:38:25.950Z&quot;},{&quot;headline&quot;:&quot;Sean ‘Diddy’ Combs not guilty of sex trafficking and racketeering, convicted of prostitution offense&quot;,&quot;link&quot;:&quot;https://apnews.com/live/sean-diddy-combs-trial-verdict-updates?taid=686540d7ca88300001882f42&quot;,&quot;source&quot;:&quot;Reddit Entertainment&quot;,&quot;publishedAt&quot;:&quot;2025-07-02T14:24:06.000Z&quot;,&quot;category&quot;:&quot;entertainment&quot;,&quot;fetchedAt&quot;:&quot;2025-07-02T17:38:25.950Z&quot;},{&quot;headline&quot;:&quot;Annie Murphy was convinced she didn't get Schitt's Creek role when Dan Levy called: 'Please put me out of my misery'&quot;,&quot;link&quot;:&quot;https://ew.com/annie-murphy-was-convinced-she-didnt-get-schitts-creek-role-when-dan-levy-called-11764830&quot;,&quot;source&quot;:&quot;Reddit Entertainment&quot;,&quot;publishedAt&quot;:&quot;2025-07-02T13:11:04.000Z&quot;,&quot;category&quot;:&quot;entertainment&quot;,&quot;fetchedAt&quot;:&quot;2025-07-02T17:38:25.950Z&quot;},{&quot;headline&quot;:&quot;Cassie’s Lawyer Praises Her ‘Strength’ Despite Split Diddy Verdict: ‘Change Is Love Overdue’ and ‘We Will Continue to Fight on Behalf of Survivors’&quot;,&quot;link&quot;:&quot;https://variety.com/2025/music/news/cassie-lawyer-praises-strength-despite-split-diddy-verdict-1236446118/&quot;,&quot;source&quot;:&quot;Reddit Entertainment&quot;,&quot;publishedAt&quot;:&quot;2025-07-02T14:59:08.000Z&quot;,&quot;category&quot;:&quot;entertainment&quot;,&quot;fetchedAt&quot;:&quot;2025-07-02T17:38:25.950Z&quot;},{&quot;headline&quot;:&quot;AMC now warns moviegoers to expect ‘25-30 minutes’ of ads and trailers&quot;,&quot;link&quot;:&quot;https://www.theverge.com/news/695611/amc-theatres-movie-preshow-ads-warning&quot;,&quot;source&quot;:&quot;Reddit Entertainment&quot;,&quot;publishedAt&quot;:&quot;2025-07-01T18:32:25.000Z&quot;,&quot;category&quot;:&quot;entertainment&quot;,&quot;fetchedAt&quot;:&quot;2025-07-02T17:38:25.950Z&quot;},{&quot;headline&quot;:&quot;‘South Park’ Creators Slam Paramount Merger as a ‘S— Show’ and Say ‘It’s F—ing Up’ New Episodes: ‘We Hope Fans Get to See Them Somehow’&quot;,&quot;link&quot;:&quot;https://variety.com/2025/tv/news/south-park-slam-paramount-merger-1236446025/&quot;,&quot;source&quot;:&quot;Reddit Entertainment&quot;,&quot;publishedAt&quot;:&quot;2025-07-02T13:39:47.000Z&quot;,&quot;category&quot;:&quot;entertainment&quot;,&quot;fetchedAt&quot;:&quot;2025-07-02T17:38:25.950Z&quot;},{&quot;headline&quot;:&quot;Jury reaches verdict on 4 of 5 counts in Diddy trial, judge indicates they’ll keep deliberating&quot;,&quot;link&quot;:&quot;https://apnews.com/article/sean-combs-diddy-trial-jury-deliberations-25c62300cae33ca9f18aee28788449b5&quot;,&quot;source&quot;:&quot;Reddit Entertainment&quot;,&quot;publishedAt&quot;:&quot;2025-07-01T20:59:23.000Z&quot;,&quot;category&quot;:&quot;entertainment&quot;,&quot;fetchedAt&quot;:&quot;2025-07-02T17:38:25.950Z&quot;},{&quot;headline&quot;:&quot;Drake Slammed Online Over Shirtless Selfie as Fans Accuse Him of Fake Abs and Plastic Surgery&quot;,&quot;link&quot;:&quot;https://www.ibtimes.co.uk/drake-slammed-online-over-shirtless-selfie-fans-accuse-him-fake-abs-plastic-surgery-1737027&quot;,&quot;source&quot;:&quot;Reddit Entertainment&quot;,&quot;publishedAt&quot;:&quot;2025-07-01T14:40:20.000Z&quot;,&quot;category&quot;:&quot;entertainment&quot;,&quot;fetchedAt&quot;:&quot;2025-07-02T17:38:25.950Z&quot;},{&quot;headline&quot;:&quot;Paul McCartney and Ringo Starr 'Grasp Onto' Their Friendship as the Only Living Members of The Beatles&quot;,&quot;link&quot;:&quot;https://people.com/paul-mccartney-ringo-starr-graps-friendship-without-john-george-11765256&quot;,&quot;source&quot;:&quot;Reddit Entertainment&quot;,&quot;publishedAt&quot;:&quot;2025-07-02T16:26:13.000Z&quot;,&quot;category&quot;:&quot;entertainment&quot;,&quot;fetchedAt&quot;:&quot;2025-07-02T17:38:25.950Z&quot;},{&quot;headline&quot;:&quot;Idris Elba Opens Up About the Challenges of Aging: 'Our Bodies Fail Us' in Our 50s&quot;,&quot;link&quot;:&quot;https://people.com/idris-elba-aging-50s-bodies-fail-us-11764800?taid=68643f346360160001572c53&amp;amp;utm_campaign=peoplemagazine&amp;amp;utm_content=new&amp;amp;utm_medium=social&amp;amp;utm_source=twitter.com&quot;,&quot;source&quot;:&quot;Reddit Entertainment&quot;,&quot;publishedAt&quot;:&quot;2025-07-01T20:23:42.000Z&quot;,&quot;category&quot;:&quot;entertainment&quot;,&quot;fetchedAt&quot;:&quot;2025-07-02T17:38:25.950Z&quot;},{&quot;headline&quot;:&quot;Dave Grohl Rehires Himself As Foo Fighters Drummer&quot;,&quot;link&quot;:&quot;https://www.vulture.com/article/foo-fighters-new-song-dave-grohl-drummer.html&quot;,&quot;source&quot;:&quot;Reddit Entertainment&quot;,&quot;publishedAt&quot;:&quot;2025-07-02T14:11:13.000Z&quot;,&quot;category&quot;:&quot;entertainment&quot;,&quot;fetchedAt&quot;:&quot;2025-07-02T17:38:25.950Z&quot;},{&quot;headline&quot;:&quot;Kneecap rapper won't be charged over 'kill your local politician' controversy&quot;,&quot;link&quot;:&quot;https://www.irishstar.com/culture/entertainment/kneecap-glastonbury-terror-charges-music-35474463&quot;,&quot;source&quot;:&quot;Reddit Entertainment&quot;,&quot;publishedAt&quot;:&quot;2025-07-01T14:59:32.000Z&quot;,&quot;category&quot;:&quot;entertainment&quot;,&quot;fetchedAt&quot;:&quot;2025-07-02T17:38:25.950Z&quot;},{&quot;headline&quot;:&quot;DOJ Opens Door To Stripping Citizenship Over Politics&quot;,&quot;link&quot;:&quot;https://talkingpointsmemo.com/news/doj-opens-door-to-stripping-citizenship-over-politics&quot;,&quot;source&quot;:&quot;Reddit Politics&quot;,&quot;publishedAt&quot;:&quot;2025-07-02T14:12:01.000Z&quot;,&quot;category&quot;:&quot;politics&quot;,&quot;fetchedAt&quot;:&quot;2025-07-02T17:38:25.950Z&quot;},{&quot;headline&quot;:&quot;JD Vance Accidentally Reveals How Badly Trump Is Screwing MAGA Voters&quot;,&quot;link&quot;:&quot;https://newrepublic.com/article/197505/angry-jd-vance-accidentally-reveals-trump-screwing-maga-voters&quot;,&quot;source&quot;:&quot;Reddit Politics&quot;,&quot;publishedAt&quot;:&quot;2025-07-02T10:37:29.000Z&quot;,&quot;category&quot;:&quot;politics&quot;,&quot;fetchedAt&quot;:&quot;2025-07-02T17:38:25.950Z&quot;},{&quot;headline&quot;:&quot;Trump Keeps Derailing White House Meetings to Call His Friends&quot;,&quot;link&quot;:&quot;https://www.thedailybeast.com/donald-trump-keeps-derailing-white-house-meetings-to-call-his-friends/&quot;,&quot;source&quot;:&quot;Reddit Politics&quot;,&quot;publishedAt&quot;:&quot;2025-07-02T11:40:29.000Z&quot;,&quot;category&quot;:&quot;politics&quot;,&quot;fetchedAt&quot;:&quot;2025-07-02T17:38:25.950Z&quot;},{&quot;headline&quot;:&quot;Trump Says He Won't Let 'Communist Lunatic' Zohran Mamdani 'Destroy New York': 'Rest Assured, I Hold All The Levers' | \&quot;I'll save New York City, and make it \&quot;Hot\&quot; and \&quot;Great\&quot; again, just like I did with the Good Ol' USA!\&quot; Trump added&quot;,&quot;link&quot;:&quot;https://www.latintimes.com/trump-says-he-wont-let-communist-lunatic-zohran-mamdani-destroy-new-york-rest-assured-i-586020&quot;,&quot;source&quot;:&quot;Reddit Politics&quot;,&quot;publishedAt&quot;:&quot;2025-07-02T14:58:06.000Z&quot;,&quot;category&quot;:&quot;politics&quot;,&quot;fetchedAt&quot;:&quot;2025-07-02T17:38:25.950Z&quot;},{&quot;headline&quot;:&quot;House Republicans don't have the votes yet to pass Trump's megabill&quot;,&quot;link&quot;:&quot;https://www.cnbc.com/2025/07/01/house-republicans-trump-megabill.html&quot;,&quot;source&quot;:&quot;Reddit Politics&quot;,&quot;publishedAt&quot;:&quot;2025-07-02T12:27:53.000Z&quot;,&quot;category&quot;:&quot;politics&quot;,&quot;fetchedAt&quot;:&quot;2025-07-02T17:38:25.950Z&quot;},{&quot;headline&quot;:&quot;The Grand Opening of an American Concentration Camp | The Republicans are proudly calling it “Alligator Alcatraz.” Let’s call it what it is.&quot;,&quot;link&quot;:&quot;https://newrepublic.com/article/197508/alligator-alcatraz-trump-concentration-camp&quot;,&quot;source&quot;:&quot;Reddit Politics&quot;,&quot;publishedAt&quot;:&quot;2025-07-02T11:38:58.000Z&quot;,&quot;category&quot;:&quot;politics&quot;,&quot;fetchedAt&quot;:&quot;2025-07-02T17:38:25.950Z&quot;},{&quot;headline&quot;:&quot;Democrats must embrace Mamdani as their party’s future&quot;,&quot;link&quot;:&quot;https://thehill.com/opinion/campaign/5379509-democrats-must-embrace-mamdani-as-the-partys-future/&quot;,&quot;source&quot;:&quot;Reddit Politics&quot;,&quot;publishedAt&quot;:&quot;2025-07-02T12:33:10.000Z&quot;,&quot;category&quot;:&quot;politics&quot;,&quot;fetchedAt&quot;:&quot;2025-07-02T17:38:25.950Z&quot;},{&quot;headline&quot;:&quot;Stephen Miller Melts Down Over ‘Dehumanizing’ Alligator Alcatraz Criticism&quot;,&quot;link&quot;:&quot;https://www.thedailybeast.com/white-house-aide-stephen-miller-melts-down-over-dehumanizing-alligator-alcatraz-criticism/&quot;,&quot;source&quot;:&quot;Reddit Politics&quot;,&quot;publishedAt&quot;:&quot;2025-07-02T11:16:30.000Z&quot;,&quot;category&quot;:&quot;politics&quot;,&quot;fetchedAt&quot;:&quot;2025-07-02T17:38:25.950Z&quot;},{&quot;headline&quot;:&quot;AOC Taunts Republicans Criticizing Trump's 'Big, Beautiful' Bill: 'You Do NOT Vote For Things You Deem a Failure' - \&quot;If you think a bill is bad, you vote NO. If you think it's good, you vote YES,\&quot; the lawmaker said&quot;,&quot;link&quot;:&quot;https://www.latintimes.com/aoc-taunts-republicans-criticizing-trumps-big-beautiful-bill-you-do-not-vote-things-you-deem-586019&quot;,&quot;source&quot;:&quot;Reddit Politics&quot;,&quot;publishedAt&quot;:&quot;2025-07-02T15:57:31.000Z&quot;,&quot;category&quot;:&quot;politics&quot;,&quot;fetchedAt&quot;:&quot;2025-07-02T17:38:25.950Z&quot;},{&quot;headline&quot;:&quot;Maxwell Frost: 20 House Republicans a ‘no’ on ‘big, beautiful bill’&quot;,&quot;link&quot;:&quot;https://thehill.com/homenews/house/5381020-democrats-delay-trump-megabill-maxwell-frost/&quot;,&quot;source&quot;:&quot;Reddit Politics&quot;,&quot;publishedAt&quot;:&quot;2025-07-02T14:06:17.000Z&quot;,&quot;category&quot;:&quot;politics&quot;,&quot;fetchedAt&quot;:&quot;2025-07-02T17:38:25.950Z&quot;},{&quot;headline&quot;:&quot;McConnell is OK with cutting Medicaid because he's never struggled like us&quot;,&quot;link&quot;:&quot;https://www.courier-journal.com/story/opinion/contributors/2025/07/02/mcconnell-vote-trump-big-beautiful-bill-kentucky-medicaid-cuts/84422668007/&quot;,&quot;source&quot;:&quot;Reddit Politics&quot;,&quot;publishedAt&quot;:&quot;2025-07-02T12:49:03.000Z&quot;,&quot;category&quot;:&quot;politics&quot;,&quot;fetchedAt&quot;:&quot;2025-07-02T17:38:25.950Z&quot;},{&quot;headline&quot;:&quot;Wisconsin Supreme Court’s liberal majority strikes down 176-year-old abortion ban&quot;,&quot;link&quot;:&quot;https://apnews.com/article/wisconsin-abortion-ban-1849-01658358639a63db7df92aeec34c612d?taid=6865336959119f0001a6a5d4&amp;amp;utm_campaign=TrueAnthem&amp;amp;utm_medium=AP&amp;amp;utm_source=Twitter&quot;,&quot;source&quot;:&quot;Reddit Politics&quot;,&quot;publishedAt&quot;:&quot;2025-07-02T13:27:20.000Z&quot;,&quot;category&quot;:&quot;politics&quot;,&quot;fetchedAt&quot;:&quot;2025-07-02T17:38:25.950Z&quot;},{&quot;headline&quot;:&quot;Trump Says He Gave Iran Permission to Bomb U.S. Base in Qatar and…Well, Mostly Crickets?&quot;,&quot;link&quot;:&quot;https://talkingpointsmemo.com/morning-memo/trump-says-he-gave-iran-permission-to-bomb-u-s-base-in-qatar-andwell-mostly-crickets?fbclid=IwQ0xDSwLR14pjbGNrAtHXhmV4dG4DYWVtAjExAAEel8ghspc8Lds9-LqmHegRrnbpWkFSjMdzX_Ee8OF7EddOxrWfCk-5SiRFyU0_aem_B0qOBpIsyH9xM8u7LOcSqA&quot;,&quot;source&quot;:&quot;Reddit Politics&quot;,&quot;publishedAt&quot;:&quot;2025-07-02T09:28:12.000Z&quot;,&quot;category&quot;:&quot;politics&quot;,&quot;fetchedAt&quot;:&quot;2025-07-02T17:38:25.950Z&quot;},{&quot;headline&quot;:&quot;Lawrence O’Donnell: This Baffling Trump Answer Shows His Mind ‘Does Not Work’ |  The MSNBC host unleashed a scathing on-air takedown of the president’s mental fitness.&quot;,&quot;link&quot;:&quot;https://www.thedailybeast.com/lawrence-odonnell-this-baffling-trump-answer-shows-his-mind-does-not-work/&quot;,&quot;source&quot;:&quot;Reddit Politics&quot;,&quot;publishedAt&quot;:&quot;2025-07-02T12:32:14.000Z&quot;,&quot;category&quot;:&quot;politics&quot;,&quot;fetchedAt&quot;:&quot;2025-07-02T17:38:25.950Z&quot;},{&quot;headline&quot;:&quot;Donald Trump vowed 90 deals in 90 days. He's only made one&quot;,&quot;link&quot;:&quot;https://www.newsweek.com/donald-trump-struggling-make-deals-tariffs-2092547&quot;,&quot;source&quot;:&quot;Reddit Politics&quot;,&quot;publishedAt&quot;:&quot;2025-07-02T10:00:05.000Z&quot;,&quot;category&quot;:&quot;politics&quot;,&quot;fetchedAt&quot;:&quot;2025-07-02T17:38:25.950Z&quot;},{&quot;headline&quot;:&quot;Djokovic will celebrate every victory at Wimbledon with the \&quot;pump it\&quot; gesture, which is the slogan of the protests and fight against the dictatorial regime in Serbia.&quot;,&quot;link&quot;:&quot;https://v.redd.it/rtx5qyvoqgaf1&quot;,&quot;source&quot;:&quot;Reddit Sports&quot;,&quot;publishedAt&quot;:&quot;2025-07-02T13:31:20.000Z&quot;,&quot;category&quot;:&quot;sports&quot;,&quot;fetchedAt&quot;:&quot;2025-07-02T17:38:25.950Z&quot;},{&quot;headline&quot;:&quot;WNBA players ranked Caitlin Clark as the 9th best guard in the entire league&quot;,&quot;link&quot;:&quot;https://www.nbcnews.com/sports/wnba/caitlin-clark-wnba-all-star-fan-peer-vote-rcna216236&quot;,&quot;source&quot;:&quot;Reddit Sports&quot;,&quot;publishedAt&quot;:&quot;2025-07-02T14:35:07.000Z&quot;,&quot;category&quot;:&quot;sports&quot;,&quot;fetchedAt&quot;:&quot;2025-07-02T17:38:25.950Z&quot;},{&quot;headline&quot;:&quot;US sprinter gets modeling offer after penis fell out of shorts during race&quot;,&quot;link&quot;:&quot;https://www.themirror.com/sport/other-sport/chris-robinson-sprinter-penis-underwear-1236778&quot;,&quot;source&quot;:&quot;Reddit Sports&quot;,&quot;publishedAt&quot;:&quot;2025-07-01T23:53:28.000Z&quot;,&quot;category&quot;:&quot;sports&quot;,&quot;fetchedAt&quot;:&quot;2025-07-02T17:38:25.950Z&quot;},{&quot;headline&quot;:&quot;Cuban women's volleyball team denied US visa&quot;,&quot;link&quot;:&quot;https://www.espn.com/olympics/story/_/id/45633070/cuban-women-volleyball-team-denied-us-visa&quot;,&quot;source&quot;:&quot;Reddit Sports&quot;,&quot;publishedAt&quot;:&quot;2025-07-02T00:09:43.000Z&quot;,&quot;category&quot;:&quot;sports&quot;,&quot;fetchedAt&quot;:&quot;2025-07-02T17:38:25.950Z&quot;},{&quot;headline&quot;:&quot;This Diamondbacks fan has been involved in four umpire reviews since 2022, including last night's game with the Giants&quot;,&quot;link&quot;:&quot;https://v.redd.it/irg1mr0ps9af1&quot;,&quot;source&quot;:&quot;Reddit Sports&quot;,&quot;publishedAt&quot;:&quot;2025-07-01T14:08:37.000Z&quot;,&quot;category&quot;:&quot;sports&quot;,&quot;fetchedAt&quot;:&quot;2025-07-02T17:38:25.950Z&quot;},{&quot;headline&quot;:&quot;In the Colombian League Final, 39 year old Hugo Rodallega was in tears after he could barely walk due to an injury. Play then resumes and he scores the winner for Santa Fe.&quot;,&quot;link&quot;:&quot;https://v.redd.it/5mg30em2taaf1&quot;,&quot;source&quot;:&quot;Reddit Sports&quot;,&quot;publishedAt&quot;:&quot;2025-07-01T17:32:30.000Z&quot;,&quot;category&quot;:&quot;sports&quot;,&quot;fetchedAt&quot;:&quot;2025-07-02T17:38:25.950Z&quot;},{&quot;headline&quot;:&quot;Newcastle apologize for Rising Sun flag, a symbol associated with Japanese imperialism, in this promotional video for its new 3rd kit ahead of their summer tour in South Korea. The Japanese occupation of Korea (1910-1945) involved Japan’s attempts to cultural genocide &amp;amp; wartime atrocities&quot;,&quot;link&quot;:&quot;https://v.redd.it/io14v14ajgaf1&quot;,&quot;source&quot;:&quot;Reddit Sports&quot;,&quot;publishedAt&quot;:&quot;2025-07-02T12:48:27.000Z&quot;,&quot;category&quot;:&quot;sports&quot;,&quot;fetchedAt&quot;:&quot;2025-07-02T17:38:25.950Z&quot;},{&quot;headline&quot;:&quot;Grizzlies' Jaren Jackson injures foot one day after signing $240M extension&quot;,&quot;link&quot;:&quot;https://thescore.com/nba/news/3306970&quot;,&quot;source&quot;:&quot;Reddit Sports&quot;,&quot;publishedAt&quot;:&quot;2025-07-02T00:56:28.000Z&quot;,&quot;category&quot;:&quot;sports&quot;,&quot;fetchedAt&quot;:&quot;2025-07-02T17:38:25.950Z&quot;},{&quot;headline&quot;:&quot;Popular unicycle performer Red Panda injured at halftime of WNBA game&quot;,&quot;link&quot;:&quot;https://apnews.com/article/red-panda-fall-wnba-eb29d4c4b2f44e86abae8e540cc8e0c4&quot;,&quot;source&quot;:&quot;Reddit Sports&quot;,&quot;publishedAt&quot;:&quot;2025-07-02T03:33:48.000Z&quot;,&quot;category&quot;:&quot;sports&quot;,&quot;fetchedAt&quot;:&quot;2025-07-02T17:38:25.950Z&quot;},{&quot;headline&quot;:&quot;Hurling legend DJ Carey pleads guilty to defrauding people by lying about having cancer.&quot;,&quot;link&quot;:&quot;https://www.rte.ie/news/courts/2025/0702/1521426-dj-carey-court/&quot;,&quot;source&quot;:&quot;Reddit Sports&quot;,&quot;publishedAt&quot;:&quot;2025-07-02T12:13:44.000Z&quot;,&quot;category&quot;:&quot;sports&quot;,&quot;fetchedAt&quot;:&quot;2025-07-02T17:38:25.950Z&quot;},{&quot;headline&quot;:&quot;Maxwell Hairston, the Bills' 1st-round pick, is accused of sexual assault&quot;,&quot;link&quot;:&quot;https://apnews.com/article/bills-hairston-lawsuit-sexual-assault-133408388da3939d03c6028fc6fed9f9&quot;,&quot;source&quot;:&quot;Reddit Sports&quot;,&quot;publishedAt&quot;:&quot;2025-07-02T14:35:52.000Z&quot;,&quot;category&quot;:&quot;sports&quot;,&quot;fetchedAt&quot;:&quot;2025-07-02T17:38:25.950Z&quot;},{&quot;headline&quot;:&quot;American Coco Gauff ousted in the opening round at Wimbledon in a shocking upset&quot;,&quot;link&quot;:&quot;https://www.cnn.com/2025/07/01/sport/coco-gauff-wimbledon-upset-spt?cid=ios_app&quot;,&quot;source&quot;:&quot;Reddit Sports&quot;,&quot;publishedAt&quot;:&quot;2025-07-01T20:10:47.000Z&quot;,&quot;category&quot;:&quot;sports&quot;,&quot;fetchedAt&quot;:&quot;2025-07-02T17:38:25.950Z&quot;},{&quot;headline&quot;:&quot;Michael Johnson’s Grand Slam series: Track stars chase unpaid fees&quot;,&quot;link&quot;:&quot;https://www.thetimes.com/article/3f2ce2e1-9c0c-4de3-a612-d6fb77adf3fd?shareToken=5e44520cab653bf183bd4db923f742ed&quot;,&quot;source&quot;:&quot;Reddit Sports&quot;,&quot;publishedAt&quot;:&quot;2025-07-02T14:29:58.000Z&quot;,&quot;category&quot;:&quot;sports&quot;,&quot;fetchedAt&quot;:&quot;2025-07-02T17:38:25.950Z&quot;},{&quot;headline&quot;:&quot;Boy, 14, in Medically Induced Coma After He Hallucinated and Walked Off 120-Foot Cliff, Dad Says | \&quot;Ryan Wach said his son Zane began experiencing altitude sickness while climbing Mount Whitney, and walked off the cliff a short time later\&quot;&quot;,&quot;link&quot;:&quot;https://www.aol.com/boy-14-medically-induced-coma-160635814.html&quot;,&quot;source&quot;:&quot;Reddit Sports&quot;,&quot;publishedAt&quot;:&quot;2025-07-01T17:23:37.000Z&quot;,&quot;category&quot;:&quot;sports&quot;,&quot;fetchedAt&quot;:&quot;2025-07-02T17:38:25.950Z&quot;},{&quot;headline&quot;:&quot;Ohio governor signs 2-year, $60 billion budget that includes funding for new Cleveland Browns football stadium&quot;,&quot;link&quot;:&quot;https://apnews.com/article/ohio-budget-taxes-browns-lgbtq-dc224d6592b4662eda77083266646378&quot;,&quot;source&quot;:&quot;Reddit Sports&quot;,&quot;publishedAt&quot;:&quot;2025-07-01T18:05:07.000Z&quot;,&quot;category&quot;:&quot;sports&quot;,&quot;fetchedAt&quot;:&quot;2025-07-02T17:38:25.950Z&quot;},{&quot;headline&quot;:&quot;Javier Tebas: \&quot;I will do everything possible to make sure the Club World Cup never happens again. [Big clubs] ask us for more days to rest, but they earn 140 million Euros, twice the Alavés budget, and then they ask for more time to prepare.”&quot;,&quot;link&quot;:&quot;https://www.mundodeportivo.com/futbol/real-madrid/20250702/1002493194/tebas-mundial-clubes-dano-calendario.html?facet=amp&quot;,&quot;source&quot;:&quot;Reddit Soccer&quot;,&quot;publishedAt&quot;:&quot;2025-07-02T15:11:15.000Z&quot;,&quot;category&quot;:&quot;soccer&quot;,&quot;fetchedAt&quot;:&quot;2025-07-02T17:38:25.950Z&quot;},{&quot;headline&quot;:&quot;15 years ago today - one of the most nerve-wracking matches of the 2010 World Cup. Uruguay v Ghana in the Quarter Finals: Luis Suarez's last minute handball, Asamoah Gyan's penalty miss, and Abreu's Panenka penalty shoot-out goal.&quot;,&quot;link&quot;:&quot;https://v.redd.it/1zdxd7ribeaf1&quot;,&quot;source&quot;:&quot;Reddit Soccer&quot;,&quot;publishedAt&quot;:&quot;2025-07-02T05:22:09.000Z&quot;,&quot;category&quot;:&quot;soccer&quot;,&quot;fetchedAt&quot;:&quot;2025-07-02T17:38:25.950Z&quot;},{&quot;headline&quot;:&quot;Newcastle apologize for Rising Sun flag, a symbol associated with Japanese imperialism, in this promotional video for its new 3rd kit ahead of their summer tour in South Korea. The Japanese occupation of Korea (1910-1945) involved Japan’s attempts to assimilate Koreans culturally &amp;amp; politically&quot;,&quot;link&quot;:&quot;https://v.redd.it/34ooxs8e8gaf1&quot;,&quot;source&quot;:&quot;Reddit Soccer&quot;,&quot;publishedAt&quot;:&quot;2025-07-02T11:48:08.000Z&quot;,&quot;category&quot;:&quot;soccer&quot;,&quot;fetchedAt&quot;:&quot;2025-07-02T17:38:25.950Z&quot;},{&quot;headline&quot;:&quot;Tom Werner (Liverpool chairman): \&quot;Having Premier League games on US television on Saturday &amp;amp; Sunday mornings is wonderful. It’s like breakfast at Wimbledon. And the 4.30 game on a Sunday is especially attractive. It’s 11.30 here on the East Coast. Over the next 10 years, the EPL will be huge in USA\&quot;&quot;,&quot;link&quot;:&quot;https://www.thetimes.com/sport/football/article/tom-werner-liverpool-fenway-group-b0v88pmgw&quot;,&quot;source&quot;:&quot;Reddit Soccer&quot;,&quot;publishedAt&quot;:&quot;2025-07-02T14:09:25.000Z&quot;,&quot;category&quot;:&quot;soccer&quot;,&quot;fetchedAt&quot;:&quot;2025-07-02T17:38:25.950Z&quot;},{&quot;headline&quot;:&quot;[COPE] Javier Tebas: \&quot;As of today, Barcelona cannot register Nico Williams....FC Barcelona will have to comply with the regulations to sign players, be it Nico Williams, Haaland, Messi... whoever it may be. And we won't change any rules.\&quot;&quot;,&quot;link&quot;:&quot;https://www.cope.es/programas/tiempo-de-juego/noticias/tebas-vuelve-dejar-claro-postura-sobre-barca-nico-williams-tendra-cumplir-normas-20250627_3177210.html&quot;,&quot;source&quot;:&quot;Reddit Soccer&quot;,&quot;publishedAt&quot;:&quot;2025-07-02T08:29:26.000Z&quot;,&quot;category&quot;:&quot;soccer&quot;,&quot;fetchedAt&quot;:&quot;2025-07-02T17:38:25.950Z&quot;},{&quot;headline&quot;:&quot;Arsenal legend Perry Groves: “I’d pick Gyökeres over Šeško, 100%. He’s 5 years ahead in terms of development. Arsenal can’t afford to buy inexperienced players. They need someone who’s proven they can score at all levels.”&quot;,&quot;link&quot;:&quot;https://www.abola.pt/futebol/noticias/lenda-do-arsenal-pede-gyokeres-olhem-bem-para-ele-2025070115552528655&quot;,&quot;source&quot;:&quot;Reddit Soccer&quot;,&quot;publishedAt&quot;:&quot;2025-07-02T10:49:06.000Z&quot;,&quot;category&quot;:&quot;soccer&quot;,&quot;fetchedAt&quot;:&quot;2025-07-02T17:38:25.950Z&quot;},{&quot;headline&quot;:&quot;Viktor Gyökeres clause has come into effect&quot;,&quot;link&quot;:&quot;https://www.fotbollskanalen.se/portugal/viktor-gyokeres-klausul-har-borjat-galla/&quot;,&quot;source&quot;:&quot;Reddit Soccer&quot;,&quot;publishedAt&quot;:&quot;2025-07-02T11:17:07.000Z&quot;,&quot;category&quot;:&quot;soccer&quot;,&quot;fetchedAt&quot;:&quot;2025-07-02T17:38:25.950Z&quot;},{&quot;headline&quot;:&quot;[Gazzetta] Men's 2024/2025 Team of the Season&quot;,&quot;link&quot;:&quot;https://i.redd.it/swk1qv8n0haf1.png&quot;,&quot;source&quot;:&quot;Reddit Soccer&quot;,&quot;publishedAt&quot;:&quot;2025-07-02T14:25:36.000Z&quot;,&quot;category&quot;:&quot;soccer&quot;,&quot;fetchedAt&quot;:&quot;2025-07-02T17:38:25.951Z&quot;},{&quot;headline&quot;:&quot;Thomas Muller on why he can't join Man United: “No no no... they wanna have fun, and I wanna have fun, so that's not a [good] match.”&quot;,&quot;link&quot;:&quot;https://v.redd.it/dnyignc1phaf1&quot;,&quot;source&quot;:&quot;Reddit Soccer&quot;,&quot;publishedAt&quot;:&quot;2025-07-02T16:42:42.000Z&quot;,&quot;category&quot;:&quot;soccer&quot;,&quot;fetchedAt&quot;:&quot;2025-07-02T17:38:25.951Z&quot;},{&quot;headline&quot;:&quot;Joao Pedro completes Chelsea transfer&quot;,&quot;link&quot;:&quot;https://www.chelseafc.com/en/news/article/joao-pedro-completes-chelsea-transfer&quot;,&quot;source&quot;:&quot;Reddit Soccer&quot;,&quot;publishedAt&quot;:&quot;2025-07-02T13:00:57.000Z&quot;,&quot;category&quot;:&quot;soccer&quot;,&quot;fetchedAt&quot;:&quot;2025-07-02T17:38:25.951Z&quot;},{&quot;headline&quot;:&quot;Courtois: \&quot;If you believe the four people on Twitter who think the level of the Club World Cup is garbage, you're mistaken. People who really know the game are aware that Brazilian teams are strong, that Al-Hilal is a great team, and that Monterrey could win today.\&quot;&quot;,&quot;link&quot;:&quot;https://www.marca.com/futbol/mundial-de-clubes/2025/07/02/courtois-crees-cuatro-tuiteros-piensan-nivel-mundial-mierda-te-equivocas.html&quot;,&quot;source&quot;:&quot;Reddit Soccer&quot;,&quot;publishedAt&quot;:&quot;2025-07-02T01:08:35.000Z&quot;,&quot;category&quot;:&quot;soccer&quot;,&quot;fetchedAt&quot;:&quot;2025-07-02T17:38:25.951Z&quot;},{&quot;headline&quot;:&quot;FIFA Club World Cup Quarter Final fixtures&quot;,&quot;link&quot;:&quot;https://i.redd.it/i8dxpixcmdaf1.jpeg&quot;,&quot;source&quot;:&quot;Reddit Soccer&quot;,&quot;publishedAt&quot;:&quot;2025-07-02T03:00:11.000Z&quot;,&quot;category&quot;:&quot;soccer&quot;,&quot;fetchedAt&quot;:&quot;2025-07-02T17:38:25.951Z&quot;},{&quot;headline&quot;:&quot;“Not True”. Haaland denies telling Al Hilal GK Bounou to join Man City after his masterclass vs them&quot;,&quot;link&quot;:&quot;https://i.redd.it/j3z9vm365faf1.jpeg&quot;,&quot;source&quot;:&quot;Reddit Soccer&quot;,&quot;publishedAt&quot;:&quot;2025-07-02T08:07:23.000Z&quot;,&quot;category&quot;:&quot;soccer&quot;,&quot;fetchedAt&quot;:&quot;2025-07-02T17:38:25.951Z&quot;},{&quot;headline&quot;:&quot;Javier Tebas has already informed Barca's president Joan Laporta that the club will be able to operate in this summer market under the 1-1 rule of the financial 'fair play' of LaLiga and register players normally.&quot;,&quot;link&quot;:&quot;https://www.sport.es/es/noticias/barca/tebas-confirma-barca-estara-1-119261632&quot;,&quot;source&quot;:&quot;Reddit Soccer&quot;,&quot;publishedAt&quot;:&quot;2025-07-02T14:35:53.000Z&quot;,&quot;category&quot;:&quot;soccer&quot;,&quot;fetchedAt&quot;:&quot;2025-07-02T17:38:25.951Z&quot;},{&quot;headline&quot;:&quot;Borussia Mönchengladbach suspends Florian Neuhaus to the u23 for 4 weeks and gives him a hefty fine after calling sporting director Roland Virkus \&quot;the worst manager in the world\&quot;&quot;,&quot;link&quot;:&quot;https://www.borussia.de/news/borussia-spricht-strafe-fuer-florian-neuhaus-aus?fbclid=PAQ0xDSwLSBWxleHRuA2FlbQIxMQABp3dd0ETAFXkOvTjvXtwEJfU75kURmxM8j0nnY5h52AzKMmXgZLcJ_YwOS4bU_aem_2B-m0a8hO0sLbb5n48huzg&quot;,&quot;source&quot;:&quot;Reddit Soccer&quot;,&quot;publishedAt&quot;:&quot;2025-07-02T12:30:42.000Z&quot;,&quot;category&quot;:&quot;soccer&quot;,&quot;fetchedAt&quot;:&quot;2025-07-02T17:38:25.951Z&quot;},{&quot;headline&quot;:&quot;Debacle in the desert: will the Athletics’ $1.75bn stadium on the Vegas Strip ever be built?&quot;,&quot;link&quot;:&quot;https://www.theguardian.com/sport/2025/jul/02/athletics-las-vegas-stadium-john-fisher-mlb-debacle&quot;,&quot;source&quot;:&quot;Reddit Baseball&quot;,&quot;publishedAt&quot;:&quot;2025-07-02T15:11:14.000Z&quot;,&quot;category&quot;:&quot;baseball&quot;,&quot;fetchedAt&quot;:&quot;2025-07-02T17:38:25.951Z&quot;},{&quot;headline&quot;:&quot;NESN using 1975 graphics during Red Sox vs Reds to celebrate the 50th Anniversary of the 1975 World Series.&quot;,&quot;link&quot;:&quot;https://i.redd.it/1najxafipcaf1.png&quot;,&quot;source&quot;:&quot;Reddit Baseball&quot;,&quot;publishedAt&quot;:&quot;2025-07-01T23:58:22.000Z&quot;,&quot;category&quot;:&quot;baseball&quot;,&quot;fetchedAt&quot;:&quot;2025-07-02T17:38:25.951Z&quot;},{&quot;headline&quot;:&quot;Paul Skenes joined the grounds crew prior to the game tonight “because he was bored.”&quot;,&quot;link&quot;:&quot;https://i.redd.it/cexg310ppdaf1.jpeg&quot;,&quot;source&quot;:&quot;Reddit Baseball&quot;,&quot;publishedAt&quot;:&quot;2025-07-02T03:19:30.000Z&quot;,&quot;category&quot;:&quot;baseball&quot;,&quot;fetchedAt&quot;:&quot;2025-07-02T17:38:25.951Z&quot;},{&quot;headline&quot;:&quot;Worst team positions by offense&quot;,&quot;link&quot;:&quot;https://i.redd.it/qgl469loxgaf1.png&quot;,&quot;source&quot;:&quot;Reddit Baseball&quot;,&quot;publishedAt&quot;:&quot;2025-07-02T14:09:30.000Z&quot;,&quot;category&quot;:&quot;baseball&quot;,&quot;fetchedAt&quot;:&quot;2025-07-02T17:38:25.951Z&quot;},{&quot;headline&quot;:&quot;Shohei Ohtani hits his 30th Home Run of the season!&quot;,&quot;link&quot;:&quot;https://v.redd.it/6bo2cao9qdaf1&quot;,&quot;source&quot;:&quot;Reddit Baseball&quot;,&quot;publishedAt&quot;:&quot;2025-07-02T03:22:17.000Z&quot;,&quot;category&quot;:&quot;baseball&quot;,&quot;fetchedAt&quot;:&quot;2025-07-02T17:38:25.951Z&quot;},{&quot;headline&quot;:&quot;[Nightengale] Outfielder Alex Verdugo has been designated for assignment. Had a .585 OPS in 56 games with the Atlanta Braves this season.&quot;,&quot;link&quot;:&quot;https://bsky.app/profile/bnightengale.bsky.social/post/3lsymqryoik2f&quot;,&quot;source&quot;:&quot;Reddit Baseball&quot;,&quot;publishedAt&quot;:&quot;2025-07-02T16:23:29.000Z&quot;,&quot;category&quot;:&quot;baseball&quot;,&quot;fetchedAt&quot;:&quot;2025-07-02T17:38:25.951Z&quot;},{&quot;headline&quot;:&quot;Jacob DeGrom has surpassed 100 innings pitched in a season for the first time since June 28, 2019.&quot;,&quot;link&quot;:&quot;https://www.baseball-reference.com/players/d/degroja01.shtml&quot;,&quot;source&quot;:&quot;Reddit Baseball&quot;,&quot;publishedAt&quot;:&quot;2025-07-02T03:21:02.000Z&quot;,&quot;category&quot;:&quot;baseball&quot;,&quot;fetchedAt&quot;:&quot;2025-07-02T17:38:25.951Z&quot;},{&quot;headline&quot;:&quot;[Giants Bot] The Diamondbacks announced that the fan who interfered last night — and has a history of doing it — has been banned from Chase Field for the rest of 2025. (Per Alex Pavlovic)&quot;,&quot;link&quot;:&quot;https://bsky.app/profile/giantbot.bsky.social/post/3lswt53cgpd2z&quot;,&quot;source&quot;:&quot;Reddit Baseball&quot;,&quot;publishedAt&quot;:&quot;2025-07-01T23:25:56.000Z&quot;,&quot;category&quot;:&quot;baseball&quot;,&quot;fetchedAt&quot;:&quot;2025-07-02T17:38:25.951Z&quot;},{&quot;headline&quot;:&quot;George Springer has been literally Golden for the Jays on Canada Day (1.618 = ‘The Golden Ratio’)&quot;,&quot;link&quot;:&quot;https://i.redd.it/wed04bhu2haf1.jpeg&quot;,&quot;source&quot;:&quot;Reddit Baseball&quot;,&quot;publishedAt&quot;:&quot;2025-07-02T14:37:56.000Z&quot;,&quot;category&quot;:&quot;baseball&quot;,&quot;fetchedAt&quot;:&quot;2025-07-02T17:38:25.951Z&quot;},{&quot;headline&quot;:&quot;[Nightengale] Clayton Kershaw's first strikeout victim still in awe as Dodgers ace hits 3,000 Ks&quot;,&quot;link&quot;:&quot;https://www.usatoday.com/story/sports/mlb/columnist/bob-nightengale/2025/07/02/clayton-kershaw-strikeouts-3000-skip-schumaker/84430912007/&quot;,&quot;source&quot;:&quot;Reddit Baseball&quot;,&quot;publishedAt&quot;:&quot;2025-07-02T12:04:20.000Z&quot;,&quot;category&quot;:&quot;baseball&quot;,&quot;fetchedAt&quot;:&quot;2025-07-02T17:38:25.951Z&quot;},{&quot;headline&quot;:&quot;[Highlight] George Springer hits a grand slam, his second home run of the game, to put the Jays up 9-4&quot;,&quot;link&quot;:&quot;https://v.redd.it/dqxlh48a3caf1&quot;,&quot;source&quot;:&quot;Reddit Baseball&quot;,&quot;publishedAt&quot;:&quot;2025-07-01T21:51:32.000Z&quot;,&quot;category&quot;:&quot;baseball&quot;,&quot;fetchedAt&quot;:&quot;2025-07-02T17:38:25.951Z&quot;},{&quot;headline&quot;:&quot;[Talkin' Baseball] Braves are now 38-46 and have fallen below the Marlins for fourth place in the NL East&quot;,&quot;link&quot;:&quot;https://bsky.app/profile/talkinbaseballbot.bsky.social/post/3lsx5g2hji42s&quot;,&quot;source&quot;:&quot;Reddit Baseball&quot;,&quot;publishedAt&quot;:&quot;2025-07-02T02:24:16.000Z&quot;,&quot;category&quot;:&quot;baseball&quot;,&quot;fetchedAt&quot;:&quot;2025-07-02T17:38:25.951Z&quot;},{&quot;headline&quot;:&quot;Mike Trout hits a double against Braves&quot;,&quot;link&quot;:&quot;https://v.redd.it/n93gkrmqldaf1&quot;,&quot;source&quot;:&quot;Reddit Baseball&quot;,&quot;publishedAt&quot;:&quot;2025-07-02T02:56:44.000Z&quot;,&quot;category&quot;:&quot;baseball&quot;,&quot;fetchedAt&quot;:&quot;2025-07-02T17:38:25.951Z&quot;},{&quot;headline&quot;:&quot;Jake Mangum hits a Little League Home Run!&quot;,&quot;link&quot;:&quot;https://v.redd.it/4f8nzw1kqhaf1&quot;,&quot;source&quot;:&quot;Reddit Baseball&quot;,&quot;publishedAt&quot;:&quot;2025-07-02T16:50:53.000Z&quot;,&quot;category&quot;:&quot;baseball&quot;,&quot;fetchedAt&quot;:&quot;2025-07-02T17:38:25.951Z&quot;},{&quot;headline&quot;:&quot;[Highlight] A's Colby Thomas unleashes the janitor throw to get the out at the plate&quot;,&quot;link&quot;:&quot;https://v.redd.it/dgoby52yp9af1&quot;,&quot;source&quot;:&quot;Reddit Baseball&quot;,&quot;publishedAt&quot;:&quot;2025-07-01T13:53:59.000Z&quot;,&quot;category&quot;:&quot;baseball&quot;,&quot;fetchedAt&quot;:&quot;2025-07-02T17:38:25.951Z&quot;},{&quot;headline&quot;:&quot;Kanye West’s Hitler Song Got Him Banned From His Wife’s Home Country | Kanye West has been banned from entering Australia.&quot;,&quot;link&quot;:&quot;https://www.thedailybeast.com/kanye-wests-hitler-song-got-him-banned-from-his-wifes-home-country/&quot;,&quot;source&quot;:&quot;Reddit Music&quot;,&quot;publishedAt&quot;:&quot;2025-07-02T11:03:58.000Z&quot;,&quot;category&quot;:&quot;music&quot;,&quot;fetchedAt&quot;:&quot;2025-07-02T17:38:25.951Z&quot;},{&quot;headline&quot;:&quot;Diddy Trial Jury Finds Him Guilty on 2 of 5 Counts&quot;,&quot;link&quot;:&quot;https://www.tmz.com/2025/07/02/diddy-trial-jury-final-verdicts/&quot;,&quot;source&quot;:&quot;Reddit Music&quot;,&quot;publishedAt&quot;:&quot;2025-07-02T14:23:17.000Z&quot;,&quot;category&quot;:&quot;music&quot;,&quot;fetchedAt&quot;:&quot;2025-07-02T17:38:25.951Z&quot;},{&quot;headline&quot;:&quot;P Diddy pumps fist after being found guilty on only two charges&quot;,&quot;link&quot;:&quot;https://www.themirror.com/entertainment/celebrity-news/breaking-p-diddy-trial-verdict-1140103?h=&quot;,&quot;source&quot;:&quot;Reddit Music&quot;,&quot;publishedAt&quot;:&quot;2025-07-02T14:24:42.000Z&quot;,&quot;category&quot;:&quot;music&quot;,&quot;fetchedAt&quot;:&quot;2025-07-02T17:38:25.951Z&quot;},{&quot;headline&quot;:&quot;Kanye West officially banned from Australia after antisemitic song&quot;,&quot;link&quot;:&quot;https://metro.co.uk/2025/07/02/kanye-west-officially-banned-australia-controversial-song-23559791/&quot;,&quot;source&quot;:&quot;Reddit Music&quot;,&quot;publishedAt&quot;:&quot;2025-07-02T13:22:37.000Z&quot;,&quot;category&quot;:&quot;music&quot;,&quot;fetchedAt&quot;:&quot;2025-07-02T17:38:25.951Z&quot;},{&quot;headline&quot;:&quot;Billie Joe Armstrong Kicks Fan Offstage for Playing Oasis Instead of Green Day&quot;,&quot;link&quot;:&quot;https://consequence.net/2025/07/green-day-billie-joe-armstrong-fan-plays-oasis/&quot;,&quot;source&quot;:&quot;Reddit Music&quot;,&quot;publishedAt&quot;:&quot;2025-07-01T14:55:54.000Z&quot;,&quot;category&quot;:&quot;music&quot;,&quot;fetchedAt&quot;:&quot;2025-07-02T17:38:25.951Z&quot;},{&quot;headline&quot;:&quot;Blink-182's Travis Barker reveals he purchased a can of Ozzy Osbourne’s DNA for $450&quot;,&quot;link&quot;:&quot;https://metro.co.uk/2025/07/01/rock-star-admits-purchased-ozzy-osbournes-dna-450-23554767/&quot;,&quot;source&quot;:&quot;Reddit Music&quot;,&quot;publishedAt&quot;:&quot;2025-07-02T06:21:52.000Z&quot;,&quot;category&quot;:&quot;music&quot;,&quot;fetchedAt&quot;:&quot;2025-07-02T17:38:25.951Z&quot;},{&quot;headline&quot;:&quot;Trump administration revokes Bob Vylan’s visas following Glastonbury protest&quot;,&quot;link&quot;:&quot;https://tempodeconhecer.blogs.sapo.pt/trump-administration-revokes-bob-vylans-165393&quot;,&quot;source&quot;:&quot;Reddit Music&quot;,&quot;publishedAt&quot;:&quot;2025-07-02T02:29:23.000Z&quot;,&quot;category&quot;:&quot;music&quot;,&quot;fetchedAt&quot;:&quot;2025-07-02T17:38:25.951Z&quot;},{&quot;headline&quot;:&quot;\&quot;Indie Rock Band\&quot; That's Clearly Using AI Claims That \&quot;We Never Use AI\&quot;&quot;,&quot;link&quot;:&quot;https://futurism.com/indie-rock-band-velvet-sundown-never-use-ai&quot;,&quot;source&quot;:&quot;Reddit Music&quot;,&quot;publishedAt&quot;:&quot;2025-07-01T21:45:57.000Z&quot;,&quot;category&quot;:&quot;music&quot;,&quot;fetchedAt&quot;:&quot;2025-07-02T17:38:25.951Z&quot;},{&quot;headline&quot;:&quot;Bob Vylan claim they’re being ‘targeted’ in new statement following launch of police investigation into their Glastonbury set&quot;,&quot;link&quot;:&quot;https://metro.co.uk/2025/07/01/bob-vylan-claim-targeted-new-statement-glastonbury-idf-controversy-23551285/&quot;,&quot;source&quot;:&quot;Reddit Music&quot;,&quot;publishedAt&quot;:&quot;2025-07-01T13:24:30.000Z&quot;,&quot;category&quot;:&quot;music&quot;,&quot;fetchedAt&quot;:&quot;2025-07-02T17:38:25.951Z&quot;},{&quot;headline&quot;:&quot;Tony Blair: Bono and Geldof saved millions of lives with Live Aid&quot;,&quot;link&quot;:&quot;https://www.thetimes.com/world/ireland-world/article/tony-blair-bono-and-geldof-saved-millions-of-lives-with-live-aid-r8lg8dvj6?utm_source=reddit&amp;amp;utm_campaign=ireland&amp;amp;utm_medium=story&amp;amp;utm_content=branded&quot;,&quot;source&quot;:&quot;Reddit Music&quot;,&quot;publishedAt&quot;:&quot;2025-07-02T10:51:31.000Z&quot;,&quot;category&quot;:&quot;music&quot;,&quot;fetchedAt&quot;:&quot;2025-07-02T17:38:25.951Z&quot;},{&quot;headline&quot;:&quot;50 Cent reacts as longtime nemesis Diddy ‘beats the feds’ in sex trafficking trial&quot;,&quot;link&quot;:&quot;https://www.the-independent.com/arts-entertainment/music/news/50-cent-diddy-trial-verdict-b2781274.html&quot;,&quot;source&quot;:&quot;Reddit Music&quot;,&quot;publishedAt&quot;:&quot;2025-07-02T15:13:12.000Z&quot;,&quot;category&quot;:&quot;music&quot;,&quot;fetchedAt&quot;:&quot;2025-07-02T17:38:25.951Z&quot;},{&quot;headline&quot;:&quot;P Diddy jury reaches verdict on most charges as both sides ask them to keep deliberating&quot;,&quot;link&quot;:&quot;https://www.themirror.com/entertainment/celebrity-news/breaking-p-diddy-jury-verdict-1238780&quot;,&quot;source&quot;:&quot;Reddit Music&quot;,&quot;publishedAt&quot;:&quot;2025-07-01T20:48:16.000Z&quot;,&quot;category&quot;:&quot;music&quot;,&quot;fetchedAt&quot;:&quot;2025-07-02T17:38:25.951Z&quot;},{&quot;headline&quot;:&quot;Gavin Adcock Says Beyoncé’s Cowboy Carter ‘Ain’t Country Music’&quot;,&quot;link&quot;:&quot;https://www.hollywoodreporter.com/news/music-news/beyonce-gavin-adcock-cowboy-carter-aint-country-music-1236304222/&quot;,&quot;source&quot;:&quot;Reddit Music&quot;,&quot;publishedAt&quot;:&quot;2025-07-02T16:32:03.000Z&quot;,&quot;category&quot;:&quot;music&quot;,&quot;fetchedAt&quot;:&quot;2025-07-02T17:38:25.951Z&quot;},{&quot;headline&quot;:&quot;Ted Nugent says 'pray' for Trump after being caught sneaking gun into capitol&quot;,&quot;link&quot;:&quot;https://www.the-express.com/entertainment/celebrity-news/176217/ted-nugent-pray-trump-sneaking-gun&quot;,&quot;source&quot;:&quot;Reddit Music&quot;,&quot;publishedAt&quot;:&quot;2025-07-01T14:26:44.000Z&quot;,&quot;category&quot;:&quot;music&quot;,&quot;fetchedAt&quot;:&quot;2025-07-02T17:38:25.951Z&quot;},{&quot;headline&quot;:&quot;Marvel Rivals devs confirm they’re \&quot;licensed\&quot; to turn any character from the past “85 years” of Marvel Comics into a playable hero, and they want to get weird&quot;,&quot;link&quot;:&quot;https://www.videogamer.com/news/marvel-rivals-devs-confirm-theyre-licensed-to-turn-any-character-from-the-past-85-years-of-marvel-comics-into-a-playable-hero-and-they-want-to-get-weird/&quot;,&quot;source&quot;:&quot;Reddit Gaming&quot;,&quot;publishedAt&quot;:&quot;2025-07-02T13:05:33.000Z&quot;,&quot;category&quot;:&quot;gaming&quot;,&quot;fetchedAt&quot;:&quot;2025-07-02T17:38:25.951Z&quot;},{&quot;headline&quot;:&quot;Sources: Everwild has been cancelled as Xbox layoffs hit Rare&quot;,&quot;link&quot;:&quot;https://www.videogameschronicle.com/news/sources-everwild-has-been-cancelled-as-xbox-layoffs-hit-rare/&quot;,&quot;source&quot;:&quot;Reddit Gaming&quot;,&quot;publishedAt&quot;:&quot;2025-07-02T14:04:08.000Z&quot;,&quot;category&quot;:&quot;gaming&quot;,&quot;fetchedAt&quot;:&quot;2025-07-02T17:38:25.951Z&quot;},{&quot;headline&quot;:&quot;Sony Still Does Physical Gaming Properly, Death Stranding 2 Fully Playable from Disc&quot;,&quot;link&quot;:&quot;https://www.pushsquare.com/news/2025/07/sony-still-does-physical-gaming-properly-death-stranding-2-fully-playable-from-disc&quot;,&quot;source&quot;:&quot;Reddit Gaming&quot;,&quot;publishedAt&quot;:&quot;2025-07-02T13:16:29.000Z&quot;,&quot;category&quot;:&quot;gaming&quot;,&quot;fetchedAt&quot;:&quot;2025-07-02T17:38:25.951Z&quot;},{&quot;headline&quot;:&quot;Splitgate 2 Has Lost Over 80% of Its Steam Players Less Than a Month After Launch&quot;,&quot;link&quot;:&quot;https://thegamepost.com/splitgate-2-lost-80-steam-players-launch/&quot;,&quot;source&quot;:&quot;Reddit Gaming&quot;,&quot;publishedAt&quot;:&quot;2025-07-02T16:53:03.000Z&quot;,&quot;category&quot;:&quot;gaming&quot;,&quot;fetchedAt&quot;:&quot;2025-07-02T17:38:25.951Z&quot;},{&quot;headline&quot;:&quot;[Schreier] As one illustration of just how sloppy and chaotic today's mass Xbox layoff has been, some employees at Zenimax Online Studios are now watching their Slack accounts abruptly get locked out. No message from HR, no word on whether they still have a job, just an ominous Slack deactivation&quot;,&quot;link&quot;:&quot;https://www.gamespot.com/articles/xbox-cancels-new-mmo-from-elder-scrolls-online-team-in-latest-wave-of-cuts-report/1100-6532915/#:~:text=%22As%20one%20illustration%20of%20just,Slack%20deactivation%2C%22%20Schreier%20added&quot;,&quot;source&quot;:&quot;Reddit Gaming&quot;,&quot;publishedAt&quot;:&quot;2025-07-02T16:14:51.000Z&quot;,&quot;category&quot;:&quot;gaming&quot;,&quot;fetchedAt&quot;:&quot;2025-07-02T17:38:25.951Z&quot;},{&quot;headline&quot;:&quot;Microsoft to Lay Off Thousands; Xbox Chief Says Gaming Division Cuts Will Remove ‘Layers of Management’&quot;,&quot;link&quot;:&quot;https://variety.com/2025/digital/news/microsoft-layoffs-thousands-xbox-gamning-1236446010/&quot;,&quot;source&quot;:&quot;Reddit Gaming&quot;,&quot;publishedAt&quot;:&quot;2025-07-02T13:39:42.000Z&quot;,&quot;category&quot;:&quot;gaming&quot;,&quot;fetchedAt&quot;:&quot;2025-07-02T17:38:25.951Z&quot;},{&quot;headline&quot;:&quot;Obsidian director Josh Sawyer says it's a 'mistake' for RPGs to sacrifice crunchy 'sweaty boy' systems in favour of a 'one size fits all' game, since easier difficulties aren't too hard to make&quot;,&quot;link&quot;:&quot;https://www.pcgamer.com/gaming-industry/game-development/obsidian-director-josh-sawyer-says-its-a-mistake-for-rpgs-to-sacrifice-crunchy-sweaty-boy-systems-in-favour-of-a-one-size-fits-all-game-since-easier-difficulties-arent-too-hard-to-make/&quot;,&quot;source&quot;:&quot;Reddit Gaming&quot;,&quot;publishedAt&quot;:&quot;2025-07-02T03:27:00.000Z&quot;,&quot;category&quot;:&quot;gaming&quot;,&quot;fetchedAt&quot;:&quot;2025-07-02T17:38:25.951Z&quot;},{&quot;headline&quot;:&quot;The UK branch of the Stop Killing Games petition has succeeded&quot;,&quot;link&quot;:&quot;https://i.redd.it/qsjzvufvwhaf1.jpeg&quot;,&quot;source&quot;:&quot;Reddit Gaming&quot;,&quot;publishedAt&quot;:&quot;2025-07-02T17:26:14.000Z&quot;,&quot;category&quot;:&quot;gaming&quot;,&quot;fetchedAt&quot;:&quot;2025-07-02T17:38:25.951Z&quot;},{&quot;headline&quot;:&quot;Death Stranding 1 &amp;amp; 2 are the closest games to a real journey I've played&quot;,&quot;link&quot;:&quot;https://i.redd.it/luej4ccm7haf1.jpeg&quot;,&quot;source&quot;:&quot;Reddit Gaming&quot;,&quot;publishedAt&quot;:&quot;2025-07-02T15:04:43.000Z&quot;,&quot;category&quot;:&quot;gaming&quot;,&quot;fetchedAt&quot;:&quot;2025-07-02T17:38:25.951Z&quot;},{&quot;headline&quot;:&quot;Microsoft Begins Deep Job Cuts Across Xbox Division&quot;,&quot;link&quot;:&quot;https://www.bloomberg.com/news/articles/2025-07-02/microsoft-begins-deep-job-cuts-across-xbox-division?accessToken=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzb3VyY2UiOiJTdWJzY3JpYmVyR2lmdGVkQXJ0aWNsZSIsImlhdCI6MTc1MTQ2MDUyOSwiZXhwIjoxNzUyMDY1MzI5LCJhcnRpY2xlSWQiOiJTWVJWTDFEV1JHRzAwMCIsImJjb25uZWN0SWQiOiJCMUVBQkI5NjQ2QUM0REZFQTJBRkI4MjI1MzgyQTJFQSJ9.HYeStbJNn6_ntf1rQ17kOC1dHHlVk_Zx4yCTGqcYXAA&amp;amp;leadSource=uverify%20wall&quot;,&quot;source&quot;:&quot;Reddit Gaming&quot;,&quot;publishedAt&quot;:&quot;2025-07-02T13:07:51.000Z&quot;,&quot;category&quot;:&quot;gaming&quot;,&quot;fetchedAt&quot;:&quot;2025-07-02T17:38:25.951Z&quot;},{&quot;headline&quot;:&quot;Windows Central: Microsoft is closing down Xbox studio The Initiative, with Perfect Dark killed as well — joining Everwild and ZeniMax's IP, and 'several' other projects&quot;,&quot;link&quot;:&quot;https://www.windowscentral.com/gaming/xbox/microsoft-is-closing-down-xbox-studio-the-initiative&quot;,&quot;source&quot;:&quot;Reddit Gaming&quot;,&quot;publishedAt&quot;:&quot;2025-07-02T17:04:15.000Z&quot;,&quot;category&quot;:&quot;gaming&quot;,&quot;fetchedAt&quot;:&quot;2025-07-02T17:38:25.951Z&quot;},{&quot;headline&quot;:&quot;Found my Game Boy Color with the worm light&quot;,&quot;link&quot;:&quot;https://i.redd.it/h2tw9c6w3baf1.jpeg&quot;,&quot;source&quot;:&quot;Reddit Gaming&quot;,&quot;publishedAt&quot;:&quot;2025-07-01T18:33:07.000Z&quot;,&quot;category&quot;:&quot;gaming&quot;,&quot;fetchedAt&quot;:&quot;2025-07-02T17:38:25.951Z&quot;},{&quot;headline&quot;:&quot;Nintendo Switch 2 Has Sold 5 Million Units In Its First Month Overtaking The PS4 As The Fastest Selling Console Ever&quot;,&quot;link&quot;:&quot;https://twistedvoxel.com/nintendo-switch-2-surpasses-5-million-units-sold-in-first-month-marking-historic-launch/&quot;,&quot;source&quot;:&quot;Reddit Gaming&quot;,&quot;publishedAt&quot;:&quot;2025-07-01T12:05:02.000Z&quot;,&quot;category&quot;:&quot;gaming&quot;,&quot;fetchedAt&quot;:&quot;2025-07-02T17:38:25.951Z&quot;}], // Direct from news.json
+
+// No loading states needed!
+isLoading: false,
+</code></pre>
+<p class="leading-relaxed font-display mb-4 mt-4 text-pretty text-lg text-pretty text-gray-900">The Vue app handles:</p>
+<ul class="list-disc list-inside mt-4 space-y-2 pl-6 text-pretty text-lg font-display ml-6 mb-8 text-pretty text-gray-900">
+<li class="mb-2 text-pretty text-lg font-display text-pretty text-gray-900 flex items-center">Category filtering</li>
+<li class="mb-2 text-pretty text-lg font-display text-pretty text-gray-900 flex items-center">Trending article detection</li>
+<li class="mb-2 text-pretty text-lg font-display text-pretty text-gray-900 flex items-center">Time formatting (&quot;2h ago&quot;)</li>
+<li class="mb-2 text-pretty text-lg font-display text-pretty text-gray-900 flex items-center">Credibility scores for sources</li>
+<li class="mb-2 text-pretty text-lg font-display text-pretty text-gray-900 flex items-center">Smart sorting (trending first, then by date)</li>
+</ul>
+<h3 class="leading-relaxed font-display text-pretty text-xl mb-4 mt-10 font-semibold text-pretty text-gray-700" id="automation" tabindex="-1">Automation</h3>
+<p class="leading-relaxed font-display mb-4 mt-4 text-pretty text-lg text-pretty text-gray-900">The whole thing runs automatically using GitHub Actions:</p>
+<ol class="list-decimal list-inside mt-4 space-y-2 pl-6 text-pretty text-lg font-display ml-6 mb-8 text-pretty text-gray-900">
+<li class="mb-2 text-pretty text-lg font-display text-pretty text-gray-900 flex items-center"><strong class="text-lg font-semibold text-pretty text-gray-800">Scheduled trigger</strong> runs every 3 hours</li>
+<li class="mb-2 text-pretty text-lg font-display text-pretty text-gray-900 flex items-center"><strong class="text-lg font-semibold text-pretty text-gray-800">Scraper runs</strong> and collects fresh headlines</li>
+<li class="mb-2 text-pretty text-lg font-display text-pretty text-gray-900 flex items-center"><strong class="text-lg font-semibold text-pretty text-gray-800">Eleventy builds</strong> the updated site</li>
+<li class="mb-2 text-pretty text-lg font-display text-pretty text-gray-900 flex items-center"><strong class="text-lg font-semibold text-pretty text-gray-800">Netlify deploys</strong> the new version automatically</li>
+</ol>
+<p class="leading-relaxed font-display mb-4 mt-4 text-pretty text-lg text-pretty text-gray-900">The workflow file is simple:</p>
+<pre><code class="language-yaml">- name: Run news scraper
+  run: npm run scrape
+
+- name: Build site
+  run: npm run build
+
+- name: Deploy
+  uses: netlify/actions/build@master
+</code></pre>
+<h2 class="leading-relaxed font-display text-pretty text-2xl mb-6 mt-12 font-semibold text-pretty text-gray-800" id="why-this-architecture-works" tabindex="-1">Why This Architecture Works</h2>
+<h3 class="leading-relaxed font-display text-pretty text-xl mb-4 mt-10 font-semibold text-pretty text-gray-700" id="performance" tabindex="-1">Performance</h3>
+<ul class="list-disc list-inside mt-4 space-y-2 pl-6 text-pretty text-lg font-display ml-6 mb-8 text-pretty text-gray-900">
+<li class="mb-2 text-pretty text-lg font-display text-pretty text-gray-900 flex items-center">Static files load instantly</li>
+<li class="mb-2 text-pretty text-lg font-display text-pretty text-gray-900 flex items-center">No database queries during page loads</li>
+<li class="mb-2 text-pretty text-lg font-display text-pretty text-gray-900 flex items-center">CDN can cache everything aggressively</li>
+<li class="mb-2 text-pretty text-lg font-display text-pretty text-gray-900 flex items-center">Works great on slow connections</li>
+</ul>
+<h3 class="leading-relaxed font-display text-pretty text-xl mb-4 mt-10 font-semibold text-pretty text-gray-700" id="reliability" tabindex="-1">Reliability</h3>
+<ul class="list-disc list-inside mt-4 space-y-2 pl-6 text-pretty text-lg font-display ml-6 mb-8 text-pretty text-gray-900">
+<li class="mb-2 text-pretty text-lg font-display text-pretty text-gray-900 flex items-center">If the scraper fails, the old version keeps working</li>
+<li class="mb-2 text-pretty text-lg font-display text-pretty text-gray-900 flex items-center">No moving parts during user visits</li>
+<li class="mb-2 text-pretty text-lg font-display text-pretty text-gray-900 flex items-center">Static sites rarely go down</li>
+<li class="mb-2 text-pretty text-lg font-display text-pretty text-gray-900 flex items-center">Simple systems break less often</li>
+</ul>
+<h3 class="leading-relaxed font-display text-pretty text-xl mb-4 mt-10 font-semibold text-pretty text-gray-700" id="cost" tabindex="-1">Cost</h3>
+<ul class="list-disc list-inside mt-4 space-y-2 pl-6 text-pretty text-lg font-display ml-6 mb-8 text-pretty text-gray-900">
+<li class="mb-2 text-pretty text-lg font-display text-pretty text-gray-900 flex items-center">GitHub Actions: Free for public repos</li>
+<li class="mb-2 text-pretty text-lg font-display text-pretty text-gray-900 flex items-center">Netlify hosting: Free tier handles this easily</li>
+<li class="mb-2 text-pretty text-lg font-display text-pretty text-gray-900 flex items-center">APIs: All free (Hacker News, Reddit)</li>
+<li class="mb-2 text-pretty text-lg font-display text-pretty text-gray-900 flex items-center">Total monthly cost: $0</li>
+</ul>
+<h3 class="leading-relaxed font-display text-pretty text-xl mb-4 mt-10 font-semibold text-pretty text-gray-700" id="maintenance" tabindex="-1">Maintenance</h3>
+<ul class="list-disc list-inside mt-4 space-y-2 pl-6 text-pretty text-lg font-display ml-6 mb-8 text-pretty text-gray-900">
+<li class="mb-2 text-pretty text-lg font-display text-pretty text-gray-900 flex items-center">No servers to patch or maintain</li>
+<li class="mb-2 text-pretty text-lg font-display text-pretty text-gray-900 flex items-center">No databases to backup</li>
+<li class="mb-2 text-pretty text-lg font-display text-pretty text-gray-900 flex items-center">Simple code is easy to debug</li>
+<li class="mb-2 text-pretty text-lg font-display text-pretty text-gray-900 flex items-center">Set it up once and it keeps working</li>
+</ul>
+<h2 class="leading-relaxed font-display text-pretty text-2xl mb-6 mt-12 font-semibold text-pretty text-gray-800" id="what-i-learned-building-this" tabindex="-1">What I Learned Building This</h2>
+<h3 class="leading-relaxed font-display text-pretty text-xl mb-4 mt-10 font-semibold text-pretty text-gray-700" id="start-simple%2C-stay-simple" tabindex="-1">Start Simple, Stay Simple</h3>
+<p class="leading-relaxed font-display mb-4 mt-4 text-pretty text-lg text-pretty text-gray-900">I could have built user accounts, personalization, comments, and social features. But the core value is &quot;clean headlines without distractions.&quot; Every feature I didn't add keeps it focused.</p>
+<h3 class="leading-relaxed font-display text-pretty text-xl mb-4 mt-10 font-semibold text-pretty text-gray-700" id="static-sites-are-powerful" tabindex="-1">Static Sites Are Powerful</h3>
+<p class="leading-relaxed font-display mb-4 mt-4 text-pretty text-lg text-pretty text-gray-900">Modern static site generators give you dynamic features without the complexity. Pre-generating everything means users get instant loading without sacrificing functionality.</p>
+<h3 class="leading-relaxed font-display text-pretty text-xl mb-4 mt-10 font-semibold text-pretty text-gray-700" id="free-doesn't-mean-limited" tabindex="-1">Free Doesn't Mean Limited</h3>
+<p class="leading-relaxed font-display mb-4 mt-4 text-pretty text-lg text-pretty text-gray-900">Using free services forced creative solutions that ended up being better than paid alternatives. Constraints often lead to better design.</p>
+<h3 class="leading-relaxed font-display text-pretty text-xl mb-4 mt-10 font-semibold text-pretty text-gray-700" id="performance-is-a-feature" tabindex="-1">Performance Is a Feature</h3>
+<p class="leading-relaxed font-display mb-4 mt-4 text-pretty text-lg text-pretty text-gray-900">A site that loads in under a second feels magical compared to bloated news websites. Users absolutely notice the difference.</p>
+<h3 class="leading-relaxed font-display text-pretty text-xl mb-4 mt-10 font-semibold text-pretty text-gray-700" id="automation-saves-time" tabindex="-1">Automation Saves Time</h3>
+<p class="leading-relaxed font-display mb-4 mt-4 text-pretty text-lg text-pretty text-gray-900">Setting up proper automation meant I could build it once and forget about it. The site updates itself without any manual work.</p>
+<h2 class="leading-relaxed font-display text-pretty text-2xl mb-6 mt-12 font-semibold text-pretty text-gray-800" id="the-results" tabindex="-1">The Results</h2>
+<p class="leading-relaxed font-display mb-4 mt-4 text-pretty text-lg text-pretty text-gray-900">Just the Headlines does exactly what I wanted:</p>
+<ul class="list-disc list-inside mt-4 space-y-2 pl-6 text-pretty text-lg font-display ml-6 mb-8 text-pretty text-gray-900">
+<li class="mb-2 text-pretty text-lg font-display text-pretty text-gray-900 flex items-center">Loads in under a second</li>
+<li class="mb-2 text-pretty text-lg font-display text-pretty text-gray-900 flex items-center">Shows ~225 fresh headlines across 14 categories</li>
+<li class="mb-2 text-pretty text-lg font-display text-pretty text-gray-900 flex items-center">No ads or distractions</li>
+<li class="mb-2 text-pretty text-lg font-display text-pretty text-gray-900 flex items-center">Works perfectly on phones and desktops</li>
+<li class="mb-2 text-pretty text-lg font-display text-pretty text-gray-900 flex items-center">Updates automatically throughout the day</li>
+<li class="mb-2 text-pretty text-lg font-display text-pretty text-gray-900 flex items-center">Costs nothing to run</li>
+</ul>
+<p class="leading-relaxed font-display mb-4 mt-4 text-pretty text-lg text-pretty text-gray-900">More importantly, it changed how I consume news. Instead of getting sucked into endless scrolling, I can quickly scan headlines, click on what interests me, and move on with my day.</p>
+<h2 class="leading-relaxed font-display text-pretty text-2xl mb-6 mt-12 font-semibold text-pretty text-gray-800" id="try-it-yourself" tabindex="-1">Try It Yourself</h2>
+<p class="leading-relaxed font-display mb-4 mt-4 text-pretty text-lg text-pretty text-gray-900">You can check out Just the Headlines at <a href="https://coffeeandfun.com/headlines" class="text-lg text-pretty text-blue-500 hover:text-blue-700 underline">coffeeandfun.com/headlines</a>.</p>
+<p class="leading-relaxed font-display mb-4 mt-4 text-pretty text-lg text-pretty text-gray-900">The code concepts are all standard web technologies - Node.js for data collection, static site generation, and basic automation. The key insight is that sometimes the best solution to information overload is just presenting less information, but presenting it really well.</p>
+<p class="leading-relaxed font-display mb-4 mt-4 text-pretty text-lg text-pretty text-gray-900">If you want to build something similar:</p>
+<ol class="list-decimal list-inside mt-4 space-y-2 pl-6 text-pretty text-lg font-display ml-6 mb-8 text-pretty text-gray-900">
+<li class="mb-2 text-pretty text-lg font-display text-pretty text-gray-900 flex items-center">Start with a simple Node.js scraper for your data sources</li>
+<li class="mb-2 text-pretty text-lg font-display text-pretty text-gray-900 flex items-center">Use a static site generator (Eleventy, Next.js, Gatsby, etc.)</li>
+<li class="mb-2 text-pretty text-lg font-display text-pretty text-gray-900 flex items-center">Set up automation with GitHub Actions</li>
+<li class="mb-2 text-pretty text-lg font-display text-pretty text-gray-900 flex items-center">Deploy to a free hosting service</li>
+<li class="mb-2 text-pretty text-lg font-display text-pretty text-gray-900 flex items-center">Focus on making it fast and simple</li>
+</ol>
+<p class="leading-relaxed font-display mb-4 mt-4 text-pretty text-lg text-pretty text-gray-900">The whole thing can be built in a weekend and will keep working for years with minimal maintenance.</p>
+
+                </div>
+              </article>
+            </div>
+      
+
+          </main>
+
+	</main>
+
+
+	<dialog
+  id="my_modal_contact"
+  class="modal"
+  role="dialog"
+  aria-labelledby="supporters-title"
+>
+  <div class="modal-box">
+    <form method="dialog">
+      <button
+        class="btn btn-circle btn-ghost absolute right-2 top-2"
+        aria-label="Close"
+      >
+        ✕
+      </button>
+    </form>
+
+    <div>
+      <h2 id="supporters-title" class="text-2xl mb-4 font-bold">
+        List of Supporters
+      </h2>
+      <p class="text-base mb-2">
+        A huge thank you to all the users who have donated.
+      </p>
+
+      <ul class="grid grid-cols-1 gap-4 sm:grid-cols-3 mb-6 mt-6">
+        <li>Boulo</li>
+        <li>Roger Nowlan</li>
+        <li>이광현</li>
+        <li>Arturo Jimenez</li>
+        <li>OH JUNHO</li>
+      </ul>
+
+      <a
+        class="btn btn-primary btn-block w-full mt-4"
+        href="https://payments.coffeeandfun.com/b/00gbKHdise1e8Le6oZ"
+        target="_blank"
+      >
+        Donate to Coffee & Fun LLC
+      </a>
+    </div>
+  </div>
+</dialog>
+
+<dialog id="my_modal_supports" class="modal" title="Support Form" role="dialog">
+  <div class="modal-box">
+    <form method="dialog">
+      <button
+        class="btn btn-circle btn-ghost absolute right-2 top-2"
+        aria-label="Close"
+      >
+        ✕
+      </button>
+    </form>
+
+    <iframe
+      src="https://docs.google.com/forms/d/e/1FAIpQLSeOBpyxmu3enhScTOuJtYAx2jNK2wr9scFKtbQrj0AjqJfdEQ/viewform?embedded=true"
+      width="100%"
+      height="500"
+      frameborder="0"
+      title="Supporters Form"
+      >Loading…</iframe
+    >
+  </div>
+</dialog>
+
+<dialog id="my_modal_rank" class="modal" title="TriviaFlix" role="dialog">
+  <div class="modal-box">
+    <form method="dialog">
+      <button
+        class="btn btn-circle btn-ghost absolute right-2 top-2"
+        aria-label="Close"
+      >
+        ✕
+      </button>
+    </form>
+
+    <h2 class="text-lg font-bold">About Mystery Rank</h2>
+
+    <div class="mb-12 mt-4">
+      <p class="py-4 text-pretty text-base">
+        In Mystery Rank, you contribute to earn a spot in different categories.
+        The more you give, the higher your rank. But here’s the catch—no one
+        knows how much anyone else has paid. It’s this mystery that makes the
+        competition even more exciting.
+      </p>
+    </div>
+
+    <h2 class="text-lg font-bold mb-8">Terms and Refunds for Mystery Rank</h2>
+
+    <div class="mb-4 mt-4">
+      <h3 class="text-lg font-semibold mb-2">One-Time Contribution</h3>
+
+      <p class="py-4 text-pretty text-base">
+        When you contribute to Mystery Rank, it’s a one-time payment that
+        secures your spot in the credits. Please keep in mind that once the
+        payment is made, it’s final—there are no refunds or changes. We want to
+        keep the process fair and transparent for everyone involved.
+      </p>
+    </div>
+
+    <div class="mb-4 mt-4">
+      <h3 class="text-lg font-semibold mb-2">How Your Rank is Determined</h3>
+
+      <p class="py-4 text-pretty text-base">
+        Your rank within your chosen category is based on how much you
+        contribute. The more you contribute, the higher your rank will be.
+        However, the amount you’ve paid, and what others have paid, will remain
+        private. This adds a layer of mystery and excitement to the competition.
+      </p>
+    </div>
+
+    <div class="mb-4 mt-4">
+      <h3 class="text-lg font-semibold mb-2">When Your Credit Appears</h3>
+
+      <p class="py-4 text-pretty text-base">
+        After your payment is confirmed, your credit will be posted within 12
+        hours. We work hard to ensure that everyone’s contributions are
+        recognized promptly. If for some reason there’s a delay, we’ll do our
+        best to keep you informed.
+      </p>
+    </div>
+
+    <div class="mb-4 mt-4">
+      <h3 class="text-lg font-semibold mb-2">Handling Chargebacks</h3>
+
+      <p class="py-4 text-pretty text-base">
+        If a chargeback occurs, your credit will be immediately removed from the
+        list, and unfortunately, you’ll be blocked from participating in Mystery
+        Rank in the future. We do this to protect the integrity of the rankings
+        and ensure fairness for all contributors.
+      </p>
+    </div>
+
+    <div class="mb-4 mt-4">
+      <h3 class="text-lg font-semibold mb-2">Updating Your Listing or Link</h3>
+
+      <p class="py-4 text-pretty text-base">
+        We understand that sometimes things change. If you need to update your
+        listing or link after it’s been posted, just send us an email at
+        <a
+          href="mailto:hello@coffeeandfun.com?subject=Inquiry%20about%20Mystery%20Rank%20Credits&body=Hi%20there,%0D%0A%0D%0AI%20have%20a%20question%20about%20Mystery%20Rank%20Credits.%0D%0A%0D%0AThank%20you!"
+          class="link link-hover link-primary"
+          >hello@coffeeandfun.com</a
+        >
+        . We’re happy to make one-time updates to ensure your information is
+        correct.
+      </p>
+    </div>
+
+    <div class="mb-4 mt-4">
+      <h3 class="text-lg font-semibold mb-2">Need Help or Have Questions?</h3>
+
+      <p class="py-4 text-pretty text-base">
+        If you have any questions about the process, or if something isn’t
+        clear, please don’t hesitate to reach out. We’re here to help and want
+        to make sure your experience with Mystery Rank is as smooth and
+        enjoyable as possible.
+      </p>
+    </div>
+  </div>
+</dialog>
+
+<dialog id="my_modal_69" class="modal" title="TriviaFlix" role="dialog">
+  <div class="modal-box">
+    <form method="dialog">
+      <button
+        class="btn btn-circle btn-ghost absolute right-2 top-2"
+        aria-label="Close"
+      >
+        ✕
+      </button>
+    </form>
+
+    <h2 class="text-lg font-bold">Keyboard Shortcuts</h2>
+
+    <div class="mb-4 mt-4">
+      <h3 class="pb-2 text-pretty text-base font-bold">Show Answer</h3>
+
+      <kbd class="kbd kbd-sm">▲</kbd>
+    </div>
+
+    <div class="mb-4">
+      <h3 class="pb-2 text-pretty text-base font-bold">Hide Answer</h3>
+
+      <kbd class="kbd kbd-sm">▼</kbd>
+    </div>
+
+    <div class="mb-4">
+      <h3 class="pb-2 text-pretty text-base font-bold">Next Question</h3>
+
+      <kbd class="kbd kbd-sm">▶︎</kbd>
+    </div>
+
+    <div class="mb-4">
+      <h3 class="pb-2 text-pretty text-base font-bold">Previous Question</h3>
+
+      <kbd class="kbd kbd-sm">◀︎</kbd>
+    </div>
+  </div>
+</dialog>
+
+<dialog id="my_modal_site_menu" class="modal" title="Menu" role="dialog">
+  <div class="modal-box">
+    <form method="dialog">
+      <button
+        class="btn btn-circle btn-ghost absolute right-2 top-2"
+        aria-label="Close"
+      >
+        <span class="sr-only">Close the modal popup</span>
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          viewBox="0 -960 960 960"
+          fill="currentColor"
+          aria-hidden="true"
+          class="h-6 w-6"
+        >
+          <path
+            d="m256-200-56-56 224-224-224-224 56-56 224 224 224-224 56 56-224 224 224 224-56 56-224-224-224 224Z"
+          ></path>
+        </svg>
+      </button>
+    </form>
+    <div class="w-full items-start mt-12">
+      <h2 class="text-2xl mb-4 font-bold">Coffee & Fun</h2>
+      <div class="divider mb-2"></div>
+      <ul class="grid grid-cols-2 gap-4 mb-8">
+        <li class="text-left">
+          <a
+            href="/#apps"
+            rel="noopener noreferrer"
+            title="Visit Coffee & Fun Apps"
+            class="btn btn-neutral btn-outline btn-block font-semibold mt-2 gap-2"
+          >
+            <span>Apps</span>
+          </a>
+        </li>
+
+        <li class="text-left">
+          <a
+            href="/blog/"
+            rel="noopener noreferrer"
+            title="Visit Coffee & Fun Blog"
+            class="btn btn-neutral btn-outline btn-block font-semibold mt-2 gap-2"
+          >
+            <span>Blog</span>
+          </a>
+        </li>
+
+        <li class="text-left">
+          <a
+            href="https://sharing.clickup.com/36059453/b/12ce9x-577/board"
+            target="_blank"
+            rel="noopener noreferrer"
+            title="Visit Coffee & Fun Roadmap"
+            class="btn btn-neutral btn-outline btn-block font-semibold mt-2 gap-2"
+          >
+            <span>Roadmap</span>
+          </a>
+        </li>
+
+        <li class="text-left">
+          <a
+            href="/#graveyard"
+            rel="noopener noreferrer"
+            title="Visit the Graveyard"
+            class="btn btn-neutral btn-outline btn-block font-semibold mt-2 gap-2"
+          >
+            <span>The Graveyard</span>
+          </a>
+        </li>
+
+        <li class="text-left">
+          <button
+            onclick="my_modal_supports.showModal()"
+            title="Contact Support"
+            class="btn btn-neutral btn-outline btn-block font-semibold mt-2 gap-2"
+          >
+            <span>Supports</span>
+          </button>
+        </li>
+
+        <li class="text-left">
+          <button
+            onclick="my_modal_contact.showModal()"
+            title="Contact Support"
+            class="btn btn-neutral btn-outline btn-block font-semibold mt-2 gap-2"
+          >
+            <span>Contact Us</span>
+          </button>
+        </li>
+      </ul>
+
+      <h2 class="text-2xl mt-24 font-bold mb-4">Apps</h2>
+      <div class="divider mb-2"></div>
+
+      <ul class="grid grid-cols-2 gap-4">
+        
+        <li class="text-left mb-4">
+          <a
+            href="/meta-videos/"
+            target="_blank"
+            rel="noopener noreferrer"
+            title="Visit Coffee & Fun Apps"
+            class="btn btn-neutral btn-outline btn-block font-semibold mt-2 gap-2"
+          >
+            <span>Remove Video EXIF Data </span>
+          </a>
+        </li>
+        
+        <li class="text-left mb-4">
+          <a
+            href="/meta-images/"
+            target="_blank"
+            rel="noopener noreferrer"
+            title="Visit Coffee & Fun Apps"
+            class="btn btn-neutral btn-outline btn-block font-semibold mt-2 gap-2"
+          >
+            <span>Image Metadata Viewer & Editor</span>
+          </a>
+        </li>
+        
+        <li class="text-left mb-4">
+          <a
+            href="/emoji/"
+            target="_blank"
+            rel="noopener noreferrer"
+            title="Visit Coffee & Fun Apps"
+            class="btn btn-neutral btn-outline btn-block font-semibold mt-2 gap-2"
+          >
+            <span>🔍 Emoji Search & Copy</span>
+          </a>
+        </li>
+        
+        <li class="text-left mb-4">
+          <a
+            href="/headlines/"
+            target="_blank"
+            rel="noopener noreferrer"
+            title="Visit Coffee & Fun Apps"
+            class="btn btn-neutral btn-outline btn-block font-semibold mt-2 gap-2"
+          >
+            <span>Just the Headlines</span>
+          </a>
+        </li>
+        
+        <li class="text-left mb-4">
+          <a
+            href="/tactical-tiles/"
+            target="_blank"
+            rel="noopener noreferrer"
+            title="Visit Coffee & Fun Apps"
+            class="btn btn-neutral btn-outline btn-block font-semibold mt-2 gap-2"
+          >
+            <span>Tactical Tiles</span>
+          </a>
+        </li>
+        
+        <li class="text-left mb-4">
+          <a
+            href="https://apps.apple.com/us/app/procrastinot-website-blocker/id6569216739?platform=ipad"
+            target="_blank"
+            rel="noopener noreferrer"
+            title="Visit Coffee & Fun Apps"
+            class="btn btn-neutral btn-outline btn-block font-semibold mt-2 gap-2"
+          >
+            <span>ProcrastiNOT </span>
+          </a>
+        </li>
+        
+        <li class="text-left mb-4">
+          <a
+            href="https://chromewebstore.google.com/detail/hide-spoilers-block-blur/dglgbepdhdpfihbiklibdcecpadcdcln"
+            target="_blank"
+            rel="noopener noreferrer"
+            title="Visit Coffee & Fun Apps"
+            class="btn btn-neutral btn-outline btn-block font-semibold mt-2 gap-2"
+          >
+            <span>Hide Spoilers</span>
+          </a>
+        </li>
+        
+        <li class="text-left mb-4">
+          <a
+            href="https://apps.apple.com/us/app/confetti-cannon-for-safari/id6670409741?mt=12"
+            target="_blank"
+            rel="noopener noreferrer"
+            title="Visit Coffee & Fun Apps"
+            class="btn btn-neutral btn-outline btn-block font-semibold mt-2 gap-2"
+          >
+            <span>Confetti Cannon</span>
+          </a>
+        </li>
+        
+        <li class="text-left mb-4">
+          <a
+            href="https://apps.apple.com/us/app/markdown-editor-for-safari/id6578456621"
+            target="_blank"
+            rel="noopener noreferrer"
+            title="Visit Coffee & Fun Apps"
+            class="btn btn-neutral btn-outline btn-block font-semibold mt-2 gap-2"
+          >
+            <span>Markdown Editor</span>
+          </a>
+        </li>
+        
+        <li class="text-left mb-4">
+          <a
+            href="https://apps.apple.com/us/app/daily-bible-verse/id6744124711"
+            target="_blank"
+            rel="noopener noreferrer"
+            title="Visit Coffee & Fun Apps"
+            class="btn btn-neutral btn-outline btn-block font-semibold mt-2 gap-2"
+          >
+            <span>Daily Bible Verse+</span>
+          </a>
+        </li>
+        
+        <li class="text-left mb-4">
+          <a
+            href="https://www.incognitomode.app"
+            target="_blank"
+            rel="noopener noreferrer"
+            title="Visit Coffee & Fun Apps"
+            class="btn btn-neutral btn-outline btn-block font-semibold mt-2 gap-2"
+          >
+            <span>Incognito Bear</span>
+          </a>
+        </li>
+        
+        <li class="text-left mb-4">
+          <a
+            href="https://apps.apple.com/us/app/simple-screenshot-pro/id6451333294"
+            target="_blank"
+            rel="noopener noreferrer"
+            title="Visit Coffee & Fun Apps"
+            class="btn btn-neutral btn-outline btn-block font-semibold mt-2 gap-2"
+          >
+            <span>Simple Screenshot Pro</span>
+          </a>
+        </li>
+        
+      </ul>
+    </div>
+  </div>
+</dialog>
+
+
+
+	<footer class="p-10 brand-color-background">
+  <div class="mx-auto max-w-7xl overflow-hidden px-6 py-20 sm:py-24 lg:px-8 justify-cente">
+<div class="mx-auto flex max-w-2xl flex-col items-center justify-center">
+  <a href="/" title="Coffee & Fun Home page" >
+    <span class="sr-only"> Visit the Coffee & Fun Homepage</span>
+  <img alt="Coffee and Fun Logo" src="/assets/images/coffee-and-fun-logo-dark.png" width="200" height="200"
+    decoding="async" data-nimg="future" loading="lazy"
+    class="h-24 w-24 flex-none fill-cyan-500 inline-block fill-current" />
+    </a>
+  <p class="  mb-4 mt-4">
+    <span class="font-bold text-pretty text-lg">
+    Coffee & Fun LLC
+    </span>
+
+  
+</p>
+
+
+  <span class="text-base font-normal">Crafting Software, One Brew at a Time</span>
+
+</div>
+
+    <div class="mt-16  justify-center grid grid-flow-col gap-4">
+    
+    <a href="https://www.twitter.com/bycoffeeandfun" target="_blank" rel="noopener noreferrer"
+    class="text-black hover:text-blue-400" title="Follow Coffee & Fun on Twitter">
+    <span class="sr-only">Follow us on Twitter</span>
+    <svg class="h-7 w-7" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+      <path
+        d="M8.29 20.251c7.547 0 11.675-6.253 11.675-11.675 0-.178 0-.355-.012-.53A8.348 8.348 0 0022 5.92a8.19 8.19 0 01-2.357.646 4.118 4.118 0 001.804-2.27 8.224 8.224 0 01-2.605.996 4.107 4.107 0 00-6.993 3.743 11.65 11.65 0 01-8.457-4.287 4.106 4.106 0 001.27 5.477A4.072 4.072 0 012.8 9.713v.052a4.105 4.105 0 003.292 4.022 4.095 4.095 0 01-1.853.07 4.108 4.108 0 003.834 2.85A8.233 8.233 0 012 18.407a11.616 11.616 0 006.29 1.84">
+      </path>
+    </svg>
+  </a>
+  <a href="https://www.instagram.com/coffeeandfunllc" target="_blank" rel="noopener noreferrer"
+  class="text-black hover:text-pink-400" title="Follow Coffee & Fun on Instagram">
+  <svg aria-hidden="true" role="img" fill="currentColor" viewBox="0 0 24 24" class="h-7 w-7"><title>Instagram</title><desc>Visit Helperbird's official Instagram page</desc><path clip-rule="evenodd" d="M12.315 2c2.43 0 2.784.013 3.808.06 1.064.049 1.791.218 2.427.465a4.902 4.902 0 011.772 1.153 4.902 4.902 0 011.153 1.772c.247.636.416 1.363.465 2.427.048 1.067.06 1.407.06 4.123v.08c0 2.643-.012 2.987-.06 4.043-.049 1.064-.218 1.791-.465 2.427a4.902 4.902 0 01-1.153 1.772 4.902 4.902 0 01-1.772 1.153c-.636.247-1.363.416-2.427.465-1.067.048-1.407.06-4.123.06h-.08c-2.643 0-2.987-.012-4.043-.06-1.064-.049-1.791-.218-2.427-.465a4.902 4.902 0 01-1.772-1.153 4.902 4.902 0 01-1.153-1.772c-.247-.636-.416-1.363-.465-2.427-.047-1.024-.06-1.379-.06-3.808v-.63c0-2.43.013-2.784.06-3.808.049-1.064.218-1.791.465-2.427a4.902 4.902 0 011.153-1.772A4.902 4.902 0 015.45 2.525c.636-.247 1.363-.416 2.427-.465C8.901 2.013 9.256 2 11.685 2h.63zm-.081 1.802h-.468c-2.456 0-2.784.011-3.807.058-.975.045-1.504.207-1.857.344-.467.182-.8.398-1.15.748-.35.35-.566.683-.748 1.15-.137.353-.3.882-.344 1.857-.047 1.023-.058 1.351-.058 3.807v.468c0 2.456.011 2.784.058 3.807.045.975.207 1.504.344 1.857.182.466.399.8.748 1.15.35.35.683.566 1.15.748.353.137.882.3 1.857.344 1.054.048 1.37.058 4.041.058h.08c2.597 0 2.917-.01 3.96-.058.976-.045 1.505-.207 1.858-.344.466-.182.8-.398 1.15-.748.35-.35.566-.683.748-1.15.137-.353.3-.882.344-1.857.048-1.055.058-1.37.058-4.041v-.08c0-2.597-.01-2.917-.058-3.96-.045-.976-.207-1.505-.344-1.858a3.097 3.097 0 00-.748-1.15 3.098 3.098 0 00-1.15-.748c-.353-.137-.882-.3-1.857-.344-1.023-.047-1.351-.058-3.807-.058zM12 6.865a5.135 5.135 0 110 10.27 5.135 5.135 0 010-10.27zm0 1.802a3.333 3.333 0 100 6.666 3.333 3.333 0 000-6.666zm5.338-3.205a1.2 1.2 0 110 2.4 1.2 1.2 0 010-2.4z" fill-rule="evenodd"></path></svg>
+</a>
+
+
+<a href="https://discord.gg/J6EeMvSBYg" target="_blank" rel="noopener noreferrer"
+title="Joing our Discord" class="text-black hover:text-purple-700">
+<span class="sr-only">Joing our Discord</span>
+<svg class="h-7 w-7" fill="currentColor" viewBox="0 -28.5 256 256" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" preserveAspectRatio="xMidYMid">
+<g>
+  <path d="M216.856339,16.5966031 C200.285002,8.84328665 182.566144,3.2084988 164.041564,0 C161.766523,4.11318106 159.108624,9.64549908 157.276099,14.0464379 C137.583995,11.0849896 118.072967,11.0849896 98.7430163,14.0464379 C96.9108417,9.64549908 94.1925838,4.11318106 91.8971895,0 C73.3526068,3.2084988 55.6133949,8.86399117 39.0420583,16.6376612 C5.61752293,67.146514 -3.4433191,116.400813 1.08711069,164.955721 C23.2560196,181.510915 44.7403634,191.567697 65.8621325,198.148576 C71.0772151,190.971126 75.7283628,183.341335 79.7352139,175.300261 C72.104019,172.400575 64.7949724,168.822202 57.8887866,164.667963 C59.7209612,163.310589 61.5131304,161.891452 63.2445898,160.431257 C105.36741,180.133187 151.134928,180.133187 192.754523,160.431257 C194.506336,161.891452 196.298154,163.310589 198.110326,164.667963 C191.183787,168.842556 183.854737,172.420929 176.223542,175.320965 C180.230393,183.341335 184.861538,190.991831 190.096624,198.16893 C211.238746,191.588051 232.743023,181.531619 254.911949,164.955721 C260.227747,108.668201 245.831087,59.8662432 216.856339,16.5966031 Z M85.4738752,135.09489 C72.8290281,135.09489 62.4592217,123.290155 62.4592217,108.914901 C62.4592217,94.5396472 72.607595,82.7145587 85.4738752,82.7145587 C98.3405064,82.7145587 108.709962,94.5189427 108.488529,108.914901 C108.508531,123.290155 98.3405064,135.09489 85.4738752,135.09489 Z M170.525237,135.09489 C157.88039,135.09489 147.510584,123.290155 147.510584,108.914901 C147.510584,94.5396472 157.658606,82.7145587 170.525237,82.7145587 C183.391518,82.7145587 193.761324,94.5189427 193.539891,108.914901 C193.539891,123.290155 183.391518,135.09489 170.525237,135.09489 Z" fill="currentColor" fill-rule="nonzero">
+
+</path>
+</g>
+</svg>
+</a>
+
+  <a href="https://www.github.com/coffee-and-fun" target="_blank" rel="noopener noreferrer"
+    title="Follow Coffee & Fun on Github" class="text-black hover:text-gray-700">
+    <span class="sr-only">Follow us on GitHub</span>
+    <svg class="h-7 w-7" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+      <path fill-rule="evenodd"
+        d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z"
+        clip-rule="evenodd"></path>
+    </svg>
+  </a>
+
+
+
+
+  <a href="https://www.youtube.com/bycoffeeandfun" target="_blank" rel="noopener noreferrer"
+    title="Follow Coffee & Fun on Youtube" class="text-black hover:text-red-600">
+    <span class="sr-only">Follow us on Youtube</span>
+    <svg class="h-7 w-7" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+      <path fill-rule="evenodd"
+        d="M19.812 5.418c.861.23 1.538.907 1.768 1.768C21.998 8.746 22 12 22 12s0 3.255-.418 4.814a2.504 2.504 0 0 1-1.768 1.768c-1.56.419-7.814.419-7.814.419s-6.255 0-7.814-.419a2.505 2.505 0 0 1-1.768-1.768C2 15.255 2 12 2 12s0-3.255.417-4.814a2.507 2.507 0 0 1 1.768-1.768C5.744 5 11.998 5 11.998 5s6.255 0 7.814.418ZM15.194 12 10 15V9l5.194 3Z"
+        clip-rule="evenodd"></path>
+    </svg>
+  </a>
+
+
+    </div>
+    <p class="mt-10 text-pretty text-center text-pretty text-md text-pretty text-black"> &copy; 2025 <b>Coffee & Fun LLC</b>. All rights reserved.</p>
+  </div>
+</footer>
+
+
+
+
+
+
+
+
+
+
+
+<script type="text/javascript">
+  window.addEventListener('load', function() {
+      window.$crisp=[];
+      window.CRISP_WEBSITE_ID="e5727c25-afa3-4d32-9eef-bb1b4ed4ffeb";
+      (function(){
+          var d=document;
+          var s=d.createElement("script");
+          s.src="https://client.crisp.chat/l.js";
+          s.async=1;
+          d.getElementsByTagName("head")[0].appendChild(s);
+      })();
+  });
+</script>
+
+
+<style>
+
+pre {
+    color: #abb2bf;
+    background: #282c34;
+    overflow: auto;
+    padding: 2rem;
+      border-radius: 1.0rem;
+}
+</style>
+
+</body>
+
+</html>
