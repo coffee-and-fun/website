@@ -2,201 +2,303 @@
 <html class="brand-color-background scroll-smooth antialiased" lang="en" data-theme="light">
 
 <head>
-	<meta charset="utf-8" />
-	<meta name="viewport" content="width=device-width, initial-scale=1" />
-	<title>{{ title }} - Coffee & Fun LLC</title>
-	<meta name="description"
-		content="{{ description }}" />
-	<meta name="author" content="Coffee & Fun LLC" />
-	<meta name="robots" content="index, follow" />
-	<meta name="rating" content="safe for kids" />
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  
+  <!-- Primary Meta Tags -->
+  <title>{{ title }} - Coffee & Fun LLC</title>
+  <meta name="description" content="{{ description }}" />
+  <meta name="author" content="Coffee & Fun LLC" />
+  <meta name="keywords" content="{{ keywords }}" />
+  <meta name="robots" content="index, follow" />
+  <meta name="rating" content="safe for kids" />
 
-	<link rel="icon" href="https://www.coffeeandfun.com/assets/images/favicon.png" />
+  <!-- Favicon -->
+  <link rel="icon" href="https://www.coffeeandfun.com/assets/images/favicon.png" />
 
-	<meta name="title" content="{{ title }} - Coffee & Fun LLC" />
-    <meta name="keywords" content="{{ keywords }}" />
+  <!-- PWA Manifest -->
+  <link rel="manifest" href="/assets/images/social/site.webmanifest" />
 
-    <!-- PWA Manifest -->
-<!-- PWA Manifest -->
-<link rel="manifest" href="/assets/images/social/site.webmanifest" />
+  <!-- Theme & Mobile Meta -->
+  <meta name="theme-color" content="#fef5ec" />
+  <meta name="mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="default" />
 
-<!-- Theme & Mobile Meta -->
-<meta name="theme-color" content="#fef5ec" />
-<meta name="mobile-web-app-capable" content="yes" />
-<meta name="apple-mobile-web-app-capable" content="yes" />
-<meta name="apple-mobile-web-app-status-bar-style" content="default" />
+  <!-- Icons -->
+  <link rel="apple-touch-icon" href="/assets/images/social/192.png" />
+  <link rel="icon" href="/assets/images/social/192.png" sizes="192x192" type="image/png" />
 
-<!-- Icons -->
-<link rel="apple-touch-icon" href="/assets/images/social/192.png" />
-<link rel="icon" href="/assets/images/social/192.png" sizes="192x192" type="image/png" />
-<!-- PWA Meta Tags -->
-<meta name="apple-mobile-web-app-capable" content="yes" />
-<meta name="apple-mobile-web-app-status-bar-style" content="black" />
-<meta name="mobile-web-app-capable" content="yes" />
+  <!-- Open Graph Meta Tags -->
+  <meta property="og:title" content="{{ title }} - Coffee & Fun LLC" />
+  <meta property="og:site_name" content="Coffee & Fun LLC" />
+  <meta property="og:url" content="https://www.coffeeandfun.com/{{ page.url | safe }}" />
+  <meta property="og:description" content="{{ description }}" />
+  <meta property="og:type" content="article" />
+  <meta property="og:image" content="https://www.coffeeandfun.com{{img}}" />
+  <meta property="article:author" content="Coffee & Fun LLC" />
+  <meta property="article:published_time" content="{{date | date: '%Y-%m-%d' }}" />
 
+  <!-- Twitter Meta Tags -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:site" content="@bycoffeeandfun" />
+  <meta name="twitter:title" content="{{ title }} - Coffee & Fun LLC" />
+  <meta name="twitter:description" content="{{ description }}" />
+  <meta name="twitter:image" content="https://www.coffeeandfun.com{{img}}" />
+  <meta name="twitter:image:alt" content="{{ title }} - Coffee & Fun LLC" />
 
-<!-- Theme & Mobile Meta -->
-<meta name="theme-color" content="#fef5ec" />
-<meta name="mobile-web-app-capable" content="yes" />
-<meta name="apple-mobile-web-app-capable" content="yes" />
-<meta name="apple-mobile-web-app-status-bar-style" content="default" />
+  <!-- Structured Data -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "BlogPosting",
+    "headline": "{{ title }}",
+    "description": "{{ description }}",
+    "image": "https://www.coffeeandfun.com{{img}}",
+    "author": {
+      "@type": "Organization",
+      "name": "Coffee & Fun LLC"
+    },
+    "publisher": {
+      "@type": "Organization",
+      "name": "Coffee & Fun LLC",
+      "logo": {
+        "@type": "ImageObject",
+        "url": "https://www.coffeeandfun.com/assets/images/coffee-and-fun-logo-dark.png"
+      }
+    },
+    "datePublished": "{{date | date: '%Y-%m-%d' }}",
+    "dateModified": "{{date | date: '%Y-%m-%d' }}",
+    "mainEntityOfPage": {
+      "@type": "WebPage",
+      "@id": "https://www.coffeeandfun.com{{ page.url | safe }}"
+    }
+  }
+  </script>
 
-<!-- Icons -->
-<link rel="apple-touch-icon" href="/assets/images/social/192.png" />
-<link rel="icon" href="/assets/images/social/192.png" sizes="192x192" type="image/png" />
-<!-- PWA Meta Tags -->
-<meta name="apple-mobile-web-app-capable" content="yes" />
-<meta name="apple-mobile-web-app-status-bar-style" content="black" />
-<meta name="mobile-web-app-capable" content="yes" />
+  {% bundledCss %}
 
-	<!-- Open Graph Meta Tags -->
-	<meta property="og:title" content="{{ title }} - Coffee & Fun LLC" />
-	<meta property="og:site_name" content="Coffee & Fun LLC" />
-	<meta property="og:url" content="https://www.coffeeandfun.com/{{ page.url | safe }}" />
-	<meta property="og:description"
-		content="{{ description }}" />
-	<meta property="og:type" content="website" />
-	<meta property="og:image" content="https://www.coffeeandfun.com{{img}}" />
-
-	<!-- Twitter Meta Tags -->
-	<meta property="twitter:domain" content="coffeeandfun.com" />
-	<meta property="twitter:url" content="https://www.coffeeandfun.com{{ page.url | safe }}" />
-	<meta name="twitter:card" content="summary_large_image" />
-	<meta name="twitter:title" content="{{ title }} - Coffee & Fun LLC" />
-	<meta name="twitter:site" content="@bycoffeeandfun" />
-
-	<meta name="twitter:description"
-		content="{{ description }}" />
-	<meta name="twitter:image" content="https://www.coffeeandfun.com{{img}}" />
-	<meta name="twitter:image:alt" content=" Coffee & Fun LLC" />
-
-	<script type="application/ld+json">
-			{
-				"@context": "http://schema.org/",
-				"@type": "WebSite",
-				"url": "https://www.coffeeandfun.com",
-				"potentialAction": {
-					"@type": "SearchAction",
-					"target": "{search_term_string}",
-					"query-input": "required name=search_term_string"
-				}
-			}
-		</script>
-
-    	{% bundledCss %}
-
-
-      <script>
-        if ('serviceWorker' in navigator) {
-          navigator.serviceWorker.getRegistrations().then((registrations) => {
-          for (const registration of registrations) {
-            registration.unregister().then(() => {
+  <!-- Service Worker -->
+  <script>
+    if ('serviceWorker' in navigator) {
+      navigator.serviceWorker.getRegistrations().then((registrations) => {
+        for (const registration of registrations) {
+          registration.unregister().then(() => {
             console.log('🧹 Old service worker unregistered');
-            });
-          }
-        
-          // After clearing, register the new one
-          navigator.serviceWorker.register('/service-worker.js')
-            .then(() => console.log('✅ New service worker registered'))
-            .catch((err) => console.log('Service worker error:', err));
           });
         }
-        </script>
+        
+        // Register new service worker
+        navigator.serviceWorker.register('/service-worker.js')
+          .then(() => console.log('✅ New service worker registered'))
+          .catch((err) => console.log('Service worker error:', err));
+      });
+    }
+  </script>
 
-
-	{% include scripts.html %}
+  {% include scripts.html %}
 </head>
 
 <body>
+  {% assign showFun = true %}
+  {% assign showMiddleBadge = true %}
+  {% include header.liquid %}
 
-	{% assign showFun = true %}
-	{% assign showMiddleBadge = true %}
-	{% include header.liquid %}
+  <main id="main-content" class="mx-auto max-w-7xl">
+    <div class="mx-auto max-w-4xl pt-8 pb-12 sm:pt-12 sm:pb-16 lg:pt-16 lg:pb-20 px-4 sm:px-6 lg:px-8">
+      
+      <!-- Back Navigation -->
+      <nav aria-label="Blog navigation" class="mb-6 sm:mb-8">
+        <a
+          href="/blog/"
+          class="inline-flex items-center gap-2 px-4 py-2 text-sm font-medium text-gray-700 bg-white rounded-lg border border-gray-300 hover:bg-gray-50 hover:text-gray-900 hover:scale-105 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary transition-all duration-200 touch-manipulation shadow-sm"
+          aria-label="Go back to all blog articles"
+        >
+          <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" class="h-4 w-4" aria-hidden="true">
+            <path d="M7.25 11.25 3.75 8m0 0 3.5-3.25M3.75 8h8.5" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+          </svg>
+          <span class="hidden sm:inline">Back to Blog</span>
+          <span class="sm:hidden">Back</span>
+        </a>
+      </nav>
 
-
-	<main id="main-content" class="mx-auto max-w-7xl">
-        <main class="mx-auto max-w-7xl pt-12 pb-12 px-6" id="content">
-            <div class="mx-auto max-w-3xl">
-              <article aria-labelledby="article-title">
-                <header class="flex flex-col">
-                  <div class="flex gap-4">
-                    <a
-                      href="/blog/"
-                      type="button"
-                      aria-label="Go back to articles"
-                      class="btn btn-circle btn-sm btn-secondary focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
-                    >
-                      <svg
-                        viewBox="0 0 16 16"
-                        fill="none"
-                        aria-hidden="true"
-                        stroke="currentColor"
-                        class="h-6 w-6"
-                      >
-                        <path
-                          d="M7.25 11.25 3.75 8m0 0 3.5-3.25M3.75 8h8.5"
-                          stroke-width="1.5"
-                          stroke-linecap="round"
-                          stroke-linejoin="round"
-                        ></path>
-                      </svg>
-                    </a>
-                  </div>
-                  <h1 id="article-title" class="mt-6 text-pretty text-2xl font-bold tracking-tight text-pretty text-black sm:text-4xl">
-                    {{ cardTitle }}
-                  </h1>
-                  <div class="divider"></div>
-      
-                  <div class="flex">
-                    <div class="flex-1 gap-4">
-                      <div class="badge badge-neutral">{{name}}</div>
-                    
-                      <time datetime="{{date | formatDateWithOrdinal }}" class="items-center text-pretty text-base">
-                        <span class="badge badge-neutral">{{date | formatDateWithOrdinal }}</span>
-                      </time>
-                    </div>
-                    <div class="flex-1">
-                      <span class="badge badge-neutral ">{{time}}</span>
-                    </div>
-                  </div>
-                </header>
-      
-                <div class="mt-10">
-                  <img
-                    src="{{img}}"
-                    alt="{{title}}"
-                    class="rounded-3xl mb-10"
-                    title="{{title}}"
-                  />
-      
-                  {{ content | safe }}
-                </div>
-              </article>
+      <!-- Article Content -->
+      <article aria-labelledby="article-title" class="prose prose-lg sm:prose-xl max-w-none">
+        
+        <!-- Article Header -->
+        <header class="not-prose mb-8 sm:mb-12">
+          <!-- Title -->
+          <h1 id="article-title" class="text-2xl sm:text-3xl lg:text-4xl xl:text-5xl font-bold tracking-tight text-gray-900 mb-6 sm:mb-8 leading-tight">
+            {{ cardTitle }}
+          </h1>
+          
+          <!-- Meta Information -->
+          <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 py-4 border-t border-b border-gray-200">
+            <!-- Left side: Author and Date -->
+            <div class="flex flex-wrap items-center gap-2 sm:gap-3">
+              <span class="inline-flex items-center px-3 py-1 rounded-full text-xs font-medium bg-primary/10 text-primary border border-primary/20">
+                📝 {{name}}
+              </span>
+              <time 
+                datetime="{{date | formatDateWithOrdinal }}" 
+                class="inline-flex items-center px-3 py-1 rounded-full text-xs font-medium bg-gray-100 text-gray-700 border border-gray-200"
+              >
+                📅 {{date | formatDateWithOrdinal }}
+              </time>
             </div>
-      
+            
+            <!-- Right side: Reading Time -->
+            <div class="flex items-center">
+              <span class="inline-flex items-center px-3 py-1 rounded-full text-xs font-medium bg-secondary/10 text-secondary border border-secondary/20">
+                ⏱️ {{time}}
+              </span>
+            </div>
+          </div>
 
-          </main>
+          <!-- Featured Image -->
+          <div class="mt-8 sm:mt-12">
+            <img
+              src="{{img}}"
+              alt="{{title}}"
+              class="w-full h-64 sm:h-80 lg:h-96 object-cover rounded-xl shadow-lg"
+              title="{{title}}"
+              loading="lazy"
+            />
+          </div>
+        </header>
 
-	</main>
+        <!-- Article Content -->
+        <div class="article-content mt-8 sm:mt-12">
+          {{ content | safe }}
+        </div>
 
+        <!-- Article Footer -->
+        <footer class="not-prose mt-12 sm:mt-16 pt-8 border-t border-gray-200">
+          <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
+            <!-- Share Section -->
+            <div class="flex items-center gap-3">
+              <span class="text-sm font-medium text-gray-700">Share this article:</span>
+              <div class="flex gap-2">
+                <a 
+                  href="https://twitter.com/intent/tweet?text={{ title | url_encode }}&url=https://www.coffeeandfun.com{{ page.url | safe }}"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  class="p-2 text-gray-400 hover:text-blue-500 hover:bg-blue-50 rounded-lg transition-colors duration-200"
+                  aria-label="Share on Twitter"
+                >
+                  <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                    <path d="M8.29 20.251c7.547 0 11.675-6.253 11.675-11.675 0-.178 0-.355-.012-.53A8.348 8.348 0 0022 5.92a8.19 8.19 0 01-2.357.646 4.118 4.118 0 001.804-2.27 8.224 8.224 0 01-2.605.996 4.107 4.107 0 00-6.993 3.743 11.65 11.65 0 01-8.457-4.287 4.106 4.106 0 001.27 5.477A4.072 4.072 0 012.8 9.713v.052a4.105 4.105 0 003.292 4.022 4.095 4.095 0 01-1.853.07 4.108 4.108 0 003.834 2.85A8.233 8.233 0 012 18.407a11.616 11.616 0 006.29 1.84"/>
+                  </svg>
+                </a>
+              </div>
+            </div>
+            
+            <!-- Back to Blog -->
+            <a 
+              href="/blog/"
+              class="text-sm font-medium text-primary hover:text-primary-focus transition-colors duration-200"
+            >
+              ← More articles
+            </a>
+          </div>
+        </footer>
+      </article>
+    </div>
+  </main>
 
-	{% include modals.liquid %}
+  {% include modals.liquid %}
+  {% include footer.liquid %}
 
+  <style>
+    /* Enhanced Code Block Styling */
+    pre {
+      color: #abb2bf;
+      background: #282c34;
+      overflow-x: auto;
+      padding: 1.5rem;
+      border-radius: 0.75rem;
+      margin: 1.5rem 0;
+      font-size: 0.875rem;
+      line-height: 1.5;
+      box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+    }
 
-	{% include  footer.liquid %}
+    @media (min-width: 640px) {
+      pre {
+        padding: 2rem;
+        font-size: 0.9rem;
+      }
+    }
 
+    /* Article Content Styling */
+    .article-content {
+      font-size: 1rem;
+      line-height: 1.75;
+    }
 
-<style>
+    @media (min-width: 640px) {
+      .article-content {
+        font-size: 1.125rem;
+        line-height: 1.8;
+      }
+    }
 
-pre {
-    color: #abb2bf;
-    background: #282c34;
-    overflow: auto;
-    padding: 2rem;
-      border-radius: 1.0rem;
-}
-</style>
+    .article-content h2 {
+      margin-top: 2rem;
+      margin-bottom: 1rem;
+      font-size: 1.5rem;
+      font-weight: 600;
+      color: #1f2937;
+    }
 
+    @media (min-width: 640px) {
+      .article-content h2 {
+        margin-top: 2.5rem;
+        font-size: 1.75rem;
+      }
+    }
+
+    .article-content h3 {
+      margin-top: 1.5rem;
+      margin-bottom: 0.75rem;
+      font-size: 1.25rem;
+      font-weight: 600;
+      color: #374151;
+    }
+
+    @media (min-width: 640px) {
+      .article-content h3 {
+        font-size: 1.375rem;
+      }
+    }
+
+    .article-content p {
+      margin-bottom: 1.25rem;
+    }
+
+    .article-content img {
+      margin: 2rem 0;
+      border-radius: 0.75rem;
+      box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+    }
+
+    .article-content blockquote {
+      border-left: 4px solid #3b82f6;
+      padding-left: 1rem;
+      margin: 1.5rem 0;
+      font-style: italic;
+      color: #6b7280;
+    }
+
+    .article-content ul, .article-content ol {
+      margin-bottom: 1.25rem;
+      padding-left: 1.5rem;
+    }
+
+    .article-content li {
+      margin-bottom: 0.5rem;
+    }
+  </style>
 </body>
 
 </html>
