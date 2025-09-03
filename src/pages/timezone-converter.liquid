@@ -1,0 +1,442 @@
+<!DOCTYPE html>
+<html class="scroll-smooth antialiased" lang="en" data-theme="nord">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    
+    <title>Time Zone Converter - What Time Is It There? | Coffee & Fun LLC</title>
+    
+    <meta name="description" content="Simple and intuitive time zone converter. Find out what time it is anywhere in the world. Perfect for scheduling meetings, calls, and travel planning." />
+    <meta name="keywords" content="time zone converter, world clock, time difference calculator, timezone, international time" />
+    <meta name="author" content="Coffee & Fun LLC" />
+    
+    <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large" />
+    
+    <!-- Canonical URL -->
+    <link rel="canonical" href="https://www.coffeeandfun.com/timezone-converter" />
+    
+    <!-- Favicon -->
+    <link rel="icon" href="/assets/images/favicon.png" sizes="any" />
+    
+    <!-- Open Graph -->
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="Coffee & Fun" />
+    <meta property="og:title" content="Time Zone Converter - What Time Is It There?" />
+    <meta property="og:description" content="Simple time zone converter to find out what time it is anywhere in the world." />
+    <meta property="og:url" content="https://www.coffeeandfun.com/timezone-converter" />
+    
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:site" content="@bycoffeeandfun" />
+    <meta name="twitter:title" content="Time Zone Converter" />
+    <meta name="twitter:description" content="Find out what time it is anywhere in the world." />
+    
+    <!-- PWA and Mobile Enhancement -->
+    <meta name="theme-color" content="#8B4513" />
+    <meta name="mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- DaisyUI -->
+    <link href="https://cdn.jsdelivr.net/npm/daisyui@4.4.24/dist/full.min.css" rel="stylesheet" type="text/css" />
+    
+    <!-- Vue 3 -->
+    <script src="https://unpkg.com/vue@3"></script>
+    
+    <!-- Luxon for timezone handling -->
+    <script src="https://cdn.jsdelivr.net/npm/luxon@3.4.4/build/global/luxon.min.js"></script>
+    
+    <style>
+        [v-cloak] { display: none; }
+        
+        .fade-in {
+            animation: fadeIn 0.5s ease-in;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .clock-display {
+            font-variant-numeric: tabular-nums;
+            font-feature-settings: "tnum";
+        }
+        
+        .time-card {
+            transition: all 0.3s ease;
+        }
+        
+        .time-card:hover {
+            transform: translateY(-2px);
+        }
+        
+        .pulse-animate {
+            animation: pulse 2s infinite;
+        }
+        
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.7; }
+        }
+        
+        .zone-select {
+            max-height: 300px;
+            overflow-y: auto;
+        }
+    </style>
+</head>
+<body class="bg-base-100 min-h-screen">
+    <div v-cloak id="app" class="container mx-auto max-w-6xl p-6">
+        <!-- Header -->
+        <header class="text-center mb-12">
+            <h1 class="text-4xl font-bold text-base-content mb-2">🌍 Time Zone Converter</h1>
+            <p class="text-base-content/70">Find out what time it is anywhere in the world</p>
+        </header>
+
+        <!-- Quick Info -->
+        <div class="alert alert-info mb-8 alert-soft">
+            <div>
+                <h3 class="font-bold">🕐 Current Local Time</h3>
+                <p class="clock-display text-2xl font-mono">               {% raw %}  {{ currentTime }} {% endraw %}</p>
+                <p class="text-sm opacity-70">              {% raw %}   {{ userTimezone }} {% endraw %}</p>
+            </div>
+        </div>
+
+        <!-- Main Converter Section -->
+        <div class="grid lg:grid-cols-2 gap-8 mb-8">
+            <!-- From Time -->
+            <div class="card bg-base-200 shadow-lg">
+                <div class="card-body">
+                    <h2 class="card-title text-xl mb-4">📍 Your Location</h2>
+                    
+                    <div class="space-y-4">
+                        <div>
+                            <label class="label">
+                                <span class="label-text">Select Your Time Zone</span>
+                            </label>
+                            <select 
+                                v-model="fromZone" 
+                                class="select select-bordered w-full"
+                            >
+                                <optgroup label="Common Time Zones">
+                                    <option v-for="zone in commonZones" :key="zone.value" :value="zone.value">
+                                                {% raw %}       {{ zone.label }}{% endraw %}
+                                    </option>
+                                </optgroup>
+                                <optgroup label="All Time Zones">
+                                    <option v-for="zone in allZones" :key="zone" :value="zone">
+                                    {% raw %}    {{ formatZoneName(zone) }} {% endraw %}
+                                    </option>
+                                </optgroup>
+                            </select>
+                        </div>
+                        
+                        <div>
+                            <label class="label">
+                                <span class="label-text">Date & Time</span>
+                            </label>
+                            <div class="flex gap-2">
+                                <input 
+                                    type="date" 
+                                    v-model="selectedDate" 
+                                    class="input input-bordered flex-1"
+                                />
+                                <input 
+                                    type="time" 
+                                    v-model="selectedTime" 
+                                    class="input input-bordered flex-1"
+                                />
+                            </div>
+                        </div>
+                        
+                        <button 
+                            @click="setCurrentDateTime" 
+                            class="btn btn-soft btn-sm btn-outline"
+                        >
+                            ⏰ Use Current Time
+                        </button>
+                        
+                        <!-- Display selected time -->
+                        <div class="p-4 bg-base-100 rounded-lg text-center">
+                            <p class="text-sm text-base-content/60">Your Selected Time</p>
+                            <p class="text-2xl font-bold clock-display">{{ formattedFromTime }}</p>
+                            <p class="text-sm text-base-content/60">{{ fromZoneDisplay }}</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- To Time -->
+            <div class="card bg-base-200 shadow-lg">
+                <div class="card-body">
+                    <h2 class="card-title text-xl mb-4">🌐 Target Location</h2>
+                    
+                    <div class="space-y-4">
+                        <div>
+                            <label class="label">
+                                <span class="label-text">Select Target Time Zone</span>
+                            </label>
+                            <select 
+                                v-model="toZone" 
+                                class="select select-bordered w-full"
+                            >
+                                <optgroup label="Common Time Zones">
+                                    <option v-for="zone in commonZones" :key="zone.value" :value="zone.value">
+                                        {% raw %}         {{ zone.label }} {% endraw %}
+                                    </option>
+                                </optgroup>
+                                <optgroup label="All Time Zones">
+                                    <option v-for="zone in allZones" :key="zone" :value="zone">
+                                    {% raw %}        {{ formatZoneName(zone) }} {% endraw %}
+                                    </option>
+                                </optgroup>
+                            </select>
+                        </div>
+                        
+                        <!-- Display converted time -->
+                        <div class="p-4 bg-primary/10 rounded-lg text-center time-card">
+                            <p class="text-sm text-base-content/60">Time at Target Location</p>
+                                    <p class="text-3xl font-bold clock-display text-primary"> {% raw %}{{ formattedToTime }} {% endraw %}</p>
+                            <p class="text-sm text-base-content/60">{% raw %}{{ toZoneDisplay }} {% endraw %}</p>
+                            <div class="divider"></div>
+                            <p class="text-lg font-semibold"> {% raw %} {{ timeDifference }} {% endraw %}</p>
+                            <p class="text-sm text-base-content/60"> {% raw %} {{ dayDifference }} {% endraw %}</p>
+                        </div>
+                        
+                        <!-- Quick swap button -->
+                      
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Quick Access Cities -->
+        <div class="card bg-base-200 shadow-lg mb-8">
+            <div class="card-body">
+                <h3 class="card-title mb-4">🏙️ Popular Cities - Quick Access</h3>
+                
+                <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-2">
+                    <button 
+                        v-for="city in popularCities" 
+                        :key="city.zone"
+                        @click="setToZone(city.zone)"
+                        class="btn btn-soft btn-sm btn-outline"
+                    >
+                     {% raw %}   {{ city.emoji }} {{ city.name }} {% endraw %}
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- World Clock -->
+        <div class="card bg-base-200 shadow-lg mb-8">
+            <div class="card-body">
+                <h3 class="card-title mb-4">🌐 World Clock</h3>
+                
+                <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-4">
+                    <div 
+                        v-for="clock in worldClocks" 
+                        :key="clock.zone"
+                        class="p-4 bg-base-100 rounded-lg text-center time-card"
+                    >
+                    {% raw %}
+                        <p class="font-semibold">{{ clock.emoji }} {{ clock.city }}</p>
+                        <p class="text-xl font-mono clock-display">{{ getTimeForZone(clock.zone) }}</p>
+                        <p class="text-sm text-base-content/60">{{ getDateForZone(clock.zone) }}</p>
+                    {% endraw %}
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Tips Section -->
+        <div class="card bg-base-200 shadow-lg">
+            <div class="card-body">
+                <h3 class="card-title mb-4">💡 Time Zone Tips</h3>
+                
+                <div class="grid md:grid-cols-2 gap-6">
+                    <div>
+                        <h4 class="font-bold mb-2">Scheduling Meetings</h4>
+                        <ul class="text-sm text-base-content/70 space-y-1">
+                            <li>• Check business hours (9 AM - 5 PM) in both zones</li>
+                            <li>• Consider lunch breaks (12 PM - 1 PM)</li>
+                            <li>• Be aware of Monday/Friday overlaps</li>
+                            <li>• Account for daylight saving changes</li>
+                        </ul>
+                    </div>
+                    
+                    <div>
+                        <h4 class="font-bold mb-2">Common Abbreviations</h4>
+                        <ul class="text-sm text-base-content/70 space-y-1">
+                            <li>• EST/EDT: Eastern (US)</li>
+                            <li>• PST/PDT: Pacific (US)</li>
+                            <li>• GMT/BST: UK Time</li>
+                            <li>• CET/CEST: Central European</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Footer -->
+        <footer class="text-center mt-16 text-base-content/50 text-sm">
+            <p>Time Zone Converter • Always know what time it is</p>
+            <p>Built by Coffee & Fun LLC</p>
+        </footer>
+    </div>
+
+    <script>
+        const { createApp } = Vue;
+        const { DateTime } = luxon;
+        
+        createApp({
+            data() {
+                return {
+                    fromZone: 'America/New_York',
+                    toZone: 'Europe/London',
+                    selectedDate: '',
+                    selectedTime: '',
+                    currentTimeInterval: null,
+                    currentTime: '',
+                    commonZones: [
+                        { value: 'America/New_York', label: '🇺🇸 New York (Eastern Time)' },
+                        { value: 'America/Chicago', label: '🇺🇸 Chicago (Central Time)' },
+                        { value: 'America/Denver', label: '🇺🇸 Denver (Mountain Time)' },
+                        { value: 'America/Los_Angeles', label: '🇺🇸 Los Angeles (Pacific Time)' },
+                        { value: 'Europe/London', label: '🇬🇧 London (GMT/BST)' },
+                        { value: 'Europe/Paris', label: '🇫🇷 Paris (CET/CEST)' },
+                        { value: 'Asia/Tokyo', label: '🇯🇵 Tokyo (JST)' },
+                        { value: 'Asia/Shanghai', label: '🇨🇳 Shanghai (CST)' },
+                        { value: 'Asia/Kolkata', label: '🇮🇳 India (IST)' },
+                        { value: 'Australia/Sydney', label: '🇦🇺 Sydney (AEDT/AEST)' },
+                        { value: 'Asia/Dubai', label: '🇦🇪 Dubai (GST)' },
+                        { value: 'America/Sao_Paulo', label: '🇧🇷 São Paulo (BRT)' }
+                    ],
+                    popularCities: [
+                        { name: 'NYC', zone: 'America/New_York', emoji: '🗽' },
+                        { name: 'LA', zone: 'America/Los_Angeles', emoji: '🌴' },
+                        { name: 'London', zone: 'Europe/London', emoji: '🇬🇧' },
+                        { name: 'Paris', zone: 'Europe/Paris', emoji: '🗼' },
+                        { name: 'Tokyo', zone: 'Asia/Tokyo', emoji: '🗾' },
+                        { name: 'Dubai', zone: 'Asia/Dubai', emoji: '🏙️' },
+                        { name: 'Sydney', zone: 'Australia/Sydney', emoji: '🦘' },
+                        { name: 'Singapore', zone: 'Asia/Singapore', emoji: '🇸🇬' }
+                    ],
+                    worldClocks: [
+                        { city: 'New York', zone: 'America/New_York', emoji: '🇺🇸' },
+                        { city: 'London', zone: 'Europe/London', emoji: '🇬🇧' },
+                        { city: 'Tokyo', zone: 'Asia/Tokyo', emoji: '🇯🇵' },
+                        { city: 'Sydney', zone: 'Australia/Sydney', emoji: '🇦🇺' },
+                        { city: 'Dubai', zone: 'Asia/Dubai', emoji: '🇦🇪' },
+                        { city: 'Mumbai', zone: 'Asia/Kolkata', emoji: '🇮🇳' }
+                    ]
+                };
+            },
+            computed: {
+                allZones() {
+                    return Intl.supportedValuesOf('timeZone');
+                },
+                userTimezone() {
+                    return Intl.DateTimeFormat().resolvedOptions().timeZone;
+                },
+                fromDateTime() {
+                    if (this.selectedDate && this.selectedTime) {
+                        return DateTime.fromISO(`${this.selectedDate}T${this.selectedTime}`, {
+                            zone: this.fromZone
+                        });
+                    }
+                    return DateTime.now().setZone(this.fromZone);
+                },
+                toDateTime() {
+                    return this.fromDateTime.setZone(this.toZone);
+                },
+                formattedFromTime() {
+                    return this.fromDateTime.toFormat('h:mm a, EEE, MMM d, yyyy');
+                },
+                formattedToTime() {
+                    return this.toDateTime.toFormat('h:mm a, EEE, MMM d, yyyy');
+                },
+                fromZoneDisplay() {
+                    const offset = this.fromDateTime.toFormat('ZZ');
+                    return `${this.formatZoneName(this.fromZone)} (UTC${offset})`;
+                },
+                toZoneDisplay() {
+                    const offset = this.toDateTime.toFormat('ZZ');
+                    return `${this.formatZoneName(this.toZone)} (UTC${offset})`;
+                },
+                timeDifference() {
+                    const fromOffset = this.fromDateTime.offset;
+                    const toOffset = this.toDateTime.offset;
+                    const diff = (toOffset - fromOffset) / 60;
+                    
+                    if (diff === 0) {
+                        return 'Same time';
+                    } else if (diff > 0) {
+                        return `${Math.abs(diff)} hours ahead`;
+                    } else {
+                        return `${Math.abs(diff)} hours behind`;
+                    }
+                },
+                dayDifference() {
+                    const fromDay = this.fromDateTime.toFormat('yyyy-MM-dd');
+                    const toDay = this.toDateTime.toFormat('yyyy-MM-dd');
+                    
+                    if (fromDay === toDay) {
+                        return 'Same day';
+                    } else if (toDay > fromDay) {
+                        return 'Next day';
+                    } else {
+                        return 'Previous day';
+                    }
+                }
+            },
+            mounted() {
+                this.setCurrentDateTime();
+                this.detectUserTimezone();
+                this.startClock();
+            },
+            beforeUnmount() {
+                if (this.currentTimeInterval) {
+                    clearInterval(this.currentTimeInterval);
+                }
+            },
+            methods: {
+                formatZoneName(zone) {
+                    return zone.replace(/_/g, ' ').replace(/\//g, ' / ');
+                },
+                setCurrentDateTime() {
+                    const now = DateTime.now();
+                    this.selectedDate = now.toFormat('yyyy-MM-dd');
+                    this.selectedTime = now.toFormat('HH:mm');
+                },
+                detectUserTimezone() {
+                    this.fromZone = this.userTimezone;
+                },
+                swapZones() {
+                    [this.fromZone, this.toZone] = [this.toZone, this.fromZone];
+                },
+                setToZone(zone) {
+                    this.toZone = zone;
+                },
+                getTimeForZone(zone) {
+                    return DateTime.now().setZone(zone).toFormat('h:mm a');
+                },
+                getDateForZone(zone) {
+                    return DateTime.now().setZone(zone).toFormat('EEE, MMM d');
+                },
+                startClock() {
+                    const updateClock = () => {
+                        this.currentTime = DateTime.now().toFormat('h:mm:ss a, EEEE, MMMM d, yyyy');
+                    };
+                    
+                    updateClock();
+                    this.currentTimeInterval = setInterval(updateClock, 1000);
+                }
+            }
+        }).mount('#app');
+    </script>
+</body>
+</html>
