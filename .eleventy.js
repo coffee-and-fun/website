@@ -1,6 +1,5 @@
 // .eleventy.js (ESM style for Eleventy v3)
 
-
 import htmlmin from 'html-minifier';
 import svgContents from 'eleventy-plugin-svg-contents';
 //import pluginPWA from './tools/eleventy-plugin-pwa';
