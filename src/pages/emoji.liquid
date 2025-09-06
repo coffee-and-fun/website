@@ -1,120 +1,321 @@
 <!DOCTYPE html>
 <html class="scroll-smooth antialiased" lang="en" data-theme="valentine">
-
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
+  
+  <!-- Primary Meta Tags -->
   <title>Emoji Search & Copy - Find Any Emoji Fast | Coffee & Fun</title>
+  <meta name="title" content="Emoji Search & Copy - Find Any Emoji Fast | Coffee & Fun" />
   <meta name="description" content="Search, discover, and copy emojis instantly. Clean, fast emoji finder with categories, search, and one-click copy. Find the perfect emoji for any message or post." />
   <meta name="keywords" content="emoji, emoji search, copy emoji, emoji finder, emoticons, unicode, symbols, emoji copy paste, emoji tool, Coffee and Fun" />
   <meta name="author" content="Coffee & Fun LLC" />
   <meta name="publisher" content="Coffee & Fun LLC" />
-  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
-<meta name="apple-mobile-web-app-capable" content="yes" />
+  
+  <!-- Open Graph / Facebook -->
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://www.coffeeandfun.com/emoji" />
+  <meta property="og:title" content="Emoji Search & Copy - Find Any Emoji Fast" />
+  <meta property="og:description" content="Search and copy emojis instantly! Browse by category or search to find the perfect emoji for your message." />
+  <meta property="og:image" content="https://www.coffeeandfun.com/assets/images/emoji-og.jpg" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta property="og:site_name" content="Coffee & Fun" />
+  <meta property="og:locale" content="en_US" />
+  
+  <!-- Twitter -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:url" content="https://www.coffeeandfun.com/emoji" />
+  <meta name="twitter:title" content="Emoji Search & Copy - Find Any Emoji Fast" />
+  <meta name="twitter:description" content="Search and copy emojis instantly! Browse by category or search to find the perfect emoji." />
+  <meta name="twitter:image" content="https://www.coffeeandfun.com/assets/images/emoji-og.jpg" />
+  <meta name="twitter:site" content="@bycoffeeandfun" />
+  <meta name="twitter:creator" content="@bycoffeeandfun" />
+  
+  <!-- PWA & Mobile -->
+  <meta name="mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="default" />
+  <meta name="apple-mobile-web-app-title" content="Emoji Search" />
+  <meta name="theme-color" content="#f471b5" />
+  
+  <!-- Search Engine -->
   <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1" />
   <link rel="canonical" href="https://www.coffeeandfun.com/emoji" />
+  
+  <!-- Favicon -->
   <link rel="icon" href="/assets/images/favicon.png" sizes="any" />
+  <link rel="apple-touch-icon" href="/assets/images/apple-touch-icon.png" />
+  
+  <!-- Structured Data -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebApplication",
+    "name": "Emoji Search & Copy",
+    "description": "Search, discover, and copy emojis instantly with this fast emoji finder tool.",
+    "url": "https://www.coffeeandfun.com/emoji",
+    "applicationCategory": "UtilityApplication",
+    "operatingSystem": "Any",
+    "offers": {
+      "@type": "Offer",
+      "price": "0",
+      "priceCurrency": "USD"
+    },
+    "creator": {
+      "@type": "Organization",
+      "name": "Coffee & Fun LLC",
+      "url": "https://www.coffeeandfun.com"
+    }
+  }
+  </script>
+  
+  <!-- External Resources -->
   <script src="https://cdn.tailwindcss.com"></script>
   <link href="https://cdn.jsdelivr.net/npm/daisyui@4.4.24/dist/full.min.css" rel="stylesheet" />
   <script src="https://unpkg.com/vue@3"></script>
+  
   <style>
     [v-cloak] { display: none; }
-    .fade-in { animation: fadeIn 0.5s ease-in; }
-    @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
-    .emoji-card { transition: all 0.2s ease; user-select: none; }
-    .emoji-card:hover { transform: scale(1.05); box-shadow: 0 8px 25px rgba(0,0,0,0.15); position: relative; }
-    .emoji-char { font-size: 2rem; line-height: 1; cursor: pointer; }
-    .copy-feedback { animation: copyPulse 0.6s ease-out; }
-    @keyframes copyPulse { 0% { transform: scale(1); } 50% { transform: scale(1.2); background-color: rgb(34, 197, 94); } 100% { transform: scale(1); } }
-    .search-highlight { background-color: rgba(250, 204, 21, 0.3); padding: 0 2px; border-radius: 2px; }
+    
+    .fade-in { 
+      animation: fadeIn 0.3s ease-out;
+      animation-fill-mode: both;
+    }
+    
+    @keyframes fadeIn { 
+      from { 
+        opacity: 0; 
+        transform: translateY(10px); 
+      } 
+      to { 
+        opacity: 1; 
+        transform: translateY(0); 
+      } 
+    }
+    
+    .emoji-card { 
+      transition: all 0.2s ease; 
+      user-select: none;
+      -webkit-tap-highlight-color: transparent;
+    }
+    
+    .emoji-card:hover { 
+      transform: scale(1.1); 
+      box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+      z-index: 10;
+    }
+    
+    .emoji-card:active {
+      transform: scale(0.95);
+    }
+    
+    .emoji-char { 
+      font-size: 2rem; 
+      line-height: 1; 
+      cursor: pointer;
+      font-family: "Apple Color Emoji", "Segoe UI Emoji", "Noto Color Emoji", sans-serif;
+    }
+    
+    .copy-feedback { 
+      animation: copyPulse 0.6s ease-out; 
+    }
+    
+    @keyframes copyPulse { 
+      0% { transform: scale(1) translateY(0); } 
+      50% { transform: scale(1.1) translateY(-5px); } 
+      100% { transform: scale(1) translateY(0); } 
+    }
+    
+    .search-highlight { 
+      background: linear-gradient(120deg, rgba(250, 204, 21, 0.3) 0%, rgba(250, 204, 21, 0.1) 100%);
+      padding: 0 4px; 
+      border-radius: 4px; 
+    }
+    
+    /* Improved scrollbar */
+    ::-webkit-scrollbar {
+      width: 8px;
+      height: 8px;
+    }
+    
+    ::-webkit-scrollbar-track {
+      background: rgba(0,0,0,0.05);
+      border-radius: 4px;
+    }
+    
+    ::-webkit-scrollbar-thumb {
+      background: rgba(0,0,0,0.2);
+      border-radius: 4px;
+    }
+    
+    ::-webkit-scrollbar-thumb:hover {
+      background: rgba(0,0,0,0.3);
+    }
+    
+    /* Loading skeleton */
+    .skeleton-pulse {
+      animation: skeleton 1.5s ease-in-out infinite;
+    }
+    
+    @keyframes skeleton {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.4; }
+    }
+    
+    /* Smooth scroll behavior */
+    html {
+      scroll-behavior: smooth;
+    }
+    
+    /* Category pills */
+    .category-pill {
+      transition: all 0.2s ease;
+    }
+    
+    .category-pill:hover {
+      transform: translateY(-2px);
+    }
   </style>
 </head>
 <body class="bg-base-100 min-h-screen">
-  <div v-cloak id="app" class="container mx-auto max-w-6xl p-6">
-    <header class="text-center mb-12">
-      <h1 class="text-4xl font-bold mb-2">🔍 Emoji Search & Copy</h1>
+  <div v-cloak id="app" class="container mx-auto max-w-7xl p-4 sm:p-6">
+    <!-- Header -->
+    <header class="text-center mb-8 sm:mb-12">
+      <h1 class="text-3xl sm:text-4xl font-bold mb-3 bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent">
+        🔍 Emoji Search & Copy
+      </h1>
       <p class="text-base-content/70">Find and copy any emoji in seconds</p>
+      <div class="mt-4 flex justify-center gap-2 text-sm">
+        <span class="badge badge-primary">{% raw %}{{ allEmojis.length }}{% endraw %} emojis</span>
+        <span class="badge badge-secondary">Instant copy</span>
+        <span class="badge badge-accent">No signup</span>
+      </div>
     </header>
 
+    <!-- Search Bar -->
     <div class="mb-8">
       <div class="max-w-2xl mx-auto">
-        <div class="form-control">
-          <div class="input-group">
-            <input
-              type="text"
-              placeholder="Search emojis by name, category, or description..."
-              class="input input-bordered w-full input-lg"
-              v-model="searchQuery"
-              @input="debouncedSearch"
-              autofocus
-            />
-          
+        <div class="form-control relative">
+          <input
+            type="text"
+            placeholder="Search emojis by name, category, or keyword..."
+            class="input input-bordered input-primary w-full input-lg pr-24 shadow-sm"
+            v-model="searchQuery"
+            @input="debouncedSearch"
+            @keydown.escape="clearSearch"
+            ref="searchInput"
+            autofocus
+          />
+          <div class="absolute right-2 top-1/2 transform -translate-y-1/2 flex gap-2">
+            <button
+              v-if="searchQuery"
+              @click="clearSearch"
+              class="btn btn-ghost btn-sm btn-circle"
+              title="Clear search"
+            >
+              ✕
+            </button>
+            <kbd class="kbd kbd-sm">ESC</kbd>
           </div>
         </div>
+        
+        <!-- Search Stats -->
         <div class="text-center mt-3 text-sm text-base-content/60">
-          Showing {% raw %}{{ filteredEmojis.length }}{% endraw %} of {% raw %}{{ allEmojis.length }}{% endraw %} emojis
-          <span v-if="searchQuery"> for "{% raw %}{{ searchQuery }}{% endraw %}"</span>
+          <span v-if="isSearching" class="loading loading-dots loading-sm"></span>
+          <span v-else>
+            Showing {% raw %}{{ displayedEmojis.length }}{% endraw %} of {% raw %}{{ filteredEmojis.length }}{% endraw %} emojis
+            <span v-if="searchQuery" class="font-medium"> for "{% raw %}{{ searchQuery }}{% endraw %}"</span>
+          </span>
         </div>
       </div>
     </div>
 
+    <!-- Category Filters -->
     <div class="mb-8" v-if="!searchQuery">
       <div class="flex flex-wrap justify-center gap-2 mb-6">
         <button
           v-for="category in availableGroups"
           :key="category"
           @click="selectedGroup = category"
-          class="btn btn-sm"
-          :class="selectedGroup === category ? 'btn-primary' : 'btn-outline btn-primary'"
+          class="btn btn-sm category-pill"
+          :class="selectedGroup === category ? 'btn-primary shadow-md' : 'btn-outline btn-primary'"
         >
           {% raw %}{{ getCategoryLabel(category) }}{% endraw %}
         </button>
       </div>
     </div>
 
-    <div v-if="showCopyFeedback" class="fixed top-20 left-1/2 transform -translate-x-1/2 z-50">
-      <div class="alert alert-success shadow-lg">
-        <div>
-          <span class="text-2xl">{% raw %}{{ lastCopiedEmoji }}{% endraw %}</span>
-          <span>Copied to clipboard!</span>
+    <!-- Copy Feedback Toast -->
+    <transition name="fade">
+      <div v-if="showCopyFeedback" class="fixed top-20 left-1/2 transform -translate-x-1/2 z-50">
+        <div class="alert alert-success shadow-xl copy-feedback">
+          <div class="flex items-center gap-3">
+            <span class="text-3xl">{% raw %}{{ lastCopiedEmoji }}{% endraw %}</span>
+            <div>
+              <div class="font-bold">Copied!</div>
+              <div class="text-xs">{% raw %}{{ lastCopiedName }}{% endraw %}</div>
+            </div>
+          </div>
         </div>
       </div>
-    </div>
+    </transition>
 
+    <!-- Main Emoji Grid -->
     <div class="mb-8">
-      <div v-if="filteredEmojis.length === 0" class="text-center py-16">
+      <!-- No Results State -->
+      <div v-if="!isSearching && filteredEmojis.length === 0" class="text-center py-16">
         <div class="text-6xl mb-4">😕</div>
         <h3 class="text-xl font-semibold mb-2">No emojis found</h3>
-        <p class="text-base-content/60">Try a different search term or browse by category</p>
+        <p class="text-base-content/60 mb-4">Try a different search term or browse by category</p>
+        <button @click="clearSearch" class="btn btn-primary btn-sm">Clear Search</button>
       </div>
-      <div v-else class="grid grid-cols-4 sm:grid-cols-6 md:grid-cols-8 lg:grid-cols-10 xl:grid-cols-12 gap-3">
+      
+      <!-- Loading State -->
+      <div v-else-if="isSearching" class="grid grid-cols-4 sm:grid-cols-6 md:grid-cols-8 lg:grid-cols-10 xl:grid-cols-12 gap-3">
+        <div v-for="n in 24" :key="'skeleton-' + n" class="card bg-base-200 h-20 skeleton-pulse"></div>
+      </div>
+      
+      <!-- Emoji Grid -->
+      <div v-else class="grid grid-cols-3 sm:grid-cols-6 md:grid-cols-8 lg:grid-cols-10 xl:grid-cols-12 gap-2 sm:gap-3">
         <div
-          v-for="(emoji, index) in filteredEmojis"
+          v-for="(emoji, index) in displayedEmojis"
           :key="emoji.codes"
-          class="emoji-card card bg-base-200 shadow-sm hover:shadow-md cursor-pointer tooltip fade-in"
+          class="emoji-card card bg-base-200 shadow-sm hover:shadow-lg cursor-pointer tooltip fade-in"
           @click="copyEmoji(emoji)"
-          :style="{ animationDelay: (index * 0.02) + 's' }"
-          data-tip="Click to copy"
+          :style="{ animationDelay: Math.min(index * 0.01, 0.3) + 's' }"
+          :data-tip="'Copy: ' + emoji.name"
         >
-          <div class="card-body p-3 text-center">
+          <div class="card-body p-2 sm:p-3 text-center">
             <div class="emoji-char mb-1">{% raw %}{{ emoji.char }}{% endraw %}</div>
-            <div class="text-xs text-base-content/60 leading-tight line-clamp-2">
+            <div class="text-xs text-base-content/60 leading-tight line-clamp-2 hidden sm:block">
               {% raw %}{{ emoji.name }}{% endraw %}
             </div>
           </div>
         </div>
       </div>
+      
+      <!-- Load More Button -->
+      <div v-if="!showAll && filteredEmojis.length > displayLimit" class="text-center mt-8">
+        <button @click="loadMore" class="btn btn-primary btn-wide">
+          Load More ({% raw %}{{ filteredEmojis.length - displayedEmojis.length }}{% endraw %} remaining)
+        </button>
+      </div>
     </div>
 
+    <!-- Recently Used Section -->
     <div v-if="!searchQuery && recentEmojis.length" class="mb-8">
-      <h2 class="text-xl font-bold mb-4">⏱️ Recently Used</h2>
+      <div class="flex justify-between items-center mb-4">
+        <h2 class="text-xl font-bold">⏱️ Recently Used</h2>
+        <button @click="clearRecent" class="btn btn-ghost btn-xs">Clear</button>
+      </div>
       <div class="flex flex-wrap gap-3">
         <div
           v-for="emoji in recentEmojis"
           :key="'recent-' + emoji.codes"
-          class="emoji-card card bg-gradient-to-r from-primary/10 to-secondary/10 border border-primary/20 shadow-sm cursor-pointer tooltip"
+          class="emoji-card card bg-gradient-to-br from-primary/10 to-secondary/10 border border-primary/20 shadow-sm cursor-pointer tooltip"
           @click="copyEmoji(emoji)"
-          data-tip="Click to copy"
+          :data-tip="emoji.name"
         >
           <div class="card-body p-3 text-center">
             <div class="emoji-char">{% raw %}{{ emoji.char }}{% endraw %}</div>
@@ -123,15 +324,16 @@
       </div>
     </div>
 
+    <!-- Popular/Trending Section -->
     <div v-if="!searchQuery" class="mb-8">
-      <h2 class="text-xl font-bold mb-4">🔥 Popular</h2>
-      <div class="grid grid-cols-6 sm:grid-cols-8 md:grid-cols-10 lg:grid-cols-12 xl:grid-cols-12 gap-3">
+      <h2 class="text-xl font-bold mb-4">🔥 Trending Now</h2>
+      <div class="grid grid-cols-4 sm:grid-cols-8 md:grid-cols-12 gap-3">
         <div
-          v-for="emoji in popularEmojis"
-          :key="'popular-' + emoji.codes"
-          class="emoji-card card bg-base-200 shadow-sm hover:shadow-md cursor-pointer tooltip"
+          v-for="emoji in trendingEmojis"
+          :key="'trending-' + emoji.codes"
+          class="emoji-card card bg-gradient-to-br from-accent/10 to-warning/10 shadow-sm hover:shadow-md cursor-pointer tooltip"
           @click="copyEmoji(emoji)"
-          data-tip="Click to copy"
+          :data-tip="emoji.name"
         >
           <div class="card-body p-3 text-center">
             <div class="emoji-char">{% raw %}{{ emoji.char }}{% endraw %}</div>
@@ -140,24 +342,36 @@
       </div>
     </div>
 
-
+    <!-- Footer Info -->
+    <div class="text-center py-8 border-t mt-12">
+      <p class="text-sm text-base-content/60 mb-2">
+        💡 Tip: Use keyboard shortcuts for faster navigation
+      </p>
+      <div class="flex justify-center gap-4 text-xs">
+        <kbd class="kbd kbd-sm">Ctrl+K</kbd> Focus search
+        <kbd class="kbd kbd-sm">ESC</kbd> Clear search
+      </div>
+    </div>
   </div>
-        {% include footer.liquid %}
-
+      {% include footer.liquid %}
   <script>
     const { createApp } = Vue;
+    
     createApp({
       data() {
         return {
-          allEmojis:{{  emojis | json }},
+          allEmojis: {{ emojis | json }},
           searchQuery: '',
           selectedGroup: 'all',
           showCopyFeedback: false,
           lastCopiedEmoji: '',
+          lastCopiedName: '',
           recentEmojis: [],
           searchCache: new Map(),
-          displayLimit: 200,
-          showMore: false,
+          displayLimit: 120,
+          showAll: false,
+          isSearching: false,
+          searchTimeout: null,
           groupLabels: {
             all: '🌟 All',
             'Smileys & Emotion': '😀 Smileys',
@@ -168,58 +382,260 @@
             Activities: '⚽ Activities',
             Objects: '📱 Objects',
             Symbols: '❤️ Symbols',
-            Flags: '🏁 Flags'
+            Flags: '🏁 Flags',
+            'Component': '🔧 Components'
           }
         };
       },
+      
       computed: {
         availableGroups() {
-          return ['all', ...new Set(this.allEmojis.map(e => e.group))].filter(Boolean);
+          const groups = ['all', ...new Set(this.allEmojis.map(e => e.group))].filter(Boolean);
+          return groups.sort((a, b) => {
+            if (a === 'all') return -1;
+            if (b === 'all') return 1;
+            return a.localeCompare(b);
+          });
         },
+        
         filteredEmojis() {
           const cacheKey = `${this.searchQuery}-${this.selectedGroup}`;
+          
           if (this.searchCache.has(cacheKey)) {
-            const list = this.searchCache.get(cacheKey);
-            return this.showMore ? list : list.slice(0, this.displayLimit);
+            return this.searchCache.get(cacheKey);
           }
+          
           let list = [...this.allEmojis];
-          if (this.selectedGroup !== 'all' && !this.searchQuery) list = list.filter(e => e.group === this.selectedGroup);
-          if (this.searchQuery) {
-            const q = this.searchQuery.toLowerCase().trim();
-            if (q.length < 2) list = list.filter(e => e.name.toLowerCase().startsWith(q) || e.char === this.searchQuery);
-            else {
-              const words = q.split(/\s+/);
-              list = list.filter(e => words.every(w => (`${e.name} ${e.group} ${e.subgroup}`.toLowerCase()).includes(w)));
-              list.sort((a,b) => {
-                const na=a.name.toLowerCase(),nb=b.name.toLowerCase(); if(na===q)return-1; if(nb===q)return1; if(na.startsWith(q)&&!nb.startsWith(q))return-1; if(nb.startsWith(q)&&!na.startsWith(q))return1; const ia=na.includes(q),ib=nb.includes(q); if(ia&&!ib)return-1; if(ib&&!ia)return1; return0;
-              });
-            }
+          
+          // Filter by category
+          if (this.selectedGroup !== 'all' && !this.searchQuery) {
+            list = list.filter(e => e.group === this.selectedGroup);
           }
+          
+          // Search filter
+          if (this.searchQuery) {
+            const query = this.searchQuery.toLowerCase().trim();
+            const words = query.split(/\s+/);
+            
+            list = list.filter(emoji => {
+              const searchText = `${emoji.name} ${emoji.group} ${emoji.subgroup || ''} ${emoji.keywords || ''}`.toLowerCase();
+              return words.every(word => searchText.includes(word));
+            });
+            
+            // Sort by relevance
+            list.sort((a, b) => {
+              const aName = a.name.toLowerCase();
+              const bName = b.name.toLowerCase();
+              
+              // Exact matches first
+              if (aName === query) return -1;
+              if (bName === query) return 1;
+              
+              // Starts with query
+              if (aName.startsWith(query) && !bName.startsWith(query)) return -1;
+              if (bName.startsWith(query) && !aName.startsWith(query)) return 1;
+              
+              // Contains query
+              const aContains = aName.includes(query);
+              const bContains = bName.includes(query);
+              if (aContains && !bContains) return -1;
+              if (bContains && !aContains) return 1;
+              
+              return 0;
+            });
+          }
+          
+          // Cache results
           this.searchCache.set(cacheKey, list);
-          if (this.searchCache.size>50) this.searchCache.delete(this.searchCache.keys().next().value);
-          return this.showMore ? list : list.slice(0, this.displayLimit);
+          if (this.searchCache.size > 50) {
+            const firstKey = this.searchCache.keys().next().value;
+            this.searchCache.delete(firstKey);
+          }
+          
+          return list;
         },
-        popularEmojis() {
-          const popular = ['1F602','2764','1F970','1F618','1F44D','1F525','1F4AF','1F923','1F60D'];
-          return this.allEmojis.filter(e => popular.includes(e.codes)).slice(0,12);
+        
+        displayedEmojis() {
+          return this.showAll ? this.filteredEmojis : this.filteredEmojis.slice(0, this.displayLimit);
+        },
+        
+        trendingEmojis() {
+          // Most commonly used emojis
+          const trending = [
+            '1F602', // 😂 Face with Tears of Joy
+            '2764',  // ❤️ Red Heart
+            '1F60D', // 😍 Smiling Face with Heart-Eyes
+            '1F923', // 🤣 Rolling on the Floor Laughing
+            '1F44D', // 👍 Thumbs Up
+            '1F618', // 😘 Face Blowing a Kiss
+            '1F970', // 🥰 Smiling Face with Hearts
+            '1F525', // 🔥 Fire
+            '1F4AF', // 💯 Hundred Points
+            '1F389', // 🎉 Party Popper
+            '1F440', // 👀 Eyes
+            '2728'   // ✨ Sparkles
+          ];
+          
+          return this.allEmojis.filter(e => trending.includes(e.codes)).slice(0, 12);
         }
       },
+      
       mounted() {
-        this.recentEmojis=this.loadRecentEmojis();
-        this.allEmojis.forEach(e=>e.searchText=`${e.name} ${e.group} ${e.subgroup}`.toLowerCase());
-        const p=new URLSearchParams(window.location.search);
-        if(p.get('q'))this.searchQuery=p.get('q');
+        this.loadRecentEmojis();
+        this.initializeKeyboardShortcuts();
+        
+        // Load query from URL
+        const params = new URLSearchParams(window.location.search);
+        if (params.get('q')) {
+          this.searchQuery = params.get('q');
+        }
+        
+        // Preprocess emojis for better search
+        this.allEmojis.forEach(emoji => {
+          emoji.searchText = `${emoji.name} ${emoji.group} ${emoji.subgroup || ''}`.toLowerCase();
+        });
       },
+      
       methods: {
-        getCategoryLabel(g){return this.groupLabels[g]||`📄 ${g}`;},
-        debouncedSearch(){clearTimeout(this._timer);this._timer=setTimeout(()=>{this.performSearch();this.showMore=false;this.searchCache.clear()},150);},
-        performSearch(){const u=new URL(window.location);this.searchQuery?u.searchParams.set('q',this.searchQuery):u.searchParams.delete('q');window.history.replaceState({},'',u);},
-        clearSearch(){this.searchQuery='';this.showMore=false;this.performSearch();},
-        async copyEmoji(e){try{await navigator.clipboard.writeText(e.char)}catch{this.fallbackCopyTextToClipboard(e.char);}this.lastCopiedEmoji=e.char;this.showCopyFeedback=true;setTimeout(()=>this.showCopyFeedback=false,2000);this.addToRecentEmojis(e);},
-        fallbackCopyTextToClipboard(t){const ta=document.createElement('textarea');ta.value=t;document.body.appendChild(ta);ta.focus();ta.select();document.execCommand('copy');document.body.removeChild(ta);this.lastCopiedEmoji=t;this.showCopyFeedback=true;setTimeout(()=>this.showCopyFeedback=false,2000);},
-        addToRecentEmojis(e){this.recentEmojis=this.recentEmojis.filter(x=>x.codes!==e.codes);this.recentEmojis.unshift(e);this.recentEmojis=this.recentEmojis.slice(0,10);this.saveRecentEmojis();},
-        loadRecentEmojis(){try{const s=localStorage.getItem('recentEmojis');return s?JSON.parse(s):[]}catch{return[];}},
-        saveRecentEmojis(){try{localStorage.setItem('recentEmojis',JSON.stringify(this.recentEmojis));}catch{} }
+        getCategoryLabel(group) {
+          return this.groupLabels[group] || `📁 ${group}`;
+        },
+        
+        debouncedSearch() {
+          this.isSearching = true;
+          clearTimeout(this.searchTimeout);
+          
+          this.searchTimeout = setTimeout(() => {
+            this.performSearch();
+            this.isSearching = false;
+            this.showAll = false;
+            this.searchCache.clear();
+          }, 300);
+        },
+        
+        performSearch() {
+          const url = new URL(window.location);
+          
+          if (this.searchQuery) {
+            url.searchParams.set('q', this.searchQuery);
+          } else {
+            url.searchParams.delete('q');
+          }
+          
+          window.history.replaceState({}, '', url);
+        },
+        
+        clearSearch() {
+          this.searchQuery = '';
+          this.showAll = false;
+          this.performSearch();
+          this.$refs.searchInput.focus();
+        },
+        
+        async copyEmoji(emoji) {
+          try {
+            // Try modern clipboard API first
+            if (navigator.clipboard && navigator.clipboard.writeText) {
+              await navigator.clipboard.writeText(emoji.char);
+            } else {
+              // Fallback for older browsers
+              this.fallbackCopyToClipboard(emoji.char);
+            }
+            
+            this.showCopySuccess(emoji);
+            this.addToRecent(emoji);
+            
+          } catch (err) {
+            console.error('Copy failed:', err);
+            // Use fallback method
+            this.fallbackCopyToClipboard(emoji.char);
+            this.showCopySuccess(emoji);
+            this.addToRecent(emoji);
+          }
+        },
+        
+        fallbackCopyToClipboard(text) {
+          const textarea = document.createElement('textarea');
+          textarea.value = text;
+          textarea.style.position = 'fixed';
+          textarea.style.opacity = '0';
+          document.body.appendChild(textarea);
+          textarea.focus();
+          textarea.select();
+          
+          try {
+            document.execCommand('copy');
+          } catch (err) {
+            console.error('Fallback copy failed:', err);
+          }
+          
+          document.body.removeChild(textarea);
+        },
+        
+        showCopySuccess(emoji) {
+          this.lastCopiedEmoji = emoji.char;
+          this.lastCopiedName = emoji.name;
+          this.showCopyFeedback = true;
+          
+          setTimeout(() => {
+            this.showCopyFeedback = false;
+          }, 2000);
+        },
+        
+        addToRecent(emoji) {
+          // Remove if already exists
+          this.recentEmojis = this.recentEmojis.filter(e => e.codes !== emoji.codes);
+          
+          // Add to beginning
+          this.recentEmojis.unshift(emoji);
+          
+          // Keep only last 12
+          this.recentEmojis = this.recentEmojis.slice(0, 12);
+          
+          this.saveRecentEmojis();
+        },
+        
+        loadRecentEmojis() {
+          try {
+            const saved = localStorage.getItem('recentEmojis');
+            if (saved) {
+              this.recentEmojis = JSON.parse(saved);
+            }
+          } catch (err) {
+            console.error('Failed to load recent emojis:', err);
+            this.recentEmojis = [];
+          }
+        },
+        
+        saveRecentEmojis() {
+          try {
+            localStorage.setItem('recentEmojis', JSON.stringify(this.recentEmojis));
+          } catch (err) {
+            console.error('Failed to save recent emojis:', err);
+          }
+        },
+        
+        clearRecent() {
+          this.recentEmojis = [];
+          this.saveRecentEmojis();
+        },
+        
+        loadMore() {
+          this.displayLimit += 120;
+          if (this.displayLimit >= this.filteredEmojis.length) {
+            this.showAll = true;
+          }
+        },
+        
+        initializeKeyboardShortcuts() {
+          document.addEventListener('keydown', (e) => {
+            // Ctrl/Cmd + K to focus search
+            if ((e.ctrlKey || e.metaKey) && e.key === 'k') {
+              e.preventDefault();
+              this.$refs.searchInput.focus();
+            }
+          });
+        }
       }
     }).mount('#app');
   </script>
