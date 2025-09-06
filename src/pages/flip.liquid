@@ -1,310 +1,494 @@
 <!DOCTYPE html>
-<html
-  class="brand-color-background scroll-smooth antialiased"
-  lang="en"
-  data-theme="light"
->
-  <head>
+<html class="brand-color-background scroll-smooth antialiased" lang="en" data-theme="light">
+<head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Flip a Coin - Coffee & Fun LLC</title>
-    <meta
-      name="description"
-      content="For those moments when you need a quick decision, flip a coin with our simple and fun tool. Perfect for making choices or settling debates!"
-    />
-    <meta name="keywords" content="coin flip, decision maker, random flip" />
+    
+    <!-- Primary Meta Tags -->
+    <title>Flip a Coin - Instant Decision Maker | Coffee & Fun</title>
+    <meta name="title" content="Flip a Coin - Instant Decision Maker | Coffee & Fun" />
+    <meta name="description" content="Need to make a quick decision? Flip a virtual coin with our simple and fun tool. Perfect for settling debates or making choices. Heads or tails - let fate decide!" />
+    <meta name="keywords" content="coin flip, heads or tails, decision maker, random choice, virtual coin, coin toss, Coffee and Fun" />
     <meta name="author" content="Coffee & Fun LLC" />
-    <meta name="robots" content="index, follow" />
-    <meta name="rating" content="safe for kids" />
-
-    <link rel="icon" href="/assets/images/favicon.png" />
-    <link rel="apple-touch-icon" href="/assets/images/social/192.png" />
-    <link
-      rel="icon"
-      href="/assets/images/social/192.png"
-      sizes="192x192"
-      type="image/png"
-    />
-    <link rel="manifest" href="/assets/images/social/site.webmanifest" />
+    <meta name="publisher" content="Coffee & Fun LLC" />
+    <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1" />
+    <meta name="rating" content="general" />
+    
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://www.coffeeandfun.com/flip/" />
+    <meta property="og:title" content="Flip a Coin - Instant Decision Maker" />
+    <meta property="og:description" content="Need to make a quick decision? Flip a virtual coin with our simple tool. Heads or tails - let fate decide!" />
+    <meta property="og:image" content="https://www.coffeeandfun.com/assets/images/social/pages/flip.png" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content="Virtual coin flip tool preview" />
+    <meta property="og:site_name" content="Coffee & Fun" />
+    <meta property="og:locale" content="en_US" />
+    
+    <!-- Twitter -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:url" content="https://www.coffeeandfun.com/flip/" />
+    <meta name="twitter:title" content="Flip a Coin - Instant Decision Maker" />
+    <meta name="twitter:description" content="Need to make a quick decision? Flip a virtual coin. Heads or tails - let fate decide!" />
+    <meta name="twitter:image" content="https://www.coffeeandfun.com/assets/images/social/pages/flip.png" />
+    <meta name="twitter:image:alt" content="Virtual coin flip tool" />
+    <meta name="twitter:site" content="@bycoffeeandfun" />
+    <meta name="twitter:creator" content="@bycoffeeandfun" />
+    
+    <!-- Canonical URL -->
     <link rel="canonical" href="https://www.coffeeandfun.com/flip/" />
-
-    <!-- Theme & Mobile Meta -->
+    
+    <!-- Favicon & Icons -->
+    <link rel="icon" href="/assets/images/favicon.png" type="image/png" />
+    <link rel="apple-touch-icon" href="/assets/images/social/192.png" />
+    <link rel="icon" href="/assets/images/social/192.png" sizes="192x192" type="image/png" />
+    
+    <!-- PWA & Mobile -->
+    <link rel="manifest" href="/assets/images/social/site.webmanifest" />
     <meta name="theme-color" content="#fef5ec" />
     <meta name="mobile-web-app-capable" content="yes" />
     <meta name="apple-mobile-web-app-capable" content="yes" />
     <meta name="apple-mobile-web-app-status-bar-style" content="default" />
-
-    <!-- Open Graph -->
-    <meta property="og:title" content="Flip a Coin - Coffee & Fun LLC" />
-    <meta property="og:site_name" content="Coffee & Fun" />
-    <meta property="og:url" content="https://www.coffeeandfun.com/flip/" />
-    <meta
-      property="og:description"
-      content="For those moments when you need a quick decision, flip a coin with our simple and fun tool. Perfect for making choices or settling debates!"
-    />
-    <meta property="og:type" content="website" />
-    <meta property="og:image" content="/assets/images/apps/flip.png" />
-
-    <!-- Twitter Cards -->
-    <meta property="twitter:domain" content="coffeeandfun.com" />
-    <meta
-      property="twitter:url"
-      content="https://www.coffeeandfun.com/flip/"
-    />
-    <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:title" content="Flip a Coin - Coffee & Fun LLC" />
-    <meta name="twitter:site" content="@bycoffeeandfun" />
-    <meta
-      name="twitter:description"
-      content="For those moments when you need a quick decision, flip a coin with our simple and fun tool. Perfect for making choices or settling debates!"
-    />
-    <meta
-      name="twitter:image"
-      content="https://www.coffeeandfun.com/assets/images/apps/flip.png"
-    />
-    <meta name="twitter:image:alt" content="Coffee & Fun" />
-
-    <!-- SEO Structured Data -->
+    <meta name="apple-mobile-web-app-title" content="Coin Flip" />
+    
+    <!-- Structured Data -->
     <script type="application/ld+json">
-      {
-        "@context": "http://schema.org/",
-        "@type": "WebSite",
-        "url": "https://www.coffeeandfun.com/flip/",
-        "potentialAction": {
-          "@type": "SearchAction",
-          "target": "{search_term_string}",
-          "query-input": "required name=search_term_string"
-        }
-      }
-    </script>
-    <script type="application/ld+json">
-      {
-        "@context": "http://schema.org/",
-        "@type": "FlipAction",
+    {
+        "@context": "https://schema.org",
+        "@type": "WebApplication",
         "name": "Flip a Coin",
-        "target": "https://www.coffeeandfun.com/flip"
-      }
+        "description": "Virtual coin flip tool for making quick decisions",
+        "url": "https://www.coffeeandfun.com/flip/",
+        "applicationCategory": "UtilityApplication",
+        "operatingSystem": "Any",
+        "offers": {
+            "@type": "Offer",
+            "price": "0",
+            "priceCurrency": "USD"
+        },
+        "creator": {
+            "@type": "Organization",
+            "name": "Coffee & Fun LLC",
+            "url": "https://www.coffeeandfun.com",
+            "sameAs": ["https://twitter.com/bycoffeeandfun"]
+        },
+        "featureList": [
+            "Instant coin flip animation",
+            "Share results",
+            "Keyboard accessible",
+            "Mobile friendly"
+        ]
+    }
     </script>
-
-    {% bundledCss %} {% include scripts.html %}
-    <!-- Preload favicon -->
+    
+    <!-- Preload Critical Resources -->
     <link rel="preload" href="/assets/images/favicon.png" as="image" />
-
-    <script>
-      if ("serviceWorker" in navigator) {
-        navigator.serviceWorker.getRegistrations().then((registrations) => {
-          for (const registration of registrations) {
-            registration.unregister().then(() => {
-              console.log("🧹 Old service worker unregistered");
-            });
-          }
-
-          // After clearing, register the new one
-          navigator.serviceWorker
-            .register("/service-worker.js")
-            .then(() => console.log("✅ New service worker registered"))
-            .catch((err) => console.log("Service worker error:", err));
-        });
-      }
-    </script>
-
+    
+    {% bundledCss %}
+    {% include scripts.html %}
+    
+    <!-- External Scripts -->
     <script src="https://unpkg.com/vue@3"></script>
-    <script src="https://unpkg.com/hotkeys-js/dist/hotkeys.min.js"></script>
-
+    
+    <!-- Service Worker -->
     <script>
-      if ("serviceWorker" in navigator) {
-        navigator.serviceWorker.register("/service-worker.js");
-      }
+        if ('serviceWorker' in navigator) {
+            navigator.serviceWorker.getRegistrations().then((registrations) => {
+                registrations.forEach(registration => {
+                    registration.unregister();
+                });
+                
+                navigator.serviceWorker.register('/service-worker.js')
+                    .then(() => console.log('✅ Service worker registered'))
+                    .catch((err) => console.error('Service worker error:', err));
+            });
+        }
     </script>
-
+    
     <style>
-      [v-cloak] {
-        display: none;
-      }
-      .coin-container {
-        perspective: 1000px;
-      }
-      .coin-inner {
-        width: 200px;
-        height: 200px;
-        margin: auto;
-        position: relative;
-        transform-style: preserve-3d;
-        transition: transform 1s ease-out;
-        cursor: pointer;
-        will-change: transform;
-        outline: none;
-        border: none;
-        background: transparent;
-        margin: auto;
-        display: flex;
-      }
-      .coin-face {
-        position: absolute;
-        width: 100%;
-        height: 100%;
-        border-radius: 50%;
-        backface-visibility: hidden;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        box-shadow:
-          inset 0 0 0 8px rgba(255, 255, 255, 0.4),
-          inset 0 0 0 20px rgba(0, 0, 0, 0.1),
-          0 4px 8px rgba(0, 0, 0, 0.3);
-      }
-      .coin-face.front {
-        background: radial-gradient(circle at top left, #3b82f6, #1e3a8a);
-      }
-      .coin-face.back {
-        background: radial-gradient(circle at top left, #ef4444, #b91c1c);
-        transform: rotateY(180deg);
-      }
-      .coin-face::after {
-        content: "";
-        position: absolute;
-        top: 15%;
-        left: 25%;
-        width: 40%;
-        height: 40%;
-        background: rgba(255, 255, 255, 0.5);
-        border-radius: 50%;
-        filter: blur(10px);
-      }
-      .star {
-        font-size: 4rem;
-        color: #fff;
-      }
-      @keyframes lighting {
-        0%,
-        100% {
-          filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.5));
+        [v-cloak] {
+            display: none;
         }
-        50% {
-          filter: drop-shadow(0 8px 16px rgba(0, 0, 0, 0.7));
+        
+        .coin-container {
+            perspective: 1000px;
+            margin: 4rem auto;
         }
-      }
-      .coin-face.lighting {
-        animation: lighting 1s ease-out;
-      }
+        
+        .coin-inner {
+            width: 200px;
+            height: 200px;
+            margin: auto;
+            position: relative;
+            transform-style: preserve-3d;
+            transition: transform 1s cubic-bezier(0.4, 0.0, 0.2, 1);
+            cursor: pointer;
+            will-change: transform;
+            outline: none;
+            border: none;
+            background: transparent;
+            display: flex;
+        }
+        
+        .coin-inner:hover {
+            filter: brightness(1.1);
+        }
+        
+        .coin-inner:focus-visible {
+            outline: 3px solid #3b82f6;
+            outline-offset: 4px;
+            border-radius: 50%;
+        }
+        
+        .coin-face {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            backface-visibility: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow:
+                inset 0 0 0 8px rgba(255, 255, 255, 0.4),
+                inset 0 0 0 20px rgba(0, 0, 0, 0.1),
+                0 8px 24px rgba(0, 0, 0, 0.3);
+        }
+        
+        .coin-face.front {
+            background: radial-gradient(circle at 30% 30%, #60a5fa, #3b82f6, #1e3a8a);
+        }
+        
+        .coin-face.back {
+            background: radial-gradient(circle at 30% 30%, #f87171, #ef4444, #b91c1c);
+            transform: rotateY(180deg);
+        }
+        
+        .coin-face::after {
+            content: "";
+            position: absolute;
+            top: 15%;
+            left: 25%;
+            width: 40%;
+            height: 40%;
+            background: rgba(255, 255, 255, 0.4);
+            border-radius: 50%;
+            filter: blur(15px);
+        }
+        
+        .coin-icon {
+            font-size: 4rem;
+            color: #fff;
+            filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.3));
+        }
+        
+        @keyframes glow {
+            0%, 100% {
+                filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.5));
+            }
+            50% {
+                filter: drop-shadow(0 8px 20px rgba(0, 0, 0, 0.7)) brightness(1.2);
+            }
+        }
+        
+        .coin-face.glowing {
+            animation: glow 1s ease-out;
+        }
+        
+        .result-display {
+            font-size: 2rem;
+            font-weight: bold;
+            color: #1f2937;
+            text-align: center;
+            margin-top: 2rem;
+            animation: slideUp 0.5s ease-out;
+        }
+        
+        @keyframes slideUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        .stats-container {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            margin-top: 2rem;
+            font-size: 0.875rem;
+            color: #6b7280;
+        }
+        
+        @media (max-width: 640px) {
+            .coin-inner {
+                width: 150px;
+                height: 150px;
+            }
+            
+            .coin-icon {
+                font-size: 3rem;
+            }
+        }
     </style>
-  </head>
-  <body class="brand-color-background scroll-smooth antialiased">
+</head>
+
+<body class="brand-color-background scroll-smooth antialiased">
     {% include header.liquid %}
-
-    <main v-cloak id="main-content" class="mx-auto max-w-7xl p-6 space-y-6">
-      <div class="coin-container">
-        <button
-          class="coin-inner"
-          type="button"
-          aria-label="Flip coin"
-          @click="flip"
-          @keydown.enter.prevent="flip"
-          @keydown.space.prevent="flip"
-          @transitionend="onTransitionEnd"
-          :style="{ transform: `rotateY(${rotation}deg)` }"
-        >
-          <div class="coin-face front" :class="{ lighting }" aria-hidden="true">
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              height="100"
-              viewBox="0 -960 960 960"
-              fill="currentColor"
-              class="star"
+    
+    <main v-cloak id="app" class="mx-auto max-w-7xl p-6">
+        <!-- Page Header -->
+        <div class="text-center mb-8">
+            <h1 class="text-4xl font-bold text-gray-900 mb-2">Flip a Coin</h1>
+            <p class="text-lg text-gray-600">Let fate decide with a simple coin toss</p>
+        </div>
+        
+        <!-- Coin Container -->
+        <div class="coin-container">
+            <button
+                class="coin-inner"
+                type="button"
+                aria-label="Click to flip the coin"
+                @click="flip"
+                @keydown.enter.prevent="flip"
+                @keydown.space.prevent="flip"
+                @transitionend="onTransitionEnd"
+                :style="{ transform: `rotateY(${rotation}deg)` }"
             >
-              <path
-                d="M480-320q48 0 85.5-28.5T620-422H340q17 45 54.5 73.5T480-320ZM380-480q25 0 42.5-17.5T440-540q0-25-17.5-42.5T380-600q-25 0-42.5 17.5T320-540q0 25 17.5 42.5T380-480Zm200 0q25 0 42.5-17.5T640-540q0-25-17.5-42.5T580-600q-25 0-42.5 17.5T520-540q0 25 17.5 42.5T580-480ZM305-704l112-145q12-16 28.5-23.5T480-880q18 0 34.5 7.5T543-849l112 145 170 57q26 8 41 29.5t15 47.5q0 12-3.5 24T866-523L756-367l4 164q1 35-23 59t-56 24q-2 0-22-3l-179-50-179 50q-5 2-11 2.5t-11 .5q-32 0-56-24t-23-59l4-165L95-523q-8-11-11.5-23T80-570q0-25 14.5-46.5T135-647l170-57Zm49 69-194 64 124 179-4 191 200-55 200 56-4-192 124-177-194-66-126-165-126 165Zm126 135Z"
-              />
-            </svg>
-          </div>
-          <div class="coin-face back" :class="{ lighting }" aria-hidden="true">
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              height="100"
-              viewBox="0 -960 960 960"
-              fill="currentColor"
-              class="star"
+                <div class="coin-face front" :class="{ glowing }" aria-hidden="true">
+                    <svg xmlns="http://www.w3.org/2000/svg" 
+                         height="100" 
+                         viewBox="0 -960 960 960" 
+                         fill="currentColor" 
+                         class="coin-icon">
+                        <path d="M480-320q48 0 85.5-28.5T620-422H340q17 45 54.5 73.5T480-320ZM380-480q25 0 42.5-17.5T440-540q0-25-17.5-42.5T380-600q-25 0-42.5 17.5T320-540q0 25 17.5 42.5T380-480Zm200 0q25 0 42.5-17.5T640-540q0-25-17.5-42.5T580-600q-25 0-42.5 17.5T520-540q0 25 17.5 42.5T580-480ZM305-704l112-145q12-16 28.5-23.5T480-880q18 0 34.5 7.5T543-849l112 145 170 57q26 8 41 29.5t15 47.5q0 12-3.5 24T866-523L756-367l4 164q1 35-23 59t-56 24q-2 0-22-3l-179-50-179 50q-5 2-11 2.5t-11 .5q-32 0-56-24t-23-59l4-165L95-523q-8-11-11.5-23T80-570q0-25 14.5-46.5T135-647l170-57Zm49 69-194 64 124 179-4 191 200-55 200 56-4-192 124-177-194-66-126-165-126 165Zm126 135Z"/>
+                    </svg>
+                </div>
+                <div class="coin-face back" :class="{ glowing }" aria-hidden="true">
+                    <svg xmlns="http://www.w3.org/2000/svg" 
+                         height="100" 
+                         viewBox="0 -960 960 960" 
+                         fill="currentColor" 
+                         class="coin-icon">
+                        <path d="M240-80v-170q-39-17-68.5-45.5t-50-64.5q-20.5-36-31-77T80-520q0-158 112-259t288-101q176 0 288 101t112 259q0 42-10.5 83t-31 77q-20.5 36-50 64.5T720-250v170H240Zm80-80h40v-80h80v80h80v-80h80v80h40v-142q38-9 67.5-30t50-50q20.5-29 31.5-64t11-74q0-125-88.5-202.5T480-800q-143 0-231.5 77.5T160-520q0 39 11 74t31.5 64q20.5 29 50.5 50t67 30v142Zm100-200h120l-60-120-60 120Zm-80-80q33 0 56.5-23.5T420-520q0-33-23.5-56.5T340-600q-33 0-56.5 23.5T260-520q0 33 23.5 56.5T340-440Zm280 0q33 0 56.5-23.5T700-520q0-33-23.5-56.5T620-600q-33 0-56.5 23.5T540-520q0 33 23.5 56.5T620-440ZM480-160Z"/>
+                    </svg>
+                </div>
+            </button>
+        </div>
+        
+        <!-- Result Display -->
+        <div v-if="result" class="result-display" role="status" aria-live="polite">
+            {% raw %}{{ result }}{% endraw %}
+        </div>
+        
+        <!-- Statistics -->
+        <div v-if="flipCount > 0" class="stats-container">
+            <div>
+                <span class="font-semibold">Total Flips:</span> {% raw %}{{ flipCount }}{% endraw %}
+            </div>
+            <div>
+                <span class="font-semibold">Heads:</span> {% raw %}{{ headsCount }}{% endraw %} ({% raw %}{{ headsPercentage }}{% endraw %}%)
+            </div>
+            <div>
+                <span class="font-semibold">Tails:</span> {% raw %}{{ tailsCount }}{% endraw %} ({% raw %}{{ tailsPercentage }}{% endraw %}%)
+            </div>
+        </div>
+        
+        <!-- Action Buttons -->
+        <div class="flex flex-col items-center space-y-4 mt-8">
+            <div class="flex gap-4">
+                <button
+                    @click="flip"
+                    class="btn btn-primary btn-lg"
+                    aria-label="Flip the coin again"
+                >
+                    Flip Again
+                </button>
+                
+                <button
+                    v-if="canShare"
+                    @click="shareResult"
+                    :disabled="!result"
+                    class="btn btn-secondary btn-lg disabled:opacity-50 disabled:cursor-not-allowed"
+                    aria-label="Share your coin flip result"
+                >
+                    Share Result
+                    <svg xmlns="http://www.w3.org/2000/svg" 
+                         viewBox="0 -960 960 960" 
+                         class="h-5 w-5 ml-2" 
+                         fill="currentColor">
+                        <path d="M240-40q-33 0-56.5-23.5T160-120v-440q0-33 23.5-56.5T240-640h120v80H240v440h480v-440H600v-80h120q33 0 56.5 23.5T800-560v440q0 33-23.5 56.5T720-40H240Zm200-280v-447l-64 64-56-57 160-160 160 160-56 57-64-64v447h-80Z"/>
+                    </svg>
+                </button>
+            </div>
+            
+            <button
+                v-if="flipCount > 0"
+                @click="resetStats"
+                class="btn btn-ghost btn-sm"
+                aria-label="Reset statistics"
             >
-              <path
-                d="M240-80v-170q-39-17-68.5-45.5t-50-64.5q-20.5-36-31-77T80-520q0-158 112-259t288-101q176 0 288 101t112 259q0 42-10.5 83t-31 77q-20.5 36-50 64.5T720-250v170H240Zm80-80h40v-80h80v80h80v-80h80v80h40v-142q38-9 67.5-30t50-50q20.5-29 31.5-64t11-74q0-125-88.5-202.5T480-800q-143 0-231.5 77.5T160-520q0 39 11 74t31.5 64q20.5 29 50.5 50t67 30v142Zm100-200h120l-60-120-60 120Zm-80-80q33 0 56.5-23.5T420-520q0-33-23.5-56.5T340-600q-33 0-56.5 23.5T260-520q0 33 23.5 56.5T340-440Zm280 0q33 0 56.5-23.5T700-520q0-33-23.5-56.5T620-600q-33 0-56.5 23.5T540-520q0 33 23.5 56.5T620-440ZM480-160Z"
-              />
-            </svg>
-          </div>
-        </button>
-      </div>
-
-      <div class="flex flex-col items-center space-y-4 mt-8">
-        <button
-          v-if="canShare"
-          @click="shareResult"
-          :disabled="!result"
-          class="btn btn-primary btn-lg disabled:opacity-50 disabled:cursor-not-allowed"
-        >
-          Share Result
-          <svg xmlns="http://www.w3.org/2000/svg"  viewBox="0 -960 960 960" class="h-5 w-5" fill="currentColor">
-            <path d="M240-40q-33 0-56.5-23.5T160-120v-440q0-33 23.5-56.5T240-640h120v80H240v440h480v-440H600v-80h120q33 0 56.5 23.5T800-560v440q0 33-23.5 56.5T720-40H240Zm200-280v-447l-64 64-56-57 160-160 160 160-56 57-64-64v447h-80Z"/>
-          </svg>
-        </button>
-      </div>
+                Reset Statistics
+            </button>
+        </div>
+        
+        <!-- Instructions -->
+        <div class="text-center mt-12 text-sm text-gray-600">
+            <p>Click the coin or press <kbd class="kbd kbd-sm">Space</kbd> or <kbd class="kbd kbd-sm">Enter</kbd> to flip</p>
+        </div>
     </main>
-
-          {% include footer.liquid %}
-
-    <script>
-      var app = Vue.createApp({
-        data() {
-          return {
-            rotation: 0,
-            result: "",
-            lighting: false,
-            flipCount: 0,
-          };
-        },
-        computed: {
-          canShare() {
-            return navigator.share !== undefined || navigator.clipboard;
-          },
-        },
-        methods: {
-          flip() {
-            this.result = "";
-            this.lighting = true;
-            this.flipCount++;
-            if (navigator.vibrate) navigator.vibrate(50);
-
-            const flips = Math.floor(Math.random() * 4) + 1;
-            this.rotation += flips * 180;
-          },
-          onTransitionEnd(e) {
-            if (e.propertyName === "transform") {
-              const isHeads = (this.rotation / 180) % 2 === 0;
-              this.result = isHeads ? "Heads!" : "Tails!";
-              this.lighting = false;
-              launchConfetti();
-            }
-          },
-          shareResult() {
-            const text = `I flipped a coin and got ${this.result} \n\nTry it yourself at https://www.coffeeandfun.com/flip/`;
-            if (navigator.share) {
-              navigator.share({
-                title: "Heads Or Tails by Coffee & Fun LLC",
-                text,
-              });
-            } else if (navigator.clipboard) {
-              navigator.clipboard.writeText(text).then(() => alert("Copied!"));
-            }
-          },
-        },
-        mounted() {
-          document.querySelector(".coin-inner").focus();
-        },
-      });
-
-      app.config.globalProperties.$refs = {};
-      app.mount("#main-content");
-    </script>
-
-    {% include modals.liquid %} 
+    
+    {% include modals.liquid %}
     {% include footer.liquid %}
-  </body>
+    
+    <script>
+        const { createApp } = Vue;
+        
+        createApp({
+            data() {
+                return {
+                    rotation: 0,
+                    result: '',
+                    glowing: false,
+                    flipCount: 0,
+                    headsCount: 0,
+                    tailsCount: 0,
+                    isFlipping: false
+                };
+            },
+            
+            computed: {
+                canShare() {
+                    return navigator.share !== undefined || navigator.clipboard;
+                },
+                
+                headsPercentage() {
+                    if (this.flipCount === 0) return 0;
+                    return Math.round((this.headsCount / this.flipCount) * 100);
+                },
+                
+                tailsPercentage() {
+                    if (this.flipCount === 0) return 0;
+                    return Math.round((this.tailsCount / this.flipCount) * 100);
+                }
+            },
+            
+            methods: {
+                flip() {
+                    if (this.isFlipping) return;
+                    
+                    this.isFlipping = true;
+                    this.result = '';
+                    this.glowing = true;
+                    
+                    // Add haptic feedback on mobile
+                    if (navigator.vibrate) {
+                        navigator.vibrate(50);
+                    }
+                    
+                    // Random number of rotations (3-6 half turns)
+                    const flips = Math.floor(Math.random() * 4) + 3;
+                    this.rotation += flips * 180;
+                },
+                
+                onTransitionEnd(event) {
+                    if (event.propertyName === 'transform' && this.isFlipping) {
+                        const isHeads = (this.rotation / 180) % 2 === 0;
+                        this.result = isHeads ? 'Heads!' : 'Tails!';
+                        
+                        // Update statistics
+                        this.flipCount++;
+                        if (isHeads) {
+                            this.headsCount++;
+                        } else {
+                            this.tailsCount++;
+                        }
+                        
+                        this.glowing = false;
+                        this.isFlipping = false;
+                        
+                        // Save stats to localStorage
+                        this.saveStats();
+                        
+                        // Optional: trigger confetti if available
+                        if (typeof launchConfetti === 'function') {
+                            launchConfetti();
+                        }
+                    }
+                },
+                
+                async shareResult() {
+                    const text = `I flipped a coin and got ${this.result}\n\n` +
+                                `Stats: ${this.headsCount} heads, ${this.tailsCount} tails (${this.flipCount} total)\n\n` +
+                                `Try it yourself at https://www.coffeeandfun.com/flip/`;
+                    
+                    try {
+                        if (navigator.share) {
+                            await navigator.share({
+                                title: 'Coin Flip Result',
+                                text: text
+                            });
+                        } else if (navigator.clipboard) {
+                            await navigator.clipboard.writeText(text);
+                            alert('Result copied to clipboard!');
+                        }
+                    } catch (err) {
+                        console.error('Share failed:', err);
+                    }
+                },
+                
+                resetStats() {
+                    this.flipCount = 0;
+                    this.headsCount = 0;
+                    this.tailsCount = 0;
+                    this.result = '';
+                    localStorage.removeItem('coinFlipStats');
+                },
+                
+                saveStats() {
+                    const stats = {
+                        flipCount: this.flipCount,
+                        headsCount: this.headsCount,
+                        tailsCount: this.tailsCount
+                    };
+                    localStorage.setItem('coinFlipStats', JSON.stringify(stats));
+                },
+                
+                loadStats() {
+                    try {
+                        const saved = localStorage.getItem('coinFlipStats');
+                        if (saved) {
+                            const stats = JSON.parse(saved);
+                            this.flipCount = stats.flipCount || 0;
+                            this.headsCount = stats.headsCount || 0;
+                            this.tailsCount = stats.tailsCount || 0;
+                        }
+                    } catch (err) {
+                        console.error('Failed to load stats:', err);
+                    }
+                }
+            },
+            
+            mounted() {
+                // Load saved statistics
+                this.loadStats();
+                
+                // Focus the coin for keyboard accessibility
+                document.querySelector('.coin-inner').focus();
+                
+                // Add keyboard shortcut for flipping
+                document.addEventListener('keydown', (e) => {
+                    if (e.key === 'f' && !e.ctrlKey && !e.metaKey) {
+                        this.flip();
+                    }
+                });
+            }
+        }).mount('#app');
+    </script>
+</body>
 </html>

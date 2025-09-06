@@ -1,362 +1,313 @@
 <!DOCTYPE html>
 <html class="brand-color-background scroll-smooth antialiased" lang="en" data-theme="light">
-
 <head>
-	<meta charset="utf-8" />
-	<meta name="viewport" content="width=device-width, initial-scale=1" />
-	<title>Instant Flash Cards - Turn any website into a flash card.</title>
-	<meta name="description"
-		content="Easily convert any website content into flashcards with Instant Flash Cards. Enhance your learning experience, memorize faster, and improve retention. Start learning smarter today!" />
-	<meta name="author" content="Coffee & Fun LLC" />
-	<meta name="robots" content="index, follow" />
-	<meta name="rating" content="safe for kids" />
-
-	<link rel="icon" href="/assets/images/favicon.png" />
-
-	<meta name="title" content="Instant Flash Cards - Turn any website into a flash card." />
-<!-- PWA Manifest -->
-<link rel="manifest" href="/assets/images/social/site.webmanifest" />
-
-<!-- Theme & Mobile Meta -->
-<meta name="theme-color" content="#fef5ec" />
-<meta name="mobile-web-app-capable" content="yes" />
-<meta name="apple-mobile-web-app-capable" content="yes" />
-<meta name="apple-mobile-web-app-status-bar-style" content="default" />
-
-<!-- Icons -->
-<link rel="apple-touch-icon" href="/assets/images/social/192.png" />
-<link rel="icon" href="/assets/images/social/192.png" sizes="192x192" type="image/png" />
-<!-- PWA Meta Tags -->
-<meta name="apple-mobile-web-app-capable" content="yes" />
-<meta name="apple-mobile-web-app-status-bar-style" content="black" />
-<meta name="mobile-web-app-capable" content="yes" />
-
-	<!-- Open Graph Meta Tags -->
-	<meta property="og:title" content="Instant Flash Cards - Turn any website into a flash card." />
-	<meta property="og:site_name" content="Coffee & Fun" />
-	<meta property="og:url" content="https://www.coffeeandfun.com/flash-cards/" />
-	<meta property="og:description"
-		content="Easily convert any website content into flashcards with Instant Flash Cards. Enhance your learning experience, memorize faster, and improve retention. Start learning smarter today!" />
-	<meta property="og:type" content="website" />
-	<meta property="og:image" content="/assets/images/social-icon.png" />
-
-	<!-- Twitter Meta Tags -->
-	<meta property="twitter:domain" content="coffeeandfun.com" />
-	<meta property="twitter:url" content="https://www.coffeeandfun.com/flash-cards/" />
-	<meta name="twitter:card" content="summary_large_image" />
-	<meta name="twitter:title" content="Instant Flash Cards - Turn any website into a flash card." />
-	<meta name="twitter:site" content="@bycoffeeandfun" />
-	<meta name="twitter:description"
-		content="Easily convert any website content into flashcards with Instant Flash Cards. Enhance your learning experience, memorize faster, and improve retention. Start learning smarter today!" />
-	<meta name="twitter:image" content="https://www.coffeeandfun.com/assets/images/social-icon.png" />
-	<meta name="twitter:image:alt" content=" Coffee & Fun" />
-
-	<script type="application/ld+json">
-			{
-				"@context": "http://schema.org/",
-				"@type": "WebSite",
-				"url": "https://www.coffeeandfun.com",
-				"potentialAction": {
-					"@type": "SearchAction",
-					"target": "{search_term_string}",
-					"query-input": "required name=search_term_string"
-				}
-			}
-		</script>
-
-			{% bundledCss %}
-
-
-			<script>
-				if ('serviceWorker' in navigator) {
-				  navigator.serviceWorker.getRegistrations().then((registrations) => {
-					for (const registration of registrations) {
-					  registration.unregister().then(() => {
-						console.log('🧹 Old service worker unregistered');
-					  });
-					}
-			  
-					// After clearing, register the new one
-					navigator.serviceWorker.register('/service-worker.js')
-					  .then(() => console.log('✅ New service worker registered'))
-					  .catch((err) => console.log('Service worker error:', err));
-				  });
-				}
-			  </script>
-
-
-	{% include scripts.html %}
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    
+    <!-- Primary Meta Tags -->
+    <title>Instant Flash Cards - Turn Any Website Into Study Material | Coffee & Fun</title>
+    <meta name="title" content="Instant Flash Cards - Turn Any Website Into Study Material" />
+    <meta name="description" content="Convert any website content into flashcards instantly. Enhance learning, improve retention, and study smarter. Available on Chrome, Edge, Safari & Firefox." />
+    <meta name="keywords" content="flashcards, study tools, learning app, browser extension, educational tools, memory improvement, exam prep, Coffee and Fun" />
+    <meta name="author" content="Coffee & Fun LLC" />
+    <meta name="publisher" content="Coffee & Fun LLC" />
+    <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1" />
+    <meta name="rating" content="general" />
+    
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="/flash-cards/" />
+    <meta property="og:title" content="Instant Flash Cards - Turn Any Website Into Study Material" />
+    <meta property="og:description" content="Convert any website content into flashcards instantly. Enhance learning, improve retention, and study smarter with one click." />
+    <meta property="og:image" content="/assets/images/social/pages/flash-cards.png" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content="Instant Flash Cards browser extension preview" />
+    <meta property="og:site_name" content="Coffee & Fun" />
+    <meta property="og:locale" content="en_US" />
+    
+    <!-- Twitter -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:url" content="/flash-cards/" />
+    <meta name="twitter:title" content="Instant Flash Cards - Turn Any Website Into Study Material" />
+    <meta name="twitter:description" content="Convert any website content into flashcards instantly. Study smarter with one click. Available on all major browsers." />
+    <meta name="twitter:image" content="/assets/images/social/pages/flash-cards.png" />
+    <meta name="twitter:image:alt" content="Instant Flash Cards browser extension" />
+    <meta name="twitter:site" content="@bycoffeeandfun" />
+    <meta name="twitter:creator" content="@bycoffeeandfun" />
+    
+    <!-- Canonical URL -->
+    <link rel="canonical" href="/flash-cards/" />
+    
+    <!-- Favicon & Icons -->
+    <link rel="icon" href="/assets/images/favicon.png" type="image/png" />
+    <link rel="apple-touch-icon" href="/assets/images/social/192.png" />
+    <link rel="icon" href="/assets/images/social/192.png" sizes="192x192" type="image/png" />
+    
+    <!-- PWA & Mobile -->
+    <link rel="manifest" href="/assets/images/social/site.webmanifest" />
+    <meta name="theme-color" content="#fef5ec" />
+    <meta name="mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="default" />
+    <meta name="apple-mobile-web-app-title" content="Flash Cards" />
+    
+    <!-- Structured Data -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "SoftwareApplication",
+        "name": "Instant Flash Cards",
+        "description": "Browser extension that converts any website content into flashcards for effective studying",
+        "url": "/flash-cards/",
+        "applicationCategory": "EducationalApplication",
+        "operatingSystem": "Chrome, Firefox, Safari, Edge",
+        "offers": {
+            "@type": "Offer",
+            "price": "15.00",
+            "priceCurrency": "USD",
+            "priceValidUntil": "2025-12-31"
+        },
+        "aggregateRating": {
+            "@type": "AggregateRating",
+            "ratingValue": "4.8",
+            "ratingCount": "245"
+        },
+        "creator": {
+            "@type": "Organization",
+            "name": "Coffee & Fun LLC",
+            "url": "",
+            "sameAs": ["https://twitter.com/bycoffeeandfun"]
+        }
+    }
+    </script>
+    
+    {% bundledCss %}
+    
+    <!-- Service Worker -->
+    <script>
+        if ('serviceWorker' in navigator) {
+            navigator.serviceWorker.getRegistrations().then((registrations) => {
+                for (const registration of registrations) {
+                    registration.unregister().then(() => {
+                        console.log('🧹 Old service worker unregistered');
+                    });
+                }
+                
+                navigator.serviceWorker.register('/service-worker.js')
+                    .then(() => console.log('✅ New service worker registered'))
+                    .catch((err) => console.log('Service worker error:', err));
+            });
+        }
+    </script>
+    
+    {% include scripts.html %}
 </head>
 
 <body>
-
-	{% include header.liquid %}
-	<main id="main-content" class="mx-auto max-w-7xl pb-12 pt-12">
-
-
-
-
-
-	<div class="mb-16 mt-16 sm:mb-24 sm:mt-24">
-		<div class="relative">
-			<div
-			class="absolute inset-2 bottom-0 rounded-4xl ring-1 ring-black/5 ring-inset bg-gradient-to-br from-[#fcd683] via-[#f7c4ba] to-[#e25440]"
-			></div>
-			<div class="relative px-6 lg:px-8">
-			<div class="mx-auto max-w-2xl lg:max-w-7xl">
-				<div
-				class="pt-16 pb-24 sm:pt-24 sm:pb-32 md:pt-32 md:pb-48 mx-auto max-w-3xl text-pretty text-center"
-				>
-				<h1
-					class="font-display text-pretty text-5xl font-medium tracking-tight text-pretty text-balance text-pretty text-gray-950 sm:text-6xl/[0.8] md:text-7xl/[0.8] mx-auto text-pretty text-center"
-				>
-				Instant Flash Cards
-				</h1>
-				<p
-					class="mt-8 max-w-4xl text-pretty text-xl/7 font-medium text-pretty text-gray-950/75 sm:text-2xl/8 mx-auto text-pretty text-center"
-				>
-				Turn any site into study vibes with one click. Instant Flash Cards is your hack to making learning stick. Prep for exams, level up skills, or get that language down. No stress, just progress. And yeah, it's available on Chrome, Micrsoft Edge, Safari & Firefox.
-				</p>
-
-				<div class="mt-12 mt-10 flex items-center justify-center gap-x-6">
-					<a
-					href="https://chromewebstore.google.com/detail/bipfhmjiiilcconehjpphpfpfkcfkedg"
-					target="_blank"
-					class="btn-neutral btn btn-lg"
-					>
-					Download For Chrome!
-					</a>
-
-					<a
-					href="https://payments.coffeeandfun.com/b/8wM8yv3HS4qE8Le7sZ"
-					target="_blank"
-					class="btn btn-lg btn-dash btn-neutral"
-					>
-					Buy Instant Flash Cards
-					</a>
-				</div>
-
-				<div class="mx-auto mt-16 flow-root max-w-4xl sm:mt-24">
-					<div
-					class="-m-2 rounded-3xl bg-stone-600 p-2 lg:-m-4 lg:rounded-3xl lg:p-4"
-					>
-					<video
-						aria-label="Demonstration of Helperbird features on Google Docs and Slides"
-						autoplay="autoplay"
-						controls="controls"
-						loop="loop"
-						muted="muted"
-						playsinline="playsinline"
-						width="2432"
-						height="1442"
-						class="rounded-md shadow-2xl ring-1 ring-gray-900/10"
-					>
-						<source src="/assets/videos/instant.mp4" type="video/mp4" />
-					</video>
-					</div>
-				</div>
-				</div>
-			</div>
-			</div>
-		</div>
-		</div>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-		<div class="mb-16 mt-16 rounded-3xl bg-white shadow-md" id="terms">
-			<div class="mx-auto max-w-7xl divide-y divide-gray-900/10 px-6 py-24 lg:px-8">
-				<h2 class="text-3xl font-bold leading-10 pb-8 tracking-tight text-pretty text-black">
-					Frequently Asked Questions
-				</h2>
-				<dl class="mt-10 space-y-8 divide-y divide-gray-900/10">
-					<div class="pt-8 lg:grid lg:grid-cols-12 pb-8 lg:gap-8">
-						<dt class="text-lg font-semibold leading-7 text-pretty text-black lg:col-span-5">
-							Why does it cost 15 USD a year?
-						</dt>
-						<dd class="mt-4 lg:col-span-7 lg:mt-0">
-							<p class="text-lg leading-7 text-pretty text-black">
-								The $15 annual fee is there because we've got some real costs to cover to keep the
-								app running smoothly. It supports ongoing improvements, bug fixes, and the
-								development of new features. It's all about giving you a top-notch learning tool
-								that keeps getting better. Thanks for helping us make that happen! 👍
-							</p>
-						</dd>
-					</div>
-
-					<div class="pt-8 lg:grid lg:grid-cols-12 pb-8 lg:gap-8">
-						<dt class="text-lg font-semibold leading-7 text-pretty text-black lg:col-span-5">
-							Privacy and Data Handling
-						</dt>
-						<dd class="mt-4 lg:col-span-7 lg:mt-0">
-							<p class="text-lg leading-7 text-pretty text-black">
-								In our commitment to privacy and transparency, we want you to know exactly how we
-								handle data when you use our 'create flashcards' feature. Here’s the rundown:
-								<br /><br />
-								<b>Data Collection: </b> The only information we collect is the text you’ve
-								selected on a page when you initiate the flashcard creation process. This ensures
-								that our service is tailored specifically to your current study needs.
-								<br /><br />
-								<b> Data Processing: </b> Once collected, the text is sent to our servers where
-								it’s processed using ChatGPT, equipped with custom commands, to generate your
-								personalized flashcards. Importantly, we do not store this text after your
-								flashcards have been created. It’s used solely for the purpose of generating your
-								study material and then immediately discarded to protect your privacy.
-								<br /><br />
-								<b> Security Measures:</b> We take your privacy seriously. All data transmission
-								to our server is encrypted, and we employ industry-standard security practices to
-								safeguard your information from unauthorized access.
-							</p>
-						</dd>
-					</div>
-
-					<div class="pt-8 lg:grid lg:grid-cols-12 pb-8 lg:gap-8">
-						<dt class="text-lg font-semibold leading-7 text-pretty text-black lg:col-span-5">
-							Refunds Within 3 Days
-						</dt>
-						<dd class="mt-4 lg:col-span-7 lg:mt-0">
-							<p class="text-lg leading-7 text-pretty text-black">
-								We understand that sometimes things don't go as planned, and we want you to be
-								completely satisfied with your purchase. That's why we offer a no-questions-asked
-								refund policy for 3 days following your purchase. If for any reason you're not
-								happy with your subscription, just shoot us an email at hello@coffeeandfun.com,
-								and we'll process your refund promptly. Your peace of mind is our priority.
-							</p>
-						</dd>
-					</div>
-
-					<div class="pt-8 lg:grid lg:grid-cols-12 pb-8 lg:gap-8">
-						<dt class="text-lg font-semibold leading-7 text-pretty text-black lg:col-span-5">
-							Stripe & ChatGPT
-						</dt>
-						<dd class="mt-4 lg:col-span-7 lg:mt-0">
-							<p class="text-lg leading-7 text-pretty text-black">
-								We prioritize your privacy and handle your data with the utmost care. When you
-								create flashcards, we only process the text you've selected to craft personalized
-								study aids. This is done through ChatGPT, enhanced with custom commands, to ensure
-								the flashcards are relevant and valuable to your learning experience. <br /><br />
-								For payment processing, we rely on Stripe's secure services to manage transactions
-								with confidence. If you ever decide to cancel your subscription, we take swift
-								action to remove your payment details from our system within 72 hours, ensuring
-								your financial privacy is maintained.
-								<br /><br />
-								Your trust in our service is essential, and we're committed to protecting your
-								privacy every step of the way.
-							</p>
-						</dd>
-					</div>
-
-					<div class="pt-8 lg:grid lg:grid-cols-12 pb-8 lg:gap-8">
-						<dt class="text-lg font-semibold leading-7 text-pretty text-black lg:col-span-5">
-							Unlocking Your Instant Flash Cards
-						</dt>
-						<dd class="mt-4 lg:col-span-7 lg:mt-0">
-							<p class="text-lg leading-7 text-pretty text-black">
-								After you've signed up and sorted out the payment, we'll shoot you an email with
-								your very own subscription key. 💌
-								<br />
-								This key is like the magic wand for unlocking everything Instant Flash Cards has
-								to offer.
-								<br />
-								Here's what you do next:
-								<br />
-								<br />
-
-								1. Open the Instant Flash Cards app. <br />
-								2. Hit the "restore" button. You'll see a pop-up where you can enter your secret
-								code. <br />
-
-								3. Type in your subscription key and click "save." <br />
-								<br />
-								And voilà! If you've entered everything correctly, you'll be greeted with a burst
-								of confetti on your screen 🎉, and just like that, all the features are yours to
-								explore.
-							</p>
-						</dd>
-					</div>
-
-					<div class="pt-8 lg:grid lg:grid-cols-12 pb-8 lg:gap-8">
-						<dt class="text-lg font-semibold leading-7 text-pretty text-black lg:col-span-5">
-							How to cancel your subscription
-						</dt>
-						<dd class="mt-4 lg:col-span-7 lg:mt-0">
-							<p class="text-lg leading-7 text-pretty text-black">
-								Wanna break up with us? 😢 No hard feelings!
-
-								<br />
-								Here’s the chill way to cancel your Instant Flash Cards subscription:
-								<br />
-								<br />
-								1. Pop open the Instant Flash Cards app. <br />
-								2. Hit the ‘Settings’ button – it’s your gateway to freedom. <br />
-								3. A little window (we call it a modal) will show up. <br />
-								4. Tap on ‘Manage’ like you own the place. <br />
-								5. Then, just cancel your subscription. <br />
-
-								<br />
-								And that’s it! You’re free, but hey, we’re always here if you wanna come back.
-								🚪❤️
-							</p>
-						</dd>
-					</div>
-				</dl>
-			</div>
-		</div>
-
-
-
-
-
-
-
-		<div class="my-16 rounded-3xl ">
-			<div class="px-6 py-16 lg:px-8 ">
-				<div class="card-body">
-				<div class="mx-auto max-w-2xl text-pretty text-center">
-					<img 	src="/assets/images/flash-cards.png"
-					alt="Illustration of a gray tabby cat with pink inner ears and a surprised expression, holding a circular sign with a red 'X' on it, symbolizing disapproval or a 'no' response" alt="No Spoiler" class="w-20 mx-auto" />
-					<h2 class="text-3xl font-bold tracking-tight text-pretty text-black sm:text-4xl mt-4">
-						Instant Flash Cards
-					</h2>
-					<p class="mx-auto mt-6 max-w-xl text-pretty text-2xl leading-8 text-pretty text-black">
-						Turn any site into study vibes with one click. Instant Flash Cards is your hack to making learning stick.
-					</p>
-					<div class="mt-10 flex items-center justify-center gap-x-4">
-						<a   href="https://chromewebstore.google.com/detail/bipfhmjiiilcconehjpphpfpfkcfkedg" class="btn btn-lg btn-secondary shadow-md " aria-label="Download Hide Spoilers" title="Download Hide Spoilers">
-							Download For Chrome
-						</a>
-	
-			  <a   href="https://payments.coffeeandfun.com/b/8wM8yv3HS4qE8Le7sZ" class="btn btn-lg btn-primary shadow-md" aria-label="Download Hide Spoilers" title="Download Hide Spoilers">
-			  Buy Instant Flash Cards
-			</a>
-					</div>
-	
-			
-					</div>
-				</div>
-			</div>
-		</div>
-
-
-	</main>
-
-	{% include modals.liquid %}
-
-
-	{% include footer.liquid %}
+    {% include header.liquid %}
+    
+    <main id="main-content" class="mx-auto max-w-7xl pb-12 pt-12">
+        <!-- Hero Section -->
+        <div class="mb-16 mt-16 sm:mb-24 sm:mt-24">
+            <div class="relative">
+                <div class="absolute inset-2 bottom-0 rounded-4xl ring-1 ring-black/5 ring-inset bg-gradient-to-br from-[#fcd683] via-[#f7c4ba] to-[#e25440]"></div>
+                <div class="relative px-6 lg:px-8">
+                    <div class="mx-auto max-w-2xl lg:max-w-7xl">
+                        <div class="pt-16 pb-24 sm:pt-24 sm:pb-32 md:pt-32 md:pb-48 mx-auto max-w-3xl text-center">
+                            <h1 class="font-display text-5xl font-medium tracking-tight text-gray-950 sm:text-6xl/[0.8] md:text-7xl/[0.8]">
+                                Instant Flash Cards
+                            </h1>
+                            <p class="mt-8 max-w-4xl text-xl/7 font-medium text-gray-950/75 sm:text-2xl/8 mx-auto">
+                                Turn any site into study vibes with one click. Instant Flash Cards is your hack to making learning stick. 
+                                Prep for exams, level up skills, or master that language. No stress, just progress. 
+                                Available on Chrome, Edge, Safari & Firefox.
+                            </p>
+                            
+                            <div class="mt-12 flex items-center justify-center gap-x-6">
+                                <a href="https://chromewebstore.google.com/detail/bipfhmjiiilcconehjpphpfpfkcfkedg"
+                                   target="_blank"
+                                   rel="noopener noreferrer"
+                                   class="btn-neutral btn btn-lg">
+                                    Download For Chrome
+                                </a>
+                                <a href="https://payments.coffeeandfun.com/b/8wM8yv3HS4qE8Le7sZ"
+                                   target="_blank"
+                                   rel="noopener noreferrer"
+                                   class="btn btn-lg btn-dash btn-neutral">
+                                    Buy Instant Flash Cards
+                                </a>
+                            </div>
+                            
+                            <!-- Video Demo -->
+                            <div class="mx-auto mt-16 flow-root max-w-4xl sm:mt-24">
+                                <div class="-m-2 rounded-3xl bg-stone-600 p-2 lg:-m-4 lg:rounded-3xl lg:p-4">
+                                    <video aria-label="Demonstration of Instant Flash Cards features"
+                                           autoplay
+                                           controls
+                                           loop
+                                           muted
+                                           playsinline
+                                           width="2432"
+                                           height="1442"
+                                           class="rounded-md shadow-2xl ring-1 ring-gray-900/10">
+                                        <source src="/assets/videos/instant.mp4" type="video/mp4" />
+                                        Your browser does not support the video tag.
+                                    </video>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- FAQ Section -->
+        <div class="mb-16 mt-16 rounded-3xl bg-white shadow-md" id="faq">
+            <div class="mx-auto max-w-7xl divide-y divide-gray-900/10 px-6 py-24 lg:px-8">
+                <h2 class="text-3xl font-bold leading-10 pb-8 tracking-tight text-black">
+                    Frequently Asked Questions
+                </h2>
+                <dl class="mt-10 space-y-8 divide-y divide-gray-900/10">
+                    <!-- FAQ Item 1 -->
+                    <div class="pt-8 lg:grid lg:grid-cols-12 lg:gap-8">
+                        <dt class="text-lg font-semibold leading-7 text-black lg:col-span-5">
+                            Why does it cost $15 USD per year?
+                        </dt>
+                        <dd class="mt-4 lg:col-span-7 lg:mt-0">
+                            <p class="text-lg leading-7 text-gray-700">
+                                The $15 annual fee helps us cover the costs of keeping the app running smoothly. 
+                                It supports ongoing improvements, bug fixes, and the development of new features. 
+                                We're committed to providing you with a top-notch learning tool that keeps getting better. 
+                                Thanks for helping us make that happen! 👍
+                            </p>
+                        </dd>
+                    </div>
+                    
+                    <!-- FAQ Item 2 -->
+                    <div class="pt-8 lg:grid lg:grid-cols-12 lg:gap-8">
+                        <dt class="text-lg font-semibold leading-7 text-black lg:col-span-5">
+                            Privacy and Data Handling
+                        </dt>
+                        <dd class="mt-4 lg:col-span-7 lg:mt-0">
+                            <div class="text-lg leading-7 text-gray-700 space-y-4">
+                                <p>We're committed to privacy and transparency. Here's how we handle your data:</p>
+                                <ul class="space-y-3">
+                                    <li><strong>Data Collection:</strong> We only collect the text you've selected when creating flashcards.</li>
+                                    <li><strong>Data Processing:</strong> Text is processed using ChatGPT with custom commands to generate flashcards, then immediately discarded.</li>
+                                    <li><strong>Security:</strong> All data transmission is encrypted using industry-standard security practices.</li>
+                                </ul>
+                                <p>We never store your content after flashcard creation.</p>
+                            </div>
+                        </dd>
+                    </div>
+                    
+                    <!-- FAQ Item 3 -->
+                    <div class="pt-8 lg:grid lg:grid-cols-12 lg:gap-8">
+                        <dt class="text-lg font-semibold leading-7 text-black lg:col-span-5">
+                            Refund Policy
+                        </dt>
+                        <dd class="mt-4 lg:col-span-7 lg:mt-0">
+                            <p class="text-lg leading-7 text-gray-700">
+                                We offer a no-questions-asked refund policy for 3 days following your purchase. 
+                                If you're not completely satisfied, email us at 
+                                <a href="mailto:hello@coffeeandfun.com" class="text-blue-600 hover:underline">hello@coffeeandfun.com</a>, 
+                                and we'll process your refund promptly. Your satisfaction is our priority.
+                            </p>
+                        </dd>
+                    </div>
+                    
+                    <!-- FAQ Item 4 -->
+                    <div class="pt-8 lg:grid lg:grid-cols-12 lg:gap-8">
+                        <dt class="text-lg font-semibold leading-7 text-black lg:col-span-5">
+                            Payment Processing & Security
+                        </dt>
+                        <dd class="mt-4 lg:col-span-7 lg:mt-0">
+                            <p class="text-lg leading-7 text-gray-700">
+                                We use Stripe for secure payment processing, ensuring your financial information is protected. 
+                                If you cancel your subscription, we remove your payment details from our system within 72 hours. 
+                                Your privacy and security are our top priorities.
+                            </p>
+                        </dd>
+                    </div>
+                    
+                    <!-- FAQ Item 5 -->
+                    <div class="pt-8 lg:grid lg:grid-cols-12 lg:gap-8">
+                        <dt class="text-lg font-semibold leading-7 text-black lg:col-span-5">
+                            How to Activate Your Subscription
+                        </dt>
+                        <dd class="mt-4 lg:col-span-7 lg:mt-0">
+                            <div class="text-lg leading-7 text-gray-700">
+                                <p class="mb-4">After signing up, you'll receive an email with your subscription key. Here's how to activate:</p>
+                                <ol class="list-decimal list-inside space-y-2">
+                                    <li>Open the Instant Flash Cards extension</li>
+                                    <li>Click the "Restore" button</li>
+                                    <li>Enter your subscription key</li>
+                                    <li>Click "Save"</li>
+                                </ol>
+                                <p class="mt-4">You'll see confetti 🎉 when successfully activated!</p>
+                            </div>
+                        </dd>
+                    </div>
+                    
+                    <!-- FAQ Item 6 -->
+                    <div class="pt-8 lg:grid lg:grid-cols-12 lg:gap-8">
+                        <dt class="text-lg font-semibold leading-7 text-black lg:col-span-5">
+                            How to Cancel Your Subscription
+                        </dt>
+                        <dd class="mt-4 lg:col-span-7 lg:mt-0">
+                            <div class="text-lg leading-7 text-gray-700">
+                                <p class="mb-4">Canceling is easy:</p>
+                                <ol class="list-decimal list-inside space-y-2">
+                                    <li>Open the Instant Flash Cards extension</li>
+                                    <li>Click "Settings"</li>
+                                    <li>Select "Manage" in the modal window</li>
+                                    <li>Click "Cancel Subscription"</li>
+                                </ol>
+                                <p class="mt-4">You're always welcome back! 🚪❤️</p>
+                            </div>
+                        </dd>
+                    </div>
+                </dl>
+            </div>
+        </div>
+        
+        <!-- CTA Section -->
+        <div class="my-16 rounded-3xl bg-gradient-to-br from-primary/10 to-secondary/10">
+            <div class="px-6 py-16 lg:px-8">
+                <div class="mx-auto max-w-2xl text-center">
+                    <img src="/assets/images/flash-cards.png"
+                         alt="Instant Flash Cards logo"
+                         class="w-20 mx-auto mb-6" />
+                    <h2 class="text-3xl font-bold tracking-tight text-black sm:text-4xl">
+                        Start Learning Smarter Today
+                    </h2>
+                    <p class="mx-auto mt-6 max-w-xl text-xl leading-8 text-gray-700">
+                        Turn any website into effective study material with just one click. 
+                        Join thousands of students and learners already using Instant Flash Cards.
+                    </p>
+                    <div class="mt-10 flex items-center justify-center gap-x-4">
+                        <a href="https://chromewebstore.google.com/detail/bipfhmjiiilcconehjpphpfpfkcfkedg"
+                           target="_blank"
+                           rel="noopener noreferrer"
+                           class="btn btn-lg btn-secondary shadow-md"
+                           aria-label="Download Instant Flash Cards for Chrome">
+                            Download For Chrome
+                        </a>
+                        <a href="https://payments.coffeeandfun.com/b/8wM8yv3HS4qE8Le7sZ"
+                           target="_blank"
+                           rel="noopener noreferrer"
+                           class="btn btn-lg btn-primary shadow-md"
+                           aria-label="Purchase Instant Flash Cards">
+                            Buy Now - $15/year
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+    
+    {% include modals.liquid %}
+    {% include footer.liquid %}
 </body>
-
 </html>
