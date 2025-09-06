@@ -251,13 +251,13 @@
                             <h3 class="font-semibold mb-3 text-sm">Google</h3>
                             <div class="bg-white p-4 rounded-lg google-preview">
                                 <div class="text-blue-600 text-xl mb-1 truncate">
-                                     {{raw}}       {{ meta.title || 'Page Title' }} {{endraw}}
+                                      {% raw %}       {{ meta.title || 'Page Title' }}  {% endraw %} 
                                 </div>
                                 <div class="text-green-700 text-sm mb-1 truncate">
-                                      {{raw}}      {{ meta.url || 'https://example.com' }} {{endraw}}
+                                       {% raw %}      {{ meta.url || 'https://example.com' }}  {% endraw %} 
                                 </div>
                                 <div class="text-gray-600 text-sm line-clamp-2">
-                                    {{raw}}        {{ meta.description || 'Page description will appear here...' }} {{endraw}}
+                                     {% raw %}        {{ meta.description || 'Page description will appear here...' }}  {% endraw %} 
                                 </div>
                             </div>
                         </div>
@@ -272,13 +272,13 @@
                                 </div>
                                 <div class="p-3">
                                     <div class="text-gray-500 text-xs uppercase mb-1">
-                                         {{raw}}       {{ getDomain(meta.url) }} {{endraw}}
+                                          {% raw %}       {{ getDomain(meta.url) }}  {% endraw %} 
                                     </div>
                                     <div class="font-semibold mb-1">
-                                           {{raw}}     {{ meta.title || 'Page Title' }} {{endraw}}
+                                            {% raw %}     {{ meta.title || 'Page Title' }}  {% endraw %} 
                                     </div>
                                     <div class="text-gray-600 text-sm line-clamp-2">
-                                        {{raw}}        {{ meta.description || 'Description...' }} {{endraw}}
+                                         {% raw %}        {{ meta.description || 'Description...' }}  {% endraw %} 
                                     </div>
                                 </div>
                             </div>
@@ -294,13 +294,13 @@
                                 </div>
                                 <div class="p-3">
                                     <div class="font-semibold text-sm mb-1">
-                                            {{raw}}    {{ meta.title || 'Page Title' }} {{endraw}}
+                                             {% raw %}    {{ meta.title || 'Page Title' }}  {% endraw %} 
                                     </div>
                                     <div class="text-gray-600 text-sm line-clamp-2">
-                                        {{raw}}        {{ meta.description || 'Description...' }} {{endraw}}
+                                         {% raw %}        {{ meta.description || 'Description...' }}  {% endraw %} 
                                     </div>
                                     <div class="text-gray-500 text-xs mt-1">
-                                   {{raw}}     {{ getDomain(meta.url) }} {{endraw}}
+                                    {% raw %}     {{ getDomain(meta.url) }}  {% endraw %} 
                                     </div>
                                 </div>
                             </div>
@@ -317,12 +317,12 @@
                                 @click="copyCode"
                                 class="btn btn-sm btn-primary"
                             >
-                            {{raw}}    {{ copied ? '✓ Copied!' : '📋 Copy' }} {{endraw}}
+                             {% raw %}    {{ copied ? '✓ Copied!' : '📋 Copy' }}  {% endraw %} 
                             </button>
                         </div>
                         
                         <div class="bg-base-100 p-4 rounded-lg overflow-x-auto">
-                            <pre class="code-output">{{raw}} {{ generatedCode }} {{endraw}}</pre>
+                            <pre class="code-output"> {% raw %} {{ generatedCode }}  {% endraw %} </pre>
                         </div>
                     </div>
                 </div>

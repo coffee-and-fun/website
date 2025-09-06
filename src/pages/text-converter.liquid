@@ -104,10 +104,10 @@
                     
                     <!-- Stats Bar -->
                     <div class="flex flex-wrap gap-4 text-sm text-base-content/60 mt-2">
-                        <span>Characters: {{ raw }} {{ stats.characters }} {{ endraw }}</span>
-                        <span>Words: {{ raw }}  {{ stats.words }} {{ endraw }}</span>
-                        <span>Sentences: {{ raw }}  {{ stats.sentences }} {{ endraw }}</span>
-                        <span>Lines: {{ raw }}  {{ stats.lines }} {{ endraw }}</span>
+                        <span>Characters:  {% raw %} {{ stats.characters }}  {% endraw %} </span>
+                        <span>Words:  {% raw %}  {{ stats.words }}  {% endraw %} </span>
+                        <span>Sentences:  {% raw %}  {{ stats.sentences }}  {% endraw %} </span>
+                        <span>Lines:  {% raw %}  {{ stats.lines }}  {% endraw %} </span>
                     </div>
                 </div>
             </div>
@@ -201,7 +201,7 @@
                             :disabled="!inputText"
                             :class="{ 'copy-success': copySuccess }"
                         >
-                            {{ copySuccess ? '✓ Copied!' : '📋 Copy to Clipboard' }}
+                       {% raw %}       {{ copySuccess ? '✓ Copied!' : '📋 Copy to Clipboard' }}  {% endraw %} 
                         </button>
                         
                         <button 
@@ -212,15 +212,7 @@
                             🗑️ Clear
                         </button>
                         
-                        <div class="ml-auto">
-                            <a 
-                                href="https://www.buymeacoffee.com/coffeeandfun" 
-                                target="_blank"
-                                class="btn btn-warning btn-sm"
-                            >
-                                ☕ Buy me a Coffee
-                            </a>
-                        </div>
+                    
                     </div>
                 </div>
             </div>
