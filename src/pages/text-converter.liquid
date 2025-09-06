@@ -1,0 +1,436 @@
+<!DOCTYPE html>
+<html class="scroll-smooth antialiased" lang="en" data-theme="retro">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    
+    <title>Text Case Converter - Change Text to Any Format</title>
+    
+    <meta name="description" content="Quickly change your text to uppercase, lowercase, title case or any other format. A simple tool that works in your browser with no signup required." />
+    <meta name="keywords" content="text converter, change case, uppercase, lowercase" />
+    <meta name="author" content="Coffee & Fun LLC" />
+    
+    <meta name="robots" content="index, follow" />
+    
+    <!-- Canonical URL -->
+    <link rel="canonical" href="https://www.coffeeandfun.com/text-converter" />
+    
+    <!-- Favicon -->
+    <link rel="icon" href="/assets/images/favicon.png" sizes="any" />
+    
+    <!-- Open Graph -->
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="Coffee & Fun" />
+    <meta property="og:title" content="Text Case Converter" />
+    <meta property="og:description" content="Change any text to uppercase, lowercase, title case and more with this simple browser tool." />
+    <meta property="og:url" content="https://www.coffeeandfun.com/text-converter" />
+    
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:site" content="@bycoffeeandfun" />
+    <meta name="twitter:title" content="Text Case Converter" />
+    <meta name="twitter:description" content="Simple tool to change text case - works right in your browser." />
+    
+    <!-- PWA and Mobile Enhancement -->
+    <meta name="theme-color" content="#8B4513" />
+    <meta name="mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- DaisyUI -->
+    <link href="https://cdn.jsdelivr.net/npm/daisyui@4.4.24/dist/full.min.css" rel="stylesheet" type="text/css" />
+    
+    <!-- Vue 3 -->
+    <script src="https://unpkg.com/vue@3"></script>
+    
+    <style>
+        [v-cloak] { display: none; }
+        
+        .fade-in {
+            animation: fadeIn 0.3s ease-in;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(5px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .text-area-custom {
+            min-height: 200px;
+            font-family: system-ui, -apple-system, sans-serif;
+            line-height: 1.6;
+        }
+        
+        .btn-action {
+            transition: all 0.2s ease;
+        }
+        
+        .btn-action:active {
+            transform: scale(0.98);
+        }
+        
+        .copy-success {
+            animation: copyPulse 0.5s ease;
+        }
+        
+        @keyframes copyPulse {
+            0% { background-color: transparent; }
+            50% { background-color: rgba(34, 197, 94, 0.2); }
+            100% { background-color: transparent; }
+        }
+    </style>
+</head>
+<body class="bg-base-100 min-h-screen">
+    <div v-cloak id="app" class="container mx-auto max-w-4xl p-6">
+        <!-- Header -->
+        <header class="text-center mb-8">
+            <h1 class="text-3xl font-bold text-base-content mb-2">Text Case Converter</h1>
+            <p class="text-base-content/70">Transform your text instantly</p>
+        </header>
+
+        <!-- Main Content -->
+        <div class="space-y-6">
+            <!-- Input Area -->
+            <div class="card bg-base-200 shadow-lg">
+                <div class="card-body">
+                    <textarea 
+                        v-model="inputText" 
+                        @input="updateStats"
+                        placeholder="Type or paste your content here"
+                        class="textarea textarea-bordered w-full text-area-custom bg-base-100"
+                    ></textarea>
+                    
+                    <!-- Stats Bar -->
+                    <div class="flex flex-wrap gap-4 text-sm text-base-content/60 mt-2">
+                        <span>Characters: {{ stats.characters }}</span>
+                        <span>Words: {{ stats.words }}</span>
+                        <span>Sentences: {{ stats.sentences }}</span>
+                        <span>Lines: {{ stats.lines }}</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Conversion Buttons -->
+            <div class="card bg-base-200 shadow-lg">
+                <div class="card-body">
+                    <div class="grid grid-cols-2 md:grid-cols-4 gap-3">
+                        <button 
+                            @click="convertCase('sentence')"
+                            class="btn btn-action btn-outline"
+                            :disabled="!inputText"
+                        >
+                            Sentence case
+                        </button>
+                        
+                        <button 
+                            @click="convertCase('lower')"
+                            class="btn btn-action btn-outline"
+                            :disabled="!inputText"
+                        >
+                            lower case
+                        </button>
+                        
+                        <button 
+                            @click="convertCase('upper')"
+                            class="btn btn-action btn-outline"
+                            :disabled="!inputText"
+                        >
+                            UPPER CASE
+                        </button>
+                        
+                        <button 
+                            @click="convertCase('capitalized')"
+                            class="btn btn-action btn-outline"
+                            :disabled="!inputText"
+                        >
+                            Capitalized Case
+                        </button>
+                        
+                        <button 
+                            @click="convertCase('alternating')"
+                            class="btn btn-action btn-outline"
+                            :disabled="!inputText"
+                        >
+                            aLtErNaTiNg CaSe
+                        </button>
+                        
+                        <button 
+                            @click="convertCase('title')"
+                            class="btn btn-action btn-outline"
+                            :disabled="!inputText"
+                        >
+                            Title Case
+                        </button>
+                        
+                        <button 
+                            @click="convertCase('inverse')"
+                            class="btn btn-action btn-outline"
+                            :disabled="!inputText"
+                        >
+                            InVeRsE CaSe
+                        </button>
+                        
+                        <button 
+                            @click="convertCase('camel')"
+                            class="btn btn-action btn-outline"
+                            :disabled="!inputText"
+                        >
+                            camelCase
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Action Buttons -->
+            <div class="card bg-base-200 shadow-lg">
+                <div class="card-body">
+                    <div class="flex flex-wrap gap-3">
+                        <button 
+                            @click="downloadText"
+                            class="btn btn-primary"
+                            :disabled="!inputText"
+                        >
+                            📥 Download Text
+                        </button>
+                        
+                        <button 
+                            @click="copyToClipboard"
+                            class="btn btn-secondary"
+                            :disabled="!inputText"
+                            :class="{ 'copy-success': copySuccess }"
+                        >
+                            {{ copySuccess ? '✓ Copied!' : '📋 Copy to Clipboard' }}
+                        </button>
+                        
+                        <button 
+                            @click="clearText"
+                            class="btn btn-outline"
+                            :disabled="!inputText"
+                        >
+                            🗑️ Clear
+                        </button>
+                        
+                        <div class="ml-auto">
+                            <a 
+                                href="https://www.buymeacoffee.com/coffeeandfun" 
+                                target="_blank"
+                                class="btn btn-warning btn-sm"
+                            >
+                                ☕ Buy me a Coffee
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Quick Features -->
+            <div class="card bg-base-200 shadow-lg">
+                <div class="card-body">
+                    <h3 class="font-bold mb-3">Quick Tools</h3>
+                    <div class="grid grid-cols-2 md:grid-cols-4 gap-3">
+                        <button 
+                            @click="removeExtraSpaces"
+                            class="btn btn-sm btn-ghost"
+                            :disabled="!inputText"
+                        >
+                            Remove Extra Spaces
+                        </button>
+                        
+                        <button 
+                            @click="trimLines"
+                            class="btn btn-sm btn-ghost"
+                            :disabled="!inputText"
+                        >
+                            Trim Lines
+                        </button>
+                        
+                        <button 
+                            @click="removeLineBreaks"
+                            class="btn btn-sm btn-ghost"
+                            :disabled="!inputText"
+                        >
+                            Remove Line Breaks
+                        </button>
+                        
+                        <button 
+                            @click="addPeriods"
+                            class="btn btn-sm btn-ghost"
+                            :disabled="!inputText"
+                        >
+                            Add Periods
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Footer -->
+        <footer class="text-center mt-12 text-base-content/50 text-sm">
+            <p>Text Case Converter • All processing happens in your browser</p>
+            <p>Built by Coffee & Fun LLC</p>
+        </footer>
+    </div>
+
+    <script>
+        const { createApp } = Vue;
+        
+        createApp({
+            data() {
+                return {
+                    inputText: '',
+                    copySuccess: false,
+                    stats: {
+                        characters: 0,
+                        words: 0,
+                        sentences: 0,
+                        lines: 0
+                    }
+                };
+            },
+            methods: {
+                updateStats() {
+                    const text = this.inputText;
+                    
+                    this.stats.characters = text.length;
+                    this.stats.words = text.trim() ? text.trim().split(/\s+/).length : 0;
+                    this.stats.sentences = text.trim() ? (text.match(/[.!?]+/g) || []).length : 0;
+                    this.stats.lines = text ? text.split('\n').length : 0;
+                },
+                
+                convertCase(type) {
+                    if (!this.inputText) return;
+                    
+                    switch(type) {
+                        case 'lower':
+                            this.inputText = this.inputText.toLowerCase();
+                            break;
+                            
+                        case 'upper':
+                            this.inputText = this.inputText.toUpperCase();
+                            break;
+                            
+                        case 'sentence':
+                            this.inputText = this.inputText.toLowerCase().replace(
+                                /(^\s*\w|[.!?]\s*\w)/g,
+                                c => c.toUpperCase()
+                            );
+                            break;
+                            
+                        case 'capitalized':
+                            this.inputText = this.inputText.toLowerCase().replace(
+                                /\b\w/g,
+                                c => c.toUpperCase()
+                            );
+                            break;
+                            
+                        case 'title':
+                            const smallWords = ['a', 'an', 'and', 'as', 'at', 'but', 'by', 'for', 'if', 'in', 'nor', 'of', 'on', 'or', 'so', 'the', 'to', 'up', 'yet'];
+                            this.inputText = this.inputText.toLowerCase().replace(
+                                /\w+/g,
+                                (word, index) => {
+                                    if (index === 0 || !smallWords.includes(word)) {
+                                        return word.charAt(0).toUpperCase() + word.slice(1);
+                                    }
+                                    return word;
+                                }
+                            );
+                            break;
+                            
+                        case 'alternating':
+                            let alt = '';
+                            let upper = true;
+                            for (let char of this.inputText) {
+                                if (/[a-zA-Z]/.test(char)) {
+                                    alt += upper ? char.toUpperCase() : char.toLowerCase();
+                                    upper = !upper;
+                                } else {
+                                    alt += char;
+                                }
+                            }
+                            this.inputText = alt;
+                            break;
+                            
+                        case 'inverse':
+                            this.inputText = this.inputText.split('').map(
+                                c => c === c.toUpperCase() ? c.toLowerCase() : c.toUpperCase()
+                            ).join('');
+                            break;
+                            
+                        case 'camel':
+                            this.inputText = this.inputText
+                                .toLowerCase()
+                                .replace(/[^a-zA-Z0-9]+(.)/g, (m, chr) => chr.toUpperCase())
+                                .replace(/^./, c => c.toLowerCase());
+                            break;
+                    }
+                    
+                    this.updateStats();
+                },
+                
+                removeExtraSpaces() {
+                    this.inputText = this.inputText.replace(/\s+/g, ' ').trim();
+                    this.updateStats();
+                },
+                
+                trimLines() {
+                    this.inputText = this.inputText.split('\n').map(line => line.trim()).join('\n');
+                    this.updateStats();
+                },
+                
+                removeLineBreaks() {
+                    this.inputText = this.inputText.replace(/\n+/g, ' ').trim();
+                    this.updateStats();
+                },
+                
+                addPeriods() {
+                    this.inputText = this.inputText.split('\n').map(line => {
+                        const trimmed = line.trim();
+                        if (trimmed && !trimmed.match(/[.!?]$/)) {
+                            return trimmed + '.';
+                        }
+                        return line;
+                    }).join('\n');
+                    this.updateStats();
+                },
+                
+                async copyToClipboard() {
+                    if (!this.inputText) return;
+                    
+                    try {
+                        await navigator.clipboard.writeText(this.inputText);
+                        this.copySuccess = true;
+                        setTimeout(() => {
+                            this.copySuccess = false;
+                        }, 2000);
+                    } catch (err) {
+                        alert('Failed to copy text');
+                    }
+                },
+                
+                downloadText() {
+                    if (!this.inputText) return;
+                    
+                    const blob = new Blob([this.inputText], { type: 'text/plain' });
+                    const url = URL.createObjectURL(blob);
+                    const a = document.createElement('a');
+                    a.href = url;
+                    a.download = `converted_text_${new Date().getTime()}.txt`;
+                    document.body.appendChild(a);
+                    a.click();
+                    document.body.removeChild(a);
+                    URL.revokeObjectURL(url);
+                },
+                
+                clearText() {
+                    if (confirm('Clear all text?')) {
+                        this.inputText = '';
+                        this.updateStats();
+                    }
+                }
+            }
+        }).mount('#app');
+    </script>
+</body>
+</html>
