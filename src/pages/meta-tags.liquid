@@ -98,6 +98,7 @@
     </style>
 </head>
 <body class="bg-base-100 min-h-screen">
+    
     <div v-cloak id="app" class="container mx-auto max-w-6xl p-6">
         <!-- Header -->
         <header class="text-center mb-8">
@@ -131,7 +132,7 @@
                                     <span class="label-text">Title</span>
                                     <span class="label-text-alt char-count" 
                                           :class="getTitleClass()">
-                                        {{ meta.title.length }}/60
+                                        {% raw %}{{ meta.title.length }}{% endraw %}/60
                                     </span>
                                 </label>
                                 <input 
@@ -148,7 +149,7 @@
                                     <span class="label-text">Description</span>
                                     <span class="label-text-alt char-count"
                                           :class="getDescClass()">
-                                        {{ meta.description.length }}/160
+                                        {% raw %}{{ meta.description.length }}{% endraw %}/160
                                     </span>
                                 </label>
                                 <textarea 
@@ -203,12 +204,47 @@
                                     placeholder="https://yourwebsite.com/image.jpg"
                                     class="input input-bordered w-full"
                                 />
-                                <button 
-                                    @click="uploadImage" 
-                                    class="btn btn-sm btn-ghost mt-2"
-                                >
-                                    Or drag & drop image (coming soon)
-                                </button>
+                                
+                                <!-- File Upload Area -->
+                                <div class="mt-3">
+                                    <div 
+                                        @drop="handleDrop"
+                                        @dragover.prevent
+                                        @dragenter.prevent
+                                        class="border-2 border-dashed border-base-300 rounded-lg p-4 text-center cursor-pointer hover:border-primary transition-colors"
+                                        @click="$refs.fileInput.click()"
+                                    >
+                                        <svg class="w-8 h-8 mx-auto mb-2 text-base-content/50" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12" />
+                                        </svg>
+                                        <p class="text-sm text-base-content/70">
+                                            Drop image here or click to browse
+                                        </p>
+                                        <p class="text-xs text-base-content/50 mt-1">
+                                            PNG, JPG, GIF up to 10MB
+                                        </p>
+                                    </div>
+                                    <input 
+                                        ref="fileInput"
+                                        type="file" 
+                                        @change="handleFileSelect"
+                                        accept="image/*"
+                                        class="hidden"
+                                    />
+                                    
+                                    <!-- Image Preview -->
+                                    <div v-if="uploadedImage" class="mt-3">
+                                        <div class="flex items-center justify-between bg-base-200 p-2 rounded">
+                                            <span class="text-sm truncate">{% raw %}{{ uploadedImage.name }}{% endraw %}</span>
+                                            <button 
+                                                @click="removeImage"
+                                                class="btn btn-ghost btn-xs"
+                                            >
+                                                ✕
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
                             
                             <div>
@@ -251,13 +287,13 @@
                             <h3 class="font-semibold mb-3 text-sm">Google</h3>
                             <div class="bg-white p-4 rounded-lg google-preview">
                                 <div class="text-blue-600 text-xl mb-1 truncate">
-                                      {% raw %}       {{ meta.title || 'Page Title' }}  {% endraw %} 
+                                    {% raw %}{{ meta.title || 'Page Title' }}{% endraw %}
                                 </div>
                                 <div class="text-green-700 text-sm mb-1 truncate">
-                                       {% raw %}      {{ meta.url || 'https://example.com' }}  {% endraw %} 
+                                    {% raw %}{{ meta.url || 'https://example.com' }}{% endraw %}
                                 </div>
                                 <div class="text-gray-600 text-sm line-clamp-2">
-                                     {% raw %}        {{ meta.description || 'Page description will appear here...' }}  {% endraw %} 
+                                    {% raw %}{{ meta.description || 'Page description will appear here...' }}{% endraw %}
                                 </div>
                             </div>
                         </div>
@@ -272,13 +308,13 @@
                                 </div>
                                 <div class="p-3">
                                     <div class="text-gray-500 text-xs uppercase mb-1">
-                                          {% raw %}       {{ getDomain(meta.url) }}  {% endraw %} 
+                                        {% raw %}{{ getDomain(meta.url) }}{% endraw %}
                                     </div>
                                     <div class="font-semibold mb-1">
-                                            {% raw %}     {{ meta.title || 'Page Title' }}  {% endraw %} 
+                                        {% raw %}{{ meta.title || 'Page Title' }}{% endraw %}
                                     </div>
                                     <div class="text-gray-600 text-sm line-clamp-2">
-                                         {% raw %}        {{ meta.description || 'Description...' }}  {% endraw %} 
+                                        {% raw %}{{ meta.description || 'Description...' }}{% endraw %}
                                     </div>
                                 </div>
                             </div>
@@ -294,13 +330,13 @@
                                 </div>
                                 <div class="p-3">
                                     <div class="font-semibold text-sm mb-1">
-                                             {% raw %}    {{ meta.title || 'Page Title' }}  {% endraw %} 
+                                        {% raw %}{{ meta.title || 'Page Title' }}{% endraw %}
                                     </div>
                                     <div class="text-gray-600 text-sm line-clamp-2">
-                                         {% raw %}        {{ meta.description || 'Description...' }}  {% endraw %} 
+                                        {% raw %}{{ meta.description || 'Description...' }}{% endraw %}
                                     </div>
                                     <div class="text-gray-500 text-xs mt-1">
-                                    {% raw %}     {{ getDomain(meta.url) }}  {% endraw %} 
+                                        {% raw %}{{ getDomain(meta.url) }}{% endraw %}
                                     </div>
                                 </div>
                             </div>
@@ -317,68 +353,22 @@
                                 @click="copyCode"
                                 class="btn btn-sm btn-primary"
                             >
-                             {% raw %}    {{ copied ? '✓ Copied!' : '📋 Copy' }}  {% endraw %} 
+                                {% raw %}{{ copied ? '✓ Copied!' : '📋 Copy' }}{% endraw %}
                             </button>
                         </div>
                         
                         <div class="bg-base-100 p-4 rounded-lg overflow-x-auto">
-                            <pre class="code-output"> {% raw %} {{ generatedCode }}  {% endraw %} </pre>
+                            <pre class="code-output">{% raw %}{{ generatedCode }}{% endraw %}</pre>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
 
-        <!-- Tools Section -->
-        <div class="card bg-base-200 shadow-lg mt-6">
-            <div class="card-body">
-                <h3 class="card-title mb-4">🛠️ Tools & Validators</h3>
-                
-                <div class="grid md:grid-cols-4 gap-3">
-                    <a 
-                        :href="'https://developers.facebook.com/tools/debug/?q=' + encodeURIComponent(meta.url)"
-                        target="_blank"
-                        class="btn btn-outline btn-sm"
-                        :disabled="!meta.url"
-                    >
-                        Facebook Debugger
-                    </a>
-                    
-                    <a 
-                        :href="'https://cards-dev.twitter.com/validator'"
-                        target="_blank"
-                        class="btn btn-outline btn-sm"
-                    >
-                        Twitter Validator
-                    </a>
-                    
-                    <a 
-                        :href="'https://www.linkedin.com/post-inspector/inspect/' + encodeURIComponent(meta.url)"
-                        target="_blank"
-                        class="btn btn-outline btn-sm"
-                        :disabled="!meta.url"
-                    >
-                        LinkedIn Inspector
-                    </a>
-                    
-                    <a 
-                        :href="'https://search.google.com/test/rich-results?url=' + encodeURIComponent(meta.url)"
-                        target="_blank"
-                        class="btn btn-outline btn-sm"
-                        :disabled="!meta.url"
-                    >
-                        Google Rich Results
-                    </a>
-                </div>
-            </div>
-        </div>
 
-        <!-- Footer -->
-        <footer class="text-center mt-12 text-base-content/50 text-sm">
-            <p>Meta Tags Generator • Create perfect meta tags for SEO</p>
-            <p>Built by Coffee & Fun LLC</p>
-        </footer>
     </div>
+
+      {% include footer.liquid %}
 
     <script>
         const { createApp } = Vue;
@@ -396,7 +386,8 @@
                         twitterUsername: '',
                         siteName: ''
                     },
-                    copied: false
+                    copied: false,
+                    uploadedImage: null
                 };
             },
             computed: {
@@ -521,9 +512,61 @@
                     }
                 },
                 
-                uploadImage() {
-                    // Placeholder for future image upload functionality
-                    alert('Image upload coming soon! For now, please enter an image URL.');
+                handleFileSelect(event) {
+                    const file = event.target.files[0];
+                    if (file) {
+                        this.processFile(file);
+                    }
+                },
+                
+                handleDrop(event) {
+                    event.preventDefault();
+                    const file = event.dataTransfer.files[0];
+                    if (file && file.type.startsWith('image/')) {
+                        this.processFile(file);
+                    }
+                },
+                
+                processFile(file) {
+                    // Check file size (10MB limit)
+                    if (file.size > 10 * 1024 * 1024) {
+                        alert('File size must be less than 10MB');
+                        return;
+                    }
+                    
+                    // Check file type
+                    if (!file.type.startsWith('image/')) {
+                        alert('Please upload an image file');
+                        return;
+                    }
+                    
+                    const reader = new FileReader();
+                    
+                    reader.onload = (e) => {
+                        // Store the base64 data URL
+                        this.meta.image = e.target.result;
+                        this.uploadedImage = {
+                            name: file.name,
+                            size: file.size,
+                            type: file.type
+                        };
+                    };
+                    
+                    reader.onerror = () => {
+                        alert('Error reading file');
+                    };
+                    
+                    // Convert to base64 data URL
+                    reader.readAsDataURL(file);
+                },
+                
+                removeImage() {
+                    this.uploadedImage = null;
+                    this.meta.image = '';
+                    // Reset file input
+                    if (this.$refs.fileInput) {
+                        this.$refs.fileInput.value = '';
+                    }
                 }
             }
         }).mount('#app');
