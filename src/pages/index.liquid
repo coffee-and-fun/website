@@ -285,49 +285,53 @@
               </div>
             </div>
 
-            <div class="max-w-8xl mx-auto my-8 px-4 sm:px-6 lg:px-8" id="graveyard">
+            <div class="max-w-8xl mx-auto my-8 px-4 sm:px-6 lg:px-8" id="blog">
               <div class="card my-16 sm:my-20 lg:my-24">
                 <div class="my-6 sm:my-8">
                   <h2 class="card-title mb-3 sm:mb-4 text-2xl sm:text-3xl lg:text-4xl font-medium tracking-tighter">
-                    The Graveyard
+                   From the Blog
                   </h2>
                   <p class="text-base sm:text-lg mb-2">
-                    Here are some of our past projects that have been retired
-                    or are no longer actively maintained, we will update from time to time.
+                       Discover the latest updates from Coffee & Fun LLC products, guides &
+            announcements.
                   </p>
                   <div class="divider my-6 sm:my-8"></div>
 
-                  <div class="flex overflow-x-auto snap-x snap-mandatory scroll-smooth gap-4 sm:gap-6 px-2 sm:px-4 pb-6 sm:pb-8">
-                    {% for app in apps.graveyard %}
-                    <div class="shrink-0 snap-start w-72 sm:w-80 lg:w-[20rem]">
-                      <a
+                   <div class="flex overflow-x-auto snap-x snap-mandatory scroll-smooth gap-4 sm:gap-6 px-2 sm:px-4 pb-6 sm:pb-8">
+                       {% for post in blog.posts limit:5 %}
+                 <div class="shrink-0 snap-start w-72 sm:w-80 lg:w-[20rem]">
+              
+
+                <a
                         class="min-h-[28rem] sm:min-h-[30rem] flex flex-col justify-between h-full card card-compact bg-base-100 shadow-md transition-all duration-200 hover:-translate-y-1 rounded-2xl sm:rounded-3xl lg:rounded-4xl touch-manipulation"
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        href="{{ app.link }}"
+                  href="{{ post.link }}"
+                >
+                  <figure class="px-4 pt-4">
+                    <img
+                      loading="lazy"
+                      src="{{ post.image }}"
+                      class="rounded-2xl   border-opacity-5 bg-base-300"
+                      alt="{{ post.name }}"
+                    />
+                  </figure>
+                  <div class="card-body">
+                    <h2 class="card-title">{{ post.name }}</h2>
+                    <p class="text-base">{{ post.description }}</p>
+
+                    <div class="flex flex-wrap gap-2 mt-6 mb-6">
+                      {% for platform in post.platform %}
+                      <div
+                        class="badge badge-neutral gap-2 {% if platform == 'Apple' %} badge-info {% elsif platform == 'Guide' %} badge-error {% elsif platform == 'Announcement' %} badge-accent {% elsif platform == 'Release' %} badge-secondary {% elsif platform == 'Product' %} badge-warning {% else %} badge-neutral {% endif %}"
                       >
-                        <figure class="px-3 pt-3 sm:px-4 sm:pt-4">
-                          <img
-                            loading="lazy"
-                            src="{{ app.image }}"
-                            class="rounded-xl sm:rounded-2xl   bg-base-300"
-                            alt="{{ app.name }}"
-                          />
-                        </figure>
-                        <div class="card-body flex flex-col justify-between flex-grow p-3 sm:p-4 lg:p-6">
-                          <div>
-                            <h2 class="card-title text-lg sm:text-xl">{{ app.name }}</h2>
-                            <p class="text-sm sm:text-base">{{ app.description }}</p>
-                          </div>
-                          <div class="flex flex-wrap gap-1.5 sm:gap-2 mt-4 sm:mt-6">
-                            {% for platform in app.platform %}
-                            <div class="badge badge-sm sm:badge-md badge-neutral gap-1 sm:gap-2 {% if platform == 'Edge' %}badge-info {% elsif platform == 'Chrome' %}badge-error {% elsif platform == 'macOs' %}badge-accent {% elsif platform == 'Safari' %}badge-secondary {% elsif platform == 'Firefox' %}badge-warning {% else %}badge-neutral{% endif %}">
-                              {{ platform }}
-                            </div>
-                            {% endfor %}
-                          </div>
-                        </div>
-                      </a>
+                        {{ platform }}
+                      </div>
+
+                      {% endfor %}
+                    </div>
+                  </div>
+                </a>
+
+               
                     </div>
                     {% endfor %}
                   </div>
