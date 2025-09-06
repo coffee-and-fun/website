@@ -22,7 +22,7 @@ blog_snip:
   A quick, real-world look at Apple’s new Passwords app. We’ve been using it, we love it, and here’s
   why we think you should give it a try — especially if you’re already on Apple devices.
 name: Robert James Gabriel
-img: /assets/images/blog/apple-passwords-app-review-coffee-and-fun.png
+img: /assets/images/blog/apple-passwords-app-coffee-and-fun.png
 date: 2025-03-21T00:00:00.000Z
 time: 4 min
 tags:
