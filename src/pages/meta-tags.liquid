@@ -1,0 +1,532 @@
+<!DOCTYPE html>
+<html class="scroll-smooth antialiased" lang="en" data-theme="retro">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    
+    <title>Meta Tags Generator - Preview, Edit and Create</title>
+    
+    <meta name="description" content="Create and preview meta tags for your website. See how your page will look on Google, Facebook, and Twitter before publishing." />
+    <meta name="keywords" content="meta tags, SEO, open graph, twitter card" />
+    <meta name="author" content="Coffee & Fun LLC" />
+    
+    <meta name="robots" content="index, follow" />
+    
+    <!-- Canonical URL -->
+    <link rel="canonical" href="https://www.coffeeandfun.com/meta-tags" />
+    
+    <!-- Favicon -->
+    <link rel="icon" href="/assets/images/favicon.png" sizes="any" />
+    
+    <!-- Open Graph -->
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="Coffee & Fun" />
+    <meta property="og:title" content="Meta Tags Generator" />
+    <meta property="og:description" content="Create and preview meta tags for better SEO and social sharing." />
+    <meta property="og:url" content="https://www.coffeeandfun.com/meta-tags" />
+    <meta property="og:image" content="https://www.coffeeandfun.com/assets/images/meta-tags-og.jpg" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:site" content="@bycoffeeandfun" />
+    <meta name="twitter:title" content="Meta Tags Generator" />
+    <meta name="twitter:description" content="Create perfect meta tags for your website." />
+    <meta name="twitter:image" content="https://www.coffeeandfun.com/assets/images/meta-tags-og.jpg" />
+    
+    <!-- PWA and Mobile Enhancement -->
+    <meta name="theme-color" content="#8B4513" />
+    <meta name="mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- DaisyUI -->
+    <link href="https://cdn.jsdelivr.net/npm/daisyui@4.4.24/dist/full.min.css" rel="stylesheet" type="text/css" />
+    
+    <!-- Vue 3 -->
+    <script src="https://unpkg.com/vue@3"></script>
+    
+    <style>
+        [v-cloak] { display: none; }
+        
+        .fade-in {
+            animation: fadeIn 0.3s ease-in;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(5px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .preview-card {
+            transition: all 0.2s ease;
+        }
+        
+        .preview-card:hover {
+            transform: translateY(-2px);
+        }
+        
+        .char-count {
+            font-size: 0.75rem;
+            transition: color 0.2s;
+        }
+        
+        .char-warning {
+            color: #f59e0b;
+        }
+        
+        .char-error {
+            color: #ef4444;
+        }
+        
+        .google-preview {
+            font-family: arial, sans-serif;
+        }
+        
+        .fb-preview {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+        }
+        
+        .code-output {
+            font-family: 'Courier New', monospace;
+            font-size: 0.875rem;
+            line-height: 1.5;
+        }
+    </style>
+</head>
+<body class="bg-base-100 min-h-screen">
+    <div v-cloak id="app" class="container mx-auto max-w-6xl p-6">
+        <!-- Header -->
+        <header class="text-center mb-8">
+            <h1 class="text-3xl font-bold text-base-content mb-2">Meta Tags Generator</h1>
+            <p class="text-base-content/70">Preview, Edit, and Generate</p>
+        </header>
+
+        <div class="grid lg:grid-cols-2 gap-6">
+            <!-- Input Section -->
+            <div class="space-y-6">
+                <!-- Basic Meta Tags -->
+                <div class="card bg-base-200 shadow-lg">
+                    <div class="card-body">
+                        <h2 class="card-title text-xl mb-4">📝 Basic Information</h2>
+                        
+                        <div class="space-y-4">
+                            <div>
+                                <label class="label">
+                                    <span class="label-text">Page URL</span>
+                                </label>
+                                <input 
+                                    type="url" 
+                                    v-model="meta.url" 
+                                    placeholder="https://yourwebsite.com/page"
+                                    class="input input-bordered w-full"
+                                />
+                            </div>
+                            
+                            <div>
+                                <label class="label">
+                                    <span class="label-text">Title</span>
+                                    <span class="label-text-alt char-count" 
+                                          :class="getTitleClass()">
+                                        {{ meta.title.length }}/60
+                                    </span>
+                                </label>
+                                <input 
+                                    type="text" 
+                                    v-model="meta.title" 
+                                    placeholder="Your Page Title"
+                                    maxlength="100"
+                                    class="input input-bordered w-full"
+                                />
+                            </div>
+                            
+                            <div>
+                                <label class="label">
+                                    <span class="label-text">Description</span>
+                                    <span class="label-text-alt char-count"
+                                          :class="getDescClass()">
+                                        {{ meta.description.length }}/160
+                                    </span>
+                                </label>
+                                <textarea 
+                                    v-model="meta.description" 
+                                    placeholder="Brief description of your page content"
+                                    rows="3"
+                                    maxlength="200"
+                                    class="textarea textarea-bordered w-full"
+                                ></textarea>
+                            </div>
+                            
+                            <div>
+                                <label class="label">
+                                    <span class="label-text">Keywords (comma separated)</span>
+                                </label>
+                                <input 
+                                    type="text" 
+                                    v-model="meta.keywords" 
+                                    placeholder="keyword1, keyword2, keyword3"
+                                    class="input input-bordered w-full"
+                                />
+                            </div>
+                            
+                            <div>
+                                <label class="label">
+                                    <span class="label-text">Author</span>
+                                </label>
+                                <input 
+                                    type="text" 
+                                    v-model="meta.author" 
+                                    placeholder="Your name or company"
+                                    class="input input-bordered w-full"
+                                />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Social Media -->
+                <div class="card bg-base-200 shadow-lg">
+                    <div class="card-body">
+                        <h2 class="card-title text-xl mb-4">📱 Social Media</h2>
+                        
+                        <div class="space-y-4">
+                            <div>
+                                <label class="label">
+                                    <span class="label-text">Image URL (1200x630 recommended)</span>
+                                </label>
+                                <input 
+                                    type="url" 
+                                    v-model="meta.image" 
+                                    placeholder="https://yourwebsite.com/image.jpg"
+                                    class="input input-bordered w-full"
+                                />
+                                <button 
+                                    @click="uploadImage" 
+                                    class="btn btn-sm btn-ghost mt-2"
+                                >
+                                    Or drag & drop image (coming soon)
+                                </button>
+                            </div>
+                            
+                            <div>
+                                <label class="label">
+                                    <span class="label-text">Twitter Username</span>
+                                </label>
+                                <input 
+                                    type="text" 
+                                    v-model="meta.twitterUsername" 
+                                    placeholder="@username"
+                                    class="input input-bordered w-full"
+                                />
+                            </div>
+                            
+                            <div>
+                                <label class="label">
+                                    <span class="label-text">Site Name</span>
+                                </label>
+                                <input 
+                                    type="text" 
+                                    v-model="meta.siteName" 
+                                    placeholder="Your Website Name"
+                                    class="input input-bordered w-full"
+                                />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Preview Section -->
+            <div class="space-y-6">
+                <!-- Live Previews -->
+                <div class="card bg-base-200 shadow-lg">
+                    <div class="card-body">
+                        <h2 class="card-title text-xl mb-4">👁️ Preview</h2>
+                        
+                        <!-- Google Preview -->
+                        <div class="mb-6">
+                            <h3 class="font-semibold mb-3 text-sm">Google</h3>
+                            <div class="bg-white p-4 rounded-lg google-preview">
+                                <div class="text-blue-600 text-xl mb-1 truncate">
+                                     {{raw}}       {{ meta.title || 'Page Title' }} {{endraw}}
+                                </div>
+                                <div class="text-green-700 text-sm mb-1 truncate">
+                                      {{raw}}      {{ meta.url || 'https://example.com' }} {{endraw}}
+                                </div>
+                                <div class="text-gray-600 text-sm line-clamp-2">
+                                    {{raw}}        {{ meta.description || 'Page description will appear here...' }} {{endraw}}
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Facebook Preview -->
+                        <div class="mb-6">
+                            <h3 class="font-semibold mb-3 text-sm">Facebook</h3>
+                            <div class="bg-white border rounded-lg overflow-hidden fb-preview">
+                                <div class="bg-gray-200 h-40 flex items-center justify-center">
+                                    <span v-if="!meta.image" class="text-gray-500">Image Preview</span>
+                                    <img v-else :src="meta.image" class="w-full h-full object-cover" />
+                                </div>
+                                <div class="p-3">
+                                    <div class="text-gray-500 text-xs uppercase mb-1">
+                                         {{raw}}       {{ getDomain(meta.url) }} {{endraw}}
+                                    </div>
+                                    <div class="font-semibold mb-1">
+                                           {{raw}}     {{ meta.title || 'Page Title' }} {{endraw}}
+                                    </div>
+                                    <div class="text-gray-600 text-sm line-clamp-2">
+                                        {{raw}}        {{ meta.description || 'Description...' }} {{endraw}}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Twitter Preview -->
+                        <div>
+                            <h3 class="font-semibold mb-3 text-sm">X (Twitter)</h3>
+                            <div class="bg-white border rounded-xl overflow-hidden">
+                                <div class="bg-gray-200 h-32 flex items-center justify-center">
+                                    <span v-if="!meta.image" class="text-gray-500">Image Preview</span>
+                                    <img v-else :src="meta.image" class="w-full h-full object-cover" />
+                                </div>
+                                <div class="p-3">
+                                    <div class="font-semibold text-sm mb-1">
+                                            {{raw}}    {{ meta.title || 'Page Title' }} {{endraw}}
+                                    </div>
+                                    <div class="text-gray-600 text-sm line-clamp-2">
+                                        {{raw}}        {{ meta.description || 'Description...' }} {{endraw}}
+                                    </div>
+                                    <div class="text-gray-500 text-xs mt-1">
+                                   {{raw}}     {{ getDomain(meta.url) }} {{endraw}}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Generated Code -->
+                <div class="card bg-base-200 shadow-lg">
+                    <div class="card-body">
+                        <div class="flex justify-between items-center mb-4">
+                            <h2 class="card-title text-xl">🔧 Generated Code</h2>
+                            <button 
+                                @click="copyCode"
+                                class="btn btn-sm btn-primary"
+                            >
+                            {{raw}}    {{ copied ? '✓ Copied!' : '📋 Copy' }} {{endraw}}
+                            </button>
+                        </div>
+                        
+                        <div class="bg-base-100 p-4 rounded-lg overflow-x-auto">
+                            <pre class="code-output">{{raw}} {{ generatedCode }} {{endraw}}</pre>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Tools Section -->
+        <div class="card bg-base-200 shadow-lg mt-6">
+            <div class="card-body">
+                <h3 class="card-title mb-4">🛠️ Tools & Validators</h3>
+                
+                <div class="grid md:grid-cols-4 gap-3">
+                    <a 
+                        :href="'https://developers.facebook.com/tools/debug/?q=' + encodeURIComponent(meta.url)"
+                        target="_blank"
+                        class="btn btn-outline btn-sm"
+                        :disabled="!meta.url"
+                    >
+                        Facebook Debugger
+                    </a>
+                    
+                    <a 
+                        :href="'https://cards-dev.twitter.com/validator'"
+                        target="_blank"
+                        class="btn btn-outline btn-sm"
+                    >
+                        Twitter Validator
+                    </a>
+                    
+                    <a 
+                        :href="'https://www.linkedin.com/post-inspector/inspect/' + encodeURIComponent(meta.url)"
+                        target="_blank"
+                        class="btn btn-outline btn-sm"
+                        :disabled="!meta.url"
+                    >
+                        LinkedIn Inspector
+                    </a>
+                    
+                    <a 
+                        :href="'https://search.google.com/test/rich-results?url=' + encodeURIComponent(meta.url)"
+                        target="_blank"
+                        class="btn btn-outline btn-sm"
+                        :disabled="!meta.url"
+                    >
+                        Google Rich Results
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Footer -->
+        <footer class="text-center mt-12 text-base-content/50 text-sm">
+            <p>Meta Tags Generator • Create perfect meta tags for SEO</p>
+            <p>Built by Coffee & Fun LLC</p>
+        </footer>
+    </div>
+
+    <script>
+        const { createApp } = Vue;
+        
+        createApp({
+            data() {
+                return {
+                    meta: {
+                        url: '',
+                        title: '',
+                        description: '',
+                        keywords: '',
+                        author: '',
+                        image: '',
+                        twitterUsername: '',
+                        siteName: ''
+                    },
+                    copied: false
+                };
+            },
+            computed: {
+                generatedCode() {
+                    let code = '<!-- Basic Meta Tags -->\n';
+                    code += '<meta charset="utf-8">\n';
+                    code += '<meta name="viewport" content="width=device-width, initial-scale=1">\n';
+                    
+                    if (this.meta.title) {
+                        code += `<title>${this.escapeHtml(this.meta.title)}</title>\n`;
+                    }
+                    
+                    if (this.meta.description) {
+                        code += `<meta name="description" content="${this.escapeHtml(this.meta.description)}">\n`;
+                    }
+                    
+                    if (this.meta.keywords) {
+                        code += `<meta name="keywords" content="${this.escapeHtml(this.meta.keywords)}">\n`;
+                    }
+                    
+                    if (this.meta.author) {
+                        code += `<meta name="author" content="${this.escapeHtml(this.meta.author)}">\n`;
+                    }
+                    
+                    if (this.meta.url) {
+                        code += `\n<!-- Canonical URL -->\n`;
+                        code += `<link rel="canonical" href="${this.escapeHtml(this.meta.url)}">\n`;
+                    }
+                    
+                    // Open Graph
+                    code += `\n<!-- Open Graph / Facebook -->\n`;
+                    code += '<meta property="og:type" content="website">\n';
+                    
+                    if (this.meta.url) {
+                        code += `<meta property="og:url" content="${this.escapeHtml(this.meta.url)}">\n`;
+                    }
+                    
+                    if (this.meta.title) {
+                        code += `<meta property="og:title" content="${this.escapeHtml(this.meta.title)}">\n`;
+                    }
+                    
+                    if (this.meta.description) {
+                        code += `<meta property="og:description" content="${this.escapeHtml(this.meta.description)}">\n`;
+                    }
+                    
+                    if (this.meta.image) {
+                        code += `<meta property="og:image" content="${this.escapeHtml(this.meta.image)}">\n`;
+                    }
+                    
+                    if (this.meta.siteName) {
+                        code += `<meta property="og:site_name" content="${this.escapeHtml(this.meta.siteName)}">\n`;
+                    }
+                    
+                    // Twitter
+                    code += `\n<!-- Twitter -->\n`;
+                    code += '<meta name="twitter:card" content="summary_large_image">\n';
+                    
+                    if (this.meta.twitterUsername) {
+                        code += `<meta name="twitter:site" content="${this.escapeHtml(this.meta.twitterUsername)}">\n`;
+                    }
+                    
+                    if (this.meta.title) {
+                        code += `<meta name="twitter:title" content="${this.escapeHtml(this.meta.title)}">\n`;
+                    }
+                    
+                    if (this.meta.description) {
+                        code += `<meta name="twitter:description" content="${this.escapeHtml(this.meta.description)}">\n`;
+                    }
+                    
+                    if (this.meta.image) {
+                        code += `<meta name="twitter:image" content="${this.escapeHtml(this.meta.image)}">\n`;
+                    }
+                    
+                    return code;
+                }
+            },
+            methods: {
+                getTitleClass() {
+                    const len = this.meta.title.length;
+                    if (len > 60) return 'char-error';
+                    if (len > 50) return 'char-warning';
+                    return '';
+                },
+                
+                getDescClass() {
+                    const len = this.meta.description.length;
+                    if (len > 160) return 'char-error';
+                    if (len > 150) return 'char-warning';
+                    return '';
+                },
+                
+                getDomain(url) {
+                    if (!url) return 'example.com';
+                    try {
+                        const u = new URL(url);
+                        return u.hostname;
+                    } catch {
+                        return 'example.com';
+                    }
+                },
+                
+                escapeHtml(text) {
+                    const map = {
+                        '&': '&amp;',
+                        '<': '&lt;',
+                        '>': '&gt;',
+                        '"': '&quot;',
+                        "'": '&#039;'
+                    };
+                    return text.replace(/[&<>"']/g, m => map[m]);
+                },
+                
+                async copyCode() {
+                    try {
+                        await navigator.clipboard.writeText(this.generatedCode);
+                        this.copied = true;
+                        setTimeout(() => {
+                            this.copied = false;
+                        }, 2000);
+                    } catch (err) {
+                        alert('Failed to copy code');
+                    }
+                },
+                
+                uploadImage() {
+                    // Placeholder for future image upload functionality
+                    alert('Image upload coming soon! For now, please enter an image URL.');
+                }
+            }
+        }).mount('#app');
+    </script>
+</body>
+</html>
