@@ -39,7 +39,7 @@ async function fetchWithRetry(url, options = {}, retries = CONFIG.MAX_RETRIES) {
 	const timeoutId = setTimeout(() => controller.abort(), CONFIG.REQUEST_TIMEOUT);
 
 	const defaultHeaders = {
-		'User-Agent': 'Mozilla/5.0 (compatible; NewsBot/1.0; +https://coffeeandfun.com/headlines)',
+		'User-Agent': 'Mozilla/5.0 (compatible; NewsBot/1.0; +https://www.coffeeandfun.com/headlines/)',
 		'Accept': 'application/json, text/html, */*',
 		'Accept-Language': 'en-US,en;q=0.9',
 		'Accept-Encoding': 'gzip, deflate, br',

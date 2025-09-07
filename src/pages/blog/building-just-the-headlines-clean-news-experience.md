@@ -315,7 +315,7 @@ can quickly scan headlines, click on what interests me, and move on with my day.
 ## Try It Yourself
 
 You can check out Just the Headlines at
-[coffeeandfun.com/headlines](https://coffeeandfun.com/headlines).
+[coffeeandfun.com/headlines](https://www.coffeeandfun.com/headlines/).
 
 The code concepts are all standard web technologies - Node.js for data collection, static site
 generation, and basic automation. The key insight is that sometimes the best solution to information
