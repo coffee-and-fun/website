@@ -1,201 +1,215 @@
 <!DOCTYPE html>
-<html
-  class="brand-color-background scroll-smooth antialiased"
-  lang="en"
-  data-theme="light"
->
+<html class="brand-color-background scroll-smooth antialiased" lang="en" data-theme="light">
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
+    
+    <!-- Primary Meta Tags -->
     <title>Coffee & Fun Blog - Research, Announcements, and Guides</title>
-    <meta name="description"
-        content="Discover the latest updates from Coffee & Fun LLC products, guides, announcements on our official blog." />
+    <meta name="title" content="Coffee & Fun Blog - Research, Announcements, and Guides" />
+    <meta name="description" content="Discover the latest updates, product guides, research insights, and announcements from Coffee & Fun LLC. Stay informed about our apps, games, and digital experiences." />
+    <meta name="keywords" content="Coffee & Fun blog, product updates, app guides, announcements, research, digital experiences, software development" />
     <meta name="author" content="Coffee & Fun LLC" />
     <meta name="robots" content="index, follow" />
     <meta name="rating" content="safe for kids" />
-
-    <link rel="icon" href="/assets/images/favicon.png" />
-
-    <meta name="title" content="Coffee & Fun Blog - Research, Announcements, and Guides" />
-<!-- PWA Manifest -->
-<link rel="manifest" href="/assets/images/social/site.webmanifest" />
-
-<!-- Theme & Mobile Meta -->
-<meta name="theme-color" content="#fef5ec" />
-<meta name="mobile-web-app-capable" content="yes" />
-<meta name="apple-mobile-web-app-capable" content="yes" />
-<meta name="apple-mobile-web-app-status-bar-style" content="default" />
-
-<!-- Icons -->
-<link rel="apple-touch-icon" href="/assets/images/social/192.png" />
-<link rel="icon" href="/assets/images/social/192.png" sizes="192x192" type="image/png" />
-<!-- PWA Meta Tags -->
-<meta name="apple-mobile-web-app-capable" content="yes" />
-<meta name="apple-mobile-web-app-status-bar-style" content="black" />
-<meta name="mobile-web-app-capable" content="yes" />
-
+    
+    <!-- Canonical URL -->
+    <link rel="canonical" href="/blog" />
+    
+    <!-- Favicon -->
+    <link rel="icon" href="/assets/images/favicon.png" sizes="any" />
+    <link rel="apple-touch-icon" href="/assets/images/social/192.png" />
+    <link rel="icon" href="/assets/images/social/192.png" sizes="192x192" type="image/png" />
+    
     <!-- Open Graph Meta Tags -->
-    <meta property="og:title" content="Coffee & Fun Blog - Research, Announcements, and Guides" />
-    <meta property="og:site_name" content="Coffee & Fun" />
-    <meta property="og:url" content="https://www.coffeeandfun.com/blog/" />
-    <meta property="og:description"
-        content="Discover the latest updates from Coffee & Fun LLC products, guides, announcements on our official blog." />
     <meta property="og:type" content="website" />
-    <meta property="og:image" content="/assets/images/social-icon.png" />
-
-    <!-- Twitter Meta Tags -->
-    <meta property="twitter:domain" content="coffeeandfun.com" />
-    <meta property="twitter:url" content="https://www.coffeeandfun.com/blog/" />
+    <meta property="og:site_name" content="Coffee & Fun" />
+    <meta property="og:title" content="Coffee & Fun Blog - Research, Announcements, and Guides" />
+    <meta property="og:description" content="Discover the latest updates, product guides, research insights, and announcements from Coffee & Fun LLC. Stay informed about our apps, games, and digital experiences." />
+    <meta property="og:url" content="/blog/" />
+    <meta property="og:image" content="/assets/images/social/pages/blog.png" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content="Coffee & Fun Blog - Latest Updates and Guides" />
+    <meta property="og:locale" content="en_US" />
+    
+    <!-- Twitter Card Meta Tags -->
     <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:title" content="Coffee & Fun Blog - Research, Announcements, and Guides" />
     <meta name="twitter:site" content="@bycoffeeandfun" />
-    <meta name="twitter:description"
-        content="Discover the latest updates from Coffee & Fun LLC products, guides, announcements on our official blog." />
-    <meta name="twitter:image" content="https://www.coffeeandfun.com/assets/images/social-icon.png" />
-    <meta name="twitter:image:alt" content=" Coffee & Fun" />
-
+    <meta name="twitter:creator" content="@bycoffeeandfun" />
+    <meta name="twitter:title" content="Coffee & Fun Blog - Research, Announcements, and Guides" />
+    <meta name="twitter:description" content="Discover the latest updates, product guides, research insights, and announcements from Coffee & Fun LLC." />
+    <meta name="twitter:image" content="/assets/images/social/pages/blog.png" />
+    <meta name="twitter:image:alt" content="Coffee & Fun Blog - Latest Updates and Guides" />
+    <meta name="twitter:domain" content="coffeeandfun.com" />
+    <meta name="twitter:url" content="/blog" />
+    
+    <!-- PWA Meta Tags -->
+    <link rel="manifest" href="/assets/images/social/site.webmanifest" />
+    <meta name="theme-color" content="#fef5ec" />
+    <meta name="mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="default" />
+    <meta name="apple-mobile-web-app-title" content="Coffee & Fun Blog" />
+    
+    <!-- Structured Data -->
     <script type="application/ld+json">
-			{
-				"@context": "http://schema.org/",
-				"@type": "WebSite",
-				"url": "https://www.coffeeandfun.com",
-				"potentialAction": {
-					"@type": "SearchAction",
-					"target": "{search_term_string}",
-					"query-input": "required name=search_term_string"
-				}
-			}
-		</script>
-
-		{% bundledCss %}
-		<script>
-			if ('serviceWorker' in navigator) {
-			  navigator.serviceWorker.getRegistrations().then((registrations) => {
-				for (const registration of registrations) {
-				  registration.unregister().then(() => {
-					console.log('🧹 Old service worker unregistered');
-				  });
-				}
-		  
-				// After clearing, register the new one
-				navigator.serviceWorker.register('/service-worker.js')
-				  .then(() => console.log('✅ New service worker registered'))
-				  .catch((err) => console.log('Service worker error:', err));
-			  });
-			}
-		  </script>
-
+    {
+        "@context": "https://schema.org",
+        "@graph": [
+            {
+                "@type": "WebSite",
+                "name": "Coffee & Fun",
+                "url": "https://www.coffeeandfun.com",
+                "potentialAction": {
+                    "@type": "SearchAction",
+                    "target": "/search?q={search_term_string}",
+                    "query-input": "required name=search_term_string"
+                }
+            },
+            {
+                "@type": "Blog",
+                "@id": "/blog",
+                "name": "Coffee & Fun Blog",
+                "description": "Official blog featuring research, announcements, guides, and updates from Coffee & Fun LLC",
+                "url": "/blog",
+                "image": "/assets/images/social/pages/blog.png",
+                "publisher": {
+                    "@type": "Organization",
+                    "name": "Coffee & Fun LLC",
+                    "logo": {
+                        "@type": "ImageObject",
+                        "url": "/assets/images/coffee-and-fun-logo-dark.png",
+                        "width": 180,
+                        "height": 180
+                    },
+                    "sameAs": [
+                        "https://twitter.com/bycoffeeandfun"
+                    ]
+                },
+                "blogPost": {
+                    "@type": "BlogPosting",
+                    "headline": "Latest Updates from Coffee & Fun",
+                    "description": "Discover our latest product releases, guides, and announcements"
+                }
+            },
+            {
+                "@type": "Organization",
+                "name": "Coffee & Fun LLC",
+                "url": "https://www.coffeeandfun.com",
+                "logo": {
+                    "@type": "ImageObject",
+                    "url": "/assets/images/coffee-and-fun-logo-dark.png",
+                    "width": 180,
+                    "height": 180
+                },
+                "description": "Apps, games, and digital experiences by Coffee & Fun LLC",
+                "sameAs": [
+                    "https://twitter.com/bycoffeeandfun"
+                ]
+            }
+        ]
+    }
+    </script>
+    
+    {% bundledCss %}
+    
+    <!-- Service Worker Registration -->
+    <script>
+        if ('serviceWorker' in navigator) {
+            navigator.serviceWorker.getRegistrations().then((registrations) => {
+                for (const registration of registrations) {
+                    registration.unregister().then(() => {
+                        console.log('🧹 Old service worker unregistered');
+                    });
+                }
+                
+                // After clearing, register the new one
+                navigator.serviceWorker.register('/service-worker.js')
+                    .then(() => console.log('✅ New service worker registered'))
+                    .catch((err) => console.log('Service worker error:', err));
+            });
+        }
+    </script>
+    
     {% include scripts.html %}
 </head>
 
 <body>
-
     {% assign showFun = true %}
-
     {% assign showMiddleBadge = false %}
     {% include header.liquid %}
-
-
-	<main id="main-content" class="mx-auto max-w-7xl">
-		<div class="mb-16 mt-16 sm:mb-24 sm:mt-24 sm:px-8">
-			<div class="mx-auto max-w-7xl lg:px-8">
-				<div class="relative px-12 sm:px-8 lg:px-12">
-					<div class="mx-auto max-w-7xl">
-						<div class="max-w-xl text-pretty text-base  mx-auto">
-							<div class="mx-auto mb-4 mt-4">
+    
+    <main id="main-content" class="mx-auto max-w-7xl">
+        <div class="mb-16 mt-16 sm:mb-24 sm:mt-24 sm:px-8">
+            <div class="mx-auto max-w-7xl lg:px-8">
+                <div class="relative px-12 sm:px-8 lg:px-12">
+                    <div class="mx-auto max-w-7xl">
+                        <div class="max-w-xl text-pretty text-base mx-auto">
+                            <div class="mx-auto mb-4 mt-4">
                                 <a href="/" title="Go Back to Coffee & Fun's Homepage">
-								<img alt="Logo of Coffee & Fun LLC featuring a stylized cup with a coffee bean pattern, representing the company's focus on creativity and innovation in software development."
-									src="/assets/images/coffee-and-fun-logo-dark.png" width="180" height="180"
-									decoding="async" data-nimg="future" loading="lazy"
-									class="aspect-square mx-auto block" />
-                                    </a>
-							</div>
-
-						</div>
-
-			
-
-						<div class="max-w-8xl text-pretty text-base  mx-auto" id="apps">
-
-
-							<div class="card my-8 ">
-								<div class="my-8">
-						
-									<div
-										class="not-prose grid grid-cols-1 gap-x-8 gap-y-8 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 xl:grid-cols-3">
-										{% for post in blog.posts %}
-
-										<a 								class="card card-compact bg-base-100 shadow-md transition-all duration-200 card-app hover:-translate-y-1 rounded-4xl"
-											href="{{ post.link }}">
-											<figure class="px-4 pt-4">
-												<img loading="lazy" src="{{ post.image }}"
-													class="rounded-2xl   border-opacity-5 bg-base-300"
-													alt="{{ post.name }}" />
-											</figure>
-											<div class="card-body">
-												<h2 class="card-title">{{ post.name }}</h2>
-												<p class="text-base">{{ post.description }}</p>
-
-												<div class="flex flex-wrap gap-2 mt-6 mb-6">
-													{% for platform in post.platform %}
-													<div class="badge badge-neutral  gap-2   
-
-													{% if platform == 'Apple' %}
-														badge-info
-													{% elsif platform == 'Guide' %}
-														badge-error
-													{% elsif platform == 'Announcement' %}
-														badge-accent
-													{% elsif platform == 'Release' %}
-														badge-secondary
-													{% elsif platform == 'Product' %}
-														badge-warning
-													{% else %}
-														badge-neutral
-													{% endif %}
-													"> {{ platform }}</div>
-
-													{% endfor %}
-												</div>
-											</div>
-										</a>
-
-										{% endfor %}
-
-
-
-										
-
-									</div>
-								</div>
-							</div>
-
-						</div>
-
-
-
-
-
-
-
-
-
-					</div>
-				</div>
-			</div>
-		</div>
-		</div>
-
-	</main>
-
-
+                                    <img alt="Logo of Coffee & Fun LLC featuring a stylized cup with a coffee bean pattern, representing the company's focus on creativity and innovation in software development."
+                                        src="/assets/images/coffee-and-fun-logo-dark.png" 
+                                        width="180" 
+                                        height="180"
+                                        decoding="async" 
+                                        data-nimg="future" 
+                                        loading="lazy"
+                                        class="aspect-square mx-auto block" />
+                                </a>
+                            </div>
+                        </div>
+                        
+                        <div class="max-w-8xl text-pretty text-base mx-auto" id="apps">
+                            <div class="card my-8">
+                                <div class="my-8">
+                                    <div class="not-prose grid grid-cols-1 gap-x-8 gap-y-8 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 xl:grid-cols-3">
+                                        {% for post in blog.posts %}
+                                        <a class="card card-compact bg-base-100 shadow-md transition-all duration-200 card-app hover:-translate-y-1 rounded-4xl"
+                                            href="{{ post.link }}">
+                                            <figure class="px-4 pt-4">
+                                                <img loading="lazy" 
+                                                    src="{{ post.image }}"
+                                                    class="rounded-2xl border-opacity-5 bg-base-300"
+                                                    alt="{{ post.name }}" />
+                                            </figure>
+                                            <div class="card-body">
+                                                <h2 class="card-title">{{ post.name }}</h2>
+                                                <p class="text-base">{{ post.description }}</p>
+                                                
+                                                <div class="flex flex-wrap gap-2 mt-6 mb-6">
+                                                    {% for platform in post.platform %}
+                                                    <div class="badge badge-neutral gap-2
+                                                        {% if platform == 'Apple' %}
+                                                            badge-info
+                                                        {% elsif platform == 'Guide' %}
+                                                            badge-error
+                                                        {% elsif platform == 'Announcement' %}
+                                                            badge-accent
+                                                        {% elsif platform == 'Release' %}
+                                                            badge-secondary
+                                                        {% elsif platform == 'Product' %}
+                                                            badge-warning
+                                                        {% else %}
+                                                            badge-neutral
+                                                        {% endif %}
+                                                    ">{{ platform }}</div>
+                                                    {% endfor %}
+                                                </div>
+                                            </div>
+                                        </a>
+                                        {% endfor %}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+    
     {% include modals.liquid %}
-
-
     {% include footer.liquid %}
-
-
-
 </body>
-
 </html>
