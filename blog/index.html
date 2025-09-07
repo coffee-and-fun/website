@@ -1,90 +1,137 @@
 <!DOCTYPE html>
-<html
-  class="brand-color-background scroll-smooth antialiased"
-  lang="en"
-  data-theme="light"
->
+<html class="brand-color-background scroll-smooth antialiased" lang="en" data-theme="light">
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
+    
+    <!-- Primary Meta Tags -->
     <title>Coffee & Fun Blog - Research, Announcements, and Guides</title>
-    <meta name="description"
-        content="Discover the latest updates from Coffee & Fun LLC products, guides, announcements on our official blog." />
+    <meta name="title" content="Coffee & Fun Blog - Research, Announcements, and Guides" />
+    <meta name="description" content="Discover the latest updates, product guides, research insights, and announcements from Coffee & Fun LLC. Stay informed about our apps, games, and digital experiences." />
+    <meta name="keywords" content="Coffee & Fun blog, product updates, app guides, announcements, research, digital experiences, software development" />
     <meta name="author" content="Coffee & Fun LLC" />
     <meta name="robots" content="index, follow" />
     <meta name="rating" content="safe for kids" />
-
-    <link rel="icon" href="/assets/images/favicon.png" />
-
-    <meta name="title" content="Coffee & Fun Blog - Research, Announcements, and Guides" />
-<!-- PWA Manifest -->
-<link rel="manifest" href="/assets/images/social/site.webmanifest" />
-
-<!-- Theme & Mobile Meta -->
-<meta name="theme-color" content="#fef5ec" />
-<meta name="mobile-web-app-capable" content="yes" />
-<meta name="apple-mobile-web-app-capable" content="yes" />
-<meta name="apple-mobile-web-app-status-bar-style" content="default" />
-
-<!-- Icons -->
-<link rel="apple-touch-icon" href="/assets/images/social/192.png" />
-<link rel="icon" href="/assets/images/social/192.png" sizes="192x192" type="image/png" />
-<!-- PWA Meta Tags -->
-<meta name="apple-mobile-web-app-capable" content="yes" />
-<meta name="apple-mobile-web-app-status-bar-style" content="black" />
-<meta name="mobile-web-app-capable" content="yes" />
-
+    
+    <!-- Canonical URL -->
+    <link rel="canonical" href="/blog" />
+    
+    <!-- Favicon -->
+    <link rel="icon" href="/assets/images/favicon.png" sizes="any" />
+    <link rel="apple-touch-icon" href="/assets/images/social/192.png" />
+    <link rel="icon" href="/assets/images/social/192.png" sizes="192x192" type="image/png" />
+    
     <!-- Open Graph Meta Tags -->
-    <meta property="og:title" content="Coffee & Fun Blog - Research, Announcements, and Guides" />
-    <meta property="og:site_name" content="Coffee & Fun" />
-    <meta property="og:url" content="https://www.coffeeandfun.com/blog/" />
-    <meta property="og:description"
-        content="Discover the latest updates from Coffee & Fun LLC products, guides, announcements on our official blog." />
     <meta property="og:type" content="website" />
-    <meta property="og:image" content="/assets/images/social-icon.png" />
-
-    <!-- Twitter Meta Tags -->
-    <meta property="twitter:domain" content="coffeeandfun.com" />
-    <meta property="twitter:url" content="https://www.coffeeandfun.com/blog/" />
+    <meta property="og:site_name" content="Coffee & Fun" />
+    <meta property="og:title" content="Coffee & Fun Blog - Research, Announcements, and Guides" />
+    <meta property="og:description" content="Discover the latest updates, product guides, research insights, and announcements from Coffee & Fun LLC. Stay informed about our apps, games, and digital experiences." />
+    <meta property="og:url" content="/blog/" />
+    <meta property="og:image" content="/assets/images/social/pages/blog.png" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content="Coffee & Fun Blog - Latest Updates and Guides" />
+    <meta property="og:locale" content="en_US" />
+    
+    <!-- Twitter Card Meta Tags -->
     <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:title" content="Coffee & Fun Blog - Research, Announcements, and Guides" />
     <meta name="twitter:site" content="@bycoffeeandfun" />
-    <meta name="twitter:description"
-        content="Discover the latest updates from Coffee & Fun LLC products, guides, announcements on our official blog." />
-    <meta name="twitter:image" content="https://www.coffeeandfun.com/assets/images/social-icon.png" />
-    <meta name="twitter:image:alt" content=" Coffee & Fun" />
-
+    <meta name="twitter:creator" content="@bycoffeeandfun" />
+    <meta name="twitter:title" content="Coffee & Fun Blog - Research, Announcements, and Guides" />
+    <meta name="twitter:description" content="Discover the latest updates, product guides, research insights, and announcements from Coffee & Fun LLC." />
+    <meta name="twitter:image" content="/assets/images/social/pages/blog.png" />
+    <meta name="twitter:image:alt" content="Coffee & Fun Blog - Latest Updates and Guides" />
+    <meta name="twitter:domain" content="coffeeandfun.com" />
+    <meta name="twitter:url" content="/blog" />
+    
+    <!-- PWA Meta Tags -->
+    <link rel="manifest" href="/assets/images/social/site.webmanifest" />
+    <meta name="theme-color" content="#fef5ec" />
+    <meta name="mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="default" />
+    <meta name="apple-mobile-web-app-title" content="Coffee & Fun Blog" />
+    
+    <!-- Structured Data -->
     <script type="application/ld+json">
-			{
-				"@context": "http://schema.org/",
-				"@type": "WebSite",
-				"url": "https://www.coffeeandfun.com",
-				"potentialAction": {
-					"@type": "SearchAction",
-					"target": "{search_term_string}",
-					"query-input": "required name=search_term_string"
-				}
-			}
-		</script>
-
-		<link href="/assets/css/engine.css" rel="stylesheet" />
-		<script>
-			if ('serviceWorker' in navigator) {
-			  navigator.serviceWorker.getRegistrations().then((registrations) => {
-				for (const registration of registrations) {
-				  registration.unregister().then(() => {
-					console.log('🧹 Old service worker unregistered');
-				  });
-				}
-		  
-				// After clearing, register the new one
-				navigator.serviceWorker.register('/service-worker.js')
-				  .then(() => console.log('✅ New service worker registered'))
-				  .catch((err) => console.log('Service worker error:', err));
-			  });
-			}
-		  </script>
-
+    {
+        "@context": "https://schema.org",
+        "@graph": [
+            {
+                "@type": "WebSite",
+                "name": "Coffee & Fun",
+                "url": "https://www.coffeeandfun.com",
+                "potentialAction": {
+                    "@type": "SearchAction",
+                    "target": "/search?q={search_term_string}",
+                    "query-input": "required name=search_term_string"
+                }
+            },
+            {
+                "@type": "Blog",
+                "@id": "/blog",
+                "name": "Coffee & Fun Blog",
+                "description": "Official blog featuring research, announcements, guides, and updates from Coffee & Fun LLC",
+                "url": "/blog",
+                "image": "/assets/images/social/pages/blog.png",
+                "publisher": {
+                    "@type": "Organization",
+                    "name": "Coffee & Fun LLC",
+                    "logo": {
+                        "@type": "ImageObject",
+                        "url": "/assets/images/coffee-and-fun-logo-dark.png",
+                        "width": 180,
+                        "height": 180
+                    },
+                    "sameAs": [
+                        "https://twitter.com/bycoffeeandfun"
+                    ]
+                },
+                "blogPost": {
+                    "@type": "BlogPosting",
+                    "headline": "Latest Updates from Coffee & Fun",
+                    "description": "Discover our latest product releases, guides, and announcements"
+                }
+            },
+            {
+                "@type": "Organization",
+                "name": "Coffee & Fun LLC",
+                "url": "https://www.coffeeandfun.com",
+                "logo": {
+                    "@type": "ImageObject",
+                    "url": "/assets/images/coffee-and-fun-logo-dark.png",
+                    "width": 180,
+                    "height": 180
+                },
+                "description": "Apps, games, and digital experiences by Coffee & Fun LLC",
+                "sameAs": [
+                    "https://twitter.com/bycoffeeandfun"
+                ]
+            }
+        ]
+    }
+    </script>
+    
+    <link href="/assets/css/engine.css" rel="stylesheet" />
+    
+    <!-- Service Worker Registration -->
+    <script>
+        if ('serviceWorker' in navigator) {
+            navigator.serviceWorker.getRegistrations().then((registrations) => {
+                for (const registration of registrations) {
+                    registration.unregister().then(() => {
+                        console.log('🧹 Old service worker unregistered');
+                    });
+                }
+                
+                // After clearing, register the new one
+                navigator.serviceWorker.register('/service-worker.js')
+                    .then(() => console.log('✅ New service worker registered'))
+                    .catch((err) => console.log('Service worker error:', err));
+            });
+        }
+    </script>
+    
     <style>
 	.brand-color-background {
 		background-color: #fef5ec;
@@ -219,9 +266,7 @@
 </head>
 
 <body>
-
     
-
     
     
 
@@ -332,846 +377,726 @@
     </div>
   </div>
 </header>
-
-
-	<main id="main-content" class="mx-auto max-w-7xl">
-		<div class="mb-16 mt-16 sm:mb-24 sm:mt-24 sm:px-8">
-			<div class="mx-auto max-w-7xl lg:px-8">
-				<div class="relative px-12 sm:px-8 lg:px-12">
-					<div class="mx-auto max-w-7xl">
-						<div class="max-w-xl text-pretty text-base  mx-auto">
-							<div class="mx-auto mb-4 mt-4">
+    
+    <main id="main-content" class="mx-auto max-w-7xl">
+        <div class="mb-16 mt-16 sm:mb-24 sm:mt-24 sm:px-8">
+            <div class="mx-auto max-w-7xl lg:px-8">
+                <div class="relative px-12 sm:px-8 lg:px-12">
+                    <div class="mx-auto max-w-7xl">
+                        <div class="max-w-xl text-pretty text-base mx-auto">
+                            <div class="mx-auto mb-4 mt-4">
                                 <a href="/" title="Go Back to Coffee & Fun's Homepage">
-								<img alt="Logo of Coffee & Fun LLC featuring a stylized cup with a coffee bean pattern, representing the company's focus on creativity and innovation in software development."
-									src="/assets/images/coffee-and-fun-logo-dark.png" width="180" height="180"
-									decoding="async" data-nimg="future" loading="lazy"
-									class="aspect-square mx-auto block" />
-                                    </a>
-							</div>
-
-						</div>
-
-			
-
-						<div class="max-w-8xl text-pretty text-base  mx-auto" id="apps">
-
-
-							<div class="card my-8 ">
-								<div class="my-8">
-						
-									<div
-										class="not-prose grid grid-cols-1 gap-x-8 gap-y-8 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 xl:grid-cols-3">
-										
-
-										<a 								class="card card-compact bg-base-100 shadow-md transition-all duration-200 card-app hover:-translate-y-1 rounded-4xl"
-											href="/blog/lego-game-boy-livestream/">
-											<figure class="px-4 pt-4">
-												<img loading="lazy" src="/assets/images/blog/lego-gameboy-livestream.png"
-													class="rounded-2xl   border-opacity-5 bg-base-300"
-													alt="Watch Us Put a Real Game Boy Inside the Lego Game Boy — Live on October 1st" />
-											</figure>
-											<div class="card-body">
-												<h2 class="card-title">Watch Us Put a Real Game Boy Inside the Lego Game Boy — Live on October 1st</h2>
-												<p class="text-base">  Lego’s new 1:1 scale Game Boy launches October 1st, and we’re going live at 6 AM to attempt  something no one’s done before, putting a real Game Boy’s insides into the Lego replica.  Follow along on Instagram and YouTube as we make brick-game history.</p>
-
-												<div class="flex flex-wrap gap-2 mt-6 mb-6">
-													
-													<div class="badge badge-neutral  gap-2   
-
-													
-														badge-neutral
-													
-													"> blog</div>
-
-													
-												</div>
-											</div>
-										</a>
-
-										
-
-										<a 								class="card card-compact bg-base-100 shadow-md transition-all duration-200 card-app hover:-translate-y-1 rounded-4xl"
-											href="/blog/sun-spider-lego-disability-representation/">
-											<figure class="px-4 pt-4">
-												<img loading="lazy" src="/assets/images/blog/sun-spider-lego.png"
-													class="rounded-2xl   border-opacity-5 bg-base-300"
-													alt="Sun-Spider Swings Into LEGO: A Victory for Disability Representation" />
-											</figure>
-											<div class="card-body">
-												<h2 class="card-title">Sun-Spider Swings Into LEGO: A Victory for Disability Representation</h2>
-												<p class="text-base">The new LEGO Spider-Man minifigures series includes Sun-Spider, a disabled superhero with crutches, marking a huge win for disability representation in toys.</p>
-
-												<div class="flex flex-wrap gap-2 mt-6 mb-6">
-													
-													<div class="badge badge-neutral  gap-2   
-
-													
-														badge-neutral
-													
-													"> blog</div>
-
-													
-												</div>
-											</div>
-										</a>
-
-										
-
-										<a 								class="card card-compact bg-base-100 shadow-md transition-all duration-200 card-app hover:-translate-y-1 rounded-4xl"
-											href="/blog/lyft-ghost-ride-scam/">
-											<figure class="px-4 pt-4">
-												<img loading="lazy" src="/assets/images/blog/lyft-ghost-ride-scam.png"
-													class="rounded-2xl   border-opacity-5 bg-base-300"
-													alt="How I Got Scammed by a Lyft 'Ghost Ride'" />
-											</figure>
-											<div class="card-body">
-												<h2 class="card-title">How I Got Scammed by a Lyft 'Ghost Ride'</h2>
-												<p class="text-base">If you've never heard of a 'ghost ride' on Lyft, consider yourself lucky. But you should know about it, because it cost me $36 and hours of my time trying to get it back.</p>
-
-												<div class="flex flex-wrap gap-2 mt-6 mb-6">
-													
-													<div class="badge badge-neutral  gap-2   
-
-													
-														badge-neutral
-													
-													"> blog</div>
-
-													
-													<div class="badge badge-neutral  gap-2   
-
-													
-														badge-neutral
-													
-													"> guide</div>
-
-													
-												</div>
-											</div>
-										</a>
-
-										
-
-										<a 								class="card card-compact bg-base-100 shadow-md transition-all duration-200 card-app hover:-translate-y-1 rounded-4xl"
-											href="/blog/building-just-the-headlines-clean-news-experience/">
-											<figure class="px-4 pt-4">
-												<img loading="lazy" src="/assets/images/blog/just-the-headlines.png"
-													class="rounded-2xl   border-opacity-5 bg-base-300"
-													alt="Building Just the Headlines - Why I Created a Clean News Experience" />
-											</figure>
-											<div class="card-body">
-												<h2 class="card-title">Building Just the Headlines - Why I Created a Clean News Experience</h2>
-												<p class="text-base">I got tired of modern news websites with their ads and pop-ups, so I built a clean, minimal news aggregator using Node.js, free APIs, and static site generation.</p>
-
-												<div class="flex flex-wrap gap-2 mt-6 mb-6">
-													
-													<div class="badge badge-neutral  gap-2   
-
-													
-														badge-neutral
-													
-													"> web</div>
-
-													
-													<div class="badge badge-neutral  gap-2   
-
-													
-														badge-neutral
-													
-													"> nodejs</div>
-
-													
-												</div>
-											</div>
-										</a>
-
-										
-
-										<a 								class="card card-compact bg-base-100 shadow-md transition-all duration-200 card-app hover:-translate-y-1 rounded-4xl"
-											href="/blog/mcdvoice-code-breakdown/">
-											<figure class="px-4 pt-4">
-												<img loading="lazy" src="/assets/images/blog/mcdvoice-code-breakdown.png"
-													class="rounded-2xl   border-opacity-5 bg-base-300"
-													alt="What Really Happens When You Reverse Engineer a McDonald's Receipt Survey" />
-											</figure>
-											<div class="card-body">
-												<h2 class="card-title">What Really Happens When You Reverse Engineer a McDonald's Receipt Survey</h2>
-												<p class="text-base"> We reverse-engineered McDonald's receipt codes to understand how they work and how to generate working survey codes and validation numbers (just for fun).</p>
-
-												<div class="flex flex-wrap gap-2 mt-6 mb-6">
-													
-													<div class="badge badge-neutral  gap-2   
-
-													
-														badge-neutral
-													
-													"> hack</div>
-
-													
-												</div>
-											</div>
-										</a>
-
-										
-
-										<a 								class="card card-compact bg-base-100 shadow-md transition-all duration-200 card-app hover:-translate-y-1 rounded-4xl"
-											href="/blog/introducing-daily-bible-verse/">
-											<figure class="px-4 pt-4">
-												<img loading="lazy" src="/assets/images/blog/daily-bible-verse-app.png"
-													class="rounded-2xl   border-opacity-5 bg-base-300"
-													alt="Introducing Daily Bible Verse for iOS" />
-											</figure>
-											<div class="card-body">
-												<h2 class="card-title">Introducing Daily Bible Verse for iOS</h2>
-												<p class="text-base"> Discover Daily Bible Verse — a beautifully simple and spiritual app created to bring one verse a day into your life. Learn why we built it, what it can do, and how it helps you pause and reflect.</p>
-
-												<div class="flex flex-wrap gap-2 mt-6 mb-6">
-													
-													<div class="badge badge-neutral  gap-2   
-
-													
-														badge-neutral
-													
-													"> iOs</div>
-
-													
-													<div class="badge badge-neutral  gap-2   
-
-													
-														badge-neutral
-													
-													"> iPad</div>
-
-													
-												</div>
-											</div>
-										</a>
-
-										
-
-										<a 								class="card card-compact bg-base-100 shadow-md transition-all duration-200 card-app hover:-translate-y-1 rounded-4xl"
-											href="/blog/how-to-redeem-app-store-promo-code/">
-											<figure class="px-4 pt-4">
-												<img loading="lazy" src="/assets/images/blog/app-store-promo.png"
-													class="rounded-2xl   border-opacity-5 bg-base-300"
-													alt="How to Redeem an App Store Promo Code" />
-											</figure>
-											<div class="card-body">
-												<h2 class="card-title">How to Redeem an App Store Promo Code</h2>
-												<p class="text-base"> Learn how to redeem an App Store promo code on iPhone, iPad, or Mac with this quick and simple guide. Perfect for unlocking paid apps, games, or subscriptions with ease!</p>
-
-												<div class="flex flex-wrap gap-2 mt-6 mb-6">
-													
-													<div class="badge badge-neutral  gap-2   
-
-													
-														badge-neutral
-													
-													"> Update</div>
-
-													
-													<div class="badge badge-neutral  gap-2   
-
-													
-														badge-error
-													
-													"> Guide</div>
-
-													
-												</div>
-											</div>
-										</a>
-
-										
-
-										<a 								class="card card-compact bg-base-100 shadow-md transition-all duration-200 card-app hover:-translate-y-1 rounded-4xl"
-											href="/blog/ethically-scrape-poshmark-listings-node-puppeteer-update/">
-											<figure class="px-4 pt-4">
-												<img loading="lazy" src="/assets/images/blog/ethically-scrape-poshmark-listings-node-puppeteer.png"
-													class="rounded-2xl   border-opacity-5 bg-base-300"
-													alt="Scraping 20,000 Poshmark Listings (For Real This Time)" />
-											</figure>
-											<div class="card-body">
-												<h2 class="card-title">Scraping 20,000 Poshmark Listings (For Real This Time)</h2>
-												<p class="text-base">Back last week, I wrote a blog post titled How I Scraped 20,000 Poshmark Listings Using Node.js and Puppeteer. The idea seemed solid, scroll through a Poshmark closet, grab every listing URL, and scrape each listing one by one. But in reality? The script crashed constantly. It would hang, freeze, or get stuck on a single listing.</p>
-
-												<div class="flex flex-wrap gap-2 mt-6 mb-6">
-													
-													<div class="badge badge-neutral  gap-2   
-
-													
-														badge-neutral
-													
-													"> Company</div>
-
-													
-												</div>
-											</div>
-										</a>
-
-										
-
-										<a 								class="card card-compact bg-base-100 shadow-md transition-all duration-200 card-app hover:-translate-y-1 rounded-4xl"
-											href="/blog/ethically-scrape-poshmark-listings-node-puppeteer/">
-											<figure class="px-4 pt-4">
-												<img loading="lazy" src="/assets/images/blog/ethically-scrape-poshmark-listings-node-puppeteer.png"
-													class="rounded-2xl   border-opacity-5 bg-base-300"
-													alt="How I Scraped 20,000 Poshmark Listings Using Node.js and Puppeteer" />
-											</figure>
-											<div class="card-body">
-												<h2 class="card-title">How I Scraped 20,000 Poshmark Listings Using Node.js and Puppeteer</h2>
-												<p class="text-base">Learn how I scraped and backed up 20,000 listings from a Poshmark store using Node.js and Puppeteer. This guide explains the full process, includes code, and helps you recover public listing data for educational or personal use.</p>
-
-												<div class="flex flex-wrap gap-2 mt-6 mb-6">
-													
-													<div class="badge badge-neutral  gap-2   
-
-													
-														badge-neutral
-													
-													"> Company</div>
-
-													
-												</div>
-											</div>
-										</a>
-
-										
-
-										<a 								class="card card-compact bg-base-100 shadow-md transition-all duration-200 card-app hover:-translate-y-1 rounded-4xl"
-											href="/blog/delete-tweets-retweets-likes-without-apps/">
-											<figure class="px-4 pt-4">
-												<img loading="lazy" src="/assets/images/blog/delete-tweets-retweets-likes-without-apps.png"
-													class="rounded-2xl   border-opacity-5 bg-base-300"
-													alt="Delete Your Tweets, Retweets & Likes Without Installing Anything" />
-											</figure>
-											<div class="card-body">
-												<h2 class="card-title">Delete Your Tweets, Retweets & Likes Without Installing Anything</h2>
-												<p class="text-base">Want to clean up your Twitter without giving access to third-party apps? This simple script lets you delete tweets, unretweet, and unlike right from Chrome — and it even pauses to avoid rate limits.</p>
-
-												<div class="flex flex-wrap gap-2 mt-6 mb-6">
-													
-													<div class="badge badge-neutral  gap-2   
-
-													
-														badge-neutral
-													
-													"> Company</div>
-
-													
-												</div>
-											</div>
-										</a>
-
-										
-
-										<a 								class="card card-compact bg-base-100 shadow-md transition-all duration-200 card-app hover:-translate-y-1 rounded-4xl"
-											href="/blog/coffee-and-fun-quarterly-update-spring-2025/">
-											<figure class="px-4 pt-4">
-												<img loading="lazy" src="/assets/images/blog/coffee-and-fun-quarterly-update-spring-2025.png"
-													class="rounded-2xl   border-opacity-5 bg-base-300"
-													alt="Quarterly Check-In From the Coffee & Fun Coffee Shop" />
-											</figure>
-											<div class="card-body">
-												<h2 class="card-title">Quarterly Check-In From the Coffee & Fun Coffee Shop</h2>
-												<p class="text-base"> It’s been a wild and wonderful start to the year at Coffee & Fun. From open source Roomba tools and a Markdown Editor milestone to Hide Spoilers blowing up on iOS — here’s a peek behind the scenes.</p>
-
-												<div class="flex flex-wrap gap-2 mt-6 mb-6">
-													
-													<div class="badge badge-neutral  gap-2   
-
-													
-														badge-neutral
-													
-													"> Company</div>
-
-													
-												</div>
-											</div>
-										</a>
-
-										
-
-										<a 								class="card card-compact bg-base-100 shadow-md transition-all duration-200 card-app hover:-translate-y-1 rounded-4xl"
-											href="/blog/apple-passwords-app-review-coffee-and-fun/">
-											<figure class="px-4 pt-4">
-												<img loading="lazy" src="/assets/images/blog/apple-passwords-app-coffee-and-fun.png"
-													class="rounded-2xl   border-opacity-5 bg-base-300"
-													alt="Apple’s Passwords App Is Surprisingly Great " />
-											</figure>
-											<div class="card-body">
-												<h2 class="card-title">Apple’s Passwords App Is Surprisingly Great </h2>
-												<p class="text-base">We’ve been using Apple’s new Passwords app at Coffee & Fun, and it’s honestly a game-changer. Here’s why we recommend it to anyone in the Apple ecosystem — and how the Chrome extension makes it even better.</p>
-
-												<div class="flex flex-wrap gap-2 mt-6 mb-6">
-													
-													<div class="badge badge-neutral  gap-2   
-
-													
-														badge-neutral
-													
-													"> Company</div>
-
-													
-												</div>
-											</div>
-										</a>
-
-										
-
-										<a 								class="card card-compact bg-base-100 shadow-md transition-all duration-200 card-app hover:-translate-y-1 rounded-4xl"
-											href="/blog/skip-movie-trailers-trick/">
-											<figure class="px-4 pt-4">
-												<img loading="lazy" src="/assets/images/blog/skip-movie-trailers-trick.png"
-													class="rounded-2xl   border-opacity-5 bg-base-300"
-													alt="How to Skip Movie Trailers Without Missing the Start of the Movie" />
-											</figure>
-											<div class="card-body">
-												<h2 class="card-title">How to Skip Movie Trailers Without Missing the Start of the Movie</h2>
-												<p class="text-base">At Coffee & Fun, we ran a little experiment to see if we could show up to the movies tjust in time for the opening scene. Turns out, the food pickup time reveals everything. Here’s what we discovered.</p>
-
-												<div class="flex flex-wrap gap-2 mt-6 mb-6">
-													
-													<div class="badge badge-neutral  gap-2   
-
-													
-														badge-neutral
-													
-													"> Company</div>
-
-													
-												</div>
-											</div>
-										</a>
-
-										
-
-										<a 								class="card card-compact bg-base-100 shadow-md transition-all duration-200 card-app hover:-translate-y-1 rounded-4xl"
-											href="/blog/how-i-would-improve-chrome-web-store/">
-											<figure class="px-4 pt-4">
-												<img loading="lazy" src="/assets/images/blog/how-i-would-improve.png"
-													class="rounded-2xl   border-opacity-5 bg-base-300"
-													alt="How I would Improve the Chrome Web Store" />
-											</figure>
-											<div class="card-body">
-												<h2 class="card-title">How I would Improve the Chrome Web Store</h2>
-												<p class="text-base"> Join me as I share real, hands-on tips for improving the Chrome Web Store. Everything from more meaningful badges and better review tools to showing genuine user engagement. </p>
-
-												<div class="flex flex-wrap gap-2 mt-6 mb-6">
-													
-													<div class="badge badge-neutral  gap-2   
-
-													
-														badge-neutral
-													
-													"> Company</div>
-
-													
-												</div>
-											</div>
-										</a>
-
-										
-
-										<a 								class="card card-compact bg-base-100 shadow-md transition-all duration-200 card-app hover:-translate-y-1 rounded-4xl"
-											href="/blog/introducing-hide-spoilers/">
-											<figure class="px-4 pt-4">
-												<img loading="lazy" src="/assets/images/blog/hide-spoilers.png"
-													class="rounded-2xl   border-opacity-5 bg-base-300"
-													alt="Introducing Hide Spoilers" />
-											</figure>
-											<div class="card-body">
-												<h2 class="card-title">Introducing Hide Spoilers</h2>
-												<p class="text-base">Avoid spoilers for your favorite shows, games, and movies with Hide Spoilers Extension. This extension blurs text, images, and sections containing spoilers, offering a stress-free browsing experience.</p>
-
-												<div class="flex flex-wrap gap-2 mt-6 mb-6">
-													
-													<div class="badge badge-neutral  gap-2   
-
-													
-														badge-neutral
-													
-													"> Company</div>
-
-													
-												</div>
-											</div>
-										</a>
-
-										
-
-										<a 								class="card card-compact bg-base-100 shadow-md transition-all duration-200 card-app hover:-translate-y-1 rounded-4xl"
-											href="/blog/our-first-thoughts-on-the-vision-pro/">
-											<figure class="px-4 pt-4">
-												<img loading="lazy" src="/assets/images/blog/vision-pro-thoughts.png"
-													class="rounded-2xl   border-opacity-5 bg-base-300"
-													alt="Our First Thoughts on the Vision Pro " />
-											</figure>
-											<div class="card-body">
-												<h2 class="card-title">Our First Thoughts on the Vision Pro </h2>
-												<p class="text-base">The Vision Pro feels like a glimpse into the future, but is it practical for development? We’re testing it at Coffee & Fun LLC to find out.</p>
-
-												<div class="flex flex-wrap gap-2 mt-6 mb-6">
-													
-													<div class="badge badge-neutral  gap-2   
-
-													
-														badge-neutral
-													
-													"> Company</div>
-
-													
-												</div>
-											</div>
-										</a>
-
-										
-
-										<a 								class="card card-compact bg-base-100 shadow-md transition-all duration-200 card-app hover:-translate-y-1 rounded-4xl"
-											href="/blog/how-psa-grades-pokemon-cards-research-guide/">
-											<figure class="px-4 pt-4">
-												<img loading="lazy" src="/assets/images/blog/psa-grading-research.png"
-													class="rounded-2xl   border-opacity-5 bg-base-300"
-													alt="How PSA Grades Pokémon Cards" />
-											</figure>
-											<div class="card-body">
-												<h2 class="card-title">How PSA Grades Pokémon Cards</h2>
-												<p class="text-base">Coffee & Fun LLC is diving into Pokémon card grading using AI! Learn about PSA's grading process and our research experiment to build an AI-powered card grading estimator with ChatGPT.</p>
-
-												<div class="flex flex-wrap gap-2 mt-6 mb-6">
-													
-													<div class="badge badge-neutral  gap-2   
-
-													
-														badge-neutral
-													
-													"> Company</div>
-
-													
-												</div>
-											</div>
-										</a>
-
-										
-
-										<a 								class="card card-compact bg-base-100 shadow-md transition-all duration-200 card-app hover:-translate-y-1 rounded-4xl"
-											href="/blog/whats-coming-for-coffee-and-fun-llc-in-2025/">
-											<figure class="px-4 pt-4">
-												<img loading="lazy" src="/assets/images/blog/2025.png"
-													class="rounded-2xl   border-opacity-5 bg-base-300"
-													alt="What’s Coming for Coffee & Fun LLC in 2025" />
-											</figure>
-											<div class="card-body">
-												<h2 class="card-title">What’s Coming for Coffee & Fun LLC in 2025</h2>
-												<p class="text-base">Coffee & Fun LLC is gearing up for an exciting 2025! From supporting Helperbird updates to exploring VR, Pokémon grading with AI, 3D printing, and new apps like Step Hero, check out what we’re planning.</p>
-
-												<div class="flex flex-wrap gap-2 mt-6 mb-6">
-													
-													<div class="badge badge-neutral  gap-2   
-
-													
-														badge-neutral
-													
-													"> Company</div>
-
-													
-												</div>
-											</div>
-										</a>
-
-										
-
-										<a 								class="card card-compact bg-base-100 shadow-md transition-all duration-200 card-app hover:-translate-y-1 rounded-4xl"
-											href="/blog/introducing-autopause-control-your-media/">
-											<figure class="px-4 pt-4">
-												<img loading="lazy" src="/assets/images/blog/autopause.png"
-													class="rounded-2xl   border-opacity-5 bg-base-300"
-													alt="Say Hello to Auto Pause" />
-											</figure>
-											<div class="card-body">
-												<h2 class="card-title">Say Hello to Auto Pause</h2>
-												<p class="text-base">AutoPause is the latest browser extension from Coffee & Fun LLC, designed to let you set a timer and automatically pause your media playback. Discover how this simple extension can make your life a little easier.</p>
-
-												<div class="flex flex-wrap gap-2 mt-6 mb-6">
-													
-													<div class="badge badge-neutral  gap-2   
-
-													
-														badge-neutral
-													
-													"> Web</div>
-
-													
-												</div>
-											</div>
-										</a>
-
-										
-
-										<a 								class="card card-compact bg-base-100 shadow-md transition-all duration-200 card-app hover:-translate-y-1 rounded-4xl"
-											href="/blog/should-you-test-your-code-in-production/">
-											<figure class="px-4 pt-4">
-												<img loading="lazy" src="/assets/images/blog/test-in-production.png"
-													class="rounded-2xl   border-opacity-5 bg-base-300"
-													alt="Should You Test in Production?" />
-											</figure>
-											<div class="card-body">
-												<h2 class="card-title">Should You Test in Production?</h2>
-												<p class="text-base">Should You Test in Production? A lighthearted nod to every developer's worst (or best) idea, this site redirects to the iconic Bill O'Reilly clip: 'F*** it, we'll do it live!' Because sometimes, that's just how it feels. 😂</p>
-
-												<div class="flex flex-wrap gap-2 mt-6 mb-6">
-													
-													<div class="badge badge-neutral  gap-2   
-
-													
-														badge-neutral
-													
-													"> Web</div>
-
-													
-												</div>
-											</div>
-										</a>
-
-										
-
-										<a 								class="card card-compact bg-base-100 shadow-md transition-all duration-200 card-app hover:-translate-y-1 rounded-4xl"
-											href="/blog/testing-redbox-kiosk-offline-hack-for-free-dvds/">
-											<figure class="px-4 pt-4">
-												<img loading="lazy" src="/assets/images/blog/redbox.png"
-													class="rounded-2xl   border-opacity-5 bg-base-300"
-													alt="What Happens When Redbox Shuts Down? Trying the Redbox Free DVD Hack" />
-											</figure>
-											<div class="card-body">
-												<h2 class="card-title">What Happens When Redbox Shuts Down? Trying the Redbox Free DVD Hack</h2>
-												<p class="text-base">With Redbox shutting down, I tested a curious hack, accessing a kiosk in offline mode to see if DVDs could be rented for free. Dive into what I discovered about Redbox’s kiosks, their connection issues, and how they function when the servers go down.</p>
-
-												<div class="flex flex-wrap gap-2 mt-6 mb-6">
-													
-													<div class="badge badge-neutral  gap-2   
-
-													
-														badge-neutral
-													
-													"> Update</div>
-
-													
-													<div class="badge badge-neutral  gap-2   
-
-													
-														badge-neutral
-													
-													"> Hack</div>
-
-													
-												</div>
-											</div>
-										</a>
-
-										
-
-										<a 								class="card card-compact bg-base-100 shadow-md transition-all duration-200 card-app hover:-translate-y-1 rounded-4xl"
-											href="/blog/ethically-hack-woobox-voting-node-puppeteer/">
-											<figure class="px-4 pt-4">
-												<img loading="lazy" src="/assets/images/blog/woobox.png"
-													class="rounded-2xl   border-opacity-5 bg-base-300"
-													alt="How to Ethically Hack Woobox Voting with Node.js and Puppeteer" />
-											</figure>
-											<div class="card-body">
-												<h2 class="card-title">How to Ethically Hack Woobox Voting with Node.js and Puppeteer</h2>
-												<p class="text-base">Learn how to ethically automate voting on Woobox using Node.js and Puppeteer. This guide walks you through creating a voting script for educational purposes, exploring the mechanics of online voting and best practices for securing platforms.</p>
-
-												<div class="flex flex-wrap gap-2 mt-6 mb-6">
-													
-													<div class="badge badge-neutral  gap-2   
-
-													
-														badge-neutral
-													
-													"> Update</div>
-
-													
-													<div class="badge badge-neutral  gap-2   
-
-													
-														badge-error
-													
-													"> Guide</div>
-
-													
-												</div>
-											</div>
-										</a>
-
-										
-
-										<a 								class="card card-compact bg-base-100 shadow-md transition-all duration-200 card-app hover:-translate-y-1 rounded-4xl"
-											href="/blog/how-to-change-battery-in-an-apple-airtag/">
-											<figure class="px-4 pt-4">
-												<img loading="lazy" src="/assets/images/blog/airtag.png"
-													class="rounded-2xl   border-opacity-5 bg-base-300"
-													alt="How to Change the Battery in an Apple AirTag" />
-											</figure>
-											<div class="card-body">
-												<h2 class="card-title">How to Change the Battery in an Apple AirTag</h2>
-												<p class="text-base">Learn how to easily replace the battery in your Apple AirTag with this simple guide. We'll walk you through each step so you can keep your AirTag working smoothly and your items safely tracked.</p>
-
-												<div class="flex flex-wrap gap-2 mt-6 mb-6">
-													
-													<div class="badge badge-neutral  gap-2   
-
-													
-														badge-neutral
-													
-													"> Social</div>
-
-													
-													<div class="badge badge-neutral  gap-2   
-
-													
-														badge-error
-													
-													"> Guide</div>
-
-													
-												</div>
-											</div>
-										</a>
-
-										
-
-										<a 								class="card card-compact bg-base-100 shadow-md transition-all duration-200 card-app hover:-translate-y-1 rounded-4xl"
-											href="/blog/how-to-delete-or-deactivate-your-facebook-account/">
-											<figure class="px-4 pt-4">
-												<img loading="lazy" src="/assets/images/blog/facebook.png"
-													class="rounded-2xl   border-opacity-5 bg-base-300"
-													alt="How to Delete or Deactivate Your Facebook Account " />
-											</figure>
-											<div class="card-body">
-												<h2 class="card-title">How to Delete or Deactivate Your Facebook Account </h2>
-												<p class="text-base">Learn how to easily delete or deactivate your Facebook account with this simple, step-by-step guide. Whether you're taking a break or leaving for good, we’ve got you covered!</p>
-
-												<div class="flex flex-wrap gap-2 mt-6 mb-6">
-													
-													<div class="badge badge-neutral  gap-2   
-
-													
-														badge-neutral
-													
-													"> Social</div>
-
-													
-													<div class="badge badge-neutral  gap-2   
-
-													
-														badge-error
-													
-													"> Guide</div>
-
-													
-												</div>
-											</div>
-										</a>
-
-										
-
-										<a 								class="card card-compact bg-base-100 shadow-md transition-all duration-200 card-app hover:-translate-y-1 rounded-4xl"
-											href="/blog/how-to-replace-the-battery-in-your-nintendo-switch/">
-											<figure class="px-4 pt-4">
-												<img loading="lazy" src="/assets/images/blog/switch-battery.png"
-													class="rounded-2xl   border-opacity-5 bg-base-300"
-													alt="How to Replace the Battery in Your Nintendo Switch" />
-											</figure>
-											<div class="card-body">
-												<h2 class="card-title">How to Replace the Battery in Your Nintendo Switch</h2>
-												<p class="text-base">Is your Nintendo Switch not holding its charge like it used to? It's probably time to replace that battery. While it might sound tricky, I'll walk you through every single step, with detailed instructions on the screws and parts you'll encounter along the way!</p>
-
-												<div class="flex flex-wrap gap-2 mt-6 mb-6">
-													
-													<div class="badge badge-neutral  gap-2   
-
-													
-														badge-neutral
-													
-													"> Social</div>
-
-													
-													<div class="badge badge-neutral  gap-2   
-
-													
-														badge-error
-													
-													"> Guide</div>
-
-													
-												</div>
-											</div>
-										</a>
-
-										
-
-										<a 								class="card card-compact bg-base-100 shadow-md transition-all duration-200 card-app hover:-translate-y-1 rounded-4xl"
-											href="/blog/procrastinot-maths-challenge-update/">
-											<figure class="px-4 pt-4">
-												<img loading="lazy" src="/assets/images/blog/maths-update.png"
-													class="rounded-2xl   border-opacity-5 bg-base-300"
-													alt="ProcrastiNOT Update - The Maths Challenge is Here! 🎉" />
-											</figure>
-											<div class="card-body">
-												<h2 class="card-title">ProcrastiNOT Update - The Maths Challenge is Here! 🎉</h2>
-												<p class="text-base">We’re excited to roll out a fresh new update for ProcrastiNOT, bringing in a fun twist and some polish to keep things sharp. Let’s break down what’s new!</p>
-
-												<div class="flex flex-wrap gap-2 mt-6 mb-6">
-													
-													<div class="badge badge-neutral  gap-2   
-
-													
-														badge-neutral
-													
-													"> Update</div>
-
-													
-													<div class="badge badge-neutral  gap-2   
-
-													
-														badge-error
-													
-													"> Guide</div>
-
-													
-												</div>
-											</div>
-										</a>
-
-										
-
-
-
-										
-
-									</div>
-								</div>
-							</div>
-
-						</div>
-
-
-
-
-
-
-
-
-
-					</div>
-				</div>
-			</div>
-		</div>
-		</div>
-
-	</main>
-
-
+                                    <img alt="Logo of Coffee & Fun LLC featuring a stylized cup with a coffee bean pattern, representing the company's focus on creativity and innovation in software development."
+                                        src="/assets/images/coffee-and-fun-logo-dark.png" 
+                                        width="180" 
+                                        height="180"
+                                        decoding="async" 
+                                        data-nimg="future" 
+                                        loading="lazy"
+                                        class="aspect-square mx-auto block" />
+                                </a>
+                            </div>
+                        </div>
+                        
+                        <div class="max-w-8xl text-pretty text-base mx-auto" id="apps">
+                            <div class="card my-8">
+                                <div class="my-8">
+                                    <div class="not-prose grid grid-cols-1 gap-x-8 gap-y-8 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 xl:grid-cols-3">
+                                        
+                                        <a class="card card-compact bg-base-100 shadow-md transition-all duration-200 card-app hover:-translate-y-1 rounded-4xl"
+                                            href="/blog/lego-game-boy-livestream/">
+                                            <figure class="px-4 pt-4">
+                                                <img loading="lazy" 
+                                                    src="/assets/images/blog/lego-gameboy-livestream.png"
+                                                    class="rounded-2xl border-opacity-5 bg-base-300"
+                                                    alt="Watch Us Put a Real Game Boy Inside the Lego Game Boy — Live on October 1st" />
+                                            </figure>
+                                            <div class="card-body">
+                                                <h2 class="card-title">Watch Us Put a Real Game Boy Inside the Lego Game Boy — Live on October 1st</h2>
+                                                <p class="text-base">  Lego’s new 1:1 scale Game Boy launches October 1st, and we’re going live at 6 AM to attempt  something no one’s done before, putting a real Game Boy’s insides into the Lego replica.  Follow along on Instagram and YouTube as we make brick-game history.</p>
+                                                
+                                                <div class="flex flex-wrap gap-2 mt-6 mb-6">
+                                                    
+                                                    <div class="badge badge-neutral gap-2
+                                                        
+                                                            badge-neutral
+                                                        
+                                                    ">blog</div>
+                                                    
+                                                </div>
+                                            </div>
+                                        </a>
+                                        
+                                        <a class="card card-compact bg-base-100 shadow-md transition-all duration-200 card-app hover:-translate-y-1 rounded-4xl"
+                                            href="/blog/sun-spider-lego-disability-representation/">
+                                            <figure class="px-4 pt-4">
+                                                <img loading="lazy" 
+                                                    src="/assets/images/blog/sun-spider-lego.png"
+                                                    class="rounded-2xl border-opacity-5 bg-base-300"
+                                                    alt="Sun-Spider Swings Into LEGO: A Victory for Disability Representation" />
+                                            </figure>
+                                            <div class="card-body">
+                                                <h2 class="card-title">Sun-Spider Swings Into LEGO: A Victory for Disability Representation</h2>
+                                                <p class="text-base">The new LEGO Spider-Man minifigures series includes Sun-Spider, a disabled superhero with crutches, marking a huge win for disability representation in toys.</p>
+                                                
+                                                <div class="flex flex-wrap gap-2 mt-6 mb-6">
+                                                    
+                                                    <div class="badge badge-neutral gap-2
+                                                        
+                                                            badge-neutral
+                                                        
+                                                    ">blog</div>
+                                                    
+                                                </div>
+                                            </div>
+                                        </a>
+                                        
+                                        <a class="card card-compact bg-base-100 shadow-md transition-all duration-200 card-app hover:-translate-y-1 rounded-4xl"
+                                            href="/blog/lyft-ghost-ride-scam/">
+                                            <figure class="px-4 pt-4">
+                                                <img loading="lazy" 
+                                                    src="/assets/images/blog/lyft-ghost-ride-scam.png"
+                                                    class="rounded-2xl border-opacity-5 bg-base-300"
+                                                    alt="How I Got Scammed by a Lyft 'Ghost Ride'" />
+                                            </figure>
+                                            <div class="card-body">
+                                                <h2 class="card-title">How I Got Scammed by a Lyft 'Ghost Ride'</h2>
+                                                <p class="text-base">If you've never heard of a 'ghost ride' on Lyft, consider yourself lucky. But you should know about it, because it cost me $36 and hours of my time trying to get it back.</p>
+                                                
+                                                <div class="flex flex-wrap gap-2 mt-6 mb-6">
+                                                    
+                                                    <div class="badge badge-neutral gap-2
+                                                        
+                                                            badge-neutral
+                                                        
+                                                    ">blog</div>
+                                                    
+                                                    <div class="badge badge-neutral gap-2
+                                                        
+                                                            badge-neutral
+                                                        
+                                                    ">guide</div>
+                                                    
+                                                </div>
+                                            </div>
+                                        </a>
+                                        
+                                        <a class="card card-compact bg-base-100 shadow-md transition-all duration-200 card-app hover:-translate-y-1 rounded-4xl"
+                                            href="/blog/building-just-the-headlines-clean-news-experience/">
+                                            <figure class="px-4 pt-4">
+                                                <img loading="lazy" 
+                                                    src="/assets/images/blog/just-the-headlines.png"
+                                                    class="rounded-2xl border-opacity-5 bg-base-300"
+                                                    alt="Building Just the Headlines - Why I Created a Clean News Experience" />
+                                            </figure>
+                                            <div class="card-body">
+                                                <h2 class="card-title">Building Just the Headlines - Why I Created a Clean News Experience</h2>
+                                                <p class="text-base">I got tired of modern news websites with their ads and pop-ups, so I built a clean, minimal news aggregator using Node.js, free APIs, and static site generation.</p>
+                                                
+                                                <div class="flex flex-wrap gap-2 mt-6 mb-6">
+                                                    
+                                                    <div class="badge badge-neutral gap-2
+                                                        
+                                                            badge-neutral
+                                                        
+                                                    ">web</div>
+                                                    
+                                                    <div class="badge badge-neutral gap-2
+                                                        
+                                                            badge-neutral
+                                                        
+                                                    ">nodejs</div>
+                                                    
+                                                </div>
+                                            </div>
+                                        </a>
+                                        
+                                        <a class="card card-compact bg-base-100 shadow-md transition-all duration-200 card-app hover:-translate-y-1 rounded-4xl"
+                                            href="/blog/mcdvoice-code-breakdown/">
+                                            <figure class="px-4 pt-4">
+                                                <img loading="lazy" 
+                                                    src="/assets/images/blog/mcdvoice-code-breakdown.png"
+                                                    class="rounded-2xl border-opacity-5 bg-base-300"
+                                                    alt="What Really Happens When You Reverse Engineer a McDonald's Receipt Survey" />
+                                            </figure>
+                                            <div class="card-body">
+                                                <h2 class="card-title">What Really Happens When You Reverse Engineer a McDonald's Receipt Survey</h2>
+                                                <p class="text-base"> We reverse-engineered McDonald's receipt codes to understand how they work and how to generate working survey codes and validation numbers (just for fun).</p>
+                                                
+                                                <div class="flex flex-wrap gap-2 mt-6 mb-6">
+                                                    
+                                                    <div class="badge badge-neutral gap-2
+                                                        
+                                                            badge-neutral
+                                                        
+                                                    ">hack</div>
+                                                    
+                                                </div>
+                                            </div>
+                                        </a>
+                                        
+                                        <a class="card card-compact bg-base-100 shadow-md transition-all duration-200 card-app hover:-translate-y-1 rounded-4xl"
+                                            href="/blog/introducing-daily-bible-verse/">
+                                            <figure class="px-4 pt-4">
+                                                <img loading="lazy" 
+                                                    src="/assets/images/blog/daily-bible-verse-app.png"
+                                                    class="rounded-2xl border-opacity-5 bg-base-300"
+                                                    alt="Introducing Daily Bible Verse for iOS" />
+                                            </figure>
+                                            <div class="card-body">
+                                                <h2 class="card-title">Introducing Daily Bible Verse for iOS</h2>
+                                                <p class="text-base"> Discover Daily Bible Verse — a beautifully simple and spiritual app created to bring one verse a day into your life. Learn why we built it, what it can do, and how it helps you pause and reflect.</p>
+                                                
+                                                <div class="flex flex-wrap gap-2 mt-6 mb-6">
+                                                    
+                                                    <div class="badge badge-neutral gap-2
+                                                        
+                                                            badge-neutral
+                                                        
+                                                    ">iOs</div>
+                                                    
+                                                    <div class="badge badge-neutral gap-2
+                                                        
+                                                            badge-neutral
+                                                        
+                                                    ">iPad</div>
+                                                    
+                                                </div>
+                                            </div>
+                                        </a>
+                                        
+                                        <a class="card card-compact bg-base-100 shadow-md transition-all duration-200 card-app hover:-translate-y-1 rounded-4xl"
+                                            href="/blog/how-to-redeem-app-store-promo-code/">
+                                            <figure class="px-4 pt-4">
+                                                <img loading="lazy" 
+                                                    src="/assets/images/blog/app-store-promo.png"
+                                                    class="rounded-2xl border-opacity-5 bg-base-300"
+                                                    alt="How to Redeem an App Store Promo Code" />
+                                            </figure>
+                                            <div class="card-body">
+                                                <h2 class="card-title">How to Redeem an App Store Promo Code</h2>
+                                                <p class="text-base"> Learn how to redeem an App Store promo code on iPhone, iPad, or Mac with this quick and simple guide. Perfect for unlocking paid apps, games, or subscriptions with ease!</p>
+                                                
+                                                <div class="flex flex-wrap gap-2 mt-6 mb-6">
+                                                    
+                                                    <div class="badge badge-neutral gap-2
+                                                        
+                                                            badge-neutral
+                                                        
+                                                    ">Update</div>
+                                                    
+                                                    <div class="badge badge-neutral gap-2
+                                                        
+                                                            badge-error
+                                                        
+                                                    ">Guide</div>
+                                                    
+                                                </div>
+                                            </div>
+                                        </a>
+                                        
+                                        <a class="card card-compact bg-base-100 shadow-md transition-all duration-200 card-app hover:-translate-y-1 rounded-4xl"
+                                            href="/blog/ethically-scrape-poshmark-listings-node-puppeteer-update/">
+                                            <figure class="px-4 pt-4">
+                                                <img loading="lazy" 
+                                                    src="/assets/images/blog/ethically-scrape-poshmark-listings-node-puppeteer.png"
+                                                    class="rounded-2xl border-opacity-5 bg-base-300"
+                                                    alt="Scraping 20,000 Poshmark Listings (For Real This Time)" />
+                                            </figure>
+                                            <div class="card-body">
+                                                <h2 class="card-title">Scraping 20,000 Poshmark Listings (For Real This Time)</h2>
+                                                <p class="text-base">Back last week, I wrote a blog post titled How I Scraped 20,000 Poshmark Listings Using Node.js and Puppeteer. The idea seemed solid, scroll through a Poshmark closet, grab every listing URL, and scrape each listing one by one. But in reality? The script crashed constantly. It would hang, freeze, or get stuck on a single listing.</p>
+                                                
+                                                <div class="flex flex-wrap gap-2 mt-6 mb-6">
+                                                    
+                                                    <div class="badge badge-neutral gap-2
+                                                        
+                                                            badge-neutral
+                                                        
+                                                    ">Company</div>
+                                                    
+                                                </div>
+                                            </div>
+                                        </a>
+                                        
+                                        <a class="card card-compact bg-base-100 shadow-md transition-all duration-200 card-app hover:-translate-y-1 rounded-4xl"
+                                            href="/blog/ethically-scrape-poshmark-listings-node-puppeteer/">
+                                            <figure class="px-4 pt-4">
+                                                <img loading="lazy" 
+                                                    src="/assets/images/blog/ethically-scrape-poshmark-listings-node-puppeteer.png"
+                                                    class="rounded-2xl border-opacity-5 bg-base-300"
+                                                    alt="How I Scraped 20,000 Poshmark Listings Using Node.js and Puppeteer" />
+                                            </figure>
+                                            <div class="card-body">
+                                                <h2 class="card-title">How I Scraped 20,000 Poshmark Listings Using Node.js and Puppeteer</h2>
+                                                <p class="text-base">Learn how I scraped and backed up 20,000 listings from a Poshmark store using Node.js and Puppeteer. This guide explains the full process, includes code, and helps you recover public listing data for educational or personal use.</p>
+                                                
+                                                <div class="flex flex-wrap gap-2 mt-6 mb-6">
+                                                    
+                                                    <div class="badge badge-neutral gap-2
+                                                        
+                                                            badge-neutral
+                                                        
+                                                    ">Company</div>
+                                                    
+                                                </div>
+                                            </div>
+                                        </a>
+                                        
+                                        <a class="card card-compact bg-base-100 shadow-md transition-all duration-200 card-app hover:-translate-y-1 rounded-4xl"
+                                            href="/blog/delete-tweets-retweets-likes-without-apps/">
+                                            <figure class="px-4 pt-4">
+                                                <img loading="lazy" 
+                                                    src="/assets/images/blog/delete-tweets-retweets-likes-without-apps.png"
+                                                    class="rounded-2xl border-opacity-5 bg-base-300"
+                                                    alt="Delete Your Tweets, Retweets & Likes Without Installing Anything" />
+                                            </figure>
+                                            <div class="card-body">
+                                                <h2 class="card-title">Delete Your Tweets, Retweets & Likes Without Installing Anything</h2>
+                                                <p class="text-base">Want to clean up your Twitter without giving access to third-party apps? This simple script lets you delete tweets, unretweet, and unlike right from Chrome — and it even pauses to avoid rate limits.</p>
+                                                
+                                                <div class="flex flex-wrap gap-2 mt-6 mb-6">
+                                                    
+                                                    <div class="badge badge-neutral gap-2
+                                                        
+                                                            badge-neutral
+                                                        
+                                                    ">Company</div>
+                                                    
+                                                </div>
+                                            </div>
+                                        </a>
+                                        
+                                        <a class="card card-compact bg-base-100 shadow-md transition-all duration-200 card-app hover:-translate-y-1 rounded-4xl"
+                                            href="/blog/coffee-and-fun-quarterly-update-spring-2025/">
+                                            <figure class="px-4 pt-4">
+                                                <img loading="lazy" 
+                                                    src="/assets/images/blog/coffee-and-fun-quarterly-update-spring-2025.png"
+                                                    class="rounded-2xl border-opacity-5 bg-base-300"
+                                                    alt="Quarterly Check-In From the Coffee & Fun Coffee Shop" />
+                                            </figure>
+                                            <div class="card-body">
+                                                <h2 class="card-title">Quarterly Check-In From the Coffee & Fun Coffee Shop</h2>
+                                                <p class="text-base"> It’s been a wild and wonderful start to the year at Coffee & Fun. From open source Roomba tools and a Markdown Editor milestone to Hide Spoilers blowing up on iOS — here’s a peek behind the scenes.</p>
+                                                
+                                                <div class="flex flex-wrap gap-2 mt-6 mb-6">
+                                                    
+                                                    <div class="badge badge-neutral gap-2
+                                                        
+                                                            badge-neutral
+                                                        
+                                                    ">Company</div>
+                                                    
+                                                </div>
+                                            </div>
+                                        </a>
+                                        
+                                        <a class="card card-compact bg-base-100 shadow-md transition-all duration-200 card-app hover:-translate-y-1 rounded-4xl"
+                                            href="/blog/apple-passwords-app-review-coffee-and-fun/">
+                                            <figure class="px-4 pt-4">
+                                                <img loading="lazy" 
+                                                    src="/assets/images/blog/apple-passwords-app-coffee-and-fun.png"
+                                                    class="rounded-2xl border-opacity-5 bg-base-300"
+                                                    alt="Apple’s Passwords App Is Surprisingly Great " />
+                                            </figure>
+                                            <div class="card-body">
+                                                <h2 class="card-title">Apple’s Passwords App Is Surprisingly Great </h2>
+                                                <p class="text-base">We’ve been using Apple’s new Passwords app at Coffee & Fun, and it’s honestly a game-changer. Here’s why we recommend it to anyone in the Apple ecosystem — and how the Chrome extension makes it even better.</p>
+                                                
+                                                <div class="flex flex-wrap gap-2 mt-6 mb-6">
+                                                    
+                                                    <div class="badge badge-neutral gap-2
+                                                        
+                                                            badge-neutral
+                                                        
+                                                    ">Company</div>
+                                                    
+                                                </div>
+                                            </div>
+                                        </a>
+                                        
+                                        <a class="card card-compact bg-base-100 shadow-md transition-all duration-200 card-app hover:-translate-y-1 rounded-4xl"
+                                            href="/blog/skip-movie-trailers-trick/">
+                                            <figure class="px-4 pt-4">
+                                                <img loading="lazy" 
+                                                    src="/assets/images/blog/skip-movie-trailers-trick.png"
+                                                    class="rounded-2xl border-opacity-5 bg-base-300"
+                                                    alt="How to Skip Movie Trailers Without Missing the Start of the Movie" />
+                                            </figure>
+                                            <div class="card-body">
+                                                <h2 class="card-title">How to Skip Movie Trailers Without Missing the Start of the Movie</h2>
+                                                <p class="text-base">At Coffee & Fun, we ran a little experiment to see if we could show up to the movies tjust in time for the opening scene. Turns out, the food pickup time reveals everything. Here’s what we discovered.</p>
+                                                
+                                                <div class="flex flex-wrap gap-2 mt-6 mb-6">
+                                                    
+                                                    <div class="badge badge-neutral gap-2
+                                                        
+                                                            badge-neutral
+                                                        
+                                                    ">Company</div>
+                                                    
+                                                </div>
+                                            </div>
+                                        </a>
+                                        
+                                        <a class="card card-compact bg-base-100 shadow-md transition-all duration-200 card-app hover:-translate-y-1 rounded-4xl"
+                                            href="/blog/how-i-would-improve-chrome-web-store/">
+                                            <figure class="px-4 pt-4">
+                                                <img loading="lazy" 
+                                                    src="/assets/images/blog/how-i-would-improve.png"
+                                                    class="rounded-2xl border-opacity-5 bg-base-300"
+                                                    alt="How I would Improve the Chrome Web Store" />
+                                            </figure>
+                                            <div class="card-body">
+                                                <h2 class="card-title">How I would Improve the Chrome Web Store</h2>
+                                                <p class="text-base"> Join me as I share real, hands-on tips for improving the Chrome Web Store. Everything from more meaningful badges and better review tools to showing genuine user engagement. </p>
+                                                
+                                                <div class="flex flex-wrap gap-2 mt-6 mb-6">
+                                                    
+                                                    <div class="badge badge-neutral gap-2
+                                                        
+                                                            badge-neutral
+                                                        
+                                                    ">Company</div>
+                                                    
+                                                </div>
+                                            </div>
+                                        </a>
+                                        
+                                        <a class="card card-compact bg-base-100 shadow-md transition-all duration-200 card-app hover:-translate-y-1 rounded-4xl"
+                                            href="/blog/introducing-hide-spoilers/">
+                                            <figure class="px-4 pt-4">
+                                                <img loading="lazy" 
+                                                    src="/assets/images/blog/hide-spoilers.png"
+                                                    class="rounded-2xl border-opacity-5 bg-base-300"
+                                                    alt="Introducing Hide Spoilers" />
+                                            </figure>
+                                            <div class="card-body">
+                                                <h2 class="card-title">Introducing Hide Spoilers</h2>
+                                                <p class="text-base">Avoid spoilers for your favorite shows, games, and movies with Hide Spoilers Extension. This extension blurs text, images, and sections containing spoilers, offering a stress-free browsing experience.</p>
+                                                
+                                                <div class="flex flex-wrap gap-2 mt-6 mb-6">
+                                                    
+                                                    <div class="badge badge-neutral gap-2
+                                                        
+                                                            badge-neutral
+                                                        
+                                                    ">Company</div>
+                                                    
+                                                </div>
+                                            </div>
+                                        </a>
+                                        
+                                        <a class="card card-compact bg-base-100 shadow-md transition-all duration-200 card-app hover:-translate-y-1 rounded-4xl"
+                                            href="/blog/our-first-thoughts-on-the-vision-pro/">
+                                            <figure class="px-4 pt-4">
+                                                <img loading="lazy" 
+                                                    src="/assets/images/blog/vision-pro-thoughts.png"
+                                                    class="rounded-2xl border-opacity-5 bg-base-300"
+                                                    alt="Our First Thoughts on the Vision Pro " />
+                                            </figure>
+                                            <div class="card-body">
+                                                <h2 class="card-title">Our First Thoughts on the Vision Pro </h2>
+                                                <p class="text-base">The Vision Pro feels like a glimpse into the future, but is it practical for development? We’re testing it at Coffee & Fun LLC to find out.</p>
+                                                
+                                                <div class="flex flex-wrap gap-2 mt-6 mb-6">
+                                                    
+                                                    <div class="badge badge-neutral gap-2
+                                                        
+                                                            badge-neutral
+                                                        
+                                                    ">Company</div>
+                                                    
+                                                </div>
+                                            </div>
+                                        </a>
+                                        
+                                        <a class="card card-compact bg-base-100 shadow-md transition-all duration-200 card-app hover:-translate-y-1 rounded-4xl"
+                                            href="/blog/how-psa-grades-pokemon-cards-research-guide/">
+                                            <figure class="px-4 pt-4">
+                                                <img loading="lazy" 
+                                                    src="/assets/images/blog/psa-grading-research.png"
+                                                    class="rounded-2xl border-opacity-5 bg-base-300"
+                                                    alt="How PSA Grades Pokémon Cards" />
+                                            </figure>
+                                            <div class="card-body">
+                                                <h2 class="card-title">How PSA Grades Pokémon Cards</h2>
+                                                <p class="text-base">Coffee & Fun LLC is diving into Pokémon card grading using AI! Learn about PSA's grading process and our research experiment to build an AI-powered card grading estimator with ChatGPT.</p>
+                                                
+                                                <div class="flex flex-wrap gap-2 mt-6 mb-6">
+                                                    
+                                                    <div class="badge badge-neutral gap-2
+                                                        
+                                                            badge-neutral
+                                                        
+                                                    ">Company</div>
+                                                    
+                                                </div>
+                                            </div>
+                                        </a>
+                                        
+                                        <a class="card card-compact bg-base-100 shadow-md transition-all duration-200 card-app hover:-translate-y-1 rounded-4xl"
+                                            href="/blog/whats-coming-for-coffee-and-fun-llc-in-2025/">
+                                            <figure class="px-4 pt-4">
+                                                <img loading="lazy" 
+                                                    src="/assets/images/blog/2025.png"
+                                                    class="rounded-2xl border-opacity-5 bg-base-300"
+                                                    alt="What’s Coming for Coffee & Fun LLC in 2025" />
+                                            </figure>
+                                            <div class="card-body">
+                                                <h2 class="card-title">What’s Coming for Coffee & Fun LLC in 2025</h2>
+                                                <p class="text-base">Coffee & Fun LLC is gearing up for an exciting 2025! From supporting Helperbird updates to exploring VR, Pokémon grading with AI, 3D printing, and new apps like Step Hero, check out what we’re planning.</p>
+                                                
+                                                <div class="flex flex-wrap gap-2 mt-6 mb-6">
+                                                    
+                                                    <div class="badge badge-neutral gap-2
+                                                        
+                                                            badge-neutral
+                                                        
+                                                    ">Company</div>
+                                                    
+                                                </div>
+                                            </div>
+                                        </a>
+                                        
+                                        <a class="card card-compact bg-base-100 shadow-md transition-all duration-200 card-app hover:-translate-y-1 rounded-4xl"
+                                            href="/blog/introducing-autopause-control-your-media/">
+                                            <figure class="px-4 pt-4">
+                                                <img loading="lazy" 
+                                                    src="/assets/images/blog/autopause.png"
+                                                    class="rounded-2xl border-opacity-5 bg-base-300"
+                                                    alt="Say Hello to Auto Pause" />
+                                            </figure>
+                                            <div class="card-body">
+                                                <h2 class="card-title">Say Hello to Auto Pause</h2>
+                                                <p class="text-base">AutoPause is the latest browser extension from Coffee & Fun LLC, designed to let you set a timer and automatically pause your media playback. Discover how this simple extension can make your life a little easier.</p>
+                                                
+                                                <div class="flex flex-wrap gap-2 mt-6 mb-6">
+                                                    
+                                                    <div class="badge badge-neutral gap-2
+                                                        
+                                                            badge-neutral
+                                                        
+                                                    ">Web</div>
+                                                    
+                                                </div>
+                                            </div>
+                                        </a>
+                                        
+                                        <a class="card card-compact bg-base-100 shadow-md transition-all duration-200 card-app hover:-translate-y-1 rounded-4xl"
+                                            href="/blog/should-you-test-your-code-in-production/">
+                                            <figure class="px-4 pt-4">
+                                                <img loading="lazy" 
+                                                    src="/assets/images/blog/test-in-production.png"
+                                                    class="rounded-2xl border-opacity-5 bg-base-300"
+                                                    alt="Should You Test in Production?" />
+                                            </figure>
+                                            <div class="card-body">
+                                                <h2 class="card-title">Should You Test in Production?</h2>
+                                                <p class="text-base">Should You Test in Production? A lighthearted nod to every developer's worst (or best) idea, this site redirects to the iconic Bill O'Reilly clip: 'F*** it, we'll do it live!' Because sometimes, that's just how it feels. 😂</p>
+                                                
+                                                <div class="flex flex-wrap gap-2 mt-6 mb-6">
+                                                    
+                                                    <div class="badge badge-neutral gap-2
+                                                        
+                                                            badge-neutral
+                                                        
+                                                    ">Web</div>
+                                                    
+                                                </div>
+                                            </div>
+                                        </a>
+                                        
+                                        <a class="card card-compact bg-base-100 shadow-md transition-all duration-200 card-app hover:-translate-y-1 rounded-4xl"
+                                            href="/blog/testing-redbox-kiosk-offline-hack-for-free-dvds/">
+                                            <figure class="px-4 pt-4">
+                                                <img loading="lazy" 
+                                                    src="/assets/images/blog/redbox.png"
+                                                    class="rounded-2xl border-opacity-5 bg-base-300"
+                                                    alt="What Happens When Redbox Shuts Down? Trying the Redbox Free DVD Hack" />
+                                            </figure>
+                                            <div class="card-body">
+                                                <h2 class="card-title">What Happens When Redbox Shuts Down? Trying the Redbox Free DVD Hack</h2>
+                                                <p class="text-base">With Redbox shutting down, I tested a curious hack, accessing a kiosk in offline mode to see if DVDs could be rented for free. Dive into what I discovered about Redbox’s kiosks, their connection issues, and how they function when the servers go down.</p>
+                                                
+                                                <div class="flex flex-wrap gap-2 mt-6 mb-6">
+                                                    
+                                                    <div class="badge badge-neutral gap-2
+                                                        
+                                                            badge-neutral
+                                                        
+                                                    ">Update</div>
+                                                    
+                                                    <div class="badge badge-neutral gap-2
+                                                        
+                                                            badge-neutral
+                                                        
+                                                    ">Hack</div>
+                                                    
+                                                </div>
+                                            </div>
+                                        </a>
+                                        
+                                        <a class="card card-compact bg-base-100 shadow-md transition-all duration-200 card-app hover:-translate-y-1 rounded-4xl"
+                                            href="/blog/ethically-hack-woobox-voting-node-puppeteer/">
+                                            <figure class="px-4 pt-4">
+                                                <img loading="lazy" 
+                                                    src="/assets/images/blog/woobox.png"
+                                                    class="rounded-2xl border-opacity-5 bg-base-300"
+                                                    alt="How to Ethically Hack Woobox Voting with Node.js and Puppeteer" />
+                                            </figure>
+                                            <div class="card-body">
+                                                <h2 class="card-title">How to Ethically Hack Woobox Voting with Node.js and Puppeteer</h2>
+                                                <p class="text-base">Learn how to ethically automate voting on Woobox using Node.js and Puppeteer. This guide walks you through creating a voting script for educational purposes, exploring the mechanics of online voting and best practices for securing platforms.</p>
+                                                
+                                                <div class="flex flex-wrap gap-2 mt-6 mb-6">
+                                                    
+                                                    <div class="badge badge-neutral gap-2
+                                                        
+                                                            badge-neutral
+                                                        
+                                                    ">Update</div>
+                                                    
+                                                    <div class="badge badge-neutral gap-2
+                                                        
+                                                            badge-error
+                                                        
+                                                    ">Guide</div>
+                                                    
+                                                </div>
+                                            </div>
+                                        </a>
+                                        
+                                        <a class="card card-compact bg-base-100 shadow-md transition-all duration-200 card-app hover:-translate-y-1 rounded-4xl"
+                                            href="/blog/how-to-change-battery-in-an-apple-airtag/">
+                                            <figure class="px-4 pt-4">
+                                                <img loading="lazy" 
+                                                    src="/assets/images/blog/airtag.png"
+                                                    class="rounded-2xl border-opacity-5 bg-base-300"
+                                                    alt="How to Change the Battery in an Apple AirTag" />
+                                            </figure>
+                                            <div class="card-body">
+                                                <h2 class="card-title">How to Change the Battery in an Apple AirTag</h2>
+                                                <p class="text-base">Learn how to easily replace the battery in your Apple AirTag with this simple guide. We'll walk you through each step so you can keep your AirTag working smoothly and your items safely tracked.</p>
+                                                
+                                                <div class="flex flex-wrap gap-2 mt-6 mb-6">
+                                                    
+                                                    <div class="badge badge-neutral gap-2
+                                                        
+                                                            badge-neutral
+                                                        
+                                                    ">Social</div>
+                                                    
+                                                    <div class="badge badge-neutral gap-2
+                                                        
+                                                            badge-error
+                                                        
+                                                    ">Guide</div>
+                                                    
+                                                </div>
+                                            </div>
+                                        </a>
+                                        
+                                        <a class="card card-compact bg-base-100 shadow-md transition-all duration-200 card-app hover:-translate-y-1 rounded-4xl"
+                                            href="/blog/how-to-delete-or-deactivate-your-facebook-account/">
+                                            <figure class="px-4 pt-4">
+                                                <img loading="lazy" 
+                                                    src="/assets/images/blog/facebook.png"
+                                                    class="rounded-2xl border-opacity-5 bg-base-300"
+                                                    alt="How to Delete or Deactivate Your Facebook Account " />
+                                            </figure>
+                                            <div class="card-body">
+                                                <h2 class="card-title">How to Delete or Deactivate Your Facebook Account </h2>
+                                                <p class="text-base">Learn how to easily delete or deactivate your Facebook account with this simple, step-by-step guide. Whether you're taking a break or leaving for good, we’ve got you covered!</p>
+                                                
+                                                <div class="flex flex-wrap gap-2 mt-6 mb-6">
+                                                    
+                                                    <div class="badge badge-neutral gap-2
+                                                        
+                                                            badge-neutral
+                                                        
+                                                    ">Social</div>
+                                                    
+                                                    <div class="badge badge-neutral gap-2
+                                                        
+                                                            badge-error
+                                                        
+                                                    ">Guide</div>
+                                                    
+                                                </div>
+                                            </div>
+                                        </a>
+                                        
+                                        <a class="card card-compact bg-base-100 shadow-md transition-all duration-200 card-app hover:-translate-y-1 rounded-4xl"
+                                            href="/blog/how-to-replace-the-battery-in-your-nintendo-switch/">
+                                            <figure class="px-4 pt-4">
+                                                <img loading="lazy" 
+                                                    src="/assets/images/blog/switch-battery.png"
+                                                    class="rounded-2xl border-opacity-5 bg-base-300"
+                                                    alt="How to Replace the Battery in Your Nintendo Switch" />
+                                            </figure>
+                                            <div class="card-body">
+                                                <h2 class="card-title">How to Replace the Battery in Your Nintendo Switch</h2>
+                                                <p class="text-base">Is your Nintendo Switch not holding its charge like it used to? It's probably time to replace that battery. While it might sound tricky, I'll walk you through every single step, with detailed instructions on the screws and parts you'll encounter along the way!</p>
+                                                
+                                                <div class="flex flex-wrap gap-2 mt-6 mb-6">
+                                                    
+                                                    <div class="badge badge-neutral gap-2
+                                                        
+                                                            badge-neutral
+                                                        
+                                                    ">Social</div>
+                                                    
+                                                    <div class="badge badge-neutral gap-2
+                                                        
+                                                            badge-error
+                                                        
+                                                    ">Guide</div>
+                                                    
+                                                </div>
+                                            </div>
+                                        </a>
+                                        
+                                        <a class="card card-compact bg-base-100 shadow-md transition-all duration-200 card-app hover:-translate-y-1 rounded-4xl"
+                                            href="/blog/procrastinot-maths-challenge-update/">
+                                            <figure class="px-4 pt-4">
+                                                <img loading="lazy" 
+                                                    src="/assets/images/blog/maths-update.png"
+                                                    class="rounded-2xl border-opacity-5 bg-base-300"
+                                                    alt="ProcrastiNOT Update - The Maths Challenge is Here! 🎉" />
+                                            </figure>
+                                            <div class="card-body">
+                                                <h2 class="card-title">ProcrastiNOT Update - The Maths Challenge is Here! 🎉</h2>
+                                                <p class="text-base">We’re excited to roll out a fresh new update for ProcrastiNOT, bringing in a fun twist and some polish to keep things sharp. Let’s break down what’s new!</p>
+                                                
+                                                <div class="flex flex-wrap gap-2 mt-6 mb-6">
+                                                    
+                                                    <div class="badge badge-neutral gap-2
+                                                        
+                                                            badge-neutral
+                                                        
+                                                    ">Update</div>
+                                                    
+                                                    <div class="badge badge-neutral gap-2
+                                                        
+                                                            badge-error
+                                                        
+                                                    ">Guide</div>
+                                                    
+                                                </div>
+                                            </div>
+                                        </a>
+                                        
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+    
     <!-- Supporters Modal -->
 <dialog
   id="my_modal_contact"
@@ -1685,8 +1610,6 @@
     </div>
   </div>
 </dialog>
-
-
     <footer class="brand-color-background p-4 sm:p-6 lg:p-10">
   <div class="mx-auto max-w-7xl px-4 py-12 sm:px-6 sm:py-16 lg:px-8 lg:py-20">
     <!-- Logo and Company Info -->
@@ -1802,9 +1725,5 @@
     })();
   });
 </script>
-
-
-
 </body>
-
 </html>
