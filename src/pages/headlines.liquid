@@ -319,29 +319,16 @@
             </div>
         </div>
 
-        <!-- Footer -->
-        <footer class="text-center mt-16 pb-8 text-base-content/50 text-sm border-t pt-8">
-            <p>Just the Headlines • Updated daily</p>
-            <p class="mt-1">Built by Coffee & Fun LLC</p>
-            <div class="mt-4 flex justify-center gap-4 text-xs">
-                <a href="https://x.com/bycoffeeandfun" target="_blank" class="hover:text-primary">
-                    Twitter
-                </a>
-                <span>•</span>
-                <a href="mailto:hello@coffeeandfun.com" class="hover:text-primary">
-                    Contact
-                </a>
-            </div>
-        </footer>
-    </div>
 
+    </div>
+      {% include footer.liquid %}
     <script>
         const { createApp } = Vue;
         
         createApp({
             data() {
                 return {
-                    allArticles: {% raw %}{{ news | json }}{% endraw %},
+                    allArticles: {{ news | json }},
                     isLoading: false,
                     error: null,
                     selectedCategory: 'all',

@@ -187,6 +187,9 @@
     </style>
 </head>
 <body class="bg-base-100 min-h-screen">
+            {% assign showFun = true %} 
+    {% assign showMiddleBadgeWithText = true %} 
+    {% include header.liquid %}
     <div v-cloak id="app" class="container mx-auto max-w-6xl p-6">
         <!-- Header -->
         <header class="text-center mb-12">
@@ -356,7 +359,7 @@
                                 class="p-4 bg-base-100 rounded-lg"
                             >
                                 <div class="flex justify-between items-start mb-2">
-                                    <h4 class="font-semibold">Item # {% raw %} {{ index + 1 }} {% endraw % }</h4>
+                                    <h4 class="font-semibold">Item # {% raw %} {{ index + 1 }} {% endraw %}</h4>
                                     <button 
                                         v-if="receipt.items.length > 1"
                                         @click="removeItem(index)" 
@@ -441,14 +444,14 @@
                                     alt="Business Logo" 
                                     class="logo-preview mx-auto mb-4"
                                 />
-                                <h3 class="text-xl font-bold"> {% raw % } {{ receipt.businessName }} {% endraw % }</h3>
+                                <h3 class="text-xl font-bold"> {% raw %} {{ receipt.businessName }} {% endraw %}</h3>
                                 <div v-if="receipt.businessAddress" class="text-sm mt-1">
                                     {{ receipt.businessAddress }}
                                 </div>
                                 <div v-if="hasContactInfo" class="text-sm">
-                                    <span v-if="receipt.businessPhone"> {% raw % } {{ receipt.businessPhone }} {% endraw % }</span>
+                                    <span v-if="receipt.businessPhone"> {% raw %} {{ receipt.businessPhone }} {% endraw %}</span>
                                     <span v-if="receipt.businessPhone && receipt.businessEmail"> • </span>
-                                    <span v-if="receipt.businessEmail"> {% raw % } {{ receipt.businessEmail }} {% endraw % }</span>
+                                    <span v-if="receipt.businessEmail"> {% raw %} {{ receipt.businessEmail }} {% endraw %}</span>
                                 </div>
                             </div>
                             
@@ -458,15 +461,15 @@
                             <div class="text-sm mb-4">
                                 <div class="receipt-item">
                                     <span>Receipt #:</span>
-                                    <span> {% raw % } {{ receiptNumber }} {% endraw % }</span>
+                                    <span> {% raw %} {{ receiptNumber }} {% endraw %}</span>
                                 </div>
                                 <div class="receipt-item">
                                     <span>Date:</span>
-                                    <span> {% raw % } {{ formatDate(receipt.date) }} {% endraw % }</span>
+                                    <span> {% raw %} {{ formatDate(receipt.date) }} {% endraw %}</span>
                                 </div>
                                 <div class="receipt-item">
                                     <span>Payment:</span>
-                                    <span> {% raw % } {{ receipt.paymentMethod }} {% endraw % }</span>
+                                    <span> {% raw %} {{ receipt.paymentMethod }} {% endraw %}</span>
                                 </div>
                             </div>
                             
@@ -480,11 +483,11 @@
                                     class="mb-2"
                                 >
                                     <div class="receipt-item text-sm">
-                                        <span> {% raw % } {{ item.description }} {% endraw % }</span>
-                                        <span>${{ (item.quantity * item.price).toFixed(2) }} {% endraw % }</span>
+                                        <span> {% raw %} {{ item.description }} {% endraw %}</span>
+                                        <span>{% raw %}  ${{ (item.quantity * item.price).toFixed(2) }} {% endraw %}</span>
                                     </div>
                                     <div class="text-xs text-gray-600 ml-2">
-                                        {{ item.quantity }} × ${{ item.price.toFixed(2) }}
+                                  {% raw %}      {{ item.quantity }} × ${{ item.price.toFixed(2) }}  {% endraw %}
                                     </div>
                                 </div>
                             </div>
@@ -495,16 +498,16 @@
                             <div class="space-y-1">
                                 <div class="receipt-item">
                                     <span>Subtotal:</span>
-                                    {% raw %}<span>${{ subtotal.toFixed(2) }} {% endraw % }</span>{% endraw %}
+                                    {% raw %}<span>${{ subtotal.toFixed(2) }} </span> {% endraw %}
                                 </div>
                                 <div class="receipt-item">
-                                    {% raw %}<span>Tax ({{ receipt.taxRate }}%):</span>
-                                    <span>${{ taxAmount.toFixed(2) }} {% endraw % }</span>{% endraw %}
+                                    {% raw %}<span>Tax ({{ receipt.taxRate }}%): </span> {% endraw %}
+                                 {% raw %}    <span>${{ taxAmount.toFixed(2) }}</span> {% endraw %}
                                 </div>
                                 <div class="receipt-divider"></div>
                                 <div class="receipt-item font-bold text-lg">
                                     <span>Total:</span>
-                                    {% raw %}<span>${{ total.toFixed(2) }} {% endraw % }</span>{% endraw %}
+                                    {% raw %}<span>${{ total.toFixed(2) }} </span> {% endraw %}
                                 </div>
                             </div>
                             
@@ -829,5 +832,9 @@
             }
         }).mount('#app');
     </script>
+
+    {% include modals.liquid %} 
+    {% include footer.liquid %}
+
 </body>
 </html>

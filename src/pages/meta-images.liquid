@@ -180,6 +180,9 @@
 </head>
 
 <body class="bg-base-100 min-h-screen">
+                    {% assign showFun = true %} 
+    {% assign showMiddleBadgeWithText = true %} 
+    {% include header.liquid %}
     <div v-cloak id="app" class="container mx-auto max-w-6xl p-4 sm:p-6">
         <!-- Header -->
         <header class="text-center mb-8 sm:mb-12">
@@ -406,11 +409,7 @@
             </div>
         </div>
 
-        <!-- Footer -->
-        <footer class="text-center mt-12 pb-8 text-base-content/50 text-sm">
-            <p>Image Metadata Viewer & Editor</p>
-            <p class="mt-1">Built by Coffee & Fun LLC</p>
-        </footer>
+      {% include footer.liquid %}
     </div>
 
     <script>
