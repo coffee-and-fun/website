@@ -415,7 +415,7 @@
             <img
               src="/assets/images/blog/mcdvoice-code-breakdown.png"
               alt="Cracking the McDVOICE Code: What Really Happens When You Reverse Engineer a McDonald's Receipt Survey"
-              class="w-full h-64 sm:h-80 lg:h-96 object-cover rounded-xl shadow-lg"
+              class="w-full h-64 sm:h-80 lg:h-96 object-cover  rounded-3xl mb-8 border-gray-300 border-2"
               title="Cracking the McDVOICE Code: What Really Happens When You Reverse Engineer a McDonald's Receipt Survey"
               loading="lazy"
             />
@@ -461,28 +461,9 @@ Both receipts printed out slightly different codes.</p>
 <hr>
 <h2 class="leading-relaxed font-display text-pretty text-2xl mb-6 mt-12 font-semibold text-pretty text-gray-800" id="%F0%9F%A7%A0-building-the-decoder-script" tabindex="-1">🧠 Building the Decoder Script</h2>
 <p class="leading-relaxed font-display mb-4 mt-4 text-pretty text-lg text-pretty text-gray-900">I wrote a Python function to decode these codes:</p>
-<pre><code class="language-python">from datetime import datetime, timedelta
+<pre><code class="language-python">
+Code has been removed 
 
-def decode_us_mcd_survey_code(code: str):
-    parts = code.strip().split(&quot;-&quot;)
-    store_id, register_id, julian_date, time_segment, item_segment, checksum = parts
-
-    year = 2000 + int(julian_date[:2])
-    day_of_year = int(julian_date[2:])
-    full_date = datetime(year, 1, 1) + timedelta(days=day_of_year - 1)
-
-    minutes = int(time_segment[:3])
-    hour = minutes // 60
-    minute = minutes % 60
-
-    return {
-        &quot;store_id&quot;: store_id,
-        &quot;register_id&quot;: register_id,
-        &quot;date&quot;: full_date.strftime(&quot;%Y-%m-%d&quot;),
-        &quot;time&quot;: f&quot;{hour:02d}:{minute:02d}&quot;,
-        &quot;item_id&quot;: int(item_segment),
-        &quot;final_digit&quot;: checksum
-    }
 </code></pre>
 <p class="leading-relaxed font-display mb-4 mt-4 text-pretty text-lg text-pretty text-gray-900">This gave us clarity on how McDonald's structures their survey codes. Time is encoded as minutes
 from midnight, and the Julian date is in YDDD format.</p>
