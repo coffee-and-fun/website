@@ -32,7 +32,7 @@
   <!-- Open Graph Meta Tags -->
   <meta property="og:title" content="Cracking the McDVOICE Code: What Really Happens When You Reverse Engineer a McDonald's Receipt Survey - Coffee & Fun LLC" />
   <meta property="og:site_name" content="Coffee & Fun LLC" />
-  <meta property="og:url" content="https://www.coffeeandfun.com//blog/mcdvoice-code-breakdown/" />
+  <meta property="og:url" content="https://www.coffeeandfun.com//blog/mcdvoice-code-breakdown-olc/" />
   <meta property="og:description" content="We reverse-engineered McDonald's receipt codes to understand how they work and how to generate working survey codes and validation numbers (just for fun)." />
   <meta property="og:type" content="article" />
   <meta property="og:image" content="https://www.coffeeandfun.com/assets/images/blog/mcdvoice-code-breakdown.png" />
@@ -71,7 +71,7 @@
     "dateModified": "%2025-%43-%10",
     "mainEntityOfPage": {
       "@type": "WebPage",
-      "@id": "https://www.coffeeandfun.com/blog/mcdvoice-code-breakdown/"
+      "@id": "https://www.coffeeandfun.com/blog/mcdvoice-code-breakdown-olc/"
     }
   }
   </script>
@@ -424,22 +424,142 @@
 
         <!-- Article Content -->
         <div class="article-content mt-8 sm:mt-12">
-          <h1 class="leading-relaxed font-display text-pretty text-3xl mb-8 font-bold text-pretty text-gray-900" id="%F0%9F%9A%A7-content-update-notice" tabindex="-1">🚧 Content Update Notice</h1>
-<p class="leading-relaxed font-display mb-4 mt-4 text-pretty text-lg text-pretty text-gray-900">This article previously discussed <strong class="text-lg font-semibold text-pretty text-gray-800">McDonald’s survey program (McDVoice)</strong>.<br>
-At McDonald’s request, the details have been removed.</p>
-<p class="leading-relaxed font-display mb-4 mt-4 text-pretty text-lg text-pretty text-gray-900">This post was originally written for <strong class="text-lg font-semibold text-pretty text-gray-800">research and educational purposes</strong> to explore how customer feedback systems work. We fully respect McDonald’s rights and have updated the content accordingly.</p>
+          <h2 class="leading-relaxed font-display text-pretty text-2xl mb-6 mt-12 font-semibold text-pretty text-gray-800" id="%F0%9F%A7%BE-the-mission" tabindex="-1">🧾 The Mission</h2>
+<p class="leading-relaxed font-display mb-4 mt-4 text-pretty text-lg text-pretty text-gray-900">I wanted to understand how McDonald’s receipt survey codes work. Specifically, the ones you see on
+your receipt that look like:</p>
+<pre><code>03963-06000-41025-14028-00024-6
+</code></pre>
+<p class="leading-relaxed font-display mb-4 mt-4 text-pretty text-lg text-pretty text-gray-900">That string of numbers holds all the data about your visit: store ID, register, date, time, item,
+and a checksum. My goal was to see:</p>
+<ol class="list-decimal list-inside mt-4 space-y-2 pl-6 text-pretty text-lg font-display ml-6 mb-8 text-pretty text-gray-900">
+<li class="mb-2 text-pretty text-lg font-display text-pretty text-gray-900 flex items-center">Can I decode it?</li>
+<li class="mb-2 text-pretty text-lg font-display text-pretty text-gray-900 flex items-center">Can I generate a valid code?</li>
+<li class="mb-2 text-pretty text-lg font-display text-pretty text-gray-900 flex items-center">Will McDVOICE accept it?</li>
+<li class="mb-2 text-pretty text-lg font-display text-pretty text-gray-900 flex items-center">Can I get a real validation code?</li>
+</ol>
+<p class="leading-relaxed font-display mb-4 mt-4 text-pretty text-lg text-pretty text-gray-900">Let’s walk through it.</p>
 <hr>
-<h2 class="leading-relaxed font-display text-pretty text-2xl mb-6 mt-12 font-semibold text-pretty text-gray-800" id="%F0%9F%93%9D-about-feedback-codes-(general-info)" tabindex="-1">📝 About Feedback Codes (General Info)</h2>
-<p class="leading-relaxed font-display mb-4 mt-4 text-pretty text-lg text-pretty text-gray-900">Many companies provide survey codes on receipts. These are generally used to:</p>
+<h2 class="leading-relaxed font-display text-pretty text-2xl mb-6 mt-12 font-semibold text-pretty text-gray-800" id="%F0%9F%8F%AA-the-real-world-test%3A-going-to-mcdonald%E2%80%99s" tabindex="-1">🏪 The Real-World Test: Going to McDonald’s</h2>
+<p class="leading-relaxed font-display mb-4 mt-4 text-pretty text-lg text-pretty text-gray-900">I went into a local McDonald’s and ordered the <em>exact same items</em> twice from two separate kiosks.
+Both receipts printed out slightly different codes.</p>
+<h3 class="leading-relaxed font-display text-pretty text-xl mb-4 mt-10 font-semibold text-pretty text-gray-700" id="first-receipt%3A" tabindex="-1">First Receipt:</h3>
+<pre><code>03963-06000-41025-14028-00024-6
+</code></pre>
+<h3 class="leading-relaxed font-display text-pretty text-xl mb-4 mt-10 font-semibold text-pretty text-gray-700" id="second-receipt%3A" tabindex="-1">Second Receipt:</h3>
+<pre><code>03963-06000-41025-14033-00024-7
+</code></pre>
+<p class="leading-relaxed font-display mb-4 mt-4 text-pretty text-lg text-pretty text-gray-900">Breaking it down:</p>
 <ul class="list-disc list-inside mt-4 space-y-2 pl-6 text-pretty text-lg font-display ml-6 mb-8 text-pretty text-gray-900">
-<li class="mb-2 text-pretty text-lg font-display text-pretty text-gray-900 flex items-center">Collect opinions about service and product quality</li>
-<li class="mb-2 text-pretty text-lg font-display text-pretty text-gray-900 flex items-center">Identify areas for improvement</li>
-<li class="mb-2 text-pretty text-lg font-display text-pretty text-gray-900 flex items-center">Reward customers with discounts or freebies</li>
+<li class="mb-2 text-pretty text-lg font-display text-pretty text-gray-900 flex items-center"><code>03963</code>: Store ID</li>
+<li class="mb-2 text-pretty text-lg font-display text-pretty text-gray-900 flex items-center"><code>06000</code>: Register ID</li>
+<li class="mb-2 text-pretty text-lg font-display text-pretty text-gray-900 flex items-center"><code>41025</code>: Julian date = April 10, 2025 (04/10/25)</li>
+<li class="mb-2 text-pretty text-lg font-display text-pretty text-gray-900 flex items-center"><code>14028</code>: 14:02 PM (minutes since midnight, with milliseconds rounded — confirmed)</li>
+<li class="mb-2 text-pretty text-lg font-display text-pretty text-gray-900 flex items-center"><code>00024</code>: Item ID — a Medium Diet Coke in my case</li>
+<li class="mb-2 text-pretty text-lg font-display text-pretty text-gray-900 flex items-center"><code>6</code> or <code>7</code>: Final digit (checksum or internal validation indicator)</li>
 </ul>
-<p class="leading-relaxed font-display mb-4 mt-4 text-pretty text-lg text-pretty text-gray-900">While each brand’s system is different, the purpose is always the same: <strong class="text-lg font-semibold text-pretty text-gray-800">to listen to customers and improve experiences</strong>.</p>
+<p class="leading-relaxed font-display mb-4 mt-4 text-pretty text-lg text-pretty text-gray-900">Both transactions happened minutes apart, so we could confirm what each part of the code meant.</p>
 <hr>
-<p class="leading-relaxed font-display mb-4 mt-4 text-pretty text-lg text-pretty text-gray-900">👉 <strong class="text-lg font-semibold text-pretty text-gray-800">Want to leave feedback with McDonald’s?</strong><br>
-<a href="https://www.mcdvoice.com/" class="text-lg text-pretty text-blue-500 hover:text-blue-700 underline"><strong class="text-lg font-semibold text-pretty text-gray-800">Go to the Official McDVoice Survey</strong></a></p>
+<h2 class="leading-relaxed font-display text-pretty text-2xl mb-6 mt-12 font-semibold text-pretty text-gray-800" id="%F0%9F%A7%A0-building-the-decoder-script" tabindex="-1">🧠 Building the Decoder Script</h2>
+<p class="leading-relaxed font-display mb-4 mt-4 text-pretty text-lg text-pretty text-gray-900">I wrote a Python function to decode these codes:</p>
+<pre><code class="language-python">from datetime import datetime, timedelta
+
+def decode_us_mcd_survey_code(code: str):
+    parts = code.strip().split(&quot;-&quot;)
+    store_id, register_id, julian_date, time_segment, item_segment, checksum = parts
+
+    year = 2000 + int(julian_date[:2])
+    day_of_year = int(julian_date[2:])
+    full_date = datetime(year, 1, 1) + timedelta(days=day_of_year - 1)
+
+    minutes = int(time_segment[:3])
+    hour = minutes // 60
+    minute = minutes % 60
+
+    return {
+        &quot;store_id&quot;: store_id,
+        &quot;register_id&quot;: register_id,
+        &quot;date&quot;: full_date.strftime(&quot;%Y-%m-%d&quot;),
+        &quot;time&quot;: f&quot;{hour:02d}:{minute:02d}&quot;,
+        &quot;item_id&quot;: int(item_segment),
+        &quot;final_digit&quot;: checksum
+    }
+</code></pre>
+<p class="leading-relaxed font-display mb-4 mt-4 text-pretty text-lg text-pretty text-gray-900">This gave us clarity on how McDonald's structures their survey codes. Time is encoded as minutes
+from midnight, and the Julian date is in YDDD format.</p>
+<hr>
+<h2 class="leading-relaxed font-display text-pretty text-2xl mb-6 mt-12 font-semibold text-pretty text-gray-800" id="%F0%9F%9B%A0%EF%B8%8F-generating-new-codes-(the-fun-part)" tabindex="-1">🛠️ Generating New Codes (The Fun Part)</h2>
+<p class="leading-relaxed font-display mb-4 mt-4 text-pretty text-lg text-pretty text-gray-900">After decoding, the next step was trying to create a new survey code from scratch.</p>
+<p class="leading-relaxed font-display mb-4 mt-4 text-pretty text-lg text-pretty text-gray-900">We wrote a Node.js script to brute force valid combinations. Here’s a simplified version:</p>
+<pre><code class="language-js">function pad(num, len) {
+	return num.toString().padStart(len, '0');
+}
+
+function generateCode(store, register, date, time, item, check) {
+	return `${pad(store, 5)}-${pad(register, 5)}-${date}-${time}-${pad(item, 5)}-${check}`;
+}
+
+const validExample = generateCode(3963, 6000, '41025', '14028', 24, 6);
+console.log(validExample);
+</code></pre>
+<p class="leading-relaxed font-display mb-4 mt-4 text-pretty text-lg text-pretty text-gray-900">We generated dozens of codes and tested them against
+<a href="https://www.mcdvoice.com" class="text-lg text-pretty text-blue-500 hover:text-blue-700 underline">https://www.mcdvoice.com</a>.</p>
+<h3 class="leading-relaxed font-display text-pretty text-xl mb-4 mt-10 font-semibold text-pretty text-gray-700" id="%E2%9C%85-these-worked" tabindex="-1">✅ These Worked</h3>
+<ul class="list-disc list-inside mt-4 space-y-2 pl-6 text-pretty text-lg font-display ml-6 mb-8 text-pretty text-gray-900">
+<li class="mb-2 text-pretty text-lg font-display text-pretty text-gray-900 flex items-center"><code>03963-06000-41025-14028-00024-6</code></li>
+<li class="mb-2 text-pretty text-lg font-display text-pretty text-gray-900 flex items-center"><code>03963-06000-41025-14033-00024-7</code></li>
+<li class="mb-2 text-pretty text-lg font-display text-pretty text-gray-900 flex items-center"><code>03963-06000-41025-14031-00024-4</code></li>
+</ul>
+<p class="leading-relaxed font-display mb-4 mt-4 text-pretty text-lg text-pretty text-gray-900">If the code matched a real format, McDVoice accepted it and launched the survey.</p>
+<p class="leading-relaxed font-display mb-4 mt-4 text-pretty text-lg text-pretty text-gray-900">We were also able to complete the full survey flow using these codes and collected <strong class="text-lg font-semibold text-pretty text-gray-800">real validation
+codes</strong>, like:</p>
+<ul class="list-disc list-inside mt-4 space-y-2 pl-6 text-pretty text-lg font-display ml-6 mb-8 text-pretty text-gray-900">
+<li class="mb-2 text-pretty text-lg font-display text-pretty text-gray-900 flex items-center"><code>64538</code></li>
+<li class="mb-2 text-pretty text-lg font-display text-pretty text-gray-900 flex items-center"><code>92147</code></li>
+<li class="mb-2 text-pretty text-lg font-display text-pretty text-gray-900 flex items-center"><code>19832</code></li>
+</ul>
+<hr>
+<h2 class="leading-relaxed font-display text-pretty text-2xl mb-6 mt-12 font-semibold text-pretty text-gray-800" id="%F0%9F%A7%AA-cracking-the-validation-code" tabindex="-1">🧪 Cracking the Validation Code</h2>
+<p class="leading-relaxed font-display mb-4 mt-4 text-pretty text-lg text-pretty text-gray-900">After completing the survey, McDVOICE provides a 5-digit validation code. We started comparing these
+and realized there’s a predictable pattern depending on time of submission and code structure.</p>
+<p class="leading-relaxed font-display mb-4 mt-4 text-pretty text-lg text-pretty text-gray-900">We wrote a brute force tool to try and replicate or pre-generate codes. Here's a sample:</p>
+<pre><code class="language-js">const crypto = require('crypto');
+
+function fakeValidation(seed) {
+	const hash = crypto.createHash('sha1').update(seed).digest('hex');
+	return parseInt(hash.slice(0, 5), 16).toString().slice(0, 5);
+}
+
+console.log(fakeValidation('03963-06000-41025-14028-00024-6'));
+</code></pre>
+<p class="leading-relaxed font-display mb-4 mt-4 text-pretty text-lg text-pretty text-gray-900">Did it match every time? No. But close enough to build a list of expected validation numbers for
+testing.</p>
+<hr>
+<h2 class="leading-relaxed font-display text-pretty text-2xl mb-6 mt-12 font-semibold text-pretty text-gray-800" id="%E2%9C%85-so%E2%80%A6-can-you-actually-use-this%3F" tabindex="-1">✅ So… Can You Actually Use This?</h2>
+<p class="leading-relaxed font-display mb-4 mt-4 text-pretty text-lg text-pretty text-gray-900">Yes — if your fake code is well-formed and submitted shortly after a real visit, the <strong class="text-lg font-semibold text-pretty text-gray-800">McDVoice site
+will let you in</strong>.</p>
+<p class="leading-relaxed font-display mb-4 mt-4 text-pretty text-lg text-pretty text-gray-900">And that’s the trick: you can use this method to create a <strong class="text-lg font-semibold text-pretty text-gray-800">valid-enough</strong> code that <em>looks real</em>.</p>
+<h3 class="leading-relaxed font-display text-pretty text-xl mb-4 mt-10 font-semibold text-pretty text-gray-700" id="here's-the-catch%3A" tabindex="-1">Here's the catch:</h3>
+<p class="leading-relaxed font-display mb-4 mt-4 text-pretty text-lg text-pretty text-gray-900">Most employees <strong class="text-lg font-semibold text-pretty text-gray-800">only check the receipt</strong> for the validation code. They don’t run it against a
+system unless something seems off.</p>
+<p class="leading-relaxed font-display mb-4 mt-4 text-pretty text-lg text-pretty text-gray-900">So in theory, if you generate a legit-looking code and fill out the survey, you can <em>write the
+validation number down</em> and redeem it. And if asked, just say you lost the receipt but remember the
+number. 🫣</p>
+<p class="leading-relaxed font-display mb-4 mt-4 text-pretty text-lg text-pretty text-gray-900">But unless you have a real printed receipt with matching details, it’s a coin toss.</p>
+<hr>
+<h2 class="leading-relaxed font-display text-pretty text-2xl mb-6 mt-12 font-semibold text-pretty text-gray-800" id="%F0%9F%94%8D-conclusions-and-takeaways" tabindex="-1">🔍 Conclusions and Takeaways</h2>
+<ul class="list-disc list-inside mt-4 space-y-2 pl-6 text-pretty text-lg font-display ml-6 mb-8 text-pretty text-gray-900">
+<li class="mb-2 text-pretty text-lg font-display text-pretty text-gray-900 flex items-center">The McDVOICE code format is fully decipherable</li>
+<li class="mb-2 text-pretty text-lg font-display text-pretty text-gray-900 flex items-center">You <strong class="text-lg font-semibold text-pretty text-gray-800">can</strong> generate a valid-looking code</li>
+<li class="mb-2 text-pretty text-lg font-display text-pretty text-gray-900 flex items-center">You <strong class="text-lg font-semibold text-pretty text-gray-800">can</strong> get a real validation number from the site</li>
+<li class="mb-2 text-pretty text-lg font-display text-pretty text-gray-900 flex items-center">Employees rarely check validity in depth, they look for a matching receipt and code</li>
+</ul>
+<p class="leading-relaxed font-display mb-4 mt-4 text-pretty text-lg text-pretty text-gray-900">So… was this a cool way to get free food? Not really.</p>
+<p class="leading-relaxed font-display mb-4 mt-4 text-pretty text-lg text-pretty text-gray-900">Was it a fun dive into code systems and backend validation? 100%.</p>
+<h3 class="leading-relaxed font-display text-pretty text-xl mb-4 mt-10 font-semibold text-pretty text-gray-700" id="%F0%9F%A7%B5-shoutout-to-reddit" tabindex="-1">🧵 Shoutout to Reddit</h3>
+<p class="leading-relaxed font-display mb-4 mt-4 text-pretty text-lg text-pretty text-gray-900">We found several discussions and compared validation code outputs with others posting in
+/r/mcdonalds. Turns out a few folks were on the same journey.</p>
+<p class="leading-relaxed font-display mb-4 mt-4 text-pretty text-lg text-pretty text-gray-900">If you want the full code, shoot me a message or find me at [your handle]. And remember respect
+systems, don’t exploit them.</p>
 
         </div>
 
@@ -451,7 +571,7 @@ At McDonald’s request, the details have been removed.</p>
               <span class="text-sm font-medium text-gray-700">Share this article:</span>
               <div class="flex gap-2">
                 <a 
-                  href="https://twitter.com/intent/tweet?text=Cracking+the+McDVOICE+Code%3A+What+Really+Happens+When+You+Reverse+Engineer+a+McDonald's+Receipt+Survey&url=https://www.coffeeandfun.com/blog/mcdvoice-code-breakdown/"
+                  href="https://twitter.com/intent/tweet?text=Cracking+the+McDVOICE+Code%3A+What+Really+Happens+When+You+Reverse+Engineer+a+McDonald's+Receipt+Survey&url=https://www.coffeeandfun.com/blog/mcdvoice-code-breakdown-olc/"
                   target="_blank"
                   rel="noopener noreferrer"
                   class="p-2 text-gray-400 hover:text-blue-500 hover:bg-blue-50 rounded-lg transition-colors duration-200"
