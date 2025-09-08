@@ -94,28 +94,9 @@ Both transactions happened minutes apart, so we could confirm what each part of 
 I wrote a Python function to decode these codes:
 
 ```python
-from datetime import datetime, timedelta
 
-def decode_us_mcd_survey_code(code: str):
-    parts = code.strip().split("-")
-    store_id, register_id, julian_date, time_segment, item_segment, checksum = parts
+Code has been removed 
 
-    year = 2000 + int(julian_date[:2])
-    day_of_year = int(julian_date[2:])
-    full_date = datetime(year, 1, 1) + timedelta(days=day_of_year - 1)
-
-    minutes = int(time_segment[:3])
-    hour = minutes // 60
-    minute = minutes % 60
-
-    return {
-        "store_id": store_id,
-        "register_id": register_id,
-        "date": full_date.strftime("%Y-%m-%d"),
-        "time": f"{hour:02d}:{minute:02d}",
-        "item_id": int(item_segment),
-        "final_digit": checksum
-    }
 ```
 
 This gave us clarity on how McDonald's structures their survey codes. Time is encoded as minutes
