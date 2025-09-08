@@ -169,6 +169,9 @@
     </style>
 </head>
 <body class="bg-base-100 min-h-screen">
+        {% assign showFun = true %} 
+    {% assign showMiddleBadgeWithText = true %} 
+    {% include header.liquid %}
     <div v-cloak id="app" class="container mx-auto max-w-6xl p-6">
         <!-- Header -->
         <header class="text-center mb-12">
@@ -180,8 +183,8 @@
         <div class="alert alert-info mb-8 alert-soft">
             <div>
                 <h3 class="font-bold">🕐 Current Local Time</h3>
-                <p class="clock-display text-2xl font-mono">{{ currentTime }}</p>
-                <p class="text-sm opacity-70">{{ userTimezone }}</p>
+                <p class="clock-display text-2xl font-mono">{% raw %} {{ currentTime}} {% endraw %}</p>
+                <p class="text-sm opacity-70">{% raw %} {{ userTimezone}} {% endraw %}</p>
             </div>
         </div>
 
@@ -203,7 +206,9 @@
                             >
                                 <optgroup label="Common Time Zones">
                                     <option v-for="zone in commonZones" :key="zone.value" :value="zone.value">
+                                        {% raw %} 
                                         {{ zone.label }}
+                                            {% endraw %}
                                     </option>
                                 </optgroup>
                                 <optgroup label="All Time Zones">
@@ -242,8 +247,8 @@
                         <!-- Display selected time -->
                         <div class="p-4 bg-base-100 rounded-lg text-center">
                             <p class="text-sm text-base-content/60">Your Selected Time</p>
-                            <p class="text-2xl font-bold clock-display">{{ formattedFromTime }}</p>
-                            <p class="text-sm text-base-content/60">{{ fromZoneDisplay }}</p>
+                            <p class="text-2xl font-bold clock-display">{% raw %} {{ formattedFromTime}} {% endraw %}</p>
+                            <p class="text-sm text-base-content/60">{% raw %} {{ fromZoneDisplay}} {% endraw %}</p>
                         </div>
                     </div>
                 </div>
@@ -265,7 +270,9 @@
                             >
                                 <optgroup label="Common Time Zones">
                                     <option v-for="zone in commonZones" :key="zone.value" :value="zone.value">
+                                        {% raw %}
                                         {{ zone.label }}
+                                            {% endraw %}
                                     </option>
                                 </optgroup>
                                 <optgroup label="All Time Zones">
@@ -279,11 +286,11 @@
                         <!-- Display converted time -->
                         <div class="p-4 bg-primary/10 rounded-lg text-center time-card">
                             <p class="text-sm text-base-content/60">Time at Target Location</p>
-                            <p class="text-3xl font-bold clock-display text-primary">{{ formattedToTime }}</p>
-                            <p class="text-sm text-base-content/60">{{ toZoneDisplay }}</p>
+                            <p class="text-3xl font-bold clock-display text-primary">{% raw %} {{ formattedToTime}} {% endraw %}</p>
+                            <p class="text-sm text-base-content/60">{% raw %} {{ toZoneDisplay}} {% endraw %}</p>
                             <div class="divider"></div>
-                            <p class="text-lg font-semibold">{{ timeDifference }}</p>
-                            <p class="text-sm text-base-content/60">{{ dayDifference }}</p>
+                            <p class="text-lg font-semibold">{% raw %} {{ timeDifference}} {% endraw %}</p>
+                            <p class="text-sm text-base-content/60">{% raw %} {{ dayDifference}} {% endraw %}</p>
                         </div>
                     </div>
                 </div>
@@ -302,7 +309,7 @@
                         @click="setToZone(city.zone)"
                         class="btn btn-soft btn-sm btn-outline"
                     >
-                        {{ city.emoji }} {{ city.name }}
+                   {% raw %}      {{ city.emoji }} {{ city.name }} {% endraw %}
                     </button>
                 </div>
             </div>
@@ -319,11 +326,11 @@
                         :key="clock.zone"
                         class="p-4 bg-base-100 rounded-lg text-center time-card"
                     >
-                    {% raw %}
-                        <p class="font-semibold">{{ clock.emoji }} {{ clock.city }}</p>
-                        <p class="text-xl font-mono clock-display">{{ getTimeForZone(clock.zone) }}</p>
-                        <p class="text-sm text-base-content/60">{{ getDateForZone(clock.zone) }}</p>
-                        {% endraw %}
+                   
+                        <p class="font-semibold">{% raw %} {{ clock.emoji }} {{ clock.city}} {% endraw %}</p>
+                        <p class="text-xl font-mono clock-display">{% raw %} {{ getTimeForZone(clock.zone)}} {% endraw %}</p>
+                        <p class="text-sm text-base-content/60">{% raw %} {{ getDateForZone(clock.zone)}} {% endraw %}</p>
+
                     </div>
                 </div>
             </div>
@@ -359,6 +366,7 @@
         </div>
     </div>
 
+    {% include modals.liquid %} 
     {% include footer.liquid %}
 
     <script>
