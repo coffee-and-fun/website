@@ -181,5 +181,5 @@ can actually trust. It’s crash-safe, restartable, and skips already-processed 
 If you're trying to scrape large datasets with Puppeteer and running into crashes, batching and
 timeout management will save your sanity.
 
-Want the final working code? [DM me on Twitter](https://www.twitter.com/bycoffeeanfun) or
+Want the final working code? [DM me on Twitter](https://x.com/bycoffeeandfun) or
 [email me](mailto:hello@robertgabriel.ninja), happy to share!

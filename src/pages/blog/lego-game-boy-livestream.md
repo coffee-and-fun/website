@@ -61,8 +61,8 @@ We’ve got a *real* original Game Boy ready (thank you, donor unit), and we’r
 - **Date:** October 1, 2025  
 - **Stream Starts:** 7:00 AM
 - **Watch LIVE on:**  
-- **Instagram**: [@coffeeandfun](https://instagram.com/coffeeandfun)  
-- **YouTube**: [Coffee & Fun channel](https://youtube.com/@coffeeandfuxn)  
+- **Instagram**: [@coffeeandfun](https://www.instagram.com/coffeeandfunllc)  
+- **YouTube**: [Coffee & Fun channel](https://www.youtube.com/@CoffeeFunLLC)  
 
 Expect coffee, chaos, LEGO bricks galore, and mayhem — all in real time.  
 

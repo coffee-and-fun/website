@@ -86,7 +86,7 @@ Apple can’t see your info. Everything is encrypted and tied to your device.
 ### And… it even works on Chrome.
 
 This one surprised us. You can install
-[Apple’s iCloud Passwords Chrome extension](https://chrome.google.com/webstore/detail/icloud-passwords/fpaclmifmgdllkljfiljlnmnljjkdmkl)
+[Apple’s iCloud Passwords Chrome extension](https://chromewebstore.google.com/detail/icloud-passwords/pejdijmoenmkgeppbflobdenhhabjlaj)
 on Windows or Mac and autofill your saved stuff. It works really well.
 
 ---
@@ -110,7 +110,7 @@ Open the Passwords app on your iPhone or Mac and see what’s already saved. You
 how much it’s been quietly helping you all this time.
 
 And if you use Chrome or are on a Windows PC, try out the
-[iCloud Passwords extension](https://chrome.google.com/webstore/detail/icloud-passwords/fpaclmifmgdllkljfiljlnmnljjkdmkl).
+[iCloud Passwords extension](https://chromewebstore.google.com/detail/icloud-passwords/pejdijmoenmkgeppbflobdenhhabjlaj).
 It works way better than we expected.
 
 We’ll probably keep chatting about this on Discord too. It’s one of those simple things that can
