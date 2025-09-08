@@ -4090,6 +4090,9 @@
   .max-h-96 {
     max-height: calc(var(--spacing) * 96);
   }
+  .max-h-\[420px\] {
+    max-height: 420px;
+  }
   .max-h-full {
     max-height: 100%;
   }
@@ -4098,6 +4101,9 @@
   }
   .min-h-\[28rem\] {
     min-height: 28rem;
+  }
+  .min-h-\[200px\] {
+    min-height: 200px;
   }
   .min-h-full {
     min-height: 100%;
@@ -4426,9 +4432,6 @@
       margin-inline-start: calc(calc(var(--spacing) * 4) * var(--tw-space-x-reverse));
       margin-inline-end: calc(calc(var(--spacing) * 4) * calc(1 - var(--tw-space-x-reverse)));
     }
-  }
-  .gap-y-3 {
-    row-gap: calc(var(--spacing) * 3);
   }
   .gap-y-4 {
     row-gap: calc(var(--spacing) * 4);
@@ -4877,6 +4880,9 @@
   .px-8 {
     padding-inline: calc(var(--spacing) * 8);
   }
+  .px-10 {
+    padding-inline: calc(var(--spacing) * 10);
+  }
   .px-12 {
     padding-inline: calc(var(--spacing) * 12);
   }
@@ -4894,6 +4900,9 @@
   }
   .py-8 {
     padding-block: calc(var(--spacing) * 8);
+  }
+  .py-10 {
+    padding-block: calc(var(--spacing) * 10);
   }
   .py-12 {
     padding-block: calc(var(--spacing) * 12);
@@ -4936,9 +4945,6 @@
   }
   .pb-12 {
     padding-bottom: calc(var(--spacing) * 12);
-  }
-  .pb-16 {
-    padding-bottom: calc(var(--spacing) * 16);
   }
   .pb-24 {
     padding-bottom: calc(var(--spacing) * 24);
@@ -6250,6 +6256,12 @@
       min-height: 30rem;
     }
   }
+  .sm\:btn-wide {
+    @media (width >= 40rem) {
+      width: 100%;
+      max-width: calc(0.25rem * 64);
+    }
+  }
   .sm\:w-6 {
     @media (width >= 40rem) {
       width: calc(var(--spacing) * 6);
@@ -6370,16 +6382,6 @@
       gap: calc(var(--spacing) * 8);
     }
   }
-  .sm\:gap-x-6 {
-    @media (width >= 40rem) {
-      column-gap: calc(var(--spacing) * 6);
-    }
-  }
-  .sm\:gap-y-4 {
-    @media (width >= 40rem) {
-      row-gap: calc(var(--spacing) * 4);
-    }
-  }
   .sm\:rounded-2xl {
     @media (width >= 40rem) {
       border-radius: var(--radius-2xl);
@@ -6490,11 +6492,6 @@
   .sm\:pb-16 {
     @media (width >= 40rem) {
       padding-bottom: calc(var(--spacing) * 16);
-    }
-  }
-  .sm\:pb-24 {
-    @media (width >= 40rem) {
-      padding-bottom: calc(var(--spacing) * 24);
     }
   }
   .sm\:pb-32 {
@@ -6619,11 +6616,6 @@
   .md\:pt-32 {
     @media (width >= 48rem) {
       padding-top: calc(var(--spacing) * 32);
-    }
-  }
-  .md\:pb-32 {
-    @media (width >= 48rem) {
-      padding-bottom: calc(var(--spacing) * 32);
     }
   }
   .md\:pb-48 {
