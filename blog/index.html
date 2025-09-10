@@ -114,6 +114,49 @@
     
     <link href="/assets/css/engine.css" rel="stylesheet" />
     
+    <!-- Custom styles for search input focus effects -->
+    <style>
+        .search-input-wrapper {
+            transition: all 0.3s ease;
+        }
+        
+        .search-input:focus {
+            animation: bounce 0.5s;
+            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1), 0 8px 10px -6px rgba(0, 0, 0, 0.1);
+        }
+        
+        @keyframes bounce {
+            0%, 100% {
+                transform: translateY(0);
+            }
+            50% {
+                transform: translateY(-5px);
+            }
+        }
+        
+        .blog-card-item {
+            transition: opacity 0.3s ease, transform 0.3s ease;
+        }
+        
+        .blog-card-item.hidden {
+            opacity: 0;
+            transform: scale(0.95);
+            pointer-events: none;
+            position: absolute;
+        }
+        
+        .no-results {
+            display: none;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+        
+        .no-results.show {
+            display: block;
+            opacity: 1;
+        }
+    </style>
+    
     <!-- Service Worker Registration -->
     <script>
         if ('serviceWorker' in navigator) {
@@ -398,13 +441,52 @@
                             </div>
                         </div>
                         
+                        <!-- Search Input Section -->
+                        <div class="max-w-2xl mx-auto mb-8 px-4">
+                            <div class="search-input-wrapper">
+                                <div class="form-control">
+
+
+                                <label class="input input-xl mx-auto w-full ">
+  <svg class="h-[1em] opacity-50" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+    <g
+      stroke-linejoin="round"
+      stroke-linecap="round"
+      stroke-width="2.5"
+      fill="none"
+      stroke="currentColor"
+    >
+      <circle cx="11" cy="11" r="8"></circle>
+      <path d="m21 21-4.3-4.3"></path>
+    </g>
+  </svg>
+  <input type="search" id="blogSearchInput" required placeholder="Search" />
+</label>
+
+
+
+                                    
+                                </div>
+                            </div>
+                        </div>
+                        
                         <div class="max-w-8xl text-pretty text-base mx-auto" id="apps">
                             <div class="card my-8">
                                 <div class="my-8">
-                                    <div class="not-prose grid grid-cols-1 gap-x-8 gap-y-8 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 xl:grid-cols-3">
+                                    <!-- No results message -->
+                                    <div id="noResults" class="no-results text-center py-12">
+                                        <div class="text-6xl mb-4">🔍</div>
+                                        <h3 class="text-2xl font-bold mb-2">No posts found</h3>
+                                        <p class="text-base-content/70">Try searching with different keywords</p>
+                                    </div>
+                                    
+                                    <div class="not-prose grid grid-cols-1 gap-x-8 gap-y-8 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 xl:grid-cols-3" id="blogGrid">
                                         
-                                        <a class="card card-compact bg-base-100 shadow-md transition-all duration-200 card-app hover:-translate-y-1 rounded-4xl"
-                                            href="/blog/xbox-dvr-exploit-api-major-nelson/">
+                                        <a class="blog-card-item card card-compact bg-base-100 shadow-md transition-all duration-200 card-app hover:-translate-y-1 rounded-4xl focus:outline-none focus:ring-2 focus:ring-black focus:ring-offset-2"
+                                            href="/blog/xbox-dvr-exploit-api-major-nelson/"
+                                            data-title="cracking the xbox one api: what really happens when you reverse engineer microsoft's game clips api"
+                                            data-description="i reverse-engineered xbox's game clip api after hearing a podcast, built a tool to download anyone's clips, and accidentally got major nelson's attention (oops)."
+                                            data-platforms="blog">
                                             <figure class="px-4 pt-4">
                                                 <img loading="lazy" 
                                                     src="/assets/images/blog/xbox-dvr-exploit.png"
@@ -427,8 +509,11 @@
                                             </div>
                                         </a>
                                         
-                                        <a class="card card-compact bg-base-100 shadow-md transition-all duration-200 card-app hover:-translate-y-1 rounded-4xl"
-                                            href="/blog/lego-game-boy-livestream/">
+                                        <a class="blog-card-item card card-compact bg-base-100 shadow-md transition-all duration-200 card-app hover:-translate-y-1 rounded-4xl focus:outline-none focus:ring-2 focus:ring-black focus:ring-offset-2"
+                                            href="/blog/lego-game-boy-livestream/"
+                                            data-title="watch us put a real game boy inside the lego game boy — live on october 1st"
+                                            data-description="  lego’s new 1:1 scale game boy launches october 1st, and we’re going live at 6 am to attempt  something no one’s done before, putting a real game boy’s insides into the lego replica.  follow along on instagram and youtube as we make brick-game history."
+                                            data-platforms="blog">
                                             <figure class="px-4 pt-4">
                                                 <img loading="lazy" 
                                                     src="/assets/images/blog/lego-gameboy-livestream.png"
@@ -451,8 +536,11 @@
                                             </div>
                                         </a>
                                         
-                                        <a class="card card-compact bg-base-100 shadow-md transition-all duration-200 card-app hover:-translate-y-1 rounded-4xl"
-                                            href="/blog/sun-spider-lego-disability-representation/">
+                                        <a class="blog-card-item card card-compact bg-base-100 shadow-md transition-all duration-200 card-app hover:-translate-y-1 rounded-4xl focus:outline-none focus:ring-2 focus:ring-black focus:ring-offset-2"
+                                            href="/blog/sun-spider-lego-disability-representation/"
+                                            data-title="sun-spider swings into lego: a victory for disability representation"
+                                            data-description="the new lego spider-man minifigures series includes sun-spider, a disabled superhero with crutches, marking a huge win for disability representation in toys."
+                                            data-platforms="blog">
                                             <figure class="px-4 pt-4">
                                                 <img loading="lazy" 
                                                     src="/assets/images/blog/sun-spider-lego.png"
@@ -475,8 +563,11 @@
                                             </div>
                                         </a>
                                         
-                                        <a class="card card-compact bg-base-100 shadow-md transition-all duration-200 card-app hover:-translate-y-1 rounded-4xl"
-                                            href="/blog/lyft-ghost-ride-scam/">
+                                        <a class="blog-card-item card card-compact bg-base-100 shadow-md transition-all duration-200 card-app hover:-translate-y-1 rounded-4xl focus:outline-none focus:ring-2 focus:ring-black focus:ring-offset-2"
+                                            href="/blog/lyft-ghost-ride-scam/"
+                                            data-title="how i got scammed by a lyft 'ghost ride'"
+                                            data-description="if you've never heard of a 'ghost ride' on lyft, consider yourself lucky. but you should know about it, because it cost me $36 and hours of my time trying to get it back."
+                                            data-platforms="blog guide">
                                             <figure class="px-4 pt-4">
                                                 <img loading="lazy" 
                                                     src="/assets/images/blog/lyft-ghost-ride-scam.png"
@@ -505,8 +596,11 @@
                                             </div>
                                         </a>
                                         
-                                        <a class="card card-compact bg-base-100 shadow-md transition-all duration-200 card-app hover:-translate-y-1 rounded-4xl"
-                                            href="/blog/building-just-the-headlines-clean-news-experience/">
+                                        <a class="blog-card-item card card-compact bg-base-100 shadow-md transition-all duration-200 card-app hover:-translate-y-1 rounded-4xl focus:outline-none focus:ring-2 focus:ring-black focus:ring-offset-2"
+                                            href="/blog/building-just-the-headlines-clean-news-experience/"
+                                            data-title="building just the headlines - why i created a clean news experience"
+                                            data-description="i got tired of modern news websites with their ads and pop-ups, so i built a clean, minimal news aggregator using node.js, free apis, and static site generation."
+                                            data-platforms="web nodejs">
                                             <figure class="px-4 pt-4">
                                                 <img loading="lazy" 
                                                     src="/assets/images/blog/just-the-headlines.png"
@@ -535,8 +629,11 @@
                                             </div>
                                         </a>
                                         
-                                        <a class="card card-compact bg-base-100 shadow-md transition-all duration-200 card-app hover:-translate-y-1 rounded-4xl"
-                                            href="/blog/mcdvoice-code-breakdown/">
+                                        <a class="blog-card-item card card-compact bg-base-100 shadow-md transition-all duration-200 card-app hover:-translate-y-1 rounded-4xl focus:outline-none focus:ring-2 focus:ring-black focus:ring-offset-2"
+                                            href="/blog/mcdvoice-code-breakdown/"
+                                            data-title="what really happens when you reverse engineer a mcdonald's receipt survey"
+                                            data-description=" we reverse-engineered mcdonald's receipt codes to understand how they work and how to generate working survey codes and validation numbers (just for fun)."
+                                            data-platforms="hack">
                                             <figure class="px-4 pt-4">
                                                 <img loading="lazy" 
                                                     src="/assets/images/blog/mcdvoice-code-breakdown.png"
@@ -559,8 +656,11 @@
                                             </div>
                                         </a>
                                         
-                                        <a class="card card-compact bg-base-100 shadow-md transition-all duration-200 card-app hover:-translate-y-1 rounded-4xl"
-                                            href="/blog/introducing-daily-bible-verse/">
+                                        <a class="blog-card-item card card-compact bg-base-100 shadow-md transition-all duration-200 card-app hover:-translate-y-1 rounded-4xl focus:outline-none focus:ring-2 focus:ring-black focus:ring-offset-2"
+                                            href="/blog/introducing-daily-bible-verse/"
+                                            data-title="introducing daily bible verse for ios"
+                                            data-description=" discover daily bible verse — a beautifully simple and spiritual app created to bring one verse a day into your life. learn why we built it, what it can do, and how it helps you pause and reflect."
+                                            data-platforms="ios ipad">
                                             <figure class="px-4 pt-4">
                                                 <img loading="lazy" 
                                                     src="/assets/images/blog/daily-bible-verse-app.png"
@@ -589,8 +689,11 @@
                                             </div>
                                         </a>
                                         
-                                        <a class="card card-compact bg-base-100 shadow-md transition-all duration-200 card-app hover:-translate-y-1 rounded-4xl"
-                                            href="/blog/how-to-redeem-app-store-promo-code/">
+                                        <a class="blog-card-item card card-compact bg-base-100 shadow-md transition-all duration-200 card-app hover:-translate-y-1 rounded-4xl focus:outline-none focus:ring-2 focus:ring-black focus:ring-offset-2"
+                                            href="/blog/how-to-redeem-app-store-promo-code/"
+                                            data-title="how to redeem an app store promo code"
+                                            data-description=" learn how to redeem an app store promo code on iphone, ipad, or mac with this quick and simple guide. perfect for unlocking paid apps, games, or subscriptions with ease!"
+                                            data-platforms="update guide">
                                             <figure class="px-4 pt-4">
                                                 <img loading="lazy" 
                                                     src="/assets/images/blog/app-store-promo.png"
@@ -619,8 +722,11 @@
                                             </div>
                                         </a>
                                         
-                                        <a class="card card-compact bg-base-100 shadow-md transition-all duration-200 card-app hover:-translate-y-1 rounded-4xl"
-                                            href="/blog/ethically-scrape-poshmark-listings-node-puppeteer-update/">
+                                        <a class="blog-card-item card card-compact bg-base-100 shadow-md transition-all duration-200 card-app hover:-translate-y-1 rounded-4xl focus:outline-none focus:ring-2 focus:ring-black focus:ring-offset-2"
+                                            href="/blog/ethically-scrape-poshmark-listings-node-puppeteer-update/"
+                                            data-title="scraping 20,000 poshmark listings (for real this time)"
+                                            data-description="back last week, i wrote a blog post titled how i scraped 20,000 poshmark listings using node.js and puppeteer. the idea seemed solid, scroll through a poshmark closet, grab every listing url, and scrape each listing one by one. but in reality? the script crashed constantly. it would hang, freeze, or get stuck on a single listing."
+                                            data-platforms="company">
                                             <figure class="px-4 pt-4">
                                                 <img loading="lazy" 
                                                     src="/assets/images/blog/ethically-scrape-poshmark-listings-node-puppeteer.png"
@@ -643,8 +749,11 @@
                                             </div>
                                         </a>
                                         
-                                        <a class="card card-compact bg-base-100 shadow-md transition-all duration-200 card-app hover:-translate-y-1 rounded-4xl"
-                                            href="/blog/ethically-scrape-poshmark-listings-node-puppeteer/">
+                                        <a class="blog-card-item card card-compact bg-base-100 shadow-md transition-all duration-200 card-app hover:-translate-y-1 rounded-4xl focus:outline-none focus:ring-2 focus:ring-black focus:ring-offset-2"
+                                            href="/blog/ethically-scrape-poshmark-listings-node-puppeteer/"
+                                            data-title="how i scraped 20,000 poshmark listings using node.js and puppeteer"
+                                            data-description="learn how i scraped and backed up 20,000 listings from a poshmark store using node.js and puppeteer. this guide explains the full process, includes code, and helps you recover public listing data for educational or personal use."
+                                            data-platforms="company">
                                             <figure class="px-4 pt-4">
                                                 <img loading="lazy" 
                                                     src="/assets/images/blog/ethically-scrape-poshmark-listings-node-puppeteer.png"
@@ -667,8 +776,11 @@
                                             </div>
                                         </a>
                                         
-                                        <a class="card card-compact bg-base-100 shadow-md transition-all duration-200 card-app hover:-translate-y-1 rounded-4xl"
-                                            href="/blog/delete-tweets-retweets-likes-without-apps/">
+                                        <a class="blog-card-item card card-compact bg-base-100 shadow-md transition-all duration-200 card-app hover:-translate-y-1 rounded-4xl focus:outline-none focus:ring-2 focus:ring-black focus:ring-offset-2"
+                                            href="/blog/delete-tweets-retweets-likes-without-apps/"
+                                            data-title="delete your tweets, retweets & likes without installing anything"
+                                            data-description="want to clean up your twitter without giving access to third-party apps? this simple script lets you delete tweets, unretweet, and unlike right from chrome — and it even pauses to avoid rate limits."
+                                            data-platforms="company">
                                             <figure class="px-4 pt-4">
                                                 <img loading="lazy" 
                                                     src="/assets/images/blog/delete-tweets-retweets-likes-without-apps.png"
@@ -691,8 +803,11 @@
                                             </div>
                                         </a>
                                         
-                                        <a class="card card-compact bg-base-100 shadow-md transition-all duration-200 card-app hover:-translate-y-1 rounded-4xl"
-                                            href="/blog/coffee-and-fun-quarterly-update-spring-2025/">
+                                        <a class="blog-card-item card card-compact bg-base-100 shadow-md transition-all duration-200 card-app hover:-translate-y-1 rounded-4xl focus:outline-none focus:ring-2 focus:ring-black focus:ring-offset-2"
+                                            href="/blog/coffee-and-fun-quarterly-update-spring-2025/"
+                                            data-title="quarterly check-in from the coffee & fun coffee shop"
+                                            data-description=" it’s been a wild and wonderful start to the year at coffee & fun. from open source roomba tools and a markdown editor milestone to hide spoilers blowing up on ios — here’s a peek behind the scenes."
+                                            data-platforms="company">
                                             <figure class="px-4 pt-4">
                                                 <img loading="lazy" 
                                                     src="/assets/images/blog/coffee-and-fun-quarterly-update-spring-2025.png"
@@ -715,8 +830,11 @@
                                             </div>
                                         </a>
                                         
-                                        <a class="card card-compact bg-base-100 shadow-md transition-all duration-200 card-app hover:-translate-y-1 rounded-4xl"
-                                            href="/blog/apple-passwords-app-review-coffee-and-fun/">
+                                        <a class="blog-card-item card card-compact bg-base-100 shadow-md transition-all duration-200 card-app hover:-translate-y-1 rounded-4xl focus:outline-none focus:ring-2 focus:ring-black focus:ring-offset-2"
+                                            href="/blog/apple-passwords-app-review-coffee-and-fun/"
+                                            data-title="apple’s passwords app is surprisingly great "
+                                            data-description="we’ve been using apple’s new passwords app at coffee & fun, and it’s honestly a game-changer. here’s why we recommend it to anyone in the apple ecosystem — and how the chrome extension makes it even better."
+                                            data-platforms="company">
                                             <figure class="px-4 pt-4">
                                                 <img loading="lazy" 
                                                     src="/assets/images/blog/apple-passwords-app-coffee-and-fun.png"
@@ -739,8 +857,11 @@
                                             </div>
                                         </a>
                                         
-                                        <a class="card card-compact bg-base-100 shadow-md transition-all duration-200 card-app hover:-translate-y-1 rounded-4xl"
-                                            href="/blog/skip-movie-trailers-trick/">
+                                        <a class="blog-card-item card card-compact bg-base-100 shadow-md transition-all duration-200 card-app hover:-translate-y-1 rounded-4xl focus:outline-none focus:ring-2 focus:ring-black focus:ring-offset-2"
+                                            href="/blog/skip-movie-trailers-trick/"
+                                            data-title="how to skip movie trailers without missing the start of the movie"
+                                            data-description="at coffee & fun, we ran a little experiment to see if we could show up to the movies tjust in time for the opening scene. turns out, the food pickup time reveals everything. here’s what we discovered."
+                                            data-platforms="company">
                                             <figure class="px-4 pt-4">
                                                 <img loading="lazy" 
                                                     src="/assets/images/blog/skip-movie-trailers-trick.png"
@@ -763,8 +884,11 @@
                                             </div>
                                         </a>
                                         
-                                        <a class="card card-compact bg-base-100 shadow-md transition-all duration-200 card-app hover:-translate-y-1 rounded-4xl"
-                                            href="/blog/how-i-would-improve-chrome-web-store/">
+                                        <a class="blog-card-item card card-compact bg-base-100 shadow-md transition-all duration-200 card-app hover:-translate-y-1 rounded-4xl focus:outline-none focus:ring-2 focus:ring-black focus:ring-offset-2"
+                                            href="/blog/how-i-would-improve-chrome-web-store/"
+                                            data-title="how i would improve the chrome web store"
+                                            data-description=" join me as i share real, hands-on tips for improving the chrome web store. everything from more meaningful badges and better review tools to showing genuine user engagement. "
+                                            data-platforms="company">
                                             <figure class="px-4 pt-4">
                                                 <img loading="lazy" 
                                                     src="/assets/images/blog/how-i-would-improve.png"
@@ -787,8 +911,11 @@
                                             </div>
                                         </a>
                                         
-                                        <a class="card card-compact bg-base-100 shadow-md transition-all duration-200 card-app hover:-translate-y-1 rounded-4xl"
-                                            href="/blog/introducing-hide-spoilers/">
+                                        <a class="blog-card-item card card-compact bg-base-100 shadow-md transition-all duration-200 card-app hover:-translate-y-1 rounded-4xl focus:outline-none focus:ring-2 focus:ring-black focus:ring-offset-2"
+                                            href="/blog/introducing-hide-spoilers/"
+                                            data-title="introducing hide spoilers"
+                                            data-description="avoid spoilers for your favorite shows, games, and movies with hide spoilers extension. this extension blurs text, images, and sections containing spoilers, offering a stress-free browsing experience."
+                                            data-platforms="company">
                                             <figure class="px-4 pt-4">
                                                 <img loading="lazy" 
                                                     src="/assets/images/blog/hide-spoilers.png"
@@ -811,8 +938,11 @@
                                             </div>
                                         </a>
                                         
-                                        <a class="card card-compact bg-base-100 shadow-md transition-all duration-200 card-app hover:-translate-y-1 rounded-4xl"
-                                            href="/blog/our-first-thoughts-on-the-vision-pro/">
+                                        <a class="blog-card-item card card-compact bg-base-100 shadow-md transition-all duration-200 card-app hover:-translate-y-1 rounded-4xl focus:outline-none focus:ring-2 focus:ring-black focus:ring-offset-2"
+                                            href="/blog/our-first-thoughts-on-the-vision-pro/"
+                                            data-title="our first thoughts on the vision pro "
+                                            data-description="the vision pro feels like a glimpse into the future, but is it practical for development? we’re testing it at coffee & fun llc to find out."
+                                            data-platforms="company">
                                             <figure class="px-4 pt-4">
                                                 <img loading="lazy" 
                                                     src="/assets/images/blog/vision-pro-thoughts.png"
@@ -835,8 +965,11 @@
                                             </div>
                                         </a>
                                         
-                                        <a class="card card-compact bg-base-100 shadow-md transition-all duration-200 card-app hover:-translate-y-1 rounded-4xl"
-                                            href="/blog/how-psa-grades-pokemon-cards-research-guide/">
+                                        <a class="blog-card-item card card-compact bg-base-100 shadow-md transition-all duration-200 card-app hover:-translate-y-1 rounded-4xl focus:outline-none focus:ring-2 focus:ring-black focus:ring-offset-2"
+                                            href="/blog/how-psa-grades-pokemon-cards-research-guide/"
+                                            data-title="how psa grades pokémon cards"
+                                            data-description="coffee & fun llc is diving into pokémon card grading using ai! learn about psa's grading process and our research experiment to build an ai-powered card grading estimator with chatgpt."
+                                            data-platforms="company">
                                             <figure class="px-4 pt-4">
                                                 <img loading="lazy" 
                                                     src="/assets/images/blog/psa-grading-research.png"
@@ -859,8 +992,11 @@
                                             </div>
                                         </a>
                                         
-                                        <a class="card card-compact bg-base-100 shadow-md transition-all duration-200 card-app hover:-translate-y-1 rounded-4xl"
-                                            href="/blog/whats-coming-for-coffee-and-fun-llc-in-2025/">
+                                        <a class="blog-card-item card card-compact bg-base-100 shadow-md transition-all duration-200 card-app hover:-translate-y-1 rounded-4xl focus:outline-none focus:ring-2 focus:ring-black focus:ring-offset-2"
+                                            href="/blog/whats-coming-for-coffee-and-fun-llc-in-2025/"
+                                            data-title="what’s coming for coffee & fun llc in 2025"
+                                            data-description="coffee & fun llc is gearing up for an exciting 2025! from supporting helperbird updates to exploring vr, pokémon grading with ai, 3d printing, and new apps like step hero, check out what we’re planning."
+                                            data-platforms="company">
                                             <figure class="px-4 pt-4">
                                                 <img loading="lazy" 
                                                     src="/assets/images/blog/2025.png"
@@ -883,8 +1019,11 @@
                                             </div>
                                         </a>
                                         
-                                        <a class="card card-compact bg-base-100 shadow-md transition-all duration-200 card-app hover:-translate-y-1 rounded-4xl"
-                                            href="/blog/introducing-autopause-control-your-media/">
+                                        <a class="blog-card-item card card-compact bg-base-100 shadow-md transition-all duration-200 card-app hover:-translate-y-1 rounded-4xl focus:outline-none focus:ring-2 focus:ring-black focus:ring-offset-2"
+                                            href="/blog/introducing-autopause-control-your-media/"
+                                            data-title="say hello to auto pause"
+                                            data-description="autopause is the latest browser extension from coffee & fun llc, designed to let you set a timer and automatically pause your media playback. discover how this simple extension can make your life a little easier."
+                                            data-platforms="web">
                                             <figure class="px-4 pt-4">
                                                 <img loading="lazy" 
                                                     src="/assets/images/blog/autopause.png"
@@ -907,8 +1046,11 @@
                                             </div>
                                         </a>
                                         
-                                        <a class="card card-compact bg-base-100 shadow-md transition-all duration-200 card-app hover:-translate-y-1 rounded-4xl"
-                                            href="/blog/should-you-test-your-code-in-production/">
+                                        <a class="blog-card-item card card-compact bg-base-100 shadow-md transition-all duration-200 card-app hover:-translate-y-1 rounded-4xl focus:outline-none focus:ring-2 focus:ring-black focus:ring-offset-2"
+                                            href="/blog/should-you-test-your-code-in-production/"
+                                            data-title="should you test in production?"
+                                            data-description="should you test in production? a lighthearted nod to every developer's worst (or best) idea, this site redirects to the iconic bill o'reilly clip: 'f*** it, we'll do it live!' because sometimes, that's just how it feels. 😂"
+                                            data-platforms="web">
                                             <figure class="px-4 pt-4">
                                                 <img loading="lazy" 
                                                     src="/assets/images/blog/test-in-production.png"
@@ -931,8 +1073,11 @@
                                             </div>
                                         </a>
                                         
-                                        <a class="card card-compact bg-base-100 shadow-md transition-all duration-200 card-app hover:-translate-y-1 rounded-4xl"
-                                            href="/blog/testing-redbox-kiosk-offline-hack-for-free-dvds/">
+                                        <a class="blog-card-item card card-compact bg-base-100 shadow-md transition-all duration-200 card-app hover:-translate-y-1 rounded-4xl focus:outline-none focus:ring-2 focus:ring-black focus:ring-offset-2"
+                                            href="/blog/testing-redbox-kiosk-offline-hack-for-free-dvds/"
+                                            data-title="what happens when redbox shuts down? trying the redbox free dvd hack"
+                                            data-description="with redbox shutting down, i tested a curious hack, accessing a kiosk in offline mode to see if dvds could be rented for free. dive into what i discovered about redbox’s kiosks, their connection issues, and how they function when the servers go down."
+                                            data-platforms="update hack">
                                             <figure class="px-4 pt-4">
                                                 <img loading="lazy" 
                                                     src="/assets/images/blog/redbox.png"
@@ -961,8 +1106,11 @@
                                             </div>
                                         </a>
                                         
-                                        <a class="card card-compact bg-base-100 shadow-md transition-all duration-200 card-app hover:-translate-y-1 rounded-4xl"
-                                            href="/blog/ethically-hack-woobox-voting-node-puppeteer/">
+                                        <a class="blog-card-item card card-compact bg-base-100 shadow-md transition-all duration-200 card-app hover:-translate-y-1 rounded-4xl focus:outline-none focus:ring-2 focus:ring-black focus:ring-offset-2"
+                                            href="/blog/ethically-hack-woobox-voting-node-puppeteer/"
+                                            data-title="how to ethically hack woobox voting with node.js and puppeteer"
+                                            data-description="learn how to ethically automate voting on woobox using node.js and puppeteer. this guide walks you through creating a voting script for educational purposes, exploring the mechanics of online voting and best practices for securing platforms."
+                                            data-platforms="update guide">
                                             <figure class="px-4 pt-4">
                                                 <img loading="lazy" 
                                                     src="/assets/images/blog/woobox.png"
@@ -991,8 +1139,11 @@
                                             </div>
                                         </a>
                                         
-                                        <a class="card card-compact bg-base-100 shadow-md transition-all duration-200 card-app hover:-translate-y-1 rounded-4xl"
-                                            href="/blog/how-to-change-battery-in-an-apple-airtag/">
+                                        <a class="blog-card-item card card-compact bg-base-100 shadow-md transition-all duration-200 card-app hover:-translate-y-1 rounded-4xl focus:outline-none focus:ring-2 focus:ring-black focus:ring-offset-2"
+                                            href="/blog/how-to-change-battery-in-an-apple-airtag/"
+                                            data-title="how to change the battery in an apple airtag"
+                                            data-description="learn how to easily replace the battery in your apple airtag with this simple guide. we'll walk you through each step so you can keep your airtag working smoothly and your items safely tracked."
+                                            data-platforms="social guide">
                                             <figure class="px-4 pt-4">
                                                 <img loading="lazy" 
                                                     src="/assets/images/blog/airtag.png"
@@ -1021,8 +1172,11 @@
                                             </div>
                                         </a>
                                         
-                                        <a class="card card-compact bg-base-100 shadow-md transition-all duration-200 card-app hover:-translate-y-1 rounded-4xl"
-                                            href="/blog/how-to-delete-or-deactivate-your-facebook-account/">
+                                        <a class="blog-card-item card card-compact bg-base-100 shadow-md transition-all duration-200 card-app hover:-translate-y-1 rounded-4xl focus:outline-none focus:ring-2 focus:ring-black focus:ring-offset-2"
+                                            href="/blog/how-to-delete-or-deactivate-your-facebook-account/"
+                                            data-title="how to delete or deactivate your facebook account "
+                                            data-description="learn how to easily delete or deactivate your facebook account with this simple, step-by-step guide. whether you're taking a break or leaving for good, we’ve got you covered!"
+                                            data-platforms="social guide">
                                             <figure class="px-4 pt-4">
                                                 <img loading="lazy" 
                                                     src="/assets/images/blog/facebook.png"
@@ -1051,8 +1205,11 @@
                                             </div>
                                         </a>
                                         
-                                        <a class="card card-compact bg-base-100 shadow-md transition-all duration-200 card-app hover:-translate-y-1 rounded-4xl"
-                                            href="/blog/how-to-replace-the-battery-in-your-nintendo-switch/">
+                                        <a class="blog-card-item card card-compact bg-base-100 shadow-md transition-all duration-200 card-app hover:-translate-y-1 rounded-4xl focus:outline-none focus:ring-2 focus:ring-black focus:ring-offset-2"
+                                            href="/blog/how-to-replace-the-battery-in-your-nintendo-switch/"
+                                            data-title="how to replace the battery in your nintendo switch"
+                                            data-description="is your nintendo switch not holding its charge like it used to? it's probably time to replace that battery. while it might sound tricky, i'll walk you through every single step, with detailed instructions on the screws and parts you'll encounter along the way!"
+                                            data-platforms="social guide">
                                             <figure class="px-4 pt-4">
                                                 <img loading="lazy" 
                                                     src="/assets/images/blog/switch-battery.png"
@@ -1081,8 +1238,11 @@
                                             </div>
                                         </a>
                                         
-                                        <a class="card card-compact bg-base-100 shadow-md transition-all duration-200 card-app hover:-translate-y-1 rounded-4xl"
-                                            href="/blog/procrastinot-maths-challenge-update/">
+                                        <a class="blog-card-item card card-compact bg-base-100 shadow-md transition-all duration-200 card-app hover:-translate-y-1 rounded-4xl focus:outline-none focus:ring-2 focus:ring-black focus:ring-offset-2"
+                                            href="/blog/procrastinot-maths-challenge-update/"
+                                            data-title="procrastinot update - the maths challenge is here! 🎉"
+                                            data-description="we’re excited to roll out a fresh new update for procrastinot, bringing in a fun twist and some polish to keep things sharp. let’s break down what’s new!"
+                                            data-platforms="update guide">
                                             <figure class="px-4 pt-4">
                                                 <img loading="lazy" 
                                                     src="/assets/images/blog/maths-update.png"
@@ -1739,5 +1899,72 @@
     })();
   });
 </script>
+    
+    <!-- Search Functionality Script -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const searchInput = document.getElementById('blogSearchInput');
+            const blogCards = document.querySelectorAll('.blog-card-item');
+            const noResults = document.getElementById('noResults');
+            //const resultCount = document.getElementById('resultCount');
+            const searchButton = document.getElementById('searchButton');
+            const totalPosts = blogCards.length;
+            
+            function performSearch() {
+                const searchTerm = searchInput.value.toLowerCase().trim();
+                let visibleCount = 0;
+                
+                blogCards.forEach(card => {
+                    const title = card.dataset.title || '';
+                    const description = card.dataset.description || '';
+                    const platforms = card.dataset.platforms || '';
+                    
+                    const searchContent = title + ' ' + description + ' ' + platforms;
+                    
+                    if (searchTerm === '' || searchContent.includes(searchTerm)) {
+                        card.classList.remove('hidden');
+                        visibleCount++;
+                    } else {
+                        card.classList.add('hidden');
+                    }
+                });
+                
+                // Update result count
+                if (searchTerm === '') {
+                  //  resultCount.textContent = `Showing all ${totalPosts} posts`;
+                } else {
+//resultCount.textContent = `Found ${visibleCount} post${visibleCount !== 1 ? 's' : ''} matching "${searchTerm}"`;
+                }
+                
+                // Show/hide no results message
+                if (visibleCount === 0 && searchTerm !== '') {
+                    noResults.classList.add('show');
+                } else {
+                    noResults.classList.remove('show');
+                }
+            }
+            
+            // Search on input
+            searchInput.addEventListener('input', performSearch);
+            
+            // Search on button click
+            searchButton.addEventListener('click', performSearch);
+            
+            // Search on Enter key
+            searchInput.addEventListener('keypress', function(e) {
+                if (e.key === 'Enter') {
+                    performSearch();
+                }
+            });
+            
+            // Clear search on Escape key
+            searchInput.addEventListener('keydown', function(e) {
+                if (e.key === 'Escape') {
+                    searchInput.value = '';
+                    performSearch();
+                }
+            });
+        });
+    </script>
 </body>
 </html>
