@@ -114,6 +114,49 @@
     
     {% bundledCss %}
     
+    <!-- Custom styles for search input focus effects -->
+    <style>
+        .search-input-wrapper {
+            transition: all 0.3s ease;
+        }
+        
+        .search-input:focus {
+            animation: bounce 0.5s;
+            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1), 0 8px 10px -6px rgba(0, 0, 0, 0.1);
+        }
+        
+        @keyframes bounce {
+            0%, 100% {
+                transform: translateY(0);
+            }
+            50% {
+                transform: translateY(-5px);
+            }
+        }
+        
+        .blog-card-item {
+            transition: opacity 0.3s ease, transform 0.3s ease;
+        }
+        
+        .blog-card-item.hidden {
+            opacity: 0;
+            transform: scale(0.95);
+            pointer-events: none;
+            position: absolute;
+        }
+        
+        .no-results {
+            display: none;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+        
+        .no-results.show {
+            display: block;
+            opacity: 1;
+        }
+    </style>
+    
     <!-- Service Worker Registration -->
     <script>
         if ('serviceWorker' in navigator) {
@@ -160,13 +203,52 @@
                             </div>
                         </div>
                         
+                        <!-- Search Input Section -->
+                        <div class="max-w-2xl mx-auto mb-8 px-4">
+                            <div class="search-input-wrapper">
+                                <div class="form-control">
+
+
+                                <label class="input input-xl mx-auto w-full ">
+  <svg class="h-[1em] opacity-50" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+    <g
+      stroke-linejoin="round"
+      stroke-linecap="round"
+      stroke-width="2.5"
+      fill="none"
+      stroke="currentColor"
+    >
+      <circle cx="11" cy="11" r="8"></circle>
+      <path d="m21 21-4.3-4.3"></path>
+    </g>
+  </svg>
+  <input type="search" id="blogSearchInput" required placeholder="Search" />
+</label>
+
+
+
+                                    
+                                </div>
+                            </div>
+                        </div>
+                        
                         <div class="max-w-8xl text-pretty text-base mx-auto" id="apps">
                             <div class="card my-8">
                                 <div class="my-8">
-                                    <div class="not-prose grid grid-cols-1 gap-x-8 gap-y-8 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 xl:grid-cols-3">
+                                    <!-- No results message -->
+                                    <div id="noResults" class="no-results text-center py-12">
+                                        <div class="text-6xl mb-4">🔍</div>
+                                        <h3 class="text-2xl font-bold mb-2">No posts found</h3>
+                                        <p class="text-base-content/70">Try searching with different keywords</p>
+                                    </div>
+                                    
+                                    <div class="not-prose grid grid-cols-1 gap-x-8 gap-y-8 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 xl:grid-cols-3" id="blogGrid">
                                         {% for post in blog.posts %}
-                                        <a class="card card-compact bg-base-100 shadow-md transition-all duration-200 card-app hover:-translate-y-1 rounded-4xl"
-                                            href="{{ post.link }}">
+                                        <a class="blog-card-item card card-compact bg-base-100 shadow-md transition-all duration-200 card-app hover:-translate-y-1 rounded-4xl focus:outline-none focus:ring-2 focus:ring-black focus:ring-offset-2"
+                                            href="{{ post.link }}"
+                                            data-title="{{ post.name | downcase }}"
+                                            data-description="{{ post.description | downcase }}"
+                                            data-platforms="{{ post.platform | join: ' ' | downcase }}">
                                             <figure class="px-4 pt-4">
                                                 <img loading="lazy" 
                                                     src="{{ post.image }}"
@@ -211,5 +293,72 @@
     
     {% include modals.liquid %}
     {% include footer.liquid %}
+    
+    <!-- Search Functionality Script -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const searchInput = document.getElementById('blogSearchInput');
+            const blogCards = document.querySelectorAll('.blog-card-item');
+            const noResults = document.getElementById('noResults');
+            //const resultCount = document.getElementById('resultCount');
+            const searchButton = document.getElementById('searchButton');
+            const totalPosts = blogCards.length;
+            
+            function performSearch() {
+                const searchTerm = searchInput.value.toLowerCase().trim();
+                let visibleCount = 0;
+                
+                blogCards.forEach(card => {
+                    const title = card.dataset.title || '';
+                    const description = card.dataset.description || '';
+                    const platforms = card.dataset.platforms || '';
+                    
+                    const searchContent = title + ' ' + description + ' ' + platforms;
+                    
+                    if (searchTerm === '' || searchContent.includes(searchTerm)) {
+                        card.classList.remove('hidden');
+                        visibleCount++;
+                    } else {
+                        card.classList.add('hidden');
+                    }
+                });
+                
+                // Update result count
+                if (searchTerm === '') {
+                  //  resultCount.textContent = `Showing all ${totalPosts} posts`;
+                } else {
+//resultCount.textContent = `Found ${visibleCount} post${visibleCount !== 1 ? 's' : ''} matching "${searchTerm}"`;
+                }
+                
+                // Show/hide no results message
+                if (visibleCount === 0 && searchTerm !== '') {
+                    noResults.classList.add('show');
+                } else {
+                    noResults.classList.remove('show');
+                }
+            }
+            
+            // Search on input
+            searchInput.addEventListener('input', performSearch);
+            
+            // Search on button click
+            searchButton.addEventListener('click', performSearch);
+            
+            // Search on Enter key
+            searchInput.addEventListener('keypress', function(e) {
+                if (e.key === 'Enter') {
+                    performSearch();
+                }
+            });
+            
+            // Clear search on Escape key
+            searchInput.addEventListener('keydown', function(e) {
+                if (e.key === 'Escape') {
+                    searchInput.value = '';
+                    performSearch();
+                }
+            });
+        });
+    </script>
 </body>
 </html>
