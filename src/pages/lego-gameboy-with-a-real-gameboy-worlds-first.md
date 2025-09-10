@@ -45,6 +45,11 @@ This is a live build log, updated as I go. Stay tuned for photos, updates, and t
 
 ---
 
+## Tools Used
+*Coming soon…*  
+
+---
+
 ## Unboxing the LEGO Game Boy Set  
 *Coming soon…*  
 (Photos + first impressions of the packaging, pieces, and lenticular screen)
@@ -81,8 +86,24 @@ This is a live build log, updated as I go. Stay tuned for photos, updates, and t
 
 ---
 
+## Youtube Video
+*Coming soon…*  
+
+---
+
+
 ## Final Thoughts & The Video Reveal  
 *Coming soon…*  
 (Link/embed to the YouTube/TikTok video and wrap-up commentary)
+
+
+---
+
+## Credits
+*Coming soon…*  
+
+- Video Edited by [Courtney Hood](https://courtneymakesvideo.com/)
+- Spellcheck & Grammar by [ChatGPT](https://www.openai.com)
+
 
 ---

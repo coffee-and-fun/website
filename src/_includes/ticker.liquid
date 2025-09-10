@@ -1,31 +1,43 @@
-<div class="bg-yellow-500 py-2 text-pretty text-white lg:block">
-  <div class="relative overflow-hidden">
-    <div class="animate-marquee whitespace-nowrap px-4">
-      <span class="text-lg text-pretty text-black font-bold mr-2">Breaking News:</span>
-      <span class="text-base text-pretty text-black">
-        Join our Discord to talk to the team, suggest features, report bugs or hang out 
-        <a href="https://discord.com/invite/J6EeMvSBYg" target="_blank" 
-           title="Join our Discord" class="btn btn-xs ml-2">
-          Join Discord
-        </a>
+<!-- Marquee Banner for LEGO Game Boy Event -->
+<div class="bg-gray-500 py-2 text-pretty text-black lg:block">
+  <div class="animate-marquee whitespace-nowrap py-1">
+    <span class="inline-flex items-center gap-4">
+      <!-- Event Icon -->
+      <span class="text-2xl">🎮</span>
+      
+      <!-- Main Message -->
+
+      <span class="font-bold text-base">
+       We're putting a REAL Game Boy inside the new LEGO Game Boy this Thursday!
       </span>
-    </div>
+      
+      <!-- Live Badge -->
+      <a href="/lego-gameboy-with-a-real-gameboy-worlds-first/" title="Fitting a Real Game boy Into the LEGO Game Boy (World’s First Attempt)
+" class="badge badge-error badge-base animate-pulse">
+        🔴 LIVE
+      </a>
+  
+    
+    </span>
   </div>
 </div>
 
+<!-- Tailwind CSS Animation Classes (add to your CSS or in a <style> tag) -->
 <style>
   @keyframes marquee {
     0% {
-      transform: translateX(100%);
+      transform: translateX(0%);
     }
     100% {
-      transform: translateX(-100%);
+      transform: translateX(-50%);
     }
   }
+  
   .animate-marquee {
     display: inline-block;
-    animation: marquee 25s linear infinite;
+    animation: marquee 30s linear infinite;
   }
+  
   .animate-marquee:hover {
     animation-play-state: paused;
   }
