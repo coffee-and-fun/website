@@ -10,8 +10,11 @@
 {% assign showMiddleBadge = showMiddleBadge | default: false %}
 {% assign showMiddleBadgeWithText = showMiddleBadgeWithText | default: false %}
 {% assign showSpoilers = showSpoilers | default: false %}
+{% assign showTicker = showTicker | default: false %}
 
-{% include ticker.liquid %}
+{% if showTicker %}
+  {% include ticker.liquid %}
+{% endif %}
 
 <header class="navbar mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-2" role="navigation" aria-label="main navigation">
   
