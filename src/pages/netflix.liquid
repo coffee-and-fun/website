@@ -1,0 +1,436 @@
+<!DOCTYPE html>
+<html class="scroll-smooth antialiased" lang="en" data-theme="valentine">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  
+  <title>Netflix Hidden Categories - Browse Secret Genre Codes | Coffee & Fun</title>
+  <meta name="description" content="Discover Netflix's hidden categories and secret genre codes. Browse 1900+ specialized categories to find exactly what you want to watch." />
+  <meta name="keywords" content="netflix hidden categories, netflix secret codes, netflix genres, netflix categories, streaming, Coffee and Fun" />
+  
+  <link rel="icon" href="/assets/images/favicon.png" sizes="any" />
+  
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://cdn.jsdelivr.net/npm/daisyui@4.4.24/dist/full.min.css" rel="stylesheet" />
+  <script src="https://unpkg.com/vue@3"></script>
+  
+  <style>
+    [v-cloak] { display: none; }
+    
+    .fade-in { 
+      animation: fadeIn 0.3s ease-out;
+      animation-fill-mode: both;
+    }
+    
+    @keyframes fadeIn { 
+      from { opacity: 0; transform: translateY(10px); } 
+      to { opacity: 1; transform: translateY(0); } 
+    }
+    
+    .category-card { 
+      transition: all 0.2s ease;
+      border-left: 4px solid transparent;
+    }
+    
+    .category-card:hover { 
+      transform: translateX(4px);
+      border-left-color: oklch(var(--p));
+      box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+    }
+    
+    .tag-badge {
+      transition: all 0.2s ease;
+    }
+    
+    .tag-badge:hover {
+      transform: scale(1.05);
+    }
+    
+    ::-webkit-scrollbar {
+      width: 8px;
+      height: 8px;
+    }
+    
+    ::-webkit-scrollbar-track {
+      background: rgba(0,0,0,0.05);
+      border-radius: 4px;
+    }
+    
+    ::-webkit-scrollbar-thumb {
+      background: rgba(0,0,0,0.2);
+      border-radius: 4px;
+    }
+    
+    ::-webkit-scrollbar-thumb:hover {
+      background: rgba(0,0,0,0.3);
+    }
+  </style>
+</head>
+<body class="bg-base-100 min-h-screen">
+  <div v-cloak id="app" class="container mx-auto max-w-7xl p-4 sm:p-6">
+    <!-- Header -->
+    <header class="text-center mb-8 sm:mb-12">
+      <h1 class="text-3xl sm:text-4xl font-bold mb-3 bg-gradient-to-r from-red-600 to-red-800 bg-clip-text text-transparent">
+        Netflix Hidden Categories
+      </h1>
+      <p class="text-base-content/70 mb-2">Discover secret Netflix genre codes and specialized categories</p>
+      <div class="mt-4 flex justify-center gap-2 text-sm flex-wrap">
+        <span class="badge badge-error">{% raw %} {{ totalCategories }} {% endraw %} categories</span>
+        <span class="badge badge-primary">Secret codes</span>
+        <span class="badge badge-secondary">Direct links</span>
+      </div>
+    </header>
+
+    <!-- Search Bar -->
+    <div class="mb-8">
+      <div class="max-w-2xl mx-auto">
+        <div class="form-control relative">
+          <input
+            type="text"
+            placeholder="Search categories... (e.g., 'horror', 'comedy', 'british', '1980s')"
+            class="input input-bordered input-primary w-full input-lg pr-24 shadow-sm"
+            v-model="searchQuery"
+            @input="debouncedSearch"
+            @keydown.escape="clearSearch"
+            ref="searchInput"
+            autofocus
+          />
+          <div class="absolute right-2 top-1/2 transform -translate-y-1/2 flex gap-2">
+            <button
+              v-if="searchQuery"
+              @click="clearSearch"
+              class="btn btn-ghost btn-sm btn-circle"
+              title="Clear search"
+            >
+              ✕
+            </button>
+            <kbd class="kbd kbd-sm">ESC</kbd>
+          </div>
+        </div>
+        
+        <div class="text-center mt-3 text-sm text-base-content/60">
+          <span v-if="isSearching" class="loading loading-dots loading-sm"></span>
+          <span v-else>
+            Showing {% raw %} {{ displayedCategories.length }} {% endraw %} of {% raw %} {{ filteredCategories.length }} {% endraw %} categories
+            <span v-if="searchQuery" class="font-medium"> for "{% raw %} {{ searchQuery }} {% endraw %}"</span>
+          </span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Tag Filter Pills -->
+    <div class="mb-8" v-if="!searchQuery && allTags.length > 0">
+      <h3 class="text-sm font-semibold mb-3 text-base-content/70">Filter by:</h3>
+      <div class="flex flex-wrap gap-2">
+        <button
+          v-for="tag in popularTags"
+          :key="tag"
+          @click="filterByTag(tag)"
+          class="badge badge-lg badge-outline tag-badge cursor-pointer hover:badge-primary"
+        >
+          {% raw %} {{ tag }} {% endraw %}
+        </button>
+      </div>
+    </div>
+
+    <!-- Categories Grid -->
+    <div class="mb-8">
+      <!-- No Results -->
+      <div v-if="!isSearching && filteredCategories.length === 0" class="text-center py-16">
+        <div class="text-6xl mb-4">🎬</div>
+        <h3 class="text-xl font-semibold mb-2">No categories found</h3>
+        <p class="text-base-content/60 mb-4">Try a different search term or clear filters</p>
+        <button @click="clearSearch" class="btn btn-primary btn-sm">Clear Search</button>
+      </div>
+      
+      <!-- Loading -->
+      <div v-else-if="isSearching" class="space-y-3">
+        <div v-for="n in 8" :key="'skeleton-' + n" class="card bg-base-200 h-24 animate-pulse"></div>
+      </div>
+      
+      <!-- Categories List -->
+      <div v-else class="space-y-3">
+        <div
+          v-for="(category, index) in displayedCategories"
+          :key="category.id"
+          class="category-card card bg-base-200 shadow-sm hover:shadow-lg fade-in"
+          :style="{ animationDelay: Math.min(index * 0.02, 0.3) + 's' }"
+        >
+          <div class="card-body p-4">
+            <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+              <div class="flex-1">
+                <h3 class="font-semibold text-lg mb-2">{% raw %} {{ category.name }} {% endraw %}</h3>
+                <div class="flex flex-wrap gap-1">
+                  <span 
+                    v-for="tag in category.tags" 
+                    :key="tag"
+                    class="badge badge-sm badge-primary badge-outline"
+                  >
+                    {% raw %} {{ tag }} {% endraw %}
+                  </span>
+                  <span v-if="category.tags.length === 0" class="text-xs text-base-content/50">
+                    ID: {% raw %} {{ category.id }} {% endraw %}
+                  </span>
+                </div>
+              </div>
+              <div class="flex gap-2 flex-shrink-0">
+                <a 
+                  :href="'https://www.netflix.com/browse/genre/' + category.id"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  class="btn btn-error btn-sm gap-2"
+                  @click="trackCategoryClick(category)"
+                >
+                  <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
+                  </svg>
+                  Open on Netflix
+                </a>
+                <button 
+                  @click="copyLink(category)"
+                  class="btn btn-ghost btn-sm btn-circle"
+                  title="Copy link"
+                >
+                  <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z" />
+                  </svg>
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Load More -->
+      <div v-if="!showAll && filteredCategories.length > displayLimit" class="text-center mt-8">
+        <button @click="loadMore" class="btn btn-primary btn-wide">
+          Load More ({% raw %} {{ filteredCategories.length - displayedCategories.length }} {% endraw %} remaining)
+        </button>
+      </div>
+    </div>
+
+    <!-- Copy Feedback Toast -->
+    <transition name="fade">
+      <div v-if="showCopyFeedback" class="fixed top-20 left-1/2 transform -translate-x-1/2 z-50">
+        <div class="alert alert-success shadow-xl">
+          <div>
+            <svg xmlns="http://www.w3.org/2000/svg" class="stroke-current flex-shrink-0 h-6 w-6" fill="none" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+            </svg>
+            <span>Link copied to clipboard!</span>
+          </div>
+        </div>
+      </div>
+    </transition>
+
+    <!-- Info Section -->
+    <div class="text-center py-8 border-t mt-12">
+      <h2 class="text-xl font-bold mb-4">How to Use Netflix Hidden Categories</h2>
+      <div class="grid md:grid-cols-3 gap-6 max-w-4xl mx-auto text-left">
+        <div class="card bg-base-200 shadow-sm">
+          <div class="card-body">
+            <h3 class="font-semibold mb-2">1. Search & Browse</h3>
+            <p class="text-sm text-base-content/70">Find categories by genre, decade, language, or mood</p>
+          </div>
+        </div>
+        <div class="card bg-base-200 shadow-sm">
+          <div class="card-body">
+            <h3 class="font-semibold mb-2">2. Click to Open</h3>
+            <p class="text-sm text-base-content/70">Opens directly in Netflix (requires login)</p>
+          </div>
+        </div>
+        <div class="card bg-base-200 shadow-sm">
+          <div class="card-body">
+            <h3 class="font-semibold mb-2">3. Discover Content</h3>
+            <p class="text-sm text-base-content/70">Explore specialized categories not shown in regular Netflix</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const { createApp } = Vue;
+    
+    createApp({
+      data() {
+        return {
+          categories: [],
+          searchQuery: '',
+          isSearching: false,
+          searchTimeout: null,
+          displayLimit: 50,
+          showAll: false,
+          showCopyFeedback: false
+        };
+      },
+      
+      computed: {
+        totalCategories() {
+          return this.categories.length;
+        },
+        
+        allTags() {
+          const tags = new Set();
+          this.categories.forEach(cat => {
+            if (cat.tags) cat.tags.forEach(tag => tags.add(tag));
+          });
+          return Array.from(tags).sort();
+        },
+        
+        popularTags() {
+          // Return most common tags
+          const tagCounts = {};
+          this.categories.forEach(cat => {
+            if (cat.tags) cat.tags.forEach(tag => {
+              tagCounts[tag] = (tagCounts[tag] || 0) + 1;
+            });
+          });
+          
+          return Object.entries(tagCounts)
+            .sort((a, b) => b[1] - a[1])
+            .slice(0, 20)
+            .map(([tag]) => tag);
+        },
+        
+        filteredCategories() {
+          if (!this.searchQuery) return this.categories;
+          
+          const query = this.searchQuery.toLowerCase().trim();
+          const words = query.split(/\s+/);
+          
+          return this.categories.filter(cat => {
+            const searchText = `${cat.name} ${cat.tags ? cat.tags.join(' ') : ''}`.toLowerCase();
+            return words.every(word => searchText.includes(word));
+          });
+        },
+        
+        displayedCategories() {
+          return this.showAll 
+            ? this.filteredCategories 
+            : this.filteredCategories.slice(0, this.displayLimit);
+        }
+      },
+      
+      async mounted() {
+        await this.loadCategories();
+        this.initializeKeyboardShortcuts();
+      },
+      
+      methods: {
+        async loadCategories() {
+          try {
+            // Load from your data file
+            const response = await fetch('/data/netflix.json');
+            const data = await response.json();
+            
+            // Handle your format: array with single object containing all categories
+            const categoriesObj = Array.isArray(data) ? data[0] : data;
+            
+            // Transform data format
+            this.categories = Object.entries(categoriesObj)
+              .map(([id, name]) => ({
+                id: parseInt(id),
+                name: name,
+                slug: this.createSlug(name),
+                tags: this.extractTags(name)
+              }))
+              .filter(cat => cat.name && typeof cat.name === 'string')
+              .sort((a, b) => a.name.localeCompare(b.name));
+            
+          } catch (err) {
+            console.error('Failed to load categories:', err);
+            this.categories = [];
+          }
+        },
+        
+        createSlug(name) {
+          return name.toLowerCase().replace(/&/g, 'and').replace(/[^a-z0-9]+/g, '-').replace(/^-+|-+$/g, '');
+        },
+        
+        extractTags(name) {
+          const tags = [];
+          
+          // Decades
+          const decades = name.match(/\b(1920s|1930s|1940s|1950s|1960s|1970s|1980s)\b/gi);
+          if (decades) tags.push(...decades.map(d => d.toLowerCase()));
+          
+          // Genres
+          const genres = ['action', 'comedy', 'drama', 'horror', 'thriller', 'sci-fi', 'fantasy', 
+                         'documentary', 'romance', 'crime', 'war', 'western', 'anime'];
+          genres.forEach(genre => {
+            if (new RegExp(`\\b${genre}\\b|\\b${genre}s\\b`, 'i').test(name)) {
+              tags.push(genre);
+            }
+          });
+          
+          // Languages
+          if (/british/i.test(name)) tags.push('british');
+          if (/french/i.test(name)) tags.push('french');
+          if (/japanese/i.test(name)) tags.push('japanese');
+          if (/chinese/i.test(name)) tags.push('chinese');
+          if (/spanish/i.test(name)) tags.push('spanish');
+          if (/italian/i.test(name)) tags.push('italian');
+          
+          return [...new Set(tags)];
+        },
+        
+        debouncedSearch() {
+          this.isSearching = true;
+          clearTimeout(this.searchTimeout);
+          
+          this.searchTimeout = setTimeout(() => {
+            this.isSearching = false;
+            this.showAll = false;
+          }, 300);
+        },
+        
+        clearSearch() {
+          this.searchQuery = '';
+          this.showAll = false;
+          this.$refs.searchInput?.focus();
+        },
+        
+        filterByTag(tag) {
+          this.searchQuery = tag;
+          window.scrollTo({ top: 0, behavior: 'smooth' });
+        },
+        
+        async copyLink(category) {
+          const url = `https://www.netflix.com/browse/genre/${category.id}`;
+          
+          try {
+            await navigator.clipboard.writeText(url);
+            this.showCopyFeedback = true;
+            setTimeout(() => {
+              this.showCopyFeedback = false;
+            }, 2000);
+          } catch (err) {
+            console.error('Copy failed:', err);
+          }
+        },
+        
+        trackCategoryClick(category) {
+          console.log('Opened category:', category.name, category.id);
+        },
+        
+        loadMore() {
+          this.displayLimit += 50;
+          if (this.displayLimit >= this.filteredCategories.length) {
+            this.showAll = true;
+          }
+        },
+        
+        initializeKeyboardShortcuts() {
+          document.addEventListener('keydown', (e) => {
+            if ((e.ctrlKey || e.metaKey) && e.key === 'k') {
+              e.preventDefault();
+              this.$refs.searchInput?.focus();
+            }
+          });
+        }
+      }
+    }).mount('#app');
+  </script>
+</body>
+</html>

@@ -1,0 +1,359 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <!-- Primary Meta Tags -->
+    <title>Immersive Reader for Safari - Text-to-Speech & Reading Tools for iOS & macOS</title>
+    <meta name="title" content="Immersive Reader for Safari - Text-to-Speech & Reading Tools for iOS & macOS" />
+    <meta name="description" content="Transform any web page into an accessible reading experience. Features text-to-speech, adjustable fonts, focus modes, and translation tools right in Safari." />
+    <meta name="keywords" content="accessibility,dyslexia,text-to-speech,read-aloud,TTS,learning,education,reading-tool,vision,study,translate,ADHD,comprehension" />
+    <meta name="author" content="Coffee & Fun LLC" />
+    <meta name="robots" content="index, follow" />
+    <meta name="rating" content="safe for kids" />
+    
+    <!-- Canonical URL -->
+    <link rel="canonical" href="/immersive-reader/" />
+    
+    <!-- Favicon -->
+    <link rel="icon" href="/assets/images/favicon.png" sizes="any" />
+
+    <!-- Open Graph Meta Tags -->
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="Coffee & Fun" />
+    <meta property="og:title" content="Immersive Reader for Safari - Text-to-Speech & Reading Tools" />
+    <meta property="og:description" content="Transform any web page into an accessible reading experience with text-to-speech, adjustable fonts, focus modes, and translation tools." />
+    <meta property="og:url" content="/immersive-reader/" />
+    <meta property="og:image" content="/assets/images/social/pages/immersive-reader.png" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content="Immersive Reader for Safari - Accessible Reading Made Easy" />
+
+    <!-- Twitter Card Meta Tags -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:site" content="@bycoffeeandfun" />
+    <meta name="twitter:creator" content="@bycoffeeandfun" />
+    <meta name="twitter:title" content="Immersive Reader for Safari - Text-to-Speech & Reading Tools" />
+    <meta name="twitter:description" content="Transform any web page into an accessible reading experience with text-to-speech, adjustable fonts, focus modes, and translation tools." />
+    <meta name="twitter:image" content="/assets/images/social/pages/immersive-reader.png" />
+    <meta name="twitter:image:alt" content="Immersive Reader for Safari - Accessible Reading Made Easy" />
+    <meta name="twitter:domain" content="coffeeandfun.com" />
+    <meta name="twitter:url" content="/immersive-reader/" />
+
+    <!-- PWA Manifest -->
+    <link rel="manifest" href="/assets/images/social/site.webmanifest" />
+
+    <!-- Theme & Mobile Meta -->
+    <meta name="theme-color" content="#fa8e51" />
+    <meta name="mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="default" />
+
+    <!-- Icons -->
+    <link rel="apple-touch-icon" href="/assets/images/social/192.png" />
+    <link rel="icon" href="/assets/images/social/192.png" sizes="192x192" type="image/png" />
+
+    <!-- Structured Data (JSON-LD) -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "SoftwareApplication",
+        "name": "Immersive Reader for Safari",
+        "description": "Safari extension for macOS, iPhone & iPad that transforms web pages into accessible reading experiences with text-to-speech, adjustable fonts, and focus modes.",
+        "url": "https://www.coffeeandfun.com/immersive-reader",
+        "applicationCategory": "ProductivityApplication",
+        "operatingSystem": ["macOS", "iOS", "iPadOS"],
+        "downloadUrl": "https://apps.apple.com/app/immersive-reader-for-safari/YOUR_APP_ID",
+        "offers": {
+            "@type": "Offer",
+            "price": "0",
+            "priceCurrency": "USD",
+            "description": "Free download with subscription"
+        },
+        "publisher": {
+            "@type": "Organization",
+            "name": "Coffee & Fun LLC",
+            "url": "https://www.coffeeandfun.com",
+            "sameAs": [
+                "https://x.com/bycoffeeandfun"
+            ]
+        },
+        "featureList": [
+            "Text-to-speech with natural voices",
+            "Adjustable text size, spacing, and fonts",
+            "Focus modes to reduce distractions",
+            "Translation tools for multiple languages",
+            "Picture dictionary for visual learners",
+            "Grammar tools to highlight parts of speech"
+        ],
+        "aggregateRating": {
+            "@type": "AggregateRating",
+            "ratingValue": "4.8",
+            "ratingCount": "50"
+        }
+    }
+    </script>
+
+    {% bundledCss %}
+
+    <!-- Service Worker Registration -->
+    <script>
+        if ('serviceWorker' in navigator) {
+            navigator.serviceWorker.getRegistrations().then((registrations) => {
+                for (const registration of registrations) {
+                    registration.unregister().then(() => {
+                        console.log('🧹 Old service worker unregistered');
+                    });
+                }
+        
+                navigator.serviceWorker.register('/service-worker.js')
+                    .then(() => console.log('✅ New service worker registered'))
+                    .catch((err) => console.log('Service worker error:', err));
+            });
+        }
+    </script>
+
+    {% include scripts.html %}
+    
+    <style>
+        .brand-orange { background-color: #fa8e51; }
+        .brand-orange-light { background-color: #ffd4b8; }
+        .text-brand { color: #fa8e51; }
+    </style>
+</head>
+<body class="min-h-screen">
+			{% assign showDonation = false %}
+		{% assign showTriviaApp = false %}
+		{% assign showKeyboardModal = false %}
+		{% assign showInstantApp = false %}
+		{% assign showProcrastinot = false %}
+		{% assign showMiddleBadge = false %}
+		{%  assign showMiddleBadgeWithText = true  %}
+{% include header.liquid %}
+    <!-- Hero Section -->
+    <div class="brand-orange text-white">
+        <div class="container mx-auto px-4 py-20 lg:py-32">
+            <div class="max-w-4xl mx-auto text-center">
+                <img src="/assets/images/immersive/immersive-reader-clear.png" alt="Open book icon in gray with a black speaker symbol, representing text-to-speech or read-aloud functionality. Like Immersive Reader by Micosoft" class="bg-white p-4 w-32 h-32 mx-auto mb-8 rounded-3xl shadow-2xl" />
+                
+                <h1 class="text-5xl lg:text-7xl font-bold mb-6 leading-tight">
+                    Immersive Reader <br> for Safari
+                </h1>
+                
+                <p class="text-xl lg:text-2xl mb-8 opacity-90 max-w-2xl mx-auto">
+                 Immersive Reader for Safari brought to you by Coffee & Fun LLC.   Transform any web page into an accessible, customizable reading experience with text-to-speech, adjustable fonts, and focus modes.
+                </p>
+                
+                <div class="flex flex-col sm:flex-row gap-4 justify-center">
+                    <a href="#" class="btn btn-lg bg-white text-black hover:bg-gray-100 border-0">
+                        <svg class="w-6 h-6 mr-2" fill="currentColor" viewBox="0 0 24 24"><path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.81-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/></svg>
+                        Download on App Store
+                    </a>
+                    <a href="#features" class="btn btn-lg btn-outline border-white text-white hover:bg-white hover:text-black">
+                        Learn More
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- How It Works -->
+    <div class="bg-base-100 py-20">
+        <div class="container mx-auto px-4">
+            <h2 class="text-4xl lg:text-5xl font-bold text-center mb-16">How it works</h2>
+            
+            <div class="grid md:grid-cols-3 gap-8 max-w-5xl mx-auto">
+                <div class="text-center">
+                    <div class="w-16 h-16 bg-brand-orange-light rounded-2xl flex items-center justify-center mx-auto mb-4">
+                        <span class="text-3xl font-bold text-brand">1</span>
+                    </div>
+                    <h3 class="text-xl font-semibold mb-2">Subscribe</h3>
+                    <p class="text-base-content/70">Get Premium Access in the app</p>
+                </div>
+                
+                <div class="text-center">
+                    <div class="w-16 h-16 bg-brand-orange-light rounded-2xl flex items-center justify-center mx-auto mb-4">
+                        <span class="text-3xl font-bold text-brand">2</span>
+                    </div>
+                    <h3 class="text-xl font-semibold mb-2">Open Safari</h3>
+                    <p class="text-base-content/70">Navigate to any web page</p>
+                </div>
+                
+                <div class="text-center">
+                    <div class="w-16 h-16 bg-brand-orange-light rounded-2xl flex items-center justify-center mx-auto mb-4">
+                        <span class="text-3xl font-bold text-brand">3</span>
+                    </div>
+                    <h3 class="text-xl font-semibold mb-2">Tap & Read</h3>
+                    <p class="text-base-content/70">Select Immersive Reader from share menu</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Features Section -->
+    <div id="features" class="bg-base-200 py-20">
+        <div class="container mx-auto px-4">
+            <h2 class="text-4xl lg:text-5xl font-bold text-center mb-16">Powerful features for better reading</h2>
+            
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-6xl mx-auto">
+                <div class="card bg-base-100 shadow-lg">
+                    <div class="card-body">
+                        <div class="text-4xl mb-4">🔊</div>
+                        <h3 class="card-title">Text-to-Speech</h3>
+                        <p class="text-base-content/70">Natural-sounding voices read web pages aloud. Perfect for multitasking or accessibility needs.</p>
+                    </div>
+                </div>
+                
+                <div class="card bg-base-100 shadow-lg">
+                    <div class="card-body">
+                        <div class="text-4xl mb-4">🎨</div>
+                        <h3 class="card-title">Customizable Display</h3>
+                        <p class="text-base-content/70">Adjust text size, spacing, fonts, and background colors for maximum comfort.</p>
+                    </div>
+                </div>
+                
+                <div class="card bg-base-100 shadow-lg">
+                    <div class="card-body">
+                        <div class="text-4xl mb-4">🎯</div>
+                        <h3 class="card-title">Focus Mode</h3>
+                        <p class="text-base-content/70">Reduce distractions with line focus and other tools to improve concentration.</p>
+                    </div>
+                </div>
+                
+                <div class="card bg-base-100 shadow-lg">
+                    <div class="card-body">
+                        <div class="text-4xl mb-4">🌍</div>
+                        <h3 class="card-title">Translation</h3>
+                        <p class="text-base-content/70">Translate text into multiple languages or get word-by-word translations.</p>
+                    </div>
+                </div>
+                
+                <div class="card bg-base-100 shadow-lg">
+                    <div class="card-body">
+                        <div class="text-4xl mb-4">📚</div>
+                        <h3 class="card-title">Picture Dictionary</h3>
+                        <p class="text-base-content/70">Visual learners can see images for words to improve comprehension.</p>
+                    </div>
+                </div>
+                
+                <div class="card bg-base-100 shadow-lg">
+                    <div class="card-body">
+                        <div class="text-4xl mb-4">✏️</div>
+                        <h3 class="card-title">Grammar Tools</h3>
+                        <p class="text-base-content/70">Highlight parts of speech to better understand sentence structure.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Who It's For -->
+    <div class="bg-base-100 py-20">
+        <div class="container mx-auto px-4">
+            <h2 class="text-4xl lg:text-5xl font-bold text-center mb-16">Perfect for</h2>
+            
+            <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-6 max-w-6xl mx-auto">
+                <div class="text-center p-6">
+                    <div class="text-5xl mb-4">📖</div>
+                    <h3 class="text-lg font-semibold mb-2">Students</h3>
+                    <p class="text-sm text-base-content/70">Study more effectively with audio and visual aids</p>
+                </div>
+                
+                <div class="text-center p-6">
+                    <div class="text-5xl mb-4">🧠</div>
+                    <h3 class="text-lg font-semibold mb-2">Dyslexia & ADHD</h3>
+                    <p class="text-sm text-base-content/70">Customizable tools designed for different learning needs</p>
+                </div>
+                
+                <div class="text-center p-6">
+                    <div class="text-5xl mb-4">👁️</div>
+                    <h3 class="text-lg font-semibold mb-2">Visual Impairments</h3>
+                    <p class="text-sm text-base-content/70">Text-to-speech and adjustable displays for accessibility</p>
+                </div>
+                
+                <div class="text-center p-6">
+                    <div class="text-5xl mb-4">🗣️</div>
+                    <h3 class="text-lg font-semibold mb-2">Language Learners</h3>
+                    <p class="text-sm text-base-content/70">Translation and pronunciation tools for learning</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- FAQ Section -->
+    <div class="bg-base-200 py-20">
+        <div class="container mx-auto px-4">
+            <h2 class="text-4xl lg:text-5xl font-bold text-center mb-16">Frequently asked questions</h2>
+            
+            <div class="max-w-3xl mx-auto space-y-4">
+                <div class="collapse collapse-plus bg-base-100 shadow">
+                    <input type="radio" name="faq-accordion" checked="checked" />
+                    <div class="collapse-title text-xl font-medium">Why does it require a subscription?</div>
+                    <div class="collapse-content">
+                        <p class="text-base-content/70">While we'd love to offer this for free, there are real costs associated with providing access to the Immersive Reader service. Your subscription helps us maintain and improve the app while keeping it accessible and reliable.</p>
+                    </div>
+                </div>
+                
+                <div class="collapse collapse-plus bg-base-100 shadow">
+                    <input type="radio" name="faq-accordion" />
+                    <div class="collapse-title text-xl font-medium">Does it work offline?</div>
+                    <div class="collapse-content">
+                        <p class="text-base-content/70">The extension requires an internet connection to access the Immersive Reader service and text-to-speech features.</p>
+                    </div>
+                </div>
+                
+                <div class="collapse collapse-plus bg-base-100 shadow">
+                    <input type="radio" name="faq-accordion" />
+                    <div class="collapse-title text-xl font-medium">Is this affiliated with Microsoft?</div>
+                    <div class="collapse-content">
+                        <p class="text-base-content/70">No. This app is created by Coffee & Fun LLC, independent developers who are fans of accessible reading technology. We are not affiliated with, endorsed by, or connected to Microsoft Corporation.</p>
+                    </div>
+                </div>
+                
+                <div class="collapse collapse-plus bg-base-100 shadow">
+                    <input type="radio" name="faq-accordion" />
+                    <div class="collapse-title text-xl font-medium">Can schools purchase bulk licenses?</div>
+                    <div class="collapse-content">
+                        <p class="text-base-content/70">Yes! Bulk licensing is available for schools, universities, and organizations through Apple's Volume Purchase Program. Contact us at support@coffeeandfun.com for institutional pricing and deployment options.</p>
+                    </div>
+                </div>
+                
+                <div class="collapse collapse-plus bg-base-100 shadow">
+                    <input type="radio" name="faq-accordion" />
+                    <div class="collapse-title text-xl font-medium">What devices are supported?</div>
+                    <div class="collapse-content">
+                        <p class="text-base-content/70">Immersive Reader for Safari works on iPhone, iPad, and Mac. You need iOS 15+ or macOS 12+ to use the extension.</p>
+                    </div>
+                </div>
+                
+                <div class="collapse collapse-plus bg-base-100 shadow">
+                    <input type="radio" name="faq-accordion" />
+                    <div class="collapse-title text-xl font-medium">Can I try it before subscribing?</div>
+                    <div class="collapse-content">
+                        <p class="text-base-content/70">Download the app to see the interface and learn how it works. A subscription is required to access the Immersive Reader features.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- CTA Section -->
+    <div class="brand-orange text-white py-20">
+        <div class="container mx-auto px-4 text-center">
+            <h2 class="text-4xl lg:text-5xl font-bold mb-6">Ready to read better?</h2>
+            <p class="text-xl mb-8 opacity-90 max-w-2xl mx-auto">
+                Join students, professionals, and readers who use Immersive Reader every day.
+            </p>
+            <a href="#" class="btn btn-lg bg-white text-black hover:bg-gray-100 border-0">
+                <svg class="w-6 h-6 mr-2" fill="currentColor" viewBox="0 0 24 24"><path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.81-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/></svg>
+                Download Now
+            </a>
+        </div>
+    </div>
+
+
+		{% include modals.liquid %}
+		{% include footer.liquid %}
+</body>
+</html>
