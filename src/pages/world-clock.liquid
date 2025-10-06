@@ -1,0 +1,443 @@
+<!DOCTYPE html>
+<html class="scroll-smooth antialiased" lang="en" data-theme="light">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  
+  <!-- Primary Meta Tags -->
+  <title>Word Clock - Time in Words | Coffee & Fun</title>
+  <meta name="title" content="Word Clock - Time in Words | Coffee & Fun" />
+  <meta name="description" content="Beautiful word clock that displays the current time using illuminated words. A unique and elegant way to tell time." />
+  <meta name="keywords" content="word clock, time display, clock widget, time in words, digital clock, Coffee and Fun" />
+  <meta name="author" content="Coffee & Fun LLC" />
+  <meta name="publisher" content="Coffee & Fun LLC" />
+  
+  <!-- Open Graph / Facebook -->
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="/word-clock/" />
+  <meta property="og:title" content="Word Clock - Time in Words" />
+  <meta property="og:description" content="Beautiful word clock that displays time using illuminated words. A unique way to see the current time." />
+  <meta property="og:image" content="/assets/images/social/pages/word-clock.png" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta property="og:site_name" content="Coffee & Fun" />
+  <meta property="og:locale" content="en_US" />
+  
+  <!-- Twitter -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:url" content="/word-clock/" />
+  <meta name="twitter:title" content="Word Clock - Time in Words" />
+  <meta name="twitter:description" content="Beautiful word clock displaying time in illuminated words." />
+  <meta name="twitter:image" content="/assets/images/social/pages/word-clock.png" />
+  <meta name="twitter:site" content="@bycoffeeandfun" />
+  <meta name="twitter:creator" content="@bycoffeeandfun" />
+  
+  <!-- PWA & Mobile -->
+  <meta name="mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="default" />
+  <meta name="apple-mobile-web-app-title" content="Word Clock" />
+  <meta name="theme-color" content="#f471b5" />
+  
+  <!-- Search Engine -->
+  <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1" />
+  <link rel="canonical" href="/word-clock/" />
+  
+  <!-- Favicon -->
+  <link rel="icon" href="/assets/images/favicon.png" sizes="any" />
+  <link rel="apple-touch-icon" href="/assets/images/apple-touch-icon.png" />
+  
+  <!-- Structured Data -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebApplication",
+    "name": "Word Clock",
+    "description": "Beautiful word clock that displays the current time using illuminated words.",
+    "url": "https://www.coffeeandfun.com/word-clock/",
+    "applicationCategory": "UtilityApplication",
+    "operatingSystem": "Any",
+    "offers": {
+      "@type": "Offer",
+      "price": "0",
+      "priceCurrency": "USD"
+    },
+    "creator": {
+      "@type": "Organization",
+      "name": "Coffee & Fun LLC",
+      "url": "https://www.coffeeandfun.com"
+    }
+  }
+  </script>
+  
+  <!-- External Resources -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://cdn.jsdelivr.net/npm/daisyui@4.4.24/dist/full.min.css" rel="stylesheet" />
+  <script src="https://unpkg.com/vue@3"></script>
+  
+  <style>
+    [v-cloak] { display: none; }
+    
+    .fade-in { 
+      animation: fadeIn 0.6s ease-out;
+      animation-fill-mode: both;
+    }
+    
+    @keyframes fadeIn { 
+      from { 
+        opacity: 0; 
+        transform: scale(0.95); 
+      } 
+      to { 
+        opacity: 1; 
+        transform: scale(1); 
+      } 
+    }
+    
+    .letter {
+      transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+      user-select: none;
+      -webkit-tap-highlight-color: transparent;
+      font-weight: 300;
+      letter-spacing: 0.05em;
+    }
+    
+    .letter.active {
+      color: hsl(var(--p));
+      text-shadow: 
+        0 0 20px hsla(var(--p), 0.6),
+        0 0 40px hsla(var(--p), 0.3),
+        0 0 60px hsla(var(--p), 0.2);
+      font-weight: 500;
+      transform: scale(1.05);
+    }
+    
+    .letter.inactive {
+      color: hsl(var(--bc) / 0.15);
+    }
+    
+    .clock-grid {
+      background: linear-gradient(135deg, hsl(var(--b1)) 0%, hsl(var(--b2)) 100%);
+      border: 1px solid hsl(var(--bc) / 0.1);
+      box-shadow: 
+        0 20px 60px -15px hsl(var(--bc) / 0.3),
+        inset 0 1px 0 hsl(var(--bc) / 0.05);
+    }
+    
+    /* Smooth scroll behavior */
+    html {
+      scroll-behavior: smooth;
+    }
+    
+    /* Responsive letter sizing */
+    @media (max-width: 640px) {
+      .letter {
+        font-size: 1.5rem;
+      }
+    }
+    
+    @media (min-width: 641px) and (max-width: 1024px) {
+      .letter {
+        font-size: 2.25rem;
+      }
+    }
+    
+    @media (min-width: 1025px) {
+      .letter {
+        font-size: 3rem;
+      }
+    }
+    
+    /* Pulse animation for digital time */
+    .time-pulse {
+      animation: pulse 2s ease-in-out infinite;
+    }
+    
+    @keyframes pulse {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.7; }
+    }
+    
+    /* Controls positioning */
+    .controls-overlay {
+      position: fixed;
+      bottom: 2rem;
+      right: 2rem;
+      z-index: 50;
+    }
+    
+    @media (max-width: 640px) {
+      .controls-overlay {
+        bottom: 1rem;
+        right: 1rem;
+        left: 1rem;
+      }
+    }
+  </style>
+</head>
+<body class="bg-base-100 min-h-screen">
+
+  
+  <div v-cloak id="app" class="min-h-screen flex items-center justify-center">
+    <!-- Main Clock Container - Full Width -->
+    <div class="w-full">
+      <div class="clock-grid p-6 sm:p-10 md:p-16 lg:p-20 shadow-2xl fade-in">
+        <!-- Word Grid -->
+        <div class="grid grid-cols-11 gap-2 sm:gap-3 md:gap-4 lg:gap-6 mb-8">
+          <template v-for="(row, rowIndex) in grid" :key="rowIndex">
+            <div 
+              v-for="(letter, colIndex) in row" 
+              :key="`${rowIndex}-${colIndex}`"
+              :class="['letter', 'text-center', isActive(rowIndex, colIndex) ? 'active' : 'inactive']"
+            >
+              {% raw %}{{ letter }}{% endraw %}
+            </div>
+          </template>
+        </div>
+        
+        <!-- Digital Time Display -->
+        <div class="text-center">
+          <div class="text-base-content/40 text-lg sm:text-xl md:text-2xl font-light tracking-wider time-pulse">
+            {% raw %}{{ currentTime }}{% endraw %}
+          </div>
+          <div class="text-base-content/30 text-xs sm:text-sm mt-2">
+            {% raw %}{{ currentDate }}{% endraw %}
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Floating Controls -->
+    <div class="controls-overlay">
+      <div class="card bg-base-200/90 backdrop-blur-lg shadow-xl border border-base-content/10">
+        <div class="card-body p-4 gap-3">
+          <div class="form-control">
+            <label class="label cursor-pointer gap-3 py-2">
+              <span class="label-text text-xs">24-hour</span>
+              <input type="checkbox" class="toggle toggle-primary toggle-sm" v-model="use24Hour" />
+            </label>
+          </div>
+          
+          <div class="form-control">
+            <label class="label cursor-pointer gap-3 py-2">
+              <span class="label-text text-xs">Smooth</span>
+              <input type="checkbox" class="toggle toggle-secondary toggle-sm" v-model="smoothTransitions" checked />
+            </label>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  {% include footer.liquid %}
+  
+  <script>
+    const { createApp } = Vue;
+    
+    createApp({
+      data() {
+        return {
+          grid: [
+            ['I', 'T', 'L', 'I', 'S', 'A', 'S', 'T', 'H', 'P', 'M'],
+            ['A', 'C', 'F', 'I', 'F', 'T', 'E', 'E', 'N', 'D', 'C'],
+            ['T', 'W', 'E', 'N', 'T', 'Y', 'F', 'I', 'V', 'E', 'X'],
+            ['T', 'H', 'I', 'R', 'T', 'Y', 'F', 'T', 'E', 'N', 'O'],
+            ['M', 'I', 'N', 'U', 'T', 'E', 'S', 'E', 'T', 'O', 'U'],
+            ['P', 'A', 'S', 'T', 'O', 'R', 'U', 'F', 'O', 'U', 'R'],
+            ['S', 'E', 'V', 'E', 'N', 'X', 'T', 'W', 'E', 'L', 'V'],
+            ['N', 'I', 'N', 'E', 'F', 'I', 'V', 'E', 'C', 'T', 'W'],
+            ['E', 'I', 'G', 'H', 'T', 'F', 'E', 'L', 'E', 'V', 'E'],
+            ['S', 'I', 'X', 'T', 'H', 'R', 'E', 'E', 'O', 'N', 'E'],
+            ['T', 'E', 'N', 'S', 'E', 'Z', 'O', "'", 'C', 'L', 'K']
+          ],
+          activePositions: [],
+          currentTime: '',
+          currentDate: '',
+          use24Hour: false,
+          smoothTransitions: true,
+          updateInterval: null
+        };
+      },
+      
+      mounted() {
+        this.updateClock();
+        this.updateInterval = setInterval(this.updateClock, 1000);
+        this.loadSettings();
+      },
+      
+      beforeUnmount() {
+        if (this.updateInterval) {
+          clearInterval(this.updateInterval);
+        }
+      },
+      
+      watch: {
+        use24Hour(newVal) {
+          this.saveSettings();
+          this.updateClock();
+        },
+        smoothTransitions(newVal) {
+          this.saveSettings();
+        }
+      },
+      
+      methods: {
+        isActive(row, col) {
+          return this.activePositions.some(pos => pos[0] === row && pos[1] === col);
+        },
+        
+        updateClock() {
+          const now = new Date();
+          
+          // Update digital time
+          const timeOptions = { 
+            hour: '2-digit', 
+            minute: '2-digit', 
+            second: '2-digit',
+            hour12: !this.use24Hour
+          };
+          this.currentTime = now.toLocaleTimeString('en-US', timeOptions);
+          
+          // Update date
+          const dateOptions = { 
+            weekday: 'long', 
+            year: 'numeric', 
+            month: 'long', 
+            day: 'numeric' 
+          };
+          this.currentDate = now.toLocaleDateString('en-US', dateOptions);
+          
+          let hours = now.getHours();
+          if (!this.use24Hour) {
+            hours = hours % 12;
+            if (hours === 0) hours = 12;
+          }
+          let minutes = now.getMinutes();
+          
+          this.activePositions = [];
+          
+          // Always show "IT IS"
+          this.addWord(0, 0, 2); // IT
+          this.addWord(0, 3, 5); // IS
+          
+          // Minutes logic
+          if (minutes >= 5 && minutes < 10) {
+            this.addWord(1, 3, 8); // FIVE
+            this.addWord(4, 0, 7); // MINUTES
+            this.addWord(5, 0, 4); // PAST
+          } else if (minutes >= 10 && minutes < 15) {
+            this.addWord(3, 9, 11); // TEN
+            this.addWord(4, 0, 7); // MINUTES
+            this.addWord(5, 0, 4); // PAST
+          } else if (minutes >= 15 && minutes < 20) {
+            this.addWord(1, 3, 11); // FIFTEEN
+            this.addWord(4, 0, 7); // MINUTES
+            this.addWord(5, 0, 4); // PAST
+          } else if (minutes >= 20 && minutes < 25) {
+            this.addWord(2, 0, 6); // TWENTY
+            this.addWord(4, 0, 7); // MINUTES
+            this.addWord(5, 0, 4); // PAST
+          } else if (minutes >= 25 && minutes < 30) {
+            this.addWord(2, 0, 6); // TWENTY
+            this.addWord(2, 6, 10); // FIVE
+            this.addWord(4, 0, 7); // MINUTES
+            this.addWord(5, 0, 4); // PAST
+          } else if (minutes >= 30 && minutes < 35) {
+            this.addWord(3, 0, 6); // THIRTY
+            this.addWord(4, 0, 7); // MINUTES
+            this.addWord(5, 0, 4); // PAST
+          } else if (minutes >= 35 && minutes < 40) {
+            this.addWord(2, 0, 6); // TWENTY
+            this.addWord(2, 6, 10); // FIVE
+            this.addWord(4, 0, 7); // MINUTES
+            this.addWord(4, 8, 10); // TO
+            hours = (hours % (this.use24Hour ? 24 : 12)) + 1;
+            if (!this.use24Hour && hours === 13) hours = 1;
+          } else if (minutes >= 40 && minutes < 45) {
+            this.addWord(2, 0, 6); // TWENTY
+            this.addWord(4, 0, 7); // MINUTES
+            this.addWord(4, 8, 10); // TO
+            hours = (hours % (this.use24Hour ? 24 : 12)) + 1;
+            if (!this.use24Hour && hours === 13) hours = 1;
+          } else if (minutes >= 45 && minutes < 50) {
+            this.addWord(1, 3, 11); // FIFTEEN
+            this.addWord(4, 0, 7); // MINUTES
+            this.addWord(4, 8, 10); // TO
+            hours = (hours % (this.use24Hour ? 24 : 12)) + 1;
+            if (!this.use24Hour && hours === 13) hours = 1;
+          } else if (minutes >= 50 && minutes < 55) {
+            this.addWord(3, 9, 11); // TEN
+            this.addWord(4, 0, 7); // MINUTES
+            this.addWord(4, 8, 10); // TO
+            hours = (hours % (this.use24Hour ? 24 : 12)) + 1;
+            if (!this.use24Hour && hours === 13) hours = 1;
+          } else if (minutes >= 55) {
+            this.addWord(1, 3, 8); // FIVE
+            this.addWord(4, 0, 7); // MINUTES
+            this.addWord(4, 8, 10); // TO
+            hours = (hours % (this.use24Hour ? 24 : 12)) + 1;
+            if (!this.use24Hour && hours === 13) hours = 1;
+          } else {
+            // O'CLOCK for exact hour
+            this.addWord(10, 6, 11); // O'CLOCK
+          }
+          
+          // Handle 24-hour format hours
+          if (this.use24Hour && hours > 12) {
+            // For hours 13-23 in 24-hour format, show equivalent 12-hour words
+            hours = hours % 12;
+            if (hours === 0) hours = 12;
+          }
+          
+          // Hours display
+          switch(hours) {
+            case 1: this.addWord(9, 9, 11); break; // ONE
+            case 2: this.addWord(7, 9, 11); break; // TWO
+            case 3: this.addWord(9, 5, 10); break; // THREE
+            case 4: this.addWord(5, 7, 11); break; // FOUR
+            case 5: this.addWord(7, 4, 8); break; // FIVE
+            case 6: this.addWord(9, 0, 3); break; // SIX
+            case 7: this.addWord(6, 0, 5); break; // SEVEN
+            case 8: this.addWord(8, 0, 5); break; // EIGHT
+            case 9: this.addWord(7, 0, 4); break; // NINE
+            case 10: this.addWord(10, 0, 3); break; // TEN
+            case 11: this.addWord(8, 5, 11); break; // ELEVEN
+            case 12: this.addWord(6, 6, 11); break; // TWELVE
+          }
+        },
+        
+        addWord(row, startCol, endCol) {
+          for (let col = startCol; col < endCol; col++) {
+            this.activePositions.push([row, col]);
+          }
+        },
+        
+        loadSettings() {
+          try {
+            const settings = localStorage.getItem('wordClockSettings');
+            if (settings) {
+              const parsed = JSON.parse(settings);
+              this.use24Hour = parsed.use24Hour || false;
+              this.smoothTransitions = parsed.smoothTransitions !== false;
+            }
+          } catch (err) {
+            console.error('Failed to load settings:', err);
+          }
+        },
+        
+        saveSettings() {
+          try {
+            const settings = {
+              use24Hour: this.use24Hour,
+              smoothTransitions: this.smoothTransitions
+            };
+            localStorage.setItem('wordClockSettings', JSON.stringify(settings));
+          } catch (err) {
+            console.error('Failed to save settings:', err);
+          }
+        }
+      }
+    }).mount('#app');
+  </script>
+</body>
+</html>
