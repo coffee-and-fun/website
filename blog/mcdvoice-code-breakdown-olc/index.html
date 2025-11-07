@@ -435,10 +435,10 @@ your receipt that look like:</p>
 <p class="leading-relaxed font-display mb-4 mt-4 text-pretty text-lg text-pretty text-gray-900">That string of numbers holds all the data about your visit: store ID, register, date, time, item,
 and a checksum. My goal was to see:</p>
 <ol class="list-decimal list-inside mt-4 space-y-2 pl-6 text-pretty text-lg font-display ml-6 mb-8 text-pretty text-gray-900">
-<li class="mb-2 text-pretty text-lg font-display text-pretty text-gray-900 flex items-center">Can I decode it?</li>
-<li class="mb-2 text-pretty text-lg font-display text-pretty text-gray-900 flex items-center">Can I generate a valid code?</li>
-<li class="mb-2 text-pretty text-lg font-display text-pretty text-gray-900 flex items-center">Will McDVOICE accept it?</li>
-<li class="mb-2 text-pretty text-lg font-display text-pretty text-gray-900 flex items-center">Can I get a real validation code?</li>
+<li class="mb-2 text-pretty text-lg font-display text-pretty text-gray-900  items-center">Can I decode it?</li>
+<li class="mb-2 text-pretty text-lg font-display text-pretty text-gray-900  items-center">Can I generate a valid code?</li>
+<li class="mb-2 text-pretty text-lg font-display text-pretty text-gray-900  items-center">Will McDVOICE accept it?</li>
+<li class="mb-2 text-pretty text-lg font-display text-pretty text-gray-900  items-center">Can I get a real validation code?</li>
 </ol>
 <p class="leading-relaxed font-display mb-4 mt-4 text-pretty text-lg text-pretty text-gray-900">Let’s walk through it.</p>
 <hr>
@@ -453,12 +453,12 @@ Both receipts printed out slightly different codes.</p>
 </code></pre>
 <p class="leading-relaxed font-display mb-4 mt-4 text-pretty text-lg text-pretty text-gray-900">Breaking it down:</p>
 <ul class="list-disc list-inside mt-4 space-y-2 pl-6 text-pretty text-lg font-display ml-6 mb-8 text-pretty text-gray-900">
-<li class="mb-2 text-pretty text-lg font-display text-pretty text-gray-900 flex items-center"><code>03963</code>: Store ID</li>
-<li class="mb-2 text-pretty text-lg font-display text-pretty text-gray-900 flex items-center"><code>06000</code>: Register ID</li>
-<li class="mb-2 text-pretty text-lg font-display text-pretty text-gray-900 flex items-center"><code>41025</code>: Julian date = April 10, 2025 (04/10/25)</li>
-<li class="mb-2 text-pretty text-lg font-display text-pretty text-gray-900 flex items-center"><code>14028</code>: 14:02 PM (minutes since midnight, with milliseconds rounded — confirmed)</li>
-<li class="mb-2 text-pretty text-lg font-display text-pretty text-gray-900 flex items-center"><code>00024</code>: Item ID — a Medium Diet Coke in my case</li>
-<li class="mb-2 text-pretty text-lg font-display text-pretty text-gray-900 flex items-center"><code>6</code> or <code>7</code>: Final digit (checksum or internal validation indicator)</li>
+<li class="mb-2 text-pretty text-lg font-display text-pretty text-gray-900  items-center"><code>03963</code>: Store ID</li>
+<li class="mb-2 text-pretty text-lg font-display text-pretty text-gray-900  items-center"><code>06000</code>: Register ID</li>
+<li class="mb-2 text-pretty text-lg font-display text-pretty text-gray-900  items-center"><code>41025</code>: Julian date = April 10, 2025 (04/10/25)</li>
+<li class="mb-2 text-pretty text-lg font-display text-pretty text-gray-900  items-center"><code>14028</code>: 14:02 PM (minutes since midnight, with milliseconds rounded — confirmed)</li>
+<li class="mb-2 text-pretty text-lg font-display text-pretty text-gray-900  items-center"><code>00024</code>: Item ID — a Medium Diet Coke in my case</li>
+<li class="mb-2 text-pretty text-lg font-display text-pretty text-gray-900  items-center"><code>6</code> or <code>7</code>: Final digit (checksum or internal validation indicator)</li>
 </ul>
 <p class="leading-relaxed font-display mb-4 mt-4 text-pretty text-lg text-pretty text-gray-900">Both transactions happened minutes apart, so we could confirm what each part of the code meant.</p>
 <hr>
@@ -489,17 +489,17 @@ console.log(validExample);
 <a href="https://www.mcdvoice.com" class="text-lg text-pretty text-blue-500 hover:text-blue-700 underline mx-2">https://www.mcdvoice.com</a>.</p>
 <h3 class="leading-relaxed font-display text-pretty text-xl mb-4 mt-10 font-semibold text-pretty text-gray-700" id="%E2%9C%85-these-worked" tabindex="-1">✅ These Worked</h3>
 <ul class="list-disc list-inside mt-4 space-y-2 pl-6 text-pretty text-lg font-display ml-6 mb-8 text-pretty text-gray-900">
-<li class="mb-2 text-pretty text-lg font-display text-pretty text-gray-900 flex items-center"><code>03963-06000-41025-14028-00024-6</code></li>
-<li class="mb-2 text-pretty text-lg font-display text-pretty text-gray-900 flex items-center"><code>03963-06000-41025-14033-00024-7</code></li>
-<li class="mb-2 text-pretty text-lg font-display text-pretty text-gray-900 flex items-center"><code>03963-06000-41025-14031-00024-4</code></li>
+<li class="mb-2 text-pretty text-lg font-display text-pretty text-gray-900  items-center"><code>03963-06000-41025-14028-00024-6</code></li>
+<li class="mb-2 text-pretty text-lg font-display text-pretty text-gray-900  items-center"><code>03963-06000-41025-14033-00024-7</code></li>
+<li class="mb-2 text-pretty text-lg font-display text-pretty text-gray-900  items-center"><code>03963-06000-41025-14031-00024-4</code></li>
 </ul>
 <p class="leading-relaxed font-display mb-4 mt-4 text-pretty text-lg text-pretty text-gray-900">If the code matched a real format, McDVoice accepted it and launched the survey.</p>
 <p class="leading-relaxed font-display mb-4 mt-4 text-pretty text-lg text-pretty text-gray-900">We were also able to complete the full survey flow using these codes and collected <strong class="text-lg font-semibold text-pretty text-gray-800">real validation
 codes</strong>, like:</p>
 <ul class="list-disc list-inside mt-4 space-y-2 pl-6 text-pretty text-lg font-display ml-6 mb-8 text-pretty text-gray-900">
-<li class="mb-2 text-pretty text-lg font-display text-pretty text-gray-900 flex items-center"><code>64538</code></li>
-<li class="mb-2 text-pretty text-lg font-display text-pretty text-gray-900 flex items-center"><code>92147</code></li>
-<li class="mb-2 text-pretty text-lg font-display text-pretty text-gray-900 flex items-center"><code>19832</code></li>
+<li class="mb-2 text-pretty text-lg font-display text-pretty text-gray-900  items-center"><code>64538</code></li>
+<li class="mb-2 text-pretty text-lg font-display text-pretty text-gray-900  items-center"><code>92147</code></li>
+<li class="mb-2 text-pretty text-lg font-display text-pretty text-gray-900  items-center"><code>19832</code></li>
 </ul>
 <hr>
 <h2 class="leading-relaxed font-display text-pretty text-2xl mb-6 mt-12 font-semibold text-pretty text-gray-800" id="%F0%9F%A7%AA-cracking-the-validation-code" tabindex="-1">🧪 Cracking the Validation Code</h2>
@@ -532,10 +532,10 @@ number. 🫣</p>
 <hr>
 <h2 class="leading-relaxed font-display text-pretty text-2xl mb-6 mt-12 font-semibold text-pretty text-gray-800" id="%F0%9F%94%8D-conclusions-and-takeaways" tabindex="-1">🔍 Conclusions and Takeaways</h2>
 <ul class="list-disc list-inside mt-4 space-y-2 pl-6 text-pretty text-lg font-display ml-6 mb-8 text-pretty text-gray-900">
-<li class="mb-2 text-pretty text-lg font-display text-pretty text-gray-900 flex items-center">The McDVOICE code format is fully decipherable</li>
-<li class="mb-2 text-pretty text-lg font-display text-pretty text-gray-900 flex items-center">You <strong class="text-lg font-semibold text-pretty text-gray-800">can</strong> generate a valid-looking code</li>
-<li class="mb-2 text-pretty text-lg font-display text-pretty text-gray-900 flex items-center">You <strong class="text-lg font-semibold text-pretty text-gray-800">can</strong> get a real validation number from the site</li>
-<li class="mb-2 text-pretty text-lg font-display text-pretty text-gray-900 flex items-center">Employees rarely check validity in depth, they look for a matching receipt and code</li>
+<li class="mb-2 text-pretty text-lg font-display text-pretty text-gray-900  items-center">The McDVOICE code format is fully decipherable</li>
+<li class="mb-2 text-pretty text-lg font-display text-pretty text-gray-900  items-center">You <strong class="text-lg font-semibold text-pretty text-gray-800">can</strong> generate a valid-looking code</li>
+<li class="mb-2 text-pretty text-lg font-display text-pretty text-gray-900  items-center">You <strong class="text-lg font-semibold text-pretty text-gray-800">can</strong> get a real validation number from the site</li>
+<li class="mb-2 text-pretty text-lg font-display text-pretty text-gray-900  items-center">Employees rarely check validity in depth, they look for a matching receipt and code</li>
 </ul>
 <p class="leading-relaxed font-display mb-4 mt-4 text-pretty text-lg text-pretty text-gray-900">So… was this a cool way to get free food? Not really.</p>
 <p class="leading-relaxed font-display mb-4 mt-4 text-pretty text-lg text-pretty text-gray-900">Was it a fun dive into code systems and backend validation? 100%.</p>

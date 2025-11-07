@@ -455,27 +455,27 @@ for (let url of allListingUrls) {
 </code></pre>
 <p class="leading-relaxed font-display mb-4 mt-4 text-pretty text-lg text-pretty text-gray-900">It looked simple, but under the hood, there were big issues:</p>
 <ul class="list-disc list-inside mt-4 space-y-2 pl-6 text-pretty text-lg font-display ml-6 mb-8 text-pretty text-gray-900">
-<li class="mb-2 text-pretty text-lg font-display text-pretty text-gray-900 flex items-center">
+<li class="mb-2 text-pretty text-lg font-display text-pretty text-gray-900  items-center">
 <p class="leading-relaxed font-display mb-4 mt-4 text-pretty text-lg text-pretty text-gray-900">One long browser session for 20,000 listings = eventual crash</p>
 </li>
-<li class="mb-2 text-pretty text-lg font-display text-pretty text-gray-900 flex items-center">
+<li class="mb-2 text-pretty text-lg font-display text-pretty text-gray-900  items-center">
 <p class="leading-relaxed font-display mb-4 mt-4 text-pretty text-lg text-pretty text-gray-900">No timeout protection meant a single slow page could freeze everything</p>
 </li>
-<li class="mb-2 text-pretty text-lg font-display text-pretty text-gray-900 flex items-center">
+<li class="mb-2 text-pretty text-lg font-display text-pretty text-gray-900  items-center">
 <p class="leading-relaxed font-display mb-4 mt-4 text-pretty text-lg text-pretty text-gray-900">No resume support, so if it crashed at item #1375, I’d have to start all over</p>
 </li>
-<li class="mb-2 text-pretty text-lg font-display text-pretty text-gray-900 flex items-center">
+<li class="mb-2 text-pretty text-lg font-display text-pretty text-gray-900  items-center">
 <p class="leading-relaxed font-display mb-4 mt-4 text-pretty text-lg text-pretty text-gray-900">No skip logic, so re-running would re-scrape everything</p>
 </li>
 </ul>
 <h2 class="leading-relaxed font-display text-pretty text-2xl mb-6 mt-12 font-semibold text-pretty text-gray-800" id="%E2%9C%85-the-new-approach%3A-batch-it%2C-restart-it%2C-skip-it" tabindex="-1">✅ The New Approach: Batch It, Restart It, Skip It</h2>
 <p class="leading-relaxed font-display mb-4 mt-4 text-pretty text-lg text-pretty text-gray-900">I rewrote the entire scraper with resilience in mind. The result is a scraper that:</p>
 <ul class="list-disc list-inside mt-4 space-y-2 pl-6 text-pretty text-lg font-display ml-6 mb-8 text-pretty text-gray-900">
-<li class="mb-2 text-pretty text-lg font-display text-pretty text-gray-900 flex items-center">Splits all listings into <strong class="text-lg font-semibold text-pretty text-gray-800">batches of 10</strong></li>
-<li class="mb-2 text-pretty text-lg font-display text-pretty text-gray-900 flex items-center">Starts a <strong class="text-lg font-semibold text-pretty text-gray-800">fresh Puppeteer browser</strong> for each batch</li>
-<li class="mb-2 text-pretty text-lg font-display text-pretty text-gray-900 flex items-center"><strong class="text-lg font-semibold text-pretty text-gray-800">Skips already-scraped listings</strong></li>
-<li class="mb-2 text-pretty text-lg font-display text-pretty text-gray-900 flex items-center">Handles <strong class="text-lg font-semibold text-pretty text-gray-800">timeouts gracefully</strong></li>
-<li class="mb-2 text-pretty text-lg font-display text-pretty text-gray-900 flex items-center"><strong class="text-lg font-semibold text-pretty text-gray-800">Saves progress</strong> with a simple text file so I can resume anytime</li>
+<li class="mb-2 text-pretty text-lg font-display text-pretty text-gray-900  items-center">Splits all listings into <strong class="text-lg font-semibold text-pretty text-gray-800">batches of 10</strong></li>
+<li class="mb-2 text-pretty text-lg font-display text-pretty text-gray-900  items-center">Starts a <strong class="text-lg font-semibold text-pretty text-gray-800">fresh Puppeteer browser</strong> for each batch</li>
+<li class="mb-2 text-pretty text-lg font-display text-pretty text-gray-900  items-center"><strong class="text-lg font-semibold text-pretty text-gray-800">Skips already-scraped listings</strong></li>
+<li class="mb-2 text-pretty text-lg font-display text-pretty text-gray-900  items-center">Handles <strong class="text-lg font-semibold text-pretty text-gray-800">timeouts gracefully</strong></li>
+<li class="mb-2 text-pretty text-lg font-display text-pretty text-gray-900  items-center"><strong class="text-lg font-semibold text-pretty text-gray-800">Saves progress</strong> with a simple text file so I can resume anytime</li>
 </ul>
 <h3 class="leading-relaxed font-display text-pretty text-xl mb-4 mt-10 font-semibold text-pretty text-gray-700" id="%F0%9F%94%81-batching-the-work" tabindex="-1">🔁 Batching the Work</h3>
 <pre><code class="language-js">const BATCH_SIZE = 10;
