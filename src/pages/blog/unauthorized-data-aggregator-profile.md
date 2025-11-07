@@ -128,23 +128,6 @@ This isn't just about one company or one email exchange. This is about a growing
 4. **Hide behind the "publicly available data" defense**
 5. **Profit from this information while offering no value to the subjects**
 
-## What Can We Learn?
-
-### For Founders:
-
-- **Monitor your company's digital footprint** - Set up Google Alerts for your company name and key executives
-- **Document everything** - Keep records of these exchanges in case you need to escalate
-- **Be direct and firm** - Don't let them wear you down with requests for more information
-- **Know your rights** - GDPR, CCPA, and other privacy laws do give you some leverage
-- **Don't be afraid to go public** - Sometimes transparency is the best disinfectant
-
-### For Data Platforms:
-
-- **Consent should be the default** - Don't create profiles without permission
-- **Accuracy matters** - If you're going to publish information, make sure it's correct
-- **Respect deletion requests** - "Public data" isn't a shield for ignoring people's wishes
-- **Make opt-out easy** - Don't require account creation to stop receiving emails
-- **Consider the human impact** - Inaccurate information can damage businesses and careers
 
 ## The Question We Should All Ask
 
@@ -168,7 +151,7 @@ So they did what any company caught in a contradiction does: they silently fixed
 
 Let's recap the absurdity:
 - They created an **unauthorized profile** with completely wrong information
-- They **refused to delete it**, citing "company policy"
+- They **refused to delete it** , citing "company policy"
 - They **signed me up for marketing emails** without consent  
 - They claimed **GDPR compliance** while requiring account creation to opt-out
 - They offered to delete the "public" version but **keep the client version** (the one they profit from)

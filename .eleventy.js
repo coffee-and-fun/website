@@ -112,7 +112,7 @@ export default function (eleventyConfig) {
 		bold: 'font-bold text-pretty text-gray-900',
 		ul: 'list-disc list-inside mt-4 space-y-2 pl-6 text-pretty text-lg font-display ml-6 mb-8 text-pretty text-gray-900',
 		ol: 'list-decimal list-inside mt-4 space-y-2 pl-6 text-pretty text-lg font-display ml-6 mb-8 text-pretty text-gray-900',
-		li: 'mb-2 text-pretty text-lg font-display text-pretty text-gray-900 flex items-center',
+		li: 'mb-2 text-pretty text-lg font-display text-pretty text-gray-900  items-center',
 		table:
 			'table-auto w-full border-collapse border border-gray-300 text-pretty text-lg font-display text-pretty text-gray-900 mt-4 mb-8',
 		thead: 'bg-gray-100',
