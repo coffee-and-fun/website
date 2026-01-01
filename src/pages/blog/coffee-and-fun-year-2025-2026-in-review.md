@@ -115,7 +115,7 @@ One standout project has been **Pi-hole**, a powerful and privacy-focused networ
 
 👉 https://pi-hole.net/
 
-Looking ahead, we plan to:
+Looking ahead, we hopefully plan to:
 
 - Offer pre-made Pi-hole kits  
 - Make setup easier for non-technical users  
