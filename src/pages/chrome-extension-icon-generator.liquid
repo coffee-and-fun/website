@@ -1,0 +1,421 @@
+<!DOCTYPE html>
+<html class="scroll-smooth antialiased" lang="en" data-theme="light">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <!-- Primary Meta Tags -->
+  <title>Chrome Extension Icon Resizer - Free Online Tool | Generate All Sizes</title>
+  <meta name="title" content="Chrome Extension Icon Generator - Free Online Tool | Generate All Sizes" />
+  <meta name="description" content="Generate all required icon sizes for your Chrome extension from a single 1024x1024 image. Free, fast, and browser-based. Export 16px to 1024px icons instantly." />
+  <meta name="keywords" content="chrome extension icons, icon generator, resize icons, extension development, manifest icons, browser extension, icon resizer, png icons" />
+  <meta name="author" content="Coffee & Fun LLC" />
+  <meta name="robots" content="index, follow" />
+  <meta name="rating" content="general" />
+
+  <link rel="canonical" href="/chrome-extension-icon-generator/" />
+
+  <link rel="icon" href="/assets/images/favicon.png" sizes="any" />
+  <link rel="apple-touch-icon" href="/assets/images/social/192.png" />
+  <link rel="icon" href="/assets/images/social/192.png" sizes="192x192" type="image/png" />
+
+  <!-- Open Graph / Facebook -->
+  <meta property="og:type" content="website" />
+  <meta property="og:site_name" content="Coffee & Fun" />
+  <meta property="og:title" content="Chrome Extension Icon Generator - Generate All Sizes" />
+  <meta property="og:description" content="Generate all required icon sizes for your Chrome extension from a single 1024x1024 image. Free, fast, and browser-based." />
+  <meta property="og:url" content="/chrome-extension-icon-generator/" />
+  <meta property="og:image" content="/assets/images/social/pages/chrome-extension-icon-generator.png" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta property="og:image:alt" content="Chrome Extension Icon Generator Tool" />
+  <meta property="og:locale" content="en_US" />
+
+  <!-- Twitter -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:site" content="@bycoffeeandfun" />
+  <meta name="twitter:creator" content="@bycoffeeandfun" />
+  <meta name="twitter:title" content="Chrome Extension Icon Generator - Generate All Sizes" />
+  <meta name="twitter:description" content="Generate all required icon sizes for your Chrome extension from a single 1024x1024 image. Free, fast, and browser-based." />
+  <meta name="twitter:image" content="/assets/images/social/pages/icon-generator.png" />
+  <meta name="twitter:image:alt" content="Chrome Extension Icon Generator Tool" />
+  <meta name="twitter:domain" content="coffeeandfun.com" />
+  <meta name="twitter:url" content="/icon-generator" />
+
+  <!-- Web App Manifest -->
+  <link rel="manifest" href="/assets/images/social/site.webmanifest" />
+  <meta name="theme-color" content="#3b82f6" />
+  <meta name="mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="default" />
+  <meta name="apple-mobile-web-app-title" content="Icon Generator" />
+
+  <!-- Schema.org structured data -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "WebSite",
+        "name": "Coffee & Fun",
+        "url": "https://www.coffeeandfun.com",
+        "potentialAction": {
+          "@type": "SearchAction",
+          "target": "https://www.coffeeandfun.com/search?q={search_term_string}",
+          "query-input": "required name=search_term_string"
+        }
+      },
+      {
+        "@type": "WebApplication",
+        "@id": "https://www.coffeeandfun.com/icon-generator/",
+        "name": "Chrome Extension Icon Generator",
+        "description": "Generate all required icon sizes for your Chrome extension from a single 1024x1024 image. Outputs 16, 19, 32, 38, 48, 64, 128, 512, and 1024px icons.",
+        "url": "https://www.coffeeandfun.com/icon-generator/",
+        "image": "https://www.coffeeandfun.com/assets/images/social/pages/icon-generator.png",
+        "applicationCategory": "UtilityApplication",
+        "operatingSystem": "Any",
+        "browserRequirements": "Requires JavaScript. Requires HTML5.",
+        "softwareVersion": "1.0",
+        "offers": {
+          "@type": "Offer",
+          "price": "0",
+          "priceCurrency": "USD"
+        },
+        "creator": {
+          "@type": "Organization",
+          "name": "Coffee & Fun LLC",
+          "url": "https://www.coffeeandfun.com"
+        }
+      }
+    ]
+  }
+  </script>
+
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://unpkg.com/vue@3"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
+
+  <style>
+    [v-cloak] { display: none; }
+    
+    .drop-zone {
+      border: 2px dashed #cbd5e1;
+      transition: all 0.3s ease;
+    }
+    
+    .drop-zone.drag-over {
+      border-color: #3b82f6;
+      background-color: #eff6ff;
+    }
+    
+    .icon-preview {
+      image-rendering: -webkit-optimize-contrast;
+      image-rendering: crisp-edges;
+    }
+  </style>
+</head>
+
+<body class="bg-gradient-to-br from-blue-50 to-indigo-100 min-h-screen">
+  <main v-cloak id="app" class="container mx-auto max-w-4xl py-12 px-6">
+    
+    <!-- Header -->
+    <header class="text-center mb-12">
+      <h1 class="text-4xl sm:text-5xl font-extrabold text-gray-900 mb-3">
+        Extension Icon Generator
+      </h1>
+      <p class="text-lg text-gray-600">
+        Upload a 1024×1024 image and get all required Chrome extension icon sizes
+      </p>
+    </header>
+
+    <!-- Upload Card -->
+    <div class="bg-white rounded-3xl shadow-xl p-8 mb-8">
+      
+      <!-- Upload Zone -->
+      <div v-if="!uploadedImage" 
+           @drop.prevent="handleDrop"
+           @dragover.prevent="isDragging = true"
+           @dragleave="isDragging = false"
+           :class="{'drag-over': isDragging}"
+           class="drop-zone rounded-2xl p-12 text-center cursor-pointer"
+           @click="$refs.fileInput.click()">
+        
+        <div class="mb-4">
+          <svg class="w-16 h-16 mx-auto text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" 
+                  d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12" />
+          </svg>
+        </div>
+        
+        <h3 class="text-xl font-bold text-gray-700 mb-2">
+          Drop your 1024×1024 image here
+        </h3>
+        <p class="text-gray-500 mb-4">or click to browse</p>
+        <p class="text-sm text-gray-400">PNG, JPG, or WEBP (recommended: PNG with transparency)</p>
+        
+        <input 
+          ref="fileInput"
+          type="file" 
+          @change="handleFileSelect"
+          accept="image/png,image/jpeg,image/jpg,image/webp"
+          class="hidden" />
+      </div>
+
+      <!-- Preview & Controls -->
+      <div v-else class="space-y-6">
+        
+        <!-- Original Preview -->
+        <div class="flex items-center justify-between bg-gray-50 rounded-2xl p-6">
+          <div class="flex items-center gap-4">
+            <img :src="uploadedImage" 
+                 alt="Preview" 
+                 class="w-24 h-24 rounded-xl shadow-md object-cover" />
+            <div>
+                  {% raw  %}  
+              <h3 class="font-bold text-gray-900">{{ fileName }}</h3>
+              <p class="text-sm text-gray-600">{{ imageWidth }} × {{ imageHeight }} pixels</p>
+                {% endraw %}
+            </div>
+          </div>
+          <button 
+            @click="resetUpload"
+            class="px-4 py-2 bg-red-500 hover:bg-red-600 text-white rounded-xl font-semibold transition-colors">
+            Remove
+          </button>
+        </div>
+
+        <!-- Warning if not 1024x1024 -->
+        <div v-if="imageWidth !== 1024 || imageHeight !== 1024" 
+             class="bg-yellow-50 border-l-4 border-yellow-400 p-4 rounded-xl">
+          <div class="flex items-start">
+            <svg class="w-6 h-6 text-yellow-600 mr-3 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+              <path fill-rule="evenodd" d="M8.257 3.099c.765-1.36 2.722-1.36 3.486 0l5.58 9.92c.75 1.334-.213 2.98-1.742 2.98H4.42c-1.53 0-2.493-1.646-1.743-2.98l5.58-9.92zM11 13a1 1 0 11-2 0 1 1 0 012 0zm-1-8a1 1 0 00-1 1v3a1 1 0 002 0V6a1 1 0 00-1-1z" clip-rule="evenodd" />
+            </svg>
+            <div>
+              <h4 class="text-sm font-bold text-yellow-800">Image size warning</h4>
+              <p class="text-sm text-yellow-700">Recommended size is 1024×1024 for best quality. Your image will be resized.</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Generate Button -->
+        <button 
+          @click="generateIcons"
+          :disabled="isGenerating"
+          :class="isGenerating ? 'opacity-50 cursor-not-allowed' : 'hover:scale-105'"
+          class="w-full bg-gradient-to-r from-blue-500 to-indigo-600 text-white font-bold py-4 px-8 rounded-xl shadow-lg transition-transform">
+          <span v-if="!isGenerating">🎨 Generate All Icon Sizes</span>
+          <span v-else>⏳ Generating...</span>
+        </button>
+      </div>
+    </div>
+
+    <!-- Generated Icons -->
+    <div v-if="generatedIcons.length > 0" class="bg-white rounded-3xl shadow-xl p-8">
+      
+      <div class="flex items-center justify-between mb-6">
+        <h2 class="text-2xl font-bold text-gray-900">
+              {% raw  %}  
+          Generated Icons ({{ generatedIcons.length }})
+            {% endraw %}
+        </h2>
+        <button 
+          @click="downloadAll"
+          class="px-6 py-3 bg-green-500 hover:bg-green-600 text-white rounded-xl font-bold transition-colors flex items-center gap-2">
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
+          </svg>
+          Download All (ZIP)
+        </button>
+      </div>
+
+      <!-- Icon Grid -->
+      <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-6">
+        <div v-for="icon in generatedIcons" 
+             :key="icon.size"
+             class="bg-gray-50 rounded-2xl p-4 text-center hover:shadow-lg transition-shadow">
+          
+          <div class="bg-white rounded-xl p-3 mb-3 inline-block">
+            <img :src="icon.dataUrl" 
+                 :alt="`${icon.size}x${icon.size}`"
+                 class="icon-preview"
+                 :style="`width: ${Math.min(icon.size, 64)}px; height: ${Math.min(icon.size, 64)}px;`" />
+          </div>
+          
+          {% raw  %}  
+          <p class="font-bold text-gray-900 mb-2">{{ icon.size }}×{{ icon.size }}</p>
+           {% endraw %}
+          
+          <button 
+            @click="downloadSingle(icon)"
+            class="text-sm px-4 py-2 bg-blue-500 hover:bg-blue-600 text-white rounded-lg font-semibold transition-colors w-full">
+            Download
+          </button>
+        </div>
+      </div>
+
+      <!-- JSON Config -->
+      <div class="mt-8 bg-gray-900 rounded-2xl p-6">
+        <div class="flex items-center justify-between mb-4">
+          <h3 class="text-lg font-bold text-white">manifest.json snippet</h3>
+          <button 
+            @click="copyManifest"
+            class="px-4 py-2 bg-gray-700 hover:bg-gray-600 text-white rounded-lg font-semibold transition-colors text-sm">
+          {% raw %}{{ copied ? '✓ Copied!' : 'Copy' }}{% endraw %}
+          </button>
+        </div>
+        <pre class="text-green-400 text-sm overflow-x-auto"><code>{% raw  %} {{ manifestSnippet }}  {% endraw %}</code></pre>
+      </div>
+    </div>
+     {% include footer.liquid %}
+  </main>
+
+  <script>
+    const { createApp } = Vue;
+
+    createApp({
+      data() {
+        return {
+          uploadedImage: null,
+          fileName: '',
+          imageWidth: 0,
+          imageHeight: 0,
+          isDragging: false,
+          isGenerating: false,
+          generatedIcons: [],
+          copied: false,
+          
+          // Icon sizes for Chrome extensions
+          iconSizes: [16, 19, 32, 38, 48, 64, 128, 512, 1024]
+        };
+      },
+
+      computed: {
+        manifestSnippet() {
+          const icons = {};
+          this.generatedIcons.forEach(icon => {
+            icons[icon.size] = `assets/images/logo/${icon.size}.png`;
+          });
+          return JSON.stringify({ icons }, null, 2);
+        }
+      },
+
+      methods: {
+        handleFileSelect(e) {
+          const file = e.target.files[0];
+          if (file) this.loadImage(file);
+        },
+
+        handleDrop(e) {
+          this.isDragging = false;
+          const file = e.dataTransfer.files[0];
+          if (file && file.type.startsWith('image/')) {
+            this.loadImage(file);
+          }
+        },
+
+        loadImage(file) {
+          this.fileName = file.name;
+          const reader = new FileReader();
+          
+          reader.onload = (e) => {
+            const img = new Image();
+            img.onload = () => {
+              this.imageWidth = img.width;
+              this.imageHeight = img.height;
+              this.uploadedImage = e.target.result;
+            };
+            img.src = e.target.result;
+          };
+          
+          reader.readAsDataURL(file);
+        },
+
+        async generateIcons() {
+          this.isGenerating = true;
+          this.generatedIcons = [];
+
+          // Small delay for UI feedback
+          await new Promise(resolve => setTimeout(resolve, 100));
+
+          const img = new Image();
+          img.onload = () => {
+            this.iconSizes.forEach(size => {
+              const canvas = document.createElement('canvas');
+              const ctx = canvas.getContext('2d');
+              
+              canvas.width = size;
+              canvas.height = size;
+
+              // Enable smoothing for better quality
+              ctx.imageSmoothingEnabled = true;
+              ctx.imageSmoothingQuality = 'high';
+
+              // Draw resized image
+              ctx.drawImage(img, 0, 0, size, size);
+
+              // Get data URL
+              const dataUrl = canvas.toDataURL('image/png');
+              
+              this.generatedIcons.push({
+                size,
+                dataUrl,
+                canvas
+              });
+            });
+
+            this.isGenerating = false;
+          };
+
+          img.src = this.uploadedImage;
+        },
+
+        downloadSingle(icon) {
+          const link = document.createElement('a');
+          link.download = `${icon.size}.png`;
+          link.href = icon.dataUrl;
+          link.click();
+        },
+
+        async downloadAll() {
+          const zip = new JSZip();
+          
+          this.generatedIcons.forEach(icon => {
+            // Convert data URL to blob
+            const base64Data = icon.dataUrl.split(',')[1];
+            zip.file(`${icon.size}.png`, base64Data, { base64: true });
+          });
+
+          // Generate and download zip
+          const content = await zip.generateAsync({ type: 'blob' });
+          const link = document.createElement('a');
+          link.href = URL.createObjectURL(content);
+          link.download = 'extension-icons.zip';
+          link.click();
+        },
+
+        copyManifest() {
+          navigator.clipboard.writeText(this.manifestSnippet)
+            .then(() => {
+              this.copied = true;
+              setTimeout(() => this.copied = false, 2000);
+            })
+            .catch(err => {
+              console.error('Failed to copy:', err);
+              alert('Failed to copy to clipboard');
+            });
+        },
+
+        resetUpload() {
+          this.uploadedImage = null;
+          this.fileName = '';
+          this.imageWidth = 0;
+          this.imageHeight = 0;
+          this.generatedIcons = [];
+          this.$refs.fileInput.value = '';
+        }
+      }
+    }).mount('#app');
+  </script>
+</body>
+</html>
