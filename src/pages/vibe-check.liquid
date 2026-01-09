@@ -1,0 +1,561 @@
+<!DOCTYPE html>
+<html class="scroll-smooth antialiased" lang="en" data-theme="light">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <!-- Primary Meta Tags -->
+  <title>VIBE CHECK ✨ - Daily Mood Puzzle Game</title>
+  <meta name="title" content="VIBE CHECK ✨ - Daily Mood Puzzle Game" />
+  <meta name="description" content="Can you guess today's vibe? A fun daily puzzle game where you decode the mood from emoji clues. Play once per day and share your results!" />
+  <meta name="keywords" content="daily puzzle, word game, emoji game, vibe check, mood game, puzzle game, daily challenge" />
+  <meta name="author" content="Coffee & Fun LLC" />
+  <meta name="robots" content="index, follow" />
+  <meta name="rating" content="general" />
+
+  <link rel="canonical" href="/vibe-check/" />
+
+  <link rel="icon" href="/assets/images/favicon.png" sizes="any" />
+  <link rel="apple-touch-icon" href="/assets/images/social/192.png" />
+  <link rel="icon" href="/assets/images/social/192.png" sizes="192x192" type="image/png" />
+
+  <!-- Open Graph / Facebook -->
+  <meta property="og:type" content="website" />
+  <meta property="og:site_name" content="Coffee & Fun" />
+  <meta property="og:title" content="VIBE CHECK ✨ - Daily Mood Puzzle Game" />
+  <meta property="og:description" content="Can you guess today's vibe? Play the daily mood puzzle and share your results!" />
+  <meta property="og:url" content="/vibe-check/" />
+  <meta property="og:image" content="/assets/images/social/pages/vibe-check.png" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta property="og:image:alt" content="VIBE CHECK Daily Puzzle Game" />
+  <meta property="og:locale" content="en_US" />
+
+  <!-- Twitter -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:site" content="@bycoffeeandfun" />
+  <meta name="twitter:creator" content="@bycoffeeandfun" />
+  <meta name="twitter:title" content="VIBE CHECK ✨ - Daily Mood Puzzle Game" />
+  <meta name="twitter:description" content="Can you guess today's vibe? Play the daily mood puzzle!" />
+  <meta name="twitter:image" content="/assets/images/social/pages/vibe-check.png" />
+  <meta name="twitter:image:alt" content="VIBE CHECK Daily Puzzle Game" />
+  <meta name="twitter:domain" content="coffeeandfun.com" />
+  <meta name="twitter:url" content="/vibe-check" />
+
+  <!-- Web App Manifest -->
+  <link rel="manifest" href="/assets/images/social/site.webmanifest" />
+  <meta name="theme-color" content="#a855f7" />
+  <meta name="mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="default" />
+  <meta name="apple-mobile-web-app-title" content="VIBE CHECK" />
+
+  <!-- Schema.org structured data -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "WebSite",
+        "name": "Coffee & Fun",
+        "url": "https://www.coffeeandfun.com",
+        "potentialAction": {
+          "@type": "SearchAction",
+          "target": "https://www.coffeeandfun.com/search?q={search_term_string}",
+          "query-input": "required name=search_term_string"
+        }
+      },
+      {
+        "@type": "WebApplication",
+        "@id": "https://www.coffeeandfun.com/vibe-check/",
+        "name": "VIBE CHECK - Daily Mood Puzzle Game",
+        "description": "A fun daily puzzle game where you decode the mood from emoji clues. Play once per day and share your results with friends!",
+        "url": "https://www.coffeeandfun.com/vibe-check/",
+        "image": "https://www.coffeeandfun.com/assets/images/social/pages/vibe-check.png",
+        "applicationCategory": "GameApplication",
+        "operatingSystem": "Any",
+        "browserRequirements": "Requires JavaScript. Requires HTML5.",
+        "softwareVersion": "1.0",
+        "offers": {
+          "@type": "Offer",
+          "price": "0",
+          "priceCurrency": "USD"
+        },
+        "creator": {
+          "@type": "Organization",
+          "name": "Coffee & Fun LLC",
+          "url": "https://www.coffeeandfun.com"
+        }
+      }
+    ]
+  }
+  </script>
+
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://unpkg.com/vue@3"></script>
+
+  <style>
+    [v-cloak] { display: none; }
+    
+    @keyframes float {
+      0%, 100% { transform: translateY(0px) rotate(0deg); }
+      50% { transform: translateY(-20px) rotate(5deg); }
+    }
+
+    @keyframes bounce-in {
+      0% { transform: scale(0); opacity: 0; }
+      50% { transform: scale(1.1); }
+      100% { transform: scale(1); opacity: 1; }
+    }
+
+    @keyframes shake {
+      0%, 100% { transform: translateX(0); }
+      25% { transform: translateX(-10px); }
+      75% { transform: translateX(10px); }
+    }
+
+    @keyframes pulse-glow {
+      0%, 100% { box-shadow: 0 0 20px rgba(168, 85, 247, 0.4); }
+      50% { box-shadow: 0 0 40px rgba(168, 85, 247, 0.8); }
+    }
+
+    .float { animation: float 3s ease-in-out infinite; }
+    .bounce-in { animation: bounce-in 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.55); }
+    .shake { animation: shake 0.5s; }
+    .pulse-glow { animation: pulse-glow 2s ease-in-out infinite; }
+
+    .emoji-clue {
+      font-size: 3rem;
+      transition: all 0.3s ease;
+    }
+
+    .emoji-clue:hover {
+      transform: scale(1.2) rotate(10deg);
+    }
+
+    .guess-button {
+      transition: all 0.2s ease;
+    }
+
+    .guess-button:hover {
+      transform: translateY(-2px);
+    }
+
+    .result-emoji {
+      font-size: 5rem;
+      animation: bounce-in 0.6s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+    }
+
+    .confetti {
+      position: fixed;
+      width: 10px;
+      height: 10px;
+      background: #f0f;
+      position: absolute;
+      animation: confetti-fall 3s linear forwards;
+    }
+
+    @keyframes confetti-fall {
+      to {
+        transform: translateY(100vh) rotate(360deg);
+        opacity: 0;
+      }
+    }
+  </style>
+</head>
+
+<body class="bg-gradient-to-br from-purple-100 via-pink-100 to-blue-100 min-h-screen">
+  <main v-cloak id="app" class="container mx-auto max-w-3xl py-8 px-6">
+    
+    <!-- Header -->
+    <header class="text-center mb-8">
+      <div class="inline-block mb-4">
+        <h1 class="text-5xl sm:text-6xl font-black bg-gradient-to-r from-purple-600 via-pink-600 to-blue-600 bg-clip-text text-transparent mb-2 float">
+          VIBE CHECK ✨
+        </h1>
+      </div>
+      <p class="text-xl text-gray-700 font-medium">
+        Decode today's mood from emoji clues!
+      </p>
+      <div class="mt-4 inline-flex items-center gap-2 bg-white/80 backdrop-blur-sm px-6 py-3 rounded-full shadow-lg">
+        <span class="text-2xl">📅</span>
+        <span class="font-bold text-gray-800">Puzzle #{{ puzzleNumber }}</span>
+      </div>
+    </header>
+
+    <!-- Game Container -->
+    <div class="bg-white/90 backdrop-blur-sm rounded-3xl shadow-2xl p-8 mb-8 border-4 border-purple-200">
+      
+      <!-- Game State: Playing -->
+      <div v-if="gameState === 'playing'" class="space-y-8">
+        
+        <!-- Emoji Clues -->
+        <div class="text-center">
+          <h2 class="text-2xl font-bold text-gray-800 mb-6">Guess the VIBE!</h2>
+          <div class="flex justify-center gap-4 mb-8 flex-wrap">
+            <span v-for="(emoji, index) in currentPuzzle.clues" 
+                  :key="index"
+                  class="emoji-clue bounce-in"
+                  :style="`animation-delay: ${index * 0.1}s`">
+              {{ emoji }}
+            </span>
+          </div>
+          
+          <!-- Attempts indicator -->
+          <div class="flex justify-center gap-2 mb-6">
+            <div v-for="i in maxAttempts" 
+                 :key="i"
+                 class="w-12 h-12 rounded-lg flex items-center justify-center text-2xl transition-all"
+                 :class="i <= attempts ? 'bg-red-100 border-2 border-red-300' : 'bg-gray-100 border-2 border-gray-300'">
+             {% raw %} {{ i <= attempts ? '❌' : '💚' }} {% endraw %}
+            </div>
+          </div>
+
+          <p class="text-sm text-gray-600 mb-2">
+           {% raw %}   {{ maxAttempts - attempts }} {{ maxAttempts - attempts === 1 ? 'try' : 'tries' }} remaining {% endraw %}
+          </p>
+        </div>
+
+        <!-- Answer Choices -->
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+          <button v-for="option in currentPuzzle.options"
+                  :key="option"
+                  @click="makeGuess(option)"
+                  :class="getButtonClass(option)"
+                  class="guess-button px-8 py-6 rounded-2xl font-bold text-lg shadow-lg transition-all">
+            {% raw %}  {{ option }} {% endraw %}
+          </button>
+        </div>
+
+        <!-- Feedback Message -->
+        <div v-if="feedback" 
+             class="text-center p-4 rounded-2xl shake"
+             :class="feedback.type === 'wrong' ? 'bg-red-100 border-2 border-red-300' : 'bg-yellow-100 border-2 border-yellow-300'">
+          <p class="text-lg font-bold" :class="feedback.type === 'wrong' ? 'text-red-700' : 'text-yellow-700'">
+            {% raw %} {{ feedback.message }} {% endraw %}
+          </p>
+        </div>
+      </div>
+
+      <!-- Game State: Won -->
+      <div v-else-if="gameState === 'won'" class="text-center space-y-6">
+        <div class="result-emoji mb-4">
+          {% raw %} {{ getResultEmoji() }} {% endraw %}
+        </div>
+        
+        <h2 class="text-4xl font-black bg-gradient-to-r from-green-600 to-emerald-600 bg-clip-text text-transparent">
+          VIBE CAPTURED! ✨
+        </h2>
+          {% raw %}
+        <div class="bg-gradient-to-br from-green-50 to-emerald-50 rounded-2xl p-6 border-2 border-green-300">
+          <p class="text-2xl font-bold text-gray-800 mb-2">{{ currentPuzzle.answer }}</p>
+          <p class="text-gray-600">{{ currentPuzzle.description }}</p>
+        </div>
+             {% endraw %}
+       {% raw %}
+        <div class="bg-purple-50 rounded-2xl p-6 border-2 border-purple-200">
+          <p class="text-sm font-bold text-purple-900 mb-2">YOUR STATS</p>
+          <p class="text-3xl font-black text-purple-600">{{ attempts }}/{{ maxAttempts }} attempts</p>
+        </div>
+         {% endraw %}
+      
+       {% raw %}
+        <!-- Share Button -->
+        <button @click="shareResults"
+                class="w-full bg-gradient-to-r from-purple-500 to-pink-500 hover:from-purple-600 hover:to-pink-600 text-white font-black py-5 px-8 rounded-2xl shadow-xl text-lg pulse-glow transition-all">
+          {{ copied ? '✓ Copied to Clipboard!' : '📤 Share Your Vibe' }}
+        </button>
+ {% endraw %}
+      
+       {% raw %}
+        <p class="text-sm text-gray-500">Come back tomorrow for a new vibe! 🌅</p>
+      </div>
+
+      <!-- Game State: Lost -->
+      <div v-else-if="gameState === 'lost'" class="text-center space-y-6">
+        <div class="result-emoji mb-4">
+          😢
+        </div>
+        
+        <h2 class="text-4xl font-black bg-gradient-to-r from-red-600 to-orange-600 bg-clip-text text-transparent">
+          VIBE MISSED!
+        </h2>
+        
+        <div class="bg-gradient-to-br from-orange-50 to-red-50 rounded-2xl p-6 border-2 border-orange-300">
+          <p class="text-lg font-bold text-gray-700 mb-2">The answer was:</p>
+          <p class="text-3xl font-black text-gray-900 mb-2">{{ currentPuzzle.answer }}</p>
+          <p class="text-gray-600">{{ currentPuzzle.description }}</p>
+        </div>
+ {% endraw %}
+      
+       {% raw %}
+        <!-- Share Button -->
+        <button @click="shareResults"
+                class="w-full bg-gradient-to-r from-purple-500 to-pink-500 hover:from-purple-600 hover:to-pink-600 text-white font-black py-5 px-8 rounded-2xl shadow-xl text-lg pulse-glow transition-all">
+          {{ copied ? '✓ Copied to Clipboard!' : '📤 Share Your Attempt' }}
+        </button>
+
+        <p class="text-sm text-gray-500">Come back tomorrow for a new vibe! 🌅</p>
+      </div>
+ {% endraw %}
+      
+     
+    </div>
+
+    <!-- How to Play -->
+    <div class="bg-white/70 backdrop-blur-sm rounded-2xl shadow-lg p-6 mb-8">
+      <h3 class="text-xl font-bold text-gray-800 mb-4 flex items-center gap-2">
+        <span>❓</span> How to Play
+      </h3>
+      <ul class="space-y-2 text-gray-700">
+        <li class="flex items-start gap-2">
+          <span class="text-xl">1️⃣</span>
+          <span>Look at the emoji clues above</span>
+        </li>
+        <li class="flex items-start gap-2">
+          <span class="text-xl">2️⃣</span>
+          <span>Guess which mood/vibe they represent</span>
+        </li>
+        <li class="flex items-start gap-2">
+          <span class="text-xl">3️⃣</span>
+          <span>You get 4 tries to find the right answer</span>
+        </li>
+        <li class="flex items-start gap-2">
+          <span class="text-xl">4️⃣</span>
+          <span>Share your results with friends!</span>
+        </li>
+        <li class="flex items-start gap-2">
+          <span class="text-xl">✨</span>
+          <span>New puzzle every day at midnight!</span>
+        </li>
+      </ul>
+    </div>
+
+    <!-- Footer -->
+    <footer class="text-center text-gray-600 text-sm">
+      <p>Made with 💜 by Coffee & Fun</p>
+      <p class="mt-2">Share with friends and spread the vibes! ✨</p>
+    </footer>
+
+  </main>
+
+  <script>
+    const { createApp } = Vue;
+
+    createApp({
+      data() {
+        return {
+          gameState: 'playing', // 'playing', 'won', 'lost'
+          attempts: 0,
+          maxAttempts: 4,
+          currentGuess: null,
+          feedback: null,
+          copied: false,
+          
+          // Daily puzzles - indexed by day
+          puzzles: [
+            {
+              clues: ['☕', '😴', '🌅', '📰'],
+              answer: 'Morning Mood',
+              description: 'That cozy, sleepy feeling of waking up to a new day!',
+              options: ['Morning Mood', 'Party Time', 'Study Session', 'Adventure Awaits']
+            },
+            {
+              clues: ['🎉', '🪩', '🎶', '💃'],
+              answer: 'Party Time',
+              description: 'Time to dance, celebrate, and let loose!',
+              options: ['Lazy Sunday', 'Party Time', 'Deep Thoughts', 'Workout Energy']
+            },
+            {
+              clues: ['😌', '🛋️', '📺', '🍿'],
+              answer: 'Cozy Vibes',
+              description: 'Chillin\' at home, totally relaxed and comfy!',
+              options: ['Busy Bee', 'Cozy Vibes', 'Travel Bug', 'Social Butterfly']
+            },
+            {
+              clues: ['💪', '🏃', '🔥', '⚡'],
+              answer: 'Workout Energy',
+              description: 'Pumped up and ready to crush those fitness goals!',
+              options: ['Sleepy Time', 'Workout Energy', 'Foodie Feels', 'Chill Mode']
+            },
+            {
+              clues: ['📚', '🤓', '✍️', '💡'],
+              answer: 'Study Session',
+              description: 'Focused, motivated, and learning something new!',
+              options: ['Gaming Night', 'Study Session', 'Beach Day', 'Movie Marathon']
+            },
+            {
+              clues: ['🌈', '☀️', '🦋', '🌸'],
+              answer: 'Happy Vibes',
+              description: 'Everything is awesome and the sun is shining!',
+              options: ['Rainy Day Blues', 'Happy Vibes', 'Spooky Season', 'Winter Wonderland']
+            },
+            {
+              clues: ['🎮', '🕹️', '🏆', '👾'],
+              answer: 'Gaming Night',
+              description: 'Level up and game on till the break of dawn!',
+              options: ['Cooking Time', 'Gaming Night', 'Meditation Mode', 'Shopping Spree']
+            }
+          ]
+        };
+      },
+
+      computed: {
+        puzzleNumber() {
+          // Get day of year for puzzle number
+          const now = new Date();
+          const start = new Date(now.getFullYear(), 0, 0);
+          const diff = now - start;
+          const oneDay = 1000 * 60 * 60 * 24;
+          return Math.floor(diff / oneDay);
+        },
+
+        currentPuzzle() {
+          // Cycle through puzzles based on day
+          return this.puzzles[this.puzzleNumber % this.puzzles.length];
+        }
+      },
+
+      mounted() {
+        this.loadGameState();
+        this.checkIfNewDay();
+      },
+
+      methods: {
+        makeGuess(option) {
+          if (this.gameState !== 'playing') return;
+
+          this.currentGuess = option;
+          this.attempts++;
+
+          if (option === this.currentPuzzle.answer) {
+            this.gameState = 'won';
+            this.saveGameState();
+            this.showConfetti();
+          } else {
+            if (this.attempts >= this.maxAttempts) {
+              this.gameState = 'lost';
+              this.feedback = {
+                type: 'wrong',
+                message: 'Out of tries! 😢'
+              };
+              this.saveGameState();
+            } else {
+              this.feedback = {
+                type: 'wrong',
+                message: 'Not quite! Try again! 🤔'
+              };
+              setTimeout(() => {
+                this.feedback = null;
+              }, 2000);
+            }
+          }
+        },
+
+        getButtonClass(option) {
+          const base = 'border-2 ';
+          
+          if (this.currentGuess === option && option !== this.currentPuzzle.answer) {
+            return base + 'bg-red-100 border-red-400 text-red-700';
+          }
+          
+          return base + 'bg-gradient-to-br from-purple-100 to-pink-100 border-purple-300 hover:from-purple-200 hover:to-pink-200 text-gray-800 hover:border-purple-400';
+        },
+
+        getResultEmoji() {
+          if (this.attempts === 1) return '🏆';
+          if (this.attempts === 2) return '🌟';
+          if (this.attempts === 3) return '✨';
+          return '💫';
+        },
+
+        shareResults() {
+          const guessBlocks = '🟪'.repeat(this.attempts) + '⬜'.repeat(this.maxAttempts - this.attempts);
+          const statusEmoji = this.gameState === 'won' ? '✅' : '❌';
+          
+          const shareText = `VIBE CHECK ✨ #${this.puzzleNumber}
+
+${statusEmoji} ${this.attempts}/${this.maxAttempts}
+
+${guessBlocks}
+
+Can you guess today's vibe?
+coffeeandfun.com/vibe-check`;
+
+          navigator.clipboard.writeText(shareText).then(() => {
+            this.copied = true;
+            setTimeout(() => {
+              this.copied = false;
+            }, 2000);
+          }).catch(() => {
+            // Fallback for older browsers
+            alert('Share text:\n\n' + shareText);
+          });
+        },
+
+        showConfetti() {
+          const colors = ['#a855f7', '#ec4899', '#3b82f6', '#10b981', '#f59e0b'];
+          for (let i = 0; i < 50; i++) {
+            setTimeout(() => {
+              const confetti = document.createElement('div');
+              confetti.className = 'confetti';
+              confetti.style.left = Math.random() * 100 + '%';
+              confetti.style.background = colors[Math.floor(Math.random() * colors.length)];
+              confetti.style.animationDelay = Math.random() * 0.5 + 's';
+              document.body.appendChild(confetti);
+              
+              setTimeout(() => confetti.remove(), 3000);
+            }, i * 30);
+          }
+        },
+
+        saveGameState() {
+          const state = {
+            puzzleNumber: this.puzzleNumber,
+            gameState: this.gameState,
+            attempts: this.attempts,
+            currentGuess: this.currentGuess
+          };
+          localStorage.setItem('vibeCheckGame', JSON.stringify(state));
+        },
+
+        loadGameState() {
+          const saved = localStorage.getItem('vibeCheckGame');
+          if (saved) {
+            const state = JSON.parse(saved);
+            // Only load if it's today's puzzle
+            if (state.puzzleNumber === this.puzzleNumber) {
+              this.gameState = state.gameState;
+              this.attempts = state.attempts;
+              this.currentGuess = state.currentGuess;
+            }
+          }
+        },
+
+        checkIfNewDay() {
+          // Check every minute if it's a new day
+          setInterval(() => {
+            const saved = localStorage.getItem('vibeCheckGame');
+            if (saved) {
+              const state = JSON.parse(saved);
+              if (state.puzzleNumber !== this.puzzleNumber) {
+                // New day! Reset game
+                this.resetGame();
+              }
+            }
+          }, 60000);
+        },
+
+        resetGame() {
+          this.gameState = 'playing';
+          this.attempts = 0;
+          this.currentGuess = null;
+          this.feedback = null;
+          this.copied = false;
+          localStorage.removeItem('vibeCheckGame');
+        }
+      }
+    }).mount('#app');
+  </script>
+</body>
+</html>
