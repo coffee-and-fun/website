@@ -1,0 +1,1076 @@
+<!DOCTYPE html>
+<html class="scroll-smooth antialiased" lang="en" data-theme="light">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <!-- Primary Meta Tags -->
+  <title>Email Signature Generator - Professional HTML Email Signatures | Free Tool</title>
+  <meta name="title" content="Email Signature Generator - Create Professional HTML Email Signatures" />
+  <meta name="description" content="Create professional HTML email signatures with photos, social icons, and multiple templates. Free, easy-to-use online tool. Copy and paste into Gmail, Outlook, and more." />
+  <meta name="keywords" content="email signature, signature generator, html signature, professional email, gmail signature, outlook signature" />
+  <meta name="author" content="Coffee & Fun LLC" />
+  <meta name="robots" content="index, follow" />
+
+  <link rel="canonical" href="/email-signature-generator/" />
+
+  <link rel="icon" href="/assets/images/favicon.png" sizes="any" />
+  <link rel="apple-touch-icon" href="/assets/images/social/192.png" />
+
+  <!-- Open Graph / Facebook -->
+  <meta property="og:type" content="website" />
+  <meta property="og:site_name" content="Coffee & Fun" />
+  <meta property="og:title" content="Email Signature Generator - Create Professional Signatures" />
+  <meta property="og:description" content="Create professional HTML email signatures with photos, social icons, and multiple templates. Free and easy to use." />
+  <meta property="og:url" content="/email-signature-generator/" />
+
+  <!-- Twitter -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:site" content="@bycoffeeandfun" />
+  <meta name="twitter:title" content="Email Signature Generator" />
+  <meta name="twitter:description" content="Create professional HTML email signatures with photos, social icons, and multiple templates." />
+
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://unpkg.com/vue@3"></script>
+  <script src="https://js.stripe.com/v3/"></script>
+
+  <style>
+    [v-cloak] { display: none; }
+    
+    .drop-zone {
+      border: 2px dashed #cbd5e1;
+      transition: all 0.3s ease;
+    }
+    
+    .drop-zone.drag-over {
+      border-color: #3b82f6;
+      background-color: #eff6ff;
+    }
+
+    .signature-preview {
+      font-family: Arial, Helvetica, sans-serif;
+      line-height: 1.4;
+    }
+
+    .template-card {
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+
+    .template-card:hover {
+      transform: translateY(-4px);
+    }
+
+    .template-card.active {
+      border: 3px solid #3b82f6;
+      box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+    }
+  </style>
+</head>
+
+<body class="bg-gradient-to-br from-blue-50 to-indigo-100 min-h-screen">
+  <main v-cloak id="app" class="container mx-auto max-w-7xl py-12 px-6">
+    
+    <!-- Header -->
+    <header class="text-center mb-12">
+      <h1 class="text-4xl sm:text-5xl font-extrabold text-gray-900 mb-3">
+        ✉️ Email Signature Generator
+      </h1>
+      <p class="text-lg text-gray-600">
+        Create professional email signatures in seconds
+      </p>
+    </header>
+
+    <!-- Premium Access Banner (if not paid) -->
+    <div v-if="!hasPremiumAccess" class="bg-gradient-to-r from-purple-500 to-pink-500 rounded-3xl shadow-xl p-8 mb-8 text-white">
+      <div class="flex flex-col md:flex-row items-center justify-between gap-6">
+        <div>
+          <h2 class="text-2xl font-bold mb-2">✨ Unlock Premium Templates</h2>
+          <p class="text-purple-100">Get access to all premium templates, advanced customization, and more for just $2</p>
+        </div>
+        <button 
+          @click="initializeStripePayment"
+          :disabled="isProcessingPayment"
+          class="px-8 py-4 bg-white text-purple-600 rounded-xl font-bold hover:bg-gray-100 transition-colors whitespace-nowrap disabled:opacity-50">
+          <span v-if="!isProcessingPayment">🚀 Get Premium Access - $2</span>
+          <span v-else>Processing...</span>
+        </button>
+      </div>
+    </div>
+
+    <!-- Success Message -->
+    <div v-if="hasPremiumAccess" class="bg-green-50 border-l-4 border-green-400 p-6 rounded-xl mb-8">
+      <div class="flex items-center">
+        <svg class="w-6 h-6 text-green-600 mr-3" fill="currentColor" viewBox="0 0 20 20">
+          <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd" />
+        </svg>
+        <div>
+          <h3 class="text-lg font-bold text-green-800">Premium Access Activated! 🎉</h3>
+          <p class="text-green-700">You now have access to all premium templates and features.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="grid lg:grid-cols-2 gap-8">
+      
+      <!-- Left Column - Form -->
+      <div class="space-y-6">
+        
+        <!-- Template Selection -->
+        <div class="bg-white rounded-3xl shadow-xl p-8">
+          <h2 class="text-2xl font-bold text-gray-900 mb-6">Choose Template</h2>
+          
+          <div class="grid grid-cols-2 gap-4">
+            <div v-for="template in templates" 
+                 :key="template.id"
+                 @click="selectTemplate(template)"
+                 :class="{'active': selectedTemplate && selectedTemplate.id === template.id}"
+                 class="template-card bg-gray-50 rounded-xl p-4 border-2 border-gray-200">
+              <div class="text-3xl mb-2">{% raw %}{{ template.icon }}{% endraw %}</div>
+              <h3 class="font-bold text-gray-900">{% raw %}{{ template.name }}{% endraw %}</h3>
+              <p class="text-xs text-gray-600 mt-1">{% raw %}{{ template.description }}{% endraw %}</p>
+              <span v-if="template.premium && !hasPremiumAccess" 
+                    class="inline-block mt-2 px-2 py-1 bg-purple-100 text-purple-700 text-xs font-bold rounded-full">
+                Premium
+              </span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Personal Information -->
+        <div class="bg-white rounded-3xl shadow-xl p-8">
+          <h2 class="text-2xl font-bold text-gray-900 mb-6">Personal Information</h2>
+          
+          <div class="space-y-4">
+            <div>
+              <label class="block text-sm font-semibold text-gray-700 mb-2">Full Name *</label>
+              <input v-model="formData.name" 
+                     type="text" 
+                     placeholder="John Doe"
+                     class="w-full px-4 py-3 border-2 border-gray-200 rounded-xl focus:border-blue-500 focus:outline-none transition-colors">
+            </div>
+
+            <div>
+              <label class="block text-sm font-semibold text-gray-700 mb-2">Job Title</label>
+              <input v-model="formData.title" 
+                     type="text" 
+                     placeholder="Senior Developer"
+                     class="w-full px-4 py-3 border-2 border-gray-200 rounded-xl focus:border-blue-500 focus:outline-none transition-colors">
+            </div>
+
+            <div>
+              <label class="block text-sm font-semibold text-gray-700 mb-2">Company</label>
+              <input v-model="formData.company" 
+                     type="text" 
+                     placeholder="Coffee & Fun LLC"
+                     class="w-full px-4 py-3 border-2 border-gray-200 rounded-xl focus:border-blue-500 focus:outline-none transition-colors">
+            </div>
+
+            <div>
+              <label class="block text-sm font-semibold text-gray-700 mb-2">Email *</label>
+              <input v-model="formData.email" 
+                     type="email" 
+                     placeholder="john@example.com"
+                     class="w-full px-4 py-3 border-2 border-gray-200 rounded-xl focus:border-blue-500 focus:outline-none transition-colors">
+            </div>
+
+            <div>
+              <label class="block text-sm font-semibold text-gray-700 mb-2">Phone</label>
+              <input v-model="formData.phone" 
+                     type="tel" 
+                     placeholder="+1 (555) 123-4567"
+                     class="w-full px-4 py-3 border-2 border-gray-200 rounded-xl focus:border-blue-500 focus:outline-none transition-colors">
+            </div>
+
+            <div>
+              <label class="block text-sm font-semibold text-gray-700 mb-2">Website</label>
+              <input v-model="formData.website" 
+                     type="url" 
+                     placeholder="https://example.com"
+                     class="w-full px-4 py-3 border-2 border-gray-200 rounded-xl focus:border-blue-500 focus:outline-none transition-colors">
+            </div>
+
+            <div>
+              <label class="block text-sm font-semibold text-gray-700 mb-2">Address</label>
+              <input v-model="formData.address" 
+                     type="text" 
+                     placeholder="123 Main St, City, State 12345"
+                     class="w-full px-4 py-3 border-2 border-gray-200 rounded-xl focus:border-blue-500 focus:outline-none transition-colors">
+            </div>
+          </div>
+        </div>
+
+        <!-- Custom Fields -->
+        <div class="bg-white rounded-3xl shadow-xl p-8">
+          <h2 class="text-2xl font-bold text-gray-900 mb-6">Additional Information (Optional)</h2>
+          
+          <div class="space-y-4">
+            <div>
+              <label class="block text-sm font-semibold text-gray-700 mb-2">Department</label>
+              <input v-model="formData.department" 
+                     type="text" 
+                     placeholder="Engineering, Marketing, Sales, etc."
+                     class="w-full px-4 py-3 border-2 border-gray-200 rounded-xl focus:border-blue-500 focus:outline-none transition-colors">
+            </div>
+
+            <div>
+              <label class="block text-sm font-semibold text-gray-700 mb-2">Pronouns</label>
+              <input v-model="formData.pronouns" 
+                     type="text" 
+                     placeholder="He/Him, She/Her, They/Them"
+                     class="w-full px-4 py-3 border-2 border-gray-200 rounded-xl focus:border-blue-500 focus:outline-none transition-colors">
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <div>
+                <label class="block text-sm font-semibold text-gray-700 mb-2">Timezone</label>
+                <input v-model="formData.timezone" 
+                       type="text" 
+                       placeholder="PST (UTC-8), EST (UTC-5), etc."
+                       class="w-full px-4 py-3 border-2 border-gray-200 rounded-xl focus:border-blue-500 focus:outline-none transition-colors">
+              </div>
+
+              <div>
+                <label class="block text-sm font-semibold text-gray-700 mb-2">Office Hours</label>
+                <input v-model="formData.officeHours" 
+                       type="text" 
+                       placeholder="9 AM - 5 PM"
+                       class="w-full px-4 py-3 border-2 border-gray-200 rounded-xl focus:border-blue-500 focus:outline-none transition-colors">
+              </div>
+            </div>
+
+            <div>
+              <label class="block text-sm font-semibold text-gray-700 mb-2">Secondary Email</label>
+              <input v-model="formData.secondaryEmail" 
+                     type="email" 
+                     placeholder="alternate@example.com"
+                     class="w-full px-4 py-3 border-2 border-gray-200 rounded-xl focus:border-blue-500 focus:outline-none transition-colors">
+            </div>
+
+            <div>
+              <label class="block text-sm font-semibold text-gray-700 mb-2">Calendar Booking Link</label>
+              <input v-model="formData.calendarLink" 
+                     type="url" 
+                     placeholder="https://calendly.com/yourname"
+                     class="w-full px-4 py-3 border-2 border-gray-200 rounded-xl focus:border-blue-500 focus:outline-none transition-colors">
+              <p class="text-xs text-gray-500 mt-1">Calendly, Cal.com, or your booking link</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Photo Upload -->
+        <div class="bg-white rounded-3xl shadow-xl p-8">
+          <h2 class="text-2xl font-bold text-gray-900 mb-6">Profile Photo (Optional)</h2>
+          
+          <div v-if="!uploadedPhoto" 
+               @drop.prevent="handlePhotoDrop"
+               @dragover.prevent="isPhotoUploading = true"
+               @dragleave="isPhotoUploading = false"
+               :class="{'drag-over': isPhotoUploading}"
+               class="drop-zone rounded-2xl p-8 text-center cursor-pointer"
+               @click="$refs.photoInput.click()">
+            
+            <svg class="w-12 h-12 mx-auto text-gray-400 mb-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" 
+                    d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
+            </svg>
+            
+            <p class="text-gray-600 font-semibold mb-2">Upload Profile Photo</p>
+            <p class="text-sm text-gray-400">PNG, JPG (Square image recommended)</p>
+            
+            <input 
+              ref="photoInput"
+              type="file" 
+              @change="handlePhotoSelect"
+              accept="image/png,image/jpeg,image/jpg"
+              class="hidden" />
+          </div>
+
+          <div v-else class="flex items-center justify-between bg-gray-50 rounded-2xl p-4">
+            <div class="flex items-center gap-4">
+              <img :src="uploadedPhoto" 
+                   alt="Profile" 
+                   class="w-16 h-16 rounded-full object-cover border-2 border-gray-200" />
+              <span class="text-sm text-gray-600">Profile photo uploaded</span>
+            </div>
+            <button 
+              @click="removePhoto"
+              class="px-4 py-2 bg-red-500 hover:bg-red-600 text-white rounded-xl font-semibold transition-colors text-sm">
+              Remove
+            </button>
+          </div>
+        </div>
+
+        <!-- Social Links -->
+        <div class="bg-white rounded-3xl shadow-xl p-8">
+          <h2 class="text-2xl font-bold text-gray-900 mb-6">Social Links (Optional)</h2>
+          
+          <div class="space-y-4">
+            <div v-for="social in socialLinks" :key="social.id" class="flex items-center gap-3">
+              <div class="w-10 h-10 flex items-center justify-center text-2xl">
+                {% raw %}{{ social.icon }}{% endraw %}
+              </div>
+              <div class="flex-1">
+                <label class="block text-xs font-semibold text-gray-600 mb-1">{% raw %}{{ social.label }}{% endraw %}</label>
+                <input v-model="formData.social[social.id]" 
+                       type="url" 
+                       :placeholder="social.placeholder"
+                       class="w-full px-4 py-3 border-2 border-gray-200 rounded-xl focus:border-blue-500 focus:outline-none transition-colors">
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Color Customization (Premium) -->
+        <div v-if="hasPremiumAccess" class="bg-white rounded-3xl shadow-xl p-8">
+          <h2 class="text-2xl font-bold text-gray-900 mb-6">Color Customization</h2>
+          
+          <div class="grid grid-cols-2 gap-4">
+            <div>
+              <label class="block text-sm font-semibold text-gray-700 mb-2">Primary Color</label>
+              <input v-model="formData.primaryColor" 
+                     type="color" 
+                     class="w-full h-12 rounded-xl cursor-pointer border-2 border-gray-200">
+            </div>
+            <div>
+              <label class="block text-sm font-semibold text-gray-700 mb-2">Text Color</label>
+              <input v-model="formData.textColor" 
+                     type="color" 
+                     class="w-full h-12 rounded-xl cursor-pointer border-2 border-gray-200">
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Right Column - Preview & Export -->
+      <div class="space-y-6">
+        
+        <!-- Live Preview -->
+        <div class="bg-white rounded-3xl shadow-xl p-8 sticky top-6">
+          <div class="flex items-center justify-between mb-6">
+            <h2 class="text-2xl font-bold text-gray-900">Preview</h2>
+            <button 
+              @click="copySignature"
+              :disabled="!isSignatureValid"
+              class="px-6 py-3 bg-green-500 hover:bg-green-600 text-white rounded-xl font-bold transition-colors disabled:opacity-50 disabled:cursor-not-allowed flex items-center gap-2">
+              <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z" />
+              </svg>
+              {% raw %}{{ copied ? 'Copied!' : 'Copy HTML' }}{% endraw %}
+            </button>
+          </div>
+
+          <!-- Preview Area -->
+          <div class="bg-gray-50 rounded-2xl p-6 min-h-[300px]">
+            <div v-if="isSignatureValid" 
+                 class="signature-preview"
+                 v-html="generatedSignature">
+            </div>
+            <div v-else class="flex items-center justify-center h-[300px] text-gray-400">
+              <div class="text-center">
+                <svg class="w-16 h-16 mx-auto mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+                </svg>
+                <p class="font-semibold">Fill in your details to see preview</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Instructions -->
+          <div class="mt-6 bg-blue-50 rounded-xl p-4">
+            <h3 class="font-bold text-blue-900 mb-2">📋 Quick Setup:</h3>
+            <ol class="text-sm text-blue-800 space-y-1 list-decimal list-inside">
+              <li>Click "Copy HTML" button above</li>
+              <li>Open Gmail Settings → See all settings → Signature</li>
+              <li>Create new signature and paste (Ctrl+V / Cmd+V)</li>
+              <li>Save changes</li>
+            </ol>
+          </div>
+        </div>
+
+        <!-- Email Client Setup Guide -->
+        <div class="bg-white rounded-3xl shadow-xl p-8">
+          <h2 class="text-2xl font-bold text-gray-900 mb-6">📧 Email Client Setup Guide</h2>
+          
+          <!-- Gmail -->
+          <div class="mb-6 pb-6 border-b border-gray-200">
+            <h3 class="text-lg font-bold text-gray-900 mb-3 flex items-center gap-2">
+              <span>Gmail</span>
+            </h3>
+            <ol class="text-sm text-gray-700 space-y-2 list-decimal list-inside">
+              <li>Open <a href="https://mail.google.com/mail/u/0/#settings/general" target="_blank" class="text-blue-600 hover:underline">Gmail Settings</a></li>
+              <li>Click "See all settings" → Go to "General" tab</li>
+              <li>Scroll down to "Signature" section</li>
+              <li>Click "+ Create new" and give it a name</li>
+              <li>Click in the signature box and paste (Ctrl+V or Cmd+V)</li>
+              <li>Scroll down and click "Save Changes"</li>
+            </ol>
+            <div class="mt-3 bg-yellow-50 border-l-4 border-yellow-400 p-3 text-sm text-yellow-800">
+              <strong>Important:</strong> If images don't show, make sure "External images" is set to "Ask before displaying" or "Always display" in Gmail settings.
+            </div>
+          </div>
+
+          <!-- Outlook Web -->
+          <div class="mb-6 pb-6 border-b border-gray-200">
+            <h3 class="text-lg font-bold text-gray-900 mb-3">Outlook (Web)</h3>
+            <ol class="text-sm text-gray-700 space-y-2 list-decimal list-inside">
+              <li>Open <a href="https://outlook.office.com/mail/" target="_blank" class="text-blue-600 hover:underline">Outlook Web</a></li>
+              <li>Click ⚙️ (Settings) → View all Outlook settings</li>
+              <li>Go to "Compose and reply"</li>
+              <li>Under "Email signature", paste your signature</li>
+              <li>Enable "Automatically include my signature on new messages"</li>
+              <li>Click "Save"</li>
+            </ol>
+          </div>
+
+          <!-- Outlook Desktop -->
+          <div class="mb-6 pb-6 border-b border-gray-200">
+            <h3 class="text-lg font-bold text-gray-900 mb-3">Outlook (Desktop)</h3>
+            <ol class="text-sm text-gray-700 space-y-2 list-decimal list-inside">
+              <li>Open Outlook → File → Options → Mail</li>
+              <li>Click "Signatures..." button</li>
+              <li>Click "New" to create a new signature</li>
+              <li>Paste your signature in the editor</li>
+              <li>Set as default for new messages and replies</li>
+              <li>Click "OK"</li>
+            </ol>
+          </div>
+
+          <!-- Apple Mail -->
+          <div class="mb-6 pb-6 border-b border-gray-200">
+            <h3 class="text-lg font-bold text-gray-900 mb-3">Apple Mail</h3>
+            <ol class="text-sm text-gray-700 space-y-2 list-decimal list-inside">
+              <li>Open Mail → Settings (Cmd+,)</li>
+              <li>Go to "Signatures" tab</li>
+              <li>Select your email account</li>
+              <li>Click "+" to create new signature</li>
+              <li>Paste your signature</li>
+              <li>Uncheck "Always match my default font"</li>
+              <li>Close settings</li>
+            </ol>
+          </div>
+
+          <!-- Thunderbird -->
+          <div class="mb-6">
+            <h3 class="text-lg font-bold text-gray-900 mb-3">Thunderbird</h3>
+            <ol class="text-sm text-gray-700 space-y-2 list-decimal list-inside">
+              <li>Open Thunderbird → Settings → Account Settings</li>
+              <li>Select your email account</li>
+              <li>Check "Attach the signature from a file instead"</li>
+              <li>Save your signature as an HTML file and select it</li>
+              <li>Check "Use HTML" option</li>
+              <li>Click "OK"</li>
+            </ol>
+          </div>
+
+          <!-- Pro Tips -->
+          <div class="bg-green-50 rounded-xl p-4">
+            <h3 class="font-bold text-green-900 mb-2">💡 Pro Tips:</h3>
+            <ul class="text-sm text-green-800 space-y-1 list-disc list-inside">
+              <li>Always send a test email to yourself first</li>
+              <li>Check how it looks on mobile devices</li>
+              <li>Keep images under 100KB for faster loading</li>
+              <li>Test with different email clients if possible</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Clear All Button -->
+    <div class="text-center mt-8">
+      <button 
+        @click="clearAllData"
+        class="px-6 py-3 bg-gray-200 hover:bg-gray-300 text-gray-700 rounded-xl font-semibold transition-colors">
+        🗑️ Clear All & Start Fresh
+      </button>
+    </div>
+
+    <!-- Footer placeholder -->
+    <footer class="mt-16 text-center text-gray-600">
+      <p>Made with ☕ by Coffee & Fun LLC</p>
+    </footer>
+  </main>
+
+  <script>
+    const { createApp } = Vue;
+
+    createApp({
+      data() {
+        const templates = [
+            {
+              id: 'classic',
+              name: 'Classic',
+              icon: '📧',
+              description: 'Simple & professional',
+              premium: false
+            },
+            {
+              id: 'modern',
+              name: 'Modern',
+              icon: '✨',
+              description: 'Clean & minimal',
+              premium: false
+            },
+            {
+              id: 'corporate',
+              name: 'Corporate',
+              icon: '🏢',
+              description: 'Business-focused',
+              premium: true
+            },
+            {
+              id: 'creative',
+              name: 'Creative',
+              icon: '🎨',
+              description: 'Colorful & bold',
+              premium: true
+            },
+            {
+              id: 'elegant',
+              name: 'Elegant',
+              icon: '💎',
+              description: 'Sophisticated',
+              premium: true
+            },
+            {
+              id: 'tech',
+              name: 'Tech',
+              icon: '💻',
+              description: 'Developer-friendly',
+              premium: true
+            }
+          ];
+
+        return {
+          // Payment
+          hasPremiumAccess: false,
+          isProcessingPayment: false,
+          stripe: null,
+          
+          // Template
+          selectedTemplate: templates[0], // Set default template
+          templates: templates,
+
+          // Form Data
+          formData: {
+            name: 'John Doe',
+            title: 'Senior Developer',
+            company: 'Coffee & Fun LLC',
+            email: 'john@coffeeandfun.com',
+            phone: '+1 (555) 123-4567',
+            website: 'https://www.coffeeandfun.com',
+            address: '123 Main Street, San Francisco, CA 94102',
+            department: 'Engineering',
+            pronouns: 'He/Him',
+            timezone: 'PST (UTC-8)',
+            officeHours: '9 AM - 5 PM',
+            secondaryEmail: '',
+            calendarLink: '',
+            social: {
+              linkedin: 'https://linkedin.com/in/johndoe',
+              twitter: 'https://twitter.com/johndoe',
+              github: 'https://github.com/johndoe',
+              instagram: '',
+              facebook: '',
+              youtube: '',
+              tiktok: '',
+              medium: '',
+              dribbble: '',
+              whatsapp: '',
+              telegram: ''
+            },
+            primaryColor: '#3b82f6',
+            textColor: '#1f2937'
+          },
+
+          // Photo
+          uploadedPhoto: null,
+          isPhotoUploading: false,
+
+          // Social Links
+          socialLinks: [
+            { id: 'linkedin', icon: '💼', placeholder: 'https://linkedin.com/in/yourname', label: 'LinkedIn' },
+            { id: 'twitter', icon: '🐦', placeholder: 'https://twitter.com/yourname', label: 'Twitter/X' },
+            { id: 'github', icon: '💻', placeholder: 'https://github.com/yourname', label: 'GitHub' },
+            { id: 'instagram', icon: '📸', placeholder: 'https://instagram.com/yourname', label: 'Instagram' },
+            { id: 'facebook', icon: '👥', placeholder: 'https://facebook.com/yourname', label: 'Facebook' },
+            { id: 'youtube', icon: '📺', placeholder: 'https://youtube.com/@yourname', label: 'YouTube' },
+            { id: 'tiktok', icon: '🎵', placeholder: 'https://tiktok.com/@yourname', label: 'TikTok' },
+            { id: 'medium', icon: '✍️', placeholder: 'https://medium.com/@yourname', label: 'Medium' },
+            { id: 'dribbble', icon: '🎨', placeholder: 'https://dribbble.com/yourname', label: 'Dribbble' },
+            { id: 'whatsapp', icon: '💬', placeholder: 'https://wa.me/1234567890', label: 'WhatsApp' },
+            { id: 'telegram', icon: '✈️', placeholder: 'https://t.me/yourname', label: 'Telegram' }
+          ],
+
+          // UI
+          copied: false
+        };
+      },
+
+      computed: {
+        isSignatureValid() {
+          return this.formData.name && this.formData.email;
+        },
+
+        generatedSignature() {
+          if (!this.isSignatureValid || !this.selectedTemplate) return '';
+          
+          const templates = {
+            classic: this.generateClassicTemplate(),
+            modern: this.generateModernTemplate(),
+            corporate: this.generateCorporateTemplate(),
+            creative: this.generateCreativeTemplate(),
+            elegant: this.generateElegantTemplate(),
+            tech: this.generateTechTemplate()
+          };
+
+          return templates[this.selectedTemplate.id] || '';
+        },
+
+        activeSocialLinks() {
+          return Object.entries(this.formData.social)
+            .filter(([key, value]) => value.trim() !== '')
+            .map(([key, value]) => ({
+              platform: key,
+              url: value,
+              icon: this.getSocialIcon(key)
+            }));
+        }
+      },
+
+      mounted() {
+        // Load saved data from localStorage
+        this.loadSavedData();
+        
+        // Check for premium access in localStorage
+        this.checkPremiumAccess();
+        
+        // Check for successful payment with secure token
+        const urlParams = new URLSearchParams(window.location.search);
+        const accessToken = urlParams.get('access_token');
+        
+        if (accessToken && this.validateAccessToken(accessToken)) {
+          this.grantPremiumAccess();
+          // Clean URL - remove the token from address bar
+          window.history.replaceState({}, document.title, window.location.pathname);
+        }
+        
+        // Initialize Stripe
+        this.stripe = Stripe('pk_test_YOUR_PUBLISHABLE_KEY'); // Replace with your key
+      },
+
+      watch: {
+        formData: {
+          handler(newVal) {
+            this.saveData();
+          },
+          deep: true
+        },
+        uploadedPhoto(newVal) {
+          this.saveData();
+        }
+      },
+
+      methods: {
+        selectTemplate(template) {
+          if (template.premium && !this.hasPremiumAccess) {
+            alert('This is a premium template. Please upgrade to access it.');
+            return;
+          }
+          this.selectedTemplate = template;
+        },
+
+        handlePhotoSelect(e) {
+          const file = e.target.files[0];
+          if (file) this.loadPhoto(file);
+        },
+
+        handlePhotoDrop(e) {
+          this.isPhotoUploading = false;
+          const file = e.dataTransfer.files[0];
+          if (file && file.type.startsWith('image/')) {
+            this.loadPhoto(file);
+          }
+        },
+
+        loadPhoto(file) {
+          const reader = new FileReader();
+          reader.onload = (e) => {
+            this.uploadedPhoto = e.target.result;
+          };
+          reader.readAsDataURL(file);
+        },
+
+        removePhoto() {
+          this.uploadedPhoto = null;
+          this.$refs.photoInput.value = '';
+        },
+
+        getSocialIcon(platform) {
+          const icons = {
+            linkedin: '💼',
+            twitter: '🐦',
+            github: '💻',
+            instagram: '📸',
+            facebook: '👥',
+            youtube: '📺',
+            tiktok: '🎵',
+            medium: '✍️',
+            dribbble: '🎨',
+            whatsapp: '💬',
+            telegram: '✈️'
+          };
+          return icons[platform] || '🔗';
+        },
+
+        generateClassicTemplate() {
+          const photoHtml = this.uploadedPhoto 
+            ? `<img src="${this.uploadedPhoto}" alt="${this.formData.name}" style="width: 80px; height: 80px; border-radius: 50%; object-fit: cover; margin-right: 20px;" />`
+            : '';
+
+          const socialHtml = this.activeSocialLinks.map(social => 
+            `<a href="${social.url}" style="color: #3b82f6; text-decoration: none; margin-right: 10px; font-size: 20px;">${social.icon}</a>`
+          ).join('');
+
+          return `
+            <table cellpadding="0" cellspacing="0" border="0" style="font-family: Arial, sans-serif; font-size: 14px; color: #333;">
+              <tr>
+                <td style="vertical-align: top;">
+                  ${photoHtml}
+                </td>
+                <td style="vertical-align: top; padding-left: ${this.uploadedPhoto ? '0' : '0'};">
+                  <div style="font-size: 18px; font-weight: bold; color: #1f2937; margin-bottom: 4px;">${this.formData.name}${this.formData.pronouns ? ` (${this.formData.pronouns})` : ''}</div>
+                  ${this.formData.title ? `<div style="color: #6b7280; margin-bottom: 8px;">${this.formData.title}</div>` : ''}
+                  ${this.formData.company ? `<div style="color: #3b82f6; font-weight: 600; margin-bottom: 8px;">${this.formData.company}</div>` : ''}
+                  ${this.formData.department ? `<div style="color: #9ca3af; font-size: 13px; margin-bottom: 8px;">${this.formData.department}</div>` : ''}
+                  <div style="margin-top: 8px;">
+                    ${this.formData.email ? `<div style="margin-bottom: 4px;">📧 <a href="mailto:${this.formData.email}" style="color: #3b82f6; text-decoration: none;">${this.formData.email}</a></div>` : ''}
+                    ${this.formData.secondaryEmail ? `<div style="margin-bottom: 4px;">📧 <a href="mailto:${this.formData.secondaryEmail}" style="color: #3b82f6; text-decoration: none;">${this.formData.secondaryEmail}</a></div>` : ''}
+                    ${this.formData.phone ? `<div style="margin-bottom: 4px;">📱 ${this.formData.phone}</div>` : ''}
+                    ${this.formData.website ? `<div style="margin-bottom: 4px;">🌐 <a href="${this.formData.website}" style="color: #3b82f6; text-decoration: none;">${this.formData.website}</a></div>` : ''}
+                    ${this.formData.calendarLink ? `<div style="margin-bottom: 4px;">📅 <a href="${this.formData.calendarLink}" style="color: #3b82f6; text-decoration: none;">Book a meeting</a></div>` : ''}
+                    ${this.formData.address ? `<div style="margin-bottom: 4px;">📍 ${this.formData.address}</div>` : ''}
+                    ${this.formData.officeHours || this.formData.timezone ? `<div style="margin-bottom: 4px; color: #6b7280; font-size: 12px;">🕐 ${this.formData.officeHours || ''}${this.formData.officeHours && this.formData.timezone ? ' | ' : ''}${this.formData.timezone || ''}</div>` : ''}
+                  </div>
+                  ${socialHtml ? `<div style="margin-top: 12px;">${socialHtml}</div>` : ''}
+                </td>
+              </tr>
+            </table>
+          `;
+        },
+
+        generateModernTemplate() {
+          const photoHtml = this.uploadedPhoto 
+            ? `<img src="${this.uploadedPhoto}" alt="${this.formData.name}" style="width: 100px; height: 100px; border-radius: 8px; object-fit: cover; margin-bottom: 12px;" />`
+            : '';
+
+          const socialHtml = this.activeSocialLinks.map(social => 
+            `<a href="${social.url}" style="display: inline-block; width: 32px; height: 32px; line-height: 32px; text-align: center; background: #f3f4f6; border-radius: 50%; color: #3b82f6; text-decoration: none; margin-right: 8px; font-size: 16px;">${social.icon}</a>`
+          ).join('');
+
+          return `
+            <table cellpadding="0" cellspacing="0" border="0" style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; font-size: 14px;">
+              <tr>
+                <td>
+                  ${photoHtml}
+                  <div style="font-size: 20px; font-weight: 700; color: #111827; margin-bottom: 2px;">${this.formData.name}${this.formData.pronouns ? ` (${this.formData.pronouns})` : ''}</div>
+                  ${this.formData.title ? `<div style="font-size: 14px; color: #6b7280; margin-bottom: 4px;">${this.formData.title}</div>` : ''}
+                  ${this.formData.company ? `<div style="font-size: 14px; color: #9ca3af; margin-bottom: 12px;">${this.formData.company}${this.formData.department ? ` • ${this.formData.department}` : ''}</div>` : ''}
+                  <div style="border-top: 2px solid #e5e7eb; padding-top: 12px; margin-top: 12px;">
+                    ${this.formData.email ? `<div style="margin-bottom: 6px; color: #4b5563;"><a href="mailto:${this.formData.email}" style="color: #3b82f6; text-decoration: none;">${this.formData.email}</a></div>` : ''}
+                    ${this.formData.secondaryEmail ? `<div style="margin-bottom: 6px; color: #4b5563;"><a href="mailto:${this.formData.secondaryEmail}" style="color: #3b82f6; text-decoration: none;">${this.formData.secondaryEmail}</a></div>` : ''}
+                    ${this.formData.phone ? `<div style="margin-bottom: 6px; color: #4b5563;">${this.formData.phone}</div>` : ''}
+                    ${this.formData.website ? `<div style="margin-bottom: 6px;"><a href="${this.formData.website}" style="color: #3b82f6; text-decoration: none;">${this.formData.website}</a></div>` : ''}
+                    ${this.formData.calendarLink ? `<div style="margin-bottom: 6px;"><a href="${this.formData.calendarLink}" style="color: #3b82f6; text-decoration: none;">📅 Book time with me</a></div>` : ''}
+                    ${this.formData.officeHours || this.formData.timezone ? `<div style="margin-bottom: 6px; color: #6b7280; font-size: 12px;">${this.formData.officeHours || ''}${this.formData.officeHours && this.formData.timezone ? ' • ' : ''}${this.formData.timezone || ''}</div>` : ''}
+                  </div>
+                  ${socialHtml ? `<div style="margin-top: 12px;">${socialHtml}</div>` : ''}
+                </td>
+              </tr>
+            </table>
+          `;
+        },
+
+        generateCorporateTemplate() {
+          const photoHtml = this.uploadedPhoto 
+            ? `<td style="padding-right: 20px; vertical-align: top;"><img src="${this.uploadedPhoto}" alt="${this.formData.name}" style="width: 90px; height: 90px; border-radius: 4px; object-fit: cover;" /></td>`
+            : '';
+
+          const socialHtml = this.activeSocialLinks.map(social => 
+            `<a href="${social.url}" style="color: #1f2937; text-decoration: none; margin-right: 12px; font-size: 18px;">${social.icon}</a>`
+          ).join('');
+
+          return `
+            <table cellpadding="0" cellspacing="0" border="0" style="font-family: 'Times New Roman', serif; font-size: 13px; border-left: 4px solid ${this.formData.primaryColor}; padding-left: 20px;">
+              <tr>
+                ${photoHtml}
+                <td style="vertical-align: top;">
+                  <div style="font-size: 19px; font-weight: bold; color: #111827; margin-bottom: 4px; letter-spacing: 0.5px;">${this.formData.name}${this.formData.pronouns ? ` (${this.formData.pronouns})` : ''}</div>
+                  ${this.formData.title ? `<div style="font-size: 13px; color: #6b7280; margin-bottom: 2px; font-style: italic;">${this.formData.title}</div>` : ''}
+                  ${this.formData.company ? `<div style="font-size: 14px; font-weight: 600; color: ${this.formData.primaryColor}; margin-bottom: 12px;">${this.formData.company}${this.formData.department ? ` | ${this.formData.department}` : ''}</div>` : ''}
+                  <table cellpadding="0" cellspacing="0" border="0" style="margin-top: 10px;">
+                    ${this.formData.email ? `<tr><td style="padding: 3px 0; color: #4b5563;">E:</td><td style="padding: 3px 0; padding-left: 8px;"><a href="mailto:${this.formData.email}" style="color: #1f2937; text-decoration: none;">${this.formData.email}</a></td></tr>` : ''}
+                    ${this.formData.secondaryEmail ? `<tr><td style="padding: 3px 0; color: #4b5563;">E2:</td><td style="padding: 3px 0; padding-left: 8px;"><a href="mailto:${this.formData.secondaryEmail}" style="color: #1f2937; text-decoration: none;">${this.formData.secondaryEmail}</a></td></tr>` : ''}
+                    ${this.formData.phone ? `<tr><td style="padding: 3px 0; color: #4b5563;">P:</td><td style="padding: 3px 0; padding-left: 8px;">${this.formData.phone}</td></tr>` : ''}
+                    ${this.formData.website ? `<tr><td style="padding: 3px 0; color: #4b5563;">W:</td><td style="padding: 3px 0; padding-left: 8px;"><a href="${this.formData.website}" style="color: #1f2937; text-decoration: none;">${this.formData.website}</a></td></tr>` : ''}
+                    ${this.formData.calendarLink ? `<tr><td style="padding: 3px 0; color: #4b5563;">📅:</td><td style="padding: 3px 0; padding-left: 8px;"><a href="${this.formData.calendarLink}" style="color: #1f2937; text-decoration: none;">Schedule Meeting</a></td></tr>` : ''}
+                    ${this.formData.address ? `<tr><td style="padding: 3px 0; color: #4b5563; vertical-align: top;">A:</td><td style="padding: 3px 0; padding-left: 8px;">${this.formData.address}</td></tr>` : ''}
+                    ${this.formData.officeHours || this.formData.timezone ? `<tr><td style="padding: 3px 0; color: #4b5563;">H:</td><td style="padding: 3px 0; padding-left: 8px; font-size: 12px;">${this.formData.officeHours || ''}${this.formData.officeHours && this.formData.timezone ? ' | ' : ''}${this.formData.timezone || ''}</td></tr>` : ''}
+                  </table>
+                  ${socialHtml ? `<div style="margin-top: 14px; padding-top: 12px; border-top: 1px solid #e5e7eb;">${socialHtml}</div>` : ''}
+                </td>
+              </tr>
+            </table>
+          `;
+        },
+
+        generateCreativeTemplate() {
+          const photoHtml = this.uploadedPhoto 
+            ? `<img src="${this.uploadedPhoto}" alt="${this.formData.name}" style="width: 100px; height: 100px; border-radius: 50%; object-fit: cover; border: 4px solid ${this.formData.primaryColor}; margin-bottom: 16px;" />`
+            : '';
+
+          const socialHtml = this.activeSocialLinks.map(social => 
+            `<a href="${social.url}" style="display: inline-block; width: 36px; height: 36px; line-height: 36px; text-align: center; background: linear-gradient(135deg, ${this.formData.primaryColor} 0%, #8b5cf6 100%); border-radius: 8px; color: white; text-decoration: none; margin-right: 6px; font-size: 18px;">${social.icon}</a>`
+          ).join('');
+
+          return `
+            <table cellpadding="0" cellspacing="0" border="0" style="font-family: 'Arial Rounded MT Bold', Arial, sans-serif; font-size: 14px; background: linear-gradient(135deg, #f0f9ff 0%, #fef3c7 100%); padding: 24px; border-radius: 16px;">
+              <tr>
+                <td style="text-align: center;">
+                  ${photoHtml}
+                  <div style="font-size: 24px; font-weight: 900; background: linear-gradient(135deg, ${this.formData.primaryColor} 0%, #8b5cf6 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; margin-bottom: 4px;">${this.formData.name}</div>
+                  ${this.formData.title ? `<div style="font-size: 14px; color: #6b7280; font-weight: 600; margin-bottom: 2px;">${this.formData.title}</div>` : ''}
+                  ${this.formData.company ? `<div style="font-size: 15px; color: ${this.formData.primaryColor}; font-weight: 700; margin-bottom: 16px;">${this.formData.company}</div>` : ''}
+                  <div style="background: white; border-radius: 12px; padding: 16px; margin-top: 12px; box-shadow: 0 4px 6px rgba(0,0,0,0.05);">
+                    ${this.formData.email ? `<div style="margin-bottom: 8px;">✉️ <a href="mailto:${this.formData.email}" style="color: ${this.formData.primaryColor}; text-decoration: none; font-weight: 600;">${this.formData.email}</a></div>` : ''}
+                    ${this.formData.phone ? `<div style="margin-bottom: 8px;">📞 <span style="color: #4b5563;">${this.formData.phone}</span></div>` : ''}
+                    ${this.formData.website ? `<div style="margin-bottom: 8px;">🌐 <a href="${this.formData.website}" style="color: ${this.formData.primaryColor}; text-decoration: none; font-weight: 600;">${this.formData.website}</a></div>` : ''}
+                  </div>
+                  ${socialHtml ? `<div style="margin-top: 16px;">${socialHtml}</div>` : ''}
+                </td>
+              </tr>
+            </table>
+          `;
+        },
+
+        generateElegantTemplate() {
+          const photoHtml = this.uploadedPhoto 
+            ? `<img src="${this.uploadedPhoto}" alt="${this.formData.name}" style="width: 80px; height: 80px; border-radius: 50%; object-fit: cover; border: 2px solid #d1d5db; margin-right: 24px;" />`
+            : '';
+
+          const socialHtml = this.activeSocialLinks.map(social => 
+            `<a href="${social.url}" style="color: #6b7280; text-decoration: none; margin-right: 14px; font-size: 16px; transition: color 0.2s;">${social.icon}</a>`
+          ).join('');
+
+          return `
+            <table cellpadding="0" cellspacing="0" border="0" style="font-family: 'Georgia', serif; font-size: 14px; max-width: 500px;">
+              <tr>
+                <td style="vertical-align: middle;">
+                  ${photoHtml}
+                </td>
+                <td style="vertical-align: middle;">
+                  <div style="font-size: 22px; font-weight: normal; color: #111827; margin-bottom: 4px; font-family: 'Didot', 'Georgia', serif;">${this.formData.name}</div>
+                  ${this.formData.title ? `<div style="font-size: 13px; color: #9ca3af; margin-bottom: 2px; font-style: italic; letter-spacing: 1px; text-transform: uppercase;">${this.formData.title}</div>` : ''}
+                  ${this.formData.company ? `<div style="font-size: 14px; color: #6b7280; margin-bottom: 12px;">${this.formData.company}</div>` : ''}
+                  <div style="border-top: 1px solid #e5e7eb; padding-top: 12px; margin-top: 8px; font-size: 13px;">
+                    ${this.formData.email ? `<div style="margin-bottom: 5px; color: #4b5563;"><a href="mailto:${this.formData.email}" style="color: #6b7280; text-decoration: none;">${this.formData.email}</a></div>` : ''}
+                    ${this.formData.phone ? `<div style="margin-bottom: 5px; color: #4b5563;">${this.formData.phone}</div>` : ''}
+                    ${this.formData.website ? `<div style="margin-bottom: 5px;"><a href="${this.formData.website}" style="color: #6b7280; text-decoration: none;">${this.formData.website}</a></div>` : ''}
+                  </div>
+                  ${socialHtml ? `<div style="margin-top: 14px; padding-top: 10px;">${socialHtml}</div>` : ''}
+                </td>
+              </tr>
+            </table>
+          `;
+        },
+
+        generateTechTemplate() {
+          const photoHtml = this.uploadedPhoto 
+            ? `<img src="${this.uploadedPhoto}" alt="${this.formData.name}" style="width: 64px; height: 64px; border-radius: 8px; object-fit: cover; border: 2px solid #22c55e; margin-bottom: 12px;" />`
+            : '';
+
+          const socialHtml = this.activeSocialLinks.map(social => 
+            `<a href="${social.url}" style="display: inline-block; padding: 6px 12px; background: #111827; color: #22c55e; text-decoration: none; margin-right: 6px; border-radius: 4px; font-size: 14px; font-family: 'Courier New', monospace;">${social.icon}</a>`
+          ).join('');
+
+          return `
+            <table cellpadding="0" cellspacing="0" border="0" style="font-family: 'Courier New', 'Monaco', monospace; font-size: 13px; background: #1f2937; color: #f3f4f6; padding: 20px; border-radius: 8px; border-left: 4px solid #22c55e;">
+              <tr>
+                <td>
+                  ${photoHtml}
+                  <div style="font-size: 18px; font-weight: bold; color: #22c55e; margin-bottom: 4px; letter-spacing: 1px;">$ ${this.formData.name}</div>
+                  ${this.formData.title ? `<div style="font-size: 13px; color: #9ca3af; margin-bottom: 2px;">// ${this.formData.title}</div>` : ''}
+                  ${this.formData.company ? `<div style="font-size: 13px; color: #60a5fa; margin-bottom: 12px;">@ ${this.formData.company}</div>` : ''}
+                  <div style="background: #111827; padding: 12px; border-radius: 6px; margin-top: 10px; border: 1px solid #374151;">
+                    ${this.formData.email ? `<div style="margin-bottom: 6px; color: #d1d5db;"><span style="color: #22c55e;">email:</span> <a href="mailto:${this.formData.email}" style="color: #60a5fa; text-decoration: none;">"${this.formData.email}"</a></div>` : ''}
+                    ${this.formData.phone ? `<div style="margin-bottom: 6px; color: #d1d5db;"><span style="color: #22c55e;">phone:</span> "${this.formData.phone}"</div>` : ''}
+                    ${this.formData.website ? `<div style="margin-bottom: 6px; color: #d1d5db;"><span style="color: #22c55e;">web:</span> <a href="${this.formData.website}" style="color: #60a5fa; text-decoration: none;">"${this.formData.website}"</a></div>` : ''}
+                  </div>
+                  ${socialHtml ? `<div style="margin-top: 14px;">${socialHtml}</div>` : ''}
+                </td>
+              </tr>
+            </table>
+          `;
+        },
+
+        async copySignature() {
+          if (!this.isSignatureValid) return;
+
+          try {
+            // Create a temporary element
+            const temp = document.createElement('div');
+            temp.innerHTML = this.generatedSignature;
+            document.body.appendChild(temp);
+
+            // Copy to clipboard
+            const range = document.createRange();
+            range.selectNode(temp);
+            window.getSelection().removeAllRanges();
+            window.getSelection().addRange(range);
+            document.execCommand('copy');
+            window.getSelection().removeAllRanges();
+            document.body.removeChild(temp);
+
+            // Show success
+            this.copied = true;
+            setTimeout(() => this.copied = false, 2000);
+          } catch (err) {
+            console.error('Failed to copy:', err);
+            alert('Failed to copy signature. Please try again.');
+          }
+        },
+
+        checkPremiumAccess() {
+          const access = localStorage.getItem('emailSigPremium');
+          this.hasPremiumAccess = access === 'true';
+        },
+
+        validateAccessToken(token) {
+          // Secure tokens that are hard to guess
+          // Pick one of these tokens and use it in your Stripe redirect URL
+          // Example redirect URL: https://www.coffeeandfun.com/email-signature-generator/?access_token=sig_premium_a8f3k9m2x7v4
+          // You can also generate your own random token using: https://www.random.org/strings/
+          const validTokens = [
+            'sig_premium_a8f3k9m2x7v4',
+            'esp_2024_9k3m8x2v7f4a',
+            'premium_unlock_7v4m2x8k3f9a'
+          ];
+          
+          return validTokens.includes(token);
+        },
+
+        async initializeStripePayment() {
+          this.isProcessingPayment = true;
+
+          try {
+            // Redirect to Stripe Payment Link
+            // Make sure to set the redirect URL in Stripe to:
+            // https://www.coffeeandfun.com/email-signature-generator/?access_token=sig_premium_a8f3k9m2x7v4
+            
+            window.location.href = 'https://payments.coffeeandfun.com/b/5kQ14o7Xo3OZ8QCeCH1RC0D';
+            
+          } catch (error) {
+            console.error('Payment error:', error);
+            alert('Payment failed. Please try again.');
+            this.isProcessingPayment = false;
+          }
+        },
+
+        grantPremiumAccess() {
+          localStorage.setItem('emailSigPremium', 'true');
+          this.hasPremiumAccess = true;
+        },
+
+        saveData() {
+          // Auto-save form data to localStorage
+          const dataToSave = {
+            formData: this.formData,
+            uploadedPhoto: this.uploadedPhoto,
+            selectedTemplate: this.selectedTemplate ? this.selectedTemplate.id : 'classic'
+          };
+          localStorage.setItem('emailSigData', JSON.stringify(dataToSave));
+        },
+
+        loadSavedData() {
+          // Load saved data from localStorage
+          const savedData = localStorage.getItem('emailSigData');
+          if (savedData) {
+            try {
+              const parsed = JSON.parse(savedData);
+              
+              // Only load saved data if it's not the demo data
+              // Check if name is different from demo
+              if (parsed.formData && parsed.formData.name !== 'John Doe') {
+                this.formData = { ...this.formData, ...parsed.formData };
+              }
+              
+              if (parsed.uploadedPhoto) {
+                this.uploadedPhoto = parsed.uploadedPhoto;
+              }
+              
+              if (parsed.selectedTemplate) {
+                const template = this.templates.find(t => t.id === parsed.selectedTemplate);
+                if (template) {
+                  this.selectedTemplate = template;
+                }
+              }
+            } catch (e) {
+              console.error('Error loading saved data:', e);
+            }
+          }
+        },
+
+        clearAllData() {
+          if (confirm('Are you sure you want to clear all data and start fresh? This cannot be undone.')) {
+            // Clear localStorage
+            localStorage.removeItem('emailSigData');
+            
+            // Reset to default values
+            this.formData = {
+              name: '',
+              title: '',
+              company: '',
+              email: '',
+              phone: '',
+              website: '',
+              address: '',
+              department: '',
+              pronouns: '',
+              timezone: '',
+              officeHours: '',
+              secondaryEmail: '',
+              calendarLink: '',
+              social: {
+                linkedin: '',
+                twitter: '',
+                github: '',
+                instagram: '',
+                facebook: '',
+                youtube: '',
+                tiktok: '',
+                medium: '',
+                dribbble: '',
+                whatsapp: '',
+                telegram: ''
+              },
+              primaryColor: '#3b82f6',
+              textColor: '#1f2937'
+            };
+            
+            this.uploadedPhoto = null;
+            this.selectedTemplate = this.templates[0];
+            
+            // Clear file input
+            if (this.$refs.photoInput) {
+              this.$refs.photoInput.value = '';
+            }
+            
+            alert('All data cleared! You can start fresh.');
+          }
+        }
+      }
+    }).mount('#app');
+  </script>
+</body>
+</html>
