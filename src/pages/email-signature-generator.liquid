@@ -102,7 +102,7 @@
           @click="initializeStripePayment"
           :disabled="isProcessingPayment"
           class="px-8 py-4 bg-white text-purple-600 rounded-xl font-bold hover:bg-gray-100 transition-colors whitespace-nowrap disabled:opacity-50">
-          <span v-if="!isProcessingPayment">🚀 Get Premium Access - $2</span>
+          <span v-if="!isProcessingPayment">🚀 Get Premium Access - $5</span>
           <span v-else>Processing...</span>
         </button>
       </div>
@@ -497,9 +497,7 @@
     </div>
 
     <!-- Footer placeholder -->
-    <footer class="mt-16 text-center text-gray-600">
-      <p>Made with ☕ by Coffee & Fun LLC</p>
-    </footer>
+     {% include footer.liquid %}
   </main>
 
   <script>
