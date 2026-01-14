@@ -53,7 +53,7 @@ _Here’s a picture of what it looks like after you twist off the back._
 <img
     src="/assets/images/blog/airtag/1.webp"
     alt="TThe AirTag with a new CR2032 battery inserted into the battery compartment, next to the metal cover that has been removed."
-    class="aspect-square rounded-3xl mb-10"
+    class="aspect-square rounded-2xl mb-10"
     title="The AirTag with a new CR2032 battery inserted into the battery compartment, next to the metal cover that has been removed."
 />
 
@@ -67,7 +67,7 @@ _Here’s a shot of the battery being taken out._
 <img
     src="/assets/images/blog/airtag/2.webp"
     alt="The AirTag's components laid out on a brown surface, including the metal back cover, the removed CR2032 battery, and the AirTag's plastic casing."
-    class="aspect-square rounded-3xl mb-10"
+    class="aspect-square rounded-2xl mb-10"
     title="The AirTag's components laid out on a brown surface, including the metal back cover, the removed CR2032 battery, and the AirTag's plastic casing."
 />
 
@@ -81,7 +81,7 @@ _Check out the new battery in the AirTag here._
 <img
     src="/assets/images/blog/airtag/3.webp"
     alt="The back of an AirTag after the metal cover has been removed, revealing a CR2032 lithium battery still inside the AirTag's compartment."
-    class="aspect-square rounded-3xl mb-10"
+    class="aspect-square rounded-2xl mb-10"
     title="The back of an AirTag after the metal cover has been removed, revealing a CR2032 lithium battery still inside the AirTag's compartment."
 />
 
@@ -95,7 +95,7 @@ _And here’s the final look, all closed up and ready to go._
 <img
     src="/assets/images/blog/airtag/4.webp"
     alt="A close-up view of an intact AirTag, with the white plastic front facing up, placed on a brown surface."
-    class="aspect-square rounded-3xl mb-10"
+    class="aspect-square rounded-2xl mb-10"
     title="A close-up view of an intact AirTag, with the white plastic front facing up, placed on a brown surface."
 />
 

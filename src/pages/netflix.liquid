@@ -140,7 +140,7 @@
           <input
             type="text"
             placeholder="Search categories... (e.g., 'horror', 'comedy', 'british', '1980s')"
-            class="search-input w-full px-6 py-4 text-white rounded-lg text-lg outline-none"
+            class="search-input w-full px-6 py-4 text-white rounded-2xl text-lg outline-none"
             v-model="searchQuery"
             @input="debouncedSearch"
             @keydown.escape="clearSearch"
@@ -201,14 +201,14 @@
         <div class="text-6xl mb-4">🎬</div>
         <h3 class="text-2xl font-bold text-white mb-2">No categories found</h3>
         <p class="text-netflix-lightgray mb-6">Try a different search term or clear filters</p>
-        <button @click="clearSearch" class="netflix-button px-6 py-3 text-white rounded-lg font-semibold">
+        <button @click="clearSearch" class="netflix-button px-6 py-3 text-white rounded-2xl font-semibold">
           Clear Search
         </button>
       </div>
       
       <!-- Loading -->
       <div v-else-if="isSearching" class="space-y-3 max-w-4xl mx-auto">
-        <div v-for="n in 8" :key="'skeleton-' + n" class="bg-netflix-gray h-24 rounded-lg animate-pulse"></div>
+        <div v-for="n in 8" :key="'skeleton-' + n" class="bg-netflix-gray h-24 rounded-2xl animate-pulse"></div>
       </div>
       
       <!-- Categories List -->
@@ -216,7 +216,7 @@
         <div
           v-for="(category, index) in displayedCategories"
           :key="category.id"
-          class="category-card bg-netflix-gray rounded-lg shadow-lg hover:shadow-2xl fade-in"
+          class="category-card bg-netflix-gray rounded-2xl shadow-lg hover:shadow-2xl fade-in"
           :style="{ animationDelay: Math.min(index * 0.02, 0.3) + 's' }"
         >
           <div class="p-5">
@@ -241,7 +241,7 @@
                   :href="'https://www.netflix.com/browse/genre/' + category.id"
                   target="_blank"
                   rel="noopener noreferrer"
-                  class="netflix-button px-6 py-3 text-white rounded-lg font-semibold flex items-center gap-2 whitespace-nowrap"
+                  class="netflix-button px-6 py-3 text-white rounded-2xl font-semibold flex items-center gap-2 whitespace-nowrap"
                   @click="trackCategoryClick(category)"
                 >
                   <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -251,7 +251,7 @@
                 </a>
                 <button 
                   @click="copyLink(category)"
-                  class="p-3 bg-netflix-darkgray hover:bg-netflix-red text-white rounded-lg transition-colors"
+                  class="p-3 bg-netflix-darkgray hover:bg-netflix-red text-white rounded-2xl transition-colors"
                   title="Copy link"
                 >
                   <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -266,7 +266,7 @@
       
       <!-- Load More -->
       <div v-if="!showAll && filteredCategories.length > displayLimit" class="text-center mt-8">
-        <button @click="loadMore" class="netflix-button px-8 py-4 text-white rounded-lg font-bold text-lg">
+        <button @click="loadMore" class="netflix-button px-8 py-4 text-white rounded-2xl font-bold text-lg">
           Load More ({% raw %}{{ filteredCategories.length - displayedCategories.length }}{% endraw %} remaining)
         </button>
       </div>
@@ -275,7 +275,7 @@
     <!-- Copy Feedback Toast -->
     <transition name="fade">
       <div v-if="showCopyFeedback" class="fixed top-20 left-1/2 transform -translate-x-1/2 z-50">
-        <div class="bg-green-600 text-white px-6 py-4 rounded-lg shadow-2xl flex items-center gap-3">
+        <div class="bg-green-600 text-white px-6 py-4 rounded-2xl shadow-2xl flex items-center gap-3">
           <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
           </svg>
@@ -288,15 +288,15 @@
     <div class="text-center py-12 border-t border-netflix-gray mt-16 max-w-4xl mx-auto">
       <h2 class="text-2xl font-bold text-white mb-6">How to Use Netflix Hidden Categories</h2>
       <div class="grid md:grid-cols-3 gap-6 text-left">
-        <div class="bg-netflix-gray rounded-lg p-6 hover:bg-netflix-red transition-colors">
+        <div class="bg-netflix-gray rounded-2xl p-6 hover:bg-netflix-red transition-colors">
           <h3 class="font-bold text-white mb-2 text-lg">1. Search & Browse</h3>
           <p class="text-sm text-netflix-lightgray">Find categories by genre, decade, language, or mood</p>
         </div>
-        <div class="bg-netflix-gray rounded-lg p-6 hover:bg-netflix-red transition-colors">
+        <div class="bg-netflix-gray rounded-2xl p-6 hover:bg-netflix-red transition-colors">
           <h3 class="font-bold text-white mb-2 text-lg">2. Click to Open</h3>
           <p class="text-sm text-netflix-lightgray">Opens directly in Netflix (requires login)</p>
         </div>
-        <div class="bg-netflix-gray rounded-lg p-6 hover:bg-netflix-red transition-colors">
+        <div class="bg-netflix-gray rounded-2xl p-6 hover:bg-netflix-red transition-colors">
           <h3 class="font-bold text-white mb-2 text-lg">3. Discover Content</h3>
           <p class="text-sm text-netflix-lightgray">Explore specialized categories not shown in regular Netflix</p>
         </div>

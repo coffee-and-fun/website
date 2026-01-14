@@ -119,10 +119,10 @@ export default function (eleventyConfig) {
 		th: 'border border-gray-300 px-4 py-2 text-pretty text-left text-pretty text-gray-700 font-medium',
 		tr: 'odd:bg-gray-50 even:bg-white',
 		td: 'border border-gray-300 px-4 py-2 text-pretty text-gray-900',
-		img: 'aspect-square rounded-3xl mb-8 border-gray-300 border-2',
+		img: 'aspect-square rounded-2xl mb-8 border-gray-300 border-2',
 		hr: 'divider divider-neutral my-10',
 		a: 'text-lg text-pretty text-blue-500 hover:text-blue-700 underline mx-2',
-		iframe: 'w-full h-96 rounded-3xl shadow-lg my-10',
+		iframe: 'w-full h-96 rounded-2xl shadow-lg my-10',
 		blockquote: 'border-l-4 border-gray-300 pl-4 italic text-pretty text-gray-700 my-4',
 		code: 'bg-gray-100 text-pretty text-gray-800 rounded p-2 text-pretty text-sm font-mono',
 		pre: 'bg-gray-100 p-4 rounded overflow-x-auto'

@@ -245,7 +245,7 @@
                         </button>
                         
                         <!-- Display selected time -->
-                        <div class="p-4 bg-base-100 rounded-lg text-center">
+                        <div class="p-4 bg-base-100 rounded-2xl text-center">
                             <p class="text-sm text-base-content/60">Your Selected Time</p>
                             <p class="text-2xl font-bold clock-display">{% raw %} {{ formattedFromTime}} {% endraw %}</p>
                             <p class="text-sm text-base-content/60">{% raw %} {{ fromZoneDisplay}} {% endraw %}</p>
@@ -284,7 +284,7 @@
                         </div>
                         
                         <!-- Display converted time -->
-                        <div class="p-4 bg-primary/10 rounded-lg text-center time-card">
+                        <div class="p-4 bg-primary/10 rounded-2xl text-center time-card">
                             <p class="text-sm text-base-content/60">Time at Target Location</p>
                             <p class="text-3xl font-bold clock-display text-primary">{% raw %} {{ formattedToTime}} {% endraw %}</p>
                             <p class="text-sm text-base-content/60">{% raw %} {{ toZoneDisplay}} {% endraw %}</p>
@@ -324,7 +324,7 @@
                     <div 
                         v-for="clock in worldClocks" 
                         :key="clock.zone"
-                        class="p-4 bg-base-100 rounded-lg text-center time-card"
+                        class="p-4 bg-base-100 rounded-2xl text-center time-card"
                     >
                    
                         <p class="font-semibold">{% raw %} {{ clock.emoji }} {{ clock.city}} {% endraw %}</p>

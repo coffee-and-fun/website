@@ -92,7 +92,7 @@
     </header>
 
     <!-- Premium Access Banner (if not paid) -->
-    <div v-if="!hasPremiumAccess" class="bg-gradient-to-r from-purple-500 to-pink-500 rounded-3xl shadow-xl p-8 mb-8 text-white">
+    <div v-if="!hasPremiumAccess" class="bg-gradient-to-r from-purple-500 to-pink-500 rounded-2xl shadow-xl p-8 mb-8 text-white">
       <div class="flex flex-col md:flex-row items-center justify-between gap-6">
         <div>
           <h2 class="text-2xl font-bold mb-2">✨ Unlock Premium Templates</h2>
@@ -101,7 +101,7 @@
         <button 
           @click="initializeStripePayment"
           :disabled="isProcessingPayment"
-          class="px-8 py-4 bg-white text-purple-600 rounded-xl font-bold hover:bg-gray-100 transition-colors whitespace-nowrap disabled:opacity-50">
+          class="px-8 py-4 bg-white text-purple-600 rounded-2xl font-bold hover:bg-gray-100 transition-colors whitespace-nowrap disabled:opacity-50">
           <span v-if="!isProcessingPayment">🚀 Get Premium Access - $5</span>
           <span v-else>Processing...</span>
         </button>
@@ -109,7 +109,7 @@
     </div>
 
     <!-- Success Message -->
-    <div v-if="hasPremiumAccess" class="bg-green-50 border-l-4 border-green-400 p-6 rounded-xl mb-8">
+    <div v-if="hasPremiumAccess" class="bg-green-50 border-l-4 border-green-400 p-6 rounded-2xl mb-8">
       <div class="flex items-center">
         <svg class="w-6 h-6 text-green-600 mr-3" fill="currentColor" viewBox="0 0 20 20">
           <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd" />
@@ -127,7 +127,7 @@
       <div class="space-y-6">
         
         <!-- Template Selection -->
-        <div class="bg-white rounded-3xl shadow-xl p-8">
+        <div class="bg-white rounded-2xl shadow-xl p-8">
           <h2 class="text-2xl font-bold text-gray-900 mb-6">Choose Template</h2>
           
           <div class="grid grid-cols-2 gap-4">
@@ -135,7 +135,7 @@
                  :key="template.id"
                  @click="selectTemplate(template)"
                  :class="{'active': selectedTemplate && selectedTemplate.id === template.id}"
-                 class="template-card bg-gray-50 rounded-xl p-4 border-2 border-gray-200">
+                 class="template-card bg-gray-50 rounded-2xl p-4 border-2 border-gray-200">
               <div class="text-3xl mb-2">{% raw %}{{ template.icon }}{% endraw %}</div>
               <h3 class="font-bold text-gray-900">{% raw %}{{ template.name }}{% endraw %}</h3>
               <p class="text-xs text-gray-600 mt-1">{% raw %}{{ template.description }}{% endraw %}</p>
@@ -148,7 +148,7 @@
         </div>
 
         <!-- Personal Information -->
-        <div class="bg-white rounded-3xl shadow-xl p-8">
+        <div class="bg-white rounded-2xl shadow-xl p-8">
           <h2 class="text-2xl font-bold text-gray-900 mb-6">Personal Information</h2>
           
           <div class="space-y-4">
@@ -157,7 +157,7 @@
               <input v-model="formData.name" 
                      type="text" 
                      placeholder="John Doe"
-                     class="w-full px-4 py-3 border-2 border-gray-200 rounded-xl focus:border-blue-500 focus:outline-none transition-colors">
+                     class="w-full px-4 py-3 border-2 border-gray-200 rounded-2xl focus:border-blue-500 focus:outline-none transition-colors">
             </div>
 
             <div>
@@ -165,7 +165,7 @@
               <input v-model="formData.title" 
                      type="text" 
                      placeholder="Senior Developer"
-                     class="w-full px-4 py-3 border-2 border-gray-200 rounded-xl focus:border-blue-500 focus:outline-none transition-colors">
+                     class="w-full px-4 py-3 border-2 border-gray-200 rounded-2xl focus:border-blue-500 focus:outline-none transition-colors">
             </div>
 
             <div>
@@ -173,7 +173,7 @@
               <input v-model="formData.company" 
                      type="text" 
                      placeholder="Coffee & Fun LLC"
-                     class="w-full px-4 py-3 border-2 border-gray-200 rounded-xl focus:border-blue-500 focus:outline-none transition-colors">
+                     class="w-full px-4 py-3 border-2 border-gray-200 rounded-2xl focus:border-blue-500 focus:outline-none transition-colors">
             </div>
 
             <div>
@@ -181,7 +181,7 @@
               <input v-model="formData.email" 
                      type="email" 
                      placeholder="john@example.com"
-                     class="w-full px-4 py-3 border-2 border-gray-200 rounded-xl focus:border-blue-500 focus:outline-none transition-colors">
+                     class="w-full px-4 py-3 border-2 border-gray-200 rounded-2xl focus:border-blue-500 focus:outline-none transition-colors">
             </div>
 
             <div>
@@ -189,7 +189,7 @@
               <input v-model="formData.phone" 
                      type="tel" 
                      placeholder="+1 (555) 123-4567"
-                     class="w-full px-4 py-3 border-2 border-gray-200 rounded-xl focus:border-blue-500 focus:outline-none transition-colors">
+                     class="w-full px-4 py-3 border-2 border-gray-200 rounded-2xl focus:border-blue-500 focus:outline-none transition-colors">
             </div>
 
             <div>
@@ -197,7 +197,7 @@
               <input v-model="formData.website" 
                      type="url" 
                      placeholder="https://example.com"
-                     class="w-full px-4 py-3 border-2 border-gray-200 rounded-xl focus:border-blue-500 focus:outline-none transition-colors">
+                     class="w-full px-4 py-3 border-2 border-gray-200 rounded-2xl focus:border-blue-500 focus:outline-none transition-colors">
             </div>
 
             <div>
@@ -205,13 +205,13 @@
               <input v-model="formData.address" 
                      type="text" 
                      placeholder="123 Main St, City, State 12345"
-                     class="w-full px-4 py-3 border-2 border-gray-200 rounded-xl focus:border-blue-500 focus:outline-none transition-colors">
+                     class="w-full px-4 py-3 border-2 border-gray-200 rounded-2xl focus:border-blue-500 focus:outline-none transition-colors">
             </div>
           </div>
         </div>
 
         <!-- Custom Fields -->
-        <div class="bg-white rounded-3xl shadow-xl p-8">
+        <div class="bg-white rounded-2xl shadow-xl p-8">
           <h2 class="text-2xl font-bold text-gray-900 mb-6">Additional Information (Optional)</h2>
           
           <div class="space-y-4">
@@ -220,7 +220,7 @@
               <input v-model="formData.department" 
                      type="text" 
                      placeholder="Engineering, Marketing, Sales, etc."
-                     class="w-full px-4 py-3 border-2 border-gray-200 rounded-xl focus:border-blue-500 focus:outline-none transition-colors">
+                     class="w-full px-4 py-3 border-2 border-gray-200 rounded-2xl focus:border-blue-500 focus:outline-none transition-colors">
             </div>
 
             <div>
@@ -228,7 +228,7 @@
               <input v-model="formData.pronouns" 
                      type="text" 
                      placeholder="He/Him, She/Her, They/Them"
-                     class="w-full px-4 py-3 border-2 border-gray-200 rounded-xl focus:border-blue-500 focus:outline-none transition-colors">
+                     class="w-full px-4 py-3 border-2 border-gray-200 rounded-2xl focus:border-blue-500 focus:outline-none transition-colors">
             </div>
 
             <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
@@ -237,7 +237,7 @@
                 <input v-model="formData.timezone" 
                        type="text" 
                        placeholder="PST (UTC-8), EST (UTC-5), etc."
-                       class="w-full px-4 py-3 border-2 border-gray-200 rounded-xl focus:border-blue-500 focus:outline-none transition-colors">
+                       class="w-full px-4 py-3 border-2 border-gray-200 rounded-2xl focus:border-blue-500 focus:outline-none transition-colors">
               </div>
 
               <div>
@@ -245,7 +245,7 @@
                 <input v-model="formData.officeHours" 
                        type="text" 
                        placeholder="9 AM - 5 PM"
-                       class="w-full px-4 py-3 border-2 border-gray-200 rounded-xl focus:border-blue-500 focus:outline-none transition-colors">
+                       class="w-full px-4 py-3 border-2 border-gray-200 rounded-2xl focus:border-blue-500 focus:outline-none transition-colors">
               </div>
             </div>
 
@@ -254,7 +254,7 @@
               <input v-model="formData.secondaryEmail" 
                      type="email" 
                      placeholder="alternate@example.com"
-                     class="w-full px-4 py-3 border-2 border-gray-200 rounded-xl focus:border-blue-500 focus:outline-none transition-colors">
+                     class="w-full px-4 py-3 border-2 border-gray-200 rounded-2xl focus:border-blue-500 focus:outline-none transition-colors">
             </div>
 
             <div>
@@ -262,14 +262,14 @@
               <input v-model="formData.calendarLink" 
                      type="url" 
                      placeholder="https://calendly.com/yourname"
-                     class="w-full px-4 py-3 border-2 border-gray-200 rounded-xl focus:border-blue-500 focus:outline-none transition-colors">
+                     class="w-full px-4 py-3 border-2 border-gray-200 rounded-2xl focus:border-blue-500 focus:outline-none transition-colors">
               <p class="text-xs text-gray-500 mt-1">Calendly, Cal.com, or your booking link</p>
             </div>
           </div>
         </div>
 
         <!-- Photo Upload -->
-        <div class="bg-white rounded-3xl shadow-xl p-8">
+        <div class="bg-white rounded-2xl shadow-xl p-8">
           <h2 class="text-2xl font-bold text-gray-900 mb-6">Profile Photo (Optional)</h2>
           
           <div v-if="!uploadedPhoto" 
@@ -305,14 +305,14 @@
             </div>
             <button 
               @click="removePhoto"
-              class="px-4 py-2 bg-red-500 hover:bg-red-600 text-white rounded-xl font-semibold transition-colors text-sm">
+              class="px-4 py-2 bg-red-500 hover:bg-red-600 text-white rounded-2xl font-semibold transition-colors text-sm">
               Remove
             </button>
           </div>
         </div>
 
         <!-- Social Links -->
-        <div class="bg-white rounded-3xl shadow-xl p-8">
+        <div class="bg-white rounded-2xl shadow-xl p-8">
           <h2 class="text-2xl font-bold text-gray-900 mb-6">Social Links (Optional)</h2>
           
           <div class="space-y-4">
@@ -325,14 +325,14 @@
                 <input v-model="formData.social[social.id]" 
                        type="url" 
                        :placeholder="social.placeholder"
-                       class="w-full px-4 py-3 border-2 border-gray-200 rounded-xl focus:border-blue-500 focus:outline-none transition-colors">
+                       class="w-full px-4 py-3 border-2 border-gray-200 rounded-2xl focus:border-blue-500 focus:outline-none transition-colors">
               </div>
             </div>
           </div>
         </div>
 
         <!-- Color Customization (Premium) -->
-        <div v-if="hasPremiumAccess" class="bg-white rounded-3xl shadow-xl p-8">
+        <div v-if="hasPremiumAccess" class="bg-white rounded-2xl shadow-xl p-8">
           <h2 class="text-2xl font-bold text-gray-900 mb-6">Color Customization</h2>
           
           <div class="grid grid-cols-2 gap-4">
@@ -340,19 +340,19 @@
               <label class="block text-sm font-semibold text-gray-700 mb-2">Primary Color</label>
               <input v-model="formData.primaryColor" 
                      type="color" 
-                     class="w-full h-12 rounded-xl cursor-pointer border-2 border-gray-200">
+                     class="w-full h-12 rounded-2xl cursor-pointer border-2 border-gray-200">
             </div>
             <div>
               <label class="block text-sm font-semibold text-gray-700 mb-2">Text Color</label>
               <input v-model="formData.textColor" 
                      type="color" 
-                     class="w-full h-12 rounded-xl cursor-pointer border-2 border-gray-200">
+                     class="w-full h-12 rounded-2xl cursor-pointer border-2 border-gray-200">
             </div>
           </div>
         </div>
 
         <!-- Email Client Setup Guide -->
-        <div class="bg-white rounded-3xl shadow-xl p-8">
+        <div class="bg-white rounded-2xl shadow-xl p-8">
           <h2 class="text-2xl font-bold text-gray-900 mb-6">📧 Email Client Setup Guide</h2>
           
           <!-- Gmail -->
@@ -427,7 +427,7 @@
           </div>
 
           <!-- Pro Tips -->
-          <div class="bg-green-50 rounded-xl p-4">
+          <div class="bg-green-50 rounded-2xl p-4">
             <h3 class="font-bold text-green-900 mb-2">💡 Pro Tips:</h3>
             <ul class="text-sm text-green-800 space-y-1 list-disc list-inside">
               <li>Always send a test email to yourself first</li>
@@ -443,13 +443,13 @@
       <div class="space-y-6">
         
         <!-- Live Preview -->
-        <div class="bg-white rounded-3xl shadow-xl p-8 sticky top-6">
+        <div class="bg-white rounded-2xl shadow-xl p-8 sticky top-6">
           <div class="flex items-center justify-between mb-6">
             <h2 class="text-2xl font-bold text-gray-900">Preview</h2>
             <button 
               @click="copySignature"
               :disabled="!isSignatureValid"
-              class="px-6 py-3 bg-green-500 hover:bg-green-600 text-white rounded-xl font-bold transition-colors disabled:opacity-50 disabled:cursor-not-allowed flex items-center gap-2">
+              class="px-6 py-3 bg-green-500 hover:bg-green-600 text-white rounded-2xl font-bold transition-colors disabled:opacity-50 disabled:cursor-not-allowed flex items-center gap-2">
               <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z" />
               </svg>
@@ -474,7 +474,7 @@
           </div>
 
           <!-- Instructions -->
-          <div class="mt-6 bg-blue-50 rounded-xl p-4">
+          <div class="mt-6 bg-blue-50 rounded-2xl p-4">
             <h3 class="font-bold text-blue-900 mb-2">📋 Quick Setup:</h3>
             <ol class="text-sm text-blue-800 space-y-1 list-decimal list-inside">
               <li>Click "Copy HTML" button above</li>
@@ -491,7 +491,7 @@
     <div class="text-center mt-8">
       <button 
         @click="clearAllData"
-        class="px-6 py-3 bg-gray-200 hover:bg-gray-300 text-gray-700 rounded-xl font-semibold transition-colors">
+        class="px-6 py-3 bg-gray-200 hover:bg-gray-300 text-gray-700 rounded-2xl font-semibold transition-colors">
         🗑️ Clear All & Start Fresh
       </button>
     </div>

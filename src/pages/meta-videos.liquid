@@ -259,7 +259,7 @@
                     
                     <!-- Drop Zone -->
                     <div 
-                        class="drop-zone p-12 rounded-lg text-center cursor-pointer"
+                        class="drop-zone p-12 rounded-2xl text-center cursor-pointer"
                         :class="{ 'dragover': isDragOver, 'processing': isProcessing }"
                         @click="triggerFileInput"
                         @drop.prevent="handleDrop"
@@ -343,7 +343,7 @@
                     </div>
 
                     <!-- Video Technical Info -->
-                    <div v-if="videoInfo.width || videoInfo.height" class="codec-info rounded-lg p-4 mt-6">
+                    <div v-if="videoInfo.width || videoInfo.height" class="codec-info rounded-2xl p-4 mt-6">
                         <h4 class="font-bold mb-2">🎬 Technical Details</h4>
                         <div class="text-sm space-y-1">
                             <p v-if="videoInfo.width && videoInfo.height">
@@ -388,7 +388,7 @@
                 <h3 class="card-title mb-4">🔍 Detailed Metadata</h3>
                 
                 <!-- Privacy Warnings -->
-                <div v-if="hasGpsData || hasPersonalData" class="privacy-warning rounded-lg p-4 mb-6">
+                <div v-if="hasGpsData || hasPersonalData" class="privacy-warning rounded-2xl p-4 mb-6">
                     <h4 class="font-bold text-error mb-2">⚠️ Privacy Concerns Detected</h4>
                     <ul class="text-sm space-y-1">
                         <li v-if="hasGpsData">📍 GPS coordinates found - reveals recording location</li>
@@ -413,7 +413,7 @@
                 </div>
 
                 <!-- Metadata Display -->
-                <div class="metadata-card bg-base-100 rounded-lg p-6">
+                <div class="metadata-card bg-base-100 rounded-2xl p-6">
                     <div v-if="filteredMetadata.length > 0" class="space-y-4">
                         <div v-for="item in filteredMetadata" :key="item.key" class="metadata-grid">
                             <div class="metadata-key">{% raw %}{{ item.key }}{% endraw %}</div>
@@ -430,7 +430,7 @@
         <!-- Success Message -->
         <div v-if="cleanedVideo" class="card bg-base-200 shadow-lg mb-8 fade-in">
             <div class="card-body">
-                <div class="success-message rounded-lg p-6">
+                <div class="success-message rounded-2xl p-6">
                     <h3 class="text-xl font-bold text-success mb-4">✅ Video Metadata Successfully Removed!</h3>
                     <p class="mb-4">Your video has been processed and all metadata has been stripped for privacy.</p>
                     

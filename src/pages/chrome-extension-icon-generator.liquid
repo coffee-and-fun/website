@@ -129,7 +129,7 @@
     </header>
 
     <!-- Upload Card -->
-    <div class="bg-white rounded-3xl shadow-xl p-8 mb-8">
+    <div class="bg-white rounded-2xl shadow-xl p-8 mb-8">
       
       <!-- Upload Zone -->
       <div v-if="!uploadedImage" 
@@ -169,7 +169,7 @@
           <div class="flex items-center gap-4">
             <img :src="uploadedImage" 
                  alt="Preview" 
-                 class="w-24 h-24 rounded-xl shadow-md object-cover" />
+                 class="w-24 h-24 rounded-2xl shadow-md object-cover" />
             <div>
                   {% raw  %}  
               <h3 class="font-bold text-gray-900">{{ fileName }}</h3>
@@ -179,14 +179,14 @@
           </div>
           <button 
             @click="resetUpload"
-            class="px-4 py-2 bg-red-500 hover:bg-red-600 text-white rounded-xl font-semibold transition-colors">
+            class="px-4 py-2 bg-red-500 hover:bg-red-600 text-white rounded-2xl font-semibold transition-colors">
             Remove
           </button>
         </div>
 
         <!-- Warning if not 1024x1024 -->
         <div v-if="imageWidth !== 1024 || imageHeight !== 1024" 
-             class="bg-yellow-50 border-l-4 border-yellow-400 p-4 rounded-xl">
+             class="bg-yellow-50 border-l-4 border-yellow-400 p-4 rounded-2xl">
           <div class="flex items-start">
             <svg class="w-6 h-6 text-yellow-600 mr-3 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
               <path fill-rule="evenodd" d="M8.257 3.099c.765-1.36 2.722-1.36 3.486 0l5.58 9.92c.75 1.334-.213 2.98-1.742 2.98H4.42c-1.53 0-2.493-1.646-1.743-2.98l5.58-9.92zM11 13a1 1 0 11-2 0 1 1 0 012 0zm-1-8a1 1 0 00-1 1v3a1 1 0 002 0V6a1 1 0 00-1-1z" clip-rule="evenodd" />
@@ -203,7 +203,7 @@
           @click="generateIcons"
           :disabled="isGenerating"
           :class="isGenerating ? 'opacity-50 cursor-not-allowed' : 'hover:scale-105'"
-          class="w-full bg-gradient-to-r from-blue-500 to-indigo-600 text-white font-bold py-4 px-8 rounded-xl shadow-lg transition-transform">
+          class="w-full bg-gradient-to-r from-blue-500 to-indigo-600 text-white font-bold py-4 px-8 rounded-2xl shadow-lg transition-transform">
           <span v-if="!isGenerating">🎨 Generate All Icon Sizes</span>
           <span v-else>⏳ Generating...</span>
         </button>
@@ -211,7 +211,7 @@
     </div>
 
     <!-- Generated Icons -->
-    <div v-if="generatedIcons.length > 0" class="bg-white rounded-3xl shadow-xl p-8">
+    <div v-if="generatedIcons.length > 0" class="bg-white rounded-2xl shadow-xl p-8">
       
       <div class="flex items-center justify-between mb-6">
         <h2 class="text-2xl font-bold text-gray-900">
@@ -221,7 +221,7 @@
         </h2>
         <button 
           @click="downloadAll"
-          class="px-6 py-3 bg-green-500 hover:bg-green-600 text-white rounded-xl font-bold transition-colors flex items-center gap-2">
+          class="px-6 py-3 bg-green-500 hover:bg-green-600 text-white rounded-2xl font-bold transition-colors flex items-center gap-2">
           <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
           </svg>
@@ -235,7 +235,7 @@
              :key="icon.size"
              class="bg-gray-50 rounded-2xl p-4 text-center hover:shadow-lg transition-shadow">
           
-          <div class="bg-white rounded-xl p-3 mb-3 inline-block">
+          <div class="bg-white rounded-2xl p-3 mb-3 inline-block">
             <img :src="icon.dataUrl" 
                  :alt="`${icon.size}x${icon.size}`"
                  class="icon-preview"
@@ -248,7 +248,7 @@
           
           <button 
             @click="downloadSingle(icon)"
-            class="text-sm px-4 py-2 bg-blue-500 hover:bg-blue-600 text-white rounded-lg font-semibold transition-colors w-full">
+            class="text-sm px-4 py-2 bg-blue-500 hover:bg-blue-600 text-white rounded-2xl font-semibold transition-colors w-full">
             Download
           </button>
         </div>
@@ -260,7 +260,7 @@
           <h3 class="text-lg font-bold text-white">manifest.json snippet</h3>
           <button 
             @click="copyManifest"
-            class="px-4 py-2 bg-gray-700 hover:bg-gray-600 text-white rounded-lg font-semibold transition-colors text-sm">
+            class="px-4 py-2 bg-gray-700 hover:bg-gray-600 text-white rounded-2xl font-semibold transition-colors text-sm">
           {% raw %}{{ copied ? '✓ Copied!' : 'Copy' }}{% endraw %}
           </button>
         </div>

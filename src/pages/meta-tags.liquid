@@ -213,7 +213,7 @@
                                         @drop="handleDrop"
                                         @dragover.prevent
                                         @dragenter.prevent
-                                        class="border-2 border-dashed border-base-300 rounded-lg p-4 text-center cursor-pointer hover:border-primary transition-colors"
+                                        class="border-2 border-dashed border-base-300 rounded-2xl p-4 text-center cursor-pointer hover:border-primary transition-colors"
                                         @click="$refs.fileInput.click()"
                                     >
                                         <svg class="w-8 h-8 mx-auto mb-2 text-base-content/50" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -287,7 +287,7 @@
                         <!-- Google Preview -->
                         <div class="mb-6">
                             <h3 class="font-semibold mb-3 text-sm">Google</h3>
-                            <div class="bg-white p-4 rounded-lg google-preview">
+                            <div class="bg-white p-4 rounded-2xl google-preview">
                                 <div class="text-blue-600 text-xl mb-1 truncate">
                                     {% raw %}{{ meta.title || 'Page Title' }}{% endraw %}
                                 </div>
@@ -303,7 +303,7 @@
                         <!-- Facebook Preview -->
                         <div class="mb-6">
                             <h3 class="font-semibold mb-3 text-sm">Facebook</h3>
-                            <div class="bg-white border rounded-lg overflow-hidden fb-preview">
+                            <div class="bg-white border rounded-2xl overflow-hidden fb-preview">
                                 <div class="bg-gray-200 h-40 flex items-center justify-center">
                                     <span v-if="!meta.image" class="text-gray-500">Image Preview</span>
                                     <img v-else :src="meta.image" class="w-full h-full object-cover" />
@@ -325,7 +325,7 @@
                         <!-- Twitter Preview -->
                         <div>
                             <h3 class="font-semibold mb-3 text-sm">X (Twitter)</h3>
-                            <div class="bg-white border rounded-xl overflow-hidden">
+                            <div class="bg-white border rounded-2xl overflow-hidden">
                                 <div class="bg-gray-200 h-32 flex items-center justify-center">
                                     <span v-if="!meta.image" class="text-gray-500">Image Preview</span>
                                     <img v-else :src="meta.image" class="w-full h-full object-cover" />
@@ -359,7 +359,7 @@
                             </button>
                         </div>
                         
-                        <div class="bg-base-100 p-4 rounded-lg overflow-x-auto">
+                        <div class="bg-base-100 p-4 rounded-2xl overflow-x-auto">
                             <pre class="code-output">{% raw %}{{ generatedCode }}{% endraw %}</pre>
                         </div>
                     </div>

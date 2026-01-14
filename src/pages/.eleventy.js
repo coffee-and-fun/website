@@ -153,7 +153,7 @@ module.exports = function (eleventyConfig) {
 		ol: 'list-none',
 		li: 'list-none',
 		a: 'underline decoration-wavy hover:underline hover:decoration-wavy decoration-blue-500 hover:decoration-pink-500',
-		iframe: 'w-full h-96 rounded-3xl shadow-lg m-10'
+		iframe: 'w-full h-96 rounded-2xl shadow-lg m-10'
 	};
 
 	eleventyConfig.addTransform('htmlmin', function (content, outputPath) {
