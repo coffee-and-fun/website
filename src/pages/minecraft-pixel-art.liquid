@@ -1,0 +1,752 @@
+<!DOCTYPE html>
+<html class="scroll-smooth antialiased" lang="en" data-theme="light">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <!-- Primary Meta Tags -->
+  <title>Minecraft Pixel Art Generator - Convert Images to Block Art | Free Tool</title>
+  <meta name="title" content="Minecraft Pixel Art Generator - Convert Images to Block Art | Free Tool" />
+  <meta name="description" content="Convert any image into Minecraft pixel art. Upload a photo, choose your grid size, and get a block-by-block building guide with a complete shopping list of blocks needed. Free, browser-based, no signup required." />
+  <meta name="keywords" content="minecraft pixel art, minecraft block art, pixel art generator, minecraft builder tool, image to minecraft, block art converter, minecraft map art, pixel art maker" />
+  <meta name="author" content="Coffee & Fun LLC" />
+  <meta name="robots" content="index, follow" />
+  <meta name="rating" content="general" />
+
+  <link rel="canonical" href="/minecraft-pixel-art/" />
+
+  <link rel="icon" href="/assets/images/favicon.png" sizes="any" />
+  <link rel="apple-touch-icon" href="/assets/images/social/192.png" />
+  <link rel="icon" href="/assets/images/social/192.png" sizes="192x192" type="image/png" />
+
+  <!-- Open Graph / Facebook -->
+  <meta property="og:type" content="website" />
+  <meta property="og:site_name" content="Coffee & Fun" />
+  <meta property="og:title" content="Minecraft Pixel Art Generator - Convert Images to Block Art" />
+  <meta property="og:description" content="Convert any image into Minecraft pixel art with a complete block shopping list. Free, browser-based tool." />
+  <meta property="og:url" content="https://www.coffeeandfun.com/minecraft-pixel-art/" />
+  <meta property="og:image" content="https://www.coffeeandfun.com/assets/images/social/pages/minecraft-pixel-art.png" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta property="og:image:alt" content="Minecraft Pixel Art Generator - Convert any image to Minecraft blocks" />
+  <meta property="og:locale" content="en_US" />
+
+  <!-- Twitter -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:site" content="@bycoffeeandfun" />
+  <meta name="twitter:creator" content="@bycoffeeandfun" />
+  <meta name="twitter:title" content="Minecraft Pixel Art Generator - Convert Images to Block Art" />
+  <meta name="twitter:description" content="Convert any image into Minecraft pixel art with a complete block shopping list. Free, browser-based tool." />
+  <meta name="twitter:image" content="https://www.coffeeandfun.com/assets/images/social/pages/minecraft-pixel-art.png" />
+  <meta name="twitter:image:alt" content="Minecraft Pixel Art Generator Tool" />
+  <meta name="twitter:domain" content="coffeeandfun.com" />
+  <meta name="twitter:url" content="https://www.coffeeandfun.com/minecraft-pixel-art/" />
+
+  <!-- Web App Manifest -->
+  <link rel="manifest" href="/assets/images/social/site.webmanifest" />
+  <meta name="theme-color" content="#4ade80" />
+  <meta name="mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="default" />
+  <meta name="apple-mobile-web-app-title" content="MC Pixel Art" />
+
+  <!-- Schema.org structured data -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "WebSite",
+        "name": "Coffee & Fun",
+        "url": "https://www.coffeeandfun.com",
+        "potentialAction": {
+          "@type": "SearchAction",
+          "target": "https://www.coffeeandfun.com/search?q={search_term_string}",
+          "query-input": "required name=search_term_string"
+        }
+      },
+      {
+        "@type": "WebApplication",
+        "@id": "https://www.coffeeandfun.com/minecraft-pixel-art/",
+        "name": "Minecraft Pixel Art Generator",
+        "description": "Convert any image into Minecraft pixel art. Get a block-by-block building guide with a complete shopping list of every block needed. Works entirely in your browser.",
+        "url": "https://www.coffeeandfun.com/minecraft-pixel-art/",
+        "image": "https://www.coffeeandfun.com/assets/images/social/pages/minecraft-pixel-art.png",
+        "applicationCategory": "GameApplication",
+        "operatingSystem": "Any",
+        "browserRequirements": "Requires JavaScript. Requires HTML5 Canvas.",
+        "softwareVersion": "1.0",
+        "offers": {
+          "@type": "Offer",
+          "price": "0",
+          "priceCurrency": "USD"
+        },
+        "creator": {
+          "@type": "Organization",
+          "name": "Coffee & Fun LLC",
+          "url": "https://www.coffeeandfun.com"
+        }
+      }
+    ]
+  }
+  </script>
+
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://unpkg.com/vue@3"></script>
+
+  <style>
+    [v-cloak] { display: none; }
+
+    .drop-zone {
+      border: 2px dashed #86efac;
+      transition: all 0.3s ease;
+    }
+
+    .drop-zone.drag-over {
+      border-color: #22c55e;
+      background-color: #f0fdf4;
+    }
+
+    .pixel-canvas {
+      image-rendering: pixelated;
+      image-rendering: -moz-crisp-edges;
+      image-rendering: crisp-edges;
+    }
+
+    .block-swatch {
+      width: 24px;
+      height: 24px;
+      border-radius: 4px;
+      border: 1px solid rgba(0,0,0,0.15);
+      display: inline-block;
+      flex-shrink: 0;
+    }
+
+    @media print {
+      .no-print { display: none !important; }
+    }
+  </style>
+</head>
+
+<body class="bg-gradient-to-br from-green-50 to-emerald-100 min-h-screen">
+  <main v-cloak id="app" class="container mx-auto max-w-5xl py-12 px-6">
+
+    <!-- Skip to content link for accessibility -->
+    <a href="#upload-section" class="sr-only focus:not-sr-only focus:absolute focus:top-4 focus:left-4 bg-green-600 text-white px-4 py-2 rounded-lg z-50">
+      Skip to main content
+    </a>
+
+    <!-- Header -->
+    <header class="text-center mb-12">
+      <a href="/" class="inline-block mb-6 text-green-700 hover:text-green-800 transition-colors" aria-label="Back to Coffee & Fun homepage">
+        <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6 inline-block mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18" />
+        </svg>
+        coffeeandfun.com
+      </a>
+      <h1 class="text-4xl sm:text-5xl font-extrabold text-gray-900 mb-3">
+        Minecraft Pixel Art Generator
+      </h1>
+      <p class="text-lg text-gray-600 max-w-2xl mx-auto">
+        Upload any image and convert it into Minecraft block art. Get the pixel grid, a visual preview, and a full shopping list of every block you need to build it.
+      </p>
+    </header>
+
+    <!-- Upload Card -->
+    <section id="upload-section" class="bg-white rounded-2xl shadow-xl p-8 mb-8" aria-label="Image upload">
+
+      <!-- Upload Zone -->
+      <div v-if="!uploadedImage"
+           @drop.prevent="handleDrop"
+           @dragover.prevent="isDragging = true"
+           @dragleave="isDragging = false"
+           :class="{'drag-over': isDragging}"
+           class="drop-zone rounded-2xl p-12 text-center cursor-pointer"
+           @click="$refs.fileInput.click()"
+           role="button"
+           tabindex="0"
+           @keydown.enter="$refs.fileInput.click()"
+           @keydown.space.prevent="$refs.fileInput.click()"
+           aria-label="Upload an image. Click or drag and drop.">
+
+        <div class="mb-4">
+          <svg class="w-16 h-16 mx-auto text-green-400" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                  d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12" />
+          </svg>
+        </div>
+
+        <h2 class="text-xl font-bold text-gray-700 mb-2">
+          Drop your image here
+        </h2>
+        <p class="text-gray-500 mb-4">or click to browse</p>
+        <p class="text-sm text-gray-400">PNG, JPG, or WEBP — any size works</p>
+
+        <input
+          ref="fileInput"
+          type="file"
+          @change="handleFileSelect"
+          accept="image/png,image/jpeg,image/jpg,image/webp"
+          class="hidden"
+          aria-label="Choose an image file to convert to pixel art" />
+      </div>
+
+      <!-- Preview & Controls -->
+      <div v-else class="space-y-6">
+
+        <!-- Original Preview -->
+        <div class="flex flex-col sm:flex-row items-center justify-between bg-gray-50 rounded-2xl p-6 gap-4">
+          <div class="flex items-center gap-4">
+            <img :src="uploadedImage"
+                 alt="Uploaded image preview"
+                 class="w-24 h-24 rounded-2xl shadow-md object-cover" />
+            <div>
+              {% raw %}
+              <h3 class="font-bold text-gray-900">{{ fileName }}</h3>
+              <p class="text-sm text-gray-600">{{ imageWidth }} x {{ imageHeight }} pixels</p>
+              {% endraw %}
+            </div>
+          </div>
+          <button
+            @click="resetUpload"
+            class="px-4 py-2 bg-red-500 hover:bg-red-600 text-white rounded-2xl font-semibold transition-colors focus:outline-none focus:ring-2 focus:ring-red-400 focus:ring-offset-2"
+            aria-label="Remove uploaded image">
+            Remove
+          </button>
+        </div>
+
+        <!-- Grid Size Selector -->
+        <fieldset class="bg-gray-50 rounded-2xl p-6">
+          <legend class="text-sm font-bold text-gray-700 mb-3">Grid Size (blocks wide)</legend>
+          <div class="flex flex-wrap gap-3" role="radiogroup" aria-label="Select pixel art grid width">
+            <button v-for="size in gridSizes" :key="size"
+              @click="gridWidth = size"
+              :class="gridWidth === size
+                ? 'bg-green-600 text-white ring-2 ring-green-400 ring-offset-2'
+                : 'bg-white text-gray-700 hover:bg-green-50 border border-gray-300'"
+              class="px-5 py-3 rounded-xl font-bold transition-all focus:outline-none focus:ring-2 focus:ring-green-400 focus:ring-offset-2"
+              :aria-pressed="gridWidth === size"
+              role="radio">
+              {% raw %}{{ size }}{% endraw %}
+            </button>
+          </div>
+          <p class="text-xs text-gray-500 mt-3" aria-live="polite">
+            {% raw %}Output will be {{ gridWidth }} x {{ gridHeight }} blocks ({{ gridWidth * gridHeight }} total blocks){% endraw %}
+          </p>
+        </fieldset>
+
+        <!-- Dithering Toggle -->
+        <div class="bg-gray-50 rounded-2xl p-6">
+          <label class="flex items-center gap-3 cursor-pointer">
+            <input type="checkbox" v-model="useDithering" class="w-5 h-5 rounded text-green-600 focus:ring-green-500" />
+            <div>
+              <span class="font-bold text-gray-700">Floyd-Steinberg Dithering</span>
+              <p class="text-xs text-gray-500">Improves gradients but adds a stippled texture</p>
+            </div>
+          </label>
+        </div>
+
+        <!-- Generate Button -->
+        <button
+          @click="generatePixelArt"
+          :disabled="isGenerating"
+          :class="isGenerating ? 'opacity-50 cursor-not-allowed' : 'hover:scale-[1.02]'"
+          class="w-full bg-gradient-to-r from-green-500 to-emerald-600 text-white font-bold py-4 px-8 rounded-2xl shadow-lg transition-transform focus:outline-none focus:ring-2 focus:ring-green-400 focus:ring-offset-2">
+          <span v-if="!isGenerating">Pick Axe It!</span>
+          <span v-else>Converting...</span>
+        </button>
+      </div>
+    </section>
+
+    <!-- Results -->
+    <section v-if="pixelArtDataUrl" class="space-y-8" aria-label="Pixel art results">
+
+      <!-- Pixel Art Preview -->
+      <div class="bg-white rounded-2xl shadow-xl p-8">
+        <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between mb-6 gap-4">
+          <div>
+            <h2 class="text-2xl font-bold text-gray-900">Your Minecraft Pixel Art</h2>
+            <p class="text-sm text-gray-500">{% raw %}{{ gridWidth }} x {{ gridHeight }} blocks — {{ totalBlocks }} blocks total{% endraw %}</p>
+          </div>
+          <div class="flex gap-3 no-print">
+            <button
+              @click="downloadPixelArt"
+              class="px-5 py-3 bg-green-500 hover:bg-green-600 text-white rounded-2xl font-bold transition-colors flex items-center gap-2 focus:outline-none focus:ring-2 focus:ring-green-400 focus:ring-offset-2">
+              <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
+              </svg>
+              Download Image
+            </button>
+            <button
+              @click="downloadBlockList"
+              class="px-5 py-3 bg-amber-500 hover:bg-amber-600 text-white rounded-2xl font-bold transition-colors flex items-center gap-2 focus:outline-none focus:ring-2 focus:ring-amber-400 focus:ring-offset-2">
+              <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+              </svg>
+              Download Block List
+            </button>
+          </div>
+        </div>
+
+        <!-- Side-by-side comparison -->
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <div>
+            <h3 class="text-sm font-bold text-gray-500 uppercase tracking-wide mb-3">Original</h3>
+            <img :src="uploadedImage" alt="Original uploaded image" class="w-full rounded-2xl shadow-md" />
+          </div>
+          <div>
+            <h3 class="text-sm font-bold text-gray-500 uppercase tracking-wide mb-3">Pixel Art</h3>
+            <img :src="pixelArtDataUrl" alt="Generated Minecraft pixel art version" class="w-full rounded-2xl shadow-md pixel-canvas" />
+          </div>
+        </div>
+      </div>
+
+      <!-- Block Shopping List -->
+      <div class="bg-white rounded-2xl shadow-xl p-8">
+        <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between mb-6 gap-4">
+          <div>
+            <h2 class="text-2xl font-bold text-gray-900">Block Shopping List</h2>
+            <p class="text-sm text-gray-500">
+              {% raw %}{{ uniqueBlockCount }} unique block types — {{ totalBlocks }} blocks total{% endraw %}
+            </p>
+          </div>
+        </div>
+
+        <!-- Sorting controls -->
+        <div class="flex gap-2 mb-4 no-print" role="group" aria-label="Sort block list">
+          <button @click="sortBy = 'count'"
+            :class="sortBy === 'count' ? 'bg-gray-900 text-white' : 'bg-gray-100 text-gray-700 hover:bg-gray-200'"
+            class="px-4 py-2 rounded-xl text-sm font-semibold transition-colors focus:outline-none focus:ring-2 focus:ring-gray-400 focus:ring-offset-2">
+            Sort by Count
+          </button>
+          <button @click="sortBy = 'name'"
+            :class="sortBy === 'name' ? 'bg-gray-900 text-white' : 'bg-gray-100 text-gray-700 hover:bg-gray-200'"
+            class="px-4 py-2 rounded-xl text-sm font-semibold transition-colors focus:outline-none focus:ring-2 focus:ring-gray-400 focus:ring-offset-2">
+            Sort by Name
+          </button>
+        </div>
+
+        <!-- Block table -->
+        <div class="overflow-x-auto">
+          <table class="w-full text-left" role="table">
+            <thead>
+              <tr class="border-b-2 border-gray-200">
+                <th scope="col" class="py-3 px-4 text-sm font-bold text-gray-600 uppercase tracking-wide">Block</th>
+                <th scope="col" class="py-3 px-4 text-sm font-bold text-gray-600 uppercase tracking-wide">Color</th>
+                <th scope="col" class="py-3 px-4 text-sm font-bold text-gray-600 uppercase tracking-wide text-right">Count</th>
+                <th scope="col" class="py-3 px-4 text-sm font-bold text-gray-600 uppercase tracking-wide text-right">Stacks</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr v-for="(block, index) in sortedBlockList" :key="block.name"
+                  :class="index % 2 === 0 ? 'bg-gray-50' : 'bg-white'"
+                  class="border-b border-gray-100">
+                <td class="py-3 px-4 font-medium text-gray-900 flex items-center gap-3">
+                  <span class="block-swatch" :style="{backgroundColor: block.hex}" :aria-label="'Color swatch for ' + block.name"></span>
+                  {% raw %}{{ block.name }}{% endraw %}
+                </td>
+                <td class="py-3 px-4 text-sm text-gray-500 font-mono">{% raw %}{{ block.hex }}{% endraw %}</td>
+                <td class="py-3 px-4 text-right font-bold text-gray-900">{% raw %}{{ block.count.toLocaleString() }}{% endraw %}</td>
+                <td class="py-3 px-4 text-right text-sm text-gray-500">
+                  {% raw %}{{ Math.ceil(block.count / 64) }} stack{{ Math.ceil(block.count / 64) !== 1 ? 's' : '' }}{% endraw %}
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- How to build section -->
+      <div class="bg-white rounded-2xl shadow-xl p-8">
+        <h2 class="text-2xl font-bold text-gray-900 mb-4">How to Build This in Minecraft</h2>
+        <ol class="space-y-3 text-gray-700">
+          <li class="flex gap-3">
+            <span class="flex-shrink-0 w-7 h-7 bg-green-100 text-green-700 rounded-full flex items-center justify-center font-bold text-sm">1</span>
+            <span>Gather all the blocks from the shopping list above. Use creative mode for easier access.</span>
+          </li>
+          <li class="flex gap-3">
+            <span class="flex-shrink-0 w-7 h-7 bg-green-100 text-green-700 rounded-full flex items-center justify-center font-bold text-sm">2</span>
+            <span>Find a flat area or use a superflat world. Build the art vertically (like a wall) for best results.</span>
+          </li>
+          <li class="flex gap-3">
+            <span class="flex-shrink-0 w-7 h-7 bg-green-100 text-green-700 rounded-full flex items-center justify-center font-bold text-sm">3</span>
+            <span>{% raw %}Start from the bottom-left corner. Each pixel in the image = 1 block. Your art is {{ gridWidth }} blocks wide and {{ gridHeight }} blocks tall.{% endraw %}</span>
+          </li>
+          <li class="flex gap-3">
+            <span class="flex-shrink-0 w-7 h-7 bg-green-100 text-green-700 rounded-full flex items-center justify-center font-bold text-sm">4</span>
+            <span>Use the downloaded pixel art image as your reference, zooming in to see individual block colors.</span>
+          </li>
+        </ol>
+      </div>
+    </section>
+
+    {% include footer.liquid %}
+  </main>
+
+  <script>
+    const { createApp } = Vue;
+
+    // Minecraft block palette — name, [R, G, B]
+    const MINECRAFT_BLOCKS = [
+      { name: 'White Concrete', rgb: [207, 213, 214] },
+      { name: 'Orange Concrete', rgb: [224, 97, 1] },
+      { name: 'Magenta Concrete', rgb: [169, 48, 159] },
+      { name: 'Light Blue Concrete', rgb: [36, 137, 199] },
+      { name: 'Yellow Concrete', rgb: [241, 175, 21] },
+      { name: 'Lime Concrete', rgb: [94, 169, 24] },
+      { name: 'Pink Concrete', rgb: [214, 101, 143] },
+      { name: 'Gray Concrete', rgb: [55, 58, 62] },
+      { name: 'Light Gray Concrete', rgb: [125, 125, 115] },
+      { name: 'Cyan Concrete', rgb: [21, 119, 136] },
+      { name: 'Purple Concrete', rgb: [100, 32, 156] },
+      { name: 'Blue Concrete', rgb: [45, 47, 143] },
+      { name: 'Brown Concrete', rgb: [96, 60, 32] },
+      { name: 'Green Concrete', rgb: [73, 91, 36] },
+      { name: 'Red Concrete', rgb: [142, 33, 33] },
+      { name: 'Black Concrete', rgb: [8, 10, 15] },
+      { name: 'White Wool', rgb: [234, 236, 236] },
+      { name: 'Orange Wool', rgb: [241, 118, 20] },
+      { name: 'Magenta Wool', rgb: [189, 68, 179] },
+      { name: 'Light Blue Wool', rgb: [58, 175, 217] },
+      { name: 'Yellow Wool', rgb: [249, 198, 40] },
+      { name: 'Lime Wool', rgb: [112, 185, 26] },
+      { name: 'Pink Wool', rgb: [238, 141, 172] },
+      { name: 'Gray Wool', rgb: [63, 68, 72] },
+      { name: 'Light Gray Wool', rgb: [142, 142, 135] },
+      { name: 'Cyan Wool', rgb: [21, 138, 145] },
+      { name: 'Purple Wool', rgb: [122, 42, 173] },
+      { name: 'Blue Wool', rgb: [53, 57, 157] },
+      { name: 'Brown Wool', rgb: [114, 72, 41] },
+      { name: 'Green Wool', rgb: [85, 110, 27] },
+      { name: 'Red Wool', rgb: [161, 39, 35] },
+      { name: 'Black Wool', rgb: [20, 21, 26] },
+      { name: 'White Terracotta', rgb: [210, 178, 161] },
+      { name: 'Orange Terracotta', rgb: [162, 84, 38] },
+      { name: 'Magenta Terracotta', rgb: [150, 88, 109] },
+      { name: 'Light Blue Terracotta', rgb: [113, 109, 138] },
+      { name: 'Yellow Terracotta', rgb: [186, 133, 35] },
+      { name: 'Lime Terracotta', rgb: [104, 118, 53] },
+      { name: 'Pink Terracotta', rgb: [162, 78, 79] },
+      { name: 'Gray Terracotta', rgb: [58, 42, 36] },
+      { name: 'Light Gray Terracotta', rgb: [135, 107, 98] },
+      { name: 'Cyan Terracotta', rgb: [87, 92, 92] },
+      { name: 'Purple Terracotta', rgb: [118, 70, 86] },
+      { name: 'Blue Terracotta', rgb: [74, 60, 91] },
+      { name: 'Brown Terracotta', rgb: [77, 51, 36] },
+      { name: 'Green Terracotta', rgb: [76, 83, 42] },
+      { name: 'Red Terracotta', rgb: [143, 61, 47] },
+      { name: 'Black Terracotta', rgb: [37, 23, 16] },
+      { name: 'Oak Planks', rgb: [162, 131, 79] },
+      { name: 'Spruce Planks', rgb: [115, 85, 49] },
+      { name: 'Birch Planks', rgb: [196, 179, 123] },
+      { name: 'Dark Oak Planks', rgb: [67, 43, 20] },
+      { name: 'Stone', rgb: [126, 126, 126] },
+      { name: 'Cobblestone', rgb: [127, 127, 127] },
+      { name: 'Bricks', rgb: [150, 97, 83] },
+      { name: 'Sand', rgb: [219, 207, 163] },
+      { name: 'Sandstone', rgb: [216, 203, 155] },
+      { name: 'Red Sandstone', rgb: [186, 99, 29] },
+      { name: 'Netherrack', rgb: [97, 38, 38] },
+      { name: 'Nether Bricks', rgb: [44, 22, 26] },
+      { name: 'End Stone', rgb: [219, 223, 158] },
+      { name: 'Obsidian', rgb: [15, 11, 25] },
+      { name: 'Gold Block', rgb: [246, 208, 62] },
+      { name: 'Iron Block', rgb: [220, 220, 220] },
+      { name: 'Diamond Block', rgb: [98, 237, 228] },
+      { name: 'Emerald Block', rgb: [42, 183, 67] },
+      { name: 'Lapis Block', rgb: [31, 67, 140] },
+      { name: 'Redstone Block', rgb: [171, 27, 9] },
+      { name: 'Coal Block', rgb: [16, 15, 15] },
+      { name: 'Prismarine', rgb: [99, 172, 158] },
+      { name: 'Dark Prismarine', rgb: [52, 92, 75] },
+      { name: 'Bone Block', rgb: [229, 225, 207] },
+      { name: 'Quartz Block', rgb: [236, 230, 223] },
+      { name: 'Snow Block', rgb: [249, 254, 254] },
+      { name: 'Clay', rgb: [160, 166, 179] },
+      { name: 'Terracotta', rgb: [152, 94, 67] },
+      { name: 'Packed Ice', rgb: [141, 180, 224] },
+      { name: 'Moss Block', rgb: [89, 109, 45] },
+      { name: 'Mud Bricks', rgb: [137, 104, 79] },
+      { name: 'Deepslate', rgb: [80, 80, 82] },
+      { name: 'Tuff', rgb: [108, 109, 102] },
+      { name: 'Dripstone Block', rgb: [134, 107, 92] },
+      { name: 'Copper Block', rgb: [192, 107, 79] },
+      { name: 'Exposed Copper', rgb: [154, 121, 89] },
+      { name: 'Weathered Copper', rgb: [108, 153, 110] },
+      { name: 'Oxidized Copper', rgb: [82, 162, 132] },
+      { name: 'Amethyst Block', rgb: [133, 97, 168] },
+      { name: 'Raw Iron Block', rgb: [166, 136, 107] },
+      { name: 'Raw Gold Block', rgb: [221, 169, 46] },
+      { name: 'Mangrove Planks', rgb: [117, 54, 48] },
+      { name: 'Cherry Planks', rgb: [226, 178, 172] },
+      { name: 'Bamboo Planks', rgb: [194, 175, 82] },
+      { name: 'Crimson Planks', rgb: [101, 49, 71] },
+      { name: 'Warped Planks', rgb: [43, 105, 99] },
+    ];
+
+    // Pre-compute hex values
+    MINECRAFT_BLOCKS.forEach(b => {
+      b.hex = '#' + b.rgb.map(c => c.toString(16).padStart(2, '0')).join('');
+    });
+
+    function colorDistance(r1, g1, b1, r2, g2, b2) {
+      // Weighted Euclidean — human eyes are more sensitive to green
+      const rMean = (r1 + r2) / 2;
+      const dr = r1 - r2;
+      const dg = g1 - g2;
+      const db = b1 - b2;
+      return Math.sqrt(
+        (2 + rMean / 256) * dr * dr +
+        4 * dg * dg +
+        (2 + (255 - rMean) / 256) * db * db
+      );
+    }
+
+    function findClosestBlock(r, g, b) {
+      let bestDist = Infinity;
+      let best = MINECRAFT_BLOCKS[0];
+      for (const block of MINECRAFT_BLOCKS) {
+        const d = colorDistance(r, g, b, block.rgb[0], block.rgb[1], block.rgb[2]);
+        if (d < bestDist) {
+          bestDist = d;
+          best = block;
+        }
+      }
+      return best;
+    }
+
+    createApp({
+      data() {
+        return {
+          uploadedImage: null,
+          fileName: '',
+          imageWidth: 0,
+          imageHeight: 0,
+          isDragging: false,
+          isGenerating: false,
+          gridWidth: 64,
+          gridSizes: [32, 48, 64, 96, 128],
+          useDithering: false,
+          pixelArtDataUrl: null,
+          blockCounts: {},
+          sortBy: 'count',
+        };
+      },
+
+      computed: {
+        gridHeight() {
+          if (!this.imageWidth || !this.imageHeight) return this.gridWidth;
+          return Math.round(this.gridWidth * (this.imageHeight / this.imageWidth));
+        },
+        totalBlocks() {
+          return this.gridWidth * this.gridHeight;
+        },
+        uniqueBlockCount() {
+          return Object.keys(this.blockCounts).length;
+        },
+        sortedBlockList() {
+          const list = Object.entries(this.blockCounts).map(([name, data]) => ({
+            name,
+            count: data.count,
+            hex: data.hex,
+          }));
+          if (this.sortBy === 'count') {
+            list.sort((a, b) => b.count - a.count);
+          } else {
+            list.sort((a, b) => a.name.localeCompare(b.name));
+          }
+          return list;
+        }
+      },
+
+      methods: {
+        handleFileSelect(e) {
+          const file = e.target.files[0];
+          if (file) this.loadImage(file);
+        },
+
+        handleDrop(e) {
+          this.isDragging = false;
+          const file = e.dataTransfer.files[0];
+          if (file && file.type.startsWith('image/')) {
+            this.loadImage(file);
+          }
+        },
+
+        loadImage(file) {
+          this.fileName = file.name;
+          const reader = new FileReader();
+          reader.onload = (e) => {
+            const img = new Image();
+            img.onload = () => {
+              this.imageWidth = img.width;
+              this.imageHeight = img.height;
+              this.uploadedImage = e.target.result;
+            };
+            img.src = e.target.result;
+          };
+          reader.readAsDataURL(file);
+        },
+
+        async generatePixelArt() {
+          this.isGenerating = true;
+          this.pixelArtDataUrl = null;
+          this.blockCounts = {};
+
+          // Let the UI update
+          await new Promise(resolve => setTimeout(resolve, 50));
+
+          const img = new Image();
+          img.onload = () => {
+            const w = this.gridWidth;
+            const h = this.gridHeight;
+
+            // Step 1: Downsample the image to grid size
+            const sampleCanvas = document.createElement('canvas');
+            sampleCanvas.width = w;
+            sampleCanvas.height = h;
+            const sampleCtx = sampleCanvas.getContext('2d');
+            sampleCtx.imageSmoothingEnabled = true;
+            sampleCtx.imageSmoothingQuality = 'high';
+            sampleCtx.drawImage(img, 0, 0, w, h);
+
+            const imageData = sampleCtx.getImageData(0, 0, w, h);
+            const pixels = imageData.data;
+
+            // Working copy for dithering
+            const pixelFloats = new Float32Array(pixels.length);
+            for (let i = 0; i < pixels.length; i++) pixelFloats[i] = pixels[i];
+
+            const counts = {};
+
+            // Step 2: Map each pixel to nearest Minecraft block
+            for (let y = 0; y < h; y++) {
+              for (let x = 0; x < w; x++) {
+                const i = (y * w + x) * 4;
+
+                const r = Math.max(0, Math.min(255, Math.round(pixelFloats[i])));
+                const g = Math.max(0, Math.min(255, Math.round(pixelFloats[i + 1])));
+                const b = Math.max(0, Math.min(255, Math.round(pixelFloats[i + 2])));
+
+                const block = findClosestBlock(r, g, b);
+
+                // Write the block color back
+                pixels[i]     = block.rgb[0];
+                pixels[i + 1] = block.rgb[1];
+                pixels[i + 2] = block.rgb[2];
+                pixels[i + 3] = 255;
+
+                // Floyd-Steinberg dithering
+                if (this.useDithering) {
+                  const errR = r - block.rgb[0];
+                  const errG = g - block.rgb[1];
+                  const errB = b - block.rgb[2];
+
+                  const spread = [
+                    [x + 1, y,     7 / 16],
+                    [x - 1, y + 1, 3 / 16],
+                    [x,     y + 1, 5 / 16],
+                    [x + 1, y + 1, 1 / 16],
+                  ];
+
+                  for (const [nx, ny, factor] of spread) {
+                    if (nx >= 0 && nx < w && ny >= 0 && ny < h) {
+                      const ni = (ny * w + nx) * 4;
+                      pixelFloats[ni]     += errR * factor;
+                      pixelFloats[ni + 1] += errG * factor;
+                      pixelFloats[ni + 2] += errB * factor;
+                    }
+                  }
+                }
+
+                // Count blocks
+                if (!counts[block.name]) {
+                  counts[block.name] = { count: 0, hex: block.hex };
+                }
+                counts[block.name].count++;
+              }
+            }
+
+            // Step 3: Write the result
+            sampleCtx.putImageData(imageData, 0, 0);
+
+            // Scale up for a crisp visual (10px per block, capped)
+            const scale = Math.min(10, Math.floor(2048 / Math.max(w, h)));
+            const outCanvas = document.createElement('canvas');
+            outCanvas.width = w * scale;
+            outCanvas.height = h * scale;
+            const outCtx = outCanvas.getContext('2d');
+            outCtx.imageSmoothingEnabled = false;
+            outCtx.drawImage(sampleCanvas, 0, 0, w * scale, h * scale);
+
+            // Optional: draw grid lines
+            if (w <= 64) {
+              outCtx.strokeStyle = 'rgba(0,0,0,0.08)';
+              outCtx.lineWidth = 1;
+              for (let x = 0; x <= w; x++) {
+                outCtx.beginPath();
+                outCtx.moveTo(x * scale, 0);
+                outCtx.lineTo(x * scale, h * scale);
+                outCtx.stroke();
+              }
+              for (let y = 0; y <= h; y++) {
+                outCtx.beginPath();
+                outCtx.moveTo(0, y * scale);
+                outCtx.lineTo(w * scale, y * scale);
+                outCtx.stroke();
+              }
+            }
+
+            this.pixelArtDataUrl = outCanvas.toDataURL('image/png');
+            this.blockCounts = counts;
+            this.isGenerating = false;
+          };
+
+          img.src = this.uploadedImage;
+        },
+
+        downloadPixelArt() {
+          const link = document.createElement('a');
+          link.download = 'minecraft-pixel-art.png';
+          link.href = this.pixelArtDataUrl;
+          link.click();
+        },
+
+        downloadBlockList() {
+          let text = 'MINECRAFT PIXEL ART - BLOCK SHOPPING LIST\n';
+          text += '==========================================\n';
+          text += 'Grid: ' + this.gridWidth + ' x ' + this.gridHeight + ' (' + this.totalBlocks + ' blocks)\n';
+          text += 'Unique block types: ' + this.uniqueBlockCount + '\n\n';
+          text += 'Block Name'.padEnd(30) + 'Count'.padStart(8) + 'Stacks'.padStart(8) + '\n';
+          text += '-'.repeat(46) + '\n';
+
+          this.sortedBlockList.forEach(block => {
+            const stacks = Math.ceil(block.count / 64);
+            text += block.name.padEnd(30) + String(block.count).padStart(8) + String(stacks).padStart(8) + '\n';
+          });
+
+          text += '-'.repeat(46) + '\n';
+          text += 'TOTAL'.padEnd(30) + String(this.totalBlocks).padStart(8) + '\n';
+          text += '\nGenerated by coffeeandfun.com/minecraft-pixel-art/\n';
+
+          const blob = new Blob([text], { type: 'text/plain' });
+          const link = document.createElement('a');
+          link.download = 'minecraft-block-list.txt';
+          link.href = URL.createObjectURL(blob);
+          link.click();
+        },
+
+        resetUpload() {
+          this.uploadedImage = null;
+          this.fileName = '';
+          this.imageWidth = 0;
+          this.imageHeight = 0;
+          this.pixelArtDataUrl = null;
+          this.blockCounts = {};
+          if (this.$refs.fileInput) this.$refs.fileInput.value = '';
+        }
+      }
+    }).mount('#app');
+  </script>
+</body>
+</html>

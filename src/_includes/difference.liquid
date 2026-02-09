@@ -5,14 +5,14 @@
 {%  assign afterImage  = afterImage |  default: ''  %}
 
 {% if showDifference %}
-<div class="diff aspect-[16/9] shadow-md rounded-2xl">
+<div class="diff aspect-[16/9] shadow-md rounded-2xl" role="img" aria-label="Before and after comparison">
     <div class="diff-item-1">
-      <img alt="daisy" 
+      <img alt="Before comparison image"
       src='{{beforeImage}}' />
     </div>
     <div class="diff-item-2">
       <img
-        alt="daisy"
+        alt="After comparison image"
         src='{{afterImage}}' />
     </div>
     <div class="diff-resizer"></div>

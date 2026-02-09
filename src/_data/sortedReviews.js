@@ -5,7 +5,7 @@ function orderCoffeeShopsByRating(coffeeShops) {
 	const coffeeShopRatings = coffeeShops.map((coffeeShop) => {
 		const ratings = Object.values(coffeeShop.categories);
 		const totalRating = ratings.reduce((sum, category) => sum + category.rating, 0);
-		const averageRating = (totalRating / ratings.length).toFixed(1);
+		const averageRating = parseFloat((totalRating / ratings.length).toFixed(1));
 		return { ...coffeeShop, totalScore: averageRating };
 	});
 

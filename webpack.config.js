@@ -2,7 +2,6 @@ const path = require('path');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const CssMinimizerPlugin = require('css-minimizer-webpack-plugin');
 const HTMLInlineCSSWebpackPlugin = require('html-inline-css-webpack-plugin').default;
-const WorkboxPlugin = require('workbox-webpack-plugin');
 
 module.exports = {
 	mode: 'development',
@@ -17,16 +16,18 @@ module.exports = {
 	module: {
 		rules: [
 			{
-				test: /\.styl(us)?$/,
-				use: ["style-loader", "css-loader", "stylus-loader"],
-			  },
-			{
 				test: /\.mp4$/,
-				use: 'file-loader?name=videos/[name].[ext]'
+				type: 'asset/resource',
+				generator: {
+					filename: 'videos/[name][ext]'
+				}
 			},
-				{
+			{
 				test: /\.mp3$/,
-				use: 'file-loader?name=videos/[name].[ext]'
+				type: 'asset/resource',
+				generator: {
+					filename: 'audio/[name][ext]'
+				}
 			},
 			{
 				test: /\.js$/,
@@ -41,46 +42,36 @@ module.exports = {
 				]
 			},
 			{
-				test: /\.(woff(2)?|ttf|eot|svg)(\?v=\d+\.\d+\.\d+)?$/,
-				use: [
-					{
-						loader: 'file-loader',
-						options: {
-							useRelativePath: false,
-							name: '[name].[ext]',
-							publicPath: 'fonts/icons/',
-							outputPath: 'fonts/'
-						}
-					}
-				]
+				test: /\.(woff(2)?|ttf|eot)(\?v=\d+\.\d+\.\d+)?$/,
+				type: 'asset/resource',
+				generator: {
+					filename: 'fonts/[name][ext]',
+					publicPath: 'fonts/icons/'
+				}
 			},
-
 			{
-				test: /\.(png|jpe?g|gif|xml|ico|svg|woff2|webmanifest)$/i,
-				loader: 'file-loader',
-				options: {
-					name: '[name].[ext]',
-					outputPath: './docs'
+				test: /\.(png|jpe?g|gif|xml|ico|svg|webmanifest)$/i,
+				type: 'asset/resource',
+				generator: {
+					filename: 'docs/[name][ext]'
 				}
 			},
 			{
 				test: /\.css$/,
 				use: [
-					"style-loader",
-					"css-loader",
+					'style-loader',
+					'css-loader',
 					{
-					  loader: "postcss-loader",
-					
-					},
-				  ],
+						loader: 'postcss-loader'
+					}
+				]
 			}
 		]
 	},
 	optimization: {
 		minimize: true,
 		minimizer: [
-			// For webpack@5 you can use the `...` syntax to extend existing minimizers (i.e. `terser-webpack-plugin`), uncomment the next line
-			// `...`,
+			'...',
 			new CssMinimizerPlugin()
 		]
 	},

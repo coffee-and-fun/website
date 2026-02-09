@@ -27,7 +27,7 @@
     <meta property="og:title" content="Coffee & Fun Blog - Research, Announcements, and Guides" />
     <meta property="og:description" content="Discover the latest updates, product guides, research insights, and announcements from Coffee & Fun LLC. Stay informed about our apps, games, and digital experiences." />
     <meta property="og:url" content="/blog/" />
-    <meta property="og:image" content="assets/images/social/pages/blog.png" />
+    <meta property="og:image" content="/assets/images/social/pages/blog.png" />
     <meta property="og:image:width" content="1200" />
     <meta property="og:image:height" content="630" />
     <meta property="og:image:alt" content="Coffee & Fun Blog - Latest Updates and Guides" />
@@ -301,7 +301,6 @@
             const blogCards = document.querySelectorAll('.blog-card-item');
             const noResults = document.getElementById('noResults');
             //const resultCount = document.getElementById('resultCount');
-            const searchButton = document.getElementById('searchButton');
             const totalPosts = blogCards.length;
             
             function performSearch() {
@@ -340,9 +339,6 @@
             
             // Search on input
             searchInput.addEventListener('input', performSearch);
-            
-            // Search on button click
-            searchButton.addEventListener('click', performSearch);
             
             // Search on Enter key
             searchInput.addEventListener('keypress', function(e) {
