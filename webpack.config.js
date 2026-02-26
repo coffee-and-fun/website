@@ -4,7 +4,7 @@ const CssMinimizerPlugin = require('css-minimizer-webpack-plugin');
 const HTMLInlineCSSWebpackPlugin = require('html-inline-css-webpack-plugin').default;
 
 module.exports = {
-	mode: 'development',
+	mode: 'production',
 	context: __dirname + '/src/',
 	entry: ['./assets/js/index.js', './assets/css/styles.css'],
 	plugins: [new MiniCssExtractPlugin({ ignoreOrder: false }), new HTMLInlineCSSWebpackPlugin()],
