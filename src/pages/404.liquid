@@ -1,0 +1,484 @@
+---
+permalink: /404.html
+---
+<!DOCTYPE html>
+<html class="brand-color-background scroll-smooth antialiased" lang="en" data-theme="light" style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <!-- Primary Meta Tags -->
+    <title>404 — Page Not Found | Coffee & Fun</title>
+    <meta name="title" content="404 — Page Not Found | Coffee & Fun" />
+    <meta name="description" content="Oops! This page spilled. Play a quick coffee bean game while you find your way back." />
+    <meta name="robots" content="noindex, nofollow" />
+
+    <!-- Favicon -->
+    <link rel="icon" href="/assets/images/favicon.png" sizes="any" />
+    <link rel="apple-touch-icon" href="/assets/images/social/192.png" />
+
+    <!-- PWA Meta Tags -->
+    <link rel="manifest" href="/assets/images/social/site.webmanifest" />
+    <meta name="theme-color" content="#fef5ec" />
+
+    {% bundledCss %}
+
+    {% include sketch-styles.liquid %}
+
+    <style>
+        /* Game canvas & container */
+        .game-wrap {
+            position: relative;
+            width: 100%;
+            max-width: 480px;
+            margin: 0 auto;
+        }
+        .game-canvas {
+            display: block;
+            width: 100%;
+            border-radius: 1rem;
+            border: 3px solid #e8d5c4;
+            background: #fef9f3;
+            cursor: none;
+        }
+        .game-canvas:focus {
+            outline: 3px solid #fd6155;
+            outline-offset: 2px;
+        }
+        /* Custom cup cursor (hide default) */
+        .game-wrap:hover .game-canvas { cursor: none; }
+
+        /* Score HUD */
+        .hud {
+            font-family: 'Caveat', cursive;
+            font-size: 1.6rem;
+            color: #96603c;
+        }
+        .hud-value {
+            font-weight: 700;
+            color: #7a4e31;
+        }
+
+        /* Splash / overlay text */
+        .game-overlay {
+            position: absolute;
+            inset: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            border-radius: 1rem;
+            background: rgba(254, 245, 236, 0.88);
+            pointer-events: none;
+            transition: opacity 0.3s ease;
+        }
+        .game-overlay.hidden { opacity: 0; pointer-events: none; }
+        .game-overlay h2 {
+            font-family: 'Pacifico', cursive;
+            color: #7a4e31;
+        }
+        .game-overlay p {
+            font-family: 'Caveat', cursive;
+            color: #96603c;
+        }
+    </style>
+</head>
+<body class="brand-color-background min-h-screen flex flex-col">
+
+    {% assign showMenu = true %}
+    {% assign showFun = false %}
+    {% assign showDiscordApp = false %}
+    {% include header.liquid %}
+
+    <main id="main-content" class="flex-1 flex flex-col items-center justify-center px-4 py-12">
+
+        <!-- Heading -->
+        <div class="text-center mb-6 relative">
+            <h1 class="text-6xl md:text-8xl font-bold" style="font-family:'Pacifico',cursive; color:#7a4e31;">
+                404
+            </h1>
+            <p class="text-xl md:text-2xl mt-2" style="font-family:'Caveat',cursive; color:#96603c;">
+                Oops — this page spilled!
+            </p>
+
+            <!-- Sketch doodle: little arrow pointing down to game -->
+            <div class="sketch-note sketch-float" style="bottom:-38px;left:50%;transform:translateX(-50%);font-size:1.2rem;">
+                <svg width="30" height="50" viewBox="0 0 30 50" style="position:relative;">
+                    <path class="sketch-arrow" d="M15 2 Q13 20 15 38 M8 30 L15 42 L22 30" />
+                </svg>
+            </div>
+        </div>
+
+        <!-- Game Area -->
+        <div class="game-wrap mt-8" id="game-wrap">
+            <!-- HUD -->
+            <div class="hud flex justify-between items-center mb-2 px-2">
+                <span>Caught: <span class="hud-value" id="hud-score">0</span></span>
+                <span>Missed: <span class="hud-value" id="hud-missed">0</span> / 5</span>
+                <span>Best: <span class="hud-value" id="hud-best">0</span></span>
+            </div>
+
+            <canvas class="game-canvas" id="game" width="480" height="400" tabindex="0"
+                    aria-label="Coffee bean catching game. Use mouse or touch to move the cup and catch falling beans."></canvas>
+
+            <!-- Start overlay -->
+            <div class="game-overlay" id="overlay-start">
+                <h2 class="text-3xl mb-2">Catch the Beans!</h2>
+                <p class="text-xl mb-4">Move the cup to catch falling coffee beans</p>
+                <button type="button" id="btn-start"
+                        class="btn btn-lg border-2 border-amber-800 text-white px-8 pointer-events-auto"
+                        style="background:#96603c; font-family:'Caveat',cursive; font-size:1.4rem;"
+                        onmouseover="this.style.background='#7a4e31'" onmouseout="this.style.background='#96603c'">
+                    Start Game
+                </button>
+            </div>
+
+            <!-- Game-over overlay -->
+            <div class="game-overlay hidden" id="overlay-end">
+                <h2 class="text-3xl mb-1" id="end-title">Nice Try!</h2>
+                <p class="text-xl mb-1">You caught <span class="hud-value" id="end-score">0</span> beans</p>
+                <p class="text-lg mb-4" id="end-best" style="color:#a36942;"></p>
+                <button type="button" id="btn-restart"
+                        class="btn btn-lg border-2 border-amber-800 text-white px-8 pointer-events-auto"
+                        style="background:#96603c; font-family:'Caveat',cursive; font-size:1.4rem;"
+                        onmouseover="this.style.background='#7a4e31'" onmouseout="this.style.background='#96603c'">
+                    Play Again
+                </button>
+            </div>
+        </div>
+
+        <p class="text-center mt-8 text-lg" style="font-family:'Caveat',cursive; color:#96603c;">
+            Or head back to safety&hellip;
+        </p>
+
+        <a href="/" class="btn btn-lg mt-3 border-2 text-white px-8"
+           style="background:#fd6155; border-color:#fd6155; font-family:'Caveat',cursive; font-size:1.3rem;"
+           onmouseover="this.style.background='#e04e43'" onmouseout="this.style.background='#fd6155'">
+            Back to Home
+        </a>
+    </main>
+
+    {% include footer.liquid %}
+    {% include modals.liquid %}
+
+    <!-- Game Script -->
+    <script>
+    (function () {
+        'use strict';
+
+        /* ---- Elements ---- */
+        const canvas  = document.getElementById('game');
+        const ctx     = canvas.getContext('2d');
+        const wrap    = document.getElementById('game-wrap');
+        const hudScore  = document.getElementById('hud-score');
+        const hudMissed = document.getElementById('hud-missed');
+        const hudBest   = document.getElementById('hud-best');
+        const overlayStart = document.getElementById('overlay-start');
+        const overlayEnd   = document.getElementById('overlay-end');
+        const endTitle  = document.getElementById('end-title');
+        const endScore  = document.getElementById('end-score');
+        const endBest   = document.getElementById('end-best');
+        const btnStart   = document.getElementById('btn-start');
+        const btnRestart = document.getElementById('btn-restart');
+
+        /* ---- Constants ---- */
+        const W = 480, H = 400;
+        const CUP_W = 56, CUP_H = 48;
+        const BEAN_R = 10;
+        const MAX_MISS = 5;
+        const COLORS = {
+            bean:      ['#7a4e31', '#96603c', '#a36942', '#c4813a', '#5c3a1e'],
+            cupBody:   '#96603c',
+            cupRim:    '#7a4e31',
+            cupHandle: '#a36942',
+            steam:     'rgba(150,96,60,0.25)',
+            coral:     '#fd6155'
+        };
+
+        /* ---- State ---- */
+        let cupX = W / 2;
+        let beans = [];
+        let particles = [];
+        let score = 0;
+        let missed = 0;
+        let best = 0;
+        let running = false;
+        let animId = null;
+        let spawnTimer = 0;
+        let difficulty = 1;
+        let steamPhase = 0;
+
+        /* ---- Drawing helpers ---- */
+        function drawCup(x, y) {
+            // Shadow
+            ctx.save();
+            ctx.globalAlpha = 0.12;
+            ctx.fillStyle = '#5c3a1e';
+            ctx.beginPath();
+            ctx.ellipse(x, y + CUP_H - 2, CUP_W / 2 + 4, 6, 0, 0, Math.PI * 2);
+            ctx.fill();
+            ctx.restore();
+
+            // Body
+            ctx.fillStyle = COLORS.cupBody;
+            ctx.beginPath();
+            ctx.moveTo(x - CUP_W / 2, y);
+            ctx.lineTo(x - CUP_W / 2 + 6, y + CUP_H);
+            ctx.lineTo(x + CUP_W / 2 - 6, y + CUP_H);
+            ctx.lineTo(x + CUP_W / 2, y);
+            ctx.closePath();
+            ctx.fill();
+
+            // Rim
+            ctx.fillStyle = COLORS.cupRim;
+            ctx.fillRect(x - CUP_W / 2 - 3, y - 4, CUP_W + 6, 8);
+
+            // Handle
+            ctx.strokeStyle = COLORS.cupHandle;
+            ctx.lineWidth = 4;
+            ctx.lineCap = 'round';
+            ctx.beginPath();
+            ctx.arc(x + CUP_W / 2 + 6, y + CUP_H / 2 - 2, 10, -Math.PI / 2, Math.PI / 2);
+            ctx.stroke();
+
+            // Coffee surface
+            ctx.fillStyle = '#5c3a1e';
+            ctx.beginPath();
+            ctx.ellipse(x, y + 4, CUP_W / 2 - 4, 5, 0, 0, Math.PI * 2);
+            ctx.fill();
+
+            // Steam wisps
+            steamPhase += 0.03;
+            ctx.strokeStyle = COLORS.steam;
+            ctx.lineWidth = 1.5;
+            for (let i = 0; i < 3; i++) {
+                const sx = x - 10 + i * 10;
+                const offset = Math.sin(steamPhase + i * 2) * 4;
+                ctx.beginPath();
+                ctx.moveTo(sx, y - 6);
+                ctx.quadraticCurveTo(sx + offset, y - 18, sx - offset, y - 28);
+                ctx.stroke();
+            }
+        }
+
+        function drawBean(b) {
+            ctx.save();
+            ctx.translate(b.x, b.y);
+            ctx.rotate(b.rot);
+            // Outer bean shape
+            ctx.fillStyle = b.color;
+            ctx.beginPath();
+            ctx.ellipse(0, 0, BEAN_R, BEAN_R * 0.65, 0, 0, Math.PI * 2);
+            ctx.fill();
+            // Center line
+            ctx.strokeStyle = 'rgba(0,0,0,0.2)';
+            ctx.lineWidth = 1.2;
+            ctx.beginPath();
+            ctx.moveTo(-BEAN_R * 0.5, 0);
+            ctx.quadraticCurveTo(0, -2, BEAN_R * 0.5, 0);
+            ctx.stroke();
+            ctx.restore();
+        }
+
+        function drawParticle(p) {
+            ctx.save();
+            ctx.globalAlpha = p.life;
+            ctx.fillStyle = p.color;
+            ctx.beginPath();
+            ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
+            ctx.fill();
+            ctx.restore();
+        }
+
+        /* ---- Spawn ---- */
+        function spawnBean() {
+            beans.push({
+                x: 20 + Math.random() * (W - 40),
+                y: -BEAN_R,
+                vy: 1.5 + Math.random() * difficulty,
+                rot: Math.random() * Math.PI * 2,
+                vr: (Math.random() - 0.5) * 0.08,
+                color: COLORS.bean[Math.floor(Math.random() * COLORS.bean.length)]
+            });
+        }
+
+        function burstParticles(x, y, color) {
+            for (let i = 0; i < 8; i++) {
+                const angle = (Math.PI * 2 / 8) * i + Math.random() * 0.4;
+                particles.push({
+                    x, y,
+                    vx: Math.cos(angle) * (2 + Math.random() * 2),
+                    vy: Math.sin(angle) * (2 + Math.random() * 2) - 1,
+                    size: 2 + Math.random() * 3,
+                    life: 1,
+                    color: color
+                });
+            }
+        }
+
+        /* ---- Input ---- */
+        function pointerMove(e) {
+            const rect = canvas.getBoundingClientRect();
+            const scaleX = W / rect.width;
+            let clientX;
+            if (e.touches) {
+                clientX = e.touches[0].clientX;
+                e.preventDefault();
+            } else {
+                clientX = e.clientX;
+            }
+            cupX = (clientX - rect.left) * scaleX;
+            cupX = Math.max(CUP_W / 2 + 4, Math.min(W - CUP_W / 2 - 4, cupX));
+        }
+        canvas.addEventListener('mousemove', pointerMove);
+        canvas.addEventListener('touchmove', pointerMove, { passive: false });
+        canvas.addEventListener('touchstart', function (e) {
+            pointerMove(e);
+        }, { passive: false });
+
+        /* ---- Game loop ---- */
+        function update() {
+            spawnTimer++;
+            const interval = Math.max(20, 50 - Math.floor(score / 5) * 3);
+            if (spawnTimer >= interval) {
+                spawnBean();
+                spawnTimer = 0;
+            }
+
+            difficulty = 1 + score * 0.06;
+
+            const cupTop = H - CUP_H - 10;
+
+            // Beans
+            for (let i = beans.length - 1; i >= 0; i--) {
+                const b = beans[i];
+                b.y += b.vy;
+                b.rot += b.vr;
+
+                // Caught?
+                if (b.y + BEAN_R >= cupTop && b.y - BEAN_R <= cupTop + CUP_H &&
+                    b.x >= cupX - CUP_W / 2 - 4 && b.x <= cupX + CUP_W / 2 + 4) {
+                    score++;
+                    hudScore.textContent = score;
+                    burstParticles(b.x, b.y, b.color);
+                    beans.splice(i, 1);
+                    continue;
+                }
+
+                // Missed?
+                if (b.y > H + BEAN_R) {
+                    missed++;
+                    hudMissed.textContent = missed;
+                    burstParticles(b.x, H - 4, COLORS.coral);
+                    beans.splice(i, 1);
+                    if (missed >= MAX_MISS) {
+                        endGame();
+                        return;
+                    }
+                }
+            }
+
+            // Particles
+            for (let i = particles.length - 1; i >= 0; i--) {
+                const p = particles[i];
+                p.x += p.vx;
+                p.y += p.vy;
+                p.vy += 0.1;
+                p.life -= 0.025;
+                if (p.life <= 0) particles.splice(i, 1);
+            }
+        }
+
+        function draw() {
+            ctx.clearRect(0, 0, W, H);
+
+            // Ground line (subtle)
+            ctx.strokeStyle = '#e8d5c4';
+            ctx.lineWidth = 2;
+            ctx.setLineDash([6, 4]);
+            ctx.beginPath();
+            ctx.moveTo(0, H - 4);
+            ctx.lineTo(W, H - 4);
+            ctx.stroke();
+            ctx.setLineDash([]);
+
+            // Beans
+            beans.forEach(drawBean);
+
+            // Particles
+            particles.forEach(drawParticle);
+
+            // Cup
+            drawCup(cupX, H - CUP_H - 10);
+        }
+
+        function loop() {
+            if (!running) return;
+            update();
+            draw();
+            animId = requestAnimationFrame(loop);
+        }
+
+        /* ---- Start / End ---- */
+        function startGame() {
+            score = 0; missed = 0; spawnTimer = 0; difficulty = 1;
+            beans = []; particles = [];
+            cupX = W / 2;
+            hudScore.textContent = '0';
+            hudMissed.textContent = '0';
+            overlayStart.classList.add('hidden');
+            overlayEnd.classList.add('hidden');
+            running = true;
+            canvas.focus();
+            loop();
+        }
+
+        function endGame() {
+            running = false;
+            if (animId) cancelAnimationFrame(animId);
+
+            if (score > best) best = score;
+            hudBest.textContent = best;
+
+            endScore.textContent = score;
+            if (score > 0 && score === best) {
+                endTitle.textContent = 'New High Score!';
+                endBest.textContent = '';
+            } else {
+                endTitle.textContent = score >= 10 ? 'Great Catch!' : 'Nice Try!';
+                endBest.textContent = 'Best: ' + best;
+            }
+            overlayEnd.classList.remove('hidden');
+
+            // Final draw so we see the last state
+            draw();
+        }
+
+        btnStart.addEventListener('click', startGame);
+        btnRestart.addEventListener('click', startGame);
+
+        // Keyboard: left/right arrow or A/D
+        document.addEventListener('keydown', function (e) {
+            if (!running) {
+                if (e.key === 'Enter' || e.key === ' ') {
+                    e.preventDefault();
+                    startGame();
+                }
+                return;
+            }
+            const step = 18;
+            if (e.key === 'ArrowLeft' || e.key === 'a') {
+                cupX = Math.max(CUP_W / 2 + 4, cupX - step);
+            } else if (e.key === 'ArrowRight' || e.key === 'd') {
+                cupX = Math.min(W - CUP_W / 2 - 4, cupX + step);
+            }
+        });
+
+        // Initial draw
+        draw();
+    })();
+    </script>
+
+    {% include scripts.html %}
+</body>
+</html>
