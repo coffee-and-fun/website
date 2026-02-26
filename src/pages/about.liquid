@@ -3,6 +3,7 @@
   class="brand-color-background scroll-smooth antialiased"
   lang="en"
   data-theme="light"
+  style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;"
 >
   <head>
     <meta charset="utf-8" />
@@ -73,7 +74,8 @@
     </script>
 
     {% bundledCss %}
-    
+    {% include sketch-styles.liquid %}
+
     <style>
      
       
@@ -126,7 +128,7 @@
       }
       
       .accent-gradient {
-        background: linear-gradient(135deg, #fcd683 0%, #f7c4ba 50%, #e25440 100%);
+        background: linear-gradient(135deg, #fef5ec 0%, #fde8d8 50%, #f5d0b0 100%);
       }
     </style>
 
@@ -156,31 +158,147 @@
     {% include header.liquid %}
 
     <!-- Mission Statement - Full Width -->
-    <section class="full-bleed accent-gradient py-32 px-6">
+    <section class="relative full-bleed accent-gradient py-32 px-6 overflow-visible">
       <div class="max-w-4xl mx-auto">
-        
-        <h1 class="section-title text-black text-center">
+        <!-- Sketch: heart near mission text -->
+        <div class="sketch-note sketch-float-slow" style="top: 20%; left: 5%; --sketch-rotate: -12deg;">
+            <svg width="26" height="24" viewBox="0 0 24 22">
+                <path d="M12 21 C12 21, 2 14, 2 7 C2 3, 5 1, 8 2 C10 3, 11 5, 12 6 C13 5, 14 3, 16 2 C19 1, 22 3, 22 7 C22 14, 12 21, 12 21 Z" class="sketch-heart"/>
+            </svg>
+        </div>
+
+        <!-- Sketch: star top-right -->
+        <div class="sketch-note" style="top: 15%; right: 6%; transform: rotate(15deg);">
+            <svg width="24" height="24" viewBox="0 0 30 30">
+                <path d="M15 2 L17 11 L26 11 L19 17 L22 26 L15 21 L8 26 L11 17 L4 11 L13 11 Z" fill="none" stroke="#fd6155" stroke-width="1.5" stroke-linejoin="round" opacity="0.35"/>
+            </svg>
+        </div>
+
+        <!-- Sketch: "our mission" with arrow -->
+        <div class="sketch-note text-lg sm:text-xl" style="top: 12%; right: 12%; transform: rotate(-5deg);">
+            our mission
+            <svg width="40" height="30" style="bottom: -26px; left: 10px;">
+                <path d="M20 2 C15 10, 10 18, 8 26" class="sketch-arrow"/>
+                <path d="M2 22 L8 28 L13 21" class="sketch-arrow"/>
+            </svg>
+        </div>
+
+        <h1 class="section-title text-stone-900 text-center">
           Making the world a little brighter, one app at a time.
         </h1>
 
-         <p class="large-text max-w-3xl text-center mx-auto text-black">
+         <p class="large-text max-w-3xl text-center mx-auto text-stone-600">
           Where every app is crafted with love, laughter, and a dash of mischief
         </p>
+
+        <!-- Sketch: wavy underline under mischief -->
+        <div class="sketch-note" style="bottom: 22%; left: 50%; transform: translateX(-50%);">
+            <svg width="140" height="12" viewBox="0 0 140 12">
+                <path d="M2 8 C18 2, 28 12, 46 6 C64 0, 74 12, 92 6 C110 0, 125 10, 138 5" class="sketch-underline"/>
+            </svg>
+        </div>
+
+        <!-- Sketch: squiggly bottom-left -->
+        <div class="sketch-note" style="bottom: 8%; left: 8%;">
+            <svg width="50" height="14" viewBox="0 0 50 14">
+                <path d="M2 8 C8 2, 14 12, 20 7 C26 2, 32 12, 38 7 C44 2, 48 10, 48 7" class="sketch-squiggle"/>
+            </svg>
+        </div>
+
+        <!-- Sketch: lightning bolt right -->
+        <div class="sketch-note" style="bottom: 15%; right: 8%; transform: rotate(12deg);">
+            <svg width="14" height="24" viewBox="0 0 16 28">
+                <path d="M10 0 L4 12 L10 12 L6 28" class="sketch-lightning"/>
+            </svg>
+        </div>
+
+        <!-- Sketch: checkmark -->
+        <div class="sketch-note sketch-wiggle" style="top: 70%; right: 12%; --sketch-rotate: 5deg;">
+            <svg width="20" height="18" viewBox="0 0 22 20">
+                <path d="M3 10 L9 16 L19 4" class="sketch-check"/>
+            </svg>
+        </div>
+
+        <!-- Sketch: exclamation left -->
+        <div class="sketch-note" style="top: 40%; left: 3%;">
+            <svg width="8" height="22" viewBox="0 0 10 24">
+                <path d="M5 2 L5 16" class="sketch-exclaim"/>
+                <circle cx="5" cy="22" r="2" fill="#fd6155" opacity="0.4"/>
+            </svg>
+        </div>
       </div>
     </section>
 
     <!-- About Content -->
-    <section class="max-w-7xl mx-auto py-32 px-6">
+    <section class="relative max-w-7xl mx-auto py-32 px-6 overflow-visible">
+      <!-- Sketch: "the good stuff" with arrow -->
+      <div class="sketch-note text-xl sm:text-2xl" style="top: 16px; right: 6%; transform: rotate(-4deg);">
+        the good stuff
+        <svg width="50" height="45" style="bottom: -40px; left: 12px;">
+            <path d="M25 2 C20 16, 12 28, 8 40" class="sketch-arrow"/>
+            <path d="M2 34 L8 42 L14 34" class="sketch-arrow"/>
+        </svg>
+      </div>
+      <!-- Sketch: sparkle burst left of content -->
+      <div class="sketch-note sketch-float" style="top: 35%; left: 1%; --sketch-rotate: 0deg;">
+          <svg width="22" height="22" viewBox="0 0 22 22">
+              <path d="M11 2 L11 20" class="sketch-sparkle"/>
+              <path d="M2 11 L20 11" class="sketch-sparkle"/>
+              <path d="M4 4 L18 18" class="sketch-sparkle"/>
+              <path d="M18 4 L4 18" class="sketch-sparkle"/>
+          </svg>
+      </div>
+
+      <!-- Sketch: zigzag bottom of section -->
+      <div class="sketch-note" style="bottom: 8%; right: 5%;">
+          <svg width="50" height="16" viewBox="0 0 50 16">
+              <path d="M2 14 L12 2 L22 14 L32 2 L42 14 L50 4" class="sketch-zigzag"/>
+          </svg>
+      </div>
+
+      <!-- Sketch: loop arrow near content -->
+      <div class="sketch-note" style="bottom: 15%; left: 2%;">
+          <svg width="30" height="22" viewBox="0 0 30 22">
+              <path d="M4 18 C4 4, 20 4, 22 10 C24 18, 16 20, 14 12" class="sketch-loop"/>
+              <path d="M10 14 L14 10 L18 14" class="sketch-loop"/>
+          </svg>
+      </div>
+
+      <!-- Sketch: leaf near top-left -->
+      <div class="sketch-note sketch-float-slow" style="top: 18%; left: 3%; --sketch-rotate: -18deg;">
+          <svg width="20" height="24" viewBox="0 0 24 28">
+              <path d="M12 2 C4 8, 2 18, 12 26 C22 18, 20 8, 12 2 Z" class="sketch-leaf"/>
+              <path d="M12 6 L12 22" class="sketch-leaf"/>
+          </svg>
+      </div>
+
+      <!-- Sketch: dashed line -->
+      <div class="sketch-note" style="top: 65%; right: 3%;">
+          <svg width="60" height="6" viewBox="0 0 60 6">
+              <path d="M0 3 L60 3" class="sketch-dash"/>
+          </svg>
+      </div>
+
+      <!-- Sketch: coffee cup near Who We Are -->
+      <div class="sketch-note" style="top: 20%; right: 2%; transform: rotate(10deg);">
+          <svg width="24" height="28" viewBox="0 0 28 32">
+              <path d="M4 10 L4 26 C4 28 6 30 10 30 L18 30 C22 30 24 28 24 26 L24 10" class="sketch-arrow" style="opacity: 0.3;"/>
+              <path d="M24 14 C28 14, 28 22, 24 22" class="sketch-arrow" style="opacity: 0.3;"/>
+              <path d="M10 6 C10 2, 12 0, 12 0" class="sketch-arrow" style="opacity: 0.15;"/>
+              <path d="M16 4 C16 0, 18 -2, 18 -2" class="sketch-arrow" style="opacity: 0.15;"/>
+          </svg>
+      </div>
+
       <div class="grid lg:grid-cols-2 gap-16 items-center">
         <div>
-          <h2 class="section-title mb-8">WHO WE ARE</h2>
-          <p class="large-text text-gray-700 leading-relaxed">
+          <h2 class="section-title mb-8 text-stone-900">Who We Are</h2>
+          <p class="large-text text-stone-600 leading-relaxed">
             We're a small team of passionate coffee enthusiasts and software
             engineers who believe in the power of community and creativity.
           </p>
         </div>
         <div>
-          <p class="text-xl text-gray-600 leading-relaxed">
+          <p class="text-xl text-stone-500 leading-relaxed">
             Our mission is to bring joy and a little bit of mischief to your daily
             routine through our innovative products and engaging content.
             Whether it's crafting the perfect cup of coffee or sharing our
@@ -192,45 +310,122 @@
     </section>
 
     <!-- Stats Section - Full Width -->
-    <section class="full-bleed bg-black text-white py-32 px-6">
+    <section class="relative full-bleed py-32 px-6 overflow-visible" style="background-color: #3d2b1f;">
+      <!-- Sketch: "and growing!" near stats (light colored for dark bg) -->
+      <div class="sketch-note text-xl sm:text-2xl" style="top: 20px; right: 8%; transform: rotate(-3deg); color: #c4813a;">
+        and growing!
+        <svg width="40" height="35" style="bottom: -32px; left: 20px;">
+            <path d="M20 2 C16 12, 10 20, 8 30" class="sketch-arrow" style="stroke: #c4813a;"/>
+            <path d="M2 24 L8 32 L14 24" class="sketch-arrow" style="stroke: #c4813a;"/>
+        </svg>
+      </div>
+      <!-- Sketch: "est." near founded date -->
+      <div class="sketch-note text-lg" style="bottom: 20%; left: 8%; transform: rotate(-5deg); color: #c4813a;">
+          est.
+      </div>
+
+      <!-- Sketch: sparkle near 1M+ -->
+      <div class="sketch-note sketch-float-slow" style="top: 22%; right: 10%; --sketch-rotate: 5deg;">
+          <svg width="24" height="24" viewBox="0 0 28 28">
+              <path d="M14 2 L14 26" class="sketch-sparkle" style="stroke: #c4813a;"/>
+              <path d="M2 14 L26 14" class="sketch-sparkle" style="stroke: #c4813a;"/>
+              <path d="M5 5 L23 23" class="sketch-sparkle" style="stroke: #c4813a;"/>
+              <path d="M23 5 L5 23" class="sketch-sparkle" style="stroke: #c4813a;"/>
+          </svg>
+      </div>
+
+      <!-- Sketch: zigzag bottom -->
+      <div class="sketch-note" style="bottom: 8%; left: 50%; transform: translateX(-50%);">
+          <svg width="80" height="14" viewBox="0 0 80 14">
+              <path d="M2 12 L12 2 L22 12 L32 2 L42 12 L52 2 L62 12 L72 2 L80 10" class="sketch-zigzag" style="stroke: #c4813a;"/>
+          </svg>
+      </div>
+
       <div class="max-w-7xl mx-auto">
         <div class="grid md:grid-cols-3 gap-16 text-center">
           <div>
-            <div class="stat-number mb-4">2022</div>
-            <p class="text-xl text-gray-400 uppercase tracking-wider">Founded</p>
+            <div class="stat-number mb-4 text-white">2022</div>
+            <p class="text-xl uppercase tracking-wider" style="color: #c4813a;">Founded</p>
           </div>
           <div>
-            <div class="stat-number mb-4">2</div>
-            <p class="text-xl text-gray-400 uppercase tracking-wider">Team Members</p>
+            <div class="stat-number mb-4 text-white">2</div>
+            <p class="text-xl uppercase tracking-wider" style="color: #c4813a;">Team Members</p>
           </div>
           <div>
-            <div class="stat-number mb-4">1M+</div>
-            <p class="text-xl text-gray-400 uppercase tracking-wider">Users</p>
+            <div class="stat-number mb-4 text-white">1M+</div>
+            <p class="text-xl uppercase tracking-wider" style="color: #c4813a;">Users</p>
           </div>
         </div>
       </div>
     </section>
 
     <!-- Team Section -->
-    <section class="max-w-7xl mx-auto py-32 px-6">
+    <section class="relative max-w-7xl mx-auto py-32 px-6 overflow-visible">
       <div class="mb-20">
-        <h2 class="section-title mb-8">OUR TEAM</h2>
-        <p class="large-text text-gray-700 max-w-3xl">
+        <h2 class="section-title mb-8 text-stone-900">Our Team</h2>
+        <p class="large-text text-stone-600 max-w-3xl">
           Meet the people (and pups) behind Coffee & Fun.
         </p>
       </div>
 
-      <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-8">
+      <!-- Sketch: "woof!" near the team cards -->
+      <div class="sketch-note text-xl sm:text-2xl" style="top: 20px; right: 4%; transform: rotate(5deg);">
+        <svg width="18" height="18" viewBox="0 0 30 30" style="position: relative; display: inline-block; margin-right: 4px; vertical-align: middle;">
+            <path d="M15 2 L17 11 L26 11 L19 17 L22 26 L15 21 L8 26 L11 17 L4 11 L13 11 Z" fill="none" stroke="#fd6155" stroke-width="1.5" stroke-linejoin="round" opacity="0.5"/>
+        </svg>
+        woof!
+      </div>
+
+      <div class="relative grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-8">
+        <!-- Sketch: "the boss" with arrow to Robert -->
+        <div class="sketch-note text-base sm:text-lg" style="top: -20px; left: 4%; transform: rotate(-4deg);">
+            the boss
+            <svg width="30" height="24" style="bottom: -20px; left: 16px;">
+                <path d="M15 2 C12 10, 8 16, 6 20" class="sketch-arrow"/>
+                <path d="M1 16 L6 22 L10 15" class="sketch-arrow"/>
+            </svg>
+        </div>
+
+        <!-- Sketch: floating heart near the pups -->
+        <div class="sketch-note sketch-float" style="top: 30%; right: -1%; --sketch-rotate: 6deg;">
+            <svg width="18" height="16" viewBox="0 0 24 22">
+                <path d="M12 21 C12 21, 2 14, 2 7 C2 3, 5 1, 8 2 C10 3, 11 5, 12 6 C13 5, 14 3, 16 2 C19 1, 22 3, 22 7 C22 14, 12 21, 12 21 Z" class="sketch-heart-filled"/>
+            </svg>
+        </div>
+
+        <!-- Sketch: swirl near the pets -->
+        <div class="sketch-note" style="bottom: 8%; left: 50%; transform: translateX(-50%);">
+            <svg width="28" height="28" viewBox="0 0 30 30">
+                <path d="M15 15 C15 10, 20 8, 22 12 C24 16, 20 20, 15 18 C10 16, 8 10, 12 6 C16 2, 24 4, 26 10 C28 18, 22 26, 12 24" class="sketch-swirl"/>
+            </svg>
+        </div>
+
+        <!-- Sketch: exclamation near the team heading -->
+        <div class="sketch-note" style="top: -15px; left: 38%;">
+            <svg width="8" height="22" viewBox="0 0 10 24">
+                <path d="M5 2 L5 16" class="sketch-exclaim"/>
+                <circle cx="5" cy="22" r="2" fill="#fd6155" opacity="0.4"/>
+            </svg>
+        </div>
+
+        <!-- Sketch: lightning near bottom-left -->
+        <div class="sketch-note sketch-wiggle" style="bottom: 3%; left: 3%; --sketch-rotate: -10deg;">
+            <svg width="14" height="24" viewBox="0 0 16 28">
+                <path d="M10 0 L4 12 L10 12 L6 28" class="sketch-lightning"/>
+            </svg>
+        </div>
+
         <div class="team-card text-center">
           <div class="mb-6">
             <img
               class="w-full aspect-square object-cover rounded-2xl"
               src="/assets/images/about/rob.png"
               alt="Robert James"
+              width="400" height="400"
             />
           </div>
           <h3 class="text-xl font-bold mb-2">Robert James</h3>
-          <p class="text-gray-600 uppercase text-sm tracking-wide">Founder / CTO</p>
+          <p class="text-stone-500 uppercase text-sm tracking-wide">Founder / CTO</p>
         </div>
 
         <div class="team-card text-center">
@@ -239,10 +434,11 @@
               class="w-full aspect-square object-cover rounded-2xl"
               src="/assets/images/about/coco.png"
               alt="Coco"
+              width="400" height="400"
             />
           </div>
           <h3 class="text-xl font-bold mb-2">Coco</h3>
-          <p class="text-gray-600 uppercase text-sm tracking-wide">Head of Search</p>
+          <p class="text-stone-500 uppercase text-sm tracking-wide">Head of Search</p>
         </div>
 
         <div class="team-card text-center">
@@ -251,10 +447,11 @@
               class="w-full aspect-square object-cover rounded-2xl"
               src="/assets/images/about/crash.png"
               alt="Crash"
+              width="400" height="400"
             />
           </div>
           <h3 class="text-xl font-bold mb-2">Crash</h3>
-          <p class="text-gray-600 uppercase text-sm tracking-wide">Head of Security</p>
+          <p class="text-stone-500 uppercase text-sm tracking-wide">Head of Security</p>
         </div>
 
         <div class="team-card text-center">
@@ -263,10 +460,11 @@
               class="w-full aspect-square object-cover rounded-2xl"
               src="/assets/images/about/honey.png"
               alt="Honey"
+              width="400" height="400"
             />
           </div>
           <h3 class="text-xl font-bold mb-2">Honey</h3>
-          <p class="text-gray-600 uppercase text-sm tracking-wide">Head of Activity</p>
+          <p class="text-stone-500 uppercase text-sm tracking-wide">Head of Activity</p>
         </div>
 
         <div class="team-card text-center">
@@ -275,20 +473,28 @@
               class="w-full aspect-square object-cover rounded-2xl"
               src="/assets/images/about/juneo.png"
               alt="Juneau"
+              width="400" height="400"
             />
           </div>
           <h3 class="text-xl font-bold mb-2">Juneau</h3>
-          <p class="text-gray-600 uppercase text-sm tracking-wide">Assistant</p>
+          <p class="text-stone-500 uppercase text-sm tracking-wide">Assistant</p>
         </div>
       </div>
     </section>
 
     <!-- Blog Section -->
-    <section class="full-bleed bg-gray-50 py-32 px-6">
+    <section class="relative full-bleed bg-stone-50 py-32 px-6 overflow-visible">
       <div class="max-w-7xl mx-auto">
-        <div class="mb-20">
-          <h2 class="section-title mb-8">LATEST FROM THE BLOG</h2>
-          <p class="large-text text-gray-700 max-w-3xl">
+        <div class="relative mb-20">
+          <!-- Sketch: "hot off the press!" near blog heading -->
+          <div class="sketch-note text-lg sm:text-xl" style="top: -10px; right: 4%; transform: rotate(4deg);">
+              hot off the press!
+              <svg width="18" height="18" viewBox="0 0 30 30" style="position: relative; display: inline-block; margin-left: 4px; vertical-align: middle;">
+                  <path d="M15 2 L17 11 L26 11 L19 17 L22 26 L15 21 L8 26 L11 17 L4 11 L13 11 Z" fill="none" stroke="#fd6155" stroke-width="1.5" stroke-linejoin="round" opacity="0.5"/>
+              </svg>
+          </div>
+          <h2 class="section-title mb-8 text-stone-900">Latest From The Blog</h2>
+          <p class="large-text text-stone-600 max-w-3xl">
             Discover our latest updates, guides, and announcements.
           </p>
         </div>
@@ -296,47 +502,65 @@
         <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
           {% for post in blog.posts limit:3 %}
                <a
-                  class="card card-compact bg-base-100 shadow-md transition-all duration-200 card-app hover:-translate-y-1 rounded-4xl focus:outline-none focus:ring-2 focus:ring-black focus:ring-offset-2"
+                  class="group bg-white rounded-2xl border border-stone-200 overflow-hidden transition-all duration-200 hover:-translate-y-1 hover:shadow-lg focus:outline-none focus:ring-2 focus:ring-offset-2" style="--tw-ring-color: #a36942;"
                   href="{{ post.link }}">
-             <figure class="px-4 pt-4">
+                  <figure class="p-3 pb-0">
                     <img
                       loading="lazy"
                       src="{{ post.image }}"
-                      class="rounded-2xl   border-opacity-5 bg-base-300"
+                      width="600" height="400"
+                      class="rounded-xl w-full object-cover"
                       alt="{{ post.name }}"
                     />
                   </figure>
-                  <div class="card-body">
-                    <h2 class="card-title">{{ post.name }}</h2>
-                    <p class="text-base">{{ post.description }}</p>
+                  <div class="p-4 pt-3">
+                    <h2 class="text-lg font-semibold text-stone-900 mb-1 group-hover:text-[#a36942] transition-colors">{{ post.name }}</h2>
+                    <p class="text-sm text-stone-500 line-clamp-2">{{ post.description }}</p>
 
-                    <div class="flex flex-wrap gap-2 mt-6 mb-6">
+                    <div class="flex flex-wrap gap-1.5 mt-4">
                       {% for platform in post.platform %}
-                      <div
-                        class="badge badge-neutral gap-2 {% if platform == 'Apple' %} badge-info {% elsif platform == 'Guide' %} badge-error {% elsif platform == 'Announcement' %} badge-accent {% elsif platform == 'Release' %} badge-secondary {% elsif platform == 'Product' %} badge-warning {% else %} badge-neutral {% endif %}"
-                      >
-                        {{ platform }}
-                      </div>
-
+                      <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium border border-stone-200 text-stone-600">{{ platform }}</span>
                       {% endfor %}
                     </div>
                   </div>
                 </a>
-
           {% endfor %}
         </div>
       </div>
     </section>
 
     <!-- CTA Section -->
-    <section class="max-w-7xl mx-auto py-32 px-6 text-center">
-      <h2 class="section-title mb-8">JOIN US</h2>
-      <p class="large-text text-gray-700 max-w-3xl mx-auto mb-12">
+    <section class="relative max-w-7xl mx-auto py-32 px-6 text-center overflow-visible">
+      <!-- Sketch: "come say hi" with circle -->
+      <div class="sketch-note text-lg sm:text-xl" style="top: 24px; left: 6%; transform: rotate(-6deg);">
+        come say hi!
+        <svg width="30" height="30" viewBox="0 0 36 36" style="bottom: -28px; left: 30px;">
+            <circle cx="18" cy="18" r="12" class="sketch-circle"/>
+        </svg>
+      </div>
+      <h2 class="section-title mb-8 text-stone-900">Join Us</h2>
+      <p class="large-text text-stone-600 max-w-3xl mx-auto mb-12">
         Be part of a community that's making the world a little brighter, one app at a time.
       </p>
-      <a href="/blog/" class="inline-block px-12 py-6 bg-black text-white text-xl font-bold uppercase tracking-wide hover:bg-gray-800 transition-colors">
+      <a href="/blog/" class="inline-block px-12 py-6 rounded-xl text-white text-xl font-bold tracking-wide transition-colors hover:opacity-90" style="background-color: #a36942;">
         Read Our Blog
       </a>
+
+      <!-- Sketch: three dots bottom-right -->
+      <div class="sketch-note" style="bottom: 18%; right: 10%;">
+          <svg width="24" height="8" viewBox="0 0 24 8">
+              <circle cx="4" cy="4" r="2.5" class="sketch-dots"/>
+              <circle cx="12" cy="4" r="2.5" class="sketch-dots"/>
+              <circle cx="20" cy="4" r="2.5" class="sketch-dots"/>
+          </svg>
+      </div>
+
+      <!-- Sketch: floating star bottom-left -->
+      <div class="sketch-note sketch-float-slow" style="bottom: 20%; left: 8%; --sketch-rotate: -15deg;">
+          <svg width="22" height="22" viewBox="0 0 30 30">
+              <path d="M15 2 L17 11 L26 11 L19 17 L22 26 L15 21 L8 26 L11 17 L4 11 L13 11 Z" fill="none" stroke="#a36942" stroke-width="1.5" stroke-linejoin="round" opacity="0.3"/>
+          </svg>
+      </div>
     </section>
 
     {% include modals.liquid %}

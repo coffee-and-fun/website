@@ -1,0 +1,508 @@
+<!DOCTYPE html>
+<html class="brand-color-background scroll-smooth antialiased" lang="en" data-theme="light" style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Apps - Coffee & Fun LLC</title>
+    <meta name="title" content="Apps - Coffee & Fun LLC" />
+    <meta name="description" content="Browse all apps, extensions, and tools by Coffee & Fun LLC. From productivity to privacy, find your next favorite tool." />
+    <meta name="author" content="Coffee & Fun LLC" />
+    <meta name="robots" content="index, follow" />
+    <meta name="rating" content="safe for kids" />
+
+    <link rel="canonical" href="/apps/" />
+    <link rel="icon" href="/assets/images/favicon.png" sizes="any" />
+    <link rel="apple-touch-icon" href="/assets/images/social/192.png" />
+    <link rel="icon" href="/assets/images/social/192.png" sizes="192x192" type="image/png" />
+
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="Coffee & Fun" />
+    <meta property="og:title" content="Apps - Coffee & Fun LLC" />
+    <meta property="og:description" content="Browse all apps, extensions, and tools by Coffee & Fun LLC." />
+    <meta property="og:url" content="https://www.coffeeandfun.com/apps/" />
+
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:site" content="@bycoffeeandfun" />
+    <meta name="twitter:title" content="Apps - Coffee & Fun LLC" />
+    <meta name="twitter:description" content="Browse all apps, extensions, and tools by Coffee & Fun LLC." />
+
+    <link rel="manifest" href="/assets/images/social/site.webmanifest" />
+    <meta name="theme-color" content="#fef5ec" />
+    <meta name="mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="default" />
+
+    {% bundledCss %}
+    {% include scripts.html %}
+    {% include sketch-styles.liquid %}
+
+    <style>
+        @font-face {
+            font-family: 'Pacifico';
+            font-style: normal;
+            font-weight: 400;
+            font-display: swap;
+            src: url('/assets/fonts/Pacifico-Regular.ttf') format('truetype');
+        }
+        .brand-heading {
+            font-family: 'Pacifico', cursive;
+            color: #a36942;
+            text-shadow: 1.5px 2.5px 0px #fd6155;
+        }
+        @media (min-width: 640px) {
+            .brand-heading { text-shadow: 2px 3.5px 0px #fd6155; }
+        }
+        @media (min-width: 1024px) {
+            .brand-heading { text-shadow: 3px 5px 0px #fd6155; }
+        }
+
+        .filter-tab {
+            padding: 0.5rem 1.25rem;
+            border-radius: 9999px;
+            font-size: 0.875rem;
+            font-weight: 500;
+            border: 1.5px solid #d6d3d1;
+            color: #78716c;
+            background: transparent;
+            cursor: pointer;
+            transition: all 0.2s;
+            white-space: nowrap;
+        }
+        .filter-tab:hover {
+            border-color: #a36942;
+            color: #a36942;
+        }
+        .filter-tab.active {
+            background-color: #a36942;
+            border-color: #a36942;
+            color: white;
+        }
+
+        .app-card {
+            transition: none;
+        }
+        .app-card.hidden-card {
+            display: none;
+        }
+
+        .section-hidden {
+            display: none;
+        }
+
+        .search-input:focus {
+            box-shadow: 0 0 0 3px rgba(163, 105, 66, 0.2);
+            border-color: #a36942;
+        }
+    </style>
+
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "CollectionPage",
+        "name": "Our Apps - Coffee & Fun LLC",
+        "description": "Discover browser extensions and apps built by Coffee & Fun LLC. From accessibility tools to productivity boosters.",
+        "url": "https://www.coffeeandfun.com/apps/",
+        "publisher": {
+            "@type": "Organization",
+            "name": "Coffee & Fun LLC",
+            "url": "https://www.coffeeandfun.com",
+            "logo": {
+                "@type": "ImageObject",
+                "url": "https://www.coffeeandfun.com/assets/images/coffee-and-fun-logo-dark.png"
+            }
+        }
+    }
+    </script>
+</head>
+
+<body>
+    {% assign showFun = true %}
+    {% assign showMiddleBadgeWithText = true %}
+    {% include header.liquid %}
+
+    <main id="main-content">
+
+        <!-- Hero -->
+        <section class="relative mx-auto max-w-5xl px-4 sm:px-6 lg:px-8 pt-20 sm:pt-28 pb-10 sm:pb-14 text-center overflow-visible">
+            <h1 class="brand-heading text-4xl sm:text-5xl lg:text-6xl leading-[1.15] sm:leading-[1.15] lg:leading-[1.15] mb-5">
+                Our Apps
+            </h1>
+            <p class="text-lg sm:text-xl text-stone-500 max-w-2xl mx-auto leading-relaxed">
+                Tools, extensions, and experiments — built with care.
+            </p>
+
+            <!-- Sketch: star + "made with love" -->
+            <div class="sketch-note text-lg sm:text-xl" style="top: 18px; right: 5%; transform: rotate(-5deg);">
+                <svg width="18" height="18" viewBox="0 0 30 30" style="position: relative; display: inline-block; margin-right: 3px; vertical-align: middle;">
+                    <path d="M15 2 L17 11 L26 11 L19 17 L22 26 L15 21 L8 26 L11 17 L4 11 L13 11 Z" fill="none" stroke="#fd6155" stroke-width="1.5" stroke-linejoin="round" opacity="0.5"/>
+                </svg>
+                made with love
+            </div>
+
+            <!-- Sketch: small dashed circle left -->
+            <div class="sketch-note" style="top: 45%; left: -1%;">
+                <svg width="28" height="28" viewBox="0 0 36 36">
+                    <circle cx="18" cy="18" r="12" class="sketch-circle" transform="rotate(15 18 18)"/>
+                </svg>
+            </div>
+
+            <!-- Sketch: heart doodle left of heading -->
+            <div class="sketch-note sketch-float-slow" style="top: 26%; left: 12%; --sketch-rotate: -10deg;">
+                <svg width="20" height="18" viewBox="0 0 24 22">
+                    <path d="M12 21 C12 21, 2 14, 2 7 C2 3, 5 1, 8 2 C10 3, 11 5, 12 6 C13 5, 14 3, 16 2 C19 1, 22 3, 22 7 C22 14, 12 21, 12 21 Z" class="sketch-heart"/>
+                </svg>
+            </div>
+
+            <!-- Sketch: swirl top-right -->
+            <div class="sketch-note" style="top: 20%; right: 2%;">
+                <svg width="26" height="26" viewBox="0 0 30 30">
+                    <path d="M15 15 C15 10, 20 8, 22 12 C24 16, 20 20, 15 18 C10 16, 8 10, 12 6 C16 2, 24 4, 26 10" class="sketch-swirl"/>
+                </svg>
+            </div>
+
+            <!-- Sketch: lightning bolt right of subtitle -->
+            <div class="sketch-note" style="top: 58%; right: 6%; transform: rotate(10deg);">
+                <svg width="14" height="24" viewBox="0 0 16 28">
+                    <path d="M10 0 L4 12 L10 12 L6 28" class="sketch-lightning"/>
+                </svg>
+            </div>
+
+            <!-- Sketch: checkmark near heading -->
+            <div class="sketch-note sketch-wiggle" style="top: 30%; left: 5%; --sketch-rotate: -8deg;">
+                <svg width="20" height="18" viewBox="0 0 22 20">
+                    <path d="M3 10 L9 16 L19 4" class="sketch-check"/>
+                </svg>
+            </div>
+        </section>
+
+        <!-- Search + Filters -->
+        <section class="relative mx-auto max-w-5xl px-4 sm:px-6 lg:px-8 pb-10 overflow-visible">
+            <!-- Search -->
+            <div class="max-w-md mx-auto mb-10">
+                <label class="input input-lg w-full border-stone-200 focus-within:border-stone-300 rounded-xl">
+                    <span class="sr-only">Search apps</span>
+                    <svg class="h-[1em] opacity-40" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" aria-hidden="true">
+                        <g stroke-linejoin="round" stroke-linecap="round" stroke-width="2.5" fill="none" stroke="currentColor">
+                            <circle cx="11" cy="11" r="8"></circle>
+                            <path d="m21 21-4.3-4.3"></path>
+                        </g>
+                    </svg>
+                    <input type="search" id="appSearchInput" placeholder="Search apps..." class="search-input" />
+                </label>
+            </div>
+
+            <!-- Sketch: "psst... try filtering!" near tabs -->
+            <div class="sketch-note text-base sm:text-lg" style="top: 62%; right: 3%; transform: rotate(4deg);">
+                psst... try filtering!
+                <svg width="35" height="28" style="bottom: -24px; left: 20px;">
+                    <path d="M18 2 C14 10, 8 16, 6 24" class="sketch-arrow"/>
+                    <path d="M1 20 L6 26 L10 19" class="sketch-arrow"/>
+                </svg>
+            </div>
+
+            <!-- Filter Tabs -->
+            <div class="flex flex-wrap justify-center gap-2" id="filterTabs">
+                <button class="filter-tab active" data-filter="all">All</button>
+                <button class="filter-tab" data-filter="Web">Web</button>
+                <button class="filter-tab" data-filter="Chrome">Chrome</button>
+                <button class="filter-tab" data-filter="Safari">Safari</button>
+                <button class="filter-tab" data-filter="macOS">macOS</button>
+                <button class="filter-tab" data-filter="iOS">iOS</button>
+                <button class="filter-tab" data-filter="Open Source">Open Source</button>
+            </div>
+        </section>
+
+        <!-- Active Apps -->
+        <section class="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 pb-16 overflow-visible">
+            <!-- Sketch: squiggly decoration left of grid -->
+            <div class="sketch-note" style="top: 8%; left: -1%;">
+                <svg width="16" height="60" viewBox="0 0 16 60">
+                    <path d="M8 2 C2 10, 14 18, 8 26 C2 34, 14 42, 8 50 C4 56, 10 58, 8 58" class="sketch-squiggle"/>
+                </svg>
+            </div>
+
+            <!-- Sketch: tiny heart floating right of grid -->
+            <div class="sketch-note sketch-float" style="top: 18%; right: 0%; --sketch-rotate: 8deg;">
+                <svg width="16" height="14" viewBox="0 0 24 22">
+                    <path d="M12 21 C12 21, 2 14, 2 7 C2 3, 5 1, 8 2 C10 3, 11 5, 12 6 C13 5, 14 3, 16 2 C19 1, 22 3, 22 7 C22 14, 12 21, 12 21 Z" class="sketch-heart-filled"/>
+                </svg>
+            </div>
+
+            <!-- Sketch: checkmark floating mid-right -->
+            <div class="sketch-note sketch-wiggle" style="top: 42%; right: -1%; --sketch-rotate: 5deg;">
+                <svg width="18" height="16" viewBox="0 0 22 20">
+                    <path d="M3 10 L9 16 L19 4" class="sketch-check"/>
+                </svg>
+            </div>
+
+            <!-- Sketch: leaf mid-left -->
+            <div class="sketch-note" style="top: 55%; left: -1%; transform: rotate(-15deg);">
+                <svg width="18" height="22" viewBox="0 0 24 28">
+                    <path d="M12 2 C4 8, 2 18, 12 26 C22 18, 20 8, 12 2 Z" class="sketch-leaf"/>
+                    <path d="M12 6 L12 22" class="sketch-leaf"/>
+                </svg>
+            </div>
+
+            <!-- Sketch: dashed horizontal line -->
+            <div class="sketch-note" style="top: 70%; right: 3%;">
+                <svg width="60" height="6" viewBox="0 0 60 6">
+                    <path d="M0 3 L60 3" class="sketch-dash"/>
+                </svg>
+            </div>
+
+            <!-- Sketch: exclamation mark -->
+            <div class="sketch-note" style="top: 30%; left: -1%;">
+                <svg width="8" height="22" viewBox="0 0 10 24">
+                    <path d="M5 2 L5 16" class="sketch-exclaim"/>
+                    <circle cx="5" cy="22" r="2" fill="#fd6155" opacity="0.4"/>
+                </svg>
+            </div>
+            <div class="not-prose grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-3" id="appGrid">
+                {% for app in apps.apps %}
+                <a class="app-card card card-compact bg-base-100 shadow-md transition-all duration-200 hover:-translate-y-1 hover:shadow-xl rounded-2xl focus:outline-none focus:ring-2 focus:ring-offset-2 overflow-hidden"
+                    style="--tw-ring-color: #a36942;"
+                    href="{{ app.link }}"
+                    {% if app.link contains 'http' %}target="_blank" rel="noopener noreferrer"{% endif %}
+                    data-title="{{ app.name | downcase }}"
+                    data-description="{{ app.description | downcase }}"
+                    data-platforms="{{ app.platform | join: ' ' | downcase }}">
+                    <figure class="px-4 pt-4 pb-1">
+                        <img loading="lazy" decoding="async"
+                            src="{{ app.image }}"
+                            width="600" height="400"
+                            class="rounded-xl w-full aspect-video object-cover bg-stone-100"
+                            alt="{{ app.name }}" />
+                    </figure>
+                    <div class="card-body">
+                        <h2 class="card-title text-stone-800">{{ app.name }}</h2>
+                        <p class="text-sm text-stone-500 line-clamp-2">{{ app.description }}</p>
+                        <div class="flex flex-wrap gap-1.5 mt-3">
+                            {% for platform in app.platform %}
+                            <span class="text-xs font-medium px-2.5 py-1 rounded-full border border-stone-200 text-stone-500">{{ platform }}</span>
+                            {% endfor %}
+                        </div>
+                    </div>
+                </a>
+                {% endfor %}
+            </div>
+
+            <!-- No Results -->
+            <div id="noResults" class="hidden text-center py-16">
+                <p class="text-2xl mb-2">No Apps Found</p>
+                <p class="text-stone-400">Try a different search or filter</p>
+            </div>
+        </section>
+
+        <!-- Open Source Section -->
+        <section class="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 pb-16 overflow-visible">
+            <!-- Sketch: "free & open!" with arrow -->
+            <div class="sketch-note text-lg sm:text-xl" style="top: -10px; right: 5%; transform: rotate(-4deg);">
+                free & open!
+                <svg width="45" height="40" style="bottom: -36px; left: 15px;">
+                    <path d="M22 2 C18 14, 10 22, 6 35" class="sketch-arrow"/>
+                    <path d="M0 30 L6 37 L12 30" class="sketch-arrow"/>
+                </svg>
+            </div>
+
+            <!-- Sketch: sparkle burst left of heading -->
+            <div class="sketch-note" style="top: 2%; left: 2%;">
+                <svg width="22" height="22" viewBox="0 0 22 22">
+                    <path d="M11 2 L11 20" class="sketch-sparkle"/>
+                    <path d="M2 11 L20 11" class="sketch-sparkle"/>
+                    <path d="M4 4 L18 18" class="sketch-sparkle"/>
+                    <path d="M18 4 L4 18" class="sketch-sparkle"/>
+                </svg>
+            </div>
+
+            <!-- Sketch: coffee cup near heading -->
+            <div class="sketch-note" style="top: -2%; left: 18%; transform: rotate(8deg);">
+                <svg width="22" height="26" viewBox="0 0 28 32">
+                    <path d="M4 10 L4 26 C4 28 6 30 10 30 L18 30 C22 30 24 28 24 26 L24 10" class="sketch-arrow" style="opacity: 0.3;"/>
+                    <path d="M24 14 C28 14, 28 22, 24 22" class="sketch-arrow" style="opacity: 0.3;"/>
+                    <path d="M10 6 C10 2, 12 0, 12 0" class="sketch-arrow" style="opacity: 0.15;"/>
+                    <path d="M16 4 C16 0, 18 -2, 18 -2" class="sketch-arrow" style="opacity: 0.15;"/>
+                </svg>
+            </div>
+
+            <h2 class="text-xl sm:text-2xl font-bold text-stone-800 mb-8">Open Source</h2>
+            <div class="not-prose grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-3" id="opensourceGrid">
+                {% for app in apps.opensource %}
+                <a class="app-card card card-compact bg-base-100 shadow-md transition-all duration-200 hover:-translate-y-1 hover:shadow-xl rounded-2xl focus:outline-none focus:ring-2 focus:ring-offset-2 overflow-hidden"
+                    style="--tw-ring-color: #a36942;"
+                    href="{{ app.link }}"
+                    target="_blank" rel="noopener noreferrer"
+                    data-title="{{ app.name | downcase }}"
+                    data-description="{{ app.description | downcase }}"
+                    data-platforms="open source">
+                    <figure class="px-4 pt-4 pb-1">
+                        <img loading="lazy" decoding="async"
+                            src="{{ app.image }}"
+                            width="600" height="400"
+                            class="rounded-xl w-full aspect-video object-cover bg-stone-100"
+                            alt="{{ app.name }}" />
+                    </figure>
+                    <div class="card-body">
+                        <h2 class="card-title text-stone-800">{{ app.name }}</h2>
+                        <p class="text-sm text-stone-500 line-clamp-2">{{ app.description }}</p>
+                        <div class="flex flex-wrap gap-1.5 mt-3">
+                            {% for platform in app.platform %}
+                            <span class="text-xs font-medium px-2.5 py-1 rounded-full border border-stone-200 text-stone-500">{{ platform }}</span>
+                            {% endfor %}
+                        </div>
+                    </div>
+                </a>
+                {% endfor %}
+            </div>
+        </section>
+
+        <!-- Graveyard Section -->
+        <section class="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 pb-28 overflow-visible">
+            <!-- Sketch: "gone but not forgotten" with cross -->
+            <div class="sketch-note text-lg" style="top: -6px; right: 8%; transform: rotate(3deg); opacity: 0.6;">
+                gone but not forgotten
+            </div>
+
+            <!-- Sketch: tiny cross/plus doodle -->
+            <div class="sketch-note" style="top: 4%; left: 3%;">
+                <svg width="18" height="18" viewBox="0 0 18 18">
+                    <path d="M9 2 L9 16" class="sketch-cross"/>
+                    <path d="M2 9 L16 9" class="sketch-cross"/>
+                </svg>
+            </div>
+
+            <!-- Sketch: three dots -->
+            <div class="sketch-note" style="bottom: 15%; right: 2%;">
+                <svg width="24" height="8" viewBox="0 0 24 8">
+                    <circle cx="4" cy="4" r="2.5" class="sketch-dots"/>
+                    <circle cx="12" cy="4" r="2.5" class="sketch-dots"/>
+                    <circle cx="20" cy="4" r="2.5" class="sketch-dots"/>
+                </svg>
+            </div>
+            <h2 class="text-xl sm:text-2xl font-bold text-stone-800 mb-2">The Graveyard</h2>
+            <p class="text-sm text-stone-400 mb-8">Apps we've sunset or retired.</p>
+            <div class="not-prose grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-3 opacity-70" id="graveyardGrid">
+                {% for app in apps.graveyard %}
+                <a class="app-card card card-compact bg-base-100 shadow-md transition-all duration-200 hover:-translate-y-1 hover:shadow-xl rounded-2xl focus:outline-none focus:ring-2 focus:ring-offset-2 overflow-hidden"
+                    style="--tw-ring-color: #a36942;"
+                    href="{{ app.link }}"
+                    {% if app.link contains 'http' %}target="_blank" rel="noopener noreferrer"{% endif %}
+                    data-title="{{ app.name | downcase }}"
+                    data-description="{{ app.description | downcase }}"
+                    data-platforms="{{ app.platform | join: ' ' | downcase }}">
+                    <figure class="px-4 pt-4 pb-1">
+                        <img loading="lazy" decoding="async"
+                            src="{{ app.image }}"
+                            width="600" height="400"
+                            class="rounded-xl w-full aspect-video object-cover bg-stone-100"
+                            alt="{{ app.name }}" />
+                    </figure>
+                    <div class="card-body">
+                        <h2 class="card-title text-stone-800">{{ app.name }}</h2>
+                        <p class="text-sm text-stone-500 line-clamp-2">{{ app.description }}</p>
+                        <div class="flex flex-wrap gap-1.5 mt-3">
+                            {% for platform in app.platform %}
+                            <span class="text-xs font-medium px-2.5 py-1 rounded-full border border-stone-200 text-stone-500">{{ platform }}</span>
+                            {% endfor %}
+                        </div>
+                    </div>
+                </a>
+                {% endfor %}
+            </div>
+        </section>
+
+    </main>
+
+    {% include modals.liquid %}
+    {% include footer.liquid %}
+
+    <script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const searchInput = document.getElementById('appSearchInput');
+        const filterTabs = document.querySelectorAll('.filter-tab');
+        const noResults = document.getElementById('noResults');
+        const appGrid = document.getElementById('appGrid');
+        const opensourceSection = document.getElementById('opensourceGrid').closest('section');
+        const graveyardSection = document.getElementById('graveyardGrid').closest('section');
+
+        const mainCards = appGrid.querySelectorAll('.app-card');
+        const osCards = document.getElementById('opensourceGrid').querySelectorAll('.app-card');
+        const gyCards = document.getElementById('graveyardGrid').querySelectorAll('.app-card');
+
+        let activeFilter = 'all';
+
+        function filterCards(cards, searchTerm) {
+            let count = 0;
+            cards.forEach(card => {
+                const title = card.dataset.title || '';
+                const description = card.dataset.description || '';
+                const platforms = card.dataset.platforms || '';
+                const content = title + ' ' + description + ' ' + platforms;
+
+                const matchesSearch = searchTerm === '' || content.includes(searchTerm);
+                const matchesFilter = activeFilter === 'all' || platforms.includes(activeFilter.toLowerCase());
+
+                if (matchesSearch && matchesFilter) {
+                    card.classList.remove('hidden-card');
+                    count++;
+                } else {
+                    card.classList.add('hidden-card');
+                }
+            });
+            return count;
+        }
+
+        function applyFilters() {
+            const searchTerm = searchInput.value.toLowerCase().trim();
+
+            const mainCount = filterCards(mainCards, searchTerm);
+            const osCount = filterCards(osCards, searchTerm);
+            const gyCount = filterCards(gyCards, searchTerm);
+
+            // Hide entire sections if no visible cards or filter doesn't match
+            const showOS = activeFilter === 'all' || activeFilter === 'Open Source';
+            const showGY = activeFilter === 'all';
+
+            if (showOS && osCount > 0) {
+                opensourceSection.classList.remove('section-hidden');
+            } else {
+                opensourceSection.classList.add('section-hidden');
+            }
+
+            if (showGY && gyCount > 0) {
+                graveyardSection.classList.remove('section-hidden');
+            } else {
+                graveyardSection.classList.add('section-hidden');
+            }
+
+            // No results
+            const totalVisible = mainCount + (showOS ? osCount : 0) + (showGY ? gyCount : 0);
+            if (totalVisible === 0) {
+                noResults.classList.remove('hidden');
+            } else {
+                noResults.classList.add('hidden');
+            }
+        }
+
+        // Tab clicks
+        filterTabs.forEach(tab => {
+            tab.addEventListener('click', function() {
+                filterTabs.forEach(t => t.classList.remove('active'));
+                this.classList.add('active');
+                activeFilter = this.dataset.filter;
+                applyFilters();
+            });
+        });
+
+        // Search
+        searchInput.addEventListener('input', applyFilters);
+        searchInput.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape') {
+                searchInput.value = '';
+                applyFilters();
+            }
+        });
+    });
+    </script>
+</body>
+</html>

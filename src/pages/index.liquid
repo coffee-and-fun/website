@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html class="brand-color-background scroll-smooth antialiased" lang="en" data-theme="light">
+<html class="brand-color-background scroll-smooth antialiased" lang="en" data-theme="light" style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;">
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -133,351 +133,418 @@
     </script>
     
     {% include scripts.html %}
+
+    {% include sketch-styles.liquid %}
+
+    <style>
+        @font-face {
+            font-family: 'Pacifico';
+            font-style: normal;
+            font-weight: 400;
+            font-display: swap;
+            src: url('/assets/fonts/Pacifico-Regular.ttf') format('truetype');
+        }
+        .brand-heading {
+            font-family: 'Pacifico', cursive;
+            color: #a36942;
+            text-shadow: 1.5px 2.5px 0px #fd6155;
+        }
+        @media (min-width: 640px) {
+            .brand-heading {
+                text-shadow: 2px 3.5px 0px #fd6155;
+            }
+        }
+        @media (min-width: 1024px) {
+            .brand-heading {
+                text-shadow: 3px 5px 0px #fd6155;
+            }
+        }
+    </style>
 </head>
 
 <body>
-    {% assign showFun = true %} 
-    {% assign showMiddleBadgeWithText = true %} 
+    {% assign showFun = true %}
+    {% assign showMiddleBadgeWithText = true %}
     {% include header.liquid %}
-    
-    <style>
-        .coffee-steam {
-            font-size: 3rem;
-            font-weight: bold;
-            color: #5c3d2e;
-            position: relative;
-            display: inline-block;
-        }
-        
-        .coffee-steam::after {
-            content: "☁ ☁ ☁";
-            position: absolute;
-            top: -40px;
-            left: 20px;
-            font-size: 1.5rem;
-            animation: steam 3s infinite ease-in-out;
-            opacity: 0.6;
-        }
-        
-        @keyframes steam {
-            0% { transform: translateY(0) scale(0.8); opacity: 0.5; }
-            50% { transform: translateY(-20px) scale(1); opacity: 1; }
-            100% { transform: translateY(-40px) scale(1.2); opacity: 0; }
-        }
-        
-        .latte-text {
-            font-size: 3rem;
-            font-weight: bold;
-            background: linear-gradient(45deg, #4b2e2e, #d2b48c, #fff8e7);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
-        
-        .coffee-stain {
-            font-size: 3rem;
-            color: #3e2723;
-            text-shadow: 
-                0 0 5px #6f4e37,
-                0 0 15px #a1887f,
-                0 0 30px #d7ccc8;
-        }
-        
-        .drip {
-            font-size: 3rem;
-            font-weight: bold;
-            color: #6f4e37;
-            position: relative;
-        }
-        
-        .drip::after {
-            content: '';
-            position: absolute;
-            left: 40%;
-            bottom: -10px;
-            width: 6px;
-            height: 15px;
-            background: #4b2e2e;
-            border-radius: 50%;
-            animation: drip 2s infinite;
-        }
-        
-        @keyframes drip {
-            0% { transform: translateY(0); opacity: 1; }
-            70% { transform: translateY(20px); opacity: 1; }
-            100% { transform: translateY(40px); opacity: 0; }
-        }
-    </style>
-    
-    <main id="main-content" class="mx-auto max-w-7xl">
-        <div class="mb-12 mt-12 sm:mb-16 sm:mt-16 lg:mb-24 lg:mt-24 px-4 sm:px-6 lg:px-8">
-          <div class="mb-12 mt-12 sm:mb-16 sm:mt-16 lg:mb-24 lg:mt-24 px-4 sm:px-6 lg:px-8">
-    <div class="relative rounded-2xl sm:rounded-[2rem] lg:rounded-[2.5rem] shadow-xl">
-        <!-- Background gradient layer -->
-        <div class="absolute inset-0 rounded-2xl sm:rounded-[2rem] lg:rounded-[2.5rem] ring-1 ring-black/5 ring-inset bg-gradient-to-br from-[#fcd683] via-[#f7c4ba] to-[#e25440]"></div>
-        
-        <!-- Content layer -->
-        <div class="relative px-8 py-12 sm:px-12 sm:py-16 lg:px-16 lg:py-20">
-            <div class="max-w-3xl">
-                <!-- Main heading -->
-                <h1 class="text-4xl sm:text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight text-gray-950 leading-[1.1] mb-6 sm:mb-8">
-                    Crafting Software, One Brew at a Time
-                </h1>
-                
-                <!-- Description -->
-                <div class="max-w-2xl space-y-5">
-                    <p class="text-lg sm:text-xl lg:text-2xl font-semibold text-gray-900 leading-relaxed">
-                        Coffee & Fun LLC is a modern development studio creating award-winning tools that blend thoughtful design with everyday usefulness.
-                    </p>
-                    
-                    <p class="text-base sm:text-lg lg:text-xl text-gray-800 leading-relaxed">
-                        From productivity to accessibility, we build apps that help people do more, faster, easier, and with a little joy baked in.
-                    </p>
-                </div>
-                
-                <!-- Buttons -->
-                <div class="mt-10 sm:mt-12 flex flex-col sm:flex-row gap-3 sm:gap-4">
-                    <button
-                        class="btn btn-lg btn-neutral rounded-2xl w-full sm:w-auto sm:min-w-[140px] font-semibold hover:shadow-lg transition-all duration-200 hover:-translate-y-0.5"
-                        onclick="my_modal_site_menu.showModal()"
-                        title="Open the contact support form"
-                        aria-label="Open the contact support form"
-                        aria-controls="my_modal_site_menu"
-                        role="menuitem"
-                    >
-                        Menu
-                    </button>
-                    <a
-                        class="btn btn-lg btn-outline btn-neutral rounded-2xl w-full sm:w-auto sm:min-w-[140px] font-semibold backdrop-blur-sm bg-white/20 hover:bg-white/35 border-2 hover:shadow-lg transition-all duration-200 hover:-translate-y-0.5"
-                        href="/blog/"
-                        title="Visit Coffee & Fun's Blog"
-                    >
-                        Blog
-                    </a>
+
+    <main id="main-content">
+
+        <!-- Hero -->
+        <section class="relative mx-auto max-w-5xl px-4 sm:px-6 lg:px-8 py-20 sm:py-28 lg:py-36 text-center overflow-visible">
+
+            <!-- Sketch: curly arrow pointing to announcement badge -->
+            <div class="sketch-note text-xl sm:text-2xl" style="top: 12px; right: 8%; transform: rotate(-6deg);">
+                check this out!
+                <svg width="60" height="50" style="bottom: -44px; left: 20px;">
+                    <path d="M10 2 C20 15, 35 25, 28 42" class="sketch-arrow"/>
+                    <path d="M22 36 L28 44 L34 36" class="sketch-arrow"/>
+                </svg>
+            </div>
+
+            <a href="{{ announcement.url }}" class="inline-flex items-center gap-2 border border-stone-200 rounded-lg px-4 py-1.5 text-sm font-medium text-stone-600 mb-6 sm:mb-8 hover:border-stone-300 hover:text-stone-900 transition-all duration-200">
+                <span class="relative flex h-2 w-2">
+                    <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-orange-400 opacity-75"></span>
+                    <span class="relative inline-flex rounded-full h-2 w-2 bg-orange-500"></span>
+                </span>
+                {{ announcement.text }}
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="w-4 h-4 text-stone-400"><path fill-rule="evenodd" d="M3 10a.75.75 0 01.75-.75h10.638L10.23 5.29a.75.75 0 111.04-1.08l5.5 5.25a.75.75 0 010 1.08l-5.5 5.25a.75.75 0 11-1.04-1.08l4.158-3.96H3.75A.75.75 0 013 10z" clip-rule="evenodd" /></svg>
+            </a>
+            <!-- Sketch: coffee cup doodle top-left -->
+            <div class="sketch-note" style="top: 8%; left: 0%; transform: rotate(-10deg);">
+                <svg width="28" height="32" viewBox="0 0 28 32">
+                    <path d="M4 10 L4 26 C4 28 6 30 10 30 L18 30 C22 30 24 28 24 26 L24 10" class="sketch-arrow" style="opacity: 0.35;"/>
+                    <path d="M24 14 C28 14, 28 22, 24 22" class="sketch-arrow" style="opacity: 0.35;"/>
+                    <path d="M8 6 C8 2, 10 0, 10 0" class="sketch-arrow" style="opacity: 0.2;"/>
+                    <path d="M14 4 C14 0, 16 -2, 16 -2" class="sketch-arrow" style="opacity: 0.2;"/>
+                    <path d="M20 6 C20 2, 22 0, 22 0" class="sketch-arrow" style="opacity: 0.2;"/>
+                </svg>
+            </div>
+
+            <h1 class="brand-heading text-5xl sm:text-6xl lg:text-8xl leading-[1.15] sm:leading-[1.15] lg:leading-[1.15]">
+                Crafting Software,
+                <br />
+                One Brew at a Time
+            </h1>
+            <p class="mt-6 sm:mt-8 text-xl sm:text-2xl text-stone-500 max-w-2xl mx-auto leading-relaxed">
+                Award-winning tools that blend thoughtful design with everyday usefulness. From productivity to accessibility, we build apps people love.
+            </p>
+
+            <!-- Sketch: heart doodle near tagline -->
+            <div class="sketch-note sketch-float-slow" style="top: 55%; left: 1%; --sketch-rotate: -8deg;">
+                <svg width="24" height="22" viewBox="0 0 24 22">
+                    <path d="M12 21 C12 21, 2 14, 2 7 C2 3, 5 1, 8 2 C10 3, 11 5, 12 6 C13 5, 14 3, 16 2 C19 1, 22 3, 22 7 C22 14, 12 21, 12 21 Z" class="sketch-heart"/>
+                </svg>
+            </div>
+            <div class="mt-8 sm:mt-10 flex flex-wrap justify-center gap-3 relative">
+                <a
+                    class="btn btn-lg rounded-lg px-8 sm:px-10 font-semibold text-white border-0 shadow-lg hover:shadow-xl hover:-translate-y-0.5 transition-all duration-200" style="background-color: #a36942; box-shadow: 0 10px 15px -3px rgba(163,105,66,0.3);"
+                    href="/apps/"
+                    title="Browse all apps"
+                >
+                    Explore Apps
+                </a>
+                <a
+                    class="btn btn-lg btn-outline rounded-lg px-8 sm:px-10 font-semibold border-2 hover:text-white hover:-translate-y-0.5 transition-all duration-200" style="border-color: #fd6155; color: #fd6155;" onmouseover="this.style.backgroundColor='#fd6155';this.style.color='white'" onmouseout="this.style.backgroundColor='transparent';this.style.color='#fd6155'"
+                    href="/blog/"
+                    title="Visit Coffee & Fun's Blog"
+                >
+                    Read the Blog
+                </a>
+
+                <!-- Sketch: arrow pointing to Explore Apps button -->
+                <div class="sketch-note text-lg sm:text-xl" style="bottom: -48px; left: 15%; transform: rotate(4deg);">
+                    <svg width="50" height="40" style="top: -38px; left: 40px;">
+                        <path d="M25 38 C20 20, 15 10, 22 2" class="sketch-arrow"/>
+                        <path d="M16 6 L22 0 L26 8" class="sketch-arrow"/>
+                    </svg>
+                    start here
                 </div>
             </div>
-        </div>
-    </div>
-</div>
-                        </div>
+
+            <!-- Sketch: small star doodle on the left -->
+            <div class="sketch-note" style="top: 40%; left: -2%; transform: rotate(-12deg);">
+                <svg width="30" height="30" viewBox="0 0 30 30">
+                    <path d="M15 2 L17 11 L26 11 L19 17 L22 26 L15 21 L8 26 L11 17 L4 11 L13 11 Z" fill="none" stroke="#fd6155" stroke-width="1.5" stroke-linejoin="round" opacity="0.4"/>
+                </svg>
+            </div>
+
+            <!-- Sketch: small star doodle on the right -->
+            <div class="sketch-note" style="top: 30%; right: -1%; transform: rotate(15deg);">
+                <svg width="24" height="24" viewBox="0 0 30 30">
+                    <path d="M15 2 L17 11 L26 11 L19 17 L22 26 L15 21 L8 26 L11 17 L4 11 L13 11 Z" fill="none" stroke="#a36942" stroke-width="1.5" stroke-linejoin="round" opacity="0.35"/>
+                </svg>
+            </div>
+
+            <!-- Sketch: swirl near bottom-right -->
+            <div class="sketch-note" style="bottom: 5%; right: 3%;">
+                <svg width="30" height="30" viewBox="0 0 30 30">
+                    <path d="M15 15 C15 10, 20 8, 22 12 C24 16, 20 20, 15 18 C10 16, 8 10, 12 6 C16 2, 24 4, 26 10 C28 18, 22 26, 12 24" class="sketch-swirl"/>
+                </svg>
+            </div>
+
+            <!-- Sketch: checkmark near tagline -->
+            <div class="sketch-note sketch-wiggle" style="top: 63%; right: 4%; --sketch-rotate: 5deg;">
+                <svg width="22" height="20" viewBox="0 0 22 20">
+                    <path d="M3 10 L9 16 L19 4" class="sketch-check"/>
+                </svg>
+            </div>
+
+            <!-- Sketch: lightning bolt left side -->
+            <div class="sketch-note" style="top: 18%; left: 4%; transform: rotate(-5deg);">
+                <svg width="16" height="28" viewBox="0 0 16 28">
+                    <path d="M10 0 L4 12 L10 12 L6 28" class="sketch-lightning"/>
+                </svg>
+            </div>
+
+            <!-- Sketch: dashed path across the hero -->
+            <div class="sketch-note" style="bottom: 2%; left: 10%;">
+                <svg width="80" height="8" viewBox="0 0 80 8">
+                    <path d="M0 4 L80 4" class="sketch-dash"/>
+                </svg>
+            </div>
+        </section>
+
+        <!-- Bento Grid — 4 big cards -->
+        <section class="relative mx-auto max-w-5xl px-4 sm:px-6 lg:px-8 py-16 sm:py-24 overflow-visible">
+
+            <!-- Sketch: "our favorites" label with curly arrow pointing down-left to the grid -->
+            <div class="sketch-note text-xl sm:text-2xl" style="top: -8px; right: 6%; transform: rotate(-3deg);">
+                our favorites
+                <svg width="60" height="55" style="bottom: -50px; left: 10px;">
+                    <path d="M35 2 C30 18, 15 30, 8 48" class="sketch-arrow"/>
+                    <path d="M2 42 L8 50 L14 42" class="sketch-arrow"/>
+                </svg>
+            </div>
+
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-5">
+
+                <!-- Apps -->
+                <a
+                    href="/apps/"
+                    class="group flex flex-col rounded-2xl overflow-hidden transition-all duration-300 hover:shadow-2xl hover:-translate-y-1 focus:outline-none focus:ring-2 focus:ring-offset-2" style="background: linear-gradient(135deg, #a36942, #7a4e31); --tw-ring-color: #a36942;"
+                >
+                    <div class="w-full overflow-hidden">
+                        <img src="/assets/images/bento/bento-apps.png" alt="Coffee & Fun Apps" width="600" height="400" class="w-full h-48 sm:h-56 object-cover group-hover:scale-105 transition-transform duration-500" loading="lazy" />
                     </div>
-                </div>
-            </div>
-            
-            <div class="mx-auto max-w-7xl">
-                <div class="relative">
-                    <div class="mx-auto max-w-7xl">
-                        <div class="max-w-8xl mx-auto my-8 px-4 sm:px-6 lg:px-8" id="apps">
-                            <div class="card my-16 sm:my-20 lg:my-24">
-                                <div class="my-6 sm:my-8">
-                                    <h2 class="card-title mb-3 sm:mb-4 text-2xl sm:text-3xl lg:text-4xl font-medium tracking-tighter">
-                                        Our Family of Apps
-                                    </h2>
-                                    <p class="text-base sm:text-lg">
-                                        At Coffee & Fun, we take pride in our diverse range of apps,
-                                        each crafted with care and attention to detail.
-                                    </p>
-                                    <div class="divider my-6 sm:my-8"></div>
-                                    <div class="flex overflow-x-auto snap-x snap-mandatory scroll-smooth gap-4 sm:gap-6 p-2 sm:px-4 pb-6 sm:pb-8">
-                                        {% for app in apps.apps %}
-                                        <div class="shrink-0 snap-start w-72 sm:w-80 lg:w-[20rem]">
-                                            <a
-                                                class="min-h-[28rem] sm:min-h-[30rem] flex flex-col justify-between h-full card card-compact bg-base-100 shadow-md transition-all duration-200 card-app hover:-translate-y-1 rounded-4xl focus:outline-none focus:ring-2 focus:ring-black focus:ring-offset-2"
-                                                target="_blank"
-                                                rel="noopener noreferrer"
-                                                href="{{ app.link }}"
-                                            >
-                                                <figure class="px-3 pt-3 sm:px-4 sm:pt-4">
-                                                    <img
-                                                        loading="lazy"
-                                                        src="{{ app.image }}"
-                                                        class="rounded-2xl sm:rounded-2xl bg-base-300"
-                                                        alt="{{ app.name }}"
-                                                    />
-                                                </figure>
-                                                <div class="card-body flex flex-col justify-between flex-grow p-3 sm:p-4 lg:p-6">
-                                                    <div>
-                                                        <h2 class="card-title text-lg sm:text-xl">{{ app.name }}</h2>
-                                                        <p class="text-sm sm:text-base">{{ app.description }}</p>
-                                                    </div>
-                                                    <div class="flex flex-wrap gap-1.5 sm:gap-2 mt-4 sm:mt-6">
-                                                        {% for platform in app.platform %}
-                                                        <div class="badge badge-sm sm:badge-md badge-neutral gap-1 sm:gap-2 {% if platform == 'Edge' %}badge-info {% elsif platform == 'Chrome' %}badge-error {% elsif platform == 'macOs' %}badge-accent {% elsif platform == 'Safari' %}badge-secondary {% elsif platform == 'Firefox' %}badge-warning {% else %}badge-neutral{% endif %}">
-                                                            {{ platform }}
-                                                        </div>
-                                                        {% endfor %}
-                                                    </div>
-                                                </div>
-                                            </a>
-                                        </div>
-                                        {% endfor %} 
-                                        {% for app in apps.opensource %}
-                                        <div class="shrink-0 snap-start w-72 sm:w-80 lg:w-[20rem]">
-                                            <a
-                                                class="min-h-[28rem] sm:min-h-[30rem] flex flex-col justify-between h-full card card-compact bg-base-100 shadow-md transition-all duration-200 card-app hover:-translate-y-1 rounded-4xl focus:outline-none focus:ring-2 focus:ring-black focus:ring-offset-2"
-                                                rel="noopener noreferrer"
-                                                href="{{ app.link }}"
-                                            >
-                                                <figure class="px-3 pt-3 sm:px-4 sm:pt-4">
-                                                    <img
-                                                        loading="lazy"
-                                                        src="{{ app.image }}"
-                                                        class="rounded-2xl sm:rounded-2xl bg-base-300"
-                                                        alt="{{ app.name }}"
-                                                    />
-                                                </figure>
-                                                <div class="card-body flex flex-col justify-between flex-grow p-3 sm:p-4 lg:p-6">
-                                                    <div>
-                                                        <h2 class="card-title text-lg sm:text-xl">{{ app.name }}</h2>
-                                                        <p class="text-sm sm:text-base">{{ app.description }}</p>
-                                                    </div>
-                                                    <div class="flex flex-wrap gap-1.5 sm:gap-2 mt-4 sm:mt-6">
-                                                        {% for platform in app.platform %}
-                                                        <div class="badge badge-sm sm:badge-md badge-neutral gap-1 sm:gap-2 {% if platform == 'Edge' %}badge-info {% elsif platform == 'Chrome' %}badge-error {% elsif platform == 'macOs' %}badge-accent {% elsif platform == 'Safari' %}badge-secondary {% elsif platform == 'Firefox' %}badge-warning {% else %}badge-neutral{% endif %}">
-                                                            {{ platform }}
-                                                        </div>
-                                                        {% endfor %}
-                                                    </div>
-                                                </div>
-                                            </a>
-                                        </div>
-                                        {% endfor %}
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        
-                        <div class="max-w-8xl mx-auto my-8 px-4 sm:px-6 lg:px-8" id="blog">
-                            <div class="card my-16 sm:my-20 lg:my-24">
-                                <div class="my-6 sm:my-8">
-                                    <h2 class="card-title mb-3 sm:mb-4 text-2xl sm:text-3xl lg:text-4xl font-medium tracking-tighter">
-                                        From the Blog
-                                    </h2>
-                                    <p class="text-base sm:text-lg mb-2">
-                                        Discover the latest updates from Coffee & Fun LLC products, guides &
-                                        announcements.
-                                    </p>
-                                    <div class="divider my-6 sm:my-8"></div>
-                                    
-                                    <div class="flex overflow-x-auto snap-x snap-mandatory scroll-smooth gap-4 sm:gap-6 p-2 sm:px-4 pb-6 sm:pb-8">
-                                        {% for post in blog.posts limit:5 %}
-                                        <div class="shrink-0 snap-start w-72 sm:w-80 lg:w-[20rem]">
-                                            <a
-                                                class="min-h-[28rem] sm:min-h-[30rem] flex flex-col justify-between h-full card card-compact bg-base-100 shadow-md transition-all duration-200 card-app hover:-translate-y-1 rounded-4xl focus:outline-none focus:ring-2 focus:ring-black focus:ring-offset-2"
-                                                href="{{ post.link }}"
-                                            >
-                                                <figure class="px-4 pt-4">
-                                                    <img
-                                                        loading="lazy"
-                                                        src="{{ post.image }}"
-                                                        class="rounded-2xl border-opacity-5 bg-base-300"
-                                                        alt="{{ post.name }}"
-                                                    />
-                                                </figure>
-                                                <div class="card-body">
-                                                    <h2 class="card-title">{{ post.name }}</h2>
-                                                    <p class="text-base">{{ post.description }}</p>
-                                                    
-                                                    <div class="flex flex-wrap gap-2 mt-6 mb-6">
-                                                        {% for platform in post.platform %}
-                                                        <div
-                                                            class="badge badge-neutral gap-2 {% if platform == 'Apple' %} badge-info {% elsif platform == 'Guide' %} badge-error {% elsif platform == 'Announcement' %} badge-accent {% elsif platform == 'Release' %} badge-secondary {% elsif platform == 'Product' %} badge-warning {% else %} badge-neutral {% endif %}"
-                                                        >
-                                                            {{ platform }}
-                                                        </div>
-                                                        {% endfor %}
-                                                    </div>
-                                                </div>
-                                            </a>
-                                        </div>
-                                        {% endfor %}
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        
-                        <div class="max-w-8xl mx-auto mt-8 sm:mt-12 px-4 sm:px-6 lg:px-8" id="contact">
-                            <div class="my-6 sm:my-8">
-                                <h2 class="card-title mb-6 sm:mb-8 lg:mb-10 text-2xl sm:text-3xl lg:text-4xl font-medium tracking-tighter">
-                                    Support & Help
-                                </h2>
-                                
-                                <div class="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8">
-                                    <div class="card bg-base-100 shadow-md rounded-2xl sm:rounded-2xl lg:rounded-4xl">
-                                        <div class="card-body p-4 sm:p-6 lg:p-8">
-                                            <h2 class="card-title mb-3 sm:mb-4 text-lg sm:text-xl lg:text-2xl">
-                                                Support
-                                            </h2>
-                                            
-                                            <p class="mb-3 sm:mb-4 text-sm sm:text-base lg:text-lg text-black">
-                                                For
-                                                <a
-                                                    href="https://www.helperbird.com"
-                                                    title="Visit Helperbird for accessible web browsing tools"
-                                                    target="_blank"
-                                                    rel="noopener noreferrer"
-                                                    class="text-blue-500 hover:underline"
-                                                >Helperbird</a>
-                                                please email us at
-                                                <a
-                                                    href="mailto:support@helperbird.com"
-                                                    class="text-blue-500 hover:underline"
-                                                    title="Email Helperbird support"
-                                                >support@helperbird.com</a>.
-                                            </p>
-                                            <p class="text-sm sm:text-base lg:text-lg text-black mb-3 sm:mb-4">
-                                                For all other apps please email us at
-                                                <a
-                                                    href="mailto:hello@coffeeandfun.com"
-                                                    class="text-blue-500 hover:underline"
-                                                    title="Email Coffee & Fun"
-                                                >hello@coffeeandfun.com</a>.
-                                            </p>
-                                            
-                                            <p class="text-sm sm:text-base lg:text-lg text-black">
-                                                You can also use this form
-                                                <button
-                                                    onclick="my_modal_supports.showModal()"
-                                                    title="Open the contact support form"
-                                                    class="text-blue-500 hover:underline touch-manipulation"
-                                                    aria-label="Open the contact support form"
-                                                    aria-controls="my_modal_supports"
-                                                    role="button"
-                                                >
-                                                    Contact Form
-                                                </button>.
-                                            </p>
-                                        </div>
-                                    </div>
-                                    
-                                    <div class="card bg-base-100 shadow-md rounded-2xl sm:rounded-2xl lg:rounded-4xl">
-                                        <div class="card-body p-4 sm:p-6 lg:p-8">
-                                            <h2 class="card-title mb-3 sm:mb-4 text-lg sm:text-xl lg:text-2xl">
-                                                Contact Us
-                                            </h2>
-                                            
-                                            <p class="text-sm sm:text-base lg:text-lg text-black">
-                                                For business inquiries, please email us at
-                                                <a
-                                                    href="mailto:hello@coffeeandfun.com"
-                                                    class="text-blue-500 hover:underline"
-                                                    title="Email Coffee & Fun"
-                                                    rel="noopener noreferrer"
-                                                >hello@coffeeandfun.com</a>.
-                                            </p>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+                    <div class="p-6 sm:p-8">
+                        <h2 class="text-2xl sm:text-3xl font-bold text-white mb-1">Apps</h2>
+                        <p class="text-white/80 text-sm sm:text-base">19 apps and counting</p>
                     </div>
+                </a>
+
+                <!-- Sketch: zigzag between Apps and Blog cards -->
+                <div class="sketch-note" style="top: -10px; right: 10%; z-index: 20;">
+                    <svg width="40" height="16" viewBox="0 0 40 16">
+                        <path d="M2 14 L10 2 L18 14 L26 2 L34 14 L40 4" class="sketch-zigzag"/>
+                    </svg>
                 </div>
+
+                <!-- Blog -->
+                <a
+                    href="/blog/"
+                    class="group flex flex-col rounded-2xl overflow-hidden transition-all duration-300 hover:shadow-2xl hover:-translate-y-1 focus:outline-none focus:ring-2 focus:ring-offset-2" style="background: linear-gradient(135deg, #3d2b1f, #2a1d14); --tw-ring-color: #3d2b1f;"
+                >
+                    <div class="w-full overflow-hidden">
+                        <img src="/assets/images/bento/bento-blog.png" alt="Coffee & Fun Blog" width="600" height="400" class="w-full h-48 sm:h-56 object-cover group-hover:scale-105 transition-transform duration-500" loading="lazy" />
+                    </div>
+                    <div class="p-6 sm:p-8">
+                        <h2 class="text-2xl sm:text-3xl font-bold text-white mb-1">Blog</h2>
+                        <p class="text-white/60 text-sm sm:text-base">Stories from behind the screen</p>
+                    </div>
+                </a>
+
+                <!-- Support -->
+                <a
+                    href="/support/"
+                    class="relative group flex flex-col rounded-2xl overflow-hidden transition-all duration-300 hover:shadow-2xl hover:-translate-y-1 focus:outline-none focus:ring-2 focus:ring-offset-2" style="background: linear-gradient(135deg, #fd6155, #d94a3f); --tw-ring-color: #fd6155;"
+                >
+                    <div class="w-full overflow-hidden">
+                        <img src="/assets/images/bento/bento-support.png" alt="Coffee & Fun Support" width="600" height="400" class="w-full h-48 sm:h-56 object-cover group-hover:scale-105 transition-transform duration-500" loading="lazy" />
+                    </div>
+                    <div class="p-6 sm:p-8">
+                        <h2 class="text-2xl sm:text-3xl font-bold text-white mb-1">Support</h2>
+                        <p class="text-white/80 text-sm sm:text-base">Real humans, real fast</p>
+                    </div>
+                </a>
+
+                <!-- About & Roadmap -->
+                <a
+                    href="/about/"
+                    class="relative group flex flex-col rounded-2xl overflow-hidden transition-all duration-300 hover:shadow-2xl hover:-translate-y-1 focus:outline-none focus:ring-2 focus:ring-offset-2" style="background: linear-gradient(135deg, #c4813a, #a36942); --tw-ring-color: #c4813a;"
+                >
+                    <div class="w-full overflow-hidden">
+                        <img src="/assets/images/bento/bento-roadmap.png" alt="About Coffee & Fun" width="600" height="400" class="w-full h-48 sm:h-56 object-cover group-hover:scale-105 transition-transform duration-500" loading="lazy" />
+                    </div>
+                    <div class="p-6 sm:p-8">
+                        <h2 class="text-2xl sm:text-3xl font-bold text-white mb-1">About & Roadmap</h2>
+                        <p class="text-white/80 text-sm sm:text-base">Where we've been, where we're headed</p>
+                    </div>
+                </a>
+
             </div>
-        </div>
-        
-        {% include tip-jar.liquid %}
+
+            <!-- Sketch: "we're friendly!" with arrow pointing to Support card -->
+            <div class="sketch-note text-lg sm:text-xl" style="bottom: 8px; left: 2%; transform: rotate(5deg);">
+                we're friendly!
+                <svg width="50" height="45" style="top: -42px; right: -10px;">
+                    <path d="M25 42 C22 28, 18 15, 30 4" class="sketch-arrow"/>
+                    <path d="M24 8 L30 2 L34 10" class="sketch-arrow"/>
+                </svg>
+            </div>
+
+            <!-- Sketch: dashed circle doodle near the About card -->
+            <div class="sketch-note" style="bottom: 30%; right: -18px;">
+                <svg width="36" height="36" viewBox="0 0 36 36">
+                    <circle cx="18" cy="18" r="14" class="sketch-circle" transform="rotate(-10 18 18)"/>
+                </svg>
+            </div>
+
+            <!-- Sketch: heart between Blog and About cards -->
+            <div class="sketch-note sketch-float" style="top: 48%; left: 48%; --sketch-rotate: 12deg;">
+                <svg width="18" height="16" viewBox="0 0 24 22">
+                    <path d="M12 21 C12 21, 2 14, 2 7 C2 3, 5 1, 8 2 C10 3, 11 5, 12 6 C13 5, 14 3, 16 2 C19 1, 22 3, 22 7 C22 14, 12 21, 12 21 Z" class="sketch-heart-filled"/>
+                </svg>
+            </div>
+
+            <!-- Sketch: "so good" near Apps card top-left -->
+            <div class="sketch-note text-base sm:text-lg" style="top: 5%; left: 2%; transform: rotate(6deg); opacity: 0.7;">
+                so good
+            </div>
+
+            <!-- Sketch: swirl near Support card -->
+            <div class="sketch-note" style="bottom: 48%; left: -14px;">
+                <svg width="26" height="26" viewBox="0 0 30 30">
+                    <path d="M15 15 C15 10, 20 8, 22 12 C24 16, 20 20, 15 18 C10 16, 8 10, 12 6 C16 2, 24 4, 26 10" class="sketch-swirl"/>
+                </svg>
+            </div>
+
+            <!-- Sketch: exclamation marks near About card -->
+            <div class="sketch-note" style="bottom: 12%; right: 4%;">
+                <svg width="10" height="24" viewBox="0 0 10 24">
+                    <path d="M5 2 L5 16" class="sketch-exclaim"/>
+                    <circle cx="5" cy="22" r="2" fill="#fd6155" opacity="0.4"/>
+                </svg>
+            </div>
+
+            <!-- Sketch: leaf doodle bottom-left -->
+            <div class="sketch-note sketch-float-slow" style="bottom: 5%; left: 5%; --sketch-rotate: -20deg;">
+                <svg width="24" height="28" viewBox="0 0 24 28">
+                    <path d="M12 2 C4 8, 2 18, 12 26 C22 18, 20 8, 12 2 Z" class="sketch-leaf"/>
+                    <path d="M12 6 L12 22" class="sketch-leaf"/>
+                </svg>
+            </div>
+
+            <!-- Sketch: loop arrow near Blog card -->
+            <div class="sketch-note" style="top: 20%; right: -10px;">
+                <svg width="30" height="20" viewBox="0 0 30 20">
+                    <path d="M4 16 C4 4, 20 4, 22 10 C24 16, 16 18, 14 12" class="sketch-loop"/>
+                    <path d="M10 14 L14 10 L18 14" class="sketch-loop"/>
+                </svg>
+            </div>
+
+        </section>
+
+
+        <!-- Trust Signal -->
+        <section class="relative mx-auto max-w-5xl px-4 sm:px-6 lg:px-8 pt-8 sm:pt-12 text-center overflow-visible">
+            <p class="text-sm sm:text-base text-stone-400 font-medium tracking-wide">
+                Trusted by <span style="color: #a36942;" class="font-bold">500,000+</span> users worldwide
+            </p>
+            <!-- Sketch: wavy underline under "500,000+" -->
+            <div class="sketch-note" style="top: 50%; left: 50%; transform: translateX(-50%);">
+                <svg width="120" height="12" viewBox="0 0 120 12">
+                    <path d="M2 8 C15 2, 25 12, 40 6 C55 0, 65 12, 80 6 C95 0, 105 10, 118 5" class="sketch-underline"/>
+                </svg>
+            </div>
+
+            <!-- Sketch: "wow!" on the right -->
+            <div class="sketch-note text-base" style="top: 20%; right: 15%; transform: rotate(8deg); opacity: 0.6;">
+                wow!
+            </div>
+
+            <!-- Sketch: three dots decoration left -->
+            <div class="sketch-note" style="top: 30%; left: 18%;">
+                <svg width="24" height="8" viewBox="0 0 24 8">
+                    <circle cx="4" cy="4" r="2.5" class="sketch-dots"/>
+                    <circle cx="12" cy="4" r="2.5" class="sketch-dots"/>
+                    <circle cx="20" cy="4" r="2.5" class="sketch-dots"/>
+                </svg>
+            </div>
+        </section>
+
+        <!-- CTA -->
+        <section class="relative mx-auto max-w-5xl px-4 sm:px-6 lg:px-8 pt-12 sm:pt-16 pb-24 sm:pb-36 text-center overflow-visible">
+
+            <!-- Sketch: sparkle + "seriously good" near the CTA heading -->
+            <div class="sketch-note text-lg sm:text-xl" style="top: 8px; left: 4%; transform: rotate(-8deg);">
+                <svg width="20" height="20" viewBox="0 0 20 20" style="position: relative; display: inline-block; margin-right: 4px; vertical-align: middle;">
+                    <path d="M10 0 L12 7 L20 7 L14 12 L16 20 L10 15 L4 20 L6 12 L0 7 L8 7 Z" fill="none" stroke="#fd6155" stroke-width="1.2" stroke-linejoin="round" opacity="0.5"/>
+                </svg>
+                seriously good
+            </div>
+
+            <!-- Sketch: sparkle burst right of heading -->
+            <div class="sketch-note sketch-float" style="top: 6%; right: 6%; --sketch-rotate: 0deg;">
+                <svg width="28" height="28" viewBox="0 0 28 28">
+                    <path d="M14 2 L14 26" class="sketch-sparkle"/>
+                    <path d="M2 14 L26 14" class="sketch-sparkle"/>
+                    <path d="M5 5 L23 23" class="sketch-sparkle"/>
+                    <path d="M23 5 L5 23" class="sketch-sparkle"/>
+                </svg>
+            </div>
+
+            <h2 class="brand-heading text-4xl sm:text-5xl lg:text-6xl leading-[1.15] sm:leading-[1.15] lg:leading-[1.15] mb-5">
+                Find your next favorite tool
+            </h2>
+            <p class="text-xl sm:text-2xl lg:text-3xl text-stone-500 max-w-2xl mx-auto leading-relaxed mb-10">
+                From browser extensions to productivity apps, there's something here for everyone.
+            </p>
+
+            <!-- Sketch: squiggly line decoration -->
+            <div class="sketch-note" style="top: 52%; right: 3%;">
+                <svg width="60" height="20" viewBox="0 0 60 20">
+                    <path d="M2 10 C8 3, 14 17, 20 10 C26 3, 32 17, 38 10 C44 3, 50 17, 58 10" class="sketch-squiggle"/>
+                </svg>
+            </div>
+
+            <!-- Sketch: heart near CTA buttons -->
+            <div class="sketch-note sketch-float" style="bottom: 10px; right: 12%; --sketch-rotate: 6deg;">
+                <svg width="20" height="18" viewBox="0 0 24 22">
+                    <path d="M12 21 C12 21, 2 14, 2 7 C2 3, 5 1, 8 2 C10 3, 11 5, 12 6 C13 5, 14 3, 16 2 C19 1, 22 3, 22 7 C22 14, 12 21, 12 21 Z" class="sketch-heart"/>
+                </svg>
+            </div>
+
+            <!-- Sketch: lightning bolt left of CTA -->
+            <div class="sketch-note sketch-wiggle" style="bottom: 20%; left: 3%; --sketch-rotate: -8deg;">
+                <svg width="14" height="24" viewBox="0 0 16 28">
+                    <path d="M10 0 L4 12 L10 12 L6 28" class="sketch-lightning"/>
+                </svg>
+            </div>
+
+            <!-- Sketch: swirl bottom-right -->
+            <div class="sketch-note" style="bottom: 6%; right: 5%;">
+                <svg width="28" height="28" viewBox="0 0 30 30">
+                    <path d="M15 15 C15 10, 20 8, 22 12 C24 16, 20 20, 15 18 C10 16, 8 10, 12 6 C16 2, 24 4, 26 10 C28 18, 22 26, 12 24" class="sketch-swirl"/>
+                </svg>
+            </div>
+
+            <!-- Sketch: double underline near text -->
+            <div class="sketch-note" style="top: 42%; left: 8%;">
+                <svg width="60" height="12" viewBox="0 0 60 12">
+                    <path d="M2 4 C15 2, 30 6, 58 3" class="sketch-double-underline"/>
+                    <path d="M2 9 C15 7, 30 11, 58 8" class="sketch-double-underline"/>
+                </svg>
+            </div>
+
+            <!-- Sketch: leaf doodle right -->
+            <div class="sketch-note" style="top: 15%; right: 2%; transform: rotate(25deg);">
+                <svg width="18" height="22" viewBox="0 0 24 28">
+                    <path d="M12 2 C4 8, 2 18, 12 26 C22 18, 20 8, 12 2 Z" class="sketch-leaf"/>
+                    <path d="M12 6 L12 22" class="sketch-leaf"/>
+                </svg>
+            </div>
+
+            <div class="flex flex-wrap justify-center gap-3">
+                <a
+                    class="btn btn-lg rounded-lg px-8 sm:px-10 font-semibold text-white border-0 shadow-lg hover:shadow-xl hover:-translate-y-0.5 transition-all duration-200" style="background-color: #a36942; box-shadow: 0 10px 15px -3px rgba(163,105,66,0.3);"
+                    href="/apps/"
+                    title="Browse all apps"
+                >
+                    Browse Apps
+                </a>
+                <a
+                    class="btn btn-lg btn-outline rounded-lg px-8 sm:px-10 font-semibold border-2 hover:text-white hover:-translate-y-0.5 transition-all duration-200" style="border-color: #fd6155; color: #fd6155;" onmouseover="this.style.backgroundColor='#fd6155';this.style.color='white'" onmouseout="this.style.backgroundColor='transparent';this.style.color='#fd6155'"
+                    href="/blog/"
+                    title="Read the blog"
+                >
+                    Read the Blog
+                </a>
+            </div>
+        </section>
+
     </main>
-    
-    {% include modals.liquid %} 
+
+    {% include modals.liquid %}
     {% include footer.liquid %}
 </body>
 </html>

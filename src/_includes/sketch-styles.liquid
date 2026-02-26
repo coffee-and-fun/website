@@ -1,0 +1,211 @@
+<!-- Font preloads -->
+<link rel="preload" href="/assets/fonts/Pacifico-Regular.ttf" as="font" type="font/ttf" crossorigin>
+<!-- Caveat handwriting font -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Caveat:wght@400;600;700&display=swap" rel="stylesheet">
+
+<style>
+    /* Sketch / doodle annotations */
+    .sketch-note {
+        font-family: 'Caveat', cursive;
+        color: #a36942;
+        position: absolute;
+        pointer-events: none;
+        white-space: nowrap;
+        z-index: 10;
+    }
+    .sketch-note svg {
+        position: absolute;
+        overflow: visible;
+    }
+    .sketch-arrow {
+        fill: none;
+        stroke: #a36942;
+        stroke-width: 2;
+        stroke-linecap: round;
+        stroke-linejoin: round;
+    }
+    .sketch-arrow-coral {
+        fill: none;
+        stroke: #fd6155;
+        stroke-width: 2;
+        stroke-linecap: round;
+        stroke-linejoin: round;
+    }
+    .sketch-circle {
+        fill: none;
+        stroke: #fd6155;
+        stroke-width: 2;
+        stroke-linecap: round;
+        stroke-dasharray: 6 4;
+        opacity: 0.6;
+    }
+    .sketch-underline {
+        fill: none;
+        stroke: #fd6155;
+        stroke-width: 2.5;
+        stroke-linecap: round;
+        opacity: 0.5;
+    }
+    .sketch-bracket {
+        fill: none;
+        stroke: #a36942;
+        stroke-width: 2;
+        stroke-linecap: round;
+        stroke-linejoin: round;
+        opacity: 0.4;
+    }
+    .sketch-heart {
+        fill: none;
+        stroke: #fd6155;
+        stroke-width: 2;
+        stroke-linecap: round;
+        stroke-linejoin: round;
+        opacity: 0.5;
+    }
+    .sketch-heart-filled {
+        fill: #fd6155;
+        stroke: none;
+        opacity: 0.25;
+    }
+    .sketch-squiggle {
+        fill: none;
+        stroke: #a36942;
+        stroke-width: 1.5;
+        stroke-linecap: round;
+        opacity: 0.35;
+    }
+    .sketch-dots {
+        fill: #a36942;
+        opacity: 0.3;
+    }
+    .sketch-arrow-brown-light {
+        fill: none;
+        stroke: #c4813a;
+        stroke-width: 2;
+        stroke-linecap: round;
+        stroke-linejoin: round;
+        opacity: 0.5;
+    }
+    .sketch-cross {
+        fill: none;
+        stroke: #fd6155;
+        stroke-width: 2;
+        stroke-linecap: round;
+        opacity: 0.3;
+    }
+
+    .sketch-zigzag {
+        fill: none;
+        stroke: #c4813a;
+        stroke-width: 1.8;
+        stroke-linecap: round;
+        stroke-linejoin: round;
+        opacity: 0.3;
+    }
+    .sketch-sparkle {
+        fill: none;
+        stroke: #fd6155;
+        stroke-width: 1.5;
+        stroke-linecap: round;
+        opacity: 0.4;
+    }
+
+    /* Swirl / spiral */
+    .sketch-swirl {
+        fill: none;
+        stroke: #a36942;
+        stroke-width: 1.5;
+        stroke-linecap: round;
+        opacity: 0.3;
+    }
+    /* Checkmark / tick */
+    .sketch-check {
+        fill: none;
+        stroke: #a36942;
+        stroke-width: 2.5;
+        stroke-linecap: round;
+        stroke-linejoin: round;
+        opacity: 0.45;
+    }
+    /* Lightning bolt */
+    .sketch-lightning {
+        fill: none;
+        stroke: #c4813a;
+        stroke-width: 2;
+        stroke-linecap: round;
+        stroke-linejoin: round;
+        opacity: 0.35;
+    }
+    /* Leaf / nature */
+    .sketch-leaf {
+        fill: none;
+        stroke: #a36942;
+        stroke-width: 1.5;
+        stroke-linecap: round;
+        stroke-linejoin: round;
+        opacity: 0.3;
+    }
+    /* Loop arrow (curly) */
+    .sketch-loop {
+        fill: none;
+        stroke: #fd6155;
+        stroke-width: 1.8;
+        stroke-linecap: round;
+        stroke-linejoin: round;
+        opacity: 0.35;
+    }
+    /* Dashed line */
+    .sketch-dash {
+        fill: none;
+        stroke: #a36942;
+        stroke-width: 1.5;
+        stroke-linecap: round;
+        stroke-dasharray: 8 5;
+        opacity: 0.25;
+    }
+    /* Double underline */
+    .sketch-double-underline {
+        fill: none;
+        stroke: #c4813a;
+        stroke-width: 1.5;
+        stroke-linecap: round;
+        opacity: 0.35;
+    }
+    /* Exclamation mark */
+    .sketch-exclaim {
+        fill: none;
+        stroke: #fd6155;
+        stroke-width: 2.5;
+        stroke-linecap: round;
+        opacity: 0.4;
+    }
+
+    /* Gentle float animation for select doodles */
+    @keyframes sketch-float {
+        0%, 100% { transform: translateY(0px) rotate(var(--sketch-rotate, 0deg)); }
+        50% { transform: translateY(-4px) rotate(var(--sketch-rotate, 0deg)); }
+    }
+    .sketch-float {
+        animation: sketch-float 4s ease-in-out infinite;
+    }
+    .sketch-float-slow {
+        animation: sketch-float 6s ease-in-out infinite;
+    }
+    @keyframes sketch-wiggle {
+        0%, 100% { transform: rotate(var(--sketch-rotate, 0deg)); }
+        25% { transform: rotate(calc(var(--sketch-rotate, 0deg) + 3deg)); }
+        75% { transform: rotate(calc(var(--sketch-rotate, 0deg) - 3deg)); }
+    }
+    .sketch-wiggle {
+        animation: sketch-wiggle 3s ease-in-out infinite;
+    }
+
+    /* Hide doodles on very small screens */
+    @media (max-width: 639px) {
+        .sketch-note { display: none; }
+    }
+</style>
+
+<script>document.addEventListener('DOMContentLoaded',()=>{document.querySelectorAll('.sketch-note').forEach(el=>el.setAttribute('aria-hidden','true'))});</script>

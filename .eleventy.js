@@ -11,6 +11,7 @@ import { formatTitle } from './tools/format-title.js';
 import orderCoffeeShopsByRating from './src/_data/sortedReviews.js';
 import moment from 'moment';
 import format from 'date-fns/format/index.js';
+import parseISO from 'date-fns/parseISO/index.js';
 import postcss from 'postcss';
 //import tailwindcss from 'tailwindcss';
 import markdownIt from 'markdown-it';
@@ -84,7 +85,28 @@ export default function (eleventyConfig) {
 
 	eleventyConfig.addCollection('orderedCoffeeShops', () => orderCoffeeShopsByRating);
 
-	eleventyConfig.addFilter('date', (date, dateFormat) => format(date, dateFormat));
+	eleventyConfig.addFilter('date', (date, dateFormat) => {
+		let parsed;
+		if (date === 'now' || date === 'today') {
+			parsed = new Date();
+		} else if (typeof date === 'string') {
+			parsed = parseISO(date);
+		} else {
+			parsed = date;
+		}
+		// Support strftime-style format tokens (e.g. %Y, %m, %d)
+		const convertedFormat = dateFormat
+			.replace(/%Y/g, 'yyyy')
+			.replace(/%m/g, 'MM')
+			.replace(/%d/g, 'dd')
+			.replace(/%B/g, 'MMMM')
+			.replace(/%b/g, 'MMM')
+			.replace(/%e/g, 'd')
+			.replace(/%H/g, 'HH')
+			.replace(/%M/g, 'mm')
+			.replace(/%S/g, 'ss');
+		return format(parsed, convertedFormat);
+	});
 	eleventyConfig.addFilter('formatDateWithOrdinal', (dateString) => {
 		try {
 			return moment(dateString).format('MMMM Do, YYYY');

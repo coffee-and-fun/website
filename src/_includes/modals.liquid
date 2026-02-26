@@ -1,100 +1,5 @@
-<!-- Supporters Modal -->
-<dialog
-  id="my_modal_contact"
-  class="modal"
-  role="dialog"
-  aria-labelledby="supporters-title"
->
-  <div class="modal-box w-11/12 max-w-2xl bg-white shadow-2xl">
-    <form method="dialog">
-      <button
-        class="btn btn-sm btn-circle btn-ghost absolute right-3 top-3 hover:bg-gray-100 focus:outline-none transition-all duration-150"
-        aria-label="Close supporters list"
-      >
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 -960 960 960" fill="currentColor" aria-hidden="true" class="h-5 w-5 text-gray-500">
-          <path d="m256-200-56-56 224-224-224-224 56-56 224 224 224-224 56 56-224 224 224 224-56 56-224-224-224 224Z"/>
-        </svg>
-      </button>
-    </form>
-
-    <div class="py-8 px-4">
-      <div class="mb-10 text-center">
-        <h2 id="supporters-title" class="text-3xl font-semibold text-gray-900 mb-4">
-          Supporters
-        </h2>
-        
-        <p class="text-sm text-gray-600">
-          Thank you to everyone who has donated and made our work possible.
-        </p>
-      </div>
-
-      <hr class="border-gray-200 mb-8">
-
-      <ul class="grid grid-cols-2 sm:grid-cols-3 gap-3 mb-10">
-        <li class="bg-gray-50 rounded-lg py-4 px-4 text-center font-medium text-gray-700">Boulo</li>
-        <li class="bg-gray-50 rounded-lg py-4 px-4 text-center font-medium text-gray-700">Roger Nowlan</li>
-        <li class="bg-gray-50 rounded-lg py-4 px-4 text-center font-medium text-gray-700">이광현</li>
-        <li class="bg-gray-50 rounded-lg py-4 px-4 text-center font-medium text-gray-700">Arturo Jimenez</li>
-        <li class="bg-gray-50 rounded-lg py-4 px-4 text-center font-medium text-gray-700">OH JUNHO</li>
-      </ul>
-
-      <hr class="border-gray-200 mb-8">
-
-      <a
-        class="block w-full py-4 px-4 bg-gradient-to-r from-pink-500 to-red-500 hover:from-pink-600 hover:to-red-600 rounded-lg transition-all duration-150 font-medium text-white text-center"
-        href="https://payments.coffeeandfun.com/b/00gbKHdise1e8Le6oZ"
-        target="_blank"
-        rel="noopener noreferrer"
-        aria-label="Donate to support Coffee & Fun LLC"
-      >
-        💝 Donate to Coffee & Fun LLC
-      </a>
-    </div>
-  </div>
-</dialog>
-
-<!-- Support Form Modal -->
-<dialog id="my_modal_supports" class="modal" role="dialog" aria-labelledby="support-form-title">
-  <div class="modal-box w-11/12 max-w-4xl h-5/6 max-h-screen bg-white shadow-2xl">
-    <form method="dialog">
-      <button
-        class="btn btn-sm btn-circle btn-ghost absolute right-3 top-3 z-10 hover:bg-gray-100 focus:outline-none transition-all duration-150"
-        aria-label="Close support form"
-      >
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 -960 960 960" fill="currentColor" aria-hidden="true" class="h-5 w-5 text-gray-500">
-          <path d="m256-200-56-56 224-224-224-224 56-56 224 224 224-224 56 56-224 224 224 224-56 56-224-224-224 224Z"/>
-        </svg>
-      </button>
-    </form>
-
-    <div class="py-8 px-4 pr-14 h-full flex flex-col">
-      <div class="mb-6">
-        <h2 id="support-form-title" class="text-2xl font-semibold text-gray-900 mb-2">
-          Contact Support
-        </h2>
-        <p class="text-sm text-gray-500">We're here to help with any questions or issues</p>
-      </div>
-
-      <hr class="border-gray-200 mb-6">
-
-      <div class="flex-1 min-h-0">
-        <iframe
-          src="https://docs.google.com/forms/d/e/1FAIpQLSeOBpyxmu3enhScTOuJtYAx2jNK2wr9scFKtbQrj0AjqJfdEQ/viewform?embedded=true"
-          width="100%"
-          height="100%"
-          class="rounded-lg border border-gray-200"
-          title="Coffee & Fun Support Contact Form"
-          loading="lazy"
-        >
-          <p class="text-center p-4 text-gray-600">Loading support form... If this doesn't load, please contact us at hello@coffeeandfun.com</p>
-        </iframe>
-      </div>
-    </div>
-  </div>
-</dialog>
-
 <!-- Mystery Rank Modal -->
-<dialog id="my_modal_rank" class="modal" role="dialog" aria-labelledby="mystery-rank-title">
+<dialog id="my_modal_rank" class="modal" role="dialog" aria-modal="true" aria-labelledby="mystery-rank-title">
   <div class="modal-box w-11/12 max-w-4xl max-h-screen overflow-y-auto bg-white shadow-2xl">
     <form method="dialog">
       <button
@@ -176,7 +81,7 @@
 </dialog>
 
 <!-- Keyboard Shortcuts Modal -->
-<dialog id="my_modal_69" class="modal" role="dialog" aria-labelledby="shortcuts-title">
+<dialog id="my_modal_69" class="modal" role="dialog" aria-modal="true" aria-labelledby="shortcuts-title">
   <div class="modal-box w-11/12 max-w-md bg-white shadow-2xl">
     <form method="dialog">
       <button
@@ -225,122 +130,45 @@
 </dialog>
 
 <!-- Main Site Menu Modal -->
-<dialog id="my_modal_site_menu" class="modal" role="dialog" aria-labelledby="site-menu-title">
-  <div class="modal-box w-11/12 max-w-2xl max-h-screen overflow-y-auto bg-white shadow-2xl">
+<dialog id="my_modal_site_menu" class="modal" role="dialog" aria-modal="true" aria-labelledby="site-menu-title">
+  <div class="modal-box w-11/12 max-w-2xl max-h-[85vh] overflow-y-auto bg-white shadow-2xl rounded-2xl p-0">
     <form method="dialog">
       <button
-        class="btn btn-sm btn-circle btn-ghost absolute right-3 top-3 hover:bg-gray-200 focus:outline-none focus:ring-2 focus:ring-gray-400 focus:ring-offset-2 transition-all duration-150"
+        class="btn btn-sm btn-circle btn-ghost absolute right-3 top-3 z-10 hover:bg-stone-100 focus:outline-none transition-all duration-150"
         aria-label="Close main menu"
       >
-        <span class="sr-only">Close the modal popup</span>
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 -960 960 960" fill="currentColor" aria-hidden="true" class="h-5 w-5 text-gray-600">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 -960 960 960" fill="currentColor" aria-hidden="true" class="h-5 w-5 text-stone-400">
           <path d="m256-200-56-56 224-224-224-224 56-56 224 224 224-224 56 56-224 224 224 224-56 56-224-224-224 224Z"/>
         </svg>
       </button>
     </form>
-    
-    <div class="w-full py-8 px-4 max-h-[600px] min-h-[200px]">
-      <!-- Header -->
-      <div class="mb-10">
-        <h2 id="site-menu-title" class="text-3xl font-semibold text-gray-900 mb-3">
-          Coffee & Fun LLC
-        </h2>
-        <p class="text-sm text-gray-600">Productivity tools and apps</p>
+
+    <nav aria-label="Site navigation" class="py-3">
+      <h2 id="site-menu-title" class="sr-only">Site Menu</h2>
+
+      <!-- Pages -->
+      <div class="px-3 pb-1">
+        <p class="px-3 pt-3 pb-2 text-xs font-semibold uppercase tracking-wider text-stone-400">Pages</p>
+        <ul>
+          <li><a href="/apps/" class="flex items-center gap-3 px-3 py-3 rounded-lg text-base text-stone-700 hover:bg-amber-50 hover:text-[#a36942] transition-colors"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 -960 960 960" class="w-5 h-5 text-stone-400 flex-shrink-0" fill="currentColor"><path d="M240-160q-33 0-56.5-23.5T160-240v-480q0-33 23.5-56.5T240-800h480q33 0 56.5 23.5T800-720v480q0 33-23.5 56.5T720-160H240Zm0-80h480v-480H240v480Z"/></svg>Apps</a></li>
+          <li><a href="/blog/" class="flex items-center gap-3 px-3 py-3 rounded-lg text-base text-stone-700 hover:bg-amber-50 hover:text-[#a36942] transition-colors"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 -960 960 960" class="w-5 h-5 text-stone-400 flex-shrink-0" fill="currentColor"><path d="M280-280h280v-80H280v80Zm0-160h400v-80H280v80Zm0-160h400v-80H280v80Zm-80 480q-33 0-56.5-23.5T120-200v-560q0-33 23.5-56.5T200-840h560q33 0 56.5 23.5T840-760v560q0 33-23.5 56.5T760-120H200Z"/></svg>Blog</a></li>
+          <li><a href="/about/" class="flex items-center gap-3 px-3 py-3 rounded-lg text-base text-stone-700 hover:bg-amber-50 hover:text-[#a36942] transition-colors"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 -960 960 960" class="w-5 h-5 text-stone-400 flex-shrink-0" fill="currentColor"><path d="M480-480q-66 0-113-47t-47-113q0-66 47-113t113-47q66 0 113 47t47 113q0 66-47 113t-113 47ZM160-160v-112q0-34 17.5-62.5T224-378q62-31 126-46.5T480-440q66 0 130 15.5T736-378q29 15 46.5 43.5T800-272v112H160Z"/></svg>About</a></li>
+          <li><a href="https://sharing.clickup.com/36059453/b/12ce9x-577/board" target="_blank" rel="noopener noreferrer" class="flex items-center gap-3 px-3 py-3 rounded-lg text-base text-stone-700 hover:bg-amber-50 hover:text-[#a36942] transition-colors"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 -960 960 960" class="w-5 h-5 text-stone-400 flex-shrink-0" fill="currentColor"><path d="m600-120-240-84-186 72q-20 8-37-4.5T120-170v-560q0-13 7.5-23t20.5-15l212-72 240 84 186-72q20-8 37 4.5t17 33.5v560q0 13-7.5 23T812-192l-212 72Z"/></svg>Roadmap</a></li>
+        </ul>
       </div>
 
-      <hr class="border-gray-300 mb-8">
-      
-      <!-- Main Navigation -->
-      <nav aria-label="Main site navigation" class="mb-10">
-        <ul class="grid grid-cols-2 gap-3">
-          <li>
-            <a
-              href="/#apps"
-              rel="noopener noreferrer"
-              title="Explore our apps"
-              class="flex items-center justify-center gap-2 py-4 px-4 bg-gray-50 hover:bg-gray-100 focus:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-400 focus:ring-offset-2 rounded-lg transition-all duration-150 font-medium text-gray-800 min-h-[56px]"
-            >
-              <span class="text-lg" aria-hidden="true">📱</span>
-              <span>Apps</span>
-            </a>
-          </li>
+      <div class="mx-3 my-1 border-t border-stone-100"></div>
 
-          <li>
-            <a
-              href="/blog/"
-              rel="noopener noreferrer"
-              title="Read our blog"
-              class="flex items-center justify-center gap-2 py-4 px-4 bg-gray-50 hover:bg-gray-100 focus:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-400 focus:ring-offset-2 rounded-lg transition-all duration-150 font-medium text-gray-800 min-h-[56px]"
-            >
-              <span class="text-lg" aria-hidden="true">📝</span>
-              <span>Blog</span>
-            </a>
-          </li>
-
-          <li>
-            <a
-              href="https://sharing.clickup.com/36059453/b/12ce9x-577/board"
-              target="_blank"
-              rel="noopener noreferrer"
-              title="View our development roadmap"
-              class="flex items-center justify-center gap-2 py-4 px-4 bg-gray-50 hover:bg-gray-100 focus:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-400 focus:ring-offset-2 rounded-lg transition-all duration-150 font-medium text-gray-800 min-h-[56px]"
-            >
-              <span class="text-lg" aria-hidden="true">🗺️</span>
-              <span>Roadmap</span>
-            </a>
-          </li>
-
-          <li>
-            <button
-              onclick="my_modal_supports.showModal()"
-              title="Get technical support"
-              class="w-full flex items-center justify-center gap-2 py-4 px-4 bg-gray-50 hover:bg-gray-100 focus:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-400 focus:ring-offset-2 rounded-lg transition-all duration-150 font-medium text-gray-800 min-h-[56px]"
-            >
-              <span class="text-lg" aria-hidden="true">🛠️</span>
-              <span>Support</span>
-            </button>
-          </li>
-
-          <li class="col-span-2">
-            <button
-              onclick="my_modal_contact.showModal()"
-              title="View our supporters"
-              class="w-full flex items-center justify-center gap-2 py-4 px-4 bg-gradient-to-r from-pink-50 to-red-50 hover:from-pink-100 hover:to-red-100 focus:from-pink-100 focus:to-red-100 focus:outline-none focus:ring-2 focus:ring-red-400 focus:ring-offset-2 rounded-lg transition-all duration-150 font-medium text-red-700 min-h-[56px]"
-            >
-              <span class="text-lg" aria-hidden="true">❤️</span>
-              <span>Supporters</span>
-            </button>
-          </li>
+      <!-- Connect -->
+      <div class="px-3 pb-3">
+        <p class="px-3 pt-3 pb-2 text-xs font-semibold uppercase tracking-wider text-stone-400">Connect</p>
+        <ul>
+          <li><a href="/support/" class="flex items-center gap-3 px-3 py-3 rounded-lg text-base text-stone-700 hover:bg-amber-50 hover:text-[#a36942] transition-colors"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 -960 960 960" class="w-5 h-5 text-stone-400 flex-shrink-0" fill="currentColor"><path d="M440-120v-80h320v-284q0-117-81.5-198.5T480-764q-117 0-198.5 81.5T200-484v244h-40q-33 0-56.5-23.5T80-320v-80q0-21 10.5-39.5T120-469l3-53q8-68 39.5-126t79-101q47.5-43 109-67T480-840q68 0 129 24t109 66.5Q766-706 797-648t40 126l3 52q19 9 29.5 27t10.5 38v92q0 20-10.5 38T840-248v128H440Z"/></svg>Support</a></li>
+          <li><a href="https://discord.com/invite/J6EeMvSBYg" target="_blank" rel="noopener noreferrer" class="flex items-center gap-3 px-3 py-3 rounded-lg text-base text-stone-700 hover:bg-amber-50 hover:text-[#a36942] transition-colors"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="w-5 h-5 text-stone-400 flex-shrink-0" fill="currentColor"><path d="M20.317 4.37a19.791 19.791 0 0 0-4.885-1.515.074.074 0 0 0-.079.037c-.21.375-.444.864-.608 1.25a18.27 18.27 0 0 0-5.487 0 12.64 12.64 0 0 0-.617-1.25.077.077 0 0 0-.079-.037A19.736 19.736 0 0 0 3.677 4.37a.07.07 0 0 0-.032.027C.533 9.046-.32 13.58.099 18.057a.082.082 0 0 0 .031.057 19.9 19.9 0 0 0 5.993 3.03.078.078 0 0 0 .084-.028c.462-.63.874-1.295 1.226-1.994a.076.076 0 0 0-.041-.106 13.107 13.107 0 0 1-1.872-.892.077.077 0 0 1-.008-.128 10.2 10.2 0 0 0 .372-.292.074.074 0 0 1 .077-.01c3.928 1.793 8.18 1.793 12.062 0a.074.074 0 0 1 .078.01c.12.098.246.198.373.292a.077.077 0 0 1-.006.127 12.299 12.299 0 0 1-1.873.892.077.077 0 0 0-.041.107c.36.698.772 1.362 1.225 1.993a.076.076 0 0 0 .084.028 19.839 19.839 0 0 0 6.002-3.03.077.077 0 0 0 .032-.054c.5-5.177-.838-9.674-3.549-13.66a.061.061 0 0 0-.031-.03z"/></svg>Discord</a></li>
         </ul>
-      </nav>
-
-      <hr class="border-gray-300 mb-8">
-
-      <!-- Apps Section -->
-      <div class="mb-6">
-        <h3 class="text-lg font-semibold text-gray-900 mb-2">
-          Our Apps
-        </h3>
-        <p class="text-xs text-gray-600">Tools to boost your productivity</p>
       </div>
 
-      <nav aria-label="Apps navigation">
-        <ul class="grid grid-cols-1 sm:grid-cols-2 gap-3 pb-4">
-          {% for app in apps.apps %}
-          <li>
-            <a
-              href="{{ app.link }}"
-              target="_blank"
-              rel="noopener noreferrer"
-              title="Open {{ app.name }} app"
-              class="block py-4 px-4 bg-white hover:bg-gray-50 focus:bg-gray-50 border border-gray-300 focus:outline-none focus:ring-2 focus:ring-gray-400 focus:ring-offset-2 rounded-lg transition-all duration-150 text-sm font-medium text-gray-800 min-h-[56px] flex items-center"
-            >
-              {{ app.name }}
-            </a>
-          </li>
-          {% endfor %}
-        </ul>
-      </nav>
-    </div>
+    </nav>
   </div>
+  <form method="dialog" class="modal-backdrop"><button aria-label="Close menu">close</button></form>
 </dialog>
