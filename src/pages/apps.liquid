@@ -21,11 +21,17 @@
     <meta property="og:title" content="Apps - Coffee & Fun LLC" />
     <meta property="og:description" content="Browse all apps, extensions, and tools by Coffee & Fun LLC." />
     <meta property="og:url" content="https://www.coffeeandfun.com/apps/" />
+    <meta property="og:image" content="https://www.coffeeandfun.com/assets/images/social/pages/apps.png" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content="Coffee & Fun Apps" />
 
-    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:site" content="@bycoffeeandfun" />
     <meta name="twitter:title" content="Apps - Coffee & Fun LLC" />
     <meta name="twitter:description" content="Browse all apps, extensions, and tools by Coffee & Fun LLC." />
+    <meta name="twitter:image" content="https://www.coffeeandfun.com/assets/images/social/pages/apps.png" />
+    <meta name="twitter:image:alt" content="Coffee & Fun Apps" />
 
     <link rel="manifest" href="/assets/images/social/site.webmanifest" />
     <meta name="theme-color" content="#fef5ec" />
@@ -188,7 +194,7 @@
                             <path d="m21 21-4.3-4.3"></path>
                         </g>
                     </svg>
-                    <input type="search" id="appSearchInput" placeholder="Search apps..." class="search-input" />
+                    <input type="search" id="appSearchInput" placeholder="Search apps..." class="search-input" aria-label="Search apps" />
                 </label>
             </div>
 
@@ -203,13 +209,13 @@
 
             <!-- Filter Tabs -->
             <div class="flex flex-wrap justify-center gap-2" id="filterTabs">
-                <button class="filter-tab active" data-filter="all">All</button>
-                <button class="filter-tab" data-filter="Web">Web</button>
-                <button class="filter-tab" data-filter="Chrome">Chrome</button>
-                <button class="filter-tab" data-filter="Safari">Safari</button>
-                <button class="filter-tab" data-filter="macOS">macOS</button>
-                <button class="filter-tab" data-filter="iOS">iOS</button>
-                <button class="filter-tab" data-filter="Open Source">Open Source</button>
+                <button type="button" class="filter-tab active" data-filter="all">All</button>
+                <button type="button" class="filter-tab" data-filter="Web">Web</button>
+                <button type="button" class="filter-tab" data-filter="Chrome">Chrome</button>
+                <button type="button" class="filter-tab" data-filter="Safari">Safari</button>
+                <button type="button" class="filter-tab" data-filter="macOS">macOS</button>
+                <button type="button" class="filter-tab" data-filter="iOS">iOS</button>
+                <button type="button" class="filter-tab" data-filter="Open Source">Open Source</button>
             </div>
         </section>
 
@@ -263,6 +269,7 @@
                 <a class="app-card card card-compact bg-base-100 shadow-md transition-all duration-200 hover:-translate-y-1 hover:shadow-xl rounded-2xl focus:outline-none focus:ring-2 focus:ring-offset-2 overflow-hidden"
                     style="--tw-ring-color: #a36942;"
                     href="{{ app.link }}"
+                    aria-label="View {{ app.name }}"
                     {% if app.link contains 'http' %}target="_blank" rel="noopener noreferrer"{% endif %}
                     data-title="{{ app.name | downcase }}"
                     data-description="{{ app.description | downcase }}"
@@ -331,6 +338,7 @@
                 <a class="app-card card card-compact bg-base-100 shadow-md transition-all duration-200 hover:-translate-y-1 hover:shadow-xl rounded-2xl focus:outline-none focus:ring-2 focus:ring-offset-2 overflow-hidden"
                     style="--tw-ring-color: #a36942;"
                     href="{{ app.link }}"
+                    aria-label="View {{ app.name }}"
                     target="_blank" rel="noopener noreferrer"
                     data-title="{{ app.name | downcase }}"
                     data-description="{{ app.description | downcase }}"
@@ -386,6 +394,7 @@
                 <a class="app-card card card-compact bg-base-100 shadow-md transition-all duration-200 hover:-translate-y-1 hover:shadow-xl rounded-2xl focus:outline-none focus:ring-2 focus:ring-offset-2 overflow-hidden"
                     style="--tw-ring-color: #a36942;"
                     href="{{ app.link }}"
+                    aria-label="View {{ app.name }}"
                     {% if app.link contains 'http' %}target="_blank" rel="noopener noreferrer"{% endif %}
                     data-title="{{ app.name | downcase }}"
                     data-description="{{ app.description | downcase }}"

@@ -287,7 +287,7 @@
                             <path d="m21 21-4.3-4.3"></path>
                         </g>
                     </svg>
-                    <input type="search" id="blogSearchInput" placeholder="Search posts..." class="search-input" />
+                    <input type="search" id="blogSearchInput" placeholder="Search posts..." class="search-input" aria-label="Search blog posts" />
                 </label>
             </div>
 
@@ -313,12 +313,12 @@
 
             <!-- Filter Tabs -->
             <div class="flex flex-wrap justify-center gap-2" id="filterTabs">
-                <button class="filter-tab active" data-filter="all">All</button>
-                <button class="filter-tab" data-filter="web">Web</button>
-                <button class="filter-tab" data-filter="guide">Guides</button>
-                <button class="filter-tab" data-filter="update">Updates</button>
-                <button class="filter-tab" data-filter="company">News</button>
-                <button class="filter-tab" data-filter="hack">Research</button>
+                <button type="button" class="filter-tab active" data-filter="all">All</button>
+                <button type="button" class="filter-tab" data-filter="web">Web</button>
+                <button type="button" class="filter-tab" data-filter="guide">Guides</button>
+                <button type="button" class="filter-tab" data-filter="update">Updates</button>
+                <button type="button" class="filter-tab" data-filter="company">News</button>
+                <button type="button" class="filter-tab" data-filter="hack">Research</button>
             </div>
         </section>
 
@@ -394,6 +394,7 @@
                 <a class="blog-card-item group bg-white rounded-2xl border border-stone-200 overflow-hidden transition-all duration-200 hover:-translate-y-1 hover:shadow-lg focus:outline-none focus:ring-2 focus:ring-offset-2"
                     style="--tw-ring-color: #a36942;"
                     href="{{ post.link }}"
+                    aria-label="Read {{ post.name }}"
                     data-title="{{ post.name | downcase }}"
                     data-description="{{ post.description | downcase }}"
                     data-platforms="{{ post.platform | join: ' ' | downcase }}">

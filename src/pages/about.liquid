@@ -42,6 +42,9 @@
       type="image/png"
     />
 
+    <!-- Canonical URL -->
+    <link rel="canonical" href="https://www.coffeeandfun.com/about/" />
+
     <!-- Open Graph -->
     <meta property="og:type" content="website" />
     <meta property="og:site_name" content="Coffee & Fun" />
@@ -153,9 +156,11 @@
   </head>
 
   <body>
-    {% assign showFun = true %} 
-    {% assign showMiddleBadgeWithText = true %} 
+    {% assign showFun = true %}
+    {% assign showMiddleBadgeWithText = true %}
     {% include header.liquid %}
+
+    <main id="main-content">
 
     <!-- Mission Statement - Full Width -->
     <section class="relative full-bleed accent-gradient py-32 px-6 overflow-visible">
@@ -503,7 +508,8 @@
           {% for post in blog.posts limit:3 %}
                <a
                   class="group bg-white rounded-2xl border border-stone-200 overflow-hidden transition-all duration-200 hover:-translate-y-1 hover:shadow-lg focus:outline-none focus:ring-2 focus:ring-offset-2" style="--tw-ring-color: #a36942;"
-                  href="{{ post.link }}">
+                  href="{{ post.link }}"
+                  aria-label="Read {{ post.name }}">
                   <figure class="p-3 pb-0">
                     <img
                       loading="lazy"
@@ -562,6 +568,8 @@
           </svg>
       </div>
     </section>
+
+    </main>
 
     {% include modals.liquid %}
     {% include footer.liquid %}
