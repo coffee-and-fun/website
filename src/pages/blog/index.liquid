@@ -411,7 +411,26 @@
 
                         <div class="flex flex-wrap gap-1.5 mt-4">
                             {% for platform in post.platform %}
-                            <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium border border-stone-200 text-stone-600">{{ platform }}</span>
+                            {% assign ptag = platform | downcase %}
+                            {% if ptag == "blog" %}
+                            <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium text-white" style="background-color:#a36942;">{{ platform }}</span>
+                            {% elsif ptag == "hack" %}
+                            <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium text-white" style="background-color:#fd6155;">{{ platform }}</span>
+                            {% elsif ptag == "guide" %}
+                            <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium text-white" style="background-color:#c4813a;">{{ platform }}</span>
+                            {% elsif ptag == "web" or ptag == "nodejs" %}
+                            <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium text-white" style="background-color:#7a4e31;">{{ platform }}</span>
+                            {% elsif ptag == "update" %}
+                            <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium text-white" style="background-color:#96603c;">{{ platform }}</span>
+                            {% elsif ptag == "company" %}
+                            <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium text-white" style="background-color:#3d2b1f;">{{ platform }}</span>
+                            {% elsif ptag == "ios" or ptag == "ipad" %}
+                            <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium text-white" style="background-color:#5b8c5a;">{{ platform }}</span>
+                            {% elsif ptag == "social" %}
+                            <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium text-white" style="background-color:#8b6f4e;">{{ platform }}</span>
+                            {% else %}
+                            <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium text-white" style="background-color:#a36942;">{{ platform }}</span>
+                            {% endif %}
                             {% endfor %}
                         </div>
                     </div>

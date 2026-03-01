@@ -286,7 +286,20 @@
                         <p class="text-sm text-stone-500 line-clamp-2">{{ app.description }}</p>
                         <div class="flex flex-wrap gap-1.5 mt-3">
                             {% for platform in app.platform %}
-                            <span class="text-xs font-medium px-2.5 py-1 rounded-full border border-stone-200 text-stone-500">{{ platform }}</span>
+                            {% assign ptag = platform | downcase %}
+                            {% if ptag == "chrome" %}
+                            <span class="text-xs font-medium px-2.5 py-1 rounded-full text-white" style="background-color:#c4813a;">{{ platform }}</span>
+                            {% elsif ptag == "safari" %}
+                            <span class="text-xs font-medium px-2.5 py-1 rounded-full text-white" style="background-color:#5b8c5a;">{{ platform }}</span>
+                            {% elsif ptag == "web" %}
+                            <span class="text-xs font-medium px-2.5 py-1 rounded-full text-white" style="background-color:#7a4e31;">{{ platform }}</span>
+                            {% elsif ptag == "ios" %}
+                            <span class="text-xs font-medium px-2.5 py-1 rounded-full text-white" style="background-color:#fd6155;">{{ platform }}</span>
+                            {% elsif ptag == "macos" %}
+                            <span class="text-xs font-medium px-2.5 py-1 rounded-full text-white" style="background-color:#96603c;">{{ platform }}</span>
+                            {% else %}
+                            <span class="text-xs font-medium px-2.5 py-1 rounded-full text-white" style="background-color:#a36942;">{{ platform }}</span>
+                            {% endif %}
                             {% endfor %}
                         </div>
                     </div>
@@ -355,7 +368,20 @@
                         <p class="text-sm text-stone-500 line-clamp-2">{{ app.description }}</p>
                         <div class="flex flex-wrap gap-1.5 mt-3">
                             {% for platform in app.platform %}
-                            <span class="text-xs font-medium px-2.5 py-1 rounded-full border border-stone-200 text-stone-500">{{ platform }}</span>
+                            {% assign ptag = platform | downcase %}
+                            {% if ptag == "chrome" %}
+                            <span class="text-xs font-medium px-2.5 py-1 rounded-full text-white" style="background-color:#c4813a;">{{ platform }}</span>
+                            {% elsif ptag == "safari" %}
+                            <span class="text-xs font-medium px-2.5 py-1 rounded-full text-white" style="background-color:#5b8c5a;">{{ platform }}</span>
+                            {% elsif ptag == "web" %}
+                            <span class="text-xs font-medium px-2.5 py-1 rounded-full text-white" style="background-color:#7a4e31;">{{ platform }}</span>
+                            {% elsif ptag == "ios" %}
+                            <span class="text-xs font-medium px-2.5 py-1 rounded-full text-white" style="background-color:#fd6155;">{{ platform }}</span>
+                            {% elsif ptag == "macos" %}
+                            <span class="text-xs font-medium px-2.5 py-1 rounded-full text-white" style="background-color:#96603c;">{{ platform }}</span>
+                            {% else %}
+                            <span class="text-xs font-medium px-2.5 py-1 rounded-full text-white" style="background-color:#a36942;">{{ platform }}</span>
+                            {% endif %}
                             {% endfor %}
                         </div>
                     </div>
@@ -411,7 +437,20 @@
                         <p class="text-sm text-stone-500 line-clamp-2">{{ app.description }}</p>
                         <div class="flex flex-wrap gap-1.5 mt-3">
                             {% for platform in app.platform %}
-                            <span class="text-xs font-medium px-2.5 py-1 rounded-full border border-stone-200 text-stone-500">{{ platform }}</span>
+                            {% assign ptag = platform | downcase %}
+                            {% if ptag == "chrome" %}
+                            <span class="text-xs font-medium px-2.5 py-1 rounded-full text-white" style="background-color:#c4813a;">{{ platform }}</span>
+                            {% elsif ptag == "safari" %}
+                            <span class="text-xs font-medium px-2.5 py-1 rounded-full text-white" style="background-color:#5b8c5a;">{{ platform }}</span>
+                            {% elsif ptag == "web" %}
+                            <span class="text-xs font-medium px-2.5 py-1 rounded-full text-white" style="background-color:#7a4e31;">{{ platform }}</span>
+                            {% elsif ptag == "ios" %}
+                            <span class="text-xs font-medium px-2.5 py-1 rounded-full text-white" style="background-color:#fd6155;">{{ platform }}</span>
+                            {% elsif ptag == "macos" %}
+                            <span class="text-xs font-medium px-2.5 py-1 rounded-full text-white" style="background-color:#96603c;">{{ platform }}</span>
+                            {% else %}
+                            <span class="text-xs font-medium px-2.5 py-1 rounded-full text-white" style="background-color:#a36942;">{{ platform }}</span>
+                            {% endif %}
                             {% endfor %}
                         </div>
                     </div>
