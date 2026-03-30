@@ -652,93 +652,112 @@
                     if (!this.isValidReceipt) return;
 
                     const { jsPDF } = window.jspdf;
-                    const doc = new jsPDF({ unit: 'mm', format: [80, 200] });
-                    const w = 80;
-                    const margin = 6;
-                    const contentW = w - margin * 2;
-                    let y = 10;
+                    const doc = new jsPDF();
+                    const pageW = doc.internal.pageSize.getWidth();
+                    const center = pageW / 2;
+                    const left = 30;
+                    const right = pageW - 30;
+                    const contentW = right - left;
+                    let y = 30;
+
+                    const drawDashedLine = (yPos) => {
+                        const dashLen = 2;
+                        const gapLen = 2;
+                        let x = left;
+                        doc.setDrawColor(150);
+                        doc.setLineWidth(0.3);
+                        while (x < right) {
+                            const end = Math.min(x + dashLen, right);
+                            doc.line(x, yPos, end, yPos);
+                            x += dashLen + gapLen;
+                        }
+                        doc.setDrawColor(0);
+                    };
 
                     // Business name
-                    doc.setFontSize(12);
-                    doc.setFont(undefined, 'bold');
-                    doc.text(this.receipt.businessName, w / 2, y, { align: 'center' });
-                    y += 5;
+                    doc.setFontSize(18);
+                    doc.setFont('courier', 'bold');
+                    doc.text(this.receipt.businessName, center, y, { align: 'center' });
+                    y += 7;
 
-                    doc.setFontSize(7);
-                    doc.setFont(undefined, 'normal');
+                    doc.setFontSize(9);
+                    doc.setFont('courier', 'normal');
                     if (this.receipt.businessAddress) {
-                        doc.text(this.receipt.businessAddress, w / 2, y, { align: 'center', maxWidth: contentW });
-                        y += 4;
+                        doc.text(this.receipt.businessAddress, center, y, { align: 'center', maxWidth: contentW });
+                        y += 5;
                     }
                     if (this.receipt.businessPhone || this.receipt.businessEmail) {
-                        const contact = [this.receipt.businessPhone, this.receipt.businessEmail].filter(Boolean).join(' | ');
-                        doc.text(contact, w / 2, y, { align: 'center', maxWidth: contentW });
-                        y += 4;
+                        const contact = [this.receipt.businessPhone, this.receipt.businessEmail].filter(Boolean).join('  |  ');
+                        doc.text(contact, center, y, { align: 'center', maxWidth: contentW });
+                        y += 5;
                     }
 
-                    // Divider
-                    y += 2;
-                    doc.setLineDashPattern([1, 1], 0);
-                    doc.line(margin, y, w - margin, y);
-                    y += 4;
+                    y += 3;
+                    drawDashedLine(y);
+                    y += 8;
 
                     // Receipt info
-                    doc.setFontSize(7);
-                    doc.text('Receipt #: ' + this.receiptDisplayNumber, margin, y);
-                    y += 3.5;
-                    doc.text('Date: ' + this.formatDate(this.receipt.date), margin, y);
-                    y += 3.5;
-                    doc.text('Payment: ' + this.receipt.paymentMethod, margin, y);
-                    y += 3;
+                    doc.setFontSize(9);
+                    doc.text('Receipt #:', left, y);
+                    doc.text(this.receiptDisplayNumber, right, y, { align: 'right' });
+                    y += 6;
+                    doc.text('Date:', left, y);
+                    doc.text(this.formatDate(this.receipt.date), right, y, { align: 'right' });
+                    y += 6;
+                    doc.text('Payment:', left, y);
+                    doc.text(this.receipt.paymentMethod, right, y, { align: 'right' });
+                    y += 5;
 
-                    // Divider
-                    doc.line(margin, y, w - margin, y);
-                    y += 4;
+                    drawDashedLine(y);
+                    y += 8;
 
                     // Items
                     this.validItems.forEach(item => {
-                        doc.setFont(undefined, 'normal');
-                        doc.text(item.description, margin, y, { maxWidth: contentW - 20 });
-                        doc.text('$' + (item.quantity * item.price).toFixed(2), w - margin, y, { align: 'right' });
-                        y += 3.5;
-                        doc.setFontSize(6);
-                        doc.text('  ' + item.quantity + ' x $' + item.price.toFixed(2), margin, y);
-                        doc.setFontSize(7);
-                        y += 4;
+                        doc.setFont('courier', 'normal');
+                        doc.setFontSize(10);
+                        doc.text(item.description, left, y);
+                        doc.text('$' + (item.quantity * item.price).toFixed(2), right, y, { align: 'right' });
+                        y += 5;
+                        doc.setFontSize(8);
+                        doc.setTextColor(120);
+                        doc.text('  ' + item.quantity + ' x $' + item.price.toFixed(2), left, y);
+                        doc.setTextColor(0);
+                        doc.setFontSize(9);
+                        y += 7;
                     });
 
-                    // Divider
-                    doc.line(margin, y, w - margin, y);
-                    y += 4;
+                    drawDashedLine(y);
+                    y += 8;
 
                     // Totals
-                    doc.text('Subtotal', margin, y);
-                    doc.text('$' + this.subtotal.toFixed(2), w - margin, y, { align: 'right' });
-                    y += 3.5;
-
-                    doc.text('Tax (' + (this.receipt.taxRate || 0) + '%)', margin, y);
-                    doc.text('$' + this.taxAmount.toFixed(2), w - margin, y, { align: 'right' });
-                    y += 3;
-
-                    doc.line(margin, y, w - margin, y);
-                    y += 4;
-
-                    doc.setFontSize(9);
-                    doc.setFont(undefined, 'bold');
-                    doc.text('TOTAL', margin, y);
-                    doc.text('$' + this.total.toFixed(2), w - margin, y, { align: 'right' });
+                    doc.setFontSize(10);
+                    doc.text('Subtotal', left, y);
+                    doc.text('$' + this.subtotal.toFixed(2), right, y, { align: 'right' });
                     y += 6;
 
-                    // Footer
-                    doc.setFont(undefined, 'normal');
-                    doc.setFontSize(6);
-                    doc.text('Thank you for your business!', w / 2, y, { align: 'center' });
-                    y += 3;
-                    doc.text('Generated for bookkeeping purposes', w / 2, y, { align: 'center' });
+                    doc.text('Tax (' + (this.receipt.taxRate || 0) + '%)', left, y);
+                    doc.text('$' + this.taxAmount.toFixed(2), right, y, { align: 'right' });
+                    y += 5;
 
-                    // Resize page to content
-                    const pageHeight = y + 10;
-                    doc.internal.pageSize.height = pageHeight;
+                    drawDashedLine(y);
+                    y += 8;
+
+                    doc.setFontSize(14);
+                    doc.setFont('courier', 'bold');
+                    doc.text('TOTAL', left, y);
+                    doc.text('$' + this.total.toFixed(2), right, y, { align: 'right' });
+                    y += 12;
+
+                    // Footer
+                    drawDashedLine(y);
+                    y += 8;
+                    doc.setFont('courier', 'normal');
+                    doc.setFontSize(8);
+                    doc.setTextColor(130);
+                    doc.text('Thank you for your business!', center, y, { align: 'center' });
+                    y += 5;
+                    doc.text('Generated for bookkeeping purposes', center, y, { align: 'center' });
+                    doc.setTextColor(0);
 
                     const fileName = 'receipt_' + (this.receipt.receiptNumber || 'NA') + '_' + this.receipt.date + '.pdf';
                     doc.save(fileName);
