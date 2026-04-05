@@ -141,7 +141,7 @@ export default function (eleventyConfig) {
 		th: 'border border-gray-300 px-4 py-2 text-pretty text-left text-gray-700 font-medium',
 		tr: 'odd:bg-gray-50 even:bg-white',
 		td: 'border border-gray-300 px-4 py-2 text-pretty text-gray-900',
-		img: 'aspect-square rounded-2xl mb-8 border-gray-300 border-2',
+		img: 'w-full h-auto rounded-2xl mb-8 border-gray-300 border-2',
 		hr: 'divider divider-neutral my-10',
 		a: 'text-lg text-pretty text-blue-500 hover:text-blue-700 underline mx-2',
 		iframe: 'w-full h-96 rounded-2xl shadow-lg my-10',
