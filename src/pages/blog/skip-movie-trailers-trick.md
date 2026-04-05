@@ -15,7 +15,7 @@ keywords:
 url: blog/skip-movie-trailers-trick/
 isBlog: true
 blog_cat: Experiment
-youtubeId: # Add your video ID here once uploaded
+youtubeId:
 cardTitle: Skip the Trailers With This Weird Movie Timing Hack
 blog_snip:
   Want to skip the trailers and ads at the movies without missing the start? We found a sneaky
