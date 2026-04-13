@@ -3,47 +3,47 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    
+
     <!-- Primary Meta Tags -->
     <title>Hide Spoilers - Browse Without Spoilers | Coffee & Fun</title>
     <meta name="title" content="Hide Spoilers - Browse Without Spoilers | Coffee & Fun" />
-    <meta name="description" content="Browser extension that blurs spoilers on any website. Customize keywords to hide plot twists, game results, or TV show spoilers. Available for Chrome and Safari." />
+    <meta name="description" content="Browser extension that blurs spoilers on any website. Block full phrases, blur text, images, and thumbnails. Available for Chrome and Safari." />
     <meta name="keywords" content="spoiler blocker, hide spoilers, browser extension, Chrome extension, Safari extension, spoiler prevention, Coffee and Fun" />
     <meta name="author" content="Coffee & Fun LLC" />
     <meta name="publisher" content="Coffee & Fun LLC" />
     <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1" />
     <meta name="rating" content="general" />
-    
+
     <!-- Open Graph / Facebook -->
     <meta property="og:type" content="website" />
     <meta property="og:url" content="/hide-spoilers-extension/" />
     <meta property="og:title" content="Hide Spoilers - Browse Without Spoilers" />
-    <meta property="og:description" content="Browser extension that blurs spoilers on any website. Customize keywords to avoid plot twists and spoilers." />
+    <meta property="og:description" content="Browser extension that blurs spoilers on any website. Block full phrases, blur text, images, and thumbnails." />
     <meta property="og:image" content="/assets/images/social/pages/hide-spoilers-extension.png" />
     <meta property="og:image:width" content="1200" />
     <meta property="og:image:height" content="630" />
     <meta property="og:image:alt" content="Hide Spoilers browser extension preview" />
     <meta property="og:site_name" content="Coffee & Fun" />
     <meta property="og:locale" content="en_US" />
-    
+
     <!-- Twitter -->
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:url" content="/hide-spoilers-extension/" />
     <meta name="twitter:title" content="Hide Spoilers - Browse Without Spoilers" />
-    <meta name="twitter:description" content="Browser extension that blurs spoilers. Customize keywords to avoid plot twists." />
+    <meta name="twitter:description" content="Browser extension that blurs spoilers on any website. Block full phrases, blur text, images, and thumbnails." />
     <meta name="twitter:image" content="/assets/images/social/pages/hide-spoilers-extension.png" />
     <meta name="twitter:image:alt" content="Hide Spoilers extension" />
     <meta name="twitter:site" content="@bycoffeeandfun" />
     <meta name="twitter:creator" content="@bycoffeeandfun" />
-    
+
     <!-- Canonical URL -->
     <link rel="canonical" href="/hide-spoilers-extension/" />
-    
+
     <!-- Favicon & Icons -->
     <link rel="icon" href="/assets/images/favicon.png" type="image/png" />
     <link rel="apple-touch-icon" href="/assets/images/social/192.png" />
     <link rel="icon" href="/assets/images/social/192.png" sizes="192x192" type="image/png" />
-    
+
     <!-- PWA & Mobile -->
     <link rel="manifest" href="/assets/images/social/site.webmanifest" />
     <meta name="theme-color" content="#fef5ec" />
@@ -51,7 +51,7 @@
     <meta name="apple-mobile-web-app-capable" content="yes" />
     <meta name="apple-mobile-web-app-status-bar-style" content="default" />
     <meta name="apple-mobile-web-app-title" content="Hide Spoilers" />
-    
+
     <!-- Structured Data -->
     <script type="application/ld+json">
     {
@@ -80,10 +80,10 @@
         }
     }
     </script>
-    
+
     {% bundledCss %}
     {% include scripts.html %}
-    
+
     <!-- Service Worker -->
     <script>
         if ('serviceWorker' in navigator) {
@@ -91,9 +91,8 @@
                 registrations.forEach(registration => {
                     registration.unregister();
                 });
-                
                 navigator.serviceWorker.register('/service-worker.js')
-                    .then(() => console.log('✅ Service worker registered'))
+                    .then(() => console.log('Service worker registered'))
                     .catch((err) => console.error('Service worker error:', err));
             });
         }
@@ -106,71 +105,56 @@
     {% assign showKeyboardModal = false %}
     {% assign showInstantApp = false %}
     {% assign showSpoilers = false %}
-    
+
     {% include header.liquid %}
-    
+
     <main id="main-content" class="mx-auto max-w-7xl pb-4 pt-4">
-        <!-- Hero Section -->
+
+        <!-- Hero -->
         <div class="mb-16 mt-16 sm:mb-24 sm:mt-12">
             <div class="relative">
-                <div class="absolute inset-2 bottom-0 rounded-4xl ring-1 ring-black/5 ring-inset bg-gradient-to-br from-[#fcd683] via-[#f7c4ba] to-[#e25440]"></div>
+                <div class="absolute inset-2 bottom-0 rounded-4xl bg-black"></div>
                 <div class="relative px-6 lg:px-8">
                     <div class="mx-auto max-w-2xl lg:max-w-7xl">
                         <div class="pt-16 pb-24 sm:pt-24 sm:pb-32 md:pt-32 md:pb-48 mx-auto max-w-3xl text-center">
 
+                            <img
+                                alt="Hide Spoilers logo"
+                                src="/assets/images/spoilers.png"
+                                class="h-24 w-auto mx-auto mb-8"
+                                decoding="async"
+                                loading="eager"
+                            />
 
-
-        <img 
-          alt="Hide spoilers feature icon" 
-          src="/assets/images/spoilers.png" 
-          class="h-24 w-24 aspect-square mx-auto mb-6" 
-          decoding="async" 
-          loading="lazy"
-        />
-       
-
-
-                            <h1 class="font-display text-5xl font-medium tracking-tight text-gray-950 sm:text-6xl/[0.8] md:text-7xl/[0.8]">
-                                Say Goodbye to Spoilers
+                            <h1 class="font-display text-4xl font-bold tracking-tight text-white sm:text-5xl md:text-6xl">
+                                Browse without spoilers.
                             </h1>
-                            <p class="mt-8 max-w-4xl text-xl/7 font-medium text-gray-950/75 sm:text-2xl/8 mx-auto">
-                                Hide Spoilers helps you avoid spoilers by blurring text, images, and entire sections of websites. 
-                                Just set your keywords, and browse stress-free.
+                            <p class="mt-6 max-w-xl text-lg text-white/70 mx-auto">
+                                Set your keywords. We blur the rest. Text, images, thumbnails — if it matches, it's hidden until you're ready.
                             </p>
-                            
-                            <div class="mt-12 flex flex-col sm:flex-row items-center justify-center gap-4">
+
+                            <div class="mt-10 flex flex-col sm:flex-row items-center justify-center gap-4">
                                 <a href="https://chromewebstore.google.com/detail/hide-spoilers-block-blur/dglgbepdhdpfihbiklibdcecpadcdcln"
                                    target="_blank"
                                    rel="noopener noreferrer"
-                                   class="btn-neutral btn btn-lg w-full sm:w-auto">
-                                    <svg class="w-5 h-5 mr-2" viewBox="0 0 24 24" fill="currentColor">
-                                        <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/>
-                                    </svg>
+                                   class="btn btn-lg w-full sm:w-auto bg-[#e25440] hover:bg-[#c94836] text-white border-none">
                                     Download for Chrome
                                 </a>
                                 <a href="https://apps.apple.com/us/app/hide-spoilers/id6740436834"
                                    target="_blank"
                                    rel="noopener noreferrer"
-                                   class="btn btn-lg btn-dash btn-neutral w-full sm:w-auto">
-                                    <svg class="w-5 h-5 mr-2" viewBox="0 0 24 24" fill="currentColor">
-                                        <path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.81-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/>
-                                    </svg>
+                                   class="btn btn-lg w-full sm:w-auto text-white border-white/20 hover:bg-white/10 hover:border-white/40 bg-transparent">
                                     Download for Safari
                                 </a>
                             </div>
-                            
-                            <!-- Video Demo -->
-                            <div class="mx-auto mt-16 flow-root max-w-4xl sm:mt-24">
-                                <div class="-m-2 rounded-2xl bg-stone-600 p-2 lg:-m-4 lg:rounded-2xl lg:p-4">
-                                    <video aria-label="Hide Spoilers extension demonstration"
-                                           autoplay
-                                           controls
-                                           loop
-                                           muted
-                                           playsinline
-                                           width="2432"
-                                           height="1442"
-                                           class="rounded-md shadow-2xl ring-1 ring-gray-900/10">
+
+                            <!-- Video -->
+                            <div class="mx-auto mt-16 flow-root max-w-4xl sm:mt-20">
+                                <div class="rounded-2xl bg-white/10 p-2 lg:p-3">
+                                    <video aria-label="Hide Spoilers extension demo"
+                                           autoplay controls loop muted playsinline
+                                           width="2432" height="1442"
+                                           class="rounded-xl">
                                         <source src="/assets/videos/spoilers.mp4" type="video/mp4" />
                                         Your browser does not support the video tag.
                                     </video>
@@ -181,136 +165,123 @@
                 </div>
             </div>
         </div>
-        
-        <!-- Features Section -->
-        <div class="mb-24 mt-24">
-            <div class="mx-auto max-w-7xl px-6 lg:px-8">
-                <div class="mx-auto max-w-2xl text-center mb-12">
-                    <h2 class="text-3xl font-bold tracking-tight text-gray-900">How It Works</h2>
-                    <p class="mt-4 text-lg text-gray-600">Three simple steps to spoiler-free browsing</p>
+
+        <!-- What's New Banner -->
+        <div class="mx-auto max-w-3xl px-6 lg:px-8 mb-24 text-center">
+            <p class="text-sm font-semibold uppercase tracking-widest text-[#e25440] mb-2">What's New</p>
+            <h2 class="text-3xl font-bold tracking-tight text-gray-900">
+                Completely redesigned.
+            </h2>
+            <p class="mt-3 text-lg text-gray-500">New logo. New interface. Smarter blocking.</p>
+        </div>
+
+        <!-- Features -->
+        <div class="mx-auto max-w-5xl px-6 lg:px-8 mb-32">
+            <div class="grid md:grid-cols-2 gap-x-16 gap-y-14">
+
+                <div>
+                    <h3 class="text-lg font-semibold text-gray-900 mb-2">Multi-Word Blocking</h3>
+                    <p class="text-gray-600 leading-relaxed">
+                        Block full phrases like "Breaking Bad" or "Squid Games" — not just single words. Add any phrase and we'll blur it everywhere.
+                    </p>
                 </div>
-                <div class="grid md:grid-cols-3 gap-8">
-                    <div class="text-center">
-                        <div class="bg-primary/10 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4">
-                            <span class="text-2xl font-bold text-primary">1</span>
-                        </div>
-                        <h3 class="text-lg font-semibold mb-2">Add Keywords</h3>
-                        <p class="text-gray-600">Enter shows, movies, or games you want to avoid spoilers for</p>
+
+                <div>
+                    <h3 class="text-lg font-semibold text-gray-900 mb-2">Smarter Detection</h3>
+                    <p class="text-gray-600 leading-relaxed">
+                        Rebuilt spoiler engine. Faster, catches more, and works better on sites like YouTube where content loads as you scroll.
+                    </p>
+                </div>
+
+                <div>
+                    <h3 class="text-lg font-semibold text-gray-900 mb-2">Works Everywhere</h3>
+                    <p class="text-gray-600 leading-relaxed">
+                        Text, images, video thumbnails, links — if it contains your terms, it gets blurred. Hover to peek when you're ready.
+                    </p>
+                </div>
+
+                <div>
+                    <h3 class="text-lg font-semibold text-gray-900 mb-2">Better Performance</h3>
+                    <p class="text-gray-600 leading-relaxed">
+                        Faster on heavy sites, improved accessibility, better Safari integration, and a stack of bug fixes under the hood.
+                    </p>
+                </div>
+
+            </div>
+        </div>
+
+        <!-- How It Works -->
+        <div class="mb-32">
+            <div class="mx-auto max-w-5xl px-6 lg:px-8">
+                <div class="text-center mb-14">
+                    <h2 class="text-3xl font-bold tracking-tight text-gray-900">How It Works</h2>
+                </div>
+                <div class="grid md:grid-cols-3 gap-12 text-center">
+                    <div>
+                        <div class="w-12 h-12 rounded-full bg-black text-white flex items-center justify-center mx-auto mb-4 text-lg font-bold">1</div>
+                        <h3 class="text-base font-semibold mb-1">Add Keywords</h3>
+                        <p class="text-gray-500 text-sm">Shows, movies, games — anything you want to avoid.</p>
                     </div>
-                    <div class="text-center">
-                        <div class="bg-primary/10 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4">
-                            <span class="text-2xl font-bold text-primary">2</span>
-                        </div>
-                        <h3 class="text-lg font-semibold mb-2">Browse Normally</h3>
-                        <p class="text-gray-600">The extension works automatically in the background</p>
+                    <div>
+                        <div class="w-12 h-12 rounded-full bg-black text-white flex items-center justify-center mx-auto mb-4 text-lg font-bold">2</div>
+                        <h3 class="text-base font-semibold mb-1">Browse Normally</h3>
+                        <p class="text-gray-500 text-sm">The extension runs quietly in the background.</p>
                     </div>
-                    <div class="text-center">
-                        <div class="bg-primary/10 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4">
-                            <span class="text-2xl font-bold text-primary">3</span>
-                        </div>
-                        <h3 class="text-lg font-semibold mb-2">Stay Spoiler-Free</h3>
-                        <p class="text-gray-600">Content matching your keywords gets blurred automatically</p>
+                    <div>
+                        <div class="w-12 h-12 rounded-full bg-black text-white flex items-center justify-center mx-auto mb-4 text-lg font-bold">3</div>
+                        <h3 class="text-base font-semibold mb-1">Stay Spoiler-Free</h3>
+                        <p class="text-gray-500 text-sm">Matching content gets blurred automatically.</p>
                     </div>
                 </div>
             </div>
         </div>
-        
-        <!-- FAQ Section -->
-        <section class="mt-16 rounded-2xl bg-white shadow-md" id="faq">
-            <div class="mx-auto max-w-7xl divide-y divide-gray-900/10 px-6 py-24 lg:px-8">
-                <h2 class="text-3xl font-bold leading-10 pb-8 tracking-tight text-black">
-                    Frequently Asked Questions
-                </h2>
-                <dl class="mt-10 space-y-8 divide-y divide-gray-900/10">
-                    <div class="pt-8 lg:grid lg:grid-cols-12 lg:gap-8">
-                        <dt class="text-lg font-semibold leading-7 text-black lg:col-span-5">
-                            How does Hide Spoilers work?
-                        </dt>
-                        <dd class="mt-4 lg:col-span-7 lg:mt-0">
-                            <p class="text-lg leading-7 text-gray-700">
-                                It scans websites for keywords you add and blurs anything that matches, including text, images, 
-                                and sections of the page. It's like putting a filter over your browsing experience!
-                            </p>
-                        </dd>
+
+        <!-- FAQ -->
+        <section class="mb-24 mx-6 lg:mx-8" id="faq">
+            <div class="mx-auto max-w-3xl">
+                <h2 class="text-3xl font-bold tracking-tight text-gray-900 mb-10">FAQ</h2>
+                <div class="space-y-8">
+                    <div>
+                        <h3 class="text-base font-semibold text-gray-900">How does it work?</h3>
+                        <p class="mt-2 text-gray-600">It scans pages for your keywords and blurs anything that matches — text, images, and entire sections.</p>
                     </div>
-                    
-                    <div class="pt-8 lg:grid lg:grid-cols-12 lg:gap-8">
-                        <dt class="text-lg font-semibold leading-7 text-black lg:col-span-5">
-                            Can I choose my own keywords?
-                        </dt>
-                        <dd class="mt-4 lg:col-span-7 lg:mt-0">
-                            <p class="text-lg leading-7 text-gray-700">
-                                Yes! You can add or remove keywords at any time, so the extension always fits your needs. 
-                                Add specific show names, character names, or any terms you want to avoid.
-                            </p>
-                        </dd>
+                    <div>
+                        <h3 class="text-base font-semibold text-gray-900">Can I choose my own keywords?</h3>
+                        <p class="mt-2 text-gray-600">Yes. Add or remove keywords anytime — show names, character names, whatever you want to avoid.</p>
                     </div>
-                    
-                    <div class="pt-8 lg:grid lg:grid-cols-12 lg:gap-8">
-                        <dt class="text-lg font-semibold leading-7 text-black lg:col-span-5">
-                            Does it work on all websites?
-                        </dt>
-                        <dd class="mt-4 lg:col-span-7 lg:mt-0">
-                            <p class="text-lg leading-7 text-gray-700">
-                                It works on most sites, including Twitter, YouTube, Reddit, and news sites. 
-                                We're constantly improving compatibility for unique layouts and dynamic content.
-                            </p>
-                        </dd>
+                    <div>
+                        <h3 class="text-base font-semibold text-gray-900">Does it work on all websites?</h3>
+                        <p class="mt-2 text-gray-600">Most sites, including Twitter, YouTube, Reddit, and news sites. We're constantly improving compatibility.</p>
                     </div>
-                    
-                    <div class="pt-8 lg:grid lg:grid-cols-12 lg:gap-8">
-                        <dt class="text-lg font-semibold leading-7 text-black lg:col-span-5">
-                            Is it free to use?
-                        </dt>
-                        <dd class="mt-4 lg:col-span-7 lg:mt-0">
-                            <p class="text-lg leading-7 text-gray-700">
-                                Yes! Hide Spoilers is completely free to download and use on both Chrome and Safari.
-                            </p>
-                        </dd>
+                    <div>
+                        <h3 class="text-base font-semibold text-gray-900">Is it free?</h3>
+                        <p class="mt-2 text-gray-600">Yes. Completely free on both Chrome and Safari.</p>
                     </div>
-                </dl>
+                </div>
             </div>
         </section>
-        
-        <!-- CTA Section -->
-        <div class="my-16 rounded-2xl bg-gradient-to-br from-primary/10 to-secondary/10">
-            <div class="px-6 py-16 lg:px-8">
-                <div class="mx-auto max-w-2xl text-center">
-                    <img src="/assets/images/spoilers.png"
-                         alt="Hide Spoilers mascot"
-                         class="w-20 mx-auto mb-6" />
-                    <h2 class="text-3xl font-bold tracking-tight text-black sm:text-4xl">
-                        Ready to Browse Spoiler-Free?
-                    </h2>
-                    <p class="mx-auto mt-6 max-w-xl text-xl leading-8 text-gray-700">
-                        Stop spoilers from ruining your favorite shows, movies, and games. 
-                        Download Hide Spoilers today!
-                    </p>
-                    <div class="mt-10 flex flex-col sm:flex-row items-center justify-center gap-4">
-                             <a href="https://chromewebstore.google.com/detail/hide-spoilers-block-blur/dglgbepdhdpfihbiklibdcecpadcdcln"
-                                   target="_blank"
-                                   rel="noopener noreferrer"
-                                   class="btn-neutral btn btn-lg w-full sm:w-auto">
-                                    <svg class="w-5 h-5 mr-2" viewBox="0 0 24 24" fill="currentColor">
-                                        <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/>
-                                    </svg>
-                                    Download for Chrome
-                                </a>
-                                <a href="https://apps.apple.com/us/app/hide-spoilers/id6740436834"
-                                   target="_blank"
-                                   rel="noopener noreferrer"
-                                   class="btn btn-lg btn-dash btn-neutral w-full sm:w-auto">
-                                    <svg class="w-5 h-5 mr-2" viewBox="0 0 24 24" fill="currentColor">
-                                        <path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.81-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/>
-                                    </svg>
-                                    Download for Safari
-                                </a>
-                    </div>
-                </div>
+
+        <!-- CTA -->
+        <div class="mx-auto max-w-3xl px-6 lg:px-8 mb-24 text-center">
+            <p class="text-2xl font-medium text-gray-900 mb-8">Enjoy your shows spoiler-free.</p>
+            <div class="flex flex-col sm:flex-row items-center justify-center gap-4">
+                <a href="https://chromewebstore.google.com/detail/hide-spoilers-block-blur/dglgbepdhdpfihbiklibdcecpadcdcln"
+                   target="_blank"
+                   rel="noopener noreferrer"
+                   class="btn btn-lg w-full sm:w-auto bg-[#e25440] hover:bg-[#c94836] text-white border-none">
+                    Download for Chrome
+                </a>
+                <a href="https://apps.apple.com/us/app/hide-spoilers/id6740436834"
+                   target="_blank"
+                   rel="noopener noreferrer"
+                   class="btn btn-lg btn-outline w-full sm:w-auto border-gray-300 hover:bg-gray-50">
+                    Download for Safari
+                </a>
             </div>
         </div>
+
     </main>
-    
+
     {% include modals.liquid %}
     {% include footer.liquid %}
 </body>
