@@ -68,4 +68,4 @@ Replace `PUBLISHER_ID` and `EXTENSION_ID` with your values. Your OAuth token nee
 
 ---
 
-*For more Chrome Web Store tips, see [how to rollback to a previous version](/blog/how-to-rollback-chrome-extension-version/) and our take on [why browser extension stores need higher standards](/blog/browser-extension-stores-need-higher-standards/).*
+*For more Chrome Web Store tips, see [how to rollback to a previous version](/blog/how-to-rollback-chrome-extension-version/).*

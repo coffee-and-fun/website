@@ -69,4 +69,4 @@ Between cancel and rollback, you're covered for both "caught it early" and "it's
 
 ---
 
-*For more Chrome Web Store tips, see [how to cancel a submission](/blog/how-to-cancel-chrome-web-store-submission/) and our take on [why browser extension stores need higher standards](/blog/browser-extension-stores-need-higher-standards/).*
+*For more Chrome Web Store tips, see [how to cancel a submission](/blog/how-to-cancel-chrome-web-store-submission/).*
