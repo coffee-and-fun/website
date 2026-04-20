@@ -1,0 +1,420 @@
+<!DOCTYPE html>
+<html class="brand-color-background scroll-smooth antialiased" lang="en" data-theme="light" style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Help Center - Coffee & Fun LLC</title>
+    <meta name="title" content="Help Center - Coffee & Fun LLC" />
+    <meta name="description" content="Step-by-step guides for every Coffee & Fun app and extension. Recover lost notes, fix common issues, and get the most out of the things we make." />
+    <meta name="keywords" content="Coffee & Fun help, support guides, Markdown Editor help, extension troubleshooting, recover notes, how-to" />
+    <meta name="author" content="Coffee & Fun LLC" />
+    <meta name="robots" content="index, follow" />
+    <meta name="rating" content="safe for kids" />
+
+    <link rel="canonical" href="/help/" />
+    <link rel="icon" href="/assets/images/favicon.png" sizes="any" />
+    <link rel="apple-touch-icon" href="/assets/images/social/192.png" />
+    <link rel="icon" href="/assets/images/social/192.png" sizes="192x192" type="image/png" />
+
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="Coffee & Fun" />
+    <meta property="og:title" content="Help Center - Coffee & Fun LLC" />
+    <meta property="og:description" content="Step-by-step guides for every Coffee & Fun app and extension. Recover lost notes, fix common issues, and get the most out of the things we make." />
+    <meta property="og:url" content="https://www.coffeeandfun.com/help/" />
+    <meta property="og:image" content="https://www.coffeeandfun.com/assets/images/social/pages/support.png" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content="Coffee & Fun Help Center" />
+
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:site" content="@bycoffeeandfun" />
+    <meta name="twitter:title" content="Help Center - Coffee & Fun LLC" />
+    <meta name="twitter:description" content="Step-by-step guides for every Coffee & Fun app and extension." />
+    <meta name="twitter:image" content="https://www.coffeeandfun.com/assets/images/social/pages/support.png" />
+    <meta name="twitter:image:alt" content="Coffee & Fun Help Center" />
+
+    <link rel="manifest" href="/assets/images/social/site.webmanifest" />
+    <meta name="theme-color" content="#fef5ec" />
+    <meta name="mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="default" />
+
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "CollectionPage",
+        "name": "Help Center - Coffee & Fun LLC",
+        "description": "Step-by-step guides for every Coffee & Fun app and extension.",
+        "url": "https://www.coffeeandfun.com/help/",
+        "publisher": {
+            "@type": "Organization",
+            "name": "Coffee & Fun LLC",
+            "url": "https://www.coffeeandfun.com",
+            "logo": {
+                "@type": "ImageObject",
+                "url": "https://www.coffeeandfun.com/assets/images/coffee-and-fun-logo-dark.png"
+            }
+        }
+    }
+    </script>
+
+    {% bundledCss %}
+    {% include sketch-styles.liquid %}
+
+    <style>
+        @font-face {
+            font-family: 'Pacifico';
+            font-style: normal;
+            font-weight: 400;
+            font-display: swap;
+            src: url('/assets/fonts/Pacifico-Regular.ttf') format('truetype');
+        }
+        .brand-heading {
+            font-family: 'Pacifico', cursive;
+            color: #a36942;
+            text-shadow: 1.5px 2.5px 0px #fd6155;
+        }
+        @media (min-width: 640px) {
+            .brand-heading { text-shadow: 2px 3.5px 0px #fd6155; }
+        }
+        @media (min-width: 1024px) {
+            .brand-heading { text-shadow: 3px 5px 0px #fd6155; }
+        }
+
+        .filter-tab {
+            padding: 0.5rem 1.25rem;
+            border-radius: 9999px;
+            font-size: 0.875rem;
+            font-weight: 500;
+            border: 1.5px solid #d6d3d1;
+            color: #78716c;
+            background: transparent;
+            cursor: pointer;
+            transition: all 0.2s;
+            white-space: nowrap;
+        }
+        .filter-tab:hover {
+            border-color: #a36942;
+            color: #a36942;
+        }
+        .filter-tab.active {
+            background-color: #a36942;
+            border-color: #a36942;
+            color: white;
+        }
+
+        .help-card-item {
+            transition: none;
+        }
+        .help-card-item.hidden-card {
+            display: none;
+        }
+
+        .search-input:focus {
+            box-shadow: 0 0 0 3px rgba(163, 105, 66, 0.2);
+            border-color: #a36942;
+        }
+    </style>
+
+    <script>
+        if ('serviceWorker' in navigator) {
+            navigator.serviceWorker.getRegistrations().then((registrations) => {
+                for (const registration of registrations) {
+                    registration.unregister().then(() => {
+                        console.log('🧹 Old service worker unregistered');
+                    });
+                }
+                navigator.serviceWorker.register('/service-worker.js')
+                    .then(() => console.log('✅ New service worker registered'))
+                    .catch((err) => console.log('Service worker error:', err));
+            });
+        }
+    </script>
+
+    {% include scripts.html %}
+</head>
+
+<body>
+    {% assign showFun = true %}
+    {% assign showMiddleBadgeWithText = true %}
+    {% include header.liquid %}
+
+    <main id="main-content">
+
+        <!-- Hero -->
+        <section class="relative mx-auto max-w-5xl px-4 sm:px-6 lg:px-8 pt-20 sm:pt-28 pb-10 sm:pb-14 text-center overflow-visible">
+            <h1 class="brand-heading text-4xl sm:text-5xl lg:text-6xl leading-[1.15] sm:leading-[1.15] lg:leading-[1.15] mb-5">
+                Help Center
+            </h1>
+            <p class="text-lg sm:text-xl text-stone-500 max-w-2xl mx-auto leading-relaxed">
+                Step-by-step fixes for the things we make. Written by humans, for humans.
+            </p>
+
+            <!-- Sketch: "you got this!" with arrow -->
+            <div class="sketch-note text-lg sm:text-xl" style="top: 14px; left: 4%; transform: rotate(-7deg);">
+                you got this!
+                <svg width="55" height="45" style="bottom: -40px; right: -5px;">
+                    <path d="M5 2 C15 15, 30 25, 42 38" class="sketch-arrow"/>
+                    <path d="M36 32 L44 40 L44 30" class="sketch-arrow"/>
+                </svg>
+            </div>
+
+            <!-- Sketch: heart near subtitle -->
+            <div class="sketch-note sketch-float-slow" style="top: 60%; right: 6%; --sketch-rotate: 10deg;">
+                <svg width="18" height="16" viewBox="0 0 24 22">
+                    <path d="M12 21 C12 21, 2 14, 2 7 C2 3, 5 1, 8 2 C10 3, 11 5, 12 6 C13 5, 14 3, 16 2 C19 1, 22 3, 22 7 C22 14, 12 21, 12 21 Z" class="sketch-heart"/>
+                </svg>
+            </div>
+
+            <!-- Sketch: star on the right -->
+            <div class="sketch-note" style="top: 32%; right: 2%;">
+                <svg width="22" height="22" viewBox="0 0 30 30">
+                    <path d="M15 2 L17 11 L26 11 L19 17 L22 26 L15 21 L8 26 L11 17 L4 11 L13 11 Z" fill="none" stroke="#a36942" stroke-width="1.5" stroke-linejoin="round" opacity="0.35"/>
+                </svg>
+            </div>
+
+            <!-- Sketch: checkmark left of heading -->
+            <div class="sketch-note sketch-wiggle" style="top: 28%; left: 6%; --sketch-rotate: -6deg;">
+                <svg width="20" height="18" viewBox="0 0 22 20">
+                    <path d="M3 10 L9 16 L19 4" class="sketch-check"/>
+                </svg>
+            </div>
+
+            <!-- Sketch: lightning bolt -->
+            <div class="sketch-note" style="bottom: 20%; right: 4%; transform: rotate(8deg);">
+                <svg width="14" height="24" viewBox="0 0 16 28">
+                    <path d="M10 0 L4 12 L10 12 L6 28" class="sketch-lightning"/>
+                </svg>
+            </div>
+
+            <!-- Sketch: squiggle bottom-left -->
+            <div class="sketch-note" style="bottom: 10%; left: 1%;">
+                <svg width="50" height="14" viewBox="0 0 50 14">
+                    <path d="M2 8 C8 2, 14 12, 20 7 C26 2, 32 12, 38 7 C44 2, 48 10, 48 7" class="sketch-squiggle"/>
+                </svg>
+            </div>
+
+            <!-- Sketch: leaf near subtitle -->
+            <div class="sketch-note sketch-float-slow" style="top: 50%; left: 2%; --sketch-rotate: -15deg;">
+                <svg width="18" height="22" viewBox="0 0 24 28">
+                    <path d="M12 2 C4 8, 2 18, 12 26 C22 18, 20 8, 12 2 Z" class="sketch-leaf"/>
+                    <path d="M12 6 L12 22" class="sketch-leaf"/>
+                </svg>
+            </div>
+        </section>
+
+        <!-- Search + Filters -->
+        <section class="relative mx-auto max-w-5xl px-4 sm:px-6 lg:px-8 pb-10 overflow-visible">
+            <!-- Sketch: "search here" near input -->
+            <div class="sketch-note text-base sm:text-lg" style="top: 4px; left: 3%; transform: rotate(-5deg);">
+                search here
+                <svg width="30" height="24" style="bottom: -20px; left: 25px;">
+                    <path d="M15 2 C12 10, 8 16, 6 20" class="sketch-arrow"/>
+                    <path d="M1 16 L6 22 L10 15" class="sketch-arrow"/>
+                </svg>
+            </div>
+
+            <!-- Search -->
+            <div class="max-w-md mx-auto mb-10">
+                <label class="input input-lg w-full border-stone-200 focus-within:border-stone-300 rounded-xl">
+                    <span class="sr-only">Search help guides</span>
+                    <svg class="h-[1em] opacity-40" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" aria-hidden="true">
+                        <g stroke-linejoin="round" stroke-linecap="round" stroke-width="2.5" fill="none" stroke="currentColor">
+                            <circle cx="11" cy="11" r="8"></circle>
+                            <path d="m21 21-4.3-4.3"></path>
+                        </g>
+                    </svg>
+                    <input type="search" id="helpSearchInput" placeholder="Search guides..." class="search-input" aria-label="Search help guides" />
+                </label>
+            </div>
+
+            <!-- Filter Tabs -->
+            <div class="flex flex-wrap justify-center gap-2" id="filterTabs">
+                <button type="button" class="filter-tab active" data-filter="all">All</button>
+                <button type="button" class="filter-tab" data-filter="markdown-editor">Markdown Editor</button>
+                <button type="button" class="filter-tab" data-filter="recovery">Recovery</button>
+            </div>
+
+            <!-- Sketch: sparkle near filter -->
+            <div class="sketch-note sketch-float" style="bottom: 8%; right: 3%; --sketch-rotate: 0deg;">
+                <svg width="20" height="20" viewBox="0 0 22 22">
+                    <path d="M11 2 L11 20" class="sketch-sparkle"/>
+                    <path d="M2 11 L20 11" class="sketch-sparkle"/>
+                    <path d="M4 4 L18 18" class="sketch-sparkle"/>
+                    <path d="M18 4 L4 18" class="sketch-sparkle"/>
+                </svg>
+            </div>
+        </section>
+
+        <!-- Guides Grid -->
+        <section class="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 pb-20 overflow-visible">
+            <!-- Sketch: "more on the way!" top-right -->
+            <div class="sketch-note text-base sm:text-lg" style="top: -4px; right: 3%; transform: rotate(3deg); opacity: 0.7;">
+                more on the way!
+            </div>
+
+            <!-- Sketch: swirl mid-left -->
+            <div class="sketch-note" style="top: 40%; left: -1%;">
+                <svg width="24" height="24" viewBox="0 0 30 30">
+                    <path d="M15 15 C15 10, 20 8, 22 12 C24 16, 20 20, 15 18 C10 16, 8 10, 12 6 C16 2, 24 4, 26 10" class="sketch-swirl"/>
+                </svg>
+            </div>
+
+            <!-- Sketch: three dots bottom-left -->
+            <div class="sketch-note" style="bottom: 3%; left: 4%;">
+                <svg width="24" height="8" viewBox="0 0 24 8">
+                    <circle cx="4" cy="4" r="2.5" class="sketch-dots"/>
+                    <circle cx="12" cy="4" r="2.5" class="sketch-dots"/>
+                    <circle cx="20" cy="4" r="2.5" class="sketch-dots"/>
+                </svg>
+            </div>
+
+            <div class="not-prose grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-3" id="helpGrid">
+                {% for guide in help.guides %}
+                <a class="help-card-item group bg-white rounded-2xl border border-stone-200 overflow-hidden transition-all duration-200 hover:-translate-y-1 hover:shadow-lg focus:outline-none focus:ring-2 focus:ring-offset-2"
+                    style="--tw-ring-color: #a36942;"
+                    href="{{ guide.link }}"
+                    aria-label="Read {{ guide.name }}"
+                    data-title="{{ guide.name | downcase }}"
+                    data-description="{{ guide.description | downcase }}"
+                    data-category="{{ guide.category | join: ' ' | downcase }}"
+                    data-platforms="{{ guide.platforms | join: ' ' | downcase }}"
+                    data-app="{{ guide.app | downcase }}">
+                    <div class="p-6">
+                        <div class="flex items-center gap-2 mb-3">
+                            <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium text-white" style="background-color:#a36942;">{{ guide.app }}</span>
+                            <span class="text-xs text-stone-400">{{ guide.readTime }} read</span>
+                        </div>
+                        <h2 class="text-lg font-semibold text-stone-900 mb-2 group-hover:text-[#a36942] transition-colors">{{ guide.name }}</h2>
+                        <p class="text-sm text-stone-500 line-clamp-3 mb-4">{{ guide.description }}</p>
+
+                        <div class="flex flex-wrap gap-1.5">
+                            {% for platform in guide.platforms %}
+                            {% assign ptag = platform | downcase %}
+                            {% if ptag == "firefox" %}
+                            <span class="inline-flex items-center px-2 py-0.5 rounded-full text-xs font-medium text-white" style="background-color:#fd6155;">{{ platform }}</span>
+                            {% elsif ptag == "chrome" %}
+                            <span class="inline-flex items-center px-2 py-0.5 rounded-full text-xs font-medium text-white" style="background-color:#7a4e31;">{{ platform }}</span>
+                            {% elsif ptag == "edge" %}
+                            <span class="inline-flex items-center px-2 py-0.5 rounded-full text-xs font-medium text-white" style="background-color:#3d2b1f;">{{ platform }}</span>
+                            {% elsif ptag == "safari" or ptag == "ios" %}
+                            <span class="inline-flex items-center px-2 py-0.5 rounded-full text-xs font-medium text-white" style="background-color:#5b8c5a;">{{ platform }}</span>
+                            {% elsif ptag == "android" %}
+                            <span class="inline-flex items-center px-2 py-0.5 rounded-full text-xs font-medium text-white" style="background-color:#96603c;">{{ platform }}</span>
+                            {% else %}
+                            <span class="inline-flex items-center px-2 py-0.5 rounded-full text-xs font-medium text-white" style="background-color:#8b6f4e;">{{ platform }}</span>
+                            {% endif %}
+                            {% endfor %}
+                        </div>
+                    </div>
+                </a>
+                {% endfor %}
+            </div>
+
+            <!-- No Results -->
+            <div id="noResults" class="hidden text-center py-16">
+                <p class="text-2xl mb-2">No guides found</p>
+                <p class="text-stone-400">Try a different search, or <a href="/support/" class="underline" style="color:#a36942;">ask us directly</a>.</p>
+            </div>
+        </section>
+
+        <!-- Still stuck CTA -->
+        <section class="relative mx-auto max-w-3xl px-4 sm:px-6 lg:px-8 pb-28 text-center overflow-visible">
+            <!-- Sketch: heart floating -->
+            <div class="sketch-note sketch-float" style="top: 10%; right: 8%; --sketch-rotate: 8deg;">
+                <svg width="20" height="18" viewBox="0 0 24 22">
+                    <path d="M12 21 C12 21, 2 14, 2 7 C2 3, 5 1, 8 2 C10 3, 11 5, 12 6 C13 5, 14 3, 16 2 C19 1, 22 3, 22 7 C22 14, 12 21, 12 21 Z" class="sketch-heart"/>
+                </svg>
+            </div>
+
+            <h2 class="brand-heading text-3xl sm:text-4xl lg:text-5xl leading-[1.2] mb-4">
+                Still stuck?
+            </h2>
+            <p class="text-lg sm:text-xl text-stone-500 max-w-xl mx-auto leading-relaxed mb-8">
+                If none of the guides solve it, send us the details. A real human replies — usually within a day or two.
+            </p>
+
+            <!-- Sketch: "we reply!" near button -->
+            <div class="sketch-note text-base sm:text-lg" style="bottom: -20px; right: 18%; transform: rotate(4deg);">
+                <svg width="18" height="16" viewBox="0 0 22 20" style="position: relative; display: inline-block; margin-right: 3px; vertical-align: middle;">
+                    <path d="M3 10 L9 16 L19 4" class="sketch-check"/>
+                </svg>
+                we really do reply!
+            </div>
+
+            <a
+                class="btn btn-lg rounded-lg px-8 sm:px-10 font-semibold text-white border-0 shadow-lg hover:shadow-xl hover:-translate-y-0.5 transition-all duration-200"
+                style="background-color: #a36942; box-shadow: 0 10px 15px -3px rgba(163,105,66,0.3);"
+                href="/support/"
+            >
+                Contact Support
+            </a>
+        </section>
+
+    </main>
+
+    {% include modals.liquid %}
+    {% include footer.liquid %}
+
+    <script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const searchInput = document.getElementById('helpSearchInput');
+        const filterTabs = document.querySelectorAll('.filter-tab');
+        const noResults = document.getElementById('noResults');
+        const helpCards = document.querySelectorAll('.help-card-item');
+
+        let activeFilter = 'all';
+
+        function applyFilters() {
+            const searchTerm = searchInput.value.toLowerCase().trim();
+            let visibleCount = 0;
+
+            helpCards.forEach(card => {
+                const title = card.dataset.title || '';
+                const description = card.dataset.description || '';
+                const category = card.dataset.category || '';
+                const platforms = card.dataset.platforms || '';
+                const app = card.dataset.app || '';
+                const content = title + ' ' + description + ' ' + category + ' ' + platforms + ' ' + app;
+
+                const matchesSearch = searchTerm === '' || content.includes(searchTerm);
+                const matchesFilter = activeFilter === 'all'
+                    || category.includes(activeFilter.toLowerCase())
+                    || app.includes(activeFilter.toLowerCase());
+
+                if (matchesSearch && matchesFilter) {
+                    card.classList.remove('hidden-card');
+                    visibleCount++;
+                } else {
+                    card.classList.add('hidden-card');
+                }
+            });
+
+            if (visibleCount === 0) {
+                noResults.classList.remove('hidden');
+            } else {
+                noResults.classList.add('hidden');
+            }
+        }
+
+        filterTabs.forEach(tab => {
+            tab.addEventListener('click', function() {
+                filterTabs.forEach(t => t.classList.remove('active'));
+                this.classList.add('active');
+                activeFilter = this.dataset.filter;
+                applyFilters();
+            });
+        });
+
+        searchInput.addEventListener('input', applyFilters);
+        searchInput.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape') {
+                searchInput.value = '';
+                applyFilters();
+            }
+        });
+    });
+    </script>
+</body>
+</html>

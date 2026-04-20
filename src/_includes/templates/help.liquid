@@ -1,0 +1,412 @@
+<!DOCTYPE html>
+<html class="brand-color-background scroll-smooth antialiased" lang="en" data-theme="light" style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;">
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <!-- Primary Meta Tags -->
+  <title>{{ title }} - Coffee & Fun LLC</title>
+  <meta name="description" content="{{ description }}" />
+  <meta name="author" content="Coffee & Fun LLC" />
+  <meta name="keywords" content="{{ keywords }}" />
+  <meta name="robots" content="index, follow" />
+  <meta name="rating" content="safe for kids" />
+  <link rel="canonical" href="https://www.coffeeandfun.com/{{ page.url | safe }}" />
+
+  <!-- Favicon -->
+  <link rel="icon" href="https://www.coffeeandfun.com/assets/images/favicon.png" />
+
+  <!-- PWA Manifest -->
+  <link rel="manifest" href="/assets/images/social/site.webmanifest" />
+
+  <!-- Theme & Mobile Meta -->
+  <meta name="theme-color" content="#fef5ec" />
+  <meta name="mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="default" />
+
+  <!-- Icons -->
+  <link rel="apple-touch-icon" href="/assets/images/social/192.png" />
+  <link rel="icon" href="/assets/images/social/192.png" sizes="192x192" type="image/png" />
+
+  <!-- Open Graph Meta Tags -->
+  <meta property="og:title" content="{{ title }} - Coffee & Fun LLC" />
+  <meta property="og:site_name" content="Coffee & Fun LLC" />
+  <meta property="og:url" content="https://www.coffeeandfun.com/{{ page.url | safe }}" />
+  <meta property="og:description" content="{{ description }}" />
+  <meta property="og:type" content="article" />
+  {% if img %}<meta property="og:image" content="https://www.coffeeandfun.com{{img}}" />{% endif %}
+  <meta property="article:author" content="Coffee & Fun LLC" />
+  <meta property="article:published_time" content="{{date | date: '%Y-%m-%d' }}" />
+
+  <!-- Twitter Meta Tags -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:site" content="@bycoffeeandfun" />
+  <meta name="twitter:title" content="{{ title }} - Coffee & Fun LLC" />
+  <meta name="twitter:description" content="{{ description }}" />
+  {% if img %}<meta name="twitter:image" content="https://www.coffeeandfun.com{{img}}" />
+  <meta name="twitter:image:alt" content="{{ title }} - Coffee & Fun LLC" />{% endif %}
+
+  <!-- Structured Data -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "TechArticle",
+    "headline": "{{ title }}",
+    "description": "{{ description }}",
+    {% if img %}"image": "https://www.coffeeandfun.com{{img}}",{% endif %}
+    "author": {
+      "@type": "Organization",
+      "name": "Coffee & Fun LLC"
+    },
+    "publisher": {
+      "@type": "Organization",
+      "name": "Coffee & Fun LLC",
+      "logo": {
+        "@type": "ImageObject",
+        "url": "https://www.coffeeandfun.com/assets/images/coffee-and-fun-logo-dark.png"
+      }
+    },
+    "datePublished": "{{date | date: '%Y-%m-%d' }}",
+    "dateModified": "{{date | date: '%Y-%m-%d' }}",
+    "mainEntityOfPage": {
+      "@type": "WebPage",
+      "@id": "https://www.coffeeandfun.com{{ page.url | safe }}"
+    }
+  }
+  </script>
+
+  {% bundledCss %}
+  {% include sketch-styles.liquid %}
+
+  <!-- Service Worker -->
+  <script>
+    if ('serviceWorker' in navigator) {
+      navigator.serviceWorker.getRegistrations().then((registrations) => {
+        for (const registration of registrations) {
+          registration.unregister().then(() => {
+            console.log('🧹 Old service worker unregistered');
+          });
+        }
+        navigator.serviceWorker.register('/service-worker.js')
+          .then(() => console.log('✅ New service worker registered'))
+          .catch((err) => console.log('Service worker error:', err));
+      });
+    }
+  </script>
+
+  {% include scripts.html %}
+</head>
+
+<body>
+  {% assign showFun = true %}
+  {% assign showMiddleBadge = true %}
+  {% include header.liquid %}
+
+  <main id="main-content" class="mx-auto max-w-7xl">
+    <div class="mx-auto max-w-4xl pt-8 pb-12 sm:pt-12 sm:pb-16 lg:pt-16 lg:pb-20 px-4 sm:px-6 lg:px-8">
+
+      <!-- Back Navigation -->
+      <nav aria-label="Help navigation" class="relative mb-6 sm:mb-8">
+        <!-- Sketch: "← back to help" -->
+        <div class="sketch-note text-lg sm:text-xl" style="top: -8px; left: 70px; transform: rotate(-3deg);">
+          back to help
+          <svg width="40" height="30" style="bottom: 4px; left: -38px;">
+            <path d="M36 15 C24 14, 14 12, 4 10" class="sketch-arrow"/>
+            <path d="M10 4 L3 10 L10 16" class="sketch-arrow"/>
+          </svg>
+        </div>
+        <a
+          href="/help/"
+          class="btn btn-circle btn-xl text-white hover:opacity-90 focus:ring-2 focus:ring-offset-2 focus:outline-none touch-manipulation transition-all duration-200" style="background-color: #fd6155; border-color: #fd6155; --tw-ring-color: #fd6155;"
+          aria-label="Go back to all help guides"
+        >
+          <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" class="h-6 w-6" aria-hidden="true">
+            <path d="M7.25 11.25 3.75 8m0 0 3.5-3.25M3.75 8h8.5" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+          </svg>
+        </a>
+      </nav>
+
+      <!-- Article Content -->
+      <article aria-labelledby="article-title" class="prose prose-lg sm:prose-xl max-w-none">
+
+        <!-- Article Header -->
+        <header class="relative not-prose mb-8 sm:mb-12">
+          <!-- Sketch: star near title -->
+          <div class="sketch-note" style="top: -10px; right: 2%; transform: rotate(8deg);">
+            <svg width="22" height="22" viewBox="0 0 30 30">
+              <path d="M15 2 L17 11 L26 11 L19 17 L22 26 L15 21 L8 26 L11 17 L4 11 L13 11 Z" fill="none" stroke="#fd6155" stroke-width="1.5" stroke-linejoin="round" opacity="0.45"/>
+            </svg>
+          </div>
+
+          <!-- Sketch: checkmark near title -->
+          <div class="sketch-note sketch-wiggle" style="top: 20px; left: -3%; --sketch-rotate: -5deg;">
+              <svg width="20" height="18" viewBox="0 0 22 20">
+                  <path d="M3 10 L9 16 L19 4" class="sketch-check"/>
+              </svg>
+          </div>
+
+          <!-- Sketch: swirl top-left -->
+          <div class="sketch-note" style="top: 80px; left: -4%;">
+              <svg width="24" height="24" viewBox="0 0 30 30">
+                  <path d="M15 15 C15 10, 20 8, 22 12 C24 16, 20 20, 15 18 C10 16, 8 10, 12 6 C16 2, 24 4, 26 10" class="sketch-swirl"/>
+              </svg>
+          </div>
+
+          <!-- Sketch: "you got this!" on the right -->
+          <div class="sketch-note text-lg sm:text-xl" style="top: 50px; right: -2%; transform: rotate(5deg);">
+            you got this!
+            <svg width="30" height="26" style="bottom: -22px; left: 10px;">
+              <path d="M15 2 C12 10, 8 16, 6 22" class="sketch-arrow"/>
+              <path d="M1 18 L6 24 L11 18" class="sketch-arrow"/>
+            </svg>
+          </div>
+
+          <!-- Title -->
+          <h1 id="article-title" class="text-2xl sm:text-3xl lg:text-4xl xl:text-5xl font-bold tracking-tight text-stone-900 mb-6 sm:mb-8 leading-tight">
+            {{ cardTitle | default: title }}
+          </h1>
+
+          <!-- Meta Information -->
+          <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 py-4 border-t border-b border-stone-200">
+            <div class="flex flex-wrap items-center gap-2 sm:gap-3">
+              {% if app %}
+              <span class="inline-flex items-center px-3 py-1 rounded-full text-xs font-medium text-white" style="background-color: #a36942;">
+                {{ app }}
+              </span>
+              {% endif %}
+              {% if category %}
+              <span class="inline-flex items-center px-3 py-1 rounded-full text-xs font-medium text-white" style="background-color: #fd6155;">
+                {{ category }}
+              </span>
+              {% endif %}
+              {% if date %}
+              <time
+                datetime="{{date | formatDateWithOrdinal }}"
+                class="inline-flex items-center px-3 py-1 rounded-full text-xs font-medium text-white" style="background-color: #c4813a;"
+              >
+                Updated {{date | formatDateWithOrdinal }}
+              </time>
+              {% endif %}
+            </div>
+            {% if time %}
+            <div class="flex items-center">
+              <span class="inline-flex items-center px-3 py-1 rounded-full text-xs font-medium text-white" style="background-color: #96603c;">
+                {{time}}
+              </span>
+            </div>
+            {% endif %}
+          </div>
+
+          {% if img %}
+          <!-- Featured Image -->
+          <div class="relative mt-8 sm:mt-12">
+            <div class="sketch-note" style="top: -14px; left: -3%;">
+              <svg width="28" height="28" viewBox="0 0 36 36">
+                <circle cx="18" cy="18" r="12" class="sketch-circle"/>
+              </svg>
+            </div>
+            <div class="sketch-note" style="top: -8px; right: -3%; transform: rotate(8deg);">
+                <svg width="22" height="26" viewBox="0 0 28 32">
+                    <path d="M4 10 L4 26 C4 28 6 30 10 30 L18 30 C22 30 24 28 24 26 L24 10" class="sketch-arrow" style="opacity: 0.3;"/>
+                    <path d="M24 14 C28 14, 28 22, 24 22" class="sketch-arrow" style="opacity: 0.3;"/>
+                    <path d="M10 6 C10 2, 12 0, 12 0" class="sketch-arrow" style="opacity: 0.15;"/>
+                    <path d="M16 4 C16 0, 18 -2, 18 -2" class="sketch-arrow" style="opacity: 0.15;"/>
+                </svg>
+            </div>
+            <img
+              src="{{img}}"
+              alt="{{title}}"
+              width="1200" height="630"
+              class="w-full h-64 sm:h-80 lg:h-96 object-cover rounded-2xl mb-8 border-stone-200 border"
+              title="{{title}}"
+              loading="lazy"
+            />
+          </div>
+          {% endif %}
+
+          {% if intro %}
+          <p class="mt-8 text-lg sm:text-xl text-stone-500 leading-relaxed">
+            {{ intro }}
+          </p>
+          {% endif %}
+        </header>
+
+        <!-- Article Content -->
+        <div class="relative article-content mt-8 sm:mt-12">
+          <!-- Sketch: "follow along" near start of content -->
+          <div class="sketch-note text-base sm:text-lg" style="top: -6px; right: -3%; transform: rotate(5deg); opacity: 0.7;">
+              follow along
+          </div>
+
+          <!-- Sketch: vertical squiggly line along left margin -->
+          <div class="sketch-note" style="top: 5%; left: -4%;">
+              <svg width="14" height="60" viewBox="0 0 14 60">
+                  <path d="M7 2 C2 10, 12 18, 7 26 C2 34, 12 42, 7 50 C4 56, 10 58, 7 58" class="sketch-squiggle"/>
+              </svg>
+          </div>
+
+          <!-- Sketch: tiny heart midway down -->
+          <div class="sketch-note sketch-float-slow" style="top: 40%; right: -4%; --sketch-rotate: 10deg;">
+              <svg width="16" height="14" viewBox="0 0 24 22">
+                  <path d="M12 21 C12 21, 2 14, 2 7 C2 3, 5 1, 8 2 C10 3, 11 5, 12 6 C13 5, 14 3, 16 2 C19 1, 22 3, 22 7 C22 14, 12 21, 12 21 Z" class="sketch-heart-filled"/>
+              </svg>
+          </div>
+
+          <!-- Sketch: three dots further down -->
+          <div class="sketch-note" style="top: 65%; left: -3%;">
+              <svg width="8" height="24" viewBox="0 0 8 24">
+                  <circle cx="4" cy="4" r="2.5" class="sketch-dots"/>
+                  <circle cx="4" cy="12" r="2.5" class="sketch-dots"/>
+                  <circle cx="4" cy="20" r="2.5" class="sketch-dots"/>
+              </svg>
+          </div>
+
+          <!-- Sketch: swirl mid-right -->
+          <div class="sketch-note" style="top: 25%; right: -4%;">
+              <svg width="24" height="24" viewBox="0 0 30 30">
+                  <path d="M15 15 C15 10, 20 8, 22 12 C24 16, 20 20, 15 18 C10 16, 8 10, 12 6 C16 2, 24 4, 26 10" class="sketch-swirl"/>
+              </svg>
+          </div>
+
+          <!-- Sketch: lightning bolt right -->
+          <div class="sketch-note sketch-wiggle" style="top: 55%; right: -3%; --sketch-rotate: 8deg;">
+              <svg width="12" height="22" viewBox="0 0 16 28">
+                  <path d="M10 0 L4 12 L10 12 L6 28" class="sketch-lightning"/>
+              </svg>
+          </div>
+
+          <!-- Sketch: leaf bottom-left -->
+          <div class="sketch-note sketch-float-slow" style="top: 80%; left: -4%; --sketch-rotate: -20deg;">
+              <svg width="16" height="20" viewBox="0 0 24 28">
+                  <path d="M12 2 C4 8, 2 18, 12 26 C22 18, 20 8, 12 2 Z" class="sketch-leaf"/>
+                  <path d="M12 6 L12 22" class="sketch-leaf"/>
+              </svg>
+          </div>
+
+          <!-- Sketch: dashed line mid-left -->
+          <div class="sketch-note" style="top: 50%; left: -5%;">
+              <svg width="8" height="50" viewBox="0 0 8 50">
+                  <path d="M4 0 L4 50" class="sketch-dash"/>
+              </svg>
+          </div>
+
+          <!-- Sketch: loop arrow near end of content -->
+          <div class="sketch-note" style="top: 90%; right: -3%;">
+              <svg width="26" height="18" viewBox="0 0 30 22">
+                  <path d="M4 18 C4 4, 20 4, 22 10 C24 18, 16 20, 14 12" class="sketch-loop"/>
+                  <path d="M10 14 L14 10 L18 14" class="sketch-loop"/>
+              </svg>
+          </div>
+
+          {{ content | safe }}
+        </div>
+
+        <!-- Article Footer -->
+        <footer class="relative not-prose mt-12 sm:mt-16 pt-8 border-t border-stone-200">
+          <!-- Sketch: sparkle left of footer -->
+          <div class="sketch-note sketch-float-slow" style="top: 10px; left: -3%; --sketch-rotate: 0deg;">
+              <svg width="20" height="20" viewBox="0 0 22 22">
+                  <path d="M11 2 L11 20" class="sketch-sparkle"/>
+                  <path d="M2 11 L20 11" class="sketch-sparkle"/>
+                  <path d="M4 4 L18 18" class="sketch-sparkle"/>
+                  <path d="M18 4 L4 18" class="sketch-sparkle"/>
+              </svg>
+          </div>
+
+          <!-- Sketch: "still stuck?" with arrow -->
+          <div class="sketch-note text-lg sm:text-xl" style="top: -6px; right: 4%; transform: rotate(-4deg);">
+            still stuck? ask us!
+            <svg width="45" height="35" style="bottom: -30px; left: 5px;">
+              <path d="M40 2 C30 12, 18 20, 6 28" class="sketch-arrow-coral"/>
+              <path d="M1 22 L5 30 L12 24" class="sketch-arrow-coral"/>
+            </svg>
+          </div>
+
+          <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
+            <div class="flex items-center gap-3">
+              <span class="text-sm font-medium text-stone-500">Didn't solve it?</span>
+              <a href="/support/" class="inline-flex items-center gap-1.5 text-sm font-semibold transition-colors duration-200" style="color: #a36942;">
+                Contact Support &rarr;
+              </a>
+            </div>
+            <a
+              href="/help/"
+              class="text-sm font-medium transition-colors duration-200" style="color: #a36942;"
+            >
+              &larr; More Guides
+            </a>
+          </div>
+
+          <!-- Sketch: heart + "hope this helped!" at bottom of footer -->
+          <div class="sketch-note text-base sm:text-lg" style="bottom: -30px; left: 50%; transform: translateX(-50%) rotate(-2deg);">
+              <svg width="16" height="14" viewBox="0 0 24 22" style="position: relative; display: inline-block; margin-right: 3px; vertical-align: middle;">
+                  <path d="M12 21 C12 21, 2 14, 2 7 C2 3, 5 1, 8 2 C10 3, 11 5, 12 6 C13 5, 14 3, 16 2 C19 1, 22 3, 22 7 C22 14, 12 21, 12 21 Z" class="sketch-heart"/>
+              </svg>
+              hope this helped!
+          </div>
+        </footer>
+      </article>
+    </div>
+  </main>
+
+  {% include modals.liquid %}
+  {% include footer.liquid %}
+
+  <style>
+    pre {
+      color: #abb2bf;
+      background: #282c34;
+      overflow-x: auto;
+      padding: 1.5rem;
+      border-radius: 0.75rem;
+      margin: 1.5rem 0;
+      font-size: 0.875rem;
+      line-height: 1.5;
+      box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+    }
+    @media (min-width: 640px) { pre { padding: 2rem; font-size: 0.9rem; } }
+
+    .article-content { font-size: 1rem; line-height: 1.75; }
+    @media (min-width: 640px) { .article-content { font-size: 1.125rem; line-height: 1.8; } }
+
+    .article-content h2 {
+      margin-top: 2rem;
+      margin-bottom: 1rem;
+      font-size: 1.5rem;
+      font-weight: 600;
+      color: #292524;
+    }
+    @media (min-width: 640px) {
+      .article-content h2 { margin-top: 2.5rem; font-size: 1.75rem; }
+    }
+
+    .article-content h3 {
+      margin-top: 1.5rem;
+      margin-bottom: 0.75rem;
+      font-size: 1.25rem;
+      font-weight: 600;
+      color: #44403c;
+    }
+    @media (min-width: 640px) { .article-content h3 { font-size: 1.375rem; } }
+
+    .article-content p { margin-bottom: 1.25rem; }
+
+    .article-content blockquote {
+      border-left: 4px solid #a36942;
+      padding-left: 1rem;
+      margin: 1.5rem 0;
+      font-style: italic;
+      color: #78716c;
+    }
+
+    .article-content ul, .article-content ol {
+      margin-bottom: 1.25rem;
+      padding-left: 1.5rem;
+    }
+    .article-content li { margin-bottom: 0.5rem; }
+  </style>
+</body>
+
+</html>
