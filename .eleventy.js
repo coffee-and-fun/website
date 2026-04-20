@@ -138,9 +138,9 @@ export default function (eleventyConfig) {
 		table:
 			'table-auto w-full border-collapse border border-gray-300 text-pretty text-lg font-display text-gray-900 mt-4 mb-8',
 		thead: 'bg-gray-100',
-		th: 'border border-gray-300 px-4 py-2 text-pretty text-left text-gray-700 font-medium',
+		th: 'border border-gray-300 px-6 py-4 text-pretty text-left text-gray-700 font-medium',
 		tr: 'odd:bg-gray-50 even:bg-white',
-		td: 'border border-gray-300 px-4 py-2 text-pretty text-gray-900',
+		td: 'border border-gray-300 px-6 py-4 text-pretty text-gray-900',
 		img: 'w-full h-auto rounded-2xl mb-8 border-gray-300 border-2',
 		hr: 'divider divider-neutral my-10',
 		a: 'text-lg text-pretty text-blue-500 hover:text-blue-700 underline mx-2',
