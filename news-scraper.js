@@ -19,7 +19,8 @@ const ensureFetch = async () => {
 
 // Configuration
 const CONFIG = {
-	// Output settings
+	// Writes to src/_data so headlines.liquid can read it as the `news` global.
+	// File is gitignored — regenerated on every build by `npm run build`.
 	OUTPUT_DIR: './src/_data',
 	ARTICLES_PER_SOURCE: 15,
 

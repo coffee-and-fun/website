@@ -1,13 +1,9 @@
 const path = require('path');
-const MiniCssExtractPlugin = require('mini-css-extract-plugin');
-const CssMinimizerPlugin = require('css-minimizer-webpack-plugin');
-const HTMLInlineCSSWebpackPlugin = require('html-inline-css-webpack-plugin').default;
 
 module.exports = {
 	mode: 'production',
 	context: __dirname + '/src/',
-	entry: ['./assets/js/index.js', './assets/css/styles.css'],
-	plugins: [new MiniCssExtractPlugin({ ignoreOrder: false }), new HTMLInlineCSSWebpackPlugin()],
+	entry: './assets/js/index.js',
 	resolve: {
 		alias: {
 			vue: 'vue/dist/vue.min.js'
@@ -49,31 +45,10 @@ module.exports = {
 					publicPath: 'fonts/icons/'
 				}
 			},
-			{
-				test: /\.(png|jpe?g|gif|xml|ico|svg|webmanifest)$/i,
-				type: 'asset/resource',
-				generator: {
-					filename: 'docs/[name][ext]'
-				}
-			},
-			{
-				test: /\.css$/,
-				use: [
-					'style-loader',
-					'css-loader',
-					{
-						loader: 'postcss-loader'
-					}
-				]
-			}
 		]
 	},
 	optimization: {
-		minimize: true,
-		minimizer: [
-			'...',
-			new CssMinimizerPlugin()
-		]
+		minimize: true
 	},
 	output: {
 		path: path.resolve(__dirname, 'docs/assets/js/'),

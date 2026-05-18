@@ -9,7 +9,6 @@ import eleventyVue from '@11ty/eleventy-plugin-vue';
 import { createCanvas, loadImage } from 'canvas';
 import { formatTitle } from './tools/format-title.js';
 import orderCoffeeShopsByRating from './src/_data/sortedReviews.js';
-import moment from 'moment';
 import format from 'date-fns/format/index.js';
 import parseISO from 'date-fns/parseISO/index.js';
 import postcss from 'postcss';
@@ -22,10 +21,14 @@ import tailwindcss from '@tailwindcss/postcss';
 const createSocialImageForArticle = async (input, output) => {
 	try {
 		const data = fs.readFileSync(input, 'utf-8');
-		const [, title] = data.match(/cardTitle:(.*)/);
+		const match = data.match(/cardTitle:(.*)/);
+		if (!match) {
+			console.warn(`⚠️  Skipping social image: no "cardTitle:" frontmatter in ${input}`);
+			return;
+		}
 
 		const post = {
-			title: title,
+			title: match[1],
 			author: 'coffeeandfun.com'
 		};
 
@@ -65,13 +68,15 @@ const createSocialImageForArticle = async (input, output) => {
 			fs.mkdirSync(outputDir, { recursive: true });
 		}
 
-		const stream = fs.createWriteStream(output);
-		stream.on('finish', () => {});
-		stream.on('error', (e) => console.error(e));
-
-		canvas.createPNGStream({ quality: 1.0 }).pipe(stream);
+		await new Promise((resolve, reject) => {
+			const stream = fs.createWriteStream(output);
+			stream.on('finish', resolve);
+			stream.on('error', reject);
+			canvas.createPNGStream({ quality: 1.0 }).pipe(stream);
+		});
 	} catch (e) {
-		console.error('Error generating social image:', e);
+		console.error(`❌ Error generating social image for ${input}:`, e);
+		throw e;
 	}
 };
 
@@ -107,17 +112,26 @@ export default function (eleventyConfig) {
 			.replace(/%S/g, 'ss');
 		return format(parsed, convertedFormat);
 	});
+	const toDate = (input) => {
+		if (input instanceof Date) return input;
+		if (typeof input === 'string') return parseISO(input);
+		return new Date(input);
+	};
+
 	eleventyConfig.addFilter('formatDateWithOrdinal', (dateString) => {
 		try {
-			return moment(dateString).format('MMMM Do, YYYY');
+			return format(toDate(dateString), 'MMMM do, yyyy');
 		} catch (error) {
 			console.error('Error formatting date:', error);
 			return dateString;
 		}
 	});
 
-	eleventyConfig.addFilter('dateDisplay', (input) => moment(input).format('MMMM Do YYYY'));
+	eleventyConfig.addFilter('dateDisplay', (input) => format(toDate(input), 'MMMM do yyyy'));
 
+	// html: true allows raw HTML in markdown. Safe only because all posts in src/pages/blog
+	// are authored in-house. If guest contributions or scraped content ever land here, add
+	// a sanitizer (e.g. DOMPurify in a transform) before rendering.
 	const markdownOptions = {
 		html: true,
 		breaks: false,
