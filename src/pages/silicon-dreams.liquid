@@ -1,0 +1,834 @@
+<!DOCTYPE html>
+<html class="scroll-smooth antialiased" lang="en" data-theme="light" style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <!-- Primary Meta Tags -->
+  <title>Silicon Dreams — A Text Adventure About the Founders of Apple, Microsoft & Google | Coffee & Fun</title>
+  <meta name="title" content="Silicon Dreams — A Text Adventure About the Founders of Apple, Microsoft & Google" />
+  <meta name="description" content="A retro text adventure RPG set between 1971 and 2000. Make choices, follow real Silicon Valley events, and shape your destiny into one of three legendary founders — or the teacher who inspired them all. 15-20 minute playthrough." />
+  <meta name="keywords" content="text adventure, RPG, Silicon Valley history, Apple founding, Microsoft founding, Google founding, Steve Jobs, Bill Gates, Larry Page, retro game, interactive fiction, 80s text adventure, Coffee and Fun" />
+  <meta name="author" content="Coffee & Fun LLC" />
+  <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1" />
+
+  <link rel="canonical" href="/silicon-dreams/" />
+
+  <link rel="icon" href="/assets/images/favicon.png" sizes="any" />
+  <link rel="apple-touch-icon" href="/assets/images/social/192.png" />
+  <link rel="icon" href="/assets/images/social/192.png" sizes="192x192" type="image/png" />
+
+  <!-- Open Graph / Facebook -->
+  <meta property="og:type" content="website" />
+  <meta property="og:site_name" content="Coffee & Fun" />
+  <meta property="og:title" content="Silicon Dreams — A Text Adventure About the Founders of Apple, Microsoft & Google" />
+  <meta property="og:description" content="A retro text adventure where you live through Silicon Valley's founding moments. Real events. Hard choices. Four endings — Apple, Microsoft, Google, or the teacher who shaped them all." />
+  <meta property="og:url" content="/silicon-dreams/" />
+  <meta property="og:image" content="/assets/images/social/pages/silicon-dreams.png" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta property="og:image:alt" content="Silicon Dreams — text adventure cover art" />
+  <meta property="og:locale" content="en_US" />
+
+  <!-- Twitter -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:site" content="@bycoffeeandfun" />
+  <meta name="twitter:creator" content="@bycoffeeandfun" />
+  <meta name="twitter:title" content="Silicon Dreams — A Text Adventure" />
+  <meta name="twitter:description" content="Live through Silicon Valley's founding moments. Become Apple, Microsoft, Google — or the teacher behind it all." />
+  <meta name="twitter:image" content="/assets/images/social/pages/silicon-dreams.png" />
+  <meta name="twitter:image:alt" content="Silicon Dreams text adventure cover" />
+  <meta name="twitter:domain" content="coffeeandfun.com" />
+  <meta name="twitter:url" content="/silicon-dreams/" />
+
+  <meta name="theme-color" content="#0a0a0a" />
+  <meta name="mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  <meta name="apple-mobile-web-app-title" content="Silicon Dreams" />
+
+  <!-- Structured Data -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Game",
+    "name": "Silicon Dreams",
+    "description": "A retro 1980s-style text adventure RPG about the founders of Apple, Microsoft, and Google. Real historical events shape branching choices that determine which Silicon Valley legend you become — or whether you become the teacher who inspired them all.",
+    "url": "https://www.coffeeandfun.com/silicon-dreams/",
+    "applicationCategory": "GameApplication",
+    "genre": ["Interactive Fiction", "RPG", "Educational"],
+    "operatingSystem": "Any",
+    "offers": {
+      "@type": "Offer",
+      "price": "0",
+      "priceCurrency": "USD"
+    },
+    "creator": {
+      "@type": "Organization",
+      "name": "Coffee & Fun LLC",
+      "url": "https://www.coffeeandfun.com"
+    }
+  }
+  </script>
+
+  {% bundledCss %}
+  {% include scripts.html %}
+
+  <style>
+    :root {
+      --terminal-bg: #0a0a0a;
+      --terminal-amber: #ffb000;
+      --terminal-amber-dim: #b87800;
+      --terminal-amber-bright: #ffd062;
+      --terminal-shadow: rgba(255, 176, 0, 0.35);
+    }
+
+    html, body {
+      background: var(--terminal-bg);
+    }
+
+    .terminal-shell {
+      font-family: 'VT323', 'IBM Plex Mono', 'Courier New', Courier, monospace;
+      background: var(--terminal-bg);
+      color: var(--terminal-amber);
+      min-height: 100vh;
+      padding: 1.25rem;
+      text-shadow: 0 0 6px var(--terminal-shadow);
+      position: relative;
+      overflow-x: hidden;
+    }
+
+    /* Subtle CRT scanlines */
+    .terminal-shell::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      background: repeating-linear-gradient(
+        to bottom,
+        rgba(0, 0, 0, 0) 0px,
+        rgba(0, 0, 0, 0) 2px,
+        rgba(0, 0, 0, 0.18) 3px,
+        rgba(0, 0, 0, 0) 4px
+      );
+      z-index: 9999;
+      mix-blend-mode: multiply;
+    }
+
+    .terminal-shell::after {
+      content: '';
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      background: radial-gradient(ellipse at center, transparent 55%, rgba(0, 0, 0, 0.55) 100%);
+      z-index: 9998;
+    }
+
+    .terminal-frame {
+      max-width: 880px;
+      margin: 0 auto;
+      border: 2px solid var(--terminal-amber-dim);
+      padding: 1rem 1.25rem 1.5rem;
+      box-shadow: 0 0 18px var(--terminal-shadow), inset 0 0 24px rgba(255, 176, 0, 0.08);
+      position: relative;
+      z-index: 1;
+    }
+
+    .terminal-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 1px dashed var(--terminal-amber-dim);
+      padding-bottom: 0.5rem;
+      margin-bottom: 1rem;
+      font-size: 1rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    .terminal-header .status-block {
+      color: var(--terminal-amber-bright);
+    }
+
+    .ascii-banner {
+      white-space: pre;
+      line-height: 1;
+      color: var(--terminal-amber-bright);
+      font-size: 0.78rem;
+      letter-spacing: 0.02em;
+      margin-bottom: 1rem;
+      overflow-x: auto;
+    }
+
+    .scene-meta {
+      font-size: 1rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--terminal-amber-dim);
+      margin-bottom: 0.75rem;
+    }
+
+    .scene-text {
+      font-size: 1.35rem;
+      line-height: 1.55;
+      min-height: 12em;
+      white-space: pre-wrap;
+      margin-bottom: 1.25rem;
+    }
+
+    .scene-text .blink {
+      display: inline-block;
+      width: 0.55em;
+      height: 1.05em;
+      background: var(--terminal-amber);
+      margin-left: 2px;
+      vertical-align: -0.15em;
+      animation: blink 1.05s steps(2) infinite;
+    }
+
+    @keyframes blink {
+      to { opacity: 0; }
+    }
+
+    .choices-list {
+      list-style: none;
+      padding: 0;
+      margin: 0 0 1rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.35rem;
+    }
+
+    .choice-button {
+      background: transparent;
+      border: 1px solid var(--terminal-amber-dim);
+      color: var(--terminal-amber);
+      font-family: inherit;
+      font-size: 1.15rem;
+      padding: 0.65rem 0.9rem;
+      width: 100%;
+      text-align: left;
+      cursor: pointer;
+      text-shadow: 0 0 6px var(--terminal-shadow);
+      transition: background 90ms linear, color 90ms linear, transform 90ms ease-out;
+    }
+
+    .choice-button:hover,
+    .choice-button:focus-visible {
+      background: var(--terminal-amber);
+      color: #1a0e00;
+      outline: none;
+      transform: translateX(4px);
+    }
+
+    .choice-button:disabled {
+      opacity: 0.4;
+      cursor: not-allowed;
+      transform: none;
+    }
+
+    .footer-bar {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1rem;
+      justify-content: space-between;
+      align-items: center;
+      border-top: 1px dashed var(--terminal-amber-dim);
+      padding-top: 0.75rem;
+      margin-top: 1rem;
+      font-size: 0.95rem;
+    }
+
+    .footer-bar button {
+      background: transparent;
+      border: 1px solid var(--terminal-amber-dim);
+      color: var(--terminal-amber);
+      font-family: inherit;
+      padding: 0.4rem 0.8rem;
+      cursor: pointer;
+      font-size: 0.95rem;
+    }
+
+    .footer-bar button:hover,
+    .footer-bar button:focus-visible {
+      background: var(--terminal-amber);
+      color: #1a0e00;
+      outline: none;
+    }
+
+    .ending-summary {
+      border: 1px solid var(--terminal-amber);
+      padding: 0.9rem 1rem;
+      margin: 1rem 0;
+      background: rgba(255, 176, 0, 0.04);
+    }
+
+    .ending-summary h3 {
+      margin: 0 0 0.5rem;
+      font-size: 1.1rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+    }
+
+    .stat-row {
+      display: flex;
+      justify-content: space-between;
+      gap: 1rem;
+      font-size: 1rem;
+    }
+
+    .stat-bar {
+      flex: 1;
+      height: 0.65em;
+      background: rgba(255, 176, 0, 0.12);
+      border: 1px solid var(--terminal-amber-dim);
+      overflow: hidden;
+      align-self: center;
+    }
+
+    .stat-bar > span {
+      display: block;
+      height: 100%;
+      background: var(--terminal-amber);
+    }
+
+    .skip-link {
+      position: absolute;
+      left: -9999px;
+      top: 0;
+      color: #1a0e00;
+      background: var(--terminal-amber);
+      padding: 0.4rem 0.8rem;
+      z-index: 10000;
+    }
+
+    .skip-link:focus {
+      left: 1rem;
+      top: 1rem;
+    }
+
+    @media (max-width: 600px) {
+      .scene-text { font-size: 1.15rem; }
+      .choice-button { font-size: 1rem; }
+      .ascii-banner { font-size: 0.55rem; }
+      .terminal-frame { padding: 0.75rem; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .scene-text .blink { animation: none; }
+      .choice-button { transition: none; }
+    }
+  </style>
+</head>
+<body>
+  <a href="#scene" class="skip-link">Skip to game</a>
+  <div class="terminal-shell" role="main">
+    <div class="terminal-frame" aria-live="polite">
+      <div class="terminal-header">
+        <span>COCO-DOS v2.0</span>
+        <span class="status-block" id="status-block">READY</span>
+      </div>
+
+      <pre class="ascii-banner" aria-hidden="true">
+   ____  _ _ _                ____
+  / ___|(_) (_) ___ ___  _ __ |  _ \ _ __ ___  __ _ _ __ ___  ___
+  \___ \| | | |/ __/ _ \| '_ \| | | | '__/ _ \/ _` | '_ ` _ \/ __|
+   ___) | | | | (_| (_) | | | | |_| | | |  __/ (_| | | | | | \__ \
+  |____/|_|_|_|\___\___/|_| |_|____/|_|  \___|\__,_|_| |_| |_|___/
+        A Coffee &amp; Fun text adventure — 1971 to 2025
+      </pre>
+
+      <div class="scene-meta" id="scene-meta">SYSTEM // BOOT</div>
+      <div class="scene-text" id="scene-text" tabindex="-1" aria-atomic="true">Loading...</div>
+
+      <ul class="choices-list" id="choices" aria-label="Choices"></ul>
+
+      <div class="footer-bar">
+        <span id="progress-block" aria-live="polite">SCENE 0</span>
+        <div>
+          <button type="button" id="skip-btn" aria-label="Skip typewriter animation">SKIP</button>
+          <button type="button" id="restart-btn" aria-label="Restart adventure">RESTART</button>
+        </div>
+      </div>
+    </div>
+
+    <noscript>
+      <div style="max-width:880px;margin:1rem auto;border:2px solid #b87800;padding:1rem;color:#ffb000;font-family:'Courier New',monospace;">
+        <h2>Silicon Dreams</h2>
+        <p>This is a text adventure RPG about the founding of Apple, Microsoft, and Google. Enable JavaScript to play.</p>
+        <p>It's a 15-20 minute playthrough. Your choices, based on real historical events, decide whether you become Steve Jobs, Bill Gates, Larry Page — or the teacher who inspired them all.</p>
+      </div>
+    </noscript>
+  </div>
+
+  <script>
+    (function() {
+      'use strict';
+
+      const SCENES = {
+        intro: {
+          meta: 'PALO ALTO // 1971',
+          text: "You are sixteen years old.\n\nThe Vietnam War mumbles from the television in the next room. Your father is yelling at Walter Cronkite. Your mother is yelling at your father. None of this matters.\n\nWhat matters is the issue of POPULAR ELECTRONICS open on your desk, the soldering iron warming up beside it, and the bag of components you bought with three weeks of paper-route money from Hal's Electronics on El Camino.\n\nYou are not yet anyone. But somewhere in this room — in this state, in this decade — you are going to choose.",
+          choices: [
+            { label: 'Read about Intel\'s new 4004 microprocessor', next: 'popular_electronics', effects: { microsoft: 1, google: 1 } },
+            { label: 'Sneak out to the HP Explorers Club meeting tonight', next: 'blue_box', effects: { apple: 2 } },
+            { label: 'Help your little sister Maya with her algebra', next: 'sister_algebra', effects: { teacher: 2 } }
+          ]
+        },
+
+        popular_electronics: {
+          meta: 'YOUR BEDROOM // LATE EVENING',
+          text: "The article is electric. Intel has crammed an entire central processing unit onto a single chip the size of your thumbnail. Two thousand three hundred transistors. Eight hundred kilohertz. They are calling it 'a microcomputer on a chip.'\n\nYou read it three times. Then a fourth. The chip costs sixty dollars. Sixty dollars. You have nineteen dollars and a paper route.\n\nWalter Cronkite has finished. Your father has gone quiet. You have decisions.",
+          choices: [
+            { label: 'Save every paper-route dollar; order the chip and BUILD something', next: 'crossroads_1975', effects: { apple: 2, microsoft: 1 } },
+            { label: 'Write Intel directly. Ask — politely, professionally — for a free sample', next: 'crossroads_1975', effects: { microsoft: 2, google: 1 } },
+            { label: 'Bring the article to your math teacher. You need help understanding it', next: 'crossroads_1975', effects: { teacher: 2, google: 1 } }
+          ]
+        },
+
+        blue_box: {
+          meta: 'HEWLETT-PACKARD CAMPUS // PALO ALTO',
+          text: "The Explorers Club meeting room smells like solder, instant coffee, and teenage ambition.\n\nA tall, lanky engineer-in-training named Steve is holding court over a small blue plastic box. He's a few years older than you. Sandals. Bad haircut. Eyes that don't blink enough.\n\n'It's a blue box,' he says. 'You hold it to the phone receiver. It generates the 2600-hertz tone. The whole AT&T long-distance switching system thinks you're an operator. You can call anywhere on Earth for free. Watch.'\n\nHe dials the Vatican. He asks for the Pope. He almost gets through.\n\nThen he turns and shoves the device into your hands. 'Want to try?'",
+          choices: [
+            { label: 'Call the Pope. Worst case you make a story you tell forever', next: 'crossroads_1975', effects: { apple: 3 } },
+            { label: 'Politely decline — stealing from AT&T is still stealing', next: 'crossroads_1975', effects: { teacher: 2, google: 1 } },
+            { label: 'Ask him how it works — and whether you can build one', next: 'crossroads_1975', effects: { apple: 2, microsoft: 1 } }
+          ]
+        },
+
+        sister_algebra: {
+          meta: 'KITCHEN TABLE // 9:14 PM',
+          text: "Maya is eleven. Her textbook is open to quadratics. She is, in her own words, 'absolutely going to fail.'\n\nYou sit down with her. You ask her to tell you what the question is ASKING — not how to solve it. She thinks for a long time. Then she explains it. Then she solves it.\n\n'I just needed someone to slow down,' she says. She is crying a little, the relieved kind.\n\nSomething happens in your chest that you do not have a word for yet. It is the feeling of being useful in a way no computer can be.\n\nUpstairs, your soldering iron is still warm.",
+          choices: [
+            { label: 'Stay. Tutor her in everything. The chips can wait', next: 'crossroads_1975', effects: { teacher: 3 } },
+            { label: 'Show her how a computer could solve EVERY quadratic, ever', next: 'crossroads_1975', effects: { teacher: 1, google: 2 } },
+            { label: 'Start sketching a "teaching machine" that quizzes students', next: 'crossroads_1975', effects: { teacher: 2, microsoft: 1 } }
+          ]
+        },
+
+        crossroads_1975: {
+          meta: 'A CROSSROADS // JANUARY 1975',
+          text: "Four years have passed.\n\nThe new POPULAR ELECTRONICS lands in your mailbox. On the cover: the MITS Altair 8800. World's first personal computer kit. Three hundred ninety-seven dollars. No keyboard. No monitor. No software. Just switches and lights and a promise.\n\nYou are twenty. You can feel the whole future cracking open like an egg.\n\nWhere do you go?",
+          choices: [
+            { label: 'Drop out of school. Head east to Boston. Write software for the Altair', next: 'altair_basic', effects: { microsoft: 4 } },
+            { label: 'Drive to Menlo Park. There\'s a new club called Homebrew. Be there Wednesday', next: 'homebrew_meeting', effects: { apple: 4 } },
+            { label: 'Take the Stanford acceptance letter. Study computer science properly', next: 'stanford_meeting', effects: { google: 4 } },
+            { label: 'Stay home. Apply for the teaching job at Cupertino Junior High', next: 'first_class', effects: { teacher: 4 } }
+          ]
+        },
+
+        // ===== APPLE PATH =====
+
+        homebrew_meeting: {
+          meta: 'GORDON FRENCH\'S GARAGE // MENLO PARK',
+          text: "Thirty-two people. Folding chairs. A mimeographed newsletter. Someone is showing off a paper-tape reader they soldered onto an Altair. Someone else is playing a tinny version of 'Fool on the Hill' through a speaker hooked to a computer.\n\nA tall thin guy in jeans and sandals introduces himself as Woz. He's holding up a single-board computer he hand-soldered using the cheap MOS 6502 chip instead of the expensive Intel 8080.\n\n'I was going to give the schematics away,' he says, sheepish. 'My friend Steve thinks I should sell it.'\n\nSteve is standing next to him. You know that face. You've met him before, by a phone, in a Vatican kind of way.\n\nWoz looks at you. 'What do you think?'",
+          choices: [
+            { label: '"Woz, you\'re a genius. SELL IT. Charge what it\'s worth"', next: 'garage_pitch', effects: { apple: 3 } },
+            { label: '"Take the schematics. I\'ll go home and build my own"', next: 'garage_pitch', effects: { apple: 1, microsoft: 2 } },
+            { label: '"Write the manual first. Teach kids to build these"', next: 'garage_pitch', effects: { apple: 1, teacher: 3 } }
+          ]
+        },
+
+        garage_pitch: {
+          meta: 'CRIST DRIVE GARAGE // LOS ALTOS',
+          text: "It's a few weeks later. You're sitting on a folding chair in the Jobs family garage. Woz is hunched over a workbench, soldering with the precision of a watchmaker. Steve is pacing. Steve is always pacing.\n\n'We need capital,' he says. 'I'll sell my Volkswagen bus. Woz is selling his HP-65 calculator. That gets us thirteen hundred bucks. We need a third.'\n\nHe stops. He looks at you. He is doing the eye thing.\n\n'Are you in?'",
+          choices: [
+            { label: '"I\'m in. I\'ll sell my car"', next: 'byte_shop', effects: { apple: 3 } },
+            { label: '"I\'m in — IF we incorporate properly and split the equity in writing"', next: 'byte_shop', effects: { apple: 1, microsoft: 2 } },
+            { label: '"I\'ll help part-time. I have a teaching contract starting Monday"', next: 'byte_shop', effects: { apple: 1, teacher: 2 } }
+          ]
+        },
+
+        byte_shop: {
+          meta: 'THE BYTE SHOP // MOUNTAIN VIEW',
+          text: "Paul Terrell, the owner, looks at the bare Apple I board. He had been expecting a fully-assembled, ready-to-use computer in a wooden case.\n\n'You boys want to sell me a circuit board with no case, no keyboard, no power supply,' he says, 'and you want how much for it?'\n\nSteve says, without flinching: 'Six hundred sixty-six dollars and sixty-six cents.'\n\nPaul stares. Then he says — and you will remember this sentence for the rest of your life — 'I'll take fifty.'\n\nYou now have to build fifty Apple I computers in thirty days. Out of a garage. With three people. Steve looks at you, eyebrows up.",
+          choices: [
+            { label: '"Call every parent, friend, and ex-girlfriend. Build a soldering line"', next: 'apple_climax', effects: { apple: 3 } },
+            { label: '"Hire someone professional. We need a real assembly process"', next: 'apple_climax', effects: { apple: 1, microsoft: 2 } },
+            { label: '"Bring in high school kids — pay them, teach them, build the company AROUND them"', next: 'apple_climax', effects: { apple: 1, teacher: 3 } }
+          ]
+        },
+
+        apple_climax: {
+          meta: 'BACKSTAGE // FLINT CENTER // JAN 24, 1984',
+          text: "It's been eight years.\n\nIn three minutes you will walk on stage. Steve will pull a Macintosh out of a canvas bag, hit return, and let it introduce itself. The TV ad — the one with the woman and the hammer and Big Brother — has already aired during the Super Bowl. Thirty-five million people are about to meet a computer.\n\nSteve turns to you, suddenly small. His hands are shaking.\n\n'Are we doing the right thing?' he asks. 'IBM has a hundred times our budget. They're going to crush us. Maybe we should have just made better Apple IIs.'\n\nWhat do you say?",
+          choices: [
+            { label: '"We make a dent in the universe. Or we go down trying"', next: 'ending_apple' },
+            { label: '"Maybe — but a partnership with IBM right now could save us all"', next: 'ending_microsoft' },
+            { label: '"Win or lose, our real legacy is the people who learn from this"', next: 'ending_teacher' }
+          ]
+        },
+
+        // ===== MICROSOFT PATH =====
+
+        altair_basic: {
+          meta: 'AIKEN COMPUTATION LAB // HARVARD',
+          text: "You arrive in Cambridge in February of '75 with a duffel bag and forty dollars. The wind off the Charles River is trying to take your face off.\n\nIn a basement lab full of PDP-10 mainframes, you find them: a scrawny Harvard sophomore named Bill, and his older friend Paul. Bill is rocking back and forth in his chair, the way he always does. Paul is calmer. They have a plan.\n\n'We're going to write a BASIC interpreter for the Altair,' Bill says. 'We don't own one. We've never SEEN one. We have eight weeks before someone else does it.'\n\nPaul nods. 'We need a third programmer.'\n\nBill says: 'Are you in?'",
+          choices: [
+            { label: '"I\'m in. Eight weeks. We don\'t sleep"', next: 'albuquerque', effects: { microsoft: 3 } },
+            { label: '"I\'ll help debug — but I\'m not dropping out of college over this"', next: 'albuquerque', effects: { microsoft: 1, teacher: 2 } },
+            { label: '"Open-source it. Information wants to be free, Bill"', next: 'albuquerque', effects: { microsoft: 1, apple: 2 } }
+          ]
+        },
+
+        albuquerque: {
+          meta: 'MITS HEADQUARTERS // ALBUQUERQUE, NM',
+          text: "Eight weeks. No sleep. The interpreter runs on the very first try when Paul demonstrates it to Ed Roberts at MITS — and the audience watches a computer ASK the Altair to compute two plus two, and the Altair answers FOUR.\n\nIt is April 4, 1975. You, Bill, and Paul are standing under the New Mexico sun, signing the incorporation paperwork for a tiny new company called Micro-Soft. The hyphen will go in a year.\n\nBill turns to you. 'We need an answer to one question before we sign. What is this company?'",
+          choices: [
+            { label: '"A software company. We license code. We never give it away"', next: 'ibm_deal', effects: { microsoft: 3 } },
+            { label: '"A platform company. The OS is the only thing that matters long-term"', next: 'ibm_deal', effects: { microsoft: 3, google: 1 } },
+            { label: '"A teaching company. Every product ships with a tutorial"', next: 'ibm_deal', effects: { microsoft: 1, teacher: 3 } }
+          ]
+        },
+
+        ibm_deal: {
+          meta: 'MICROSOFT // BELLEVUE // JULY 1980',
+          text: "Three men in blue suits arrive from Boca Raton, Florida. They will not say what they want. They make everyone sign non-disclosure agreements thicker than a phone book.\n\nThe men work for IBM. IBM is building a secret personal computer. They need an operating system. They have come to Microsoft because Bill's mother knows a man on the IBM board.\n\nBut here's the problem: Microsoft does not HAVE an operating system. You don't write operating systems. You write BASIC.\n\nIn the next room, Bill is hyperventilating. You happen to know about a guy named Tim Paterson up the road in Seattle who's written a thing called QDOS — 'Quick and Dirty Operating System.' Bill asks: 'What do we do?'",
+          choices: [
+            { label: '"Buy QDOS for $50K. License it to IBM. KEEP. THE. RIGHTS"', next: 'microsoft_climax', effects: { microsoft: 4 } },
+            { label: '"Tell IBM the truth. We don\'t have it yet. Negotiate honestly"', next: 'microsoft_climax', effects: { microsoft: 1, teacher: 3 } },
+            { label: '"Walk away. IBM will swallow us whole"', next: 'microsoft_climax', effects: { apple: 2, microsoft: 1 } }
+          ]
+        },
+
+        microsoft_climax: {
+          meta: 'WINDOWS 95 LAUNCH // REDMOND // AUGUST 24, 1995',
+          text: "The Rolling Stones are blaring 'Start Me Up' through speakers the size of refrigerators. Jay Leno is on the stage. There are eight thousand people on the Microsoft campus. Cars are double-parked on the freeway. People in Tokyo are queueing at midnight for boxed copies.\n\nBill is wearing a tie, which is unusual. He has tucked his shirt in, which is unprecedented.\n\nHe leans over to you, just out of the microphone's range.\n\n'We won, didn't we?' he says. 'We actually won.'\n\nWhat do you tell him?",
+          choices: [
+            { label: '"We won. We put a personal computer in every home on Earth"', next: 'ending_microsoft' },
+            { label: '"We won the OS war. Now figure out what to do with the power"', next: 'ending_teacher' },
+            { label: '"The web is the next platform. Pivot. Now. Or someone else will eat this"', next: 'ending_google' }
+          ]
+        },
+
+        // ===== GOOGLE PATH =====
+
+        stanford_meeting: {
+          meta: 'GATES BUILDING // STANFORD UNIVERSITY',
+          text: "It is 1995. You are a first-year PhD student in computer science. The orientation pairs you with another first-year for a campus tour — a Russian-born math prodigy named Sergey who skipped most of childhood.\n\nWithin five minutes you are arguing about whether linked-list traversal is O(n) in practice. Within ten you are debating Soviet emigration policy. Within thirty you cannot stand each other.\n\nYou also cannot stop thinking about him. His brain is going eleven thousand miles an hour and it is contagious.\n\nLater that week, a quieter PhD student joins your study group. His name is Larry. Larry is obsessed with one question: 'What if we ranked web pages the way academic papers rank citations?'",
+          choices: [
+            { label: 'Tell Larry that\'s the most interesting question you\'ve heard this year', next: 'backrub', effects: { google: 3 } },
+            { label: 'Ask if you can publish the idea first — get it peer reviewed', next: 'backrub', effects: { google: 1, teacher: 3 } },
+            { label: 'Suggest you build a quick prototype this weekend', next: 'backrub', effects: { google: 2, microsoft: 2 } }
+          ]
+        },
+
+        backrub: {
+          meta: 'STANFORD CS DEPT // 1996',
+          text: "The project is called BackRub.\n\nYou and Larry and Sergey have written a crawler that downloads the entire World Wide Web — every page it can find — and ranks them based on which other pages link to them. The crawler is so aggressive that Stanford's network team has called you in three times this month.\n\nThe project is now taking up Larry's entire dorm room, half of Sergey's, and an entire rack in the CS basement, all of it built out of donated hardware and IDE drives bought in bulk at Fry's Electronics.\n\nLarry is being called into a meeting with the Stanford provost. The provost is going to ask him to stop.\n\nLarry asks: 'What do I tell him?'",
+          choices: [
+            { label: '"Tell him you\'ll move it off campus. Don\'t stop. NEVER stop"', next: 'susan_garage', effects: { google: 3 } },
+            { label: '"Tell him we\'ll publish, share the algorithm, and give it back to academia"', next: 'susan_garage', effects: { google: 1, teacher: 3 } },
+            { label: '"Take the offer from AltaVista. A million dollars. License it and move on"', next: 'susan_garage', effects: { microsoft: 2, google: 1 } }
+          ]
+        },
+
+        susan_garage: {
+          meta: 'SUSAN WOJCICKI\'S GARAGE // MENLO PARK // SEPT 1998',
+          text: "Susan rents you, Larry, and Sergey her garage for seventeen hundred dollars a month. It is September 4, 1998.\n\nThis morning, a Stanford alum and Sun Microsystems co-founder named Andy Bechtolsheim watched a demo on Larry's laptop. He watched for ninety seconds. Then he wrote a check, on the spot, for one hundred thousand US dollars.\n\nThe check is made out to GOOGLE INC.\n\nThere is no Google Inc.\n\nThere has to be one — by the end of business today — or you can't deposit the check. Larry holds the slip of paper up, slightly stunned.\n\n'So,' he says. 'What ARE we?'",
+          choices: [
+            { label: '"We are GOOGLE. And our motto is: don\'t be evil"', next: 'google_climax', effects: { google: 3 } },
+            { label: '"Stanford Search Co. Stay humble. We\'re not changing the world, we\'re building a tool"', next: 'google_climax', effects: { google: 1, teacher: 3 } },
+            { label: '"Take a meeting with Yahoo before we sign anything. Maybe they buy us out"', next: 'google_climax', effects: { microsoft: 3 } }
+          ]
+        },
+
+        google_climax: {
+          meta: 'GOOGLEPLEX // MOUNTAIN VIEW // 2004',
+          text: "Six years later.\n\nGoogle is going public tomorrow. Eighty-five dollars a share. Larry and Sergey have already written a letter to shareholders that has Wall Street furious — it explains that the founders will retain voting control, that they will run the company on a ten-year horizon, that they will not give quarterly earnings guidance.\n\nThey are sitting in your office at the Googleplex. They are scared in the way that very young billionaires get scared.\n\nLarry says: 'We're about to become a $23 billion company. What does that even MEAN. Should we have sold to Yahoo in '99?'\n\nWhat do you tell him?",
+          choices: [
+            { label: '"You organized the world\'s information. You won. Now don\'t flinch"', next: 'ending_google' },
+            { label: '"The algorithm decides what billions of people see now. Be careful. Be careful"', next: 'ending_teacher' },
+            { label: '"The next platform is mobile, and someone in Cupertino is already on it"', next: 'ending_apple' }
+          ]
+        },
+
+        // ===== TEACHER PATH =====
+
+        first_class: {
+          meta: 'CUPERTINO JR. HIGH // SEPTEMBER 1975',
+          text: "You stand in front of seventeen fourteen-year-olds. Some are bored. Some are scared. Some are texting — except it's 1975, so they are passing notes folded into footballs.\n\nIn the back row, a girl with a screwdriver has dismantled her TI calculator and is laying the components out in neat rows on her desk. Her name, according to the seating chart, is Karen.\n\nThe principal told you to start with the SYLLABUS. Then BEHAVIOR EXPECTATIONS. Then a worksheet on the number line.\n\nWhat do you do?",
+          choices: [
+            { label: 'Walk to the back row. "Karen. Come up here and show us how that works"', next: 'mentor_student', effects: { teacher: 3 } },
+            { label: 'Start the syllabus. You have to establish order before anything', next: 'mentor_student', effects: { teacher: 1 } },
+            { label: 'Throw out the syllabus. Teach them BASIC programming today', next: 'mentor_student', effects: { teacher: 2, microsoft: 2 } }
+          ]
+        },
+
+        mentor_student: {
+          meta: 'AFTER-SCHOOL COMPUTER LAB // 1985',
+          text: "Ten years in. Your reputation in the district is something between 'lifesaver' and 'minor cult leader.' You start every year by saying the same sentence: 'Computers are not magic. They are stupid and fast. You will be smart and slow. That's how this works.'\n\nA twelve-year-old has started hanging around your lab after school. He is unusually quiet. His father is a computer science professor at Michigan State and he, the kid, has questions you can't always answer. He asks the questions in a slow, deliberate, slightly-haunted way.\n\nHe says: 'How do you make a computer UNDERSTAND what someone wants — instead of making people learn the computer's language?'\n\nThe kid's name is Larry.",
+          choices: [
+            { label: '"That\'s the right question. Don\'t lose it. Read Bush, Engelbart, information retrieval"', next: 'school_board', effects: { teacher: 3 } },
+            { label: '"Computers will never UNDERSTAND you. YOU adapt to THEM. That\'s how it works"', next: 'school_board', effects: { teacher: 1, microsoft: 2 } },
+            { label: '"Stop asking. Start building. The best way to learn is by failing"', next: 'school_board', effects: { teacher: 2, apple: 2 } }
+          ]
+        },
+
+        school_board: {
+          meta: 'DISTRICT BUDGET HEARING // 1994',
+          text: "The school board has voted to cut your entire computer education program. They have called it a 'frill.' They have called it 'a fad.' They have called computers 'a tool for the children of professionals.'\n\nIt is your turn at the microphone. Three minutes.\n\nIn the audience are forty parents, two reporters from the local paper, and Karen — the screwdriver kid from your first class. She is now twenty-eight. She is now an engineer at Sun Microsystems. She drove up from Mountain View for this. Her face says: do not lose.",
+          choices: [
+            { label: 'Tell them about Karen. Tell them about all the Karens. Make them PROVE this is a fad', next: 'teacher_climax', effects: { teacher: 3 } },
+            { label: 'Bring data: every graduate, every job, every percentile. Numbers, not stories', next: 'teacher_climax', effects: { teacher: 2, google: 2 } },
+            { label: 'Offer to fundraise the program privately. The district shouldn\'t have to choose', next: 'teacher_climax', effects: { teacher: 2, apple: 1 } }
+          ]
+        },
+
+        teacher_climax: {
+          meta: 'YOUR CLASSROOM // LAST DAY BEFORE RETIREMENT // 2000',
+          text: "Forty years.\n\nThe room is full of former students. Karen is here, now a VP at Cisco. Larry is here, now twenty-six and obsessed with something called PageRank. Two Apple engineers are here, an Oracle DBA, a Microsoft program manager, three doctors, eight nurses, a poet, a plumber.\n\nA former student you barely remember corners you by the door, eyes wet.\n\n'Mr. — Ms. — ' she stammers. 'You changed my life. I'm okay now. I just need to know. Was it worth it? Did you ever wonder what could have been? If you'd built something of your own?'\n\nWhat do you tell her?",
+          choices: [
+            { label: '"Every time one of you makes something real, it was worth it. Every time"', next: 'ending_teacher' },
+            { label: '"Sometimes. But I helped make all of YOU. That counts for something"', next: 'ending_teacher' },
+            { label: '"Yes. I wonder. But not as much as I would have wondered the other way"', next: 'ending_teacher' }
+          ]
+        },
+
+        // ===== ENDINGS =====
+
+        ending_apple: {
+          meta: 'ENDING // YOU ARE THE APPLE',
+          text: "CUPERTINO, CALIFORNIA. THE YEAR IS 2011.\n\nYou stand in front of the Cupertino City Council. Behind you, on the projection screen, is the spaceship — Apple Park — a great glass ring you will not live to see completed.\n\nYou have changed the world six times. Apple II. Macintosh. NeXT. Pixar. iPod. iPhone. You don't know yet that you have twelve months left, but some part of you has always known.\n\nA reporter shouts a question. You ignore it. You're thinking about a kid in 1971, sixteen years old, soldering iron warming on a desk in Palo Alto.\n\n'Stay hungry,' you whisper. 'Stay foolish.'\n\nHISTORICAL NOTE: Steve Jobs founded Apple with Steve Wozniak in 1976, was ousted in 1985, returned in 1997, and led Apple to become the most valuable company in the world. He died of pancreatic cancer in October 2011, six weeks after this council appearance.",
+          ending: 'apple'
+        },
+
+        ending_microsoft: {
+          meta: 'ENDING // YOU ARE THE MICROSOFT',
+          text: "REDMOND, WASHINGTON. THE YEAR IS 2008.\n\nYou step down from Microsoft.\n\nBehind you is a company that put a personal computer in every home on Earth. Ahead of you is the Bill & Melinda Gates Foundation, where you will spend the next twenty years giving away the fortune you spent thirty years earning.\n\nUnder your watch, polio will be nearly eradicated. Malaria deaths will be halved. Thirty thousand schools will be built. The wealthiest man on Earth will leave that role and stop trying to be that person.\n\nThe IBM deal in 1980 made you rich. Everything you do AFTER will decide whether you mattered.\n\nHISTORICAL NOTE: Bill Gates and Paul Allen founded Microsoft on April 4, 1975. Gates' July 1980 decision to buy QDOS for $50,000 and license MS-DOS to IBM — while keeping the rights — built the modern software industry. He retired from day-to-day operations in 2008.",
+          ending: 'microsoft'
+        },
+
+        ending_google: {
+          meta: 'ENDING // YOU ARE THE GOOGLE',
+          text: "MOUNTAIN VIEW, CALIFORNIA. THE YEAR IS 2015.\n\nYou restructure the company. Google becomes a subsidiary of a new parent: Alphabet. You become Alphabet's CEO. Sundar Pichai takes over Google.\n\nYou have organized the world's information. You have also realized, better than anyone, that the algorithm you helped build now decides what billions of people read, watch, think, and believe — every second.\n\nDon't be evil, you wrote, when you were twenty-five. That was the easy part. Don't be CARELESS — that is the part you will spend the rest of your life trying to get right.\n\nYou think, sometimes, about the dorm room and the donated hard drives and Susan's garage and the check that was made out to a company that didn't yet exist.\n\nHISTORICAL NOTE: Larry Page and Sergey Brin met at Stanford in 1995, built BackRub in 1996, and founded Google on September 4, 1998 in Susan Wojcicki's Menlo Park garage after Andy Bechtolsheim's $100,000 check forced them to incorporate. Page restructured Google into Alphabet in 2015.",
+          ending: 'google'
+        },
+
+        ending_teacher: {
+          meta: 'ENDING // YOU ARE THE TEACHER',
+          text: "YOUR FRONT PORCH. THE YEAR IS 2025.\n\nYou are retired. The mail comes every day. The mail keeps coming.\n\nThis week: a Lego Game Boy set, brick-built, mailed by a former student who became a designer. A handwritten letter from another who now writes the recommendation algorithm at Google — three pages, in cursive, on legal pad. A bottle of pinot noir from a third who runs a coffee shop in Oakland and tells you the menu has a drink named after you.\n\nYou never made a billion dollars. You were never on the cover of TIME magazine. The garage where you live now is a garage for a CAR, not a STARTUP.\n\nBut Karen — the screwdriver kid from your first class, on your first day, in 1975 — runs a research lab at MIT now. Every time she invents something, a small piece of you is in it.\n\nStay foolish, you told them. Some of them still do.\n\nHISTORICAL NOTE: The history of Silicon Valley is dominated by founders, but Steve Jobs was inspired by his calligraphy teacher Robert Palladino at Reed College; Bill Gates' Lakeside School math teacher Fred Wright gave him unsupervised access to the computer terminal; Larry Page credits his Michigan State CS professor father with his approach to research. Behind every founder, there is a classroom.",
+          ending: 'teacher'
+        }
+      };
+
+      // ----- Game state -----
+      const TYPE_SPEED_MS = 22;
+      const state = {
+        sceneId: 'intro',
+        scenesVisited: 0,
+        scores: { apple: 0, microsoft: 0, google: 0, teacher: 0 },
+        history: [],
+        typing: false,
+        typeTimer: null,
+        skipRequested: false
+      };
+
+      const els = {
+        meta: document.getElementById('scene-meta'),
+        text: document.getElementById('scene-text'),
+        choices: document.getElementById('choices'),
+        status: document.getElementById('status-block'),
+        progress: document.getElementById('progress-block'),
+        skipBtn: document.getElementById('skip-btn'),
+        restartBtn: document.getElementById('restart-btn')
+      };
+
+      function setStatus(msg) {
+        els.status.textContent = msg;
+      }
+
+      function clearTypeTimer() {
+        if (state.typeTimer) {
+          clearInterval(state.typeTimer);
+          state.typeTimer = null;
+        }
+      }
+
+      function typeText(target, fullText, done) {
+        clearTypeTimer();
+        state.typing = true;
+        state.skipRequested = false;
+        target.textContent = '';
+        setStatus('TRANSMITTING');
+
+        // Append a blinking cursor element after the live text
+        const cursor = document.createElement('span');
+        cursor.className = 'blink';
+        cursor.setAttribute('aria-hidden', 'true');
+        target.appendChild(cursor);
+
+        let i = 0;
+        const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+        if (reduceMotion) {
+          target.textContent = fullText;
+          target.appendChild(cursor);
+          state.typing = false;
+          setStatus('READY');
+          if (done) done();
+          return;
+        }
+
+        state.typeTimer = setInterval(() => {
+          if (state.skipRequested) {
+            target.textContent = fullText;
+            target.appendChild(cursor);
+            clearTypeTimer();
+            state.typing = false;
+            setStatus('READY');
+            if (done) done();
+            return;
+          }
+          i++;
+          target.textContent = fullText.slice(0, i);
+          target.appendChild(cursor);
+          if (i >= fullText.length) {
+            clearTypeTimer();
+            state.typing = false;
+            setStatus('READY');
+            if (done) done();
+          }
+        }, TYPE_SPEED_MS);
+      }
+
+      function renderChoices(choices) {
+        els.choices.innerHTML = '';
+        if (!choices || !choices.length) return;
+        choices.forEach((choice, idx) => {
+          const li = document.createElement('li');
+          const btn = document.createElement('button');
+          btn.type = 'button';
+          btn.className = 'choice-button';
+          btn.textContent = '[' + (idx + 1) + '] ' + choice.label;
+          btn.setAttribute('data-choice-index', String(idx));
+          btn.addEventListener('click', () => onChoiceSelected(choice));
+          li.appendChild(btn);
+          els.choices.appendChild(li);
+        });
+      }
+
+      function lockChoices() {
+        const buttons = els.choices.querySelectorAll('button');
+        buttons.forEach((b) => { b.disabled = true; });
+      }
+
+      function onChoiceSelected(choice) {
+        if (state.typing) {
+          state.skipRequested = true;
+          return;
+        }
+        lockChoices();
+        if (choice.effects) {
+          Object.keys(choice.effects).forEach((k) => {
+            state.scores[k] = (state.scores[k] || 0) + choice.effects[k];
+          });
+        }
+        state.history.push({ from: state.sceneId, label: choice.label });
+        goTo(choice.next);
+      }
+
+      function renderEndingSummary() {
+        const total = state.scores.apple + state.scores.microsoft + state.scores.google + state.scores.teacher;
+        const pct = (v) => total > 0 ? Math.round((v / total) * 100) : 0;
+        const wrapper = document.createElement('div');
+        wrapper.className = 'ending-summary';
+        wrapper.innerHTML =
+          '<h3>Your Alignment</h3>' +
+          renderStat('APPLE', state.scores.apple, pct(state.scores.apple)) +
+          renderStat('MICROSOFT', state.scores.microsoft, pct(state.scores.microsoft)) +
+          renderStat('GOOGLE', state.scores.google, pct(state.scores.google)) +
+          renderStat('TEACHER', state.scores.teacher, pct(state.scores.teacher));
+        return wrapper;
+      }
+
+      function renderStat(label, value, percent) {
+        return (
+          '<div class="stat-row">' +
+            '<span style="min-width:7em">' + label + '</span>' +
+            '<span class="stat-bar"><span style="width:' + percent + '%"></span></span>' +
+            '<span style="min-width:3em;text-align:right">' + percent + '%</span>' +
+          '</div>'
+        );
+      }
+
+      function goTo(sceneId) {
+        const scene = SCENES[sceneId];
+        if (!scene) {
+          console.error('Missing scene:', sceneId);
+          els.text.textContent = 'ERROR: scene "' + sceneId + '" not found.';
+          return;
+        }
+        state.sceneId = sceneId;
+        state.scenesVisited++;
+        els.meta.textContent = scene.meta || '';
+        els.progress.textContent = scene.ending ? 'ENDING' : ('SCENE ' + state.scenesVisited);
+        els.choices.innerHTML = '';
+
+        // For endings, render text first, then alignment summary, then a restart-only choice
+        typeText(els.text, scene.text, () => {
+          if (scene.ending) {
+            els.text.appendChild(document.createElement('br'));
+            els.text.appendChild(renderEndingSummary());
+            renderChoices([{ label: 'Play again', next: 'intro' }]);
+            // Reset state on restart-choice
+            const buttons = els.choices.querySelectorAll('button');
+            buttons.forEach((b) => {
+              b.addEventListener('click', resetGame, { once: true });
+            });
+          } else if (scene.choices) {
+            renderChoices(scene.choices);
+            // Focus the first choice for keyboard users
+            const first = els.choices.querySelector('button');
+            if (first) first.focus();
+          }
+        });
+
+        // Scroll the new scene into view on mobile
+        try { els.text.scrollIntoView({ behavior: 'smooth', block: 'start' }); } catch (e) {}
+      }
+
+      function resetGame() {
+        state.sceneId = 'intro';
+        state.scenesVisited = 0;
+        state.scores = { apple: 0, microsoft: 0, google: 0, teacher: 0 };
+        state.history = [];
+        goTo('intro');
+      }
+
+      // ----- Event handlers -----
+
+      els.skipBtn.addEventListener('click', () => {
+        if (state.typing) state.skipRequested = true;
+      });
+
+      els.restartBtn.addEventListener('click', () => {
+        if (confirm('Restart the adventure? Your current progress will be lost.')) {
+          resetGame();
+        }
+      });
+
+      // Number key shortcuts for choices (1-4) and ENTER/SPACE to skip typing
+      document.addEventListener('keydown', (e) => {
+        if (state.typing && (e.key === 'Enter' || e.key === ' ')) {
+          state.skipRequested = true;
+          e.preventDefault();
+          return;
+        }
+        const n = parseInt(e.key, 10);
+        if (!isNaN(n) && n >= 1 && n <= 9) {
+          const btn = els.choices.querySelector('button[data-choice-index="' + (n - 1) + '"]');
+          if (btn && !btn.disabled) {
+            btn.click();
+            e.preventDefault();
+          }
+        }
+      });
+
+      // ----- Boot -----
+      goTo('intro');
+    })();
+  </script>
+
+  {% include footer.liquid %}
+</body>
+</html>
