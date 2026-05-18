@@ -173,11 +173,24 @@ export default function (eleventyConfig) {
 
 	eleventyConfig.addTransform('htmlmin', (content, outputPath) => {
 		if (process.env.ELEVENTY_ENV === 'production' && outputPath.endsWith('.html')) {
-			return htmlmin.minify(content, {
-				useShortDoctype: true,
-				removeComments: true,
-				collapseWhitespace: true
-			});
+			try {
+				return htmlmin.minify(content, {
+					useShortDoctype: true,
+					removeComments: true,
+					collapseWhitespace: true,
+					// Skip Vue/Liquid-style template expressions so html-minifier doesn't
+					// misparse things like `{{ x <= 5 ? 'a' : 'b' }}` as HTML tags.
+					ignoreCustomFragments: [
+						/<%[\s\S]*?%>/,
+						/<\?[\s\S]*?\?>/,
+						/\{\{[\s\S]*?\}\}/,
+						/\{%[\s\S]*?%\}/
+					]
+				});
+			} catch (err) {
+				console.warn(`⚠️  htmlmin skipped ${outputPath}: ${err.message}`);
+				return content;
+			}
 		}
 		return content;
 	});
