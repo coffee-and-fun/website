@@ -6,10 +6,10 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   
   <!-- Primary Meta Tags -->
-  <title>{{ title }} - Coffee & Fun LLC</title>
-  <meta name="description" content="{{ description }}" />
+  <title>{{ title | escape }} - Coffee & Fun LLC</title>
+  <meta name="description" content="{{ description | escape }}" />
   <meta name="author" content="Coffee & Fun LLC" />
-  <meta name="keywords" content="{{ keywords }}" />
+  <meta name="keywords" content="{{ keywords | escape }}" />
   <meta name="robots" content="index, follow" />
   <meta name="rating" content="safe for kids" />
 <link
@@ -33,10 +33,10 @@
   <link rel="icon" href="/assets/images/social/192.png" sizes="192x192" type="image/png" />
 
   <!-- Open Graph Meta Tags -->
-  <meta property="og:title" content="{{ title }} - Coffee & Fun LLC" />
+  <meta property="og:title" content="{{ title | escape }} - Coffee & Fun LLC" />
   <meta property="og:site_name" content="Coffee & Fun LLC" />
   <meta property="og:url" content="https://www.coffeeandfun.com/{{ page.url | safe }}" />
-  <meta property="og:description" content="{{ description }}" />
+  <meta property="og:description" content="{{ description | escape }}" />
   <meta property="og:type" content="article" />
   <meta property="og:image" content="https://www.coffeeandfun.com{{img}}" />
   <meta property="article:author" content="Coffee & Fun LLC" />
@@ -45,18 +45,18 @@
   <!-- Twitter Meta Tags -->
   <meta name="twitter:card" content="summary_large_image" />
   <meta name="twitter:site" content="@bycoffeeandfun" />
-  <meta name="twitter:title" content="{{ title }} - Coffee & Fun LLC" />
-  <meta name="twitter:description" content="{{ description }}" />
+  <meta name="twitter:title" content="{{ title | escape }} - Coffee & Fun LLC" />
+  <meta name="twitter:description" content="{{ description | escape }}" />
   <meta name="twitter:image" content="https://www.coffeeandfun.com{{img}}" />
-  <meta name="twitter:image:alt" content="{{ title }} - Coffee & Fun LLC" />
+  <meta name="twitter:image:alt" content="{{ title | escape }} - Coffee & Fun LLC" />
 
   <!-- Structured Data -->
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
     "@type": "BlogPosting",
-    "headline": "{{ title }}",
-    "description": "{{ description }}",
+    "headline": {{ title | json }},
+    "description": {{ description | json }},
     "image": "https://www.coffeeandfun.com{{img}}",
     "author": {
       "@type": "Organization",
@@ -219,10 +219,10 @@
             </div>
             <img
               src="{{img}}"
-              alt="{{title}}"
+              alt="{{ title | escape }}"
               width="1200" height="630"
               class="w-full h-64 sm:h-80 lg:h-96 object-cover rounded-2xl mb-8 border-stone-200 border"
-              title="{{title}}"
+              title="{{ title | escape }}"
               loading="lazy"
             />
           </div>

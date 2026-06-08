@@ -84,6 +84,12 @@ export default function (eleventyConfig) {
 	eleventyConfig.addPassthroughCopy({ 'src/assets/': '/assets/' });
 
 	eleventyConfig.addLiquidFilter('limit', (arr, limit) => arr.slice(0, limit));
+
+	// JSON-safe stringify for embedding values inside <script type="application/ld+json">
+	// blocks. Wraps strings in quotes and escapes quotes/backslashes/control chars, so
+	// `"headline": {{ title | json }}` stays valid JSON regardless of frontmatter content.
+	eleventyConfig.addLiquidFilter('json', (value) => JSON.stringify(value == null ? '' : value));
+
 	eleventyConfig.addPlugin(eleventyVue);
 
 	eleventyConfig.addPlugin(svgContents);
