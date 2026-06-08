@@ -1,6 +1,9 @@
-const path = require('path');
+import path from 'node:path';
+import { fileURLToPath } from 'node:url';
 
-module.exports = {
+const __dirname = path.dirname(fileURLToPath(import.meta.url));
+
+export default {
 	mode: 'production',
 	context: __dirname + '/src/',
 	entry: './assets/js/index.js',
@@ -44,7 +47,7 @@ module.exports = {
 					filename: 'fonts/[name][ext]',
 					publicPath: 'fonts/icons/'
 				}
-			},
+			}
 		]
 	},
 	optimization: {

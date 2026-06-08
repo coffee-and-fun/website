@@ -1,4 +1,4 @@
-import * as app from './core/app';
+import * as app from './core/app.js';
 
 app.load();
 

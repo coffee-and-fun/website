@@ -1,6 +1,7 @@
 // news-scraper.js
-const fs = require('fs').promises;
-const path = require('path');
+import { promises as fs } from 'node:fs';
+import path from 'node:path';
+import { fileURLToPath } from 'node:url';
 
 // Ensure fetch is available (for GitHub Actions/older Node versions)
 const ensureFetch = async () => {
@@ -464,14 +465,10 @@ async function main() {
 }
 
 // Export functions for potential module use
-module.exports = {
-	scrapeFreeNews,
-	fetchFreeNews,
-	processArticles,
-	saveToFile
-};
+export { scrapeFreeNews, fetchFreeNews, processArticles, saveToFile };
 
 // Run if called directly
-if (require.main === module) {
+const isMainModule = process.argv[1] === fileURLToPath(import.meta.url);
+if (isMainModule) {
 	main().catch(console.error);
 }

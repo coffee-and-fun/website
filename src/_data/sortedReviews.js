@@ -1,4 +1,9 @@
-const reviews = require('./reviews.json');
+import { readFileSync } from 'node:fs';
+import { fileURLToPath } from 'node:url';
+import { dirname, join } from 'node:path';
+
+const __dirname = dirname(fileURLToPath(import.meta.url));
+const reviews = JSON.parse(readFileSync(join(__dirname, 'reviews.json'), 'utf8'));
 
 function orderCoffeeShopsByRating(coffeeShops) {
 	// Calculate the average ratings for each coffee shop
@@ -16,4 +21,4 @@ function orderCoffeeShopsByRating(coffeeShops) {
 	return coffeeShopRatings;
 }
 
-module.exports = orderCoffeeShopsByRating(reviews.coffee);
+export default orderCoffeeShopsByRating(reviews.coffee);

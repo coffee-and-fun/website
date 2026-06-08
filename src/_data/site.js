@@ -1,4 +1,4 @@
-module.exports = {
+export default {
 	url:
 		process.env.ELEVENTY_ENV === 'development'
 			? 'http://localhost:3000'

@@ -1,5 +1,5 @@
 import Vue from 'vue';
-import { crisp, loadManager, tagManager } from './third-party';
+import { crisp, loadManager, tagManager } from './third-party.js';
 
 function load() {
 	new Vue({
