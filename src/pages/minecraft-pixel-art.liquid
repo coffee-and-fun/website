@@ -246,6 +246,17 @@
           </label>
         </div>
 
+        <!-- Grid Overlay Toggle -->
+        <div class="bg-gray-50 rounded-2xl p-6">
+          <label class="flex items-center gap-3 cursor-pointer">
+            <input type="checkbox" v-model="showGrid" class="w-5 h-5 rounded text-green-600 focus:ring-green-500" />
+            <div>
+              <span class="font-bold text-gray-700">Show Block Grid</span>
+              <p class="text-xs text-gray-500">Adds grid lines, chunk markers every 16 blocks, and row/column numbers so you can map each block to its exact place when building</p>
+            </div>
+          </label>
+        </div>
+
         <!-- Generate Button -->
         <button
           @click="generatePixelArt"
@@ -527,6 +538,7 @@
           gridWidth: 64,
           gridSizes: [32, 48, 64, 96, 128],
           useDithering: false,
+          showGrid: true,
           pixelArtDataUrl: null,
           blockCounts: {},
           sortBy: 'count',
@@ -672,28 +684,92 @@
 
             // Scale up for a crisp visual (10px per block, capped)
             const scale = Math.min(10, Math.floor(2048 / Math.max(w, h)));
+
+            // Reserve top + left margin for coordinate labels when grid is on
+            const margin = this.showGrid ? Math.max(24, Math.round(scale * 2.4)) : 0;
+            const artWidth = w * scale;
+            const artHeight = h * scale;
+
             const outCanvas = document.createElement('canvas');
-            outCanvas.width = w * scale;
-            outCanvas.height = h * scale;
+            outCanvas.width = artWidth + margin;
+            outCanvas.height = artHeight + margin;
             const outCtx = outCanvas.getContext('2d');
             outCtx.imageSmoothingEnabled = false;
-            outCtx.drawImage(sampleCanvas, 0, 0, w * scale, h * scale);
 
-            // Optional: draw grid lines
-            if (w <= 64) {
-              outCtx.strokeStyle = 'rgba(0,0,0,0.08)';
+            // White background so the margin area reads cleanly when downloaded
+            if (this.showGrid) {
+              outCtx.fillStyle = '#ffffff';
+              outCtx.fillRect(0, 0, outCanvas.width, outCanvas.height);
+            }
+
+            // Draw the pixel art, offset by the margin
+            outCtx.drawImage(sampleCanvas, margin, margin, artWidth, artHeight);
+
+            if (this.showGrid) {
+              const CHUNK = 16; // Minecraft chunk size — useful reference for builders
+              const labelFontSize = Math.max(10, Math.round(scale * 1.4));
+
+              // Minor grid lines — every block
+              outCtx.strokeStyle = 'rgba(0,0,0,0.22)';
               outCtx.lineWidth = 1;
+              outCtx.beginPath();
               for (let x = 0; x <= w; x++) {
-                outCtx.beginPath();
-                outCtx.moveTo(x * scale, 0);
-                outCtx.lineTo(x * scale, h * scale);
-                outCtx.stroke();
+                const px = Math.floor(margin + x * scale) + 0.5;
+                outCtx.moveTo(px, margin);
+                outCtx.lineTo(px, margin + artHeight);
               }
               for (let y = 0; y <= h; y++) {
-                outCtx.beginPath();
-                outCtx.moveTo(0, y * scale);
-                outCtx.lineTo(w * scale, y * scale);
-                outCtx.stroke();
+                const py = Math.floor(margin + y * scale) + 0.5;
+                outCtx.moveTo(margin, py);
+                outCtx.lineTo(margin + artWidth, py);
+              }
+              outCtx.stroke();
+
+              // Major grid lines — every CHUNK blocks
+              outCtx.strokeStyle = 'rgba(0,0,0,0.7)';
+              outCtx.lineWidth = 2;
+              outCtx.beginPath();
+              for (let x = 0; x <= w; x += CHUNK) {
+                const px = Math.floor(margin + x * scale) + 0.5;
+                outCtx.moveTo(px, margin);
+                outCtx.lineTo(px, margin + artHeight);
+              }
+              for (let y = 0; y <= h; y += CHUNK) {
+                const py = Math.floor(margin + y * scale) + 0.5;
+                outCtx.moveTo(margin, py);
+                outCtx.lineTo(margin + artWidth, py);
+              }
+              // Always close the outer right + bottom edges with a major line so the
+              // frame reads as bordered even when w/h isn't a multiple of CHUNK
+              const rightX = Math.floor(margin + artWidth) + 0.5;
+              outCtx.moveTo(rightX, margin);
+              outCtx.lineTo(rightX, margin + artHeight);
+              const bottomY = Math.floor(margin + artHeight) + 0.5;
+              outCtx.moveTo(margin, bottomY);
+              outCtx.lineTo(margin + artWidth, bottomY);
+              outCtx.stroke();
+
+              // Coordinate labels in the margin: column numbers across the top,
+              // row numbers down the left side. Marked every CHUNK blocks plus the
+              // final edge so the builder always knows where the art ends.
+              outCtx.fillStyle = '#1f2937';
+              outCtx.font = 'bold ' + labelFontSize + 'px ui-sans-serif, system-ui, sans-serif';
+              outCtx.textAlign = 'center';
+              outCtx.textBaseline = 'middle';
+
+              const colStops = new Set();
+              for (let x = 0; x <= w; x += CHUNK) colStops.add(x);
+              colStops.add(w);
+              const rowStops = new Set();
+              for (let y = 0; y <= h; y += CHUNK) rowStops.add(y);
+              rowStops.add(h);
+
+              for (const x of colStops) {
+                outCtx.fillText(String(x), margin + x * scale, margin / 2);
+              }
+              outCtx.textAlign = 'right';
+              for (const y of rowStops) {
+                outCtx.fillText(String(y), margin - 4, margin + y * scale);
               }
             }
 
