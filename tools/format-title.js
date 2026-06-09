@@ -17,7 +17,7 @@ const getMaxNextLine = (input, maxChars = 20) => {
 	return { line, remainingChars };
 };
 
-export const formatTitle = (title) => {
+exports.formatTitle = (title) => {
 	let output = [];
 	// If the title is 40 characters or longer, look to add ellipses at the end of
 	// the second line.
