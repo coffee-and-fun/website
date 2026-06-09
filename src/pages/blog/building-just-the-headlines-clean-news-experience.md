@@ -312,10 +312,13 @@ Just the Headlines does exactly what I wanted:
 More importantly, it changed how I consume news. Instead of getting sucked into endless scrolling, I
 can quickly scan headlines, click on what interests me, and move on with my day.
 
-## Try It Yourself
+## A note from 2026
 
-You can check out Just the Headlines at
-[coffeeandfun.com/headlines](https://www.coffeeandfun.com/headlines/).
+Just the Headlines ran on coffeeandfun.com for about a year before I retired the page. The Reddit
+JSON endpoints it scraped became less reliable, the news categories drifted from what I actually
+wanted to read, and I'd shifted toward a couple of trusted email newsletters instead. The post
+stays up because the build pattern — Node-based scrape on a schedule, dump to JSON, statically
+render with Eleventy — is still a really good starting point if you want to build your own.
 
 The code concepts are all standard web technologies - Node.js for data collection, static site
 generation, and basic automation. The key insight is that sometimes the best solution to information

@@ -1,6 +1,6 @@
-// .eleventy.js (ESM style for Eleventy v3)
+// .eleventy.mjs (ESM-style config for Eleventy v3)
 
-import htmlmin from 'html-minifier';
+import { minify as htmlminify } from 'html-minifier-terser';
 import svgContents from 'eleventy-plugin-svg-contents';
 //import pluginPWA from './tools/eleventy-plugin-pwa';
 import fs from 'fs';
@@ -177,10 +177,10 @@ export default function (eleventyConfig) {
 			.use(markdownItAnchor, { permalink: false })
 	);
 
-	eleventyConfig.addTransform('htmlmin', (content, outputPath) => {
+	eleventyConfig.addTransform('htmlmin', async (content, outputPath) => {
 		if (process.env.ELEVENTY_ENV === 'production' && outputPath.endsWith('.html')) {
 			try {
-				return htmlmin.minify(content, {
+				return await htmlminify(content, {
 					useShortDoctype: true,
 					removeComments: true,
 					collapseWhitespace: true,

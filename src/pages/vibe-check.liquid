@@ -206,8 +206,8 @@
             <div v-for="i in maxAttempts" 
                  :key="i"
                  class="w-12 h-12 rounded-2xl flex items-center justify-center text-2xl transition-all"
-                 :class="i <= attempts ? 'bg-red-100 border-2 border-red-300' : 'bg-gray-100 border-2 border-gray-300'">
-             {% raw %} {{ i <= attempts ? '❌' : '💚' }} {% endraw %}
+                 :class="attempts >= i ? 'bg-red-100 border-2 border-red-300' : 'bg-gray-100 border-2 border-gray-300'">
+             {% raw %} {{ attempts >= i ? '❌' : '💚' }} {% endraw %}
             </div>
           </div>
 
