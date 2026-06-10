@@ -1,5 +1,5 @@
 <!-- Font preloads -->
-<link rel="preload" href="/assets/fonts/Pacifico-Regular.ttf" as="font" type="font/ttf" crossorigin>
+<link rel="preload" href="/assets/fonts/Pacifico-Regular.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="/assets/fonts/Caveat-Regular.woff2" as="font" type="font/woff2" crossorigin>
 
 <style>
@@ -228,4 +228,43 @@
     }
 </style>
 
-<script>document.addEventListener('DOMContentLoaded',()=>{document.querySelectorAll('.sketch-note').forEach(el=>el.setAttribute('aria-hidden','true'))});</script>
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+    const notes = document.querySelectorAll('.sketch-note');
+    notes.forEach((el) => el.setAttribute('aria-hidden', 'true'));
+
+    // Draw-in: sketch strokes hand-draw themselves when scrolled into view.
+    // Progressive enhancement — without JS or with reduced motion, sketches
+    // are simply visible. Dashed styles (sketch-circle, sketch-dash) are
+    // skipped so their dash pattern survives.
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+    if (!('IntersectionObserver' in window)) return;
+
+    notes.forEach((note) => {
+        note.querySelectorAll('path, circle, line, polyline').forEach((shape) => {
+            if (typeof shape.getTotalLength !== 'function') return;
+            const computed = getComputedStyle(shape);
+            if (computed.strokeDasharray && computed.strokeDasharray !== 'none') return;
+            if (computed.stroke === 'none') return;
+            let len;
+            try { len = shape.getTotalLength(); } catch (e) { return; }
+            if (!len || !isFinite(len)) return;
+            shape.style.strokeDasharray = len + ' ' + len;
+            shape.style.strokeDashoffset = len;
+            shape.style.transition = 'stroke-dashoffset 1.1s ease-out 0.15s';
+        });
+    });
+
+    const io = new IntersectionObserver((entries) => {
+        entries.forEach((entry) => {
+            if (!entry.isIntersecting) return;
+            entry.target.querySelectorAll('path, circle, line, polyline').forEach((shape) => {
+                shape.style.strokeDashoffset = '0';
+            });
+            io.unobserve(entry.target);
+        });
+    }, { threshold: 0.35 });
+
+    notes.forEach((note) => io.observe(note));
+});
+</script>

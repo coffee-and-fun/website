@@ -142,21 +142,21 @@
             font-style: normal;
             font-weight: 400;
             font-display: swap;
-            src: url('/assets/fonts/Pacifico-Regular.ttf') format('truetype');
+            src: url('/assets/fonts/Pacifico-Regular.woff2') format('woff2'), url('/assets/fonts/Pacifico-Regular.ttf') format('truetype');
         }
         .brand-heading {
             font-family: 'Pacifico', cursive;
             color: #a36942;
-            text-shadow: 1.5px 2.5px 0px #fd6155;
+            text-shadow: 1.5px 2.5px 0px rgba(253, 97, 85, 0.45);
         }
         @media (min-width: 640px) {
             .brand-heading {
-                text-shadow: 2px 3.5px 0px #fd6155;
+                text-shadow: 2px 3.5px 0px rgba(253, 97, 85, 0.45);
             }
         }
         @media (min-width: 1024px) {
             .brand-heading {
-                text-shadow: 3px 5px 0px #fd6155;
+                text-shadow: 3px 5px 0px rgba(253, 97, 85, 0.45);
             }
         }
     </style>
@@ -173,18 +173,18 @@
         <section class="relative mx-auto max-w-5xl px-4 sm:px-6 lg:px-8 py-20 sm:py-28 lg:py-36 text-center overflow-visible">
 
             <!-- Sketch: curly arrow pointing to announcement badge -->
-            <div class="sketch-note text-xl sm:text-2xl" style="top: 12px; right: 8%; transform: rotate(-6deg);">
+            <div class="sketch-note text-xl sm:text-2xl" style="top: 12px; right: 10%; transform: rotate(-6deg);">
                 We do love Coffee!
-                <svg width="60" height="50" style="bottom: -44px; left: 20px;">
-                    <path d="M10 2 C20 15, 35 25, 28 42" class="sketch-arrow"/>
-                    <path d="M22 36 L28 44 L34 36" class="sketch-arrow"/>
+                <svg width="80" height="56" style="bottom: -50px; left: -36px;">
+                    <path d="M72 4 C58 20, 36 28, 14 46" class="sketch-arrow"/>
+                    <path d="M14 34 L12 48 L26 48" class="sketch-arrow"/>
                 </svg>
             </div>
 
             <a href="{{ announcement.url }}" class="inline-flex items-center gap-2 border border-stone-200 rounded-lg px-4 py-1.5 text-sm font-medium text-stone-600 mb-6 sm:mb-8 hover:border-stone-300 hover:text-stone-900 transition-all duration-200">
                 <span class="relative flex h-2 w-2">
-                    <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-orange-400 opacity-75"></span>
-                    <span class="relative inline-flex rounded-full h-2 w-2 bg-orange-500"></span>
+                    <span class="motion-safe:animate-ping absolute inline-flex h-full w-full rounded-full bg-coral opacity-75"></span>
+                    <span class="relative inline-flex rounded-full h-2 w-2 bg-coral-deep"></span>
                 </span>
                 {{ announcement.text }}
                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="w-4 h-4 text-stone-400"><path fill-rule="evenodd" d="M3 10a.75.75 0 01.75-.75h10.638L10.23 5.29a.75.75 0 111.04-1.08l5.5 5.25a.75.75 0 010 1.08l-5.5 5.25a.75.75 0 11-1.04-1.08l4.158-3.96H3.75A.75.75 0 013 10z" clip-rule="evenodd" /></svg>
@@ -205,7 +205,7 @@
                 <br />
                 One Brew at a Time
             </h1>
-            <p class="mt-6 sm:mt-8 text-xl sm:text-2xl text-stone-500 max-w-2xl mx-auto leading-relaxed">
+            <p class="mt-6 sm:mt-8 text-xl sm:text-2xl text-stone-600 max-w-[50ch] mx-auto leading-relaxed text-balance">
                 Award-winning tools that blend thoughtful design with everyday usefulness. From productivity to accessibility, we build apps people love.
             </p>
 
@@ -217,14 +217,14 @@
             </div>
             <div class="mt-8 sm:mt-10 flex flex-wrap justify-center gap-3 relative">
                 <a
-                    class="btn btn-lg rounded-lg px-8 sm:px-10 font-semibold text-white border-0 shadow-lg hover:shadow-xl hover:-translate-y-0.5 transition-all duration-200" style="background-color: #a36942; box-shadow: 0 10px 15px -3px rgba(163,105,66,0.3);"
+                    class="btn btn-lg rounded-lg px-8 sm:px-10 font-semibold text-white border-0 bg-caramel hover:bg-espresso shadow-[0_10px_15px_-3px_rgba(122,78,49,0.35)] hover:shadow-xl hover:-translate-y-0.5 focus:outline-none focus-visible:ring-2 focus-visible:ring-espresso focus-visible:ring-offset-2 transition-all duration-200"
                     href="/apps/"
                     title="Browse all apps"
                 >
                     Explore Apps
                 </a>
                 <a
-                    class="btn btn-lg btn-outline rounded-lg px-8 sm:px-10 font-semibold border-2 border-[#fd6155] text-[#fd6155] hover:bg-[#fd6155] hover:text-white focus-visible:bg-[#fd6155] focus-visible:text-white hover:-translate-y-0.5 focus-visible:-translate-y-0.5 transition-all duration-200"
+                    class="btn btn-lg btn-outline rounded-lg px-8 sm:px-10 font-semibold border-2 border-coral-deep text-coral-deep hover:bg-coral-deep hover:text-white focus-visible:bg-coral-deep focus-visible:text-white hover:-translate-y-0.5 focus-visible:-translate-y-0.5 focus:outline-none focus-visible:ring-2 focus-visible:ring-coral-deep focus-visible:ring-offset-2 transition-all duration-200"
                     href="/blog/"
                     title="Visit Coffee & Fun's Blog"
                 >
@@ -237,9 +237,14 @@
                         <path d="M25 38 C20 20, 15 10, 22 2" class="sketch-arrow"/>
                         <path d="M16 6 L22 0 L26 8" class="sketch-arrow"/>
                     </svg>
-                    Over 1,000,000 user our apps
+                    Over 1,000,000 people use our apps
                 </div>
             </div>
+
+            <!-- Trust row -->
+            <p class="mt-12 text-xl sm:text-2xl text-caramel" style="font-family: 'Caveat', cursive;">
+                Free web tools&nbsp;&nbsp;&middot;&nbsp;&nbsp;No sign-ups&nbsp;&nbsp;&middot;&nbsp;&nbsp;Real human support
+            </p>
 
             <!-- Sketch: small star doodle on the left -->
             <div class="sketch-note" style="top: 40%; left: -2%; transform: rotate(-12deg);">
@@ -530,14 +535,14 @@
 
             <div class="flex flex-wrap justify-center gap-3">
                 <a
-                    class="btn btn-lg rounded-lg px-8 sm:px-10 font-semibold text-white border-0 shadow-lg hover:shadow-xl hover:-translate-y-0.5 transition-all duration-200" style="background-color: #a36942; box-shadow: 0 10px 15px -3px rgba(163,105,66,0.3);"
+                    class="btn btn-lg rounded-lg px-8 sm:px-10 font-semibold text-white border-0 bg-caramel hover:bg-espresso shadow-[0_10px_15px_-3px_rgba(122,78,49,0.35)] hover:shadow-xl hover:-translate-y-0.5 focus:outline-none focus-visible:ring-2 focus-visible:ring-espresso focus-visible:ring-offset-2 transition-all duration-200"
                     href="/apps/"
                     title="Browse all apps"
                 >
                     Browse Apps
                 </a>
                 <a
-                    class="btn btn-lg btn-outline rounded-lg px-8 sm:px-10 font-semibold border-2 border-[#fd6155] text-[#fd6155] hover:bg-[#fd6155] hover:text-white focus-visible:bg-[#fd6155] focus-visible:text-white hover:-translate-y-0.5 focus-visible:-translate-y-0.5 transition-all duration-200"
+                    class="btn btn-lg btn-outline rounded-lg px-8 sm:px-10 font-semibold border-2 border-coral-deep text-coral-deep hover:bg-coral-deep hover:text-white focus-visible:bg-coral-deep focus-visible:text-white hover:-translate-y-0.5 focus-visible:-translate-y-0.5 focus:outline-none focus-visible:ring-2 focus-visible:ring-coral-deep focus-visible:ring-offset-2 transition-all duration-200"
                     href="/blog/"
                     title="Read the blog"
                 >

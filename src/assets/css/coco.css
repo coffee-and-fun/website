@@ -9,13 +9,27 @@
 	logs: true;
 }
 
+/* Brand palette tokens — generates utilities like bg-mocha, text-coral-deep, ring-espresso.
+   caramel + coral-deep are the AA-contrast steps: white text on caramel ≈ 5.2:1,
+   coral-deep on cream ≈ 4.7:1. Use coral/mocha for large display text only. */
+@theme {
+	--color-cream: #fef5ec;
+	--color-mocha: #a36942;
+	--color-caramel: #96603c;
+	--color-espresso: #7a4e31;
+	--color-cocoa: #3d2b1f;
+	--color-coral: #fd6155;
+	--color-coral-deep: #c4413a;
+}
+
 /* Self-hosted Pacifico font */
 @font-face {
 	font-family: 'Pacifico';
 	font-style: normal;
 	font-weight: 400;
 	font-display: swap;
-	src: url('/assets/fonts/Pacifico-Regular.ttf') format('truetype');
+	src: url('/assets/fonts/Pacifico-Regular.woff2') format('woff2'),
+		url('/assets/fonts/Pacifico-Regular.ttf') format('truetype');
 }
 
 /* Self-hosted Caveat handwriting font — used in the header nav + sketch notes */
