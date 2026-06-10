@@ -131,7 +131,7 @@
       }
       
       .accent-gradient {
-        background: linear-gradient(135deg, #fef5ec 0%, #fde8d8 50%, #f5d0b0 100%);
+        background: linear-gradient(135deg, var(--color-cream) 0%, #fde8d8 50%, #f5d0b0 100%);
       }
     </style>
 
@@ -315,34 +315,34 @@
     </section>
 
     <!-- Stats Section - Full Width -->
-    <section class="relative full-bleed py-32 px-6 overflow-visible" style="background-color: #3d2b1f;">
+    <section class="relative full-bleed py-32 px-6 overflow-visible" style="background-color: var(--color-cocoa);">
       <!-- Sketch: "and growing!" near stats (light colored for dark bg) -->
-      <div class="sketch-note text-xl sm:text-2xl" style="top: 20px; right: 8%; transform: rotate(-3deg); color: #c4813a;">
+      <div class="sketch-note text-xl sm:text-2xl" style="top: 20px; right: 8%; transform: rotate(-3deg); color: var(--color-toffee);">
         and growing!
         <svg width="40" height="35" style="bottom: -32px; left: 20px;">
-            <path d="M20 2 C16 12, 10 20, 8 30" class="sketch-arrow" style="stroke: #c4813a;"/>
-            <path d="M2 24 L8 32 L14 24" class="sketch-arrow" style="stroke: #c4813a;"/>
+            <path d="M20 2 C16 12, 10 20, 8 30" class="sketch-arrow" style="stroke: var(--color-toffee);"/>
+            <path d="M2 24 L8 32 L14 24" class="sketch-arrow" style="stroke: var(--color-toffee);"/>
         </svg>
       </div>
       <!-- Sketch: "est." near founded date -->
-      <div class="sketch-note text-lg" style="bottom: 20%; left: 8%; transform: rotate(-5deg); color: #c4813a;">
+      <div class="sketch-note text-lg" style="bottom: 20%; left: 8%; transform: rotate(-5deg); color: var(--color-toffee);">
           est.
       </div>
 
       <!-- Sketch: sparkle near 1M+ -->
       <div class="sketch-note sketch-float-slow" style="top: 22%; right: 10%; --sketch-rotate: 5deg;">
           <svg width="24" height="24" viewBox="0 0 28 28">
-              <path d="M14 2 L14 26" class="sketch-sparkle" style="stroke: #c4813a;"/>
-              <path d="M2 14 L26 14" class="sketch-sparkle" style="stroke: #c4813a;"/>
-              <path d="M5 5 L23 23" class="sketch-sparkle" style="stroke: #c4813a;"/>
-              <path d="M23 5 L5 23" class="sketch-sparkle" style="stroke: #c4813a;"/>
+              <path d="M14 2 L14 26" class="sketch-sparkle" style="stroke: var(--color-toffee);"/>
+              <path d="M2 14 L26 14" class="sketch-sparkle" style="stroke: var(--color-toffee);"/>
+              <path d="M5 5 L23 23" class="sketch-sparkle" style="stroke: var(--color-toffee);"/>
+              <path d="M23 5 L5 23" class="sketch-sparkle" style="stroke: var(--color-toffee);"/>
           </svg>
       </div>
 
       <!-- Sketch: zigzag bottom -->
       <div class="sketch-note" style="bottom: 8%; left: 50%; transform: translateX(-50%);">
           <svg width="80" height="14" viewBox="0 0 80 14">
-              <path d="M2 12 L12 2 L22 12 L32 2 L42 12 L52 2 L62 12 L72 2 L80 10" class="sketch-zigzag" style="stroke: #c4813a;"/>
+              <path d="M2 12 L12 2 L22 12 L32 2 L42 12 L52 2 L62 12 L72 2 L80 10" class="sketch-zigzag" style="stroke: var(--color-toffee);"/>
           </svg>
       </div>
 
@@ -350,15 +350,15 @@
         <div class="grid md:grid-cols-3 gap-16 text-center">
           <div>
             <div class="stat-number mb-4 text-white">2022</div>
-            <p class="text-xl uppercase tracking-wider" style="color: #c4813a;">Founded</p>
+            <p class="text-xl uppercase tracking-wider" style="color: var(--color-toffee);">Founded</p>
           </div>
           <div>
             <div class="stat-number mb-4 text-white">2</div>
-            <p class="text-xl uppercase tracking-wider" style="color: #c4813a;">Team Members</p>
+            <p class="text-xl uppercase tracking-wider" style="color: var(--color-toffee);">Team Members</p>
           </div>
           <div>
             <div class="stat-number mb-4 text-white">1M+</div>
-            <p class="text-xl uppercase tracking-wider" style="color: #c4813a;">Users</p>
+            <p class="text-xl uppercase tracking-wider" style="color: var(--color-toffee);">Users</p>
           </div>
         </div>
       </div>
@@ -507,7 +507,7 @@
         <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
           {% for post in blog.posts limit:3 %}
                <a
-                  class="group bg-white rounded-2xl border border-stone-200 overflow-hidden transition-all duration-200 hover:-translate-y-1 hover:shadow-lg focus:outline-none focus:ring-2 focus:ring-offset-2" style="--tw-ring-color: #a36942;"
+                  class="group bg-white rounded-2xl border border-stone-200 overflow-hidden transition-all duration-200 hover:-translate-y-1 hover:shadow-lg focus:outline-none focus:ring-2 focus:ring-offset-2" style="--tw-ring-color: var(--color-mocha);"
                   href="{{ post.link }}"
                   aria-label="Read {{ post.name }}">
                   <figure class="p-3 pb-0">
@@ -520,30 +520,30 @@
                     />
                   </figure>
                   <div class="p-4 pt-3">
-                    <h2 class="text-lg font-semibold text-stone-900 mb-1 group-hover:text-[#a36942] transition-colors">{{ post.name }}</h2>
+                    <h2 class="text-lg font-semibold text-stone-900 mb-1 group-hover:text-mocha transition-colors">{{ post.name }}</h2>
                     <p class="text-sm text-stone-500 line-clamp-2">{{ post.description }}</p>
 
                     <div class="flex flex-wrap gap-1.5 mt-4">
                       {% for platform in post.platform %}
                       {% assign ptag = platform | downcase %}
                       {% if ptag == "blog" %}
-                      <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium text-white" style="background-color:#a36942;">{{ platform }}</span>
+                      <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium text-white" style="background-color:var(--color-mocha);">{{ platform }}</span>
                       {% elsif ptag == "hack" %}
-                      <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium text-white" style="background-color:#fd6155;">{{ platform }}</span>
+                      <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium text-white" style="background-color:var(--color-coral);">{{ platform }}</span>
                       {% elsif ptag == "guide" %}
-                      <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium text-white" style="background-color:#c4813a;">{{ platform }}</span>
+                      <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium text-white" style="background-color:var(--color-toffee);">{{ platform }}</span>
                       {% elsif ptag == "web" or ptag == "nodejs" %}
-                      <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium text-white" style="background-color:#7a4e31;">{{ platform }}</span>
+                      <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium text-white" style="background-color:var(--color-espresso);">{{ platform }}</span>
                       {% elsif ptag == "update" %}
-                      <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium text-white" style="background-color:#96603c;">{{ platform }}</span>
+                      <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium text-white" style="background-color:var(--color-caramel);">{{ platform }}</span>
                       {% elsif ptag == "company" %}
-                      <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium text-white" style="background-color:#3d2b1f;">{{ platform }}</span>
+                      <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium text-white" style="background-color:var(--color-cocoa);">{{ platform }}</span>
                       {% elsif ptag == "ios" or ptag == "ipad" %}
                       <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium text-white" style="background-color:#5b8c5a;">{{ platform }}</span>
                       {% elsif ptag == "social" %}
                       <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium text-white" style="background-color:#8b6f4e;">{{ platform }}</span>
                       {% else %}
-                      <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium text-white" style="background-color:#a36942;">{{ platform }}</span>
+                      <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium text-white" style="background-color:var(--color-mocha);">{{ platform }}</span>
                       {% endif %}
                       {% endfor %}
                     </div>
@@ -567,7 +567,7 @@
       <p class="large-text text-stone-600 max-w-3xl mx-auto mb-12">
         Be part of a community that's making the world a little brighter, one app at a time.
       </p>
-      <a href="/blog/" class="inline-block px-12 py-6 rounded-xl text-white text-xl font-bold tracking-wide transition-colors hover:opacity-90" style="background-color: #a36942;">
+      <a href="/blog/" class="inline-block px-12 py-6 rounded-xl text-white text-xl font-bold tracking-wide transition-colors hover:opacity-90" style="background-color: var(--color-mocha);">
         Read Our Blog
       </a>
 

@@ -72,7 +72,7 @@
         }
         .brand-heading {
             font-family: 'Pacifico', cursive;
-            color: #a36942;
+            color: var(--color-mocha);
             text-shadow: 1.5px 2.5px 0px #fd6155;
         }
         @media (min-width: 640px) {
@@ -95,12 +95,12 @@
             white-space: nowrap;
         }
         .filter-tab:hover {
-            border-color: #a36942;
-            color: #a36942;
+            border-color: var(--color-mocha);
+            color: var(--color-mocha);
         }
         .filter-tab.active {
-            background-color: #a36942;
-            border-color: #a36942;
+            background-color: var(--color-mocha);
+            border-color: var(--color-mocha);
             color: white;
         }
 
@@ -113,7 +113,7 @@
 
         .search-input:focus {
             box-shadow: 0 0 0 3px rgba(163, 105, 66, 0.2);
-            border-color: #a36942;
+            border-color: var(--color-mocha);
         }
     </style>
 
@@ -273,7 +273,7 @@
             <div class="not-prose grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-3" id="helpGrid">
                 {% for guide in help.guides %}
                 <a class="help-card-item group bg-white rounded-2xl border border-stone-200 overflow-hidden transition-all duration-200 hover:-translate-y-1 hover:shadow-lg focus:outline-none focus:ring-2 focus:ring-offset-2"
-                    style="--tw-ring-color: #a36942;"
+                    style="--tw-ring-color: var(--color-mocha);"
                     href="{{ guide.link }}"
                     aria-label="Read {{ guide.name }}"
                     data-title="{{ guide.name | downcase }}"
@@ -283,25 +283,25 @@
                     data-app="{{ guide.app | downcase }}">
                     <div class="p-6">
                         <div class="flex items-center gap-2 mb-3">
-                            <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium text-white" style="background-color:#a36942;">{{ guide.app }}</span>
+                            <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium text-white" style="background-color:var(--color-mocha);">{{ guide.app }}</span>
                             <span class="text-xs text-stone-400">{{ guide.readTime }} read</span>
                         </div>
-                        <h2 class="text-lg font-semibold text-stone-900 mb-2 group-hover:text-[#a36942] transition-colors">{{ guide.name }}</h2>
+                        <h2 class="text-lg font-semibold text-stone-900 mb-2 group-hover:text-mocha transition-colors">{{ guide.name }}</h2>
                         <p class="text-sm text-stone-500 line-clamp-3 mb-4">{{ guide.description }}</p>
 
                         <div class="flex flex-wrap gap-1.5">
                             {% for platform in guide.platforms %}
                             {% assign ptag = platform | downcase %}
                             {% if ptag == "firefox" %}
-                            <span class="inline-flex items-center px-2 py-0.5 rounded-full text-xs font-medium text-white" style="background-color:#fd6155;">{{ platform }}</span>
+                            <span class="inline-flex items-center px-2 py-0.5 rounded-full text-xs font-medium text-white" style="background-color:var(--color-coral);">{{ platform }}</span>
                             {% elsif ptag == "chrome" %}
-                            <span class="inline-flex items-center px-2 py-0.5 rounded-full text-xs font-medium text-white" style="background-color:#7a4e31;">{{ platform }}</span>
+                            <span class="inline-flex items-center px-2 py-0.5 rounded-full text-xs font-medium text-white" style="background-color:var(--color-espresso);">{{ platform }}</span>
                             {% elsif ptag == "edge" %}
-                            <span class="inline-flex items-center px-2 py-0.5 rounded-full text-xs font-medium text-white" style="background-color:#3d2b1f;">{{ platform }}</span>
+                            <span class="inline-flex items-center px-2 py-0.5 rounded-full text-xs font-medium text-white" style="background-color:var(--color-cocoa);">{{ platform }}</span>
                             {% elsif ptag == "safari" or ptag == "ios" %}
                             <span class="inline-flex items-center px-2 py-0.5 rounded-full text-xs font-medium text-white" style="background-color:#5b8c5a;">{{ platform }}</span>
                             {% elsif ptag == "android" %}
-                            <span class="inline-flex items-center px-2 py-0.5 rounded-full text-xs font-medium text-white" style="background-color:#96603c;">{{ platform }}</span>
+                            <span class="inline-flex items-center px-2 py-0.5 rounded-full text-xs font-medium text-white" style="background-color:var(--color-caramel);">{{ platform }}</span>
                             {% else %}
                             <span class="inline-flex items-center px-2 py-0.5 rounded-full text-xs font-medium text-white" style="background-color:#8b6f4e;">{{ platform }}</span>
                             {% endif %}
@@ -315,7 +315,7 @@
             <!-- No Results -->
             <div id="noResults" class="hidden text-center py-16">
                 <p class="text-2xl mb-2">No guides found</p>
-                <p class="text-stone-400">Try a different search, or <a href="/support/" class="underline" style="color:#a36942;">ask us directly</a>.</p>
+                <p class="text-stone-400">Try a different search, or <a href="/support/" class="underline" style="color:var(--color-mocha);">ask us directly</a>.</p>
             </div>
         </section>
 
@@ -345,7 +345,7 @@
 
             <a
                 class="btn btn-lg rounded-lg px-8 sm:px-10 font-semibold text-white border-0 shadow-lg hover:shadow-xl hover:-translate-y-0.5 transition-all duration-200"
-                style="background-color: #a36942; box-shadow: 0 10px 15px -3px rgba(163,105,66,0.3);"
+                style="background-color: var(--color-mocha); box-shadow: 0 10px 15px -3px rgba(163,105,66,0.3);"
                 href="/support/"
             >
                 Contact Support

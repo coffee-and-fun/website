@@ -3,6 +3,19 @@
 <link rel="preload" href="/assets/fonts/Caveat-Regular.woff2" as="font" type="font/woff2" crossorigin>
 
 <style>
+    /* Brand tokens — duplicated from coco.css @theme so pages that don't load
+       engine.css (Tailwind Play CDN tool pages) still resolve var(--color-*). */
+    :root {
+        --color-cream: #fef5ec;
+        --color-toffee: #c4813a;
+        --color-mocha: #a36942;
+        --color-caramel: #96603c;
+        --color-espresso: #7a4e31;
+        --color-cocoa: #3d2b1f;
+        --color-coral: #fd6155;
+        --color-coral-deep: #c4413a;
+    }
+
     /* Caveat handwriting font — self-hosted */
     @font-face {
         font-family: 'Caveat';
@@ -29,7 +42,7 @@
     /* Sketch / doodle annotations */
     .sketch-note {
         font-family: 'Caveat', cursive;
-        color: #96603c;
+        color: var(--color-caramel);
         position: absolute;
         pointer-events: none;
         white-space: nowrap;
@@ -41,21 +54,21 @@
     }
     .sketch-arrow {
         fill: none;
-        stroke: #a36942;
+        stroke: var(--color-mocha);
         stroke-width: 2;
         stroke-linecap: round;
         stroke-linejoin: round;
     }
     .sketch-arrow-coral {
         fill: none;
-        stroke: #fd6155;
+        stroke: var(--color-coral);
         stroke-width: 2;
         stroke-linecap: round;
         stroke-linejoin: round;
     }
     .sketch-circle {
         fill: none;
-        stroke: #fd6155;
+        stroke: var(--color-coral);
         stroke-width: 2;
         stroke-linecap: round;
         stroke-dasharray: 6 4;
@@ -63,14 +76,14 @@
     }
     .sketch-underline {
         fill: none;
-        stroke: #fd6155;
+        stroke: var(--color-coral);
         stroke-width: 2.5;
         stroke-linecap: round;
         opacity: 0.5;
     }
     .sketch-bracket {
         fill: none;
-        stroke: #a36942;
+        stroke: var(--color-mocha);
         stroke-width: 2;
         stroke-linecap: round;
         stroke-linejoin: round;
@@ -78,31 +91,31 @@
     }
     .sketch-heart {
         fill: none;
-        stroke: #fd6155;
+        stroke: var(--color-coral);
         stroke-width: 2;
         stroke-linecap: round;
         stroke-linejoin: round;
         opacity: 0.5;
     }
     .sketch-heart-filled {
-        fill: #fd6155;
+        fill: var(--color-coral);
         stroke: none;
         opacity: 0.25;
     }
     .sketch-squiggle {
         fill: none;
-        stroke: #a36942;
+        stroke: var(--color-mocha);
         stroke-width: 1.5;
         stroke-linecap: round;
         opacity: 0.35;
     }
     .sketch-dots {
-        fill: #a36942;
+        fill: var(--color-mocha);
         opacity: 0.3;
     }
     .sketch-arrow-brown-light {
         fill: none;
-        stroke: #c4813a;
+        stroke: var(--color-toffee);
         stroke-width: 2;
         stroke-linecap: round;
         stroke-linejoin: round;
@@ -110,7 +123,7 @@
     }
     .sketch-cross {
         fill: none;
-        stroke: #fd6155;
+        stroke: var(--color-coral);
         stroke-width: 2;
         stroke-linecap: round;
         opacity: 0.3;
@@ -118,7 +131,7 @@
 
     .sketch-zigzag {
         fill: none;
-        stroke: #c4813a;
+        stroke: var(--color-toffee);
         stroke-width: 1.8;
         stroke-linecap: round;
         stroke-linejoin: round;
@@ -126,7 +139,7 @@
     }
     .sketch-sparkle {
         fill: none;
-        stroke: #fd6155;
+        stroke: var(--color-coral);
         stroke-width: 1.5;
         stroke-linecap: round;
         opacity: 0.4;
@@ -135,7 +148,7 @@
     /* Swirl / spiral */
     .sketch-swirl {
         fill: none;
-        stroke: #a36942;
+        stroke: var(--color-mocha);
         stroke-width: 1.5;
         stroke-linecap: round;
         opacity: 0.3;
@@ -143,7 +156,7 @@
     /* Checkmark / tick */
     .sketch-check {
         fill: none;
-        stroke: #a36942;
+        stroke: var(--color-mocha);
         stroke-width: 2.5;
         stroke-linecap: round;
         stroke-linejoin: round;
@@ -152,7 +165,7 @@
     /* Lightning bolt */
     .sketch-lightning {
         fill: none;
-        stroke: #c4813a;
+        stroke: var(--color-toffee);
         stroke-width: 2;
         stroke-linecap: round;
         stroke-linejoin: round;
@@ -161,7 +174,7 @@
     /* Leaf / nature */
     .sketch-leaf {
         fill: none;
-        stroke: #a36942;
+        stroke: var(--color-mocha);
         stroke-width: 1.5;
         stroke-linecap: round;
         stroke-linejoin: round;
@@ -170,7 +183,7 @@
     /* Loop arrow (curly) */
     .sketch-loop {
         fill: none;
-        stroke: #fd6155;
+        stroke: var(--color-coral);
         stroke-width: 1.8;
         stroke-linecap: round;
         stroke-linejoin: round;
@@ -179,7 +192,7 @@
     /* Dashed line */
     .sketch-dash {
         fill: none;
-        stroke: #a36942;
+        stroke: var(--color-mocha);
         stroke-width: 1.5;
         stroke-linecap: round;
         stroke-dasharray: 8 5;
@@ -188,7 +201,7 @@
     /* Double underline */
     .sketch-double-underline {
         fill: none;
-        stroke: #c4813a;
+        stroke: var(--color-toffee);
         stroke-width: 1.5;
         stroke-linecap: round;
         opacity: 0.35;
@@ -196,7 +209,7 @@
     /* Exclamation mark */
     .sketch-exclaim {
         fill: none;
-        stroke: #fd6155;
+        stroke: var(--color-coral);
         stroke-width: 2.5;
         stroke-linecap: round;
         opacity: 0.4;

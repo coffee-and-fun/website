@@ -52,11 +52,11 @@ permalink: /404.html
         .hud {
             font-family: 'Caveat', cursive;
             font-size: 1.6rem;
-            color: #96603c;
+            color: var(--color-caramel);
         }
         .hud-value {
             font-weight: 700;
-            color: #7a4e31;
+            color: var(--color-espresso);
         }
 
         /* Splash / overlay text */
@@ -75,11 +75,11 @@ permalink: /404.html
         .game-overlay.hidden { opacity: 0; pointer-events: none; }
         .game-overlay h2 {
             font-family: 'Pacifico', cursive;
-            color: #7a4e31;
+            color: var(--color-espresso);
         }
         .game-overlay p {
             font-family: 'Caveat', cursive;
-            color: #96603c;
+            color: var(--color-caramel);
         }
     </style>
 </head>
@@ -94,10 +94,10 @@ permalink: /404.html
 
         <!-- Heading -->
         <div class="text-center mb-6 relative">
-            <h1 class="text-6xl md:text-8xl font-bold" style="font-family:'Pacifico',cursive; color:#7a4e31;">
+            <h1 class="text-6xl md:text-8xl font-bold" style="font-family:'Pacifico',cursive; color:var(--color-espresso);">
                 404
             </h1>
-            <p class="text-xl md:text-2xl mt-2" style="font-family:'Caveat',cursive; color:#96603c;">
+            <p class="text-xl md:text-2xl mt-2" style="font-family:'Caveat',cursive; color:var(--color-caramel);">
                 Oops — this page spilled!
             </p>
 
@@ -126,7 +126,7 @@ permalink: /404.html
                 <h2 class="text-3xl mb-2">Catch the Beans!</h2>
                 <p class="text-xl mb-4">Move the cup to catch falling coffee beans</p>
                 <button type="button" id="btn-start"
-                        class="btn btn-lg border-2 border-amber-800 text-white px-8 pointer-events-auto bg-[#96603c] hover:bg-[#7a4e31] focus-visible:bg-[#7a4e31] transition-colors"
+                        class="btn btn-lg border-2 border-amber-800 text-white px-8 pointer-events-auto bg-caramel hover:bg-espresso focus-visible:bg-espresso transition-colors"
                         style="font-family:'Caveat',cursive; font-size:1.4rem;">
                     Start Game
                 </button>
@@ -136,20 +136,20 @@ permalink: /404.html
             <div class="game-overlay hidden" id="overlay-end">
                 <h2 class="text-3xl mb-1" id="end-title">Nice Try!</h2>
                 <p class="text-xl mb-1">You caught <span class="hud-value" id="end-score">0</span> beans</p>
-                <p class="text-lg mb-4" id="end-best" style="color:#a36942;"></p>
+                <p class="text-lg mb-4" id="end-best" style="color:var(--color-mocha);"></p>
                 <button type="button" id="btn-restart"
-                        class="btn btn-lg border-2 border-amber-800 text-white px-8 pointer-events-auto bg-[#96603c] hover:bg-[#7a4e31] focus-visible:bg-[#7a4e31] transition-colors"
+                        class="btn btn-lg border-2 border-amber-800 text-white px-8 pointer-events-auto bg-caramel hover:bg-espresso focus-visible:bg-espresso transition-colors"
                         style="font-family:'Caveat',cursive; font-size:1.4rem;">
                     Play Again
                 </button>
             </div>
         </div>
 
-        <p class="text-center mt-8 text-lg" style="font-family:'Caveat',cursive; color:#96603c;">
+        <p class="text-center mt-8 text-lg" style="font-family:'Caveat',cursive; color:var(--color-caramel);">
             Or head back to safety&hellip;
         </p>
 
-        <a href="/" class="btn btn-lg mt-3 border-2 border-[#fd6155] text-white px-8 bg-[#fd6155] hover:bg-[#e04e43] focus-visible:bg-[#e04e43] transition-colors"
+        <a href="/" class="btn btn-lg mt-3 border-2 border-coral-deep text-white px-8 bg-coral-deep hover:bg-[#a32d2d] focus-visible:bg-[#a32d2d] transition-colors"
            style="font-family:'Caveat',cursive; font-size:1.3rem;">
             Back to Home
         </a>

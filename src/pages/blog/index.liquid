@@ -125,7 +125,7 @@
         }
         .brand-heading {
             font-family: 'Pacifico', cursive;
-            color: #a36942;
+            color: var(--color-mocha);
             text-shadow: 1.5px 2.5px 0px #fd6155;
         }
         @media (min-width: 640px) {
@@ -148,12 +148,12 @@
             white-space: nowrap;
         }
         .filter-tab:hover {
-            border-color: #a36942;
-            color: #a36942;
+            border-color: var(--color-mocha);
+            color: var(--color-mocha);
         }
         .filter-tab.active {
-            background-color: #a36942;
-            border-color: #a36942;
+            background-color: var(--color-mocha);
+            border-color: var(--color-mocha);
             color: white;
         }
 
@@ -166,7 +166,7 @@
 
         .search-input:focus {
             box-shadow: 0 0 0 3px rgba(163, 105, 66, 0.2);
-            border-color: #a36942;
+            border-color: var(--color-mocha);
         }
     </style>
     
@@ -392,7 +392,7 @@
             <div class="not-prose grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-3" id="blogGrid">
                 {% for post in blog.posts %}
                 <a class="blog-card-item group bg-white rounded-2xl border border-stone-200 overflow-hidden transition-all duration-200 hover:-translate-y-1 hover:shadow-lg focus:outline-none focus:ring-2 focus:ring-offset-2"
-                    style="--tw-ring-color: #a36942;"
+                    style="--tw-ring-color: var(--color-mocha);"
                     href="{{ post.link }}"
                     aria-label="Read {{ post.name }}"
                     data-title="{{ post.name | downcase }}"
@@ -406,30 +406,30 @@
                             alt="{{ post.name }}" />
                     </figure>
                     <div class="p-4 pt-3">
-                        <h2 class="text-lg font-semibold text-stone-900 mb-1 group-hover:text-[#a36942] transition-colors">{{ post.name }}</h2>
+                        <h2 class="text-lg font-semibold text-stone-900 mb-1 group-hover:text-mocha transition-colors">{{ post.name }}</h2>
                         <p class="text-sm text-stone-500 line-clamp-2">{{ post.description }}</p>
 
                         <div class="flex flex-wrap gap-1.5 mt-4">
                             {% for platform in post.platform %}
                             {% assign ptag = platform | downcase %}
                             {% if ptag == "blog" %}
-                            <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium text-white" style="background-color:#a36942;">{{ platform }}</span>
+                            <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium text-white" style="background-color:var(--color-mocha);">{{ platform }}</span>
                             {% elsif ptag == "hack" %}
-                            <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium text-white" style="background-color:#fd6155;">{{ platform }}</span>
+                            <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium text-white" style="background-color:var(--color-coral);">{{ platform }}</span>
                             {% elsif ptag == "guide" %}
-                            <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium text-white" style="background-color:#c4813a;">{{ platform }}</span>
+                            <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium text-white" style="background-color:var(--color-toffee);">{{ platform }}</span>
                             {% elsif ptag == "web" or ptag == "nodejs" %}
-                            <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium text-white" style="background-color:#7a4e31;">{{ platform }}</span>
+                            <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium text-white" style="background-color:var(--color-espresso);">{{ platform }}</span>
                             {% elsif ptag == "update" %}
-                            <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium text-white" style="background-color:#96603c;">{{ platform }}</span>
+                            <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium text-white" style="background-color:var(--color-caramel);">{{ platform }}</span>
                             {% elsif ptag == "company" %}
-                            <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium text-white" style="background-color:#3d2b1f;">{{ platform }}</span>
+                            <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium text-white" style="background-color:var(--color-cocoa);">{{ platform }}</span>
                             {% elsif ptag == "ios" or ptag == "ipad" %}
                             <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium text-white" style="background-color:#5b8c5a;">{{ platform }}</span>
                             {% elsif ptag == "social" %}
                             <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium text-white" style="background-color:#8b6f4e;">{{ platform }}</span>
                             {% else %}
-                            <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium text-white" style="background-color:#a36942;">{{ platform }}</span>
+                            <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium text-white" style="background-color:var(--color-mocha);">{{ platform }}</span>
                             {% endif %}
                             {% endfor %}
                         </div>

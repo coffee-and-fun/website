@@ -69,7 +69,7 @@
 
         .brand-heading {
             font-family: 'Pacifico', cursive;
-            color: #a36942;
+            color: var(--color-mocha);
             text-shadow: 1.5px 2.5px 0px #fd6155;
         }
         @media (min-width: 640px) {
@@ -87,7 +87,7 @@
             display: block;
             font-size: 0.8rem;
             font-weight: 600;
-            color: #7a4e31;
+            color: var(--color-espresso);
             margin-bottom: 0.35rem;
             text-transform: uppercase;
             letter-spacing: 0.03em;
@@ -99,13 +99,13 @@
             border: 1.5px solid #e7e0d8;
             border-radius: 0.5rem;
             font-size: 0.925rem;
-            color: #3d2b1f;
+            color: var(--color-cocoa);
             background: #fefcfa;
             transition: border-color 0.2s;
             outline: none;
         }
         .form-input:focus {
-            border-color: #a36942;
+            border-color: var(--color-mocha);
             box-shadow: 0 0 0 3px rgba(163, 105, 66, 0.12);
         }
         .form-input::placeholder {
@@ -138,7 +138,7 @@
             transition: all 0.2s;
         }
         .btn-primary-brand {
-            background: #a36942;
+            background: var(--color-mocha);
             color: white;
         }
         .btn-primary-brand:hover { background: #8b5a38; }
@@ -149,31 +149,31 @@
 
         .btn-secondary-brand {
             background: transparent;
-            color: #a36942;
+            color: var(--color-mocha);
             border: 1.5px solid #a36942;
         }
         .btn-secondary-brand:hover {
-            background: #a36942;
+            background: var(--color-mocha);
             color: white;
         }
 
         .btn-ghost-brand {
             background: transparent;
-            color: #96603c;
+            color: var(--color-caramel);
             border: 1.5px solid #e7e0d8;
         }
         .btn-ghost-brand:hover {
-            border-color: #a36942;
-            color: #a36942;
+            border-color: var(--color-mocha);
+            color: var(--color-mocha);
         }
 
         .btn-danger {
             background: transparent;
-            color: #fd6155;
+            color: var(--color-coral);
             border: 1.5px solid #fdd;
         }
         .btn-danger:hover {
-            background: #fd6155;
+            background: var(--color-coral);
             color: white;
         }
 
@@ -230,7 +230,7 @@
             font-size: 0.875rem;
             font-weight: 500;
             color: white;
-            background: #a36942;
+            background: var(--color-mocha);
             box-shadow: 0 4px 12px rgba(0,0,0,0.15);
             z-index: 999;
             animation: toastIn 0.3s ease;
@@ -267,7 +267,7 @@
         .section-title {
             font-size: 0.8rem;
             font-weight: 700;
-            color: #a36942;
+            color: var(--color-mocha);
             text-transform: uppercase;
             letter-spacing: 0.05em;
             margin-bottom: 1rem;
@@ -394,8 +394,8 @@
                             <div style="display: flex; flex-direction: column; gap: 0.75rem;">
                                 <div v-for="(item, index) in receipt.items" :key="index" class="item-row">
                                     <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.5rem;">
-                                        <span style="font-size: 0.75rem; font-weight: 600; color: #96603c;">{% raw %}ITEM {{ index + 1 }}{% endraw %}</span>
-                                        <button v-if="receipt.items.length > 1" @click="removeItem(index)" style="background: none; border: none; color: #fd6155; cursor: pointer; font-size: 1.1rem; padding: 0; line-height: 1;">&times;</button>
+                                        <span style="font-size: 0.75rem; font-weight: 600; color: var(--color-caramel);">{% raw %}ITEM {{ index + 1 }}{% endraw %}</span>
+                                        <button v-if="receipt.items.length > 1" @click="removeItem(index)" style="background: none; border: none; color: var(--color-coral); cursor: pointer; font-size: 1.1rem; padding: 0; line-height: 1;">&times;</button>
                                     </div>
                                     <div style="display: grid; grid-template-columns: 1fr auto auto; gap: 0.5rem;">
                                         <input type="text" v-model="item.description" placeholder="Description" class="form-input" style="font-size: 0.85rem; padding: 0.45rem 0.65rem;" />

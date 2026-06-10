@@ -119,7 +119,7 @@
         </div>
         <a
           href="/help/"
-          class="btn btn-circle btn-xl text-white hover:opacity-90 focus:ring-2 focus:ring-offset-2 focus:outline-none touch-manipulation transition-all duration-200" style="background-color: #fd6155; border-color: #fd6155; --tw-ring-color: #fd6155;"
+          class="btn btn-circle btn-xl text-white hover:opacity-90 focus:ring-2 focus:ring-offset-2 focus:outline-none touch-manipulation transition-all duration-200" style="background-color: var(--color-coral); border-color: var(--color-coral); --tw-ring-color: var(--color-coral);"
           aria-label="Go back to all help guides"
         >
           <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" class="h-6 w-6" aria-hidden="true">
@@ -172,19 +172,19 @@
           <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 py-4 border-t border-b border-stone-200">
             <div class="flex flex-wrap items-center gap-2 sm:gap-3">
               {% if app %}
-              <span class="inline-flex items-center px-3 py-1 rounded-full text-xs font-medium text-white" style="background-color: #a36942;">
+              <span class="inline-flex items-center px-3 py-1 rounded-full text-xs font-medium text-white" style="background-color: var(--color-mocha);">
                 {{ app }}
               </span>
               {% endif %}
               {% if category %}
-              <span class="inline-flex items-center px-3 py-1 rounded-full text-xs font-medium text-white" style="background-color: #fd6155;">
+              <span class="inline-flex items-center px-3 py-1 rounded-full text-xs font-medium text-white" style="background-color: var(--color-coral);">
                 {{ category }}
               </span>
               {% endif %}
               {% if date %}
               <time
                 datetime="{{date | formatDateWithOrdinal }}"
-                class="inline-flex items-center px-3 py-1 rounded-full text-xs font-medium text-white" style="background-color: #c4813a;"
+                class="inline-flex items-center px-3 py-1 rounded-full text-xs font-medium text-white" style="background-color: var(--color-toffee);"
               >
                 Updated {{date | formatDateWithOrdinal }}
               </time>
@@ -192,7 +192,7 @@
             </div>
             {% if time %}
             <div class="flex items-center">
-              <span class="inline-flex items-center px-3 py-1 rounded-full text-xs font-medium text-white" style="background-color: #96603c;">
+              <span class="inline-flex items-center px-3 py-1 rounded-full text-xs font-medium text-white" style="background-color: var(--color-caramel);">
                 {{time}}
               </span>
             </div>
@@ -327,13 +327,13 @@
           <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
             <div class="flex items-center gap-3">
               <span class="text-sm font-medium text-stone-500">Didn't solve it?</span>
-              <a href="/support/" class="inline-flex items-center gap-1.5 text-sm font-semibold transition-colors duration-200" style="color: #a36942;">
+              <a href="/support/" class="inline-flex items-center gap-1.5 text-sm font-semibold transition-colors duration-200" style="color: var(--color-mocha);">
                 Contact Support &rarr;
               </a>
             </div>
             <a
               href="/help/"
-              class="text-sm font-medium transition-colors duration-200" style="color: #a36942;"
+              class="text-sm font-medium transition-colors duration-200" style="color: var(--color-mocha);"
             >
               &larr; More Guides
             </a>
