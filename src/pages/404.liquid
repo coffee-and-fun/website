@@ -611,10 +611,19 @@ permalink: /404.html
             }
         }
 
-        function loop() {
+        /* Fixed timestep: same game speed on 60Hz and 120Hz displays */
+        const STEP = 1000 / 60;
+        let lastTs = null, acc = 0;
+        function loop(ts) {
             if (!running) return;
-            update();
-            if (!running) return;
+            if (lastTs === null) lastTs = ts;
+            acc += Math.min(100, ts - lastTs);
+            lastTs = ts;
+            while (acc >= STEP) {
+                update();
+                if (!running) return;
+                acc -= STEP;
+            }
             draw();
             animId = requestAnimationFrame(loop);
         }
@@ -631,8 +640,10 @@ permalink: /404.html
             overlayEnd.classList.add('hidden');
             buildWave(1);
             running = true;
+            lastTs = null;
+            acc = 0;
             canvas.focus();
-            loop();
+            animId = requestAnimationFrame(loop);
         }
 
         function endGame(reason) {
