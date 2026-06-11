@@ -132,257 +132,299 @@
 </head>
 
 <body>
-    {% assign showDonation = false %}
-    {% assign showTriviaApp = false %}
-    {% assign showKeyboardModal = false %}
-    {% assign showInstantApp = true %}
-    
+    {% assign showFun = true %}
+    {% assign showMiddleBadgeWithText = true %}
     {% include header.liquid %}
-    
-    <main id="main-content" class="mx-auto max-w-7xl">
-        <!-- Hero Section -->
-        <div class="mb-16 mt-16 sm:mb-24 sm:mt-24">
-            <div class="relative">
-                <div class="absolute inset-2 bottom-0 rounded-4xl ring-1 ring-black/5 ring-inset bg-gradient-to-br from-[#fcd683] via-[#f7c4ba] to-[#e25440]"></div>
-                <div class="relative px-6 lg:px-8">
-                    <div class="mx-auto max-w-2xl lg:max-w-7xl">
-                        <div class="pt-16 pb-24 sm:pt-24 sm:pb-32 md:pt-32 md:pb-48 mx-auto max-w-3xl text-center">
-                            <!-- Sketch: "shhh..." with arrow -->
-                            <div class="sketch-note text-lg sm:text-xl" style="top: 6%; right: 8%; transform: rotate(-5deg); color: var(--color-espresso);">
-                                shhh...
-                                <svg width="40" height="34" style="bottom: -30px; left: 12px;">
-                                    <path d="M20 2 C16 12, 10 20, 8 28" class="sketch-arrow" style="stroke: var(--color-espresso);"/>
-                                    <path d="M2 22 L8 30 L14 22" class="sketch-arrow" style="stroke: var(--color-espresso);"/>
-                                </svg>
-                            </div>
 
-                            <!-- Sketch: star left -->
-                            <div class="sketch-note sketch-float-slow" style="top: 18%; left: 6%; --sketch-rotate: -12deg;">
-                                <svg width="22" height="22" viewBox="0 0 30 30">
-                                    <path d="M15 2 L17 11 L26 11 L19 17 L22 26 L15 21 L8 26 L11 17 L4 11 L13 11 Z" fill="none" stroke="#7a4e31" stroke-width="1.5" stroke-linejoin="round" opacity="0.45"/>
-                                </svg>
-                            </div>
+    <main id="main-content">
 
-                            <h1 class="brand-heading text-4xl sm:text-5xl md:text-6xl leading-[1.3] sm:leading-[1.3] md:leading-[1.3]" style="color: var(--color-cocoa); text-shadow: 2px 3.5px 0px rgba(254, 245, 236, 0.6);">
-                                Instant Incognito
-                            </h1>
-                            <p class="mt-6 text-2xl sm:text-3xl font-semibold text-stone-900 tracking-tight">
-                                Private when it matters. Automatically.
-                            </p>
-                            <p class="mt-5 max-w-2xl text-lg sm:text-xl font-medium text-stone-800 mx-auto">
-                                Pick your sites once. From then on, they always open in incognito — no extra clicks, no forgetting.
-                                Available for
-                                <a href="https://chromewebstore.google.com/detail/instant-incognito/nmpkielhmiedcangemghlabbhadpmkij"
-                                   target="_blank"
-                                   rel="noopener noreferrer"
-                                   class="underline hover:opacity-80 transition-opacity" style="color: var(--color-espresso);">Chrome</a>,
-                                Edge, Firefox, and Safari.
-                            </p>
-                            
-                            <div class="mt-12 flex flex-col sm:flex-row items-center justify-center gap-4">
-                                <a href="https://chromewebstore.google.com/detail/instant-incognito/nmpkielhmiedcangemghlabbhadpmkij"
-                                   target="_blank"
-                                   rel="noopener noreferrer"
-                                   title="Download Instant Incognito"
-                                   aria-label="Download Instant Incognito"
-                                   class="btn btn-lg w-full sm:w-auto rounded-lg font-semibold text-white border-0 bg-caramel hover:bg-espresso shadow-[0_10px_15px_-3px_rgba(122,78,49,0.35)] hover:shadow-xl hover:-translate-y-0.5 focus:outline-none focus-visible:ring-2 focus-visible:ring-espresso focus-visible:ring-offset-2 transition-all duration-200">
-                                    <svg class="w-5 h-5 mr-2" viewBox="0 0 24 24" fill="currentColor">
-                                        <path d="M19 9h-4V3H9v6H5l7 7 7-7zM5 18v2h14v-2H5z"/>
-                                    </svg>
-                                    Download Today
-                                </a>
-                                <a href="https://payments.coffeeandfun.com/b/3csaGD5Q09KYbXq4gO"
-                                   target="_blank"
-                                   rel="noopener noreferrer"
-                                   class="btn btn-lg btn-dash btn-neutral w-full sm:w-auto">
-                                    <svg class="w-5 h-5 mr-2" viewBox="0 0 24 24" fill="currentColor">
-                                        <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/>
-                                    </svg>
-                                    Support Development
-                                </a>
-                            </div>
-                            
-                            <!-- Trust row -->
-                            <p class="mt-8 text-xl sm:text-2xl" style="font-family: 'Caveat', cursive; color: var(--color-espresso);">
-                                Free forever&nbsp;&nbsp;&middot;&nbsp;&nbsp;Zero tracking&nbsp;&nbsp;&middot;&nbsp;&nbsp;Set & forget
-                            </p>
+        <!-- Hero -->
+        <section class="relative mx-auto max-w-5xl px-4 sm:px-6 lg:px-8 py-20 sm:py-28 text-center overflow-visible">
 
-                            <!-- Video Demo -->
-                            <div class="mx-auto mt-16 flow-root max-w-4xl sm:mt-24">
-                                <div class="-m-2 rounded-2xl bg-stone-600 p-2 lg:-m-4 lg:rounded-2xl lg:p-4">
-                                    <video aria-label="Instant Incognito demonstration"
-                                           autoplay
-                                           controls
-                                           loop
-                                           muted
-                                           playsinline
-                                           width="2432"
-                                           height="1442"
-                                           class="rounded-md shadow-2xl ring-1 ring-gray-900/10">
-                                        <source src="/assets/videos/instant.mp4" type="video/mp4" />
-                                        Your browser does not support the video tag.
-                                    </video>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+            <!-- Sketch: "shhh..." with arrow -->
+            <div class="sketch-note text-lg sm:text-xl" style="top: 16px; right: 5%; transform: rotate(-5deg);">
+                shhh...
+                <svg width="45" height="40" style="bottom: -36px; left: 12px;">
+                    <path d="M22 2 C18 14, 10 22, 6 35" class="sketch-arrow"/>
+                    <path d="M0 30 L6 37 L12 30" class="sketch-arrow"/>
+                </svg>
+            </div>
+
+            <!-- Sketch: star left -->
+            <div class="sketch-note sketch-float-slow" style="top: 20%; left: 4%; --sketch-rotate: -12deg;">
+                <svg width="22" height="22" viewBox="0 0 30 30">
+                    <path d="M15 2 L17 11 L26 11 L19 17 L22 26 L15 21 L8 26 L11 17 L4 11 L13 11 Z" fill="none" stroke="#fd6155" stroke-width="1.5" stroke-linejoin="round" opacity="0.4"/>
+                </svg>
+            </div>
+
+            <!-- Sketch: checkmark right -->
+            <div class="sketch-note sketch-wiggle" style="top: 48%; right: 4%; --sketch-rotate: 5deg;">
+                <svg width="20" height="18" viewBox="0 0 22 20">
+                    <path d="M3 10 L9 16 L19 4" class="sketch-check"/>
+                </svg>
+            </div>
+
+            <!-- Sketch: squiggle bottom-left -->
+            <div class="sketch-note" style="bottom: 10%; left: 5%;">
+                <svg width="50" height="14" viewBox="0 0 50 14">
+                    <path d="M2 8 C8 2, 14 12, 20 7 C26 2, 32 12, 38 7 C44 2, 48 10, 48 7" class="sketch-squiggle"/>
+                </svg>
+            </div>
+
+            <!-- Sketch: heart floating right -->
+            <div class="sketch-note sketch-float" style="bottom: 22%; right: 9%; --sketch-rotate: 8deg;">
+                <svg width="18" height="16" viewBox="0 0 24 22">
+                    <path d="M12 21 C12 21, 2 14, 2 7 C2 3, 5 1, 8 2 C10 3, 11 5, 12 6 C13 5, 14 3, 16 2 C19 1, 22 3, 22 7 C22 14, 12 21, 12 21 Z" class="sketch-heart"/>
+                </svg>
+            </div>
+
+            <img
+                class="mx-auto block w-24 h-24 sm:w-28 sm:h-28 object-contain mb-6"
+                src="/assets/images/instant-incognito.png"
+                alt="Instant Incognito app icon"
+                width="120"
+                height="120"
+            />
+
+            <h1 class="brand-heading text-4xl sm:text-5xl lg:text-6xl leading-[1.3] sm:leading-[1.3] lg:leading-[1.3]">
+                Instant Incognito
+            </h1>
+
+            <p class="mt-6 text-2xl sm:text-3xl font-semibold text-stone-900 tracking-tight">
+                Private when it matters. Automatically.
+            </p>
+
+            <p class="mt-5 text-lg sm:text-xl text-stone-600 max-w-2xl mx-auto leading-relaxed text-balance">
+                Pick your sites once. From then on, they always open in incognito mode — no extra clicks, no forgetting. For Chrome, Edge, Firefox, and Safari.
+            </p>
+
+            <div class="mt-10 flex flex-col sm:flex-row justify-center items-center gap-3">
+                <a
+                    href="https://chromewebstore.google.com/detail/instant-incognito/nmpkielhmiedcangemghlabbhadpmkij"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    title="Add Instant Incognito to Chrome"
+                    class="btn btn-lg rounded-lg px-8 font-semibold text-white border-0 bg-caramel hover:bg-espresso shadow-[0_10px_15px_-3px_rgba(122,78,49,0.35)] hover:shadow-xl hover:-translate-y-0.5 focus:outline-none focus-visible:ring-2 focus-visible:ring-espresso focus-visible:ring-offset-2 transition-all duration-200"
+                >
+                    Add to Chrome — Free
+                </a>
+                <a
+                    href="https://payments.coffeeandfun.com/b/3csaGD5Q09KYbXq4gO"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    title="Support the development of Instant Incognito"
+                    class="btn btn-lg btn-outline rounded-lg px-8 font-semibold border-2 border-coral-deep text-coral-deep hover:bg-coral-deep hover:text-white focus-visible:bg-coral-deep focus-visible:text-white hover:-translate-y-0.5 focus-visible:-translate-y-0.5 focus:outline-none focus-visible:ring-2 focus-visible:ring-coral-deep focus-visible:ring-offset-2 transition-all duration-200"
+                >
+                    Support Development
+                </a>
+            </div>
+
+            <!-- Rating + trust row -->
+            <p class="mt-8 text-sm font-medium text-stone-700">
+                <span class="text-toffee" aria-hidden="true">★</span> 4.7 · 218 ratings on the Chrome Web Store
+            </p>
+            <p class="mt-3 text-xl sm:text-2xl text-caramel" style="font-family: 'Caveat', cursive;">
+                Free forever&nbsp;&nbsp;&middot;&nbsp;&nbsp;Zero tracking&nbsp;&nbsp;&middot;&nbsp;&nbsp;Set & forget
+            </p>
+        </section>
+
+        <!-- Demo -->
+        <section class="relative mx-auto max-w-4xl px-4 sm:px-6 lg:px-8 pb-16 sm:pb-24 overflow-visible">
+            <!-- Sketch: "see it in action" -->
+            <div class="sketch-note text-base sm:text-lg" style="top: -24px; left: 4%; transform: rotate(-4deg);">
+                see it in action
+                <svg width="35" height="28" style="bottom: -24px; left: 24px;">
+                    <path d="M18 2 C14 10, 10 16, 8 24" class="sketch-arrow"/>
+                    <path d="M2 20 L8 26 L13 19" class="sketch-arrow"/>
+                </svg>
+            </div>
+
+            <div class="rounded-2xl bg-stone-600 p-2 lg:p-3 shadow-xl">
+                <video
+                    aria-label="Instant Incognito demonstration"
+                    autoplay
+                    controls
+                    loop
+                    muted
+                    playsinline
+                    width="2432"
+                    height="1442"
+                    class="rounded-xl w-full"
+                >
+                    <source src="/assets/videos/instant.mp4" type="video/mp4" />
+                    Your browser does not support the video tag.
+                </video>
+            </div>
+        </section>
+
+        <!-- Features -->
+        <section class="relative mx-auto max-w-5xl px-4 sm:px-6 lg:px-8 py-16 sm:py-20 overflow-visible">
+            <!-- Sketch: "the good bits!" -->
+            <div class="sketch-note text-lg sm:text-xl" style="top: 0; left: 4%; transform: rotate(-5deg);">
+                the good bits!
+                <svg width="40" height="34" style="bottom: -30px; left: 18px;">
+                    <path d="M20 2 C16 12, 10 20, 8 28" class="sketch-arrow"/>
+                    <path d="M2 22 L8 30 L14 22" class="sketch-arrow"/>
+                </svg>
+            </div>
+
+            <!-- Sketch: sparkle right -->
+            <div class="sketch-note sketch-float" style="top: 10%; right: 3%; --sketch-rotate: 0deg;">
+                <svg width="24" height="24" viewBox="0 0 28 28">
+                    <path d="M14 2 L14 26" class="sketch-sparkle"/>
+                    <path d="M2 14 L26 14" class="sketch-sparkle"/>
+                    <path d="M5 5 L23 23" class="sketch-sparkle"/>
+                    <path d="M23 5 L5 23" class="sketch-sparkle"/>
+                </svg>
+            </div>
+
+            <h2 class="brand-heading text-3xl sm:text-4xl leading-[1.3] text-center mb-12 sm:mb-16">Privacy made simple</h2>
+
+            <div class="grid md:grid-cols-3 gap-6 sm:gap-8">
+                <div class="bg-white rounded-2xl border border-stone-200 p-6 sm:p-8 transition-all duration-200 hover:-translate-y-1 hover:shadow-lg">
+                    <div class="text-4xl mb-4" aria-hidden="true">🕵️</div>
+                    <h3 class="text-lg font-semibold text-stone-900 mb-2">Auto-detection</h3>
+                    <p class="text-stone-600">Visit a site on your list and it instantly switches to an incognito window. You never have to think about it.</p>
+                </div>
+                <div class="bg-white rounded-2xl border border-stone-200 p-6 sm:p-8 transition-all duration-200 hover:-translate-y-1 hover:shadow-lg">
+                    <div class="text-4xl mb-4" aria-hidden="true">🔒</div>
+                    <h3 class="text-lg font-semibold text-stone-900 mb-2">Zero tracking</h3>
+                    <p class="text-stone-600">We don't monitor, store, or share your browsing activity. Your settings live on your device — and nowhere else.</p>
+                </div>
+                <div class="bg-white rounded-2xl border border-stone-200 p-6 sm:p-8 transition-all duration-200 hover:-translate-y-1 hover:shadow-lg">
+                    <div class="text-4xl mb-4" aria-hidden="true">🎁</div>
+                    <h3 class="text-lg font-semibold text-stone-900 mb-2">Free forever</h3>
+                    <p class="text-stone-600">Every feature, unlocked, at no cost. Donations are welcome but never required — and never gate anything.</p>
                 </div>
             </div>
-        </div>
-        
-        <!-- Features Section -->
-        <div class="mb-16">
-            <div class="mx-auto max-w-7xl px-6 lg:px-8">
-                <div class="relative mx-auto max-w-2xl text-center mb-12 overflow-visible">
-                    <!-- Sketch: checkmark left of heading -->
-                    <div class="sketch-note sketch-wiggle" style="top: 10%; left: 0%; --sketch-rotate: -6deg;">
-                        <svg width="20" height="18" viewBox="0 0 22 20">
-                            <path d="M3 10 L9 16 L19 4" class="sketch-check"/>
-                        </svg>
-                    </div>
-                    <!-- Sketch: three dots right -->
-                    <div class="sketch-note" style="top: 30%; right: 0%;">
-                        <svg width="24" height="8" viewBox="0 0 24 8">
-                            <circle cx="4" cy="4" r="2.5" class="sketch-dots"/>
-                            <circle cx="12" cy="4" r="2.5" class="sketch-dots"/>
-                            <circle cx="20" cy="4" r="2.5" class="sketch-dots"/>
-                        </svg>
-                    </div>
-                    <h2 class="brand-heading text-3xl sm:text-4xl leading-[1.3]">Privacy Made Simple</h2>
-                    <p class="mt-4 text-lg text-stone-600">Set it once, browse privately forever</p>
+        </section>
+
+        <!-- How it works -->
+        <section class="relative mx-auto max-w-5xl px-4 sm:px-6 lg:px-8 py-16 sm:py-20 overflow-visible">
+            <!-- Sketch: "easy as 1-2-3" -->
+            <div class="sketch-note text-base sm:text-lg" style="top: 20px; right: 6%; transform: rotate(4deg); opacity: 0.75;">
+                easy as 1-2-3
+            </div>
+
+            <h2 class="brand-heading text-3xl sm:text-4xl leading-[1.3] text-center mb-12 sm:mb-16">How it works</h2>
+
+            <div class="grid md:grid-cols-3 gap-10 sm:gap-12 text-center">
+                <div>
+                    <div class="w-14 h-14 rounded-full bg-cocoa text-white flex items-center justify-center mx-auto mb-4 text-xl font-bold">1</div>
+                    <h3 class="text-lg font-semibold text-stone-900 mb-1">Add a site</h3>
+                    <p class="text-stone-600">Put any website on your private list.</p>
                 </div>
-                <div class="grid md:grid-cols-3 gap-8">
-                    <div class="text-center">
-                        <div class="bg-coral/10 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4">
-                            <svg class="w-8 h-8 text-coral-deep" fill="currentColor" viewBox="0 0 24 24">
-                                <path d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4z"/>
-                            </svg>
-                        </div>
-                        <h3 class="text-lg font-semibold mb-2">Zero Tracking</h3>
-                        <p class="text-stone-600">We don't track, store, or monitor your browsing activity</p>
-                    </div>
-                    <div class="text-center">
-                        <div class="bg-coral/10 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4">
-                            <svg class="w-8 h-8 text-coral-deep" fill="currentColor" viewBox="0 0 24 24">
-                                <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/>
-                            </svg>
-                        </div>
-                        <h3 class="text-lg font-semibold mb-2">Auto-Detection</h3>
-                        <p class="text-stone-600">Automatically switches to incognito for your selected sites</p>
-                    </div>
-                    <div class="text-center">
-                        <div class="bg-coral/10 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4">
-                            <svg class="w-8 h-8 text-coral-deep" fill="currentColor" viewBox="0 0 24 24">
-                                <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
-                            </svg>
-                        </div>
-                        <h3 class="text-lg font-semibold mb-2">Free Forever</h3>
-                        <p class="text-stone-600">All features available at no cost, donations optional</p>
-                    </div>
+                <div>
+                    <div class="w-14 h-14 rounded-full bg-cocoa text-white flex items-center justify-center mx-auto mb-4 text-xl font-bold">2</div>
+                    <h3 class="text-lg font-semibold text-stone-900 mb-1">Browse normally</h3>
+                    <p class="text-stone-600">The extension watches quietly in the background.</p>
+                </div>
+                <div>
+                    <div class="w-14 h-14 rounded-full bg-cocoa text-white flex items-center justify-center mx-auto mb-4 text-xl font-bold">3</div>
+                    <h3 class="text-lg font-semibold text-stone-900 mb-1">Stay private</h3>
+                    <p class="text-stone-600">Listed sites open in incognito, every time.</p>
                 </div>
             </div>
-        </div>
-        
-        <!-- FAQ Section -->
-        <div class="mb-16 mt-16 rounded-2xl bg-white shadow-md" id="privacy">
-            <div class="mx-auto max-w-7xl divide-y divide-gray-900/10 px-6 py-24 lg:px-8">
-                <h2 class="brand-heading text-3xl sm:text-4xl leading-[1.3] pb-8">
-                    Frequently Asked Questions
-                </h2>
-                <dl class="mt-10 space-y-8 divide-y divide-gray-900/10">
-                    <div class="pt-8 lg:grid lg:grid-cols-12 lg:gap-8">
-                        <dt class="text-lg font-semibold leading-7 text-black lg:col-span-5">
-                            What does Instant Incognito do?
-                        </dt>
-                        <dd class="mt-4 lg:col-span-7 lg:mt-0">
-                            <p class="text-lg leading-7 text-gray-700">
-                                It's like having a smart assistant that automatically opens certain websites in private mode. 
-                                Add sites to your list, and whenever you visit them, they'll open in incognito automatically - 
-                                keeping your browsing private without any extra clicks.
-                            </p>
-                        </dd>
+        </section>
+
+        <!-- FAQ -->
+        <section class="relative mx-auto max-w-3xl px-4 sm:px-6 lg:px-8 py-16 sm:py-20 overflow-visible" id="faq">
+            <!-- Sketch: dashed circle -->
+            <div class="sketch-note" style="top: 30px; left: 0%;">
+                <svg width="28" height="28" viewBox="0 0 36 36">
+                    <circle cx="18" cy="18" r="12" class="sketch-circle"/>
+                </svg>
+            </div>
+
+            <h2 class="brand-heading text-3xl sm:text-4xl leading-[1.3] text-center mb-12">Frequently asked questions</h2>
+
+            <div class="space-y-4">
+                <div class="collapse collapse-plus bg-white border border-stone-200 rounded-2xl">
+                    <input type="radio" name="faq-accordion" checked="checked" />
+                    <div class="collapse-title text-lg font-semibold text-stone-900">What does Instant Incognito do?</div>
+                    <div class="collapse-content">
+                        <p class="text-stone-600">It's like having a smart assistant that automatically opens certain websites in private mode. Add sites to your list, and whenever you visit them, they'll open in incognito automatically — keeping your browsing private without any extra clicks.</p>
                     </div>
-                    
-                    <div class="pt-8 lg:grid lg:grid-cols-12 lg:gap-8">
-                        <dt class="text-lg font-semibold leading-7 text-black lg:col-span-5">
-                            Do you track or store my data?
-                        </dt>
-                        <dd class="mt-4 lg:col-span-7 lg:mt-0">
-                            <p class="text-lg leading-7 text-gray-700">
-                                <strong>Absolutely not.</strong> Your privacy is our priority:
-                            </p>
-                            <ul class="mt-4 space-y-2 text-gray-700">
+                </div>
+
+                <div class="collapse collapse-plus bg-white border border-stone-200 rounded-2xl">
+                    <input type="radio" name="faq-accordion" />
+                    <div class="collapse-title text-lg font-semibold text-stone-900">Do you track or store my data?</div>
+                    <div class="collapse-content">
+                        <div class="text-stone-600">
+                            <p><strong>Absolutely not.</strong> Your privacy is our priority:</p>
+                            <ul class="mt-3 space-y-2 list-disc list-inside">
                                 <li><strong>Zero Tracking:</strong> We don't monitor your browsing activity</li>
                                 <li><strong>No Data Storage:</strong> Your settings stay on your device only</li>
                                 <li><strong>Complete Privacy:</strong> What you browse is your business alone</li>
                             </ul>
-                        </dd>
+                        </div>
                     </div>
-                    
-                    <div class="pt-8 lg:grid lg:grid-cols-12 lg:gap-8">
-                        <dt class="text-lg font-semibold leading-7 text-black lg:col-span-5">
-                            What permissions does it need?
-                        </dt>
-                        <dd class="mt-4 lg:col-span-7 lg:mt-0">
-                            <div class="space-y-4 text-gray-700">
-                                <p><strong>webNavigation:</strong> Detects when you're navigating to a website so we can check if it should open in incognito</p>
-                                <p><strong>tabs:</strong> Allows opening and managing incognito tabs automatically</p>
-                                <p><strong>storage:</strong> Saves your settings locally on your device (never sent anywhere)</p>
-                            </div>
-                        </dd>
+                </div>
+
+                <div class="collapse collapse-plus bg-white border border-stone-200 rounded-2xl">
+                    <input type="radio" name="faq-accordion" />
+                    <div class="collapse-title text-lg font-semibold text-stone-900">What permissions does it need?</div>
+                    <div class="collapse-content">
+                        <div class="space-y-3 text-stone-600">
+                            <p><strong>webNavigation:</strong> Detects when you're navigating to a website so we can check if it should open in incognito</p>
+                            <p><strong>tabs:</strong> Allows opening and managing incognito tabs automatically</p>
+                            <p><strong>storage:</strong> Saves your settings locally on your device (never sent anywhere)</p>
+                        </div>
                     </div>
-                    
-                    <div class="pt-8 lg:grid lg:grid-cols-12 lg:gap-8">
-                        <dt class="text-lg font-semibold leading-7 text-black lg:col-span-5">
-                            Is it really free?
-                        </dt>
-                        <dd class="mt-4 lg:col-span-7 lg:mt-0">
-                            <p class="text-lg leading-7 text-gray-700">
-                                Yes! The extension is completely free to use with all features unlocked. 
-                                Donations are welcome but never required - they help us maintain and improve the extension, 
-                                but you'll never be locked out of any features.
-                            </p>
-                        </dd>
-                    </div>
-                </dl>
-            </div>
-        </div>
-        
-        <!-- CTA Section -->
-        <div class="my-16 rounded-2xl bg-gradient-to-br from-toffee/10 to-coral/10">
-            <div class="px-6 py-16 lg:px-8">
-                <div class="mx-auto max-w-2xl text-center">
-                    <img src="/assets/images/instant-incognito.png"
-                         alt="Instant Incognito logo"
-                         class="w-20 mx-auto mb-6" />
-                    <h2 class="brand-heading text-3xl sm:text-4xl leading-[1.3]">
-                        Ready for Private Browsing?
-                    </h2>
-                    <p class="mx-auto mt-6 max-w-xl text-xl leading-8 text-stone-700">
-                        Set up automatic incognito mode for your chosen websites in seconds.
-                    </p>
-                    <div class="mt-10 flex flex-col sm:flex-row items-center justify-center gap-4">
-                        <a href="https://chromewebstore.google.com/detail/instant-incognito/nmpkielhmiedcangemghlabbhadpmkij"
-                           target="_blank"
-                           rel="noopener noreferrer"
-                           class="btn btn-lg rounded-lg font-semibold text-white border-0 bg-caramel hover:bg-espresso shadow-[0_10px_15px_-3px_rgba(122,78,49,0.35)] hover:shadow-xl hover:-translate-y-0.5 focus:outline-none focus-visible:ring-2 focus-visible:ring-espresso focus-visible:ring-offset-2 transition-all duration-200"
-                           aria-label="Download Instant Incognito"
-                           title="Download Instant Incognito">
-                            Download for Chrome
-                        </a>
-                        <a href="https://payments.coffeeandfun.com/b/3csaGD5Q09KYbXq4gO"
-                           target="_blank"
-                           rel="noopener noreferrer"
-                           class="btn btn-lg btn-outline rounded-lg font-semibold border-2 border-coral-deep text-coral-deep hover:bg-coral-deep hover:text-white focus-visible:bg-coral-deep focus-visible:text-white hover:-translate-y-0.5 focus-visible:-translate-y-0.5 focus:outline-none focus-visible:ring-2 focus-visible:ring-coral-deep focus-visible:ring-offset-2 transition-all duration-200"
-                           aria-label="Support development">
-                            Support Us
-                        </a>
+                </div>
+
+                <div class="collapse collapse-plus bg-white border border-stone-200 rounded-2xl">
+                    <input type="radio" name="faq-accordion" />
+                    <div class="collapse-title text-lg font-semibold text-stone-900">Is it really free?</div>
+                    <div class="collapse-content">
+                        <p class="text-stone-600">Yes! The extension is completely free to use with all features unlocked. Donations are welcome but never required — they help us maintain and improve the extension, but you'll never be locked out of any features.</p>
                     </div>
                 </div>
             </div>
-        </div>
+        </section>
+
+        <!-- Final CTA -->
+        <section class="relative mx-auto max-w-5xl px-4 sm:px-6 lg:px-8 pt-12 sm:pt-16 pb-24 sm:pb-36 text-center overflow-visible">
+            <!-- Sketch: sparkle + "nobody's watching" -->
+            <div class="sketch-note text-lg sm:text-xl" style="top: 8px; left: 6%; transform: rotate(-8deg);">
+                <svg width="20" height="20" viewBox="0 0 20 20" style="position: relative; display: inline-block; margin-right: 4px; vertical-align: middle;">
+                    <path d="M10 0 L12 7 L20 7 L14 12 L16 20 L10 15 L4 20 L6 12 L0 7 L8 7 Z" fill="none" stroke="#fd6155" stroke-width="1.2" stroke-linejoin="round" opacity="0.5"/>
+                </svg>
+                your secret's safe
+            </div>
+
+            <!-- Sketch: swirl right -->
+            <div class="sketch-note" style="bottom: 18%; right: 4%;">
+                <svg width="28" height="28" viewBox="0 0 30 30">
+                    <path d="M15 15 C15 10, 20 8, 22 12 C24 16, 20 20, 15 18 C10 16, 8 10, 12 6 C16 2, 24 4, 26 10 C28 18, 22 26, 12 24" class="sketch-swirl"/>
+                </svg>
+            </div>
+
+            <h2 class="brand-heading text-4xl sm:text-5xl leading-[1.2] sm:leading-[1.2] mb-5">
+                Browse like nobody's watching
+            </h2>
+            <p class="text-xl sm:text-2xl text-stone-500 max-w-2xl mx-auto leading-relaxed mb-10">
+                Set up automatic incognito mode for your chosen websites in seconds.
+            </p>
+            <div class="flex flex-col sm:flex-row justify-center items-center gap-3">
+                <a
+                    href="https://chromewebstore.google.com/detail/instant-incognito/nmpkielhmiedcangemghlabbhadpmkij"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    title="Add Instant Incognito to Chrome"
+                    class="btn btn-lg rounded-lg px-8 sm:px-10 font-semibold text-white border-0 bg-caramel hover:bg-espresso shadow-[0_10px_15px_-3px_rgba(122,78,49,0.35)] hover:shadow-xl hover:-translate-y-0.5 focus:outline-none focus-visible:ring-2 focus-visible:ring-espresso focus-visible:ring-offset-2 transition-all duration-200"
+                >
+                    Add to Chrome — Free
+                </a>
+            </div>
+            <p class="mt-6 text-sm text-stone-500">
+                Questions? Email <a href="mailto:hello@coffeeandfun.com" class="underline hover:text-stone-700 transition-colors" style="color: var(--color-mocha);">hello@coffeeandfun.com</a> — a real human replies.
+            </p>
+        </section>
+
     </main>
-    
+
     {% include modals.liquid %}
     {% include footer.liquid %}
 </body>

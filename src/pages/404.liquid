@@ -10,7 +10,7 @@ permalink: /404.html
     <!-- Primary Meta Tags -->
     <title>404 — Page Not Found | Coffee & Fun</title>
     <meta name="title" content="404 — Page Not Found | Coffee & Fun" />
-    <meta name="description" content="Oops! This page spilled. Play a quick coffee bean game while you find your way back." />
+    <meta name="description" content="Oops! This page broke apart — and now it's attacking. Blast the runaway 404 in a quick game of Page Invaders while you find your way back." />
     <meta name="robots" content="noindex, nofollow" />
 
     <!-- Favicon -->
@@ -39,14 +39,13 @@ permalink: /404.html
             border-radius: 1rem;
             border: 3px solid #e8d5c4;
             background: #fef9f3;
-            cursor: none;
+            cursor: crosshair;
+            touch-action: none;
         }
         .game-canvas:focus {
             outline: 3px solid #fd6155;
             outline-offset: 2px;
         }
-        /* Custom cup cursor (hide default) */
-        .game-wrap:hover .game-canvas { cursor: none; }
 
         /* Score HUD */
         .hud {
@@ -68,9 +67,11 @@ permalink: /404.html
             align-items: center;
             justify-content: center;
             border-radius: 1rem;
-            background: rgba(254, 245, 236, 0.88);
+            background: rgba(254, 245, 236, 0.9);
             pointer-events: none;
             transition: opacity 0.3s ease;
+            padding: 1rem;
+            text-align: center;
         }
         .game-overlay.hidden { opacity: 0; pointer-events: none; }
         .game-overlay h2 {
@@ -98,7 +99,7 @@ permalink: /404.html
                 404
             </h1>
             <p class="text-xl md:text-2xl mt-2" style="font-family:'Caveat',cursive; color:var(--color-caramel);">
-                Oops — this page spilled!
+                Oops — this page broke apart... and it's attacking!
             </p>
 
             <!-- Sketch doodle: little arrow pointing down to game -->
@@ -113,34 +114,36 @@ permalink: /404.html
         <div class="game-wrap mt-8" id="game-wrap">
             <!-- HUD -->
             <div class="hud flex justify-between items-center mb-2 px-2">
-                <span>Caught: <span class="hud-value" id="hud-score">0</span></span>
-                <span>Missed: <span class="hud-value" id="hud-missed">0</span> / 5</span>
+                <span>Score: <span class="hud-value" id="hud-score">0</span></span>
+                <span>Mugs: <span class="hud-value" id="hud-lives">☕☕☕</span></span>
                 <span>Best: <span class="hud-value" id="hud-best">0</span></span>
             </div>
 
             <canvas class="game-canvas" id="game" width="480" height="400" tabindex="0"
-                    aria-label="Coffee bean catching game. Use mouse or touch to move the cup and catch falling beans."></canvas>
+                    aria-label="Page Invaders game. The broken 404 page attacks in waves of doodles. Move your coffee mug with mouse, touch, or arrow keys — it fires beans automatically."></canvas>
 
             <!-- Start overlay -->
             <div class="game-overlay" id="overlay-start">
-                <h2 class="text-3xl mb-2">Catch the Beans!</h2>
-                <p class="text-xl mb-4">Move the cup to catch falling coffee beans</p>
+                <h2 class="text-3xl mb-2">Page Invaders!</h2>
+                <p class="text-xl mb-1">The 404 broke loose and it's dive-bombing the site.</p>
+                <p class="text-lg mb-4">Move with mouse, touch, or ← → keys. Your mug fires by itself!</p>
                 <button type="button" id="btn-start"
                         class="btn btn-lg border-2 border-amber-800 text-white px-8 pointer-events-auto bg-caramel hover:bg-espresso focus-visible:bg-espresso transition-colors"
                         style="font-family:'Caveat',cursive; font-size:1.4rem;">
-                    Start Game
+                    Defend the Site
                 </button>
             </div>
 
             <!-- Game-over overlay -->
             <div class="game-overlay hidden" id="overlay-end">
-                <h2 class="text-3xl mb-1" id="end-title">Nice Try!</h2>
-                <p class="text-xl mb-1">You caught <span class="hud-value" id="end-score">0</span> beans</p>
-                <p class="text-lg mb-4" id="end-best" style="color:var(--color-mocha);"></p>
+                <h2 class="text-3xl mb-1" id="end-title">The Page Won!</h2>
+                <p class="text-xl mb-1">Score: <span class="hud-value" id="end-score">0</span> &middot; Wave <span class="hud-value" id="end-wave">1</span></p>
+                <p class="text-lg mb-1" id="end-best" style="color:var(--color-mocha);"></p>
+                <p class="text-lg mb-4" id="end-line"></p>
                 <button type="button" id="btn-restart"
                         class="btn btn-lg border-2 border-amber-800 text-white px-8 pointer-events-auto bg-caramel hover:bg-espresso focus-visible:bg-espresso transition-colors"
                         style="font-family:'Caveat',cursive; font-size:1.4rem;">
-                    Play Again
+                    Fight Back Again
                 </button>
             </div>
         </div>
@@ -164,96 +167,204 @@ permalink: /404.html
         'use strict';
 
         /* ---- Elements ---- */
-        const canvas  = document.getElementById('game');
-        const ctx     = canvas.getContext('2d');
-        const wrap    = document.getElementById('game-wrap');
-        const hudScore  = document.getElementById('hud-score');
-        const hudMissed = document.getElementById('hud-missed');
-        const hudBest   = document.getElementById('hud-best');
+        const canvas = document.getElementById('game');
+        const ctx = canvas.getContext('2d');
+        const hudScore = document.getElementById('hud-score');
+        const hudLives = document.getElementById('hud-lives');
+        const hudBest = document.getElementById('hud-best');
         const overlayStart = document.getElementById('overlay-start');
-        const overlayEnd   = document.getElementById('overlay-end');
-        const endTitle  = document.getElementById('end-title');
-        const endScore  = document.getElementById('end-score');
-        const endBest   = document.getElementById('end-best');
-        const btnStart   = document.getElementById('btn-start');
+        const overlayEnd = document.getElementById('overlay-end');
+        const endTitle = document.getElementById('end-title');
+        const endScore = document.getElementById('end-score');
+        const endWave = document.getElementById('end-wave');
+        const endBest = document.getElementById('end-best');
+        const endLine = document.getElementById('end-line');
+        const btnStart = document.getElementById('btn-start');
         const btnRestart = document.getElementById('btn-restart');
 
         /* ---- Constants ---- */
         const W = 480, H = 400;
-        const CUP_W = 56, CUP_H = 48;
-        const BEAN_R = 10;
-        const MAX_MISS = 5;
+        const CUP_W = 44, CUP_H = 38;
+        const CUP_TOP = H - CUP_H - 10;
+        const INV_R = 10;            // invader half-size for collisions
         const COLORS = {
-            bean:      ['#7a4e31', '#96603c', '#a36942', '#c4813a', '#5c3a1e'],
-            cupBody:   '#96603c',
-            cupRim:    '#7a4e31',
-            cupHandle: '#a36942',
-            steam:     'rgba(150,96,60,0.25)',
-            coral:     '#fd6155'
+            coral: '#fd6155',
+            mocha: '#a36942',
+            toffee: '#c4813a',
+            caramel: '#96603c',
+            espresso: '#7a4e31',
+            cocoa: '#3d2b1f',
+            line: '#e8d5c4'
         };
+        const TYPE_COLOR = {
+            heart: COLORS.coral,
+            star: COLORS.toffee,
+            bolt: COLORS.toffee,
+            swirl: COLORS.mocha,
+            mug: COLORS.caramel
+        };
+        const TYPES = ['heart', 'star', 'bolt', 'mug', 'swirl'];
+
+        /* 3x5 pixel font for the 404 formation */
+        const DIGITS = {
+            '4': ['101', '101', '111', '001', '001'],
+            '0': ['111', '101', '101', '101', '111']
+        };
+
+        const END_LINES = [
+            'Every 404 is just a level you haven’t beaten yet.',
+            'The page fought well. So did you.',
+            'Refill your mug and have another go.',
+            'Lost pages put up quite a fight!'
+        ];
 
         /* ---- State ---- */
         let cupX = W / 2;
-        let beans = [];
-        let particles = [];
-        let score = 0;
-        let missed = 0;
-        let best = 0;
-        let running = false;
-        let animId = null;
-        let spawnTimer = 0;
-        let difficulty = 1;
-        let steamPhase = 0;
+        let invaders = [], beans = [], drips = [], particles = [];
+        let score = 0, lives = 3, wave = 1, best = 0;
+        let dir = 1, formSpeed = 0.4;
+        let fireTimer = 0, dripTimer = 0, invuln = 0;
+        let assembling = false, assembleT = 0;
+        let running = false, animId = null;
+        let steamPhase = 0, wobT = 0;
+        let keys = {};
 
-        /* ---- Drawing helpers ---- */
-        function drawCup(x, y) {
-            // Shadow
+        try { best = parseInt(localStorage.getItem('cf404invadersBest') || '0', 10) || 0; } catch (e) { best = 0; }
+        hudBest.textContent = best;
+
+        /* ---- Wave building: doodles fly in from the page edges ---- */
+        function buildWave(n) {
+            invaders = [];
+            const word = '404';
+            const cell = 24;
+            const gapDigit = 16;
+            const digitW = 3 * cell;
+            const totalW = word.length * digitW + (word.length - 1) * gapDigit;
+            const x0 = (W - totalW) / 2;
+
+            for (let d = 0; d < word.length; d++) {
+                const rows = DIGITS[word[d]];
+                for (let r = 0; r < 5; r++) {
+                    for (let c = 0; c < 3; c++) {
+                        if (rows[r][c] !== '1') continue;
+                        const tx = x0 + d * (digitW + gapDigit) + c * cell + cell / 2;
+                        const ty = 54 + r * cell;
+                        // entrance: fly in from a random edge of the "site"
+                        const side = Math.floor(Math.random() * 4);
+                        let sx, sy;
+                        if (side === 0) { sx = -40; sy = Math.random() * H * 0.7; }
+                        else if (side === 1) { sx = W + 40; sy = Math.random() * H * 0.7; }
+                        else if (side === 2) { sx = Math.random() * W; sy = -40; }
+                        else { sx = Math.random() * W; sy = H + 40; }
+                        invaders.push({
+                            x: sx, y: sy, tx: tx, ty: ty,
+                            type: TYPES[(r * 3 + c + d * 2) % TYPES.length],
+                            alive: true,
+                            wob: Math.random() * Math.PI * 2
+                        });
+                    }
+                }
+            }
+            dir = 1;
+            formSpeed = 0.4 + (n - 1) * 0.18;
+            assembling = true;
+            assembleT = 0;
+        }
+
+        /* ---- Doodle sprites (hand-drawn style, like the site's sketches) ---- */
+        function drawDoodle(inv) {
+            const bob = Math.sin(wobT * 0.06 + inv.wob) * 1.5;
+            ctx.save();
+            ctx.translate(inv.x, inv.y + bob);
+            ctx.strokeStyle = TYPE_COLOR[inv.type];
+            ctx.lineWidth = 2;
+            ctx.lineCap = 'round';
+            ctx.lineJoin = 'round';
+            ctx.beginPath();
+            if (inv.type === 'heart') {
+                ctx.moveTo(0, 7);
+                ctx.bezierCurveTo(-9, 1, -10, -6, -4, -7);
+                ctx.bezierCurveTo(-1.5, -7.5, 0, -5, 0, -3.5);
+                ctx.bezierCurveTo(0, -5, 1.5, -7.5, 4, -7);
+                ctx.bezierCurveTo(10, -6, 9, 1, 0, 7);
+            } else if (inv.type === 'star') {
+                for (let i = 0; i < 10; i++) {
+                    const ang = -Math.PI / 2 + i * Math.PI / 5;
+                    const rad = (i % 2 === 0) ? 9 : 4;
+                    const px = Math.cos(ang) * rad, py = Math.sin(ang) * rad;
+                    if (i === 0) ctx.moveTo(px, py); else ctx.lineTo(px, py);
+                }
+                ctx.closePath();
+            } else if (inv.type === 'bolt') {
+                ctx.moveTo(2, -9);
+                ctx.lineTo(-3, 0);
+                ctx.lineTo(1, 0);
+                ctx.lineTo(-2, 9);
+            } else if (inv.type === 'mug') {
+                ctx.moveTo(-6, -5);
+                ctx.lineTo(-6, 3);
+                ctx.quadraticCurveTo(-6, 6, -3, 6);
+                ctx.lineTo(2, 6);
+                ctx.quadraticCurveTo(5, 6, 5, 3);
+                ctx.lineTo(5, -5);
+                ctx.moveTo(5, -3);
+                ctx.quadraticCurveTo(9, -3, 9, 0);
+                ctx.quadraticCurveTo(9, 3, 5, 3);
+            } else { // swirl
+                ctx.moveTo(0, 1);
+                ctx.bezierCurveTo(0, -4, 5, -5, 6, -1);
+                ctx.bezierCurveTo(7, 3, 2, 6, -2, 4);
+                ctx.bezierCurveTo(-7, 1, -7, -6, -2, -9);
+            }
+            ctx.stroke();
+            ctx.restore();
+        }
+
+        function drawCup(x) {
+            if (invuln > 0 && Math.floor(invuln / 6) % 2 === 0) return; // blink while hit
+            const y = CUP_TOP;
+            // shadow
             ctx.save();
             ctx.globalAlpha = 0.12;
-            ctx.fillStyle = '#5c3a1e';
+            ctx.fillStyle = COLORS.cocoa;
             ctx.beginPath();
-            ctx.ellipse(x, y + CUP_H - 2, CUP_W / 2 + 4, 6, 0, 0, Math.PI * 2);
+            ctx.ellipse(x, y + CUP_H - 2, CUP_W / 2 + 4, 5, 0, 0, Math.PI * 2);
             ctx.fill();
             ctx.restore();
-
-            // Body
-            ctx.fillStyle = COLORS.cupBody;
+            // body
+            ctx.fillStyle = COLORS.caramel;
             ctx.beginPath();
             ctx.moveTo(x - CUP_W / 2, y);
-            ctx.lineTo(x - CUP_W / 2 + 6, y + CUP_H);
-            ctx.lineTo(x + CUP_W / 2 - 6, y + CUP_H);
+            ctx.lineTo(x - CUP_W / 2 + 5, y + CUP_H);
+            ctx.lineTo(x + CUP_W / 2 - 5, y + CUP_H);
             ctx.lineTo(x + CUP_W / 2, y);
             ctx.closePath();
             ctx.fill();
-
-            // Rim
-            ctx.fillStyle = COLORS.cupRim;
-            ctx.fillRect(x - CUP_W / 2 - 3, y - 4, CUP_W + 6, 8);
-
-            // Handle
-            ctx.strokeStyle = COLORS.cupHandle;
+            // rim
+            ctx.fillStyle = COLORS.espresso;
+            ctx.fillRect(x - CUP_W / 2 - 3, y - 4, CUP_W + 6, 7);
+            // handle
+            ctx.strokeStyle = COLORS.mocha;
             ctx.lineWidth = 4;
             ctx.lineCap = 'round';
             ctx.beginPath();
-            ctx.arc(x + CUP_W / 2 + 6, y + CUP_H / 2 - 2, 10, -Math.PI / 2, Math.PI / 2);
+            ctx.arc(x + CUP_W / 2 + 5, y + CUP_H / 2 - 3, 8, -Math.PI / 2, Math.PI / 2);
             ctx.stroke();
-
-            // Coffee surface
-            ctx.fillStyle = '#5c3a1e';
+            // coffee surface
+            ctx.fillStyle = COLORS.cocoa;
             ctx.beginPath();
-            ctx.ellipse(x, y + 4, CUP_W / 2 - 4, 5, 0, 0, Math.PI * 2);
+            ctx.ellipse(x, y + 3, CUP_W / 2 - 4, 4, 0, 0, Math.PI * 2);
             ctx.fill();
-
-            // Steam wisps
+            // steam
             steamPhase += 0.03;
-            ctx.strokeStyle = COLORS.steam;
+            ctx.strokeStyle = 'rgba(150,96,60,0.25)';
             ctx.lineWidth = 1.5;
-            for (let i = 0; i < 3; i++) {
-                const sx = x - 10 + i * 10;
-                const offset = Math.sin(steamPhase + i * 2) * 4;
+            for (let i = 0; i < 2; i++) {
+                const sx = x - 6 + i * 12;
+                const off = Math.sin(steamPhase + i * 2) * 4;
                 ctx.beginPath();
                 ctx.moveTo(sx, y - 6);
-                ctx.quadraticCurveTo(sx + offset, y - 18, sx - offset, y - 28);
+                ctx.quadraticCurveTo(sx + off, y - 16, sx - off, y - 26);
                 ctx.stroke();
             }
         }
@@ -261,51 +372,38 @@ permalink: /404.html
         function drawBean(b) {
             ctx.save();
             ctx.translate(b.x, b.y);
-            ctx.rotate(b.rot);
-            // Outer bean shape
-            ctx.fillStyle = b.color;
+            ctx.fillStyle = COLORS.espresso;
             ctx.beginPath();
-            ctx.ellipse(0, 0, BEAN_R, BEAN_R * 0.65, 0, 0, Math.PI * 2);
+            ctx.ellipse(0, 0, 4, 6, 0, 0, Math.PI * 2);
             ctx.fill();
-            // Center line
-            ctx.strokeStyle = 'rgba(0,0,0,0.2)';
+            ctx.strokeStyle = 'rgba(254,245,236,0.6)';
             ctx.lineWidth = 1.2;
             ctx.beginPath();
-            ctx.moveTo(-BEAN_R * 0.5, 0);
-            ctx.quadraticCurveTo(0, -2, BEAN_R * 0.5, 0);
+            ctx.moveTo(0, -4);
+            ctx.quadraticCurveTo(1.5, 0, 0, 4);
             ctx.stroke();
             ctx.restore();
         }
 
-        function drawParticle(p) {
+        function drawDrip(d) {
             ctx.save();
-            ctx.globalAlpha = p.life;
-            ctx.fillStyle = p.color;
+            ctx.translate(d.x, d.y);
+            ctx.fillStyle = COLORS.cocoa;
             ctx.beginPath();
-            ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
+            ctx.moveTo(0, -6);
+            ctx.quadraticCurveTo(4, 0, 0, 5);
+            ctx.quadraticCurveTo(-4, 0, 0, -6);
             ctx.fill();
             ctx.restore();
         }
 
-        /* ---- Spawn ---- */
-        function spawnBean() {
-            beans.push({
-                x: 20 + Math.random() * (W - 40),
-                y: -BEAN_R,
-                vy: 1.5 + Math.random() * difficulty,
-                rot: Math.random() * Math.PI * 2,
-                vr: (Math.random() - 0.5) * 0.08,
-                color: COLORS.bean[Math.floor(Math.random() * COLORS.bean.length)]
-            });
-        }
-
-        function burstParticles(x, y, color) {
-            for (let i = 0; i < 8; i++) {
-                const angle = (Math.PI * 2 / 8) * i + Math.random() * 0.4;
+        function burst(x, y, color) {
+            for (let i = 0; i < 10; i++) {
+                const ang = (Math.PI * 2 / 10) * i + Math.random() * 0.5;
                 particles.push({
-                    x, y,
-                    vx: Math.cos(angle) * (2 + Math.random() * 2),
-                    vy: Math.sin(angle) * (2 + Math.random() * 2) - 1,
+                    x: x, y: y,
+                    vx: Math.cos(ang) * (1.5 + Math.random() * 2.5),
+                    vy: Math.sin(ang) * (1.5 + Math.random() * 2.5),
                     size: 2 + Math.random() * 3,
                     life: 1,
                     color: color
@@ -325,72 +423,158 @@ permalink: /404.html
                 clientX = e.clientX;
             }
             cupX = (clientX - rect.left) * scaleX;
-            cupX = Math.max(CUP_W / 2 + 4, Math.min(W - CUP_W / 2 - 4, cupX));
+            cupX = Math.max(CUP_W / 2 + 6, Math.min(W - CUP_W / 2 - 6, cupX));
         }
         canvas.addEventListener('mousemove', pointerMove);
         canvas.addEventListener('touchmove', pointerMove, { passive: false });
-        canvas.addEventListener('touchstart', function (e) {
-            pointerMove(e);
-        }, { passive: false });
+        canvas.addEventListener('touchstart', pointerMove, { passive: false });
 
-        /* ---- Game loop ---- */
-        function update() {
-            spawnTimer++;
-            const interval = Math.max(20, 50 - Math.floor(score / 5) * 3);
-            if (spawnTimer >= interval) {
-                spawnBean();
-                spawnTimer = 0;
+        document.addEventListener('keydown', function (e) {
+            if (e.target.closest('a')) return;
+            if (!running) {
+                if (e.key === 'Enter' || e.key === ' ') {
+                    e.preventDefault();
+                    startGame();
+                }
+                return;
             }
+            if (e.key === 'ArrowLeft' || e.key === 'a') { keys.left = true; e.preventDefault(); }
+            if (e.key === 'ArrowRight' || e.key === 'd') { keys.right = true; e.preventDefault(); }
+        });
+        document.addEventListener('keyup', function (e) {
+            if (e.key === 'ArrowLeft' || e.key === 'a') keys.left = false;
+            if (e.key === 'ArrowRight' || e.key === 'd') keys.right = false;
+        });
 
-            difficulty = 1 + score * 0.06;
+        /* ---- Update ---- */
+        function update() {
+            wobT++;
 
-            const cupTop = H - CUP_H - 10;
+            // keyboard movement
+            if (keys.left) cupX = Math.max(CUP_W / 2 + 6, cupX - 6);
+            if (keys.right) cupX = Math.min(W - CUP_W / 2 - 6, cupX + 6);
 
-            // Beans
-            for (let i = beans.length - 1; i >= 0; i--) {
-                const b = beans[i];
-                b.y += b.vy;
-                b.rot += b.vr;
+            if (invuln > 0) invuln--;
 
-                // Caught?
-                if (b.y + BEAN_R >= cupTop && b.y - BEAN_R <= cupTop + CUP_H &&
-                    b.x >= cupX - CUP_W / 2 - 4 && b.x <= cupX + CUP_W / 2 + 4) {
-                    score++;
-                    hudScore.textContent = score;
-                    burstParticles(b.x, b.y, b.color);
-                    beans.splice(i, 1);
-                    continue;
+            if (assembling) {
+                // fragments of the page fly into formation
+                let settled = true;
+                invaders.forEach(function (inv) {
+                    inv.x += (inv.tx - inv.x) * 0.08;
+                    inv.y += (inv.ty - inv.y) * 0.08;
+                    if (Math.abs(inv.tx - inv.x) > 1 || Math.abs(inv.ty - inv.y) > 1) settled = false;
+                });
+                assembleT++;
+                if (settled || assembleT > 140) {
+                    invaders.forEach(function (inv) { inv.x = inv.tx; inv.y = inv.ty; });
+                    assembling = false;
+                }
+            } else {
+                // classic march: drift sideways, drop at edges
+                let minX = Infinity, maxX = -Infinity;
+                invaders.forEach(function (inv) {
+                    if (!inv.alive) return;
+                    if (inv.x < minX) minX = inv.x;
+                    if (inv.x > maxX) maxX = inv.x;
+                });
+                if ((dir > 0 && maxX > W - 18) || (dir < 0 && minX < 18)) {
+                    dir *= -1;
+                    formSpeed += 0.03;
+                    invaders.forEach(function (inv) { inv.y += 14; });
+                }
+                invaders.forEach(function (inv) { inv.x += dir * formSpeed; });
+
+                // invaders drip coffee back at you
+                dripTimer--;
+                if (dripTimer <= 0) {
+                    const alive = invaders.filter(function (i) { return i.alive; });
+                    if (alive.length) {
+                        const src = alive[Math.floor(Math.random() * alive.length)];
+                        drips.push({ x: src.x, y: src.y + 10, vy: 2.2 + wave * 0.15 });
+                    }
+                    dripTimer = Math.max(38, 95 - wave * 9);
                 }
 
-                // Missed?
-                if (b.y > H + BEAN_R) {
-                    missed++;
-                    hudMissed.textContent = missed;
-                    burstParticles(b.x, H - 4, COLORS.coral);
-                    beans.splice(i, 1);
-                    if (missed >= MAX_MISS) {
-                        endGame();
+                // landed?
+                for (let i = 0; i < invaders.length; i++) {
+                    if (invaders[i].alive && invaders[i].y + INV_R >= CUP_TOP) {
+                        endGame('landed');
                         return;
                     }
                 }
             }
 
-            // Particles
+            // auto-fire
+            fireTimer--;
+            if (running && fireTimer <= 0) {
+                beans.push({ x: cupX, y: CUP_TOP - 8 });
+                fireTimer = Math.max(14, 24 - wave);
+            }
+
+            // beans
+            for (let i = beans.length - 1; i >= 0; i--) {
+                const b = beans[i];
+                b.y -= 6.5;
+                if (b.y < -10) { beans.splice(i, 1); continue; }
+                for (let j = 0; j < invaders.length; j++) {
+                    const inv = invaders[j];
+                    if (!inv.alive) continue;
+                    if (Math.abs(b.x - inv.x) < INV_R + 3 && Math.abs(b.y - inv.y) < INV_R + 4) {
+                        inv.alive = false;
+                        beans.splice(i, 1);
+                        score += 10;
+                        hudScore.textContent = score;
+                        burst(inv.x, inv.y, TYPE_COLOR[inv.type]);
+                        break;
+                    }
+                }
+            }
+
+            // wave cleared → the page reassembles itself, angrier
+            if (!assembling && invaders.length && invaders.every(function (i) { return !i.alive; })) {
+                score += 50;
+                hudScore.textContent = score;
+                wave++;
+                drips = [];
+                buildWave(wave);
+            }
+
+            // drips
+            for (let i = drips.length - 1; i >= 0; i--) {
+                const d = drips[i];
+                d.y += d.vy;
+                if (d.y > H + 10) { drips.splice(i, 1); continue; }
+                if (invuln <= 0 &&
+                    Math.abs(d.x - cupX) < CUP_W / 2 && d.y > CUP_TOP && d.y < CUP_TOP + CUP_H) {
+                    drips.splice(i, 1);
+                    lives--;
+                    hudLives.textContent = lives > 0 ? '☕'.repeat(lives) : '—';
+                    invuln = 90;
+                    burst(cupX, CUP_TOP + 10, COLORS.coral);
+                    if (lives <= 0) {
+                        endGame('mugs');
+                        return;
+                    }
+                }
+            }
+
+            // particles
             for (let i = particles.length - 1; i >= 0; i--) {
                 const p = particles[i];
                 p.x += p.vx;
                 p.y += p.vy;
-                p.vy += 0.1;
-                p.life -= 0.025;
+                p.vy += 0.08;
+                p.life -= 0.03;
                 if (p.life <= 0) particles.splice(i, 1);
             }
         }
 
+        /* ---- Draw ---- */
         function draw() {
             ctx.clearRect(0, 0, W, H);
 
-            // Ground line (subtle)
-            ctx.strokeStyle = '#e8d5c4';
+            // ground line
+            ctx.strokeStyle = COLORS.line;
             ctx.lineWidth = 2;
             ctx.setLineDash([6, 4]);
             ctx.beginPath();
@@ -399,79 +583,86 @@ permalink: /404.html
             ctx.stroke();
             ctx.setLineDash([]);
 
-            // Beans
+            invaders.forEach(function (inv) { if (inv.alive) drawDoodle(inv); });
             beans.forEach(drawBean);
+            drips.forEach(drawDrip);
+            particles.forEach(function (p) {
+                ctx.save();
+                ctx.globalAlpha = Math.max(0, p.life);
+                ctx.fillStyle = p.color;
+                ctx.beginPath();
+                ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
+                ctx.fill();
+                ctx.restore();
+            });
+            drawCup(cupX);
 
-            // Particles
-            particles.forEach(drawParticle);
-
-            // Cup
-            drawCup(cupX, H - CUP_H - 10);
+            // wave banner during assembly
+            if (assembling && running) {
+                ctx.save();
+                ctx.globalAlpha = 0.85;
+                ctx.fillStyle = COLORS.caramel;
+                ctx.font = '600 26px Caveat, cursive';
+                ctx.textAlign = 'center';
+                const label = wave === 1 ? 'here it comes!' : 'wave ' + wave + ' — it’s reassembling!';
+                ctx.fillText(label, W / 2, H / 2 + 40);
+                ctx.restore();
+            }
         }
 
         function loop() {
             if (!running) return;
             update();
+            if (!running) return;
             draw();
             animId = requestAnimationFrame(loop);
         }
 
         /* ---- Start / End ---- */
         function startGame() {
-            score = 0; missed = 0; spawnTimer = 0; difficulty = 1;
-            beans = []; particles = [];
+            score = 0; lives = 3; wave = 1;
+            beans = []; drips = []; particles = [];
             cupX = W / 2;
+            fireTimer = 20; dripTimer = 90; invuln = 0;
             hudScore.textContent = '0';
-            hudMissed.textContent = '0';
+            hudLives.textContent = '☕☕☕';
             overlayStart.classList.add('hidden');
             overlayEnd.classList.add('hidden');
+            buildWave(1);
             running = true;
             canvas.focus();
             loop();
         }
 
-        function endGame() {
+        function endGame(reason) {
             running = false;
             if (animId) cancelAnimationFrame(animId);
 
-            if (score > best) best = score;
-            hudBest.textContent = best;
+            const isBest = score > best;
+            if (isBest) {
+                best = score;
+                hudBest.textContent = best;
+                try { localStorage.setItem('cf404invadersBest', String(best)); } catch (e) { /* private mode */ }
+            }
 
             endScore.textContent = score;
-            if (score > 0 && score === best) {
-                endTitle.textContent = 'New High Score!';
-                endBest.textContent = '';
-            } else {
-                endTitle.textContent = score >= 10 ? 'Great Catch!' : 'Nice Try!';
-                endBest.textContent = 'Best: ' + best;
-            }
+            endWave.textContent = wave;
+            endTitle.textContent = isBest && score > 0 ? 'New High Score!'
+                : (reason === 'landed' ? 'The page landed!' : 'Out of mugs!');
+            endBest.textContent = 'Best: ' + best;
+            endLine.textContent = END_LINES[Math.floor(Math.random() * END_LINES.length)];
             overlayEnd.classList.remove('hidden');
 
-            // Final draw so we see the last state
             draw();
         }
 
         btnStart.addEventListener('click', startGame);
         btnRestart.addEventListener('click', startGame);
 
-        // Keyboard: left/right arrow or A/D
-        document.addEventListener('keydown', function (e) {
-            if (!running) {
-                if (e.key === 'Enter' || e.key === ' ') {
-                    e.preventDefault();
-                    startGame();
-                }
-                return;
-            }
-            const step = 18;
-            if (e.key === 'ArrowLeft' || e.key === 'a') {
-                cupX = Math.max(CUP_W / 2 + 4, cupX - step);
-            } else if (e.key === 'ArrowRight' || e.key === 'd') {
-                cupX = Math.min(W - CUP_W / 2 - 4, cupX + step);
-            }
-        });
-
-        // Initial draw
+        /* Idle preview: show the assembled 404 behind the start overlay */
+        buildWave(1);
+        invaders.forEach(function (inv) { inv.x = inv.tx; inv.y = inv.ty; });
+        assembling = false;
         draw();
     })();
     </script>
