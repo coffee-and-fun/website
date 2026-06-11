@@ -44,25 +44,6 @@
     {% include sketch-styles.liquid %}
 
     <style>
-        @font-face {
-            font-family: 'Pacifico';
-            font-style: normal;
-            font-weight: 400;
-            font-display: swap;
-            src: url('/assets/fonts/Pacifico-Regular.woff2') format('woff2'), url('/assets/fonts/Pacifico-Regular.ttf') format('truetype');
-        }
-        .brand-heading {
-            font-family: 'Pacifico', cursive;
-            color: var(--color-mocha);
-            text-shadow: 1.5px 2.5px 0px #fd6155;
-        }
-        @media (min-width: 640px) {
-            .brand-heading { text-shadow: 2px 3.5px 0px #fd6155; }
-        }
-        @media (min-width: 1024px) {
-            .brand-heading { text-shadow: 3px 5px 0px #fd6155; }
-        }
-
         .filter-tab {
             padding: 0.5rem 1.25rem;
             border-radius: 9999px;
@@ -310,7 +291,7 @@
             <!-- No Results -->
             <div id="noResults" class="hidden text-center py-16">
                 <p class="text-2xl mb-2">No Apps Found</p>
-                <p class="text-stone-400">Try a different search or filter</p>
+                <p class="text-stone-500">Try a different search or filter</p>
             </div>
         </section>
 
@@ -414,7 +395,7 @@
                 </svg>
             </div>
             <h2 class="text-xl sm:text-2xl font-bold text-stone-800 mb-2">The Graveyard</h2>
-            <p class="text-sm text-stone-400 mb-8">Apps we've sunset or retired.</p>
+            <p class="text-sm text-stone-500 mb-8">Apps we've sunset or retired.</p>
             <div class="not-prose grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-3 opacity-70" id="graveyardGrid">
                 {% for app in apps.graveyard %}
                 <a class="app-card card card-compact bg-base-100 shadow-md transition-all duration-200 hover:-translate-y-1 hover:shadow-xl rounded-2xl focus:outline-none focus:ring-2 focus:ring-offset-2 overflow-hidden"

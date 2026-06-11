@@ -65,13 +65,29 @@
 
     <script type="application/ld+json">
       {
-        "@context": "http://schema.org/",
-        "@type": "WebSite",
-        "url": "https://www.coffeeandfun.com",
-        "potentialAction": {
-          "@type": "SearchAction",
-          "target": "{search_term_string}",
-          "query-input": "required name=search_term_string"
+        "@context": "https://schema.org",
+        "@type": "AboutPage",
+        "name": "About Coffee & Fun LLC",
+        "description": "Get to know Coffee & Fun LLC where every app is crafted with love, laughter, and a dash of mischief.",
+        "url": "https://www.coffeeandfun.com/about/",
+        "mainEntity": {
+          "@type": "Organization",
+          "@id": "https://www.coffeeandfun.com/#organization",
+          "name": "Coffee & Fun LLC",
+          "url": "https://www.coffeeandfun.com/",
+          "founder": {
+            "@type": "Person",
+            "name": "Robert James Gabriel"
+          },
+          "logo": {
+            "@type": "ImageObject",
+            "url": "https://www.coffeeandfun.com/assets/images/coffee-and-fun-logo-dark.png",
+            "width": 180,
+            "height": 180
+          },
+          "sameAs": [
+            "https://x.com/bycoffeeandfun"
+          ]
         }
       }
     </script>
@@ -80,58 +96,25 @@
     {% include sketch-styles.liquid %}
 
     <style>
-     
-      
-      .hero-text {
-        font-size: clamp(3rem, 8vw, 7rem);
-        line-height: 1.1;
-        font-weight: 900;
-        letter-spacing: -0.02em;
-      }
-      
-      .section-title {
-        font-size: clamp(2.5rem, 6vw, 5rem);
-        line-height: 1.1;
-        font-weight: 900;
-        letter-spacing: -0.02em;
-      }
-      
-      .large-text {
-        font-size: clamp(1.25rem, 2.5vw, 2rem);
-        line-height: 1.4;
-      }
-      
       .stat-number {
-        font-size: clamp(3rem, 8vw, 6rem);
-        font-weight: 900;
-        line-height: 1;
-        letter-spacing: -0.03em;
+        font-family: 'Pacifico', cursive;
+        font-size: clamp(2.75rem, 7vw, 5rem);
+        line-height: 1.2;
       }
-      
+
       .full-bleed {
         width: 100vw;
         margin-left: calc(50% - 50vw);
       }
-      
-      .team-card {
+
+      .team-card img {
         transition: transform 0.3s ease;
       }
-      
-      .team-card:hover {
-        transform: scale(1.02);
-      }
-      
-      .blog-card {
-        transition: all 0.3s ease;
-      }
-      
-      .blog-card:hover {
-        transform: translateY(-4px);
-        box-shadow: 0 20px 40px rgba(0,0,0,0.1);
-      }
-      
-      .accent-gradient {
-        background: linear-gradient(135deg, var(--color-cream) 0%, #fde8d8 50%, #f5d0b0 100%);
+      @media (prefers-reduced-motion: no-preference) {
+        .team-card:hover img,
+        .team-card:focus-within img {
+          transform: scale(1.03) rotate(-1deg);
+        }
       }
     </style>
 
@@ -162,9 +145,9 @@
 
     <main id="main-content">
 
-    <!-- Mission Statement - Full Width -->
-    <section class="relative full-bleed accent-gradient py-32 px-6 overflow-visible">
-      <div class="max-w-4xl mx-auto">
+    <!-- Mission Statement -->
+    <section class="relative mx-auto max-w-5xl px-4 sm:px-6 lg:px-8 py-20 sm:py-28 overflow-visible">
+      <div class="max-w-4xl mx-auto text-center">
         <!-- Sketch: heart near mission text -->
         <div class="sketch-note sketch-float-slow" style="top: 20%; left: 5%; --sketch-rotate: -12deg;">
             <svg width="26" height="24" viewBox="0 0 24 22">
@@ -188,12 +171,19 @@
             </svg>
         </div>
 
-        <h1 class="section-title text-stone-900 text-center">
-          Making the world a little brighter, one app at a time.
+        <h1 class="brand-heading text-4xl sm:text-5xl lg:text-7xl leading-[1.2] sm:leading-[1.2] lg:leading-[1.2]">
+          Making the world a little brighter,
+          <br />
+          one app at a time
         </h1>
 
-         <p class="large-text max-w-3xl text-center mx-auto text-stone-600">
-          Where every app is crafted with love, laughter, and a dash of mischief
+        <p class="mt-6 sm:mt-8 text-xl sm:text-2xl text-stone-600 max-w-[50ch] mx-auto leading-relaxed text-balance">
+          Where every app is crafted with love, laughter, and a dash of mischief.
+        </p>
+
+        <!-- Trust row -->
+        <p class="mt-10 text-xl sm:text-2xl text-caramel" style="font-family: 'Caveat', cursive;">
+          One human&nbsp;&nbsp;&middot;&nbsp;&nbsp;Four pups&nbsp;&nbsp;&middot;&nbsp;&nbsp;A lot of coffee
         </p>
 
         <!-- Sketch: wavy underline under mischief -->
@@ -235,7 +225,7 @@
     </section>
 
     <!-- About Content -->
-    <section class="relative max-w-7xl mx-auto py-32 px-6 overflow-visible">
+    <section class="relative max-w-5xl mx-auto py-16 sm:py-24 px-4 sm:px-6 lg:px-8 overflow-visible">
       <!-- Sketch: "the good stuff" with arrow -->
       <div class="sketch-note text-xl sm:text-2xl" style="top: 16px; right: 6%; transform: rotate(-4deg);">
         the good stuff
@@ -294,16 +284,16 @@
           </svg>
       </div>
 
-      <div class="grid lg:grid-cols-2 gap-16 items-center">
+      <div class="grid lg:grid-cols-2 gap-10 lg:gap-16 items-center">
         <div>
-          <h2 class="section-title mb-8 text-stone-900">Who We Are</h2>
-          <p class="large-text text-stone-600 leading-relaxed">
+          <h2 class="brand-heading text-3xl sm:text-4xl lg:text-5xl leading-[1.25] mb-6">Who We Are</h2>
+          <p class="text-xl sm:text-2xl text-stone-600 leading-relaxed">
             We're a small team of passionate coffee enthusiasts and software
             engineers who believe in the power of community and creativity.
           </p>
         </div>
         <div>
-          <p class="text-xl text-stone-500 leading-relaxed">
+          <p class="text-lg sm:text-xl text-stone-600 leading-relaxed">
             Our mission is to bring joy and a little bit of mischief to your daily
             routine through our innovative products and engaging content.
             Whether it's crafting the perfect cup of coffee or sharing our
@@ -315,7 +305,7 @@
     </section>
 
     <!-- Stats Section - Full Width -->
-    <section class="relative full-bleed py-32 px-6 overflow-visible" style="background-color: var(--color-cocoa);">
+    <section class="relative full-bleed py-20 sm:py-28 px-6 overflow-visible" style="background-color: var(--color-cocoa);">
       <!-- Sketch: "and growing!" near stats (light colored for dark bg) -->
       <div class="sketch-note text-xl sm:text-2xl" style="top: 20px; right: 8%; transform: rotate(-3deg); color: var(--color-toffee);">
         and growing!
@@ -346,29 +336,29 @@
           </svg>
       </div>
 
-      <div class="max-w-7xl mx-auto">
-        <div class="grid md:grid-cols-3 gap-16 text-center">
+      <div class="max-w-5xl mx-auto">
+        <div class="grid md:grid-cols-3 gap-12 sm:gap-16 text-center">
           <div>
-            <div class="stat-number mb-4 text-white">2022</div>
-            <p class="text-xl uppercase tracking-wider" style="color: var(--color-toffee);">Founded</p>
+            <div class="stat-number mb-3 text-white">2022</div>
+            <p class="text-2xl" style="font-family: 'Caveat', cursive; color: var(--color-cream);">founded</p>
           </div>
           <div>
-            <div class="stat-number mb-4 text-white">2</div>
-            <p class="text-xl uppercase tracking-wider" style="color: var(--color-toffee);">Team Members</p>
+            <div class="stat-number mb-3 text-white">2</div>
+            <p class="text-2xl" style="font-family: 'Caveat', cursive; color: var(--color-cream);">team members</p>
           </div>
           <div>
-            <div class="stat-number mb-4 text-white">1M+</div>
-            <p class="text-xl uppercase tracking-wider" style="color: var(--color-toffee);">Users</p>
+            <div class="stat-number mb-3 text-white">1M+</div>
+            <p class="text-2xl" style="font-family: 'Caveat', cursive; color: var(--color-cream);">happy users</p>
           </div>
         </div>
       </div>
     </section>
 
     <!-- Team Section -->
-    <section class="relative max-w-7xl mx-auto py-32 px-6 overflow-visible">
-      <div class="mb-20">
-        <h2 class="section-title mb-8 text-stone-900">Our Team</h2>
-        <p class="large-text text-stone-600 max-w-3xl">
+    <section class="relative max-w-6xl mx-auto py-16 sm:py-24 px-4 sm:px-6 lg:px-8 overflow-visible">
+      <div class="mb-14 sm:mb-20 text-center">
+        <h2 class="brand-heading text-3xl sm:text-4xl lg:text-5xl leading-[1.25] mb-5">Our Team</h2>
+        <p class="text-xl sm:text-2xl text-stone-600 max-w-3xl mx-auto">
           Meet the people (and pups) behind Coffee & Fun.
         </p>
       </div>
@@ -424,73 +414,83 @@
           <div class="mb-6">
             <img
               class="w-full aspect-square object-cover rounded-2xl"
+              loading="lazy"
+              decoding="async"
               src="/assets/images/about/rob.png"
               alt="Robert James"
               width="400" height="400"
             />
           </div>
-          <h3 class="text-xl font-bold mb-2">Robert James</h3>
-          <p class="text-stone-500 uppercase text-sm tracking-wide">Founder / CTO</p>
+          <h3 class="text-xl font-bold text-stone-900 mb-1">Robert James</h3>
+          <p class="text-xl text-caramel" style="font-family: 'Caveat', cursive;">Founder / CTO</p>
         </div>
 
         <div class="team-card text-center">
           <div class="mb-6">
             <img
               class="w-full aspect-square object-cover rounded-2xl"
+              loading="lazy"
+              decoding="async"
               src="/assets/images/about/coco.png"
               alt="Coco"
               width="400" height="400"
             />
           </div>
-          <h3 class="text-xl font-bold mb-2">Coco</h3>
-          <p class="text-stone-500 uppercase text-sm tracking-wide">Head of Search</p>
+          <h3 class="text-xl font-bold text-stone-900 mb-1">Coco</h3>
+          <p class="text-xl text-caramel" style="font-family: 'Caveat', cursive;">Head of Search</p>
         </div>
 
         <div class="team-card text-center">
           <div class="mb-6">
             <img
               class="w-full aspect-square object-cover rounded-2xl"
+              loading="lazy"
+              decoding="async"
               src="/assets/images/about/crash.png"
               alt="Crash"
               width="400" height="400"
             />
           </div>
-          <h3 class="text-xl font-bold mb-2">Crash</h3>
-          <p class="text-stone-500 uppercase text-sm tracking-wide">Head of Security</p>
+          <h3 class="text-xl font-bold text-stone-900 mb-1">Crash</h3>
+          <p class="text-xl text-caramel" style="font-family: 'Caveat', cursive;">Head of Security</p>
         </div>
 
         <div class="team-card text-center">
           <div class="mb-6">
             <img
               class="w-full aspect-square object-cover rounded-2xl"
+              loading="lazy"
+              decoding="async"
               src="/assets/images/about/honey.png"
               alt="Honey"
               width="400" height="400"
             />
           </div>
-          <h3 class="text-xl font-bold mb-2">Honey</h3>
-          <p class="text-stone-500 uppercase text-sm tracking-wide">Head of Activity</p>
+          <h3 class="text-xl font-bold text-stone-900 mb-1">Honey</h3>
+          <p class="text-xl text-caramel" style="font-family: 'Caveat', cursive;">Head of Activity</p>
         </div>
 
         <div class="team-card text-center">
           <div class="mb-6">
             <img
               class="w-full aspect-square object-cover rounded-2xl"
+              loading="lazy"
+              decoding="async"
               src="/assets/images/about/juneo.png"
               alt="Juneau"
               width="400" height="400"
             />
           </div>
-          <h3 class="text-xl font-bold mb-2">Juneau</h3>
-          <p class="text-stone-500 uppercase text-sm tracking-wide">Assistant</p>
+          <h3 class="text-xl font-bold text-stone-900 mb-1">Juneau</h3>
+          <p class="text-xl text-caramel" style="font-family: 'Caveat', cursive;">Assistant</p>
         </div>
       </div>
     </section>
 
     <!-- Blog Section -->
-    <section class="relative full-bleed bg-stone-50 py-32 px-6 overflow-visible">
-      <div class="max-w-7xl mx-auto">
-        <div class="relative mb-20">
+    <section class="relative mx-auto max-w-6xl py-16 sm:py-24 px-4 sm:px-6 lg:px-8 overflow-visible">
+      <div class="max-w-6xl mx-auto">
+        <div class="relative mb-12 sm:mb-16 text-center">
           <!-- Sketch: "hot off the press!" near blog heading -->
           <div class="sketch-note text-lg sm:text-xl" style="top: -10px; right: 4%; transform: rotate(4deg);">
               hot off the press!
@@ -498,8 +498,8 @@
                   <path d="M15 2 L17 11 L26 11 L19 17 L22 26 L15 21 L8 26 L11 17 L4 11 L13 11 Z" fill="none" stroke="#fd6155" stroke-width="1.5" stroke-linejoin="round" opacity="0.5"/>
               </svg>
           </div>
-          <h2 class="section-title mb-8 text-stone-900">Latest From The Blog</h2>
-          <p class="large-text text-stone-600 max-w-3xl">
+          <h2 class="brand-heading text-3xl sm:text-4xl lg:text-5xl leading-[1.25] mb-5">Latest From The Blog</h2>
+          <p class="text-xl sm:text-2xl text-stone-600 max-w-3xl mx-auto">
             Discover our latest updates, guides, and announcements.
           </p>
         </div>
@@ -555,7 +555,7 @@
     </section>
 
     <!-- CTA Section -->
-    <section class="relative max-w-7xl mx-auto py-32 px-6 text-center overflow-visible">
+    <section class="relative max-w-5xl mx-auto pt-12 sm:pt-16 pb-24 sm:pb-36 px-4 sm:px-6 lg:px-8 text-center overflow-visible">
       <!-- Sketch: "come say hi" with circle -->
       <div class="sketch-note text-lg sm:text-xl" style="top: 24px; left: 6%; transform: rotate(-6deg);">
         come say hi!
@@ -563,13 +563,30 @@
             <circle cx="18" cy="18" r="12" class="sketch-circle"/>
         </svg>
       </div>
-      <h2 class="section-title mb-8 text-stone-900">Join Us</h2>
-      <p class="large-text text-stone-600 max-w-3xl mx-auto mb-12">
+      <h2 class="brand-heading text-4xl sm:text-5xl lg:text-6xl leading-[1.15] sm:leading-[1.15] lg:leading-[1.15] mb-5">
+        Join Us
+      </h2>
+      <p class="text-xl sm:text-2xl lg:text-3xl text-stone-500 max-w-2xl mx-auto leading-relaxed mb-10">
         Be part of a community that's making the world a little brighter, one app at a time.
       </p>
-      <a href="/blog/" class="inline-block px-12 py-6 rounded-xl text-white text-xl font-bold tracking-wide transition-colors hover:opacity-90" style="background-color: var(--color-mocha);">
-        Read Our Blog
-      </a>
+      <div class="flex flex-wrap justify-center gap-3">
+        <a
+          class="btn btn-lg rounded-lg px-8 sm:px-10 font-semibold text-white border-0 bg-caramel hover:bg-espresso shadow-[0_10px_15px_-3px_rgba(122,78,49,0.35)] hover:shadow-xl hover:-translate-y-0.5 focus:outline-none focus-visible:ring-2 focus-visible:ring-espresso focus-visible:ring-offset-2 transition-all duration-200"
+          href="/blog/"
+          title="Read the Coffee & Fun blog"
+        >
+          Read Our Blog
+        </a>
+        <a
+          class="btn btn-lg btn-outline rounded-lg px-8 sm:px-10 font-semibold border-2 border-coral-deep text-coral-deep hover:bg-coral-deep hover:text-white focus-visible:bg-coral-deep focus-visible:text-white hover:-translate-y-0.5 focus-visible:-translate-y-0.5 focus:outline-none focus-visible:ring-2 focus-visible:ring-coral-deep focus-visible:ring-offset-2 transition-all duration-200"
+          href="https://discord.com/invite/J6EeMvSBYg"
+          target="_blank"
+          rel="noopener noreferrer"
+          title="Join the Coffee & Fun Discord"
+        >
+          Join the Discord
+        </a>
+      </div>
 
       <!-- Sketch: three dots bottom-right -->
       <div class="sketch-note" style="bottom: 18%; right: 10%;">

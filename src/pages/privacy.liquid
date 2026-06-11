@@ -120,76 +120,195 @@
 </head>
   
   <body>
+    {% assign showFun = true %}
     {% assign showMiddleBadgeWithText = true %}
     {% include header.liquid %}
-    
-    <main id="main-content" class="mx-auto max-w-7xl">
-      <div class="mt-16 mb-16 sm:mt-24 sm:mb-24 sm:px-8">
-        <div class="mx-auto max-w-7xl lg:px-8">
-          <div class="relative px-4 sm:px-8 lg:px-12">
-            <div class="mx-auto grid max-w-2xl grid-cols-1">
-              <div class="max-w-xl text-pretty text-base leading-7 lg:col-span-8">
-               
-                <article class="space-y-7 text-pretty text-base text-black">
-                  <div class="card-body font-sans leading-normal tracking-normal">
-                    <h1 class="my-5 text-pretty text-4xl font-bold">
-                      Privacy Statement
-                    </h1>
-                
-                    <p class="mb-8 text-pretty text-lg">
-                      At Coffee & Fun LLC, we take your privacy seriously. We don't track you, we don't collect your data, and we don't work with third-party services that do. Whether you're using one of our current tools or something new in the future, our promise remains the same: your data stays yours.
-                    </p>
-                
-                    <h2 class="my-3 mb-4 text-pretty text-2xl font-bold">
-                      No Data Collection, Ever
-                    </h2>
-                    <p class="mb-3 text-pretty text-lg">
-                      None of our apps collect personal information, device data, usage history, or anything else. We don't want it, we don't store it, and we never send it anywhere. Everything stays local to your device.
-                    </p>
-                
-                    <h2 class="my-3 mb-4 text-pretty text-2xl font-bold">
-                      No Analytics, No Trackers
-                    </h2>
-                    <p class="mb-3 text-pretty text-lg">
-                      You won't find hidden trackers, analytics scripts, or fingerprinting in our code. Your behavior in our apps is your business—not ours.
-                    </p>
-                
-                    <h2 class="my-3 mb-4 text-pretty text-2xl font-bold">
-                      No Third-Party Code
-                    </h2>
-                    <p class="mb-3 text-pretty text-lg">
-                      Our apps run independently without relying on third-party SDKs, APIs, or services that might compromise your privacy. What you download is what you get—plain and simple.
-                    </p>
-                
-                    <h2 class="my-3 mb-4 text-pretty text-2xl font-bold">
-                      Local-Only Operation
-                    </h2>
-                    <p class="mb-3 text-pretty text-lg">
-                      All app functionality happens directly on your device. No internet connection is required, and no data is ever sent out. Think of our apps as self-contained tools you can trust.
-                    </p>
-                
-                    <h2 class="my-3 mb-4 text-pretty text-2xl font-bold">
-                      Future Updates, Same Philosophy
-                    </h2>
-                    <p class="mb-3 text-pretty text-lg">
-                      We're always working to improve our apps, but one thing won't change: our commitment to privacy. New features will never come at the cost of your data.
-                    </p>
-                
-                    <h2 class="my-3 mb-4 text-pretty text-2xl font-bold">
-                      Questions or Concerns?
-                    </h2>
-                    <p class="mb-3 text-pretty text-lg">
-                      Have a question or want to double-check something? We're happy to help. Just email us at
-                      <a href="mailto:hello@coffeeandfun.com" class="text-blue-500 hover:underline">hello@coffeeandfun.com</a>.
-                    </p>
-                  </div>
-                </article>
-                
-              </div>
-            </div>
+
+    <main id="main-content">
+
+      <!-- Hero -->
+      <section class="relative mx-auto max-w-5xl px-4 sm:px-6 lg:px-8 pt-20 sm:pt-28 pb-10 sm:pb-14 text-center overflow-visible">
+        <h1 class="brand-heading text-4xl sm:text-5xl lg:text-6xl leading-[1.15] sm:leading-[1.15] lg:leading-[1.15] mb-5">
+          Privacy Statement
+        </h1>
+        <p class="text-lg sm:text-xl text-stone-600 max-w-2xl mx-auto leading-relaxed">
+          We take your privacy seriously. We don't track you, we don't collect your data, and we don't work with third-party services that do. Your data stays yours.
+        </p>
+
+        <!-- Trust row -->
+        <p class="mt-8 text-xl sm:text-2xl text-caramel" style="font-family: 'Caveat', cursive;">
+          No tracking&nbsp;&nbsp;&middot;&nbsp;&nbsp;No analytics&nbsp;&nbsp;&middot;&nbsp;&nbsp;No nonsense
+        </p>
+
+        <!-- Sketch: "pinky promise!" with arrow -->
+        <div class="sketch-note text-lg sm:text-xl" style="top: 14px; right: 4%; transform: rotate(-5deg);">
+          pinky promise!
+          <svg width="45" height="40" style="bottom: -36px; left: 15px;">
+            <path d="M22 2 C18 14, 10 22, 6 35" class="sketch-arrow"/>
+            <path d="M0 30 L6 37 L12 30" class="sketch-arrow"/>
+          </svg>
+        </div>
+
+        <!-- Sketch: padlock doodle left of heading -->
+        <div class="sketch-note" style="top: 24%; left: 5%; transform: rotate(-8deg);">
+          <svg width="26" height="30" viewBox="0 0 26 30">
+            <rect x="3" y="13" width="20" height="14" rx="3" fill="none" stroke="var(--color-mocha)" stroke-width="2" stroke-linejoin="round" opacity="0.4"/>
+            <path d="M7 13 L7 9 C7 5, 9 2, 13 2 C17 2, 19 5, 19 9 L19 13" fill="none" stroke="var(--color-mocha)" stroke-width="2" stroke-linecap="round" opacity="0.4"/>
+            <circle cx="13" cy="20" r="2" fill="var(--color-coral)" opacity="0.45"/>
+          </svg>
+        </div>
+
+        <!-- Sketch: checkmark right -->
+        <div class="sketch-note sketch-wiggle" style="top: 45%; right: 6%; --sketch-rotate: 5deg;">
+          <svg width="20" height="18" viewBox="0 0 22 20">
+            <path d="M3 10 L9 16 L19 4" class="sketch-check"/>
+          </svg>
+        </div>
+
+        <!-- Sketch: heart near trust row -->
+        <div class="sketch-note sketch-float-slow" style="top: 62%; left: 8%; --sketch-rotate: -10deg;">
+          <svg width="20" height="18" viewBox="0 0 24 22">
+            <path d="M12 21 C12 21, 2 14, 2 7 C2 3, 5 1, 8 2 C10 3, 11 5, 12 6 C13 5, 14 3, 16 2 C19 1, 22 3, 22 7 C22 14, 12 21, 12 21 Z" class="sketch-heart"/>
+          </svg>
+        </div>
+
+        <!-- Sketch: star top-left -->
+        <div class="sketch-note" style="top: 12%; left: -1%; transform: rotate(-12deg);">
+          <svg width="24" height="24" viewBox="0 0 30 30">
+            <path d="M15 2 L17 11 L26 11 L19 17 L22 26 L15 21 L8 26 L11 17 L4 11 L13 11 Z" fill="none" stroke="#fd6155" stroke-width="1.5" stroke-linejoin="round" opacity="0.4"/>
+          </svg>
+        </div>
+
+        <!-- Sketch: swirl bottom-right -->
+        <div class="sketch-note" style="bottom: 4%; right: 2%;">
+          <svg width="26" height="26" viewBox="0 0 30 30">
+            <path d="M15 15 C15 10, 20 8, 22 12 C24 16, 20 20, 15 18 C10 16, 8 10, 12 6 C16 2, 24 4, 26 10" class="sketch-swirl"/>
+          </svg>
+        </div>
+
+        <!-- Sketch: squiggle bottom-left -->
+        <div class="sketch-note" style="bottom: 8%; left: 2%;">
+          <svg width="50" height="14" viewBox="0 0 50 14">
+            <path d="M2 8 C8 2, 14 12, 20 7 C26 2, 32 12, 38 7 C44 2, 48 10, 48 7" class="sketch-squiggle"/>
+          </svg>
+        </div>
+      </section>
+
+      <!-- Privacy Content -->
+      <section class="relative mx-auto max-w-2xl px-4 sm:px-6 lg:px-8 pb-16 overflow-visible">
+        <!-- Sketch: vertical squiggle in left margin -->
+        <div class="sketch-note" style="top: 8%; left: -6%;">
+          <svg width="14" height="60" viewBox="0 0 14 60">
+            <path d="M7 2 C2 10, 12 18, 7 26 C2 34, 12 42, 7 50 C4 56, 10 58, 7 58" class="sketch-squiggle"/>
+          </svg>
+        </div>
+
+        <!-- Sketch: "the short version: we can't see anything" -->
+        <div class="sketch-note text-base sm:text-lg" style="top: -10px; right: -8%; transform: rotate(4deg); opacity: 0.75;">
+          the short version:<br/>we can't see anything!
+        </div>
+
+        <!-- Sketch: three dots mid-right -->
+        <div class="sketch-note" style="top: 38%; right: -5%;">
+          <svg width="8" height="24" viewBox="0 0 8 24">
+            <circle cx="4" cy="4" r="2.5" class="sketch-dots"/>
+            <circle cx="4" cy="12" r="2.5" class="sketch-dots"/>
+            <circle cx="4" cy="20" r="2.5" class="sketch-dots"/>
+          </svg>
+        </div>
+
+        <!-- Sketch: tiny heart mid-left -->
+        <div class="sketch-note sketch-float-slow" style="top: 55%; left: -6%; --sketch-rotate: 10deg;">
+          <svg width="16" height="14" viewBox="0 0 24 22">
+            <path d="M12 21 C12 21, 2 14, 2 7 C2 3, 5 1, 8 2 C10 3, 11 5, 12 6 C13 5, 14 3, 16 2 C19 1, 22 3, 22 7 C22 14, 12 21, 12 21 Z" class="sketch-heart-filled"/>
+          </svg>
+        </div>
+
+        <!-- Sketch: lightning bolt right -->
+        <div class="sketch-note sketch-wiggle" style="top: 70%; right: -5%; --sketch-rotate: 8deg;">
+          <svg width="12" height="22" viewBox="0 0 16 28">
+            <path d="M10 0 L4 12 L10 12 L6 28" class="sketch-lightning"/>
+          </svg>
+        </div>
+
+        <article class="space-y-10 text-pretty">
+          <section>
+            <h2 class="text-2xl font-bold text-stone-900 mb-3">No Data Collection, Ever</h2>
+            <p class="text-lg text-stone-600 leading-relaxed">
+              None of our apps collect personal information, device data, usage history, or anything else. We don't want it, we don't store it, and we never send it anywhere. Everything stays local to your device.
+            </p>
+          </section>
+
+          <section>
+            <h2 class="text-2xl font-bold text-stone-900 mb-3">No Analytics, No Trackers</h2>
+            <p class="text-lg text-stone-600 leading-relaxed">
+              You won't find hidden trackers, analytics scripts, or fingerprinting in our code. Your behavior in our apps is your business—not ours.
+            </p>
+          </section>
+
+          <section>
+            <h2 class="text-2xl font-bold text-stone-900 mb-3">No Third-Party Code</h2>
+            <p class="text-lg text-stone-600 leading-relaxed">
+              Our apps run independently without relying on third-party SDKs, APIs, or services that might compromise your privacy. What you download is what you get—plain and simple.
+            </p>
+          </section>
+
+          <section>
+            <h2 class="text-2xl font-bold text-stone-900 mb-3">Local-Only Operation</h2>
+            <p class="text-lg text-stone-600 leading-relaxed">
+              All app functionality happens directly on your device. No internet connection is required, and no data is ever sent out. Think of our apps as self-contained tools you can trust.
+            </p>
+          </section>
+
+          <section>
+            <h2 class="text-2xl font-bold text-stone-900 mb-3">Future Updates, Same Philosophy</h2>
+            <p class="text-lg text-stone-600 leading-relaxed">
+              We're always working to improve our apps, but one thing won't change: our commitment to privacy. New features will never come at the cost of your data.
+            </p>
+          </section>
+        </article>
+      </section>
+
+      <!-- Questions CTA -->
+      <section class="relative mx-auto max-w-3xl px-4 sm:px-6 lg:px-8 pb-24 sm:pb-32 text-center overflow-visible">
+        <!-- Sketch: "we'll answer anything!" near heading -->
+        <div class="sketch-note text-base sm:text-lg" style="top: -6px; right: 8%; transform: rotate(4deg);">
+          <svg width="18" height="16" viewBox="0 0 22 20" style="position: relative; display: inline-block; margin-right: 3px; vertical-align: middle;">
+            <path d="M3 10 L9 16 L19 4" class="sketch-check"/>
+          </svg>
+          we'll answer anything!
+        </div>
+
+        <h2 class="brand-heading text-3xl sm:text-4xl lg:text-5xl leading-[1.25] mb-4">
+          Questions or Concerns?
+        </h2>
+        <p class="text-lg sm:text-xl text-stone-600 max-w-xl mx-auto leading-relaxed mb-8">
+          Have a question or want to double-check something? We're happy to help.
+        </p>
+
+        <div class="relative inline-block">
+          <a
+            class="btn btn-lg rounded-lg px-8 sm:px-10 font-semibold text-white border-0 bg-caramel hover:bg-espresso shadow-[0_10px_15px_-3px_rgba(122,78,49,0.35)] hover:shadow-xl hover:-translate-y-0.5 focus:outline-none focus-visible:ring-2 focus-visible:ring-espresso focus-visible:ring-offset-2 transition-all duration-200"
+            href="mailto:hello@coffeeandfun.com"
+            title="Email Coffee & Fun"
+          >
+            Email Us
+          </a>
+        </div>
+
+        <div class="relative inline-block w-full">
+          <p class="mt-6 text-sm text-stone-500">
+            Or write to <a href="mailto:hello@coffeeandfun.com" class="underline hover:text-stone-700 transition-colors" style="color: var(--color-mocha);">hello@coffeeandfun.com</a>
+          </p>
+          <!-- Sketch: wavy underline under email -->
+          <div class="sketch-note" style="bottom: -8px; left: 50%; transform: translateX(-50%);">
+            <svg width="100" height="10" viewBox="0 0 100 10">
+              <path d="M2 7 C12 2, 22 10, 35 5 C48 0, 58 10, 72 5 C85 0, 92 8, 98 4" class="sketch-underline"/>
+            </svg>
           </div>
         </div>
-      </div>
+      </section>
+
     </main>
 
     {% include modals.liquid %}

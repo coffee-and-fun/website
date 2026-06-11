@@ -63,25 +63,6 @@
     {% include sketch-styles.liquid %}
 
     <style>
-        @font-face {
-            font-family: 'Pacifico';
-            font-style: normal;
-            font-weight: 400;
-            font-display: swap;
-            src: url('/assets/fonts/Pacifico-Regular.woff2') format('woff2'), url('/assets/fonts/Pacifico-Regular.ttf') format('truetype');
-        }
-        .brand-heading {
-            font-family: 'Pacifico', cursive;
-            color: var(--color-mocha);
-            text-shadow: 1.5px 2.5px 0px #fd6155;
-        }
-        @media (min-width: 640px) {
-            .brand-heading { text-shadow: 2px 3.5px 0px #fd6155; }
-        }
-        @media (min-width: 1024px) {
-            .brand-heading { text-shadow: 3px 5px 0px #fd6155; }
-        }
-
         .filter-tab {
             padding: 0.5rem 1.25rem;
             border-radius: 9999px;
@@ -284,7 +265,7 @@
                     <div class="p-6">
                         <div class="flex items-center gap-2 mb-3">
                             <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium text-white" style="background-color:var(--color-mocha);">{{ guide.app }}</span>
-                            <span class="text-xs text-stone-400">{{ guide.readTime }} read</span>
+                            <span class="text-xs text-stone-500">{{ guide.readTime }} read</span>
                         </div>
                         <h2 class="text-lg font-semibold text-stone-900 mb-2 group-hover:text-mocha transition-colors">{{ guide.name }}</h2>
                         <p class="text-sm text-stone-500 line-clamp-3 mb-4">{{ guide.description }}</p>
@@ -315,7 +296,7 @@
             <!-- No Results -->
             <div id="noResults" class="hidden text-center py-16">
                 <p class="text-2xl mb-2">No guides found</p>
-                <p class="text-stone-400">Try a different search, or <a href="/support/" class="underline" style="color:var(--color-mocha);">ask us directly</a>.</p>
+                <p class="text-stone-500">Try a different search, or <a href="/support/" class="underline" style="color:var(--color-mocha);">ask us directly</a>.</p>
             </div>
         </section>
 

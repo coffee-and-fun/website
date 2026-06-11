@@ -208,7 +208,7 @@
 </head>
 
 <body class="font-sans">
-    <main class="mx-auto max-w-7xl p-6">
+    <main id="main-content" class="mx-auto max-w-7xl p-6">
         <div class="flex flex-col items-center min-h-screen">
             <!-- Header Section -->
             <div class="max-w-xl text-center mx-auto mb-8">
@@ -221,26 +221,26 @@
                          class="mx-auto" />
                 </div>
                 
-                <h1 class="text-4xl font-bold mb-4 text-gray-900">
+                <h1 class="brand-heading text-3xl sm:text-4xl leading-[1.3] sm:leading-[1.3] mb-4">
                     Forgot My Membership Card
                 </h1>
-                <p class="text-lg text-gray-600 mb-2">
+                <p class="text-lg text-stone-600 mb-2">
                     Never miss a discount again
                 </p>
-                <p class="text-sm text-gray-500">
+                <p class="text-sm text-stone-500">
                     Quick access to membership barcodes when you need them most
                 </p>
             </div>
             
             <!-- Action Buttons -->
             <div class="grid grid-cols-1 md:grid-cols-3 gap-4 max-w-xl mx-auto mb-12">
-                <button class="btn btn-primary btn-outline" onclick="window.location.href='mailto:hello@coffeeandfun.com'">
+                <button class="btn btn-outline rounded-lg font-semibold border-2 border-coral-deep text-coral-deep hover:bg-coral-deep hover:text-white focus-visible:bg-coral-deep focus-visible:text-white focus:outline-none focus-visible:ring-2 focus-visible:ring-coral-deep focus-visible:ring-offset-2 transition-all duration-200" onclick="window.location.href='mailto:hello@coffeeandfun.com'">
                     ✉️ Contact Us
                 </button>
-                <button class="btn btn-primary btn-outline" id="a2hs-button" style="display: none;">
+                <button class="btn btn-outline rounded-lg font-semibold border-2 border-coral-deep text-coral-deep hover:bg-coral-deep hover:text-white focus-visible:bg-coral-deep focus-visible:text-white focus:outline-none focus-visible:ring-2 focus-visible:ring-coral-deep focus-visible:ring-offset-2 transition-all duration-200" id="a2hs-button" style="display: none;">
                     📱 Add to Phone
                 </button>
-                <button class="btn btn-primary btn-outline" onclick="my_info.showModal()">
+                <button class="btn btn-outline rounded-lg font-semibold border-2 border-coral-deep text-coral-deep hover:bg-coral-deep hover:text-white focus-visible:bg-coral-deep focus-visible:text-white focus:outline-none focus-visible:ring-2 focus-visible:ring-coral-deep focus-visible:ring-offset-2 transition-all duration-200" onclick="my_info.showModal()">
                     ℹ️ What is this?
                 </button>
             </div>
@@ -259,7 +259,7 @@
                     </div>
                     
                     <!-- Action Buttons -->
-                    <button class="btn btn-primary btn-show-card w-full mt-4" 
+                    <button class="btn btn-show-card w-full mt-4 rounded-lg font-semibold text-white border-0 bg-caramel hover:bg-espresso focus:outline-none focus-visible:ring-2 focus-visible:ring-espresso focus-visible:ring-offset-2 transition-all duration-200"
                             onclick="my_{{ card.name }}.showModal()">
                         <svg xmlns="http://www.w3.org/2000/svg" 
                              viewBox="0 0 24 24" 
@@ -273,7 +273,7 @@
                     <a href="{{ card.link }}" 
                        target="_blank"
                        rel="noopener noreferrer"
-                       class="mt-3 text-sm font-medium text-blue-600 hover:text-blue-800 block text-center transition-colors">
+                       class="mt-3 text-sm font-medium underline hover:text-espresso block text-center transition-colors" style="color: var(--color-caramel);">
                         Create Your Own Account →
                     </a>
                 </div>
@@ -285,7 +285,7 @@
                         <img src="/assets/images/forgotten/cards/{{ card.name }}.png" 
                              alt="{{ card.name }} membership card barcode"
                              class="w-full" />
-                        <p class="mt-4 text-sm text-gray-600">
+                        <p class="mt-4 text-sm text-stone-600">
                             Show this barcode at checkout to receive your member discount.
                         </p>
                     </div>
@@ -298,7 +298,7 @@
             </div>
             
             <!-- Info Footer -->
-            <div class="mt-12 text-center text-sm text-gray-500 max-w-2xl">
+            <div class="mt-12 text-center text-sm text-stone-500 max-w-2xl">
                 <p>💡 Tip: Add this page to your home screen for quick access at checkout</p>
                 <p class="mt-2">Remember to create your own accounts to earn personal rewards!</p>
             </div>

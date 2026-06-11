@@ -39,6 +39,25 @@
         src: url('/assets/fonts/Caveat-Bold.woff2') format('woff2');
     }
 
+    /* Brand display heading — Pacifico script with a soft coral offset shadow.
+       Single source of truth: pages include this partial instead of redefining it.
+       (The Pacifico @font-face itself lives in coco.css / engine.css.) */
+    .brand-heading {
+        font-family: 'Pacifico', cursive;
+        color: var(--color-mocha);
+        text-shadow: 1.5px 2.5px 0px rgba(253, 97, 85, 0.45);
+    }
+    @media (min-width: 640px) {
+        .brand-heading {
+            text-shadow: 2px 3.5px 0px rgba(253, 97, 85, 0.45);
+        }
+    }
+    @media (min-width: 1024px) {
+        .brand-heading {
+            text-shadow: 3px 5px 0px rgba(253, 97, 85, 0.45);
+        }
+    }
+
     /* Sketch / doodle annotations */
     .sketch-note {
         font-family: 'Caveat', cursive;
