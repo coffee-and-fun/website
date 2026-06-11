@@ -37,7 +37,7 @@
     <meta name="twitter:creator" content="@bycoffeeandfun" />
 
     <!-- Canonical URL -->
-    <link rel="canonical" href="/hide-spoilers-extension/" />
+    <link rel="canonical" href="https://www.coffeeandfun.com/hide-spoilers-extension/" />
 
     <!-- Favicon & Icons -->
     <link rel="icon" href="/assets/images/favicon.png" type="image/png" />
@@ -59,7 +59,7 @@
         "@type": "SoftwareApplication",
         "name": "Hide Spoilers",
         "description": "Browser extension that blurs spoilers on any website",
-        "url": "/hide-spoilers-extension/",
+        "url": "https://www.coffeeandfun.com/hide-spoilers-extension/",
         "applicationCategory": "BrowserApplication",
         "operatingSystem": "Chrome, Safari",
         "offers": {
@@ -78,6 +78,36 @@
             "url": "https://www.coffeeandfun.com",
             "sameAs": ["https://x.com/bycoffeeandfun"]
         }
+    }
+    </script>
+
+    <!-- FAQ Structured Data -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "FAQPage",
+        "mainEntity": [
+            {
+                "@type": "Question",
+                "name": "How does Hide Spoilers work?",
+                "acceptedAnswer": { "@type": "Answer", "text": "It scans pages for your keywords and blurs anything that matches — text, images, and entire sections." }
+            },
+            {
+                "@type": "Question",
+                "name": "Can I choose my own keywords?",
+                "acceptedAnswer": { "@type": "Answer", "text": "Yes. Add or remove keywords anytime — show names, character names, whatever you want to avoid." }
+            },
+            {
+                "@type": "Question",
+                "name": "Does it work on all websites?",
+                "acceptedAnswer": { "@type": "Answer", "text": "Most sites, including Twitter, YouTube, Reddit, and news sites. We're constantly improving compatibility." }
+            },
+            {
+                "@type": "Question",
+                "name": "Is Hide Spoilers free?",
+                "acceptedAnswer": { "@type": "Answer", "text": "Yes. Completely free on both Chrome and Safari." }
+            }
+        ]
     }
     </script>
 
@@ -127,11 +157,30 @@
                                 loading="eager"
                             />
 
-                            <h1 class="font-display text-4xl font-bold tracking-tight text-white sm:text-5xl md:text-6xl">
-                                Browse without spoilers.
+                            <!-- Sketch: "no peeking!" — light strokes for the dark hero -->
+                            <div class="sketch-note text-lg sm:text-xl" style="top: 8%; right: 6%; transform: rotate(-5deg); color: var(--color-toffee);">
+                                no peeking!
+                                <svg width="40" height="34" style="bottom: -30px; left: 14px;">
+                                    <path d="M20 2 C16 12, 10 20, 8 28" class="sketch-arrow" style="stroke: var(--color-toffee);"/>
+                                    <path d="M2 22 L8 30 L14 22" class="sketch-arrow" style="stroke: var(--color-toffee);"/>
+                                </svg>
+                            </div>
+
+                            <!-- Sketch: star left, toffee on dark -->
+                            <div class="sketch-note sketch-float-slow" style="top: 25%; left: 6%; --sketch-rotate: -12deg;">
+                                <svg width="22" height="22" viewBox="0 0 30 30">
+                                    <path d="M15 2 L17 11 L26 11 L19 17 L22 26 L15 21 L8 26 L11 17 L4 11 L13 11 Z" fill="none" stroke="#c4813a" stroke-width="1.5" stroke-linejoin="round" opacity="0.5"/>
+                                </svg>
+                            </div>
+
+                            <h1 class="text-4xl sm:text-5xl md:text-6xl leading-[1.3] sm:leading-[1.3] md:leading-[1.3]" style="font-family: 'Pacifico', cursive; color: var(--color-cream); text-shadow: 2px 3.5px 0px rgba(253, 97, 85, 0.55);">
+                                Browse without spoilers
                             </h1>
-                            <p class="mt-6 max-w-xl text-lg text-white/70 mx-auto">
-                                Set your keywords. We blur the rest. Text, images, thumbnails — if it matches, it's hidden until you're ready.
+                            <p class="mt-5 text-xl sm:text-2xl font-semibold text-white tracking-tight">
+                                You'll see it when you're ready. Not before.
+                            </p>
+                            <p class="mt-4 max-w-xl text-lg text-white/80 mx-auto">
+                                Set your keywords. We blur the rest. Text, images, thumbnails — if it matches, it's hidden until you choose to look.
                             </p>
 
                             <div class="mt-10 flex flex-col sm:flex-row items-center justify-center gap-4">
@@ -148,6 +197,11 @@
                                     Download for Safari
                                 </a>
                             </div>
+
+                            <!-- Trust row -->
+                            <p class="mt-8 text-xl sm:text-2xl" style="font-family: 'Caveat', cursive; color: var(--color-toffee);">
+                                100% free&nbsp;&nbsp;&middot;&nbsp;&nbsp;Chrome & Safari&nbsp;&nbsp;&middot;&nbsp;&nbsp;Hover to peek
+                            </p>
 
                             <!-- Video -->
                             <div class="mx-auto mt-16 flow-root max-w-4xl sm:mt-20">
@@ -168,7 +222,16 @@
         </div>
 
         <!-- What's New Banner -->
-        <div class="mx-auto max-w-3xl px-6 lg:px-8 mb-24 text-center">
+        <div class="relative mx-auto max-w-3xl px-6 lg:px-8 mb-24 text-center overflow-visible">
+            <!-- Sketch: sparkle by the banner -->
+            <div class="sketch-note sketch-float" style="top: -4px; right: 10%; --sketch-rotate: 0deg;">
+                <svg width="22" height="22" viewBox="0 0 22 22">
+                    <path d="M11 2 L11 20" class="sketch-sparkle"/>
+                    <path d="M2 11 L20 11" class="sketch-sparkle"/>
+                    <path d="M4 4 L18 18" class="sketch-sparkle"/>
+                    <path d="M18 4 L4 18" class="sketch-sparkle"/>
+                </svg>
+            </div>
             <p class="text-sm font-semibold uppercase tracking-widest text-coral-deep mb-2">What's New</p>
             <h2 class="brand-heading text-3xl sm:text-4xl leading-[1.3]">
                 Completely redesigned.
@@ -177,7 +240,30 @@
         </div>
 
         <!-- Features -->
-        <div class="mx-auto max-w-5xl px-6 lg:px-8 mb-32">
+        <div class="relative mx-auto max-w-5xl px-6 lg:px-8 mb-32 overflow-visible">
+            <!-- Sketch: "our favorite part" with arrow -->
+            <div class="sketch-note text-base sm:text-lg" style="top: -28px; left: 2%; transform: rotate(-5deg);">
+                our favorite part
+                <svg width="35" height="28" style="bottom: -24px; left: 24px;">
+                    <path d="M18 2 C14 10, 10 16, 8 24" class="sketch-arrow"/>
+                    <path d="M2 20 L8 26 L13 19" class="sketch-arrow"/>
+                </svg>
+            </div>
+
+            <!-- Sketch: zigzag right -->
+            <div class="sketch-note" style="top: 40%; right: -1%;">
+                <svg width="40" height="14" viewBox="0 0 40 14">
+                    <path d="M2 12 L10 2 L18 12 L26 2 L34 12 L40 4" class="sketch-zigzag"/>
+                </svg>
+            </div>
+
+            <!-- Sketch: heart bottom-left -->
+            <div class="sketch-note sketch-float-slow" style="bottom: 0; left: -1%; --sketch-rotate: -8deg;">
+                <svg width="18" height="16" viewBox="0 0 24 22">
+                    <path d="M12 21 C12 21, 2 14, 2 7 C2 3, 5 1, 8 2 C10 3, 11 5, 12 6 C13 5, 14 3, 16 2 C19 1, 22 3, 22 7 C22 14, 12 21, 12 21 Z" class="sketch-heart-filled"/>
+                </svg>
+            </div>
+
             <div class="grid md:grid-cols-2 gap-x-16 gap-y-14">
 
                 <div>
@@ -213,7 +299,11 @@
 
         <!-- How It Works -->
         <div class="mb-32">
-            <div class="mx-auto max-w-5xl px-6 lg:px-8">
+            <div class="relative mx-auto max-w-5xl px-6 lg:px-8 overflow-visible">
+                <!-- Sketch: "easy as 1-2-3" -->
+                <div class="sketch-note text-base sm:text-lg" style="top: 8px; right: 8%; transform: rotate(4deg); opacity: 0.75;">
+                    easy as 1-2-3
+                </div>
                 <div class="text-center mb-14">
                     <h2 class="brand-heading text-3xl sm:text-4xl leading-[1.3]">How It Works</h2>
                 </div>
@@ -263,7 +353,20 @@
         </section>
 
         <!-- CTA -->
-        <div class="mx-auto max-w-3xl px-6 lg:px-8 mb-24 text-center">
+        <div class="relative mx-auto max-w-3xl px-6 lg:px-8 mb-24 text-center overflow-visible">
+            <!-- Sketch: swirl left -->
+            <div class="sketch-note" style="top: 10%; left: 2%;">
+                <svg width="26" height="26" viewBox="0 0 30 30">
+                    <path d="M15 15 C15 10, 20 8, 22 12 C24 16, 20 20, 15 18 C10 16, 8 10, 12 6 C16 2, 24 4, 26 10" class="sketch-swirl"/>
+                </svg>
+            </div>
+            <!-- Sketch: star right -->
+            <div class="sketch-note sketch-float" style="top: 0; right: 5%; --sketch-rotate: 12deg;">
+                <svg width="22" height="22" viewBox="0 0 30 30">
+                    <path d="M15 2 L17 11 L26 11 L19 17 L22 26 L15 21 L8 26 L11 17 L4 11 L13 11 Z" fill="none" stroke="#fd6155" stroke-width="1.5" stroke-linejoin="round" opacity="0.4"/>
+                </svg>
+            </div>
+            <h2 class="brand-heading text-3xl sm:text-4xl leading-[1.3] mb-4">Keep the surprise.</h2>
             <p class="text-2xl text-caramel mb-8" style="font-family: 'Caveat', cursive;">Enjoy your shows spoiler-free.</p>
             <div class="flex flex-col sm:flex-row items-center justify-center gap-4">
                 <a href="https://chromewebstore.google.com/detail/hide-spoilers-block-blur/dglgbepdhdpfihbiklibdcecpadcdcln"
