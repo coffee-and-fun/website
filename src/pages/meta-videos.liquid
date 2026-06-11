@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html class="scroll-smooth antialiased" lang="en" data-theme="valentine">
+<html class="scroll-smooth antialiased" lang="en" data-theme="retro">
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -223,10 +223,14 @@
 </head>
 
 <body class="bg-base-100 min-h-screen">
-    <div v-cloak id="app" class="container mx-auto max-w-6xl p-6">
+    {% assign showFun = true %}
+    {% assign showMiddleBadgeWithText = true %}
+    {% include header.liquid %}
+
+    <div v-cloak id="main-content" role="main" class="container mx-auto max-w-6xl p-6">
         <!-- Header -->
         <header class="text-center mb-12">
-            <h1 class="text-4xl font-bold text-base-content mb-2">🎬 Video Metadata Viewer & Editor</h1>
+            <h1 class="brand-heading text-3xl sm:text-4xl leading-[1.3] sm:leading-[1.3] mb-2">Video Metadata Viewer & Editor</h1>
             <p class="text-base-content/70">Analyze and remove metadata from video files for privacy</p>
         </header>
 
@@ -502,7 +506,7 @@
  
     </div>
 
-
+    {% include modals.liquid %}
     {% include footer.liquid %}
 
     <script>
@@ -955,7 +959,7 @@
                     alert(message);
                 }
             }
-        }).mount('#app');
+        }).mount('#main-content');
     </script>
 </body>
 </html>

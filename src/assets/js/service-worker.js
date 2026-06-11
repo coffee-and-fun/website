@@ -1,4 +1,4 @@
-const CACHE_NAME = 'coffee-fun-cache-v2';
+const CACHE_NAME = 'coffee-fun-cache-v3';
 
 self.addEventListener('install', (event) => {
 	event.waitUntil(
@@ -51,17 +51,20 @@ self.addEventListener('fetch', (event) => {
 		return;
 	}
 
-	// Static assets: cache first, populate the cache on first request.
+	// Static assets: stale-while-revalidate — serve from cache immediately,
+	// refresh the cached copy in the background so updates land on the next view.
 	event.respondWith(
 		caches.match(request).then((cached) => {
-			if (cached) return cached;
-			return fetch(request).then((response) => {
-				if (response.ok) {
-					const copy = response.clone();
-					caches.open(CACHE_NAME).then((cache) => cache.put(request, copy));
-				}
-				return response;
-			});
+			const refresh = fetch(request)
+				.then((response) => {
+					if (response.ok) {
+						const copy = response.clone();
+						caches.open(CACHE_NAME).then((cache) => cache.put(request, copy));
+					}
+					return response;
+				})
+				.catch(() => cached);
+			return cached || refresh;
 		})
 	);
 });

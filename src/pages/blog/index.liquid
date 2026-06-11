@@ -144,11 +144,6 @@
         .blog-card-item.hidden-card {
             display: none;
         }
-
-        .search-input:focus {
-            box-shadow: 0 0 0 3px rgba(163, 105, 66, 0.2);
-            border-color: var(--color-mocha);
-        }
     </style>
     
     <!-- Service Worker Registration -->
@@ -250,18 +245,10 @@
                 </svg>
             </div>
             <!-- Search -->
-            <div class="max-w-md mx-auto mb-10">
-                <label class="input input-lg w-full border-stone-200 focus-within:border-stone-300 rounded-xl">
-                    <span class="sr-only">Search blog posts</span>
-                    <svg class="h-[1em] opacity-40" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" aria-hidden="true">
-                        <g stroke-linejoin="round" stroke-linecap="round" stroke-width="2.5" fill="none" stroke="currentColor">
-                            <circle cx="11" cy="11" r="8"></circle>
-                            <path d="m21 21-4.3-4.3"></path>
-                        </g>
-                    </svg>
-                    <input type="search" id="blogSearchInput" placeholder="Search posts..." class="search-input" aria-label="Search blog posts" />
-                </label>
-            </div>
+            {% assign searchId = 'blogSearchInput' %}
+            {% assign searchPlaceholder = 'Search posts...' %}
+            {% assign searchLabel = 'Search blog posts' %}
+            {% include search-bar.liquid %}
 
             <!-- Sketch: sparkle near filter area -->
             <div class="sketch-note sketch-float" style="bottom: 10%; right: 2%; --sketch-rotate: 0deg;">

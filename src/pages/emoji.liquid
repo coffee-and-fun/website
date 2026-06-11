@@ -200,29 +200,36 @@
     <!-- Search Bar -->
     <div class="mb-8">
       <div class="max-w-2xl mx-auto">
-        <div class="form-control relative">
+        <label class="input input-bordered input-lg w-full flex items-center gap-2 rounded-xl shadow-sm">
+          <span class="sr-only">Search emojis</span>
+          <svg class="h-[1em] opacity-40" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" aria-hidden="true">
+            <g stroke-linejoin="round" stroke-linecap="round" stroke-width="2.5" fill="none" stroke="currentColor">
+              <circle cx="11" cy="11" r="8"></circle>
+              <path d="m21 21-4.3-4.3"></path>
+            </g>
+          </svg>
           <input
-            type="text"
+            type="search"
             placeholder="Search emojis by name, category, or keyword..."
-            class="input input-bordered input-primary w-full input-lg pr-24 shadow-sm"
+            class="grow"
             v-model="searchQuery"
             @input="debouncedSearch"
             @keydown.escape="clearSearch"
             ref="searchInput"
+            aria-label="Search emojis"
             autofocus
           />
-          <div class="absolute right-2 top-1/2 transform -translate-y-1/2 flex gap-2">
-            <button
-              v-if="searchQuery"
-              @click="clearSearch"
-              class="btn btn-ghost btn-sm btn-circle"
-              title="Clear search"
-            >
-              ✕
-            </button>
-            <kbd class="kbd kbd-sm">ESC</kbd>
-          </div>
-        </div>
+          <button
+            v-if="searchQuery"
+            @click="clearSearch"
+            class="btn btn-ghost btn-sm btn-circle"
+            title="Clear search"
+            aria-label="Clear search"
+          >
+            ✕
+          </button>
+          <kbd class="kbd kbd-sm">ESC</kbd>
+        </label>
         
         <!-- Search Stats -->
         <div class="text-center mt-3 text-sm text-base-content/60">
@@ -357,6 +364,7 @@
       </div>
     </div>
   </div>
+      {% include modals.liquid %}
       {% include footer.liquid %}
   <script>
     const { createApp } = Vue;

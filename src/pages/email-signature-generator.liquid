@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html class="scroll-smooth antialiased" lang="en" data-theme="light">
+<html class="scroll-smooth antialiased" lang="en" data-theme="retro">
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -41,6 +41,7 @@
 
 
   <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://cdn.jsdelivr.net/npm/daisyui@4.4.24/dist/full.min.css" rel="stylesheet" type="text/css" />
   <script src="https://unpkg.com/vue@3"></script>
   <script src="https://js.stripe.com/v3/"></script>
 
@@ -48,13 +49,13 @@
     [v-cloak] { display: none; }
     
     .drop-zone {
-      border: 2px dashed #cbd5e1;
+      border: 2px dashed #d6d3d1;
       transition: all 0.3s ease;
     }
     
     .drop-zone.drag-over {
-      border-color: #3b82f6;
-      background-color: #eff6ff;
+      border-color: var(--color-mocha);
+      background-color: #fef3e2;
     }
 
     .signature-preview {
@@ -72,37 +73,41 @@
     }
 
     .template-card.active {
-      border: 3px solid #3b82f6;
-      box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+      border: 3px solid var(--color-mocha);
+      box-shadow: 0 0 0 3px rgba(163, 105, 66, 0.15);
     }
   </style>
     {% include sketch-styles.liquid %}
 </head>
 
-<body class="bg-gradient-to-br from-blue-50 to-indigo-100 min-h-screen">
-  <main v-cloak id="app" class="container mx-auto max-w-7xl py-12 px-6">
-    
+<body class="bg-base-100 min-h-screen">
+  {% assign showFun = true %}
+  {% assign showMiddleBadgeWithText = true %}
+  {% include header.liquid %}
+
+  <main v-cloak id="main-content" class="container mx-auto max-w-7xl py-12 px-6">
+
     <!-- Header -->
     <header class="text-center mb-12">
-      <h1 class="text-4xl sm:text-5xl font-extrabold text-gray-900 mb-3">
-        ✉️ Email Signature Generator
+      <h1 class="brand-heading text-3xl sm:text-4xl lg:text-5xl leading-[1.3] sm:leading-[1.3] mb-3">
+        Email Signature Generator
       </h1>
-      <p class="text-lg text-gray-600">
+      <p class="text-lg text-base-content/70">
         Create professional email signatures in seconds
       </p>
     </header>
 
     <!-- Premium Access Banner (if not paid) -->
-    <div v-if="!hasPremiumAccess" class="bg-gradient-to-r from-purple-500 to-pink-500 rounded-2xl shadow-xl p-8 mb-8 text-white">
+    <div v-if="!hasPremiumAccess" class="bg-gradient-to-r from-[var(--color-mocha)] to-[var(--color-coral-deep)] rounded-2xl shadow-xl p-8 mb-8 text-white">
       <div class="flex flex-col md:flex-row items-center justify-between gap-6">
         <div>
           <h2 class="text-2xl font-bold mb-2">✨ Unlock Premium Templates</h2>
-          <p class="text-purple-100">Get access to all premium templates, advanced customization, and more for just $5</p>
+          <p class="text-white/85">Get access to all premium templates, advanced customization, and more for just $5</p>
         </div>
         <button 
           @click="initializeStripePayment"
           :disabled="isProcessingPayment"
-          class="px-8 py-4 bg-white text-purple-600 rounded-2xl font-bold hover:bg-gray-100 transition-colors whitespace-nowrap disabled:opacity-50">
+          class="px-8 py-4 bg-white text-[var(--color-espresso)] rounded-2xl font-bold hover:bg-gray-100 transition-colors whitespace-nowrap disabled:opacity-50">
           <span v-if="!isProcessingPayment">🚀 Get Premium Access - $5</span>
           <span v-else>Processing...</span>
         </button>
@@ -141,7 +146,7 @@
               <h3 class="font-bold text-gray-900">{% raw %}{{ template.name }}{% endraw %}</h3>
               <p class="text-xs text-gray-600 mt-1">{% raw %}{{ template.description }}{% endraw %}</p>
               <span v-if="template.premium && !hasPremiumAccess" 
-                    class="inline-block mt-2 px-2 py-1 bg-purple-100 text-purple-700 text-xs font-bold rounded-full">
+                    class="inline-block mt-2 px-2 py-1 bg-amber-100 text-[var(--color-espresso)] text-xs font-bold rounded-full">
                 Premium
               </span>
             </div>
@@ -499,8 +504,10 @@
     </div>
 
     <!-- Footer placeholder -->
-     {% include footer.liquid %}
   </main>
+
+  {% include modals.liquid %}
+  {% include footer.liquid %}
 
   <script>
     const { createApp } = Vue;
@@ -1080,7 +1087,7 @@
           }
         }
       }
-    }).mount('#app');
+    }).mount('#main-content');
   </script>
 </body>
 </html>

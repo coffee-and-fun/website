@@ -5,6 +5,7 @@ import svgContents from 'eleventy-plugin-svg-contents';
 //import pluginPWA from './tools/eleventy-plugin-pwa';
 import fs from 'fs';
 import path from 'path';
+import crypto from 'crypto';
 import eleventyVue from '@11ty/eleventy-plugin-vue';
 import { createCanvas, loadImage } from 'canvas';
 import { formatTitle } from './tools/format-title.js';
@@ -82,6 +83,9 @@ const createSocialImageForArticle = async (input, output) => {
 };
 
 export default function (eleventyConfig) {
+	// Populated by the eleventy.before hook once the bundles are built.
+	const assetVersions = { css: '', js: '' };
+
 	eleventyConfig.addPassthroughCopy({ 'src/assets/': '/assets/' });
 
 	eleventyConfig.addLiquidFilter('limit', (arr, limit) => arr.slice(0, limit));
@@ -214,21 +218,6 @@ export default function (eleventyConfig) {
 			fs.mkdirSync(outputDir, { recursive: true });
 		}
 
-		// Service-worker precache list. Only the core shell goes here — everything
-		// else is cached at runtime as it's requested. Precaching the whole docs/
-		// tree would force every first-time visitor to download the entire site.
-		const coreAssets = [
-			'/assets/css/engine.css',
-			'/assets/js/main.bundle.js',
-			'/assets/fonts/Pacifico-Regular.woff2',
-			'/assets/fonts/Caveat-Regular.woff2',
-			'/assets/fonts/Caveat-SemiBold.woff2',
-			'/assets/fonts/Caveat-Bold.woff2',
-			'/assets/images/favicon.png',
-			'/assets/images/coffee-and-fun-logo-dark.png'
-		];
-		const outputJsonPath = './docs/cache-assets.json';
-		fs.writeFileSync(outputJsonPath, JSON.stringify(coreAssets, null, 2));
 		const plugins = [tailwindcss()];
 		if (process.env.ELEVENTY_ENV === 'production') {
 			plugins.push(cssnano({ preset: 'default' }));
@@ -239,6 +228,32 @@ export default function (eleventyConfig) {
 		});
 
 		fs.writeFileSync(tailwindOutputPath, result.css);
+
+		// Cache-busting versions for the core bundles. The service worker caches
+		// static assets cache-first, so unversioned URLs would never update for
+		// returning visitors.
+		const hash = (p) =>
+			fs.existsSync(p)
+				? crypto.createHash('md5').update(fs.readFileSync(p)).digest('hex').slice(0, 10)
+				: '';
+		assetVersions.css = hash(tailwindOutputPath);
+		assetVersions.js = hash('./docs/assets/js/main.bundle.js');
+
+		// Service-worker precache list. Only the core shell goes here — everything
+		// else is cached at runtime as it's requested. Precaching the whole docs/
+		// tree would force every first-time visitor to download the entire site.
+		const coreAssets = [
+			`/assets/css/engine.css${assetVersions.css ? `?v=${assetVersions.css}` : ''}`,
+			`/assets/js/main.bundle.js${assetVersions.js ? `?v=${assetVersions.js}` : ''}`,
+			'/assets/fonts/Pacifico-Regular.woff2',
+			'/assets/fonts/Caveat-Regular.woff2',
+			'/assets/fonts/Caveat-SemiBold.woff2',
+			'/assets/fonts/Caveat-Bold.woff2',
+			'/assets/images/favicon.png',
+			'/assets/images/coffee-and-fun-logo-dark.png'
+		];
+		const outputJsonPath = './docs/cache-assets.json';
+		fs.writeFileSync(outputJsonPath, JSON.stringify(coreAssets, null, 2));
 	});
 
 	eleventyConfig.setLiquidOptions({
@@ -251,12 +266,14 @@ export default function (eleventyConfig) {
 		'main.css': '/assets/css/engine.css'
 	};
 
-	eleventyConfig.addShortcode('bundledCss', () =>
-		manifest['main.css'] ? `<link href="${manifest['main.css']}" rel="stylesheet" />` : ''
-	);
-	eleventyConfig.addShortcode('bundledJs', () =>
-		manifest['main.js'] ? `<script src="${manifest['main.js']}"></script>` : ''
-	);
+	eleventyConfig.addShortcode('bundledCss', () => {
+		const v = assetVersions.css ? `?v=${assetVersions.css}` : '';
+		return `<link href="${manifest['main.css']}${v}" rel="stylesheet" />`;
+	});
+	eleventyConfig.addShortcode('bundledJs', () => {
+		const v = assetVersions.js ? `?v=${assetVersions.js}` : '';
+		return `<script src="${manifest['main.js']}${v}"></script>`;
+	});
 	// Serve the service worker from the site root so its scope covers every page
 	// (pages register navigator.serviceWorker.register('/service-worker.js')).
 	eleventyConfig.addPassthroughCopy({ 'src/assets/js/service-worker.js': 'service-worker.js' });

@@ -1,4 +1,9 @@
 @import 'tailwindcss';
+/* Explicitly scan all templates and data — Tailwind's auto-detection misses some
+   .liquid files, silently dropping utilities like leading-[1.15]. */
+@source "../../pages";
+@source "../../_includes";
+@source "../../_data";
 @plugin "@tailwindcss/typography";
 
 @plugin "daisyui" {

@@ -16,6 +16,16 @@
         --color-coral-deep: #c4413a;
     }
 
+    /* Pacifico display font — duplicated from coco.css so Tailwind-CDN tool
+       pages (which don't load engine.css) still render .brand-heading correctly. */
+    @font-face {
+        font-family: 'Pacifico';
+        font-style: normal;
+        font-display: swap;
+        font-weight: 400;
+        src: url('/assets/fonts/Pacifico-Regular.woff2') format('woff2');
+    }
+
     /* Caveat handwriting font — self-hosted */
     @font-face {
         font-family: 'Caveat';
@@ -40,8 +50,7 @@
     }
 
     /* Brand display heading — Pacifico script with a soft coral offset shadow.
-       Single source of truth: pages include this partial instead of redefining it.
-       (The Pacifico @font-face itself lives in coco.css / engine.css.) */
+       Single source of truth: pages include this partial instead of redefining it. */
     .brand-heading {
         font-family: 'Pacifico', cursive;
         color: var(--color-mocha);

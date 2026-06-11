@@ -91,11 +91,6 @@
         .help-card-item.hidden-card {
             display: none;
         }
-
-        .search-input:focus {
-            box-shadow: 0 0 0 3px rgba(163, 105, 66, 0.2);
-            border-color: var(--color-mocha);
-        }
     </style>
 
     <script>
@@ -190,18 +185,10 @@
             </div>
 
             <!-- Search -->
-            <div class="max-w-md mx-auto mb-10">
-                <label class="input input-lg w-full border-stone-200 focus-within:border-stone-300 rounded-xl">
-                    <span class="sr-only">Search help guides</span>
-                    <svg class="h-[1em] opacity-40" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" aria-hidden="true">
-                        <g stroke-linejoin="round" stroke-linecap="round" stroke-width="2.5" fill="none" stroke="currentColor">
-                            <circle cx="11" cy="11" r="8"></circle>
-                            <path d="m21 21-4.3-4.3"></path>
-                        </g>
-                    </svg>
-                    <input type="search" id="helpSearchInput" placeholder="Search guides..." class="search-input" aria-label="Search help guides" />
-                </label>
-            </div>
+            {% assign searchId = 'helpSearchInput' %}
+            {% assign searchPlaceholder = 'Search guides...' %}
+            {% assign searchLabel = 'Search help guides' %}
+            {% include search-bar.liquid %}
 
             <!-- Filter Tabs -->
             <div class="flex flex-wrap justify-center gap-2" id="filterTabs">
