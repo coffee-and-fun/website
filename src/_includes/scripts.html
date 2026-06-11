@@ -16,20 +16,38 @@
 	gtag('config', 'G-RC4JGW9PVN');
 </script>
 
-<script defer src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.3/dist/confetti.browser.min.js"
-        integrity="sha384-Rv68Y7adOjMMJc1/xFMcdNvXre/HF51to4GZjBALmXr7ABnVl5V4UajJwBu7zbhN"
-        crossorigin="anonymous"
-        referrerpolicy="no-referrer"></script>
-<script defer src="https://unpkg.com/cursor-effects@1.0.17/dist/browser.js"
-        integrity="sha384-FMINDQUdC3urm7GrtpM8jjwMf+IaoB4aRmEclDNrRhm3xXKvXq2xt7AgG83Thpk8"
-        crossorigin="anonymous"
-        referrerpolicy="no-referrer"></script>
-
-<link rel="stylesheet" href="/assets/css/vendor/highlight-theme.min.css" />
-<script defer src="/assets/js/vendor/highlight.min.js"></script>
 <script>
+	// Inject a third-party script on demand. Decorative libraries (confetti,
+	// cursor effects, syntax highlighting) are only fetched when actually used,
+	// so they never compete with page rendering.
+	const loadedScripts = {};
+	function loadScriptOnce(src, integrity) {
+		if (!loadedScripts[src]) {
+			loadedScripts[src] = new Promise((resolve, reject) => {
+				const s = document.createElement('script');
+				s.src = src;
+				if (integrity) {
+					s.integrity = integrity;
+					s.crossOrigin = 'anonymous';
+					s.referrerPolicy = 'no-referrer';
+				}
+				s.onload = resolve;
+				s.onerror = reject;
+				document.head.appendChild(s);
+			});
+		}
+		return loadedScripts[src];
+	}
+
 	// Function to launch the confetti animation
 	function launchConfetti() {
+		loadScriptOnce(
+			'https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.3/dist/confetti.browser.min.js',
+			'sha384-Rv68Y7adOjMMJc1/xFMcdNvXre/HF51to4GZjBALmXr7ABnVl5V4UajJwBu7zbhN'
+		).then(runConfetti, () => {});
+	}
+
+	function runConfetti() {
 		const totalParticles = 300; // Total number of confetti particles
 
 		// Default configuration for the confetti
@@ -115,7 +133,12 @@
 			}
 			cursorEffect = null;
 			cursorEffectsEnabled = false;
-		} else {
+			return;
+		}
+		loadScriptOnce(
+			'https://unpkg.com/cursor-effects@1.0.17/dist/browser.js',
+			'sha384-FMINDQUdC3urm7GrtpM8jjwMf+IaoB4aRmEclDNrRhm3xXKvXq2xt7AgG83Thpk8'
+		).then(() => {
 			// Move to the next effect in the list
 			currentEffectIndex = (currentEffectIndex + 1) % availableEffects.length;
 			const effectName = availableEffects[currentEffectIndex];
@@ -123,14 +146,21 @@
 			// Create new effect instance
 			cursorEffect = new cursoreffects[effectName]();
 			cursorEffectsEnabled = true;
-
-			// Optional: log the current effect
-		}
+		}, () => {});
 	}
 
-	document.addEventListener('DOMContentLoaded', (event) => {
-		document.querySelectorAll('pre code').forEach((block) => {
-			hljs.highlightElement(block);
-		});
+	document.addEventListener('DOMContentLoaded', () => {
+		// Only pull in highlight.js (and its theme) on pages with code blocks.
+		const blocks = document.querySelectorAll('pre code');
+		if (!blocks.length) return;
+		const theme = document.createElement('link');
+		theme.rel = 'stylesheet';
+		theme.href = '/assets/css/vendor/highlight-theme.min.css';
+		document.head.appendChild(theme);
+		loadScriptOnce('/assets/js/vendor/highlight.min.js').then(() => {
+			blocks.forEach((block) => {
+				hljs.highlightElement(block);
+			});
+		}, () => {});
 	});
 </script>

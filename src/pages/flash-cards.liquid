@@ -19,7 +19,7 @@
     <meta property="og:url" content="https://www.coffeeandfun.com/flash-cards/" />
     <meta property="og:title" content="Instant Flash Cards - Turn Any Website Into Study Material" />
     <meta property="og:description" content="Convert any website content into flashcards instantly. Enhance learning, improve retention, and study smarter with one click." />
-    <meta property="og:image" content="/assets/images/social/pages/flash-cards.png" />
+    <meta property="og:image" content="https://www.coffeeandfun.com/assets/images/social/pages/flash-cards.png" />
     <meta property="og:image:width" content="1200" />
     <meta property="og:image:height" content="630" />
     <meta property="og:image:alt" content="Instant Flash Cards browser extension preview" />
@@ -28,10 +28,10 @@
     
     <!-- Twitter -->
     <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:url" content="/flash-cards/" />
+    <meta name="twitter:url" content="https://www.coffeeandfun.com/flash-cards/" />
     <meta name="twitter:title" content="Instant Flash Cards - Turn Any Website Into Study Material" />
     <meta name="twitter:description" content="Convert any website content into flashcards instantly. Study smarter with one click. Available on all major browsers." />
-    <meta name="twitter:image" content="/assets/images/social/pages/flash-cards.png" />
+    <meta name="twitter:image" content="https://www.coffeeandfun.com/assets/images/social/pages/flash-cards.png" />
     <meta name="twitter:image:alt" content="Instant Flash Cards browser extension" />
     <meta name="twitter:site" content="@bycoffeeandfun" />
     <meta name="twitter:creator" content="@bycoffeeandfun" />
@@ -117,18 +117,10 @@
     <!-- Service Worker -->
     <script>
         if ('serviceWorker' in navigator) {
-            navigator.serviceWorker.getRegistrations().then((registrations) => {
-                for (const registration of registrations) {
-                    registration.unregister().then(() => {
-                        console.log('🧹 Old service worker unregistered');
-                    });
-                }
-                
-                navigator.serviceWorker.register('/service-worker.js')
-                    .then(() => console.log('✅ New service worker registered'))
-                    .catch((err) => console.log('Service worker error:', err));
-            });
-        }
+        window.addEventListener('load', () => {
+          navigator.serviceWorker.register('/service-worker.js').catch(() => {});
+        });
+      }
     </script>
     
     {% include scripts.html %}
@@ -439,7 +431,7 @@
             <h2 class="brand-heading text-4xl sm:text-5xl leading-[1.2] sm:leading-[1.2] mb-5">
                 Make it stick
             </h2>
-            <p class="text-xl sm:text-2xl text-stone-500 max-w-2xl mx-auto leading-relaxed mb-10">
+            <p class="text-xl sm:text-2xl text-stone-600 max-w-2xl mx-auto leading-relaxed mb-10">
                 Turn any website into effective study material with just one click. Join the students and learners already using Instant Flash Cards.
             </p>
             <div class="flex flex-col sm:flex-row justify-center items-center gap-3">

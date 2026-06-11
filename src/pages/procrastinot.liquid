@@ -25,7 +25,7 @@
 		<meta property="og:title" content="ProcrastiNOT - Website Blocker for Safari on MacOS & iOS" />
 		<meta property="og:description" content="ProcrastiNOT is Safari extension for macOS, iPhone & iPad that blocks time-wasting sites so you can focus on your goals. Requires solving math problems to turn off blocking." />
 		<meta property="og:url" content="https://www.coffeeandfun.com/procrastinot/" />
-		<meta property="og:image" content="/assets/images/social/pages/procrastinot.png" />
+		<meta property="og:image" content="https://www.coffeeandfun.com/assets/images/social/pages/procrastinot.png" />
 		<meta property="og:image:width" content="1200" />
 		<meta property="og:image:height" content="630" />
 		<meta property="og:image:alt" content="ProcrastiNOT Safari Extension - Beat Procrastination with Math Challenges" />
@@ -36,10 +36,10 @@
 		<meta name="twitter:creator" content="@bycoffeeandfun" />
 		<meta name="twitter:title" content="ProcrastiNOT - Website Blocker for Safari on MacOS & iOS" />
 		<meta name="twitter:description" content="ProcrastiNOT is Safari extension for macOS, iPhone & iPad that blocks time-wasting sites so you can focus on your goals. Requires solving math problems to turn off blocking." />
-		<meta name="twitter:image" content="/assets/images/social/pages/procrastinot.png" />
+		<meta name="twitter:image" content="https://www.coffeeandfun.com/assets/images/social/pages/procrastinot.png" />
 		<meta name="twitter:image:alt" content="ProcrastiNOT Safari Extension - Beat Procrastination with Math Challenges" />
 		<meta name="twitter:domain" content="coffeeandfun.com" />
-		<meta name="twitter:url" content="/procrastinot/" />
+		<meta name="twitter:url" content="https://www.coffeeandfun.com/procrastinot/" />
 
 		<!-- PWA Manifest -->
 		<link rel="manifest" href="/assets/images/social/site.webmanifest" />
@@ -124,19 +124,10 @@
 		<!-- Service Worker Registration -->
 		<script>
 			if ('serviceWorker' in navigator) {
-				navigator.serviceWorker.getRegistrations().then((registrations) => {
-					for (const registration of registrations) {
-						registration.unregister().then(() => {
-							console.log('🧹 Old service worker unregistered');
-						});
-					}
-			
-					// After clearing, register the new one
-					navigator.serviceWorker.register('/service-worker.js')
-						.then(() => console.log('✅ New service worker registered'))
-						.catch((err) => console.log('Service worker error:', err));
-				});
-			}
+        window.addEventListener('load', () => {
+          navigator.serviceWorker.register('/service-worker.js').catch(() => {});
+        });
+      }
 		</script>
 
 		{% include scripts.html %}
@@ -422,7 +413,7 @@
 			<h2 class="brand-heading text-4xl sm:text-5xl leading-[1.2] sm:leading-[1.2] mb-5">
 				Ready to actually focus?
 			</h2>
-			<p class="text-xl sm:text-2xl text-stone-500 max-w-2xl mx-auto leading-relaxed mb-10">
+			<p class="text-xl sm:text-2xl text-stone-600 max-w-2xl mx-auto leading-relaxed mb-10">
 				One small purchase. Hundreds of hours saved.
 			</p>
 			<div class="flex flex-col sm:flex-row justify-center items-center gap-3">

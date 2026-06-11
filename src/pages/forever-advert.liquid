@@ -16,10 +16,10 @@
     
     <!-- Open Graph / Facebook -->
     <meta property="og:type" content="website" />
-    <meta property="og:url" content="/forever-advert/" />
+    <meta property="og:url" content="https://www.coffeeandfun.com/forever-advert/" />
     <meta property="og:title" content="Mystery Rank - Compete and Climb the Leaderboard" />
     <meta property="og:description" content="Secure your spot and climb the ranks. The twist? You'll never know what others contributed. Join the mystery competition!" />
-    <meta property="og:image" content="/assets/images/social/pages/forever-advert.png" />
+    <meta property="og:image" content="https://www.coffeeandfun.com/assets/images/social/pages/forever-advert.png" />
     <meta property="og:image:width" content="1200" />
     <meta property="og:image:height" content="630" />
     <meta property="og:image:alt" content="Mystery Rank leaderboard competition" />
@@ -28,16 +28,16 @@
     
     <!-- Twitter -->
     <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:url" content="/forever-advert/" />
+    <meta name="twitter:url" content="https://www.coffeeandfun.com/forever-advert/" />
     <meta name="twitter:title" content="Mystery Rank - Compete and Climb the Leaderboard" />
     <meta name="twitter:description" content="Secure your spot and climb the ranks. The twist? You'll never know what others contributed." />
-    <meta name="twitter:image" content="/assets/images/social/pages/forever-advert.png" />
+    <meta name="twitter:image" content="https://www.coffeeandfun.com/assets/images/social/pages/forever-advert.png" />
     <meta name="twitter:image:alt" content="Mystery Rank leaderboard" />
     <meta name="twitter:site" content="@bycoffeeandfun" />
     <meta name="twitter:creator" content="@bycoffeeandfun" />
     
     <!-- Canonical URL -->
-    <link rel="canonical" href="/forever-advert/" />
+    <link rel="canonical" href="https://www.coffeeandfun.com/forever-advert/" />
     
     <!-- Favicon & Icons -->
     <link rel="icon" href="/assets/images/favicon.png" type="image/png" />
@@ -86,16 +86,10 @@
     <!-- Service Worker -->
     <script>
         if ('serviceWorker' in navigator) {
-            navigator.serviceWorker.getRegistrations().then((registrations) => {
-                registrations.forEach(registration => {
-                    registration.unregister();
-                });
-                
-                navigator.serviceWorker.register('/service-worker.js')
-                    .then(() => console.log('✅ Service worker registered'))
-                    .catch((err) => console.error('Service worker error:', err));
-            });
-        }
+        window.addEventListener('load', () => {
+          navigator.serviceWorker.register('/service-worker.js').catch(() => {});
+        });
+      }
     </script>
     
     <style>

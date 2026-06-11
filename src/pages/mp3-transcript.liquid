@@ -18,7 +18,7 @@
     <meta name="rating" content="safe for kids" />
 
     <!-- Canonical URL -->
-    <link rel="canonical" href="/mp3-transcript/" />
+    <link rel="canonical" href="https://www.coffeeandfun.com/mp3-transcript/" />
 
     <!-- Favicon -->
     <link rel="icon" href="/assets/images/favicon.png" sizes="any" />
@@ -30,8 +30,8 @@
     <meta property="og:site_name" content="Coffee & Fun" />
     <meta property="og:title" content="MP3 to Transcript - AI Audio Transcription" />
     <meta property="og:description" content="Transform your MP3 audio files into accurate text transcriptions using Chrome's AI LanguageModel API. Quick, easy, and private audio-to-text conversion for meetings, interviews, and recordings." />
-    <meta property="og:url" content="/mp3-transcript/" />
-    <meta property="og:image" content="/assets/images/social/pages/mp3-transcript.png" />
+    <meta property="og:url" content="https://www.coffeeandfun.com/mp3-transcript/" />
+    <meta property="og:image" content="https://www.coffeeandfun.com/assets/images/social/pages/mp3-transcript.png" />
     <meta property="og:image:width" content="1200" />
     <meta property="og:image:height" content="630" />
     <meta property="og:image:alt" content="MP3 to Transcript Tool - AI-Powered Audio Transcription" />
@@ -42,10 +42,10 @@
     <meta name="twitter:creator" content="@bycoffeeandfun" />
     <meta name="twitter:title" content="MP3 to Transcript - AI Audio Transcription" />
     <meta name="twitter:description" content="Transform your MP3 audio files into accurate text transcriptions using Chrome's AI LanguageModel API. Quick, easy, and private audio-to-text conversion for meetings, interviews, and recordings." />
-    <meta name="twitter:image" content="/assets/images/social/pages/mp3-transcript.png" />
+    <meta name="twitter:image" content="https://www.coffeeandfun.com/assets/images/social/pages/mp3-transcript.png" />
     <meta name="twitter:image:alt" content="MP3 to Transcript Tool - AI-Powered Audio Transcription" />
     <meta name="twitter:domain" content="coffeeandfun.com" />
-    <meta name="twitter:url" content="/mp3-transcript/" />
+    <meta name="twitter:url" content="https://www.coffeeandfun.com/mp3-transcript/" />
 
     <!-- PWA Manifest -->
     <link rel="manifest" href="/assets/images/social/site.webmanifest" />
@@ -142,19 +142,9 @@
 
     <!-- Service Worker Registration -->
     <script>
-      if ("serviceWorker" in navigator) {
-        navigator.serviceWorker.getRegistrations().then((registrations) => {
-          for (const registration of registrations) {
-            registration.unregister().then(() => {
-              console.log("🧹 Old service worker unregistered");
-            });
-          }
-
-          // After clearing, register the new one
-          navigator.serviceWorker
-            .register("/service-worker.js")
-            .then(() => console.log("✅ New service worker registered"))
-            .catch((err) => console.log("Service worker error:", err));
+      if ('serviceWorker' in navigator) {
+        window.addEventListener('load', () => {
+          navigator.serviceWorker.register('/service-worker.js').catch(() => {});
         });
       }
     </script>

@@ -17,6 +17,7 @@ import markdownIt from 'markdown-it';
 import markdownItClass from '@toycode/markdown-it-class';
 import markdownItAnchor from 'markdown-it-anchor';
 import tailwindcss from '@tailwindcss/postcss';
+import cssnano from 'cssnano';
 
 const createSocialImageForArticle = async (input, output) => {
 	try {
@@ -163,7 +164,7 @@ export default function (eleventyConfig) {
 		td: 'border border-gray-300 px-6 py-4 text-pretty text-gray-900',
 		img: 'w-full h-auto rounded-2xl mb-8 border-gray-300 border-2',
 		hr: 'divider divider-neutral my-10',
-		a: 'text-lg text-pretty text-blue-500 hover:text-blue-700 underline mx-2',
+		a: 'text-lg text-pretty text-blue-600 hover:text-blue-800 underline mx-2',
 		iframe: 'w-full h-96 rounded-2xl shadow-lg my-10',
 		blockquote: 'border-l-4 border-gray-300 pl-4 italic text-pretty text-gray-700 my-4',
 		code: 'bg-gray-100 text-pretty text-gray-800 rounded p-2 text-sm font-mono',
@@ -184,6 +185,8 @@ export default function (eleventyConfig) {
 					useShortDoctype: true,
 					removeComments: true,
 					collapseWhitespace: true,
+					minifyCSS: true,
+					minifyJS: true,
 					// Skip Vue/Liquid-style template expressions so html-minifier doesn't
 					// misparse things like `{{ x <= 5 ? 'a' : 'b' }}` as HTML tags.
 					ignoreCustomFragments: [
@@ -211,24 +214,26 @@ export default function (eleventyConfig) {
 			fs.mkdirSync(outputDir, { recursive: true });
 		}
 
-		// 🔥 Auto-generate asset list for PWA
-		const walk = (dir) => {
-			const files = fs.readdirSync(dir);
-			return files.flatMap((file) => {
-				const fullPath = path.join(dir, file);
-				if (fs.statSync(fullPath).isDirectory()) {
-					return walk(fullPath);
-				} else {
-					const relative = '/' + path.relative('./docs', fullPath).replace(/\\/g, '/');
-
-					return [relative];
-				}
-			});
-		};
-		const allAssets = walk('./docs').filter((f) => !f.endsWith('.map'));
+		// Service-worker precache list. Only the core shell goes here — everything
+		// else is cached at runtime as it's requested. Precaching the whole docs/
+		// tree would force every first-time visitor to download the entire site.
+		const coreAssets = [
+			'/assets/css/engine.css',
+			'/assets/js/main.bundle.js',
+			'/assets/fonts/Pacifico-Regular.woff2',
+			'/assets/fonts/Caveat-Regular.woff2',
+			'/assets/fonts/Caveat-SemiBold.woff2',
+			'/assets/fonts/Caveat-Bold.woff2',
+			'/assets/images/favicon.png',
+			'/assets/images/coffee-and-fun-logo-dark.png'
+		];
 		const outputJsonPath = './docs/cache-assets.json';
-		fs.writeFileSync(outputJsonPath, JSON.stringify(allAssets, null, 2));
-		const result = await postcss([tailwindcss()]).process(cssContent, {
+		fs.writeFileSync(outputJsonPath, JSON.stringify(coreAssets, null, 2));
+		const plugins = [tailwindcss()];
+		if (process.env.ELEVENTY_ENV === 'production') {
+			plugins.push(cssnano({ preset: 'default' }));
+		}
+		const result = await postcss(plugins).process(cssContent, {
 			from: tailwindInputPath,
 			to: tailwindOutputPath
 		});
@@ -252,9 +257,9 @@ export default function (eleventyConfig) {
 	eleventyConfig.addShortcode('bundledJs', () =>
 		manifest['main.js'] ? `<script src="${manifest['main.js']}"></script>` : ''
 	);
-	// Register service worker manually
-	eleventyConfig.addPassthroughCopy('./src/service-worker.js');
-	eleventyConfig.addPassthroughCopy('./src/manifest.webmanifest');
+	// Serve the service worker from the site root so its scope covers every page
+	// (pages register navigator.serviceWorker.register('/service-worker.js')).
+	eleventyConfig.addPassthroughCopy({ 'src/assets/js/service-worker.js': 'service-worker.js' });
 
 	return {
 		markdownTemplateEngine: 'liquid',

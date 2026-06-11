@@ -11,7 +11,7 @@
     <meta name="robots" content="index, follow" />
     <meta name="rating" content="safe for kids" />
 
-    <link rel="canonical" href="/apps/" />
+    <link rel="canonical" href="https://www.coffeeandfun.com/apps/" />
     <link rel="icon" href="/assets/images/favicon.png" sizes="any" />
     <link rel="apple-touch-icon" href="/assets/images/social/192.png" />
     <link rel="icon" href="/assets/images/social/192.png" sizes="192x192" type="image/png" />
@@ -50,7 +50,7 @@
             font-size: 0.875rem;
             font-weight: 500;
             border: 1.5px solid #d6d3d1;
-            color: #78716c;
+            color: #57534e;
             background: transparent;
             cursor: pointer;
             transition: all 0.2s;
@@ -113,9 +113,9 @@
         <!-- Hero -->
         <section class="relative mx-auto max-w-5xl px-4 sm:px-6 lg:px-8 pt-20 sm:pt-28 pb-10 sm:pb-14 text-center overflow-visible">
             <h1 class="brand-heading text-4xl sm:text-5xl lg:text-6xl leading-[1.15] sm:leading-[1.15] lg:leading-[1.15] mb-5">
-                Our Apps
+                Our Apps & Tools
             </h1>
-            <p class="text-lg sm:text-xl text-stone-500 max-w-2xl mx-auto leading-relaxed">
+            <p class="text-lg sm:text-xl text-stone-600 max-w-2xl mx-auto leading-relaxed">
                 Tools, extensions, and experiments — built with care.
             </p>
 
@@ -250,7 +250,6 @@
                 <a class="app-card card card-compact bg-base-100 shadow-md transition-all duration-200 hover:-translate-y-1 hover:shadow-xl rounded-2xl focus:outline-none focus:ring-2 focus:ring-offset-2 overflow-hidden"
                     style="--tw-ring-color: var(--color-mocha);"
                     href="{{ app.link }}"
-                    aria-label="View {{ app.name }}"
                     {% if app.link contains 'http' %}target="_blank" rel="noopener noreferrer"{% endif %}
                     data-title="{{ app.name | downcase }}"
                     data-description="{{ app.description | downcase }}"
@@ -264,18 +263,18 @@
                     </figure>
                     <div class="card-body">
                         <h2 class="card-title text-stone-800">{{ app.name }}</h2>
-                        <p class="text-sm text-stone-500 line-clamp-2">{{ app.description }}</p>
+                        <p class="text-sm text-stone-600 line-clamp-2">{{ app.description }}</p>
                         <div class="flex flex-wrap gap-1.5 mt-3">
                             {% for platform in app.platform %}
                             {% assign ptag = platform | downcase %}
                             {% if ptag == "chrome" %}
-                            <span class="text-xs font-medium px-2.5 py-1 rounded-full text-white" style="background-color:var(--color-toffee);">{{ platform }}</span>
+                            <span class="text-xs font-medium px-2.5 py-1 rounded-full text-white" style="background-color:var(--color-caramel);">{{ platform }}</span>
                             {% elsif ptag == "safari" %}
-                            <span class="text-xs font-medium px-2.5 py-1 rounded-full text-white" style="background-color:#5b8c5a;">{{ platform }}</span>
+                            <span class="text-xs font-medium px-2.5 py-1 rounded-full text-white" style="background-color:#4a7249;">{{ platform }}</span>
                             {% elsif ptag == "web" %}
                             <span class="text-xs font-medium px-2.5 py-1 rounded-full text-white" style="background-color:var(--color-espresso);">{{ platform }}</span>
                             {% elsif ptag == "ios" %}
-                            <span class="text-xs font-medium px-2.5 py-1 rounded-full text-white" style="background-color:var(--color-coral);">{{ platform }}</span>
+                            <span class="text-xs font-medium px-2.5 py-1 rounded-full text-white" style="background-color:var(--color-coral-deep);">{{ platform }}</span>
                             {% elsif ptag == "macos" %}
                             <span class="text-xs font-medium px-2.5 py-1 rounded-full text-white" style="background-color:var(--color-caramel);">{{ platform }}</span>
                             {% else %}
@@ -332,7 +331,6 @@
                 <a class="app-card card card-compact bg-base-100 shadow-md transition-all duration-200 hover:-translate-y-1 hover:shadow-xl rounded-2xl focus:outline-none focus:ring-2 focus:ring-offset-2 overflow-hidden"
                     style="--tw-ring-color: var(--color-mocha);"
                     href="{{ app.link }}"
-                    aria-label="View {{ app.name }}"
                     target="_blank" rel="noopener noreferrer"
                     data-title="{{ app.name | downcase }}"
                     data-description="{{ app.description | downcase }}"
@@ -346,18 +344,18 @@
                     </figure>
                     <div class="card-body">
                         <h2 class="card-title text-stone-800">{{ app.name }}</h2>
-                        <p class="text-sm text-stone-500 line-clamp-2">{{ app.description }}</p>
+                        <p class="text-sm text-stone-600 line-clamp-2">{{ app.description }}</p>
                         <div class="flex flex-wrap gap-1.5 mt-3">
                             {% for platform in app.platform %}
                             {% assign ptag = platform | downcase %}
                             {% if ptag == "chrome" %}
-                            <span class="text-xs font-medium px-2.5 py-1 rounded-full text-white" style="background-color:var(--color-toffee);">{{ platform }}</span>
+                            <span class="text-xs font-medium px-2.5 py-1 rounded-full text-white" style="background-color:var(--color-caramel);">{{ platform }}</span>
                             {% elsif ptag == "safari" %}
-                            <span class="text-xs font-medium px-2.5 py-1 rounded-full text-white" style="background-color:#5b8c5a;">{{ platform }}</span>
+                            <span class="text-xs font-medium px-2.5 py-1 rounded-full text-white" style="background-color:#4a7249;">{{ platform }}</span>
                             {% elsif ptag == "web" %}
                             <span class="text-xs font-medium px-2.5 py-1 rounded-full text-white" style="background-color:var(--color-espresso);">{{ platform }}</span>
                             {% elsif ptag == "ios" %}
-                            <span class="text-xs font-medium px-2.5 py-1 rounded-full text-white" style="background-color:var(--color-coral);">{{ platform }}</span>
+                            <span class="text-xs font-medium px-2.5 py-1 rounded-full text-white" style="background-color:var(--color-coral-deep);">{{ platform }}</span>
                             {% elsif ptag == "macos" %}
                             <span class="text-xs font-medium px-2.5 py-1 rounded-full text-white" style="background-color:var(--color-caramel);">{{ platform }}</span>
                             {% else %}
@@ -395,13 +393,12 @@
                 </svg>
             </div>
             <h2 class="text-xl sm:text-2xl font-bold text-stone-800 mb-2">The Graveyard</h2>
-            <p class="text-sm text-stone-500 mb-8">Apps we've sunset or retired.</p>
-            <div class="not-prose grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-3 opacity-70" id="graveyardGrid">
+            <p class="text-sm text-stone-600 mb-8">Apps we&rsquo;ve sunset or retired.</p>
+            <div class="not-prose grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-3 grayscale" id="graveyardGrid">
                 {% for app in apps.graveyard %}
                 <a class="app-card card card-compact bg-base-100 shadow-md transition-all duration-200 hover:-translate-y-1 hover:shadow-xl rounded-2xl focus:outline-none focus:ring-2 focus:ring-offset-2 overflow-hidden"
                     style="--tw-ring-color: var(--color-mocha);"
                     href="{{ app.link }}"
-                    aria-label="View {{ app.name }}"
                     {% if app.link contains 'http' %}target="_blank" rel="noopener noreferrer"{% endif %}
                     data-title="{{ app.name | downcase }}"
                     data-description="{{ app.description | downcase }}"
@@ -415,18 +412,18 @@
                     </figure>
                     <div class="card-body">
                         <h2 class="card-title text-stone-800">{{ app.name }}</h2>
-                        <p class="text-sm text-stone-500 line-clamp-2">{{ app.description }}</p>
+                        <p class="text-sm text-stone-600 line-clamp-2">{{ app.description }}</p>
                         <div class="flex flex-wrap gap-1.5 mt-3">
                             {% for platform in app.platform %}
                             {% assign ptag = platform | downcase %}
                             {% if ptag == "chrome" %}
-                            <span class="text-xs font-medium px-2.5 py-1 rounded-full text-white" style="background-color:var(--color-toffee);">{{ platform }}</span>
+                            <span class="text-xs font-medium px-2.5 py-1 rounded-full text-white" style="background-color:var(--color-caramel);">{{ platform }}</span>
                             {% elsif ptag == "safari" %}
-                            <span class="text-xs font-medium px-2.5 py-1 rounded-full text-white" style="background-color:#5b8c5a;">{{ platform }}</span>
+                            <span class="text-xs font-medium px-2.5 py-1 rounded-full text-white" style="background-color:#4a7249;">{{ platform }}</span>
                             {% elsif ptag == "web" %}
                             <span class="text-xs font-medium px-2.5 py-1 rounded-full text-white" style="background-color:var(--color-espresso);">{{ platform }}</span>
                             {% elsif ptag == "ios" %}
-                            <span class="text-xs font-medium px-2.5 py-1 rounded-full text-white" style="background-color:var(--color-coral);">{{ platform }}</span>
+                            <span class="text-xs font-medium px-2.5 py-1 rounded-full text-white" style="background-color:var(--color-coral-deep);">{{ platform }}</span>
                             {% elsif ptag == "macos" %}
                             <span class="text-xs font-medium px-2.5 py-1 rounded-full text-white" style="background-color:var(--color-caramel);">{{ platform }}</span>
                             {% else %}

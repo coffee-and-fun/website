@@ -74,7 +74,7 @@ Or look at [this 2FA extension](https://chromewebstore.google.com/detail/2fa/ebh
 
 Here's another one — [RandomCats](https://chromewebstore.google.com/detail/randomcats-just-random-ph/cfjpjbokkcbghmdieflchhklaldlhfkm), a Featured extension that just shows random photos of cats. 567 users, 4 ratings, and a Featured badge. The screenshots are a single popup window. This is what the Featured badge is being given to now.
 
-![RandomCats — a Featured extension for random cat photos with 567 users](/assets/images/blog/cws-standards/random-cats.png)
+![RandomCats — a Featured extension for random cat photos with 567 users](/assets/images/blog/cws-standards/random-cats.webp)
 
 And then there's [meowad](https://chromewebstore.google.com/detail/meowad/nnhfkogbcflegfcbemlllmapfggjiffj), which replaces ads on Twitter with cat meowing. 4.9 stars, 56 ratings, and its description literally says "meow :3". I'm not making this up.
 
@@ -87,7 +87,7 @@ Again, nothing personal against these developers. But the fact that these listin
 
 I want to ask a genuine question here. Look at these two listings side by side.
 
-![RandomCats — a Featured extension with 567 users that shows random cat photos](/assets/images/blog/cws-standards/random-cats.png)
+![RandomCats — a Featured extension with 567 users that shows random cat photos](/assets/images/blog/cws-standards/random-cats.webp)
 
 ![A 2FA extension using Google Authenticator branding — Featured badge, not affiliated with Google](/assets/images/blog/cws-standards/2fa-google-auth.png)
 

@@ -14,10 +14,10 @@
   <meta name="rating" content="safe for kids" />
 <link
   rel="canonical"
-  href="https://www.coffeeandfun.com/{{ page.url | safe }}"
+  href="https://www.coffeeandfun.com{{ page.url }}"
 />
   <!-- Favicon -->
-  <link rel="icon" href="https://www.coffeeandfun.com/assets/images/favicon.png" />
+  <link rel="icon" href="/assets/images/favicon.png" />
 
   <!-- PWA Manifest -->
   <link rel="manifest" href="/assets/images/social/site.webmanifest" />
@@ -35,7 +35,7 @@
   <!-- Open Graph Meta Tags -->
   <meta property="og:title" content="{{ title | escape }} - Coffee & Fun LLC" />
   <meta property="og:site_name" content="Coffee & Fun LLC" />
-  <meta property="og:url" content="https://www.coffeeandfun.com/{{ page.url | safe }}" />
+  <meta property="og:url" content="https://www.coffeeandfun.com{{ page.url }}" />
   <meta property="og:description" content="{{ description | escape }}" />
   <meta property="og:type" content="article" />
   <meta property="og:image" content="https://www.coffeeandfun.com{{img}}" />
@@ -74,7 +74,7 @@
     "dateModified": "{{date | date: '%Y-%m-%d' }}",
     "mainEntityOfPage": {
       "@type": "WebPage",
-      "@id": "https://www.coffeeandfun.com{{ page.url | safe }}"
+      "@id": "https://www.coffeeandfun.com{{ page.url }}"
     }
   }
   </script>
@@ -85,17 +85,8 @@
   <!-- Service Worker -->
   <script>
     if ('serviceWorker' in navigator) {
-      navigator.serviceWorker.getRegistrations().then((registrations) => {
-        for (const registration of registrations) {
-          registration.unregister().then(() => {
-            console.log('🧹 Old service worker unregistered');
-          });
-        }
-        
-        // Register new service worker
-        navigator.serviceWorker.register('/service-worker.js')
-          .then(() => console.log('✅ New service worker registered'))
-          .catch((err) => console.log('Service worker error:', err));
+      window.addEventListener('load', () => {
+        navigator.serviceWorker.register('/service-worker.js').catch(() => {});
       });
     }
   </script>
@@ -179,14 +170,14 @@
                 {{name}}
               </span>
               <time
-                datetime="{{date | formatDateWithOrdinal }}"
-                class="inline-flex items-center px-3 py-1 rounded-full text-xs font-medium text-white" style="background-color: var(--color-toffee);"
+                datetime="{{ date | date: '%Y-%m-%d' }}"
+                class="inline-flex items-center px-3 py-1 rounded-full text-xs font-medium text-white" style="background-color: var(--color-caramel);"
               >
                 {{date | formatDateWithOrdinal }}
               </time>
             </div>
             <div class="flex items-center">
-              <span class="inline-flex items-center px-3 py-1 rounded-full text-xs font-medium text-white" style="background-color: var(--color-coral);">
+              <span class="inline-flex items-center px-3 py-1 rounded-full text-xs font-medium text-white" style="background-color: var(--color-coral-deep);">
                 {{time}}
               </span>
             </div>
@@ -217,14 +208,18 @@
                     <path d="M2 10 L12 2 L22 10 L32 2 L42 10 L52 2 L62 10 L72 2 L80 8" class="sketch-zigzag"/>
                 </svg>
             </div>
-            <img
-              src="{{img}}"
-              alt="{{ title | escape }}"
-              width="1200" height="630"
-              class="w-full h-64 sm:h-80 lg:h-96 object-cover rounded-2xl mb-8 border-stone-200 border"
-              title="{{ title | escape }}"
-              loading="lazy"
-            />
+            <picture>
+              <source srcset="{{ img | replace: '.png', '.webp' | replace: '.jpg', '.webp' }}" type="image/webp" />
+              <img
+                src="{{img}}"
+                alt="{{ title | escape }}"
+                width="1200" height="630"
+                class="w-full h-64 sm:h-80 lg:h-96 object-cover rounded-2xl mb-8 border-stone-200 border"
+                title="{{ title | escape }}"
+                fetchpriority="high"
+                decoding="async"
+              />
+            </picture>
           </div>
         </header>
 
@@ -328,13 +323,13 @@
           </div>
           <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
             <div class="flex items-center gap-3">
-              <span class="text-sm font-medium text-stone-500">Share this article:</span>
+              <span class="text-sm font-medium text-stone-600">Share this article:</span>
               <div class="flex gap-2">
                 <a
                   href="https://twitter.com/intent/tweet?text={{ title | url_encode }}&url=https://www.coffeeandfun.com{{ page.url | safe }}"
                   target="_blank"
                   rel="noopener noreferrer"
-                  class="p-2 text-stone-400 hover:text-stone-700 hover:bg-amber-50 rounded-2xl transition-colors duration-200"
+                  class="p-2 text-stone-500 hover:text-stone-700 hover:bg-amber-50 rounded-2xl transition-colors duration-200"
                   aria-label="Share on Twitter"
                 >
                   <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
@@ -345,7 +340,7 @@
             </div>
             <a
               href="/blog/"
-              class="text-sm font-medium transition-colors duration-200" style="color: var(--color-mocha);"
+              class="text-sm font-medium transition-colors duration-200" style="color: var(--color-caramel);"
             >
               &larr; More Articles
             </a>

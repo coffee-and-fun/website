@@ -1,4 +1,4 @@
-const CACHE_NAME = 'coffee-fun-cache-v1';
+const CACHE_NAME = 'coffee-fun-cache-v2';
 
 self.addEventListener('install', (event) => {
 	event.waitUntil(
@@ -10,9 +10,7 @@ self.addEventListener('install', (event) => {
 					return cache.addAll(files);
 				});
 			})
-			.catch((err) => {
-				console.log('[SW] Failed to cache files on install:', err);
-			})
+			.catch(() => {})
 	);
 	self.skipWaiting();
 });
@@ -33,9 +31,37 @@ self.addEventListener('activate', (event) => {
 });
 
 self.addEventListener('fetch', (event) => {
+	const { request } = event;
+	if (request.method !== 'GET') return;
+
+	const url = new URL(request.url);
+	if (url.origin !== self.location.origin) return;
+
+	// HTML: network first so content updates land immediately, cache as fallback.
+	if (request.mode === 'navigate' || request.destination === 'document') {
+		event.respondWith(
+			fetch(request)
+				.then((response) => {
+					const copy = response.clone();
+					caches.open(CACHE_NAME).then((cache) => cache.put(request, copy));
+					return response;
+				})
+				.catch(() => caches.match(request))
+		);
+		return;
+	}
+
+	// Static assets: cache first, populate the cache on first request.
 	event.respondWith(
-		caches.match(event.request).then((response) => {
-			return response || fetch(event.request);
+		caches.match(request).then((cached) => {
+			if (cached) return cached;
+			return fetch(request).then((response) => {
+				if (response.ok) {
+					const copy = response.clone();
+					caches.open(CACHE_NAME).then((cache) => cache.put(request, copy));
+				}
+				return response;
+			});
 		})
 	);
 });

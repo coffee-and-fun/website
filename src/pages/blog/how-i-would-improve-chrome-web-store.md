@@ -69,8 +69,8 @@ Alright, let’s dive into the improvements!
 Drag the middle circle to see the difference.
 
 {% assign showDifference = true %}
-{% assign beforeImage = '/assets/images/blog/improve/before.png' %}
-{% assign afterImage = '/assets/images/blog/improve/after.png' %}
+{% assign beforeImage = '/assets/images/blog/improve/before.webp' %}
+{% assign afterImage = '/assets/images/blog/improve/after.webp' %}
 
 {% include difference.liquid %}
 

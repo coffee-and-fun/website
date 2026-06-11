@@ -51,7 +51,7 @@ As of early 2026, Waymo has completed over [170 million fully autonomous miles](
 
 The most obvious thing about a Waymo is the hardware on top. That dome on the roof isn't decorative. It's packed with sensors that give the car a complete, 360-degree picture of everything around it.
 
-![Close-up of the Waymo sensor dome on the roof of the Jaguar I-PACE](/assets/images/blog/waymo-review/sensor-dome.jpg)
+![Close-up of the Waymo sensor dome on the roof of the Jaguar I-PACE](/assets/images/blog/waymo-review/sensor-dome.webp)
 
 The [5th-generation Waymo Driver](https://waymo.com/blog/2020/03/introducing-5th-generation-waymo-driver/), which is what's in the Jaguar I-PACEs we rode, uses a combination of four lidar units, six radar sensors, and 29 cameras placed all around the vehicle. [Tangram Vision](https://www.tangramvision.com/blog/sensing-breakdown-waymo-jaguar-i-pace-robotaxi) did a fantastic breakdown of the full sensor layout if you want the technical detail.
 
@@ -83,7 +83,7 @@ Waymo is already rolling out their [6th-generation Waymo Driver](https://waymo.c
 
 You open the Waymo app, set your pickup and drop-off, and a car is assigned. The app shows you the car approaching in real time. When it arrives, you unlock the doors through the app and get in.
 
-![The Waymo dashboard greeting — "Good morning, Robert James"](/assets/images/blog/waymo-review/dashboard-greeting.jpg)
+![The Waymo dashboard greeting — "Good morning, Robert James"](/assets/images/blog/waymo-review/dashboard-greeting.webp)
 
 Inside, there's a screen on the back of the front seats that shows your route, your estimated arrival, and a live view of what the car is "seeing" — other vehicles, lane markings, traffic lights. It's fascinating to watch. The screen greeted us by name when we got in, which was a nice touch.
 
@@ -91,11 +91,11 @@ The ride itself felt like being in a very competent Uber, minus the small talk. 
 
 We took rides at different times to stress-test it. Early morning was smooth, as you'd expect. Rush hour through the Financial District was the real test, and it handled the stop-and-go traffic, double-parked delivery trucks, and jaywalking pedestrians without any drama. The night ride was impressive too. The lidar doesn't care about lighting conditions, so the car drove just as confidently in the dark as it did at noon.
 
-![The Waymo Jaguar I-PACE from the front — sensor dome and Jaguar badge visible](/assets/images/blog/waymo-review/waymo-front.jpg)
+![The Waymo Jaguar I-PACE from the front — sensor dome and Jaguar badge visible](/assets/images/blog/waymo-review/waymo-front.webp)
 
-![Rear view of the Waymo showing WAYMO branding and "Ride today" sticker](/assets/images/blog/waymo-review/waymo-rear.jpg)
+![Rear view of the Waymo showing WAYMO branding and "Ride today" sticker](/assets/images/blog/waymo-review/waymo-rear.webp)
 
-![Inside the Waymo — no driver, steering wheel untouched, navigation showing arrival time](/assets/images/blog/waymo-review/waymo-interior.jpg)
+![Inside the Waymo — no driver, steering wheel untouched, navigation showing arrival time](/assets/images/blog/waymo-review/waymo-interior.webp)
 
 ---
 
@@ -191,7 +191,7 @@ The one weak spot — pickup clarity when the car can't park right next to you �
 
 If you're in San Francisco, Phoenix, Los Angeles, or Austin, try it. And if you work in accessibility, pay attention to what Waymo is doing. They're setting a standard that the rest of the industry should be following.
 
-![WAYMO branding on the side of the Jaguar I-PACE](/assets/images/blog/waymo-review/waymo-side.jpg)
+![WAYMO branding on the side of the Jaguar I-PACE](/assets/images/blog/waymo-review/waymo-side.webp)
 
 ---
 

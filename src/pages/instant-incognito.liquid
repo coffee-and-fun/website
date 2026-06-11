@@ -19,7 +19,7 @@
     <meta property="og:url" content="https://www.coffeeandfun.com/instant-incognito/" />
     <meta property="og:title" content="Instant Incognito - Auto-Open Sites in Private Mode" />
     <meta property="og:description" content="Automatically open specific websites in incognito mode for enhanced privacy. Available for Chrome, Edge, Firefox, and Safari." />
-    <meta property="og:image" content="/assets/images/social/pages/instant-incognito.png" />
+    <meta property="og:image" content="https://www.coffeeandfun.com/assets/images/social/pages/instant-incognito.png" />
     <meta property="og:image:width" content="1200" />
     <meta property="og:image:height" content="630" />
     <meta property="og:image:alt" content="Instant Incognito browser extension preview" />
@@ -28,10 +28,10 @@
     
     <!-- Twitter -->
     <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:url" content="/instant-incognito/" />
+    <meta name="twitter:url" content="https://www.coffeeandfun.com/instant-incognito/" />
     <meta name="twitter:title" content="Instant Incognito - Auto-Open Sites in Private Mode" />
     <meta name="twitter:description" content="Automatically open specific websites in incognito mode. Keep your browsing private effortlessly." />
-    <meta name="twitter:image" content="/assets/images/social/pages/instant-incognito.png" />
+    <meta name="twitter:image" content="https://www.coffeeandfun.com/assets/images/social/pages/instant-incognito.png" />
     <meta name="twitter:image:alt" content="Instant Incognito extension" />
     <meta name="twitter:site" content="@bycoffeeandfun" />
     <meta name="twitter:creator" content="@bycoffeeandfun" />
@@ -117,16 +117,10 @@
     <!-- Service Worker -->
     <script>
         if ('serviceWorker' in navigator) {
-            navigator.serviceWorker.getRegistrations().then((registrations) => {
-                registrations.forEach(registration => {
-                    registration.unregister();
-                });
-                
-                navigator.serviceWorker.register('/service-worker.js')
-                    .then(() => console.log('✅ Service worker registered'))
-                    .catch((err) => console.error('Service worker error:', err));
-            });
-        }
+        window.addEventListener('load', () => {
+          navigator.serviceWorker.register('/service-worker.js').catch(() => {});
+        });
+      }
     </script>
     {% include sketch-styles.liquid %}
 </head>
@@ -340,7 +334,7 @@
 
             <div class="space-y-4">
                 <div class="collapse collapse-plus bg-white border border-stone-200 rounded-2xl">
-                    <input type="radio" name="faq-accordion" checked="checked" />
+                    <input type="radio" name="faq-accordion" checked="checked"  aria-label="What does Instant Incognito do?" />
                     <div class="collapse-title text-lg font-semibold text-stone-900">What does Instant Incognito do?</div>
                     <div class="collapse-content">
                         <p class="text-stone-600">It's like having a smart assistant that automatically opens certain websites in private mode. Add sites to your list, and whenever you visit them, they'll open in incognito automatically — keeping your browsing private without any extra clicks.</p>
@@ -348,7 +342,7 @@
                 </div>
 
                 <div class="collapse collapse-plus bg-white border border-stone-200 rounded-2xl">
-                    <input type="radio" name="faq-accordion" />
+                    <input type="radio" name="faq-accordion"  aria-label="Do you track or store my data?" />
                     <div class="collapse-title text-lg font-semibold text-stone-900">Do you track or store my data?</div>
                     <div class="collapse-content">
                         <div class="text-stone-600">
@@ -363,7 +357,7 @@
                 </div>
 
                 <div class="collapse collapse-plus bg-white border border-stone-200 rounded-2xl">
-                    <input type="radio" name="faq-accordion" />
+                    <input type="radio" name="faq-accordion"  aria-label="What permissions does it need?" />
                     <div class="collapse-title text-lg font-semibold text-stone-900">What permissions does it need?</div>
                     <div class="collapse-content">
                         <div class="space-y-3 text-stone-600">
@@ -375,7 +369,7 @@
                 </div>
 
                 <div class="collapse collapse-plus bg-white border border-stone-200 rounded-2xl">
-                    <input type="radio" name="faq-accordion" />
+                    <input type="radio" name="faq-accordion"  aria-label="Is it really free?" />
                     <div class="collapse-title text-lg font-semibold text-stone-900">Is it really free?</div>
                     <div class="collapse-content">
                         <p class="text-stone-600">Yes! The extension is completely free to use with all features unlocked. Donations are welcome but never required — they help us maintain and improve the extension, but you'll never be locked out of any features.</p>
@@ -404,7 +398,7 @@
             <h2 class="brand-heading text-4xl sm:text-5xl leading-[1.2] sm:leading-[1.2] mb-5">
                 Browse like nobody's watching
             </h2>
-            <p class="text-xl sm:text-2xl text-stone-500 max-w-2xl mx-auto leading-relaxed mb-10">
+            <p class="text-xl sm:text-2xl text-stone-600 max-w-2xl mx-auto leading-relaxed mb-10">
                 Set up automatic incognito mode for your chosen websites in seconds.
             </p>
             <div class="flex flex-col sm:flex-row justify-center items-center gap-3">

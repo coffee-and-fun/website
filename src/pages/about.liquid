@@ -50,8 +50,8 @@
     <meta property="og:site_name" content="Coffee & Fun" />
     <meta property="og:title" content="About Coffee & Fun LLC | Brewing Joy & Community in Every Cup" />
     <meta property="og:description" content="Get to know Coffee & Fun LLC where every cup is crafted with love, laughter, and a dash of mischief. Discover our story and join the community!" />
-    <meta property="og:url" content="/about/" />
-    <meta property="og:image" content="/assets/images/social/pages/about.png" />
+    <meta property="og:url" content="https://www.coffeeandfun.com/about/" />
+    <meta property="og:image" content="https://www.coffeeandfun.com/assets/images/social/pages/about.png" />
     <meta property="og:image:width" content="1200" />
     <meta property="og:image:height" content="630" />
     
@@ -60,7 +60,7 @@
     <meta name="twitter:site" content="@bycoffeeandfun" />
     <meta name="twitter:title" content="About Coffee & Fun LLC | Brewing Joy & Community in Every Cup" />
     <meta name="twitter:description" content="Get to know Coffee & Fun LLC where every cup is crafted with love, laughter, and a dash of mischief. Discover our story and join the community!" />
-    <meta name="twitter:image" content="/assets/images/social/pages/about.png" />
+    <meta name="twitter:image" content="https://www.coffeeandfun.com/assets/images/social/pages/about.png" />
     <meta name="twitter:image:alt" content=" Coffee & Fun" />
 
     <script type="application/ld+json">
@@ -119,18 +119,9 @@
     </style>
 
     <script>
-      if ("serviceWorker" in navigator) {
-        navigator.serviceWorker.getRegistrations().then((registrations) => {
-          for (const registration of registrations) {
-            registration.unregister().then(() => {
-              console.log("🧹 Old service worker unregistered");
-            });
-          }
-
-          navigator.serviceWorker
-            .register("/service-worker.js")
-            .then(() => console.log("✅ New service worker registered"))
-            .catch((err) => console.log("Service worker error:", err));
+      if ('serviceWorker' in navigator) {
+        window.addEventListener('load', () => {
+          navigator.serviceWorker.register('/service-worker.js').catch(() => {});
         });
       }
     </script>
@@ -431,7 +422,7 @@
               class="w-full aspect-square object-cover rounded-2xl"
               loading="lazy"
               decoding="async"
-              src="/assets/images/about/coco.png"
+              src="/assets/images/about/coco.webp"
               alt="Coco"
               width="400" height="400"
             />
@@ -446,7 +437,7 @@
               class="w-full aspect-square object-cover rounded-2xl"
               loading="lazy"
               decoding="async"
-              src="/assets/images/about/crash.png"
+              src="/assets/images/about/crash.webp"
               alt="Crash"
               width="400" height="400"
             />
@@ -461,7 +452,7 @@
               class="w-full aspect-square object-cover rounded-2xl"
               loading="lazy"
               decoding="async"
-              src="/assets/images/about/honey.png"
+              src="/assets/images/about/honey.webp"
               alt="Honey"
               width="400" height="400"
             />
@@ -476,7 +467,7 @@
               class="w-full aspect-square object-cover rounded-2xl"
               loading="lazy"
               decoding="async"
-              src="/assets/images/about/juneo.png"
+              src="/assets/images/about/juneo.webp"
               alt="Juneau"
               width="400" height="400"
             />
@@ -508,8 +499,7 @@
           {% for post in blog.posts limit:3 %}
                <a
                   class="group bg-white rounded-2xl border border-stone-200 overflow-hidden transition-all duration-200 hover:-translate-y-1 hover:shadow-lg focus:outline-none focus:ring-2 focus:ring-offset-2" style="--tw-ring-color: var(--color-mocha);"
-                  href="{{ post.link }}"
-                  aria-label="Read {{ post.name }}">
+                  href="{{ post.link }}">
                   <figure class="p-3 pb-0">
                     <img
                       loading="lazy"
@@ -521,7 +511,7 @@
                   </figure>
                   <div class="p-4 pt-3">
                     <h2 class="text-lg font-semibold text-stone-900 mb-1 group-hover:text-mocha transition-colors">{{ post.name }}</h2>
-                    <p class="text-sm text-stone-500 line-clamp-2">{{ post.description }}</p>
+                    <p class="text-sm text-stone-600 line-clamp-2">{{ post.description }}</p>
 
                     <div class="flex flex-wrap gap-1.5 mt-4">
                       {% for platform in post.platform %}
@@ -529,9 +519,9 @@
                       {% if ptag == "blog" %}
                       <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium text-white" style="background-color:var(--color-mocha);">{{ platform }}</span>
                       {% elsif ptag == "hack" %}
-                      <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium text-white" style="background-color:var(--color-coral);">{{ platform }}</span>
+                      <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium text-white" style="background-color:var(--color-coral-deep);">{{ platform }}</span>
                       {% elsif ptag == "guide" %}
-                      <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium text-white" style="background-color:var(--color-toffee);">{{ platform }}</span>
+                      <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium text-white" style="background-color:var(--color-caramel);">{{ platform }}</span>
                       {% elsif ptag == "web" or ptag == "nodejs" %}
                       <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium text-white" style="background-color:var(--color-espresso);">{{ platform }}</span>
                       {% elsif ptag == "update" %}
@@ -539,7 +529,7 @@
                       {% elsif ptag == "company" %}
                       <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium text-white" style="background-color:var(--color-cocoa);">{{ platform }}</span>
                       {% elsif ptag == "ios" or ptag == "ipad" %}
-                      <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium text-white" style="background-color:#5b8c5a;">{{ platform }}</span>
+                      <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium text-white" style="background-color:#4a7249;">{{ platform }}</span>
                       {% elsif ptag == "social" %}
                       <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium text-white" style="background-color:#8b6f4e;">{{ platform }}</span>
                       {% else %}
@@ -566,7 +556,7 @@
       <h2 class="brand-heading text-4xl sm:text-5xl lg:text-6xl leading-[1.15] sm:leading-[1.15] lg:leading-[1.15] mb-5">
         Join Us
       </h2>
-      <p class="text-xl sm:text-2xl lg:text-3xl text-stone-500 max-w-2xl mx-auto leading-relaxed mb-10">
+      <p class="text-xl sm:text-2xl lg:text-3xl text-stone-600 max-w-2xl mx-auto leading-relaxed mb-10">
         Be part of a community that's making the world a little brighter, one app at a time.
       </p>
       <div class="flex flex-wrap justify-center gap-3">

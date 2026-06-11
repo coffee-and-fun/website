@@ -134,18 +134,10 @@
     <!-- Service Worker Registration -->
     <script>
         if ('serviceWorker' in navigator) {
-            navigator.serviceWorker.getRegistrations().then((registrations) => {
-                for (const registration of registrations) {
-                    registration.unregister().then(() => {
-                        console.log('🧹 Old service worker unregistered');
-                    });
-                }
-
-                navigator.serviceWorker.register('/service-worker.js')
-                    .then(() => console.log('✅ New service worker registered'))
-                    .catch((err) => console.log('Service worker error:', err));
-            });
-        }
+        window.addEventListener('load', () => {
+          navigator.serviceWorker.register('/service-worker.js').catch(() => {});
+        });
+      }
     </script>
     {% include scripts.html %}
     {% include sketch-styles.liquid %}
@@ -714,7 +706,7 @@
             <h2 class="brand-heading text-4xl sm:text-5xl leading-[1.2] sm:leading-[1.2] mb-5">
                 Ready to read better?
             </h2>
-            <p class="text-xl sm:text-2xl text-stone-500 max-w-2xl mx-auto leading-relaxed mb-10">
+            <p class="text-xl sm:text-2xl text-stone-600 max-w-2xl mx-auto leading-relaxed mb-10">
                 Join students, professionals, and readers who use Immersive Reader every day.
             </p>
             <a href="#"

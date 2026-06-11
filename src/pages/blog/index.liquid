@@ -14,7 +14,7 @@
     <meta name="rating" content="safe for kids" />
     
     <!-- Canonical URL -->
-    <link rel="canonical" href="/blog/" />
+    <link rel="canonical" href="https://www.coffeeandfun.com/blog/" />
     
     <!-- Favicon -->
     <link rel="icon" href="/assets/images/favicon.png" sizes="any" />
@@ -26,8 +26,8 @@
     <meta property="og:site_name" content="Coffee & Fun" />
     <meta property="og:title" content="Coffee & Fun Blog - Research, Announcements, and Guides" />
     <meta property="og:description" content="Discover the latest updates, product guides, research insights, and announcements from Coffee & Fun LLC. Stay informed about our apps, games, and digital experiences." />
-    <meta property="og:url" content="/blog/" />
-    <meta property="og:image" content="/assets/images/social/pages/blog.png" />
+    <meta property="og:url" content="https://www.coffeeandfun.com/blog/" />
+    <meta property="og:image" content="https://www.coffeeandfun.com/assets/images/social/pages/blog.png" />
     <meta property="og:image:width" content="1200" />
     <meta property="og:image:height" content="630" />
     <meta property="og:image:alt" content="Coffee & Fun Blog - Latest Updates and Guides" />
@@ -39,10 +39,10 @@
     <meta name="twitter:creator" content="@bycoffeeandfun" />
     <meta name="twitter:title" content="Coffee & Fun Blog - Research, Announcements, and Guides" />
     <meta name="twitter:description" content="Discover the latest updates, product guides, research insights, and announcements from Coffee & Fun LLC." />
-    <meta name="twitter:image" content="/assets/images/social/pages/blog.png" />
+    <meta name="twitter:image" content="https://www.coffeeandfun.com/assets/images/social/pages/blog.png" />
     <meta name="twitter:image:alt" content="Coffee & Fun Blog - Latest Updates and Guides" />
     <meta name="twitter:domain" content="coffeeandfun.com" />
-    <meta name="twitter:url" content="/blog/" />
+    <meta name="twitter:url" content="https://www.coffeeandfun.com/blog/" />
     
     <!-- PWA Meta Tags -->
     <link rel="manifest" href="/assets/images/social/site.webmanifest" />
@@ -122,7 +122,7 @@
             font-size: 0.875rem;
             font-weight: 500;
             border: 1.5px solid #d6d3d1;
-            color: #78716c;
+            color: #57534e;
             background: transparent;
             cursor: pointer;
             transition: all 0.2s;
@@ -154,19 +154,10 @@
     <!-- Service Worker Registration -->
     <script>
         if ('serviceWorker' in navigator) {
-            navigator.serviceWorker.getRegistrations().then((registrations) => {
-                for (const registration of registrations) {
-                    registration.unregister().then(() => {
-                        console.log('🧹 Old service worker unregistered');
-                    });
-                }
-                
-                // After clearing, register the new one
-                navigator.serviceWorker.register('/service-worker.js')
-                    .then(() => console.log('✅ New service worker registered'))
-                    .catch((err) => console.log('Service worker error:', err));
-            });
-        }
+        window.addEventListener('load', () => {
+          navigator.serviceWorker.register('/service-worker.js').catch(() => {});
+        });
+      }
     </script>
     
     {% include scripts.html %}
@@ -184,7 +175,7 @@
             <h1 class="brand-heading text-4xl sm:text-5xl lg:text-6xl leading-[1.15] sm:leading-[1.15] lg:leading-[1.15] mb-5">
                 Our Blog
             </h1>
-            <p class="text-lg sm:text-xl text-stone-500 max-w-2xl mx-auto leading-relaxed">
+            <p class="text-lg sm:text-xl text-stone-600 max-w-2xl mx-auto leading-relaxed">
                 Updates, guides, and announcements from Coffee & Fun.
             </p>
 
@@ -375,20 +366,22 @@
                 <a class="blog-card-item group bg-white rounded-2xl border border-stone-200 overflow-hidden transition-all duration-200 hover:-translate-y-1 hover:shadow-lg focus:outline-none focus:ring-2 focus:ring-offset-2"
                     style="--tw-ring-color: var(--color-mocha);"
                     href="{{ post.link }}"
-                    aria-label="Read {{ post.name }}"
                     data-title="{{ post.name | downcase }}"
                     data-description="{{ post.description | downcase }}"
                     data-platforms="{{ post.platform | join: ' ' | downcase }}">
                     <figure class="px-4 pt-4 pb-1">
-                        <img loading="lazy"
-                            src="{{ post.image }}"
-                            width="600" height="400"
-                            class="rounded-xl w-full object-cover bg-stone-100"
-                            alt="{{ post.name }}" />
+                        <picture>
+                            <source srcset="{{ post.image | replace: '.png', '.webp' | replace: '.jpg', '.webp' }}" type="image/webp" />
+                            <img loading="lazy"
+                                src="{{ post.image }}"
+                                width="600" height="400"
+                                class="rounded-xl w-full object-cover bg-stone-100"
+                                alt="{{ post.name }}" />
+                        </picture>
                     </figure>
                     <div class="p-4 pt-3">
                         <h2 class="text-lg font-semibold text-stone-900 mb-1 group-hover:text-mocha transition-colors">{{ post.name }}</h2>
-                        <p class="text-sm text-stone-500 line-clamp-2">{{ post.description }}</p>
+                        <p class="text-sm text-stone-600 line-clamp-2">{{ post.description }}</p>
 
                         <div class="flex flex-wrap gap-1.5 mt-4">
                             {% for platform in post.platform %}
@@ -396,9 +389,9 @@
                             {% if ptag == "blog" %}
                             <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium text-white" style="background-color:var(--color-mocha);">{{ platform }}</span>
                             {% elsif ptag == "hack" %}
-                            <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium text-white" style="background-color:var(--color-coral);">{{ platform }}</span>
+                            <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium text-white" style="background-color:var(--color-coral-deep);">{{ platform }}</span>
                             {% elsif ptag == "guide" %}
-                            <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium text-white" style="background-color:var(--color-toffee);">{{ platform }}</span>
+                            <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium text-white" style="background-color:var(--color-caramel);">{{ platform }}</span>
                             {% elsif ptag == "web" or ptag == "nodejs" %}
                             <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium text-white" style="background-color:var(--color-espresso);">{{ platform }}</span>
                             {% elsif ptag == "update" %}
@@ -406,7 +399,7 @@
                             {% elsif ptag == "company" %}
                             <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium text-white" style="background-color:var(--color-cocoa);">{{ platform }}</span>
                             {% elsif ptag == "ios" or ptag == "ipad" %}
-                            <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium text-white" style="background-color:#5b8c5a;">{{ platform }}</span>
+                            <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium text-white" style="background-color:#4a7249;">{{ platform }}</span>
                             {% elsif ptag == "social" %}
                             <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium text-white" style="background-color:#8b6f4e;">{{ platform }}</span>
                             {% else %}

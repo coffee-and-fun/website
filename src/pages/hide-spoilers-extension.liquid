@@ -16,10 +16,10 @@
 
     <!-- Open Graph / Facebook -->
     <meta property="og:type" content="website" />
-    <meta property="og:url" content="/hide-spoilers-extension/" />
+    <meta property="og:url" content="https://www.coffeeandfun.com/hide-spoilers-extension/" />
     <meta property="og:title" content="Hide Spoilers - Browse Without Spoilers" />
     <meta property="og:description" content="Browser extension that blurs spoilers on any website. Block full phrases, blur text, images, and thumbnails." />
-    <meta property="og:image" content="/assets/images/social/pages/hide-spoilers-extension.png" />
+    <meta property="og:image" content="https://www.coffeeandfun.com/assets/images/social/pages/hide-spoilers-extension.png" />
     <meta property="og:image:width" content="1200" />
     <meta property="og:image:height" content="630" />
     <meta property="og:image:alt" content="Hide Spoilers browser extension preview" />
@@ -28,10 +28,10 @@
 
     <!-- Twitter -->
     <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:url" content="/hide-spoilers-extension/" />
+    <meta name="twitter:url" content="https://www.coffeeandfun.com/hide-spoilers-extension/" />
     <meta name="twitter:title" content="Hide Spoilers - Browse Without Spoilers" />
     <meta name="twitter:description" content="Browser extension that blurs spoilers on any website. Block full phrases, blur text, images, and thumbnails." />
-    <meta name="twitter:image" content="/assets/images/social/pages/hide-spoilers-extension.png" />
+    <meta name="twitter:image" content="https://www.coffeeandfun.com/assets/images/social/pages/hide-spoilers-extension.png" />
     <meta name="twitter:image:alt" content="Hide Spoilers extension" />
     <meta name="twitter:site" content="@bycoffeeandfun" />
     <meta name="twitter:creator" content="@bycoffeeandfun" />
@@ -117,15 +117,10 @@
     <!-- Service Worker -->
     <script>
         if ('serviceWorker' in navigator) {
-            navigator.serviceWorker.getRegistrations().then((registrations) => {
-                registrations.forEach(registration => {
-                    registration.unregister();
-                });
-                navigator.serviceWorker.register('/service-worker.js')
-                    .then(() => console.log('Service worker registered'))
-                    .catch((err) => console.error('Service worker error:', err));
-            });
-        }
+        window.addEventListener('load', () => {
+          navigator.serviceWorker.register('/service-worker.js').catch(() => {});
+        });
+      }
     </script>
     {% include sketch-styles.liquid %}
 </head>
@@ -366,7 +361,7 @@
 
             <div class="space-y-4">
                 <div class="collapse collapse-plus bg-white border border-stone-200 rounded-2xl">
-                    <input type="radio" name="faq-accordion" checked="checked" />
+                    <input type="radio" name="faq-accordion" checked="checked"  aria-label="How does it work?" />
                     <div class="collapse-title text-lg font-semibold text-stone-900">How does it work?</div>
                     <div class="collapse-content">
                         <p class="text-stone-600">It scans pages for your keywords and blurs anything that matches — text, images, and entire sections.</p>
@@ -374,7 +369,7 @@
                 </div>
 
                 <div class="collapse collapse-plus bg-white border border-stone-200 rounded-2xl">
-                    <input type="radio" name="faq-accordion" />
+                    <input type="radio" name="faq-accordion"  aria-label="Can I choose my own keywords?" />
                     <div class="collapse-title text-lg font-semibold text-stone-900">Can I choose my own keywords?</div>
                     <div class="collapse-content">
                         <p class="text-stone-600">Yes. Add or remove keywords anytime — show names, character names, whatever you want to avoid.</p>
@@ -382,7 +377,7 @@
                 </div>
 
                 <div class="collapse collapse-plus bg-white border border-stone-200 rounded-2xl">
-                    <input type="radio" name="faq-accordion" />
+                    <input type="radio" name="faq-accordion"  aria-label="Does it work on all websites?" />
                     <div class="collapse-title text-lg font-semibold text-stone-900">Does it work on all websites?</div>
                     <div class="collapse-content">
                         <p class="text-stone-600">Most sites, including Twitter, YouTube, Reddit, and news sites. We're constantly improving compatibility.</p>
@@ -390,7 +385,7 @@
                 </div>
 
                 <div class="collapse collapse-plus bg-white border border-stone-200 rounded-2xl">
-                    <input type="radio" name="faq-accordion" />
+                    <input type="radio" name="faq-accordion"  aria-label="Is it free?" />
                     <div class="collapse-title text-lg font-semibold text-stone-900">Is it free?</div>
                     <div class="collapse-content">
                         <p class="text-stone-600">Yes. Completely free on both Chrome and Safari.</p>
@@ -419,7 +414,7 @@
             <h2 class="brand-heading text-4xl sm:text-5xl leading-[1.2] sm:leading-[1.2] mb-5">
                 Keep the surprise
             </h2>
-            <p class="text-xl sm:text-2xl text-stone-500 max-w-2xl mx-auto leading-relaxed mb-10">
+            <p class="text-xl sm:text-2xl text-stone-600 max-w-2xl mx-auto leading-relaxed mb-10">
                 Enjoy your shows the way they were meant to be seen — by you, first.
             </p>
             <div class="flex flex-col sm:flex-row justify-center items-center gap-3">

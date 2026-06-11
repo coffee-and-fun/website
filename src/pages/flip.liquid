@@ -16,10 +16,10 @@
     
     <!-- Open Graph / Facebook -->
     <meta property="og:type" content="website" />
-    <meta property="og:url" content="/flip/" />
+    <meta property="og:url" content="https://www.coffeeandfun.com/flip/" />
     <meta property="og:title" content="Flip a Coin - Instant Decision Maker" />
     <meta property="og:description" content="Need to make a quick decision? Flip a virtual coin with our simple tool. Heads or tails - let fate decide!" />
-    <meta property="og:image" content="/assets/images/social/pages/flip.png" />
+    <meta property="og:image" content="https://www.coffeeandfun.com/assets/images/social/pages/flip.png" />
     <meta property="og:image:width" content="1200" />
     <meta property="og:image:height" content="630" />
     <meta property="og:image:alt" content="Virtual coin flip tool preview" />
@@ -28,16 +28,16 @@
     
     <!-- Twitter -->
     <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:url" content="/flip/" />
+    <meta name="twitter:url" content="https://www.coffeeandfun.com/flip/" />
     <meta name="twitter:title" content="Flip a Coin - Instant Decision Maker" />
     <meta name="twitter:description" content="Need to make a quick decision? Flip a virtual coin. Heads or tails - let fate decide!" />
-    <meta name="twitter:image" content="/assets/images/social/pages/flip.png" />
+    <meta name="twitter:image" content="https://www.coffeeandfun.com/assets/images/social/pages/flip.png" />
     <meta name="twitter:image:alt" content="Virtual coin flip tool" />
     <meta name="twitter:site" content="@bycoffeeandfun" />
     <meta name="twitter:creator" content="@bycoffeeandfun" />
     
     <!-- Canonical URL -->
-    <link rel="canonical" href="/flip/" />
+    <link rel="canonical" href="https://www.coffeeandfun.com/flip/" />
     
     <!-- Favicon & Icons -->
     <link rel="icon" href="/assets/images/favicon.png" type="image/png" />
@@ -94,16 +94,10 @@
     <!-- Service Worker -->
     <script>
         if ('serviceWorker' in navigator) {
-            navigator.serviceWorker.getRegistrations().then((registrations) => {
-                registrations.forEach(registration => {
-                    registration.unregister();
-                });
-                
-                navigator.serviceWorker.register('/service-worker.js')
-                    .then(() => console.log('✅ Service worker registered'))
-                    .catch((err) => console.error('Service worker error:', err));
-            });
-        }
+        window.addEventListener('load', () => {
+          navigator.serviceWorker.register('/service-worker.js').catch(() => {});
+        });
+      }
     </script>
     
     <style>

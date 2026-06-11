@@ -12,7 +12,7 @@
     <meta name="robots" content="index, follow" />
     <meta name="rating" content="safe for kids" />
 
-    <link rel="canonical" href="/help/" />
+    <link rel="canonical" href="https://www.coffeeandfun.com/help/" />
     <link rel="icon" href="/assets/images/favicon.png" sizes="any" />
     <link rel="apple-touch-icon" href="/assets/images/social/192.png" />
     <link rel="icon" href="/assets/images/social/192.png" sizes="192x192" type="image/png" />
@@ -69,7 +69,7 @@
             font-size: 0.875rem;
             font-weight: 500;
             border: 1.5px solid #d6d3d1;
-            color: #78716c;
+            color: #57534e;
             background: transparent;
             cursor: pointer;
             transition: all 0.2s;
@@ -100,17 +100,10 @@
 
     <script>
         if ('serviceWorker' in navigator) {
-            navigator.serviceWorker.getRegistrations().then((registrations) => {
-                for (const registration of registrations) {
-                    registration.unregister().then(() => {
-                        console.log('🧹 Old service worker unregistered');
-                    });
-                }
-                navigator.serviceWorker.register('/service-worker.js')
-                    .then(() => console.log('✅ New service worker registered'))
-                    .catch((err) => console.log('Service worker error:', err));
-            });
-        }
+        window.addEventListener('load', () => {
+          navigator.serviceWorker.register('/service-worker.js').catch(() => {});
+        });
+      }
     </script>
 
     {% include scripts.html %}
@@ -128,7 +121,7 @@
             <h1 class="brand-heading text-4xl sm:text-5xl lg:text-6xl leading-[1.15] sm:leading-[1.15] lg:leading-[1.15] mb-5">
                 Help Center
             </h1>
-            <p class="text-lg sm:text-xl text-stone-500 max-w-2xl mx-auto leading-relaxed">
+            <p class="text-lg sm:text-xl text-stone-600 max-w-2xl mx-auto leading-relaxed">
                 Step-by-step fixes for the things we make. Written by humans, for humans.
             </p>
 
@@ -256,7 +249,6 @@
                 <a class="help-card-item group bg-white rounded-2xl border border-stone-200 overflow-hidden transition-all duration-200 hover:-translate-y-1 hover:shadow-lg focus:outline-none focus:ring-2 focus:ring-offset-2"
                     style="--tw-ring-color: var(--color-mocha);"
                     href="{{ guide.link }}"
-                    aria-label="Read {{ guide.name }}"
                     data-title="{{ guide.name | downcase }}"
                     data-description="{{ guide.description | downcase }}"
                     data-category="{{ guide.category | join: ' ' | downcase }}"
@@ -268,19 +260,19 @@
                             <span class="text-xs text-stone-500">{{ guide.readTime }} read</span>
                         </div>
                         <h2 class="text-lg font-semibold text-stone-900 mb-2 group-hover:text-mocha transition-colors">{{ guide.name }}</h2>
-                        <p class="text-sm text-stone-500 line-clamp-3 mb-4">{{ guide.description }}</p>
+                        <p class="text-sm text-stone-600 line-clamp-3 mb-4">{{ guide.description }}</p>
 
                         <div class="flex flex-wrap gap-1.5">
                             {% for platform in guide.platforms %}
                             {% assign ptag = platform | downcase %}
                             {% if ptag == "firefox" %}
-                            <span class="inline-flex items-center px-2 py-0.5 rounded-full text-xs font-medium text-white" style="background-color:var(--color-coral);">{{ platform }}</span>
+                            <span class="inline-flex items-center px-2 py-0.5 rounded-full text-xs font-medium text-white" style="background-color:var(--color-coral-deep);">{{ platform }}</span>
                             {% elsif ptag == "chrome" %}
                             <span class="inline-flex items-center px-2 py-0.5 rounded-full text-xs font-medium text-white" style="background-color:var(--color-espresso);">{{ platform }}</span>
                             {% elsif ptag == "edge" %}
                             <span class="inline-flex items-center px-2 py-0.5 rounded-full text-xs font-medium text-white" style="background-color:var(--color-cocoa);">{{ platform }}</span>
                             {% elsif ptag == "safari" or ptag == "ios" %}
-                            <span class="inline-flex items-center px-2 py-0.5 rounded-full text-xs font-medium text-white" style="background-color:#5b8c5a;">{{ platform }}</span>
+                            <span class="inline-flex items-center px-2 py-0.5 rounded-full text-xs font-medium text-white" style="background-color:#4a7249;">{{ platform }}</span>
                             {% elsif ptag == "android" %}
                             <span class="inline-flex items-center px-2 py-0.5 rounded-full text-xs font-medium text-white" style="background-color:var(--color-caramel);">{{ platform }}</span>
                             {% else %}
@@ -312,7 +304,7 @@
             <h2 class="brand-heading text-3xl sm:text-4xl lg:text-5xl leading-[1.2] mb-4">
                 Still stuck?
             </h2>
-            <p class="text-lg sm:text-xl text-stone-500 max-w-xl mx-auto leading-relaxed mb-8">
+            <p class="text-lg sm:text-xl text-stone-600 max-w-xl mx-auto leading-relaxed mb-8">
                 If none of the guides solve it, send us the details. A real human replies — usually within a day or two.
             </p>
 
