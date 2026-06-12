@@ -3,683 +3,510 @@ permalink: /404.html
 eleventyExcludeFromCollections: true
 ---
 <!DOCTYPE html>
-<html class="brand-color-background scroll-smooth antialiased" lang="en" data-theme="light" style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;">
+<html lang="en">
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <!-- Primary Meta Tags -->
-    <title>404 — Page Not Found | Coffee & Fun</title>
-    <meta name="title" content="404 — Page Not Found | Coffee & Fun" />
-    <meta name="description" content="Oops! This page broke apart — and now it's attacking. Blast the runaway 404 in a quick game of Page Invaders while you find your way back." />
+    <title>404 — The Coffee Show | Coffee & Fun</title>
+    <meta name="description" content="This page isn't on the menu. Enjoy a short coffee show while you find your way back." />
     <meta name="robots" content="noindex, nofollow" />
 
-    <!-- Favicon -->
     <link rel="icon" href="/assets/images/favicon.png" sizes="any" />
     <link rel="apple-touch-icon" href="/assets/images/social/192.png" />
+    <meta name="theme-color" content="#1d130d" />
 
-    <!-- PWA Meta Tags -->
-    <link rel="manifest" href="/assets/images/social/site.webmanifest" />
-    <meta name="theme-color" content="#fef5ec" />
-
-    {% bundledCss %}
-
-    {% include sketch-styles.liquid %}
+    <link rel="preload" href="/assets/fonts/Pacifico-Regular.woff2" as="font" type="font/woff2" crossorigin>
+    <link rel="preload" href="/assets/fonts/Caveat-Regular.woff2" as="font" type="font/woff2" crossorigin>
 
     <style>
-        /* Game canvas & container */
-        .game-wrap {
-            position: relative;
-            width: 100%;
-            max-width: 480px;
-            margin: 0 auto;
+        @font-face {
+            font-family: 'Pacifico';
+            font-style: normal;
+            font-weight: 400;
+            font-display: swap;
+            src: url('/assets/fonts/Pacifico-Regular.woff2') format('woff2');
         }
-        .game-canvas {
-            display: block;
-            width: 100%;
-            border-radius: 1rem;
-            border: 3px solid #e8d5c4;
-            background: #fef9f3;
-            cursor: crosshair;
-            touch-action: none;
-        }
-        .game-canvas:focus {
-            outline: 3px solid #fd6155;
-            outline-offset: 2px;
+        @font-face {
+            font-family: 'Caveat';
+            font-style: normal;
+            font-weight: 600;
+            font-display: swap;
+            src: url('/assets/fonts/Caveat-SemiBold.woff2') format('woff2');
         }
 
-        /* Score HUD */
-        .hud {
+        :root {
+            --espresso: #1d130d;
+            --mocha: #a36942;
+            --cream: #fef5ec;
+            --coral: #fd6155;
+            --amber: #ffb86b;
+            --crema: #e8c39e;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            background: radial-gradient(ellipse at 50% 20%, #33201294 0%, transparent 60%),
+                        linear-gradient(180deg, #241710 0%, var(--espresso) 70%, #140d08 100%);
+            min-height: 100vh;
+            overflow-x: hidden;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            color: var(--cream);
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* ---------- Theater curtains ---------- */
+        .curtain {
+            position: fixed;
+            top: 0;
+            width: 52vw;
+            height: 100vh;
+            z-index: 60;
+            background:
+                repeating-linear-gradient(90deg,
+                    #7a1e1e 0 36px,
+                    #5e1414 36px 72px);
+            box-shadow: inset 0 -40px 80px rgba(0,0,0,.6);
+            animation: curtainOpen 1.6s cubic-bezier(.6, 0, .3, 1) .4s forwards;
+        }
+        .curtain.left { left: 0; transform-origin: left; }
+        .curtain.right { right: 0; transform-origin: right; }
+        .curtain.left  { animation-name: curtainOpenLeft; }
+        .curtain.right { animation-name: curtainOpenRight; }
+        @keyframes curtainOpenLeft  { to { transform: translateX(-102%); } }
+        @keyframes curtainOpenRight { to { transform: translateX(102%); } }
+
+        /* ---------- Marquee sign ---------- */
+        .marquee-sign {
+            margin: 26px auto 0;
+            text-align: center;
+        }
+        .marquee-sign .venue {
+            font-family: 'Pacifico', cursive;
+            font-size: clamp(1.4rem, 4vw, 2.2rem);
+            color: var(--amber);
+            text-shadow: 0 0 18px rgba(255, 184, 107, .55), 0 0 40px rgba(255, 184, 107, .25);
+        }
+        .marquee-sign .bill {
             font-family: 'Caveat', cursive;
-            font-size: 1.6rem;
-            color: var(--color-caramel);
+            font-size: clamp(1.1rem, 3vw, 1.6rem);
+            color: var(--crema);
+            opacity: .85;
+            margin-top: 2px;
         }
-        .hud-value {
-            font-weight: 700;
-            color: var(--color-espresso);
+        .flicker { animation: flicker 4.2s linear infinite; }
+        @keyframes flicker {
+            0%, 18%, 22%, 64%, 70%, 100% { opacity: 1; }
+            20%, 66% { opacity: .35; }
         }
 
-        /* Splash / overlay text */
-        .game-overlay {
-            position: absolute;
-            inset: 0;
+        /* ---------- The stage ---------- */
+        .stage {
+            flex: 1;
             display: flex;
             flex-direction: column;
             align-items: center;
             justify-content: center;
-            border-radius: 1rem;
-            background: rgba(254, 245, 236, 0.9);
+            padding: 18px 16px 8px;
+            position: relative;
+        }
+
+        /* spotlight cone */
+        .spotlight {
+            position: absolute;
+            top: -12%;
+            left: 50%;
+            transform: translateX(-50%);
+            width: min(700px, 96vw);
+            height: 120%;
+            background: radial-gradient(ellipse 46% 60% at 50% 45%, rgba(255, 209, 156, 0.10) 0%, transparent 70%);
             pointer-events: none;
-            transition: opacity 0.3s ease;
-            padding: 1rem;
+        }
+
+        /* ---------- The big 404 ---------- */
+        .big404 {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: clamp(6px, 3vw, 30px);
+            user-select: none;
+            margin-bottom: 10px;
+        }
+        .big404 .four {
+            font-family: 'Arial Black', Arial, sans-serif;
+            font-weight: 900;
+            font-size: clamp(96px, 22vw, 230px);
+            line-height: 1;
+            color: var(--cream);
+            text-shadow: 6px 8px 0 rgba(253, 97, 85, .35);
+        }
+
+        /* ---------- The cup (plays the part of the zero) ---------- */
+        .cup-wrap {
+            position: relative;
+            width: clamp(120px, 24vw, 220px);
+            cursor: pointer;
+            -webkit-tap-highlight-color: transparent;
+            background: transparent;
+            border: 0;
+            padding: 0;
+            font: inherit;
+        }
+        .cup-wrap:focus-visible { outline: 3px dashed var(--amber); outline-offset: 8px; border-radius: 20px; }
+        .cup {
+            transition: transform .35s cubic-bezier(.34, 1.56, .64, 1);
+            transform-origin: 70% 90%;
+        }
+        .cup-wrap.sip .cup { transform: rotate(-14deg) translateY(-4px); }
+
+        .steam {
+            position: absolute;
+            top: -34%;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 70%;
+            pointer-events: none;
+        }
+        .steam path {
+            fill: none;
+            stroke: rgba(254, 245, 236, .55);
+            stroke-width: 5;
+            stroke-linecap: round;
+            stroke-dasharray: 40 160;
+            animation: steamFlow 3.4s linear infinite;
+            filter: blur(1.5px);
+        }
+        .steam path:nth-child(2) { animation-delay: -1.1s; stroke-width: 4; }
+        .steam path:nth-child(3) { animation-delay: -2.2s; stroke-width: 4.5; }
+        @keyframes steamFlow {
+            from { stroke-dashoffset: 200; opacity: 0; }
+            18% { opacity: .9; }
+            80% { opacity: .25; }
+            to { stroke-dashoffset: 0; opacity: 0; }
+        }
+        .cup-wrap.empty .steam { display: none; }
+
+        /* coffee surface (the latte art lives here) */
+        .latte {
+            transform-origin: 50% 50%;
+            animation: latteSpin 14s linear infinite;
+        }
+        @keyframes latteSpin { to { transform: rotate(360deg); } }
+
+        .hint {
+            font-family: 'Caveat', cursive;
+            font-size: clamp(1.1rem, 3vw, 1.5rem);
+            color: var(--crema);
+            opacity: .8;
             text-align: center;
         }
-        .game-overlay.hidden { opacity: 0; visibility: hidden; }
-        .game-overlay button { pointer-events: auto; }
-        .game-overlay h2 {
-            font-family: 'Pacifico', cursive;
-            color: var(--color-espresso);
+
+        /* ---------- Kettle refill ---------- */
+        .kettle {
+            position: absolute;
+            top: -46%;
+            left: 120%;
+            width: 56%;
+            opacity: 0;
+            transition: left .7s cubic-bezier(.4, 0, .2, 1), opacity .2s;
+            pointer-events: none;
+            transform: rotate(0deg);
         }
-        .game-overlay p {
+        .cup-wrap.refilling .kettle { left: 28%; opacity: 1; transform: rotate(-28deg); transition: left .7s, transform .4s .7s, opacity .2s; }
+        .pour-stream {
+            position: absolute;
+            top: -8%;
+            left: 49%;
+            width: 7px;
+            height: 0;
+            border-radius: 4px;
+            background: linear-gradient(180deg, #6f4e37, #4b3621);
+            pointer-events: none;
+        }
+        .cup-wrap.refilling .pour-stream { height: 26%; transition: height .25s 1s; }
+
+        /* ---------- Story line ---------- */
+        .story {
+            text-align: center;
+            max-width: 560px;
+            margin: 14px auto 4px;
+        }
+        .story h1 {
+            font-family: 'Pacifico', cursive;
+            font-weight: 400;
+            font-size: clamp(1.5rem, 5vw, 2.4rem);
+            color: var(--cream);
+            text-shadow: 2px 3px 0 rgba(253, 97, 85, .4);
+        }
+        .story p {
+            margin-top: 10px;
+            color: var(--crema);
+            font-size: clamp(.95rem, 2.6vw, 1.1rem);
+            line-height: 1.6;
+        }
+        .story code {
+            background: rgba(254, 245, 236, .12);
+            border-radius: 6px;
+            padding: 2px 8px;
+            font-size: .9em;
+            color: var(--amber);
+            word-break: break-all;
+        }
+
+        /* ---------- Actions ---------- */
+        .actions {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+            justify-content: center;
+            margin: 22px 0 8px;
+        }
+        .btn {
+            display: inline-block;
+            padding: 12px 26px;
+            border-radius: 999px;
+            font-weight: 700;
+            font-size: 1rem;
+            text-decoration: none;
+            transition: transform .15s, box-shadow .15s;
+            border: 0;
+            cursor: pointer;
+        }
+        .btn:hover { transform: translateY(-2px); }
+        .btn:focus-visible { outline: 3px dashed var(--amber); outline-offset: 3px; }
+        .btn-primary { background: var(--coral); color: #fff; box-shadow: 0 6px 22px rgba(253, 97, 85, .35); }
+        .btn-ghost { background: transparent; color: var(--cream); border: 2px solid rgba(254, 245, 236, .35); }
+        .btn-ghost:hover { border-color: var(--cream); }
+
+        /* ---------- Ticker ---------- */
+        .ticker {
+            overflow: hidden;
+            border-top: 1px solid rgba(254, 245, 236, .12);
+            padding: 10px 0 14px;
+            white-space: nowrap;
+        }
+        .ticker-track {
+            display: inline-block;
             font-family: 'Caveat', cursive;
-            color: var(--color-caramel);
+            font-size: 1.25rem;
+            color: rgba(254, 245, 236, .5);
+            padding-left: 100%;
+            animation: tick 28s linear infinite;
+        }
+        @keyframes tick { to { transform: translateX(-100%); } }
+
+        /* ---------- Falling beans ---------- */
+        .bean {
+            position: fixed;
+            top: -40px;
+            width: 22px;
+            height: 30px;
+            background: radial-gradient(ellipse at 35% 30%, #8a5a35 0%, #5c3a1e 65%, #3f2713 100%);
+            border-radius: 50% 50% 50% 50% / 60% 60% 40% 40%;
+            z-index: 1;
+            pointer-events: none;
+            animation: fall linear forwards;
+        }
+        .bean::after {
+            content: '';
+            position: absolute;
+            left: 46%;
+            top: 12%;
+            width: 8%;
+            height: 76%;
+            background: #2c1a0c;
+            border-radius: 999px;
+            transform: rotate(8deg);
+        }
+        @keyframes fall {
+            to { transform: translateY(115vh) rotate(var(--spin, 360deg)); }
+        }
+
+        /* ---------- Reduced motion: house lights up, everyone relax ---------- */
+        @media (prefers-reduced-motion: reduce) {
+            .curtain { display: none; }
+            .steam path, .latte, .flicker, .ticker-track { animation: none; }
+            .bean { display: none; }
+            .ticker-track { padding-left: 0; }
         }
     </style>
 </head>
-<body class="brand-color-background min-h-screen flex flex-col">
 
-    {% assign showMenu = true %}
-    {% assign showFun = false %}
-    {% assign showDiscordApp = false %}
-    {% include header.liquid %}
+<body>
+    <div class="curtain left" aria-hidden="true"></div>
+    <div class="curtain right" aria-hidden="true"></div>
 
-    <main id="main-content" class="flex-1 flex flex-col items-center justify-center px-4 py-12">
+    <header class="marquee-sign">
+        <div class="venue">The Coffee &amp; Fun Café</div>
+        <div class="bill flicker">tonight's performance: <strong>The Missing Page</strong> &nbsp;·&nbsp; open 24/7</div>
+    </header>
 
-        <!-- Heading -->
-        <div class="text-center mb-6 relative">
-            <h1 class="text-6xl md:text-8xl font-bold" style="font-family:'Pacifico',cursive; color:var(--color-espresso);">
-                404
-            </h1>
-            <p class="text-xl md:text-2xl mt-2" style="font-family:'Caveat',cursive; color:var(--color-caramel);">
-                Oops — this page broke apart... and it's attacking!
-            </p>
+    <main class="stage" id="main-content">
+        <div class="spotlight" aria-hidden="true"></div>
 
-            <!-- Sketch doodle: little arrow pointing down to game -->
-            <div class="sketch-note sketch-float" style="bottom:-38px;left:50%;transform:translateX(-50%);font-size:1.2rem;">
-                <svg width="30" height="50" viewBox="0 0 30 50" style="position:relative;">
-                    <path class="sketch-arrow" d="M15 2 Q13 20 15 38 M8 30 L15 42 L22 30" />
+        <div class="big404" role="img" aria-label="Error 404 — page not found">
+            <span class="four" aria-hidden="true">4</span>
+
+            <button class="cup-wrap" id="cup" type="button" aria-label="A hot cup of coffee playing the part of the zero. Click to take a sip." title="Take a sip">
+                <svg class="steam" viewBox="0 0 120 90" aria-hidden="true">
+                    <path d="M30 86 C20 66, 44 58, 34 38 C26 22, 42 12, 38 2" />
+                    <path d="M62 88 C54 70, 74 60, 66 42 C58 26, 74 14, 70 4" />
+                    <path d="M92 86 C84 68, 102 58, 94 40 C88 26, 100 16, 96 6" />
                 </svg>
-            </div>
+
+                <svg class="cup" viewBox="0 0 220 230" aria-hidden="true">
+                    <!-- saucer -->
+                    <ellipse cx="105" cy="208" rx="100" ry="16" fill="#2c1a0e" />
+                    <ellipse cx="105" cy="203" rx="86" ry="13" fill="#3b2517" />
+                    <!-- handle -->
+                    <path d="M178 92 C214 92 214 152 178 152 L172 134 C192 134 192 110 172 110 Z" fill="#f7e8d7" />
+                    <!-- body -->
+                    <path d="M30 78 L190 78 C190 78 184 196 110 196 C36 196 30 78 30 78 Z" fill="#fef5ec" />
+                    <path d="M30 78 L190 78 C190 78 188 130 110 130 C32 130 30 78 30 78 Z" fill="#f1ddc8" opacity=".55" />
+                    <!-- rim + coffee -->
+                    <ellipse cx="110" cy="78" rx="80" ry="20" fill="#e8d6c2" />
+                    <ellipse id="coffee-surface" cx="110" cy="78" rx="70" ry="16" fill="#5a3a22" />
+                    <!-- latte art: a little heart + swirl that slowly spins -->
+                    <g class="latte">
+                        <ellipse cx="110" cy="78" rx="40" ry="9" fill="none" stroke="#e8c39e" stroke-width="3" opacity=".8" />
+                        <path d="M110 74 C107 70, 100 71, 100 76 C100 80, 106 83, 110 85 C114 83, 120 80, 120 76 C120 71, 113 70, 110 74 Z" fill="#f1ddc8" />
+                        <ellipse cx="110" cy="78" rx="56" ry="12.5" fill="none" stroke="#caa07a" stroke-width="2" opacity=".5" />
+                    </g>
+                    <!-- level marker (drains as you sip) -->
+                    <clipPath id="cupClip">
+                        <path d="M32 80 L188 80 C188 80 184 196 110 196 C36 196 32 80 32 80 Z" />
+                    </clipPath>
+                </svg>
+
+                <!-- kettle for the refill act -->
+                <svg class="kettle" viewBox="0 0 140 100" aria-hidden="true">
+                    <path d="M30 30 L96 30 C108 30 112 42 110 52 L104 84 C103 90 98 94 92 94 L42 94 C36 94 31 90 30 84 L24 52 C22 42 24 30 30 30 Z" fill="#b8552f" />
+                    <path d="M24 44 L6 56 L8 64 L26 56 Z" fill="#b8552f" />
+                    <rect x="52" y="16" width="32" height="12" rx="6" fill="#8a3c20" />
+                    <ellipse cx="67" cy="31" rx="37" ry="7" fill="#d4683c" />
+                </svg>
+                <span class="pour-stream" aria-hidden="true"></span>
+            </button>
+
+            <span class="four" aria-hidden="true">4</span>
         </div>
 
-        <!-- Game Area -->
-        <div class="game-wrap mt-8" id="game-wrap">
-            <!-- HUD -->
-            <div class="hud flex justify-between items-center mb-2 px-2">
-                <span>Score: <span class="hud-value" id="hud-score">0</span></span>
-                <span>Mugs: <span class="hud-value" id="hud-lives">☕☕☕</span></span>
-                <span>Best: <span class="hud-value" id="hud-best">0</span></span>
-            </div>
+        <p class="hint" id="hint">psst… click the cup ☕</p>
 
-            <canvas class="game-canvas" id="game" width="480" height="400" tabindex="0"
-                    aria-label="Page Invaders game. The broken 404 page attacks in waves of doodles. Move your coffee mug with mouse, touch, or arrow keys — it fires beans automatically."></canvas>
+        <section class="story">
+            <h1>This page isn't on the menu</h1>
+            <p>
+                You ordered <code id="wanted-path">/something</code>, but our barista checked twice
+                — we don't brew that one. It may have been renamed, retired, or it never existed.
+                Meanwhile: free show, bottomless refills.
+            </p>
+        </section>
 
-            <!-- Start overlay -->
-            <div class="game-overlay" id="overlay-start">
-                <h2 class="text-3xl mb-2">Page Invaders!</h2>
-                <p class="text-xl mb-1">The 404 broke loose and it's dive-bombing the site.</p>
-                <p class="text-lg mb-4">Move with mouse, touch, or ← → keys. Your mug fires by itself!</p>
-                <button type="button" id="btn-start"
-                        class="btn btn-lg border-2 border-amber-800 text-white px-8 pointer-events-auto bg-caramel hover:bg-espresso focus-visible:bg-espresso transition-colors"
-                        style="font-family:'Caveat',cursive; font-size:1.4rem;">
-                    Defend the Site
-                </button>
-            </div>
-
-            <!-- Game-over overlay -->
-            <div class="game-overlay hidden" id="overlay-end">
-                <h2 class="text-3xl mb-1" id="end-title">The Page Won!</h2>
-                <p class="text-xl mb-1">Score: <span class="hud-value" id="end-score">0</span> &middot; Wave <span class="hud-value" id="end-wave">1</span></p>
-                <p class="text-lg mb-1" id="end-best" style="color:var(--color-mocha);"></p>
-                <p class="text-lg mb-4" id="end-line"></p>
-                <button type="button" id="btn-restart"
-                        class="btn btn-lg border-2 border-amber-800 text-white px-8 pointer-events-auto bg-caramel hover:bg-espresso focus-visible:bg-espresso transition-colors"
-                        style="font-family:'Caveat',cursive; font-size:1.4rem;">
-                    Fight Back Again
-                </button>
-            </div>
-        </div>
-
-        <p class="text-center mt-8 text-lg" style="font-family:'Caveat',cursive; color:var(--color-caramel);">
-            Or head back to safety&hellip;
-        </p>
-
-        <a href="/" class="btn btn-lg mt-3 border-2 border-coral-deep text-white px-8 bg-coral-deep hover:bg-[#a32d2d] focus-visible:bg-[#a32d2d] transition-colors"
-           style="font-family:'Caveat',cursive; font-size:1.3rem;">
-            Back to Home
-        </a>
+        <nav class="actions" aria-label="Helpful links">
+            <a class="btn btn-primary" href="/">Back to the homepage</a>
+            <a class="btn btn-ghost" href="/apps/">Browse our apps</a>
+            <a class="btn btn-ghost" href="/blog/">Read the blog</a>
+        </nav>
     </main>
 
-    {% include footer.liquid %}
-    {% include modals.liquid %}
+    <footer class="ticker" aria-hidden="true">
+        <div class="ticker-track">
+            ☕ now serving: home pages, app pages, blog posts &nbsp;·&nbsp; 86'd from the menu: the page you just asked for
+            &nbsp;·&nbsp; tip your barista (just kidding, everything here is free)
+            &nbsp;·&nbsp; today's roast: error 404, single origin, notes of "oops" &nbsp;·&nbsp;
+        </div>
+    </footer>
 
-    <!-- Game Script -->
     <script>
-    (function () {
-        'use strict';
+        // Show the path the visitor actually asked for.
+        var wanted = document.getElementById('wanted-path');
+        try {
+            var p = window.location.pathname || '/something';
+            wanted.textContent = decodeURIComponent(p).slice(0, 80);
+        } catch (e) { /* keep the placeholder */ }
 
-        /* ---- Elements ---- */
-        const canvas = document.getElementById('game');
-        const ctx = canvas.getContext('2d');
-        const hudScore = document.getElementById('hud-score');
-        const hudLives = document.getElementById('hud-lives');
-        const hudBest = document.getElementById('hud-best');
-        const overlayStart = document.getElementById('overlay-start');
-        const overlayEnd = document.getElementById('overlay-end');
-        const endTitle = document.getElementById('end-title');
-        const endScore = document.getElementById('end-score');
-        const endWave = document.getElementById('end-wave');
-        const endBest = document.getElementById('end-best');
-        const endLine = document.getElementById('end-line');
-        const btnStart = document.getElementById('btn-start');
-        const btnRestart = document.getElementById('btn-restart');
+        var reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-        /* ---- Constants ---- */
-        const W = 480, H = 400;
-        const CUP_W = 44, CUP_H = 38;
-        const CUP_TOP = H - CUP_H - 10;
-        const INV_R = 10;            // invader half-size for collisions
-        const COLORS = {
-            coral: '#fd6155',
-            mocha: '#a36942',
-            toffee: '#c4813a',
-            caramel: '#96603c',
-            espresso: '#7a4e31',
-            cocoa: '#3d2b1f',
-            line: '#e8d5c4'
-        };
-        const TYPE_COLOR = {
-            heart: COLORS.coral,
-            star: COLORS.toffee,
-            bolt: COLORS.toffee,
-            swirl: COLORS.mocha,
-            mug: COLORS.caramel
-        };
-        const TYPES = ['heart', 'star', 'bolt', 'mug', 'swirl'];
+        // --- Falling coffee beans (gentle, capped) ---
+        if (!reduceMotion) {
+            var MAX_BEANS = 14;
+            var beanCount = 0;
+            setInterval(function () {
+                if (document.hidden || beanCount >= MAX_BEANS) return;
+                var bean = document.createElement('div');
+                bean.className = 'bean';
+                bean.style.left = Math.random() * 100 + 'vw';
+                bean.style.setProperty('--spin', (Math.random() > 0.5 ? '' : '-') + (240 + Math.random() * 400) + 'deg');
+                bean.style.animationDuration = 5 + Math.random() * 6 + 's';
+                bean.style.opacity = 0.35 + Math.random() * 0.5;
+                var scale = 0.6 + Math.random() * 0.8;
+                bean.style.transform = 'scale(' + scale + ')';
+                document.body.appendChild(bean);
+                beanCount++;
+                bean.addEventListener('animationend', function () {
+                    bean.remove();
+                    beanCount--;
+                });
+            }, 900);
+        }
 
-        /* 3x5 pixel font for the 404 formation */
-        const DIGITS = {
-            '4': ['101', '101', '111', '001', '001'],
-            '0': ['111', '101', '101', '101', '111']
-        };
-
-        const END_LINES = [
-            'Every 404 is just a level you haven’t beaten yet.',
-            'The page fought well. So did you.',
-            'Refill your mug and have another go.',
-            'Lost pages put up quite a fight!'
+        // --- The sip & refill act ---
+        var cup = document.getElementById('cup');
+        var surface = document.getElementById('coffee-surface');
+        var hint = document.getElementById('hint');
+        var sips = 0;
+        var busy = false;
+        var FULL_RX = 70, FULL_RY = 16;
+        var hints = [
+            'ahh, that hits the spot',
+            'careful, it’s hot!',
+            'one more sip…',
+            'refill time! ☕'
         ];
 
-        /* ---- State ---- */
-        let cupX = W / 2;
-        let invaders = [], beans = [], drips = [], particles = [];
-        let score = 0, lives = 3, wave = 1, best = 0;
-        let dir = 1, formSpeed = 0.4;
-        let fireTimer = 0, dripTimer = 0, invuln = 0;
-        let assembling = false, assembleT = 0;
-        let running = false, animId = null;
-        let steamPhase = 0, wobT = 0;
-        let keys = {};
+        cup.addEventListener('click', function () {
+            if (busy) return;
 
-        try { best = parseInt(localStorage.getItem('cf404invadersBest') || '0', 10) || 0; } catch (e) { best = 0; }
-        hudBest.textContent = best;
-
-        /* ---- Wave building: doodles fly in from the page edges ---- */
-        function buildWave(n) {
-            invaders = [];
-            const word = '404';
-            const cell = 24;
-            const gapDigit = 16;
-            const digitW = 3 * cell;
-            const totalW = word.length * digitW + (word.length - 1) * gapDigit;
-            const x0 = (W - totalW) / 2;
-
-            for (let d = 0; d < word.length; d++) {
-                const rows = DIGITS[word[d]];
-                for (let r = 0; r < 5; r++) {
-                    for (let c = 0; c < 3; c++) {
-                        if (rows[r][c] !== '1') continue;
-                        const tx = x0 + d * (digitW + gapDigit) + c * cell + cell / 2;
-                        const ty = 54 + r * cell;
-                        // entrance: fly in from a random edge of the "site"
-                        const side = Math.floor(Math.random() * 4);
-                        let sx, sy;
-                        if (side === 0) { sx = -40; sy = Math.random() * H * 0.7; }
-                        else if (side === 1) { sx = W + 40; sy = Math.random() * H * 0.7; }
-                        else if (side === 2) { sx = Math.random() * W; sy = -40; }
-                        else { sx = Math.random() * W; sy = H + 40; }
-                        invaders.push({
-                            x: sx, y: sy, tx: tx, ty: ty,
-                            type: TYPES[(r * 3 + c + d * 2) % TYPES.length],
-                            alive: true,
-                            wob: Math.random() * Math.PI * 2
-                        });
-                    }
-                }
-            }
-            dir = 1;
-            formSpeed = 0.4 + (n - 1) * 0.18;
-            assembling = true;
-            assembleT = 0;
-        }
-
-        /* ---- Doodle sprites (hand-drawn style, like the site's sketches) ---- */
-        function drawDoodle(inv) {
-            const bob = Math.sin(wobT * 0.06 + inv.wob) * 1.5;
-            ctx.save();
-            ctx.translate(inv.x, inv.y + bob);
-            ctx.strokeStyle = TYPE_COLOR[inv.type];
-            ctx.lineWidth = 2;
-            ctx.lineCap = 'round';
-            ctx.lineJoin = 'round';
-            ctx.beginPath();
-            if (inv.type === 'heart') {
-                ctx.moveTo(0, 7);
-                ctx.bezierCurveTo(-9, 1, -10, -6, -4, -7);
-                ctx.bezierCurveTo(-1.5, -7.5, 0, -5, 0, -3.5);
-                ctx.bezierCurveTo(0, -5, 1.5, -7.5, 4, -7);
-                ctx.bezierCurveTo(10, -6, 9, 1, 0, 7);
-            } else if (inv.type === 'star') {
-                for (let i = 0; i < 10; i++) {
-                    const ang = -Math.PI / 2 + i * Math.PI / 5;
-                    const rad = (i % 2 === 0) ? 9 : 4;
-                    const px = Math.cos(ang) * rad, py = Math.sin(ang) * rad;
-                    if (i === 0) ctx.moveTo(px, py); else ctx.lineTo(px, py);
-                }
-                ctx.closePath();
-            } else if (inv.type === 'bolt') {
-                ctx.moveTo(2, -9);
-                ctx.lineTo(-3, 0);
-                ctx.lineTo(1, 0);
-                ctx.lineTo(-2, 9);
-            } else if (inv.type === 'mug') {
-                ctx.moveTo(-6, -5);
-                ctx.lineTo(-6, 3);
-                ctx.quadraticCurveTo(-6, 6, -3, 6);
-                ctx.lineTo(2, 6);
-                ctx.quadraticCurveTo(5, 6, 5, 3);
-                ctx.lineTo(5, -5);
-                ctx.moveTo(5, -3);
-                ctx.quadraticCurveTo(9, -3, 9, 0);
-                ctx.quadraticCurveTo(9, 3, 5, 3);
-            } else { // swirl
-                ctx.moveTo(0, 1);
-                ctx.bezierCurveTo(0, -4, 5, -5, 6, -1);
-                ctx.bezierCurveTo(7, 3, 2, 6, -2, 4);
-                ctx.bezierCurveTo(-7, 1, -7, -6, -2, -9);
-            }
-            ctx.stroke();
-            ctx.restore();
-        }
-
-        function drawCup(x) {
-            if (invuln > 0 && Math.floor(invuln / 6) % 2 === 0) return; // blink while hit
-            const y = CUP_TOP;
-            // shadow
-            ctx.save();
-            ctx.globalAlpha = 0.12;
-            ctx.fillStyle = COLORS.cocoa;
-            ctx.beginPath();
-            ctx.ellipse(x, y + CUP_H - 2, CUP_W / 2 + 4, 5, 0, 0, Math.PI * 2);
-            ctx.fill();
-            ctx.restore();
-            // body
-            ctx.fillStyle = COLORS.caramel;
-            ctx.beginPath();
-            ctx.moveTo(x - CUP_W / 2, y);
-            ctx.lineTo(x - CUP_W / 2 + 5, y + CUP_H);
-            ctx.lineTo(x + CUP_W / 2 - 5, y + CUP_H);
-            ctx.lineTo(x + CUP_W / 2, y);
-            ctx.closePath();
-            ctx.fill();
-            // rim
-            ctx.fillStyle = COLORS.espresso;
-            ctx.fillRect(x - CUP_W / 2 - 3, y - 4, CUP_W + 6, 7);
-            // handle
-            ctx.strokeStyle = COLORS.mocha;
-            ctx.lineWidth = 4;
-            ctx.lineCap = 'round';
-            ctx.beginPath();
-            ctx.arc(x + CUP_W / 2 + 5, y + CUP_H / 2 - 3, 8, -Math.PI / 2, Math.PI / 2);
-            ctx.stroke();
-            // coffee surface
-            ctx.fillStyle = COLORS.cocoa;
-            ctx.beginPath();
-            ctx.ellipse(x, y + 3, CUP_W / 2 - 4, 4, 0, 0, Math.PI * 2);
-            ctx.fill();
-            // steam
-            steamPhase += 0.03;
-            ctx.strokeStyle = 'rgba(150,96,60,0.25)';
-            ctx.lineWidth = 1.5;
-            for (let i = 0; i < 2; i++) {
-                const sx = x - 6 + i * 12;
-                const off = Math.sin(steamPhase + i * 2) * 4;
-                ctx.beginPath();
-                ctx.moveTo(sx, y - 6);
-                ctx.quadraticCurveTo(sx + off, y - 16, sx - off, y - 26);
-                ctx.stroke();
-            }
-        }
-
-        function drawBean(b) {
-            ctx.save();
-            ctx.translate(b.x, b.y);
-            ctx.fillStyle = COLORS.espresso;
-            ctx.beginPath();
-            ctx.ellipse(0, 0, 4, 6, 0, 0, Math.PI * 2);
-            ctx.fill();
-            ctx.strokeStyle = 'rgba(254,245,236,0.6)';
-            ctx.lineWidth = 1.2;
-            ctx.beginPath();
-            ctx.moveTo(0, -4);
-            ctx.quadraticCurveTo(1.5, 0, 0, 4);
-            ctx.stroke();
-            ctx.restore();
-        }
-
-        function drawDrip(d) {
-            ctx.save();
-            ctx.translate(d.x, d.y);
-            ctx.fillStyle = COLORS.cocoa;
-            ctx.beginPath();
-            ctx.moveTo(0, -6);
-            ctx.quadraticCurveTo(4, 0, 0, 5);
-            ctx.quadraticCurveTo(-4, 0, 0, -6);
-            ctx.fill();
-            ctx.restore();
-        }
-
-        function burst(x, y, color) {
-            for (let i = 0; i < 10; i++) {
-                const ang = (Math.PI * 2 / 10) * i + Math.random() * 0.5;
-                particles.push({
-                    x: x, y: y,
-                    vx: Math.cos(ang) * (1.5 + Math.random() * 2.5),
-                    vy: Math.sin(ang) * (1.5 + Math.random() * 2.5),
-                    size: 2 + Math.random() * 3,
-                    life: 1,
-                    color: color
-                });
-            }
-        }
-
-        /* ---- Input ---- */
-        function pointerMove(e) {
-            const rect = canvas.getBoundingClientRect();
-            const scaleX = W / rect.width;
-            let clientX;
-            if (e.touches) {
-                clientX = e.touches[0].clientX;
-                e.preventDefault();
-            } else {
-                clientX = e.clientX;
-            }
-            cupX = (clientX - rect.left) * scaleX;
-            cupX = Math.max(CUP_W / 2 + 6, Math.min(W - CUP_W / 2 - 6, cupX));
-        }
-        canvas.addEventListener('mousemove', pointerMove);
-        canvas.addEventListener('touchmove', pointerMove, { passive: false });
-        canvas.addEventListener('touchstart', pointerMove, { passive: false });
-
-        document.addEventListener('keydown', function (e) {
-            if (e.target.closest('a')) return;
-            if (!running) {
-                if (e.key === 'Enter' || e.key === ' ') {
-                    e.preventDefault();
-                    startGame();
-                }
+            if (sips >= 3) {
+                // Refill act: kettle slides in, pours, coffee comes back.
+                busy = true;
+                cup.classList.add('refilling');
+                hint.textContent = hints[3];
+                setTimeout(function () {
+                    surface.setAttribute('rx', FULL_RX);
+                    surface.setAttribute('ry', FULL_RY);
+                    surface.setAttribute('fill', '#5a3a22');
+                    cup.classList.remove('empty');
+                }, 1300);
+                setTimeout(function () {
+                    cup.classList.remove('refilling');
+                    sips = 0;
+                    busy = false;
+                    hint.textContent = 'psst… click the cup ☕';
+                }, 2300);
                 return;
             }
-            if (e.key === 'ArrowLeft' || e.key === 'a') { keys.left = true; e.preventDefault(); }
-            if (e.key === 'ArrowRight' || e.key === 'd') { keys.right = true; e.preventDefault(); }
+
+            // A sip: tilt, shrink the coffee surface.
+            busy = true;
+            sips++;
+            cup.classList.add('sip');
+            hint.textContent = hints[Math.min(sips - 1, 2)];
+            setTimeout(function () {
+                cup.classList.remove('sip');
+                var t = sips / 3;
+                surface.setAttribute('rx', FULL_RX * (1 - t * 0.45));
+                surface.setAttribute('ry', FULL_RY * (1 - t * 0.45));
+                if (sips >= 3) {
+                    surface.setAttribute('fill', '#3a2515');
+                    cup.classList.add('empty');
+                    hint.textContent = 'all gone! click again for a refill';
+                }
+                busy = false;
+            }, 380);
         });
-        document.addEventListener('keyup', function (e) {
-            if (e.key === 'ArrowLeft' || e.key === 'a') keys.left = false;
-            if (e.key === 'ArrowRight' || e.key === 'd') keys.right = false;
-        });
-
-        /* ---- Update ---- */
-        function update() {
-            wobT++;
-
-            // keyboard movement
-            if (keys.left) cupX = Math.max(CUP_W / 2 + 6, cupX - 6);
-            if (keys.right) cupX = Math.min(W - CUP_W / 2 - 6, cupX + 6);
-
-            if (invuln > 0) invuln--;
-
-            if (assembling) {
-                // fragments of the page fly into formation
-                let settled = true;
-                invaders.forEach(function (inv) {
-                    inv.x += (inv.tx - inv.x) * 0.08;
-                    inv.y += (inv.ty - inv.y) * 0.08;
-                    if (Math.abs(inv.tx - inv.x) > 1 || Math.abs(inv.ty - inv.y) > 1) settled = false;
-                });
-                assembleT++;
-                if (settled || assembleT > 140) {
-                    invaders.forEach(function (inv) { inv.x = inv.tx; inv.y = inv.ty; });
-                    assembling = false;
-                }
-            } else {
-                // classic march: drift sideways, drop at edges
-                let minX = Infinity, maxX = -Infinity;
-                invaders.forEach(function (inv) {
-                    if (!inv.alive) return;
-                    if (inv.x < minX) minX = inv.x;
-                    if (inv.x > maxX) maxX = inv.x;
-                });
-                if ((dir > 0 && maxX > W - 18) || (dir < 0 && minX < 18)) {
-                    dir *= -1;
-                    formSpeed += 0.03;
-                    invaders.forEach(function (inv) { inv.y += 14; });
-                }
-                invaders.forEach(function (inv) { inv.x += dir * formSpeed; });
-
-                // invaders drip coffee back at you
-                dripTimer--;
-                if (dripTimer <= 0) {
-                    const alive = invaders.filter(function (i) { return i.alive; });
-                    if (alive.length) {
-                        const src = alive[Math.floor(Math.random() * alive.length)];
-                        drips.push({ x: src.x, y: src.y + 10, vy: 2.2 + wave * 0.15 });
-                    }
-                    dripTimer = Math.max(38, 95 - wave * 9);
-                }
-
-                // landed?
-                for (let i = 0; i < invaders.length; i++) {
-                    if (invaders[i].alive && invaders[i].y + INV_R >= CUP_TOP) {
-                        endGame('landed');
-                        return;
-                    }
-                }
-            }
-
-            // auto-fire
-            fireTimer--;
-            if (running && fireTimer <= 0) {
-                beans.push({ x: cupX, y: CUP_TOP - 8 });
-                fireTimer = Math.max(14, 24 - wave);
-            }
-
-            // beans
-            for (let i = beans.length - 1; i >= 0; i--) {
-                const b = beans[i];
-                b.y -= 6.5;
-                if (b.y < -10) { beans.splice(i, 1); continue; }
-                for (let j = 0; j < invaders.length; j++) {
-                    const inv = invaders[j];
-                    if (!inv.alive) continue;
-                    if (Math.abs(b.x - inv.x) < INV_R + 3 && Math.abs(b.y - inv.y) < INV_R + 4) {
-                        inv.alive = false;
-                        beans.splice(i, 1);
-                        score += 10;
-                        hudScore.textContent = score;
-                        burst(inv.x, inv.y, TYPE_COLOR[inv.type]);
-                        break;
-                    }
-                }
-            }
-
-            // wave cleared → the page reassembles itself, angrier
-            if (!assembling && invaders.length && invaders.every(function (i) { return !i.alive; })) {
-                score += 50;
-                hudScore.textContent = score;
-                wave++;
-                drips = [];
-                buildWave(wave);
-            }
-
-            // drips
-            for (let i = drips.length - 1; i >= 0; i--) {
-                const d = drips[i];
-                d.y += d.vy;
-                if (d.y > H + 10) { drips.splice(i, 1); continue; }
-                if (invuln <= 0 &&
-                    Math.abs(d.x - cupX) < CUP_W / 2 && d.y > CUP_TOP && d.y < CUP_TOP + CUP_H) {
-                    drips.splice(i, 1);
-                    lives--;
-                    hudLives.textContent = lives > 0 ? '☕'.repeat(lives) : '—';
-                    invuln = 90;
-                    burst(cupX, CUP_TOP + 10, COLORS.coral);
-                    if (lives <= 0) {
-                        endGame('mugs');
-                        return;
-                    }
-                }
-            }
-
-            // particles
-            for (let i = particles.length - 1; i >= 0; i--) {
-                const p = particles[i];
-                p.x += p.vx;
-                p.y += p.vy;
-                p.vy += 0.08;
-                p.life -= 0.03;
-                if (p.life <= 0) particles.splice(i, 1);
-            }
-        }
-
-        /* ---- Draw ---- */
-        function draw() {
-            ctx.clearRect(0, 0, W, H);
-
-            // ground line
-            ctx.strokeStyle = COLORS.line;
-            ctx.lineWidth = 2;
-            ctx.setLineDash([6, 4]);
-            ctx.beginPath();
-            ctx.moveTo(0, H - 4);
-            ctx.lineTo(W, H - 4);
-            ctx.stroke();
-            ctx.setLineDash([]);
-
-            invaders.forEach(function (inv) { if (inv.alive) drawDoodle(inv); });
-            beans.forEach(drawBean);
-            drips.forEach(drawDrip);
-            particles.forEach(function (p) {
-                ctx.save();
-                ctx.globalAlpha = Math.max(0, p.life);
-                ctx.fillStyle = p.color;
-                ctx.beginPath();
-                ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
-                ctx.fill();
-                ctx.restore();
-            });
-            drawCup(cupX);
-
-            // wave banner during assembly
-            if (assembling && running) {
-                ctx.save();
-                ctx.globalAlpha = 0.85;
-                ctx.fillStyle = COLORS.caramel;
-                ctx.font = '600 26px Caveat, cursive';
-                ctx.textAlign = 'center';
-                const label = wave === 1 ? 'here it comes!' : 'wave ' + wave + ' — it’s reassembling!';
-                ctx.fillText(label, W / 2, H / 2 + 40);
-                ctx.restore();
-            }
-        }
-
-        /* Fixed timestep: same game speed on 60Hz and 120Hz displays */
-        const STEP = 1000 / 60;
-        let lastTs = null, acc = 0;
-        function loop(ts) {
-            if (!running) return;
-            if (lastTs === null) lastTs = ts;
-            acc += Math.min(100, ts - lastTs);
-            lastTs = ts;
-            while (acc >= STEP) {
-                update();
-                if (!running) return;
-                acc -= STEP;
-            }
-            draw();
-            animId = requestAnimationFrame(loop);
-        }
-
-        /* ---- Start / End ---- */
-        function startGame() {
-            score = 0; lives = 3; wave = 1;
-            beans = []; drips = []; particles = [];
-            cupX = W / 2;
-            fireTimer = 20; dripTimer = 90; invuln = 0;
-            hudScore.textContent = '0';
-            hudLives.textContent = '☕☕☕';
-            overlayStart.classList.add('hidden');
-            overlayEnd.classList.add('hidden');
-            buildWave(1);
-            running = true;
-            lastTs = null;
-            acc = 0;
-            canvas.focus();
-            animId = requestAnimationFrame(loop);
-        }
-
-        function endGame(reason) {
-            running = false;
-            if (animId) cancelAnimationFrame(animId);
-
-            const isBest = score > best;
-            if (isBest) {
-                best = score;
-                hudBest.textContent = best;
-                try { localStorage.setItem('cf404invadersBest', String(best)); } catch (e) { /* private mode */ }
-            }
-
-            endScore.textContent = score;
-            endWave.textContent = wave;
-            endTitle.textContent = isBest && score > 0 ? 'New High Score!'
-                : (reason === 'landed' ? 'The page landed!' : 'Out of mugs!');
-            endBest.textContent = 'Best: ' + best;
-            endLine.textContent = END_LINES[Math.floor(Math.random() * END_LINES.length)];
-            overlayEnd.classList.remove('hidden');
-
-            draw();
-        }
-
-        btnStart.addEventListener('click', startGame);
-        btnRestart.addEventListener('click', startGame);
-
-        /* Idle preview: show the assembled 404 behind the start overlay */
-        buildWave(1);
-        invaders.forEach(function (inv) { inv.x = inv.tx; inv.y = inv.ty; });
-        assembling = false;
-        draw();
-    })();
     </script>
-
-    {% include scripts.html %}
 </body>
 </html>
