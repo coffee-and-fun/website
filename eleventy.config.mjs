@@ -220,7 +220,9 @@ export default function (eleventyConfig) {
 
 		const plugins = [tailwindcss()];
 		if (process.env.ELEVENTY_ENV === 'production') {
-			plugins.push(cssnano({ preset: 'default' }));
+			// mergeRules corrupts Tailwind v4's nested rules (it swaps `&:focus-within`
+			// bodies between selectors), so it must stay off.
+			plugins.push(cssnano({ preset: ['default', { mergeRules: false }] }));
 		}
 		const result = await postcss(plugins).process(cssContent, {
 			from: tailwindInputPath,
