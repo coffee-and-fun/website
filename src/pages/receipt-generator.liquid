@@ -50,21 +50,6 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
 
     <style>
-        @font-face {
-            font-family: 'Pacifico';
-            font-style: normal;
-            font-weight: 400;
-            font-display: swap;
-            src: url('/assets/fonts/Pacifico-Regular.woff2') format('woff2'), url('/assets/fonts/Pacifico-Regular.ttf') format('truetype');
-        }
-        @font-face {
-            font-family: 'Caveat';
-            font-style: normal;
-            font-weight: 400;
-            font-display: swap;
-            src: url('/assets/fonts/Caveat-Regular.ttf') format('truetype');
-        }
-
         [v-cloak] { display: none; }
 
         .form-section {
@@ -263,6 +248,29 @@
             letter-spacing: 0.05em;
             margin-bottom: 1rem;
         }
+
+        .optional-tag {
+            font-weight: 400;
+            text-transform: none;
+            letter-spacing: 0;
+            color: #a8a29e;
+        }
+
+        .validation-hint {
+            margin-top: 0.65rem;
+            font-size: 0.8rem;
+            color: var(--color-caramel);
+            display: flex;
+            align-items: center;
+            gap: 0.4rem;
+        }
+
+        .line-total {
+            text-align: right;
+            font-size: 0.72rem;
+            color: var(--color-caramel);
+            margin-top: 0.35rem;
+        }
     </style>
 
     <script type="application/ld+json">
@@ -284,7 +292,7 @@
                     "applicationCategory": "BusinessApplication",
                     "operatingSystem": "Web Browser",
                     "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" },
-                    "featureList": ["Create professional receipts", "PDF export", "Tax calculations", "Business logo upload", "Local processing", "No data tracking"]
+                    "featureList": ["Create professional receipts", "PDF export with logo", "Tax and discount calculations", "Multi-currency support", "Cash tendered and change", "Auto-incrementing receipt numbers", "Local processing", "No data tracking"]
                 }
             }
         ]
@@ -322,26 +330,26 @@
                             <div class="section-title">Business Information</div>
                             <div style="display: flex; flex-direction: column; gap: 0.85rem;">
                                 <div>
-                                    <label class="form-label">Company Name *</label>
-                                    <input type="text" v-model="receipt.businessName" placeholder="Your Business Name" class="form-input" />
+                                    <label class="form-label" for="f-bizname">Company Name *</label>
+                                    <input id="f-bizname" type="text" v-model="receipt.businessName" placeholder="Your Business Name" class="form-input" autocomplete="organization" />
                                 </div>
                                 <div>
-                                    <label class="form-label">Address</label>
-                                    <textarea v-model="receipt.businessAddress" placeholder="123 Main St, City, State ZIP" class="form-input" rows="2"></textarea>
+                                    <label class="form-label" for="f-address">Address</label>
+                                    <textarea id="f-address" v-model="receipt.businessAddress" placeholder="123 Main St, City, State ZIP" class="form-input" rows="2"></textarea>
                                 </div>
                                 <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 0.75rem;">
                                     <div>
-                                        <label class="form-label">Phone</label>
-                                        <input type="tel" v-model="receipt.businessPhone" placeholder="(555) 123-4567" class="form-input" />
+                                        <label class="form-label" for="f-phone">Phone</label>
+                                        <input id="f-phone" type="tel" v-model="receipt.businessPhone" placeholder="(555) 123-4567" class="form-input" autocomplete="tel" />
                                     </div>
                                     <div>
-                                        <label class="form-label">Email</label>
-                                        <input type="email" v-model="receipt.businessEmail" placeholder="info@business.com" class="form-input" />
+                                        <label class="form-label" for="f-email">Email</label>
+                                        <input id="f-email" type="email" v-model="receipt.businessEmail" placeholder="info@business.com" class="form-input" autocomplete="email" />
                                     </div>
                                 </div>
                                 <div>
-                                    <label class="form-label">Logo (optional)</label>
-                                    <input type="file" @change="handleLogoUpload" accept="image/*" class="form-input" style="padding: 0.4rem;" />
+                                    <label class="form-label" for="f-logo">Logo <span class="optional-tag">(optional)</span></label>
+                                    <input id="f-logo" type="file" @change="handleLogoUpload" accept="image/png,image/jpeg,image/webp" class="form-input" style="padding: 0.4rem;" />
                                     <button v-if="receipt.logo" @click="removeLogo" class="btn-brand btn-danger btn-sm-brand" style="margin-top: 0.5rem;">Remove Logo</button>
                                 </div>
                                 <div style="display: flex; gap: 0.5rem;">
@@ -357,24 +365,36 @@
                             <div style="display: flex; flex-direction: column; gap: 0.85rem;">
                                 <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 0.75rem;">
                                     <div>
-                                        <label class="form-label">Receipt Number</label>
-                                        <input type="text" v-model="receipt.receiptNumber" placeholder="RCP-001" class="form-input" />
+                                        <label class="form-label" for="f-rcpnum">Receipt Number</label>
+                                        <input id="f-rcpnum" type="text" v-model="receipt.receiptNumber" placeholder="RCP-0001" class="form-input" />
                                     </div>
                                     <div>
-                                        <label class="form-label">Date *</label>
-                                        <input type="date" v-model="receipt.date" class="form-input" />
+                                        <label class="form-label" for="f-date">Date *</label>
+                                        <input id="f-date" type="date" v-model="receipt.date" class="form-input" />
+                                    </div>
+                                </div>
+                                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 0.75rem;">
+                                    <div>
+                                        <label class="form-label" for="f-pay">Payment Method</label>
+                                        <select id="f-pay" v-model="receipt.paymentMethod" class="form-input">
+                                            <option>Cash</option>
+                                            <option>Credit Card</option>
+                                            <option>Debit Card</option>
+                                            <option>Check</option>
+                                            <option>Bank Transfer</option>
+                                            <option>Other</option>
+                                        </select>
+                                    </div>
+                                    <div>
+                                        <label class="form-label" for="f-currency">Currency</label>
+                                        <select id="f-currency" v-model="receipt.currency" class="form-input">
+                                            <option v-for="c in currencies" :key="c.code" :value="c.code">{% raw %}{{ c.code }} ({{ c.symbol }}){% endraw %}</option>
+                                        </select>
                                     </div>
                                 </div>
                                 <div>
-                                    <label class="form-label">Payment Method</label>
-                                    <select v-model="receipt.paymentMethod" class="form-input">
-                                        <option>Cash</option>
-                                        <option>Credit Card</option>
-                                        <option>Debit Card</option>
-                                        <option>Check</option>
-                                        <option>Bank Transfer</option>
-                                        <option>Other</option>
-                                    </select>
+                                    <label class="form-label" for="f-cashier">Served By <span class="optional-tag">(optional)</span></label>
+                                    <input id="f-cashier" type="text" v-model="receipt.cashier" placeholder="Cashier or staff name" class="form-input" />
                                 </div>
                             </div>
                         </div>
@@ -386,20 +406,55 @@
                                 <div v-for="(item, index) in receipt.items" :key="index" class="item-row">
                                     <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.5rem;">
                                         <span style="font-size: 0.75rem; font-weight: 600; color: var(--color-caramel);">{% raw %}ITEM {{ index + 1 }}{% endraw %}</span>
-                                        <button v-if="receipt.items.length > 1" @click="removeItem(index)" style="background: none; border: none; color: var(--color-coral); cursor: pointer; font-size: 1.1rem; padding: 0; line-height: 1;">&times;</button>
+                                        <button v-if="receipt.items.length > 1" @click="removeItem(index)" :aria-label="'Remove item ' + (index + 1)" style="background: none; border: none; color: var(--color-coral); cursor: pointer; font-size: 1.1rem; padding: 0; line-height: 1;">&times;</button>
                                     </div>
                                     <div style="display: grid; grid-template-columns: 1fr auto auto; gap: 0.5rem;">
-                                        <input type="text" v-model="item.description" placeholder="Description" class="form-input" style="font-size: 0.85rem; padding: 0.45rem 0.65rem;" />
-                                        <input type="number" v-model.number="item.quantity" placeholder="Qty" min="1" class="form-input" style="width: 4rem; font-size: 0.85rem; padding: 0.45rem 0.5rem; text-align: center;" />
-                                        <input type="number" v-model.number="item.price" placeholder="Price" step="0.01" min="0" class="form-input" style="width: 5.5rem; font-size: 0.85rem; padding: 0.45rem 0.5rem;" />
+                                        <input type="text" v-model="item.description" placeholder="Description" :aria-label="'Item ' + (index + 1) + ' description'" class="form-input" style="font-size: 0.85rem; padding: 0.45rem 0.65rem;" />
+                                        <input type="number" v-model.number="item.quantity" placeholder="Qty" min="0" step="1" :aria-label="'Item ' + (index + 1) + ' quantity'" class="form-input" style="width: 4rem; font-size: 0.85rem; padding: 0.45rem 0.5rem; text-align: center;" />
+                                        <input type="number" v-model.number="item.price" placeholder="Price" step="0.01" min="0" :aria-label="'Item ' + (index + 1) + ' unit price'" class="form-input" style="width: 5.5rem; font-size: 0.85rem; padding: 0.45rem 0.5rem;" />
                                     </div>
+                                    <div v-if="item.description && item.quantity > 0 && item.price > 0" class="line-total">{% raw %}Line total: {{ formatMoney(item.quantity * item.price) }}{% endraw %}</div>
                                 </div>
                                 <button @click="addItem" class="btn-brand btn-secondary-brand" style="width: 100%; justify-content: center;">+ Add Item</button>
                             </div>
 
-                            <div style="margin-top: 1rem;">
-                                <label class="form-label">Tax Rate (%)</label>
-                                <input type="number" v-model.number="receipt.taxRate" placeholder="0" step="0.01" min="0" max="100" class="form-input" style="max-width: 8rem;" />
+                            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 0.75rem; margin-top: 1rem;">
+                                <div>
+                                    <label class="form-label" for="f-tax">Tax Rate (%)</label>
+                                    <input id="f-tax" type="number" v-model.number="receipt.taxRate" placeholder="0" step="0.01" min="0" max="100" class="form-input" />
+                                </div>
+                                <div>
+                                    <label class="form-label" for="f-discount">Discount <span class="optional-tag">(optional)</span></label>
+                                    <div style="display: flex; gap: 0.4rem;">
+                                        <input id="f-discount" type="number" v-model.number="receipt.discountValue" placeholder="0" step="0.01" min="0" class="form-input" style="flex: 1; min-width: 0;" />
+                                        <select v-model="receipt.discountType" aria-label="Discount type" class="form-input" style="width: 4.75rem; padding-left: 0.5rem; padding-right: 1.5rem;">
+                                            <option value="percent">%</option>
+                                            <option value="fixed">{% raw %}{{ currencyInfo.symbol }}{% endraw %}</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Cash payment (only for cash) -->
+                        <div class="form-section" v-if="receipt.paymentMethod === 'Cash'">
+                            <div class="section-title">Cash Payment</div>
+                            <div>
+                                <label class="form-label" for="f-paid">Amount Received <span class="optional-tag">(optional)</span></label>
+                                <input id="f-paid" type="number" v-model.number="receipt.amountPaid" placeholder="0.00" step="0.01" min="0" class="form-input" style="max-width: 10rem;" />
+                                <div v-if="receipt.amountPaid > 0" style="margin-top: 0.5rem; font-size: 0.85rem; color: var(--color-espresso);">
+                                    <span v-if="changeDue >= 0">{% raw %}Change to give: {{ formatMoney(changeDue) }}{% endraw %}</span>
+                                    <span v-else style="color: var(--color-coral);">{% raw %}Short by: {{ formatMoney(-changeDue) }}{% endraw %}</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Receipt note -->
+                        <div class="form-section">
+                            <div class="section-title">Receipt Note</div>
+                            <div>
+                                <label class="form-label" for="f-note">Footer Message <span class="optional-tag">(optional)</span></label>
+                                <input id="f-note" type="text" v-model="receipt.footerNote" maxlength="80" placeholder="Thank you for your business!" class="form-input" />
                             </div>
                         </div>
                     </div>
@@ -413,9 +468,9 @@
                                 <div id="receipt-preview" class="receipt-paper" style="padding: 1.75rem 1.5rem;">
                                     <!-- Header -->
                                     <div style="text-align: center; margin-bottom: 0.75rem;">
-                                        <img v-if="receipt.logo" :src="receipt.logo" alt="Business Logo" class="logo-thumb" style="margin: 0 auto 0.5rem;" />
+                                        <img v-if="receipt.logo" :src="receipt.logo" alt="Business logo" class="logo-thumb" style="margin: 0 auto 0.5rem;" />
                                         <div style="font-weight: bold; font-size: 1rem;">{% raw %}{{ receipt.businessName || 'Your Business' }}{% endraw %}</div>
-                                        <div v-if="receipt.businessAddress" style="font-size: 0.75rem; margin-top: 0.2rem;">{% raw %}{{ receipt.businessAddress }}{% endraw %}</div>
+                                        <div v-if="receipt.businessAddress" style="font-size: 0.75rem; margin-top: 0.2rem; white-space: pre-line;">{% raw %}{{ receipt.businessAddress }}{% endraw %}</div>
                                         <div v-if="hasContactInfo" style="font-size: 0.75rem;">
                                             <span v-if="receipt.businessPhone">{% raw %}{{ receipt.businessPhone }}{% endraw %}</span>
                                             <span v-if="receipt.businessPhone && receipt.businessEmail"> &bull; </span>
@@ -430,6 +485,7 @@
                                         <div class="receipt-row"><span>Receipt #</span><span>{% raw %}{{ receiptDisplayNumber }}{% endraw %}</span></div>
                                         <div class="receipt-row"><span>Date</span><span>{% raw %}{{ formatDate(receipt.date) }}{% endraw %}</span></div>
                                         <div class="receipt-row"><span>Payment</span><span>{% raw %}{{ receipt.paymentMethod }}{% endraw %}</span></div>
+                                        <div v-if="receipt.cashier" class="receipt-row"><span>Served by</span><span>{% raw %}{{ receipt.cashier }}{% endraw %}</span></div>
                                     </div>
 
                                     <hr class="receipt-divider" />
@@ -439,9 +495,9 @@
                                         <div v-for="(item, index) in validItems" :key="index" style="margin-bottom: 0.5rem;">
                                             <div class="receipt-row">
                                                 <span>{% raw %}{{ item.description }}{% endraw %}</span>
-                                                <span>{% raw %}${{ (item.quantity * item.price).toFixed(2) }}{% endraw %}</span>
+                                                <span>{% raw %}{{ formatMoney(item.quantity * item.price) }}{% endraw %}</span>
                                             </div>
-                                            <div style="font-size: 0.7rem; color: #888; padding-left: 0.25rem;">{% raw %}{{ item.quantity }} &times; ${{ item.price.toFixed(2) }}{% endraw %}</div>
+                                            <div style="font-size: 0.7rem; color: #888; padding-left: 0.25rem;">{% raw %}{{ item.quantity }} &times; {{ formatMoney(item.price) }}{% endraw %}</div>
                                         </div>
                                         <div v-if="validItems.length === 0" style="text-align: center; color: #ccc; font-size: 0.8rem; padding: 1rem 0;">No items yet</div>
                                     </div>
@@ -450,31 +506,44 @@
 
                                     <!-- Totals -->
                                     <div>
-                                        <div class="receipt-row"><span>Subtotal</span><span>{% raw %}${{ subtotal.toFixed(2) }}{% endraw %}</span></div>
-                                        <div class="receipt-row"><span>{% raw %}Tax ({{ receipt.taxRate || 0 }}%){% endraw %}</span><span>{% raw %}${{ taxAmount.toFixed(2) }}{% endraw %}</span></div>
+                                        <div class="receipt-row"><span>Subtotal</span><span>{% raw %}{{ formatMoney(subtotal) }}{% endraw %}</span></div>
+                                        <div v-if="discountAmount > 0" class="receipt-row"><span>{% raw %}Discount{{ receipt.discountType === 'percent' ? ' (' + receipt.discountValue + '%)' : '' }}{% endraw %}</span><span>{% raw %}-{{ formatMoney(discountAmount) }}{% endraw %}</span></div>
+                                        <div v-if="receipt.taxRate > 0" class="receipt-row"><span>{% raw %}Tax ({{ receipt.taxRate }}%){% endraw %}</span><span>{% raw %}{{ formatMoney(taxAmount) }}{% endraw %}</span></div>
                                         <hr class="receipt-divider" />
                                         <div class="receipt-row" style="font-weight: bold; font-size: 1rem;">
                                             <span>Total</span>
-                                            <span>{% raw %}${{ total.toFixed(2) }}{% endraw %}</span>
+                                            <span>{% raw %}{{ formatMoney(total) }}{% endraw %}</span>
                                         </div>
+                                        <template v-if="receipt.paymentMethod === 'Cash' && receipt.amountPaid > 0">
+                                            <div class="receipt-row"><span>Cash</span><span>{% raw %}{{ formatMoney(receipt.amountPaid) }}{% endraw %}</span></div>
+                                            <div class="receipt-row"><span>{% raw %}{{ changeDue >= 0 ? 'Change' : 'Balance Due' }}{% endraw %}</span><span>{% raw %}{{ formatMoney(absChange) }}{% endraw %}</span></div>
+                                        </template>
                                     </div>
 
                                     <hr class="receipt-divider" />
 
                                     <div style="text-align: center; font-size: 0.65rem; color: #999; margin-top: 0.5rem; line-height: 1.6;">
-                                        <div>Thank you for your business!</div>
+                                        <div style="font-size: 0.72rem; color: #666;">{% raw %}{{ receipt.footerNote || 'Thank you for your business!' }}{% endraw %}</div>
+                                        <div>{% raw %}{{ itemCount }} item{{ itemCount === 1 ? '' : 's' }} &bull; {{ generatedAt }}{% endraw %}</div>
+                                        <div style="letter-spacing: 0.05em;">{% raw %}{{ txnId }}{% endraw %}</div>
                                         <div>Generated for bookkeeping purposes</div>
                                     </div>
                                 </div>
 
                                 <!-- Actions -->
-                                <div style="display: flex; gap: 0.5rem; margin-top: 1.25rem; flex-wrap: wrap;">
-                                    <button @click="generatePDF" :disabled="!isValidReceipt" class="btn-brand btn-primary-brand">
-                                        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
-                                        Download PDF
-                                    </button>
-                                    <button @click="printReceipt" :disabled="!isValidReceipt" class="btn-brand btn-secondary-brand">Print</button>
-                                    <button @click="resetReceipt" class="btn-brand btn-ghost-brand">New Receipt</button>
+                                <div style="margin-top: 1.25rem;">
+                                    <div style="display: flex; gap: 0.5rem; flex-wrap: wrap;">
+                                        <button @click="generatePDF" :disabled="!isValidReceipt" class="btn-brand btn-primary-brand">
+                                            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+                                            Download PDF
+                                        </button>
+                                        <button @click="printReceipt" :disabled="!isValidReceipt" class="btn-brand btn-secondary-brand">Print</button>
+                                        <button @click="resetReceipt" class="btn-brand btn-ghost-brand">New Receipt</button>
+                                    </div>
+                                    <p v-if="!isValidReceipt" class="validation-hint" role="status">
+                                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+                                        <span>{% raw %}To download, add {{ missingList }}.{% endraw %}</span>
+                                    </p>
                                 </div>
                             </div>
                         </div>
@@ -483,7 +552,7 @@
             </div>
 
             <!-- Toast notification -->
-            <div v-if="toast" class="toast-msg">{% raw %}{{ toast }}{% endraw %}</div>
+            <div v-if="toast" class="toast-msg" role="status" aria-live="polite">{% raw %}{{ toast }}{% endraw %}</div>
         </div>
     </main>
 
@@ -501,57 +570,148 @@
         createApp({
             data() {
                 return {
+                    currencies: [
+                        { code: 'USD', symbol: '$',   decimals: 2 },
+                        { code: 'EUR', symbol: '€',   decimals: 2 },
+                        { code: 'GBP', symbol: '£',   decimals: 2 },
+                        { code: 'CAD', symbol: 'CA$', decimals: 2 },
+                        { code: 'AUD', symbol: 'A$',  decimals: 2 },
+                        { code: 'JPY', symbol: '¥',   decimals: 0 }
+                    ],
                     receipt: {
                         businessName: '',
                         businessAddress: '',
                         businessPhone: '',
                         businessEmail: '',
                         logo: null,
+                        logoW: 0,
+                        logoH: 0,
                         receiptNumber: '',
                         date: new Date().toISOString().split('T')[0],
                         paymentMethod: 'Cash',
+                        currency: 'USD',
+                        cashier: '',
                         items: [
                             { description: '', quantity: 1, price: 0 }
                         ],
-                        taxRate: 0
+                        taxRate: 0,
+                        discountValue: 0,
+                        discountType: 'percent',
+                        amountPaid: 0,
+                        footerNote: ''
                     },
+                    txnId: '',
+                    generatedAt: '',
                     hasSavedBusinessInfo: false,
                     toast: ''
                 };
             },
             computed: {
+                currencyInfo() {
+                    return this.currencies.find(c => c.code === this.receipt.currency) || this.currencies[0];
+                },
                 validItems() {
                     return this.receipt.items.filter(item =>
                         item.description && item.quantity > 0 && item.price > 0
                     );
+                },
+                itemCount() {
+                    return this.validItems.reduce((n, item) => n + (Number(item.quantity) || 0), 0);
                 },
                 subtotal() {
                     return this.validItems.reduce((sum, item) =>
                         sum + (item.quantity * item.price), 0
                     );
                 },
+                discountAmount() {
+                    const v = Number(this.receipt.discountValue) || 0;
+                    if (v <= 0) return 0;
+                    const d = this.receipt.discountType === 'percent'
+                        ? this.subtotal * (v / 100)
+                        : v;
+                    return Math.min(d, this.subtotal);
+                },
+                taxedBase() {
+                    return Math.max(0, this.subtotal - this.discountAmount);
+                },
                 taxAmount() {
-                    return this.subtotal * ((this.receipt.taxRate || 0) / 100);
+                    return this.taxedBase * ((Number(this.receipt.taxRate) || 0) / 100);
                 },
                 total() {
-                    return this.subtotal + this.taxAmount;
+                    return this.taxedBase + this.taxAmount;
+                },
+                changeDue() {
+                    return (Number(this.receipt.amountPaid) || 0) - this.total;
+                },
+                absChange() {
+                    return Math.abs(this.changeDue);
                 },
                 isValidReceipt() {
                     return this.receipt.businessName &&
                            this.receipt.date &&
                            this.validItems.length > 0;
                 },
+                missingList() {
+                    const m = [];
+                    if (!this.receipt.businessName) m.push('a business name');
+                    if (!this.receipt.date) m.push('a date');
+                    if (this.validItems.length === 0) m.push('an item with a description and price');
+                    return m.join(' and ');
+                },
                 hasContactInfo() {
                     return this.receipt.businessPhone || this.receipt.businessEmail;
                 },
                 receiptDisplayNumber() {
-                    return this.receipt.receiptNumber || 'N/A';
+                    return this.receipt.receiptNumber || '—';
                 }
             },
             mounted() {
                 this.checkSavedBusinessInfo();
+                this.initReceiptNumber();
+                this.txnId = this.generateTxnId();
+                this.generatedAt = this.formatDateTime(new Date());
             },
             methods: {
+                formatMoney(amount) {
+                    const c = this.currencyInfo;
+                    const n = Number(amount) || 0;
+                    return c.symbol + n.toLocaleString('en-US', {
+                        minimumFractionDigits: c.decimals,
+                        maximumFractionDigits: c.decimals
+                    });
+                },
+
+                generateTxnId() {
+                    const block = () => Math.floor(Math.random() * 0x10000).toString(16).toUpperCase().padStart(4, '0');
+                    return 'TXN ' + block() + '-' + block();
+                },
+
+                formatDateTime(d) {
+                    return d.toLocaleString('en-US', {
+                        year: 'numeric', month: 'short', day: 'numeric',
+                        hour: 'numeric', minute: '2-digit'
+                    });
+                },
+
+                initReceiptNumber() {
+                    if (this.receipt.receiptNumber) return;
+                    let next = 1;
+                    try {
+                        next = parseInt(localStorage.getItem('receiptNextNumber') || '1', 10) || 1;
+                        localStorage.setItem('receiptNextNumber', String(next));
+                    } catch (e) { next = 1; }
+                    this.receipt.receiptNumber = 'RCP-' + String(next).padStart(4, '0');
+                },
+
+                bumpReceiptNumber() {
+                    let next = 2;
+                    try {
+                        next = (parseInt(localStorage.getItem('receiptNextNumber') || '1', 10) || 1) + 1;
+                        localStorage.setItem('receiptNextNumber', String(next));
+                    } catch (e) { next = 2; }
+                    return 'RCP-' + String(next).padStart(4, '0');
+                },
+
                 showToast(msg) {
                     this.toast = msg;
                     setTimeout(() => { this.toast = ''; }, 2500);
@@ -570,13 +730,32 @@
                     }
                     const reader = new FileReader();
                     reader.onload = (e) => {
-                        this.receipt.logo = e.target.result;
+                        const img = new Image();
+                        img.onload = () => {
+                            // Normalise to PNG so the logo always embeds cleanly in the PDF
+                            // (jsPDF is picky about WEBP/GIF) and strips any EXIF orientation data.
+                            try {
+                                const canvas = document.createElement('canvas');
+                                canvas.width = img.naturalWidth;
+                                canvas.height = img.naturalHeight;
+                                canvas.getContext('2d').drawImage(img, 0, 0);
+                                this.receipt.logo = canvas.toDataURL('image/png');
+                            } catch (err) {
+                                this.receipt.logo = e.target.result;
+                            }
+                            this.receipt.logoW = img.naturalWidth;
+                            this.receipt.logoH = img.naturalHeight;
+                        };
+                        img.onerror = () => this.showToast('Could not read that image');
+                        img.src = e.target.result;
                     };
                     reader.readAsDataURL(file);
                 },
 
                 removeLogo() {
                     this.receipt.logo = null;
+                    this.receipt.logoW = 0;
+                    this.receipt.logoH = 0;
                 },
 
                 addItem() {
@@ -593,14 +772,17 @@
                         businessAddress: this.receipt.businessAddress,
                         businessPhone: this.receipt.businessPhone,
                         businessEmail: this.receipt.businessEmail,
-                        logo: this.receipt.logo
+                        logo: this.receipt.logo,
+                        logoW: this.receipt.logoW,
+                        logoH: this.receipt.logoH,
+                        currency: this.receipt.currency
                     };
                     try {
                         localStorage.setItem('receiptBusinessInfo', JSON.stringify(businessInfo));
                         this.hasSavedBusinessInfo = true;
                         this.showToast('Business info saved');
                     } catch (e) {
-                        this.showToast('Could not save — storage may be full');
+                        this.showToast('Could not save — the logo may be too large');
                     }
                 },
 
@@ -614,6 +796,9 @@
                             this.receipt.businessPhone = info.businessPhone || '';
                             this.receipt.businessEmail = info.businessEmail || '';
                             this.receipt.logo = info.logo || null;
+                            this.receipt.logoW = info.logoW || 0;
+                            this.receipt.logoH = info.logoH || 0;
+                            if (info.currency) this.receipt.currency = info.currency;
                             this.showToast('Business info loaded');
                         }
                     } catch (e) {
@@ -649,7 +834,8 @@
                     const left = 30;
                     const right = pageW - 30;
                     const contentW = right - left;
-                    let y = 30;
+                    const money = (n) => this.formatMoney(n);
+                    let y = 24;
 
                     const drawDashedLine = (yPos) => {
                         const dashLen = 2;
@@ -665,6 +851,24 @@
                         doc.setDrawColor(0);
                     };
 
+                    // Logo (centred, aspect-correct)
+                    if (this.receipt.logo) {
+                        try {
+                            const maxH = 20, maxW = 55;
+                            let w = maxW, h = maxH;
+                            if (this.receipt.logoW && this.receipt.logoH) {
+                                const ratio = this.receipt.logoW / this.receipt.logoH;
+                                h = maxH;
+                                w = h * ratio;
+                                if (w > maxW) { w = maxW; h = w / ratio; }
+                            }
+                            doc.addImage(this.receipt.logo, 'PNG', center - w / 2, y, w, h);
+                            y += h + 5;
+                        } catch (e) {
+                            // If the logo can't be embedded, carry on without it
+                        }
+                    }
+
                     // Business name
                     doc.setFontSize(18);
                     doc.setFont('courier', 'bold');
@@ -674,8 +878,9 @@
                     doc.setFontSize(9);
                     doc.setFont('courier', 'normal');
                     if (this.receipt.businessAddress) {
-                        doc.text(this.receipt.businessAddress, center, y, { align: 'center', maxWidth: contentW });
-                        y += 5;
+                        const addr = doc.splitTextToSize(this.receipt.businessAddress, contentW);
+                        doc.text(addr, center, y, { align: 'center' });
+                        y += addr.length * 4 + 1;
                     }
                     if (this.receipt.businessPhone || this.receipt.businessEmail) {
                         const contact = [this.receipt.businessPhone, this.receipt.businessEmail].filter(Boolean).join('  |  ');
@@ -689,16 +894,17 @@
 
                     // Receipt info
                     doc.setFontSize(9);
-                    doc.text('Receipt #:', left, y);
-                    doc.text(this.receiptDisplayNumber, right, y, { align: 'right' });
-                    y += 6;
-                    doc.text('Date:', left, y);
-                    doc.text(this.formatDate(this.receipt.date), right, y, { align: 'right' });
-                    y += 6;
-                    doc.text('Payment:', left, y);
-                    doc.text(this.receipt.paymentMethod, right, y, { align: 'right' });
-                    y += 5;
+                    const infoRow = (label, val) => {
+                        doc.text(label, left, y);
+                        doc.text(String(val), right, y, { align: 'right' });
+                        y += 6;
+                    };
+                    infoRow('Receipt #:', this.receiptDisplayNumber);
+                    infoRow('Date:', this.formatDate(this.receipt.date));
+                    infoRow('Payment:', this.receipt.paymentMethod);
+                    if (this.receipt.cashier) infoRow('Served by:', this.receipt.cashier);
 
+                    y -= 1;
                     drawDashedLine(y);
                     y += 8;
 
@@ -706,12 +912,13 @@
                     this.validItems.forEach(item => {
                         doc.setFont('courier', 'normal');
                         doc.setFontSize(10);
-                        doc.text(item.description, left, y);
-                        doc.text('$' + (item.quantity * item.price).toFixed(2), right, y, { align: 'right' });
-                        y += 5;
+                        const desc = doc.splitTextToSize(item.description, contentW - 32);
+                        doc.text(desc, left, y);
+                        doc.text(money(item.quantity * item.price), right, y, { align: 'right' });
+                        y += desc.length * 5;
                         doc.setFontSize(8);
                         doc.setTextColor(120);
-                        doc.text('  ' + item.quantity + ' x $' + item.price.toFixed(2), left, y);
+                        doc.text('  ' + item.quantity + ' x ' + money(item.price), left, y);
                         doc.setTextColor(0);
                         doc.setFontSize(9);
                         y += 7;
@@ -722,36 +929,60 @@
 
                     // Totals
                     doc.setFontSize(10);
-                    doc.text('Subtotal', left, y);
-                    doc.text('$' + this.subtotal.toFixed(2), right, y, { align: 'right' });
-                    y += 6;
+                    const totalRow = (label, val) => {
+                        doc.text(label, left, y);
+                        doc.text(val, right, y, { align: 'right' });
+                        y += 6;
+                    };
+                    totalRow('Subtotal', money(this.subtotal));
+                    if (this.discountAmount > 0) {
+                        const dl = this.receipt.discountType === 'percent'
+                            ? 'Discount (' + this.receipt.discountValue + '%)'
+                            : 'Discount';
+                        totalRow(dl, '-' + money(this.discountAmount));
+                    }
+                    if ((Number(this.receipt.taxRate) || 0) > 0) {
+                        totalRow('Tax (' + this.receipt.taxRate + '%)', money(this.taxAmount));
+                    }
 
-                    doc.text('Tax (' + (this.receipt.taxRate || 0) + '%)', left, y);
-                    doc.text('$' + this.taxAmount.toFixed(2), right, y, { align: 'right' });
-                    y += 5;
-
+                    y -= 1;
                     drawDashedLine(y);
                     y += 8;
 
                     doc.setFontSize(14);
                     doc.setFont('courier', 'bold');
                     doc.text('TOTAL', left, y);
-                    doc.text('$' + this.total.toFixed(2), right, y, { align: 'right' });
-                    y += 12;
+                    doc.text(money(this.total), right, y, { align: 'right' });
+                    y += 9;
 
-                    // Footer
+                    if (this.receipt.paymentMethod === 'Cash' && (Number(this.receipt.amountPaid) || 0) > 0) {
+                        doc.setFontSize(10);
+                        doc.setFont('courier', 'normal');
+                        totalRow('Cash', money(this.receipt.amountPaid));
+                        totalRow(this.changeDue >= 0 ? 'Change' : 'Balance Due', money(this.absChange));
+                    }
+
+                    y += 3;
                     drawDashedLine(y);
                     y += 8;
+
+                    // Footer
                     doc.setFont('courier', 'normal');
-                    doc.setFontSize(8);
-                    doc.setTextColor(130);
-                    doc.text('Thank you for your business!', center, y, { align: 'center' });
-                    y += 5;
+                    doc.setFontSize(9);
+                    doc.setTextColor(80);
+                    doc.text(this.receipt.footerNote || 'Thank you for your business!', center, y, { align: 'center', maxWidth: contentW });
+                    y += 6;
+                    doc.setFontSize(7);
+                    doc.setTextColor(140);
+                    doc.text(this.itemCount + (this.itemCount === 1 ? ' item' : ' items') + '  |  ' + this.generatedAt, center, y, { align: 'center' });
+                    y += 4;
+                    doc.text(this.txnId, center, y, { align: 'center' });
+                    y += 4;
                     doc.text('Generated for bookkeeping purposes', center, y, { align: 'center' });
                     doc.setTextColor(0);
 
-                    const fileName = 'receipt_' + (this.receipt.receiptNumber || 'NA') + '_' + this.receipt.date + '.pdf';
-                    doc.save(fileName);
+                    const safeNum = (this.receipt.receiptNumber || 'NA').replace(/[^\w-]/g, '');
+                    doc.save('receipt_' + safeNum + '_' + this.receipt.date + '.pdf');
                     this.showToast('PDF downloaded');
                 },
 
@@ -761,22 +992,32 @@
                 },
 
                 resetReceipt() {
-                    const businessInfo = {
+                    const keep = {
                         businessName: this.receipt.businessName,
                         businessAddress: this.receipt.businessAddress,
                         businessPhone: this.receipt.businessPhone,
                         businessEmail: this.receipt.businessEmail,
-                        logo: this.receipt.logo
+                        logo: this.receipt.logo,
+                        logoW: this.receipt.logoW,
+                        logoH: this.receipt.logoH,
+                        currency: this.receipt.currency,
+                        cashier: this.receipt.cashier,
+                        taxRate: this.receipt.taxRate,
+                        footerNote: this.receipt.footerNote
                     };
                     this.receipt = {
-                        ...businessInfo,
-                        receiptNumber: '',
+                        ...keep,
+                        receiptNumber: this.bumpReceiptNumber(),
                         date: new Date().toISOString().split('T')[0],
                         paymentMethod: 'Cash',
-                        items: [{ description: '', quantity: 1, price: 0 }],
-                        taxRate: this.receipt.taxRate
+                        discountValue: 0,
+                        discountType: 'percent',
+                        amountPaid: 0,
+                        items: [{ description: '', quantity: 1, price: 0 }]
                     };
-                    this.showToast('Receipt cleared');
+                    this.txnId = this.generateTxnId();
+                    this.generatedAt = this.formatDateTime(new Date());
+                    this.showToast('Started a new receipt');
                 }
             }
         }).mount('#app');

@@ -7,7 +7,6 @@ import fs from 'fs';
 import path from 'path';
 import crypto from 'crypto';
 import eleventyVue from '@11ty/eleventy-plugin-vue';
-import { createCanvas, loadImage } from 'canvas';
 import { formatTitle } from './tools/format-title.js';
 import orderCoffeeShopsByRating from './src/_data/sortedReviews.js';
 import format from 'date-fns/format/index.js';
@@ -22,6 +21,12 @@ import cssnano from 'cssnano';
 
 const createSocialImageForArticle = async (input, output) => {
 	try {
+		// `canvas` is a native module that frequently fails to load (missing
+		// system libs like libpixman on fresh machines / CI). Import it lazily
+		// so a broken canvas install can never take down the whole build — this
+		// helper is opt-in and not wired into the default build.
+		const { createCanvas, loadImage } = await import('canvas');
+
 		const data = fs.readFileSync(input, 'utf-8');
 		const match = data.match(/cardTitle:(.*)/);
 		if (!match) {
