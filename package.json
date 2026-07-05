@@ -4,10 +4,10 @@
 	"description": "It's (j)ust (e)leventy and (t)ailwind … OK, and a few other things; it's still *really* small though.",
 	"scripts": {
 		"clean": "rimraf docs",
-		"dev": "webpack && eleventy --serve",
+		"dev": "eleventy --serve",
 		"start": "eleventy --serve",
 		"format": "prettier --write .",
-		"build": "NODE_ENV=production webpack --mode production && ELEVENTY_ENV=production eleventy",
+		"build": "ELEVENTY_ENV=production eleventy",
 		"preview": "node tools/serve-docs.mjs"
 	},
 	"repository": {
@@ -27,32 +27,22 @@
 	"homepage": "https://github.com/marcamos/jet#readme",
 	"devDependencies": {
 		"@11ty/eleventy": "^3.0.0",
-		"@babel/core": "^7.21.0",
-		"@babel/preset-env": "^7.20.2",
 		"@tailwindcss/postcss": "^4.1.4",
-		"babel-loader": "^8.3.0",
 		"cssnano": "^5.1.15",
 		"daisyui": "^5.0.27",
 		"date-fns": "^2.30.0",
 		"eslint": "^9.0.0",
 		"eslint-config-prettier": "^10.0.0",
 		"eslint-plugin-prettier": "^5.0.0",
-		"eslint-plugin-vue": "^9.32.0",
-		"eslint-plugin-vuejs-accessibility": "^2.5.0",
-		"gulp": "^4.0.2",
-		"gulp-image": "^6.2.1",
 		"postcss": "^8.5.3",
 		"prettier": "^3.0.0",
 		"prettier-plugin-tailwindcss": "^0.6.0",
 		"rimraf": "^5.0.0",
-		"tailwindcss": "^4.1.4",
-		"webpack": "^5.79.0",
-		"webpack-cli": "^4.10.0"
+		"tailwindcss": "^4.1.4"
 	},
 	"eslintConfig": {
 		"root": true,
 		"extends": [
-			"plugin:vue/essential",
 			"plugin:prettier/recommended",
 			"eslint:recommended"
 		],
@@ -73,14 +63,12 @@
 		}
 	},
 	"dependencies": {
-		"@11ty/eleventy-plugin-vue": "^1.0.0-canary.8",
 		"@tailwindcss/typography": "^0.5.16",
 		"@toycode/markdown-it-class": "^1.2.4",
 		"canvas": "^3.2.3",
 		"eleventy-plugin-svg-contents": "^0.7.0",
 		"html-minifier-terser": "^7.2.0",
-		"markdown-it": "^12.2.0",
-		"markdown-it-anchor": "^9.2.0",
-		"vue": "^2.7.14"
+		"markdown-it": "^14.3.0",
+		"markdown-it-anchor": "^9.2.0"
 	}
 }

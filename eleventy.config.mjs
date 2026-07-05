@@ -2,17 +2,14 @@
 
 import { minify as htmlminify } from 'html-minifier-terser';
 import svgContents from 'eleventy-plugin-svg-contents';
-//import pluginPWA from './tools/eleventy-plugin-pwa';
 import fs from 'fs';
 import path from 'path';
 import crypto from 'crypto';
-import eleventyVue from '@11ty/eleventy-plugin-vue';
 import { formatTitle } from './tools/format-title.js';
 import orderCoffeeShopsByRating from './src/_data/sortedReviews.js';
 import format from 'date-fns/format/index.js';
 import parseISO from 'date-fns/parseISO/index.js';
 import postcss from 'postcss';
-//import tailwindcss from 'tailwindcss';
 import markdownIt from 'markdown-it';
 import markdownItClass from '@toycode/markdown-it-class';
 import markdownItAnchor from 'markdown-it-anchor';
@@ -89,7 +86,7 @@ const createSocialImageForArticle = async (input, output) => {
 
 export default function (eleventyConfig) {
 	// Populated by the eleventy.before hook once the bundles are built.
-	const assetVersions = { css: '', js: '' };
+	const assetVersions = { css: '' };
 
 	eleventyConfig.addPassthroughCopy({ 'src/assets/': '/assets/' });
 
@@ -99,8 +96,6 @@ export default function (eleventyConfig) {
 	// blocks. Wraps strings in quotes and escapes quotes/backslashes/control chars, so
 	// `"headline": {{ title | json }}` stays valid JSON regardless of frontmatter content.
 	eleventyConfig.addLiquidFilter('json', (value) => JSON.stringify(value == null ? '' : value));
-
-	eleventyConfig.addPlugin(eleventyVue);
 
 	eleventyConfig.addPlugin(svgContents);
 
@@ -244,14 +239,12 @@ export default function (eleventyConfig) {
 				? crypto.createHash('md5').update(fs.readFileSync(p)).digest('hex').slice(0, 10)
 				: '';
 		assetVersions.css = hash(tailwindOutputPath);
-		assetVersions.js = hash('./docs/assets/js/main.bundle.js');
 
 		// Service-worker precache list. Only the core shell goes here — everything
 		// else is cached at runtime as it's requested. Precaching the whole docs/
 		// tree would force every first-time visitor to download the entire site.
 		const coreAssets = [
 			`/assets/css/engine.css${assetVersions.css ? `?v=${assetVersions.css}` : ''}`,
-			`/assets/js/main.bundle.js${assetVersions.js ? `?v=${assetVersions.js}` : ''}`,
 			'/assets/fonts/Pacifico-Regular.woff2',
 			'/assets/fonts/Caveat-Regular.woff2',
 			'/assets/fonts/Caveat-SemiBold.woff2',
@@ -268,18 +261,9 @@ export default function (eleventyConfig) {
 		strictFilters: false
 	});
 
-	const manifest = {
-		'main.js': '/assets/js/main.bundle.js',
-		'main.css': '/assets/css/engine.css'
-	};
-
 	eleventyConfig.addShortcode('bundledCss', () => {
 		const v = assetVersions.css ? `?v=${assetVersions.css}` : '';
-		return `<link href="${manifest['main.css']}${v}" rel="stylesheet" />`;
-	});
-	eleventyConfig.addShortcode('bundledJs', () => {
-		const v = assetVersions.js ? `?v=${assetVersions.js}` : '';
-		return `<script src="${manifest['main.js']}${v}"></script>`;
+		return `<link href="/assets/css/engine.css${v}" rel="stylesheet" />`;
 	});
 	// Serve the service worker from the site root so its scope covers every page
 	// (pages register navigator.serviceWorker.register('/service-worker.js')).
