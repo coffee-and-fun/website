@@ -217,6 +217,12 @@
       font-size: 0.6rem;
       box-shadow: inset 1px 1px 0 rgba(255,255,255,.4), inset -1px -1px 0 rgba(0,0,0,.3);
     }
+    button.mc-chip:focus-visible { outline: 3px solid #ffd83d; outline-offset: 2px; }
+    .mc-chip.is-spotlit {
+      outline: 3px solid #ffd83d;
+      outline-offset: 1px;
+      transform: scale(1.12);
+    }
 
     /* Scrollable build-guide viewport */
     .mc-viewport {
@@ -386,8 +392,30 @@
           <!-- Build guide tab -->
           <div v-show="activeTab === 'guide'" role="tabpanel" aria-label="Numbered build guide">
             <p class="font-px text-xl text-stone-700 mb-3">
-              Every cell shows the block number &mdash; match it to the list below. Bold lines mark 16-block chunks. Scroll to explore.
+              Every cell shows the block number. Click a chip to spotlight one block and see exactly where it goes &mdash; everything else fades out. Bold lines mark 16-block chunks.
             </p>
+
+            <!-- Block spotlight chips -->
+            <div class="flex flex-wrap items-center gap-2 mb-3" role="group" aria-label="Spotlight a block on the build guide">
+              <button v-for="b in numberedBlocks" :key="b.num"
+                @click="setHighlight(b.num)"
+                class="mc-chip cursor-pointer"
+                :class="{ 'is-spotlit': highlightNum === b.num }"
+                :style="{ backgroundColor: b.hex, color: b.textColor }"
+                :aria-pressed="highlightNum === b.num"
+                :aria-label="'Spotlight block ' + b.num + ': ' + b.name"
+                :title="b.name">
+                {% raw %}{{ b.num }}{% endraw %}
+              </button>
+              <button v-if="highlightNum !== null" @click="setHighlight(null)" class="mc-btn" style="padding: 0.5rem 0.8rem;">
+                SHOW ALL
+              </button>
+            </div>
+
+            <p v-if="highlightNum !== null" class="font-px text-xl text-emerald-800 mb-3" role="status" aria-live="polite">
+              {% raw %}Spotlighting #{{ highlightNum }} — {{ highlightName }} ({{ highlightCount.toLocaleString() }} to place){% endraw %}
+            </p>
+
             <div class="mc-viewport" tabindex="0" aria-label="Scrollable build guide. Each cell is numbered with the block to place.">
               <img :src="guideDataUrl" alt="" class="pixelated block" style="max-width: none;" />
             </div>
@@ -427,9 +455,19 @@
                 </tr>
               </thead>
               <tbody class="font-px text-2xl text-stone-800">
-                <tr v-for="block in sortedBlockList" :key="block.name" class="border-b border-stone-400/40">
+                <tr v-for="block in sortedBlockList" :key="block.name"
+                    class="border-b border-stone-400/40 cursor-pointer"
+                    :class="{ 'bg-[#ffe9a8]': highlightNum === block.num }"
+                    @click="spotlightFromList(block.num)">
                   <td class="py-2">
-                    <span class="mc-chip" :style="{ backgroundColor: block.hex, color: block.textColor }">{% raw %}{{ block.num }}{% endraw %}</span>
+                    <button class="mc-chip cursor-pointer"
+                      :class="{ 'is-spotlit': highlightNum === block.num }"
+                      :style="{ backgroundColor: block.hex, color: block.textColor }"
+                      :aria-pressed="highlightNum === block.num"
+                      :aria-label="'Show where block ' + block.num + ' (' + block.name + ') goes on the build guide'"
+                      @click.stop="spotlightFromList(block.num)">
+                      {% raw %}{{ block.num }}{% endraw %}
+                    </button>
                   </td>
                   <td class="py-2">{% raw %}{{ block.name }}{% endraw %}</td>
                   <td class="py-2 text-right font-bold">{% raw %}{{ block.count.toLocaleString() }}{% endraw %}</td>
@@ -665,10 +703,20 @@
           pixelArtDataUrl: null,
           guideDataUrl: null,
           numberedBlocks: [],
+          highlightNum: null,
           sortBy: 'count',
           regenTimer: null,
           hasScrolledToResults: false
         };
+      },
+
+      created() {
+        // Non-reactive caches of the last generation, so spotlighting a block
+        // only re-draws the guide canvas instead of re-running color matching.
+        this.cellCache = null;
+        this.numByNameCache = null;
+        this.cacheW = 0;
+        this.cacheH = 0;
       },
 
       computed: {
@@ -690,6 +738,14 @@
             list.sort((a, b) => a.name.localeCompare(b.name));
           }
           return list;
+        },
+        highlightName() {
+          const b = this.numberedBlocks.find(nb => nb.num === this.highlightNum);
+          return b ? b.name : '';
+        },
+        highlightCount() {
+          const b = this.numberedBlocks.find(nb => nb.num === this.highlightNum);
+          return b ? b.count : 0;
         }
       },
 
@@ -868,11 +924,19 @@
               const numByName = new Map(numbered.map(nb => [nb.name, nb.num]));
               this.numberedBlocks = numbered;
 
+              // Cache for cheap spotlight re-renders; numbers may shift between
+              // generations, so any active spotlight is cleared.
+              this.cellCache = cellBlocks;
+              this.numByNameCache = numByName;
+              this.cacheW = w;
+              this.cacheH = h;
+              this.highlightNum = null;
+
               // 4) Render the pretty art PNG
               this.pixelArtDataUrl = this.renderArt(sampleCanvas, w, h);
 
               // 5) Render the numbered build guide PNG (with legend)
-              this.guideDataUrl = this.renderGuide(cellBlocks, numByName, w, h);
+              this.guideDataUrl = this.renderGuide();
 
               this.isGenerating = false;
 
@@ -974,7 +1038,28 @@
           for (const y of rowStops) ctx.fillText(String(y), margin - 4, margin + y * cell);
         },
 
-        renderGuide(cellBlocks, numByName, w, h) {
+        setHighlight(num) {
+          this.highlightNum = this.highlightNum === num ? null : num;
+          this.guideDataUrl = this.renderGuide();
+        },
+
+        spotlightFromList(num) {
+          this.setHighlight(num);
+          this.activeTab = 'guide';
+          this.$nextTick(() => {
+            const el = this.$refs.results;
+            if (el && !window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+              el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            }
+          });
+        },
+
+        renderGuide() {
+          const cellBlocks = this.cellCache;
+          const numByName = this.numByNameCache;
+          const w = this.cacheW;
+          const h = this.cacheH;
+          const hl = this.highlightNum;
           const CELL = 26;
           const MARGIN = 34;
           const CHUNK = 16;
@@ -994,20 +1079,33 @@
           ctx.fillStyle = '#ffffff';
           ctx.fillRect(0, 0, out.width, out.height);
 
-          // Cells + numbers
+          // Cells + numbers. With a spotlight active, other blocks get washed
+          // out and lose their numbers so the chosen block is easy to place.
           ctx.textAlign = 'center';
           ctx.textBaseline = 'middle';
           const numFont = 'bold 11px ui-monospace, Menlo, monospace';
           for (let y = 0; y < h; y++) {
             for (let x = 0; x < w; x++) {
               const block = cellBlocks[y * w + x];
+              const num = numByName.get(block.name);
+              const active = hl === null || num === hl;
               const px = MARGIN + x * CELL;
               const py = MARGIN + y * CELL;
               ctx.fillStyle = block.hex;
               ctx.fillRect(px, py, CELL, CELL);
+              if (!active) {
+                ctx.fillStyle = 'rgba(255,255,255,0.85)';
+                ctx.fillRect(px, py, CELL, CELL);
+                continue;
+              }
+              if (hl !== null) {
+                ctx.strokeStyle = 'rgba(0,0,0,0.9)';
+                ctx.lineWidth = 2;
+                ctx.strokeRect(px + 1, py + 1, CELL - 2, CELL - 2);
+              }
               ctx.fillStyle = block.luma > 140 ? '#111111' : '#ffffff';
               ctx.font = numFont;
-              ctx.fillText(String(numByName.get(block.name)), px + CELL / 2, py + CELL / 2 + 0.5);
+              ctx.fillText(String(num), px + CELL / 2, py + CELL / 2 + 0.5);
             }
           }
 
@@ -1086,10 +1184,11 @@
             ctx.font = 'bold 10px ui-monospace, Menlo, monospace';
             ctx.textAlign = 'center';
             ctx.fillText(String(nb.num), lx + 10, yy + 0.5);
-            ctx.fillStyle = '#333333';
-            ctx.font = '12px ui-sans-serif, system-ui, sans-serif';
+            const isSpotlit = hl !== null && nb.num === hl;
+            ctx.fillStyle = isSpotlit ? '#111111' : (hl !== null ? '#999999' : '#333333');
+            ctx.font = (isSpotlit ? 'bold ' : '') + '12px ui-sans-serif, system-ui, sans-serif';
             ctx.textAlign = 'left';
-            ctx.fillText(nb.name + '  (' + nb.count.toLocaleString() + ')', lx + 26, yy);
+            ctx.fillText((isSpotlit ? '▶ ' : '') + nb.name + '  (' + nb.count.toLocaleString() + ')', lx + 26, yy);
           });
 
           return out.toDataURL('image/png');
@@ -1104,7 +1203,11 @@
 
         downloadGuide() {
           const link = document.createElement('a');
-          link.download = 'minecraft-build-guide.png';
+          // Downloads exactly what you see — with a spotlight active, this
+          // makes a printable per-block placement sheet.
+          link.download = this.highlightNum !== null
+            ? 'minecraft-build-guide-block-' + this.highlightNum + '.png'
+            : 'minecraft-build-guide.png';
           link.href = this.guideDataUrl;
           link.click();
         },
