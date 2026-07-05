@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html class="scroll-smooth antialiased" lang="en" data-theme="retro" style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;">
+<html class="scroll-smooth antialiased" lang="en" data-theme="light">
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -7,13 +7,13 @@
   <!-- Primary Meta Tags -->
   <title>Minecraft Pixel Art Generator - Convert Images to Block Art | Free Tool</title>
   <meta name="title" content="Minecraft Pixel Art Generator - Convert Images to Block Art | Free Tool" />
-  <meta name="description" content="Convert any image into Minecraft pixel art. Upload a photo, choose your grid size, and get a block-by-block building guide with a complete shopping list of blocks needed. Free, browser-based, no signup required." />
-  <meta name="keywords" content="minecraft pixel art, minecraft block art, pixel art generator, minecraft builder tool, image to minecraft, block art converter, minecraft map art, pixel art maker" />
+  <meta name="description" content="Convert any image into Minecraft pixel art. Upload a photo and get an instant block preview, a numbered build guide showing exactly which block goes where, and a full shopping list with stack counts. Free, browser-based, no signup required." />
+  <meta name="keywords" content="minecraft pixel art, minecraft block art, pixel art generator, minecraft builder tool, image to minecraft, block art converter, minecraft map art, pixel art maker, minecraft build guide" />
   <meta name="author" content="Coffee & Fun LLC" />
   <meta name="robots" content="index, follow" />
   <meta name="rating" content="general" />
 
-  <link rel="canonical" href="https://www.coffeeandfun.com/minecraft-pixel-art/" />
+  <link rel="canonical" href="/minecraft-pixel-art/" />
 
   <link rel="icon" href="/assets/images/favicon.png" sizes="any" />
   <link rel="apple-touch-icon" href="/assets/images/social/192.png" />
@@ -23,7 +23,7 @@
   <meta property="og:type" content="website" />
   <meta property="og:site_name" content="Coffee & Fun" />
   <meta property="og:title" content="Minecraft Pixel Art Generator - Convert Images to Block Art" />
-  <meta property="og:description" content="Convert any image into Minecraft pixel art with a complete block shopping list. Free, browser-based tool." />
+  <meta property="og:description" content="Convert any image into Minecraft pixel art with a numbered build guide and a complete block shopping list. Free, browser-based tool." />
   <meta property="og:url" content="https://www.coffeeandfun.com/minecraft-pixel-art/" />
   <meta property="og:image" content="https://www.coffeeandfun.com/assets/images/social/pages/minecraft-pixel-art.png" />
   <meta property="og:image:width" content="1200" />
@@ -36,7 +36,7 @@
   <meta name="twitter:site" content="@bycoffeeandfun" />
   <meta name="twitter:creator" content="@bycoffeeandfun" />
   <meta name="twitter:title" content="Minecraft Pixel Art Generator - Convert Images to Block Art" />
-  <meta name="twitter:description" content="Convert any image into Minecraft pixel art with a complete block shopping list. Free, browser-based tool." />
+  <meta name="twitter:description" content="Convert any image into Minecraft pixel art with a numbered build guide and block shopping list. Free, browser-based tool." />
   <meta name="twitter:image" content="https://www.coffeeandfun.com/assets/images/social/pages/minecraft-pixel-art.png" />
   <meta name="twitter:image:alt" content="Minecraft Pixel Art Generator Tool" />
   <meta name="twitter:domain" content="coffeeandfun.com" />
@@ -44,10 +44,10 @@
 
   <!-- Web App Manifest -->
   <link rel="manifest" href="/assets/images/social/site.webmanifest" />
-  <meta name="theme-color" content="#fef5ec" />
+  <meta name="theme-color" content="#241a12" />
   <meta name="mobile-web-app-capable" content="yes" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
-  <meta name="apple-mobile-web-app-status-bar-style" content="default" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   <meta name="apple-mobile-web-app-title" content="MC Pixel Art" />
 
   <!-- Schema.org structured data -->
@@ -69,13 +69,14 @@
         "@type": "WebApplication",
         "@id": "https://www.coffeeandfun.com/minecraft-pixel-art/",
         "name": "Minecraft Pixel Art Generator",
-        "description": "Convert any image into Minecraft pixel art. Get a block-by-block building guide with a complete shopping list of every block needed. Works entirely in your browser.",
+        "description": "Convert any image into Minecraft pixel art. Get a numbered build guide showing which block goes in every spot, plus a complete shopping list of every block needed. Works entirely in your browser.",
         "url": "https://www.coffeeandfun.com/minecraft-pixel-art/",
         "image": "https://www.coffeeandfun.com/assets/images/social/pages/minecraft-pixel-art.png",
         "applicationCategory": "GameApplication",
         "operatingSystem": "Any",
         "browserRequirements": "Requires JavaScript. Requires HTML5 Canvas.",
-        "softwareVersion": "1.0",
+        "softwareVersion": "2.0",
+        "featureList": ["Instant block preview", "Numbered build guide", "Block shopping list with stacks", "Floyd-Steinberg dithering", "Clipboard paste support", "Local processing"],
         "offers": {
           "@type": "Offer",
           "price": "0",
@@ -91,302 +92,384 @@
   }
   </script>
 
-  <script src="https://cdn.tailwindcss.com"></script>
-  <link href="https://cdn.jsdelivr.net/npm/daisyui@4.4.24/dist/full.min.css" rel="stylesheet" type="text/css" />
+  {% bundledCss %}
+  {% include sketch-styles.liquid %}
+
+  <!-- Pixel fonts for the Minecraft look -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=VT323&display=swap" rel="stylesheet" />
+
   <script src="https://unpkg.com/vue@3"></script>
 
   <style>
     [v-cloak] { display: none; }
 
-    .drop-zone {
-      border: 2px dashed #d6d3d1;
-      transition: all 0.3s ease;
+    .font-mc { font-family: 'Press Start 2P', monospace; }
+    .font-px { font-family: 'VT323', monospace; }
+    .pixelated { image-rendering: pixelated; }
+
+    /* Dark dirt page background with a faint pixel checker */
+    .mc-world {
+      background-color: #241a12;
+      background-image:
+        repeating-conic-gradient(#2a1f15 0% 25%, #241a12 0% 50%);
+      background-size: 16px 16px;
     }
 
-    .drop-zone.drag-over {
-      border-color: var(--color-mocha);
-      background-color: #fef3e2;
+    /* Classic inventory panel: stone gray, black outline, light TL / dark BR bevel */
+    .mc-panel {
+      background: #c6c6c6;
+      border: 3px solid #1a1a1a;
+      box-shadow:
+        inset 3px 3px 0 rgba(255, 255, 255, 0.7),
+        inset -3px -3px 0 rgba(0, 0, 0, 0.35),
+        0 6px 0 rgba(0, 0, 0, 0.4);
     }
 
-    .pixel-canvas {
+    /* Inventory slot: inverted bevel (pressed-in look) */
+    .mc-slot {
+      background: #8b8b8b;
+      border: 3px solid #1a1a1a;
+      box-shadow:
+        inset 3px 3px 0 rgba(0, 0, 0, 0.45),
+        inset -3px -3px 0 rgba(255, 255, 255, 0.5);
+    }
+    .mc-slot.dragging { background: #9fae7c; }
+
+    /* Classic MC button */
+    .mc-btn {
+      font-family: 'Press Start 2P', monospace;
+      font-size: 0.65rem;
+      line-height: 1.4;
+      color: #ffffff;
+      text-shadow: 2px 2px 0 rgba(0, 0, 0, 0.6);
+      background: #6d6d6d;
+      border: 3px solid #1a1a1a;
+      box-shadow:
+        inset 2px 2px 0 rgba(255, 255, 255, 0.55),
+        inset -3px -3px 0 rgba(0, 0, 0, 0.4);
+      padding: 0.85rem 1.15rem;
+      cursor: pointer;
+      transition: background 80ms linear;
+      touch-action: manipulation;
+    }
+    .mc-btn:hover { background: #7e88cf; }
+    .mc-btn:active {
+      box-shadow:
+        inset -2px -2px 0 rgba(255, 255, 255, 0.4),
+        inset 3px 3px 0 rgba(0, 0, 0, 0.4);
+    }
+    .mc-btn:focus-visible { outline: 3px solid #ffd83d; outline-offset: 2px; }
+    .mc-btn:disabled { opacity: 0.5; cursor: not-allowed; }
+
+    .mc-btn-green { background: #417a28; }
+    .mc-btn-green:hover { background: #4c8a2f; }
+
+    .mc-btn-gold { background: #b3831c; }
+    .mc-btn-gold:hover { background: #c79422; }
+
+    .mc-btn.is-selected {
+      background: #417a28;
+      outline: 3px solid #ffd83d;
+      outline-offset: -6px;
+    }
+
+    /* Grass ground strip */
+    .grass-strip {
+      height: 14px;
+      background: linear-gradient(
+        to bottom,
+        #8fca5c 0%, #8fca5c 40%,
+        #71a844 40%, #71a844 60%,
+        #6a4526 60%, #5c3a20 100%
+      );
       image-rendering: pixelated;
-      image-rendering: -moz-crisp-edges;
-      image-rendering: crisp-edges;
     }
 
-    .block-swatch {
-      width: 24px;
-      height: 24px;
-      border-radius: 4px;
-      border: 1px solid rgba(0,0,0,0.15);
+    /* Title screen splash text */
+    .mc-splash {
+      font-family: 'VT323', monospace;
+      color: #ffff54;
+      text-shadow: 2px 2px 0 #3f3f00;
+      transform: rotate(-10deg);
       display: inline-block;
-      flex-shrink: 0;
+      animation: splash-pulse 0.9s ease-in-out infinite alternate;
+    }
+    @keyframes splash-pulse {
+      from { transform: rotate(-10deg) scale(1); }
+      to { transform: rotate(-10deg) scale(1.07); }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      .mc-splash { animation: none; }
     }
 
-    @media print {
-      .no-print { display: none !important; }
+    /* Number chip used in the block list */
+    .mc-chip {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 2rem;
+      height: 2rem;
+      flex-shrink: 0;
+      border: 2px solid #1a1a1a;
+      font-family: 'Press Start 2P', monospace;
+      font-size: 0.6rem;
+      box-shadow: inset 1px 1px 0 rgba(255,255,255,.4), inset -1px -1px 0 rgba(0,0,0,.3);
+    }
+
+    /* Scrollable build-guide viewport */
+    .mc-viewport {
+      overflow: auto;
+      max-height: 70vh;
+      background: #313131;
+      border: 3px solid #1a1a1a;
+      box-shadow: inset 3px 3px 0 rgba(0,0,0,.5), inset -3px -3px 0 rgba(255,255,255,.15);
+    }
+
+    .mc-label {
+      font-family: 'Press Start 2P', monospace;
+      font-size: 0.6rem;
+      letter-spacing: 0.02em;
+      color: #3d3d3d;
     }
   </style>
-    {% include sketch-styles.liquid %}
 </head>
 
-<body class="bg-base-100 min-h-screen">
-  {% assign showFun = true %}
-  {% assign showMiddleBadgeWithText = true %}
-  {% include header.liquid %}
+<body class="mc-world min-h-screen">
+  <main id="main-content">
+    <div v-cloak id="app" class="mx-auto max-w-5xl px-4 sm:px-6 py-10 sm:py-14">
 
-  <main v-cloak id="main-content" class="container mx-auto max-w-5xl py-12 px-6">
+      <!-- Skip link -->
+      <a href="#upload-section" class="sr-only focus:not-sr-only focus:absolute focus:top-4 focus:left-4 bg-espresso text-white px-4 py-2 rounded-lg z-50">
+        Skip to main content
+      </a>
 
-    <!-- Header -->
-    <header class="text-center mb-12">
-      <h1 class="brand-heading text-3xl sm:text-4xl lg:text-5xl leading-[1.3] sm:leading-[1.3] mb-3">
-        Minecraft Pixel Art Generator
-      </h1>
-      <p class="text-lg text-base-content/70 max-w-2xl mx-auto">
-        Upload any image and convert it into Minecraft block art. Get the pixel grid, a visual preview, and a full shopping list of every block you need to build it.
-      </p>
-    </header>
+      <!-- Back link -->
+      <a href="/" class="font-px text-2xl text-white/80 hover:text-white transition-colors inline-flex items-center gap-2 mb-8" style="text-shadow: 2px 2px 0 rgba(0,0,0,.6);" aria-label="Back to Coffee & Fun homepage">
+        <span aria-hidden="true">&larr;</span> coffeeandfun.com
+      </a>
 
-    <!-- Upload Card -->
-    <section id="upload-section" class="bg-white rounded-2xl shadow-xl p-8 mb-8" aria-label="Image upload">
+      <!-- Title -->
+      <header class="text-center mb-10 relative">
+        <h1 class="font-mc text-white text-xl sm:text-3xl leading-relaxed" style="text-shadow: 3px 3px 0 #3f3f3f;">
+          MINECRAFT&nbsp;PIXEL&nbsp;ART<br />GENERATOR
+        </h1>
+        <p class="mc-splash text-2xl sm:text-3xl mt-3" aria-hidden="true">{% raw %}{{ splash }}{% endraw %}</p>
+        <p class="font-px text-2xl text-stone-300 mt-4 max-w-xl mx-auto">
+          Drop in any image. Get blocks, a numbered build guide, and a shopping list. All in your browser.
+        </p>
+      </header>
 
-      <!-- Upload Zone -->
-      <div v-if="!uploadedImage"
-           @drop.prevent="handleDrop"
-           @dragover.prevent="isDragging = true"
-           @dragleave="isDragging = false"
-           :class="{'drag-over': isDragging}"
-           class="drop-zone rounded-2xl p-12 text-center cursor-pointer"
-           @click="$refs.fileInput.click()"
-           role="button"
-           tabindex="0"
-           @keydown.enter="$refs.fileInput.click()"
-           @keydown.space.prevent="$refs.fileInput.click()"
-           aria-label="Upload an image. Click or drag and drop.">
+      <!-- Upload slot -->
+      <section id="upload-section" aria-label="Image upload" class="mb-8">
+        <div v-if="!uploadedImage"
+             @drop.prevent="handleDrop"
+             @dragover.prevent="isDragging = true"
+             @dragleave="isDragging = false"
+             :class="{ dragging: isDragging }"
+             class="mc-slot p-10 sm:p-14 text-center cursor-pointer select-none"
+             @click="$refs.fileInput.click()"
+             role="button"
+             tabindex="0"
+             @keydown.enter="$refs.fileInput.click()"
+             @keydown.space.prevent="$refs.fileInput.click()"
+             aria-label="Upload an image. Click, drag and drop, or paste from clipboard.">
 
-        <div class="mb-4">
-          <svg class="w-16 h-16 mx-auto text-stone-400" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                  d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12" />
-          </svg>
-        </div>
-
-        <h2 class="text-xl font-bold text-gray-700 mb-2">
-          Drop your image here
-        </h2>
-        <p class="text-gray-500 mb-4">or click to browse</p>
-        <p class="text-sm text-gray-400">PNG, JPG, or WEBP — any size works</p>
-
-        <input
-          ref="fileInput"
-          type="file"
-          @change="handleFileSelect"
-          accept="image/png,image/jpeg,image/jpg,image/webp"
-          class="hidden"
-          aria-label="Choose an image file to convert to pixel art" />
-      </div>
-
-      <!-- Preview & Controls -->
-      <div v-else class="space-y-6">
-
-        <!-- Original Preview -->
-        <div class="flex flex-col sm:flex-row items-center justify-between bg-gray-50 rounded-2xl p-6 gap-4">
-          <div class="flex items-center gap-4">
-            <img :src="uploadedImage"
-                 alt="Uploaded image preview"
-                 class="w-24 h-24 rounded-2xl shadow-md object-cover" />
-            <div>
-              {% raw %}
-              <h3 class="font-bold text-gray-900">{{ fileName }}</h3>
-              <p class="text-sm text-gray-600">{{ imageWidth }} x {{ imageHeight }} pixels</p>
-              {% endraw %}
-            </div>
+          <div class="mx-auto mb-5 w-16 h-16 pixelated" aria-hidden="true">
+            <svg viewBox="0 0 16 16" class="w-full h-full">
+              <rect x="1" y="1" width="14" height="14" fill="#417a28" stroke="#1a1a1a" stroke-width="1"/>
+              <rect x="7" y="4" width="2" height="6" fill="#fff"/>
+              <rect x="5" y="8" width="2" height="2" fill="#fff"/>
+              <rect x="9" y="8" width="2" height="2" fill="#fff"/>
+              <rect x="7" y="10" width="2" height="2" fill="#fff"/>
+            </svg>
           </div>
-          <button
-            @click="resetUpload"
-            class="px-4 py-2 bg-red-500 hover:bg-red-600 text-white rounded-2xl font-semibold transition-colors focus:outline-none focus:ring-2 focus:ring-red-400 focus:ring-offset-2"
-            aria-label="Remove uploaded image">
-            Remove
+
+          <h2 class="font-mc text-sm text-white mb-3" style="text-shadow: 2px 2px 0 rgba(0,0,0,.6);">DROP IMAGE HERE</h2>
+          <p class="font-px text-2xl text-stone-100">click to browse &bull; or paste with Ctrl+V</p>
+          <p class="font-px text-xl text-stone-300 mt-1">PNG, JPG, or WEBP &mdash; any size</p>
+
+          <button type="button" @click.stop="loadSample" class="mc-btn mc-btn-gold mt-6">
+            NO IMAGE? TRY A SAMPLE
           </button>
+
+          <input
+            ref="fileInput"
+            type="file"
+            @change="handleFileSelect"
+            accept="image/png,image/jpeg,image/jpg,image/webp"
+            class="hidden"
+            aria-label="Choose an image file to convert to pixel art" />
         </div>
 
-        <!-- Grid Size Selector -->
-        <fieldset class="bg-gray-50 rounded-2xl p-6">
-          <legend class="text-sm font-bold text-gray-700 mb-3">Grid Size (blocks wide)</legend>
-          <div class="flex flex-wrap gap-3" role="radiogroup" aria-label="Select pixel art grid width">
-            <button v-for="size in gridSizes" :key="size"
-              @click="gridWidth = size"
-              :class="gridWidth === size
-                ? 'bg-[var(--color-mocha)] text-white ring-2 ring-[var(--color-mocha)] ring-offset-2'
-                : 'bg-white text-gray-700 hover:bg-amber-50 border border-gray-300'"
-              class="px-5 py-3 rounded-xl font-bold transition-all focus:outline-none focus:ring-2 focus:ring-[var(--color-mocha)] focus:ring-offset-2"
-              :aria-pressed="gridWidth === size"
-              role="radio">
-              {% raw %}{{ size }}{% endraw %}
-            </button>
+        <!-- Loaded file bar -->
+        <div v-else class="mc-panel p-4 sm:p-5 flex flex-wrap items-center gap-4">
+          <img :src="uploadedImage" alt="Uploaded image thumbnail" class="w-16 h-16 object-cover border-2 border-black pixelated" />
+          <div class="min-w-0 flex-1">
+            {% raw %}
+            <p class="font-px text-2xl text-stone-800 truncate">{{ fileName }}</p>
+            <p class="font-px text-xl text-stone-600">{{ imageWidth }} &times; {{ imageHeight }} px</p>
+            {% endraw %}
           </div>
-          <p class="text-xs text-gray-500 mt-3" aria-live="polite">
-            {% raw %}Output will be {{ gridWidth }} x {{ gridHeight }} blocks ({{ gridWidth * gridHeight }} total blocks){% endraw %}
-          </p>
-        </fieldset>
+          <button @click="resetUpload" class="mc-btn" style="background:#8e3c3c;">SWAP IMAGE</button>
+        </div>
+      </section>
 
-        <!-- Dithering Toggle -->
-        <div class="bg-gray-50 rounded-2xl p-6">
-          <label class="flex items-center gap-3 cursor-pointer">
-            <input type="checkbox" v-model="useDithering" class="w-5 h-5 rounded text-[var(--color-mocha)] focus:ring-[var(--color-mocha)]" />
-            <div>
-              <span class="font-bold text-gray-700">Floyd-Steinberg Dithering</span>
-              <p class="text-xs text-gray-500">Improves gradients but adds a stippled texture</p>
+      <!-- Settings -->
+      <section v-if="uploadedImage" aria-label="Conversion settings" class="mc-panel p-5 sm:p-6 mb-8">
+        <div class="grid grid-cols-1 md:grid-cols-[1fr_auto] gap-6 items-start">
+          <div>
+            <p class="mc-label mb-3" id="size-label">ART WIDTH (BLOCKS)</p>
+            <div class="flex flex-wrap gap-2" role="radiogroup" aria-labelledby="size-label">
+              <button v-for="size in gridSizes" :key="size"
+                @click="gridWidth = size"
+                class="mc-btn"
+                :class="{ 'is-selected': gridWidth === size }"
+                role="radio"
+                :aria-checked="gridWidth === size">
+                {% raw %}{{ size }}{% endraw %}
+              </button>
             </div>
-          </label>
-        </div>
-
-        <!-- Grid Overlay Toggle -->
-        <div class="bg-gray-50 rounded-2xl p-6">
-          <label class="flex items-center gap-3 cursor-pointer">
-            <input type="checkbox" v-model="showGrid" class="w-5 h-5 rounded text-[var(--color-mocha)] focus:ring-[var(--color-mocha)]" />
-            <div>
-              <span class="font-bold text-gray-700">Show Block Grid</span>
-              <p class="text-xs text-gray-500">Adds grid lines, chunk markers every 16 blocks, and row/column numbers so you can map each block to its exact place when building</p>
-            </div>
-          </label>
-        </div>
-
-        <!-- Generate Button -->
-        <button
-          @click="generatePixelArt"
-          :disabled="isGenerating"
-          :class="isGenerating ? 'opacity-50 cursor-not-allowed' : 'hover:scale-[1.02]'"
-          class="w-full bg-gradient-to-r from-[var(--color-mocha)] to-[var(--color-espresso)] text-white font-bold py-4 px-8 rounded-2xl shadow-lg transition-transform focus:outline-none focus:ring-2 focus:ring-[var(--color-mocha)] focus:ring-offset-2">
-          <span v-if="!isGenerating">Pick Axe It!</span>
-          <span v-else>Converting...</span>
-        </button>
-      </div>
-    </section>
-
-    <!-- Results -->
-    <section v-if="pixelArtDataUrl" class="space-y-8" aria-label="Pixel art results">
-
-      <!-- Pixel Art Preview -->
-      <div class="bg-white rounded-2xl shadow-xl p-8">
-        <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between mb-6 gap-4">
-          <div>
-            <h2 class="text-2xl font-bold text-gray-900">Your Minecraft Pixel Art</h2>
-            <p class="text-sm text-gray-500">{% raw %}{{ gridWidth }} x {{ gridHeight }} blocks — {{ totalBlocks }} blocks total{% endraw %}</p>
-          </div>
-          <div class="flex gap-3 no-print">
-            <button
-              @click="downloadPixelArt"
-              class="px-5 py-3 bg-[var(--color-espresso)] hover:opacity-90 text-white rounded-2xl font-bold transition-colors flex items-center gap-2 focus:outline-none focus:ring-2 focus:ring-[var(--color-espresso)] focus:ring-offset-2">
-              <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
-              </svg>
-              Download Image
-            </button>
-            <button
-              @click="downloadBlockList"
-              class="px-5 py-3 bg-amber-500 hover:bg-amber-600 text-white rounded-2xl font-bold transition-colors flex items-center gap-2 focus:outline-none focus:ring-2 focus:ring-amber-400 focus:ring-offset-2">
-              <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
-              </svg>
-              Download Block List
-            </button>
-          </div>
-        </div>
-
-        <!-- Side-by-side comparison -->
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-          <div>
-            <h3 class="text-sm font-bold text-gray-500 uppercase tracking-wide mb-3">Original</h3>
-            <img :src="uploadedImage" alt="Original uploaded image" class="w-full rounded-2xl shadow-md" />
-          </div>
-          <div>
-            <h3 class="text-sm font-bold text-gray-500 uppercase tracking-wide mb-3">Pixel Art</h3>
-            <img :src="pixelArtDataUrl" alt="Generated Minecraft pixel art version" class="w-full rounded-2xl shadow-md pixel-canvas" />
-          </div>
-        </div>
-      </div>
-
-      <!-- Block Shopping List -->
-      <div class="bg-white rounded-2xl shadow-xl p-8">
-        <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between mb-6 gap-4">
-          <div>
-            <h2 class="text-2xl font-bold text-gray-900">Block Shopping List</h2>
-            <p class="text-sm text-gray-500">
-              {% raw %}{{ uniqueBlockCount }} unique block types — {{ totalBlocks }} blocks total{% endraw %}
+            <p class="font-px text-xl text-stone-600 mt-3" aria-live="polite">
+              {% raw %}= {{ gridWidth }} &times; {{ gridHeight }} blocks ({{ totalBlocks.toLocaleString() }} total){% endraw %}
             </p>
           </div>
+
+          <div class="flex flex-col gap-4">
+            <label class="flex items-center gap-3 cursor-pointer">
+              <input type="checkbox" v-model="useDithering" class="toggle toggle-success" />
+              <div>
+                <span class="mc-label block">DITHERING</span>
+                <span class="font-px text-lg text-stone-600">Smoother gradients, speckled texture</span>
+              </div>
+            </label>
+            <label class="flex items-center gap-3 cursor-pointer">
+              <input type="checkbox" v-model="showGrid" class="toggle toggle-success" />
+              <div>
+                <span class="mc-label block">GRID ON ART</span>
+                <span class="font-px text-lg text-stone-600">Chunk lines + coordinates on the art PNG</span>
+              </div>
+            </label>
+          </div>
+        </div>
+        <p class="font-px text-xl text-emerald-800 mt-4 flex items-center gap-2" role="status" aria-live="polite">
+          <span v-if="isGenerating">Mining blocks&hellip;</span>
+          <span v-else>Changes apply instantly &mdash; no button mashing needed.</span>
+        </p>
+      </section>
+
+      <!-- Results -->
+      <section v-if="pixelArtDataUrl" ref="results" class="space-y-8" aria-label="Pixel art results">
+
+        <!-- Preview panel with tabs -->
+        <div class="mc-panel p-5 sm:p-6">
+          <div class="flex flex-wrap items-center justify-between gap-3 mb-4">
+            <div class="flex flex-wrap gap-2" role="tablist" aria-label="Preview mode">
+              <button role="tab" :aria-selected="activeTab === 'art'" @click="activeTab = 'art'"
+                class="mc-btn" :class="{ 'is-selected': activeTab === 'art' }">BLOCKS</button>
+              <button role="tab" :aria-selected="activeTab === 'guide'" @click="activeTab = 'guide'"
+                class="mc-btn" :class="{ 'is-selected': activeTab === 'guide' }">BUILD GUIDE</button>
+              <button role="tab" :aria-selected="activeTab === 'original'" @click="activeTab = 'original'"
+                class="mc-btn" :class="{ 'is-selected': activeTab === 'original' }">ORIGINAL</button>
+            </div>
+            {% raw %}
+            <p class="font-px text-xl text-stone-600">{{ uniqueBlockCount }} block types &bull; {{ totalBlocks.toLocaleString() }} blocks</p>
+            {% endraw %}
+          </div>
+
+          <!-- Blocks tab -->
+          <div v-show="activeTab === 'art'" role="tabpanel" aria-label="Block art preview">
+            <img :src="pixelArtDataUrl" alt="Generated Minecraft pixel art preview" class="w-full pixelated border-2 border-black bg-white" />
+          </div>
+
+          <!-- Build guide tab -->
+          <div v-show="activeTab === 'guide'" role="tabpanel" aria-label="Numbered build guide">
+            <p class="font-px text-xl text-stone-700 mb-3">
+              Every cell shows the block number &mdash; match it to the list below. Bold lines mark 16-block chunks. Scroll to explore.
+            </p>
+            <div class="mc-viewport" tabindex="0" aria-label="Scrollable build guide. Each cell is numbered with the block to place.">
+              <img :src="guideDataUrl" alt="" class="pixelated block" style="max-width: none;" />
+            </div>
+          </div>
+
+          <!-- Original tab -->
+          <div v-show="activeTab === 'original'" role="tabpanel" aria-label="Original image">
+            <img :src="uploadedImage" alt="Original uploaded image" class="w-full border-2 border-black bg-white" />
+          </div>
+
+          <!-- Downloads -->
+          <div class="flex flex-wrap gap-3 mt-5">
+            <button @click="downloadPixelArt" class="mc-btn mc-btn-green">DOWNLOAD ART PNG</button>
+            <button @click="downloadGuide" class="mc-btn mc-btn-gold">BUILD GUIDE PNG</button>
+            <button @click="downloadBlockList" class="mc-btn">BLOCK LIST TXT</button>
+          </div>
         </div>
 
-        <!-- Sorting controls -->
-        <div class="flex gap-2 mb-4 no-print" role="group" aria-label="Sort block list">
-          <button @click="sortBy = 'count'"
-            :class="sortBy === 'count' ? 'bg-gray-900 text-white' : 'bg-gray-100 text-gray-700 hover:bg-gray-200'"
-            class="px-4 py-2 rounded-xl text-sm font-semibold transition-colors focus:outline-none focus:ring-2 focus:ring-gray-400 focus:ring-offset-2">
-            Sort by Count
-          </button>
-          <button @click="sortBy = 'name'"
-            :class="sortBy === 'name' ? 'bg-gray-900 text-white' : 'bg-gray-100 text-gray-700 hover:bg-gray-200'"
-            class="px-4 py-2 rounded-xl text-sm font-semibold transition-colors focus:outline-none focus:ring-2 focus:ring-gray-400 focus:ring-offset-2">
-            Sort by Name
-          </button>
+        <!-- Shopping list -->
+        <div class="mc-panel p-5 sm:p-6">
+          <div class="flex flex-wrap items-center justify-between gap-3 mb-4">
+            <h2 class="font-mc text-sm text-stone-800">BLOCK SHOPPING LIST</h2>
+            <div class="flex gap-2" role="group" aria-label="Sort block list">
+              <button @click="sortBy = 'count'" class="mc-btn" :class="{ 'is-selected': sortBy === 'count' }">BY COUNT</button>
+              <button @click="sortBy = 'name'" class="mc-btn" :class="{ 'is-selected': sortBy === 'name' }">BY NAME</button>
+            </div>
+          </div>
+
+          <div class="overflow-x-auto bg-[#d7d7d7] border-2 border-black">
+            <table class="table w-full">
+              <thead>
+                <tr class="border-b-2 border-stone-500">
+                  <th scope="col" class="mc-label py-3">#</th>
+                  <th scope="col" class="mc-label py-3">BLOCK</th>
+                  <th scope="col" class="mc-label py-3 text-right">COUNT</th>
+                  <th scope="col" class="mc-label py-3 text-right">STACKS</th>
+                </tr>
+              </thead>
+              <tbody class="font-px text-2xl text-stone-800">
+                <tr v-for="block in sortedBlockList" :key="block.name" class="border-b border-stone-400/40">
+                  <td class="py-2">
+                    <span class="mc-chip" :style="{ backgroundColor: block.hex, color: block.textColor }">{% raw %}{{ block.num }}{% endraw %}</span>
+                  </td>
+                  <td class="py-2">{% raw %}{{ block.name }}{% endraw %}</td>
+                  <td class="py-2 text-right font-bold">{% raw %}{{ block.count.toLocaleString() }}{% endraw %}</td>
+                  <td class="py-2 text-right text-stone-600">{% raw %}{{ stacksLabel(block.count) }}{% endraw %}</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
         </div>
 
-        <!-- Block table -->
-        <div class="overflow-x-auto">
-          <table class="w-full text-left" role="table">
-            <thead>
-              <tr class="border-b-2 border-gray-200">
-                <th scope="col" class="py-3 px-4 text-sm font-bold text-gray-600 uppercase tracking-wide">Block</th>
-                <th scope="col" class="py-3 px-4 text-sm font-bold text-gray-600 uppercase tracking-wide">Color</th>
-                <th scope="col" class="py-3 px-4 text-sm font-bold text-gray-600 uppercase tracking-wide text-right">Count</th>
-                <th scope="col" class="py-3 px-4 text-sm font-bold text-gray-600 uppercase tracking-wide text-right">Stacks</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr v-for="(block, index) in sortedBlockList" :key="block.name"
-                  :class="index % 2 === 0 ? 'bg-gray-50' : 'bg-white'"
-                  class="border-b border-gray-100">
-                <td class="py-3 px-4 font-medium text-gray-900 flex items-center gap-3">
-                  <span class="block-swatch" :style="{backgroundColor: block.hex}" :aria-label="'Color swatch for ' + block.name"></span>
-                  {% raw %}{{ block.name }}{% endraw %}
-                </td>
-                <td class="py-3 px-4 text-sm text-gray-500 font-mono">{% raw %}{{ block.hex }}{% endraw %}</td>
-                <td class="py-3 px-4 text-right font-bold text-gray-900">{% raw %}{{ block.count.toLocaleString() }}{% endraw %}</td>
-                <td class="py-3 px-4 text-right text-sm text-gray-500">
-                  {% raw %}{{ Math.ceil(block.count / 64) }} stack{{ Math.ceil(block.count / 64) !== 1 ? 's' : '' }}{% endraw %}
-                </td>
-              </tr>
-            </tbody>
-          </table>
+        <!-- How to build -->
+        <div class="mc-panel p-5 sm:p-6">
+          <h2 class="font-mc text-sm text-stone-800 mb-5">HOW TO BUILD IT</h2>
+          <ol class="space-y-4 font-px text-2xl text-stone-800">
+            <li class="flex gap-4 items-start">
+              <span class="mc-chip" style="background:#417a28; color:#fff;">1</span>
+              <span>Download the <strong>Build Guide PNG</strong> &mdash; every cell is numbered, and the legend at the bottom maps numbers to blocks.</span>
+            </li>
+            <li class="flex gap-4 items-start">
+              <span class="mc-chip" style="background:#417a28; color:#fff;">2</span>
+              <span>Gather the blocks from the shopping list. A stack is 64 &mdash; the list does the math for you.</span>
+            </li>
+            <li class="flex gap-4 items-start">
+              <span class="mc-chip" style="background:#417a28; color:#fff;">3</span>
+              {% raw %}
+              <span>Build it as a wall, starting from the bottom-left corner. Your art is {{ gridWidth }} wide &times; {{ gridHeight }} tall. Bold chunk lines every 16 blocks help you keep your place.</span>
+              {% endraw %}
+            </li>
+            <li class="flex gap-4 items-start">
+              <span class="mc-chip" style="background:#417a28; color:#fff;">4</span>
+              <span>Work chunk by chunk and tick off the numbers as you go. Happy mining!</span>
+            </li>
+          </ol>
         </div>
-      </div>
+      </section>
 
-      <!-- How to build section -->
-      <div class="bg-white rounded-2xl shadow-xl p-8">
-        <h2 class="text-2xl font-bold text-gray-900 mb-4">How to Build This in Minecraft</h2>
-        <ol class="space-y-3 text-gray-700">
-          <li class="flex gap-3">
-            <span class="flex-shrink-0 w-7 h-7 bg-amber-100 text-[var(--color-espresso)] rounded-full flex items-center justify-center font-bold text-sm">1</span>
-            <span>Gather all the blocks from the shopping list above. Use creative mode for easier access.</span>
-          </li>
-          <li class="flex gap-3">
-            <span class="flex-shrink-0 w-7 h-7 bg-amber-100 text-[var(--color-espresso)] rounded-full flex items-center justify-center font-bold text-sm">2</span>
-            <span>Find a flat area or use a superflat world. Build the art vertically (like a wall) for best results.</span>
-          </li>
-          <li class="flex gap-3">
-            <span class="flex-shrink-0 w-7 h-7 bg-amber-100 text-[var(--color-espresso)] rounded-full flex items-center justify-center font-bold text-sm">3</span>
-            <span>{% raw %}Start from the bottom-left corner. Each pixel in the image = 1 block. Your art is {{ gridWidth }} blocks wide and {{ gridHeight }} blocks tall.{% endraw %}</span>
-          </li>
-          <li class="flex gap-3">
-            <span class="flex-shrink-0 w-7 h-7 bg-amber-100 text-[var(--color-espresso)] rounded-full flex items-center justify-center font-bold text-sm">4</span>
-            <span>Use the downloaded pixel art image as your reference, zooming in to see individual block colors.</span>
-          </li>
-        </ol>
-      </div>
-    </section>
-
+    </div>
   </main>
+
+  <div class="grass-strip" aria-hidden="true"></div>
 
   {% include modals.liquid %}
   {% include footer.liquid %}
@@ -489,12 +572,15 @@
       { name: 'Cherry Planks', rgb: [226, 178, 172] },
       { name: 'Bamboo Planks', rgb: [194, 175, 82] },
       { name: 'Crimson Planks', rgb: [101, 49, 71] },
-      { name: 'Warped Planks', rgb: [43, 105, 99] },
+      { name: 'Warped Planks', rgb: [43, 105, 99] }
     ];
 
-    // Pre-compute hex values
+    // Pre-compute hex + legible text color per block
     MINECRAFT_BLOCKS.forEach(b => {
       b.hex = '#' + b.rgb.map(c => c.toString(16).padStart(2, '0')).join('');
+      const [r, g, bl] = b.rgb;
+      b.luma = 0.2126 * r + 0.7152 * g + 0.0722 * bl;
+      b.textColor = b.luma > 140 ? '#1a1a1a' : '#ffffff';
     });
 
     function colorDistance(r1, g1, b1, r2, g2, b2) {
@@ -523,42 +609,81 @@
       return best;
     }
 
+    const SPLASHES = [
+      'Now with numbers!',
+      'Punch that upload!',
+      '100% creeper-free!',
+      'Also try coffee!',
+      'Stack \'em up!',
+      'Chunk by chunk!',
+      'Blocktastic!',
+      'No crafting table needed!'
+    ];
+
+    // 16x16 sample: a pixel-art coffee mug (on brand, no upload needed)
+    const SAMPLE_MAP = [
+      '................',
+      '.....s..s.......',
+      '....s..s........',
+      '.....s..s.......',
+      '................',
+      '..bbbbbbbbbb....',
+      '.bmmmmmmmmmmb...',
+      '.bmccccccccmb.b.',
+      '.bmccccccccmbb.b',
+      '.bmccccccccmb..b',
+      '.bmccccccccmbb.b',
+      '.bmccccccccmb.b.',
+      '..bmccccccmb....',
+      '...bbbbbbbb.....',
+      '................',
+      '................'
+    ];
+    const SAMPLE_COLORS = {
+      '.': '#f2ead9',
+      's': '#b9b9b9',
+      'b': '#3a2618',
+      'c': '#6f4423',
+      'm': '#e8d8bf'
+    };
+
     createApp({
       data() {
         return {
+          splash: SPLASHES[Math.floor(Math.random() * SPLASHES.length)],
           uploadedImage: null,
           fileName: '',
           imageWidth: 0,
           imageHeight: 0,
           isDragging: false,
           isGenerating: false,
-          gridWidth: 64,
-          gridSizes: [32, 48, 64, 96, 128],
+          gridWidth: 48,
+          gridSizes: [16, 32, 48, 64, 96, 128],
           useDithering: false,
           showGrid: true,
+          activeTab: 'art',
           pixelArtDataUrl: null,
-          blockCounts: {},
+          guideDataUrl: null,
+          numberedBlocks: [],
           sortBy: 'count',
+          regenTimer: null,
+          hasScrolledToResults: false
         };
       },
 
       computed: {
         gridHeight() {
           if (!this.imageWidth || !this.imageHeight) return this.gridWidth;
-          return Math.round(this.gridWidth * (this.imageHeight / this.imageWidth));
+          return Math.max(1, Math.round(this.gridWidth * (this.imageHeight / this.imageWidth)));
         },
         totalBlocks() {
           return this.gridWidth * this.gridHeight;
         },
         uniqueBlockCount() {
-          return Object.keys(this.blockCounts).length;
+          return this.numberedBlocks.length;
         },
         sortedBlockList() {
-          const list = Object.entries(this.blockCounts).map(([name, data]) => ({
-            name,
-            count: data.count,
-            hex: data.hex,
-          }));
+          const list = [...this.numberedBlocks];
           if (this.sortBy === 'count') {
             list.sort((a, b) => b.count - a.count);
           } else {
@@ -568,7 +693,38 @@
         }
       },
 
+      watch: {
+        gridWidth() { this.queueRegen(); },
+        useDithering() { this.queueRegen(); },
+        showGrid() { this.queueRegen(); }
+      },
+
+      mounted() {
+        // Paste-to-upload: Ctrl+V anywhere on the page
+        document.addEventListener('paste', (e) => {
+          const item = [...(e.clipboardData?.items || [])].find(i => i.type.startsWith('image/'));
+          if (item) {
+            const file = item.getAsFile();
+            if (file) this.loadImage(file);
+          }
+        });
+      },
+
       methods: {
+        stacksLabel(count) {
+          const stacks = Math.floor(count / 64);
+          const rest = count % 64;
+          if (stacks === 0) return String(rest);
+          if (rest === 0) return stacks + ' × 64';
+          return stacks + ' × 64 + ' + rest;
+        },
+
+        queueRegen() {
+          if (!this.uploadedImage) return;
+          clearTimeout(this.regenTimer);
+          this.regenTimer = setTimeout(() => this.generatePixelArt(), 120);
+        },
+
         handleFileSelect(e) {
           const file = e.target.files[0];
           if (file) this.loadImage(file);
@@ -591,191 +747,352 @@
               this.imageWidth = img.width;
               this.imageHeight = img.height;
               this.uploadedImage = e.target.result;
+              this.hasScrolledToResults = false;
+              this.generatePixelArt();
             };
             img.src = e.target.result;
           };
           reader.readAsDataURL(file);
         },
 
-        async generatePixelArt() {
-          this.isGenerating = true;
-          this.pixelArtDataUrl = null;
-          this.blockCounts = {};
+        loadSample() {
+          const cell = 8;
+          const size = 16;
+          const canvas = document.createElement('canvas');
+          canvas.width = size * cell;
+          canvas.height = size * cell;
+          const ctx = canvas.getContext('2d');
+          SAMPLE_MAP.forEach((row, y) => {
+            [...row].forEach((ch, x) => {
+              ctx.fillStyle = SAMPLE_COLORS[ch] || SAMPLE_COLORS['.'];
+              ctx.fillRect(x * cell, y * cell, cell, cell);
+            });
+          });
+          this.fileName = 'sample-coffee-mug.png';
+          this.imageWidth = canvas.width;
+          this.imageHeight = canvas.height;
+          this.uploadedImage = canvas.toDataURL('image/png');
+          this.gridWidth = 16;
+          this.hasScrolledToResults = false;
+          this.generatePixelArt();
+        },
 
-          // Let the UI update
-          await new Promise(resolve => setTimeout(resolve, 50));
+        resetUpload() {
+          this.uploadedImage = null;
+          this.fileName = '';
+          this.pixelArtDataUrl = null;
+          this.guideDataUrl = null;
+          this.numberedBlocks = [];
+          this.activeTab = 'art';
+          if (this.$refs.fileInput) this.$refs.fileInput.value = '';
+        },
+
+        generatePixelArt() {
+          if (!this.uploadedImage) return;
+          this.isGenerating = true;
 
           const img = new Image();
           img.onload = () => {
-            const w = this.gridWidth;
-            const h = this.gridHeight;
+            try {
+              const w = this.gridWidth;
+              const h = this.gridHeight;
 
-            // Step 1: Downsample the image to grid size
-            const sampleCanvas = document.createElement('canvas');
-            sampleCanvas.width = w;
-            sampleCanvas.height = h;
-            const sampleCtx = sampleCanvas.getContext('2d');
-            sampleCtx.imageSmoothingEnabled = true;
-            sampleCtx.imageSmoothingQuality = 'high';
-            sampleCtx.drawImage(img, 0, 0, w, h);
+              // 1) Downsample onto white (so transparent PNGs don't turn black)
+              const sampleCanvas = document.createElement('canvas');
+              sampleCanvas.width = w;
+              sampleCanvas.height = h;
+              const sampleCtx = sampleCanvas.getContext('2d');
+              sampleCtx.fillStyle = '#ffffff';
+              sampleCtx.fillRect(0, 0, w, h);
+              sampleCtx.imageSmoothingEnabled = img.width > w;
+              sampleCtx.imageSmoothingQuality = 'high';
+              sampleCtx.drawImage(img, 0, 0, w, h);
 
-            const imageData = sampleCtx.getImageData(0, 0, w, h);
-            const pixels = imageData.data;
+              const imageData = sampleCtx.getImageData(0, 0, w, h);
+              const pixels = imageData.data;
+              const pixelFloats = new Float32Array(pixels.length);
+              for (let i = 0; i < pixels.length; i++) pixelFloats[i] = pixels[i];
 
-            // Working copy for dithering
-            const pixelFloats = new Float32Array(pixels.length);
-            for (let i = 0; i < pixels.length; i++) pixelFloats[i] = pixels[i];
+              // 2) Map every cell to its closest block
+              const cellBlocks = new Array(w * h);
+              const counts = new Map();
 
-            const counts = {};
+              for (let y = 0; y < h; y++) {
+                for (let x = 0; x < w; x++) {
+                  const i = (y * w + x) * 4;
+                  const r = Math.max(0, Math.min(255, Math.round(pixelFloats[i])));
+                  const g = Math.max(0, Math.min(255, Math.round(pixelFloats[i + 1])));
+                  const b = Math.max(0, Math.min(255, Math.round(pixelFloats[i + 2])));
 
-            // Step 2: Map each pixel to nearest Minecraft block
-            for (let y = 0; y < h; y++) {
-              for (let x = 0; x < w; x++) {
-                const i = (y * w + x) * 4;
+                  const block = findClosestBlock(r, g, b);
+                  cellBlocks[y * w + x] = block;
 
-                const r = Math.max(0, Math.min(255, Math.round(pixelFloats[i])));
-                const g = Math.max(0, Math.min(255, Math.round(pixelFloats[i + 1])));
-                const b = Math.max(0, Math.min(255, Math.round(pixelFloats[i + 2])));
+                  pixels[i] = block.rgb[0];
+                  pixels[i + 1] = block.rgb[1];
+                  pixels[i + 2] = block.rgb[2];
+                  pixels[i + 3] = 255;
 
-                const block = findClosestBlock(r, g, b);
-
-                // Write the block color back
-                pixels[i]     = block.rgb[0];
-                pixels[i + 1] = block.rgb[1];
-                pixels[i + 2] = block.rgb[2];
-                pixels[i + 3] = 255;
-
-                // Floyd-Steinberg dithering
-                if (this.useDithering) {
-                  const errR = r - block.rgb[0];
-                  const errG = g - block.rgb[1];
-                  const errB = b - block.rgb[2];
-
-                  const spread = [
-                    [x + 1, y,     7 / 16],
-                    [x - 1, y + 1, 3 / 16],
-                    [x,     y + 1, 5 / 16],
-                    [x + 1, y + 1, 1 / 16],
-                  ];
-
-                  for (const [nx, ny, factor] of spread) {
-                    if (nx >= 0 && nx < w && ny >= 0 && ny < h) {
-                      const ni = (ny * w + nx) * 4;
-                      pixelFloats[ni]     += errR * factor;
-                      pixelFloats[ni + 1] += errG * factor;
-                      pixelFloats[ni + 2] += errB * factor;
+                  if (this.useDithering) {
+                    const errR = r - block.rgb[0];
+                    const errG = g - block.rgb[1];
+                    const errB = b - block.rgb[2];
+                    const spread = [
+                      [x + 1, y, 7 / 16],
+                      [x - 1, y + 1, 3 / 16],
+                      [x, y + 1, 5 / 16],
+                      [x + 1, y + 1, 1 / 16]
+                    ];
+                    for (const [nx, ny, factor] of spread) {
+                      if (nx >= 0 && nx < w && ny >= 0 && ny < h) {
+                        const ni = (ny * w + nx) * 4;
+                        pixelFloats[ni] += errR * factor;
+                        pixelFloats[ni + 1] += errG * factor;
+                        pixelFloats[ni + 2] += errB * factor;
+                      }
                     }
                   }
+
+                  counts.set(block.name, (counts.get(block.name) || 0) + 1);
                 }
-
-                // Count blocks
-                if (!counts[block.name]) {
-                  counts[block.name] = { count: 0, hex: block.hex };
-                }
-                counts[block.name].count++;
               }
+
+              sampleCtx.putImageData(imageData, 0, 0);
+
+              // 3) Number the blocks: most-used = 1
+              const numbered = [...counts.entries()]
+                .sort((a, b) => b[1] - a[1])
+                .map(([name, count], idx) => {
+                  const block = MINECRAFT_BLOCKS.find(bl => bl.name === name);
+                  return { num: idx + 1, name, count, hex: block.hex, rgb: block.rgb, textColor: block.textColor, luma: block.luma };
+                });
+              const numByName = new Map(numbered.map(nb => [nb.name, nb.num]));
+              this.numberedBlocks = numbered;
+
+              // 4) Render the pretty art PNG
+              this.pixelArtDataUrl = this.renderArt(sampleCanvas, w, h);
+
+              // 5) Render the numbered build guide PNG (with legend)
+              this.guideDataUrl = this.renderGuide(cellBlocks, numByName, w, h);
+
+              this.isGenerating = false;
+
+              if (!this.hasScrolledToResults) {
+                this.hasScrolledToResults = true;
+                this.$nextTick(() => {
+                  const el = this.$refs.results;
+                  if (el && !window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+                    el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                  }
+                });
+              }
+            } catch (err) {
+              console.error('Generation failed:', err);
+              this.isGenerating = false;
             }
-
-            // Step 3: Write the result
-            sampleCtx.putImageData(imageData, 0, 0);
-
-            // Scale up for a crisp visual (10px per block, capped)
-            const scale = Math.min(10, Math.floor(2048 / Math.max(w, h)));
-
-            // Reserve top + left margin for coordinate labels when grid is on
-            const margin = this.showGrid ? Math.max(24, Math.round(scale * 2.4)) : 0;
-            const artWidth = w * scale;
-            const artHeight = h * scale;
-
-            const outCanvas = document.createElement('canvas');
-            outCanvas.width = artWidth + margin;
-            outCanvas.height = artHeight + margin;
-            const outCtx = outCanvas.getContext('2d');
-            outCtx.imageSmoothingEnabled = false;
-
-            // White background so the margin area reads cleanly when downloaded
-            if (this.showGrid) {
-              outCtx.fillStyle = '#ffffff';
-              outCtx.fillRect(0, 0, outCanvas.width, outCanvas.height);
-            }
-
-            // Draw the pixel art, offset by the margin
-            outCtx.drawImage(sampleCanvas, margin, margin, artWidth, artHeight);
-
-            if (this.showGrid) {
-              const CHUNK = 16; // Minecraft chunk size — useful reference for builders
-              const labelFontSize = Math.max(10, Math.round(scale * 1.4));
-
-              // Minor grid lines — every block
-              outCtx.strokeStyle = 'rgba(0,0,0,0.22)';
-              outCtx.lineWidth = 1;
-              outCtx.beginPath();
-              for (let x = 0; x <= w; x++) {
-                const px = Math.floor(margin + x * scale) + 0.5;
-                outCtx.moveTo(px, margin);
-                outCtx.lineTo(px, margin + artHeight);
-              }
-              for (let y = 0; y <= h; y++) {
-                const py = Math.floor(margin + y * scale) + 0.5;
-                outCtx.moveTo(margin, py);
-                outCtx.lineTo(margin + artWidth, py);
-              }
-              outCtx.stroke();
-
-              // Major grid lines — every CHUNK blocks
-              outCtx.strokeStyle = 'rgba(0,0,0,0.7)';
-              outCtx.lineWidth = 2;
-              outCtx.beginPath();
-              for (let x = 0; x <= w; x += CHUNK) {
-                const px = Math.floor(margin + x * scale) + 0.5;
-                outCtx.moveTo(px, margin);
-                outCtx.lineTo(px, margin + artHeight);
-              }
-              for (let y = 0; y <= h; y += CHUNK) {
-                const py = Math.floor(margin + y * scale) + 0.5;
-                outCtx.moveTo(margin, py);
-                outCtx.lineTo(margin + artWidth, py);
-              }
-              // Always close the outer right + bottom edges with a major line so the
-              // frame reads as bordered even when w/h isn't a multiple of CHUNK
-              const rightX = Math.floor(margin + artWidth) + 0.5;
-              outCtx.moveTo(rightX, margin);
-              outCtx.lineTo(rightX, margin + artHeight);
-              const bottomY = Math.floor(margin + artHeight) + 0.5;
-              outCtx.moveTo(margin, bottomY);
-              outCtx.lineTo(margin + artWidth, bottomY);
-              outCtx.stroke();
-
-              // Coordinate labels in the margin: column numbers across the top,
-              // row numbers down the left side. Marked every CHUNK blocks plus the
-              // final edge so the builder always knows where the art ends.
-              outCtx.fillStyle = '#1f2937';
-              outCtx.font = 'bold ' + labelFontSize + 'px ui-sans-serif, system-ui, sans-serif';
-              outCtx.textAlign = 'center';
-              outCtx.textBaseline = 'middle';
-
-              const colStops = new Set();
-              for (let x = 0; x <= w; x += CHUNK) colStops.add(x);
-              colStops.add(w);
-              const rowStops = new Set();
-              for (let y = 0; y <= h; y += CHUNK) rowStops.add(y);
-              rowStops.add(h);
-
-              for (const x of colStops) {
-                outCtx.fillText(String(x), margin + x * scale, margin / 2);
-              }
-              outCtx.textAlign = 'right';
-              for (const y of rowStops) {
-                outCtx.fillText(String(y), margin - 4, margin + y * scale);
-              }
-            }
-
-            this.pixelArtDataUrl = outCanvas.toDataURL('image/png');
-            this.blockCounts = counts;
-            this.isGenerating = false;
           };
-
           img.src = this.uploadedImage;
+        },
+
+        renderArt(sampleCanvas, w, h) {
+          const scale = Math.max(4, Math.min(12, Math.floor(1600 / Math.max(w, h))));
+          const margin = this.showGrid ? Math.max(24, Math.round(scale * 2.4)) : 0;
+          const artWidth = w * scale;
+          const artHeight = h * scale;
+
+          const out = document.createElement('canvas');
+          out.width = artWidth + margin + (this.showGrid ? 18 : 0);
+          out.height = artHeight + margin + (this.showGrid ? 6 : 0);
+          const ctx = out.getContext('2d');
+          ctx.imageSmoothingEnabled = false;
+
+          if (this.showGrid) {
+            ctx.fillStyle = '#ffffff';
+            ctx.fillRect(0, 0, out.width, out.height);
+          }
+          ctx.drawImage(sampleCanvas, margin, margin, artWidth, artHeight);
+
+          if (this.showGrid) {
+            this.drawGridAndCoords(ctx, w, h, scale, margin, artWidth, artHeight);
+          }
+          return out.toDataURL('image/png');
+        },
+
+        drawGridAndCoords(ctx, w, h, cell, margin, artWidth, artHeight) {
+          const CHUNK = 16;
+
+          ctx.strokeStyle = 'rgba(0,0,0,0.22)';
+          ctx.lineWidth = 1;
+          ctx.beginPath();
+          for (let x = 0; x <= w; x++) {
+            const px = Math.floor(margin + x * cell) + 0.5;
+            ctx.moveTo(px, margin);
+            ctx.lineTo(px, margin + artHeight);
+          }
+          for (let y = 0; y <= h; y++) {
+            const py = Math.floor(margin + y * cell) + 0.5;
+            ctx.moveTo(margin, py);
+            ctx.lineTo(margin + artWidth, py);
+          }
+          ctx.stroke();
+
+          ctx.strokeStyle = 'rgba(0,0,0,0.75)';
+          ctx.lineWidth = 2;
+          ctx.beginPath();
+          for (let x = 0; x <= w; x += CHUNK) {
+            const px = Math.floor(margin + x * cell) + 0.5;
+            ctx.moveTo(px, margin);
+            ctx.lineTo(px, margin + artHeight);
+          }
+          for (let y = 0; y <= h; y += CHUNK) {
+            const py = Math.floor(margin + y * cell) + 0.5;
+            ctx.moveTo(margin, py);
+            ctx.lineTo(margin + artWidth, py);
+          }
+          const rightX = Math.floor(margin + artWidth) + 0.5;
+          ctx.moveTo(rightX, margin);
+          ctx.lineTo(rightX, margin + artHeight);
+          const bottomY = Math.floor(margin + artHeight) + 0.5;
+          ctx.moveTo(margin, bottomY);
+          ctx.lineTo(margin + artWidth, bottomY);
+          ctx.stroke();
+
+          const labelSize = Math.max(10, Math.round(cell * 1.2));
+          ctx.fillStyle = '#1f2937';
+          ctx.font = 'bold ' + labelSize + 'px ui-sans-serif, system-ui, sans-serif';
+          ctx.textAlign = 'center';
+          ctx.textBaseline = 'middle';
+
+          const colStops = new Set();
+          for (let x = 0; x <= w; x += CHUNK) colStops.add(x);
+          colStops.add(w);
+          const rowStops = new Set();
+          for (let y = 0; y <= h; y += CHUNK) rowStops.add(y);
+          rowStops.add(h);
+
+          for (const x of colStops) ctx.fillText(String(x), margin + x * cell, margin / 2);
+          ctx.textAlign = 'right';
+          for (const y of rowStops) ctx.fillText(String(y), margin - 4, margin + y * cell);
+        },
+
+        renderGuide(cellBlocks, numByName, w, h) {
+          const CELL = 26;
+          const MARGIN = 34;
+          const CHUNK = 16;
+          const gridW = w * CELL;
+          const gridH = h * CELL;
+
+          // Legend layout
+          const legendCols = Math.max(1, Math.floor((MARGIN + gridW) / 250));
+          const legendRows = Math.ceil(this.numberedBlocks.length / legendCols);
+          const legendHeight = legendRows * 26 + 40;
+
+          const out = document.createElement('canvas');
+          out.width = MARGIN + gridW + 22;
+          out.height = MARGIN + gridH + legendHeight;
+          const ctx = out.getContext('2d');
+
+          ctx.fillStyle = '#ffffff';
+          ctx.fillRect(0, 0, out.width, out.height);
+
+          // Cells + numbers
+          ctx.textAlign = 'center';
+          ctx.textBaseline = 'middle';
+          const numFont = 'bold 11px ui-monospace, Menlo, monospace';
+          for (let y = 0; y < h; y++) {
+            for (let x = 0; x < w; x++) {
+              const block = cellBlocks[y * w + x];
+              const px = MARGIN + x * CELL;
+              const py = MARGIN + y * CELL;
+              ctx.fillStyle = block.hex;
+              ctx.fillRect(px, py, CELL, CELL);
+              ctx.fillStyle = block.luma > 140 ? '#111111' : '#ffffff';
+              ctx.font = numFont;
+              ctx.fillText(String(numByName.get(block.name)), px + CELL / 2, py + CELL / 2 + 0.5);
+            }
+          }
+
+          // Grid lines
+          ctx.strokeStyle = 'rgba(0,0,0,0.25)';
+          ctx.lineWidth = 1;
+          ctx.beginPath();
+          for (let x = 0; x <= w; x++) {
+            const px = Math.floor(MARGIN + x * CELL) + 0.5;
+            ctx.moveTo(px, MARGIN);
+            ctx.lineTo(px, MARGIN + gridH);
+          }
+          for (let y = 0; y <= h; y++) {
+            const py = Math.floor(MARGIN + y * CELL) + 0.5;
+            ctx.moveTo(MARGIN, py);
+            ctx.lineTo(MARGIN + gridW, py);
+          }
+          ctx.stroke();
+
+          // Chunk lines
+          ctx.strokeStyle = 'rgba(0,0,0,0.85)';
+          ctx.lineWidth = 2;
+          ctx.beginPath();
+          for (let x = 0; x <= w; x += CHUNK) {
+            const px = Math.floor(MARGIN + x * CELL) + 0.5;
+            ctx.moveTo(px, MARGIN);
+            ctx.lineTo(px, MARGIN + gridH);
+          }
+          for (let y = 0; y <= h; y += CHUNK) {
+            const py = Math.floor(MARGIN + y * CELL) + 0.5;
+            ctx.moveTo(MARGIN, py);
+            ctx.lineTo(MARGIN + gridW, py);
+          }
+          const rX = Math.floor(MARGIN + gridW) + 0.5;
+          ctx.moveTo(rX, MARGIN);
+          ctx.lineTo(rX, MARGIN + gridH);
+          const bY = Math.floor(MARGIN + gridH) + 0.5;
+          ctx.moveTo(MARGIN, bY);
+          ctx.lineTo(MARGIN + gridW, bY);
+          ctx.stroke();
+
+          // Coordinates
+          ctx.fillStyle = '#1f2937';
+          ctx.font = 'bold 13px ui-sans-serif, system-ui, sans-serif';
+          ctx.textAlign = 'center';
+          const colStops = new Set();
+          for (let x = 0; x <= w; x += CHUNK) colStops.add(x);
+          colStops.add(w);
+          for (const x of colStops) ctx.fillText(String(x), MARGIN + x * CELL, MARGIN / 2);
+          ctx.textAlign = 'right';
+          const rowStops = new Set();
+          for (let y = 0; y <= h; y += CHUNK) rowStops.add(y);
+          rowStops.add(h);
+          for (const y of rowStops) ctx.fillText(String(y), MARGIN - 6, MARGIN + y * CELL);
+
+          // Legend
+          let ly = MARGIN + gridH + 28;
+          ctx.textAlign = 'left';
+          ctx.textBaseline = 'middle';
+          ctx.fillStyle = '#111111';
+          ctx.font = 'bold 14px ui-sans-serif, system-ui, sans-serif';
+          ctx.fillText('LEGEND — number = block', MARGIN, ly - 8);
+          ly += 10;
+          const colWidth = Math.floor((gridW + MARGIN - 20) / legendCols);
+          this.numberedBlocks.forEach((nb, i) => {
+            const col = i % legendCols;
+            const row = Math.floor(i / legendCols);
+            const lx = MARGIN + col * colWidth;
+            const yy = ly + row * 26;
+            ctx.fillStyle = nb.hex;
+            ctx.fillRect(lx, yy - 9, 20, 18);
+            ctx.strokeStyle = '#1a1a1a';
+            ctx.lineWidth = 1.5;
+            ctx.strokeRect(lx + 0.75, yy - 8.25, 18.5, 16.5);
+            ctx.fillStyle = nb.textColor;
+            ctx.font = 'bold 10px ui-monospace, Menlo, monospace';
+            ctx.textAlign = 'center';
+            ctx.fillText(String(nb.num), lx + 10, yy + 0.5);
+            ctx.fillStyle = '#333333';
+            ctx.font = '12px ui-sans-serif, system-ui, sans-serif';
+            ctx.textAlign = 'left';
+            ctx.fillText(nb.name + '  (' + nb.count.toLocaleString() + ')', lx + 26, yy);
+          });
+
+          return out.toDataURL('image/png');
         },
 
         downloadPixelArt() {
@@ -785,41 +1102,36 @@
           link.click();
         },
 
+        downloadGuide() {
+          const link = document.createElement('a');
+          link.download = 'minecraft-build-guide.png';
+          link.href = this.guideDataUrl;
+          link.click();
+        },
+
         downloadBlockList() {
           let text = 'MINECRAFT PIXEL ART - BLOCK SHOPPING LIST\n';
           text += '==========================================\n';
-          text += 'Grid: ' + this.gridWidth + ' x ' + this.gridHeight + ' (' + this.totalBlocks + ' blocks)\n';
-          text += 'Unique block types: ' + this.uniqueBlockCount + '\n\n';
-          text += 'Block Name'.padEnd(30) + 'Count'.padStart(8) + 'Stacks'.padStart(8) + '\n';
-          text += '-'.repeat(46) + '\n';
-
-          this.sortedBlockList.forEach(block => {
-            const stacks = Math.ceil(block.count / 64);
-            text += block.name.padEnd(30) + String(block.count).padStart(8) + String(stacks).padStart(8) + '\n';
+          text += 'Grid: ' + this.gridWidth + ' x ' + this.gridHeight + ' (' + this.totalBlocks.toLocaleString() + ' blocks)\n';
+          text += 'Unique block types: ' + this.uniqueBlockCount + '\n';
+          text += 'Numbers match the build guide PNG.\n\n';
+          const nameW = Math.max(...this.numberedBlocks.map(b => b.name.length)) + 2;
+          this.numberedBlocks.forEach(b => {
+            text += '#' + String(b.num).padStart(2, ' ') + '  '
+              + b.name.padEnd(nameW, ' ')
+              + String(b.count).padStart(6, ' ') + ' blocks'
+              + '  (' + this.stacksLabel(b.count) + ')\n';
           });
-
-          text += '-'.repeat(46) + '\n';
-          text += 'TOTAL'.padEnd(30) + String(this.totalBlocks).padStart(8) + '\n';
-          text += '\nGenerated by coffeeandfun.com/minecraft-pixel-art/\n';
-
+          text += '\nGenerated free at coffeeandfun.com/minecraft-pixel-art/\n';
           const blob = new Blob([text], { type: 'text/plain' });
           const link = document.createElement('a');
           link.download = 'minecraft-block-list.txt';
           link.href = URL.createObjectURL(blob);
           link.click();
-        },
-
-        resetUpload() {
-          this.uploadedImage = null;
-          this.fileName = '';
-          this.imageWidth = 0;
-          this.imageHeight = 0;
-          this.pixelArtDataUrl = null;
-          this.blockCounts = {};
-          if (this.$refs.fileInput) this.$refs.fileInput.value = '';
+          URL.revokeObjectURL(link.href);
         }
       }
-    }).mount('#main-content');
+    }).mount('#app');
   </script>
 </body>
 </html>
