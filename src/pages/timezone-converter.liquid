@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html class="scroll-smooth antialiased" lang="en" data-theme="retro" style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;">
+<html class="antialiased" lang="en" style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;">
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    
+
     <!-- Primary Meta Tags -->
     <title>Time Zone Converter - What Time Is It There? | Coffee & Fun LLC</title>
     <meta name="title" content="Time Zone Converter - What Time Is It There? | Coffee & Fun LLC" />
@@ -11,13 +11,13 @@
     <meta name="keywords" content="time zone converter, world clock, time difference calculator, timezone, international time, meeting scheduler, travel time, global time" />
     <meta name="author" content="Coffee & Fun LLC" />
     <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large" />
-    
+
     <!-- Canonical URL -->
     <link rel="canonical" href="https://www.coffeeandfun.com/timezone-converter/" />
-    
+
     <!-- Favicon -->
     <link rel="icon" href="/assets/images/favicon.png" sizes="any" />
-    
+
     <!-- Open Graph Meta Tags -->
     <meta property="og:type" content="website" />
     <meta property="og:site_name" content="Coffee & Fun" />
@@ -28,7 +28,8 @@
     <meta property="og:image:width" content="1200" />
     <meta property="og:image:height" content="630" />
     <meta property="og:image:alt" content="Time Zone Converter Tool by Coffee & Fun - Convert Time Anywhere in the World" />
-    
+    <meta property="og:locale" content="en_US" />
+
     <!-- Twitter Card Meta Tags -->
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:site" content="@bycoffeeandfun" />
@@ -39,14 +40,14 @@
     <meta name="twitter:image:alt" content="Time Zone Converter Tool by Coffee & Fun - Convert Time Anywhere in the World" />
     <meta name="twitter:domain" content="coffeeandfun.com" />
     <meta name="twitter:url" content="https://www.coffeeandfun.com/timezone-converter/" />
-    
+
     <!-- PWA and Mobile Enhancement -->
-    <meta name="theme-color" content="#8B4513" />
+    <meta name="theme-color" content="#f4f4f2" />
     <meta name="mobile-web-app-capable" content="yes" />
     <meta name="apple-mobile-web-app-capable" content="yes" />
     <meta name="apple-mobile-web-app-status-bar-style" content="default" />
     <meta name="apple-mobile-web-app-title" content="Time Zone Converter" />
-    
+
     <!-- Structured Data (JSON-LD) -->
     <script type="application/ld+json">
       {
@@ -121,230 +122,595 @@
         ]
       }
     </script>
-    
-    <!-- External Libraries -->
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://cdn.jsdelivr.net/npm/daisyui@4.4.24/dist/full.min.css" rel="stylesheet" type="text/css" />
+
     <script src="https://unpkg.com/vue@3"></script>
-    <script src="https://cdn.jsdelivr.net/npm/luxon@3.4.4/build/global/luxon.min.js"></script>
-    
+
     <style>
+        :root {
+            --bg: #f4f4f2;
+            --surface: #ffffff;
+            --ink: #16161a;
+            --muted: #6c6c74;
+            --faint: #9a9aa2;
+            --line: #e4e4e0;
+            --line-strong: #d3d3ce;
+            --good: #0f7b4f;
+            --warn: #b4341f;
+            --radius: 14px;
+            --mono: ui-monospace, 'SF Mono', 'JetBrains Mono', 'Fira Code', Menlo, Consolas, monospace;
+        }
+
+        * { box-sizing: border-box; }
+
+        html, body { background: var(--bg); }
+        body {
+            margin: 0;
+            color: var(--ink);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            -webkit-font-smoothing: antialiased;
+            accent-color: var(--ink);
+        }
         [v-cloak] { display: none; }
-        
-        .fade-in {
-            animation: fadeIn 0.5s ease-in;
+
+        .sr-only {
+            position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px;
+            overflow: hidden; clip: rect(0,0,0,0); white-space: nowrap; border: 0;
         }
-        
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(10px); }
-            to { opacity: 1; transform: translateY(0); }
+
+        a.skip {
+            position: absolute; left: -9999px; top: 0;
+            background: var(--ink); color: #fff; padding: 0.6rem 1rem; z-index: 20;
+            border-radius: 0 0 8px 0;
         }
-        
-        .clock-display {
+        a.skip:focus { left: 0; }
+
+        .wrap {
+            width: 100%;
+            max-width: 560px;
+            margin: 0 auto;
+            padding: 2rem 1.25rem 4rem;
+            flex: 1;
+        }
+
+        .topbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 2.75rem;
+        }
+        .topbar a {
+            font-size: 0.82rem;
+            color: var(--muted);
+            text-decoration: none;
+            letter-spacing: 0.01em;
+        }
+        .topbar a:hover { color: var(--ink); }
+        .topbar a:focus-visible { outline: 2px solid var(--ink); outline-offset: 2px; border-radius: 4px; }
+        .brandmark {
+            display: inline-flex; align-items: center; gap: 0.5rem;
+            font-weight: 600; font-size: 0.85rem; letter-spacing: 0.02em;
+        }
+        .brandmark .mark {
+            width: 22px; height: 22px; border-radius: 6px;
+            background: var(--ink); color: #fff;
+            display: inline-flex; align-items: center; justify-content: center;
+        }
+
+        h1 {
+            font-size: 1.9rem;
+            line-height: 1.2;
+            letter-spacing: -0.02em;
+            margin: 0 0 0.6rem;
+            font-weight: 650;
+        }
+        .lede {
+            color: var(--muted);
+            font-size: 1rem;
+            line-height: 1.55;
+            margin: 0 0 0.9rem;
+            max-width: 48ch;
+        }
+        .now-line {
+            font-size: 0.88rem;
+            color: var(--muted);
+            line-height: 1.5;
+            margin: 0 0 2.25rem;
+        }
+        .now-line strong {
+            font-family: var(--mono);
             font-variant-numeric: tabular-nums;
-            font-feature-settings: "tnum";
+            font-weight: 600;
+            color: var(--ink);
         }
-        
-        .time-card {
-            transition: all 0.3s ease;
+
+        h2.step-label {
+            font-size: 0.78rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.07em;
+            color: var(--muted);
+            margin: 0 0 0.8rem;
         }
-        
-        .time-card:hover {
-            transform: translateY(-2px);
+        section.step { margin-bottom: 2.25rem; }
+
+        /* Fields */
+        .field-group { margin-bottom: 0.9rem; }
+        .f-label {
+            display: block;
+            font-weight: 600;
+            font-size: 0.92rem;
+            margin-bottom: 0.4rem;
         }
-        
-        .pulse-animate {
-            animation: pulse 2s infinite;
+        .field {
+            width: 100%;
+            border: 1px solid var(--line-strong);
+            border-radius: 11px;
+            padding: 0.7rem 0.9rem;
+            font-size: 0.95rem;
+            font-family: inherit;
+            line-height: 1.5;
+            color: var(--ink);
+            background: var(--surface);
+            outline: none;
         }
-        
-        @keyframes pulse {
-            0%, 100% { opacity: 1; }
-            50% { opacity: 0.7; }
+        .field:focus { border-color: var(--ink); box-shadow: 0 0 0 3px rgba(22,22,26,0.08); }
+        .field::placeholder { color: #74747b; }
+        select.field {
+            appearance: none;
+            -webkit-appearance: none;
+            padding-right: 2.4rem;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' fill='none' stroke='%236c6c74' stroke-width='1.8' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+            background-repeat: no-repeat;
+            background-position: right 0.9rem center;
         }
-        
-        .zone-select {
-            max-height: 300px;
-            overflow-y: auto;
+
+        .dt-row { display: flex; gap: 8px; align-items: stretch; }
+        .dt-field { flex: 1; min-width: 0; }
+        .dt-row .field { height: 100%; }
+
+        .hint {
+            font-size: 0.82rem;
+            color: var(--muted);
+            line-height: 1.5;
+            margin: 0.55rem 0 0;
+        }
+        .hint strong {
+            font-family: var(--mono);
+            font-variant-numeric: tabular-nums;
+            font-weight: 600;
+            color: var(--ink);
+        }
+
+        /* Buttons */
+        .btn {
+            appearance: none; border: none; border-radius: 11px;
+            padding: 0.85rem 1.4rem;
+            font-size: 0.98rem; font-weight: 600; cursor: pointer; font-family: inherit;
+            display: inline-flex; align-items: center; justify-content: center; gap: 0.5rem;
+            transition: background 0.15s, opacity 0.15s, border-color 0.15s;
+        }
+        .btn:focus-visible { outline: 2px solid var(--ink); outline-offset: 2px; }
+        .btn-secondary {
+            background: var(--surface); color: var(--ink);
+            border: 1px solid var(--line-strong);
+        }
+        .btn-secondary:hover { border-color: var(--ink); }
+        .btn-small { padding: 0.55rem 1rem; font-size: 0.88rem; }
+
+        .swap-row { display: flex; justify-content: center; margin: -0.9rem 0 1.35rem; }
+
+        /* Their-time result card */
+        .result {
+            background: var(--ink);
+            color: #fff;
+            border-radius: var(--radius);
+            padding: 1.5rem 1.25rem 1.4rem;
+            text-align: center;
+            margin-top: 0.35rem;
+        }
+        .r-time {
+            font-family: var(--mono);
+            font-variant-numeric: tabular-nums;
+            font-size: clamp(1.9rem, 8vw, 2.4rem);
+            font-weight: 600;
+            letter-spacing: -0.01em;
+            line-height: 1.15;
+            margin: 0;
+        }
+        .r-date { margin: 0.4rem 0 0; font-size: 0.95rem; color: rgba(255,255,255,0.82); }
+        .r-zone { margin: 0.25rem 0 0; font-size: 0.8rem; color: rgba(255,255,255,0.72); }
+        .r-badges { display: flex; flex-wrap: wrap; gap: 8px; justify-content: center; margin-top: 1rem; }
+        .badge {
+            display: inline-flex; align-items: center;
+            border: 1px solid rgba(255,255,255,0.45);
+            border-radius: 999px;
+            padding: 0.28rem 0.8rem;
+            font-size: 0.78rem; font-weight: 600; color: #fff;
+        }
+
+        /* Popular places */
+        .cities { display: flex; flex-wrap: wrap; gap: 8px; }
+        .city {
+            appearance: none; cursor: pointer; font-family: inherit;
+            border: 1px solid var(--line-strong); border-radius: 999px;
+            background: var(--surface); color: var(--ink);
+            padding: 0.45rem 0.95rem;
+            font-size: 0.88rem; font-weight: 600;
+            transition: border-color 0.15s, background 0.15s, color 0.15s;
+        }
+        .city:hover { border-color: var(--ink); }
+        .city[aria-pressed="true"] { background: var(--ink); border-color: var(--ink); color: #fff; }
+        .city:focus-visible { outline: 2px solid var(--ink); outline-offset: 2px; }
+
+        /* World clock */
+        ul.clocks {
+            list-style: none; margin: 0; padding: 0;
+            display: grid; grid-template-columns: 1fr 1fr; gap: 10px;
+        }
+        @media (min-width: 520px) {
+            ul.clocks { grid-template-columns: repeat(3, 1fr); }
+        }
+        .clock {
+            background: var(--surface);
+            border: 1px solid var(--line);
+            border-radius: var(--radius);
+            padding: 0.85rem 0.95rem;
+        }
+        .clock .c-city { margin: 0; font-size: 0.85rem; font-weight: 600; }
+        .clock .c-time {
+            margin: 0.2rem 0 0;
+            font-family: var(--mono);
+            font-variant-numeric: tabular-nums;
+            font-size: 1.05rem;
+        }
+        .clock .c-date { margin: 0.15rem 0 0; font-size: 0.75rem; color: var(--muted); }
+
+        /* Tips */
+        .tips { display: grid; gap: 1.25rem; }
+        @media (min-width: 520px) { .tips { grid-template-columns: 1fr 1fr; } }
+        .tips h3 { margin: 0 0 0.4rem; font-size: 0.92rem; font-weight: 600; }
+        .tips ul {
+            margin: 0; padding-left: 1.1rem;
+            font-size: 0.85rem; line-height: 1.6; color: var(--muted);
+        }
+        .tips li { margin: 0.15rem 0; }
+
+        .foot {
+            text-align: center; padding: 1.5rem 1rem 2rem;
+            font-size: 0.8rem; color: var(--muted);
+        }
+        .foot a { color: var(--muted); text-decoration: none; }
+        .foot a:hover { color: var(--ink); }
+
+        @media (prefers-reduced-motion: reduce) {
+            .btn, .city { transition: none; }
+        }
+
+        @media (max-width: 480px) {
+            h1 { font-size: 1.6rem; }
+            .wrap { padding-top: 1.5rem; }
+            .topbar { margin-bottom: 2rem; }
+            .dt-row { flex-wrap: wrap; }
+            .dt-field { flex: 1 1 45%; }
+        }
+
+        /* ---- Site footer ----
+           footer.liquid is written against Tailwind utilities, which this
+           standalone page doesn't load; these rules cover exactly the classes
+           that markup uses (plus sketch-styles.liquid for the doodles). */
+        footer.brand-color-background { position: relative; overflow: visible; padding: 1rem; }
+        footer .mx-auto { margin-left: auto; margin-right: auto; }
+        footer .max-w-7xl { max-width: 80rem; padding: 3rem 1rem; }
+        footer .max-w-2xl { max-width: 42rem; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; }
+        footer .mb-4 { display: inline-block; margin-bottom: 1rem; border-radius: 1rem; }
+        footer img { height: 4rem; width: 4rem; }
+        footer h2 { margin: 0 0 0.5rem; font-size: 1.125rem; font-weight: 700; }
+        footer p { margin: 0; font-size: 0.875rem; }
+        footer .text-stone-600 { color: #57534e; }
+        footer .font-semibold { font-weight: 600; }
+        footer .text-base { font-size: 1rem; }
+        footer .text-lg { font-size: 1.125rem; }
+        footer .flex-wrap { display: flex; flex-wrap: wrap; justify-content: center; gap: 1rem; margin-top: 2rem; }
+        footer .flex-wrap a { display: inline-flex; padding: 0.5rem; border-radius: 1rem; color: #78716c; transition: color 0.15s; }
+        footer .flex-wrap svg { height: 1.5rem; width: 1.5rem; }
+        footer .hover\:text-blue-400:hover { color: #60a5fa; }
+        footer .hover\:text-pink-500:hover { color: #ec4899; }
+        footer .hover\:text-indigo-500:hover { color: #6366f1; }
+        footer .hover\:text-stone-900:hover { color: #1c1917; }
+        footer .hover\:text-red-500:hover { color: #ef4444; }
+        footer p.text-center { margin-top: 2rem; text-align: center; }
+        footer a:focus-visible { outline: 2px solid var(--ink); outline-offset: 2px; }
+        @media (min-width: 640px) {
+            footer.brand-color-background { padding: 1.5rem; }
+            footer .sm\:text-lg { font-size: 1.125rem; }
+            footer .sm\:text-xl { font-size: 1.25rem; }
+            footer .max-w-7xl { padding: 4rem 1.5rem; }
+            footer img { height: 5rem; width: 5rem; }
+            footer h2 { font-size: 1.25rem; }
+            footer p { font-size: 1rem; }
+            footer .flex-wrap { gap: 1.5rem; margin-top: 3rem; }
+            footer .flex-wrap svg { height: 1.75rem; width: 1.75rem; }
+            footer p.text-center { margin-top: 2.5rem; }
+        }
+        @media (min-width: 1024px) {
+            footer.brand-color-background { padding: 2.5rem; }
+            footer .max-w-7xl { padding: 5rem 2rem; }
+            footer img { height: 6rem; width: 6rem; }
+            footer h2 { font-size: 1.5rem; }
+            footer .flex-wrap { margin-top: 4rem; }
+            footer p.text-center { margin-top: 3rem; }
         }
     </style>
     {% include sketch-styles.liquid %}
 </head>
-<body class="bg-base-100 min-h-screen">
-        {% assign showFun = true %} 
-    {% assign showMiddleBadgeWithText = true %} 
-    {% include header.liquid %}
-    <div v-cloak id="main-content" role="main" class="container mx-auto max-w-6xl p-6">
-        <!-- Header -->
-        <header class="text-center mb-8">
-            <h1 class="brand-heading text-3xl sm:text-4xl lg:text-5xl leading-[1.3] sm:leading-[1.3] mb-2">Time Zone Converter</h1>
-            <p class="text-base-content/80">Find out what time it is anywhere in the world</p>
-            <p class="mt-3 text-sm text-base-content/80">
-                It's <span class="clock-display font-mono font-semibold text-base-content">{% raw %}{{ currentTime }}{% endraw %}</span>&nbsp;where
-                you are <span class="opacity-90">({% raw %}{{ userTimezone }}{% endraw %})</span>
-            </p>
+
+<body>
+{% raw %}
+    <a href="#tool" class="skip">Skip to the tool</a>
+
+    <main v-cloak id="app" class="wrap">
+
+        <div class="topbar">
+            <span class="brandmark">
+                <span class="mark" aria-hidden="true">
+                    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>
+                </span>
+                Time Zones
+            </span>
+            <a href="/">&larr; coffeeandfun.com</a>
+        </div>
+
+        <header id="tool">
+            <h1>What time is it there?</h1>
+            <p class="lede">Pick where you are and where they are — see their local time, how far apart you are, and whether it&rsquo;s already tomorrow there.</p>
+            <p class="now-line">It&rsquo;s <strong>{{ localClock }}</strong> on {{ localDay }} where you are — {{ formatZoneName(userTimezone) }}.</p>
         </header>
 
-        <!-- Conversion stage -->
-        <div class="card bg-base-200 shadow-lg mb-6 overflow-visible">
-            <div class="card-body p-6 sm:p-10">
-                <div class="grid lg:grid-cols-[1fr_auto_1fr] gap-8 lg:gap-6 items-stretch">
+        <!-- Live status for screen readers (only user-triggered changes are announced,
+             never the ticking clocks) -->
+        <div class="sr-only" role="status" aria-live="polite">{{ announcement }}</div>
 
-                    <!-- From -->
-                    <section aria-label="Your time">
-                        <h2 class="text-sm font-bold uppercase tracking-wider text-base-content/70 mb-3">From</h2>
-                        <select
-                            v-model="fromZone"
-                            class="select select-bordered select-lg w-full mb-3"
-                            aria-label="Select your time zone"
-                        >
-                            <optgroup label="Common Time Zones">
-                                <option v-for="zone in commonZones" :key="zone.value" :value="zone.value">
-                                    {% raw %}{{ zone.label }}{% endraw %}
-                                </option>
-                            </optgroup>
-                            <optgroup label="All Time Zones">
-                                <option v-for="zone in allZones" :key="zone" :value="zone">
-                                    {% raw %}{{ formatZoneName(zone) }}{% endraw %}
-                                </option>
-                            </optgroup>
-                        </select>
+        <!-- ===== Step 1: your time ===== -->
+        <section class="step" aria-labelledby="h-your">
+            <h2 class="step-label" id="h-your">1 — Your time</h2>
 
-                        <div class="flex gap-2 mb-3">
-                            <input type="date" v-model="selectedDate" class="input input-bordered flex-1" aria-label="Date" />
-                            <input type="time" v-model="selectedTime" class="input input-bordered flex-1" aria-label="Time" />
-                            <button @click="setCurrentDateTime" class="btn btn-outline" title="Use the current date and time">Now</button>
-                        </div>
-
-                        <div class="p-4 bg-base-100 rounded-2xl text-center">
-                            <p class="text-3xl font-bold clock-display">{% raw %}{{ formattedFromTime }}{% endraw %}</p>
-                            <p class="text-sm text-base-content/80 mt-1">{% raw %}{{ fromZoneDisplay }}{% endraw %}</p>
-                        </div>
-                    </section>
-
-                    <!-- Swap -->
-                    <div class="flex lg:flex-col items-center justify-center">
-                        <button
-                            @click="swapZones"
-                            class="btn btn-circle btn-lg text-white shadow-lg hover:scale-110 transition-transform"
-                            style="background-color: var(--color-coral); border-color: var(--color-coral);"
-                            aria-label="Swap the two time zones"
-                            title="Swap zones"
-                        >
-                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" class="w-6 h-6 rotate-90 lg:rotate-0" aria-hidden="true">
-                                <path d="M7 16V4m0 0L3 8m4-4 4 4" /><path d="M17 8v12m0 0 4-4m-4 4-4-4" />
-                            </svg>
-                        </button>
-                    </div>
-
-                    <!-- To -->
-                    <section aria-label="Converted time">
-                        <h2 class="text-sm font-bold uppercase tracking-wider text-base-content/70 mb-3">To</h2>
-                        <select
-                            v-model="toZone"
-                            class="select select-bordered select-lg w-full mb-3"
-                            aria-label="Select the target time zone"
-                        >
-                            <optgroup label="Common Time Zones">
-                                <option v-for="zone in commonZones" :key="zone.value" :value="zone.value">
-                                    {% raw %}{{ zone.label }}{% endraw %}
-                                </option>
-                            </optgroup>
-                            <optgroup label="All Time Zones">
-                                <option v-for="zone in allZones" :key="zone" :value="zone">
-                                    {% raw %}{{ formatZoneName(zone) }}{% endraw %}
-                                </option>
-                            </optgroup>
-                        </select>
-
-                        <div class="p-5 rounded-2xl text-center time-card text-white" style="background: linear-gradient(135deg, var(--color-mocha), var(--color-espresso));">
-                            <p class="text-4xl sm:text-5xl font-bold clock-display">{% raw %}{{ formattedToTime }}{% endraw %}</p>
-                            <p class="text-sm opacity-80 mt-1">{% raw %}{{ toZoneDisplay }}{% endraw %}</p>
-                            <div class="mt-3 flex flex-wrap justify-center gap-2">
-                                <span class="badge badge-lg border-0 text-white" style="background-color: rgba(255,255,255,.18);">{% raw %}{{ timeDifference }}{% endraw %}</span>
-                                <span class="badge badge-lg border-0 text-white" style="background-color: rgba(255,255,255,.18);">{% raw %}{{ dayDifference }}{% endraw %}</span>
-                            </div>
-                        </div>
-                    </section>
-                </div>
+            <div class="field-group">
+                <label class="f-label" for="from-zone">Where you are</label>
+                <select id="from-zone" class="field" v-model="fromZone" @change="onInputsChanged">
+                    <optgroup label="Common time zones">
+                        <option v-for="z in commonZones" :key="z.value" :value="z.value">{{ z.label }}</option>
+                    </optgroup>
+                    <optgroup label="All time zones">
+                        <option v-for="z in allZones" :key="z" :value="z">{{ formatZoneName(z) }}</option>
+                    </optgroup>
+                </select>
             </div>
+
+            <div class="dt-row">
+                <div class="dt-field">
+                    <label class="sr-only" for="from-date">Date, in your time</label>
+                    <input id="from-date" class="field" type="date" v-model="selectedDate" @change="onInputsChanged" />
+                </div>
+                <div class="dt-field">
+                    <label class="sr-only" for="from-time">Time, in your time</label>
+                    <input id="from-time" class="field" type="time" v-model="selectedTime" @change="onInputsChanged" />
+                </div>
+                <button type="button" class="btn btn-secondary btn-small" @click="useNow" title="Use the current date and time">Now</button>
+            </div>
+
+            <p class="hint" v-if="usingNow">Showing the current time — pick both a date and a time to plan ahead.</p>
+            <p class="hint" v-else>That&rsquo;s <strong>{{ yourTime }}</strong> on {{ yourDate }} — {{ yourZoneLine }}</p>
+        </section>
+
+        <div class="swap-row">
+            <button type="button" class="btn btn-secondary btn-small" @click="swapZones" aria-label="Swap the two time zones">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 16V4m0 0L3 8m4-4 4 4"/><path d="M17 8v12m0 0 4-4m-4 4-4-4"/></svg>
+                Swap
+            </button>
         </div>
 
-        <!-- Quick Access Cities -->
-        <div class="card bg-base-200 shadow-lg mb-8">
-            <div class="card-body">
-                <h3 class="card-title mb-4">Popular cities — one tap to convert</h3>
-                
-                <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-2">
-                    <button 
-                        v-for="city in popularCities" 
-                        :key="city.zone"
-                        @click="setToZone(city.zone)"
-                        class="btn btn-soft btn-sm btn-outline"
-                    >
-                   {% raw %}      {{ city.emoji }} {{ city.name }} {% endraw %}
-                    </button>
+        <!-- ===== Step 2: their time ===== -->
+        <section class="step" aria-labelledby="h-their">
+            <h2 class="step-label" id="h-their">2 — Their time</h2>
+
+            <div class="field-group">
+                <label class="f-label" for="to-zone">Where they are</label>
+                <select id="to-zone" class="field" v-model="toZone" @change="onInputsChanged">
+                    <optgroup label="Common time zones">
+                        <option v-for="z in commonZones" :key="z.value" :value="z.value">{{ z.label }}</option>
+                    </optgroup>
+                    <optgroup label="All time zones">
+                        <option v-for="z in allZones" :key="z" :value="z">{{ formatZoneName(z) }}</option>
+                    </optgroup>
+                </select>
+            </div>
+
+            <div class="result">
+                <p class="r-time">{{ theirTime }}</p>
+                <p class="r-date">{{ theirDate }}</p>
+                <p class="r-zone">{{ theirZoneLine }}</p>
+                <div class="r-badges">
+                    <span class="badge">{{ diffLabel }}</span>
+                    <span class="badge">{{ dayLabel }}</span>
                 </div>
             </div>
-        </div>
+        </section>
 
-        <!-- World Clock -->
-        <div class="card bg-base-200 shadow-lg mb-8">
-            <div class="card-body">
-                <h3 class="card-title mb-4">🌐 World Clock</h3>
-                
-                <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-4">
-                    <div 
-                        v-for="clock in worldClocks" 
-                        :key="clock.zone"
-                        class="p-4 bg-base-100 rounded-2xl text-center time-card"
-                    >
-                   
-                        <p class="font-semibold">{% raw %} {{ clock.emoji }} {{ clock.city}} {% endraw %}</p>
-                        <p class="text-xl font-mono clock-display">{% raw %} {{ getTimeForZone(clock.zone)}} {% endraw %}</p>
-                        <p class="text-sm text-base-content/80">{% raw %} {{ getDateForZone(clock.zone)}} {% endraw %}</p>
+        <!-- ===== Popular places ===== -->
+        <section class="step" aria-labelledby="h-cities">
+            <h2 class="step-label" id="h-cities">Popular places</h2>
+            <div class="cities">
+                <button v-for="c in popularCities" :key="c.zone" type="button" class="city"
+                        :aria-pressed="toZone === c.zone ? 'true' : 'false'"
+                        @click="setToZone(c.zone)">{{ c.name }}</button>
+            </div>
+            <p class="hint">One tap sets &ldquo;where they are.&rdquo;</p>
+        </section>
 
-                    </div>
+        <!-- ===== World clock ===== -->
+        <section class="step" aria-labelledby="h-world">
+            <h2 class="step-label" id="h-world">World clock</h2>
+            <ul class="clocks">
+                <li class="clock" v-for="c in worldClocks" :key="c.zone">
+                    <p class="c-city">{{ c.city }}</p>
+                    <p class="c-time">{{ worldTime(c.zone) }}</p>
+                    <p class="c-date">{{ worldDate(c.zone) }}</p>
+                </li>
+            </ul>
+        </section>
+
+        <!-- ===== Tips ===== -->
+        <section class="step" aria-labelledby="h-tips">
+            <h2 class="step-label" id="h-tips">Good to know</h2>
+            <div class="tips">
+                <div>
+                    <h3>Scheduling calls</h3>
+                    <ul>
+                        <li>Aim for business hours — roughly 9&nbsp;AM to 5&nbsp;PM — in both places.</li>
+                        <li>Watch out for lunch breaks around noon on their end.</li>
+                        <li>Your Friday afternoon can be their Saturday morning.</li>
+                        <li>Clocks shift on different dates in spring and autumn — this tool already accounts for that.</li>
+                    </ul>
+                </div>
+                <div>
+                    <h3>Common abbreviations</h3>
+                    <ul>
+                        <li>EST / EDT — Eastern (US)</li>
+                        <li>PST / PDT — Pacific (US)</li>
+                        <li>GMT / BST — United Kingdom</li>
+                        <li>CET / CEST — Central Europe</li>
+                    </ul>
                 </div>
             </div>
-        </div>
+        </section>
 
-        <!-- Tips Section -->
-        <div class="card bg-base-200 shadow-lg">
-            <div class="card-body">
-                <h3 class="card-title mb-4">💡 Time Zone Tips</h3>
-                
-                <div class="grid md:grid-cols-2 gap-6">
-                    <div>
-                        <h4 class="font-bold mb-2">Scheduling Meetings</h4>
-                        <ul class="text-sm text-base-content/80 space-y-1">
-                            <li>• Check business hours (9 AM - 5 PM) in both zones</li>
-                            <li>• Consider lunch breaks (12 PM - 1 PM)</li>
-                            <li>• Be aware of Monday/Friday overlaps</li>
-                            <li>• Account for daylight saving changes</li>
-                        </ul>
-                    </div>
-                    
-                    <div>
-                        <h4 class="font-bold mb-2">Common Abbreviations</h4>
-                        <ul class="text-sm text-base-content/80 space-y-1">
-                            <li>• EST/EDT: Eastern (US)</li>
-                            <li>• PST/PDT: Pacific (US)</li>
-                            <li>• GMT/BST: UK Time</li>
-                            <li>• CET/CEST: Central European</li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
+        <p class="foot">Everything happens in your browser — the times come straight from your device&rsquo;s own clock.</p>
+    </main>
+{% endraw %}
 
-    {% include modals.liquid %} 
     {% include footer.liquid %}
 
     <script>
         const { createApp } = Vue;
-        const { DateTime } = luxon;
-        
+
+        /* Small fallback list for browsers without Intl.supportedValuesOf. */
+        const FALLBACK_ZONES = [
+            'UTC',
+            'America/New_York', 'America/Chicago', 'America/Denver', 'America/Los_Angeles',
+            'America/Anchorage', 'Pacific/Honolulu', 'America/Toronto', 'America/Mexico_City',
+            'America/Sao_Paulo', 'America/Argentina/Buenos_Aires',
+            'Europe/London', 'Europe/Dublin', 'Europe/Paris', 'Europe/Berlin', 'Europe/Madrid',
+            'Europe/Rome', 'Europe/Amsterdam', 'Europe/Stockholm', 'Europe/Athens', 'Europe/Moscow',
+            'Africa/Cairo', 'Africa/Lagos', 'Africa/Johannesburg', 'Africa/Nairobi',
+            'Asia/Dubai', 'Asia/Karachi', 'Asia/Kolkata', 'Asia/Dhaka', 'Asia/Bangkok',
+            'Asia/Singapore', 'Asia/Hong_Kong', 'Asia/Shanghai', 'Asia/Tokyo', 'Asia/Seoul',
+            'Australia/Perth', 'Australia/Adelaide', 'Australia/Sydney', 'Pacific/Auckland'
+        ];
+
+        /* --- All time zone math is Intl.DateTimeFormat with named IANA zones. ---
+           One formatter per zone, cached — the world clock re-renders every second. */
+        const wallCache = {};
+        function zoneDTF(zone) {
+            if (!wallCache[zone]) {
+                wallCache[zone] = new Intl.DateTimeFormat('en-US', {
+                    timeZone: zone,
+                    year: 'numeric', month: '2-digit', day: '2-digit',
+                    hour: '2-digit', minute: '2-digit', second: '2-digit',
+                    hourCycle: 'h23'
+                });
+            }
+            return wallCache[zone];
+        }
+
+        /* Wall-clock parts (strings) shown in `zone` at instant `ts`. */
+        function partsInZone(zone, ts) {
+            const out = {};
+            const parts = zoneDTF(zone).formatToParts(ts);
+            for (let i = 0; i < parts.length; i++) {
+                if (parts[i].type !== 'literal') out[parts[i].type] = parts[i].value;
+            }
+            return out;
+        }
+
+        /* UTC offset of `zone` at instant `ts`, in minutes (east positive). */
+        function offsetMinutes(zone, ts) {
+            const p = partsInZone(zone, ts);
+            const asUTC = Date.UTC(+p.year, +p.month - 1, +p.day, +p.hour, +p.minute, +p.second);
+            return Math.round((asUTC - ts) / 60000);
+        }
+
+        /* Date.UTC that treats years 0-99 literally instead of as 19xx. */
+        function utcFromParts(y, mo, d, h, mi) {
+            const dt = new Date(Date.UTC(2000, 0, 1, h, mi, 0));
+            dt.setUTCFullYear(y, mo - 1, d);
+            return dt.getTime();
+        }
+
+        /* The instant at which `zone` shows this wall-clock date and time.
+           Guess assuming UTC, then correct by the zone's offset; the second pass
+           settles guesses that landed across a daylight-saving switch. */
+        function epochFromWall(zone, y, mo, d, h, mi) {
+            const wallUTC = utcFromParts(y, mo, d, h, mi);
+            let ts = wallUTC - offsetMinutes(zone, wallUTC) * 60000;
+            ts = wallUTC - offsetMinutes(zone, ts) * 60000;
+            return ts;
+        }
+
+        /* Display formatters, also cached per zone. */
+        const timeCache = {}, dateCache = {}, shortDateCache = {};
+        function fmtTime(zone, ts) {  /* 3:05 PM */
+            if (!timeCache[zone]) {
+                timeCache[zone] = new Intl.DateTimeFormat('en-US', {
+                    timeZone: zone, hour: 'numeric', minute: '2-digit', hour12: true
+                });
+            }
+            return timeCache[zone].format(ts);
+        }
+        function fmtDate(zone, ts) {  /* Mon, Jul 6, 2026 */
+            if (!dateCache[zone]) {
+                dateCache[zone] = new Intl.DateTimeFormat('en-US', {
+                    timeZone: zone, weekday: 'short', month: 'short', day: 'numeric', year: 'numeric'
+                });
+            }
+            return dateCache[zone].format(ts);
+        }
+        function fmtShortDate(zone, ts) {  /* Mon, Jul 6 */
+            if (!shortDateCache[zone]) {
+                shortDateCache[zone] = new Intl.DateTimeFormat('en-US', {
+                    timeZone: zone, weekday: 'short', month: 'short', day: 'numeric'
+                });
+            }
+            return shortDateCache[zone].format(ts);
+        }
+
+        let localClockFmt = null, localDayFmt = null;
+        function fmtLocalClock(ts) {  /* 3:05:22 PM */
+            if (!localClockFmt) {
+                localClockFmt = new Intl.DateTimeFormat('en-US', {
+                    hour: 'numeric', minute: '2-digit', second: '2-digit', hour12: true
+                });
+            }
+            return localClockFmt.format(ts);
+        }
+        function fmtLocalDay(ts) {  /* Monday, July 6 */
+            if (!localDayFmt) {
+                localDayFmt = new Intl.DateTimeFormat('en-US', {
+                    weekday: 'long', month: 'long', day: 'numeric'
+                });
+            }
+            return localDayFmt.format(ts);
+        }
+
+        function offsetLabel(min) {  /* UTC+5:30, UTC-4, UTC+0 */
+            if (min === 0) return 'UTC+0';
+            const sign = min < 0 ? '-' : '+';
+            const abs = Math.abs(min);
+            const h = Math.floor(abs / 60), m = abs % 60;
+            return 'UTC' + sign + h + (m ? ':' + String(m).padStart(2, '0') : '');
+        }
+
         createApp({
             data() {
                 return {
@@ -352,144 +718,170 @@
                     toZone: 'Europe/London',
                     selectedDate: '',
                     selectedTime: '',
-                    currentTimeInterval: null,
-                    currentTime: '',
+                    nowMs: Date.now(),
+                    clockTimer: null,
+                    announcement: '',
                     commonZones: [
-                        { value: 'America/New_York', label: '🇺🇸 New York (Eastern Time)' },
-                        { value: 'America/Chicago', label: '🇺🇸 Chicago (Central Time)' },
-                        { value: 'America/Denver', label: '🇺🇸 Denver (Mountain Time)' },
-                        { value: 'America/Los_Angeles', label: '🇺🇸 Los Angeles (Pacific Time)' },
-                        { value: 'Europe/London', label: '🇬🇧 London (GMT/BST)' },
-                        { value: 'Europe/Paris', label: '🇫🇷 Paris (CET/CEST)' },
-                        { value: 'Asia/Tokyo', label: '🇯🇵 Tokyo (JST)' },
-                        { value: 'Asia/Shanghai', label: '🇨🇳 Shanghai (CST)' },
-                        { value: 'Asia/Kolkata', label: '🇮🇳 India (IST)' },
-                        { value: 'Australia/Sydney', label: '🇦🇺 Sydney (AEDT/AEST)' },
-                        { value: 'Asia/Dubai', label: '🇦🇪 Dubai (GST)' },
-                        { value: 'America/Sao_Paulo', label: '🇧🇷 São Paulo (BRT)' }
+                        { value: 'America/New_York', label: 'New York — Eastern (US)' },
+                        { value: 'America/Chicago', label: 'Chicago — Central (US)' },
+                        { value: 'America/Denver', label: 'Denver — Mountain (US)' },
+                        { value: 'America/Los_Angeles', label: 'Los Angeles — Pacific (US)' },
+                        { value: 'Europe/London', label: 'London — GMT/BST' },
+                        { value: 'Europe/Paris', label: 'Paris — CET/CEST' },
+                        { value: 'Asia/Tokyo', label: 'Tokyo — JST' },
+                        { value: 'Asia/Shanghai', label: 'Shanghai — CST' },
+                        { value: 'Asia/Kolkata', label: 'India — IST' },
+                        { value: 'Australia/Sydney', label: 'Sydney — AEST/AEDT' },
+                        { value: 'Asia/Dubai', label: 'Dubai — GST' },
+                        { value: 'America/Sao_Paulo', label: 'São Paulo — BRT' }
                     ],
                     popularCities: [
-                        { name: 'NYC', zone: 'America/New_York', emoji: '🗽' },
-                        { name: 'LA', zone: 'America/Los_Angeles', emoji: '🌴' },
-                        { name: 'London', zone: 'Europe/London', emoji: '🇬🇧' },
-                        { name: 'Paris', zone: 'Europe/Paris', emoji: '🗼' },
-                        { name: 'Tokyo', zone: 'Asia/Tokyo', emoji: '🗾' },
-                        { name: 'Dubai', zone: 'Asia/Dubai', emoji: '🏙️' },
-                        { name: 'Sydney', zone: 'Australia/Sydney', emoji: '🦘' },
-                        { name: 'Singapore', zone: 'Asia/Singapore', emoji: '🇸🇬' }
+                        { name: 'New York', zone: 'America/New_York' },
+                        { name: 'Los Angeles', zone: 'America/Los_Angeles' },
+                        { name: 'London', zone: 'Europe/London' },
+                        { name: 'Paris', zone: 'Europe/Paris' },
+                        { name: 'Tokyo', zone: 'Asia/Tokyo' },
+                        { name: 'Dubai', zone: 'Asia/Dubai' },
+                        { name: 'Sydney', zone: 'Australia/Sydney' },
+                        { name: 'Singapore', zone: 'Asia/Singapore' }
                     ],
                     worldClocks: [
-                        { city: 'New York', zone: 'America/New_York', emoji: '🇺🇸' },
-                        { city: 'London', zone: 'Europe/London', emoji: '🇬🇧' },
-                        { city: 'Tokyo', zone: 'Asia/Tokyo', emoji: '🇯🇵' },
-                        { city: 'Sydney', zone: 'Australia/Sydney', emoji: '🇦🇺' },
-                        { city: 'Dubai', zone: 'Asia/Dubai', emoji: '🇦🇪' },
-                        { city: 'Mumbai', zone: 'Asia/Kolkata', emoji: '🇮🇳' }
+                        { city: 'New York', zone: 'America/New_York' },
+                        { city: 'London', zone: 'Europe/London' },
+                        { city: 'Tokyo', zone: 'Asia/Tokyo' },
+                        { city: 'Sydney', zone: 'Australia/Sydney' },
+                        { city: 'Dubai', zone: 'Asia/Dubai' },
+                        { city: 'Mumbai', zone: 'Asia/Kolkata' }
                     ]
                 };
             },
             computed: {
-                allZones() {
-                    return Intl.supportedValuesOf('timeZone');
-                },
                 userTimezone() {
-                    return Intl.DateTimeFormat().resolvedOptions().timeZone;
-                },
-                fromDateTime() {
-                    if (this.selectedDate && this.selectedTime) {
-                        return DateTime.fromISO(`${this.selectedDate}T${this.selectedTime}`, {
-                            zone: this.fromZone
-                        });
-                    }
-                    return DateTime.now().setZone(this.fromZone);
-                },
-                toDateTime() {
-                    return this.fromDateTime.setZone(this.toZone);
-                },
-                formattedFromTime() {
-                    return this.fromDateTime.toFormat('h:mm a, EEE, MMM d, yyyy');
-                },
-                formattedToTime() {
-                    return this.toDateTime.toFormat('h:mm a, EEE, MMM d, yyyy');
-                },
-                fromZoneDisplay() {
-                    const offset = this.fromDateTime.toFormat('ZZ');
-                    return `${this.formatZoneName(this.fromZone)} (UTC${offset})`;
-                },
-                toZoneDisplay() {
-                    const offset = this.toDateTime.toFormat('ZZ');
-                    return `${this.formatZoneName(this.toZone)} (UTC${offset})`;
-                },
-                timeDifference() {
-                    const fromOffset = this.fromDateTime.offset;
-                    const toOffset = this.toDateTime.offset;
-                    const diff = (toOffset - fromOffset) / 60;
-                    
-                    if (diff === 0) {
-                        return 'Same time';
-                    } else if (diff > 0) {
-                        return `${Math.abs(diff)} hours ahead`;
-                    } else {
-                        return `${Math.abs(diff)} hours behind`;
+                    try {
+                        return Intl.DateTimeFormat().resolvedOptions().timeZone || 'UTC';
+                    } catch (e) {
+                        return 'UTC';
                     }
                 },
-                dayDifference() {
-                    const fromDay = this.fromDateTime.toFormat('yyyy-MM-dd');
-                    const toDay = this.toDateTime.toFormat('yyyy-MM-dd');
-                    
-                    if (fromDay === toDay) {
-                        return 'Same day';
-                    } else if (toDay > fromDay) {
-                        return 'Next day';
-                    } else {
-                        return 'Previous day';
+                allZones() {
+                    let zones;
+                    try {
+                        zones = Intl.supportedValuesOf('timeZone');
+                    } catch (e) {
+                        zones = FALLBACK_ZONES;
                     }
-                }
+                    // The detected zone can be an alias the list doesn't carry —
+                    // keep it selectable rather than showing a blank select.
+                    const extras = [this.userTimezone, this.fromZone, this.toZone]
+                        .filter((z, i, a) => z && a.indexOf(z) === i && zones.indexOf(z) === -1);
+                    return extras.concat(zones);
+                },
+                parsedWall() {
+                    const dm = /^(\d{4})-(\d{2})-(\d{2})$/.exec(this.selectedDate || '');
+                    const tm = /^(\d{1,2}):(\d{2})/.exec(this.selectedTime || '');
+                    if (!dm || !tm) return null;
+                    return { y: +dm[1], mo: +dm[2], d: +dm[3], h: +tm[1], mi: +tm[2] };
+                },
+                usingNow() { return !this.parsedWall; },
+                /* The single instant everything below is derived from. */
+                instant() {
+                    if (this.parsedWall) {
+                        const w = this.parsedWall;
+                        return epochFromWall(this.fromZone, w.y, w.mo, w.d, w.h, w.mi);
+                    }
+                    return this.nowMs;  // no date picked — follow the live clock
+                },
+                yourTime() { return fmtTime(this.fromZone, this.instant); },
+                yourDate() { return fmtDate(this.fromZone, this.instant); },
+                yourZoneLine() {
+                    return this.formatZoneName(this.fromZone) +
+                        ' (' + offsetLabel(offsetMinutes(this.fromZone, this.instant)) + ')';
+                },
+                theirTime() { return fmtTime(this.toZone, this.instant); },
+                theirDate() { return fmtDate(this.toZone, this.instant); },
+                theirZoneLine() {
+                    return this.formatZoneName(this.toZone) +
+                        ' (' + offsetLabel(offsetMinutes(this.toZone, this.instant)) + ')';
+                },
+                diffLabel() {
+                    const diff = offsetMinutes(this.toZone, this.instant)
+                               - offsetMinutes(this.fromZone, this.instant);
+                    if (diff === 0) return 'Same time';
+                    const abs = Math.abs(diff);
+                    const h = Math.floor(abs / 60), m = abs % 60;
+                    let label = h ? h + (h === 1 ? ' hour' : ' hours') : '';
+                    if (m) label += (label ? ' ' : '') + m + (m === 1 ? ' minute' : ' minutes');
+                    return label + (diff > 0 ? ' ahead' : ' behind');
+                },
+                dayLabel() {
+                    const pf = partsInZone(this.fromZone, this.instant);
+                    const pt = partsInZone(this.toZone, this.instant);
+                    const df = Date.UTC(+pf.year, +pf.month - 1, +pf.day);
+                    const dt = Date.UTC(+pt.year, +pt.month - 1, +pt.day);
+                    const delta = Math.round((dt - df) / 86400000);
+                    if (delta === 0) return 'Same day';
+                    if (delta === 1) return 'Next day';
+                    if (delta === -1) return 'Previous day';
+                    return delta > 0
+                        ? delta + ' days ahead'
+                        : Math.abs(delta) + ' days behind';
+                },
+                localClock() { return fmtLocalClock(this.nowMs); },
+                localDay() { return fmtLocalDay(this.nowMs); }
             },
             mounted() {
-                this.setCurrentDateTime();
-                this.detectUserTimezone();
-                this.startClock();
+                this.fromZone = this.userTimezone;
+                this.setNow();
+                this.clockTimer = setInterval(() => { this.nowMs = Date.now(); }, 1000);
             },
             beforeUnmount() {
-                if (this.currentTimeInterval) {
-                    clearInterval(this.currentTimeInterval);
-                }
+                if (this.clockTimer) clearInterval(this.clockTimer);
             },
             methods: {
                 formatZoneName(zone) {
-                    return zone.replace(/_/g, ' ').replace(/\//g, ' / ');
+                    return String(zone).replace(/_/g, ' ').replace(/\//g, ' / ');
                 },
-                setCurrentDateTime() {
-                    const now = DateTime.now();
-                    this.selectedDate = now.toFormat('yyyy-MM-dd');
-                    this.selectedTime = now.toFormat('HH:mm');
+                worldTime(zone) { return fmtTime(zone, this.nowMs); },
+                worldDate(zone) { return fmtShortDate(zone, this.nowMs); },
+                setNow() {
+                    // "Now" means the current wall-clock time where *you* are,
+                    // in the currently selected "where you are" zone.
+                    const p = partsInZone(this.fromZone, Date.now());
+                    this.selectedDate = p.year + '-' + p.month + '-' + p.day;
+                    this.selectedTime = p.hour + ':' + p.minute;
                 },
-                detectUserTimezone() {
-                    this.fromZone = this.userTimezone;
+                useNow() {
+                    this.setNow();
+                    this.announceResult();
                 },
                 swapZones() {
-                    [this.fromZone, this.toZone] = [this.toZone, this.fromZone];
+                    const t = this.fromZone;
+                    this.fromZone = this.toZone;
+                    this.toZone = t;
+                    this.announceResult();
                 },
                 setToZone(zone) {
                     this.toZone = zone;
+                    this.announceResult();
                 },
-                getTimeForZone(zone) {
-                    return DateTime.now().setZone(zone).toFormat('h:mm a');
+                onInputsChanged() {
+                    this.announceResult();
                 },
-                getDateForZone(zone) {
-                    return DateTime.now().setZone(zone).toFormat('EEE, MMM d');
+                announce(msg) {
+                    this.announcement = '';
+                    this.$nextTick(() => { this.announcement = msg; });
                 },
-                startClock() {
-                    const updateClock = () => {
-                        this.currentTime = DateTime.now().toFormat('h:mm:ss a, EEEE, MMMM d, yyyy');
-                    };
-                    
-                    updateClock();
-                    this.currentTimeInterval = setInterval(updateClock, 1000);
+                /* Only called from user actions — the ticking clocks never announce. */
+                announceResult() {
+                    this.$nextTick(() => {
+                        this.announce('In ' + this.formatZoneName(this.toZone) +
+                            " it's " + this.theirTime + ' on ' + this.theirDate +
+                            ' — ' + this.diffLabel.toLowerCase() +
+                            ', ' + this.dayLabel.toLowerCase() + '.');
+                    });
                 }
             }
-        }).mount('#main-content');
+        }).mount('#app');
     </script>
 </body>
 </html>

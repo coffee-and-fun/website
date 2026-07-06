@@ -1,655 +1,793 @@
 <!DOCTYPE html>
-<html class="scroll-smooth antialiased" lang="en" data-theme="valentine">
+<html class="antialiased" lang="en" style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  
-  <!-- Primary Meta Tags -->
-  <title>Emoji Search & Copy - Find Any Emoji Fast | Coffee & Fun</title>
-  <meta name="title" content="Emoji Search & Copy - Find Any Emoji Fast | Coffee & Fun" />
-  <meta name="description" content="Search, discover, and copy emojis instantly. Clean, fast emoji finder with categories, search, and one-click copy. Find the perfect emoji for any message or post." />
-  <meta name="keywords" content="emoji, emoji search, copy emoji, emoji finder, emoticons, unicode, symbols, emoji copy paste, emoji tool, Coffee and Fun" />
-  <meta name="author" content="Coffee & Fun LLC" />
-  <meta name="publisher" content="Coffee & Fun LLC" />
-  
-  <!-- Open Graph / Facebook -->
-  <meta property="og:type" content="website" />
-  <meta property="og:url" content="https://www.coffeeandfun.com/emoji/" />
-  <meta property="og:title" content="Emoji Search & Copy - Find Any Emoji Fast" />
-  <meta property="og:description" content="Search and copy emojis instantly! Browse by category or search to find the perfect emoji for your message." />
-  <meta property="og:image" content="https://www.coffeeandfun.com/assets/images/social/pages/emoji.png" />
-  <meta property="og:image:width" content="1200" />
-  <meta property="og:image:height" content="630" />
-  <meta property="og:site_name" content="Coffee & Fun" />
-  <meta property="og:locale" content="en_US" />
-  
-  <!-- Twitter -->
-  <meta name="twitter:card" content="summary_large_image" />
-  <meta name="twitter:url" content="https://www.coffeeandfun.com/emoji/" />
-  <meta name="twitter:title" content="Emoji Search & Copy - Find Any Emoji Fast" />
-  <meta name="twitter:description" content="Search and copy emojis instantly! Browse by category or search to find the perfect emoji." />
-  <meta name="twitter:image" content="https://www.coffeeandfun.com/assets/images/social/pages/emoji.png" />
-  <meta name="twitter:site" content="@bycoffeeandfun" />
-  <meta name="twitter:creator" content="@bycoffeeandfun" />
-  
-  <!-- PWA & Mobile -->
-  <meta name="mobile-web-app-capable" content="yes" />
-  <meta name="apple-mobile-web-app-capable" content="yes" />
-  <meta name="apple-mobile-web-app-status-bar-style" content="default" />
-  <meta name="apple-mobile-web-app-title" content="Emoji Search" />
-  <meta name="theme-color" content="#f471b5" />
-  
-  <!-- Search Engine -->
-  <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1" />
-  <link rel="canonical" href="https://www.coffeeandfun.com/emoji/" />
-  
-  <!-- Favicon -->
-  <link rel="icon" href="/assets/images/favicon.png" sizes="any" />
-  <link rel="apple-touch-icon" href="/assets/images/apple-touch-icon.png" />
-  
-  <!-- Structured Data -->
-  <script type="application/ld+json">
-  {
-    "@context": "https://schema.org",
-    "@type": "WebApplication",
-    "name": "Emoji Search & Copy",
-    "description": "Search, discover, and copy emojis instantly with this fast emoji finder tool.",
-    "url": "https://www.coffeeandfun.com/emoji/",
-    "applicationCategory": "UtilityApplication",
-    "operatingSystem": "Any",
-    "offers": {
-      "@type": "Offer",
-      "price": "0",
-      "priceCurrency": "USD"
-    },
-    "creator": {
-      "@type": "Organization",
-      "name": "Coffee & Fun LLC",
-      "url": "https://www.coffeeandfun.com"
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <!-- Primary Meta Tags -->
+    <title>Emoji Search & Copy - Find Any Emoji Fast | Coffee & Fun LLC</title>
+    <meta name="description" content="Search thousands of emoji by name, browse by category, and copy any of them with one click. Free, fast, and everything happens in your browser." />
+    <meta name="author" content="Coffee & Fun LLC" />
+    <meta name="robots" content="index, follow" />
+
+    <!-- Canonical URL -->
+    <link rel="canonical" href="https://www.coffeeandfun.com/emoji/" />
+
+    <!-- Favicon -->
+    <link rel="icon" href="/assets/images/favicon.png" sizes="any" />
+    <link rel="apple-touch-icon" href="/assets/images/apple-touch-icon.png" />
+
+    <!-- Open Graph -->
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="Coffee & Fun" />
+    <meta property="og:title" content="Emoji Search & Copy - Find Any Emoji Fast" />
+    <meta property="og:description" content="Search thousands of emoji by name, browse by category, and copy any of them with one click. Free and fast." />
+    <meta property="og:url" content="https://www.coffeeandfun.com/emoji/" />
+    <meta property="og:image" content="https://www.coffeeandfun.com/assets/images/social/pages/emoji.png" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content="Emoji Search & Copy by Coffee & Fun" />
+    <meta property="og:locale" content="en_US" />
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:site" content="@bycoffeeandfun" />
+    <meta name="twitter:creator" content="@bycoffeeandfun" />
+    <meta name="twitter:title" content="Emoji Search & Copy - Find Any Emoji Fast" />
+    <meta name="twitter:description" content="Search thousands of emoji by name, browse by category, and copy any of them with one click." />
+    <meta name="twitter:image" content="https://www.coffeeandfun.com/assets/images/social/pages/emoji.png" />
+    <meta name="twitter:image:alt" content="Emoji Search & Copy by Coffee & Fun" />
+
+    <meta name="theme-color" content="#f4f4f2" />
+
+    <!-- Structured Data -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "WebApplication",
+        "name": "Emoji Search & Copy",
+        "description": "Search thousands of emoji by name, browse by category, and copy any of them with one click.",
+        "url": "https://www.coffeeandfun.com/emoji/",
+        "applicationCategory": "UtilityApplication",
+        "operatingSystem": "Web Browser",
+        "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" },
+        "creator": {
+            "@type": "Organization",
+            "name": "Coffee & Fun LLC",
+            "url": "https://www.coffeeandfun.com"
+        },
+        "featureList": [
+            "Search emoji by name or keyword",
+            "Browse by category",
+            "One-click copy to clipboard",
+            "Recently used emoji list",
+            "Popular emoji shortcuts"
+        ]
     }
-  }
-  </script>
-  
-  <!-- External Resources -->
-  <script src="https://cdn.tailwindcss.com"></script>
-  <link href="https://cdn.jsdelivr.net/npm/daisyui@4.4.24/dist/full.min.css" rel="stylesheet" />
-  <script src="https://unpkg.com/vue@3"></script>
-  
-  <style>
-    [v-cloak] { display: none; }
-    
-    .fade-in { 
-      animation: fadeIn 0.3s ease-out;
-      animation-fill-mode: both;
-    }
-    
-    @keyframes fadeIn { 
-      from { 
-        opacity: 0; 
-        transform: translateY(10px); 
-      } 
-      to { 
-        opacity: 1; 
-        transform: translateY(0); 
-      } 
-    }
-    
-    .emoji-card { 
-      transition: all 0.2s ease; 
-      user-select: none;
-      -webkit-tap-highlight-color: transparent;
-    }
-    
-    .emoji-card:hover { 
-      transform: scale(1.1); 
-      box-shadow: 0 4px 20px rgba(0,0,0,0.1);
-      z-index: 10;
-    }
-    
-    .emoji-card:active {
-      transform: scale(0.95);
-    }
-    
-    .emoji-char { 
-      font-size: 2rem; 
-      line-height: 1; 
-      cursor: pointer;
-      font-family: "Apple Color Emoji", "Segoe UI Emoji", "Noto Color Emoji", sans-serif;
-    }
-    
-    .copy-feedback { 
-      animation: copyPulse 0.6s ease-out; 
-    }
-    
-    @keyframes copyPulse { 
-      0% { transform: scale(1) translateY(0); } 
-      50% { transform: scale(1.1) translateY(-5px); } 
-      100% { transform: scale(1) translateY(0); } 
-    }
-    
-    .search-highlight { 
-      background: linear-gradient(120deg, rgba(250, 204, 21, 0.3) 0%, rgba(250, 204, 21, 0.1) 100%);
-      padding: 0 4px; 
-      border-radius: 4px; 
-    }
-    
-    /* Improved scrollbar */
-    ::-webkit-scrollbar {
-      width: 8px;
-      height: 8px;
-    }
-    
-    ::-webkit-scrollbar-track {
-      background: rgba(0,0,0,0.05);
-      border-radius: 4px;
-    }
-    
-    ::-webkit-scrollbar-thumb {
-      background: rgba(0,0,0,0.2);
-      border-radius: 4px;
-    }
-    
-    ::-webkit-scrollbar-thumb:hover {
-      background: rgba(0,0,0,0.3);
-    }
-    
-    /* Loading skeleton */
-    .skeleton-pulse {
-      animation: skeleton 1.5s ease-in-out infinite;
-    }
-    
-    @keyframes skeleton {
-      0%, 100% { opacity: 1; }
-      50% { opacity: 0.4; }
-    }
-    
-    /* Smooth scroll behavior */
-    html {
-      scroll-behavior: smooth;
-    }
-    
-    /* Category pills */
-    .category-pill {
-      transition: all 0.2s ease;
-    }
-    
-    .category-pill:hover {
-      transform: translateY(-2px);
-    }
-  </style>
+    </script>
+
+    <script src="https://unpkg.com/vue@3"></script>
+
+    <style>
+        :root {
+            --bg: #f4f4f2;
+            --surface: #ffffff;
+            --ink: #16161a;
+            --muted: #6c6c74;
+            --faint: #9a9aa2;
+            --line: #e4e4e0;
+            --line-strong: #d3d3ce;
+            --good: #0f7b4f;
+            --warn: #b4341f;
+            --radius: 14px;
+            --mono: ui-monospace, 'SF Mono', 'JetBrains Mono', 'Fira Code', Menlo, Consolas, monospace;
+            --emoji-font: 'Apple Color Emoji', 'Segoe UI Emoji', 'Noto Color Emoji', sans-serif;
+        }
+
+        * { box-sizing: border-box; }
+
+        html, body { background: var(--bg); }
+        body {
+            margin: 0;
+            color: var(--ink);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            -webkit-font-smoothing: antialiased;
+            accent-color: var(--ink);
+        }
+        [v-cloak] { display: none; }
+
+        .sr-only {
+            position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px;
+            overflow: hidden; clip: rect(0,0,0,0); white-space: nowrap; border: 0;
+        }
+
+        a.skip {
+            position: absolute; left: -9999px; top: 0;
+            background: var(--ink); color: #fff; padding: 0.6rem 1rem; z-index: 20;
+            border-radius: 0 0 8px 0;
+        }
+        a.skip:focus { left: 0; }
+
+        .wrap {
+            width: 100%;
+            max-width: 880px;
+            margin: 0 auto;
+            padding: 2rem 1.25rem 4rem;
+            flex: 1;
+        }
+
+        .topbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 2.75rem;
+        }
+        .topbar a {
+            font-size: 0.82rem;
+            color: var(--muted);
+            text-decoration: none;
+            letter-spacing: 0.01em;
+        }
+        .topbar a:hover { color: var(--ink); }
+        .topbar a:focus-visible { outline: 2px solid var(--ink); outline-offset: 2px; border-radius: 4px; }
+        .brandmark {
+            display: inline-flex; align-items: center; gap: 0.5rem;
+            font-weight: 600; font-size: 0.85rem; letter-spacing: 0.02em;
+        }
+        .brandmark .mark {
+            width: 22px; height: 22px; border-radius: 6px;
+            background: var(--ink); color: #fff;
+            display: inline-flex; align-items: center; justify-content: center;
+        }
+
+        h1 {
+            font-size: 1.9rem;
+            line-height: 1.2;
+            letter-spacing: -0.02em;
+            margin: 0 0 0.6rem;
+            font-weight: 650;
+        }
+        .lede {
+            color: var(--muted);
+            font-size: 1rem;
+            line-height: 1.55;
+            margin: 0 0 2.25rem;
+            max-width: 56ch;
+        }
+
+        h2.step-label {
+            font-size: 0.78rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.07em;
+            color: var(--muted);
+            margin: 0 0 0.8rem;
+        }
+        section.step { margin-bottom: 2.25rem; }
+        .row-head {
+            display: flex; justify-content: space-between; align-items: baseline;
+            gap: 1rem; flex-wrap: wrap; margin-bottom: 0.8rem;
+        }
+        .row-head h2.step-label { margin: 0; }
+        .row-head h2.step-label:focus { outline: none; }
+        .counter { font-size: 0.8rem; color: var(--muted); }
+
+        /* Search box */
+        .search { position: relative; max-width: 560px; }
+        .search .mag {
+            position: absolute; left: 0.95rem; top: 50%; transform: translateY(-50%);
+            color: var(--muted); pointer-events: none;
+        }
+        .field {
+            width: 100%;
+            border: 1px solid var(--line-strong);
+            border-radius: 11px;
+            padding: 0.8rem 2.7rem 0.8rem 2.6rem;
+            font-size: 1.02rem;
+            font-family: inherit;
+            line-height: 1.5;
+            color: var(--ink);
+            background: var(--surface);
+            outline: none;
+        }
+        .field:focus { border-color: var(--ink); box-shadow: 0 0 0 3px rgba(22,22,26,0.08); }
+        .field::placeholder { color: #74747b; }
+        .field::-webkit-search-cancel-button { display: none; }
+        .clear-btn {
+            position: absolute; right: 0.45rem; top: 50%; transform: translateY(-50%);
+            appearance: none; border: none; background: none;
+            width: 32px; height: 32px; border-radius: 8px;
+            color: var(--muted); font-size: 1rem; line-height: 1;
+            cursor: pointer; font-family: inherit;
+            display: inline-flex; align-items: center; justify-content: center;
+        }
+        .clear-btn:hover { color: var(--ink); background: #ececea; }
+        .clear-btn:focus-visible { outline: 2px solid var(--ink); outline-offset: 2px; }
+
+        .hint {
+            font-size: 0.8rem;
+            color: var(--muted);
+            line-height: 1.6;
+            margin: 0.55rem 0 0;
+        }
+        kbd {
+            font-family: var(--mono); font-size: 0.72rem;
+            border: 1px solid var(--line-strong); border-bottom-width: 2px;
+            border-radius: 5px; padding: 0.05rem 0.35rem;
+            background: var(--surface); color: var(--muted);
+        }
+
+        button.linkish {
+            appearance: none; border: none; background: none; padding: 0;
+            font-size: 0.82rem; color: var(--muted); text-decoration: underline;
+            cursor: pointer; font-family: inherit; white-space: nowrap;
+        }
+        button.linkish:hover { color: var(--ink); }
+        button.linkish:focus-visible { outline: 2px solid var(--ink); outline-offset: 2px; border-radius: 4px; }
+
+        /* Category chips */
+        .cats { display: flex; flex-wrap: wrap; gap: 8px; }
+        .cat {
+            appearance: none; font-family: inherit;
+            border: 1px solid var(--line-strong); background: transparent;
+            border-radius: 999px; padding: 0.45rem 0.9rem;
+            font-size: 0.85rem; font-weight: 600; color: var(--ink);
+            cursor: pointer;
+            transition: background 0.15s, border-color 0.15s, color 0.15s;
+        }
+        .cat:hover { border-color: var(--ink); }
+        .cat[aria-pressed="true"] { background: var(--ink); border-color: var(--ink); color: #fff; }
+        .cat:focus-visible { outline: 2px solid var(--ink); outline-offset: 2px; }
+        .cat .ico { font-family: var(--emoji-font); margin-right: 0.3rem; }
+
+        /* Emoji buttons */
+        .ebtn {
+            appearance: none; font-family: inherit;
+            background: var(--surface);
+            border: 1px solid var(--line);
+            border-radius: 11px;
+            padding: 0.65rem 0.4rem 0.55rem;
+            cursor: pointer;
+            display: flex; flex-direction: column; align-items: center; gap: 0.35rem;
+            transition: border-color 0.15s, box-shadow 0.15s, transform 0.1s;
+        }
+        .ebtn:hover { border-color: var(--ink); box-shadow: 0 1px 3px rgba(0,0,0,0.08); }
+        .ebtn:active { transform: scale(0.96); }
+        .ebtn:focus-visible { outline: 2px solid var(--ink); outline-offset: 2px; }
+        .ebtn .glyph { font-size: 1.9rem; line-height: 1.15; font-family: var(--emoji-font); }
+        .ebtn .ename {
+            font-size: 0.72rem; color: var(--muted); line-height: 1.25; text-align: center;
+            display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical;
+            overflow: hidden; overflow-wrap: anywhere;
+        }
+        .ebtn.mini {
+            width: 54px; height: 54px; padding: 0;
+            justify-content: center; gap: 0;
+        }
+        .ebtn.mini .glyph { font-size: 1.6rem; }
+
+        .egrid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(104px, 1fr));
+            gap: 8px;
+        }
+        .mini-row { display: flex; flex-wrap: wrap; gap: 8px; }
+
+        /* Empty state */
+        .code-empty {
+            border: 1.5px dashed var(--line-strong);
+            border-radius: var(--radius);
+            padding: 2.4rem 1.25rem;
+            text-align: center;
+            color: var(--muted);
+            font-size: 0.92rem;
+            line-height: 1.6;
+        }
+        .code-empty .big { font-size: 2.2rem; font-family: var(--emoji-font); display: block; margin-bottom: 0.5rem; }
+
+        /* Buttons */
+        .btn {
+            appearance: none; border: none; border-radius: 11px;
+            padding: 0.85rem 1.4rem;
+            font-size: 0.98rem; font-weight: 600; cursor: pointer; font-family: inherit;
+            display: inline-flex; align-items: center; justify-content: center; gap: 0.5rem;
+            transition: background 0.15s, opacity 0.15s, border-color 0.15s;
+        }
+        .btn:focus-visible { outline: 2px solid var(--ink); outline-offset: 2px; }
+        .btn-secondary {
+            background: var(--surface); color: var(--ink);
+            border: 1px solid var(--line-strong);
+        }
+        .btn-secondary:hover { border-color: var(--ink); }
+        .load-wrap { display: flex; justify-content: center; margin-top: 1.4rem; }
+
+        /* Copied toast (decorative twin of the screen-reader announcement) */
+        .toast {
+            position: fixed; left: 50%; bottom: 1.4rem; transform: translateX(-50%);
+            background: var(--ink); color: #fff;
+            border-radius: 999px; padding: 0.55rem 1.15rem;
+            display: flex; align-items: center; gap: 0.6rem;
+            font-size: 0.9rem; font-weight: 600;
+            box-shadow: 0 6px 24px rgba(0,0,0,0.18);
+            z-index: 30; max-width: calc(100vw - 2rem);
+        }
+        .toast .glyph { font-size: 1.35rem; line-height: 1; font-family: var(--emoji-font); }
+        .toast .tname { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+        .toast-enter-active, .toast-leave-active { transition: opacity 0.18s ease, transform 0.18s ease; }
+        .toast-enter-from, .toast-leave-to { opacity: 0; transform: translate(-50%, 8px); }
+
+        .foot {
+            text-align: center; padding: 1.5rem 1rem 2rem;
+            font-size: 0.8rem; color: var(--muted);
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            .cat, .btn, .ebtn { transition: none; }
+            .ebtn:active { transform: none; }
+            .toast-enter-active, .toast-leave-active { transition: none; }
+        }
+
+        @media (max-width: 480px) {
+            h1 { font-size: 1.6rem; }
+            .wrap { padding-top: 1.5rem; }
+            .topbar { margin-bottom: 2rem; }
+            .egrid { grid-template-columns: repeat(auto-fill, minmax(88px, 1fr)); }
+            .ebtn .glyph { font-size: 1.7rem; }
+        }
+
+        /* ---- Site footer ----
+           footer.liquid is written against Tailwind utilities, which this
+           standalone page doesn't load; these rules cover exactly the classes
+           that markup uses (plus sketch-styles.liquid for the doodles). */
+        footer.brand-color-background { position: relative; overflow: visible; padding: 1rem; }
+        footer .mx-auto { margin-left: auto; margin-right: auto; }
+        footer .max-w-7xl { max-width: 80rem; padding: 3rem 1rem; }
+        footer .max-w-2xl { max-width: 42rem; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; }
+        footer .mb-4 { display: inline-block; margin-bottom: 1rem; border-radius: 1rem; }
+        footer img { height: 4rem; width: 4rem; }
+        footer h2 { margin: 0 0 0.5rem; font-size: 1.125rem; font-weight: 700; }
+        footer p { margin: 0; font-size: 0.875rem; }
+        footer .text-stone-600 { color: #57534e; }
+        footer .font-semibold { font-weight: 600; }
+        footer .text-base { font-size: 1rem; }
+        footer .text-lg { font-size: 1.125rem; }
+        footer .flex-wrap { display: flex; flex-wrap: wrap; justify-content: center; gap: 1rem; margin-top: 2rem; }
+        footer .flex-wrap a { display: inline-flex; padding: 0.5rem; border-radius: 1rem; color: #78716c; transition: color 0.15s; }
+        footer .flex-wrap svg { height: 1.5rem; width: 1.5rem; }
+        footer .hover\:text-blue-400:hover { color: #60a5fa; }
+        footer .hover\:text-pink-500:hover { color: #ec4899; }
+        footer .hover\:text-indigo-500:hover { color: #6366f1; }
+        footer .hover\:text-stone-900:hover { color: #1c1917; }
+        footer .hover\:text-red-500:hover { color: #ef4444; }
+        footer p.text-center { margin-top: 2rem; text-align: center; }
+        footer a:focus-visible { outline: 2px solid var(--ink); outline-offset: 2px; }
+        @media (min-width: 640px) {
+            footer.brand-color-background { padding: 1.5rem; }
+            footer .sm\:text-lg { font-size: 1.125rem; }
+            footer .sm\:text-xl { font-size: 1.25rem; }
+            footer .max-w-7xl { padding: 4rem 1.5rem; }
+            footer img { height: 5rem; width: 5rem; }
+            footer h2 { font-size: 1.25rem; }
+            footer p { font-size: 1rem; }
+            footer .flex-wrap { gap: 1.5rem; margin-top: 3rem; }
+            footer .flex-wrap svg { height: 1.75rem; width: 1.75rem; }
+            footer p.text-center { margin-top: 2.5rem; }
+        }
+        @media (min-width: 1024px) {
+            footer.brand-color-background { padding: 2.5rem; }
+            footer .max-w-7xl { padding: 5rem 2rem; }
+            footer img { height: 6rem; width: 6rem; }
+            footer h2 { font-size: 1.5rem; }
+            footer .flex-wrap { margin-top: 4rem; }
+            footer p.text-center { margin-top: 3rem; }
+        }
+    </style>
     {% include sketch-styles.liquid %}
 </head>
-<body class="bg-base-100 min-h-screen">
-                      {% assign showFun = true %} 
-    {% assign showMiddleBadgeWithText = true %} 
-    {% include header.liquid %}
-  <div v-cloak id="main-content" role="main" class="container mx-auto max-w-7xl p-4 sm:p-6">
-    <!-- Header -->
-    <header class="text-center mb-8 sm:mb-12">
-      <h1 class="brand-heading text-3xl sm:text-4xl leading-[1.3] sm:leading-[1.3] mb-3">
-        🔍 Emoji Search & Copy
-      </h1>
-      <p class="text-base-content/70">Find and copy any emoji in seconds</p>
-      <div class="mt-4 flex justify-center gap-2 text-sm">
-        <span class="badge badge-primary">{% raw %}{{ allEmojis.length }}{% endraw %} emojis</span>
-        <span class="badge badge-secondary">Instant copy</span>
-        <span class="badge badge-accent">No signup</span>
-      </div>
-    </header>
 
-    <!-- Search Bar -->
-    <div class="mb-8">
-      <div class="max-w-2xl mx-auto">
-        <label class="input input-bordered input-lg w-full flex items-center gap-2 rounded-xl shadow-sm">
-          <span class="sr-only">Search emojis</span>
-          <svg class="h-[1em] opacity-40" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" aria-hidden="true">
-            <g stroke-linejoin="round" stroke-linecap="round" stroke-width="2.5" fill="none" stroke="currentColor">
-              <circle cx="11" cy="11" r="8"></circle>
-              <path d="m21 21-4.3-4.3"></path>
-            </g>
-          </svg>
-          <input
-            type="search"
-            placeholder="Search emojis by name, category, or keyword..."
-            class="grow"
-            v-model="searchQuery"
-            @input="debouncedSearch"
-            @keydown.escape="clearSearch"
-            ref="searchInput"
-            aria-label="Search emojis"
-            autofocus
-          />
-          <button
-            v-if="searchQuery"
-            @click="clearSearch"
-            class="btn btn-ghost btn-sm btn-circle"
-            title="Clear search"
-            aria-label="Clear search"
-          >
-            ✕
-          </button>
-          <kbd class="kbd kbd-sm">ESC</kbd>
-        </label>
-        
-        <!-- Search Stats -->
-        <div class="text-center mt-3 text-sm text-base-content/60">
-          <span v-if="isSearching" class="loading loading-dots loading-sm"></span>
-          <span v-else>
-            Showing {% raw %}{{ displayedEmojis.length }}{% endraw %} of {% raw %}{{ filteredEmojis.length }}{% endraw %} emojis
-            <span v-if="searchQuery" class="font-medium"> for "{% raw %}{{ searchQuery }}{% endraw %}"</span>
-          </span>
+<body>
+{% raw %}
+    <a href="#tool" class="skip">Skip to the tool</a>
+
+    <main v-cloak id="app" class="wrap">
+
+        <div class="topbar">
+            <span class="brandmark">
+                <span class="mark" aria-hidden="true">
+                    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M8 14s1.5 2 4 2 4-2 4-2"/><line x1="9" y1="9" x2="9.01" y2="9"/><line x1="15" y1="9" x2="15.01" y2="9"/></svg>
+                </span>
+                Emoji Finder
+            </span>
+            <a href="/">&larr; coffeeandfun.com</a>
         </div>
-      </div>
-    </div>
 
-    <!-- Category Filters -->
-    <div class="mb-8" v-if="!searchQuery">
-      <div class="flex flex-wrap justify-center gap-2 mb-6">
-        <button
-          v-for="category in availableGroups"
-          :key="category"
-          @click="selectedGroup = category"
-          class="btn btn-sm category-pill"
-          :class="selectedGroup === category ? 'btn-primary shadow-md' : 'btn-outline btn-primary'"
-        >
-          {% raw %}{{ getCategoryLabel(category) }}{% endraw %}
-        </button>
-      </div>
-    </div>
+        <header id="tool">
+            <h1>Find the right emoji, fast</h1>
+            <p class="lede">Type what you&rsquo;re looking for, or browse by category. Click any emoji and it&rsquo;s copied — ready to paste anywhere. {{ totalFormatted }} emoji, free, no sign-up.</p>
+        </header>
 
-    <!-- Copy Feedback Toast -->
-    <transition name="fade">
-      <div v-if="showCopyFeedback" class="fixed top-20 left-1/2 transform -translate-x-1/2 z-50">
-        <div class="alert alert-success shadow-xl copy-feedback">
-          <div class="flex items-center gap-3">
-            <span class="text-3xl">{% raw %}{{ lastCopiedEmoji }}{% endraw %}</span>
-            <div>
-              <div class="font-bold">Copied!</div>
-              <div class="text-xs">{% raw %}{{ lastCopiedName }}{% endraw %}</div>
+        <!-- Live status for screen readers -->
+        <div class="sr-only" role="status" aria-live="polite">{{ announcement }}</div>
+
+        <!-- ===== Search ===== -->
+        <section class="step" aria-labelledby="h-search">
+            <h2 class="step-label" id="h-search">Search</h2>
+            <label class="sr-only" for="emoji-search">Search emoji by name</label>
+            <div class="search">
+                <svg class="mag" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
+                <input id="emoji-search" ref="searchInput" class="field" type="search"
+                       v-model="searchQuery"
+                       placeholder="Try &ldquo;heart&rdquo;, &ldquo;cat&rdquo;, or &ldquo;party&rdquo;&hellip;"
+                       aria-describedby="search-tip"
+                       autocomplete="off" autocapitalize="off" spellcheck="false"
+                       @keydown.escape.prevent="clearSearch" />
+                <button v-if="searchQuery" type="button" class="clear-btn" @click="clearSearch" aria-label="Clear search">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" aria-hidden="true"><path d="M18 6 6 18M6 6l12 12"/></svg>
+                </button>
             </div>
-          </div>
-        </div>
-      </div>
-    </transition>
+            <p class="hint" id="search-tip">Press <kbd>Ctrl</kbd>+<kbd>K</kbd> (<kbd>&#8984;</kbd><kbd>K</kbd> on Mac) to jump to search &middot; <kbd>Esc</kbd> clears it.</p>
+        </section>
 
-    <!-- Main Emoji Grid -->
-    <div class="mb-8">
-      <!-- No Results State -->
-      <div v-if="!isSearching && filteredEmojis.length === 0" class="text-center py-16">
-        <div class="text-6xl mb-4">😕</div>
-        <h3 class="text-xl font-semibold mb-2">No emojis found</h3>
-        <p class="text-base-content/60 mb-4">Try a different search term or browse by category</p>
-        <button @click="clearSearch" class="btn btn-primary btn-sm">Clear Search</button>
-      </div>
-      
-      <!-- Loading State -->
-      <div v-else-if="isSearching" class="grid grid-cols-4 sm:grid-cols-6 md:grid-cols-8 lg:grid-cols-10 xl:grid-cols-12 gap-3">
-        <div v-for="n in 24" :key="'skeleton-' + n" class="card bg-base-200 h-20 skeleton-pulse"></div>
-      </div>
-      
-      <!-- Emoji Grid -->
-      <div v-else class="grid grid-cols-3 sm:grid-cols-6 md:grid-cols-8 lg:grid-cols-10 xl:grid-cols-12 gap-2 sm:gap-3">
-        <div
-          v-for="(emoji, index) in displayedEmojis"
-          :key="emoji.codes"
-          class="emoji-card card bg-base-200 shadow-sm hover:shadow-lg cursor-pointer tooltip fade-in"
-          @click="copyEmoji(emoji)"
-          :style="{ animationDelay: Math.min(index * 0.01, 0.3) + 's' }"
-          :data-tip="'Copy: ' + emoji.name"
-        >
-          <div class="card-body p-2 sm:p-3 text-center">
-            <div class="emoji-char mb-1">{% raw %}{{ emoji.char }}{% endraw %}</div>
-            <div class="text-xs text-base-content/60 leading-tight line-clamp-2 hidden sm:block">
-              {% raw %}{{ emoji.name }}{% endraw %}
+        <!-- ===== Categories ===== -->
+        <section v-if="!appliedQuery" class="step" aria-labelledby="h-cats">
+            <h2 class="step-label" id="h-cats">Browse by category</h2>
+            <div class="cats" role="group" aria-label="Emoji categories">
+                <button v-for="g in availableGroups" :key="g" type="button" class="cat"
+                        :aria-pressed="selectedGroup === g ? 'true' : 'false'"
+                        @click="setGroup(g)">
+                    <span class="ico" aria-hidden="true">{{ catIcon(g) }}</span>{{ catLabel(g) }}
+                </button>
             </div>
-          </div>
-        </div>
-      </div>
-      
-      <!-- Load More Button -->
-      <div v-if="!showAll && filteredEmojis.length > displayLimit" class="text-center mt-8">
-        <button @click="loadMore" class="btn btn-primary btn-wide">
-          Load More ({% raw %}{{ filteredEmojis.length - displayedEmojis.length }}{% endraw %} remaining)
-        </button>
-      </div>
-    </div>
+        </section>
 
-    <!-- Recently Used Section -->
-    <div v-if="!searchQuery && recentEmojis.length" class="mb-8">
-      <div class="flex justify-between items-center mb-4">
-        <h2 class="text-xl font-bold">⏱️ Recently Used</h2>
-        <button @click="clearRecent" class="btn btn-ghost btn-xs">Clear</button>
-      </div>
-      <div class="flex flex-wrap gap-3">
-        <div
-          v-for="emoji in recentEmojis"
-          :key="'recent-' + emoji.codes"
-          class="emoji-card card bg-gradient-to-br from-primary/10 to-secondary/10 border border-primary/20 shadow-sm cursor-pointer tooltip"
-          @click="copyEmoji(emoji)"
-          :data-tip="emoji.name"
-        >
-          <div class="card-body p-3 text-center">
-            <div class="emoji-char">{% raw %}{{ emoji.char }}{% endraw %}</div>
-          </div>
-        </div>
-      </div>
-    </div>
+        <!-- ===== Recently used ===== -->
+        <section v-if="!appliedQuery && recentEmojis.length" class="step" aria-labelledby="h-recent">
+            <div class="row-head">
+                <h2 class="step-label" id="h-recent">Recently used</h2>
+                <button type="button" class="linkish" @click="clearRecent">Clear this list</button>
+            </div>
+            <div class="mini-row">
+                <button v-for="emoji in recentEmojis" :key="'recent-' + emoji.codes" type="button"
+                        class="ebtn mini" :title="'Copy ' + emoji.name"
+                        :aria-label="'Copy ' + emoji.name" @click="copyEmoji(emoji)">
+                    <span class="glyph" aria-hidden="true">{{ emoji.char }}</span>
+                </button>
+            </div>
+        </section>
 
-    <!-- Popular/Trending Section -->
-    <div v-if="!searchQuery" class="mb-8">
-      <h2 class="text-xl font-bold mb-4">🔥 Trending Now</h2>
-      <div class="grid grid-cols-4 sm:grid-cols-8 md:grid-cols-12 gap-3">
-        <div
-          v-for="emoji in trendingEmojis"
-          :key="'trending-' + emoji.codes"
-          class="emoji-card card bg-gradient-to-br from-accent/10 to-warning/10 shadow-sm hover:shadow-md cursor-pointer tooltip"
-          @click="copyEmoji(emoji)"
-          :data-tip="emoji.name"
-        >
-          <div class="card-body p-3 text-center">
-            <div class="emoji-char">{% raw %}{{ emoji.char }}{% endraw %}</div>
-          </div>
-        </div>
-      </div>
-    </div>
+        <!-- ===== Popular ===== -->
+        <section v-if="!appliedQuery" class="step" aria-labelledby="h-popular">
+            <h2 class="step-label" id="h-popular">Popular right now</h2>
+            <div class="mini-row">
+                <button v-for="emoji in trendingEmojis" :key="'trending-' + emoji.codes" type="button"
+                        class="ebtn mini" :title="'Copy ' + emoji.name"
+                        :aria-label="'Copy ' + emoji.name" @click="copyEmoji(emoji)">
+                    <span class="glyph" aria-hidden="true">{{ emoji.char }}</span>
+                </button>
+            </div>
+        </section>
 
-    <!-- Footer Info -->
-    <div class="text-center py-8 border-t mt-12">
-      <p class="text-sm text-base-content/60 mb-2">
-        💡 Tip: Use keyboard shortcuts for faster navigation
-      </p>
-      <div class="flex justify-center gap-4 text-xs">
-        <kbd class="kbd kbd-sm">Ctrl+K</kbd> Focus search
-        <kbd class="kbd kbd-sm">ESC</kbd> Clear search
-      </div>
-    </div>
-  </div>
-      {% include modals.liquid %}
-      {% include footer.liquid %}
-  <script>
-    const { createApp } = Vue;
-    
-    createApp({
-      data() {
-        return {
-          allEmojis: {{ emojis | json }},
-          searchQuery: '',
-          selectedGroup: 'all',
-          showCopyFeedback: false,
-          lastCopiedEmoji: '',
-          lastCopiedName: '',
-          recentEmojis: [],
-          searchCache: new Map(),
-          displayLimit: 120,
-          showAll: false,
-          isSearching: false,
-          searchTimeout: null,
-          groupLabels: {
-            all: '🌟 All',
-            'Smileys & Emotion': '😀 Smileys',
-            'People & Body': '👤 People',
-            'Animals & Nature': '🐱 Animals',
-            'Food & Drink': '🍕 Food',
-            'Travel & Places': '✈️ Travel',
-            Activities: '⚽ Activities',
-            Objects: '📱 Objects',
-            Symbols: '❤️ Symbols',
-            Flags: '🏁 Flags',
-            'Component': '🔧 Components'
-          }
+        <!-- ===== The grid ===== -->
+        <section class="step" aria-labelledby="h-browse">
+            <div class="row-head">
+                <h2 class="step-label" id="h-browse" tabindex="-1">{{ browseHeading }}</h2>
+                <span class="counter">{{ countLine }}</span>
+            </div>
+
+            <div v-if="filteredEmojis.length === 0" class="code-empty">
+                <span class="big" aria-hidden="true">&#128533;</span>
+                No emoji match &ldquo;{{ appliedQuery }}&rdquo;.<br />
+                Try a different word, or
+                <button type="button" class="linkish" style="font-size: inherit;" @click="clearSearch">clear the search</button>
+                and browse by category.
+            </div>
+
+            <div v-else class="egrid">
+                <button v-for="emoji in displayedEmojis" :key="emoji.codes" type="button"
+                        class="ebtn" :title="'Copy ' + emoji.name"
+                        :aria-label="'Copy ' + emoji.name" @click="copyEmoji(emoji)">
+                    <span class="glyph" aria-hidden="true">{{ emoji.char }}</span>
+                    <span class="ename" aria-hidden="true">{{ emoji.name }}</span>
+                </button>
+            </div>
+
+            <div v-if="remainingCount > 0" class="load-wrap">
+                <button type="button" class="btn btn-secondary" @click="loadMore">
+                    {{ remainingCount > 120 ? 'Show 120 more' : 'Show the last ' + remainingCount }}
+                    <span v-if="remainingCount > 120">&middot; {{ remainingCount.toLocaleString() }} left</span>
+                </button>
+            </div>
+        </section>
+
+        <p class="foot">Everything happens in your browser — clicking an emoji just copies it to your clipboard.</p>
+
+        <!-- Copied toast (announced separately for screen readers) -->
+        <transition name="toast">
+            <div v-if="toastVisible" class="toast" aria-hidden="true">
+                <span class="glyph">{{ toastChar }}</span>
+                <span class="tname">Copied — {{ toastName }}</span>
+            </div>
+        </transition>
+    </main>
+{% endraw %}
+
+    {% include footer.liquid %}
+
+    <script>
+        const { createApp } = Vue;
+
+        const EMOJI_DATA = {{ emojis | json }};
+        // Precompute the search haystack once, then freeze — frozen objects are
+        // skipped by Vue's reactivity, which keeps a 5,000-item list snappy.
+        for (let i = 0; i < EMOJI_DATA.length; i++) {
+            const e = EMOJI_DATA[i];
+            e.q = (e.name + ' ' + e.group + ' ' + (e.subgroup || '')).toLowerCase();
+            Object.freeze(e);
+        }
+        Object.freeze(EMOJI_DATA);
+
+        // Most-copied emoji, by Unicode code point.
+        const TRENDING = ['1F602', '2764', '1F60D', '1F923', '1F44D', '1F618',
+                          '1F970', '1F525', '1F4AF', '1F389', '1F440', '2728'];
+
+        const GROUP_META = {
+            all: { icon: '\u{1F31F}', label: 'All' },
+            'Smileys & Emotion': { icon: '\u{1F600}', label: 'Smileys' },
+            'People & Body': { icon: '\u{1F44B}', label: 'People' },
+            'Animals & Nature': { icon: '\u{1F43B}', label: 'Animals & nature' },
+            'Food & Drink': { icon: '\u{1F355}', label: 'Food & drink' },
+            'Travel & Places': { icon: '✈️', label: 'Travel & places' },
+            Activities: { icon: '⚽', label: 'Activities' },
+            Objects: { icon: '\u{1F4A1}', label: 'Objects' },
+            Symbols: { icon: '❤️', label: 'Symbols' },
+            Flags: { icon: '\u{1F3C1}', label: 'Flags' },
+            Component: { icon: '\u{1F590}️', label: 'Skin tones & hair' }
         };
-      },
-      
-      computed: {
-        availableGroups() {
-          const groups = ['all', ...new Set(this.allEmojis.map(e => e.group))].filter(Boolean);
-          return groups.sort((a, b) => {
-            if (a === 'all') return -1;
-            if (b === 'all') return 1;
-            return a.localeCompare(b);
-          });
-        },
-        
-        filteredEmojis() {
-          const cacheKey = `${this.searchQuery}-${this.selectedGroup}`;
-          
-          if (this.searchCache.has(cacheKey)) {
-            return this.searchCache.get(cacheKey);
-          }
-          
-          let list = [...this.allEmojis];
-          
-          // Filter by category
-          if (this.selectedGroup !== 'all' && !this.searchQuery) {
-            list = list.filter(e => e.group === this.selectedGroup);
-          }
-          
-          // Search filter
-          if (this.searchQuery) {
-            const query = this.searchQuery.toLowerCase().trim();
-            const words = query.split(/\s+/);
-            
-            list = list.filter(emoji => {
-              const searchText = `${emoji.name} ${emoji.group} ${emoji.subgroup || ''} ${emoji.keywords || ''}`.toLowerCase();
-              return words.every(word => searchText.includes(word));
-            });
-            
-            // Sort by relevance
-            list.sort((a, b) => {
-              const aName = a.name.toLowerCase();
-              const bName = b.name.toLowerCase();
-              
-              // Exact matches first
-              if (aName === query) return -1;
-              if (bName === query) return 1;
-              
-              // Starts with query
-              if (aName.startsWith(query) && !bName.startsWith(query)) return -1;
-              if (bName.startsWith(query) && !aName.startsWith(query)) return 1;
-              
-              // Contains query
-              const aContains = aName.includes(query);
-              const bContains = bName.includes(query);
-              if (aContains && !bContains) return -1;
-              if (bContains && !aContains) return 1;
-              
-              return 0;
-            });
-          }
-          
-          // Cache results
-          this.searchCache.set(cacheKey, list);
-          if (this.searchCache.size > 50) {
-            const firstKey = this.searchCache.keys().next().value;
-            this.searchCache.delete(firstKey);
-          }
-          
-          return list;
-        },
-        
-        displayedEmojis() {
-          return this.showAll ? this.filteredEmojis : this.filteredEmojis.slice(0, this.displayLimit);
-        },
-        
-        trendingEmojis() {
-          // Most commonly used emojis
-          const trending = [
-            '1F602', // 😂 Face with Tears of Joy
-            '2764',  // ❤️ Red Heart
-            '1F60D', // 😍 Smiling Face with Heart-Eyes
-            '1F923', // 🤣 Rolling on the Floor Laughing
-            '1F44D', // 👍 Thumbs Up
-            '1F618', // 😘 Face Blowing a Kiss
-            '1F970', // 🥰 Smiling Face with Hearts
-            '1F525', // 🔥 Fire
-            '1F4AF', // 💯 Hundred Points
-            '1F389', // 🎉 Party Popper
-            '1F440', // 👀 Eyes
-            '2728'   // ✨ Sparkles
-          ];
-          
-          return this.allEmojis.filter(e => trending.includes(e.codes)).slice(0, 12);
-        }
-      },
-      
-      mounted() {
-        this.loadRecentEmojis();
-        this.initializeKeyboardShortcuts();
-        
-        // Load query from URL
-        const params = new URLSearchParams(window.location.search);
-        if (params.get('q')) {
-          this.searchQuery = params.get('q');
-        }
-        
-        // Preprocess emojis for better search
-        this.allEmojis.forEach(emoji => {
-          emoji.searchText = `${emoji.name} ${emoji.group} ${emoji.subgroup || ''}`.toLowerCase();
-        });
-      },
-      
-      methods: {
-        getCategoryLabel(group) {
-          return this.groupLabels[group] || `📁 ${group}`;
-        },
-        
-        debouncedSearch() {
-          this.isSearching = true;
-          clearTimeout(this.searchTimeout);
-          
-          this.searchTimeout = setTimeout(() => {
-            this.performSearch();
-            this.isSearching = false;
-            this.showAll = false;
-            this.searchCache.clear();
-          }, 300);
-        },
-        
-        performSearch() {
-          const url = new URL(window.location);
-          
-          if (this.searchQuery) {
-            url.searchParams.set('q', this.searchQuery);
-          } else {
-            url.searchParams.delete('q');
-          }
-          
-          window.history.replaceState({}, '', url);
-        },
-        
-        clearSearch() {
-          this.searchQuery = '';
-          this.showAll = false;
-          this.performSearch();
-          this.$refs.searchInput.focus();
-        },
-        
-        async copyEmoji(emoji) {
-          try {
-            // Try modern clipboard API first
-            if (navigator.clipboard && navigator.clipboard.writeText) {
-              await navigator.clipboard.writeText(emoji.char);
-            } else {
-              // Fallback for older browsers
-              this.fallbackCopyToClipboard(emoji.char);
+
+        const RECENT_KEY = 'recentEmojis';
+        const PAGE_SIZE = 120;
+
+        createApp({
+            data() {
+                return {
+                    allEmojis: EMOJI_DATA,
+                    searchQuery: '',
+                    appliedQuery: '',
+                    selectedGroup: 'all',
+                    displayLimit: PAGE_SIZE,
+                    recentEmojis: [],
+                    announcement: '',
+                    toastVisible: false,
+                    toastChar: '',
+                    toastName: '',
+                    toastTimer: null,
+                    searchTimer: null
+                };
+            },
+            watch: {
+                searchQuery() {
+                    if (this.searchTimer) clearTimeout(this.searchTimer);
+                    this.searchTimer = setTimeout(() => this.applySearch(), 250);
+                }
+            },
+            computed: {
+                totalFormatted() {
+                    return this.allEmojis.length.toLocaleString();
+                },
+                availableGroups() {
+                    // Data order is Unicode's standard category order; the
+                    // building-block "Component" group goes last.
+                    const seen = [];
+                    for (const e of this.allEmojis) {
+                        if (e.group && !seen.includes(e.group)) seen.push(e.group);
+                    }
+                    const rest = seen.filter(g => g !== 'Component');
+                    if (seen.includes('Component')) rest.push('Component');
+                    return ['all'].concat(rest);
+                },
+                filteredEmojis() {
+                    const q = this.appliedQuery.toLowerCase();
+                    if (q) {
+                        const words = q.split(/\s+/).filter(Boolean);
+                        const list = this.allEmojis.filter(e => words.every(w => e.q.includes(w)));
+                        // Best name matches first: exact, then starts-with, then contains.
+                        list.sort((a, b) => {
+                            const an = a.name.toLowerCase();
+                            const bn = b.name.toLowerCase();
+                            if ((an === q) !== (bn === q)) return an === q ? -1 : 1;
+                            if (an.startsWith(q) !== bn.startsWith(q)) return an.startsWith(q) ? -1 : 1;
+                            if (an.includes(q) !== bn.includes(q)) return an.includes(q) ? -1 : 1;
+                            return 0;
+                        });
+                        return list;
+                    }
+                    if (this.selectedGroup !== 'all') {
+                        return this.allEmojis.filter(e => e.group === this.selectedGroup);
+                    }
+                    return this.allEmojis;
+                },
+                displayedEmojis() {
+                    return this.filteredEmojis.slice(0, this.displayLimit);
+                },
+                trendingEmojis() {
+                    return this.allEmojis.filter(e => TRENDING.includes(e.codes)).slice(0, 12);
+                },
+                remainingCount() {
+                    return Math.max(0, this.filteredEmojis.length - this.displayedEmojis.length);
+                },
+                browseHeading() {
+                    if (this.appliedQuery) return 'Search results';
+                    if (this.selectedGroup === 'all') return 'All emoji';
+                    return this.catLabel(this.selectedGroup);
+                },
+                countLine() {
+                    const total = this.filteredEmojis.length;
+                    if (total === 0) return '';
+                    const shown = this.displayedEmojis.length;
+                    let line = shown < total
+                        ? 'Showing ' + shown.toLocaleString() + ' of ' + total.toLocaleString() + ' emoji'
+                        : total.toLocaleString() + ' emoji';
+                    if (this.appliedQuery) line += ' for “' + this.appliedQuery + '”';
+                    return line;
+                }
+            },
+            mounted() {
+                this.loadRecent();
+
+                // Restore a shared/bookmarked search from the address bar.
+                const params = new URLSearchParams(window.location.search);
+                const q = (params.get('q') || '').trim();
+                if (q) {
+                    this.searchQuery = q;
+                    if (this.searchTimer) clearTimeout(this.searchTimer);
+                    this.appliedQuery = q;
+                }
+
+                this.keyHandler = (e) => {
+                    if ((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === 'k') {
+                        e.preventDefault();
+                        this.$refs.searchInput.focus();
+                    }
+                };
+                document.addEventListener('keydown', this.keyHandler);
+            },
+            beforeUnmount() {
+                document.removeEventListener('keydown', this.keyHandler);
+            },
+            methods: {
+                catLabel(g) {
+                    return GROUP_META[g] ? GROUP_META[g].label : g;
+                },
+                catIcon(g) {
+                    return GROUP_META[g] ? GROUP_META[g].icon : '\u{1F4C1}';
+                },
+                announce(msg) {
+                    this.announcement = '';
+                    this.$nextTick(() => { this.announcement = msg; });
+                },
+                applySearch() {
+                    const q = this.searchQuery.trim();
+                    if (q === this.appliedQuery) return;
+                    this.appliedQuery = q;
+                    this.displayLimit = PAGE_SIZE;
+                    this.syncUrl();
+                    if (q) {
+                        const n = this.filteredEmojis.length;
+                        this.announce(n === 0
+                            ? 'No emoji match ' + q + '.'
+                            : n.toLocaleString() + ' emoji found for ' + q + '.');
+                    } else {
+                        this.announce('Search cleared. Showing all emoji.');
+                    }
+                },
+                syncUrl() {
+                    const url = new URL(window.location);
+                    if (this.appliedQuery) {
+                        url.searchParams.set('q', this.appliedQuery);
+                    } else {
+                        url.searchParams.delete('q');
+                    }
+                    window.history.replaceState({}, '', url);
+                },
+                clearSearch() {
+                    if (this.searchTimer) clearTimeout(this.searchTimer);
+                    this.searchQuery = '';
+                    this.applySearch();
+                    this.$refs.searchInput.focus();
+                },
+                setGroup(g) {
+                    this.selectedGroup = g;
+                    this.displayLimit = PAGE_SIZE;
+                    this.announce(this.catLabel(g) + ' — ' + this.filteredEmojis.length.toLocaleString() + ' emoji.');
+                },
+                loadMore() {
+                    this.displayLimit += PAGE_SIZE;
+                    this.announce('Now showing ' + this.displayedEmojis.length.toLocaleString()
+                        + ' of ' + this.filteredEmojis.length.toLocaleString() + ' emoji.');
+                    // If that was the last batch the button disappears — keep
+                    // keyboard focus on the page instead of dropping it.
+                    if (this.remainingCount === 0) {
+                        this.$nextTick(() => {
+                            const h = document.getElementById('h-browse');
+                            if (h) h.focus();
+                        });
+                    }
+                },
+                async copyEmoji(emoji) {
+                    let ok = false;
+                    try {
+                        await Promise.race([
+                            navigator.clipboard.writeText(emoji.char),
+                            new Promise((_, reject) => setTimeout(() => reject(new Error('timeout')), 1500))
+                        ]);
+                        ok = true;
+                    } catch {
+                        ok = this.fallbackCopy(emoji.char);
+                    }
+                    if (ok) {
+                        this.showToast(emoji);
+                        this.addToRecent(emoji);
+                        this.announce('Copied ' + emoji.name + ' to clipboard.');
+                    } else {
+                        this.announce('Sorry — copying didn’t work in this browser.');
+                    }
+                },
+                fallbackCopy(text) {
+                    const ta = document.createElement('textarea');
+                    ta.value = text;
+                    ta.style.position = 'fixed';
+                    ta.style.opacity = '0';
+                    document.body.appendChild(ta);
+                    ta.focus();
+                    ta.select();
+                    let ok = false;
+                    try { ok = document.execCommand('copy'); } catch { ok = false; }
+                    document.body.removeChild(ta);
+                    return ok;
+                },
+                showToast(emoji) {
+                    this.toastChar = emoji.char;
+                    this.toastName = emoji.name;
+                    this.toastVisible = true;
+                    if (this.toastTimer) clearTimeout(this.toastTimer);
+                    this.toastTimer = setTimeout(() => { this.toastVisible = false; }, 1800);
+                },
+                addToRecent(emoji) {
+                    const entry = {
+                        codes: emoji.codes, char: emoji.char, name: emoji.name,
+                        group: emoji.group, subgroup: emoji.subgroup
+                    };
+                    this.recentEmojis = [entry]
+                        .concat(this.recentEmojis.filter(e => e.codes !== emoji.codes))
+                        .slice(0, 12);
+                    this.saveRecent();
+                },
+                loadRecent() {
+                    try {
+                        const saved = JSON.parse(localStorage.getItem(RECENT_KEY) || '[]');
+                        if (Array.isArray(saved)) {
+                            this.recentEmojis = saved
+                                .filter(e => e && e.codes && e.char && e.name)
+                                .slice(0, 12);
+                        }
+                    } catch {
+                        this.recentEmojis = [];
+                    }
+                },
+                saveRecent() {
+                    try {
+                        localStorage.setItem(RECENT_KEY, JSON.stringify(this.recentEmojis));
+                    } catch { /* private mode — recents just won't persist */ }
+                },
+                clearRecent() {
+                    this.recentEmojis = [];
+                    this.saveRecent();
+                    this.announce('Recently used list cleared.');
+                }
             }
-            
-            this.showCopySuccess(emoji);
-            this.addToRecent(emoji);
-            
-          } catch (err) {
-            console.error('Copy failed:', err);
-            // Use fallback method
-            this.fallbackCopyToClipboard(emoji.char);
-            this.showCopySuccess(emoji);
-            this.addToRecent(emoji);
-          }
-        },
-        
-        fallbackCopyToClipboard(text) {
-          const textarea = document.createElement('textarea');
-          textarea.value = text;
-          textarea.style.position = 'fixed';
-          textarea.style.opacity = '0';
-          document.body.appendChild(textarea);
-          textarea.focus();
-          textarea.select();
-          
-          try {
-            document.execCommand('copy');
-          } catch (err) {
-            console.error('Fallback copy failed:', err);
-          }
-          
-          document.body.removeChild(textarea);
-        },
-        
-        showCopySuccess(emoji) {
-          this.lastCopiedEmoji = emoji.char;
-          this.lastCopiedName = emoji.name;
-          this.showCopyFeedback = true;
-          
-          setTimeout(() => {
-            this.showCopyFeedback = false;
-          }, 2000);
-        },
-        
-        addToRecent(emoji) {
-          // Remove if already exists
-          this.recentEmojis = this.recentEmojis.filter(e => e.codes !== emoji.codes);
-          
-          // Add to beginning
-          this.recentEmojis.unshift(emoji);
-          
-          // Keep only last 12
-          this.recentEmojis = this.recentEmojis.slice(0, 12);
-          
-          this.saveRecentEmojis();
-        },
-        
-        loadRecentEmojis() {
-          try {
-            const saved = localStorage.getItem('recentEmojis');
-            if (saved) {
-              this.recentEmojis = JSON.parse(saved);
-            }
-          } catch (err) {
-            console.error('Failed to load recent emojis:', err);
-            this.recentEmojis = [];
-          }
-        },
-        
-        saveRecentEmojis() {
-          try {
-            localStorage.setItem('recentEmojis', JSON.stringify(this.recentEmojis));
-          } catch (err) {
-            console.error('Failed to save recent emojis:', err);
-          }
-        },
-        
-        clearRecent() {
-          this.recentEmojis = [];
-          this.saveRecentEmojis();
-        },
-        
-        loadMore() {
-          this.displayLimit += 120;
-          if (this.displayLimit >= this.filteredEmojis.length) {
-            this.showAll = true;
-          }
-        },
-        
-        initializeKeyboardShortcuts() {
-          document.addEventListener('keydown', (e) => {
-            // Ctrl/Cmd + K to focus search
-            if ((e.ctrlKey || e.metaKey) && e.key === 'k') {
-              e.preventDefault();
-              this.$refs.searchInput.focus();
-            }
-          });
-        }
-      }
-    }).mount('#main-content');
-  </script>
+        }).mount('#app');
+    </script>
 </body>
 </html>

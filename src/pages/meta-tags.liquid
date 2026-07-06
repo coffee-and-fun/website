@@ -382,8 +382,9 @@
             text-align: center; padding: 1.5rem 1rem 2rem;
             font-size: 0.8rem; color: var(--muted);
         }
-        .foot a { color: var(--muted); text-decoration: none; }
+        .foot a { color: var(--muted); text-decoration: underline; text-underline-offset: 2px; }
         .foot a:hover { color: var(--ink); }
+        .foot a:focus-visible { outline: 2px solid var(--ink); outline-offset: 2px; }
 
         @media (prefers-reduced-motion: reduce) {
             .tab, .btn { transition: none; }
@@ -641,7 +642,8 @@
             </div>
         </section>
 
-        <p class="foot">Everything happens in your browser — nothing you type leaves this page.</p>
+        <p class="foot">Everything happens in your browser — nothing you type leaves this page.
+            Want the theory behind these tags? Read <a href="/blog/what-every-meta-tag-does-in-2026/">what every meta tag actually does in 2026</a>.</p>
     </main>
 {% endraw %}
 
