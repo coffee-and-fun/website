@@ -22,7 +22,7 @@ blog_snip:
   A plain-English tour of the meta tags that still matter in 2026 — what Google, Facebook, and X
   actually read, the sizes and limits that count, and the zombie tags you can delete today.
 name: Robert James Gabriel
-img: /assets/images/social/pages/meta-tags.png
+img: /assets/images/blog/what-every-meta-tag-does-in-2026.png
 date: 2026-07-06T00:00:00.000Z
 time: 6 min
 tags:

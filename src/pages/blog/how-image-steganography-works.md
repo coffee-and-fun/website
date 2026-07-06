@@ -22,7 +22,7 @@ blog_snip:
   A picture can carry a whole paragraph of hidden text without looking any different. Here's the
   pixel-level trick behind our Hide Text in Images tool, explained in plain English.
 name: Robert James Gabriel
-img: /assets/images/social/pages/secret-message-image-encoder.png
+img: /assets/images/blog/how-image-steganography-works.png
 date: 2026-07-06T00:00:00.000Z
 time: 6 min
 tags:

@@ -33,7 +33,7 @@
     <meta name="twitter:description" content="Discover Netflix's hidden categories and secret genre codes. Browse 1900+ specialized categories to find exactly what you want to watch." />
     <meta name="twitter:image" content="https://www.coffeeandfun.com/assets/images/social/pages/home.png" />
 
-    <meta name="theme-color" content="#f4f4f2" />
+    <meta name="theme-color" content="#141414" />
 
     <!-- Structured Data -->
     <script type="application/ld+json">
@@ -49,17 +49,23 @@
 
     <style>
         :root {
-            --bg: #f4f4f2;
-            --surface: #ffffff;
-            --ink: #16161a;
-            --muted: #6c6c74;
-            --faint: #9a9aa2;
-            --line: #e4e4e0;
-            --line-strong: #d3d3ce;
-            --good: #0f7b4f;
-            --warn: #b4341f;
+            /* Dark cinema palette — every text/background pair verified for WCAG AA. */
+            --bg: #141414;
+            --surface: #1f1f1f;
+            --surface-hover: #2a2a2a;
+            --ink: #f5f5f1;          /* 16.86:1 on --bg, 15.08:1 on --surface */
+            --muted: #b3b3b3;        /* 8.79:1 on --bg, 7.86:1 on --surface, 6.85:1 on --surface-hover */
+            --line: rgba(255, 255, 255, 0.12);
+            --line-strong: rgba(255, 255, 255, 0.2);
+            --input-border: #757575; /* 3.54:1 vs --bg — passes 3:1 non-text */
+            --red: #e50914;          /* non-text accents + large bold only: 3.84:1 on --bg */
+            --red-deep: #b00610;     /* solid red surfaces: white on it is 7.29:1 */
+            --red-soft: #f0777d;     /* red for small text: 6.70:1 on --bg, 5.22:1 on --surface-hover */
+            --good: #46d369;         /* 9.46:1 on --bg, 7.37:1 on --surface-hover */
+            --warn: #f0777d;
             --radius: 14px;
             --mono: ui-monospace, 'SF Mono', 'JetBrains Mono', 'Fira Code', Menlo, Consolas, monospace;
+            color-scheme: dark;
         }
 
         * { box-sizing: border-box; }
@@ -72,8 +78,10 @@
             display: flex;
             flex-direction: column;
             -webkit-font-smoothing: antialiased;
-            accent-color: var(--ink);
+            accent-color: var(--red);
         }
+
+        ::selection { background: var(--red-deep); color: #fff; }
 
         [hidden] { display: none !important; }
 
@@ -84,13 +92,13 @@
 
         a.skip {
             position: absolute; left: -9999px; top: 0;
-            background: var(--ink); color: #fff; padding: 0.6rem 1rem; z-index: 20;
+            background: var(--red-deep); color: #fff; padding: 0.6rem 1rem; z-index: 20;
             border-radius: 0 0 8px 0;
         }
         a.skip:focus { left: 0; }
 
         a:focus-visible, button:focus-visible {
-            outline: 2px solid var(--ink); outline-offset: 2px; border-radius: 4px;
+            outline: 2px solid #fff; outline-offset: 2px; border-radius: 4px;
         }
 
         .wrap {
@@ -107,21 +115,30 @@
             align-items: center;
             margin-bottom: 2.75rem;
         }
-        .topbar a {
-            font-size: 0.82rem;
-            color: var(--muted);
-            text-decoration: none;
-            letter-spacing: 0.01em;
+
+        /* Logo home link + tooltip (hover AND keyboard focus) */
+        .home-link { position: relative; display: inline-flex; border-radius: 10px; }
+        .home-link img { width: 40px; height: 40px; display: block; transition: transform 0.15s ease; }
+        .home-link:hover img, .home-link:focus-visible img { transform: rotate(-8deg) scale(1.08); }
+        .home-link:focus-visible { outline: 2px solid #fff; outline-offset: 3px; }
+        .home-link .tip {
+            position: absolute; top: calc(100% + 9px); left: 0;
+            background: var(--ink); color: var(--bg);
+            font-size: 0.78rem; font-weight: 600; letter-spacing: 0.01em;
+            white-space: nowrap; padding: 0.4rem 0.7rem; border-radius: 8px;
+            opacity: 0; transform: translateY(-4px); pointer-events: none;
+            transition: opacity 0.15s, transform 0.15s;
+            z-index: 30;
         }
-        .topbar a:hover { color: var(--ink); }
-        .brandmark {
-            display: inline-flex; align-items: center; gap: 0.5rem;
-            font-weight: 600; font-size: 0.85rem; letter-spacing: 0.02em;
+        .home-link .tip::before {
+            content: ''; position: absolute; top: -4px; left: 14px;
+            width: 8px; height: 8px; background: var(--ink);
+            transform: rotate(45deg);
         }
-        .brandmark .mark {
-            width: 22px; height: 22px; border-radius: 6px;
-            background: var(--ink); color: #fff;
-            display: inline-flex; align-items: center; justify-content: center;
+        .home-link:hover .tip, .home-link:focus-visible .tip { opacity: 1; transform: translateY(0); }
+        @media (prefers-reduced-motion: reduce) {
+            .home-link img, .home-link .tip { transition: none; }
+            .home-link:hover img, .home-link:focus-visible img { transform: none; }
         }
 
         h1 {
@@ -130,6 +147,15 @@
             letter-spacing: -0.02em;
             margin: 0 0 0.6rem;
             font-weight: 650;
+        }
+        /* Red kicker bar — decorative accent, never body-size red text */
+        h1::before {
+            content: '';
+            display: block;
+            width: 52px; height: 4px;
+            border-radius: 2px;
+            background: var(--red);
+            margin-bottom: 0.9rem;
         }
         .lede {
             color: var(--muted);
@@ -143,12 +169,15 @@
         .searchbar {
             position: sticky; top: 0; z-index: 5;
             background: var(--bg);
-            padding: 0.75rem 0 0.55rem;
+            /* Widened to match the rows below (which bleed 0.6rem for their
+               hover surface) so nothing peeks out while scrolling underneath. */
+            padding: 0.75rem 0.6rem 0.55rem;
+            margin: 0 -0.6rem;
             box-shadow: 0 1px 0 var(--line);
         }
         .search {
             width: 100%;
-            border: 1px solid var(--line-strong);
+            border: 1px solid var(--input-border);
             border-radius: 11px;
             padding: 0.8rem 1rem;
             font-size: 1rem;
@@ -160,8 +189,8 @@
             appearance: none;
         }
         .search::-webkit-search-cancel-button { -webkit-appearance: none; }
-        .search:focus { border-color: var(--ink); box-shadow: 0 0 0 3px rgba(22,22,26,0.08); }
-        .search::placeholder { color: #74747b; }
+        .search:focus { border-color: var(--red); box-shadow: 0 0 0 3px rgba(229,9,20,0.3); }
+        .search::placeholder { color: #9a9a9a; } /* 5.86:1 on --surface */
 
         .meta-row {
             display: flex; justify-content: space-between; align-items: baseline;
@@ -192,7 +221,7 @@
             border-radius: 999px; padding: 0.32rem 0.8rem; cursor: pointer;
             transition: border-color 0.15s, background 0.15s;
         }
-        .chip:hover { border-color: var(--ink); }
+        .chip:hover { border-color: var(--red); background: var(--surface-hover); }
 
         /* A–Z jump links */
         .letters { display: flex; flex-wrap: wrap; gap: 0.25rem; margin: 1.3rem 0 0; }
@@ -202,7 +231,7 @@
             border-radius: 8px; font-size: 0.82rem; font-weight: 600;
             color: var(--muted); text-decoration: none;
         }
-        .letters a:hover { background: #ececea; color: var(--ink); }
+        .letters a:hover { background: var(--surface-hover); color: var(--ink); }
 
         /* Letter sections */
         .gsec {
@@ -223,18 +252,21 @@
             display: grid;
             grid-template-columns: minmax(0, 1fr) auto auto;
             gap: 0.9rem; align-items: baseline;
-            padding: 0.55rem 0;
+            padding: 0.55rem 0.6rem;
+            margin: 0 -0.6rem;
             border-bottom: 1px solid var(--line);
         }
+        .gsec li:hover { background: var(--surface-hover); }
         .gsec li a {
             color: var(--ink); text-decoration: none;
             line-height: 1.45; min-width: 0; overflow-wrap: anywhere;
         }
-        .gsec li a:hover { text-decoration: underline; }
+        .gsec li a:hover { text-decoration: underline; text-decoration-color: var(--red-soft); }
         .gsec li a::after {
             content: "\2197"; margin-left: 0.35em;
             font-size: 0.72em; color: var(--muted);
         }
+        .gsec li a:hover::after { color: var(--red-soft); }
         .gsec li code { font-family: var(--mono); font-size: 0.75rem; color: var(--muted); }
         button.copy {
             appearance: none; border: none; background: none; padding: 0;
@@ -253,6 +285,7 @@
             padding: 2.2rem 1.25rem;
             text-align: center;
             color: var(--muted);
+            background: var(--surface);
             font-size: 0.92rem;
             margin-top: 1.5rem;
         }
@@ -283,7 +316,7 @@
         .about strong { color: var(--ink); font-weight: 600; }
         .about code {
             font-family: var(--mono); font-size: 0.85em;
-            background: #ececea; border-radius: 4px; padding: 0.1em 0.35em;
+            background: var(--surface-hover); border-radius: 4px; padding: 0.1em 0.35em;
             color: var(--ink); overflow-wrap: anywhere;
         }
 
@@ -309,7 +342,9 @@
            footer.liquid is written against Tailwind utilities, which this
            standalone page doesn't load; these rules cover exactly the classes
            that markup uses (plus sketch-styles.liquid for the doodles). */
-        footer.brand-color-background { position: relative; overflow: visible; padding: 1rem; }
+        /* The footer keeps its own light cream background; a thin light hairline
+           above it makes the dark-page/light-footer seam read as deliberate. */
+        footer.brand-color-background { position: relative; overflow: visible; padding: 1rem; box-shadow: 0 -1px 0 rgba(255, 255, 255, 0.18); }
         footer .mx-auto { margin-left: auto; margin-right: auto; }
         footer .max-w-7xl { max-width: 80rem; padding: 3rem 1rem; }
         footer .max-w-2xl { max-width: 42rem; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; }
@@ -330,7 +365,8 @@
         footer .hover\:text-stone-900:hover { color: #1c1917; }
         footer .hover\:text-red-500:hover { color: #ef4444; }
         footer p.text-center { margin-top: 2rem; text-align: center; }
-        footer a:focus-visible { outline: 2px solid var(--ink); outline-offset: 2px; }
+        /* The footer sits on its light background, so its focus ring stays dark. */
+        footer a:focus-visible { outline: 2px solid #16161a; outline-offset: 2px; }
         @media (min-width: 640px) {
             footer.brand-color-background { padding: 1.5rem; }
             footer .sm\:text-lg { font-size: 1.125rem; }
@@ -361,13 +397,10 @@
     <main class="wrap">
 
         <div class="topbar">
-            <span class="brandmark">
-                <span class="mark" aria-hidden="true">
-                    <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5.5v13l11-6.5z"/></svg>
-                </span>
-                Netflix Codes
-            </span>
-            <a href="/">&larr; coffeeandfun.com</a>
+            <a href="/" class="home-link" aria-label="Back to coffeeandfun.com">
+                <img src="/assets/images/coffee-and-fun-logo.png" alt="" width="40" height="40" decoding="async" />
+                <span class="tip" aria-hidden="true">Back to coffeeandfun.com</span>
+            </a>
         </div>
 
         <header>
