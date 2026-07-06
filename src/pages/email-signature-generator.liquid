@@ -1,509 +1,741 @@
 <!DOCTYPE html>
-<html class="scroll-smooth antialiased" lang="en" data-theme="retro">
+<html class="brand-color-background scroll-smooth antialiased" lang="en" data-theme="light" style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;">
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
 
-  <!-- Primary Meta Tags -->
-  <title>Email Signature Generator - Professional HTML Email Signatures | Free Tool</title>
-  <meta name="title" content="Email Signature Generator - Create Professional HTML Email Signatures" />
-  <meta name="description" content="Create professional HTML email signatures with photos, social icons, and multiple templates. Free, easy-to-use online tool. Copy and paste into Gmail, Outlook, and more." />
-  <meta name="keywords" content="email signature, signature generator, html signature, professional email, gmail signature, outlook signature" />
+  <title>Email Signature Generator - Free Professional Signatures | Coffee & Fun LLC</title>
+  <meta name="title" content="Email Signature Generator - Free Professional Signatures | Coffee & Fun LLC" />
+  <meta name="description" content="Create professional HTML email signatures with photos, social icons, and multiple templates. Live email preview, one-click copy, works with Gmail, Outlook, and Apple Mail. Free and easy to use." />
+  <meta name="keywords" content="email signature generator, html email signature, gmail signature, outlook signature, professional signature, signature maker, Coffee & Fun" />
   <meta name="author" content="Coffee & Fun LLC" />
   <meta name="robots" content="index, follow" />
 
   <link rel="canonical" href="https://www.coffeeandfun.com/email-signature-generator/" />
-
   <link rel="icon" href="/assets/images/favicon.png" sizes="any" />
   <link rel="apple-touch-icon" href="/assets/images/social/192.png" />
+  <link rel="icon" href="/assets/images/social/192.png" sizes="192x192" type="image/png" />
 
   <meta property="og:type" content="website" />
   <meta property="og:site_name" content="Coffee & Fun" />
-  <meta property="og:title" content="Email Signature Generator - Create Professional HTML Email Signatures" />
-  <meta property="og:description" content="Create professional HTML email signatures with photos, social icons, and multiple templates. Free, easy-to-use online tool. Copy and paste into Gmail, Outlook, and more." />
+  <meta property="og:title" content="Email Signature Generator - Free Professional Signatures" />
+  <meta property="og:description" content="Create professional HTML email signatures with a live email preview and one-click copy. Works with Gmail, Outlook, and Apple Mail." />
   <meta property="og:url" content="https://www.coffeeandfun.com/email-signature-generator/" />
   <meta property="og:image" content="https://www.coffeeandfun.com/assets/images/social/pages/email-signature-generator.png" />
   <meta property="og:image:width" content="1200" />
   <meta property="og:image:height" content="630" />
-  <meta property="og:image:alt" content="Email Signature Generator" />
+  <meta property="og:image:alt" content="Email Signature Generator by Coffee & Fun" />
   <meta property="og:locale" content="en_US" />
 
-  <!-- Twitter -->
   <meta name="twitter:card" content="summary_large_image" />
   <meta name="twitter:site" content="@bycoffeeandfun" />
   <meta name="twitter:creator" content="@bycoffeeandfun" />
-  <meta name="twitter:title" content="Email Signature Generator - Create Professional HTML Email Signatures" />
-  <meta name="twitter:description" content="Create professional HTML email signatures with photos, social icons, and multiple templates. Free, easy-to-use online tool. Copy and paste into Gmail, Outlook, and more." />
+  <meta name="twitter:title" content="Email Signature Generator - Free Professional Signatures" />
+  <meta name="twitter:description" content="Create professional HTML email signatures with a live email preview and one-click copy." />
   <meta name="twitter:image" content="https://www.coffeeandfun.com/assets/images/social/pages/email-signature-generator.png" />
-  <meta name="twitter:image:alt" content="Email Signature Generator - Create Professional HTML Email Signatures" />
+  <meta name="twitter:image:alt" content="Email Signature Generator by Coffee & Fun" />
   <meta name="twitter:domain" content="coffeeandfun.com" />
   <meta name="twitter:url" content="https://www.coffeeandfun.com/email-signature-generator/" />
 
+  <link rel="manifest" href="/assets/images/social/site.webmanifest" />
+  <meta name="theme-color" content="#fef5ec" />
 
-  <script src="https://cdn.tailwindcss.com"></script>
-  <link href="https://cdn.jsdelivr.net/npm/daisyui@4.4.24/dist/full.min.css" rel="stylesheet" type="text/css" />
+  {% bundledCss %}
+  {% include scripts.html %}
+  {% include sketch-styles.liquid %}
+
   <script src="https://unpkg.com/vue@3"></script>
-  <script src="https://js.stripe.com/v3/"></script>
 
   <style>
     [v-cloak] { display: none; }
-    
-    .drop-zone {
-      border: 2px dashed #d6d3d1;
-      transition: all 0.3s ease;
+
+    .sr-only {
+      position: absolute;
+      width: 1px;
+      height: 1px;
+      padding: 0;
+      margin: -1px;
+      overflow: hidden;
+      clip: rect(0, 0, 0, 0);
+      white-space: nowrap;
+      border: 0;
     }
-    
-    .drop-zone.drag-over {
+
+    fieldset.form-section {
+      background: white;
+      border-radius: 1rem;
+      padding: 1.5rem;
+      border: 1.5px solid #e7e0d8;
+      margin: 0;
+      min-width: 0;
+    }
+    legend.section-title {
+      float: left;
+      width: 100%;
+      padding: 0;
+      font-size: 0.8rem;
+      font-weight: 700;
+      color: var(--color-caramel);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      margin-bottom: 1rem;
+    }
+    legend.section-title + * { clear: both; }
+
+    .form-label {
+      display: block;
+      font-size: 0.8rem;
+      font-weight: 600;
+      color: var(--color-espresso);
+      margin-bottom: 0.35rem;
+      text-transform: uppercase;
+      letter-spacing: 0.03em;
+    }
+    .optional-tag {
+      font-weight: 400;
+      text-transform: none;
+      letter-spacing: 0;
+      color: #767676;
+    }
+
+    .sig-input {
+      width: 100%;
+      padding: 0.6rem 0.85rem;
+      border: 1.5px solid #e7e0d8;
+      border-radius: 0.5rem;
+      font-size: 0.925rem;
+      color: var(--color-cocoa);
+      background: #fefcfa;
+      transition: border-color 0.2s;
+      outline: none;
+    }
+    .sig-input:focus {
       border-color: var(--color-mocha);
-      background-color: #fef3e2;
+      box-shadow: 0 0 0 3px rgba(163, 105, 66, 0.18);
     }
+    .sig-input::placeholder { color: #8a6a44; }
 
-    .signature-preview {
-      font-family: Arial, Helvetica, sans-serif;
-      line-height: 1.4;
-    }
-
-    .template-card {
+    .btn-brand {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.4rem;
+      padding: 0.6rem 1.25rem;
+      border-radius: 9999px;
+      font-size: 0.875rem;
+      font-weight: 600;
+      border: none;
       cursor: pointer;
-      transition: all 0.3s ease;
+      transition: all 0.2s;
+    }
+    .btn-brand:focus-visible {
+      outline: 2px solid var(--color-espresso);
+      outline-offset: 2px;
+    }
+    .btn-primary-brand { background: var(--color-caramel); color: white; }
+    .btn-primary-brand:hover { background: var(--color-espresso); }
+    .btn-primary-brand:disabled { opacity: 0.45; cursor: not-allowed; }
+    .btn-secondary-brand {
+      background: transparent;
+      color: var(--color-caramel);
+      border: 1.5px solid var(--color-mocha);
+    }
+    .btn-secondary-brand:hover { background: var(--color-caramel); color: white; }
+    .btn-ghost-brand {
+      background: transparent;
+      color: var(--color-caramel);
+      border: 1.5px solid #e7e0d8;
+    }
+    .btn-ghost-brand:hover { border-color: var(--color-mocha); color: var(--color-espresso); }
+    .btn-sm-brand { padding: 0.35rem 0.85rem; font-size: 0.8rem; }
+
+    /* Template picker cards */
+    .template-card {
+      width: 100%;
+      text-align: left;
+      background: #fefcfa;
+      border: 2px solid #e7e0d8;
+      border-radius: 0.85rem;
+      padding: 1rem;
+      cursor: pointer;
+      transition: border-color 0.15s, transform 0.15s;
+    }
+    .template-card:hover { transform: translateY(-2px); border-color: var(--color-mocha); }
+    .template-card:focus-visible {
+      outline: 2px solid var(--color-espresso);
+      outline-offset: 2px;
+    }
+    .template-card[aria-pressed="true"] {
+      border: 2px solid var(--color-mocha);
+      box-shadow: 0 0 0 3px rgba(163, 105, 66, 0.18);
+      background: #fff;
     }
 
-    .template-card:hover {
-      transform: translateY(-4px);
+    /* Collapsible sections */
+    details.sig-details { border-top: 1.5px dashed #e7e0d8; padding-top: 0.85rem; margin-top: 0.85rem; }
+    details.sig-details summary {
+      cursor: pointer;
+      font-size: 0.8rem;
+      font-weight: 700;
+      color: var(--color-caramel);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      list-style: none;
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+    }
+    details.sig-details summary::-webkit-details-marker { display: none; }
+    details.sig-details summary::before { content: '+'; font-size: 1rem; line-height: 1; }
+    details.sig-details[open] summary::before { content: '\2212'; }
+    details.sig-details summary:focus-visible {
+      outline: 2px solid var(--color-espresso);
+      outline-offset: 2px;
+      border-radius: 4px;
+    }
+    details.sig-details > div { margin-top: 0.85rem; }
+
+    /* Social add-pills */
+    .social-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.3rem;
+      padding: 0.35rem 0.8rem;
+      border-radius: 9999px;
+      border: 1.5px dashed #d3c7b6;
+      background: transparent;
+      font-size: 0.8rem;
+      font-weight: 600;
+      color: var(--color-caramel);
+      cursor: pointer;
+    }
+    .social-pill:hover { border-color: var(--color-mocha); color: var(--color-espresso); }
+    .social-pill:focus-visible { outline: 2px solid var(--color-espresso); outline-offset: 2px; }
+
+    /* Photo drop zone */
+    .drop-zone {
+      border: 2px dashed #d6cbb8;
+      border-radius: 0.85rem;
+      transition: border-color 0.2s, background 0.2s;
+      display: block;
+    }
+    .drop-zone.drag-over, .drop-zone:hover { border-color: var(--color-mocha); background: #fef3e2; }
+    .drop-zone:focus-within {
+      outline: 2px solid var(--color-espresso);
+      outline-offset: 2px;
     }
 
-    .template-card.active {
-      border: 3px solid var(--color-mocha);
-      box-shadow: 0 0 0 3px rgba(163, 105, 66, 0.15);
+    /* ====== The email compose window ====== */
+    .compose-window {
+      background: #ffffff;
+      border-radius: 0.9rem;
+      border: 1.5px solid #ddd3c6;
+      box-shadow: 0 18px 40px -18px rgba(61, 43, 31, 0.35);
+      overflow: hidden;
+    }
+    .compose-chrome {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      background: #f4ede3;
+      border-bottom: 1.5px solid #e7dccb;
+      padding: 0.6rem 0.9rem;
+    }
+    .compose-dot { width: 11px; height: 11px; border-radius: 50%; }
+    .compose-title {
+      flex: 1;
+      text-align: center;
+      font-size: 0.78rem;
+      font-weight: 600;
+      color: #7c6f5e;
+      letter-spacing: 0.02em;
+      margin-right: 2.4rem;
+    }
+    .compose-field {
+      display: flex;
+      gap: 0.5rem;
+      padding: 0.5rem 1rem;
+      border-bottom: 1px solid #f0e9dd;
+      font-size: 0.82rem;
+      color: #6b6257;
+    }
+    .compose-field .cf-label { color: #a39682; min-width: 3.4rem; }
+    .compose-body {
+      padding: 1rem 1.1rem 1.35rem;
+      font-size: 0.9rem;
+      color: #44403c;
+      line-height: 1.55;
+    }
+    .compose-sig { margin-top: 0.9rem; position: relative; }
+    .sample-badge {
+      position: absolute;
+      top: -0.6rem;
+      right: 0;
+      background: var(--color-coral-deep);
+      color: #fff;
+      font-size: 0.62rem;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      padding: 0.2rem 0.6rem;
+      border-radius: 9999px;
+      text-transform: uppercase;
+    }
+    .signature-preview { font-family: Arial, Helvetica, sans-serif; line-height: 1.4; overflow-x: auto; }
+
+    /* Setup tabs */
+    .setup-tab {
+      padding: 0.45rem 0.9rem;
+      border-radius: 9999px;
+      font-size: 0.8rem;
+      font-weight: 600;
+      border: 1.5px solid #e7e0d8;
+      background: transparent;
+      color: var(--color-caramel);
+      cursor: pointer;
+    }
+    .setup-tab:hover { border-color: var(--color-mocha); }
+    .setup-tab:focus-visible { outline: 2px solid var(--color-espresso); outline-offset: 2px; }
+    .setup-tab[aria-selected="true"] {
+      background: var(--color-caramel);
+      border-color: var(--color-caramel);
+      color: #fff;
+    }
+
+    .toast-msg {
+      position: fixed;
+      bottom: 1.5rem;
+      right: 1.5rem;
+      max-width: 22rem;
+      padding: 0.75rem 1.25rem;
+      border-radius: 0.5rem;
+      font-size: 0.875rem;
+      font-weight: 500;
+      color: white;
+      background: var(--color-caramel);
+      box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+      z-index: 999;
+      animation: toastIn 0.3s ease;
+    }
+    @keyframes toastIn {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .mobile-actionbar {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 1rem;
+      padding: 0.75rem 1.25rem calc(0.75rem + env(safe-area-inset-bottom));
+      background: white;
+      border-top: 1.5px solid #e7e0d8;
+      z-index: 50;
+    }
+    @media (min-width: 1024px) { .mobile-actionbar { display: none; } }
+    @media (max-width: 1023px) {
+      #main-content { padding-bottom: 6.5rem !important; }
+      .toast-msg { bottom: 5.5rem; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      html { scroll-behavior: auto !important; }
+      .toast-msg { animation: none; }
+      .template-card, .drop-zone, .btn-brand { transition: none; }
+      .template-card:hover { transform: none; }
     }
   </style>
-    {% include sketch-styles.liquid %}
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebApplication",
+    "name": "Email Signature Generator",
+    "description": "Create professional HTML email signatures with photos, social icons, and multiple templates. Live email preview and one-click copy for Gmail, Outlook, and Apple Mail.",
+    "url": "https://www.coffeeandfun.com/email-signature-generator/",
+    "applicationCategory": "BusinessApplication",
+    "operatingSystem": "Web Browser",
+    "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" },
+    "featureList": ["Six signature templates", "Live email preview", "Rich one-click copy for Gmail, Outlook and Apple Mail", "Copy HTML source and download .html for Thunderbird", "Photo support with hosted-image guidance", "Social links", "Autosave", "Local processing"],
+    "creator": {
+      "@type": "Organization",
+      "name": "Coffee & Fun LLC",
+      "url": "https://www.coffeeandfun.com"
+    }
+  }
+  </script>
 </head>
 
-<body class="bg-base-100 min-h-screen">
+<body>
   {% assign showFun = true %}
   {% assign showMiddleBadgeWithText = true %}
   {% include header.liquid %}
 
-  <main v-cloak id="main-content" class="container mx-auto max-w-7xl py-12 px-6">
+  <main v-cloak id="main-content" class="mx-auto max-w-7xl py-12 px-4 sm:px-6">
 
     <!-- Header -->
-    <header class="text-center mb-12">
+    <header class="text-center mb-10">
       <h1 class="brand-heading text-3xl sm:text-4xl lg:text-5xl leading-[1.3] sm:leading-[1.3] mb-3">
         Email Signature Generator
       </h1>
-      <p class="text-lg text-base-content/70">
-        Create professional email signatures in seconds
+      <p class="text-lg text-stone-600 mb-4">
+        Type your details, watch the email preview update, copy it into Gmail or Outlook. Done.
       </p>
+      <div class="flex gap-3 justify-center flex-wrap items-center">
+        <span class="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full text-sm font-medium text-emerald-800 bg-emerald-50 border border-emerald-200">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+          Everything stays in your browser
+        </span>
+        <button @click="loadExample" class="btn-brand btn-ghost-brand btn-sm-brand">Try an example</button>
+      </div>
     </header>
 
-    <!-- Premium Access Banner (if not paid) -->
-    <div v-if="!hasPremiumAccess" class="bg-gradient-to-r from-[var(--color-mocha)] to-[var(--color-coral-deep)] rounded-2xl shadow-xl p-8 mb-8 text-white">
-      <div class="flex flex-col md:flex-row items-center justify-between gap-6">
+    <!-- Screen reader announcements -->
+    <div class="sr-only" role="status" aria-live="polite">{% raw %}{{ announcement }}{% endraw %}</div>
+
+    <!-- Premium banner -->
+    <div v-if="!hasPremiumAccess" class="rounded-2xl shadow-xl p-6 sm:p-8 mb-8 text-white" style="background: linear-gradient(120deg, var(--color-mocha), var(--color-coral-deep));">
+      <div class="flex flex-col md:flex-row items-center justify-between gap-5">
         <div>
-          <h2 class="text-2xl font-bold mb-2">✨ Unlock Premium Templates</h2>
-          <p class="text-white/85">Get access to all premium templates, advanced customization, and more for just $5</p>
+          <h2 class="text-xl sm:text-2xl font-bold mb-1"><span aria-hidden="true">✨</span> Unlock all six templates</h2>
+          <p class="text-white">Corporate, Creative, Elegant and Tech templates plus custom colors — one-time $5.</p>
         </div>
-        <button 
+        <button
           @click="initializeStripePayment"
           :disabled="isProcessingPayment"
-          class="px-8 py-4 bg-white text-[var(--color-espresso)] rounded-2xl font-bold hover:bg-gray-100 transition-colors whitespace-nowrap disabled:opacity-50">
-          <span v-if="!isProcessingPayment">🚀 Get Premium Access - $5</span>
-          <span v-else>Processing...</span>
+          class="px-7 py-3.5 bg-white text-espresso rounded-full font-bold hover:bg-cream transition-colors whitespace-nowrap disabled:opacity-50 focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-transparent">
+          <span v-if="!isProcessingPayment">Get premium — $5</span>
+          <span v-else>Redirecting…</span>
         </button>
       </div>
     </div>
 
-    <!-- Success Message -->
-    <div v-if="hasPremiumAccess" class="bg-green-50 border-l-4 border-green-400 p-6 rounded-2xl mb-8">
-      <div class="flex items-center">
-        <svg class="w-6 h-6 text-green-600 mr-3" fill="currentColor" viewBox="0 0 20 20">
-          <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd" />
-        </svg>
-        <div>
-          <h3 class="text-lg font-bold text-green-800">Premium Access Activated! 🎉</h3>
-          <p class="text-green-700">You now have access to all premium templates and features.</p>
-        </div>
-      </div>
+    <div v-else class="bg-emerald-50 border-l-4 border-emerald-400 p-5 rounded-xl mb-8">
+      <h2 class="text-lg font-bold text-emerald-900">Premium unlocked — all templates and colors are yours.</h2>
     </div>
 
     <div class="grid lg:grid-cols-2 gap-8">
-      
-      <!-- Left Column - Form -->
+
+      <!-- LEFT: Form -->
       <div class="space-y-6">
-        
-        <!-- Template Selection -->
-        <div class="bg-white rounded-2xl shadow-xl p-8">
-          <h2 class="text-2xl font-bold text-gray-900 mb-6">Choose Template</h2>
-          
-          <div class="grid grid-cols-2 gap-4">
-            <div v-for="template in templates" 
+
+        <!-- Template picker -->
+        <fieldset class="form-section">
+          <legend class="section-title">Template</legend>
+          <div class="grid grid-cols-2 gap-3" role="group" aria-label="Choose a signature template">
+            <button v-for="template in templates"
                  :key="template.id"
+                 type="button"
                  @click="selectTemplate(template)"
-                 :class="{'active': selectedTemplate && selectedTemplate.id === template.id}"
-                 class="template-card bg-gray-50 rounded-2xl p-4 border-2 border-gray-200">
-              <div class="text-3xl mb-2">{% raw %}{{ template.icon }}{% endraw %}</div>
-              <h3 class="font-bold text-gray-900">{% raw %}{{ template.name }}{% endraw %}</h3>
-              <p class="text-xs text-gray-600 mt-1">{% raw %}{{ template.description }}{% endraw %}</p>
-              <span v-if="template.premium && !hasPremiumAccess" 
-                    class="inline-block mt-2 px-2 py-1 bg-amber-100 text-[var(--color-espresso)] text-xs font-bold rounded-full">
-                Premium
+                 :aria-pressed="selectedTemplate && selectedTemplate.id === template.id ? 'true' : 'false'"
+                 class="template-card">
+              <span class="block text-2xl mb-1.5" aria-hidden="true">{% raw %}{{ template.icon }}{% endraw %}</span>
+              <span class="block font-bold text-stone-900">{% raw %}{{ template.name }}{% endraw %}</span>
+              <span class="block text-xs text-stone-600 mt-0.5">{% raw %}{{ template.description }}{% endraw %}</span>
+              <span v-if="template.premium && !hasPremiumAccess"
+                    class="inline-block mt-2 px-2 py-0.5 bg-amber-100 text-espresso text-xs font-bold rounded-full">
+                Premium<span class="sr-only"> — requires upgrade</span>
               </span>
-            </div>
-          </div>
-        </div>
-
-        <!-- Personal Information -->
-        <div class="bg-white rounded-2xl shadow-xl p-8">
-          <h2 class="text-2xl font-bold text-gray-900 mb-6">Personal Information</h2>
-          
-          <div class="space-y-4">
-            <div>
-              <label class="block text-sm font-semibold text-gray-700 mb-2">Full Name *</label>
-              <input v-model="formData.name" 
-                     type="text" 
-                     placeholder="John Doe"
-                     class="w-full px-4 py-3 border-2 border-gray-200 rounded-2xl focus:border-blue-500 focus:outline-none transition-colors">
-            </div>
-
-            <div>
-              <label class="block text-sm font-semibold text-gray-700 mb-2">Job Title</label>
-              <input v-model="formData.title" 
-                     type="text" 
-                     placeholder="Senior Developer"
-                     class="w-full px-4 py-3 border-2 border-gray-200 rounded-2xl focus:border-blue-500 focus:outline-none transition-colors">
-            </div>
-
-            <div>
-              <label class="block text-sm font-semibold text-gray-700 mb-2">Company</label>
-              <input v-model="formData.company" 
-                     type="text" 
-                     placeholder="Coffee & Fun LLC"
-                     class="w-full px-4 py-3 border-2 border-gray-200 rounded-2xl focus:border-blue-500 focus:outline-none transition-colors">
-            </div>
-
-            <div>
-              <label class="block text-sm font-semibold text-gray-700 mb-2">Email *</label>
-              <input v-model="formData.email" 
-                     type="email" 
-                     placeholder="john@example.com"
-                     class="w-full px-4 py-3 border-2 border-gray-200 rounded-2xl focus:border-blue-500 focus:outline-none transition-colors">
-            </div>
-
-            <div>
-              <label class="block text-sm font-semibold text-gray-700 mb-2">Phone</label>
-              <input v-model="formData.phone" 
-                     type="tel" 
-                     placeholder="+1 (555) 123-4567"
-                     class="w-full px-4 py-3 border-2 border-gray-200 rounded-2xl focus:border-blue-500 focus:outline-none transition-colors">
-            </div>
-
-            <div>
-              <label class="block text-sm font-semibold text-gray-700 mb-2">Website</label>
-              <input v-model="formData.website" 
-                     type="url" 
-                     placeholder="https://example.com"
-                     class="w-full px-4 py-3 border-2 border-gray-200 rounded-2xl focus:border-blue-500 focus:outline-none transition-colors">
-            </div>
-
-            <div>
-              <label class="block text-sm font-semibold text-gray-700 mb-2">Address</label>
-              <input v-model="formData.address" 
-                     type="text" 
-                     placeholder="123 Main St, City, State 12345"
-                     class="w-full px-4 py-3 border-2 border-gray-200 rounded-2xl focus:border-blue-500 focus:outline-none transition-colors">
-            </div>
-          </div>
-        </div>
-
-        <!-- Custom Fields -->
-        <div class="bg-white rounded-2xl shadow-xl p-8">
-          <h2 class="text-2xl font-bold text-gray-900 mb-6">Additional Information (Optional)</h2>
-          
-          <div class="space-y-4">
-            <div>
-              <label class="block text-sm font-semibold text-gray-700 mb-2">Department</label>
-              <input v-model="formData.department" 
-                     type="text" 
-                     placeholder="Engineering, Marketing, Sales, etc."
-                     class="w-full px-4 py-3 border-2 border-gray-200 rounded-2xl focus:border-blue-500 focus:outline-none transition-colors">
-            </div>
-
-            <div>
-              <label class="block text-sm font-semibold text-gray-700 mb-2">Pronouns</label>
-              <input v-model="formData.pronouns" 
-                     type="text" 
-                     placeholder="He/Him, She/Her, They/Them"
-                     class="w-full px-4 py-3 border-2 border-gray-200 rounded-2xl focus:border-blue-500 focus:outline-none transition-colors">
-            </div>
-
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-              <div>
-                <label class="block text-sm font-semibold text-gray-700 mb-2">Timezone</label>
-                <input v-model="formData.timezone" 
-                       type="text" 
-                       placeholder="PST (UTC-8), EST (UTC-5), etc."
-                       class="w-full px-4 py-3 border-2 border-gray-200 rounded-2xl focus:border-blue-500 focus:outline-none transition-colors">
-              </div>
-
-              <div>
-                <label class="block text-sm font-semibold text-gray-700 mb-2">Office Hours</label>
-                <input v-model="formData.officeHours" 
-                       type="text" 
-                       placeholder="9 AM - 5 PM"
-                       class="w-full px-4 py-3 border-2 border-gray-200 rounded-2xl focus:border-blue-500 focus:outline-none transition-colors">
-              </div>
-            </div>
-
-            <div>
-              <label class="block text-sm font-semibold text-gray-700 mb-2">Secondary Email</label>
-              <input v-model="formData.secondaryEmail" 
-                     type="email" 
-                     placeholder="alternate@example.com"
-                     class="w-full px-4 py-3 border-2 border-gray-200 rounded-2xl focus:border-blue-500 focus:outline-none transition-colors">
-            </div>
-
-            <div>
-              <label class="block text-sm font-semibold text-gray-700 mb-2">Calendar Booking Link</label>
-              <input v-model="formData.calendarLink" 
-                     type="url" 
-                     placeholder="https://calendly.com/yourname"
-                     class="w-full px-4 py-3 border-2 border-gray-200 rounded-2xl focus:border-blue-500 focus:outline-none transition-colors">
-              <p class="text-xs text-gray-500 mt-1">Calendly, Cal.com, or your booking link</p>
-            </div>
-          </div>
-        </div>
-
-        <!-- Photo Upload -->
-        <div class="bg-white rounded-2xl shadow-xl p-8">
-          <h2 class="text-2xl font-bold text-gray-900 mb-6">Profile Photo (Optional)</h2>
-          
-          <div v-if="!uploadedPhoto" 
-               @drop.prevent="handlePhotoDrop"
-               @dragover.prevent="isPhotoUploading = true"
-               @dragleave="isPhotoUploading = false"
-               :class="{'drag-over': isPhotoUploading}"
-               class="drop-zone rounded-2xl p-8 text-center cursor-pointer"
-               @click="$refs.photoInput.click()">
-            
-            <svg class="w-12 h-12 mx-auto text-gray-400 mb-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" 
-                    d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
-            </svg>
-            
-            <p class="text-gray-600 font-semibold mb-2">Upload Profile Photo</p>
-            <p class="text-sm text-gray-400">PNG, JPG (Square image recommended)</p>
-            
-            <input
-              ref="photoInput"
-              type="file"
-              @change="handlePhotoSelect"
-              accept="image/png,image/jpeg,image/jpg"
-              aria-label="Upload a profile photo"
-              class="hidden" />
-          </div>
-
-          <div v-else class="flex items-center justify-between bg-gray-50 rounded-2xl p-4">
-            <div class="flex items-center gap-4">
-              <img :src="uploadedPhoto" 
-                   alt="Profile" 
-                   class="w-16 h-16 rounded-full object-cover border-2 border-gray-200" />
-              <span class="text-sm text-gray-600">Profile photo uploaded</span>
-            </div>
-            <button 
-              @click="removePhoto"
-              class="px-4 py-2 bg-red-500 hover:bg-red-600 text-white rounded-2xl font-semibold transition-colors text-sm">
-              Remove
             </button>
           </div>
-        </div>
+        </fieldset>
 
-        <!-- Social Links -->
-        <div class="bg-white rounded-2xl shadow-xl p-8">
-          <h2 class="text-2xl font-bold text-gray-900 mb-6">Social Links (Optional)</h2>
-          
+        <!-- About you -->
+        <fieldset class="form-section">
+          <legend class="section-title">About You <span class="optional-tag" aria-hidden="true">— saved automatically</span></legend>
           <div class="space-y-4">
-            <div v-for="social in socialLinks" :key="social.id" class="flex items-center gap-3">
-              <div class="w-10 h-10 flex items-center justify-center text-2xl">
-                {% raw %}{{ social.icon }}{% endraw %}
+            <div>
+              <label class="form-label" for="sig-name">Full Name *</label>
+              <input id="sig-name" v-model="formData.name" type="text" placeholder="Alex Example" autocomplete="name" class="sig-input" />
+            </div>
+            <div class="grid sm:grid-cols-2 gap-4">
+              <div>
+                <label class="form-label" for="sig-title">Job Title</label>
+                <input id="sig-title" v-model="formData.title" type="text" placeholder="Product Designer" autocomplete="organization-title" class="sig-input" />
               </div>
-              <div class="flex-1">
-                <label class="block text-xs font-semibold text-gray-600 mb-1">{% raw %}{{ social.label }}{% endraw %}</label>
-                <input v-model="formData.social[social.id]" 
-                       type="url" 
-                       :placeholder="social.placeholder"
-                       class="w-full px-4 py-3 border-2 border-gray-200 rounded-2xl focus:border-blue-500 focus:outline-none transition-colors">
+              <div>
+                <label class="form-label" for="sig-company">Company</label>
+                <input id="sig-company" v-model="formData.company" type="text" placeholder="Example Studio" autocomplete="organization" class="sig-input" />
               </div>
             </div>
-          </div>
-        </div>
+            <div>
+              <label class="form-label" for="sig-email">Email *</label>
+              <input id="sig-email" v-model="formData.email" type="email" placeholder="alex@example.com" autocomplete="email" inputmode="email" class="sig-input" />
+            </div>
 
-        <!-- Color Customization (Premium) -->
-        <div v-if="hasPremiumAccess" class="bg-white rounded-2xl shadow-xl p-8">
-          <h2 class="text-2xl font-bold text-gray-900 mb-6">Color Customization</h2>
-          
+            <details class="sig-details" :open="openMore" @toggle="openMore = $event.target.open">
+              <summary>More contact details</summary>
+              <div class="space-y-4">
+                <div class="grid sm:grid-cols-2 gap-4">
+                  <div>
+                    <label class="form-label" for="sig-phone">Phone</label>
+                    <input id="sig-phone" v-model="formData.phone" type="tel" placeholder="+1 (555) 010-1234" autocomplete="tel" inputmode="tel" class="sig-input" />
+                  </div>
+                  <div>
+                    <label class="form-label" for="sig-website">Website</label>
+                    <input id="sig-website" v-model="formData.website" type="url" placeholder="https://example.com" autocomplete="url" inputmode="url" class="sig-input" />
+                  </div>
+                </div>
+                <div>
+                  <label class="form-label" for="sig-address">Address</label>
+                  <input id="sig-address" v-model="formData.address" type="text" placeholder="123 Main St, City, State" autocomplete="street-address" class="sig-input" />
+                </div>
+              </div>
+            </details>
+
+            <details class="sig-details" :open="openExtras" @toggle="openExtras = $event.target.open">
+              <summary>Extras <span class="optional-tag" style="text-transform:none;">(pronouns, calendar, hours)</span></summary>
+              <div class="space-y-4">
+                <div class="grid sm:grid-cols-2 gap-4">
+                  <div>
+                    <label class="form-label" for="sig-pronouns">Pronouns</label>
+                    <input id="sig-pronouns" v-model="formData.pronouns" type="text" placeholder="They/Them" class="sig-input" />
+                  </div>
+                  <div>
+                    <label class="form-label" for="sig-department">Department</label>
+                    <input id="sig-department" v-model="formData.department" type="text" placeholder="Engineering" class="sig-input" />
+                  </div>
+                </div>
+                <div>
+                  <label class="form-label" for="sig-calendar">Calendar Booking Link</label>
+                  <input id="sig-calendar" v-model="formData.calendarLink" type="url" placeholder="https://calendly.com/yourname" inputmode="url" class="sig-input" aria-describedby="sig-calendar-hint" />
+                  <p id="sig-calendar-hint" class="text-xs text-stone-500 mt-1">Calendly, Cal.com, or any booking link</p>
+                </div>
+                <div class="grid sm:grid-cols-2 gap-4">
+                  <div>
+                    <label class="form-label" for="sig-hours">Office Hours</label>
+                    <input id="sig-hours" v-model="formData.officeHours" type="text" placeholder="9 AM – 5 PM" class="sig-input" />
+                  </div>
+                  <div>
+                    <label class="form-label" for="sig-timezone">Timezone</label>
+                    <input id="sig-timezone" v-model="formData.timezone" type="text" placeholder="PST (UTC-8)" class="sig-input" />
+                  </div>
+                </div>
+                <div>
+                  <label class="form-label" for="sig-email2">Secondary Email</label>
+                  <input id="sig-email2" v-model="formData.secondaryEmail" type="email" placeholder="alternate@example.com" inputmode="email" class="sig-input" />
+                </div>
+              </div>
+            </details>
+          </div>
+        </fieldset>
+
+        <!-- Photo -->
+        <fieldset class="form-section">
+          <legend class="section-title">Photo <span class="optional-tag">(optional)</span></legend>
+
+          <div class="space-y-4">
+            <div>
+              <label class="form-label" for="sig-photo-url">Hosted Image URL <span class="optional-tag">(best for Gmail &amp; Outlook)</span></label>
+              <input id="sig-photo-url" v-model="formData.photoUrl" type="url" placeholder="https://yoursite.com/photo.jpg" inputmode="url" class="sig-input" aria-describedby="sig-photo-hint" />
+              <p id="sig-photo-hint" class="text-xs text-stone-500 mt-1">A square image that's already online — e.g. from your website or Gravatar.</p>
+            </div>
+
+            <label v-if="!uploadedPhoto" for="photo-input"
+                 @drop.prevent="handlePhotoDrop"
+                 @dragover.prevent="isPhotoUploading = true"
+                 @dragleave="isPhotoUploading = false"
+                 :class="{ 'drag-over': isPhotoUploading }"
+                 class="drop-zone p-6 text-center cursor-pointer">
+              <svg class="w-10 h-10 mx-auto text-stone-500 mb-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                      d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
+              </svg>
+              <span class="block text-stone-700 font-semibold mb-1">…or upload a photo</span>
+              <span class="block text-sm text-stone-500">PNG or JPG — we'll crop it square automatically</span>
+              <input
+                id="photo-input"
+                ref="photoInput"
+                type="file"
+                @change="handlePhotoSelect"
+                accept="image/png,image/jpeg,image/jpg"
+                class="sr-only" />
+            </label>
+
+            <div v-else class="flex items-center justify-between bg-cream/60 rounded-xl p-3 border border-[#e7e0d8]">
+              <div class="flex items-center gap-3">
+                <img :src="uploadedPhoto" alt="Your uploaded profile photo" class="w-14 h-14 rounded-full object-cover border-2 border-white shadow" />
+                <span class="text-sm text-stone-700">Photo uploaded &amp; squared</span>
+              </div>
+              <button @click="removePhoto" class="btn-brand btn-ghost-brand btn-sm-brand">Remove</button>
+            </div>
+
+            <div v-if="uploadedPhoto && !formData.photoUrl" class="rounded-xl bg-amber-50 border border-amber-200 p-3 text-sm text-amber-900">
+              <strong>Heads up:</strong> Gmail and Outlook.com usually remove photos embedded this way. For those, paste a hosted image URL above — or add the photo with Gmail's own image button after pasting.
+            </div>
+          </div>
+        </fieldset>
+
+        <!-- Social links -->
+        <fieldset class="form-section">
+          <legend class="section-title">Social Links <span class="optional-tag">(optional)</span></legend>
+
+          <div class="space-y-3">
+            <div v-for="social in shownSocials" :key="social.id" class="flex items-center gap-2">
+              <span class="w-8 text-xl text-center" aria-hidden="true">{% raw %}{{ social.icon }}{% endraw %}</span>
+              <div class="flex-1">
+                <label :for="'social-' + social.id" class="form-label" style="margin-bottom: 0.2rem;">{% raw %}{{ social.label }}{% endraw %}</label>
+                <input :id="'social-' + social.id"
+                       v-model="formData.social[social.id]"
+                       type="url"
+                       inputmode="url"
+                       :placeholder="social.placeholder"
+                       class="sig-input" />
+              </div>
+              <button @click="hideSocial(social.id)" class="btn-brand btn-ghost-brand btn-sm-brand self-end" :aria-label="'Remove ' + social.label + ' field'">&times;</button>
+            </div>
+          </div>
+
+          <div v-if="hiddenSocials.length" class="flex flex-wrap gap-2 mt-4">
+            <button v-for="social in hiddenSocials" :key="social.id"
+              @click="showSocial(social.id)"
+              class="social-pill"
+              :aria-label="'Add ' + social.label + ' field'">
+              <span aria-hidden="true">+</span> {% raw %}{{ social.label }}{% endraw %}
+            </button>
+          </div>
+        </fieldset>
+
+        <!-- Colors (premium) -->
+        <fieldset v-if="hasPremiumAccess" class="form-section">
+          <legend class="section-title">Accent Colors</legend>
           <div class="grid grid-cols-2 gap-4">
             <div>
-              <label class="block text-sm font-semibold text-gray-700 mb-2">Primary Color</label>
-              <input v-model="formData.primaryColor" 
-                     type="color" 
-                     class="w-full h-12 rounded-2xl cursor-pointer border-2 border-gray-200">
+              <label class="form-label" for="sig-primary-color">Primary Color</label>
+              <input id="sig-primary-color" v-model="formData.primaryColor" type="color" class="w-full h-12 rounded-xl cursor-pointer border-2 border-[#e7e0d8]" />
             </div>
             <div>
-              <label class="block text-sm font-semibold text-gray-700 mb-2">Text Color</label>
-              <input v-model="formData.textColor" 
-                     type="color" 
-                     class="w-full h-12 rounded-2xl cursor-pointer border-2 border-gray-200">
+              <label class="form-label" for="sig-text-color">Text Color</label>
+              <input id="sig-text-color" v-model="formData.textColor" type="color" class="w-full h-12 rounded-xl cursor-pointer border-2 border-[#e7e0d8]" />
             </div>
           </div>
-        </div>
+        </fieldset>
 
-        <!-- Email Client Setup Guide -->
-        <div class="bg-white rounded-2xl shadow-xl p-8">
-          <h2 class="text-2xl font-bold text-gray-900 mb-6">📧 Email Client Setup Guide</h2>
-          
-          <!-- Gmail -->
-          <div class="mb-6 pb-6 border-b border-gray-200">
-            <h3 class="text-lg font-bold text-gray-900 mb-3 flex items-center gap-2">
-              <span>Gmail</span>
-            </h3>
-            <ol class="text-sm text-gray-700 space-y-2 list-decimal list-inside">
-              <li>Open <a href="https://mail.google.com/mail/u/0/#settings/general" target="_blank" class="text-blue-600 hover:underline">Gmail Settings</a></li>
-              <li>Click "See all settings" → Go to "General" tab</li>
-              <li>Scroll down to "Signature" section</li>
-              <li>Click "+ Create new" and give it a name</li>
-              <li>Click in the signature box and paste (Ctrl+V or Cmd+V)</li>
-              <li>Scroll down and click "Save Changes"</li>
-            </ol>
-            <div class="mt-3 bg-yellow-50 border-l-4 border-yellow-400 p-3 text-sm text-yellow-800">
-              <strong>Important:</strong> If images don't show, make sure "External images" is set to "Ask before displaying" or "Always display" in Gmail settings.
-            </div>
-          </div>
-
-          <!-- Outlook Web -->
-          <div class="mb-6 pb-6 border-b border-gray-200">
-            <h3 class="text-lg font-bold text-gray-900 mb-3">Outlook (Web)</h3>
-            <ol class="text-sm text-gray-700 space-y-2 list-decimal list-inside">
-              <li>Open <a href="https://outlook.office.com/mail/" target="_blank" class="text-blue-600 hover:underline">Outlook Web</a></li>
-              <li>Click ⚙️ (Settings) → View all Outlook settings</li>
-              <li>Go to "Compose and reply"</li>
-              <li>Under "Email signature", paste your signature</li>
-              <li>Enable "Automatically include my signature on new messages"</li>
-              <li>Click "Save"</li>
-            </ol>
-          </div>
-
-          <!-- Outlook Desktop -->
-          <div class="mb-6 pb-6 border-b border-gray-200">
-            <h3 class="text-lg font-bold text-gray-900 mb-3">Outlook (Desktop)</h3>
-            <ol class="text-sm text-gray-700 space-y-2 list-decimal list-inside">
-              <li>Open Outlook → File → Options → Mail</li>
-              <li>Click "Signatures..." button</li>
-              <li>Click "New" to create a new signature</li>
-              <li>Paste your signature in the editor</li>
-              <li>Set as default for new messages and replies</li>
-              <li>Click "OK"</li>
-            </ol>
-          </div>
-
-          <!-- Apple Mail -->
-          <div class="mb-6 pb-6 border-b border-gray-200">
-            <h3 class="text-lg font-bold text-gray-900 mb-3">Apple Mail</h3>
-            <ol class="text-sm text-gray-700 space-y-2 list-decimal list-inside">
-              <li>Open Mail → Settings (Cmd+,)</li>
-              <li>Go to "Signatures" tab</li>
-              <li>Select your email account</li>
-              <li>Click "+" to create new signature</li>
-              <li>Paste your signature</li>
-              <li>Uncheck "Always match my default font"</li>
-              <li>Close settings</li>
-            </ol>
-          </div>
-
-          <!-- Thunderbird -->
-          <div class="mb-6">
-            <h3 class="text-lg font-bold text-gray-900 mb-3">Thunderbird</h3>
-            <ol class="text-sm text-gray-700 space-y-2 list-decimal list-inside">
-              <li>Open Thunderbird → Settings → Account Settings</li>
-              <li>Select your email account</li>
-              <li>Check "Attach the signature from a file instead"</li>
-              <li>Save your signature as an HTML file and select it</li>
-              <li>Check "Use HTML" option</li>
-              <li>Click "OK"</li>
-            </ol>
-          </div>
-
-          <!-- Pro Tips -->
-          <div class="bg-green-50 rounded-2xl p-4">
-            <h3 class="font-bold text-green-900 mb-2">💡 Pro Tips:</h3>
-            <ul class="text-sm text-green-800 space-y-1 list-disc list-inside">
-              <li>Always send a test email to yourself first</li>
-              <li>Check how it looks on mobile devices</li>
-              <li>Keep images under 100KB for faster loading</li>
-              <li>Test with different email clients if possible</li>
-            </ul>
-          </div>
+        <div class="text-center">
+          <button @click="clearAllData" class="text-sm text-stone-500 underline hover:text-espresso focus:outline-none focus-visible:ring-2 focus-visible:ring-espresso rounded px-2 py-1">
+            Start over
+          </button>
         </div>
       </div>
 
-      <!-- Right Column - Preview & Export -->
-      <div class="space-y-6">
-        
-        <!-- Live Preview -->
-        <div class="bg-white rounded-2xl shadow-xl p-8 sticky top-6">
-          <div class="flex items-center justify-between mb-6">
-            <h2 class="text-2xl font-bold text-gray-900">Preview</h2>
-            <button 
-              @click="copySignature"
-              :disabled="!isSignatureValid"
-              class="px-6 py-3 bg-green-500 hover:bg-green-600 text-white rounded-2xl font-bold transition-colors disabled:opacity-50 disabled:cursor-not-allowed flex items-center gap-2">
-              <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z" />
-              </svg>
-              {% raw %}{{ copied ? 'Copied!' : 'Copy HTML' }}{% endraw %}
-            </button>
-          </div>
+      <!-- RIGHT: Live email preview -->
+      <div>
+        <div class="lg:sticky lg:top-6 space-y-5">
 
-          <!-- Preview Area -->
-          <div class="bg-gray-50 rounded-2xl p-6 min-h-[300px]">
-            <div v-if="isSignatureValid" 
-                 class="signature-preview"
-                 v-html="generatedSignature">
+          <!-- Compose window -->
+          <div class="compose-window" role="region" aria-label="Live signature preview, shown inside a sample email">
+            <div class="compose-chrome" aria-hidden="true">
+              <span class="compose-dot" style="background:#ff5f57;"></span>
+              <span class="compose-dot" style="background:#febc2e;"></span>
+              <span class="compose-dot" style="background:#28c840;"></span>
+              <span class="compose-title">New Message</span>
             </div>
-            <div v-else class="flex items-center justify-center h-[300px] text-gray-400">
-              <div class="text-center">
-                <svg class="w-16 h-16 mx-auto mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
-                </svg>
-                <p class="font-semibold">Fill in your details to see preview</p>
+            <div class="compose-field" aria-hidden="true">
+              <span class="cf-label">To:</span>
+              <span>Your future contacts</span>
+            </div>
+            <div class="compose-field" aria-hidden="true">
+              <span class="cf-label">Subject:</span>
+              <span>{% raw %}{{ isSignatureValid ? 'Check out my new signature' : 'Your signature will look like this' }}{% endraw %}</span>
+            </div>
+            <div class="compose-body">
+              <p aria-hidden="true">Hi there,</p>
+              <p aria-hidden="true" class="mt-2">Here's the new signature — it updates live as you type.</p>
+              <p aria-hidden="true" class="mt-2">Best,</p>
+              <div class="compose-sig">
+                <span v-if="!isSignatureValid" class="sample-badge">Sample</span>
+                <div class="signature-preview" v-html="previewSignature"></div>
               </div>
             </div>
           </div>
 
-          <!-- Instructions -->
-          <div class="mt-6 bg-blue-50 rounded-2xl p-4">
-            <h3 class="font-bold text-blue-900 mb-2">📋 Quick Setup:</h3>
-            <ol class="text-sm text-blue-800 space-y-1 list-decimal list-inside">
-              <li>Click "Copy HTML" button above</li>
-              <li>Open Gmail Settings → See all settings → Signature</li>
-              <li>Create new signature and paste (Ctrl+V / Cmd+V)</li>
-              <li>Save changes</li>
+          <!-- Copy actions -->
+          <div class="form-section" style="background: white; border-radius: 1rem; padding: 1.25rem; border: 1.5px solid #e7e0d8;">
+            <div class="flex flex-wrap gap-2.5 items-center">
+              <button
+                @click="copySignature"
+                :disabled="!isSignatureValid"
+                aria-describedby="copy-hint"
+                class="btn-brand btn-primary-brand" style="padding: 0.75rem 1.6rem; font-size: 0.95rem;">
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z" />
+                </svg>
+                {% raw %}{{ copied ? 'Copied!' : 'Copy signature' }}{% endraw %}
+              </button>
+              <button @click="copyHtmlCode" :disabled="!isSignatureValid" class="btn-brand btn-secondary-brand btn-sm-brand">Copy HTML code</button>
+              <button @click="downloadHtml" :disabled="!isSignatureValid" class="btn-brand btn-ghost-brand btn-sm-brand">Download .html</button>
+            </div>
+            <p id="copy-hint" class="text-sm text-stone-500 mt-3">
+              <template v-if="isSignatureValid">"Copy signature" pastes straight into Gmail, Outlook, or Apple Mail settings.</template>
+              <template v-else>Enter your name and email to enable copying — or <button @click="loadExample" class="underline text-espresso font-medium focus:outline-none focus-visible:ring-2 focus-visible:ring-espresso rounded">load the example</button>.</template>
+            </p>
+          </div>
+
+          <!-- Setup guide -->
+          <div style="background: white; border-radius: 1rem; padding: 1.25rem 1.5rem; border: 1.5px solid #e7e0d8;">
+            <h2 class="text-sm font-bold text-caramel uppercase tracking-wide mb-3">Add it to your email app</h2>
+            <div class="flex flex-wrap gap-2 mb-4" role="tablist" aria-label="Email client instructions">
+              <button v-for="client in setupClients" :key="client.id"
+                role="tab"
+                :aria-selected="setupTab === client.id ? 'true' : 'false'"
+                @click="setSetupTab(client.id)"
+                class="setup-tab">
+                {% raw %}{{ client.name }}{% endraw %}
+              </button>
+            </div>
+
+            <ol v-if="setupTab === 'gmail'" role="tabpanel" class="text-sm text-stone-700 space-y-1.5 list-decimal list-inside">
+              <li>Click "Copy signature" above</li>
+              <li>Open <a href="https://mail.google.com/mail/u/0/#settings/general" target="_blank" rel="noopener" class="text-espresso underline">Gmail Settings → General</a></li>
+              <li>Scroll to "Signature" → click "+ Create new"</li>
+              <li>Paste (Ctrl+V / Cmd+V) into the editor</li>
+              <li>Scroll down and hit "Save Changes"</li>
             </ol>
+            <ol v-if="setupTab === 'outlook'" role="tabpanel" class="text-sm text-stone-700 space-y-1.5 list-decimal list-inside">
+              <li>Click "Copy signature" above</li>
+              <li>Open <a href="https://outlook.office.com/mail/" target="_blank" rel="noopener" class="text-espresso underline">Outlook Web</a> → Settings → "Compose and reply"</li>
+              <li>Paste into the signature editor</li>
+              <li>Turn on "Automatically include my signature"</li>
+              <li>Save. (Outlook desktop: File → Options → Mail → Signatures, then paste)</li>
+            </ol>
+            <ol v-if="setupTab === 'apple'" role="tabpanel" class="text-sm text-stone-700 space-y-1.5 list-decimal list-inside">
+              <li>Click "Copy signature" above</li>
+              <li>Open Mail → Settings (Cmd+,) → "Signatures" tab</li>
+              <li>Pick your account, click "+"</li>
+              <li>Paste, then <strong>uncheck</strong> "Always match my default font"</li>
+              <li>Close settings — done</li>
+            </ol>
+            <ol v-if="setupTab === 'thunderbird'" role="tabpanel" class="text-sm text-stone-700 space-y-1.5 list-decimal list-inside">
+              <li>Click "Download .html" above</li>
+              <li>Thunderbird → Settings → Account Settings</li>
+              <li>Check "Attach the signature from a file instead"</li>
+              <li>Select the downloaded file, check "Use HTML"</li>
+              <li>Click OK</li>
+            </ol>
+
+            <p class="text-xs text-stone-500 mt-4 pt-3 border-t border-stone-100">
+              Tip: send yourself a test email first, and check it on your phone.
+            </p>
           </div>
         </div>
       </div>
     </div>
 
-    <!-- Clear All Button -->
-    <div class="text-center mt-8">
-      <button 
-        @click="clearAllData"
-        class="px-6 py-3 bg-gray-200 hover:bg-gray-300 text-gray-700 rounded-2xl font-semibold transition-colors">
-        🗑️ Clear All & Start Fresh
+    <!-- Mobile action bar -->
+    <div class="mobile-actionbar">
+      <span class="text-sm text-stone-600">{% raw %}{{ isSignatureValid ? 'Signature ready' : 'Add name + email' }}{% endraw %}</span>
+      <button @click="copySignature" :disabled="!isSignatureValid" class="btn-brand btn-primary-brand">
+        {% raw %}{{ copied ? 'Copied!' : 'Copy signature' }}{% endraw %}
       </button>
     </div>
 
-    <!-- Footer placeholder -->
+    <!-- Toast (live region stays mounted) -->
+    <div role="status" aria-live="polite">
+      <span v-if="toast" class="toast-msg">{% raw %}{{ toast }}{% endraw %}</span>
+    </div>
   </main>
 
   {% include modals.liquid %}
@@ -512,579 +744,687 @@
   <script>
     const { createApp } = Vue;
 
+    // ---------- Email-safe HTML helpers ----------
+    // Everything the generator emits must survive Gmail's sanitizer and
+    // Outlook desktop's Word rendering engine: nested tables only, styles
+    // repeated on every td/a, solid colors, web-safe font stacks, image
+    // width/height attributes, no gradients/border-radius-dependence.
+    const esc = (s) => String(s == null ? '' : s)
+      .replace(/&/g, '&amp;').replace(/</g, '&lt;')
+      .replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+
+    const safeUrl = (u) => {
+      u = String(u == null ? '' : u).trim();
+      if (!u) return '';
+      if (/^(https?:\/\/|mailto:|tel:)/i.test(u)) return u;
+      return 'https://' + u.replace(/^\/+/, '');
+    };
+
+    const FONTS = {
+      arial: "Arial, Helvetica, sans-serif",
+      segoe: "'Segoe UI', Arial, Helvetica, sans-serif",
+      georgia: "Georgia, 'Times New Roman', serif",
+      times: "'Times New Roman', Georgia, serif",
+      mono: "'Courier New', Courier, monospace"
+    };
+
+    const td = (fam, size, color, extra) =>
+      `font-family:${fam};font-size:${size}px;color:${color};${extra || ''}`;
+
+    // Rows-table for contact lines: padding on td is the only spacing
+    // primitive Word respects.
+    const rowsTable = (rows) =>
+      rows.length
+        ? `<table cellpadding="0" cellspacing="0" border="0">${rows.map(r => `<tr><td style="${r.style}">${r.html}</td></tr>`).join('')}</table>`
+        : '';
+
+    const socialTable = (socials, fam, linkColor, chipBg, chipText) => {
+      if (!socials.length) return '';
+      const cells = socials.map((s, i) => {
+        const spacer = i > 0 ? `<td width="6" style="width:6px;font-size:1px;">&nbsp;</td>` : '';
+        if (chipBg) {
+          return spacer + `<td bgcolor="${chipBg}" style="background-color:${chipBg};padding:6px 10px;"><a href="${esc(safeUrl(s.url))}" style="${td(fam, 15, chipText)}text-decoration:none;">${s.icon}</a></td>`;
+        }
+        return spacer + `<td><a href="${esc(safeUrl(s.url))}" style="${td(fam, 17, linkColor)}text-decoration:none;">${s.icon}</a></td>`;
+      }).join('');
+      return `<table cellpadding="0" cellspacing="0" border="0"><tr>${cells}</tr></table>`;
+    };
+
+    const photoImg = (src, size, round, extra) =>
+      src
+        ? `<img src="${esc(src)}" alt="" width="${size}" height="${size}" style="display:block;width:${size}px;height:${size}px;${round ? 'border-radius:50%;' : 'border-radius:6px;'}${extra || ''}" />`
+        : '';
+
     createApp({
       data() {
         const templates = [
-            {
-              id: 'classic',
-              name: 'Classic',
-              icon: '📧',
-              description: 'Simple & professional',
-              premium: false
-            },
-            {
-              id: 'modern',
-              name: 'Modern',
-              icon: '✨',
-              description: 'Clean & minimal',
-              premium: false
-            },
-            {
-              id: 'corporate',
-              name: 'Corporate',
-              icon: '🏢',
-              description: 'Business-focused',
-              premium: true
-            },
-            {
-              id: 'creative',
-              name: 'Creative',
-              icon: '🎨',
-              description: 'Colorful & bold',
-              premium: true
-            },
-            {
-              id: 'elegant',
-              name: 'Elegant',
-              icon: '💎',
-              description: 'Sophisticated',
-              premium: true
-            },
-            {
-              id: 'tech',
-              name: 'Tech',
-              icon: '💻',
-              description: 'Developer-friendly',
-              premium: true
-            }
-          ];
+          { id: 'classic',   name: 'Classic',   icon: '📧', description: 'Simple & professional', premium: false },
+          { id: 'modern',    name: 'Modern',    icon: '✨', description: 'Clean & minimal',       premium: false },
+          { id: 'corporate', name: 'Corporate', icon: '🏢', description: 'Business-focused',      premium: true },
+          { id: 'creative',  name: 'Creative',  icon: '🎨', description: 'Colorful & bold',       premium: true },
+          { id: 'elegant',   name: 'Elegant',   icon: '💎', description: 'Sophisticated',         premium: true },
+          { id: 'tech',      name: 'Tech',      icon: '💻', description: 'Developer-friendly',    premium: true }
+        ];
 
         return {
-          // Payment
           hasPremiumAccess: false,
           isProcessingPayment: false,
-          stripe: null,
-          
-          // Template
-          selectedTemplate: templates[0], // Set default template
-          templates: templates,
 
-          // Form Data
+          selectedTemplate: templates[0],
+          templates,
+
           formData: {
-            name: 'John Doe',
-            title: 'Senior Developer',
-            company: 'Coffee & Fun LLC',
-            email: 'john@coffeeandfun.com',
-            phone: '+1 (555) 123-4567',
-            website: 'https://www.coffeeandfun.com',
-            address: '123 Main Street, San Francisco, CA 94102',
-            department: 'Engineering',
-            pronouns: 'He/Him',
-            timezone: 'PST (UTC-8)',
-            officeHours: '9 AM - 5 PM',
-            secondaryEmail: '',
-            calendarLink: '',
+            name: '', title: '', company: '', email: '',
+            phone: '', website: '', address: '',
+            department: '', pronouns: '', timezone: '', officeHours: '',
+            secondaryEmail: '', calendarLink: '', photoUrl: '',
             social: {
-              linkedin: 'https://linkedin.com/in/johndoe',
-              twitter: 'https://twitter.com/johndoe',
-              github: 'https://github.com/johndoe',
-              instagram: '',
-              facebook: '',
-              youtube: '',
-              tiktok: '',
-              medium: '',
-              dribbble: '',
-              whatsapp: '',
-              telegram: ''
+              linkedin: '', twitter: '', github: '', instagram: '', facebook: '',
+              youtube: '', tiktok: '', medium: '', dribbble: '', whatsapp: '', telegram: ''
             },
-            primaryColor: '#3b82f6',
+            primaryColor: '#96603c',
             textColor: '#1f2937'
           },
 
-          // Photo
           uploadedPhoto: null,
           isPhotoUploading: false,
 
-          // Social Links
           socialLinks: [
-            { id: 'linkedin', icon: '💼', placeholder: 'https://linkedin.com/in/yourname', label: 'LinkedIn' },
-            { id: 'twitter', icon: '🐦', placeholder: 'https://twitter.com/yourname', label: 'Twitter/X' },
-            { id: 'github', icon: '💻', placeholder: 'https://github.com/yourname', label: 'GitHub' },
-            { id: 'instagram', icon: '📸', placeholder: 'https://instagram.com/yourname', label: 'Instagram' },
-            { id: 'facebook', icon: '👥', placeholder: 'https://facebook.com/yourname', label: 'Facebook' },
-            { id: 'youtube', icon: '📺', placeholder: 'https://youtube.com/@yourname', label: 'YouTube' },
-            { id: 'tiktok', icon: '🎵', placeholder: 'https://tiktok.com/@yourname', label: 'TikTok' },
-            { id: 'medium', icon: '✍️', placeholder: 'https://medium.com/@yourname', label: 'Medium' },
-            { id: 'dribbble', icon: '🎨', placeholder: 'https://dribbble.com/yourname', label: 'Dribbble' },
-            { id: 'whatsapp', icon: '💬', placeholder: 'https://wa.me/1234567890', label: 'WhatsApp' },
-            { id: 'telegram', icon: '✈️', placeholder: 'https://t.me/yourname', label: 'Telegram' }
+            { id: 'linkedin',  icon: '💼', placeholder: 'https://linkedin.com/in/yourname', label: 'LinkedIn' },
+            { id: 'twitter',   icon: '🐦', placeholder: 'https://twitter.com/yourname',    label: 'Twitter/X' },
+            { id: 'github',    icon: '💻', placeholder: 'https://github.com/yourname',     label: 'GitHub' },
+            { id: 'instagram', icon: '📸', placeholder: 'https://instagram.com/yourname',  label: 'Instagram' },
+            { id: 'facebook',  icon: '👥', placeholder: 'https://facebook.com/yourname',   label: 'Facebook' },
+            { id: 'youtube',   icon: '📺', placeholder: 'https://youtube.com/@yourname',   label: 'YouTube' },
+            { id: 'tiktok',    icon: '🎵', placeholder: 'https://tiktok.com/@yourname',    label: 'TikTok' },
+            { id: 'medium',    icon: '✍️', placeholder: 'https://medium.com/@yourname',    label: 'Medium' },
+            { id: 'dribbble',  icon: '🎨', placeholder: 'https://dribbble.com/yourname',   label: 'Dribbble' },
+            { id: 'whatsapp',  icon: '💬', placeholder: 'https://wa.me/1234567890',        label: 'WhatsApp' },
+            { id: 'telegram',  icon: '✈️', placeholder: 'https://t.me/yourname',           label: 'Telegram' }
+          ],
+          visibleSocials: ['linkedin', 'twitter', 'github'],
+
+          openMore: false,
+          openExtras: false,
+
+          setupTab: 'gmail',
+          setupClients: [
+            { id: 'gmail', name: 'Gmail' },
+            { id: 'outlook', name: 'Outlook' },
+            { id: 'apple', name: 'Apple Mail' },
+            { id: 'thunderbird', name: 'Thunderbird' }
           ],
 
-          // UI
-          copied: false
+          copied: false,
+          toast: '',
+          announcement: ''
         };
       },
 
       computed: {
         isSignatureValid() {
-          return this.formData.name && this.formData.email;
+          return !!(this.formData.name && this.formData.email);
+        },
+
+        photoSrc() {
+          const url = safeUrl(this.formData.photoUrl);
+          return url || this.uploadedPhoto || '';
+        },
+
+        sigData() {
+          return this.buildData(this.formData, this.photoSrc);
+        },
+
+        sampleData() {
+          return this.buildData({
+            name: 'Alex Example', title: 'Product Designer', company: 'Example Studio',
+            email: 'alex@example.com', phone: '+1 (555) 010-1234', website: 'https://example.com',
+            address: '', department: '', pronouns: 'They/Them', timezone: '', officeHours: '',
+            secondaryEmail: '', calendarLink: '',
+            social: { linkedin: 'https://linkedin.com/in/alex', twitter: '', github: 'https://github.com/alex' },
+            primaryColor: this.formData.primaryColor,
+            textColor: this.formData.textColor
+          }, '');
         },
 
         generatedSignature() {
           if (!this.isSignatureValid || !this.selectedTemplate) return '';
-          
-          const templates = {
-            classic: this.generateClassicTemplate(),
-            modern: this.generateModernTemplate(),
-            corporate: this.generateCorporateTemplate(),
-            creative: this.generateCreativeTemplate(),
-            elegant: this.generateElegantTemplate(),
-            tech: this.generateTechTemplate()
-          };
+          return this.renderTemplate(this.selectedTemplate.id, this.sigData);
+        },
 
-          return templates[this.selectedTemplate.id] || '';
+        previewSignature() {
+          const tpl = this.selectedTemplate ? this.selectedTemplate.id : 'classic';
+          return this.isSignatureValid
+            ? this.generatedSignature
+            : this.renderTemplate(tpl, this.sampleData);
+        },
+
+        shownSocials() {
+          return this.socialLinks.filter(s => this.visibleSocials.includes(s.id));
+        },
+        hiddenSocials() {
+          return this.socialLinks.filter(s => !this.visibleSocials.includes(s.id));
         },
 
         activeSocialLinks() {
           return Object.entries(this.formData.social)
-            .filter(([key, value]) => value.trim() !== '')
+            .filter(([, value]) => value && value.trim() !== '')
             .map(([key, value]) => ({
               platform: key,
               url: value,
-              icon: this.getSocialIcon(key)
+              icon: (this.socialLinks.find(s => s.id === key) || {}).icon || '🔗'
             }));
         }
       },
 
       mounted() {
-        // Load saved data from localStorage
-        this.loadSavedData();
-        
-        // Check for premium access in localStorage
+        // Premium status must be known BEFORE restoring saved data, or a
+        // premium user's saved premium template gets rejected and then
+        // overwritten to 'classic' by the autosave watcher.
         this.checkPremiumAccess();
-        
-        // Check for successful payment with secure token
+
+        // Premium unlock via Stripe Payment Link redirect token
         const urlParams = new URLSearchParams(window.location.search);
         const accessToken = urlParams.get('access_token');
-        
         if (accessToken && this.validateAccessToken(accessToken)) {
           this.grantPremiumAccess();
-          // Clean URL - remove the token from address bar
           window.history.replaceState({}, document.title, window.location.pathname);
+          this.showToast('Premium unlocked — enjoy all the templates!');
         }
-        
-        // Initialize Stripe
-        this.stripe = Stripe('pk_test_YOUR_PUBLISHABLE_KEY'); // Replace with your key
+
+        this.loadSavedData();
+
+        // Auto-open collapsed sections that already hold data
+        this.openMore = !!(this.formData.phone || this.formData.website || this.formData.address);
+        this.openExtras = !!(this.formData.pronouns || this.formData.department ||
+          this.formData.calendarLink || this.formData.officeHours ||
+          this.formData.timezone || this.formData.secondaryEmail);
+
+        // Show social fields that already hold data
+        Object.entries(this.formData.social).forEach(([id, v]) => {
+          if (v && !this.visibleSocials.includes(id)) this.visibleSocials.push(id);
+        });
+
+        // Remember the user's email client tab
+        try {
+          const tab = localStorage.getItem('emailSigSetupTab');
+          if (tab && this.setupClients.some(c => c.id === tab)) this.setupTab = tab;
+          else if (/Mac|iPhone|iPad/.test(navigator.platform || '')) this.setupTab = 'apple';
+        } catch (e) { /* fine */ }
       },
 
       watch: {
-        formData: {
-          handler(newVal) {
-            this.saveData();
-          },
-          deep: true
-        },
-        uploadedPhoto(newVal) {
-          this.saveData();
-        }
+        formData: { handler() { this.saveData(); }, deep: true },
+        uploadedPhoto() { this.saveData(); }
       },
 
       methods: {
+        // ---------- data shaping ----------
+        buildData(f, photo) {
+          return {
+            name: esc(f.name), pronouns: esc(f.pronouns), title: esc(f.title),
+            company: esc(f.company), department: esc(f.department),
+            email: esc(f.email), emailHref: 'mailto:' + esc(f.email),
+            secondaryEmail: esc(f.secondaryEmail),
+            phone: esc(f.phone), address: esc(f.address),
+            website: esc(f.website), websiteHref: esc(safeUrl(f.website)),
+            calendarHref: esc(safeUrl(f.calendarLink)),
+            hours: esc([f.officeHours, f.timezone].filter(Boolean).join(' · ')),
+            photo,
+            primary: /^#[0-9a-f]{3,8}$/i.test(f.primaryColor) ? f.primaryColor : '#96603c',
+            text: /^#[0-9a-f]{3,8}$/i.test(f.textColor) ? f.textColor : '#1f2937',
+            socials: Object.entries(f.social || {})
+              .filter(([, v]) => v && String(v).trim() !== '')
+              .map(([key, value]) => ({
+                url: value,
+                icon: (this.socialLinks.find(s => s.id === key) || {}).icon || '🔗'
+              }))
+          };
+        },
+
+        renderTemplate(id, d) {
+          switch (id) {
+            case 'modern': return this.tplModern(d);
+            case 'corporate': return this.tplCorporate(d);
+            case 'creative': return this.tplCreative(d);
+            case 'elegant': return this.tplElegant(d);
+            case 'tech': return this.tplTech(d);
+            default: return this.tplClassic(d);
+          }
+        },
+
+        // ---------- the six templates (email-client-safe) ----------
+        contactRows(d, fam, color, linkColor, size) {
+          const rows = [];
+          const push = (html) => rows.push({ style: td(fam, size || 13, color, 'padding-bottom:4px;'), html });
+          if (d.email) push(`<a href="${d.emailHref}" style="${td(fam, size || 13, linkColor)}text-decoration:none;">${d.email}</a>`);
+          if (d.secondaryEmail) push(`<a href="mailto:${d.secondaryEmail}" style="${td(fam, size || 13, linkColor)}text-decoration:none;">${d.secondaryEmail}</a>`);
+          if (d.phone) push(d.phone);
+          if (d.website) push(`<a href="${d.websiteHref}" style="${td(fam, size || 13, linkColor)}text-decoration:none;">${d.website}</a>`);
+          if (d.calendarHref) push(`<a href="${d.calendarHref}" style="${td(fam, size || 13, linkColor)}text-decoration:none;">Book a meeting</a>`);
+          if (d.address) push(d.address);
+          if (d.hours) rows.push({ style: td(fam, 12, '#6b7280', 'padding-bottom:4px;'), html: d.hours });
+          return rows;
+        },
+
+        tplClassic(d) {
+          const fam = FONTS.arial;
+          const photoCell = d.photo
+            ? `<td style="vertical-align:top;padding-right:16px;">${photoImg(d.photo, 80, true)}</td>`
+            : '';
+          return `<table cellpadding="0" cellspacing="0" border="0"><tr>${photoCell}<td style="vertical-align:top;">
+            <table cellpadding="0" cellspacing="0" border="0">
+              <tr><td style="${td(fam, 18, d.text, 'font-weight:bold;padding-bottom:2px;')}">${d.name}${d.pronouns ? ` <span style="${td(fam, 13, '#6b7280')}font-weight:normal;">(${d.pronouns})</span>` : ''}</td></tr>
+              ${d.title ? `<tr><td style="${td(fam, 14, '#6b7280', 'padding-bottom:2px;')}">${d.title}</td></tr>` : ''}
+              ${d.company ? `<tr><td style="${td(fam, 14, d.primary, 'font-weight:bold;padding-bottom:8px;')}">${d.company}${d.department ? ` · ${d.department}` : ''}</td></tr>` : ''}
+              <tr><td style="padding-bottom:8px;">${rowsTable(this.contactRows(d, fam, '#4b5563', d.primary))}</td></tr>
+              ${d.socials.length ? `<tr><td>${socialTable(d.socials, fam, d.primary)}</td></tr>` : ''}
+            </table>
+          </td></tr></table>`;
+        },
+
+        tplModern(d) {
+          const fam = FONTS.segoe;
+          return `<table cellpadding="0" cellspacing="0" border="0"><tr><td>
+            ${d.photo ? `<table cellpadding="0" cellspacing="0" border="0"><tr><td style="padding-bottom:10px;">${photoImg(d.photo, 88, false)}</td></tr></table>` : ''}
+            <table cellpadding="0" cellspacing="0" border="0">
+              <tr><td style="${td(fam, 20, d.text, 'font-weight:bold;padding-bottom:2px;')}">${d.name}${d.pronouns ? ` <span style="${td(fam, 13, '#6b7280')}font-weight:normal;">(${d.pronouns})</span>` : ''}</td></tr>
+              ${d.title ? `<tr><td style="${td(fam, 14, '#6b7280', 'padding-bottom:2px;')}">${d.title}</td></tr>` : ''}
+              ${d.company ? `<tr><td style="${td(fam, 14, '#9ca3af', 'padding-bottom:10px;')}">${d.company}${d.department ? ` • ${d.department}` : ''}</td></tr>` : ''}
+              <tr><td style="border-top:2px solid ${d.primary};font-size:1px;line-height:1px;padding-bottom:10px;">&nbsp;</td></tr>
+              <tr><td style="padding-bottom:8px;">${rowsTable(this.contactRows(d, fam, '#4b5563', d.primary, 14))}</td></tr>
+              ${d.socials.length ? `<tr><td>${socialTable(d.socials, fam, d.primary)}</td></tr>` : ''}
+            </table>
+          </td></tr></table>`;
+        },
+
+        tplCorporate(d) {
+          const fam = FONTS.times;
+          const label = (t) => `<td style="${td(fam, 13, '#6b7280', 'padding:2px 8px 2px 0;vertical-align:top;')}">${t}</td>`;
+          const value = (h) => `<td style="${td(fam, 13, d.text, 'padding:2px 0;')}">${h}</td>`;
+          const rows = [];
+          if (d.email) rows.push(`<tr>${label('E:')}${value(`<a href="${d.emailHref}" style="${td(fam, 13, d.text)}text-decoration:none;">${d.email}</a>`)}</tr>`);
+          if (d.secondaryEmail) rows.push(`<tr>${label('E2:')}${value(`<a href="mailto:${d.secondaryEmail}" style="${td(fam, 13, d.text)}text-decoration:none;">${d.secondaryEmail}</a>`)}</tr>`);
+          if (d.phone) rows.push(`<tr>${label('P:')}${value(d.phone)}</tr>`);
+          if (d.website) rows.push(`<tr>${label('W:')}${value(`<a href="${d.websiteHref}" style="${td(fam, 13, d.text)}text-decoration:none;">${d.website}</a>`)}</tr>`);
+          if (d.calendarHref) rows.push(`<tr>${label('C:')}${value(`<a href="${d.calendarHref}" style="${td(fam, 13, d.text)}text-decoration:none;">Schedule a meeting</a>`)}</tr>`);
+          if (d.address) rows.push(`<tr>${label('A:')}${value(d.address)}</tr>`);
+          if (d.hours) rows.push(`<tr>${label('H:')}${value(`<span style="${td(fam, 12, '#6b7280')}">${d.hours}</span>`)}</tr>`);
+
+          return `<table cellpadding="0" cellspacing="0" border="0"><tr>
+            <td width="4" bgcolor="${d.primary}" style="width:4px;background-color:${d.primary};font-size:1px;line-height:1px;">&nbsp;</td>
+            <td width="16" style="width:16px;font-size:1px;">&nbsp;</td>
+            ${d.photo ? `<td style="vertical-align:top;padding-right:16px;">${photoImg(d.photo, 88, false)}</td>` : ''}
+            <td style="vertical-align:top;">
+              <table cellpadding="0" cellspacing="0" border="0">
+                <tr><td style="${td(fam, 19, d.text, 'font-weight:bold;letter-spacing:0.5px;padding-bottom:2px;')}">${d.name}${d.pronouns ? ` <span style="${td(fam, 12, '#6b7280')}font-weight:normal;">(${d.pronouns})</span>` : ''}</td></tr>
+                ${d.title ? `<tr><td style="${td(fam, 13, '#6b7280', 'font-style:italic;padding-bottom:2px;')}">${d.title}</td></tr>` : ''}
+                ${d.company ? `<tr><td style="${td(fam, 14, d.primary, 'font-weight:bold;padding-bottom:8px;')}">${d.company}${d.department ? ` | ${d.department}` : ''}</td></tr>` : ''}
+                <tr><td>${rows.length ? `<table cellpadding="0" cellspacing="0" border="0">${rows.join('')}</table>` : ''}</td></tr>
+                ${d.socials.length ? `<tr><td style="padding-top:10px;">${socialTable(d.socials, fam, d.text)}</td></tr>` : ''}
+              </table>
+            </td>
+          </tr></table>`;
+        },
+
+        tplCreative(d) {
+          const fam = FONTS.arial;
+          return `<table cellpadding="0" cellspacing="0" border="0" bgcolor="#fef3c7"><tr>
+            <td style="padding:22px;background-color:#fef3c7;">
+              <table cellpadding="0" cellspacing="0" border="0" align="center" style="text-align:center;">
+                ${d.photo ? `<tr><td align="center" style="padding-bottom:12px;">${photoImg(d.photo, 92, true, `border:4px solid ${d.primary};`)}</td></tr>` : ''}
+                <tr><td align="center" style="${td(fam, 23, d.primary, 'font-weight:bold;padding-bottom:3px;')}">${d.name}</td></tr>
+                ${d.title ? `<tr><td align="center" style="${td(fam, 14, '#6b7280', 'font-weight:bold;padding-bottom:2px;')}">${d.title}</td></tr>` : ''}
+                ${d.company ? `<tr><td align="center" style="${td(fam, 15, d.text, 'font-weight:bold;padding-bottom:12px;')}">${d.company}</td></tr>` : ''}
+                <tr><td>
+                  <table cellpadding="0" cellspacing="0" border="0" width="100%" bgcolor="#ffffff" style="border:1px solid #e5e7eb;">
+                    <tr><td style="padding:14px;">${rowsTable(this.contactRows(d, fam, '#4b5563', d.primary, 14))}</td></tr>
+                  </table>
+                </td></tr>
+                ${d.socials.length ? `<tr><td align="center" style="padding-top:12px;">${socialTable(d.socials, fam, '#ffffff', d.primary, '#ffffff')}</td></tr>` : ''}
+              </table>
+            </td>
+          </tr></table>`;
+        },
+
+        tplElegant(d) {
+          const fam = FONTS.georgia;
+          const photoCell = d.photo
+            ? `<td style="vertical-align:middle;padding-right:20px;">${photoImg(d.photo, 80, true, 'border:2px solid #d1d5db;')}</td>`
+            : '';
+          return `<table cellpadding="0" cellspacing="0" border="0" width="500" style="width:500px;max-width:500px;"><tr>${photoCell}<td style="vertical-align:middle;">
+            <table cellpadding="0" cellspacing="0" border="0">
+              <tr><td style="${td(fam, 21, d.text, 'padding-bottom:3px;')}">${d.name}</td></tr>
+              ${d.title ? `<tr><td style="${td(fam, 12, '#9ca3af', 'font-style:italic;letter-spacing:1px;text-transform:uppercase;padding-bottom:2px;')}">${d.title}</td></tr>` : ''}
+              ${d.company ? `<tr><td style="${td(fam, 14, '#6b7280', 'padding-bottom:10px;')}">${d.company}</td></tr>` : ''}
+              <tr><td style="border-top:1px solid #e5e7eb;font-size:1px;line-height:1px;padding-bottom:10px;">&nbsp;</td></tr>
+              <tr><td>${rowsTable(this.contactRows(d, fam, '#4b5563', '#6b7280'))}</td></tr>
+              ${d.socials.length ? `<tr><td style="padding-top:10px;">${socialTable(d.socials, fam, '#6b7280')}</td></tr>` : ''}
+            </table>
+          </td></tr></table>`;
+        },
+
+        tplTech(d) {
+          const fam = FONTS.mono;
+          const line = (k, v) => `<tr><td style="${td(fam, 13, '#d1d5db', 'padding-bottom:5px;')}"><span style="${td(fam, 13, '#22c55e')}">${k}:</span> ${v}</td></tr>`;
+          const rows = [];
+          if (d.email) rows.push(line('email', `<a href="${d.emailHref}" style="${td(fam, 13, '#60a5fa')}text-decoration:none;">"${d.email}"</a>`));
+          if (d.phone) rows.push(line('phone', `"${d.phone}"`));
+          if (d.website) rows.push(line('web', `<a href="${d.websiteHref}" style="${td(fam, 13, '#60a5fa')}text-decoration:none;">"${d.website}"</a>`));
+          if (d.calendarHref) rows.push(line('meet', `<a href="${d.calendarHref}" style="${td(fam, 13, '#60a5fa')}text-decoration:none;">"book a slot"</a>`));
+
+          return `<table cellpadding="0" cellspacing="0" border="0" bgcolor="#1f2937"><tr>
+            <td width="4" bgcolor="#22c55e" style="width:4px;background-color:#22c55e;font-size:1px;line-height:1px;">&nbsp;</td>
+            <td style="padding:18px;background-color:#1f2937;">
+              <table cellpadding="0" cellspacing="0" border="0">
+                ${d.photo ? `<tr><td style="padding-bottom:10px;">${photoImg(d.photo, 64, false, 'border:2px solid #22c55e;')}</td></tr>` : ''}
+                <tr><td style="${td(fam, 17, '#22c55e', 'font-weight:bold;letter-spacing:1px;padding-bottom:3px;')}">$ ${d.name}</td></tr>
+                ${d.title ? `<tr><td style="${td(fam, 13, '#9ca3af', 'padding-bottom:2px;')}">// ${d.title}</td></tr>` : ''}
+                ${d.company ? `<tr><td style="${td(fam, 13, '#60a5fa', 'padding-bottom:10px;')}">@ ${d.company}</td></tr>` : ''}
+                <tr><td>
+                  <table cellpadding="0" cellspacing="0" border="0" width="100%" bgcolor="#111827" style="border:1px solid #374151;">
+                    <tr><td style="padding:12px;background-color:#111827;"><table cellpadding="0" cellspacing="0" border="0">${rows.join('')}</table></td></tr>
+                  </table>
+                </td></tr>
+                ${d.socials.length ? `<tr><td style="padding-top:10px;">${socialTable(d.socials, fam, '#22c55e', '#111827', '#22c55e')}</td></tr>` : ''}
+              </table>
+            </td>
+          </tr></table>`;
+        },
+
+        // ---------- template picker ----------
         selectTemplate(template) {
           if (template.premium && !this.hasPremiumAccess) {
-            alert('This is a premium template. Please upgrade to access it.');
+            this.showToast(template.name + ' is a premium template — unlock all six for $5.');
             return;
           }
           this.selectedTemplate = template;
+          this.saveData();
         },
 
+        // ---------- social pills ----------
+        showSocial(id) {
+          if (!this.visibleSocials.includes(id)) this.visibleSocials.push(id);
+          this.$nextTick(() => {
+            const el = document.getElementById('social-' + id);
+            if (el) el.focus();
+          });
+        },
+        hideSocial(id) {
+          this.visibleSocials = this.visibleSocials.filter(s => s !== id);
+          this.formData.social[id] = '';
+        },
+
+        // ---------- photo ----------
         handlePhotoSelect(e) {
           const file = e.target.files[0];
           if (file) this.loadPhoto(file);
         },
-
         handlePhotoDrop(e) {
           this.isPhotoUploading = false;
           const file = e.dataTransfer.files[0];
-          if (file && file.type.startsWith('image/')) {
-            this.loadPhoto(file);
-          }
+          if (file && file.type.startsWith('image/')) this.loadPhoto(file);
         },
-
         loadPhoto(file) {
+          if (file.size > 5 * 1024 * 1024) {
+            this.showToast('Photo must be under 5 MB');
+            return;
+          }
           const reader = new FileReader();
           reader.onload = (e) => {
-            this.uploadedPhoto = e.target.result;
+            const img = new Image();
+            img.onload = () => {
+              // Center-crop square + downscale to 200px so the embedded
+              // data URI stays small (Gmail truncates huge signatures).
+              try {
+                const S = 200;
+                const canvas = document.createElement('canvas');
+                canvas.width = S; canvas.height = S;
+                const ctx = canvas.getContext('2d');
+                const side = Math.min(img.naturalWidth, img.naturalHeight);
+                const sx = (img.naturalWidth - side) / 2;
+                const sy = (img.naturalHeight - side) / 2;
+                ctx.drawImage(img, sx, sy, side, side, 0, 0, S, S);
+                this.uploadedPhoto = canvas.toDataURL('image/jpeg', 0.85);
+              } catch (err) {
+                this.uploadedPhoto = e.target.result;
+              }
+            };
+            img.onerror = () => this.showToast('Could not read that image');
+            img.src = e.target.result;
           };
           reader.readAsDataURL(file);
         },
-
         removePhoto() {
           this.uploadedPhoto = null;
-          this.$refs.photoInput.value = '';
+          if (this.$refs.photoInput) this.$refs.photoInput.value = '';
         },
 
-        getSocialIcon(platform) {
-          const icons = {
-            linkedin: '💼',
-            twitter: '🐦',
-            github: '💻',
-            instagram: '📸',
-            facebook: '👥',
-            youtube: '📺',
-            tiktok: '🎵',
-            medium: '✍️',
-            dribbble: '🎨',
-            whatsapp: '💬',
-            telegram: '✈️'
-          };
-          return icons[platform] || '🔗';
-        },
-
-        generateClassicTemplate() {
-          const photoHtml = this.uploadedPhoto 
-            ? `<img src="${this.uploadedPhoto}" alt="${this.formData.name}" style="width: 80px; height: 80px; border-radius: 50%; object-fit: cover; margin-right: 20px;" />`
-            : '';
-
-          const socialHtml = this.activeSocialLinks.map(social => 
-            `<a href="${social.url}" style="color: #3b82f6; text-decoration: none; margin-right: 10px; font-size: 20px;">${social.icon}</a>`
-          ).join('');
-
-          return `
-            <table cellpadding="0" cellspacing="0" border="0" style="font-family: Arial, sans-serif; font-size: 14px; color: #333;">
-              <tr>
-                <td style="vertical-align: top;">
-                  ${photoHtml}
-                </td>
-                <td style="vertical-align: top; padding-left: ${this.uploadedPhoto ? '0' : '0'};">
-                  <div style="font-size: 18px; font-weight: bold; color: #1f2937; margin-bottom: 4px;">${this.formData.name}${this.formData.pronouns ? ` (${this.formData.pronouns})` : ''}</div>
-                  ${this.formData.title ? `<div style="color: #6b7280; margin-bottom: 8px;">${this.formData.title}</div>` : ''}
-                  ${this.formData.company ? `<div style="color: #3b82f6; font-weight: 600; margin-bottom: 8px;">${this.formData.company}</div>` : ''}
-                  ${this.formData.department ? `<div style="color: #9ca3af; font-size: 13px; margin-bottom: 8px;">${this.formData.department}</div>` : ''}
-                  <div style="margin-top: 8px;">
-                    ${this.formData.email ? `<div style="margin-bottom: 4px;">📧 <a href="mailto:${this.formData.email}" style="color: #3b82f6; text-decoration: none;">${this.formData.email}</a></div>` : ''}
-                    ${this.formData.secondaryEmail ? `<div style="margin-bottom: 4px;">📧 <a href="mailto:${this.formData.secondaryEmail}" style="color: #3b82f6; text-decoration: none;">${this.formData.secondaryEmail}</a></div>` : ''}
-                    ${this.formData.phone ? `<div style="margin-bottom: 4px;">📱 ${this.formData.phone}</div>` : ''}
-                    ${this.formData.website ? `<div style="margin-bottom: 4px;">🌐 <a href="${this.formData.website}" style="color: #3b82f6; text-decoration: none;">${this.formData.website}</a></div>` : ''}
-                    ${this.formData.calendarLink ? `<div style="margin-bottom: 4px;">📅 <a href="${this.formData.calendarLink}" style="color: #3b82f6; text-decoration: none;">Book a meeting</a></div>` : ''}
-                    ${this.formData.address ? `<div style="margin-bottom: 4px;">📍 ${this.formData.address}</div>` : ''}
-                    ${this.formData.officeHours || this.formData.timezone ? `<div style="margin-bottom: 4px; color: #6b7280; font-size: 12px;">🕐 ${this.formData.officeHours || ''}${this.formData.officeHours && this.formData.timezone ? ' | ' : ''}${this.formData.timezone || ''}</div>` : ''}
-                  </div>
-                  ${socialHtml ? `<div style="margin-top: 12px;">${socialHtml}</div>` : ''}
-                </td>
-              </tr>
-            </table>
-          `;
-        },
-
-        generateModernTemplate() {
-          const photoHtml = this.uploadedPhoto 
-            ? `<img src="${this.uploadedPhoto}" alt="${this.formData.name}" style="width: 100px; height: 100px; border-radius: 8px; object-fit: cover; margin-bottom: 12px;" />`
-            : '';
-
-          const socialHtml = this.activeSocialLinks.map(social => 
-            `<a href="${social.url}" style="display: inline-block; width: 32px; height: 32px; line-height: 32px; text-align: center; background: #f3f4f6; border-radius: 50%; color: #3b82f6; text-decoration: none; margin-right: 8px; font-size: 16px;">${social.icon}</a>`
-          ).join('');
-
-          return `
-            <table cellpadding="0" cellspacing="0" border="0" style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; font-size: 14px;">
-              <tr>
-                <td>
-                  ${photoHtml}
-                  <div style="font-size: 20px; font-weight: 700; color: #111827; margin-bottom: 2px;">${this.formData.name}${this.formData.pronouns ? ` (${this.formData.pronouns})` : ''}</div>
-                  ${this.formData.title ? `<div style="font-size: 14px; color: #6b7280; margin-bottom: 4px;">${this.formData.title}</div>` : ''}
-                  ${this.formData.company ? `<div style="font-size: 14px; color: #9ca3af; margin-bottom: 12px;">${this.formData.company}${this.formData.department ? ` • ${this.formData.department}` : ''}</div>` : ''}
-                  <div style="border-top: 2px solid #e5e7eb; padding-top: 12px; margin-top: 12px;">
-                    ${this.formData.email ? `<div style="margin-bottom: 6px; color: #4b5563;"><a href="mailto:${this.formData.email}" style="color: #3b82f6; text-decoration: none;">${this.formData.email}</a></div>` : ''}
-                    ${this.formData.secondaryEmail ? `<div style="margin-bottom: 6px; color: #4b5563;"><a href="mailto:${this.formData.secondaryEmail}" style="color: #3b82f6; text-decoration: none;">${this.formData.secondaryEmail}</a></div>` : ''}
-                    ${this.formData.phone ? `<div style="margin-bottom: 6px; color: #4b5563;">${this.formData.phone}</div>` : ''}
-                    ${this.formData.website ? `<div style="margin-bottom: 6px;"><a href="${this.formData.website}" style="color: #3b82f6; text-decoration: none;">${this.formData.website}</a></div>` : ''}
-                    ${this.formData.calendarLink ? `<div style="margin-bottom: 6px;"><a href="${this.formData.calendarLink}" style="color: #3b82f6; text-decoration: none;">📅 Book time with me</a></div>` : ''}
-                    ${this.formData.officeHours || this.formData.timezone ? `<div style="margin-bottom: 6px; color: #6b7280; font-size: 12px;">${this.formData.officeHours || ''}${this.formData.officeHours && this.formData.timezone ? ' • ' : ''}${this.formData.timezone || ''}</div>` : ''}
-                  </div>
-                  ${socialHtml ? `<div style="margin-top: 12px;">${socialHtml}</div>` : ''}
-                </td>
-              </tr>
-            </table>
-          `;
-        },
-
-        generateCorporateTemplate() {
-          const photoHtml = this.uploadedPhoto 
-            ? `<td style="padding-right: 20px; vertical-align: top;"><img src="${this.uploadedPhoto}" alt="${this.formData.name}" style="width: 90px; height: 90px; border-radius: 4px; object-fit: cover;" /></td>`
-            : '';
-
-          const socialHtml = this.activeSocialLinks.map(social => 
-            `<a href="${social.url}" style="color: #1f2937; text-decoration: none; margin-right: 12px; font-size: 18px;">${social.icon}</a>`
-          ).join('');
-
-          return `
-            <table cellpadding="0" cellspacing="0" border="0" style="font-family: 'Times New Roman', serif; font-size: 13px; border-left: 4px solid ${this.formData.primaryColor}; padding-left: 20px;">
-              <tr>
-                ${photoHtml}
-                <td style="vertical-align: top;">
-                  <div style="font-size: 19px; font-weight: bold; color: #111827; margin-bottom: 4px; letter-spacing: 0.5px;">${this.formData.name}${this.formData.pronouns ? ` (${this.formData.pronouns})` : ''}</div>
-                  ${this.formData.title ? `<div style="font-size: 13px; color: #6b7280; margin-bottom: 2px; font-style: italic;">${this.formData.title}</div>` : ''}
-                  ${this.formData.company ? `<div style="font-size: 14px; font-weight: 600; color: ${this.formData.primaryColor}; margin-bottom: 12px;">${this.formData.company}${this.formData.department ? ` | ${this.formData.department}` : ''}</div>` : ''}
-                  <table cellpadding="0" cellspacing="0" border="0" style="margin-top: 10px;">
-                    ${this.formData.email ? `<tr><td style="padding: 3px 0; color: #4b5563;">E:</td><td style="padding: 3px 0; padding-left: 8px;"><a href="mailto:${this.formData.email}" style="color: #1f2937; text-decoration: none;">${this.formData.email}</a></td></tr>` : ''}
-                    ${this.formData.secondaryEmail ? `<tr><td style="padding: 3px 0; color: #4b5563;">E2:</td><td style="padding: 3px 0; padding-left: 8px;"><a href="mailto:${this.formData.secondaryEmail}" style="color: #1f2937; text-decoration: none;">${this.formData.secondaryEmail}</a></td></tr>` : ''}
-                    ${this.formData.phone ? `<tr><td style="padding: 3px 0; color: #4b5563;">P:</td><td style="padding: 3px 0; padding-left: 8px;">${this.formData.phone}</td></tr>` : ''}
-                    ${this.formData.website ? `<tr><td style="padding: 3px 0; color: #4b5563;">W:</td><td style="padding: 3px 0; padding-left: 8px;"><a href="${this.formData.website}" style="color: #1f2937; text-decoration: none;">${this.formData.website}</a></td></tr>` : ''}
-                    ${this.formData.calendarLink ? `<tr><td style="padding: 3px 0; color: #4b5563;">📅:</td><td style="padding: 3px 0; padding-left: 8px;"><a href="${this.formData.calendarLink}" style="color: #1f2937; text-decoration: none;">Schedule Meeting</a></td></tr>` : ''}
-                    ${this.formData.address ? `<tr><td style="padding: 3px 0; color: #4b5563; vertical-align: top;">A:</td><td style="padding: 3px 0; padding-left: 8px;">${this.formData.address}</td></tr>` : ''}
-                    ${this.formData.officeHours || this.formData.timezone ? `<tr><td style="padding: 3px 0; color: #4b5563;">H:</td><td style="padding: 3px 0; padding-left: 8px; font-size: 12px;">${this.formData.officeHours || ''}${this.formData.officeHours && this.formData.timezone ? ' | ' : ''}${this.formData.timezone || ''}</td></tr>` : ''}
-                  </table>
-                  ${socialHtml ? `<div style="margin-top: 14px; padding-top: 12px; border-top: 1px solid #e5e7eb;">${socialHtml}</div>` : ''}
-                </td>
-              </tr>
-            </table>
-          `;
-        },
-
-        generateCreativeTemplate() {
-          const photoHtml = this.uploadedPhoto 
-            ? `<img src="${this.uploadedPhoto}" alt="${this.formData.name}" style="width: 100px; height: 100px; border-radius: 50%; object-fit: cover; border: 4px solid ${this.formData.primaryColor}; margin-bottom: 16px;" />`
-            : '';
-
-          const socialHtml = this.activeSocialLinks.map(social => 
-            `<a href="${social.url}" style="display: inline-block; width: 36px; height: 36px; line-height: 36px; text-align: center; background: linear-gradient(135deg, ${this.formData.primaryColor} 0%, #8b5cf6 100%); border-radius: 8px; color: white; text-decoration: none; margin-right: 6px; font-size: 18px;">${social.icon}</a>`
-          ).join('');
-
-          return `
-            <table cellpadding="0" cellspacing="0" border="0" style="font-family: 'Arial Rounded MT Bold', Arial, sans-serif; font-size: 14px; background: linear-gradient(135deg, #f0f9ff 0%, #fef3c7 100%); padding: 24px; border-radius: 16px;">
-              <tr>
-                <td style="text-align: center;">
-                  ${photoHtml}
-                  <div style="font-size: 24px; font-weight: 900; background: linear-gradient(135deg, ${this.formData.primaryColor} 0%, #8b5cf6 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; margin-bottom: 4px;">${this.formData.name}</div>
-                  ${this.formData.title ? `<div style="font-size: 14px; color: #6b7280; font-weight: 600; margin-bottom: 2px;">${this.formData.title}</div>` : ''}
-                  ${this.formData.company ? `<div style="font-size: 15px; color: ${this.formData.primaryColor}; font-weight: 700; margin-bottom: 16px;">${this.formData.company}</div>` : ''}
-                  <div style="background: white; border-radius: 12px; padding: 16px; margin-top: 12px; box-shadow: 0 4px 6px rgba(0,0,0,0.05);">
-                    ${this.formData.email ? `<div style="margin-bottom: 8px;">✉️ <a href="mailto:${this.formData.email}" style="color: ${this.formData.primaryColor}; text-decoration: none; font-weight: 600;">${this.formData.email}</a></div>` : ''}
-                    ${this.formData.phone ? `<div style="margin-bottom: 8px;">📞 <span style="color: #4b5563;">${this.formData.phone}</span></div>` : ''}
-                    ${this.formData.website ? `<div style="margin-bottom: 8px;">🌐 <a href="${this.formData.website}" style="color: ${this.formData.primaryColor}; text-decoration: none; font-weight: 600;">${this.formData.website}</a></div>` : ''}
-                  </div>
-                  ${socialHtml ? `<div style="margin-top: 16px;">${socialHtml}</div>` : ''}
-                </td>
-              </tr>
-            </table>
-          `;
-        },
-
-        generateElegantTemplate() {
-          const photoHtml = this.uploadedPhoto 
-            ? `<img src="${this.uploadedPhoto}" alt="${this.formData.name}" style="width: 80px; height: 80px; border-radius: 50%; object-fit: cover; border: 2px solid #d1d5db; margin-right: 24px;" />`
-            : '';
-
-          const socialHtml = this.activeSocialLinks.map(social => 
-            `<a href="${social.url}" style="color: #6b7280; text-decoration: none; margin-right: 14px; font-size: 16px; transition: color 0.2s;">${social.icon}</a>`
-          ).join('');
-
-          return `
-            <table cellpadding="0" cellspacing="0" border="0" style="font-family: 'Georgia', serif; font-size: 14px; max-width: 500px;">
-              <tr>
-                <td style="vertical-align: middle;">
-                  ${photoHtml}
-                </td>
-                <td style="vertical-align: middle;">
-                  <div style="font-size: 22px; font-weight: normal; color: #111827; margin-bottom: 4px; font-family: 'Didot', 'Georgia', serif;">${this.formData.name}</div>
-                  ${this.formData.title ? `<div style="font-size: 13px; color: #9ca3af; margin-bottom: 2px; font-style: italic; letter-spacing: 1px; text-transform: uppercase;">${this.formData.title}</div>` : ''}
-                  ${this.formData.company ? `<div style="font-size: 14px; color: #6b7280; margin-bottom: 12px;">${this.formData.company}</div>` : ''}
-                  <div style="border-top: 1px solid #e5e7eb; padding-top: 12px; margin-top: 8px; font-size: 13px;">
-                    ${this.formData.email ? `<div style="margin-bottom: 5px; color: #4b5563;"><a href="mailto:${this.formData.email}" style="color: #6b7280; text-decoration: none;">${this.formData.email}</a></div>` : ''}
-                    ${this.formData.phone ? `<div style="margin-bottom: 5px; color: #4b5563;">${this.formData.phone}</div>` : ''}
-                    ${this.formData.website ? `<div style="margin-bottom: 5px;"><a href="${this.formData.website}" style="color: #6b7280; text-decoration: none;">${this.formData.website}</a></div>` : ''}
-                  </div>
-                  ${socialHtml ? `<div style="margin-top: 14px; padding-top: 10px;">${socialHtml}</div>` : ''}
-                </td>
-              </tr>
-            </table>
-          `;
-        },
-
-        generateTechTemplate() {
-          const photoHtml = this.uploadedPhoto 
-            ? `<img src="${this.uploadedPhoto}" alt="${this.formData.name}" style="width: 64px; height: 64px; border-radius: 8px; object-fit: cover; border: 2px solid #22c55e; margin-bottom: 12px;" />`
-            : '';
-
-          const socialHtml = this.activeSocialLinks.map(social => 
-            `<a href="${social.url}" style="display: inline-block; padding: 6px 12px; background: #111827; color: #22c55e; text-decoration: none; margin-right: 6px; border-radius: 4px; font-size: 14px; font-family: 'Courier New', monospace;">${social.icon}</a>`
-          ).join('');
-
-          return `
-            <table cellpadding="0" cellspacing="0" border="0" style="font-family: 'Courier New', 'Monaco', monospace; font-size: 13px; background: #1f2937; color: #f3f4f6; padding: 20px; border-radius: 8px; border-left: 4px solid #22c55e;">
-              <tr>
-                <td>
-                  ${photoHtml}
-                  <div style="font-size: 18px; font-weight: bold; color: #22c55e; margin-bottom: 4px; letter-spacing: 1px;">$ ${this.formData.name}</div>
-                  ${this.formData.title ? `<div style="font-size: 13px; color: #9ca3af; margin-bottom: 2px;">// ${this.formData.title}</div>` : ''}
-                  ${this.formData.company ? `<div style="font-size: 13px; color: #60a5fa; margin-bottom: 12px;">@ ${this.formData.company}</div>` : ''}
-                  <div style="background: #111827; padding: 12px; border-radius: 6px; margin-top: 10px; border: 1px solid #374151;">
-                    ${this.formData.email ? `<div style="margin-bottom: 6px; color: #d1d5db;"><span style="color: #22c55e;">email:</span> <a href="mailto:${this.formData.email}" style="color: #60a5fa; text-decoration: none;">"${this.formData.email}"</a></div>` : ''}
-                    ${this.formData.phone ? `<div style="margin-bottom: 6px; color: #d1d5db;"><span style="color: #22c55e;">phone:</span> "${this.formData.phone}"</div>` : ''}
-                    ${this.formData.website ? `<div style="margin-bottom: 6px; color: #d1d5db;"><span style="color: #22c55e;">web:</span> <a href="${this.formData.website}" style="color: #60a5fa; text-decoration: none;">"${this.formData.website}"</a></div>` : ''}
-                  </div>
-                  ${socialHtml ? `<div style="margin-top: 14px;">${socialHtml}</div>` : ''}
-                </td>
-              </tr>
-            </table>
-          `;
+        // ---------- copy / download ----------
+        plainTextVersion() {
+          // Built from the data, not DOM extraction — innerText on a detached
+          // element collapses to textContent and fuses lines together.
+          const f = this.formData;
+          return [
+            f.name + (f.pronouns ? ' (' + f.pronouns + ')' : ''),
+            f.title,
+            f.company + (f.department ? ' · ' + f.department : ''),
+            f.email,
+            f.secondaryEmail,
+            f.phone,
+            f.website,
+            f.calendarLink,
+            f.address,
+            [f.officeHours, f.timezone].filter(Boolean).join(' · ')
+          ].filter(s => s && String(s).trim()).join('\n');
         },
 
         async copySignature() {
           if (!this.isSignatureValid) return;
-
+          const html = this.generatedSignature;
           try {
-            // Create a temporary element
-            const temp = document.createElement('div');
-            temp.innerHTML = this.generatedSignature;
-            document.body.appendChild(temp);
-
-            // Copy to clipboard
-            const range = document.createRange();
-            range.selectNode(temp);
-            window.getSelection().removeAllRanges();
-            window.getSelection().addRange(range);
-            document.execCommand('copy');
-            window.getSelection().removeAllRanges();
-            document.body.removeChild(temp);
-
-            // Show success
+            if (navigator.clipboard && window.ClipboardItem) {
+              // Race the write against a timeout: if a permission prompt is
+              // suspended or blocked by policy, fall back instead of hanging
+              // with zero feedback.
+              await Promise.race([
+                navigator.clipboard.write([
+                  new ClipboardItem({
+                    'text/html': new Blob([html], { type: 'text/html' }),
+                    'text/plain': new Blob([this.plainTextVersion()], { type: 'text/plain' })
+                  })
+                ]),
+                new Promise((resolve, reject) =>
+                  setTimeout(() => reject(new Error('clipboard-timeout')), 1500))
+              ]);
+            } else {
+              this.fallbackCopy(html);
+            }
             this.copied = true;
-            setTimeout(() => this.copied = false, 2000);
+            this.announcement = 'Signature copied. Paste it into your email settings.';
+            this.showToast('Signature copied — now paste it into your email settings');
+            clearTimeout(this._copyTimer);
+            this._copyTimer = setTimeout(() => { this.copied = false; this.announcement = ''; }, 2500);
           } catch (err) {
-            console.error('Failed to copy:', err);
-            alert('Failed to copy signature. Please try again.');
+            try {
+              this.fallbackCopy(html);
+              this.copied = true;
+              this.showToast('Signature copied — now paste it into your email settings');
+              clearTimeout(this._copyTimer);
+              this._copyTimer = setTimeout(() => { this.copied = false; }, 2500);
+            } catch (err2) {
+              this.announcement = 'Copy failed. Try the Copy HTML code button instead.';
+              this.showToast('Copy failed — try "Copy HTML code" instead');
+            }
           }
         },
 
-        checkPremiumAccess() {
-          const access = localStorage.getItem('emailSigPremium');
-          this.hasPremiumAccess = access === 'true';
+        fallbackCopy(html) {
+          const temp = document.createElement('div');
+          // Off-screen but selectable (display:none breaks selection copy)
+          temp.style.cssText = 'position:fixed;left:-9999px;top:0;opacity:0;';
+          temp.innerHTML = html;
+          document.body.appendChild(temp);
+          const range = document.createRange();
+          range.selectNode(temp);
+          const sel = window.getSelection();
+          sel.removeAllRanges();
+          sel.addRange(range);
+          const ok = document.execCommand('copy');
+          sel.removeAllRanges();
+          document.body.removeChild(temp);
+          if (!ok) throw new Error('execCommand copy failed');
         },
 
+        async copyHtmlCode() {
+          if (!this.isSignatureValid) return;
+          try {
+            await navigator.clipboard.writeText(this.generatedSignature);
+            this.showToast('HTML code copied');
+            this.announcement = 'Raw HTML code copied to clipboard.';
+          } catch (e) {
+            this.showToast('Could not copy — your browser blocked it');
+          }
+        },
+
+        downloadHtml() {
+          if (!this.isSignatureValid) return;
+          const doc = '<!DOCTYPE html><html><head><meta charset="utf-8"></head><body>' + this.generatedSignature + '</body></html>';
+          const blob = new Blob([doc], { type: 'text/html' });
+          const link = document.createElement('a');
+          link.download = 'email-signature.html';
+          link.href = URL.createObjectURL(blob);
+          link.click();
+          URL.revokeObjectURL(link.href);
+          this.showToast('Signature downloaded as email-signature.html');
+        },
+
+        // ---------- setup tabs ----------
+        setSetupTab(id) {
+          this.setupTab = id;
+          try { localStorage.setItem('emailSigSetupTab', id); } catch (e) { /* fine */ }
+        },
+
+        // ---------- example ----------
+        loadExample() {
+          this.formData.name = 'Alex Example';
+          this.formData.title = 'Product Designer';
+          this.formData.company = 'Example Studio';
+          this.formData.email = 'alex@example.com';
+          this.formData.phone = '+1 (555) 010-1234';
+          this.formData.website = 'https://example.com';
+          this.formData.pronouns = 'They/Them';
+          this.formData.social.linkedin = 'https://linkedin.com/in/alexexample';
+          this.formData.social.github = 'https://github.com/alexexample';
+          this.openMore = true;
+          this.showToast('Example loaded — swap in your own details before copying!');
+          this.announcement = 'Example data loaded into the form.';
+        },
+
+        // ---------- toast ----------
+        showToast(msg) {
+          this.toast = msg;
+          clearTimeout(this._toastTimer);
+          this._toastTimer = setTimeout(() => { this.toast = ''; }, 4000);
+        },
+
+        // ---------- premium (Stripe Payment Link + token unlock) ----------
+        checkPremiumAccess() {
+          try {
+            this.hasPremiumAccess = localStorage.getItem('emailSigPremium') === 'true';
+          } catch (e) { this.hasPremiumAccess = false; }
+        },
         validateAccessToken(token) {
-          // Secure tokens that are hard to guess
-          // Pick one of these tokens and use it in your Stripe redirect URL
-          // Example redirect URL: https://www.coffeeandfun.com/email-signature-generator/?access_token=sig_premium_a8f3k9m2x7v4
-          // You can also generate your own random token using: https://www.random.org/strings/
           const validTokens = [
             'sig_premium_a8f3k9m2x7v4',
             'esp_2024_9k3m8x2v7f4a',
             'premium_unlock_7v4m2x8k3f9a'
           ];
-          
           return validTokens.includes(token);
         },
-
-        async initializeStripePayment() {
+        initializeStripePayment() {
           this.isProcessingPayment = true;
-
-          try {
-            // Redirect to Stripe Payment Link
-            // Make sure to set the redirect URL in Stripe to:
-            // https://www.coffeeandfun.com/email-signature-generator/?access_token=sig_premium_a8f3k9m2x7v4
-            
-            window.location.href = 'https://payments.coffeeandfun.com/b/5kQ14o7Xo3OZ8QCeCH1RC0D';
-            
-          } catch (error) {
-            console.error('Payment error:', error);
-            alert('Payment failed. Please try again.');
-            this.isProcessingPayment = false;
-          }
+          window.location.href = 'https://payments.coffeeandfun.com/b/5kQ14o7Xo3OZ8QCeCH1RC0D';
         },
-
         grantPremiumAccess() {
-          localStorage.setItem('emailSigPremium', 'true');
+          try { localStorage.setItem('emailSigPremium', 'true'); } catch (e) { /* fine */ }
           this.hasPremiumAccess = true;
         },
 
+        // ---------- persistence ----------
         saveData() {
-          // Auto-save form data to localStorage
-          const dataToSave = {
-            formData: this.formData,
-            uploadedPhoto: this.uploadedPhoto,
-            selectedTemplate: this.selectedTemplate ? this.selectedTemplate.id : 'classic'
-          };
-          localStorage.setItem('emailSigData', JSON.stringify(dataToSave));
+          try {
+            localStorage.setItem('emailSigData', JSON.stringify({
+              formData: this.formData,
+              uploadedPhoto: this.uploadedPhoto,
+              selectedTemplate: this.selectedTemplate ? this.selectedTemplate.id : 'classic',
+              visibleSocials: this.visibleSocials
+            }));
+          } catch (e) {
+            try {
+              localStorage.setItem('emailSigData', JSON.stringify({
+                formData: this.formData,
+                uploadedPhoto: null,
+                selectedTemplate: this.selectedTemplate ? this.selectedTemplate.id : 'classic',
+                visibleSocials: this.visibleSocials
+              }));
+            } catch (e2) { /* storage unavailable */ }
+          }
         },
 
         loadSavedData() {
-          // Load saved data from localStorage
-          const savedData = localStorage.getItem('emailSigData');
-          if (savedData) {
-            try {
-              const parsed = JSON.parse(savedData);
-              
-              // Only load saved data if it's not the demo data
-              // Check if name is different from demo
-              if (parsed.formData && parsed.formData.name !== 'John Doe') {
-                this.formData = { ...this.formData, ...parsed.formData };
-              }
-              
-              if (parsed.uploadedPhoto) {
-                this.uploadedPhoto = parsed.uploadedPhoto;
-              }
-              
-              if (parsed.selectedTemplate) {
-                const template = this.templates.find(t => t.id === parsed.selectedTemplate);
-                if (template) {
-                  this.selectedTemplate = template;
-                }
-              }
-            } catch (e) {
-              console.error('Error loading saved data:', e);
+          try {
+            const savedData = localStorage.getItem('emailSigData');
+            if (!savedData) return;
+            const parsed = JSON.parse(savedData);
+            // Saves from the old version could contain its untouched
+            // "John Doe" demo pre-fill — don't resurrect fake data.
+            if (parsed.formData &&
+                parsed.formData.name === 'John Doe' &&
+                parsed.formData.email === 'john@coffeeandfun.com') {
+              return;
             }
-          }
+            if (parsed.formData) {
+              this.formData = {
+                ...this.formData,
+                ...parsed.formData,
+                social: { ...this.formData.social, ...(parsed.formData.social || {}) }
+              };
+            }
+            if (parsed.uploadedPhoto) this.uploadedPhoto = parsed.uploadedPhoto;
+            if (parsed.selectedTemplate) {
+              const template = this.templates.find(t => t.id === parsed.selectedTemplate);
+              if (template && (!template.premium || this.hasPremiumAccess)) this.selectedTemplate = template;
+            }
+            if (Array.isArray(parsed.visibleSocials) && parsed.visibleSocials.length) {
+              this.visibleSocials = parsed.visibleSocials;
+            }
+          } catch (e) { /* corrupt save — ignore */ }
         },
 
         clearAllData() {
-          if (confirm('Are you sure you want to clear all data and start fresh? This cannot be undone.')) {
-            // Clear localStorage
-            localStorage.removeItem('emailSigData');
-            
-            // Reset to default values
-            this.formData = {
-              name: '',
-              title: '',
-              company: '',
-              email: '',
-              phone: '',
-              website: '',
-              address: '',
-              department: '',
-              pronouns: '',
-              timezone: '',
-              officeHours: '',
-              secondaryEmail: '',
-              calendarLink: '',
-              social: {
-                linkedin: '',
-                twitter: '',
-                github: '',
-                instagram: '',
-                facebook: '',
-                youtube: '',
-                tiktok: '',
-                medium: '',
-                dribbble: '',
-                whatsapp: '',
-                telegram: ''
-              },
-              primaryColor: '#3b82f6',
-              textColor: '#1f2937'
-            };
-            
-            this.uploadedPhoto = null;
-            this.selectedTemplate = this.templates[0];
-            
-            // Clear file input
-            if (this.$refs.photoInput) {
-              this.$refs.photoInput.value = '';
-            }
-            
-            alert('All data cleared! You can start fresh.');
-          }
+          if (!confirm('Start over? This clears everything you have entered.')) return;
+          try { localStorage.removeItem('emailSigData'); } catch (e) { /* fine */ }
+          this.formData = {
+            name: '', title: '', company: '', email: '',
+            phone: '', website: '', address: '',
+            department: '', pronouns: '', timezone: '', officeHours: '',
+            secondaryEmail: '', calendarLink: '', photoUrl: '',
+            social: {
+              linkedin: '', twitter: '', github: '', instagram: '', facebook: '',
+              youtube: '', tiktok: '', medium: '', dribbble: '', whatsapp: '', telegram: ''
+            },
+            primaryColor: '#96603c',
+            textColor: '#1f2937'
+          };
+          this.uploadedPhoto = null;
+          this.selectedTemplate = this.templates[0];
+          this.visibleSocials = ['linkedin', 'twitter', 'github'];
+          this.openMore = false;
+          this.openExtras = false;
+          if (this.$refs.photoInput) this.$refs.photoInput.value = '';
+          this.showToast('Cleared — fresh start!');
+          this.announcement = 'All fields cleared.';
         }
       }
     }).mount('#main-content');
