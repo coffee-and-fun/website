@@ -394,7 +394,51 @@
             .wrap { padding-top: 1.5rem; }
             .topbar { margin-bottom: 2rem; }
         }
+
+        /* ---- Site footer ----
+           footer.liquid is written against Tailwind utilities, which this
+           standalone page doesn't load; these rules cover exactly the classes
+           that markup uses (plus sketch-styles.liquid for the doodles). */
+        footer.brand-color-background { position: relative; overflow: visible; padding: 1rem; }
+        footer .mx-auto { margin-left: auto; margin-right: auto; }
+        footer .max-w-7xl { max-width: 80rem; padding: 3rem 1rem; }
+        footer .max-w-2xl { max-width: 42rem; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; }
+        footer .mb-4 { display: inline-block; margin-bottom: 1rem; border-radius: 1rem; }
+        footer img { height: 4rem; width: 4rem; }
+        footer h2 { margin: 0 0 0.5rem; font-size: 1.125rem; font-weight: 700; }
+        footer p { margin: 0; font-size: 0.875rem; }
+        footer .text-stone-600 { color: #57534e; }
+        footer .font-semibold { font-weight: 600; }
+        footer .flex-wrap { display: flex; flex-wrap: wrap; justify-content: center; gap: 1rem; margin-top: 2rem; }
+        footer .flex-wrap a { display: inline-flex; padding: 0.5rem; border-radius: 1rem; color: #78716c; transition: color 0.15s; }
+        footer .flex-wrap svg { height: 1.5rem; width: 1.5rem; }
+        footer .hover\:text-blue-400:hover { color: #60a5fa; }
+        footer .hover\:text-pink-500:hover { color: #ec4899; }
+        footer .hover\:text-indigo-500:hover { color: #6366f1; }
+        footer .hover\:text-stone-900:hover { color: #1c1917; }
+        footer .hover\:text-red-500:hover { color: #ef4444; }
+        footer p.text-center { margin-top: 2rem; text-align: center; }
+        footer a:focus-visible { outline: 2px solid var(--ink); outline-offset: 2px; }
+        @media (min-width: 640px) {
+            footer.brand-color-background { padding: 1.5rem; }
+            footer .max-w-7xl { padding: 4rem 1.5rem; }
+            footer img { height: 5rem; width: 5rem; }
+            footer h2 { font-size: 1.25rem; }
+            footer p { font-size: 1rem; }
+            footer .flex-wrap { gap: 1.5rem; margin-top: 3rem; }
+            footer .flex-wrap svg { height: 1.75rem; width: 1.75rem; }
+            footer p.text-center { margin-top: 2.5rem; }
+        }
+        @media (min-width: 1024px) {
+            footer.brand-color-background { padding: 2.5rem; }
+            footer .max-w-7xl { padding: 5rem 2rem; }
+            footer img { height: 6rem; width: 6rem; }
+            footer h2 { font-size: 1.5rem; }
+            footer .flex-wrap { margin-top: 4rem; }
+            footer p.text-center { margin-top: 3rem; }
+        }
     </style>
+    {% include sketch-styles.liquid %}
 </head>
 
 <body>
@@ -593,8 +637,11 @@
             </div>
         </section>
 
-        <p class="foot">Everything happens in your browser — nothing you type leaves this page. Made by <a href="https://www.coffeeandfun.com/">Coffee &amp; Fun</a></p>
+        <p class="foot">Everything happens in your browser — nothing you type leaves this page.</p>
     </main>
+{% endraw %}
+
+    {% include footer.liquid %}
 
     <script>
         const { createApp } = Vue;
@@ -894,6 +941,5 @@
             }
         }).mount('#app');
     </script>
-{% endraw %}
 </body>
 </html>
