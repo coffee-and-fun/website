@@ -6,8 +6,8 @@
 
     <title>Free Receipt Generator - Create Professional Receipts | Coffee & Fun LLC</title>
     <meta name="title" content="Free Receipt Generator - Create Professional Receipts | Coffee & Fun LLC" />
-    <meta name="description" content="Generate professional replacement receipts for bookkeeping. Create, customize, and download receipts as PDF with tax calculations and business branding. Privacy-focused, works locally in your browser." />
-    <meta name="keywords" content="receipt generator, receipt maker, bookkeeping tool, replacement receipt, business receipt, PDF receipt, tax calculator, Coffee & Fun" />
+    <meta name="description" content="Generate realistic replacement receipts for bookkeeping. Thermal-style receipts with barcode, tax and discount math, and an authentic 80mm PDF download. Privacy-focused, works locally in your browser." />
+    <meta name="keywords" content="receipt generator, receipt maker, bookkeeping tool, replacement receipt, business receipt, PDF receipt, thermal receipt, tax calculator, Coffee & Fun" />
     <meta name="author" content="Coffee & Fun LLC" />
     <meta name="robots" content="index, follow" />
 
@@ -19,7 +19,7 @@
     <meta property="og:type" content="website" />
     <meta property="og:site_name" content="Coffee & Fun" />
     <meta property="og:title" content="Free Receipt Generator - Create Professional Receipts" />
-    <meta property="og:description" content="Generate professional replacement receipts for bookkeeping. Create, customize, and download receipts as PDF with tax calculations and business branding. Privacy-focused, works locally in your browser." />
+    <meta property="og:description" content="Generate realistic replacement receipts for bookkeeping. Thermal-style receipts with barcode and an authentic 80mm PDF download. Privacy-focused, works locally in your browser." />
     <meta property="og:url" content="https://www.coffeeandfun.com/receipt-generator/" />
     <meta property="og:image" content="https://www.coffeeandfun.com/assets/images/social/pages/receipt-generator.png" />
     <meta property="og:image:width" content="1200" />
@@ -31,7 +31,7 @@
     <meta name="twitter:site" content="@bycoffeeandfun" />
     <meta name="twitter:creator" content="@bycoffeeandfun" />
     <meta name="twitter:title" content="Free Receipt Generator - Create Professional Receipts" />
-    <meta name="twitter:description" content="Generate professional replacement receipts for bookkeeping. Privacy-focused, works locally in your browser." />
+    <meta name="twitter:description" content="Generate realistic thermal-style replacement receipts for bookkeeping. Privacy-focused, works locally in your browser." />
     <meta name="twitter:image" content="https://www.coffeeandfun.com/assets/images/social/pages/receipt-generator.png" />
     <meta name="twitter:image:alt" content="Free Receipt Generator by Coffee & Fun - Create Professional Business Receipts" />
 
@@ -52,11 +52,60 @@
     <style>
         [v-cloak] { display: none; }
 
-        .form-section {
+        .brand-heading {
+            font-family: 'Pacifico', cursive;
+            color: var(--color-mocha);
+            text-shadow: 1.5px 2.5px 0 rgba(253, 97, 85, 0.45);
+        }
+
+        .sr-only {
+            position: absolute;
+            width: 1px;
+            height: 1px;
+            padding: 0;
+            margin: -1px;
+            overflow: hidden;
+            clip: rect(0, 0, 0, 0);
+            white-space: nowrap;
+            border: 0;
+        }
+
+        fieldset.form-section {
             background: white;
             border-radius: 1rem;
             padding: 1.5rem;
             border: 1.5px solid #e7e0d8;
+            margin: 0;
+            min-width: 0;
+        }
+
+        legend.section-title {
+            float: left;
+            width: 100%;
+            padding: 0;
+            font-size: 0.8rem;
+            font-weight: 700;
+            color: var(--color-caramel);
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            margin-bottom: 1rem;
+        }
+        legend.section-title + * { clear: both; }
+
+        .panel-card {
+            background: white;
+            border-radius: 1rem;
+            padding: 1.25rem;
+            border: 1.5px solid #e7e0d8;
+        }
+
+        h2.section-title {
+            font-size: 0.8rem;
+            font-weight: 700;
+            color: var(--color-caramel);
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            margin: 0 0 1rem;
         }
 
         .form-label {
@@ -85,7 +134,7 @@
             box-shadow: 0 0 0 3px rgba(163, 105, 66, 0.12);
         }
         .form-input::placeholder {
-            color: #c4a882;
+            color: #8a6a44;
         }
 
         select.form-input {
@@ -113,11 +162,15 @@
             cursor: pointer;
             transition: all 0.2s;
         }
+        .btn-brand:focus-visible {
+            outline: 2px solid var(--color-mocha);
+            outline-offset: 2px;
+        }
         .btn-primary-brand {
-            background: var(--color-mocha);
+            background: var(--color-caramel);
             color: white;
         }
-        .btn-primary-brand:hover { background: #8b5a38; }
+        .btn-primary-brand:hover { background: var(--color-espresso); }
         .btn-primary-brand:disabled {
             opacity: 0.45;
             cursor: not-allowed;
@@ -125,11 +178,11 @@
 
         .btn-secondary-brand {
             background: transparent;
-            color: var(--color-mocha);
-            border: 1.5px solid #a36942;
+            color: var(--color-caramel);
+            border: 1.5px solid var(--color-mocha);
         }
         .btn-secondary-brand:hover {
-            background: var(--color-mocha);
+            background: var(--color-caramel);
             color: white;
         }
 
@@ -140,16 +193,16 @@
         }
         .btn-ghost-brand:hover {
             border-color: var(--color-mocha);
-            color: var(--color-mocha);
+            color: var(--color-espresso);
         }
 
         .btn-danger {
             background: transparent;
-            color: var(--color-coral);
-            border: 1.5px solid #fdd;
+            color: #c0392b;
+            border: 1.5px solid #f3c1ba;
         }
         .btn-danger:hover {
-            background: var(--color-coral);
+            background: #c0392b;
             color: white;
         }
 
@@ -158,35 +211,25 @@
             font-size: 0.8rem;
         }
 
-        /* Receipt Preview */
-        .receipt-paper {
-            background: white;
-            border-radius: 0.75rem;
-            box-shadow: 0 2px 12px rgba(61, 43, 31, 0.08);
-            font-family: 'Courier New', Courier, monospace;
-            color: #1a1a1a;
-            max-width: 360px;
-            margin: 0 auto;
-        }
-
-        .receipt-divider {
+        .item-remove {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 2.25rem;
+            height: 2.25rem;
+            margin: -0.5rem -0.5rem -0.35rem 0;
+            background: none;
             border: none;
-            border-top: 1.5px dashed #ccc;
-            margin: 0.75rem 0;
+            border-radius: 0.375rem;
+            color: #c0392b;
+            font-size: 1.1rem;
+            line-height: 1;
+            cursor: pointer;
         }
-
-        .receipt-row {
-            display: flex;
-            justify-content: space-between;
-            align-items: baseline;
-            font-size: 0.85rem;
-            line-height: 1.5;
-        }
-
-        .logo-thumb {
-            max-width: 120px;
-            max-height: 60px;
-            object-fit: contain;
+        .item-remove:hover { background: #fdeeec; }
+        .item-remove:focus-visible {
+            outline: 2px solid var(--color-mocha);
+            outline-offset: 2px;
         }
 
         .item-row {
@@ -196,64 +239,11 @@
             border-radius: 0.5rem;
         }
 
-        /* Toast */
-        .toast-msg {
-            position: fixed;
-            bottom: 1.5rem;
-            right: 1.5rem;
-            padding: 0.75rem 1.25rem;
-            border-radius: 0.5rem;
-            font-size: 0.875rem;
-            font-weight: 500;
-            color: white;
-            background: var(--color-mocha);
-            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
-            z-index: 999;
-            animation: toastIn 0.3s ease;
-        }
-        @keyframes toastIn {
-            from { opacity: 0; transform: translateY(10px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-        .privacy-pill {
-            display: inline-flex;
-            align-items: center;
-            gap: 0.35rem;
-            padding: 0.35rem 0.85rem;
-            border-radius: 9999px;
-            font-size: 0.8rem;
-            font-weight: 500;
-            color: #5b8c5a;
-            background: #eef6ee;
-            border: 1px solid #c8e0c7;
-        }
-
-        @media print {
-            body * { visibility: hidden; }
-            .receipt-paper, .receipt-paper * { visibility: visible; }
-            .receipt-paper {
-                position: absolute;
-                left: 0;
-                top: 0;
-                box-shadow: none;
-            }
-        }
-
-        .section-title {
-            font-size: 0.8rem;
-            font-weight: 700;
-            color: var(--color-mocha);
-            text-transform: uppercase;
-            letter-spacing: 0.05em;
-            margin-bottom: 1rem;
-        }
-
         .optional-tag {
             font-weight: 400;
             text-transform: none;
             letter-spacing: 0;
-            color: #a8a29e;
+            color: #767676;
         }
 
         .validation-hint {
@@ -271,6 +261,174 @@
             color: var(--color-caramel);
             margin-top: 0.35rem;
         }
+
+        /* ====== Thermal receipt preview ====== */
+        .receipt-stage {
+            display: flex;
+            justify-content: center;
+            padding: 14px 6px 20px;
+        }
+
+        .receipt-paper {
+            width: 302px;
+            max-width: 100%;
+            background:
+                repeating-linear-gradient(0deg, rgba(0, 0, 0, 0.015) 0 1px, transparent 1px 3px),
+                #fdfcf7;
+            color: #1a1a1a;
+            font-family: 'Courier New', Courier, monospace;
+            font-size: 12px;
+            line-height: 1.45;
+            padding: 20px 14px 24px;
+            position: relative;
+            box-shadow: 0 8px 20px rgba(61, 43, 31, 0.18);
+            transform: rotate(0.35deg);
+        }
+        .receipt-paper::before,
+        .receipt-paper::after {
+            content: '';
+            position: absolute;
+            left: 0;
+            right: 0;
+            height: 8px;
+        }
+        .receipt-paper::before {
+            top: -8px;
+            background:
+                linear-gradient(45deg, transparent 33%, #fdfcf7 33%) 0 0 / 16px 8px repeat-x,
+                linear-gradient(-45deg, transparent 33%, #fdfcf7 33%) 8px 0 / 16px 8px repeat-x;
+        }
+        .receipt-paper::after {
+            bottom: -8px;
+            background:
+                linear-gradient(135deg, transparent 33%, #fdfcf7 33%) 0 0 / 16px 8px repeat-x,
+                linear-gradient(-135deg, transparent 33%, #fdfcf7 33%) 8px 0 / 16px 8px repeat-x;
+        }
+
+        .rc-center { text-align: center; }
+        .rc-name {
+            text-align: center;
+            font-weight: 700;
+            font-size: 15px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            word-break: break-word;
+        }
+        .rc-small { font-size: 11px; }
+        .rc-sep {
+            white-space: nowrap;
+            overflow: hidden;
+            letter-spacing: 1px;
+            margin: 6px 0;
+            user-select: none;
+        }
+        .rc-row {
+            display: flex;
+            justify-content: space-between;
+            gap: 8px;
+        }
+        .rc-row > span:last-child { text-align: right; white-space: nowrap; }
+        .rc-item-desc {
+            text-transform: uppercase;
+            word-break: break-word;
+        }
+        .rc-total {
+            font-weight: 700;
+            font-size: 15px;
+        }
+        .rc-logo {
+            max-width: 130px;
+            max-height: 56px;
+            object-fit: contain;
+            margin: 0 auto 6px;
+            display: block;
+            filter: grayscale(1) contrast(1.15);
+        }
+        .rc-barcode {
+            display: block;
+            width: 78%;
+            margin: 8px auto 0;
+            image-rendering: pixelated;
+        }
+
+        /* Toast */
+        .toast-msg {
+            position: fixed;
+            bottom: 1.5rem;
+            right: 1.5rem;
+            padding: 0.75rem 1.25rem;
+            border-radius: 0.5rem;
+            font-size: 0.875rem;
+            font-weight: 500;
+            color: white;
+            background: var(--color-caramel);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+            z-index: 999;
+            animation: toastIn 0.3s ease;
+        }
+        @keyframes toastIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .privacy-pill {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.35rem;
+            padding: 0.35rem 0.85rem;
+            border-radius: 9999px;
+            font-size: 0.8rem;
+            font-weight: 500;
+            color: #3e6b3d;
+            background: #eef6ee;
+            border: 1px solid #c8e0c7;
+        }
+
+        /* Mobile action bar */
+        .mobile-actionbar {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 1rem;
+            padding: 0.75rem 1.25rem calc(0.75rem + env(safe-area-inset-bottom));
+            background: white;
+            border-top: 1.5px solid #e7e0d8;
+            z-index: 50;
+        }
+        @media (min-width: 768px) {
+            .mobile-actionbar { display: none; }
+        }
+        @media (max-width: 767px) {
+            #app { padding-bottom: 6.5rem !important; }
+            .toast-msg { bottom: 5.5rem; }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            .toast-msg { animation: none; }
+            html { scroll-behavior: auto !important; }
+            .receipt-paper { transform: none; }
+        }
+
+        @media print {
+            @page { size: 80mm auto; margin: 0; }
+            body * { visibility: hidden; }
+            .receipt-paper, .receipt-paper * { visibility: visible; }
+            .receipt-paper {
+                position: absolute;
+                left: 0;
+                top: 0;
+                width: 72mm;
+                padding: 4mm;
+                box-shadow: none;
+                transform: none;
+                background: white;
+            }
+            .receipt-paper::before, .receipt-paper::after { display: none; }
+        }
     </style>
 
     <script type="application/ld+json">
@@ -282,17 +440,17 @@
                 "@id": "https://www.coffeeandfun.com/receipt-generator/#webpage",
                 "url": "https://www.coffeeandfun.com/receipt-generator/",
                 "name": "Free Receipt Generator",
-                "description": "Generate professional replacement receipts for bookkeeping with our privacy-focused tool.",
+                "description": "Generate realistic thermal-style replacement receipts for bookkeeping with our privacy-focused tool.",
                 "isPartOf": { "@id": "https://www.coffeeandfun.com/#website" },
                 "mainEntity": {
                     "@type": "SoftwareApplication",
                     "name": "Free Receipt Generator",
-                    "description": "Privacy-focused web-based tool for creating professional business receipts with PDF export and tax calculations",
+                    "description": "Privacy-focused web-based tool for creating realistic thermal-style business receipts with PDF export, barcode, and tax calculations",
                     "url": "https://www.coffeeandfun.com/receipt-generator/",
                     "applicationCategory": "BusinessApplication",
                     "operatingSystem": "Web Browser",
                     "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" },
-                    "featureList": ["Create professional receipts", "PDF export with logo", "Tax and discount calculations", "Multi-currency support", "Cash tendered and change", "Auto-incrementing receipt numbers", "Local processing", "No data tracking"]
+                    "featureList": ["Realistic 80mm thermal receipt PDF", "Scannable Code 39 barcode", "Tax and discount calculations", "Multi-currency support", "Cash tendered and change", "Auto-incrementing receipt numbers", "Draft autosave", "Local processing", "No data tracking"]
                 }
             }
         ]
@@ -311,248 +469,257 @@
             <!-- Header -->
             <header style="text-align: center; margin-bottom: 2.5rem;">
                 <h1 class="brand-heading" style="font-size: 2.25rem; margin-bottom: 0.5rem;">Receipt Generator</h1>
-                <p style="color: #78716c; font-size: 0.95rem; margin-bottom: 0.75rem;">Create professional replacement receipts for bookkeeping</p>
-                <span class="privacy-pill">
-                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
-                    All data stays in your browser
-                </span>
+                <p style="color: #78716c; font-size: 0.95rem; margin-bottom: 0.75rem;">Create realistic replacement receipts for bookkeeping</p>
+                <div style="display: flex; gap: 0.6rem; justify-content: center; flex-wrap: wrap; align-items: center;">
+                    <span class="privacy-pill">
+                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+                        All data stays in your browser
+                    </span>
+                    <button @click="loadExample" class="btn-brand btn-ghost-brand btn-sm-brand">Try an example receipt</button>
+                </div>
             </header>
 
-            <div style="display: grid; grid-template-columns: 1fr; gap: 2rem;">
-                <!-- On large screens: two columns -->
-                <div style="display: grid; grid-template-columns: 1fr; gap: 2rem;" class="receipt-layout">
+            <!-- Screen reader announcements: total updates (debounced) -->
+            <div class="sr-only" role="status">{% raw %}{{ totalAnnouncement }}{% endraw %}</div>
 
-                    <!-- LEFT: Form -->
-                    <div style="display: flex; flex-direction: column; gap: 1.5rem;">
+            <div style="display: grid; grid-template-columns: 1fr; gap: 2rem;" class="receipt-layout">
 
-                        <!-- Business Info -->
-                        <div class="form-section">
-                            <div class="section-title">Business Information</div>
-                            <div style="display: flex; flex-direction: column; gap: 0.85rem;">
-                                <div>
-                                    <label class="form-label" for="f-bizname">Company Name *</label>
-                                    <input id="f-bizname" type="text" v-model="receipt.businessName" placeholder="Your Business Name" class="form-input" autocomplete="organization" />
-                                </div>
-                                <div>
-                                    <label class="form-label" for="f-address">Address</label>
-                                    <textarea id="f-address" v-model="receipt.businessAddress" placeholder="123 Main St, City, State ZIP" class="form-input" rows="2"></textarea>
-                                </div>
-                                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 0.75rem;">
-                                    <div>
-                                        <label class="form-label" for="f-phone">Phone</label>
-                                        <input id="f-phone" type="tel" v-model="receipt.businessPhone" placeholder="(555) 123-4567" class="form-input" autocomplete="tel" />
-                                    </div>
-                                    <div>
-                                        <label class="form-label" for="f-email">Email</label>
-                                        <input id="f-email" type="email" v-model="receipt.businessEmail" placeholder="info@business.com" class="form-input" autocomplete="email" />
-                                    </div>
-                                </div>
-                                <div>
-                                    <label class="form-label" for="f-logo">Logo <span class="optional-tag">(optional)</span></label>
-                                    <input id="f-logo" type="file" @change="handleLogoUpload" accept="image/png,image/jpeg,image/webp" class="form-input" style="padding: 0.4rem;" />
-                                    <button v-if="receipt.logo" @click="removeLogo" class="btn-brand btn-danger btn-sm-brand" style="margin-top: 0.5rem;">Remove Logo</button>
-                                </div>
-                                <div style="display: flex; gap: 0.5rem;">
-                                    <button @click="saveBusinessInfo" class="btn-brand btn-ghost-brand btn-sm-brand">Save Info</button>
-                                    <button v-if="hasSavedBusinessInfo" @click="loadBusinessInfo" class="btn-brand btn-ghost-brand btn-sm-brand">Load Saved</button>
-                                </div>
-                            </div>
-                        </div>
+                <!-- LEFT: Form -->
+                <div style="display: flex; flex-direction: column; gap: 1.5rem;">
 
-                        <!-- Receipt Details -->
-                        <div class="form-section">
-                            <div class="section-title">Receipt Details</div>
-                            <div style="display: flex; flex-direction: column; gap: 0.85rem;">
-                                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 0.75rem;">
-                                    <div>
-                                        <label class="form-label" for="f-rcpnum">Receipt Number</label>
-                                        <input id="f-rcpnum" type="text" v-model="receipt.receiptNumber" placeholder="RCP-0001" class="form-input" />
-                                    </div>
-                                    <div>
-                                        <label class="form-label" for="f-date">Date *</label>
-                                        <input id="f-date" type="date" v-model="receipt.date" class="form-input" />
-                                    </div>
-                                </div>
-                                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 0.75rem;">
-                                    <div>
-                                        <label class="form-label" for="f-pay">Payment Method</label>
-                                        <select id="f-pay" v-model="receipt.paymentMethod" class="form-input">
-                                            <option>Cash</option>
-                                            <option>Credit Card</option>
-                                            <option>Debit Card</option>
-                                            <option>Check</option>
-                                            <option>Bank Transfer</option>
-                                            <option>Other</option>
-                                        </select>
-                                    </div>
-                                    <div>
-                                        <label class="form-label" for="f-currency">Currency</label>
-                                        <select id="f-currency" v-model="receipt.currency" class="form-input">
-                                            <option v-for="c in currencies" :key="c.code" :value="c.code">{% raw %}{{ c.code }} ({{ c.symbol }}){% endraw %}</option>
-                                        </select>
-                                    </div>
-                                </div>
-                                <div>
-                                    <label class="form-label" for="f-cashier">Served By <span class="optional-tag">(optional)</span></label>
-                                    <input id="f-cashier" type="text" v-model="receipt.cashier" placeholder="Cashier or staff name" class="form-input" />
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- Items -->
-                        <div class="form-section">
-                            <div class="section-title">Items</div>
-                            <div style="display: flex; flex-direction: column; gap: 0.75rem;">
-                                <div v-for="(item, index) in receipt.items" :key="index" class="item-row">
-                                    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.5rem;">
-                                        <span style="font-size: 0.75rem; font-weight: 600; color: var(--color-caramel);">{% raw %}ITEM {{ index + 1 }}{% endraw %}</span>
-                                        <button v-if="receipt.items.length > 1" @click="removeItem(index)" :aria-label="'Remove item ' + (index + 1)" style="background: none; border: none; color: var(--color-coral); cursor: pointer; font-size: 1.1rem; padding: 0; line-height: 1;">&times;</button>
-                                    </div>
-                                    <div style="display: grid; grid-template-columns: 1fr auto auto; gap: 0.5rem;">
-                                        <input type="text" v-model="item.description" placeholder="Description" :aria-label="'Item ' + (index + 1) + ' description'" class="form-input" style="font-size: 0.85rem; padding: 0.45rem 0.65rem;" />
-                                        <input type="number" v-model.number="item.quantity" placeholder="Qty" min="0" step="1" :aria-label="'Item ' + (index + 1) + ' quantity'" class="form-input" style="width: 4rem; font-size: 0.85rem; padding: 0.45rem 0.5rem; text-align: center;" />
-                                        <input type="number" v-model.number="item.price" placeholder="Price" step="0.01" min="0" :aria-label="'Item ' + (index + 1) + ' unit price'" class="form-input" style="width: 5.5rem; font-size: 0.85rem; padding: 0.45rem 0.5rem;" />
-                                    </div>
-                                    <div v-if="item.description && item.quantity > 0 && item.price > 0" class="line-total">{% raw %}Line total: {{ formatMoney(item.quantity * item.price) }}{% endraw %}</div>
-                                </div>
-                                <button @click="addItem" class="btn-brand btn-secondary-brand" style="width: 100%; justify-content: center;">+ Add Item</button>
-                            </div>
-
-                            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 0.75rem; margin-top: 1rem;">
-                                <div>
-                                    <label class="form-label" for="f-tax">Tax Rate (%)</label>
-                                    <input id="f-tax" type="number" v-model.number="receipt.taxRate" placeholder="0" step="0.01" min="0" max="100" class="form-input" />
-                                </div>
-                                <div>
-                                    <label class="form-label" for="f-discount">Discount <span class="optional-tag">(optional)</span></label>
-                                    <div style="display: flex; gap: 0.4rem;">
-                                        <input id="f-discount" type="number" v-model.number="receipt.discountValue" placeholder="0" step="0.01" min="0" class="form-input" style="flex: 1; min-width: 0;" />
-                                        <select v-model="receipt.discountType" aria-label="Discount type" class="form-input" style="width: 4.75rem; padding-left: 0.5rem; padding-right: 1.5rem;">
-                                            <option value="percent">%</option>
-                                            <option value="fixed">{% raw %}{{ currencyInfo.symbol }}{% endraw %}</option>
-                                        </select>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- Cash payment (only for cash) -->
-                        <div class="form-section" v-if="receipt.paymentMethod === 'Cash'">
-                            <div class="section-title">Cash Payment</div>
+                    <!-- Business Info -->
+                    <fieldset class="form-section">
+                        <legend class="section-title">Business Information</legend>
+                        <div style="display: flex; flex-direction: column; gap: 0.85rem;">
                             <div>
-                                <label class="form-label" for="f-paid">Amount Received <span class="optional-tag">(optional)</span></label>
-                                <input id="f-paid" type="number" v-model.number="receipt.amountPaid" placeholder="0.00" step="0.01" min="0" class="form-input" style="max-width: 10rem;" />
-                                <div v-if="receipt.amountPaid > 0" style="margin-top: 0.5rem; font-size: 0.85rem; color: var(--color-espresso);">
-                                    <span v-if="changeDue >= 0">{% raw %}Change to give: {{ formatMoney(changeDue) }}{% endraw %}</span>
-                                    <span v-else style="color: var(--color-coral);">{% raw %}Short by: {{ formatMoney(-changeDue) }}{% endraw %}</span>
+                                <label class="form-label" for="f-bizname">Company Name *</label>
+                                <input id="f-bizname" type="text" v-model="receipt.businessName" placeholder="Your Business Name" class="form-input" autocomplete="organization" />
+                            </div>
+                            <div>
+                                <label class="form-label" for="f-address">Address</label>
+                                <textarea id="f-address" v-model="receipt.businessAddress" placeholder="123 Main St, City, State ZIP" class="form-input" rows="2"></textarea>
+                            </div>
+                            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 0.75rem;">
+                                <div>
+                                    <label class="form-label" for="f-phone">Phone</label>
+                                    <input id="f-phone" type="tel" v-model="receipt.businessPhone" placeholder="(555) 123-4567" class="form-input" autocomplete="tel" />
+                                </div>
+                                <div>
+                                    <label class="form-label" for="f-email">Email</label>
+                                    <input id="f-email" type="email" v-model="receipt.businessEmail" placeholder="info@business.com" class="form-input" autocomplete="email" />
+                                </div>
+                            </div>
+                            <div>
+                                <label class="form-label" for="f-logo">Logo <span class="optional-tag">(optional — printed black &amp; white, like a real register)</span></label>
+                                <input id="f-logo" type="file" @change="handleLogoUpload" accept="image/png,image/jpeg,image/webp" class="form-input" style="padding: 0.4rem;" />
+                                <button v-if="receipt.logo" @click="removeLogo" class="btn-brand btn-danger btn-sm-brand" style="margin-top: 0.5rem;">Remove Logo</button>
+                            </div>
+                            <div style="display: flex; gap: 0.5rem; flex-wrap: wrap;">
+                                <button @click="saveBusinessInfo(false)" class="btn-brand btn-ghost-brand btn-sm-brand">Remember my details</button>
+                                <button v-if="hasSavedBusinessInfo" @click="loadBusinessInfo(false)" class="btn-brand btn-ghost-brand btn-sm-brand">Load saved details</button>
+                            </div>
+                        </div>
+                    </fieldset>
+
+                    <!-- Receipt Details -->
+                    <fieldset class="form-section">
+                        <legend class="section-title">Receipt Details</legend>
+                        <div style="display: flex; flex-direction: column; gap: 0.85rem;">
+                            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 0.75rem;">
+                                <div>
+                                    <label class="form-label" for="f-rcpnum">Receipt Number</label>
+                                    <input id="f-rcpnum" type="text" v-model="receipt.receiptNumber" placeholder="RCP-0001" maxlength="16" class="form-input" />
+                                </div>
+                                <div>
+                                    <label class="form-label" for="f-date">Date *</label>
+                                    <input id="f-date" type="date" v-model="receipt.date" class="form-input" />
+                                </div>
+                            </div>
+                            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 0.75rem;">
+                                <div>
+                                    <label class="form-label" for="f-pay">Payment Method</label>
+                                    <select id="f-pay" v-model="receipt.paymentMethod" class="form-input">
+                                        <option>Cash</option>
+                                        <option>Credit Card</option>
+                                        <option>Debit Card</option>
+                                        <option>Check</option>
+                                        <option>Bank Transfer</option>
+                                        <option>Other</option>
+                                    </select>
+                                </div>
+                                <div>
+                                    <label class="form-label" for="f-currency">Currency</label>
+                                    <select id="f-currency" v-model="receipt.currency" class="form-input">
+                                        <option v-for="c in currencies" :key="c.code" :value="c.code">{% raw %}{{ c.code }} ({{ c.symbol }}){% endraw %}</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div>
+                                <label class="form-label" for="f-cashier">Served By <span class="optional-tag">(optional)</span></label>
+                                <input id="f-cashier" type="text" v-model="receipt.cashier" placeholder="Cashier or staff name" class="form-input" />
+                            </div>
+                        </div>
+                    </fieldset>
+
+                    <!-- Items -->
+                    <fieldset class="form-section">
+                        <legend class="section-title">Items</legend>
+                        <div style="display: flex; flex-direction: column; gap: 0.75rem;">
+                            <div v-for="(item, index) in receipt.items" :key="index" class="item-row" role="group" :aria-label="'Item ' + (index + 1)">
+                                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.5rem;">
+                                    <span style="font-size: 0.75rem; font-weight: 600; color: var(--color-caramel);">{% raw %}ITEM {{ index + 1 }}{% endraw %}</span>
+                                    <button v-if="receipt.items.length > 1" @click="removeItem(index)" :aria-label="'Remove item ' + (index + 1)" class="item-remove">&times;</button>
+                                </div>
+                                <div style="display: grid; grid-template-columns: 1fr auto auto; gap: 0.5rem;">
+                                    <input type="text" :id="'item-desc-' + index" v-model="item.description" placeholder="Description" :aria-label="'Item ' + (index + 1) + ' description'" @keydown.enter.prevent="focusEl('item-qty-' + index)" class="form-input" style="font-size: 0.85rem; padding: 0.45rem 0.65rem;" />
+                                    <input type="number" :id="'item-qty-' + index" v-model.number="item.quantity" placeholder="Qty" min="0" step="1" :aria-label="'Item ' + (index + 1) + ' quantity'" @keydown.enter.prevent="focusEl('item-price-' + index)" @wheel="$event.target.blur()" class="form-input" style="width: 4rem; font-size: 0.85rem; padding: 0.45rem 0.5rem; text-align: center;" />
+                                    <input type="number" :id="'item-price-' + index" v-model.number="item.price" placeholder="Price" step="0.01" min="0" :aria-label="'Item ' + (index + 1) + ' unit price'" @keydown.enter.prevent="addItem(true)" @wheel="$event.target.blur()" class="form-input" style="width: 5.5rem; font-size: 0.85rem; padding: 0.45rem 0.5rem;" />
+                                </div>
+                                <div v-if="item.description && item.quantity > 0 && item.price > 0" class="line-total">{% raw %}Line total: {{ formatMoney(item.quantity * item.price) }}{% endraw %}</div>
+                            </div>
+                            <button ref="addItemBtn" @click="addItem(true)" class="btn-brand btn-secondary-brand" style="width: 100%; justify-content: center;">+ Add Item</button>
+                            <p class="sr-only">Tip: press Enter to move between item fields; Enter on a price adds the next item.</p>
+                        </div>
+
+                        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 0.75rem; margin-top: 1rem;">
+                            <div>
+                                <label class="form-label" for="f-tax">Tax Rate (%)</label>
+                                <input id="f-tax" type="number" v-model.number="receipt.taxRate" placeholder="0" step="0.01" min="0" max="100" @wheel="$event.target.blur()" class="form-input" />
+                            </div>
+                            <div>
+                                <label class="form-label" for="f-discount">Discount <span class="optional-tag">(optional)</span></label>
+                                <div style="display: flex; gap: 0.4rem;">
+                                    <input id="f-discount" type="number" v-model.number="receipt.discountValue" placeholder="0" step="0.01" min="0" @wheel="$event.target.blur()" class="form-input" style="flex: 1; min-width: 0;" />
+                                    <select v-model="receipt.discountType" aria-label="Discount type" class="form-input" style="width: 4.75rem; padding-left: 0.5rem; padding-right: 1.5rem;">
+                                        <option value="percent">%</option>
+                                        <option value="fixed">{% raw %}{{ currencyInfo.symbol }}{% endraw %}</option>
+                                    </select>
                                 </div>
                             </div>
                         </div>
+                    </fieldset>
 
-                        <!-- Receipt note -->
-                        <div class="form-section">
-                            <div class="section-title">Receipt Note</div>
-                            <div>
-                                <label class="form-label" for="f-note">Footer Message <span class="optional-tag">(optional)</span></label>
-                                <input id="f-note" type="text" v-model="receipt.footerNote" maxlength="80" placeholder="Thank you for your business!" class="form-input" />
+                    <!-- Cash payment (only for cash) -->
+                    <fieldset class="form-section" v-if="receipt.paymentMethod === 'Cash'">
+                        <legend class="section-title">Cash Payment</legend>
+                        <div>
+                            <label class="form-label" for="f-paid">Amount Received <span class="optional-tag">(optional)</span></label>
+                            <input id="f-paid" type="number" v-model.number="receipt.amountPaid" placeholder="0.00" step="0.01" min="0" @wheel="$event.target.blur()" class="form-input" style="max-width: 10rem;" />
+                            <div v-if="receipt.amountPaid > 0" style="margin-top: 0.5rem; font-size: 0.85rem; color: var(--color-espresso);">
+                                <span v-if="changeDue >= 0">{% raw %}Change to give: {{ formatMoney(changeDue) }}{% endraw %}</span>
+                                <span v-else style="color: #c0392b;">{% raw %}Short by: {{ formatMoney(-changeDue) }}{% endraw %}</span>
                             </div>
                         </div>
-                    </div>
+                    </fieldset>
 
-                    <!-- RIGHT: Preview -->
-                    <div>
-                        <div style="position: sticky; top: 1.5rem;">
-                            <div class="form-section" style="padding: 1.25rem;">
-                                <div class="section-title">Preview</div>
+                    <!-- Receipt note -->
+                    <fieldset class="form-section">
+                        <legend class="section-title">Receipt Note</legend>
+                        <div>
+                            <label class="form-label" for="f-note">Footer Message <span class="optional-tag">(optional)</span></label>
+                            <input id="f-note" type="text" v-model="receipt.footerNote" maxlength="80" placeholder="Thank you for your business!" class="form-input" />
+                        </div>
+                    </fieldset>
+                </div>
 
-                                <div id="receipt-preview" class="receipt-paper" style="padding: 1.75rem 1.5rem;">
-                                    <!-- Header -->
-                                    <div style="text-align: center; margin-bottom: 0.75rem;">
-                                        <img v-if="receipt.logo" :src="receipt.logo" alt="Business logo" class="logo-thumb" style="margin: 0 auto 0.5rem;" />
-                                        <div style="font-weight: bold; font-size: 1rem;">{% raw %}{{ receipt.businessName || 'Your Business' }}{% endraw %}</div>
-                                        <div v-if="receipt.businessAddress" style="font-size: 0.75rem; margin-top: 0.2rem; white-space: pre-line;">{% raw %}{{ receipt.businessAddress }}{% endraw %}</div>
-                                        <div v-if="hasContactInfo" style="font-size: 0.75rem;">
-                                            <span v-if="receipt.businessPhone">{% raw %}{{ receipt.businessPhone }}{% endraw %}</span>
-                                            <span v-if="receipt.businessPhone && receipt.businessEmail"> &bull; </span>
-                                            <span v-if="receipt.businessEmail">{% raw %}{{ receipt.businessEmail }}{% endraw %}</span>
-                                        </div>
+                <!-- RIGHT: Preview -->
+                <div>
+                    <div style="position: sticky; top: 1.5rem;">
+                        <div class="panel-card">
+                            <h2 class="section-title">Preview</h2>
+
+                            <div class="receipt-stage">
+                                <div id="receipt-preview" class="receipt-paper" aria-label="Live receipt preview">
+                                    <img v-if="receipt.logo" :src="receipt.logo" alt="" class="rc-logo" />
+                                    <div class="rc-name">{% raw %}{{ receipt.businessName || 'Your Business' }}{% endraw %}</div>
+                                    <div v-if="receipt.businessAddress" class="rc-center rc-small" style="white-space: pre-line;">{% raw %}{{ receipt.businessAddress }}{% endraw %}</div>
+                                    <div v-if="hasContactInfo" class="rc-center rc-small">
+                                        <span v-if="receipt.businessPhone">{% raw %}{{ receipt.businessPhone }}{% endraw %}</span>
+                                        <span v-if="receipt.businessPhone && receipt.businessEmail"> &middot; </span>
+                                        <span v-if="receipt.businessEmail">{% raw %}{{ receipt.businessEmail }}{% endraw %}</span>
                                     </div>
 
-                                    <hr class="receipt-divider" />
+                                    <div class="rc-sep" aria-hidden="true">------------------------------------------</div>
 
-                                    <!-- Info -->
-                                    <div style="margin-bottom: 0.5rem;">
-                                        <div class="receipt-row"><span>Receipt #</span><span>{% raw %}{{ receiptDisplayNumber }}{% endraw %}</span></div>
-                                        <div class="receipt-row"><span>Date</span><span>{% raw %}{{ formatDate(receipt.date) }}{% endraw %}</span></div>
-                                        <div class="receipt-row"><span>Payment</span><span>{% raw %}{{ receipt.paymentMethod }}{% endraw %}</span></div>
-                                        <div v-if="receipt.cashier" class="receipt-row"><span>Served by</span><span>{% raw %}{{ receipt.cashier }}{% endraw %}</span></div>
-                                    </div>
+                                    <div class="rc-row rc-small"><span>DATE {% raw %}{{ posDate }}{% endraw %}</span><span>TIME {% raw %}{{ posTime }}{% endraw %}</span></div>
+                                    <div class="rc-row rc-small"><span>{% raw %}{{ posRegisterLine }}{% endraw %}</span><span>{% raw %}{{ receiptDisplayNumber }}{% endraw %}</span></div>
 
-                                    <hr class="receipt-divider" />
+                                    <div class="rc-sep" aria-hidden="true">------------------------------------------</div>
 
-                                    <!-- Items -->
-                                    <div style="margin-bottom: 0.25rem;">
-                                        <div v-for="(item, index) in validItems" :key="index" style="margin-bottom: 0.5rem;">
-                                            <div class="receipt-row">
-                                                <span>{% raw %}{{ item.description }}{% endraw %}</span>
+                                    <div v-if="validItems.length">
+                                        <div v-for="(item, index) in validItems" :key="index" style="margin-bottom: 3px;">
+                                            <div class="rc-row">
+                                                <span class="rc-item-desc">{% raw %}{{ item.description }}{% endraw %}</span>
                                                 <span>{% raw %}{{ formatMoney(item.quantity * item.price) }}{% endraw %}</span>
                                             </div>
-                                            <div style="font-size: 0.7rem; color: #888; padding-left: 0.25rem;">{% raw %}{{ item.quantity }} &times; {{ formatMoney(item.price) }}{% endraw %}</div>
+                                            <div v-if="item.quantity > 1" class="rc-small">&nbsp;&nbsp;{% raw %}{{ item.quantity }} @ {{ formatMoney(item.price) }}{% endraw %}</div>
                                         </div>
-                                        <div v-if="validItems.length === 0" style="text-align: center; color: #ccc; font-size: 0.8rem; padding: 1rem 0;">No items yet</div>
                                     </div>
+                                    <div v-else class="rc-center rc-small" style="padding: 8px 0; color: #1a1a1a; opacity: 0.55;">NO ITEMS YET</div>
 
-                                    <hr class="receipt-divider" />
+                                    <div class="rc-sep" aria-hidden="true">------------------------------------------</div>
 
-                                    <!-- Totals -->
-                                    <div>
-                                        <div class="receipt-row"><span>Subtotal</span><span>{% raw %}{{ formatMoney(subtotal) }}{% endraw %}</span></div>
-                                        <div v-if="discountAmount > 0" class="receipt-row"><span>{% raw %}Discount{{ receipt.discountType === 'percent' ? ' (' + receipt.discountValue + '%)' : '' }}{% endraw %}</span><span>{% raw %}-{{ formatMoney(discountAmount) }}{% endraw %}</span></div>
-                                        <div v-if="receipt.taxRate > 0" class="receipt-row"><span>{% raw %}Tax ({{ receipt.taxRate }}%){% endraw %}</span><span>{% raw %}{{ formatMoney(taxAmount) }}{% endraw %}</span></div>
-                                        <hr class="receipt-divider" />
-                                        <div class="receipt-row" style="font-weight: bold; font-size: 1rem;">
-                                            <span>Total</span>
-                                            <span>{% raw %}{{ formatMoney(total) }}{% endraw %}</span>
-                                        </div>
-                                        <template v-if="receipt.paymentMethod === 'Cash' && receipt.amountPaid > 0">
-                                            <div class="receipt-row"><span>Cash</span><span>{% raw %}{{ formatMoney(receipt.amountPaid) }}{% endraw %}</span></div>
-                                            <div class="receipt-row"><span>{% raw %}{{ changeDue >= 0 ? 'Change' : 'Balance Due' }}{% endraw %}</span><span>{% raw %}{{ formatMoney(absChange) }}{% endraw %}</span></div>
-                                        </template>
-                                    </div>
+                                    <div class="rc-row"><span>SUBTOTAL</span><span>{% raw %}{{ formatMoney(subtotal) }}{% endraw %}</span></div>
+                                    <div v-if="discountAmount > 0" class="rc-row"><span>{% raw %}DISCOUNT{{ receipt.discountType === 'percent' ? ' ' + receipt.discountValue + '%' : '' }}{% endraw %}</span><span>{% raw %}-{{ formatMoney(discountAmount) }}{% endraw %}</span></div>
+                                    <div v-if="receipt.taxRate > 0" class="rc-row"><span>{% raw %}TAX {{ receipt.taxRate }}%{% endraw %}</span><span>{% raw %}{{ formatMoney(taxAmount) }}{% endraw %}</span></div>
 
-                                    <hr class="receipt-divider" />
+                                    <div class="rc-sep" aria-hidden="true">******************************************</div>
 
-                                    <div style="text-align: center; font-size: 0.65rem; color: #999; margin-top: 0.5rem; line-height: 1.6;">
-                                        <div style="font-size: 0.72rem; color: #666;">{% raw %}{{ receipt.footerNote || 'Thank you for your business!' }}{% endraw %}</div>
-                                        <div>{% raw %}{{ itemCount }} item{{ itemCount === 1 ? '' : 's' }} &bull; {{ generatedAt }}{% endraw %}</div>
-                                        <div style="letter-spacing: 0.05em;">{% raw %}{{ txnId }}{% endraw %}</div>
-                                        <div>Generated for bookkeeping purposes</div>
-                                    </div>
+                                    <div class="rc-row rc-total"><span>TOTAL</span><span>{% raw %}{{ formatMoney(total) }}{% endraw %}</span></div>
+                                    <div class="rc-row rc-small"><span>TENDER</span><span style="text-transform: uppercase;">{% raw %}{{ receipt.paymentMethod }}{% endraw %}</span></div>
+                                    <template v-if="receipt.paymentMethod === 'Cash' && receipt.amountPaid > 0">
+                                        <div class="rc-row rc-small"><span>CASH</span><span>{% raw %}{{ formatMoney(receipt.amountPaid) }}{% endraw %}</span></div>
+                                        <div class="rc-row rc-small"><span>{% raw %}{{ changeDue >= 0 ? 'CHANGE' : 'BALANCE DUE' }}{% endraw %}</span><span>{% raw %}{{ formatMoney(absChange) }}{% endraw %}</span></div>
+                                    </template>
+
+                                    <div class="rc-sep" aria-hidden="true">------------------------------------------</div>
+
+                                    <div v-if="receipt.cashier" class="rc-center rc-small" style="margin-top: 4px;">{% raw %}YOU WERE SERVED BY {{ receipt.cashier.toUpperCase() }}{% endraw %}</div>
+                                    <div class="rc-center rc-small" :style="{ marginTop: receipt.cashier ? '0' : '4px' }">{% raw %}{{ (receipt.footerNote || 'Thank you for your business!').toUpperCase() }}{% endraw %}</div>
+                                    <div class="rc-center rc-small">{% raw %}{{ itemCount }} ITEM{{ itemCount === 1 ? '' : 'S' }}{% endraw %}</div>
+
+                                    <img v-if="barcodeUrl" :src="barcodeUrl" alt="" class="rc-barcode" aria-hidden="true" />
+                                    <div class="rc-center rc-small" style="letter-spacing: 2px;">{% raw %}{{ barcodePayload }}{% endraw %}</div>
+                                    <div class="rc-center rc-small" style="margin-top: 6px; opacity: 0.75;">GENERATED FOR BOOKKEEPING PURPOSES</div>
                                 </div>
+                            </div>
 
-                                <!-- Actions -->
-                                <div style="margin-top: 1.25rem;">
-                                    <div style="display: flex; gap: 0.5rem; flex-wrap: wrap;">
-                                        <button @click="generatePDF" :disabled="!isValidReceipt" class="btn-brand btn-primary-brand">
-                                            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
-                                            Download PDF
-                                        </button>
-                                        <button @click="printReceipt" :disabled="!isValidReceipt" class="btn-brand btn-secondary-brand">Print</button>
-                                        <button @click="resetReceipt" class="btn-brand btn-ghost-brand">New Receipt</button>
-                                    </div>
-                                    <p v-if="!isValidReceipt" class="validation-hint" role="status">
+                            <!-- Actions -->
+                            <div style="margin-top: 1rem;">
+                                <div style="display: flex; gap: 0.5rem; flex-wrap: wrap;">
+                                    <button @click="generatePDF" :disabled="!isValidReceipt" class="btn-brand btn-primary-brand">
+                                        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+                                        Download PDF
+                                    </button>
+                                    <button @click="printReceipt" :disabled="!isValidReceipt" class="btn-brand btn-secondary-brand">Print</button>
+                                    <button @click="resetReceipt" class="btn-brand btn-ghost-brand">New Receipt</button>
+                                </div>
+                                <p class="validation-hint" role="status">
+                                    <template v-if="!isValidReceipt">
                                         <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
-                                        <span>{% raw %}To download, add {{ missingList }}.{% endraw %}</span>
-                                    </p>
-                                </div>
+                                        <span>{% raw %}To download, add {{ missingList }} — or {% endraw %}<button @click="loadExample" style="background:none;border:none;padding:0;font:inherit;color:var(--color-espresso);text-decoration:underline;cursor:pointer;">load the example</button>.</span>
+                                    </template>
+                                </p>
+                                <p style="margin-top: 0.5rem; font-size: 0.75rem; color: #767676;">The PDF downloads at real 80mm thermal-receipt size with a scannable barcode.</p>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
 
-            <!-- Toast notification -->
-            <div v-if="toast" class="toast-msg" role="status" aria-live="polite">{% raw %}{{ toast }}{% endraw %}</div>
+            <!-- Mobile action bar -->
+            <div class="mobile-actionbar">
+                <div>
+                    <div style="font-size: 0.7rem; color: var(--color-caramel); text-transform: uppercase; letter-spacing: 0.03em;">Total</div>
+                    <div style="font-weight: 700; font-size: 1.05rem; color: var(--color-espresso);">{% raw %}{{ formatMoney(total) }}{% endraw %}</div>
+                </div>
+                <button @click="generatePDF" :disabled="!isValidReceipt" class="btn-brand btn-primary-brand">Download PDF</button>
+            </div>
+
+            <!-- Toast notification: live region stays mounted so announcements are reliable -->
+            <div role="status" aria-live="polite">
+                <span v-if="toast" class="toast-msg">{% raw %}{{ toast }}{% endraw %}</span>
+            </div>
         </div>
     </main>
 
@@ -566,6 +733,38 @@
 
     <script>
         const { createApp } = Vue;
+
+        // Code 39 barcode: 9 elements per char (bars/spaces alternating, starts
+        // with a bar); 'w' = wide, 'n' = narrow. Standard table — scans for real.
+        const CODE39 = {
+            '0': 'nnnwwnwnn', '1': 'wnnwnnnnw', '2': 'nnwwnnnnw', '3': 'wnwwnnnnn',
+            '4': 'nnnwwnnnw', '5': 'wnnwwnnnn', '6': 'nnwwwnnnn', '7': 'nnnwnnwnw',
+            '8': 'wnnwnnwnn', '9': 'nnwwnnwnn',
+            'A': 'wnnnnwnnw', 'B': 'nnwnnwnnw', 'C': 'wnwnnwnnn', 'D': 'nnnnwwnnw',
+            'E': 'wnnnwwnnn', 'F': 'nnwnwwnnn', 'G': 'nnnnnwwnw', 'H': 'wnnnnwwnn',
+            'I': 'nnwnnwwnn', 'J': 'nnnnwwwnn', 'K': 'wnnnnnnww', 'L': 'nnwnnnnww',
+            'M': 'wnwnnnnwn', 'N': 'nnnnwnnww', 'O': 'wnnnwnnwn', 'P': 'nnwnwnnwn',
+            'Q': 'nnnnnnwww', 'R': 'wnnnnnwwn', 'S': 'nnwnnnwwn', 'T': 'nnnnwnwwn',
+            'U': 'wwnnnnnnw', 'V': 'nwwnnnnnw', 'W': 'wwwnnnnnn', 'X': 'nwnnwnnnw',
+            'Y': 'wwnnwnnnn', 'Z': 'nwwnwnnnn',
+            '-': 'nwnnnnwnw', '.': 'wwnnnnwnn', ' ': 'nwwnnnwnn', '*': 'nwnnwnwnn'
+        };
+
+        // Returns [{bar: true|false, wide: true|false}, ...] for '*payload*',
+        // with a narrow gap between characters.
+        function encodeCode39(payload) {
+            const chars = ('*' + payload + '*').split('');
+            const elements = [];
+            chars.forEach((ch, ci) => {
+                const pattern = CODE39[ch];
+                if (!pattern) return;
+                pattern.split('').forEach((wn, i) => {
+                    elements.push({ bar: i % 2 === 0, wide: wn === 'w' });
+                });
+                if (ci < chars.length - 1) elements.push({ bar: false, wide: false });
+            });
+            return elements;
+        }
 
         createApp({
             data() {
@@ -592,20 +791,23 @@
                         currency: 'USD',
                         cashier: '',
                         items: [
-                            { description: '', quantity: 1, price: 0 }
+                            { description: '', quantity: 1, price: null }
                         ],
-                        taxRate: 0,
-                        discountValue: 0,
+                        taxRate: null,
+                        discountValue: null,
                         discountType: 'percent',
-                        amountPaid: 0,
+                        amountPaid: null,
                         footerNote: ''
                     },
                     txnId: '',
-                    generatedAt: '',
+                    posTime: '',
+                    barcodeUrl: '',
+                    totalAnnouncement: '',
                     hasSavedBusinessInfo: false,
                     toast: ''
                 };
             },
+
             computed: {
                 currencyInfo() {
                     return this.currencies.find(c => c.code === this.receipt.currency) || this.currencies[0];
@@ -663,15 +865,99 @@
                 },
                 receiptDisplayNumber() {
                     return this.receipt.receiptNumber || '—';
+                },
+                posDate() {
+                    if (!this.receipt.date) return '--/--/----';
+                    const d = new Date(this.receipt.date + 'T00:00:00');
+                    return d.toLocaleDateString('en-US', { month: '2-digit', day: '2-digit', year: 'numeric' });
+                },
+                posRegisterLine() {
+                    const trn = (this.txnId || '').replace(/[^0-9A-F]/gi, '').slice(0, 6);
+                    const initials = (this.receipt.cashier || '')
+                        .split(/\s+/).filter(Boolean).map(w => w[0]).join('').toUpperCase().slice(0, 3);
+                    return 'REG#01 TRN#' + trn + (initials ? ' CSHR#' + initials : '');
+                },
+                barcodePayload() {
+                    const raw = (this.receipt.receiptNumber || this.txnId || 'RCP')
+                        .toUpperCase().replace(/[^0-9A-Z\-. ]/g, '');
+                    return raw.slice(0, 16) || 'RCP';
                 }
             },
+
+            watch: {
+                receipt: {
+                    deep: true,
+                    handler() {
+                        clearTimeout(this._draftTimer);
+                        this._draftTimer = setTimeout(() => {
+                            try {
+                                localStorage.setItem('receiptDraft', JSON.stringify(this.receipt));
+                            } catch (e) {
+                                try {
+                                    localStorage.setItem('receiptDraft', JSON.stringify({ ...this.receipt, logo: null }));
+                                } catch (e2) { /* storage unavailable */ }
+                            }
+                        }, 400);
+                    }
+                },
+                total(v) {
+                    clearTimeout(this._totalTimer);
+                    this._totalTimer = setTimeout(() => {
+                        const msg = 'Total ' + this.formatMoney(v);
+                        if (msg !== this.totalAnnouncement) this.totalAnnouncement = msg;
+                    }, 1000);
+                },
+                barcodePayload: {
+                    immediate: false,
+                    handler() { this.drawBarcode(); }
+                }
+            },
+
             mounted() {
                 this.checkSavedBusinessInfo();
+
+                // Restore an unsaved draft, else auto-load remembered business info
+                let restored = false;
+                try {
+                    const raw = localStorage.getItem('receiptDraft');
+                    if (raw) {
+                        const draft = JSON.parse(raw);
+                        const meaningful = draft && (draft.businessName ||
+                            (draft.items || []).some(i => i.description));
+                        if (meaningful) {
+                            Object.assign(this.receipt, draft);
+                            restored = true;
+                            this.showToast('Restored your unsaved draft');
+                        }
+                    }
+                } catch (e) { /* corrupt draft — ignore */ }
+
+                if (!restored && this.hasSavedBusinessInfo && !this.receipt.businessName) {
+                    this.loadBusinessInfo(true);
+                }
+
                 this.initReceiptNumber();
                 this.txnId = this.generateTxnId();
-                this.generatedAt = this.formatDateTime(new Date());
+                this.posTime = new Date().toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit' });
+                this.drawBarcode();
+
+                // Initial focus (desktop only — avoids popping the mobile keyboard)
+                if (window.matchMedia('(min-width: 768px)').matches) {
+                    this.$nextTick(() => {
+                        const target = this.receipt.businessName
+                            ? document.getElementById('item-desc-0')
+                            : document.getElementById('f-bizname');
+                        if (target) target.focus();
+                    });
+                }
             },
+
             methods: {
+                focusEl(id) {
+                    const el = document.getElementById(id);
+                    if (el) el.focus();
+                },
+
                 formatMoney(amount) {
                     const c = this.currencyInfo;
                     const n = Number(amount) || 0;
@@ -684,13 +970,6 @@
                 generateTxnId() {
                     const block = () => Math.floor(Math.random() * 0x10000).toString(16).toUpperCase().padStart(4, '0');
                     return 'TXN ' + block() + '-' + block();
-                },
-
-                formatDateTime(d) {
-                    return d.toLocaleString('en-US', {
-                        year: 'numeric', month: 'short', day: 'numeric',
-                        hour: 'numeric', minute: '2-digit'
-                    });
                 },
 
                 initReceiptNumber() {
@@ -714,7 +993,47 @@
 
                 showToast(msg) {
                     this.toast = msg;
-                    setTimeout(() => { this.toast = ''; }, 2500);
+                    clearTimeout(this._toastTimer);
+                    this._toastTimer = setTimeout(() => { this.toast = ''; }, 2800);
+                },
+
+                loadExample() {
+                    this.receipt.businessName = 'Sunrise Coffee Co.';
+                    this.receipt.businessAddress = '42 Bean Street\nPortland, OR 97201';
+                    this.receipt.businessPhone = '(503) 555-0142';
+                    this.receipt.cashier = this.receipt.cashier || 'Sam';
+                    this.receipt.items = [
+                        { description: 'Cappuccino (large)', quantity: 2, price: 4.50 },
+                        { description: 'Blueberry muffin', quantity: 1, price: 3.25 },
+                        { description: 'Cold brew growler', quantity: 1, price: 14.00 }
+                    ];
+                    this.receipt.taxRate = 8.25;
+                    this.showToast('Example loaded — edit anything, then download');
+                },
+
+                drawBarcode() {
+                    try {
+                        const elements = encodeCode39(this.barcodePayload);
+                        if (!elements.length) { this.barcodeUrl = ''; return; }
+                        const narrow = 2, wide = 6, height = 44, quiet = 20;
+                        const width = elements.reduce((wsum, el) => wsum + (el.wide ? wide : narrow), 0) + quiet * 2;
+                        const canvas = document.createElement('canvas');
+                        canvas.width = width;
+                        canvas.height = height;
+                        const ctx = canvas.getContext('2d');
+                        ctx.fillStyle = '#fdfcf7';
+                        ctx.fillRect(0, 0, width, height);
+                        ctx.fillStyle = '#1a1a1a';
+                        let x = quiet;
+                        elements.forEach(el => {
+                            const w = el.wide ? wide : narrow;
+                            if (el.bar) ctx.fillRect(x, 0, w, height);
+                            x += w;
+                        });
+                        this.barcodeUrl = canvas.toDataURL('image/png');
+                    } catch (e) {
+                        this.barcodeUrl = '';
+                    }
                 },
 
                 handleLogoUpload(event) {
@@ -732,19 +1051,41 @@
                     reader.onload = (e) => {
                         const img = new Image();
                         img.onload = () => {
-                            // Normalise to PNG so the logo always embeds cleanly in the PDF
-                            // (jsPDF is picky about WEBP/GIF) and strips any EXIF orientation data.
                             try {
+                                // Downscale, flatten onto white, and grayscale — thermal
+                                // printers are black-and-white, so the receipt logo is too.
+                                const maxW = 600;
+                                const scale = Math.min(1, maxW / img.naturalWidth);
+                                const w = Math.max(1, Math.round(img.naturalWidth * scale));
+                                const h = Math.max(1, Math.round(img.naturalHeight * scale));
                                 const canvas = document.createElement('canvas');
-                                canvas.width = img.naturalWidth;
-                                canvas.height = img.naturalHeight;
-                                canvas.getContext('2d').drawImage(img, 0, 0);
+                                canvas.width = w;
+                                canvas.height = h;
+                                const ctx = canvas.getContext('2d');
+                                ctx.fillStyle = '#ffffff';
+                                ctx.fillRect(0, 0, w, h);
+                                ctx.filter = 'grayscale(1)';
+                                ctx.drawImage(img, 0, 0, w, h);
+                                if (ctx.filter !== 'grayscale(1)') {
+                                    // Older browsers without canvas filters: manual pass
+                                    const d = ctx.getImageData(0, 0, w, h);
+                                    for (let i = 0; i < d.data.length; i += 4) {
+                                        const a = d.data[i + 3] / 255;
+                                        const l = 0.299 * d.data[i] + 0.587 * d.data[i + 1] + 0.114 * d.data[i + 2];
+                                        const v = Math.round(l * a + 255 * (1 - a));
+                                        d.data[i] = d.data[i + 1] = d.data[i + 2] = v;
+                                        d.data[i + 3] = 255;
+                                    }
+                                    ctx.putImageData(d, 0, 0);
+                                }
                                 this.receipt.logo = canvas.toDataURL('image/png');
+                                this.receipt.logoW = w;
+                                this.receipt.logoH = h;
                             } catch (err) {
                                 this.receipt.logo = e.target.result;
+                                this.receipt.logoW = img.naturalWidth;
+                                this.receipt.logoH = img.naturalHeight;
                             }
-                            this.receipt.logoW = img.naturalWidth;
-                            this.receipt.logoH = img.naturalHeight;
                         };
                         img.onerror = () => this.showToast('Could not read that image');
                         img.src = e.target.result;
@@ -758,15 +1099,24 @@
                     this.receipt.logoH = 0;
                 },
 
-                addItem() {
-                    this.receipt.items.push({ description: '', quantity: 1, price: 0 });
+                addItem(focus) {
+                    this.receipt.items.push({ description: '', quantity: 1, price: null });
+                    if (focus) {
+                        this.$nextTick(() => this.focusEl('item-desc-' + (this.receipt.items.length - 1)));
+                    }
                 },
 
                 removeItem(index) {
                     this.receipt.items.splice(index, 1);
+                    this.showToast('Item ' + (index + 1) + ' removed');
+                    this.$nextTick(() => {
+                        const target = document.getElementById('item-desc-' + Math.min(index, this.receipt.items.length - 1));
+                        if (target) target.focus();
+                        else if (this.$refs.addItemBtn) this.$refs.addItemBtn.focus();
+                    });
                 },
 
-                saveBusinessInfo() {
+                saveBusinessInfo(silent) {
                     const businessInfo = {
                         businessName: this.receipt.businessName,
                         businessAddress: this.receipt.businessAddress,
@@ -775,18 +1125,21 @@
                         logo: this.receipt.logo,
                         logoW: this.receipt.logoW,
                         logoH: this.receipt.logoH,
-                        currency: this.receipt.currency
+                        currency: this.receipt.currency,
+                        taxRate: this.receipt.taxRate,
+                        footerNote: this.receipt.footerNote,
+                        cashier: this.receipt.cashier
                     };
                     try {
                         localStorage.setItem('receiptBusinessInfo', JSON.stringify(businessInfo));
                         this.hasSavedBusinessInfo = true;
-                        this.showToast('Business info saved');
+                        if (!silent) this.showToast('Details remembered on this device');
                     } catch (e) {
-                        this.showToast('Could not save — the logo may be too large');
+                        if (!silent) this.showToast('Could not save — the logo may be too large');
                     }
                 },
 
-                loadBusinessInfo() {
+                loadBusinessInfo(silent) {
                     try {
                         const saved = localStorage.getItem('receiptBusinessInfo');
                         if (saved) {
@@ -799,10 +1152,13 @@
                             this.receipt.logoW = info.logoW || 0;
                             this.receipt.logoH = info.logoH || 0;
                             if (info.currency) this.receipt.currency = info.currency;
-                            this.showToast('Business info loaded');
+                            if (info.taxRate != null) this.receipt.taxRate = info.taxRate;
+                            if (info.footerNote) this.receipt.footerNote = info.footerNote;
+                            if (info.cashier) this.receipt.cashier = info.cashier;
+                            if (!silent) this.showToast('Loaded your saved details');
                         }
                     } catch (e) {
-                        this.showToast('Could not load saved info');
+                        if (!silent) this.showToast('Could not load saved info');
                     }
                 },
 
@@ -814,176 +1170,204 @@
                     }
                 },
 
-                formatDate(dateStr) {
-                    if (!dateStr) return 'N/A';
-                    const date = new Date(dateStr + 'T00:00:00');
-                    return date.toLocaleDateString('en-US', {
-                        year: 'numeric',
-                        month: 'long',
-                        day: 'numeric'
-                    });
-                },
-
+                // ====== PDF: real 80mm thermal receipt, two-pass layout ======
                 generatePDF() {
                     if (!this.isValidReceipt) return;
 
                     const { jsPDF } = window.jspdf;
-                    const doc = new jsPDF();
-                    const pageW = doc.internal.pageSize.getWidth();
-                    const center = pageW / 2;
-                    const left = 30;
-                    const right = pageW - 30;
-                    const contentW = right - left;
-                    const money = (n) => this.formatMoney(n);
-                    let y = 24;
+                    const M = 4;            // side margin, mm
+                    const W = 72;           // printable width, mm
+                    const C = 40;           // center x, mm
+                    const R = 76;           // right edge, mm
+                    // Line heights in mm per font size (pt * 0.352778 * 1.15)
+                    const LH = { 7: 2.84, 8: 3.25, 9: 3.65, 10: 4.06, 11: 4.46, 12: 4.87, 15: 6.09 };
 
-                    const drawDashedLine = (yPos) => {
-                        const dashLen = 2;
-                        const gapLen = 2;
-                        let x = left;
-                        doc.setDrawColor(150);
-                        doc.setLineWidth(0.3);
-                        while (x < right) {
-                            const end = Math.min(x + dashLen, right);
-                            doc.line(x, yPos, end, yPos);
-                            x += dashLen + gapLen;
-                        }
-                        doc.setDrawColor(0);
+                    // A scratch doc purely for splitTextToSize measurement
+                    const scratch = new jsPDF({ unit: 'mm', format: [80, 297] });
+
+                    const money = (n) => this.formatMoney(n);
+                    const ops = [];
+                    const measure = (str, size, style) => {
+                        scratch.setFont('courier', style || 'normal');
+                        scratch.setFontSize(size);
+                        return scratch.splitTextToSize(String(str), W);
+                    };
+                    const text = (str, size, style, align) => {
+                        const lines = measure(str, size, style);
+                        ops.push({ t: 'text', lines, size, style: style || 'normal', align: align || 'left', h: lines.length * LH[size] });
+                    };
+                    // Courier glyph width in mm for a given pt size
+                    const charW = (size) => size * 0.6 * 0.352778;
+                    const row = (l, r, size, style) => {
+                        // Truncate the left column so it can never collide with the
+                        // right column (2mm minimum gutter between them).
+                        const rs = String(r);
+                        const maxL = Math.floor((W - rs.length * charW(size) - 2) / charW(size));
+                        const ls = String(l).length > maxL ? String(l).slice(0, Math.max(0, maxL)) : String(l);
+                        ops.push({ t: 'row', l: ls, r: rs, size, style: style || 'normal', h: LH[size] });
+                    };
+                    const itemRow = (desc, priceStr) => {
+                        // Wrap long descriptions in a column that leaves room for the
+                        // price on the first line — mirrors real register output.
+                        scratch.setFont('courier', 'normal');
+                        scratch.setFontSize(9);
+                        const availW = Math.max(20, W - priceStr.length * charW(9) - 2);
+                        const lines = scratch.splitTextToSize(desc, availW);
+                        ops.push({ t: 'itemrow', lines, r: priceStr, size: 9, h: lines.length * LH[9] });
+                    };
+                    const gap = (h) => ops.push({ t: 'gap', h });
+                    const sep = (ch) => {
+                        ops.push({ t: 'text', lines: [ch.repeat(ch === '*' ? 32 : 42)], size: 8, style: 'normal', align: 'center', h: LH[8] });
+                        gap(1);
                     };
 
-                    // Logo (centred, aspect-correct)
-                    if (this.receipt.logo) {
-                        try {
-                            const maxH = 20, maxW = 55;
-                            let w = maxW, h = maxH;
-                            if (this.receipt.logoW && this.receipt.logoH) {
-                                const ratio = this.receipt.logoW / this.receipt.logoH;
-                                h = maxH;
-                                w = h * ratio;
-                                if (w > maxW) { w = maxW; h = w / ratio; }
-                            }
-                            doc.addImage(this.receipt.logo, 'PNG', center - w / 2, y, w, h);
-                            y += h + 5;
-                        } catch (e) {
-                            // If the logo can't be embedded, carry on without it
-                        }
+                    // ----- Build the receipt (order mirrors the on-screen preview) -----
+                    let logoDims = null;
+                    if (this.receipt.logo && this.receipt.logoW && this.receipt.logoH) {
+                        const maxW = 40, maxH = 16;
+                        const ratio = this.receipt.logoW / this.receipt.logoH;
+                        let h = maxH, w = h * ratio;
+                        if (w > maxW) { w = maxW; h = w / ratio; }
+                        logoDims = { w, h };
+                        ops.push({ t: 'img', data: this.receipt.logo, w, h: h + 3 });
                     }
 
-                    // Business name
-                    doc.setFontSize(18);
-                    doc.setFont('courier', 'bold');
-                    doc.text(this.receipt.businessName, center, y, { align: 'center' });
-                    y += 7;
-
-                    doc.setFontSize(9);
-                    doc.setFont('courier', 'normal');
+                    text(this.receipt.businessName.toUpperCase(), 12, 'bold', 'center');
                     if (this.receipt.businessAddress) {
-                        const addr = doc.splitTextToSize(this.receipt.businessAddress, contentW);
-                        doc.text(addr, center, y, { align: 'center' });
-                        y += addr.length * 4 + 1;
+                        this.receipt.businessAddress.split(/\n/).forEach(line => {
+                            if (line.trim()) text(line.trim(), 8, 'normal', 'center');
+                        });
                     }
                     if (this.receipt.businessPhone || this.receipt.businessEmail) {
-                        const contact = [this.receipt.businessPhone, this.receipt.businessEmail].filter(Boolean).join('  |  ');
-                        doc.text(contact, center, y, { align: 'center', maxWidth: contentW });
-                        y += 5;
+                        text([this.receipt.businessPhone, this.receipt.businessEmail].filter(Boolean).join(' * '), 8, 'normal', 'center');
                     }
+                    gap(1);
+                    sep('-');
+                    row('DATE ' + this.posDate, 'TIME ' + this.posTime, 8);
+                    row(this.posRegisterLine, this.receiptDisplayNumber, 8);
+                    sep('-');
 
-                    y += 3;
-                    drawDashedLine(y);
-                    y += 8;
-
-                    // Receipt info
-                    doc.setFontSize(9);
-                    const infoRow = (label, val) => {
-                        doc.text(label, left, y);
-                        doc.text(String(val), right, y, { align: 'right' });
-                        y += 6;
-                    };
-                    infoRow('Receipt #:', this.receiptDisplayNumber);
-                    infoRow('Date:', this.formatDate(this.receipt.date));
-                    infoRow('Payment:', this.receipt.paymentMethod);
-                    if (this.receipt.cashier) infoRow('Served by:', this.receipt.cashier);
-
-                    y -= 1;
-                    drawDashedLine(y);
-                    y += 8;
-
-                    // Items
                     this.validItems.forEach(item => {
-                        doc.setFont('courier', 'normal');
-                        doc.setFontSize(10);
-                        const desc = doc.splitTextToSize(item.description, contentW - 32);
-                        doc.text(desc, left, y);
-                        doc.text(money(item.quantity * item.price), right, y, { align: 'right' });
-                        y += desc.length * 5;
-                        doc.setFontSize(8);
-                        doc.setTextColor(120);
-                        doc.text('  ' + item.quantity + ' x ' + money(item.price), left, y);
-                        doc.setTextColor(0);
-                        doc.setFontSize(9);
-                        y += 7;
+                        itemRow(item.description.toUpperCase(), money(item.quantity * item.price));
+                        if (item.quantity > 1) {
+                            text('  ' + item.quantity + ' @ ' + money(item.price), 8, 'normal', 'left');
+                        }
+                        gap(0.6);
                     });
 
-                    drawDashedLine(y);
-                    y += 8;
-
-                    // Totals
-                    doc.setFontSize(10);
-                    const totalRow = (label, val) => {
-                        doc.text(label, left, y);
-                        doc.text(val, right, y, { align: 'right' });
-                        y += 6;
-                    };
-                    totalRow('Subtotal', money(this.subtotal));
+                    sep('-');
+                    row('SUBTOTAL', money(this.subtotal), 9);
                     if (this.discountAmount > 0) {
                         const dl = this.receipt.discountType === 'percent'
-                            ? 'Discount (' + this.receipt.discountValue + '%)'
-                            : 'Discount';
-                        totalRow(dl, '-' + money(this.discountAmount));
+                            ? 'DISCOUNT ' + this.receipt.discountValue + '%'
+                            : 'DISCOUNT';
+                        row(dl, '-' + money(this.discountAmount), 9);
                     }
                     if ((Number(this.receipt.taxRate) || 0) > 0) {
-                        totalRow('Tax (' + this.receipt.taxRate + '%)', money(this.taxAmount));
+                        row('TAX ' + this.receipt.taxRate + '%', money(this.taxAmount), 9);
                     }
-
-                    y -= 1;
-                    drawDashedLine(y);
-                    y += 8;
-
-                    doc.setFontSize(14);
-                    doc.setFont('courier', 'bold');
-                    doc.text('TOTAL', left, y);
-                    doc.text(money(this.total), right, y, { align: 'right' });
-                    y += 9;
-
+                    sep('*');
+                    row('TOTAL', money(this.total), 12, 'bold');
+                    row('TENDER', this.receipt.paymentMethod.toUpperCase(), 8);
                     if (this.receipt.paymentMethod === 'Cash' && (Number(this.receipt.amountPaid) || 0) > 0) {
-                        doc.setFontSize(10);
-                        doc.setFont('courier', 'normal');
-                        totalRow('Cash', money(this.receipt.amountPaid));
-                        totalRow(this.changeDue >= 0 ? 'Change' : 'Balance Due', money(this.absChange));
+                        row('CASH', money(this.receipt.amountPaid), 8);
+                        row(this.changeDue >= 0 ? 'CHANGE' : 'BALANCE DUE', money(this.absChange), 8);
+                    }
+                    sep('-');
+                    gap(1);
+                    if (this.receipt.cashier) {
+                        text('YOU WERE SERVED BY ' + this.receipt.cashier.toUpperCase(), 8, 'normal', 'center');
+                    }
+                    text((this.receipt.footerNote || 'Thank you for your business!').toUpperCase(), 8, 'normal', 'center');
+                    text(this.itemCount + (this.itemCount === 1 ? ' ITEM' : ' ITEMS'), 8, 'normal', 'center');
+                    gap(2);
+
+                    const barcodeElements = encodeCode39(this.barcodePayload);
+                    if (barcodeElements.length) {
+                        ops.push({ t: 'barcode', elements: barcodeElements, h: 12 + 1.5 });
+                        text(this.barcodePayload, 7, 'normal', 'center');
+                    }
+                    gap(1.5);
+                    text('GENERATED FOR BOOKKEEPING PURPOSES', 7, 'normal', 'center');
+
+                    // ----- Pass 1: height -----
+                    const contentH = ops.reduce((sum, op) => sum + op.h, 0);
+                    const TOP = 8, BOTTOM = 10;
+                    // Real receipts pad with paper feed; also jsPDF flips a [w,h]
+                    // format to landscape if h < w, so never go below 120mm.
+                    const pageH = Math.max(120, Math.ceil(contentH + TOP + BOTTOM));
+                    if (pageH > 2000) {
+                        this.showToast('Too many items for one receipt — split it into two');
+                        return;
                     }
 
-                    y += 3;
-                    drawDashedLine(y);
-                    y += 8;
-
-                    // Footer
-                    doc.setFont('courier', 'normal');
-                    doc.setFontSize(9);
-                    doc.setTextColor(80);
-                    doc.text(this.receipt.footerNote || 'Thank you for your business!', center, y, { align: 'center', maxWidth: contentW });
-                    y += 6;
-                    doc.setFontSize(7);
-                    doc.setTextColor(140);
-                    doc.text(this.itemCount + (this.itemCount === 1 ? ' item' : ' items') + '  |  ' + this.generatedAt, center, y, { align: 'center' });
-                    y += 4;
-                    doc.text(this.txnId, center, y, { align: 'center' });
-                    y += 4;
-                    doc.text('Generated for bookkeeping purposes', center, y, { align: 'center' });
+                    // ----- Pass 2: render -----
+                    const doc = new jsPDF({ orientation: 'p', unit: 'mm', format: [80, pageH] });
                     doc.setTextColor(0);
+                    let y = TOP;
 
-                    const safeNum = (this.receipt.receiptNumber || 'NA').replace(/[^\w-]/g, '');
-                    doc.save('receipt_' + safeNum + '_' + this.receipt.date + '.pdf');
+                    ops.forEach(op => {
+                        if (op.t === 'gap') { y += op.h; return; }
+                        if (op.t === 'img') {
+                            try {
+                                doc.addImage(op.data, 'PNG', C - op.w / 2, y, op.w, op.h - 3);
+                            } catch (e) {
+                                this.showToast('Logo could not be embedded in the PDF');
+                            }
+                            y += op.h;
+                            return;
+                        }
+                        if (op.t === 'barcode') {
+                            const totalUnits = op.elements.reduce((s, el) => s + (el.wide ? 3 : 1), 0);
+                            const module = Math.min(0.38, 62 / totalUnits);
+                            const bw = op.elements.reduce((s, el) => s + (el.wide ? 3 : 1) * module, 0);
+                            let x = C - bw / 2;
+                            op.elements.forEach(el => {
+                                const w = (el.wide ? 3 : 1) * module;
+                                if (el.bar) doc.rect(x, y, w, 12, 'F');
+                                x += w;
+                            });
+                            y += op.h;
+                            return;
+                        }
+                        doc.setFont('courier', op.style);
+                        doc.setFontSize(op.size);
+                        if (op.t === 'row') {
+                            const baseline = y + 0.85 * LH[op.size];
+                            doc.text(op.l, M, baseline);
+                            doc.text(op.r, R, baseline, { align: 'right' });
+                            y += op.h;
+                            return;
+                        }
+                        if (op.t === 'itemrow') {
+                            op.lines.forEach((line, i) => {
+                                const baseline = y + 0.85 * LH[op.size];
+                                doc.text(line, M, baseline);
+                                if (i === 0) doc.text(op.r, R, baseline, { align: 'right' });
+                                y += LH[op.size];
+                            });
+                            return;
+                        }
+                        // text op
+                        op.lines.forEach(line => {
+                            const baseline = y + 0.85 * LH[op.size];
+                            if (op.align === 'center') doc.text(line, C, baseline, { align: 'center' });
+                            else if (op.align === 'right') doc.text(line, R, baseline, { align: 'right' });
+                            else doc.text(line, M, baseline);
+                            y += LH[op.size];
+                        });
+                    });
+
+                    const safeNum = (this.receipt.receiptNumber || 'NA').replace(/[^\w-]/g, '') || 'NA';
+                    const stamp = new Date().toTimeString().slice(0, 5).replace(':', '');
+                    doc.save('receipt_' + safeNum + '_' + this.receipt.date + '_' + stamp + '.pdf');
                     this.showToast('PDF downloaded');
+
+                    // Quietly remember business details after a successful download
+                    try {
+                        const saved = JSON.parse(localStorage.getItem('receiptBusinessInfo') || '{}');
+                        if (saved.businessName !== this.receipt.businessName) this.saveBusinessInfo(true);
+                    } catch (e) { /* non-fatal */ }
                 },
 
                 printReceipt() {
@@ -992,6 +1376,10 @@
                 },
 
                 resetReceipt() {
+                    if (this.validItems.length > 0 &&
+                        !window.confirm('Start a new receipt? The current items will be cleared.')) {
+                        return;
+                    }
                     const keep = {
                         businessName: this.receipt.businessName,
                         businessAddress: this.receipt.businessAddress,
@@ -1010,13 +1398,14 @@
                         receiptNumber: this.bumpReceiptNumber(),
                         date: new Date().toISOString().split('T')[0],
                         paymentMethod: 'Cash',
-                        discountValue: 0,
+                        discountValue: null,
                         discountType: 'percent',
-                        amountPaid: 0,
-                        items: [{ description: '', quantity: 1, price: 0 }]
+                        amountPaid: null,
+                        items: [{ description: '', quantity: 1, price: null }]
                     };
                     this.txnId = this.generateTxnId();
-                    this.generatedAt = this.formatDateTime(new Date());
+                    this.posTime = new Date().toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit' });
+                    this.drawBarcode();
                     this.showToast('Started a new receipt');
                 }
             }
