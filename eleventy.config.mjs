@@ -189,6 +189,10 @@ export default function (eleventyConfig) {
 					useShortDoctype: true,
 					removeComments: true,
 					collapseWhitespace: true,
+					// Never delete a space outright — collapseWhitespace around an
+					// ignoreCustomFragments placeholder otherwise eats the gap after
+					// a tag that ends with a {{ }} expression ("10:06 PMon Sunday").
+					conservativeCollapse: true,
 					minifyCSS: true,
 					minifyJS: true,
 					// Skip Vue/Liquid-style template expressions so html-minifier doesn't
