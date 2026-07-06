@@ -1,580 +1,899 @@
 <!DOCTYPE html>
-<html class="scroll-smooth antialiased" lang="en" data-theme="retro">
+<html class="antialiased" lang="en" style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;">
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    
-    <title>Meta Tags Generator - Preview, Edit and Create</title>
-    
-    <meta name="description" content="Create and preview meta tags for your website. See how your page will look on Google, Facebook, and Twitter before publishing." />
-    <meta name="keywords" content="meta tags, SEO, open graph, twitter card" />
+
+    <!-- Primary Meta Tags -->
+    <title>Free Meta Tags Generator - Preview Google, Facebook & X Cards | Coffee & Fun LLC</title>
+    <meta name="description" content="Fill in four fields and see exactly how your page will look on Google, Facebook, and X. Then copy one block of ready-made meta tags into your site." />
     <meta name="author" content="Coffee & Fun LLC" />
-    
     <meta name="robots" content="index, follow" />
-    
+
     <!-- Canonical URL -->
     <link rel="canonical" href="https://www.coffeeandfun.com/meta-tags/" />
-    
+
     <!-- Favicon -->
     <link rel="icon" href="/assets/images/favicon.png" sizes="any" />
-    
+
     <!-- Open Graph -->
     <meta property="og:type" content="website" />
     <meta property="og:site_name" content="Coffee & Fun" />
-    <meta property="og:title" content="Meta Tags Generator" />
-    <meta property="og:description" content="Create and preview meta tags for better SEO and social sharing." />
+    <meta property="og:title" content="Free Meta Tags Generator - Preview Google, Facebook & X Cards" />
+    <meta property="og:description" content="See exactly how your page will look on Google, Facebook, and X — then copy one block of ready-made meta tags into your site." />
     <meta property="og:url" content="https://www.coffeeandfun.com/meta-tags/" />
     <meta property="og:image" content="https://www.coffeeandfun.com/assets/images/social/pages/meta-tags.png" />
     <meta property="og:image:width" content="1200" />
     <meta property="og:image:height" content="630" />
-    
+    <meta property="og:image:alt" content="Free Meta Tags Generator by Coffee & Fun" />
+    <meta property="og:locale" content="en_US" />
+
     <!-- Twitter Card -->
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:site" content="@bycoffeeandfun" />
-    <meta name="twitter:title" content="Meta Tags Generator" />
-    <meta name="twitter:description" content="Create perfect meta tags for your website." />
+    <meta name="twitter:title" content="Free Meta Tags Generator - Preview Google, Facebook & X Cards" />
+    <meta name="twitter:description" content="See exactly how your page will look on Google, Facebook, and X — then copy one block of ready-made meta tags." />
     <meta name="twitter:image" content="https://www.coffeeandfun.com/assets/images/social/pages/meta-tags.png" />
-    
-    <!-- PWA and Mobile Enhancement -->
-    <meta name="theme-color" content="#8B4513" />
-    <meta name="mobile-web-app-capable" content="yes" />
-    <meta name="apple-mobile-web-app-capable" content="yes" />
-    
-    <!-- Tailwind CSS -->
-    <script src="https://cdn.tailwindcss.com"></script>
-    
-    <!-- DaisyUI -->
-    <link href="https://cdn.jsdelivr.net/npm/daisyui@4.4.24/dist/full.min.css" rel="stylesheet" type="text/css" />
-    
-    <!-- Vue 3 -->
+    <meta name="twitter:image:alt" content="Free Meta Tags Generator by Coffee & Fun" />
+
+    <meta name="theme-color" content="#f4f4f2" />
+
+    <!-- Structured Data -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "SoftwareApplication",
+        "name": "Free Meta Tags Generator",
+        "description": "Preview how your page looks on Google, Facebook, and X, then copy ready-made meta tags into your site.",
+        "url": "https://www.coffeeandfun.com/meta-tags/",
+        "applicationCategory": "DeveloperApplication",
+        "operatingSystem": "Web Browser",
+        "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" }
+    }
+    </script>
+
     <script src="https://unpkg.com/vue@3"></script>
-    
+
     <style>
+        :root {
+            --bg: #f4f4f2;
+            --surface: #ffffff;
+            --ink: #16161a;
+            --muted: #6c6c74;
+            --faint: #9a9aa2;
+            --line: #e4e4e0;
+            --line-strong: #d3d3ce;
+            --good: #0f7b4f;
+            --warn: #b4341f;
+            --warn-bg: #fbecea;
+            --radius: 14px;
+            --mono: ui-monospace, 'SF Mono', 'JetBrains Mono', 'Fira Code', Menlo, Consolas, monospace;
+        }
+
+        * { box-sizing: border-box; }
+
+        html, body { background: var(--bg); }
+        body {
+            margin: 0;
+            color: var(--ink);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            -webkit-font-smoothing: antialiased;
+            accent-color: var(--ink);
+        }
         [v-cloak] { display: none; }
-        
-        .fade-in {
-            animation: fadeIn 0.3s ease-in;
+
+        .sr-only {
+            position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px;
+            overflow: hidden; clip: rect(0,0,0,0); white-space: nowrap; border: 0;
         }
-        
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(5px); }
-            to { opacity: 1; transform: translateY(0); }
+
+        a.skip {
+            position: absolute; left: -9999px; top: 0;
+            background: var(--ink); color: #fff; padding: 0.6rem 1rem; z-index: 20;
+            border-radius: 0 0 8px 0;
         }
-        
-        .preview-card {
-            transition: all 0.2s ease;
+        a.skip:focus { left: 0; }
+
+        .wrap {
+            width: 100%;
+            max-width: 1020px;
+            margin: 0 auto;
+            padding: 2rem 1.25rem 4rem;
+            flex: 1;
         }
-        
-        .preview-card:hover {
-            transform: translateY(-2px);
+
+        .topbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 2.75rem;
         }
-        
-        .char-count {
-            font-size: 0.75rem;
-            transition: color 0.2s;
+        .topbar a {
+            font-size: 0.82rem;
+            color: var(--muted);
+            text-decoration: none;
+            letter-spacing: 0.01em;
         }
-        
-        .char-warning {
-            color: #f59e0b;
+        .topbar a:hover { color: var(--ink); }
+        .topbar a:focus-visible { outline: 2px solid var(--ink); outline-offset: 2px; border-radius: 4px; }
+        .brandmark {
+            display: inline-flex; align-items: center; gap: 0.5rem;
+            font-weight: 600; font-size: 0.85rem; letter-spacing: 0.02em;
         }
-        
-        .char-error {
-            color: #ef4444;
+        .brandmark .mark {
+            width: 22px; height: 22px; border-radius: 6px;
+            background: var(--ink); color: #fff;
+            display: inline-flex; align-items: center; justify-content: center;
         }
-        
-        .google-preview {
+
+        h1 {
+            font-size: 1.9rem;
+            line-height: 1.2;
+            letter-spacing: -0.02em;
+            margin: 0 0 0.6rem;
+            font-weight: 650;
+        }
+        .lede {
+            color: var(--muted);
+            font-size: 1rem;
+            line-height: 1.55;
+            margin: 0 0 2.25rem;
+            max-width: 56ch;
+        }
+
+        .cols { display: grid; gap: 2.5rem; }
+        .cols > section { min-width: 0; }
+        @media (min-width: 920px) {
+            .cols { grid-template-columns: minmax(0, 400px) minmax(0, 1fr); gap: 3.5rem; align-items: start; }
+            .sticky-col { position: sticky; top: 1.25rem; }
+        }
+
+        h2.step-label {
+            font-size: 0.78rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.07em;
+            color: var(--muted);
+            margin: 0 0 1rem;
+        }
+
+        /* Fields */
+        .field-group { margin-bottom: 1.35rem; }
+        .f-label {
+            display: block;
+            font-weight: 600;
+            font-size: 0.92rem;
+            margin-bottom: 0.4rem;
+        }
+        .field {
+            width: 100%;
+            border: 1px solid var(--line-strong);
+            border-radius: 11px;
+            padding: 0.7rem 0.9rem;
+            font-size: 0.95rem;
+            font-family: inherit;
+            line-height: 1.5;
+            color: var(--ink);
+            background: var(--surface);
+            outline: none;
+        }
+        .field:focus { border-color: var(--ink); box-shadow: 0 0 0 3px rgba(22,22,26,0.08); }
+        .field::placeholder { color: #74747b; }
+        textarea.field { min-height: 88px; resize: vertical; }
+
+        .hint {
+            font-size: 0.8rem;
+            color: var(--muted);
+            line-height: 1.45;
+            margin-top: 0.4rem;
+        }
+        .hint.bad { color: var(--warn); font-weight: 600; }
+
+        .counter {
+            display: flex; justify-content: space-between; gap: 1rem;
+            font-size: 0.78rem; color: var(--muted); margin-top: 0.4rem;
+        }
+        .counter .over { color: var(--warn); font-weight: 600; text-align: right; }
+
+        .prefix-input { display: flex; }
+        .prefix-input .pfx {
+            display: inline-flex; align-items: center;
+            border: 1px solid var(--line-strong); border-right: 0;
+            border-radius: 11px 0 0 11px;
+            padding: 0 0.8rem;
+            background: #ececea; color: var(--muted); font-weight: 600;
+        }
+        .prefix-input .field { border-radius: 0 11px 11px 0; }
+
+        /* More options */
+        details.more {
+            border: 1px solid var(--line);
+            border-radius: var(--radius);
+            background: var(--surface);
+            padding: 0.25rem 1rem;
+            margin-top: 1.75rem;
+        }
+        details.more summary {
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 0.9rem;
+            padding: 0.65rem 0.1rem;
+            color: var(--ink);
+            border-radius: 8px;
+        }
+        details.more summary:focus-visible { outline: 2px solid var(--ink); outline-offset: 2px; }
+        details.more .field-group { margin: 1.1rem 0; }
+        details.more[open] { padding-bottom: 0.6rem; }
+
+        fieldset.kind { border: 0; padding: 0; margin: 0; }
+        fieldset.kind legend { font-weight: 600; font-size: 0.92rem; margin-bottom: 0.5rem; padding: 0; }
+        .kind label {
+            display: inline-flex; align-items: center; gap: 0.45rem;
+            font-size: 0.9rem; margin-right: 1.4rem; cursor: pointer;
+        }
+
+        /* Preview tabs */
+        .tabs {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 4px;
+            background: #ececea;
+            border-radius: 12px;
+            padding: 4px;
+            margin-bottom: 1rem;
+            max-width: 500px;
+        }
+        .tab {
+            appearance: none; border: none; background: transparent;
+            padding: 0.6rem 0.5rem; border-radius: 9px;
+            font-size: 0.92rem; font-weight: 600; color: #5c5c64; /* AA on the #ececea strip */
+            cursor: pointer; transition: background 0.15s, color 0.15s;
+        }
+        .tab[aria-selected="true"] {
+            background: var(--surface); color: var(--ink);
+            box-shadow: 0 1px 3px rgba(0,0,0,0.08);
+        }
+        .tab:focus-visible { outline: 2px solid var(--ink); outline-offset: 2px; }
+
+        .sample-row {
+            display: flex; align-items: center; gap: 0.7rem; flex-wrap: wrap;
+            margin-bottom: 0.9rem; max-width: 500px; min-height: 1.7rem;
+        }
+        .sample-chip {
+            display: inline-flex; align-items: center; gap: 0.4rem;
+            font-size: 0.78rem; color: #5c5c64;
+            background: #ececea; border-radius: 999px; padding: 0.28rem 0.75rem;
+        }
+        button.linkish {
+            appearance: none; border: none; background: none; padding: 0;
+            font-size: 0.78rem; color: var(--muted); text-decoration: underline;
+            cursor: pointer; font-family: inherit;
+        }
+        button.linkish:hover { color: var(--ink); }
+        button.linkish:focus-visible { outline: 2px solid var(--ink); outline-offset: 2px; border-radius: 4px; }
+
+        .panel { max-width: 500px; }
+
+        /* Google preview */
+        .g-card {
+            background: #fff; border: 1px solid var(--line); border-radius: 12px;
+            padding: 1.1rem 1.2rem;
             font-family: arial, sans-serif;
         }
-        
-        .fb-preview {
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+        .g-top { display: flex; align-items: center; gap: 0.7rem; margin-bottom: 0.75rem; }
+        .g-fav {
+            width: 26px; height: 26px; border-radius: 50%; flex-shrink: 0;
+            background: #f1f3f4; border: 1px solid #ecedef;
+            display: flex; align-items: center; justify-content: center;
+            font-size: 12px; font-weight: 700; color: #202124;
         }
-        
-        .code-output {
-            font-family: 'Courier New', monospace;
-            font-size: 0.875rem;
-            line-height: 1.5;
+        .g-id { min-width: 0; flex: 1; }
+        .g-site { display: block; font-size: 14px; color: #202124; line-height: 1.3; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+        .g-crumb { font-size: 12px; color: #4d5156; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+        .g-title {
+            font-size: 20px; font-weight: 400; color: #1a0dab; line-height: 1.3;
+            margin: 0 0 0.25rem;
+            overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
+        }
+        .g-desc {
+            font-size: 14px; color: #474747; line-height: 1.57; margin: 0;
+            display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden;
+            overflow-wrap: anywhere;
+        }
+
+        /* Facebook preview */
+        .fb-card {
+            border: 1px solid #dddfe2; border-radius: 8px; overflow: hidden; background: #fff;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+        }
+        .fb-card img, .x-card img {
+            display: block; width: 100%; aspect-ratio: 1.91 / 1;
+            object-fit: cover; background: #f0f2f5;
+        }
+        .fb-bar { background: #f0f2f5; padding: 10px 12px; }
+        .fb-domain { font-size: 12px; color: #606770; text-transform: uppercase; letter-spacing: 0.3px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+        .fb-title { font-size: 16px; font-weight: 600; color: #050505; margin: 3px 0 0; line-height: 1.3;
+            display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden;
+            overflow-wrap: anywhere; }
+        .fb-desc { font-size: 14px; color: #606770; margin: 2px 0 0; line-height: 1.35;
+            overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+
+        /* X preview */
+        .x-wrap { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; }
+        .x-card { position: relative; border: 1px solid #cfd9de; border-radius: 16px; overflow: hidden; background: #fff; }
+        .x-pill {
+            position: absolute; left: 12px; bottom: 12px;
+            background: rgba(0,0,0,0.77); color: #fff;
+            font-size: 13px; line-height: 1.4; padding: 2px 8px; border-radius: 4px;
+            max-width: calc(100% - 24px);
+            overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
+        }
+        .x-from { font-size: 13px; color: #536471; margin-top: 6px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+
+        /* Buttons */
+        .btn {
+            appearance: none; border: none; border-radius: 11px;
+            padding: 0.85rem 1.4rem;
+            font-size: 0.98rem; font-weight: 600; cursor: pointer; font-family: inherit;
+            display: inline-flex; align-items: center; justify-content: center; gap: 0.5rem;
+            transition: background 0.15s, opacity 0.15s;
+        }
+        .btn:focus-visible { outline: 2px solid var(--ink); outline-offset: 2px; }
+        .btn-primary { background: var(--ink); color: #fff; width: 100%; max-width: 500px; }
+        .btn-primary:hover { background: #000; }
+        .btn-primary:disabled { background: #dcdcd7; color: #6c6c74; cursor: not-allowed; }
+
+        /* Code output */
+        .code-section { margin-top: 3rem; }
+        .paste-hint { font-size: 0.85rem; color: var(--muted); line-height: 1.5; margin: 0.6rem 0 1rem; max-width: 60ch; }
+        .paste-hint code, .code-empty code {
+            font-family: var(--mono); font-size: 0.8em;
+            background: #ececea; border-radius: 4px; padding: 0.1em 0.35em;
+        }
+        .code-scroll {
+            background: var(--surface);
+            border: 1px solid var(--line);
+            border-radius: var(--radius);
+            max-height: 340px; overflow: auto;
+            padding: 1.1rem 1.2rem;
+        }
+        .code-scroll:focus-visible { outline: 2px solid var(--ink); outline-offset: 2px; }
+        .code-scroll pre {
+            margin: 0;
+            font-family: var(--mono);
+            font-size: 0.82rem;
+            line-height: 1.6;
+        }
+        .code-empty {
+            border: 1.5px dashed var(--line-strong);
+            border-radius: var(--radius);
+            padding: 2rem 1.25rem;
+            text-align: center;
+            color: var(--muted);
+            font-size: 0.9rem;
+        }
+
+        .copy-note { font-size: 0.82rem; color: var(--muted); margin-top: 0.6rem; }
+        .copy-note.bad { color: var(--warn); font-weight: 600; }
+
+        .foot {
+            text-align: center; padding: 1.5rem 1rem 2rem;
+            font-size: 0.8rem; color: var(--muted);
+        }
+        .foot a { color: var(--muted); text-decoration: none; }
+        .foot a:hover { color: var(--ink); }
+
+        @media (prefers-reduced-motion: reduce) {
+            .tab, .btn { transition: none; }
+        }
+
+        @media (max-width: 480px) {
+            h1 { font-size: 1.6rem; }
+            .wrap { padding-top: 1.5rem; }
+            .topbar { margin-bottom: 2rem; }
         }
     </style>
-    {% include sketch-styles.liquid %}
 </head>
-<body class="bg-base-100 min-h-screen">
-                {% assign showFun = true %} 
-    {% assign showMiddleBadgeWithText = true %} 
-    {% include header.liquid %}
-    <div v-cloak id="main-content" role="main" class="container mx-auto max-w-6xl p-6">
-        <!-- Header -->
-        <header class="text-center mb-8">
-            <h1 class="brand-heading text-3xl sm:text-4xl leading-[1.3] sm:leading-[1.3] mb-2">Meta Tags Generator</h1>
-            <p class="text-base-content/70">Preview, Edit, and Generate</p>
-        </header>
 
-        <div class="grid lg:grid-cols-2 gap-6">
-            <!-- Input Section -->
-            <div class="space-y-6">
-                <!-- Basic Meta Tags -->
-                <div class="card bg-base-200 shadow-lg">
-                    <div class="card-body">
-                        <h2 class="card-title text-xl mb-4">📝 Basic Information</h2>
-                        
-                        <div class="space-y-4">
-                            <div>
-                                <label class="label">
-                                    <span class="label-text">Page URL</span>
-                                </label>
-                                <input 
-                                    type="url" 
-                                    v-model="meta.url" 
-                                    placeholder="https://yourwebsite.com/page"
-                                    class="input input-bordered w-full"
-                                />
-                            </div>
-                            
-                            <div>
-                                <label class="label">
-                                    <span class="label-text">Title</span>
-                                    <span class="label-text-alt char-count" 
-                                          :class="getTitleClass()">
-                                        {% raw %}{{ meta.title.length }}{% endraw %}/60
-                                    </span>
-                                </label>
-                                <input 
-                                    type="text" 
-                                    v-model="meta.title" 
-                                    placeholder="Your Page Title"
-                                    maxlength="100"
-                                    class="input input-bordered w-full"
-                                />
-                            </div>
-                            
-                            <div>
-                                <label class="label">
-                                    <span class="label-text">Description</span>
-                                    <span class="label-text-alt char-count"
-                                          :class="getDescClass()">
-                                        {% raw %}{{ meta.description.length }}{% endraw %}/160
-                                    </span>
-                                </label>
-                                <textarea 
-                                    v-model="meta.description" 
-                                    placeholder="Brief description of your page content"
-                                    rows="3"
-                                    maxlength="200"
-                                    class="textarea textarea-bordered w-full"
-                                ></textarea>
-                            </div>
-                            
-                            <div>
-                                <label class="label">
-                                    <span class="label-text">Keywords (comma separated)</span>
-                                </label>
-                                <input 
-                                    type="text" 
-                                    v-model="meta.keywords" 
-                                    placeholder="keyword1, keyword2, keyword3"
-                                    class="input input-bordered w-full"
-                                />
-                            </div>
-                            
-                            <div>
-                                <label class="label">
-                                    <span class="label-text">Author</span>
-                                </label>
-                                <input 
-                                    type="text" 
-                                    v-model="meta.author" 
-                                    placeholder="Your name or company"
-                                    class="input input-bordered w-full"
-                                />
-                            </div>
-                        </div>
-                    </div>
-                </div>
+<body>
+{% raw %}
+    <a href="#tool" class="skip">Skip to the tool</a>
 
-                <!-- Social Media -->
-                <div class="card bg-base-200 shadow-lg">
-                    <div class="card-body">
-                        <h2 class="card-title text-xl mb-4">📱 Social Media</h2>
-                        
-                        <div class="space-y-4">
-                            <div>
-                                <label class="label">
-                                    <span class="label-text">Image URL (1200x630 recommended)</span>
-                                </label>
-                                <input 
-                                    type="url" 
-                                    v-model="meta.image" 
-                                    placeholder="https://yourwebsite.com/image.jpg"
-                                    class="input input-bordered w-full"
-                                />
-                                
-                                <!-- File Upload Area -->
-                                <div class="mt-3">
-                                    <div 
-                                        @drop="handleDrop"
-                                        @dragover.prevent
-                                        @dragenter.prevent
-                                        class="border-2 border-dashed border-base-300 rounded-2xl p-4 text-center cursor-pointer hover:border-primary transition-colors"
-                                        @click="$refs.fileInput.click()"
-                                    >
-                                        <svg class="w-8 h-8 mx-auto mb-2 text-base-content/50" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12" />
-                                        </svg>
-                                        <p class="text-sm text-base-content/70">
-                                            Drop image here or click to browse
-                                        </p>
-                                        <p class="text-xs text-base-content/50 mt-1">
-                                            PNG, JPG, GIF up to 10MB
-                                        </p>
-                                    </div>
-                                    <input 
-                                        ref="fileInput"
-                                        type="file" 
-                                        @change="handleFileSelect"
-                                        accept="image/*"
-                                        class="hidden"
-                                    />
-                                    
-                                    <!-- Image Preview -->
-                                    <div v-if="uploadedImage" class="mt-3">
-                                        <div class="flex items-center justify-between bg-base-200 p-2 rounded">
-                                            <span class="text-sm truncate">{% raw %}{{ uploadedImage.name }}{% endraw %}</span>
-                                            <button 
-                                                @click="removeImage"
-                                                class="btn btn-ghost btn-xs"
-                                            >
-                                                ✕
-                                            </button>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            
-                            <div>
-                                <label class="label">
-                                    <span class="label-text">Twitter Username</span>
-                                </label>
-                                <input 
-                                    type="text" 
-                                    v-model="meta.twitterUsername" 
-                                    placeholder="@username"
-                                    class="input input-bordered w-full"
-                                />
-                            </div>
-                            
-                            <div>
-                                <label class="label">
-                                    <span class="label-text">Site Name</span>
-                                </label>
-                                <input 
-                                    type="text" 
-                                    v-model="meta.siteName" 
-                                    placeholder="Your Website Name"
-                                    class="input input-bordered w-full"
-                                />
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
+    <main v-cloak id="app" class="wrap">
 
-            <!-- Preview Section -->
-            <div class="space-y-6">
-                <!-- Live Previews -->
-                <div class="card bg-base-200 shadow-lg">
-                    <div class="card-body">
-                        <h2 class="card-title text-xl mb-4">👁️ Preview</h2>
-                        
-                        <!-- Google Preview -->
-                        <div class="mb-6">
-                            <h3 class="font-semibold mb-3 text-sm">Google</h3>
-                            <div class="bg-white p-4 rounded-2xl google-preview">
-                                <div class="text-blue-600 text-xl mb-1 truncate">
-                                    {% raw %}{{ meta.title || 'Page Title' }}{% endraw %}
-                                </div>
-                                <div class="text-green-700 text-sm mb-1 truncate">
-                                    {% raw %}{{ meta.url || 'https://example.com' }}{% endraw %}
-                                </div>
-                                <div class="text-gray-600 text-sm line-clamp-2">
-                                    {% raw %}{{ meta.description || 'Page description will appear here...' }}{% endraw %}
-                                </div>
-                            </div>
-                        </div>
-                        
-                        <!-- Facebook Preview -->
-                        <div class="mb-6">
-                            <h3 class="font-semibold mb-3 text-sm">Facebook</h3>
-                            <div class="bg-white border rounded-2xl overflow-hidden fb-preview">
-                                <div class="bg-gray-200 h-40 flex items-center justify-center">
-                                    <span v-if="!meta.image" class="text-gray-500">Image Preview</span>
-                                    <img v-else :src="meta.image" alt="Social card image preview" class="w-full h-full object-cover" />
-                                </div>
-                                <div class="p-3">
-                                    <div class="text-gray-500 text-xs uppercase mb-1">
-                                        {% raw %}{{ getDomain(meta.url) }}{% endraw %}
-                                    </div>
-                                    <div class="font-semibold mb-1">
-                                        {% raw %}{{ meta.title || 'Page Title' }}{% endraw %}
-                                    </div>
-                                    <div class="text-gray-600 text-sm line-clamp-2">
-                                        {% raw %}{{ meta.description || 'Description...' }}{% endraw %}
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        
-                        <!-- Twitter Preview -->
-                        <div>
-                            <h3 class="font-semibold mb-3 text-sm">X (Twitter)</h3>
-                            <div class="bg-white border rounded-2xl overflow-hidden">
-                                <div class="bg-gray-200 h-32 flex items-center justify-center">
-                                    <span v-if="!meta.image" class="text-gray-500">Image Preview</span>
-                                    <img v-else :src="meta.image" alt="Social card image preview" class="w-full h-full object-cover" />
-                                </div>
-                                <div class="p-3">
-                                    <div class="font-semibold text-sm mb-1">
-                                        {% raw %}{{ meta.title || 'Page Title' }}{% endraw %}
-                                    </div>
-                                    <div class="text-gray-600 text-sm line-clamp-2">
-                                        {% raw %}{{ meta.description || 'Description...' }}{% endraw %}
-                                    </div>
-                                    <div class="text-gray-500 text-xs mt-1">
-                                        {% raw %}{{ getDomain(meta.url) }}{% endraw %}
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Generated Code -->
-                <div class="card bg-base-200 shadow-lg">
-                    <div class="card-body">
-                        <div class="flex justify-between items-center mb-4">
-                            <h2 class="card-title text-xl">🔧 Generated Code</h2>
-                            <button 
-                                @click="copyCode"
-                                class="btn btn-sm btn-primary"
-                            >
-                                {% raw %}{{ copied ? '✓ Copied!' : '📋 Copy' }}{% endraw %}
-                            </button>
-                        </div>
-                        
-                        <div class="bg-base-100 p-4 rounded-2xl overflow-x-auto">
-                            <pre class="code-output">{% raw %}{{ generatedCode }}{% endraw %}</pre>
-                        </div>
-                    </div>
-                </div>
-            </div>
+        <div class="topbar">
+            <span class="brandmark">
+                <span class="mark" aria-hidden="true">
+                    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M13.19 8.688a4.5 4.5 0 0 1 1.242 7.244l-4.5 4.5a4.5 4.5 0 0 1-6.364-6.364l1.757-1.757"/><path d="M10.81 15.312a4.5 4.5 0 0 1-1.242-7.244l4.5-4.5a4.5 4.5 0 0 1 6.364 6.364l-1.757 1.757"/></svg>
+                </span>
+                Link Preview
+            </span>
+            <a href="/">&larr; coffeeandfun.com</a>
         </div>
 
+        <header id="tool">
+            <h1>Make your link look good everywhere</h1>
+            <p class="lede">Fill in four things, watch exactly how your page will appear on Google, Facebook, and X — then copy one block of code into your site.</p>
+        </header>
 
-    </div>
+        <!-- Live status for screen readers -->
+        <div class="sr-only" role="status" aria-live="polite">{{ announcement }}</div>
 
-      {% include modals.liquid %}
+        <div class="cols">
 
-      {% include footer.liquid %}
+            <!-- ===== Step 1: the form ===== -->
+            <section aria-labelledby="h-form">
+                <h2 class="step-label" id="h-form">1 — Tell people about your page</h2>
+
+                <div class="field-group">
+                    <label class="f-label" for="mt-title">Page title</label>
+                    <input id="mt-title" class="field" type="text" v-model="meta.title"
+                           placeholder="How to brew better coffee at home"
+                           aria-describedby="mt-title-count" spellcheck="true" />
+                    <div class="counter" id="mt-title-count">
+                        <span>{{ meta.title.length }} characters</span>
+                        <span v-if="meta.title.length > 60" class="over">{{ meta.title.length - 60 }} over Google&rsquo;s ~60 — it may get cut off</span>
+                        <span v-else>Google shows about 60</span>
+                    </div>
+                </div>
+
+                <div class="field-group">
+                    <label class="f-label" for="mt-desc">Short description</label>
+                    <textarea id="mt-desc" class="field" v-model="meta.description"
+                              placeholder="One or two sentences about the page."
+                              aria-describedby="mt-desc-count" spellcheck="true"></textarea>
+                    <div class="counter" id="mt-desc-count">
+                        <span>{{ meta.description.length }} characters</span>
+                        <span v-if="meta.description.length > 160" class="over">{{ meta.description.length - 160 }} over Google&rsquo;s ~160 — it may get cut off</span>
+                        <span v-else>Google shows about 160</span>
+                    </div>
+                </div>
+
+                <div class="field-group">
+                    <label class="f-label" for="mt-url">Page address</label>
+                    <input id="mt-url" class="field" type="url" v-model="meta.url"
+                           placeholder="https://yoursite.com/your-page"
+                           aria-describedby="mt-url-hint" spellcheck="false" autocapitalize="off" autocomplete="url" inputmode="url" />
+                    <p class="hint" :class="{ bad: urlWarning }" id="mt-url-hint">
+                        {{ urlWarning || 'The full link to this exact page, starting with https://' }}
+                    </p>
+                </div>
+
+                <div class="field-group">
+                    <label class="f-label" for="mt-image">Preview image</label>
+                    <input id="mt-image" class="field" type="url" v-model="meta.image"
+                           placeholder="https://yoursite.com/photo.jpg"
+                           aria-describedby="mt-image-hint" spellcheck="false" autocapitalize="off" inputmode="url" />
+                    <p class="hint" :class="{ bad: imageWarning || imgFailed }" id="mt-image-hint">
+                        <template v-if="imageWarning">{{ imageWarning }}</template>
+                        <template v-else-if="imgFailed">We couldn&rsquo;t load that picture — double-check the link.</template>
+                        <template v-else-if="imgDims && imgDims.w < 600">That picture is only {{ imgDims.w }} pixels wide — it may look blurry. 1200 &times; 630 works best.</template>
+                        <template v-else-if="imgDims">Picture loaded — {{ imgDims.w }} &times; {{ imgDims.h }} pixels.</template>
+                        <template v-else>A link to a picture that&rsquo;s already on your site — 1200 &times; 630 pixels works best. Social sites fetch it from your address, so it can&rsquo;t be a file on your computer.</template>
+                    </p>
+                </div>
+
+                <details class="more">
+                    <summary>More options</summary>
+
+                    <div class="field-group">
+                        <label class="f-label" for="mt-sitename">Website name <span style="font-weight:400;color:var(--muted)">— optional</span></label>
+                        <input id="mt-sitename" class="field" type="text" v-model="meta.siteName" placeholder="Your Site" />
+                    </div>
+
+                    <div class="field-group">
+                        <label class="f-label" for="mt-handle">Your X (Twitter) handle <span style="font-weight:400;color:var(--muted)">— optional</span></label>
+                        <div class="prefix-input">
+                            <span class="pfx" aria-hidden="true">@</span>
+                            <input id="mt-handle" class="field" type="text" v-model="meta.handle"
+                                   placeholder="yourname" aria-describedby="mt-handle-hint"
+                                   spellcheck="false" autocapitalize="off" />
+                        </div>
+                        <p class="hint" :class="{ bad: handleWarning }" id="mt-handle-hint">
+                            {{ handleWarning || 'Letters, numbers, and underscores — the @ is added for you.' }}
+                        </p>
+                    </div>
+
+                    <div class="field-group">
+                        <label class="f-label" for="mt-alt">Describe the picture <span style="font-weight:400;color:var(--muted)">— optional</span></label>
+                        <input id="mt-alt" class="field" type="text" v-model="meta.imageAlt"
+                               placeholder="A pour-over coffee mid-brew"
+                               aria-describedby="mt-alt-hint" />
+                        <p class="hint" id="mt-alt-hint">Read aloud to people who can&rsquo;t see the picture.</p>
+                    </div>
+
+                    <div class="field-group">
+                        <fieldset class="kind">
+                            <legend>What kind of page is it?</legend>
+                            <label><input type="radio" value="website" v-model="meta.pageType" name="pagetype" /> A regular page</label>
+                            <label><input type="radio" value="article" v-model="meta.pageType" name="pagetype" /> An article or blog post</label>
+                        </fieldset>
+                    </div>
+                </details>
+            </section>
+
+            <!-- ===== Step 2: previews ===== -->
+            <section aria-labelledby="h-preview" class="sticky-col">
+                <h2 class="step-label" id="h-preview">2 — See how your link will look</h2>
+
+                <div class="tabs" role="tablist" aria-label="Choose a preview" @keydown="onTabKey">
+                    <button class="tab" role="tab" id="tab-google" aria-controls="panel-google" :aria-selected="previewTab === 'google' ? 'true' : 'false'"
+                            :tabindex="previewTab === 'google' ? 0 : -1" @click="previewTab = 'google'">Google</button>
+                    <button class="tab" role="tab" id="tab-facebook" aria-controls="panel-facebook" :aria-selected="previewTab === 'facebook' ? 'true' : 'false'"
+                            :tabindex="previewTab === 'facebook' ? 0 : -1" @click="previewTab = 'facebook'">Facebook</button>
+                    <button class="tab" role="tab" id="tab-x" aria-controls="panel-x" :aria-selected="previewTab === 'x' ? 'true' : 'false'"
+                            :tabindex="previewTab === 'x' ? 0 : -1" @click="previewTab = 'x'">X</button>
+                </div>
+
+                <div class="sample-row">
+                    <template v-if="usingSample">
+                        <span class="sample-chip">Example — type to replace it</span>
+                        <button type="button" class="linkish" @click="fillExample">Use this example</button>
+                    </template>
+                </div>
+
+                <div v-if="previewTab === 'google'" class="panel" role="tabpanel" id="panel-google" tabindex="0"
+                     aria-label="Preview of your page as a Google search result">
+                    <div class="g-card">
+                        <div class="g-top">
+                            <span class="g-fav" aria-hidden="true">{{ pMonogram }}</span>
+                            <span class="g-id">
+                                <span class="g-site">{{ pSite }}</span>
+                                <span class="g-crumb" style="display:block">{{ pCrumb }}</span>
+                            </span>
+                        </div>
+                        <p class="g-title">{{ pTitle }}</p>
+                        <p class="g-desc">{{ pDesc }}</p>
+                    </div>
+                </div>
+
+                <div v-if="previewTab === 'facebook'" class="panel" role="tabpanel" id="panel-facebook" tabindex="0"
+                     aria-label="Preview of your link shared on Facebook">
+                    <div class="fb-card">
+                        <img :src="pImage" alt="" @error="onImgError" />
+                        <div class="fb-bar">
+                            <div class="fb-domain">{{ pDomain }}</div>
+                            <p class="fb-title">{{ pTitle }}</p>
+                            <p class="fb-desc">{{ pDesc }}</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div v-if="previewTab === 'x'" class="panel" role="tabpanel" id="panel-x" tabindex="0"
+                     aria-label="Preview of your link shared on X, formerly Twitter">
+                    <div class="x-wrap">
+                        <div class="x-card">
+                            <img :src="pImage" alt="" @error="onImgError" />
+                            <span class="x-pill">{{ pTitle }}</span>
+                        </div>
+                        <div class="x-from">From {{ pDomain }}</div>
+                    </div>
+                </div>
+            </section>
+        </div>
+
+        <!-- ===== Step 3: the code ===== -->
+        <section class="code-section" aria-labelledby="h-code">
+            <h2 class="step-label" id="h-code">3 — Copy the code into your page</h2>
+
+            <button type="button" class="btn btn-primary" @click="copyCode" :disabled="!hasCode">
+                {{ copied ? 'Copied ✓' : 'Copy the code' }}
+            </button>
+            <p v-if="!hasCode" class="copy-note">Add a title, description, address, or picture link above to build your code.</p>
+            <p v-if="copyFailed" class="copy-note bad">Copy didn&rsquo;t work — the code below is selected, press Ctrl+C or Cmd+C.</p>
+            <p class="paste-hint">Paste it near the top of your page&rsquo;s <code>&lt;head&gt;</code> — the invisible section before your content. That&rsquo;s everything Google, Facebook, and X need.</p>
+
+            <div v-if="hasCode" class="code-scroll" tabindex="0" role="region" aria-label="Your generated code">
+                <pre ref="codePre">{{ generatedCode }}</pre>
+            </div>
+            <div v-else class="code-empty">
+                Your code will appear here as you fill in step 1.
+            </div>
+        </section>
+
+        <p class="foot">Everything happens in your browser — nothing you type leaves this page. Made by <a href="https://www.coffeeandfun.com/">Coffee &amp; Fun</a></p>
+    </main>
 
     <script>
         const { createApp } = Vue;
-        
+
+        const SAMPLE = {
+            title: 'How to brew better coffee at home',
+            desc: 'Six small changes that make your morning cup dramatically better — no fancy gear needed.',
+            url: 'https://example.com/better-coffee',
+            site: 'Example',
+            domain: 'example.com',
+            crumb: 'https://example.com › better-coffee'
+        };
+
+        const SAMPLE_IMG = 'data:image/svg+xml,' + encodeURIComponent(
+            "<svg xmlns='http://www.w3.org/2000/svg' width='1200' height='630' viewBox='0 0 1200 630'>" +
+            "<rect width='1200' height='630' fill='#16161a'/>" +
+            "<circle cx='930' cy='315' r='220' fill='none' stroke='#f4f4f2' stroke-width='2.5' opacity='.85'/>" +
+            "<circle cx='930' cy='315' r='150' fill='none' stroke='#f4f4f2' stroke-width='2.5' opacity='.5'/>" +
+            "<circle cx='930' cy='315' r='80' fill='#f4f4f2' opacity='.9'/>" +
+            "<text x='90' y='320' font-family='Georgia,serif' font-size='58' fill='#f4f4f2'>Your picture here</text>" +
+            "<text x='92' y='378' font-family='Menlo,monospace' font-size='26' fill='#9a9aa2'>1200 × 630 works best</text>" +
+            "</svg>"
+        );
+
         createApp({
             data() {
                 return {
                     meta: {
-                        url: '',
                         title: '',
                         description: '',
-                        keywords: '',
-                        author: '',
+                        url: '',
                         image: '',
-                        twitterUsername: '',
-                        siteName: ''
+                        siteName: '',
+                        handle: '',
+                        imageAlt: '',
+                        pageType: 'website'
                     },
+                    previewTab: 'google',
                     copied: false,
-                    uploadedImage: null
+                    copyFailed: false,
+                    copyTimer: null,
+                    probeTimer: null,
+                    announcement: '',
+                    imgFailed: false,
+                    imgDims: null
                 };
             },
-            computed: {
-                generatedCode() {
-                    let code = '<!-- Basic Meta Tags -->\n';
-                    code += '<meta charset="utf-8">\n';
-                    code += '<meta name="viewport" content="width=device-width, initial-scale=1">\n';
-                    
-                    if (this.meta.title) {
-                        code += `<title>${this.escapeHtml(this.meta.title)}</title>\n`;
-                    }
-                    
-                    if (this.meta.description) {
-                        code += `<meta name="description" content="${this.escapeHtml(this.meta.description)}">\n`;
-                    }
-                    
-                    if (this.meta.keywords) {
-                        code += `<meta name="keywords" content="${this.escapeHtml(this.meta.keywords)}">\n`;
-                    }
-                    
-                    if (this.meta.author) {
-                        code += `<meta name="author" content="${this.escapeHtml(this.meta.author)}">\n`;
-                    }
-                    
-                    if (this.meta.url) {
-                        code += `\n<!-- Canonical URL -->\n`;
-                        code += `<link rel="canonical" href="${this.escapeHtml(this.meta.url)}">\n`;
-                    }
-                    
-                    // Open Graph
-                    code += `\n<!-- Open Graph / Facebook -->\n`;
-                    code += '<meta property="og:type" content="website">\n';
-                    
-                    if (this.meta.url) {
-                        code += `<meta property="og:url" content="${this.escapeHtml(this.meta.url)}">\n`;
-                    }
-                    
-                    if (this.meta.title) {
-                        code += `<meta property="og:title" content="${this.escapeHtml(this.meta.title)}">\n`;
-                    }
-                    
-                    if (this.meta.description) {
-                        code += `<meta property="og:description" content="${this.escapeHtml(this.meta.description)}">\n`;
-                    }
-                    
-                    if (this.meta.image) {
-                        code += `<meta property="og:image" content="${this.escapeHtml(this.meta.image)}">\n`;
-                    }
-                    
-                    if (this.meta.siteName) {
-                        code += `<meta property="og:site_name" content="${this.escapeHtml(this.meta.siteName)}">\n`;
-                    }
-                    
-                    // Twitter
-                    code += `\n<!-- Twitter -->\n`;
-                    code += '<meta name="twitter:card" content="summary_large_image">\n';
-                    
-                    if (this.meta.twitterUsername) {
-                        code += `<meta name="twitter:site" content="${this.escapeHtml(this.meta.twitterUsername)}">\n`;
-                    }
-                    
-                    if (this.meta.title) {
-                        code += `<meta name="twitter:title" content="${this.escapeHtml(this.meta.title)}">\n`;
-                    }
-                    
-                    if (this.meta.description) {
-                        code += `<meta name="twitter:description" content="${this.escapeHtml(this.meta.description)}">\n`;
-                    }
-                    
-                    if (this.meta.image) {
-                        code += `<meta name="twitter:image" content="${this.escapeHtml(this.meta.image)}">\n`;
-                    }
-                    
-                    return code;
+            watch: {
+                'meta.image'() {
+                    this.imgFailed = false;
+                    this.imgDims = null;
+                    if (this.probeTimer) clearTimeout(this.probeTimer);
+                    // Debounced off-DOM probe: measures the picture (for og:image
+                    // width/height) even when no preview tab is showing an <img>.
+                    this.probeTimer = setTimeout(() => this.probeImage(), 400);
                 }
             },
+            computed: {
+                cleanTitle() { return this.clean(this.meta.title); },
+                cleanDesc() { return this.clean(this.meta.description); },
+                cleanUrl() { return this.clean(this.meta.url); },
+                cleanImage() { return this.clean(this.meta.image); },
+                cleanSite() { return this.clean(this.meta.siteName); },
+                cleanAlt() { return this.clean(this.meta.imageAlt); },
+
+                urlObj() { return this.parseHttpUrl(this.cleanUrl); },
+                urlOk() { return !!this.urlObj; },
+                urlWarning() {
+                    if (!this.cleanUrl || this.urlOk) return '';
+                    return 'That doesn’t look like a full web address — it should start with https://';
+                },
+
+                imageObj() { return this.parseHttpUrl(this.cleanImage); },
+                imageOk() { return !!this.imageObj; },
+                imageWarning() {
+                    if (!this.cleanImage || this.imageOk) return '';
+                    if (this.cleanImage.toLowerCase().startsWith('data:')) {
+                        return 'This needs to be a link to a picture that’s already online — social sites can’t read uploaded or pasted image data.';
+                    }
+                    return 'That doesn’t look like a full web address — it should start with https://';
+                },
+
+                handleClean() {
+                    let h = this.clean(this.meta.handle);
+                    h = h.replace(/^(?:https?:\/\/)?(?:www\.)?(?:x\.com|twitter\.com)\//i, '');
+                    h = h.replace(/[/?#].*$/, '');
+                    h = h.replace(/^@+/, '');
+                    return h;
+                },
+                handleOk() {
+                    // Reserved X paths — pasting x.com/intent/... or x.com/home would
+                    // otherwise normalize to a plausible-looking but wrong handle.
+                    const reserved = ['home', 'search', 'explore', 'intent', 'share', 'hashtag', 'i',
+                        'notifications', 'messages', 'settings', 'compose', 'login', 'signup', 'about'];
+                    return /^[A-Za-z0-9_]{1,15}$/.test(this.handleClean)
+                        && !reserved.includes(this.handleClean.toLowerCase());
+                },
+                handleWarning() {
+                    if (!this.clean(this.meta.handle) || this.handleOk) return '';
+                    return 'That doesn’t look like an X handle — just the username, like yourname.';
+                },
+
+                /* ---- Preview values (fall back to the sample, never into the code) ---- */
+                pTitle() { return this.cleanTitle || SAMPLE.title; },
+                pDesc() { return this.cleanDesc || SAMPLE.desc; },
+                pDomain() { return this.urlOk ? this.urlObj.hostname : SAMPLE.domain; },
+                pCrumb() {
+                    if (!this.urlOk) return SAMPLE.crumb;
+                    const u = this.urlObj;
+                    const parts = u.pathname.split('/').filter(Boolean).map(p => {
+                        // A bare % in the path is legal to type but not decodable.
+                        try { return decodeURIComponent(p); } catch { return p; }
+                    });
+                    return [u.protocol + '//' + u.hostname].concat(parts).join(' › ');
+                },
+                pSite() {
+                    if (this.cleanSite) return this.cleanSite;
+                    if (this.urlOk) {
+                        const label = this.urlObj.hostname.replace(/^www\./, '').split('.')[0];
+                        return label.charAt(0).toUpperCase() + label.slice(1);
+                    }
+                    return SAMPLE.site;
+                },
+                pMonogram() { return (this.pSite.charAt(0) || 'E').toUpperCase(); },
+                pImage() {
+                    return (this.imageOk && !this.imgFailed) ? this.cleanImage : SAMPLE_IMG;
+                },
+                usingSample() {
+                    return !this.cleanTitle || !this.cleanDesc || !this.urlOk || !(this.imageOk && !this.imgFailed);
+                },
+
+                /* ---- Generated code: real input only ---- */
+                generatedCode() {
+                    const esc = (v) => this.escapeHtml(v);
+                    const t = this.cleanTitle;
+                    const d = this.cleanDesc;
+                    // Emit the parser-normalized href, not the raw string — the WHATWG
+                    // parser quietly accepts forms like "https:/site.com" or paths with
+                    // spaces, and .href is the corrected version of what was typed.
+                    const u = this.urlOk ? this.urlObj.href : '';
+                    const img = this.imageOk ? this.imageObj.href : '';
+                    const site = this.cleanSite;
+                    const alt = this.cleanAlt;
+                    const handle = this.handleOk ? this.handleClean : '';
+
+                    if (!t && !d && !u && !img) return '';
+
+                    const out = [];
+
+                    if (t || d) {
+                        out.push('<!-- What search engines read -->');
+                        if (t) out.push('<title>' + esc(t) + '</title>');
+                        if (d) out.push('<meta name="description" content="' + esc(d) + '">');
+                    }
+
+                    if (u) {
+                        if (out.length) out.push('');
+                        out.push('<!-- The official address of this page -->');
+                        out.push('<link rel="canonical" href="' + esc(u) + '">');
+                    }
+
+                    if (out.length) out.push('');
+                    out.push('<!-- How Facebook, LinkedIn and iMessage show your link -->');
+                    out.push('<meta property="og:type" content="' + this.meta.pageType + '">');
+                    if (u) out.push('<meta property="og:url" content="' + esc(u) + '">');
+                    if (t) out.push('<meta property="og:title" content="' + esc(t) + '">');
+                    if (d) out.push('<meta property="og:description" content="' + esc(d) + '">');
+                    if (site) out.push('<meta property="og:site_name" content="' + esc(site) + '">');
+                    if (img) {
+                        out.push('<meta property="og:image" content="' + esc(img) + '">');
+                        if (this.imgDims) {
+                            out.push('<meta property="og:image:width" content="' + this.imgDims.w + '">');
+                            out.push('<meta property="og:image:height" content="' + this.imgDims.h + '">');
+                        }
+                        if (alt) out.push('<meta property="og:image:alt" content="' + esc(alt) + '">');
+                    }
+
+                    out.push('');
+                    out.push('<!-- How X (Twitter) shows your link -->');
+                    out.push('<meta name="twitter:card" content="' + (img ? 'summary_large_image' : 'summary') + '">');
+                    if (handle) out.push('<meta name="twitter:site" content="@' + handle + '">');
+                    if (t) out.push('<meta name="twitter:title" content="' + esc(t) + '">');
+                    if (d) out.push('<meta name="twitter:description" content="' + esc(d) + '">');
+                    if (img) {
+                        out.push('<meta name="twitter:image" content="' + esc(img) + '">');
+                        if (alt) out.push('<meta name="twitter:image:alt" content="' + esc(alt) + '">');
+                    }
+
+                    return out.join('\n');
+                },
+                hasCode() { return this.generatedCode.length > 0; }
+            },
             methods: {
-                getTitleClass() {
-                    const len = this.meta.title.length;
-                    if (len > 60) return 'char-error';
-                    if (len > 50) return 'char-warning';
-                    return '';
+                clean(v) {
+                    return String(v || '').replace(/\s+/g, ' ').trim();
                 },
-                
-                getDescClass() {
-                    const len = this.meta.description.length;
-                    if (len > 160) return 'char-error';
-                    if (len > 150) return 'char-warning';
-                    return '';
-                },
-                
-                getDomain(url) {
-                    if (!url) return 'example.com';
-                    try {
-                        const u = new URL(url);
-                        return u.hostname;
-                    } catch {
-                        return 'example.com';
-                    }
-                },
-                
                 escapeHtml(text) {
-                    const map = {
-                        '&': '&amp;',
-                        '<': '&lt;',
-                        '>': '&gt;',
-                        '"': '&quot;',
-                        "'": '&#039;'
-                    };
-                    return text.replace(/[&<>"']/g, m => map[m]);
+                    const map = { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#039;' };
+                    return String(text).replace(/[&<>"']/g, m => map[m]);
                 },
-                
-                async copyCode() {
+                parseHttpUrl(value) {
+                    if (!value) return null;
                     try {
-                        await navigator.clipboard.writeText(this.generatedCode);
-                        this.copied = true;
-                        setTimeout(() => {
-                            this.copied = false;
-                        }, 2000);
-                    } catch (err) {
-                        alert('Failed to copy code');
+                        const u = new URL(value);
+                        return (u.protocol === 'https:' || u.protocol === 'http:') ? u : null;
+                    } catch {
+                        return null;
                     }
                 },
-                
-                handleFileSelect(event) {
-                    const file = event.target.files[0];
-                    if (file) {
-                        this.processFile(file);
+                announce(msg) {
+                    this.announcement = '';
+                    this.$nextTick(() => { this.announcement = msg; });
+                },
+                onTabKey(e) {
+                    const order = ['google', 'facebook', 'x'];
+                    const i = order.indexOf(this.previewTab);
+                    let next = null;
+                    if (e.key === 'ArrowRight') next = order[(i + 1) % order.length];
+                    else if (e.key === 'ArrowLeft') next = order[(i + order.length - 1) % order.length];
+                    else if (e.key === 'Home') next = order[0];
+                    else if (e.key === 'End') next = order[order.length - 1];
+                    if (next) {
+                        e.preventDefault();
+                        this.previewTab = next;
+                        this.$nextTick(() => {
+                            const el = document.getElementById('tab-' + next);
+                            if (el) el.focus();
+                        });
                     }
                 },
-                
-                handleDrop(event) {
-                    event.preventDefault();
-                    const file = event.dataTransfer.files[0];
-                    if (file && file.type.startsWith('image/')) {
-                        this.processFile(file);
-                    }
-                },
-                
-                processFile(file) {
-                    // Check file size (10MB limit)
-                    if (file.size > 10 * 1024 * 1024) {
-                        alert('File size must be less than 10MB');
-                        return;
-                    }
-                    
-                    // Check file type
-                    if (!file.type.startsWith('image/')) {
-                        alert('Please upload an image file');
-                        return;
-                    }
-                    
-                    const reader = new FileReader();
-                    
-                    reader.onload = (e) => {
-                        // Store the base64 data URL
-                        this.meta.image = e.target.result;
-                        this.uploadedImage = {
-                            name: file.name,
-                            size: file.size,
-                            type: file.type
-                        };
+                probeImage() {
+                    const src = this.imageOk ? this.cleanImage : '';
+                    if (!src) return;
+                    const probe = new Image();
+                    probe.onload = () => {
+                        if (this.cleanImage !== src) return; // stale — field changed since
+                        this.imgFailed = false;
+                        // Some SVGs report 0×0 (no intrinsic size) — don't emit that.
+                        this.imgDims = (probe.naturalWidth > 0 && probe.naturalHeight > 0)
+                            ? { w: probe.naturalWidth, h: probe.naturalHeight }
+                            : null;
                     };
-                    
-                    reader.onerror = () => {
-                        alert('Error reading file');
+                    probe.onerror = () => {
+                        if (this.cleanImage !== src) return;
+                        this.imgFailed = true;
                     };
-                    
-                    // Convert to base64 data URL
-                    reader.readAsDataURL(file);
+                    probe.src = src;
                 },
-                
-                removeImage() {
-                    this.uploadedImage = null;
-                    this.meta.image = '';
-                    // Reset file input
-                    if (this.$refs.fileInput) {
-                        this.$refs.fileInput.value = '';
+                onImgError(e) {
+                    if (e.target.src.startsWith('data:')) return;
+                    this.imgFailed = true;
+                },
+                fillExample() {
+                    this.meta.title = SAMPLE.title;
+                    this.meta.description = SAMPLE.desc;
+                    this.meta.url = SAMPLE.url;
+                    this.meta.siteName = SAMPLE.site;
+                    this.announce('Example filled in. Add your own preview image link when you’re ready.');
+                },
+                selectCode() {
+                    const pre = this.$refs.codePre;
+                    if (!pre) return;
+                    const range = document.createRange();
+                    range.selectNodeContents(pre);
+                    const sel = window.getSelection();
+                    sel.removeAllRanges();
+                    sel.addRange(range);
+                },
+                markCopied() {
+                    this.copied = true;
+                    this.copyFailed = false;
+                    this.announce('Code copied to clipboard.');
+                    if (this.copyTimer) clearTimeout(this.copyTimer);
+                    this.copyTimer = setTimeout(() => { this.copied = false; }, 2000);
+                },
+                async copyCode() {
+                    if (!this.hasCode) return;
+                    const text = this.generatedCode;
+                    try {
+                        await Promise.race([
+                            navigator.clipboard.writeText(text),
+                            new Promise((_, reject) => setTimeout(() => reject(new Error('timeout')), 1500))
+                        ]);
+                        this.markCopied();
+                    } catch {
+                        this.selectCode();
+                        let ok = false;
+                        try { ok = document.execCommand('copy'); } catch { ok = false; }
+                        if (ok) {
+                            this.markCopied();
+                        } else {
+                            this.copyFailed = true;
+                            this.announce('Copy didn’t work. The code is selected — press Control C or Command C.');
+                        }
                     }
                 }
             }
-        }).mount('#main-content');
+        }).mount('#app');
     </script>
+{% endraw %}
 </body>
 </html>
