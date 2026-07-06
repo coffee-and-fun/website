@@ -1,59 +1,59 @@
 <!DOCTYPE html>
-<html class="scroll-smooth antialiased" lang="en" data-theme="light" style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;">
+<html class="antialiased" lang="en" style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;">
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  
+
   <!-- Primary Meta Tags -->
   <title>Word Clock - Time in Words | Coffee & Fun</title>
   <meta name="title" content="Word Clock - Time in Words | Coffee & Fun" />
-  <meta name="description" content="Beautiful word clock that displays the current time using illuminated words. A unique and elegant way to tell time." />
+  <meta name="description" content="A word clock that spells out the current time — the right words light up in a grid of letters. IT IS TWENTY MINUTES PAST TEN. Free, no sign-up, runs in your browser." />
   <meta name="keywords" content="word clock, time display, clock widget, time in words, digital clock, Coffee and Fun" />
   <meta name="author" content="Coffee & Fun LLC" />
   <meta name="publisher" content="Coffee & Fun LLC" />
-  
+
   <!-- Open Graph / Facebook -->
   <meta property="og:type" content="website" />
   <meta property="og:url" content="https://www.coffeeandfun.com/word-clock/" />
   <meta property="og:title" content="Word Clock - Time in Words" />
-  <meta property="og:description" content="Beautiful word clock that displays time using illuminated words. A unique way to see the current time." />
+  <meta property="og:description" content="A word clock that spells out the current time — the right words light up in a grid of letters." />
   <meta property="og:image" content="https://www.coffeeandfun.com/assets/images/social/pages/word-clock.png" />
   <meta property="og:image:width" content="1200" />
   <meta property="og:image:height" content="630" />
   <meta property="og:site_name" content="Coffee & Fun" />
   <meta property="og:locale" content="en_US" />
-  
+
   <!-- Twitter -->
   <meta name="twitter:card" content="summary_large_image" />
   <meta name="twitter:url" content="https://www.coffeeandfun.com/word-clock/" />
   <meta name="twitter:title" content="Word Clock - Time in Words" />
-  <meta name="twitter:description" content="Beautiful word clock displaying time in illuminated words." />
+  <meta name="twitter:description" content="A word clock that spells out the current time in a grid of illuminated letters." />
   <meta name="twitter:image" content="https://www.coffeeandfun.com/assets/images/social/pages/word-clock.png" />
   <meta name="twitter:site" content="@bycoffeeandfun" />
   <meta name="twitter:creator" content="@bycoffeeandfun" />
-  
+
   <!-- PWA & Mobile -->
   <meta name="mobile-web-app-capable" content="yes" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
   <meta name="apple-mobile-web-app-status-bar-style" content="default" />
   <meta name="apple-mobile-web-app-title" content="Word Clock" />
-  <meta name="theme-color" content="#f471b5" />
-  
+  <meta name="theme-color" content="#f4f4f2" />
+
   <!-- Search Engine -->
   <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1" />
   <link rel="canonical" href="https://www.coffeeandfun.com/word-clock/" />
-  
+
   <!-- Favicon -->
   <link rel="icon" href="/assets/images/favicon.png" sizes="any" />
   <link rel="apple-touch-icon" href="/assets/images/apple-touch-icon.png" />
-  
+
   <!-- Structured Data -->
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
     "@type": "WebApplication",
     "name": "Word Clock",
-    "description": "Beautiful word clock that displays the current time using illuminated words.",
+    "description": "A word clock that spells out the current time — the right words light up in a grid of letters.",
     "url": "https://www.coffeeandfun.com/word-clock/",
     "applicationCategory": "UtilityApplication",
     "operatingSystem": "Any",
@@ -69,376 +69,518 @@
     }
   }
   </script>
-  
-  <!-- External Resources -->
-  <script src="https://cdn.tailwindcss.com"></script>
-  <link href="https://cdn.jsdelivr.net/npm/daisyui@4.4.24/dist/full.min.css" rel="stylesheet" />
-  <script src="https://unpkg.com/vue@3"></script>
-  
+
   <style>
-    [v-cloak] { display: none; }
-    
-    .fade-in { 
-      animation: fadeIn 0.6s ease-out;
-      animation-fill-mode: both;
+    :root {
+      --bg: #f4f4f2;
+      --surface: #ffffff;
+      --ink: #16161a;
+      --muted: #6c6c74;
+      --faint: #9a9aa2;
+      --line: #e4e4e0;
+      --line-strong: #d3d3ce;
+      --radius: 14px;
+      --mono: ui-monospace, 'SF Mono', 'JetBrains Mono', 'Fira Code', Menlo, Consolas, monospace;
     }
-    
-    @keyframes fadeIn { 
-      from { 
-        opacity: 0; 
-        transform: scale(0.95); 
-      } 
-      to { 
-        opacity: 1; 
-        transform: scale(1); 
-      } 
+
+    * { box-sizing: border-box; }
+
+    html, body { background: var(--bg); }
+    body {
+      margin: 0;
+      color: var(--ink);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      -webkit-font-smoothing: antialiased;
+      accent-color: var(--ink);
     }
-    
-    .letter {
-      transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+
+    .sr-only {
+      position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px;
+      overflow: hidden; clip: rect(0,0,0,0); white-space: nowrap; border: 0;
+    }
+
+    a.skip {
+      position: absolute; left: -9999px; top: 0;
+      background: var(--ink); color: #fff; padding: 0.6rem 1rem; z-index: 20;
+      border-radius: 0 0 8px 0;
+    }
+    a.skip:focus { left: 0; }
+
+    .wrap {
+      width: 100%;
+      max-width: 640px;
+      margin: 0 auto;
+      padding: 2rem 1.25rem 4rem;
+      flex: 1;
+    }
+
+    .topbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 2.75rem;
+    }
+    .topbar a {
+      font-size: 0.82rem;
+      color: var(--muted);
+      text-decoration: none;
+      letter-spacing: 0.01em;
+    }
+    .topbar a:hover { color: var(--ink); }
+    .topbar a:focus-visible { outline: 2px solid var(--ink); outline-offset: 2px; border-radius: 4px; }
+    .brandmark {
+      display: inline-flex; align-items: center; gap: 0.5rem;
+      font-weight: 600; font-size: 0.85rem; letter-spacing: 0.02em;
+    }
+    .brandmark .mark {
+      width: 22px; height: 22px; border-radius: 6px;
+      background: var(--ink); color: #fff;
+      display: inline-flex; align-items: center; justify-content: center;
+    }
+
+    h1 {
+      font-size: 1.9rem;
+      line-height: 1.2;
+      letter-spacing: -0.02em;
+      margin: 0 0 0.6rem;
+      font-weight: 650;
+    }
+    .lede {
+      color: var(--muted);
+      font-size: 1rem;
+      line-height: 1.55;
+      margin: 0 0 2.25rem;
+      max-width: 50ch;
+    }
+
+    /* ---- The clock ---- */
+    .clock-card {
+      background: var(--surface);
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      padding: clamp(1.1rem, 4vw, 2rem);
+    }
+
+    .letters {
+      display: grid;
+      grid-template-columns: repeat(11, 1fr);
+      gap: clamp(2px, 0.9vw, 8px);
+      font-family: var(--mono);
       user-select: none;
-      -webkit-tap-highlight-color: transparent;
-      font-weight: 300;
-      letter-spacing: 0.05em;
+      -webkit-user-select: none;
     }
-    
-    .letter.active {
-      color: hsl(var(--p));
-      text-shadow: 
-        0 0 20px hsla(var(--p), 0.6),
-        0 0 40px hsla(var(--p), 0.3),
-        0 0 60px hsla(var(--p), 0.2);
+    .letter {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      aspect-ratio: 1;
+      font-size: clamp(0.95rem, 4.4vw, 1.7rem);
       font-weight: 500;
-      transform: scale(1.05);
+      letter-spacing: 0.02em;
+      color: var(--faint); /* decorative, aria-hidden — the one place faint is fine */
     }
-    
-    .letter.inactive {
-      color: hsl(var(--bc) / 0.15);
+    .letter.on { color: var(--ink); }
+    .letters.smooth .letter { transition: color 0.6s ease; }
+
+    .plain-time {
+      margin: 1.4rem 0 0;
+      padding-top: 1.1rem;
+      border-top: 1px solid var(--line);
+      text-align: center;
+      font-family: var(--mono);
+      font-variant-numeric: tabular-nums;
+      font-size: 1rem;
+      letter-spacing: 0.06em;
+      color: var(--muted);
     }
-    
-    .clock-grid {
-      background: linear-gradient(135deg, hsl(var(--b1)) 0%, hsl(var(--b2)) 100%);
-      border: 1px solid hsl(var(--bc) / 0.1);
-      box-shadow: 
-        0 20px 60px -15px hsl(var(--bc) / 0.3),
-        inset 0 1px 0 hsl(var(--bc) / 0.05);
+    .plain-date {
+      margin: 0.3rem 0 0;
+      text-align: center;
+      font-size: 0.84rem;
+      color: var(--muted);
     }
-    
-    /* Smooth scroll behavior */
-    html {
-      scroll-behavior: smooth;
+
+    .noscript-note {
+      margin: 0 0 1rem;
+      text-align: center;
+      color: var(--muted);
+      font-size: 0.9rem;
+      line-height: 1.5;
     }
-    
-    /* Responsive letter sizing */
-    @media (max-width: 640px) {
-      .letter {
-        font-size: 1.5rem;
-      }
+
+    /* Full screen: the card becomes the whole display */
+    .fs-hint { display: none; }
+    .clock-card:fullscreen {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      border: 0;
+      border-radius: 0;
+      padding: 5vmin;
     }
-    
-    @media (min-width: 641px) and (max-width: 1024px) {
-      .letter {
-        font-size: 2.25rem;
-      }
+    .clock-card:fullscreen .letters { width: min(82vmin, 62rem); }
+    .clock-card:fullscreen .letter { font-size: min(5vmin, 3.2rem); }
+    .clock-card:fullscreen .plain-time {
+      border-top: 0;
+      padding-top: 0;
+      margin-top: 3.5vmin;
+      font-size: min(2.8vmin, 1.15rem);
     }
-    
-    @media (min-width: 1025px) {
-      .letter {
-        font-size: 3rem;
-      }
+    .clock-card:fullscreen .fs-hint {
+      display: block;
+      margin: 2.5vmin 0 0;
+      text-align: center;
+      font-size: 0.84rem;
+      color: var(--muted);
     }
-    
-    /* Pulse animation for digital time */
-    .time-pulse {
-      animation: pulse 2s ease-in-out infinite;
+
+    /* ---- Controls ---- */
+    .controls {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 0.9rem 1.5rem;
+      margin-top: 1.1rem;
     }
-    
-    @keyframes pulse {
-      0%, 100% { opacity: 1; }
-      50% { opacity: 0.7; }
+    label.ctl {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-size: 0.9rem;
+      cursor: pointer;
     }
-    
-    /* Controls positioning */
-    .controls-overlay {
-      position: fixed;
-      bottom: 2rem;
-      right: 2rem;
-      z-index: 50;
+    label.ctl input { width: 15px; height: 15px; }
+    label.ctl input:focus-visible { outline: 2px solid var(--ink); outline-offset: 2px; }
+
+    .btn-fs {
+      appearance: none;
+      font-family: inherit;
+      font-size: 0.85rem;
+      font-weight: 600;
+      color: var(--ink);
+      background: var(--surface);
+      border: 1px solid var(--line-strong);
+      border-radius: 9px;
+      padding: 0.45rem 0.85rem;
+      cursor: pointer;
+      margin-left: auto;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      transition: border-color 0.15s;
     }
-    
-    @media (max-width: 640px) {
-      .controls-overlay {
-        bottom: 1rem;
-        right: 1rem;
-        left: 1rem;
-      }
+    .btn-fs:hover { border-color: var(--ink); }
+    .btn-fs:focus-visible { outline: 2px solid var(--ink); outline-offset: 2px; }
+    .btn-fs[hidden] { display: none; }
+
+    .foot {
+      text-align: center; padding: 1.5rem 1rem 2rem;
+      font-size: 0.8rem; color: var(--muted);
+    }
+    .foot a { color: var(--muted); text-decoration: none; }
+    .foot a:hover { color: var(--ink); }
+
+    @media (prefers-reduced-motion: reduce) {
+      .letters .letter { transition: none !important; }
+      .btn-fs { transition: none; }
+    }
+
+    @media (max-width: 480px) {
+      h1 { font-size: 1.6rem; }
+      .wrap { padding-top: 1.5rem; }
+      .topbar { margin-bottom: 2rem; }
+      .controls { gap: 0.8rem 1.2rem; }
+    }
+
+    /* ---- Site footer ----
+       footer.liquid is written against Tailwind utilities, which this
+       standalone page doesn't load; these rules cover exactly the classes
+       that markup uses (plus sketch-styles.liquid for the doodles). */
+    footer.brand-color-background { position: relative; overflow: visible; padding: 1rem; }
+    footer .mx-auto { margin-left: auto; margin-right: auto; }
+    footer .max-w-7xl { max-width: 80rem; padding: 3rem 1rem; }
+    footer .max-w-2xl { max-width: 42rem; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; }
+    footer .mb-4 { display: inline-block; margin-bottom: 1rem; border-radius: 1rem; }
+    footer img { height: 4rem; width: 4rem; }
+    footer h2 { margin: 0 0 0.5rem; font-size: 1.125rem; font-weight: 700; }
+    footer p { margin: 0; font-size: 0.875rem; }
+    footer .text-stone-600 { color: #57534e; }
+    footer .font-semibold { font-weight: 600; }
+    footer .text-base { font-size: 1rem; }
+    footer .text-lg { font-size: 1.125rem; }
+    footer .flex-wrap { display: flex; flex-wrap: wrap; justify-content: center; gap: 1rem; margin-top: 2rem; }
+    footer .flex-wrap a { display: inline-flex; padding: 0.5rem; border-radius: 1rem; color: #78716c; transition: color 0.15s; }
+    footer .flex-wrap svg { height: 1.5rem; width: 1.5rem; }
+    footer .hover\:text-blue-400:hover { color: #60a5fa; }
+    footer .hover\:text-pink-500:hover { color: #ec4899; }
+    footer .hover\:text-indigo-500:hover { color: #6366f1; }
+    footer .hover\:text-stone-900:hover { color: #1c1917; }
+    footer .hover\:text-red-500:hover { color: #ef4444; }
+    footer p.text-center { margin-top: 2rem; text-align: center; }
+    footer a:focus-visible { outline: 2px solid var(--ink); outline-offset: 2px; }
+    @media (min-width: 640px) {
+      footer.brand-color-background { padding: 1.5rem; }
+      footer .sm\:text-lg { font-size: 1.125rem; }
+      footer .sm\:text-xl { font-size: 1.25rem; }
+      footer .max-w-7xl { padding: 4rem 1.5rem; }
+      footer img { height: 5rem; width: 5rem; }
+      footer h2 { font-size: 1.25rem; }
+      footer p { font-size: 1rem; }
+      footer .flex-wrap { gap: 1.5rem; margin-top: 3rem; }
+      footer .flex-wrap svg { height: 1.75rem; width: 1.75rem; }
+      footer p.text-center { margin-top: 2.5rem; }
+    }
+    @media (min-width: 1024px) {
+      footer.brand-color-background { padding: 2.5rem; }
+      footer .max-w-7xl { padding: 5rem 2rem; }
+      footer img { height: 6rem; width: 6rem; }
+      footer h2 { font-size: 1.5rem; }
+      footer .flex-wrap { margin-top: 4rem; }
+      footer p.text-center { margin-top: 3rem; }
     }
   </style>
-    {% include sketch-styles.liquid %}
+  {% include sketch-styles.liquid %}
 </head>
-<body class="bg-base-100 min-h-screen">
 
-  
-  <div v-cloak id="app" class="min-h-screen flex items-center justify-center">
-    <!-- Main Clock Container - Full Width -->
-    <div class="w-full">
-      <div class="clock-grid p-6 sm:p-10 md:p-16 lg:p-20 shadow-2xl fade-in">
-        <!-- Word Grid -->
-        <div class="grid grid-cols-11 gap-2 sm:gap-3 md:gap-4 lg:gap-6 mb-8">
-          <template v-for="(row, rowIndex) in grid" :key="rowIndex">
-            <div 
-              v-for="(letter, colIndex) in row" 
-              :key="`${rowIndex}-${colIndex}`"
-              :class="['letter', 'text-center', isActive(rowIndex, colIndex) ? 'active' : 'inactive']"
-            >
-              {% raw %}{{ letter }}{% endraw %}
-            </div>
-          </template>
-        </div>
-        
-        <!-- Digital Time Display -->
-        <div class="text-center">
-          <div class="text-base-content/40 text-lg sm:text-xl md:text-2xl font-light tracking-wider time-pulse">
-            {% raw %}{{ currentTime }}{% endraw %}
-          </div>
-          <div class="text-base-content/30 text-xs sm:text-sm mt-2">
-            {% raw %}{{ currentDate }}{% endraw %}
-          </div>
-        </div>
-      </div>
+<body>
+  <a href="#tool" class="skip">Skip to the clock</a>
+
+  <main class="wrap">
+
+    <div class="topbar">
+      <span class="brandmark">
+        <span class="mark" aria-hidden="true">
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>
+        </span>
+        Word Clock
+      </span>
+      <a href="/">&larr; coffeeandfun.com</a>
     </div>
 
-    <!-- Floating Controls -->
-    <div class="controls-overlay">
-      <div class="card bg-base-200/90 backdrop-blur-lg shadow-xl border border-base-content/10">
-        <div class="card-body p-4 gap-3">
-          <div class="form-control">
-            <label class="label cursor-pointer gap-3 py-2">
-              <span class="label-text text-xs">24-hour</span>
-              <input type="checkbox" class="toggle toggle-primary toggle-sm" v-model="use24Hour" />
-            </label>
-          </div>
-          
-          <div class="form-control">
-            <label class="label cursor-pointer gap-3 py-2">
-              <span class="label-text text-xs">Smooth</span>
-              <input type="checkbox" class="toggle toggle-secondary toggle-sm" v-model="smoothTransitions" checked />
-            </label>
-          </div>
-        </div>
-      </div>
+    <header id="tool">
+      <h1>The time, spelled out in letters</h1>
+      <p class="lede">A grid of letters where the right words light up &mdash; IT IS TWENTY MINUTES PAST TEN. Leave it open on a spare screen, or take it full screen and watch the minutes drift by.</p>
+    </header>
+
+    <!-- Spoken time for screen readers, updated once a minute -->
+    <p class="sr-only" role="status" aria-live="polite" id="spoken-time"></p>
+
+    <section class="clock-card" id="clock-card" aria-label="Word clock">
+      <noscript>
+        <p class="noscript-note">The clock needs JavaScript to light up &mdash; turn it on and reload to see the time in words.</p>
+      </noscript>
+      <div class="letters" id="letters" aria-hidden="true"></div>
+      <p class="plain-time" id="digital-time"></p>
+      <p class="plain-date" id="digital-date"></p>
+      <p class="fs-hint">Press Esc to leave full screen</p>
+    </section>
+
+    <div class="controls">
+      <label class="ctl">
+        <input type="checkbox" id="opt-24h" />
+        24-hour time
+      </label>
+      <label class="ctl">
+        <input type="checkbox" id="opt-smooth" checked />
+        Smooth fade
+      </label>
+      <button type="button" class="btn-fs" id="btn-fullscreen">Full screen</button>
     </div>
-  </div>
-  
+
+    <p class="foot">The clock runs entirely in your browser &mdash; nothing to install, nothing tracked.</p>
+  </main>
+
   {% include footer.liquid %}
-  
+
   <script>
-    const { createApp } = Vue;
-    
-    createApp({
-      data() {
-        return {
-          grid: [
-            ['I', 'T', 'L', 'I', 'S', 'A', 'S', 'T', 'H', 'P', 'M'],
-            ['A', 'C', 'F', 'I', 'F', 'T', 'E', 'E', 'N', 'D', 'C'],
-            ['T', 'W', 'E', 'N', 'T', 'Y', 'F', 'I', 'V', 'E', 'X'],
-            ['T', 'H', 'I', 'R', 'T', 'Y', 'F', 'T', 'E', 'N', 'O'],
-            ['M', 'I', 'N', 'U', 'T', 'E', 'S', 'E', 'T', 'O', 'U'],
-            ['P', 'A', 'S', 'T', 'O', 'R', 'U', 'F', 'O', 'U', 'R'],
-            ['S', 'E', 'V', 'E', 'N', 'X', 'T', 'W', 'E', 'L', 'V'],
-            ['N', 'I', 'N', 'E', 'F', 'I', 'V', 'E', 'C', 'T', 'W'],
-            ['E', 'I', 'G', 'H', 'T', 'F', 'E', 'L', 'E', 'V', 'E'],
-            ['S', 'I', 'X', 'T', 'H', 'R', 'E', 'E', 'O', 'N', 'E'],
-            ['T', 'E', 'N', 'S', 'E', 'Z', 'O', "'", 'C', 'L', 'K']
-          ],
-          activePositions: [],
-          currentTime: '',
-          currentDate: '',
-          use24Hour: false,
-          smoothTransitions: true,
-          updateInterval: null
-        };
-      },
-      
-      mounted() {
-        this.updateClock();
-        this.updateInterval = setInterval(this.updateClock, 1000);
-        this.loadSettings();
-      },
-      
-      beforeUnmount() {
-        if (this.updateInterval) {
-          clearInterval(this.updateInterval);
-        }
-      },
-      
-      watch: {
-        use24Hour(newVal) {
-          this.saveSettings();
-          this.updateClock();
-        },
-        smoothTransitions(newVal) {
-          this.saveSettings();
-        }
-      },
-      
-      methods: {
-        isActive(row, col) {
-          return this.activePositions.some(pos => pos[0] === row && pos[1] === col);
-        },
-        
-        updateClock() {
-          const now = new Date();
-          
-          // Update digital time
-          const timeOptions = { 
-            hour: '2-digit', 
-            minute: '2-digit', 
-            second: '2-digit',
-            hour12: !this.use24Hour
-          };
-          this.currentTime = now.toLocaleTimeString('en-US', timeOptions);
-          
-          // Update date
-          const dateOptions = { 
-            weekday: 'long', 
-            year: 'numeric', 
-            month: 'long', 
-            day: 'numeric' 
-          };
-          this.currentDate = now.toLocaleDateString('en-US', dateOptions);
-          
-          let hours = now.getHours();
-          if (!this.use24Hour) {
-            hours = hours % 12;
-            if (hours === 0) hours = 12;
-          }
-          let minutes = now.getMinutes();
-          
-          this.activePositions = [];
-          
-          // Always show "IT IS"
-          this.addWord(0, 0, 2); // IT
-          this.addWord(0, 3, 5); // IS
-          
-          // Minutes logic
-          if (minutes >= 5 && minutes < 10) {
-            this.addWord(1, 3, 8); // FIVE
-            this.addWord(4, 0, 7); // MINUTES
-            this.addWord(5, 0, 4); // PAST
-          } else if (minutes >= 10 && minutes < 15) {
-            this.addWord(3, 9, 11); // TEN
-            this.addWord(4, 0, 7); // MINUTES
-            this.addWord(5, 0, 4); // PAST
-          } else if (minutes >= 15 && minutes < 20) {
-            this.addWord(1, 3, 11); // FIFTEEN
-            this.addWord(4, 0, 7); // MINUTES
-            this.addWord(5, 0, 4); // PAST
-          } else if (minutes >= 20 && minutes < 25) {
-            this.addWord(2, 0, 6); // TWENTY
-            this.addWord(4, 0, 7); // MINUTES
-            this.addWord(5, 0, 4); // PAST
-          } else if (minutes >= 25 && minutes < 30) {
-            this.addWord(2, 0, 6); // TWENTY
-            this.addWord(2, 6, 10); // FIVE
-            this.addWord(4, 0, 7); // MINUTES
-            this.addWord(5, 0, 4); // PAST
-          } else if (minutes >= 30 && minutes < 35) {
-            this.addWord(3, 0, 6); // THIRTY
-            this.addWord(4, 0, 7); // MINUTES
-            this.addWord(5, 0, 4); // PAST
-          } else if (minutes >= 35 && minutes < 40) {
-            this.addWord(2, 0, 6); // TWENTY
-            this.addWord(2, 6, 10); // FIVE
-            this.addWord(4, 0, 7); // MINUTES
-            this.addWord(4, 8, 10); // TO
-            hours = (hours % (this.use24Hour ? 24 : 12)) + 1;
-            if (!this.use24Hour && hours === 13) hours = 1;
-          } else if (minutes >= 40 && minutes < 45) {
-            this.addWord(2, 0, 6); // TWENTY
-            this.addWord(4, 0, 7); // MINUTES
-            this.addWord(4, 8, 10); // TO
-            hours = (hours % (this.use24Hour ? 24 : 12)) + 1;
-            if (!this.use24Hour && hours === 13) hours = 1;
-          } else if (minutes >= 45 && minutes < 50) {
-            this.addWord(1, 3, 11); // FIFTEEN
-            this.addWord(4, 0, 7); // MINUTES
-            this.addWord(4, 8, 10); // TO
-            hours = (hours % (this.use24Hour ? 24 : 12)) + 1;
-            if (!this.use24Hour && hours === 13) hours = 1;
-          } else if (minutes >= 50 && minutes < 55) {
-            this.addWord(3, 9, 11); // TEN
-            this.addWord(4, 0, 7); // MINUTES
-            this.addWord(4, 8, 10); // TO
-            hours = (hours % (this.use24Hour ? 24 : 12)) + 1;
-            if (!this.use24Hour && hours === 13) hours = 1;
-          } else if (minutes >= 55) {
-            this.addWord(1, 3, 8); // FIVE
-            this.addWord(4, 0, 7); // MINUTES
-            this.addWord(4, 8, 10); // TO
-            hours = (hours % (this.use24Hour ? 24 : 12)) + 1;
-            if (!this.use24Hour && hours === 13) hours = 1;
+    (function () {
+      'use strict';
+
+      /* 11×11 letter grid. Same vocabulary and shape as always —
+         IT IS <minutes> MINUTES PAST/TO <hour> / <hour> O'CLOCK. */
+      var ROWS = [
+        'ITLISASTHPM',
+        'ACFIFTEENDC',
+        'TWENTYFIVEX',
+        'THIRTYFTENO',
+        'MINUTESETOU',
+        'PASTORUFOUR',
+        'SEVENTWELVE',
+        'NINEFIVETWO',
+        'EIGHTELEVEN',
+        'SIXTHREEONE',
+        "TENSO'CLOCK"
+      ];
+
+      /* Each word is [row, startCol, endColExclusive]. */
+      var WORDS = {
+        IT: [0, 0, 2], IS: [0, 3, 5],
+        M_FIVE: [2, 6, 10], M_TEN: [3, 7, 10], M_FIFTEEN: [1, 2, 9],
+        M_TWENTY: [2, 0, 6], M_THIRTY: [3, 0, 6],
+        MINUTES: [4, 0, 7], PAST: [5, 0, 4], TO: [4, 8, 10],
+        H1: [9, 8, 11], H2: [7, 8, 11], H3: [9, 3, 8], H4: [5, 7, 11],
+        H5: [7, 4, 8], H6: [9, 0, 3], H7: [6, 0, 5], H8: [8, 0, 5],
+        H9: [7, 0, 4], H10: [10, 0, 3], H11: [8, 5, 11], H12: [6, 5, 11],
+        OCLOCK: [10, 4, 11]
+      };
+
+      var HOUR_NAMES = [null, 'one', 'two', 'three', 'four', 'five', 'six',
+        'seven', 'eight', 'nine', 'ten', 'eleven', 'twelve'];
+
+      var MINUTE_WORDS = {
+        5:  { keys: ['M_FIVE'],             label: 'five' },
+        10: { keys: ['M_TEN'],              label: 'ten' },
+        15: { keys: ['M_FIFTEEN'],          label: 'fifteen' },
+        20: { keys: ['M_TWENTY'],           label: 'twenty' },
+        25: { keys: ['M_TWENTY', 'M_FIVE'], label: 'twenty-five' },
+        30: { keys: ['M_THIRTY'],           label: 'thirty' }
+      };
+
+      /* Which words are lit at h24:m, plus the same thing as a sentence. */
+      function wordsFor(h24, m) {
+        var block = Math.floor(m / 5) * 5;
+        var keys = ['IT', 'IS'];
+        var phrase = 'It is ';
+        var hourShift = 0;
+
+        if (block !== 0) {
+          var mw = MINUTE_WORDS[block <= 30 ? block : 60 - block];
+          keys = keys.concat(mw.keys, 'MINUTES');
+          if (block <= 30) {
+            keys.push('PAST');
+            phrase += mw.label + ' minutes past ';
           } else {
-            // O'CLOCK for exact hour
-            this.addWord(10, 6, 11); // O'CLOCK
+            keys.push('TO');
+            phrase += mw.label + ' minutes to ';
+            hourShift = 1;
           }
-          
-          // Handle 24-hour format hours
-          if (this.use24Hour && hours > 12) {
-            // For hours 13-23 in 24-hour format, show equivalent 12-hour words
-            hours = hours % 12;
-            if (hours === 0) hours = 12;
-          }
-          
-          // Hours display
-          switch(hours) {
-            case 1: this.addWord(9, 9, 11); break; // ONE
-            case 2: this.addWord(7, 9, 11); break; // TWO
-            case 3: this.addWord(9, 5, 10); break; // THREE
-            case 4: this.addWord(5, 7, 11); break; // FOUR
-            case 5: this.addWord(7, 4, 8); break; // FIVE
-            case 6: this.addWord(9, 0, 3); break; // SIX
-            case 7: this.addWord(6, 0, 5); break; // SEVEN
-            case 8: this.addWord(8, 0, 5); break; // EIGHT
-            case 9: this.addWord(7, 0, 4); break; // NINE
-            case 10: this.addWord(10, 0, 3); break; // TEN
-            case 11: this.addWord(8, 5, 11); break; // ELEVEN
-            case 12: this.addWord(6, 6, 11); break; // TWELVE
-          }
-        },
-        
-        addWord(row, startCol, endCol) {
-          for (let col = startCol; col < endCol; col++) {
-            this.activePositions.push([row, col]);
-          }
-        },
-        
-        loadSettings() {
-          try {
-            const settings = localStorage.getItem('wordClockSettings');
-            if (settings) {
-              const parsed = JSON.parse(settings);
-              this.use24Hour = parsed.use24Hour || false;
-              this.smoothTransitions = parsed.smoothTransitions !== false;
-            }
-          } catch (err) {
-            console.error('Failed to load settings:', err);
-          }
-        },
-        
-        saveSettings() {
-          try {
-            const settings = {
-              use24Hour: this.use24Hour,
-              smoothTransitions: this.smoothTransitions
-            };
-            localStorage.setItem('wordClockSettings', JSON.stringify(settings));
-          } catch (err) {
-            console.error('Failed to save settings:', err);
-          }
+        }
+
+        var hour = (h24 + hourShift) % 12 || 12;
+        keys.push('H' + hour);
+        phrase += HOUR_NAMES[hour];
+        if (block === 0) {
+          keys.push('OCLOCK');
+          phrase += " o'clock";
+        }
+        return { keys: keys, phrase: phrase + '.' };
+      }
+
+      var lettersEl = document.getElementById('letters');
+      var timeEl = document.getElementById('digital-time');
+      var dateEl = document.getElementById('digital-date');
+      var spokenEl = document.getElementById('spoken-time');
+      var toggle24 = document.getElementById('opt-24h');
+      var toggleSmooth = document.getElementById('opt-smooth');
+      var fsBtn = document.getElementById('btn-fullscreen');
+      var card = document.getElementById('clock-card');
+
+      /* Build the grid once. */
+      var cells = [];
+      ROWS.forEach(function (row) {
+        for (var i = 0; i < row.length; i++) {
+          var s = document.createElement('span');
+          s.className = 'letter';
+          s.textContent = row.charAt(i);
+          lettersEl.appendChild(s);
+          cells.push(s);
+        }
+      });
+
+      function cellsFor(key) {
+        var d = WORDS[key];
+        var out = [];
+        for (var c = d[1]; c < d[2]; c++) out.push(d[0] * 11 + c);
+        return out;
+      }
+
+      /* Settings — same localStorage key as before, so saved
+         preferences carry over. */
+      var settings = { use24Hour: false, smoothTransitions: true };
+      try {
+        var saved = JSON.parse(localStorage.getItem('wordClockSettings') || '{}');
+        settings.use24Hour = saved.use24Hour === true;
+        settings.smoothTransitions = saved.smoothTransitions !== false;
+      } catch (e) { /* first visit or blocked storage */ }
+
+      function saveSettings() {
+        try {
+          localStorage.setItem('wordClockSettings', JSON.stringify(settings));
+        } catch (e) { /* storage blocked — settings just won't persist */ }
+      }
+
+      function applySmooth() {
+        lettersEl.classList.toggle('smooth', settings.smoothTransitions);
+      }
+
+      var litMinute = -1;
+      function tick(force) {
+        var now = new Date();
+        timeEl.textContent = now.toLocaleTimeString('en-US', {
+          hour: '2-digit', minute: '2-digit', second: '2-digit',
+          hour12: !settings.use24Hour
+        });
+        dateEl.textContent = now.toLocaleDateString('en-US', {
+          weekday: 'long', year: 'numeric', month: 'long', day: 'numeric'
+        });
+
+        var minuteStamp = now.getHours() * 60 + now.getMinutes();
+        if (minuteStamp !== litMinute || force) {
+          litMinute = minuteStamp;
+          var result = wordsFor(now.getHours(), now.getMinutes());
+          var active = {};
+          result.keys.forEach(function (key) {
+            cellsFor(key).forEach(function (i) { active[i] = true; });
+          });
+          cells.forEach(function (cell, i) {
+            cell.classList.toggle('on', active[i] === true);
+          });
+          spokenEl.textContent = result.phrase;
         }
       }
-    }).mount('#app');
+
+      toggle24.checked = settings.use24Hour;
+      toggleSmooth.checked = settings.smoothTransitions;
+      applySmooth();
+
+      toggle24.addEventListener('change', function () {
+        settings.use24Hour = toggle24.checked;
+        saveSettings();
+        tick(true);
+      });
+      toggleSmooth.addEventListener('change', function () {
+        settings.smoothTransitions = toggleSmooth.checked;
+        saveSettings();
+        applySmooth();
+      });
+
+      /* Full screen: the card becomes the whole display. Hidden where the
+         Fullscreen API isn't available (e.g. iPhone Safari). */
+      if (typeof card.requestFullscreen !== 'function') {
+        fsBtn.hidden = true;
+      } else {
+        fsBtn.addEventListener('click', function () {
+          if (document.fullscreenElement) {
+            document.exitFullscreen();
+          } else {
+            card.requestFullscreen().catch(function () { /* denied — no-op */ });
+          }
+        });
+        document.addEventListener('fullscreenchange', function () {
+          fsBtn.textContent = document.fullscreenElement ? 'Exit full screen' : 'Full screen';
+        });
+      }
+
+      tick();
+      setInterval(tick, 1000);
+      /* Re-sync immediately when the tab wakes up. */
+      document.addEventListener('visibilitychange', function () {
+        if (!document.hidden) tick();
+      });
+    })();
   </script>
 </body>
 </html>

@@ -162,8 +162,8 @@
         <section class="relative mx-auto max-w-5xl px-4 sm:px-6 lg:px-8 pb-10 overflow-visible">
             <!-- Search -->
             {% assign searchId = 'appSearchInput' %}
-            {% assign searchPlaceholder = 'Search apps...' %}
-            {% assign searchLabel = 'Search apps' %}
+            {% assign searchPlaceholder = 'Search apps & tools...' %}
+            {% assign searchLabel = 'Search apps and tools' %}
             {% include search-bar.liquid %}
 
             <!-- Sketch: "psst... try filtering!" with arrow nudging left into the filter tabs -->
@@ -232,6 +232,8 @@
                     <circle cx="5" cy="22" r="2" fill="#fd6155" opacity="0.4"/>
                 </svg>
             </div>
+            <h2 class="text-xl sm:text-2xl font-bold text-stone-800 mb-2">Apps &amp; extensions</h2>
+            <p class="text-sm text-stone-600 mb-8">Our apps and browser extensions for Mac, iOS, Chrome, and Safari.</p>
             <div class="not-prose grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-3" id="appGrid">
                 {% for app in apps.apps %}
                 <a class="app-card card card-compact bg-base-100 shadow-md transition-all duration-200 hover:-translate-y-1 hover:shadow-xl rounded-2xl focus:outline-none focus:ring-2 focus:ring-offset-2 overflow-hidden"
@@ -274,9 +276,64 @@
                 {% endfor %}
             </div>
 
-            <!-- No Results -->
+        </section>
+
+        <!-- Free Web Tools Section -->
+        <section class="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 pb-16 overflow-visible">
+            <!-- Sketch: "no sign-up!" note -->
+            <div class="sketch-note text-lg sm:text-xl" style="top: -12px; right: 10%; transform: rotate(3deg);">
+                no sign-up needed!
+            </div>
+
+            <h2 class="text-xl sm:text-2xl font-bold text-stone-800 mb-2">Free web tools</h2>
+            <p class="text-sm text-stone-600 mb-8">Little utilities and games that run right in your browser.</p>
+            <div class="not-prose grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-3" id="toolsGrid">
+                {% for app in apps.tools %}
+                <a class="app-card card card-compact bg-base-100 shadow-md transition-all duration-200 hover:-translate-y-1 hover:shadow-xl rounded-2xl focus:outline-none focus:ring-2 focus:ring-offset-2 overflow-hidden"
+                    style="--tw-ring-color: var(--color-mocha);"
+                    href="{{ app.link }}"
+                    {% if app.link contains 'http' %}target="_blank" rel="noopener noreferrer"{% endif %}
+                    data-title="{{ app.name | downcase }}"
+                    data-description="{{ app.description | downcase }}"
+                    data-platforms="{{ app.platform | join: ' ' | downcase }}">
+                    <figure class="px-4 pt-4 pb-1">
+                        <img loading="lazy" decoding="async"
+                            src="{{ app.image }}"
+                            width="600" height="400"
+                            class="rounded-xl w-full aspect-video object-cover bg-stone-100"
+                            alt="{{ app.name }}" />
+                    </figure>
+                    <div class="card-body">
+                        <h2 class="card-title text-stone-800">{{ app.name }}</h2>
+                        <p class="text-sm text-stone-600 line-clamp-2">{{ app.description }}</p>
+                        <div class="flex flex-wrap gap-1.5 mt-3">
+                            {% for platform in app.platform %}
+                            {% assign ptag = platform | downcase %}
+                            {% if ptag == "chrome" %}
+                            <span class="text-xs font-medium px-2.5 py-1 rounded-full text-white" style="background-color:var(--color-caramel);">{{ platform }}</span>
+                            {% elsif ptag == "safari" %}
+                            <span class="text-xs font-medium px-2.5 py-1 rounded-full text-white" style="background-color:#4a7249;">{{ platform }}</span>
+                            {% elsif ptag == "web" %}
+                            <span class="text-xs font-medium px-2.5 py-1 rounded-full text-white" style="background-color:var(--color-espresso);">{{ platform }}</span>
+                            {% elsif ptag == "ios" %}
+                            <span class="text-xs font-medium px-2.5 py-1 rounded-full text-white" style="background-color:var(--color-coral-deep);">{{ platform }}</span>
+                            {% elsif ptag == "macos" %}
+                            <span class="text-xs font-medium px-2.5 py-1 rounded-full text-white" style="background-color:var(--color-caramel);">{{ platform }}</span>
+                            {% else %}
+                            <span class="text-xs font-medium px-2.5 py-1 rounded-full text-white" style="background-color:var(--color-mocha);">{{ platform }}</span>
+                            {% endif %}
+                            {% endfor %}
+                        </div>
+                    </div>
+                </a>
+                {% endfor %}
+            </div>
+        </section>
+
+        <!-- No Results -->
+        <section class="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 overflow-visible">
             <div id="noResults" class="hidden text-center py-16">
-                <p class="text-2xl mb-2">No Apps Found</p>
+                <p class="text-2xl mb-2">Nothing Found</p>
                 <p class="text-stone-500">Try a different search or filter</p>
             </div>
         </section>
@@ -435,10 +492,14 @@
         const filterTabs = document.querySelectorAll('.filter-tab');
         const noResults = document.getElementById('noResults');
         const appGrid = document.getElementById('appGrid');
+        const toolsGrid = document.getElementById('toolsGrid');
+        const appsSection = appGrid.closest('section');
+        const toolsSection = toolsGrid.closest('section');
         const opensourceSection = document.getElementById('opensourceGrid').closest('section');
         const graveyardSection = document.getElementById('graveyardGrid').closest('section');
 
         const mainCards = appGrid.querySelectorAll('.app-card');
+        const toolCards = toolsGrid.querySelectorAll('.app-card');
         const osCards = document.getElementById('opensourceGrid').querySelectorAll('.app-card');
         const gyCards = document.getElementById('graveyardGrid').querySelectorAll('.app-card');
 
@@ -469,12 +530,25 @@
             const searchTerm = searchInput.value.toLowerCase().trim();
 
             const mainCount = filterCards(mainCards, searchTerm);
+            const toolsCount = filterCards(toolCards, searchTerm);
             const osCount = filterCards(osCards, searchTerm);
             const gyCount = filterCards(gyCards, searchTerm);
 
             // Hide entire sections if no visible cards or filter doesn't match
             const showOS = activeFilter === 'all' || activeFilter === 'Open Source';
             const showGY = activeFilter === 'all';
+
+            if (mainCount > 0) {
+                appsSection.classList.remove('section-hidden');
+            } else {
+                appsSection.classList.add('section-hidden');
+            }
+
+            if (toolsCount > 0) {
+                toolsSection.classList.remove('section-hidden');
+            } else {
+                toolsSection.classList.add('section-hidden');
+            }
 
             if (showOS && osCount > 0) {
                 opensourceSection.classList.remove('section-hidden');
@@ -489,7 +563,7 @@
             }
 
             // No results
-            const totalVisible = mainCount + (showOS ? osCount : 0) + (showGY ? gyCount : 0);
+            const totalVisible = mainCount + toolsCount + (showOS ? osCount : 0) + (showGY ? gyCount : 0);
             if (totalVisible === 0) {
                 noResults.classList.remove('hidden');
             } else {
