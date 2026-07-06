@@ -273,6 +273,12 @@
     @media (max-width: 639px) {
         .sketch-note { display: none; }
     }
+
+    /* Respect the OS motion preference — the draw-in script already checks it,
+       but these looping CSS animations need their own guard. */
+    @media (prefers-reduced-motion: reduce) {
+        .sketch-float, .sketch-float-slow, .sketch-wiggle { animation: none; }
+    }
 </style>
 
 <script>
