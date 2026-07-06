@@ -135,6 +135,31 @@
             display: inline-flex; align-items: center; justify-content: center;
         }
 
+        /* Logo home link + tooltip (hover AND keyboard focus) */
+        .home-link { position: relative; display: inline-flex; border-radius: 10px; }
+        .home-link img { width: 40px; height: 40px; display: block; transition: transform 0.15s ease; }
+        .home-link:hover img, .home-link:focus-visible img { transform: rotate(-8deg) scale(1.08); }
+        .home-link:focus-visible { outline: 2px solid var(--ink); outline-offset: 3px; }
+        .home-link .tip {
+            position: absolute; top: calc(100% + 9px); right: 0;
+            background: var(--ink); color: #fff;
+            font-size: 0.78rem; font-weight: 600; letter-spacing: 0.01em;
+            white-space: nowrap; padding: 0.4rem 0.7rem; border-radius: 8px;
+            opacity: 0; transform: translateY(-4px); pointer-events: none;
+            transition: opacity 0.15s, transform 0.15s;
+            z-index: 30;
+        }
+        .home-link .tip::before {
+            content: ''; position: absolute; top: -4px; right: 14px;
+            width: 8px; height: 8px; background: var(--ink);
+            transform: rotate(45deg);
+        }
+        .home-link:hover .tip, .home-link:focus-visible .tip { opacity: 1; transform: translateY(0); }
+        @media (prefers-reduced-motion: reduce) {
+            .home-link img, .home-link .tip { transition: none; }
+            .home-link:hover img, .home-link:focus-visible img { transform: none; }
+        }
+
         h1 {
             font-size: 1.9rem;
             line-height: 1.2;
@@ -402,7 +427,10 @@
                 </span>
                 Time There
             </span>
-            <a href="/">&larr; coffeeandfun.com</a>
+            <a href="/" class="home-link" aria-label="Back to coffeeandfun.com">
+                <img src="/assets/images/coffee-and-fun-logo-dark.png" alt="" width="40" height="40" decoding="async" />
+                <span class="tip" aria-hidden="true">Back to coffeeandfun.com</span>
+            </a>
         </div>
 
         <header id="tool">
