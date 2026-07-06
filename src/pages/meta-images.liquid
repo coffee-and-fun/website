@@ -1,701 +1,834 @@
 <!DOCTYPE html>
-<html class="scroll-smooth antialiased" lang="en" data-theme="caramellatte">
+<html class="antialiased" lang="en" style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;">
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    
+
     <!-- Primary Meta Tags -->
-    <title>Image Metadata Viewer & Editor - EXIF Data Tool | Coffee & Fun</title>
-    <meta name="title" content="Image Metadata Viewer & Editor - EXIF Data Tool | Coffee & Fun" />
-    <meta name="description" content="View, analyze, and remove EXIF metadata from images. Privacy-focused tool with instant processing. All work happens locally in your browser - no uploads needed." />
-    <meta name="keywords" content="EXIF data, image metadata, photo privacy, metadata removal, EXIF viewer, privacy tool, Coffee and Fun" />
+    <title>Free Photo Metadata Viewer & Remover - See What Your Photo Gives Away | Coffee & Fun LLC</title>
+    <meta name="description" content="Drop in a photo and see what its file quietly reveals — location, date, camera — then download a clean copy that says nothing. Free, private, works entirely in your browser." />
     <meta name="author" content="Coffee & Fun LLC" />
-    <meta name="publisher" content="Coffee & Fun LLC" />
-    <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1" />
-    <meta name="rating" content="general" />
-    
-    <!-- Open Graph / Facebook -->
+    <meta name="robots" content="index, follow" />
+
+    <!-- Canonical URL -->
+    <link rel="canonical" href="https://www.coffeeandfun.com/meta-images/" />
+
+    <!-- Favicon -->
+    <link rel="icon" href="/assets/images/favicon.png" sizes="any" />
+
+    <!-- Open Graph -->
     <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="Coffee & Fun" />
+    <meta property="og:title" content="Free Photo Metadata Viewer & Remover - See What Your Photo Gives Away" />
+    <meta property="og:description" content="Drop in a photo and see what its file quietly reveals — location, date, camera — then download a clean copy that says nothing." />
     <meta property="og:url" content="https://www.coffeeandfun.com/meta-images/" />
-    <meta property="og:title" content="Image Metadata Viewer & Editor - EXIF Data Tool" />
-    <meta property="og:description" content="View and remove EXIF metadata from images. Privacy-focused tool that works entirely in your browser." />
     <meta property="og:image" content="https://www.coffeeandfun.com/assets/images/social/pages/meta-images.png" />
     <meta property="og:image:width" content="1200" />
     <meta property="og:image:height" content="630" />
-    <meta property="og:image:alt" content="Image Metadata Viewer & Editor tool" />
-    <meta property="og:site_name" content="Coffee & Fun" />
+    <meta property="og:image:alt" content="Free Photo Metadata Viewer and Remover by Coffee & Fun" />
     <meta property="og:locale" content="en_US" />
-    
-    <!-- Twitter -->
+
+    <!-- Twitter Card -->
     <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:url" content="https://www.coffeeandfun.com/meta-images/" />
-    <meta name="twitter:title" content="Image Metadata Viewer & Editor - EXIF Data Tool" />
-    <meta name="twitter:description" content="View and remove EXIF metadata from images. Privacy-focused tool that works in your browser." />
-    <meta name="twitter:image" content="https://www.coffeeandfun.com/assets/images/social/pages/meta-images.png" />
-    <meta name="twitter:image:alt" content="Image Metadata Viewer & Editor" />
     <meta name="twitter:site" content="@bycoffeeandfun" />
-    <meta name="twitter:creator" content="@bycoffeeandfun" />
-    
-    <!-- Canonical URL -->
-    <link rel="canonical" href="https://www.coffeeandfun.com/meta-images/" />
-    
-    <!-- Favicon & Icons -->
-    <link rel="icon" href="/assets/images/favicon.png" type="image/png" />
-    <link rel="apple-touch-icon" href="/assets/images/social/192.png" />
-    
-    <!-- PWA & Mobile -->
-    <meta name="theme-color" content="#8B4513" />
-    <meta name="mobile-web-app-capable" content="yes" />
-    <meta name="apple-mobile-web-app-capable" content="yes" />
-    <meta name="apple-mobile-web-app-status-bar-style" content="default" />
-    <meta name="apple-mobile-web-app-title" content="Image Metadata" />
-    
+    <meta name="twitter:title" content="Free Photo Metadata Viewer & Remover - See What Your Photo Gives Away" />
+    <meta name="twitter:description" content="See what a photo quietly reveals — location, date, camera — then download a clean copy that says nothing." />
+    <meta name="twitter:image" content="https://www.coffeeandfun.com/assets/images/social/pages/meta-images.png" />
+    <meta name="twitter:image:alt" content="Free Photo Metadata Viewer and Remover by Coffee & Fun" />
+
+    <meta name="theme-color" content="#f4f4f2" />
+
     <!-- Structured Data -->
     <script type="application/ld+json">
     {
         "@context": "https://schema.org",
-        "@type": "WebApplication",
-        "name": "Image Metadata Viewer & Editor",
-        "description": "View and remove EXIF metadata from images for privacy protection",
-        "url": "/meta-images/",
+        "@type": "SoftwareApplication",
+        "name": "Free Photo Metadata Viewer & Remover",
+        "description": "See what a photo's file quietly reveals — GPS location, date, camera, editing software — and download a clean copy with all metadata removed. Processing happens entirely in the browser.",
+        "url": "https://www.coffeeandfun.com/meta-images/",
         "applicationCategory": "UtilityApplication",
-        "operatingSystem": "Any",
-        "offers": {
-            "@type": "Offer",
-            "price": "0",
-            "priceCurrency": "USD"
-        },
-        "creator": {
-            "@type": "Organization",
-            "name": "Coffee & Fun LLC",
-            "url": "https://www.coffeeandfun.com",
-            "sameAs": ["https://x.com/bycoffeeandfun"]
-        },
-        "aggregateRating": {
-            "@type": "AggregateRating",
-            "ratingValue": "4.9",
-            "ratingCount": "89"
-        }
+        "operatingSystem": "Web Browser",
+        "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" },
+        "featureList": [
+            "Plain-English list of what a photo reveals",
+            "GPS location decoding",
+            "One-click metadata removal",
+            "Local processing — no uploads"
+        ]
     }
     </script>
-    
-    <!-- External Resources -->
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://cdn.jsdelivr.net/npm/daisyui@4.4.24/dist/full.min.css" rel="stylesheet" type="text/css" />
+
     <script src="https://unpkg.com/vue@3"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/exif-js/2.3.0/exif.js"></script>
-    
+    <script src="https://cdn.jsdelivr.net/npm/exifreader@4/dist/exif-reader.min.js"></script>
+
     <style>
+        :root {
+            --bg: #f4f4f2;
+            --surface: #ffffff;
+            --ink: #16161a;
+            --muted: #6c6c74;
+            --faint: #9a9aa2;
+            --line: #e4e4e0;
+            --line-strong: #d3d3ce;
+            --good: #0f7b4f;
+            --good-bg: #eaf6ef;
+            --warn: #b4341f;
+            --warn-bg: #fbecea;
+            --radius: 14px;
+            --mono: ui-monospace, 'SF Mono', 'JetBrains Mono', 'Fira Code', Menlo, Consolas, monospace;
+        }
+
+        * { box-sizing: border-box; }
+
+        html, body { background: var(--bg); }
+        body {
+            margin: 0;
+            color: var(--ink);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            -webkit-font-smoothing: antialiased;
+            accent-color: var(--ink);
+        }
         [v-cloak] { display: none; }
-        
-        .fade-in {
-            animation: fadeIn 0.3s ease-out;
-            animation-fill-mode: both;
+
+        .sr-only {
+            position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px;
+            overflow: hidden; clip: rect(0,0,0,0); white-space: nowrap; border: 0;
         }
-        
-        @keyframes fadeIn {
-            from { 
-                opacity: 0; 
-                transform: translateY(10px); 
-            }
-            to { 
-                opacity: 1; 
-                transform: translateY(0); 
-            }
+
+        a.skip {
+            position: absolute; left: -9999px; top: 0;
+            background: var(--ink); color: #fff; padding: 0.6rem 1rem; z-index: 20;
+            border-radius: 0 0 8px 0;
         }
-        
-        .drop-zone {
-            transition: all 0.3s ease;
-            border: 2px dashed #cbd5e1;
-            background: linear-gradient(135deg, rgba(59, 130, 246, 0.05), rgba(147, 51, 234, 0.05));
+        a.skip:focus { left: 0; }
+
+        .wrap {
+            width: 100%;
+            max-width: 620px;
+            margin: 0 auto;
+            padding: 2rem 1.25rem 4rem;
+            flex: 1;
         }
-        
-        .drop-zone.dragover {
-            border-color: #3b82f6;
-            background: linear-gradient(135deg, rgba(59, 130, 246, 0.1), rgba(147, 51, 234, 0.1));
-            transform: scale(1.02);
+
+        .topbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 2.75rem;
         }
-        
-        .metadata-card {
-            transition: all 0.2s ease;
+        .topbar a {
+            font-size: 0.82rem;
+            color: var(--muted);
+            text-decoration: none;
+            letter-spacing: 0.01em;
         }
-        
-        .metadata-card:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+        .topbar a:hover { color: var(--ink); }
+        .topbar a:focus-visible { outline: 2px solid var(--ink); outline-offset: 2px; border-radius: 4px; }
+        .brandmark {
+            display: inline-flex; align-items: center; gap: 0.5rem;
+            font-weight: 600; font-size: 0.85rem; letter-spacing: 0.02em;
         }
-        
-        .image-preview {
-            max-height: 400px;
-            object-fit: contain;
-            border-radius: 12px;
-            box-shadow: 0 8px 32px rgba(0,0,0,0.12);
+        .brandmark .mark {
+            width: 22px; height: 22px; border-radius: 6px;
+            background: var(--ink); color: #fff;
+            display: inline-flex; align-items: center; justify-content: center;
         }
-        
-        .processing {
-            animation: pulse 2s infinite;
+
+        h1 {
+            font-size: 1.9rem;
+            line-height: 1.2;
+            letter-spacing: -0.02em;
+            margin: 0 0 0.6rem;
+            font-weight: 650;
         }
-        
-        @keyframes pulse {
-            0%, 100% { opacity: 1; }
-            50% { opacity: 0.5; }
+        .lede {
+            color: var(--muted);
+            font-size: 1rem;
+            line-height: 1.55;
+            margin: 0 0 2.25rem;
+            max-width: 52ch;
         }
-        
-        .metadata-grid {
-            display: grid;
-            grid-template-columns: minmax(120px, 1fr) 2fr;
-            gap: 12px;
-            align-items: start;
-            padding: 0.5rem;
-            border-radius: 0.5rem;
+
+        h2.step-label {
+            font-size: 0.78rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.07em;
+            color: var(--muted);
+            margin: 0 0 0.8rem;
         }
-        
-        .metadata-grid:hover {
-            background: rgba(0, 0, 0, 0.02);
+        section.step { margin-bottom: 2.25rem; }
+
+        /* Drop zone */
+        .drop {
+            display: block;
+            border: 1.5px dashed var(--line-strong);
+            border-radius: var(--radius);
+            background: var(--surface);
+            padding: 2rem 1.25rem;
+            text-align: center;
+            cursor: pointer;
+            transition: border-color 0.15s, background 0.15s;
         }
-        
-        .metadata-key {
+        .drop:hover, .drop.drag { border-color: var(--ink); background: #fbfbfa; }
+        .drop:focus-within { outline: 2px solid var(--ink); outline-offset: 2px; }
+        .drop .ico { color: var(--faint); margin-bottom: 0.6rem; }
+        .drop .main { font-weight: 600; font-size: 0.95rem; }
+        .drop .sub { color: var(--muted); font-size: 0.85rem; margin-top: 0.25rem; }
+
+        /* Teaser (empty state) */
+        .teaser { list-style: none; margin: 1.1rem 0 0; padding: 0; }
+        .teaser li {
+            display: flex; align-items: flex-start; gap: 0.55rem;
+            font-size: 0.88rem; color: var(--muted); line-height: 1.5;
+            margin-bottom: 0.45rem;
+        }
+        .teaser svg { flex-shrink: 0; margin-top: 2px; color: var(--faint); }
+        .teaser-cap { font-size: 0.85rem; color: var(--muted); margin: 0.7rem 0 0; }
+
+        /* Thumb row */
+        .thumb-row {
+            display: flex; align-items: center; gap: 0.9rem;
+            background: var(--surface);
+            border: 1px solid var(--line);
+            border-radius: var(--radius);
+            padding: 0.75rem;
+        }
+        .thumb {
+            width: 56px; height: 56px; border-radius: 9px;
+            object-fit: cover; background: #f0f0ee; flex-shrink: 0;
+            border: 1px solid var(--line);
+        }
+        .thumb-meta { flex: 1; min-width: 0; }
+        .thumb-meta .name { font-weight: 600; font-size: 0.9rem; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+        .thumb-meta .dim { color: var(--muted); font-size: 0.82rem; }
+        .btn-ghost {
+            appearance: none; border: none; background: transparent;
+            color: var(--muted); padding: 0.6rem 0.9rem; font-size: 0.9rem;
+            font-weight: 600; cursor: pointer; border-radius: 9px; font-family: inherit;
+        }
+        .btn-ghost:hover { color: var(--ink); }
+        .btn-ghost:focus-visible { outline: 2px solid var(--ink); outline-offset: 2px; }
+
+        /* Verdict card */
+        .result {
+            background: var(--surface);
+            border: 1px solid var(--line);
+            border-radius: var(--radius);
+            padding: 1.3rem 1.4rem;
+        }
+        .verdict-head { font-size: 1rem; font-weight: 650; margin: 0 0 0.9rem; line-height: 1.5; }
+        ul.verdict { list-style: none; margin: 0; padding: 0; }
+        ul.verdict li {
+            display: flex; align-items: flex-start; gap: 0.6rem;
+            font-size: 0.95rem; line-height: 1.55;
+            padding: 0.5rem 0;
+            border-top: 1px dashed var(--line);
+        }
+        ul.verdict li:first-child { border-top: 0; padding-top: 0; }
+        ul.verdict svg { flex-shrink: 0; margin-top: 3px; color: var(--ink); }
+        ul.verdict .sub { display: block; font-size: 0.82rem; color: var(--muted); margin-top: 0.15rem; }
+        ul.verdict a { color: var(--ink); }
+        ul.verdict a:focus-visible { outline: 2px solid var(--ink); outline-offset: 2px; border-radius: 4px; }
+
+        /* Details disclosure + table */
+        details.more {
+            border: 1px solid var(--line);
+            border-radius: var(--radius);
+            background: var(--surface);
+            padding: 0.25rem 1rem;
+            margin-top: 1rem;
+        }
+        details.more summary {
+            cursor: pointer;
             font-weight: 600;
-            color: rgb(75, 85, 99);
-            word-break: break-word;
+            font-size: 0.9rem;
+            padding: 0.65rem 0.1rem;
+            color: var(--ink);
+            border-radius: 8px;
         }
-        
-        .metadata-value {
-            color: rgb(107, 114, 128);
-            word-break: break-all;
-            font-family: ui-monospace, 'Courier New', monospace;
-            font-size: 0.875rem;
+        details.more summary:focus-visible { outline: 2px solid var(--ink); outline-offset: 2px; }
+        details.more[open] { padding-bottom: 0.9rem; }
+        h3.group-label {
+            font-size: 0.75rem; font-weight: 700; text-transform: uppercase;
+            letter-spacing: 0.07em; color: var(--muted); margin: 1.1rem 0 0.3rem;
         }
-        
-        .privacy-warning {
-            background: linear-gradient(135deg, rgba(239, 68, 68, 0.1), rgba(245, 158, 11, 0.1));
-            border: 1px solid rgba(239, 68, 68, 0.2);
+        table.meta-table { width: 100%; border-collapse: collapse; }
+        table.meta-table caption { text-align: left; }
+        table.meta-table th[scope="row"] {
+            text-align: left; font-weight: 600; font-size: 0.85rem;
+            padding: 0.4rem 0.75rem 0.4rem 0; vertical-align: top;
+            width: 40%; word-break: break-word;
         }
-        
-        .success-message {
-            background: linear-gradient(135deg, rgba(34, 197, 94, 0.1), rgba(59, 130, 246, 0.1));
-            border: 1px solid rgba(34, 197, 94, 0.2);
+        table.meta-table td {
+            font-family: var(--mono); font-size: 0.8rem; color: var(--muted);
+            padding: 0.4rem 0; word-break: break-word; vertical-align: top;
+        }
+        table.meta-table tr { border-top: 1px dashed var(--line); }
+        table.meta-table tr:first-child { border-top: 0; }
+
+        /* Buttons */
+        .btn {
+            appearance: none; border: none; border-radius: 11px;
+            padding: 0.85rem 1.4rem;
+            font-size: 0.98rem; font-weight: 600; cursor: pointer; font-family: inherit;
+            display: inline-flex; align-items: center; justify-content: center; gap: 0.5rem;
+            transition: background 0.15s, opacity 0.15s, border-color 0.15s;
+        }
+        .btn:focus-visible { outline: 2px solid var(--ink); outline-offset: 2px; }
+        .btn-primary { background: var(--ink); color: #fff; width: 100%; }
+        .btn-primary:hover { background: #000; }
+        .btn-secondary {
+            background: var(--surface); color: var(--ink);
+            border: 1px solid var(--line-strong);
+        }
+        .btn-secondary:hover { border-color: var(--ink); }
+
+        .clean-card {
+            background: var(--good-bg);
+            border: 1px solid #cfe8db;
+            border-radius: var(--radius);
+            padding: 1.3rem 1.4rem;
+        }
+        .clean-card .headline {
+            display: flex; align-items: center; gap: 0.55rem;
+            font-weight: 650; font-size: 1rem; margin: 0 0 0.5rem; color: #143d2b;
+        }
+        .clean-card .headline svg { color: var(--good); flex-shrink: 0; }
+        .clean-card .file-line { font-size: 0.88rem; color: #2c5942; margin: 0 0 1rem; }
+        .clean-card .actions { display: flex; gap: 0.6rem; flex-wrap: wrap; align-items: center; }
+
+        .note {
+            display: flex; gap: 0.55rem; align-items: flex-start;
+            font-size: 0.85rem; line-height: 1.5; color: var(--muted);
+            margin-top: 0.9rem;
+        }
+        .note svg { flex-shrink: 0; margin-top: 2px; }
+
+        .banner {
+            display: flex; gap: 0.55rem; align-items: flex-start;
+            border-radius: 10px; padding: 0.75rem 0.9rem;
+            font-size: 0.88rem; line-height: 1.45; margin-top: 1rem;
+        }
+        .banner.warn { background: var(--warn-bg); color: #7a2314; border: 1px solid #f0ccc5; }
+        .banner.warn svg { flex-shrink: 0; margin-top: 1px; }
+
+        button.linkish {
+            appearance: none; border: none; background: none; padding: 0;
+            font-size: 0.88rem; color: var(--muted); text-decoration: underline;
+            cursor: pointer; font-family: inherit;
+        }
+        button.linkish:hover { color: var(--ink); }
+        button.linkish:focus-visible { outline: 2px solid var(--ink); outline-offset: 2px; border-radius: 4px; }
+
+        .spin {
+            width: 15px; height: 15px; border: 2px solid rgba(255,255,255,0.4);
+            border-top-color: #fff; border-radius: 50%;
+            animation: spin 0.7s linear infinite;
+        }
+        @keyframes spin { to { transform: rotate(360deg); } }
+
+        .foot {
+            text-align: center; padding: 1.5rem 1rem 2rem;
+            font-size: 0.8rem; color: var(--muted);
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            .drop, .btn { transition: none; }
+            .spin { animation: none; }
+        }
+
+        @media (max-width: 480px) {
+            h1 { font-size: 1.6rem; }
+            .wrap { padding-top: 1.5rem; }
+            .topbar { margin-bottom: 2rem; }
+        }
+
+        /* ---- Site footer ----
+           footer.liquid is written against Tailwind utilities, which this
+           standalone page doesn't load; these rules cover exactly the classes
+           that markup uses (plus sketch-styles.liquid for the doodles). */
+        footer.brand-color-background { position: relative; overflow: visible; padding: 1rem; }
+        footer .mx-auto { margin-left: auto; margin-right: auto; }
+        footer .max-w-7xl { max-width: 80rem; padding: 3rem 1rem; }
+        footer .max-w-2xl { max-width: 42rem; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; }
+        footer .mb-4 { display: inline-block; margin-bottom: 1rem; border-radius: 1rem; }
+        footer img { height: 4rem; width: 4rem; }
+        footer h2 { margin: 0 0 0.5rem; font-size: 1.125rem; font-weight: 700; }
+        footer p { margin: 0; font-size: 0.875rem; }
+        footer .text-stone-600 { color: #57534e; }
+        footer .font-semibold { font-weight: 600; }
+        footer .text-base { font-size: 1rem; }
+        footer .text-lg { font-size: 1.125rem; }
+        footer .flex-wrap { display: flex; flex-wrap: wrap; justify-content: center; gap: 1rem; margin-top: 2rem; }
+        footer .flex-wrap a { display: inline-flex; padding: 0.5rem; border-radius: 1rem; color: #78716c; transition: color 0.15s; }
+        footer .flex-wrap svg { height: 1.5rem; width: 1.5rem; }
+        footer .hover\:text-blue-400:hover { color: #60a5fa; }
+        footer .hover\:text-pink-500:hover { color: #ec4899; }
+        footer .hover\:text-indigo-500:hover { color: #6366f1; }
+        footer .hover\:text-stone-900:hover { color: #1c1917; }
+        footer .hover\:text-red-500:hover { color: #ef4444; }
+        footer p.text-center { margin-top: 2rem; text-align: center; }
+        footer a:focus-visible { outline: 2px solid var(--ink); outline-offset: 2px; }
+        @media (min-width: 640px) {
+            footer.brand-color-background { padding: 1.5rem; }
+            footer .sm\:text-lg { font-size: 1.125rem; }
+            footer .sm\:text-xl { font-size: 1.25rem; }
+            footer .max-w-7xl { padding: 4rem 1.5rem; }
+            footer img { height: 5rem; width: 5rem; }
+            footer h2 { font-size: 1.25rem; }
+            footer p { font-size: 1rem; }
+            footer .flex-wrap { gap: 1.5rem; margin-top: 3rem; }
+            footer .flex-wrap svg { height: 1.75rem; width: 1.75rem; }
+            footer p.text-center { margin-top: 2.5rem; }
+        }
+        @media (min-width: 1024px) {
+            footer.brand-color-background { padding: 2.5rem; }
+            footer .max-w-7xl { padding: 5rem 2rem; }
+            footer img { height: 6rem; width: 6rem; }
+            footer h2 { font-size: 1.5rem; }
+            footer .flex-wrap { margin-top: 4rem; }
+            footer p.text-center { margin-top: 3rem; }
         }
     </style>
     {% include sketch-styles.liquid %}
 </head>
 
-<body class="bg-base-100 min-h-screen">
-                    {% assign showFun = true %} 
-    {% assign showMiddleBadgeWithText = true %} 
-    {% include header.liquid %}
-    <div v-cloak id="main-content" role="main" class="container mx-auto max-w-6xl p-4 sm:p-6">
-        <!-- Header -->
-        <header class="text-center mb-8 sm:mb-12">
-            <h1 class="brand-heading text-3xl sm:text-4xl leading-[1.3] sm:leading-[1.3] mb-3">
-                Image Metadata Viewer & Editor
-            </h1>
-            <p class="text-base-content/70 text-sm sm:text-base">
-                View EXIF data and remove metadata for privacy
-            </p>
-            <div class="mt-4 flex justify-center gap-2">
-                <span class="badge badge-primary">100% Private</span>
-                <span class="badge badge-secondary">No Upload</span>
-                <span class="badge badge-accent">Free Tool</span>
-            </div>
+<body>
+{% raw %}
+    <a href="#tool" class="skip">Skip to the tool</a>
+
+    <!-- Shown only if the CDN scripts fail — the app stays v-cloak-hidden. -->
+    <div id="load-fallback" class="wrap" hidden>
+        <p class="lede">This tool couldn&rsquo;t load a couple of files it needs. Check your connection and refresh the page.</p>
+    </div>
+    <noscript>
+        <div class="wrap"><p class="lede">This tool needs JavaScript turned on to work.</p></div>
+    </noscript>
+
+    <main v-cloak id="app" class="wrap">
+
+        <div class="topbar">
+            <span class="brandmark">
+                <span class="mark" aria-hidden="true">
+                    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M1 12s4-7 11-7 11 7 11 7-4 7-11 7-11-7-11-7z"/><circle cx="12" cy="12" r="3"/></svg>
+                </span>
+                Photo Secrets
+            </span>
+            <a href="/">&larr; coffeeandfun.com</a>
+        </div>
+
+        <header id="tool">
+            <h1>See what your photo gives away</h1>
+            <p class="lede">Drop in a photo and get a plain-English list of what its file quietly reveals — where it was taken, when, and on what. Then download a clean copy that says nothing. The photo never leaves your browser.</p>
         </header>
 
-        <!-- Privacy Notice -->
-        <div class="alert alert-info mb-8 shadow-sm">
-            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" class="stroke-current shrink-0 w-6 h-6">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
-            </svg>
-            <div>
-                <h3 class="font-bold">Your Privacy is Protected</h3>
-                <div class="text-xs">All processing happens locally in your browser. No images are uploaded to servers.</div>
-            </div>
-        </div>
+        <!-- Live status for screen readers -->
+        <div class="sr-only" role="status" aria-live="polite">{{ announcement }}</div>
 
-        <!-- Upload Section -->
-        <div class="mb-8">
-            <div class="card bg-base-200 shadow-lg">
-                <div class="card-body">
-                    <h2 class="card-title text-xl sm:text-2xl mb-4">Upload Image</h2>
-                    
-                    <!-- Drop Zone -->
-                    <div 
-                        class="drop-zone p-8 sm:p-12 rounded-2xl text-center cursor-pointer"
-                        :class="{ 'dragover': isDragOver, 'processing': isProcessing }"
-                        @click="triggerFileInput"
-                        @drop.prevent="handleDrop"
-                        @dragover.prevent="isDragOver = true"
-                        @dragleave.prevent="isDragOver = false"
-                    >
-                        <input 
-                            type="file" 
-                            ref="fileInput" 
-                            @change="handleFileSelect" 
-                            accept="image/*" 
-                            class="hidden"
-                        >
-                        
-                        <div v-if="!isProcessing">
-                            <svg class="mx-auto h-12 w-12 sm:h-16 sm:w-16 text-base-content/40 mb-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12" />
-                            </svg>
-                            <h3 class="text-lg font-semibold mb-2">Drop your image here</h3>
-                            <p class="text-base-content/60">or click to browse files</p>
-                            <p class="text-sm text-base-content/50 mt-2">Supports JPEG, PNG, TIFF, and most image formats</p>
-                        </div>
-                        
-                        <div v-else class="processing">
-                            <div class="loading loading-spinner loading-lg mb-4"></div>
-                            <p class="text-lg font-semibold">Processing image...</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
+        <!-- ===== Step 1: the photo ===== -->
+        <section class="step" aria-labelledby="h-photo">
+            <h2 class="step-label" id="h-photo">1 — Drop in a photo</h2>
 
-        <!-- Image Preview and Results -->
-        <div v-if="currentImage" class="grid md:grid-cols-2 gap-6 sm:gap-8 mb-8">
-            <!-- Image Preview -->
-            <div class="card bg-base-200 shadow-lg fade-in">
-                <div class="card-body">
-                    <h3 class="card-title text-lg sm:text-xl mb-4">Image Preview</h3>
-                    <div class="text-center">
-                        <img :src="currentImage.preview" :alt="currentImage.name" class="image-preview mx-auto mb-4">
-                        <div class="text-sm text-base-content/60 space-y-1">
-                            <p><strong>File:</strong> {% raw %}{{ currentImage.name }}{% endraw %}</p>
-                            <p><strong>Size:</strong> {% raw %}{{ formatFileSize(currentImage.size) }}{% endraw %}</p>
-                            <p><strong>Type:</strong> {% raw %}{{ currentImage.type }}{% endraw %}</p>
-                        </div>
-                    </div>
+            <label v-if="!img" for="mi-file" class="drop" :class="{ drag: dragging }"
+                   @dragover.prevent="dragging = true" @dragleave="dragging = false" @drop.prevent="onDrop">
+                <div class="ico"><svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="9" cy="9" r="2"/><path d="m21 15-3.086-3.086a2 2 0 0 0-2.828 0L6 21"/></svg></div>
+                <div class="main">Drop a photo here, or click to choose</div>
+                <div class="sub">JPG, PNG, or WEBP — it never leaves your browser</div>
+                <input id="mi-file" ref="fileInput" type="file" accept="image/jpeg,image/png,image/webp" class="sr-only" @change="onPick" />
+            </label>
+
+            <div v-else class="thumb-row">
+                <img :src="img.url" alt="" class="thumb" />
+                <div class="thumb-meta">
+                    <div class="name">{{ img.name }}</div>
+                    <div class="dim">{{ prettySize(img.size) }}<template v-if="img.w"> · {{ img.w }} × {{ img.h }}</template> · {{ prettyType(img.type) }}</div>
                 </div>
+                <button type="button" class="btn-ghost" @click="reset" aria-label="Remove this photo and choose another">Change</button>
             </div>
 
-            <!-- Metadata Summary -->
-            <div class="card bg-base-200 shadow-lg fade-in">
-                <div class="card-body">
-                    <h3 class="card-title text-lg sm:text-xl mb-4">Metadata Summary</h3>
-                    
-                    <div class="stats stats-vertical shadow w-full">
-                        <div class="stat py-3">
-                            <div class="stat-title text-xs">Total Fields</div>
-                            <div class="stat-value text-2xl text-primary">{% raw %}{{ Object.keys(metadata).length }}{% endraw %}</div>
-                        </div>
-                        <div class="stat py-3" v-if="hasGpsData">
-                            <div class="stat-title text-xs">GPS Location</div>
-                            <div class="stat-value text-2xl text-warning">Found</div>
-                            <div class="stat-desc text-xs">Privacy risk detected</div>
-                        </div>
-                        <div class="stat py-3" v-if="hasPersonalData">
-                            <div class="stat-title text-xs">Personal Data</div>
-                            <div class="stat-value text-2xl text-error">Found</div>
-                            <div class="stat-desc text-xs">Contains identifying info</div>
-                        </div>
-                    </div>
+            <div v-if="error" class="banner warn" role="alert">
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+                <span>{{ error }}</span>
+            </div>
 
-                    <!-- Quick Actions -->
-                    <div class="flex flex-wrap gap-2 mt-6">
-                        <button 
-                            class="btn btn-primary btn-sm"
-                            @click="showAllMetadata = !showAllMetadata"
-                        >
-                            {% raw %}{{ showAllMetadata ? 'Hide' : 'View All' }}{% endraw %} Metadata
-                        </button>
-                        <button 
-                            class="btn btn-warning btn-sm"
-                            @click="removeMetadata"
-                            :disabled="isProcessing"
-                        >
-                            <span v-if="!isProcessing">Remove Metadata</span>
-                            <span v-else class="loading loading-spinner loading-xs"></span>
-                        </button>
-                    </div>
+            <!-- Empty-state teaser: the verdict's own skeleton -->
+            <template v-if="!img">
+                <ul class="teaser">
+                    <li><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 10c0 7-9 13-9 13S3 17 3 10a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg> Where it was taken — sometimes down to the street</li>
+                    <li><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg> The exact moment you pressed the button</li>
+                    <li><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/><circle cx="12" cy="13" r="4"/></svg> What phone or camera you own</li>
+                    <li><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 20h9"/><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"/></svg> What software touched it</li>
+                </ul>
+                <p class="teaser-cap">Drop a photo in to see which of these yours is sharing.</p>
+            </template>
+        </section>
+
+        <!-- ===== Step 2: the reveal ===== -->
+        <section v-if="img" class="step" aria-labelledby="h-reveal">
+            <h2 class="step-label" id="h-reveal">2 — What it reveals</h2>
+
+            <div class="result">
+                <p class="verdict-head">{{ verdictHead }}</p>
+                <ul class="verdict" v-if="findings.length" aria-labelledby="h-reveal">
+                    <li v-for="f in findings" :key="f.kind">
+                        <svg v-if="f.kind === 'gps'" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 10c0 7-9 13-9 13S3 17 3 10a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+                        <svg v-else-if="f.kind === 'date'" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+                        <svg v-else-if="f.kind === 'camera'" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/><circle cx="12" cy="13" r="4"/></svg>
+                        <svg v-else-if="f.kind === 'software'" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 20h9"/><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"/></svg>
+                        <svg v-else-if="f.kind === 'person'" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+                        <svg v-else width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="9" cy="9" r="2"/><path d="m21 15-3.086-3.086a2 2 0 0 0-2.828 0L6 21"/></svg>
+                        <span>
+                            {{ f.text }}
+                            <a v-if="f.map" :href="f.map" target="_blank" rel="noopener">See the spot on a map</a><template v-if="f.map"> <span class="sub">(opens OpenStreetMap — that sends these coordinates to them)</span></template>
+                            <span v-if="f.sub" class="sub">{{ f.sub }}</span>
+                        </span>
+                    </li>
+                </ul>
+            </div>
+
+            <details v-if="fieldCount > 0" class="more">
+                <summary>See every field ({{ fieldCount }})</summary>
+                <template v-for="g in fieldGroups" :key="g.label">
+                    <h3 class="group-label">{{ g.label }}</h3>
+                    <table class="meta-table">
+                        <caption class="sr-only">{{ g.label }} fields found in this photo</caption>
+                        <tbody>
+                            <tr v-for="row in g.rows" :key="row.key">
+                                <th scope="row">{{ row.key }}</th>
+                                <td>{{ row.value }}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </template>
+            </details>
+        </section>
+
+        <!-- ===== Step 3: the clean copy ===== -->
+        <section v-if="img" class="step" aria-labelledby="h-clean">
+            <h2 class="step-label" id="h-clean">3 — Make a clean copy</h2>
+
+            <template v-if="!cleaned">
+                <button type="button" class="btn btn-primary" @click="makeClean">
+                    <span v-if="busy" class="spin" aria-hidden="true"></span>
+                    {{ busy ? 'Scrubbing…' : 'Make a clean copy' }}
+                </button>
+                <p class="note">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/></svg>
+                    <span>The copy is re-saved with nothing inside — no location, no dates, no camera, not even the hidden mini-thumbnail some photos carry. A JPEG loses a whisker of quality; keep the original for printing.</span>
+                </p>
+            </template>
+
+            <div v-else class="clean-card">
+                <p class="headline">
+                    <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+                    Done — this copy says nothing at all.
+                </p>
+                <p class="file-line">
+                    {{ cleaned.name }} · {{ prettySize(cleaned.size) }}<template v-if="cleaned.size < img.size"> (was {{ prettySize(img.size) }})</template>
+                    <template v-if="cleaned.changedFormat"> · re-saved as {{ prettyType(cleaned.type) }} so nothing hides in it</template>
+                </p>
+                <div class="actions">
+                    <button type="button" class="btn btn-secondary" @click="download">Download {{ cleaned.name }}</button>
+                    <button type="button" class="linkish" @click="reset">Check another photo</button>
                 </div>
             </div>
-        </div>
+        </section>
 
-        <!-- Detailed Metadata View -->
-        <div v-if="currentImage && showAllMetadata" class="card bg-base-200 shadow-lg mb-8 fade-in">
-            <div class="card-body">
-                <h3 class="card-title text-lg sm:text-xl mb-4">Detailed Metadata</h3>
-                
-                <!-- Privacy Warnings -->
-                <div v-if="hasGpsData || hasPersonalData" class="privacy-warning rounded-2xl p-4 mb-6">
-                    <h4 class="font-bold text-error mb-2">Privacy Concerns Detected</h4>
-                    <ul class="text-sm space-y-1">
-                        <li v-if="hasGpsData">GPS coordinates found - reveals photo location</li>
-                        <li v-if="hasPersonalData">Personal information detected in metadata</li>
-                        <li v-if="metadata['Camera Make'] || metadata['Camera Model']">Camera information reveals device details</li>
-                        <li v-if="metadata['Software']">Software information may reveal editing tools</li>
-                    </ul>
-                </div>
+        <p class="foot">Your photo never leaves your browser — reading and cleaning both happen on this device.</p>
+    </main>
+{% endraw %}
 
-                <!-- Metadata Tabs -->
-                <div class="tabs tabs-boxed mb-6 overflow-x-auto">
-                    <button 
-                        v-for="category in metadataCategories" 
-                        :key="category"
-                        class="tab tab-sm sm:tab-md"
-                        :class="{ 'tab-active': activeTab === category }"
-                        @click="activeTab = category"
-                    >
-                        {% raw %}{{ category }}{% endraw %}
-                    </button>
-                </div>
-
-                <!-- Metadata Display -->
-                <div class="metadata-card bg-base-100 rounded-2xl p-4 sm:p-6 max-h-96 overflow-y-auto">
-                    <div v-if="filteredMetadata.length > 0" class="space-y-2">
-                        <div v-for="item in filteredMetadata" :key="item.key" class="metadata-grid">
-                            <div class="metadata-key">{% raw %}{{ item.key }}{% endraw %}</div>
-                            <div class="metadata-value">{% raw %}{{ item.value }}{% endraw %}</div>
-                        </div>
-                    </div>
-                    <div v-else class="text-center text-base-content/60 py-8">
-                        <p>No {% raw %}{{ activeTab.toLowerCase() }}{% endraw %} metadata found</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- Success Message -->
-        <div v-if="cleanedImage" class="card bg-base-200 shadow-lg mb-8 fade-in">
-            <div class="card-body">
-                <div class="success-message rounded-2xl p-6">
-                    <h3 class="text-xl font-bold text-success mb-4">Metadata Successfully Removed!</h3>
-                    <p class="mb-4">Your image has been processed and all metadata has been stripped for privacy.</p>
-                    
-                    <div class="flex flex-col sm:flex-row gap-4">
-                        <button class="btn btn-success" @click="downloadCleanImage">
-                            Download Clean Image
-                        </button>
-                        <button class="btn btn-outline" @click="processAnother">
-                            Process Another Image
-                        </button>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- Help Section -->
-        <div class="card bg-base-200 shadow-lg">
-            <div class="card-body">
-                <h3 class="card-title text-lg sm:text-xl mb-4">About Image Metadata</h3>
-                
-                <div class="grid md:grid-cols-2 gap-6">
-                    <div>
-                        <h4 class="font-bold mb-2">What is EXIF data?</h4>
-                        <p class="text-sm text-base-content/70">
-                            EXIF (Exchangeable Image File Format) data contains information about how a photo was taken, 
-                            including camera settings, GPS location, timestamps, and device information.
-                        </p>
-                    </div>
-                    
-                    <div>
-                        <h4 class="font-bold mb-2">Why remove metadata?</h4>
-                        <p class="text-sm text-base-content/70">
-                            Metadata can reveal personal information like your location, camera equipment, and when/where 
-                            photos were taken. Removing it protects your privacy when sharing images online.
-                        </p>
-                    </div>
-                </div>
-
-                <div class="divider"></div>
-
-                <div class="text-center">
-                    <h4 class="font-bold mb-2">Privacy Guarantee</h4>
-                    <p class="text-sm text-base-content/60">
-                        This tool processes images entirely in your browser using JavaScript. 
-                        No images or data are sent to external servers.
-                    </p>
-                </div>
-            </div>
-        </div>
-
-      {% include modals.liquid %}
-
-      {% include footer.liquid %}
-    </div>
+    {% include footer.liquid %}
 
     <script>
+        if (typeof Vue === 'undefined') {
+            document.getElementById('load-fallback').hidden = false;
+            throw new Error('Vue failed to load');
+        }
         const { createApp } = Vue;
-        
+        const EXIF_OK = typeof ExifReader !== 'undefined';
+
+        const ALLOWED = ['image/jpeg', 'image/png', 'image/webp'];
+
+        const GROUP_ORDER = [
+            ['gps', 'Location'],
+            ['exif', 'Photo details (EXIF)'],
+            ['xmp', 'Editing info (XMP)'],
+            ['iptc', 'Press info (IPTC)'],
+            ['icc', 'Color profile (ICC)'],
+            ['png', 'PNG details'],
+            ['riff', 'WebP details'],
+            ['mpf', 'Multi-picture data'],
+            ['photoshop', 'Photoshop data'],
+            ['Thumbnail', 'Hidden thumbnail'],
+            ['file', 'File basics']
+        ];
+
         createApp({
             data() {
                 return {
-                    currentImage: null,
-                    metadata: {},
-                    isProcessing: false,
-                    isDragOver: false,
-                    showAllMetadata: false,
-                    cleanedImage: null,
-                    activeTab: 'Camera',
+                    img: null,
+                    tags: null,
+                    exifOk: EXIF_OK,
+                    dragging: false,
+                    busy: false,
+                    cleaned: null,
+                    error: '',
+                    announcement: ''
                 };
             },
-            
             computed: {
-                hasGpsData() {
-                    return Object.keys(this.metadata).some(key => 
-                        /gps|latitude|longitude|position/i.test(key)
-                    );
+                findings() {
+                    if (!this.tags) return [];
+                    const t = this.tags;
+                    const out = [];
+                    const desc = (group, key) => {
+                        const g = t[group];
+                        const v = g && g[key];
+                        return v && v.description !== undefined && v.description !== '' ? String(v.description) : '';
+                    };
+
+                    // Location
+                    const gps = t.gps;
+                    if (gps && typeof gps.Latitude === 'number' && typeof gps.Longitude === 'number'
+                        && (gps.Latitude !== 0 || gps.Longitude !== 0)) {
+                        const lat = gps.Latitude, lon = gps.Longitude;
+                        const pretty = Math.abs(lat).toFixed(5) + '° ' + (lat >= 0 ? 'N' : 'S') + ', '
+                                     + Math.abs(lon).toFixed(5) + '° ' + (lon >= 0 ? 'E' : 'W');
+                        let text = 'It quietly records where it was taken: ' + pretty + '.';
+                        if (typeof gps.Altitude === 'number' && isFinite(gps.Altitude) && Math.abs(gps.Altitude) > 1) {
+                            text = text.slice(0, -1) + ' — about ' + Math.round(Math.abs(gps.Altitude)) + ' m '
+                                 + (gps.Altitude >= 0 ? 'above' : 'below') + ' sea level.';
+                        }
+                        out.push({
+                            kind: 'gps', text,
+                            map: 'https://www.openstreetmap.org/?mlat=' + lat.toFixed(6) + '&mlon=' + lon.toFixed(6) + '&zoom=16'
+                        });
+                    }
+
+                    // When
+                    const when = desc('exif', 'DateTimeOriginal') || desc('exif', 'CreateDate') || desc('exif', 'DateTime');
+                    if (when) {
+                        const human = this.humanExifDate(when);
+                        out.push({ kind: 'date', text: human
+                            ? 'It says exactly when: ' + human + '.'
+                            : 'It carries the exact date and time it was taken.' });
+                    }
+
+                    // Camera
+                    const make = desc('exif', 'Make'), model = desc('exif', 'Model');
+                    if (make || model) {
+                        let cam = model && make && model.toLowerCase().startsWith(make.toLowerCase())
+                            ? model : [make, model].filter(Boolean).join(' ');
+                        const lens = desc('exif', 'LensModel');
+                        out.push({ kind: 'camera', text: 'It names the camera: ' + cam + '.', sub: lens ? 'Lens: ' + lens : '' });
+                    }
+
+                    // Software
+                    const sw = desc('exif', 'Software') || desc('xmp', 'CreatorTool');
+                    if (sw) out.push({ kind: 'software', text: 'It admits it was edited: ' + sw + '.' });
+
+                    // A person
+                    const person = desc('exif', 'Artist') || desc('iptc', 'By-line') || desc('xmp', 'creator') || desc('exif', 'Copyright');
+                    if (person) out.push({ kind: 'person', text: 'It carries a name: ' + person + '.' });
+
+                    // Hidden thumbnail
+                    if (t.Thumbnail) {
+                        out.push({ kind: 'thumb', text: 'There’s a hidden mini-copy of the photo tucked inside — sometimes an older or uncropped version.' });
+                    }
+
+                    return out;
                 },
-                
-                hasPersonalData() {
-                    return Object.keys(this.metadata).some(key => 
-                        /artist|copyright|creator|author|owner/i.test(key)
-                    );
+                verdictHead() {
+                    if (!this.exifOk) {
+                        return 'This page couldn’t load its metadata reader, so it can’t show what’s inside — but the clean copy below still works and still removes everything.';
+                    }
+                    const n = this.findings.length;
+                    if (n === 0) return 'Good news — this photo keeps its secrets. Nothing personal found inside.';
+                    if (n === 1) return 'This photo is telling people one thing:';
+                    const words = ['', 'one', 'two', 'three', 'four', 'five', 'six'];
+                    return 'This photo is telling people ' + (words[n] || n) + ' things:';
                 },
-                
-                metadataCategories() {
-                    const categories = ['All', 'Camera', 'Settings', 'DateTime', 'GPS', 'Software', 'Other'];
-                    return categories.filter(cat => {
-                        if (cat === 'All') return Object.keys(this.metadata).length > 0;
-                        return this.getMetadataByCategory(cat).length > 0;
-                    });
+                fieldGroups() {
+                    if (!this.tags) return [];
+                    const groups = [];
+                    for (const pair of GROUP_ORDER) {
+                        const key = pair[0], label = pair[1];
+                        const g = this.tags[key];
+                        if (!g) continue;
+                        const rows = [];
+                        for (const name of Object.keys(g)) {
+                            if (name === 'image' || name === 'base64') continue; // raw thumbnail bytes
+                            const v = g[name];
+                            if (!v || typeof v !== 'object') continue;
+                            rows.push({ key: name, value: this.prettyValue(v) });
+                        }
+                        if (rows.length) groups.push({ label, rows });
+                    }
+                    return groups;
                 },
-                
-                filteredMetadata() {
-                    const items = this.activeTab === 'All' 
-                        ? Object.entries(this.metadata)
-                        : this.getMetadataByCategory(this.activeTab);
-                    
-                    return items.map(([key, value]) => ({
-                        key: this.formatKey(key),
-                        value: this.formatValue(value)
-                    }));
+                fieldCount() {
+                    return this.fieldGroups.reduce((sum, g) => sum + g.rows.length, 0);
                 }
             },
-            
-            mounted() {
-                this.$watch('metadata', (newVal) => {
-                    if (Object.keys(newVal).length > 0 && this.metadataCategories.includes('Camera')) {
-                        this.activeTab = 'Camera';
-                    } else if (this.metadataCategories.length > 0) {
-                        this.activeTab = this.metadataCategories[0];
-                    }
-                });
-            },
-            
             methods: {
-                triggerFileInput() {
-                    this.$refs.fileInput.click();
+                announce(msg) {
+                    this.announcement = '';
+                    this.$nextTick(() => { this.announcement = msg; });
                 },
-                
-                handleFileSelect(event) {
-                    const file = event.target.files[0];
-                    if (file) {
-                        this.processFile(file);
+                prettySize(bytes) {
+                    if (!bytes) return '0 B';
+                    if (bytes < 1024) return bytes + ' B';
+                    if (bytes < 1048576) return (bytes / 1024).toFixed(0) + ' KB';
+                    return (bytes / 1048576).toFixed(1) + ' MB';
+                },
+                prettyType(mime) {
+                    return ({ 'image/jpeg': 'JPEG', 'image/png': 'PNG', 'image/webp': 'WebP' })[mime] || mime;
+                },
+                prettyValue(v) {
+                    if (Array.isArray(v.value) && v.value.length > 24) {
+                        return '[' + v.value.length + ' values of raw data]';
                     }
+                    let s = v.description !== undefined && v.description !== '' ? String(v.description) : String(v.value);
+                    if (s.length > 140) s = s.slice(0, 140) + '…';
+                    return s;
                 },
-                
-                handleDrop(event) {
-                    this.isDragOver = false;
-                    const file = event.dataTransfer.files[0];
-                    if (file && file.type.startsWith('image/')) {
-                        this.processFile(file);
+                humanExifDate(raw) {
+                    // EXIF format: 'YYYY:MM:DD HH:MM:SS'
+                    const m = /^(\d{4}):(\d{2}):(\d{2})[ T](\d{2}):(\d{2})/.exec(raw);
+                    if (!m) return '';
+                    const d = new Date(Number(m[1]), Number(m[2]) - 1, Number(m[3]), Number(m[4]), Number(m[5]));
+                    if (isNaN(d)) return '';
+                    return d.toLocaleDateString(undefined, { day: 'numeric', month: 'long', year: 'numeric' })
+                         + ' at ' + d.toLocaleTimeString(undefined, { hour: 'numeric', minute: '2-digit' });
+                },
+                onPick(e) {
+                    const files = e.target.files;
+                    if (files && files.length) this.accept(files[0], files.length);
+                },
+                onDrop(e) {
+                    this.dragging = false;
+                    const files = e.dataTransfer.files;
+                    if (files && files.length) this.accept(files[0], files.length);
+                },
+                async accept(file, count) {
+                    this.error = '';
+                    if (!ALLOWED.includes(file.type)) {
+                        this.error = file.type === 'image/heic' || /\.heic$/i.test(file.name)
+                            ? 'That’s a HEIC photo — this browser can’t open it here. Export it as a JPEG first.'
+                            : 'That doesn’t look like a photo this tool can read — try a JPG, PNG, or WEBP.';
+                        return;
                     }
-                },
-                
-                async processFile(file) {
-                    this.isProcessing = true;
-                    this.cleanedImage = null;
-                    
-                    try {
-                        const preview = await this.createImagePreview(file);
-                        
-                        this.currentImage = {
-                            file: file,
-                            name: file.name,
-                            size: file.size,
-                            type: file.type,
-                            preview: preview
-                        };
-                        
-                        await this.extractMetadata(file);
-                        
-                    } catch (error) {
-                        console.error('Error processing file:', error);
-                        alert('Error processing image. Please try another file.');
-                    } finally {
-                        this.isProcessing = false;
-                    }
-                },
-                
-                createImagePreview(file) {
-                    return new Promise((resolve) => {
-                        const reader = new FileReader();
-                        reader.onload = (e) => resolve(e.target.result);
-                        reader.readAsDataURL(file);
+                    const url = URL.createObjectURL(file);
+                    const probe = new Image();
+                    const decoded = await new Promise(res => {
+                        probe.onload = () => res(true);
+                        probe.onerror = () => res(false);
+                        probe.src = url;
                     });
-                },
-                
-                async extractMetadata(file) {
-                    try {
-                        if (typeof EXIF === 'undefined') {
-                            console.warn('EXIF library not loaded');
-                            this.extractBasicMetadata(file);
-                            return;
-                        }
+                    if (!decoded) {
+                        URL.revokeObjectURL(url);
+                        this.error = 'That photo couldn’t be opened — the file may be damaged. Try another one.';
+                        return;
+                    }
+                    this.cleaned = null;
+                    this.tags = null;
+                    this.img = { file, name: file.name, size: file.size, type: file.type, url, w: probe.naturalWidth, h: probe.naturalHeight };
 
-                        this.metadata = {};
-                        
-                        EXIF.getData(file, () => {
-                            const allMetaData = EXIF.getAllTags(file);
-                            
-                            Object.entries(allMetaData).forEach(([key, value]) => {
-                                if (value !== null && value !== undefined && value !== '') {
-                                    this.metadata[key] = value;
-                                }
-                            });
-                            
-                            if (Object.keys(this.metadata).length === 0) {
-                                this.extractBasicMetadata(file);
-                            }
-                        });
-                        
-                    } catch (error) {
-                        console.error('Error extracting metadata:', error);
-                        this.extractBasicMetadata(file);
+                    if (this.exifOk) {
+                        try {
+                            const tags = await Promise.race([
+                                ExifReader.load(file, { expanded: true }),
+                                new Promise((_, rej) => setTimeout(() => rej(new Error('timeout')), 5000))
+                            ]);
+                            this.tags = tags;
+                        } catch (err) {
+                            this.tags = {};
+                        }
                     }
+
+                    let summary;
+                    if (!this.exifOk) {
+                        summary = 'Photo added. The metadata reader didn’t load, but you can still make a clean copy.';
+                    } else if (this.findings.length === 0) {
+                        summary = 'Photo read. It reveals nothing personal — ' + this.fieldCount + ' fields in all.';
+                    } else {
+                        const kinds = { gps: 'your location', date: 'when it was taken', camera: 'your camera', software: 'your editing software', person: 'a name', thumb: 'a hidden thumbnail' };
+                        const list = this.findings.map(f => kinds[f.kind]).filter(Boolean);
+                        summary = 'Photo read. It reveals ' + list.join(', ') + ' — ' + this.fieldCount + ' fields in all.';
+                    }
+                    if (count > 1) summary = 'One photo at a time — reading the first one. ' + summary;
+                    this.announce(summary);
                 },
-                
-                extractBasicMetadata(file) {
-                    this.metadata = {
-                        'File Name': file.name,
-                        'File Size': this.formatFileSize(file.size),
-                        'File Type': file.type,
-                        'Last Modified': new Date(file.lastModified).toLocaleString(),
-                    };
-                    
-                    const img = new Image();
-                    img.onload = () => {
-                        this.metadata['Image Width'] = img.width + ' pixels';
-                        this.metadata['Image Height'] = img.height + ' pixels';
-                        this.metadata['Aspect Ratio'] = (img.width / img.height).toFixed(2);
-                    };
-                    img.src = this.currentImage.preview;
-                },
-                
-                async removeMetadata() {
-                    if (!this.currentImage) return;
-                    
-                    this.isProcessing = true;
-                    
+                async makeClean() {
+                    if (this.busy || !this.img) return;
+                    this.busy = true;
+                    this.announce('Removing the hidden data…');
                     try {
-                        const canvas = document.createElement('canvas');
-                        const ctx = canvas.getContext('2d');
-                        const img = new Image();
-                        
-                        await new Promise((resolve, reject) => {
-                            img.onload = resolve;
-                            img.onerror = reject;
-                            img.src = this.currentImage.preview;
+                        const image = new Image();
+                        await new Promise((res, rej) => {
+                            image.onload = res;
+                            image.onerror = rej;
+                            image.src = this.img.url;
                         });
-                        
-                        canvas.width = img.width;
-                        canvas.height = img.height;
-                        ctx.drawImage(img, 0, 0);
-                        
-                        canvas.toBlob((blob) => {
-                            this.cleanedImage = {
-                                blob: blob,
-                                name: this.generateCleanFileName(this.currentImage.name),
-                                originalSize: this.currentImage.size,
-                                cleanedSize: blob.size
-                            };
-                            this.isProcessing = false;
-                        }, this.currentImage.type, 0.95);
-                        
-                    } catch (error) {
-                        console.error('Error removing metadata:', error);
-                        alert('Error removing metadata. Please try again.');
-                        this.isProcessing = false;
+                        const canvas = document.createElement('canvas');
+                        canvas.width = image.naturalWidth;
+                        canvas.height = image.naturalHeight;
+                        if (!canvas.width || !canvas.height) throw new Error('empty canvas');
+                        canvas.getContext('2d').drawImage(image, 0, 0);
+
+                        // Only two output formats — anything else silently falls back
+                        // to PNG inside toBlob, which would mislabel the download.
+                        const outType = this.img.type === 'image/jpeg' ? 'image/jpeg' : 'image/png';
+                        const blob = await new Promise(res => canvas.toBlob(res, outType, 0.95));
+                        if (!blob) throw new Error('encode failed');
+
+                        const ext = blob.type === 'image/jpeg' ? 'jpg' : 'png';
+                        const base = this.img.name.replace(/\.[^/.]+$/, '') || 'photo';
+                        this.cleaned = {
+                            blob,
+                            type: blob.type,
+                            name: base + '-clean.' + ext,
+                            size: blob.size,
+                            changedFormat: blob.type !== this.img.type
+                        };
+                        this.busy = false;
+                        this.announce('Done. The clean copy is ' + this.prettySize(blob.size) + ' and says nothing at all. The download button is just below.');
+                    } catch (err) {
+                        this.busy = false;
+                        this.error = 'Scrubbing didn’t work — that photo may be too large for this browser. Try a smaller one.';
+                        this.announce(this.error);
                     }
                 },
-                
-                downloadCleanImage() {
-                    if (!this.cleanedImage) return;
-                    
-                    const url = URL.createObjectURL(this.cleanedImage.blob);
+                download() {
+                    if (!this.cleaned) return;
+                    const url = URL.createObjectURL(this.cleaned.blob);
                     const a = document.createElement('a');
                     a.href = url;
-                    a.download = this.cleanedImage.name;
+                    a.download = this.cleaned.name;
                     document.body.appendChild(a);
                     a.click();
                     document.body.removeChild(a);
                     URL.revokeObjectURL(url);
+                    this.announce('Downloaded ' + this.cleaned.name + ' — the clean copy without the hidden data.');
                 },
-                
-                processAnother() {
-                    this.currentImage = null;
-                    this.metadata = {};
-                    this.cleanedImage = null;
-                    this.showAllMetadata = false;
-                    this.$refs.fileInput.value = '';
-                },
-                
-                getMetadataByCategory(category) {
-                    const entries = Object.entries(this.metadata);
-                    
-                    switch (category) {
-                        case 'Camera':
-                            return entries.filter(([key]) => 
-                                /make|model|camera|lens/i.test(key)
-                            );
-                        case 'Settings':
-                            return entries.filter(([key]) => 
-                                /iso|aperture|shutter|focal|exposure|flash|white.*balance/i.test(key)
-                            );
-                        case 'DateTime':
-                            return entries.filter(([key]) => 
-                                /date|time/i.test(key)
-                            );
-                        case 'GPS':
-                            return entries.filter(([key]) => 
-                                /gps|latitude|longitude|altitude|position/i.test(key)
-                            );
-                        case 'Software':
-                            return entries.filter(([key]) => 
-                                /software|program|application|editor/i.test(key)
-                            );
-                        case 'Other':
-                            return entries.filter(([key]) => 
-                                !/make|model|camera|lens|iso|aperture|shutter|focal|exposure|flash|white.*balance|date|time|gps|latitude|longitude|altitude|position|software|program|application|editor/i.test(key)
-                            );
-                        default:
-                            return entries;
-                    }
-                },
-                
-                formatKey(key) {
-                    return key
-                        .replace(/([A-Z])/g, ' $1')
-                        .replace(/^./, str => str.toUpperCase())
-                        .replace(/\s+/g, ' ')
-                        .trim();
-                },
-                
-                formatValue(value) {
-                    if (value === null || value === undefined) return 'N/A';
-                    if (typeof value === 'string' && value.length > 100) {
-                        return value.substring(0, 100) + '...';
-                    }
-                    return String(value);
-                },
-                
-                formatFileSize(bytes) {
-                    if (bytes === 0) return '0 Bytes';
-                    const k = 1024;
-                    const sizes = ['Bytes', 'KB', 'MB', 'GB'];
-                    const i = Math.floor(Math.log(bytes) / Math.log(k));
-                    return parseFloat((bytes / Math.pow(k, i)).toFixed(2)) + ' ' + sizes[i];
-                },
-                
-                generateCleanFileName(originalName) {
-                    const ext = originalName.split('.').pop();
-                    const name = originalName.replace(/\.[^/.]+$/, '');
-                    return `${name}_cleaned.${ext}`;
+                reset() {
+                    if (this.img) URL.revokeObjectURL(this.img.url);
+                    this.img = null;
+                    this.tags = null;
+                    this.cleaned = null;
+                    this.error = '';
+                    this.announce('Cleared. Drop in the next photo.');
+                    this.$nextTick(() => {
+                        const input = document.getElementById('mi-file');
+                        if (input) { input.value = ''; input.focus(); }
+                    });
                 }
             }
-        }).mount('#main-content');
+        }).mount('#app');
     </script>
 </body>
 </html>
