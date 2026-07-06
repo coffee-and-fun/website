@@ -52,6 +52,18 @@
     <style>
         [v-cloak] { display: none; }
 
+        /* Page-local override: this page's title matches its thermal-receipt
+           theme (bold Courier caps) while the rest of the site keeps the
+           cursive Pacifico brand heading. */
+        .brand-heading {
+            font-family: 'Courier New', Courier, monospace;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.02em;
+            color: var(--color-cocoa);
+            text-shadow: 2px 3px 0 rgba(253, 97, 85, 0.4);
+        }
+
         .sr-only {
             position: absolute;
             width: 1px;

@@ -16,7 +16,7 @@
   {% include ticker.liquid %}
 {% endif %}
 
-<header class="sticky top-0 z-40">
+<header class="pointer-events-none sticky top-0 z-40">
   <a
     href="#main-content"
     class="sr-only focus:not-sr-only focus:absolute focus:top-2 focus:left-2 focus:z-50 focus:px-4 focus:py-2 focus:rounded-lg focus:text-white focus:text-sm focus:font-semibold focus:outline-none focus:ring-2 focus:ring-offset-2 bg-espresso focus:ring-espresso"
@@ -24,112 +24,149 @@
     Skip to main content
   </a>
 
-  <!-- Paper-strip header: warm receipt paper with a torn bottom edge -->
-  <div class="paper-header">
-    <div class="mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8">
-      <div class="flex items-center gap-3 py-2">
+  <div class="mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8 pt-4 pb-3">
+    <div class="relative flex items-center gap-4">
 
-        <!-- Left: Logo -->
-        <div class="flex flex-1">
-          <a
-            href="/"
-            aria-label="Coffee &amp; Fun homepage"
-            class="block h-16 w-16 sm:h-20 sm:w-20 transition hover:scale-105 focus:outline-none focus-visible:ring-2 focus-visible:ring-espresso focus-visible:ring-offset-2 rounded-full"
+      <!-- Left: Logo (no circle wrap, larger) -->
+      <div class="flex flex-1">
+        <a
+          href="/"
+          aria-label="Coffee &amp; Fun homepage"
+          class="pointer-events-auto block h-20 w-20 sm:h-24 sm:w-24 transition hover:scale-105 focus:outline-none focus-visible:ring-2 focus-visible:ring-espresso focus-visible:ring-offset-2 rounded-full"
+        >
+          <img
+            alt="Coffee &amp; Fun LLC logo"
+            src="/assets/images/coffee-and-fun-logo-dark.png"
+            width="120"
+            height="120"
+            class="h-full w-full object-contain"
+            decoding="async"
+          />
+        </a>
+      </div>
+
+      <!-- Center: Nav pill (desktop) / Menu button (mobile) -->
+      <div class="flex flex-1 justify-end md:justify-center">
+
+        <!-- Mobile menu button -->
+        {% if showMenu %}
+          <button
+            type="button"
+            class="pointer-events-auto md:hidden inline-flex items-center gap-2 rounded-full bg-cream/95 px-5 py-2 text-lg font-semibold text-stone-800 shadow-lg ring-1 ring-mocha/20 backdrop-blur-sm transition hover:text-espresso hover:ring-mocha/40 focus:outline-none focus-visible:ring-2 focus-visible:ring-espresso focus-visible:ring-offset-2"
+            style="font-family: 'Caveat', cursive;"
+            onclick="my_modal_site_menu.showModal()"
+            aria-label="Open site navigation menu"
+            aria-controls="my_modal_site_menu"
           >
-            <img
-              alt="Coffee &amp; Fun LLC logo"
-              src="/assets/images/coffee-and-fun-logo-dark.png"
-              width="120"
-              height="120"
-              class="h-full w-full object-contain"
-              decoding="async"
-            />
-          </a>
-        </div>
+            Menu
+            <svg viewBox="0 0 8 6" aria-hidden="true" class="h-auto w-2 stroke-espresso">
+              <path d="M1.75 1.75 4 4.25l2.25-2.5" fill="none" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" />
+            </svg>
+          </button>
+        {% endif %}
 
-        <!-- Center: receipt-style nav (desktop) / MENU button (mobile) -->
-        <div class="flex flex-1 justify-end md:justify-center">
+        <!-- Desktop pill nav -->
+        <nav class="pointer-events-auto hidden md:block" aria-label="Primary">
+          <ul
+            class="flex rounded-full bg-cream/95 px-4 text-2xl font-semibold text-stone-800 shadow-lg ring-1 ring-mocha/20 backdrop-blur-sm"
+            style="font-family: 'Caveat', cursive;"
+          >
+            <li>
+              <a
+                href="/apps/"
+                class="relative block px-4 py-1.5 transition hover:text-espresso focus:outline-none focus-visible:text-espresso focus-visible:rounded-full focus-visible:ring-2 focus-visible:ring-espresso focus-visible:ring-offset-2"
+              >
+                Apps
+              </a>
+            </li>
+            <li>
+              <a
+                href="/blog/"
+                class="relative block px-4 py-1.5 transition hover:text-espresso focus:outline-none focus-visible:text-espresso focus-visible:rounded-full focus-visible:ring-2 focus-visible:ring-espresso focus-visible:ring-offset-2"
+              >
+                Blog
+              </a>
+            </li>
+            <li>
+              <a
+                href="/about/"
+                class="relative block px-4 py-1.5 transition hover:text-espresso focus:outline-none focus-visible:text-espresso focus-visible:rounded-full focus-visible:ring-2 focus-visible:ring-espresso focus-visible:ring-offset-2"
+              >
+                About
+              </a>
+            </li>
+            <li>
+              <a
+                href="/help/"
+                class="relative block px-4 py-1.5 transition hover:text-espresso focus:outline-none focus-visible:text-espresso focus-visible:rounded-full focus-visible:ring-2 focus-visible:ring-espresso focus-visible:ring-offset-2"
+              >
+                Help
+              </a>
+            </li>
+            <li>
+              <a
+                href="/support/"
+                class="relative block px-4 py-1.5 transition hover:text-espresso focus:outline-none focus-visible:text-espresso focus-visible:rounded-full focus-visible:ring-2 focus-visible:ring-espresso focus-visible:ring-offset-2"
+              >
+                Support
+              </a>
+            </li>
+          </ul>
+        </nav>
+      </div>
 
-          {% if showMenu %}
+      <!-- Right: Action pill (confetti / cursor / discord) -->
+      <div class="flex flex-1 justify-end">
+        <div class="pointer-events-auto flex items-center gap-1 rounded-full bg-cream/95 px-1.5 py-1 shadow-lg ring-1 ring-mocha/20 backdrop-blur-sm">
+
+          {% if showFun %}
             <button
               type="button"
-              class="ph-menu md:hidden"
-              onclick="my_modal_site_menu.showModal()"
-              aria-label="Open site navigation menu"
-              aria-controls="my_modal_site_menu"
+              class="rounded-full p-2 text-stone-700 transition hover:bg-amber-100 hover:text-espresso focus:outline-none focus-visible:bg-amber-100 focus-visible:text-espresso focus-visible:ring-2 focus-visible:ring-espresso"
+              onclick="applyCursorEffect()"
+              title="Cycle through cursor effects"
+              aria-label="Cycle through cursor effects"
             >
-              Menu
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 -960 960 960" class="h-5 w-5" fill="currentColor" aria-hidden="true">
+                <path d="M205-92 92-205q-12-12-12-28t12-28l363-364q35-35 85-35t85 35q35 35 35 85t-35 85L261-92q-12 12-28 12t-28-12Zm28-84 251-251-57-56-250 250 56 57Z"/>
+              </svg>
+            </button>
+
+            <button
+              type="button"
+              class="rounded-full p-2 text-stone-700 transition hover:bg-amber-100 hover:text-coral-deep focus:outline-none focus-visible:bg-amber-100 focus-visible:text-coral-deep focus-visible:ring-2 focus-visible:ring-coral-deep"
+              onclick="launchConfetti()"
+              title="Launch confetti"
+              aria-label="Launch confetti animation"
+            >
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="h-5 w-5" fill="currentColor" aria-hidden="true">
+                <polygon points="2,22 16,17 7,8"/>
+                <path d="M14.53,12.53l5.59-5.59c0.49-0.49,1.28-0.49,1.77,0l0.59,0.59l1.06-1.06l-0.59-0.59c-1.07-1.07-2.82-1.07-3.89,0 l-5.59,5.59L14.53,12.53z"/>
+                <path d="M10.06,6.88L9.47,7.47l1.06,1.06l0.59-0.59c1.07-1.07,1.07-2.82,0-3.89l-0.59-0.59L9.47,4.53l0.59,0.59 C10.54,5.6,10.54,6.4,10.06,6.88z"/>
+                <path d="M17.06,11.88l-1.59,1.59l1.06,1.06l1.59-1.59c0.49-0.49,1.28-0.49,1.77,0l1.61,1.61l1.06-1.06l-1.61-1.61 C19.87,10.81,18.13,10.81,17.06,11.88z"/>
+                <path d="M15.06,5.88l-3.59,3.59l1.06,1.06l3.59-3.59c1.07-1.07,1.07-2.82,0-3.89l-1.59-1.59l-1.06,1.06l1.59,1.59 C15.54,4.6,15.54,5.4,15.06,5.88z"/>
+              </svg>
             </button>
           {% endif %}
 
-          <nav class="hidden md:block" aria-label="Primary">
-            <ul class="flex items-center">
-              <li><a href="/apps/" class="ph-link">Apps</a></li>
-              <li class="ph-sep" aria-hidden="true">*</li>
-              <li><a href="/blog/" class="ph-link">Blog</a></li>
-              <li class="ph-sep" aria-hidden="true">*</li>
-              <li><a href="/about/" class="ph-link">About</a></li>
-              <li class="ph-sep" aria-hidden="true">*</li>
-              <li><a href="/help/" class="ph-link">Help</a></li>
-              <li class="ph-sep" aria-hidden="true">*</li>
-              <li><a href="/support/" class="ph-link">Support</a></li>
-            </ul>
-          </nav>
+          {% if showDiscordApp %}
+            <a
+              href="https://discord.com/invite/J6EeMvSBYg"
+              target="_blank"
+              rel="noopener noreferrer"
+              title="Join our Discord"
+              aria-label="Join the Coffee &amp; Fun Discord server"
+              class="rounded-full p-2 text-stone-700 transition hover:bg-amber-100 hover:text-[#4752c4] focus:outline-none focus-visible:bg-amber-100 focus-visible:text-[#4752c4] focus-visible:ring-2 focus-visible:ring-[#4752c4]"
+            >
+              <svg class="h-5 w-5" fill="currentColor" viewBox="0 -28.5 256 256" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                <path d="M216.856339,16.5966031 C200.285002,8.84328665 182.566144,3.2084988 164.041564,0 C161.766523,4.11318106 159.108624,9.64549908 157.276099,14.0464379 C137.583995,11.0849896 118.072967,11.0849896 98.7430163,14.0464379 C96.9108417,9.64549908 94.1925838,4.11318106 91.8971895,0 C73.3526068,3.2084988 55.6133949,8.86399117 39.0420583,16.6376612 C5.61752293,67.146514 -3.4433191,116.400813 1.08711069,164.955721 C23.2560196,181.510915 44.7403634,191.567697 65.8621325,198.148576 C71.0772151,190.971126 75.7283628,183.341335 79.7352139,175.300261 C72.104019,172.400575 64.7949724,168.822202 57.8887866,164.667963 C59.7209612,163.310589 61.5131304,161.891452 63.2445898,160.431257 C105.36741,180.133187 151.134928,180.133187 192.754523,160.431257 C194.506336,161.891452 196.298154,163.310589 198.110326,164.667963 C191.183787,168.842556 183.854737,172.420929 176.223542,175.320965 C180.230393,183.341335 184.861538,190.991831 190.096624,198.16893 C211.238746,191.588051 232.743023,181.531619 254.911949,164.955721 C260.227747,108.668201 245.831087,59.8662432 216.856339,16.5966031 Z M85.4738752,135.09489 C72.8290281,135.09489 62.4592217,123.290155 62.4592217,108.914901 C62.4592217,94.5396472 72.607595,82.7145587 85.4738752,82.7145587 C98.3405064,82.7145587 108.709962,94.5189427 108.488529,108.914901 C108.508531,123.290155 98.3405064,135.09489 85.4738752,135.09489 Z M170.525237,135.09489 C157.88039,135.09489 147.510584,123.290155 147.510584,108.914901 C147.510584,94.5396472 157.658606,82.7145587 170.525237,82.7145587 C183.391518,82.7145587 193.761324,94.5189427 193.539891,108.914901 C193.539891,123.290155 183.391518,135.09489 170.525237,135.09489 Z" fill="currentColor" fill-rule="nonzero"/>
+              </svg>
+            </a>
+          {% endif %}
+
         </div>
-
-        <!-- Right: action chips (cursor fx / confetti / discord) -->
-        <div class="flex flex-1 justify-end">
-          <div class="flex items-center gap-2">
-
-            {% if showFun %}
-              <button
-                type="button"
-                class="ph-chip"
-                onclick="applyCursorEffect()"
-                title="Cycle through cursor effects"
-                aria-label="Cycle through cursor effects"
-              >
-                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 -960 960 960" class="h-5 w-5" fill="currentColor" aria-hidden="true">
-                  <path d="M205-92 92-205q-12-12-12-28t12-28l363-364q35-35 85-35t85 35q35 35 35 85t-35 85L261-92q-12 12-28 12t-28-12Zm28-84 251-251-57-56-250 250 56 57Z"/>
-                </svg>
-              </button>
-
-              <button
-                type="button"
-                class="ph-chip"
-                onclick="launchConfetti()"
-                title="Launch confetti"
-                aria-label="Launch confetti animation"
-              >
-                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="h-5 w-5" fill="currentColor" aria-hidden="true">
-                  <polygon points="2,22 16,17 7,8"/>
-                  <path d="M14.53,12.53l5.59-5.59c0.49-0.49,1.28-0.49,1.77,0l0.59,0.59l1.06-1.06l-0.59-0.59c-1.07-1.07-2.82-1.07-3.89,0 l-5.59,5.59L14.53,12.53z"/>
-                  <path d="M10.06,6.88L9.47,7.47l1.06,1.06l0.59-0.59c1.07-1.07,1.07-2.82,0-3.89l-0.59-0.59L9.47,4.53l0.59,0.59 C10.54,5.6,10.54,6.4,10.06,6.88z"/>
-                  <path d="M17.06,11.88l-1.59,1.59l1.06,1.06l1.59-1.59c0.49-0.49,1.28-0.49,1.77,0l1.61,1.61l1.06-1.06l-1.61-1.61 C19.87,10.81,18.13,10.81,17.06,11.88z"/>
-                  <path d="M15.06,5.88l-3.59,3.59l1.06,1.06l3.59-3.59c1.07-1.07,1.07-2.82,0-3.89l-1.59-1.59l-1.06,1.06l1.59,1.59 C15.54,4.6,15.54,5.4,15.06,5.88z"/>
-                </svg>
-              </button>
-            {% endif %}
-
-            {% if showDiscordApp %}
-              <a
-                href="https://discord.com/invite/J6EeMvSBYg"
-                target="_blank"
-                rel="noopener noreferrer"
-                title="Join our Discord"
-                aria-label="Join the Coffee &amp; Fun Discord server"
-                class="ph-chip"
-              >
-                <svg class="h-5 w-5" fill="currentColor" viewBox="0 -28.5 256 256" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-                  <path d="M216.856339,16.5966031 C200.285002,8.84328665 182.566144,3.2084988 164.041564,0 C161.766523,4.11318106 159.108624,9.64549908 157.276099,14.0464379 C137.583995,11.0849896 118.072967,11.0849896 98.7430163,14.0464379 C96.9108417,9.64549908 94.1925838,4.11318106 91.8971895,0 C73.3526068,3.2084988 55.6133949,8.86399117 39.0420583,16.6376612 C5.61752293,67.146514 -3.4433191,116.400813 1.08711069,164.955721 C23.2560196,181.510915 44.7403634,191.567697 65.8621325,198.148576 C71.0772151,190.971126 75.7283628,183.341335 79.7352139,175.300261 C72.104019,172.400575 64.7949724,168.822202 57.8887866,164.667963 C59.7209612,163.310589 61.5131304,161.891452 63.2445898,160.431257 C105.36741,180.133187 151.134928,180.133187 192.754523,160.431257 C194.506336,161.891452 196.298154,163.310589 198.110326,164.667963 C191.183787,168.842556 183.854737,172.420929 176.223542,175.320965 C180.230393,183.341335 184.861538,190.991831 190.096624,198.16893 C211.238746,191.588051 232.743023,181.531619 254.911949,164.955721 C260.227747,108.668201 245.831087,59.8662432 216.856339,16.5966031 Z M85.4738752,135.09489 C72.8290281,135.09489 62.4592217,123.290155 62.4592217,108.914901 C62.4592217,94.5396472 72.607595,82.7145587 85.4738752,82.7145587 C98.3405064,82.7145587 108.709962,94.5189427 108.488529,108.914901 C108.508531,123.290155 98.3405064,135.09489 85.4738752,135.09489 Z M170.525237,135.09489 C157.88039,135.09489 147.510584,123.290155 147.510584,108.914901 C147.510584,94.5396472 157.658606,82.7145587 170.525237,82.7145587 C183.391518,82.7145587 193.761324,94.5189427 193.539891,108.914901 C193.539891,123.290155 183.391518,135.09489 170.525237,135.09489 Z" fill="currentColor" fill-rule="nonzero"/>
-                </svg>
-              </a>
-            {% endif %}
-
-          </div>
-        </div>
-
       </div>
+
     </div>
   </div>
 </header>
