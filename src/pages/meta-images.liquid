@@ -291,6 +291,7 @@
             border: 1px solid #cfe8db;
             border-radius: var(--radius);
             padding: 1.3rem 1.4rem;
+            overflow-wrap: anywhere; /* long camera filenames must wrap, not overflow */
         }
         .clean-card .headline {
             display: flex; align-items: center; gap: 0.55rem;
@@ -446,7 +447,7 @@
                     <div class="name">{{ img.name }}</div>
                     <div class="dim">{{ prettySize(img.size) }}<template v-if="img.w"> · {{ img.w }} × {{ img.h }}</template> · {{ prettyType(img.type) }}</div>
                 </div>
-                <button type="button" class="btn-ghost" @click="reset" aria-label="Remove this photo and choose another">Change</button>
+                <button type="button" class="btn-ghost" @click="reset" aria-label="Change photo — remove this one and choose another">Change</button>
             </div>
 
             <div v-if="error" class="banner warn" role="alert">
@@ -456,7 +457,7 @@
 
             <!-- Empty-state teaser: the verdict's own skeleton -->
             <template v-if="!img">
-                <ul class="teaser">
+                <ul class="teaser" role="list">
                     <li><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 10c0 7-9 13-9 13S3 17 3 10a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg> Where it was taken — sometimes down to the street</li>
                     <li><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg> The exact moment you pressed the button</li>
                     <li><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/><circle cx="12" cy="13" r="4"/></svg> What phone or camera you own</li>
@@ -472,7 +473,7 @@
 
             <div class="result">
                 <p class="verdict-head">{{ verdictHead }}</p>
-                <ul class="verdict" v-if="findings.length" aria-labelledby="h-reveal">
+                <ul class="verdict" role="list" v-if="findings.length" aria-labelledby="h-reveal">
                     <li v-for="f in findings" :key="f.kind">
                         <svg v-if="f.kind === 'gps'" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 10c0 7-9 13-9 13S3 17 3 10a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
                         <svg v-else-if="f.kind === 'date'" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
@@ -554,8 +555,9 @@
         const ALLOWED = ['image/jpeg', 'image/png', 'image/webp'];
 
         const GROUP_ORDER = [
-            ['gps', 'Location'],
+            ['gps', 'Location (decoded)'],
             ['exif', 'Photo details (EXIF)'],
+            ['jfif', 'JPEG basics (JFIF)'],
             ['xmp', 'Editing info (XMP)'],
             ['iptc', 'Press info (IPTC)'],
             ['icc', 'Color profile (ICC)'],
@@ -573,11 +575,13 @@
                     img: null,
                     tags: null,
                     exifOk: EXIF_OK,
+                    readFailed: false,
                     dragging: false,
                     busy: false,
                     cleaned: null,
                     error: '',
-                    announcement: ''
+                    announcement: '',
+                    gen: 0
                 };
             },
             computed: {
@@ -610,7 +614,7 @@
                     }
 
                     // When
-                    const when = desc('exif', 'DateTimeOriginal') || desc('exif', 'CreateDate') || desc('exif', 'DateTime');
+                    const when = desc('exif', 'DateTimeOriginal') || desc('exif', 'DateTimeDigitized') || desc('exif', 'DateTime');
                     if (when) {
                         const human = this.humanExifDate(when);
                         out.push({ kind: 'date', text: human
@@ -646,6 +650,9 @@
                     if (!this.exifOk) {
                         return 'This page couldn’t load its metadata reader, so it can’t show what’s inside — but the clean copy below still works and still removes everything.';
                     }
+                    if (this.readFailed) {
+                        return 'This photo’s hidden data couldn’t be read — the file may be unusual or very large. The clean copy below still removes everything.';
+                    }
                     const n = this.findings.length;
                     if (n === 0) return 'Good news — this photo keeps its secrets. Nothing personal found inside.';
                     if (n === 1) return 'This photo is telling people one thing:';
@@ -663,6 +670,11 @@
                         for (const name of Object.keys(g)) {
                             if (name === 'image' || name === 'base64') continue; // raw thumbnail bytes
                             const v = g[name];
+                            if (typeof v === 'number' && key === 'gps') {
+                                // expanded gps group holds computed plain numbers
+                                rows.push({ key: name, value: String(Math.round(v * 1e5) / 1e5) });
+                                continue;
+                            }
                             if (!v || typeof v !== 'object') continue;
                             rows.push({ key: name, value: this.prettyValue(v) });
                         }
@@ -673,6 +685,23 @@
                 fieldCount() {
                     return this.fieldGroups.reduce((sum, g) => sum + g.rows.length, 0);
                 }
+            },
+            mounted() {
+                // Without these, a photo dropped outside the drop zone (or after
+                // one is already loaded — the natural "replace it" gesture)
+                // navigates the whole tab to the image file.
+                this.onDocDragover = (e) => e.preventDefault();
+                this.onDocDrop = (e) => {
+                    e.preventDefault();
+                    const files = e.dataTransfer && e.dataTransfer.files;
+                    if (files && files.length) this.accept(files[0], files.length);
+                };
+                document.addEventListener('dragover', this.onDocDragover);
+                document.addEventListener('drop', this.onDocDrop);
+            },
+            beforeUnmount() {
+                document.removeEventListener('dragover', this.onDocDragover);
+                document.removeEventListener('drop', this.onDocDrop);
             },
             methods: {
                 announce(msg) {
@@ -714,12 +743,19 @@
                     const files = e.dataTransfer.files;
                     if (files && files.length) this.accept(files[0], files.length);
                 },
+                rejectFile(message) {
+                    this.error = message;
+                    this.announce(message);
+                    const input = this.$refs.fileInput;
+                    if (input) input.value = ''; // so picking the same file again re-fires change
+                },
                 async accept(file, count) {
+                    const gen = ++this.gen; // stale async work checks this before touching state
                     this.error = '';
                     if (!ALLOWED.includes(file.type)) {
-                        this.error = file.type === 'image/heic' || /\.heic$/i.test(file.name)
+                        this.rejectFile(file.type === 'image/heic' || /\.heic$/i.test(file.name)
                             ? 'That’s a HEIC photo — this browser can’t open it here. Export it as a JPEG first.'
-                            : 'That doesn’t look like a photo this tool can read — try a JPG, PNG, or WEBP.';
+                            : 'That doesn’t look like a photo this tool can read — try a JPG, PNG, or WEBP.');
                         return;
                     }
                     const url = URL.createObjectURL(file);
@@ -729,30 +765,42 @@
                         probe.onerror = () => res(false);
                         probe.src = url;
                     });
+                    if (gen !== this.gen) { URL.revokeObjectURL(url); return; }
                     if (!decoded) {
                         URL.revokeObjectURL(url);
-                        this.error = 'That photo couldn’t be opened — the file may be damaged. Try another one.';
+                        this.rejectFile('That photo couldn’t be opened — the file may be damaged. Try another one.');
                         return;
                     }
+                    if (this.img) URL.revokeObjectURL(this.img.url);
                     this.cleaned = null;
                     this.tags = null;
+                    this.readFailed = false;
                     this.img = { file, name: file.name, size: file.size, type: file.type, url, w: probe.naturalWidth, h: probe.naturalHeight };
 
                     if (this.exifOk) {
+                        let tags = null;
                         try {
-                            const tags = await Promise.race([
+                            tags = await Promise.race([
                                 ExifReader.load(file, { expanded: true }),
                                 new Promise((_, rej) => setTimeout(() => rej(new Error('timeout')), 5000))
                             ]);
-                            this.tags = tags;
                         } catch (err) {
+                            tags = null;
+                        }
+                        if (gen !== this.gen) return;
+                        if (tags) {
+                            this.tags = tags;
+                        } else {
                             this.tags = {};
+                            this.readFailed = true;
                         }
                     }
 
                     let summary;
                     if (!this.exifOk) {
                         summary = 'Photo added. The metadata reader didn’t load, but you can still make a clean copy.';
+                    } else if (this.readFailed) {
+                        summary = 'Photo added, but its hidden data couldn’t be read. The clean copy still removes everything.';
                     } else if (this.findings.length === 0) {
                         summary = 'Photo read. It reveals nothing personal — ' + this.fieldCount + ' fields in all.';
                     } else {
@@ -765,14 +813,17 @@
                 },
                 async makeClean() {
                     if (this.busy || !this.img) return;
+                    const source = this.img;   // survives a mid-scrub reset/replace
+                    const gen = this.gen;
                     this.busy = true;
+                    this.error = '';
                     this.announce('Removing the hidden data…');
                     try {
                         const image = new Image();
                         await new Promise((res, rej) => {
                             image.onload = res;
                             image.onerror = rej;
-                            image.src = this.img.url;
+                            image.src = source.url;
                         });
                         const canvas = document.createElement('canvas');
                         canvas.width = image.naturalWidth;
@@ -782,23 +833,25 @@
 
                         // Only two output formats — anything else silently falls back
                         // to PNG inside toBlob, which would mislabel the download.
-                        const outType = this.img.type === 'image/jpeg' ? 'image/jpeg' : 'image/png';
+                        const outType = source.type === 'image/jpeg' ? 'image/jpeg' : 'image/png';
                         const blob = await new Promise(res => canvas.toBlob(res, outType, 0.95));
+                        if (gen !== this.gen) { this.busy = false; return; } // photo changed meanwhile
                         if (!blob) throw new Error('encode failed');
 
                         const ext = blob.type === 'image/jpeg' ? 'jpg' : 'png';
-                        const base = this.img.name.replace(/\.[^/.]+$/, '') || 'photo';
+                        const base = source.name.replace(/\.[^/.]+$/, '') || 'photo';
                         this.cleaned = {
                             blob,
                             type: blob.type,
                             name: base + '-clean.' + ext,
                             size: blob.size,
-                            changedFormat: blob.type !== this.img.type
+                            changedFormat: blob.type !== source.type
                         };
                         this.busy = false;
                         this.announce('Done. The clean copy is ' + this.prettySize(blob.size) + ' and says nothing at all. The download button is just below.');
                     } catch (err) {
                         this.busy = false;
+                        if (gen !== this.gen) return; // user cleared the photo mid-scrub — not an error
                         this.error = 'Scrubbing didn’t work — that photo may be too large for this browser. Try a smaller one.';
                         this.announce(this.error);
                     }
@@ -816,6 +869,8 @@
                     this.announce('Downloaded ' + this.cleaned.name + ' — the clean copy without the hidden data.');
                 },
                 reset() {
+                    this.gen++; // invalidate any in-flight read or scrub
+                    this.busy = false;
                     if (this.img) URL.revokeObjectURL(this.img.url);
                     this.img = null;
                     this.tags = null;
