@@ -1,5 +1,4 @@
 <!-- Font preloads -->
-<link rel="preload" href="/assets/fonts/Pacifico-Regular.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="/assets/fonts/Caveat-Regular.woff2" as="font" type="font/woff2" crossorigin>
 
 <style>
@@ -20,16 +19,6 @@
         --color-cocoa: #3d2b1f;
         --color-coral: #fd6155;
         --color-coral-deep: #c4413a;
-    }
-
-    /* Pacifico display font — duplicated from coco.css so Tailwind-CDN tool
-       pages (which don't load engine.css) still render .brand-heading correctly. */
-    @font-face {
-        font-family: 'Pacifico';
-        font-style: normal;
-        font-display: swap;
-        font-weight: 400;
-        src: url('/assets/fonts/Pacifico-Regular.woff2') format('woff2');
     }
 
     /* Caveat handwriting font — self-hosted */
@@ -55,22 +44,119 @@
         src: url('/assets/fonts/Caveat-Bold.woff2') format('woff2');
     }
 
-    /* Brand display heading — Pacifico script with a soft coral offset shadow.
+    /* Brand display heading — receipt style: bold monospace caps with a soft
+       coral offset shadow, matching the receipt generator's thermal look.
        Single source of truth: pages include this partial instead of redefining it. */
     .brand-heading {
-        font-family: 'Pacifico', cursive;
-        color: var(--color-mocha);
-        text-shadow: 1.5px 2.5px 0px rgba(253, 97, 85, 0.45);
+        font-family: 'Courier New', Courier, monospace;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 0.02em;
+        color: var(--color-cocoa);
+        text-shadow: 1.5px 2.5px 0px rgba(253, 97, 85, 0.4);
     }
     @media (min-width: 640px) {
         .brand-heading {
-            text-shadow: 2px 3.5px 0px rgba(253, 97, 85, 0.45);
+            text-shadow: 2px 3px 0px rgba(253, 97, 85, 0.4);
         }
     }
     @media (min-width: 1024px) {
         .brand-heading {
-            text-shadow: 3px 5px 0px rgba(253, 97, 85, 0.45);
+            text-shadow: 3px 4px 0px rgba(253, 97, 85, 0.4);
         }
+    }
+
+    /* Receipt-style separator rows (dashes / asterisks framing headings) */
+    .rc-frame {
+        font-family: 'Courier New', Courier, monospace;
+        letter-spacing: 0.45em;
+        color: var(--color-coral-deep);
+        opacity: 0.65;
+        user-select: none;
+        white-space: nowrap;
+        overflow: hidden;
+    }
+
+    /* ====== Paper-strip site header (receipt aesthetic) ====== */
+    .paper-header {
+        position: relative;
+        background: #fdfcf7;
+        box-shadow: 0 4px 14px rgba(61, 43, 31, 0.1);
+    }
+    .paper-header::after {
+        content: '';
+        position: absolute;
+        bottom: -8px;
+        left: 0;
+        right: 0;
+        height: 8px;
+        pointer-events: none;
+        background:
+            linear-gradient(135deg, transparent 33%, #fdfcf7 33%) 0 0 / 16px 8px repeat-x,
+            linear-gradient(-135deg, transparent 33%, #fdfcf7 33%) 8px 0 / 16px 8px repeat-x;
+    }
+    .ph-link {
+        display: block;
+        font-family: 'Courier New', Courier, monospace;
+        font-weight: 700;
+        font-size: 0.8rem;
+        letter-spacing: 0.14em;
+        text-transform: uppercase;
+        color: #44403c;
+        padding: 0.55rem 0.7rem;
+        transition: background 100ms linear, color 100ms linear;
+    }
+    .ph-link:hover,
+    .ph-link:focus-visible {
+        background: var(--color-cocoa);
+        color: var(--color-cream);
+        outline: none;
+    }
+    .ph-sep {
+        font-family: 'Courier New', Courier, monospace;
+        color: var(--color-coral-deep);
+        opacity: 0.55;
+        user-select: none;
+    }
+    .ph-chip {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        width: 2.5rem;
+        height: 2.5rem;
+        border: 2px solid rgba(61, 43, 31, 0.25);
+        background: #ffffff;
+        color: #44403c;
+        cursor: pointer;
+        transition: border-color 100ms linear, color 100ms linear;
+    }
+    .ph-chip:hover {
+        border-color: var(--color-cocoa);
+        color: var(--color-cocoa);
+    }
+    .ph-chip:focus-visible {
+        outline: 2px solid var(--color-espresso);
+        outline-offset: 2px;
+    }
+    .ph-menu {
+        font-family: 'Courier New', Courier, monospace;
+        font-weight: 700;
+        font-size: 0.8rem;
+        letter-spacing: 0.14em;
+        text-transform: uppercase;
+        color: #44403c;
+        border: 2px solid rgba(61, 43, 31, 0.25);
+        background: #ffffff;
+        padding: 0.5rem 0.9rem;
+        cursor: pointer;
+    }
+    .ph-menu:hover {
+        border-color: var(--color-cocoa);
+        color: var(--color-cocoa);
+    }
+    .ph-menu:focus-visible {
+        outline: 2px solid var(--color-espresso);
+        outline-offset: 2px;
     }
 
     /* Sketch / doodle annotations */
