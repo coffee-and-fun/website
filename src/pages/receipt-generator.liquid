@@ -76,68 +76,78 @@
             border: 0;
         }
 
+        /* Receipt-paper form sections: thermal stock with faint scan lines,
+           square corners, and a perforation rule under each legend. */
         fieldset.form-section {
-            background: white;
-            border-radius: 1rem;
+            background:
+                repeating-linear-gradient(0deg, rgba(0, 0, 0, 0.012) 0 1px, transparent 1px 3px),
+                #fdfcf7;
+            border-radius: 2px;
             padding: 1.5rem;
-            border: 1.5px solid #e7e0d8;
+            border: 1.5px solid #e0d7ca;
+            box-shadow: 0 3px 10px rgba(61, 43, 31, 0.07);
             margin: 0;
             min-width: 0;
         }
 
+        legend.section-title,
+        h2.section-title {
+            font-family: 'Courier New', Courier, monospace;
+            font-size: 0.85rem;
+            font-weight: 700;
+            color: var(--color-cocoa);
+            text-transform: uppercase;
+            letter-spacing: 0.12em;
+            margin-bottom: 1rem;
+            padding-bottom: 0.55rem;
+            border-bottom: 1.5px dashed #c9bda9;
+        }
         legend.section-title {
             float: left;
             width: 100%;
-            padding: 0;
-            font-size: 0.8rem;
-            font-weight: 700;
-            color: var(--color-caramel);
-            text-transform: uppercase;
-            letter-spacing: 0.05em;
-            margin-bottom: 1rem;
+            padding-left: 0;
+            padding-right: 0;
         }
         legend.section-title + * { clear: both; }
 
         .panel-card {
-            background: white;
-            border-radius: 1rem;
+            background:
+                repeating-linear-gradient(0deg, rgba(0, 0, 0, 0.012) 0 1px, transparent 1px 3px),
+                #fdfcf7;
+            border-radius: 2px;
             padding: 1.25rem;
-            border: 1.5px solid #e7e0d8;
+            border: 1.5px solid #e0d7ca;
+            box-shadow: 0 3px 10px rgba(61, 43, 31, 0.07);
         }
 
-        h2.section-title {
-            font-size: 0.8rem;
-            font-weight: 700;
-            color: var(--color-caramel);
-            text-transform: uppercase;
-            letter-spacing: 0.05em;
-            margin: 0 0 1rem;
-        }
+        h2.section-title { margin-top: 0; }
 
         .form-label {
             display: block;
-            font-size: 0.8rem;
-            font-weight: 600;
+            font-family: 'Courier New', Courier, monospace;
+            font-size: 0.72rem;
+            font-weight: 700;
             color: var(--color-espresso);
             margin-bottom: 0.35rem;
             text-transform: uppercase;
-            letter-spacing: 0.03em;
+            letter-spacing: 0.08em;
         }
 
         .form-input {
             width: 100%;
             padding: 0.6rem 0.85rem;
-            border: 1.5px solid #e7e0d8;
-            border-radius: 0.5rem;
-            font-size: 0.925rem;
-            color: var(--color-cocoa);
-            background: #fefcfa;
+            border: 1.5px solid #d6ccbd;
+            border-radius: 2px;
+            font-family: 'Courier New', Courier, monospace;
+            font-size: 0.95rem;
+            color: #1a1a1a;
+            background: #ffffff;
             transition: border-color 0.2s;
             outline: none;
         }
         .form-input:focus {
-            border-color: var(--color-mocha);
-            box-shadow: 0 0 0 3px rgba(163, 105, 66, 0.12);
+            border-color: var(--color-cocoa);
+            box-shadow: 0 0 0 3px rgba(61, 43, 31, 0.12);
         }
         .form-input::placeholder {
             color: #8a6a44;
@@ -156,65 +166,73 @@
             min-height: 3.5rem;
         }
 
+        /* Register-style buttons: square, Courier caps, solid ink */
         .btn-brand {
             display: inline-flex;
             align-items: center;
             gap: 0.4rem;
             padding: 0.6rem 1.25rem;
-            border-radius: 9999px;
-            font-size: 0.875rem;
-            font-weight: 600;
-            border: none;
+            border-radius: 2px;
+            font-family: 'Courier New', Courier, monospace;
+            font-size: 0.8rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            border: 2px solid transparent;
             cursor: pointer;
             transition: all 0.2s;
         }
         .btn-brand:focus-visible {
-            outline: 2px solid var(--color-mocha);
+            outline: 2px solid var(--color-cocoa);
             outline-offset: 2px;
         }
         .btn-primary-brand {
-            background: var(--color-caramel);
-            color: white;
+            background: var(--color-cocoa);
+            border-color: var(--color-cocoa);
+            color: var(--color-cream);
         }
-        .btn-primary-brand:hover { background: var(--color-espresso); }
+        .btn-primary-brand:hover { background: var(--color-espresso); border-color: var(--color-espresso); }
         .btn-primary-brand:disabled {
             opacity: 0.45;
             cursor: not-allowed;
         }
 
         .btn-secondary-brand {
-            background: transparent;
-            color: var(--color-caramel);
-            border: 1.5px solid var(--color-mocha);
+            background: #ffffff;
+            color: var(--color-espresso);
+            border-color: var(--color-espresso);
         }
         .btn-secondary-brand:hover {
-            background: var(--color-caramel);
-            color: white;
+            background: var(--color-espresso);
+            color: var(--color-cream);
         }
 
+        /* Ghost = perforated stub */
         .btn-ghost-brand {
             background: transparent;
             color: var(--color-caramel);
-            border: 1.5px solid #e7e0d8;
+            border: 2px dashed #c9bda9;
         }
         .btn-ghost-brand:hover {
-            border-color: var(--color-mocha);
+            border-color: var(--color-espresso);
             color: var(--color-espresso);
         }
 
         .btn-danger {
-            background: transparent;
+            background: #ffffff;
             color: #c0392b;
-            border: 1.5px solid #f3c1ba;
+            border: 2px dashed #dda69c;
         }
         .btn-danger:hover {
             background: #c0392b;
+            border-style: solid;
+            border-color: #c0392b;
             color: white;
         }
 
         .btn-sm-brand {
             padding: 0.35rem 0.85rem;
-            font-size: 0.8rem;
+            font-size: 0.72rem;
         }
 
         .item-remove {
@@ -238,23 +256,24 @@
             outline-offset: 2px;
         }
 
+        /* Line items: perforated register entries */
         .item-row {
             padding: 0.65rem 0.85rem;
-            background: #fefcfa;
-            border: 1.5px solid #e7e0d8;
-            border-radius: 0.5rem;
+            background: #ffffff;
+            border: 1.5px dashed #c9bda9;
+            border-radius: 2px;
         }
 
         .optional-tag {
             font-weight: 400;
-            text-transform: none;
             letter-spacing: 0;
             color: #767676;
         }
 
         .validation-hint {
             margin-top: 0.65rem;
-            font-size: 0.8rem;
+            font-family: 'Courier New', Courier, monospace;
+            font-size: 0.78rem;
             color: var(--color-caramel);
             display: flex;
             align-items: center;
@@ -263,7 +282,9 @@
 
         .line-total {
             text-align: right;
+            font-family: 'Courier New', Courier, monospace;
             font-size: 0.72rem;
+            font-weight: 700;
             color: var(--color-caramel);
             margin-top: 0.35rem;
         }
@@ -363,12 +384,15 @@
             bottom: 1.5rem;
             right: 1.5rem;
             padding: 0.75rem 1.25rem;
-            border-radius: 0.5rem;
-            font-size: 0.875rem;
-            font-weight: 500;
-            color: white;
-            background: var(--color-caramel);
-            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+            border-radius: 2px;
+            font-family: 'Courier New', Courier, monospace;
+            font-size: 0.8rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.06em;
+            color: var(--color-cream);
+            background: var(--color-cocoa);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.2);
             z-index: 999;
             animation: toastIn 0.3s ease;
         }
@@ -382,15 +406,39 @@
             align-items: center;
             gap: 0.35rem;
             padding: 0.35rem 0.85rem;
-            border-radius: 9999px;
-            font-size: 0.8rem;
-            font-weight: 500;
-            color: #3e6b3d;
+            border-radius: 2px;
+            font-family: 'Courier New', Courier, monospace;
+            font-size: 0.7rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            color: #33582f;
             background: #eef6ee;
-            border: 1px solid #c8e0c7;
+            border: 1.5px dashed #9cc49a;
         }
 
-        /* Mobile action bar */
+        /* Receipt-style asterisk frame around the page title */
+        .rc-frame {
+            font-family: 'Courier New', Courier, monospace;
+            letter-spacing: 0.45em;
+            color: var(--color-coral-deep);
+            opacity: 0.65;
+            user-select: none;
+            white-space: nowrap;
+            overflow: hidden;
+            font-size: 0.75rem;
+        }
+
+        .page-sub {
+            font-family: 'Courier New', Courier, monospace;
+            text-transform: uppercase;
+            letter-spacing: 0.14em;
+            font-size: 0.78rem;
+            font-weight: 700;
+            color: #6b6257;
+        }
+
+        /* Mobile action bar: paper strip with a perforated top edge */
         .mobile-actionbar {
             position: fixed;
             bottom: 0;
@@ -401,9 +449,23 @@
             align-items: center;
             gap: 1rem;
             padding: 0.75rem 1.25rem calc(0.75rem + env(safe-area-inset-bottom));
-            background: white;
-            border-top: 1.5px solid #e7e0d8;
+            background: #fdfcf7;
+            border-top: 2px dashed #c9bda9;
             z-index: 50;
+        }
+        .mobile-actionbar .ma-label {
+            font-family: 'Courier New', Courier, monospace;
+            font-size: 0.65rem;
+            font-weight: 700;
+            color: var(--color-caramel);
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+        }
+        .mobile-actionbar .ma-total {
+            font-family: 'Courier New', Courier, monospace;
+            font-weight: 700;
+            font-size: 1.05rem;
+            color: var(--color-cocoa);
         }
         @media (min-width: 768px) {
             .mobile-actionbar { display: none; }
@@ -474,8 +536,10 @@
 
             <!-- Header -->
             <header style="text-align: center; margin-bottom: 2.5rem;">
-                <h1 class="brand-heading" style="font-size: 2.25rem; margin-bottom: 0.5rem;">Receipt Generator</h1>
-                <p style="color: #78716c; font-size: 0.95rem; margin-bottom: 0.75rem;">Create realistic replacement receipts for bookkeeping</p>
+                <div class="rc-frame" style="margin-bottom: 0.6rem;" aria-hidden="true">* * * * * * * * * * * *</div>
+                <h1 class="brand-heading" style="font-size: 2rem; margin-bottom: 0.5rem;">Receipt Generator</h1>
+                <div class="rc-frame" style="margin-bottom: 0.9rem;" aria-hidden="true">* * * * * * * * * * * *</div>
+                <p class="page-sub" style="margin-bottom: 0.75rem;">Create realistic replacement receipts for bookkeeping</p>
                 <div style="display: flex; gap: 0.6rem; justify-content: center; flex-wrap: wrap; align-items: center;">
                     <span class="privacy-pill">
                         <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
@@ -716,8 +780,8 @@
             <!-- Mobile action bar -->
             <div class="mobile-actionbar">
                 <div>
-                    <div style="font-size: 0.7rem; color: var(--color-caramel); text-transform: uppercase; letter-spacing: 0.03em;">Total</div>
-                    <div style="font-weight: 700; font-size: 1.05rem; color: var(--color-espresso);">{% raw %}{{ formatMoney(total) }}{% endraw %}</div>
+                    <div class="ma-label">Total</div>
+                    <div class="ma-total">{% raw %}{{ formatMoney(total) }}{% endraw %}</div>
                 </div>
                 <button @click="generatePDF" :disabled="!isValidReceipt" class="btn-brand btn-primary-brand">Download PDF</button>
             </div>
