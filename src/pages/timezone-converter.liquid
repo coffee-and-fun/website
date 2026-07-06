@@ -385,6 +385,14 @@
 {% raw %}
     <a href="#tool" class="skip">Skip to the tool</a>
 
+    <!-- Shown only if the CDN scripts fail — the app stays v-cloak-hidden. -->
+    <div id="load-fallback" class="wrap" hidden>
+        <p class="lede">This tool couldn&rsquo;t load a couple of files it needs. Check your connection and refresh the page.</p>
+    </div>
+    <noscript>
+        <div class="wrap"><p class="lede">This tool needs JavaScript turned on to work.</p></div>
+    </noscript>
+
     <main v-cloak id="app" class="wrap">
 
         <div class="topbar">
@@ -404,12 +412,13 @@
 
         <p class="your-line">
             It&rsquo;s <strong><time :datetime="myNow.toISO()">{{ fmtTime(myNow) }}</time> on {{ fmtWeekday(myNow) }}</strong> for you in {{ cityName(fromZone) }}.
-            <button type="button" class="linkish" @click="showFromPicker = !showFromPicker">
-                {{ showFromPicker ? 'Hide' : 'Not ' + cityName(fromZone) + '?' }}
+            <button type="button" class="linkish" @click="showFromPicker = !showFromPicker"
+                    :aria-expanded="showFromPicker ? 'true' : 'false'" aria-controls="from-picker">
+                {{ showFromPicker ? 'Hide the time zone list' : 'Not ' + cityName(fromZone) + '?' }}
             </button>
         </p>
 
-        <div v-if="showFromPicker" class="from-picker">
+        <div v-if="showFromPicker" class="from-picker" id="from-picker">
             <label class="f-label" for="tz-from">Your time zone</label>
             <select id="tz-from" class="field" v-model="fromZone">
                 <optgroup v-for="g in zoneGroups" :key="g.label" :label="g.label">
@@ -509,6 +518,10 @@
     {% include footer.liquid %}
 
     <script>
+        if (typeof Vue === 'undefined' || typeof luxon === 'undefined') {
+            document.getElementById('load-fallback').hidden = false;
+            throw new Error('Vue or luxon failed to load');
+        }
         const { createApp } = Vue;
         const { DateTime } = luxon;
 
@@ -540,11 +553,15 @@
             try {
                 zones = Intl.supportedValuesOf('timeZone').slice();
             } catch (e) {
-                zones = CITIES.map(c => c.zone);
+                zones = [];
             }
-            const detected = detectZone();
-            if (!zones.includes(detected)) zones.push(detected);
-            if (!zones.includes('UTC')) zones.push('UTC');
+            // Some ICU builds enumerate old aliases (Asia/Calcutta) but not the
+            // modern name the chips use (Asia/Kolkata) — and vice versa. Make sure
+            // every zone the page itself offers is actually in the list.
+            const required = CITIES.map(c => c.zone).concat([detectZone(), 'UTC']);
+            for (const z of required) {
+                if (!zones.includes(z)) zones.push(z);
+            }
             return zones.sort();
         }
 
@@ -572,8 +589,10 @@
             },
             computed: {
                 zoneGroups() {
+                    // No 'Popular' group here — the chips are the popular picker, and
+                    // duplicate <option> values make Vue's v-model display the first
+                    // match ('Mumbai') instead of the one the user clicked ('Kolkata').
                     const groups = {};
-                    const curated = new Set(CITIES.map(c => c.zone));
                     for (const z of this.allZones) {
                         const slash = z.indexOf('/');
                         const region = slash === -1 ? 'Other' : z.slice(0, slash);
@@ -581,11 +600,8 @@
                         if (!groups[label]) groups[label] = [];
                         groups[label].push({ value: z, label: this.prettyZone(z) });
                     }
-                    const popular = CITIES.map(c => ({ value: c.zone, label: c.name }))
-                        .concat(curated.has(this.detectedZone) ? [] : [{ value: this.detectedZone, label: this.prettyZone(this.detectedZone) + ' — detected' }]);
                     const order = ['America', 'Europe', 'Asia', 'Africa', 'Australia', 'Pacific', 'Atlantic', 'Indian', 'Antarctica', 'Arctic', 'Other'];
-                    return [{ label: 'Popular', items: popular }]
-                        .concat(order.filter(l => groups[l]).map(l => ({ label: l, items: groups[l] })));
+                    return order.filter(l => groups[l]).map(l => ({ label: l, items: groups[l] }));
                 },
                 myNow() { return this.now.setZone(this.fromZone); },
 
@@ -605,11 +621,14 @@
                     return h >= 21 || h < 7;
                 },
                 dayDelta() {
-                    const a = this.myDT, b = this.theirDT;
-                    return Math.round((Date.UTC(b.year, b.month - 1, b.day) - Date.UTC(a.year, a.month - 1, a.day)) / 864e5);
+                    // setUTCFullYear (not Date.UTC) so years 0-99 aren't remapped to 19xx.
+                    const utcDay = (dt) => { const d = new Date(0); d.setUTCFullYear(dt.year, dt.month - 1, dt.day); return d.getTime(); };
+                    return Math.round((utcDay(this.theirDT) - utcDay(this.myDT)) / 864e5);
                 },
                 diffText() {
-                    const mins = this.theirDT.offset - this.myDT.offset;
+                    // Round: pre-1900s zones used local mean time with fractional
+                    // minute offsets (Paris 9.35) — nobody needs the seconds.
+                    const mins = Math.round(this.theirDT.offset - this.myDT.offset);
                     if (mins === 0) return 'the same time as you — no maths needed';
                     const abs = Math.abs(mins);
                     const h = Math.trunc(abs / 60);
@@ -622,7 +641,7 @@
                     } else if (frac) {
                         amount = (h > 0 ? h + frac : frac) + ' hours';
                     } else {
-                        amount = h + ' hr ' + m + ' min';
+                        amount = h > 0 ? h + ' hr ' + m + ' min' : m + ' min';
                     }
                     return amount + ' ' + dir;
                 },
@@ -684,12 +703,20 @@
                 },
                 gapNote() {
                     if (!this.planOpen || !this.planDate || !this.planTime || !this.pinnedDT) return '';
+                    const zone = this.anchor === 'mine' ? this.fromZone : this.toZone;
+                    // Whole-day skip (e.g. Samoa jumped over 30 Dec 2011 entirely).
+                    if (this.pinnedDT.toFormat('yyyy-MM-dd') !== this.planDate) {
+                        return 'Heads up: that date was skipped in ' + this.cityName(zone) +
+                               ' — the calendar jumped straight past it, so we used ' +
+                               this.pinnedDT.toLocaleString(DateTime.DATE_MED) + ' instead.';
+                    }
                     const typed = this.planTime.split(':');
                     const typedMins = Number(typed[0]) * 60 + Number(typed[1]);
                     const gotMins = this.pinnedDT.hour * 60 + this.pinnedDT.minute;
                     if (typedMins === gotMins) return '';
-                    const zone = this.anchor === 'mine' ? this.fromZone : this.toZone;
-                    return 'Heads up: ' + this.planTime + ' doesn’t exist in ' + this.cityName(zone) +
+                    const typedDT = DateTime.fromISO('2000-01-01T' + this.planTime);
+                    const typedLabel = typedDT.isValid ? this.fmtTime(typedDT) : this.planTime;
+                    return 'Heads up: ' + typedLabel + ' doesn’t exist in ' + this.cityName(zone) +
                            ' that night — the clocks jump forward, so we used ' + this.fmtTime(this.pinnedDT) + ' instead.';
                 }
             },
@@ -732,6 +759,7 @@
                         : 'Times you type now mean the local time in ' + this.cityName(this.toZone) + '.');
                 },
                 onPlanToggle(e) {
+                    if (e.target.open === this.planOpen) return; // programmatic no-op toggle
                     this.planOpen = e.target.open;
                     if (this.planOpen && (!this.planDate || !this.planTime)) {
                         // Prefill with the anchor zone's current wall clock — never
@@ -751,6 +779,7 @@
                     this.announce('Showing the time right now.');
                 },
                 startTicking() {
+                    this.stopTicking(); // never stack timers (background-tab load + visibilitychange)
                     this.now = DateTime.now();
                     const msToMinute = 60000 - (Date.now() % 60000);
                     this.tickTimeout = setTimeout(() => {
