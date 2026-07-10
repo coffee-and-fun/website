@@ -1,0 +1,806 @@
+<!DOCTYPE html>
+<html class="antialiased" lang="en" style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <!-- Primary Meta Tags -->
+    <title>Private Line - End-to-End Encrypted One-to-One Chat, No Signup | Coffee & Fun LLC</title>
+    <meta name="description" content="Open a private, end-to-end encrypted chat with one other person straight from your browser. No accounts, no servers storing messages — your words are encrypted on your device and gone when you close the tab. Free and peer-to-peer." />
+    <meta name="author" content="Coffee & Fun LLC" />
+    <meta name="robots" content="index, follow" />
+
+    <!-- Canonical URL -->
+    <link rel="canonical" href="https://www.coffeeandfun.com/private-line/" />
+
+    <!-- Favicon -->
+    <link rel="icon" href="/assets/images/favicon.png" sizes="any" />
+
+    <!-- Open Graph -->
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="Coffee & Fun" />
+    <meta property="og:title" content="Private Line - End-to-End Encrypted One-to-One Chat" />
+    <meta property="og:description" content="A private, end-to-end encrypted chat for two, straight from your browser. No accounts, no stored messages, peer-to-peer." />
+    <meta property="og:url" content="https://www.coffeeandfun.com/private-line/" />
+    <meta property="og:image" content="https://www.coffeeandfun.com/assets/images/social/pages/private-line.png" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content="Private Line — end-to-end encrypted one-to-one chat by Coffee & Fun" />
+    <meta property="og:locale" content="en_US" />
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:site" content="@bycoffeeandfun" />
+    <meta name="twitter:title" content="Private Line - End-to-End Encrypted One-to-One Chat" />
+    <meta name="twitter:description" content="A private, end-to-end encrypted chat for two — no accounts, no stored messages, peer-to-peer." />
+    <meta name="twitter:image" content="https://www.coffeeandfun.com/assets/images/social/pages/private-line.png" />
+    <meta name="twitter:image:alt" content="Private Line — end-to-end encrypted one-to-one chat by Coffee & Fun" />
+
+    <meta name="theme-color" content="#0e1512" />
+
+    <!-- Structured Data -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "SoftwareApplication",
+        "name": "Private Line",
+        "description": "A browser-based, end-to-end encrypted one-to-one chat. Ephemeral ECDH key agreement and AES-256-GCM encryption run entirely on your device; the matchmaking server never sees message contents. No accounts, no stored history.",
+        "url": "https://www.coffeeandfun.com/private-line/",
+        "applicationCategory": "CommunicationApplication",
+        "operatingSystem": "Web Browser",
+        "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" },
+        "author": { "@type": "Organization", "name": "Coffee & Fun LLC" }
+    }
+    </script>
+
+    <script src="https://unpkg.com/vue@3"></script>
+    <script src="https://unpkg.com/peerjs@1.5.5/dist/peerjs.min.js"></script>
+
+    <style>
+        :root {
+            --bg: #0e1512;
+            --bg2: #131d19;
+            --surface: #17231e;
+            --surface-hi: #1e2d27;
+            --line: #26362f;
+            --line-hi: #34493f;
+            --ink: #e8f0ea;
+            --muted: #93a89d;
+            --faint: #8aa094;
+            --mint: #3ddc97;
+            --mint-deep: #1f9e6b;
+            --mint-dim: #1a3a2c;
+            --amber: #e8b04a;
+            --danger: #ef6f5c;
+            --danger-bg: #2a1512;
+            --radius: 16px;
+            --mono: ui-monospace, 'SF Mono', 'JetBrains Mono', 'Fira Code', Menlo, Consolas, monospace;
+        }
+
+        * { box-sizing: border-box; }
+
+        html { background: var(--bg); }
+        body {
+            margin: 0;
+            color: var(--ink);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            -webkit-font-smoothing: antialiased;
+            accent-color: var(--mint);
+            background:
+                radial-gradient(80vw 60vh ellipse at 50% -10%, #16261f, var(--bg) 70%);
+            background-attachment: fixed;
+        }
+
+        [v-cloak] { display: none; }
+
+        .sr-only {
+            position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px;
+            overflow: hidden; clip: rect(0,0,0,0); white-space: nowrap; border: 0;
+        }
+
+        a.skip {
+            position: absolute; left: -9999px; top: 0;
+            background: var(--mint); color: #06120c; padding: 0.6rem 1rem; z-index: 50;
+            border-radius: 0 0 8px 0; font-weight: 700;
+        }
+        a.skip:focus { left: 0; }
+
+        .wrap {
+            width: 100%;
+            max-width: 620px;
+            margin: 0 auto;
+            padding: 2rem 1.25rem 3rem;
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .topbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.8rem;
+        }
+        .home-link { position: relative; display: inline-flex; border-radius: 12px; filter: drop-shadow(0 2px 8px rgba(0,0,0,0.5)); }
+        .home-link img { width: 48px; height: 48px; display: block; transition: transform 0.15s ease; }
+        .home-link:hover img, .home-link:focus-visible img { transform: rotate(-8deg) scale(1.08); }
+        .home-link:focus-visible { outline: 2px solid var(--mint); outline-offset: 3px; }
+        .home-link .tip {
+            position: absolute; top: calc(100% + 9px); left: 0;
+            background: var(--mint); color: #06120c;
+            font-size: 0.78rem; font-weight: 700;
+            white-space: nowrap; padding: 0.4rem 0.7rem; border-radius: 8px;
+            opacity: 0; transform: translateY(-4px); pointer-events: none;
+            transition: opacity 0.15s, transform 0.15s; z-index: 30;
+        }
+        .home-link .tip::before { content: ''; position: absolute; top: -4px; left: 18px; width: 8px; height: 8px; background: var(--mint); transform: rotate(45deg); }
+        .home-link:hover .tip, .home-link:focus-visible .tip { opacity: 1; transform: translateY(0); }
+
+        .lock-badge {
+            display: inline-flex; align-items: center; gap: 0.4rem;
+            font-size: 0.72rem; font-weight: 700; letter-spacing: 0.04em;
+            color: var(--mint); background: var(--mint-dim);
+            border: 1px solid #245a42; border-radius: 999px; padding: 0.35rem 0.7rem;
+        }
+
+        h1 {
+            font-size: 1.95rem; line-height: 1.15; letter-spacing: -0.02em;
+            margin: 0 0 0.5rem; font-weight: 700;
+        }
+        .lede { color: var(--muted); font-size: 1rem; line-height: 1.6; margin: 0 0 1.6rem; max-width: 52ch; }
+
+        .btn {
+            appearance: none; border-radius: 12px; padding: 0.85rem 1.4rem;
+            font-size: 0.98rem; font-weight: 700; cursor: pointer; font-family: inherit;
+            display: inline-flex; align-items: center; justify-content: center; gap: 0.5rem;
+            transition: filter 0.15s, transform 0.1s, border-color 0.15s;
+        }
+        .btn:focus-visible { outline: 2px solid var(--mint); outline-offset: 2px; }
+        .btn:active { transform: translateY(1px); }
+        .btn-primary { background: linear-gradient(180deg, #46e6a2, #23a774); color: #06120c; border: 1px solid #1c7f57; box-shadow: 0 3px 0 #155f41; }
+        .btn-primary:hover { filter: brightness(1.07); }
+        .btn-primary:disabled { background: #24332c; color: #6a7d73; border-color: #2b3d34; box-shadow: none; cursor: not-allowed; }
+        .btn-ghost { background: var(--surface); color: var(--ink); border: 1px solid var(--line-hi); }
+        .btn-ghost:hover { border-color: var(--mint); }
+
+        button.linkish { appearance: none; border: none; background: none; padding: 0; font-size: 0.88rem; color: var(--muted); text-decoration: underline; cursor: pointer; font-family: inherit; }
+        button.linkish:hover { color: var(--mint); }
+        button.linkish:focus-visible { outline: 2px solid var(--mint); outline-offset: 2px; border-radius: 4px; }
+
+        /* Start menu */
+        .menu-choices { display: grid; gap: 0.9rem; max-width: 440px; }
+        .menu-card {
+            appearance: none; font-family: inherit; cursor: pointer; text-align: left;
+            display: flex; align-items: center; gap: 0.95rem;
+            background: linear-gradient(180deg, var(--surface-hi), var(--surface));
+            border: 1px solid var(--line); border-radius: var(--radius); padding: 1rem 1.1rem;
+            color: var(--ink); box-shadow: 0 3px 0 rgba(0,0,0,0.35);
+            transition: border-color 0.15s, transform 0.1s, box-shadow 0.15s;
+        }
+        .menu-card:hover { border-color: var(--mint); box-shadow: 0 3px 0 rgba(0,0,0,0.35), 0 0 16px rgba(61, 220, 151, 0.12); }
+        .menu-card:focus-visible { outline: 2px solid var(--mint); outline-offset: 2px; }
+        .menu-card:active { transform: translateY(1px); }
+        .menu-card .mc-ico {
+            width: 46px; height: 46px; border-radius: 12px; flex-shrink: 0;
+            background: var(--mint-dim); border: 1px solid #245a42; color: var(--mint);
+            display: inline-flex; align-items: center; justify-content: center;
+        }
+        .menu-card .mc-title { display: block; font-weight: 700; font-size: 1.02rem; }
+        .menu-card .mc-sub { display: block; font-size: 0.85rem; color: var(--muted); margin-top: 0.15rem; line-height: 1.45; }
+
+        .f-label { display: block; font-weight: 700; font-size: 0.88rem; margin-bottom: 0.35rem; }
+        input.field, textarea.field {
+            width: 100%; border: 1px solid var(--line-hi); border-radius: 11px;
+            padding: 0.7rem 0.9rem; font-size: 0.95rem; font-family: inherit;
+            color: var(--ink); background: #0f1712; outline: none;
+        }
+        input.field::placeholder, textarea.field::placeholder { color: var(--faint); }
+        input.field:focus, textarea.field:focus { border-color: var(--mint); box-shadow: 0 0 0 3px rgba(61, 220, 151, 0.15); }
+        .name-row { display: flex; gap: 0.6rem; align-items: flex-end; flex-wrap: wrap; margin: 1.2rem 0 0; max-width: 440px; }
+        .name-row > div { flex: 1; min-width: 180px; }
+
+        .lobby-card {
+            background: linear-gradient(180deg, var(--surface-hi), var(--surface));
+            border: 1px solid var(--line); border-radius: var(--radius);
+            padding: 1.3rem 1.4rem; max-width: 500px; box-shadow: 0 10px 30px rgba(0,0,0,0.4);
+        }
+        .lobby-card h2 { margin: 0 0 0.4rem; font-size: 1.2rem; }
+        .lobby-card p { color: var(--muted); font-size: 0.92rem; line-height: 1.55; }
+        .invite-row { display: flex; gap: 0.6rem; margin: 0.9rem 0; flex-wrap: wrap; }
+        .invite-row input { flex: 1; min-width: 200px; font-family: var(--mono); font-size: 0.8rem; }
+        .pulse-dots::after { content: '…'; display: inline-block; width: 1.2em; text-align: left; animation: dots 1.4s steps(4) infinite; }
+        @keyframes dots { 0% { content: ''; } 25% { content: '.'; } 50% { content: '..'; } 75% { content: '...'; } }
+
+        .banner { display: flex; gap: 0.55rem; align-items: flex-start; border-radius: 10px; padding: 0.75rem 0.9rem; font-size: 0.88rem; line-height: 1.5; margin-top: 1rem; max-width: 500px; }
+        .banner.warn { background: var(--danger-bg); color: #ffb7ab; border: 1px solid #6e2a20; }
+
+        /* ===== Chat ===== */
+        .chat-shell { display: flex; flex-direction: column; flex: 1; min-height: 0; }
+        .chat-head {
+            display: flex; align-items: center; justify-content: space-between; gap: 0.8rem;
+            padding-bottom: 0.9rem; border-bottom: 1px solid var(--line); margin-bottom: 0.9rem;
+        }
+        .peer-id { display: flex; align-items: center; gap: 0.6rem; min-width: 0; }
+        .peer-dot { width: 10px; height: 10px; border-radius: 50%; background: var(--mint); box-shadow: 0 0 8px var(--mint); flex-shrink: 0; }
+        .peer-dot.off { background: var(--faint); box-shadow: none; }
+        .peer-name { font-weight: 700; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+        .peer-state { font-size: 0.78rem; color: var(--muted); }
+
+        /* Safety phrase */
+        .safety {
+            border: 1px solid var(--line-hi); border-radius: var(--radius);
+            background: var(--surface); padding: 1rem 1.1rem; margin-bottom: 0.9rem;
+        }
+        .safety.verified { border-color: #245a42; background: linear-gradient(180deg, var(--mint-dim), var(--surface)); }
+        .safety .s-head { display: flex; align-items: center; gap: 0.5rem; font-weight: 700; font-size: 0.95rem; margin: 0 0 0.35rem; }
+        .safety .s-sub { font-size: 0.83rem; color: var(--muted); line-height: 1.5; margin: 0 0 0.7rem; }
+        .safety.verified .s-sub { color: #a8d8bf; }
+        .phrase {
+            font-family: var(--mono); font-size: 1.05rem; font-weight: 600; letter-spacing: 0.01em;
+            color: var(--mint); background: #0d140f; border: 1px dashed var(--line-hi);
+            border-radius: 10px; padding: 0.7rem 0.9rem; word-spacing: 0.35em; line-height: 1.7;
+        }
+        .safety-actions { display: flex; gap: 0.7rem; align-items: center; flex-wrap: wrap; margin-top: 0.7rem; }
+        .verified-tag { display: inline-flex; align-items: center; gap: 0.4rem; color: var(--mint); font-weight: 700; font-size: 0.88rem; }
+
+        .msg-log {
+            flex: 1; min-height: 220px; overflow-y: auto;
+            display: flex; flex-direction: column; gap: 0.5rem;
+            padding: 0.4rem 0.1rem; margin-bottom: 0.4rem;
+        }
+        .msg-empty { color: var(--faint); text-align: center; margin: auto; font-size: 0.9rem; line-height: 1.6; max-width: 34ch; }
+        .bubble {
+            max-width: 80%; padding: 0.55rem 0.85rem; border-radius: 15px;
+            font-size: 0.96rem; line-height: 1.45; white-space: pre-wrap; word-break: break-word;
+            animation: pop 0.16s ease-out;
+        }
+        @keyframes pop { from { transform: translateY(4px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
+        .bubble.mine { align-self: flex-end; background: linear-gradient(180deg, #2fbc82, #1f9e6b); color: #06120c; border-bottom-right-radius: 5px; }
+        .bubble.theirs { align-self: flex-start; background: var(--surface-hi); color: var(--ink); border: 1px solid var(--line); border-bottom-left-radius: 5px; }
+        .bubble.system { align-self: center; background: transparent; color: var(--faint); font-size: 0.82rem; text-align: center; max-width: 100%; animation: none; }
+        .bubble .stamp { display: block; font-size: 0.66rem; margin-top: 0.2rem; opacity: 0.65; }
+        .bubble.mine .stamp { text-align: right; }
+
+        .typing { font-size: 0.8rem; color: var(--muted); min-height: 1.1rem; padding: 0 0.3rem; font-style: italic; }
+
+        .composer { display: flex; gap: 0.6rem; align-items: flex-end; padding-top: 0.6rem; border-top: 1px solid var(--line); }
+        .composer textarea { resize: none; min-height: 46px; max-height: 140px; line-height: 1.4; }
+        .send-btn {
+            appearance: none; border: none; cursor: pointer; flex-shrink: 0;
+            width: 46px; height: 46px; border-radius: 12px;
+            background: linear-gradient(180deg, #46e6a2, #23a774); color: #06120c;
+            display: inline-flex; align-items: center; justify-content: center;
+            transition: filter 0.15s, transform 0.1s;
+        }
+        .send-btn:hover:not(:disabled) { filter: brightness(1.08); }
+        .send-btn:active:not(:disabled) { transform: translateY(1px); }
+        .send-btn:focus-visible { outline: 2px solid var(--mint); outline-offset: 2px; }
+        .send-btn:disabled { background: #24332c; color: #6a7d73; cursor: not-allowed; }
+
+        .chat-foot-row { display: flex; justify-content: space-between; align-items: center; margin-top: 0.7rem; gap: 0.5rem; flex-wrap: wrap; }
+        .chat-foot-row .lock-note { font-size: 0.74rem; color: var(--faint); }
+
+        /* Rules */
+        details.rules { border: 1px solid var(--line); border-radius: var(--radius); background: var(--surface); padding: 0.25rem 1rem; margin-top: 1.6rem; max-width: 560px; }
+        details.rules summary { cursor: pointer; font-weight: 700; font-size: 0.9rem; padding: 0.7rem 0.1rem; }
+        details.rules summary:focus-visible { outline: 2px solid var(--mint); outline-offset: 2px; }
+        details.rules[open] { padding-bottom: 0.9rem; }
+        details.rules p, details.rules li { font-size: 0.88rem; color: var(--muted); line-height: 1.6; }
+        details.rules strong { color: var(--ink); }
+        details.rules ul { padding-left: 1.2rem; margin: 0.4rem 0; }
+
+        .foot { text-align: center; padding: 1.5rem 1rem 1rem; font-size: 0.78rem; color: var(--faint); line-height: 1.6; }
+        .foot a { color: var(--muted); }
+        .foot a:hover { color: var(--mint); }
+
+        @media (prefers-reduced-motion: reduce) {
+            .bubble { animation: none; }
+            .pulse-dots::after { animation: none; content: '…'; }
+            .btn, .menu-card, .home-link img, .home-link .tip, .send-btn { transition: none; }
+        }
+
+        @media (max-width: 480px) {
+            h1 { font-size: 1.6rem; }
+            .wrap { padding-top: 1.25rem; }
+            .bubble { max-width: 88%; }
+        }
+    </style>
+</head>
+
+<body>
+{% raw %}
+    <a href="#tool" class="skip">Skip to the chat</a>
+
+    <div id="load-fallback" class="wrap" hidden>
+        <p class="lede">Private Line needs a secure connection and a couple of files that didn&rsquo;t load. Make sure you&rsquo;re on <strong>https</strong>, check your connection, and refresh.</p>
+    </div>
+    <noscript>
+        <div class="wrap"><p class="lede">Private Line needs JavaScript turned on to encrypt your messages.</p></div>
+    </noscript>
+
+    <main v-cloak id="app" class="wrap">
+
+        <div class="topbar">
+            <a href="/" class="home-link" aria-label="Back to coffeeandfun.com">
+                <img src="/assets/images/coffee-and-fun-logo-dark.png" alt="" width="48" height="48" decoding="async" />
+                <span class="tip" aria-hidden="true">Back to coffeeandfun.com</span>
+            </a>
+            <span class="lock-badge" aria-hidden="true">
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+                End-to-end encrypted
+            </span>
+        </div>
+
+        <!-- Live status for screen readers -->
+        <div class="sr-only" role="status" aria-live="polite">{{ announcement }}</div>
+
+        <!-- ===================== START ===================== -->
+        <section v-if="screen === 'start'" id="tool">
+            <h1>Private Line</h1>
+            <p class="lede">A private chat for exactly two people, encrypted end-to-end right here in your browser. No account, no history, nothing kept — when you both close the tab, it&rsquo;s gone.</p>
+
+            <div class="menu-choices">
+                <button type="button" class="menu-card" @click="startHost" :disabled="!ready">
+                    <span class="mc-ico" aria-hidden="true">
+                        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v14M5 12h14"/></svg>
+                    </span>
+                    <span>
+                        <span class="mc-title">Start a private room</span>
+                        <span class="mc-sub">Get an invite link to send to the one person you want to talk to.</span>
+                    </span>
+                </button>
+                <button type="button" class="menu-card" @click="screen = 'join'" :disabled="!ready">
+                    <span class="mc-ico" aria-hidden="true">
+                        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.5.5l3-3a5 5 0 0 0-7-7l-1.5 1.5"/><path d="M14 11a5 5 0 0 0-7.5-.5l-3 3a5 5 0 0 0 7 7L12 19"/></svg>
+                    </span>
+                    <span>
+                        <span class="mc-title">Join with a link</span>
+                        <span class="mc-sub">Someone sent you a Private Line? Paste the code and connect.</span>
+                    </span>
+                </button>
+            </div>
+            <p v-if="!ready" class="lede" style="margin-top:1rem;font-size:0.85rem;">{{ readyError || 'Setting up encryption…' }}</p>
+
+            <details class="rules">
+                <summary>How private is this, really?</summary>
+                <p><strong>Your messages are encrypted on your device and decrypted on theirs</strong> — with keys that are created fresh for this one conversation and never leave either browser. The matchmaking server only helps the two of you find each other; it never sees a single message.</p>
+                <ul>
+                    <li><strong>Check the safety phrase.</strong> When you connect, both screens show the same short phrase. Read it out loud to each other — on a call or in person. If it matches, no one is secretly in the middle. If it doesn&rsquo;t, stop.</li>
+                    <li><strong>Nothing is stored.</strong> No accounts, no logs, no history. Close the tab and the whole conversation and its keys are gone.</li>
+                    <li><strong>It&rsquo;s a fun, honest privacy tool</strong> — great for a quick private word. It hasn&rsquo;t been independently audited, so don&rsquo;t bet your life on it.</li>
+                </ul>
+            </details>
+        </section>
+
+        <!-- ===================== JOIN ===================== -->
+        <section v-else-if="screen === 'join'" id="tool">
+            <h1>Join a Private Line</h1>
+            <p class="lede">Paste the code from the invite link. If you opened their link, it&rsquo;s already here.</p>
+            <div class="name-row">
+                <div>
+                    <label class="f-label" for="pl-name">Your name (shown to them)</label>
+                    <input id="pl-name" class="field" type="text" v-model="myName" maxlength="24" placeholder="Anonymous" />
+                </div>
+            </div>
+            <div class="name-row">
+                <div>
+                    <label class="f-label" for="pl-code">Invite code</label>
+                    <input id="pl-code" class="field" type="text" v-model="joinId" spellcheck="false" autocapitalize="off" placeholder="paste the code here" />
+                </div>
+                <button type="button" class="btn btn-primary" @click="connectToHost" :disabled="!joinId.trim() || connecting">
+                    {{ connecting ? 'Connecting…' : 'Connect' }}
+                </button>
+            </div>
+            <div v-if="netError" class="banner warn" role="alert"><span>{{ netError }}</span></div>
+            <p style="margin-top:1.2rem;"><button type="button" class="linkish" @click="backToStart">&larr; Back</button></p>
+        </section>
+
+        <!-- ===================== LOBBY (host waiting) ===================== -->
+        <section v-else-if="screen === 'lobby'" id="tool">
+            <h1>Your room is open</h1>
+            <div class="lobby-card">
+                <h2 v-if="!peerId" class="pulse-dots">Setting up the line</h2>
+                <template v-else>
+                    <h2 class="pulse-dots">Waiting for them to join</h2>
+                    <p>Send this invite link to the one person you want to talk to. The chat opens the moment they arrive, and for your privacy the link works only once — if you get cut off, just open a fresh room.</p>
+                    <div class="invite-row">
+                        <input class="field" type="text" readonly :value="inviteLink" aria-label="Invite link" @focus="$event.target.select()" />
+                        <button type="button" class="btn btn-ghost" @click="copyInvite">{{ copied ? 'Copied ✓' : 'Copy link' }}</button>
+                    </div>
+                </template>
+                <div class="name-row" style="margin-top:0.4rem;">
+                    <div>
+                        <label class="f-label" for="pl-hostname">Your name (shown to them)</label>
+                        <input id="pl-hostname" class="field" type="text" v-model="myName" maxlength="24" placeholder="Anonymous" />
+                    </div>
+                </div>
+            </div>
+            <div v-if="netError" class="banner warn" role="alert"><span>{{ netError }}</span></div>
+            <p style="margin-top:1.2rem;"><button type="button" class="linkish" @click="backToStart">&larr; Cancel</button></p>
+        </section>
+
+        <!-- ===================== CHAT ===================== -->
+        <section v-else-if="screen === 'chat'" id="tool" class="chat-shell">
+            <div class="chat-head">
+                <div class="peer-id">
+                    <span class="peer-dot" :class="{ off: !connected }" aria-hidden="true"></span>
+                    <span>
+                        <span class="peer-name">{{ theirName || 'Your guest' }}</span>
+                        <span class="peer-state" style="display:block">{{ connected ? (secured ? 'Encrypted · connected' : 'Securing…') : 'Disconnected' }}</span>
+                    </span>
+                </div>
+                <button type="button" class="btn btn-ghost" style="padding:0.5rem 0.9rem;font-size:0.85rem;" @click="leaveChat">Leave</button>
+            </div>
+
+            <div v-if="secured" class="safety" :class="{ verified }">
+                <p class="s-head">
+                    <span aria-hidden="true">{{ verified ? '🛡️' : '🔑' }}</span>
+                    {{ verified ? 'Safety phrase verified' : 'Check your safety phrase' }}
+                </p>
+                <p class="s-sub" v-if="!verified">Both of you should see the <strong>same</strong> words. Say them out loud on a call or in person. If they match, no one is listening in. If they don&rsquo;t, someone might be — leave and try again.</p>
+                <p class="s-sub" v-else>You confirmed these words match on both screens. This line is genuinely just the two of you.</p>
+                <p class="sr-only" id="phrase-label">Your safety phrase, {{ safetyWords.length }} words to read aloud:</p>
+                <p class="phrase">{{ safetyWords.join('  ') }}</p>
+                <div class="safety-actions" v-if="!verified">
+                    <button type="button" class="btn btn-primary" style="padding:0.55rem 1.1rem;font-size:0.9rem;" @click="markVerified">They match — I&rsquo;m sure</button>
+                </div>
+                <div class="safety-actions" v-else>
+                    <span class="verified-tag" aria-hidden="true">🛡️ Verified</span>
+                </div>
+            </div>
+
+            <div class="msg-log" ref="log" role="log" aria-live="polite" aria-label="Conversation">
+                <p v-if="messages.length === 0" class="msg-empty">This line is open and encrypted. Say hello — messages appear here and are never saved anywhere.</p>
+                <div v-for="m in messages" :key="m.id" class="bubble" :class="m.kind">
+                    <span v-if="m.kind === 'theirs'" class="sr-only">{{ theirName || 'They' }} said: </span>
+                    <span v-else-if="m.kind === 'mine'" class="sr-only">You said: </span>
+                    {{ m.text }}
+                    <span v-if="m.kind !== 'system'" class="stamp" aria-hidden="true">{{ m.time }}</span>
+                </div>
+            </div>
+
+            <p class="typing" aria-hidden="true">{{ theirTyping ? (theirName || 'They') + ' is typing…' : '' }}</p>
+
+            <form class="composer" @submit.prevent="sendMessage">
+                <label class="sr-only" for="pl-msg">Type a message</label>
+                <textarea id="pl-msg" ref="composer" class="field" v-model="draft" rows="1"
+                          :placeholder="connected ? (secured ? 'Type a message…' : 'Securing the line…') : 'They left — this line is closed'"
+                          :disabled="!connected || !secured"
+                          @input="onType" @keydown="onComposerKey"></textarea>
+                <button type="submit" class="send-btn" :disabled="!connected || !secured || !draft.trim()" aria-label="Send message">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 2 11 13"/><path d="M22 2 15 22l-4-9-9-4 20-7z"/></svg>
+                </button>
+            </form>
+            <div class="chat-foot-row">
+                <button type="button" class="linkish" @click="leaveChat">End this chat</button>
+                <span class="lock-note" aria-hidden="true">🔒 Encrypted on your device · nothing stored</span>
+            </div>
+        </section>
+
+        <p class="foot">The matchmaking server helps you connect but never sees your messages — they&rsquo;re encrypted on your device and decrypted on theirs. No accounts, no logs, nothing kept.<br>A privacy tool from <a href="https://www.coffeeandfun.com/">Coffee &amp; Fun</a>.</p>
+    </main>
+{% endraw %}
+
+    <script>
+        var CRYPTO_OK = !!(window.crypto && window.crypto.subtle);
+        if (typeof Vue === 'undefined' || typeof Peer === 'undefined' || !CRYPTO_OK) {
+            document.getElementById('load-fallback').hidden = false;
+            throw new Error('Missing Vue, PeerJS, or Web Crypto (needs a secure https context)');
+        }
+        const { createApp } = Vue;
+        const enc = new TextEncoder();
+        const dec = new TextDecoder();
+
+        /* Read-aloud-friendly word list for the safety phrase (64 words). Modulo
+           mapping, so exact count isn't load-bearing — it's just entropy per word. */
+        const WORDS = [
+            'anchor','bishop','cactus','dragon','ember','falcon','garden','harbor',
+            'island','jungle','kettle','lantern','meadow','needle','orchard','pebble',
+            'quartz','ribbon','saddle','temple','umbra','velvet','walnut','yonder',
+            'acorn','basil','cobalt','dapple','echo','fable','glacier','hazel',
+            'indigo','jasper','kelp','lilac','marble','nectar','opal','pepper',
+            'quill','raven','sable','thistle','ultra','violet','willow','zephyr',
+            'amber','birch','cedar','dune','elm','fern','grove','heron',
+            'ivy','juniper','koala','lotus','maple','onyx','palm','reed'
+        ];
+
+        function bufToB64(buf) {
+            const a = new Uint8Array(buf); let s = '';
+            for (let i = 0; i < a.length; i++) s += String.fromCharCode(a[i]);
+            return btoa(s);
+        }
+        function b64ToBuf(str) {
+            const bin = atob(str); const a = new Uint8Array(bin.length);
+            for (let i = 0; i < bin.length; i++) a[i] = bin.charCodeAt(i);
+            return a.buffer;
+        }
+        function cmpBytes(a, b) {
+            const n = Math.min(a.length, b.length);
+            for (let i = 0; i < n; i++) { if (a[i] !== b[i]) return a[i] - b[i]; }
+            return a.length - b.length;
+        }
+
+        createApp({
+            data() {
+                return {
+                    ready: false,           // crypto keys generated
+                    readyError: '',
+                    screen: 'start',
+                    isHost: true,
+                    myName: '',
+                    theirName: '',
+                    // net
+                    peer: null, conn: null, peerId: '', joinId: '',
+                    connecting: false, connected: false, netError: '', guestArrived: false,
+                    copied: false, copyTimer: null,
+                    // crypto
+                    keyPair: null, myPubB64: '', theirPubBuf: null,
+                    aesKey: null, secured: false, safetyWords: [], verified: false,
+                    // chat
+                    messages: [], draft: '', msgId: 1,
+                    theirTyping: false, theirTypingTimer: null,
+                    lastTypingSent: 0,
+                    announcement: ''
+                };
+            },
+            computed: {
+                inviteLink() { return window.location.origin + window.location.pathname + '?chat=' + this.peerId; }
+            },
+            async mounted() {
+                try {
+                    await this.regenKeys();
+                    this.ready = true;
+                } catch (e) {
+                    this.readyError = 'Your browser blocked the encryption tools this needs. Try a current Chrome, Firefox, Safari, or Edge over https.';
+                }
+                const params = new URLSearchParams(window.location.search);
+                const cid = params.get('chat');
+                if (cid) { this.joinId = cid; this.screen = 'join'; }
+                window.addEventListener('beforeunload', this.cleanup);
+            },
+            beforeUnmount() {
+                this.cleanup();
+                window.removeEventListener('beforeunload', this.cleanup);
+            },
+            methods: {
+                announce(m) { this.announcement = ''; this.$nextTick(() => { this.announcement = m; }); },
+
+                /* ---------- crypto ---------- */
+                async regenKeys() {
+                    // Fresh ephemeral keypair for EACH conversation — so keys really are
+                    // per-conversation (forward secrecy), never reused across sessions.
+                    this.keyPair = await crypto.subtle.generateKey({ name: 'ECDH', namedCurve: 'P-256' }, false, ['deriveBits']);
+                    const raw = await crypto.subtle.exportKey('raw', this.keyPair.publicKey);
+                    this.myPubB64 = bufToB64(raw);
+                },
+                async deriveSharedKey() {
+                    const peerPub = await crypto.subtle.importKey('raw', this.theirPubBuf, { name: 'ECDH', namedCurve: 'P-256' }, false, []);
+                    const bits = await crypto.subtle.deriveBits({ name: 'ECDH', public: peerPub }, this.keyPair.privateKey, 256);
+                    const hk = await crypto.subtle.importKey('raw', bits, 'HKDF', false, ['deriveKey']);
+                    this.aesKey = await crypto.subtle.deriveKey(
+                        { name: 'HKDF', hash: 'SHA-256', salt: new Uint8Array(0), info: enc.encode('coffeeandfun/private-line/v1') },
+                        hk, { name: 'AES-GCM', length: 256 }, false, ['encrypt', 'decrypt']);
+                    await this.computeSafety(new Uint8Array(bits));
+                    this.secured = true;
+                    this.announce('The line is now encrypted. Check the safety phrase with the other person.');
+                },
+                async computeSafety(sharedBits) {
+                    // Bind the phrase to BOTH public keys AND the agreed shared secret,
+                    // so forging a matching phrase costs an ECDH per attempt (not just a
+                    // hash) — and show 10 words (~60 bits) so a live man-in-the-middle
+                    // can't feasibly grind a collision during a handshake.
+                    const mine = new Uint8Array(b64ToBuf(this.myPubB64));
+                    const theirs = new Uint8Array(this.theirPubBuf);
+                    const [x, y] = cmpBytes(mine, theirs) <= 0 ? [mine, theirs] : [theirs, mine];
+                    const cat = new Uint8Array(x.length + y.length + sharedBits.length);
+                    cat.set(x, 0); cat.set(y, x.length); cat.set(sharedBits, x.length + y.length);
+                    const h = new Uint8Array(await crypto.subtle.digest('SHA-256', cat));
+                    const w = [];
+                    for (let i = 0; i < 10; i++) w.push(WORDS[h[i] % WORDS.length]);
+                    this.safetyWords = w;
+                },
+                async encryptText(text) {
+                    const iv = crypto.getRandomValues(new Uint8Array(12));
+                    const ct = await crypto.subtle.encrypt({ name: 'AES-GCM', iv }, this.aesKey, enc.encode(text));
+                    return { iv: bufToB64(iv.buffer), ct: bufToB64(ct) };
+                },
+                async decryptText(ivB64, ctB64) {
+                    const iv = new Uint8Array(b64ToBuf(ivB64));
+                    const pt = await crypto.subtle.decrypt({ name: 'AES-GCM', iv }, this.aesKey, b64ToBuf(ctB64));
+                    return dec.decode(pt);
+                },
+
+                /* ---------- PeerJS ---------- */
+                peerConfig() {
+                    return { config: { iceServers: [
+                        { urls: 'stun:stun.l.google.com:19302' },
+                        { urls: 'stun:global.stun.twilio.com:3478' }
+                    ] } };
+                },
+                async startHost() {
+                    if (!this.ready) return;
+                    this.cleanup();
+                    await this.regenKeys();
+                    this.isHost = true; this.netError = ''; this.peerId = ''; this.guestArrived = false;
+                    this.screen = 'lobby';
+                    this.peer = new Peer(this.peerConfig());
+                    this.peer.on('open', (id) => {
+                        this.peerId = id;
+                        try {
+                            const url = new URL(window.location);
+                            url.searchParams.set('chat', id);
+                            window.history.replaceState({}, document.title, url.toString());
+                        } catch (e) {}
+                    });
+                    this.peer.on('connection', (incoming) => {
+                        // Single-use link: one guest, ever. Once someone has arrived this
+                        // room is spent — no one can rejoin or take their place.
+                        if (this.guestArrived) { incoming.close(); return; }
+                        incoming.on('open', () => { this.conn = incoming; this.onConnected(); });
+                    });
+                    this.peer.on('error', (err) => this.netFail(err));
+                    this.peer.on('disconnected', () => { if (this.peer && !this.peer.destroyed) this.peer.reconnect(); });
+                },
+                async connectToHost() {
+                    if (!this.ready || !this.joinId.trim()) return;
+                    this.cleanup();
+                    await this.regenKeys();
+                    this.isHost = false; this.netError = ''; this.connecting = true;
+                    this.peer = new Peer(this.peerConfig());
+                    const timeout = setTimeout(() => { if (this.connecting) this.netFail({ type: 'timeout' }); }, 25000);
+                    this.peer.on('open', () => {
+                        this.conn = this.peer.connect(this.joinId.trim(), { reliable: true });
+                        if (!this.conn) { clearTimeout(timeout); this.netFail({ type: 'network' }); return; }
+                        this.conn.on('open', () => { clearTimeout(timeout); this.connecting = false; this.onConnected(); });
+                        this.conn.on('error', (err) => { clearTimeout(timeout); this.netFail(err); });
+                    });
+                    this.peer.on('error', (err) => { clearTimeout(timeout); this.netFail(err); });
+                },
+                onConnected() {
+                    this.connected = true;
+                    if (this.isHost) this.guestArrived = true; // burn the single-use link
+                    this.screen = 'chat';
+                    this.messages = [];
+                    this.secured = false; this.verified = false; this.aesKey = null; this.theirPubBuf = null;
+                    this.conn.on('data', (d) => this.handleData(d));
+                    this.conn.on('close', () => this.onPeerLeft());
+                    this.conn.on('error', () => this.onPeerLeft());
+                    // send our public key + name to start the handshake
+                    this.conn.send({ t: 'hello', pub: this.myPubB64, name: (this.myName || 'Anonymous').slice(0, 24) });
+                },
+                async handleData(d) {
+                    if (!d || typeof d.t !== 'string') return;
+                    if (d.t === 'hello') {
+                        if (this.secured || this.theirPubBuf) return; // one handshake only
+                        this.theirName = String(d.name || 'Anonymous').slice(0, 24);
+                        try {
+                            this.theirPubBuf = b64ToBuf(String(d.pub));
+                            await this.deriveSharedKey();
+                            this.$nextTick(() => { if (this.$refs.composer) this.$refs.composer.focus(); });
+                        } catch (e) {
+                            this.pushSystem('Couldn’t set up encryption with the other side. Try leaving and reconnecting.');
+                        }
+                    } else if (d.t === 'msg') {
+                        if (!this.aesKey) return;
+                        try {
+                            const text = await this.decryptText(String(d.iv), String(d.ct));
+                            this.pushMessage('theirs', text);
+                            this.theirTyping = false;
+                        } catch (e) {
+                            this.pushSystem('A message couldn’t be decrypted — it may have been tampered with.');
+                        }
+                    } else if (d.t === 'typing') {
+                        this.theirTyping = true;
+                        if (this.theirTypingTimer) clearTimeout(this.theirTypingTimer);
+                        this.theirTypingTimer = setTimeout(() => { this.theirTyping = false; }, 2600);
+                    }
+                },
+                onPeerLeft() {
+                    if (!this.connected) return;
+                    this.connected = false;
+                    this.theirTyping = false;
+                    if (this.conn) { try { this.conn.close(); } catch (e) {} this.conn = null; }
+                    // The system bubble lands in the role=log live region, so it's
+                    // already announced — no separate announce() (avoids double-speak).
+                    this.pushSystem((this.theirName || 'They') + ' left. This line is closed.');
+                },
+
+                /* ---------- messages ---------- */
+                pushMessage(kind, text) {
+                    const now = new Date();
+                    const time = now.toLocaleTimeString([], { hour: 'numeric', minute: '2-digit' });
+                    this.messages.push({ id: this.msgId++, kind, text, time });
+                    this.scrollLog();
+                },
+                pushSystem(text) {
+                    this.messages.push({ id: this.msgId++, kind: 'system', text, time: '' });
+                    this.scrollLog();
+                },
+                scrollLog() {
+                    this.$nextTick(() => { const el = this.$refs.log; if (el) el.scrollTop = el.scrollHeight; });
+                },
+                async sendMessage() {
+                    const text = this.draft.trim();
+                    if (!text || !this.connected || !this.secured) return;
+                    if (text.length > 4000) { this.pushSystem('That message is too long to send in one go.'); return; }
+                    this.draft = '';
+                    this.$nextTick(() => { const el = this.$refs.composer; if (el) el.style.height = 'auto'; });
+                    try {
+                        const packet = await this.encryptText(text);
+                        this.conn.send({ t: 'msg', iv: packet.iv, ct: packet.ct });
+                        this.pushMessage('mine', text);
+                    } catch (e) {
+                        this.pushSystem('That message couldn’t be sent. The line may have dropped.');
+                    }
+                },
+                onComposerKey(e) {
+                    // e.isComposing / keyCode 229 guards against committing an IME
+                    // candidate (CJK, etc.) being read as "send".
+                    if (e.key === 'Enter' && !e.shiftKey && !e.isComposing && e.keyCode !== 229) {
+                        e.preventDefault(); this.sendMessage();
+                    }
+                },
+                onType() {
+                    this.autoGrow();
+                    if (!this.connected || !this.secured || !this.conn || !this.conn.open) return;
+                    const now = Date.now();
+                    if (now - this.lastTypingSent > 1500) {
+                        this.lastTypingSent = now;
+                        try { this.conn.send({ t: 'typing' }); } catch (e) {}
+                    }
+                },
+                autoGrow() {
+                    this.$nextTick(() => {
+                        const el = this.$refs.composer;
+                        if (!el) return;
+                        el.style.height = 'auto';
+                        el.style.height = Math.min(el.scrollHeight, 140) + 'px';
+                    });
+                },
+                markVerified() { this.verified = true; this.announce('Safety phrase marked as verified.'); },
+
+                /* ---------- lifecycle ---------- */
+                copyInvite() {
+                    navigator.clipboard.writeText(this.inviteLink).then(() => {
+                        this.copied = true; this.announce('Invite link copied.');
+                        if (this.copyTimer) clearTimeout(this.copyTimer);
+                        this.copyTimer = setTimeout(() => { this.copied = false; }, 2000);
+                    }).catch(() => { this.announce('Copy didn’t work — select the link and copy it yourself.'); });
+                },
+                netFail(err) {
+                    this.connecting = false;
+                    const t = err && err.type;
+                    if (t === 'peer-unavailable') this.netError = 'No room found with that code — double-check the invite link.';
+                    else if (t === 'timeout') this.netError = 'Couldn’t reach them — the room may have closed.';
+                    else if (t === 'network') this.netError = 'Network hiccup — check your connection and try again.';
+                    else this.netError = 'The connection failed. Try again in a moment.';
+                    this.announce(this.netError);
+                },
+                cleanup() {
+                    if (this.conn) { try { this.conn.close(); } catch (e) {} this.conn = null; }
+                    if (this.peer) { try { this.peer.destroy(); } catch (e) {} this.peer = null; }
+                },
+                leaveChat() {
+                    this.cleanup();
+                    this.backToStart();
+                    this.announce('You left the chat. Everything from it is gone.');
+                },
+                backToStart() {
+                    this.cleanup();
+                    this.screen = 'start';
+                    this.connected = false; this.connecting = false; this.secured = false; this.verified = false;
+                    this.aesKey = null; this.theirPubBuf = null; this.theirName = ''; this.guestArrived = false;
+                    this.messages = []; this.draft = ''; this.netError = ''; this.peerId = '';
+                    try {
+                        const url = new URL(window.location);
+                        url.searchParams.delete('chat');
+                        window.history.replaceState({}, document.title, url.toString());
+                    } catch (e) {}
+                }
+            }
+        }).mount('#app');
+    </script>
+</body>
+</html>
