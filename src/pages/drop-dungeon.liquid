@@ -1,0 +1,1689 @@
+<!DOCTYPE html>
+<html class="antialiased" lang="en" style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <!-- Primary Meta Tags -->
+    <title>Drop Dungeon - Roguelike Connect Four, Solo or With a Friend | Coffee & Fun LLC</title>
+    <meta name="description" content="Connect four to clear the floor, grab a relic, and descend. A free roguelike twist on Connect 4 — battle the dungeon solo or duel a friend online. No signup, no ads." />
+    <meta name="author" content="Coffee & Fun LLC" />
+    <meta name="robots" content="index, follow" />
+
+    <!-- Canonical URL -->
+    <link rel="canonical" href="https://www.coffeeandfun.com/drop-dungeon/" />
+
+    <!-- Favicon -->
+    <link rel="icon" href="/assets/images/favicon.png" sizes="any" />
+
+    <!-- Open Graph -->
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="Coffee & Fun" />
+    <meta property="og:title" content="Drop Dungeon - Roguelike Connect Four" />
+    <meta property="og:description" content="Connect four to clear the floor, grab a relic, and descend. Battle the dungeon solo or duel a friend online." />
+    <meta property="og:url" content="https://www.coffeeandfun.com/drop-dungeon/" />
+    <meta property="og:image" content="https://www.coffeeandfun.com/assets/images/social/pages/drop-dungeon.png" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content="Drop Dungeon — roguelike Connect Four by Coffee & Fun" />
+    <meta property="og:locale" content="en_US" />
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:site" content="@bycoffeeandfun" />
+    <meta name="twitter:title" content="Drop Dungeon - Roguelike Connect Four" />
+    <meta name="twitter:description" content="Connect four to clear the floor, grab a relic, and descend. Solo or with a friend." />
+    <meta name="twitter:image" content="https://www.coffeeandfun.com/assets/images/social/pages/drop-dungeon.png" />
+    <meta name="twitter:image:alt" content="Drop Dungeon — roguelike Connect Four by Coffee & Fun" />
+
+    <meta name="theme-color" content="#f4f4f2" />
+
+    <!-- Structured Data -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "VideoGame",
+        "name": "Drop Dungeon",
+        "description": "A roguelike twist on Connect Four: clear seven mutating floors, collect relics, and outdrop the dungeon — solo against an escalating AI or head-to-head with a friend online.",
+        "url": "https://www.coffeeandfun.com/drop-dungeon/",
+        "genre": ["Strategy", "Roguelike"],
+        "gamePlatform": "Web Browser",
+        "playMode": ["SinglePlayer", "MultiPlayer"],
+        "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" },
+        "author": { "@type": "Organization", "name": "Coffee & Fun LLC" }
+    }
+    </script>
+
+    <script src="https://unpkg.com/vue@3"></script>
+    <script src="https://unpkg.com/peerjs@1.5.5/dist/peerjs.min.js"></script>
+
+    <style>
+        :root {
+            --bg: #f4f4f2;
+            --surface: #ffffff;
+            --ink: #16161a;
+            --muted: #6c6c74;
+            --faint: #9a9aa2;
+            --line: #e4e4e0;
+            --line-strong: #d3d3ce;
+            --good: #0f7b4f;
+            --good-bg: #eaf6ef;
+            --warn: #b4341f;
+            --warn-bg: #fbecea;
+            --radius: 14px;
+            --p1: #fd6155;      /* coral discs */
+            --p2: #e8a33d;      /* amber discs */
+            --stone: #55555e;
+            --mono: ui-monospace, 'SF Mono', 'JetBrains Mono', 'Fira Code', Menlo, Consolas, monospace;
+        }
+
+        * { box-sizing: border-box; }
+
+        html, body { background: var(--bg); }
+        body {
+            margin: 0;
+            color: var(--ink);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            -webkit-font-smoothing: antialiased;
+            accent-color: var(--ink);
+        }
+        [v-cloak] { display: none; }
+
+        .sr-only {
+            position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px;
+            overflow: hidden; clip: rect(0,0,0,0); white-space: nowrap; border: 0;
+        }
+
+        a.skip {
+            position: absolute; left: -9999px; top: 0;
+            background: var(--ink); color: #fff; padding: 0.6rem 1rem; z-index: 20;
+            border-radius: 0 0 8px 0;
+        }
+        a.skip:focus { left: 0; }
+
+        .wrap {
+            width: 100%;
+            max-width: 720px;
+            margin: 0 auto;
+            padding: 2rem 1.25rem 4rem;
+            flex: 1;
+        }
+
+        .topbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 2rem;
+        }
+        .topbar a { font-size: 0.82rem; color: var(--muted); text-decoration: none; }
+
+        /* Logo home link + tooltip (hover AND keyboard focus) */
+        .home-link { position: relative; display: inline-flex; border-radius: 10px; }
+        .home-link img { width: 40px; height: 40px; display: block; transition: transform 0.15s ease; }
+        .home-link:hover img, .home-link:focus-visible img { transform: rotate(-8deg) scale(1.08); }
+        .home-link:focus-visible { outline: 2px solid var(--ink); outline-offset: 3px; }
+        .home-link .tip {
+            position: absolute; top: calc(100% + 9px); left: 0;
+            background: var(--ink); color: #fff;
+            font-size: 0.78rem; font-weight: 600; letter-spacing: 0.01em;
+            white-space: nowrap; padding: 0.4rem 0.7rem; border-radius: 8px;
+            opacity: 0; transform: translateY(-4px); pointer-events: none;
+            transition: opacity 0.15s, transform 0.15s;
+            z-index: 30;
+        }
+        .home-link .tip::before {
+            content: ''; position: absolute; top: -4px; left: 14px;
+            width: 8px; height: 8px; background: var(--ink);
+            transform: rotate(45deg);
+        }
+        .home-link:hover .tip, .home-link:focus-visible .tip { opacity: 1; transform: translateY(0); }
+
+        h1 {
+            font-size: 1.9rem;
+            line-height: 1.2;
+            letter-spacing: -0.02em;
+            margin: 0 0 0.6rem;
+            font-weight: 650;
+        }
+        .lede {
+            color: var(--muted);
+            font-size: 1rem;
+            line-height: 1.55;
+            margin: 0 0 1.8rem;
+            max-width: 52ch;
+        }
+
+        .btn {
+            appearance: none; border: none; border-radius: 12px;
+            padding: 0.9rem 1.5rem;
+            font-size: 1rem; font-weight: 650; cursor: pointer; font-family: inherit;
+            display: inline-flex; align-items: center; justify-content: center; gap: 0.6rem;
+            transition: background 0.15s, border-color 0.15s, transform 0.1s;
+        }
+        .btn:focus-visible { outline: 2px solid var(--ink); outline-offset: 2px; }
+        .btn:active { transform: translateY(1px); }
+        .btn-primary { background: var(--ink); color: #fff; }
+        .btn-primary:hover { background: #000; }
+        .btn-primary:disabled { background: #dcdcd7; color: #6c6c74; cursor: not-allowed; }
+        .btn-secondary { background: var(--surface); color: var(--ink); border: 1px solid var(--line-strong); }
+        .btn-secondary:hover { border-color: var(--ink); }
+
+        button.linkish {
+            appearance: none; border: none; background: none; padding: 0;
+            font-size: 0.88rem; color: var(--muted); text-decoration: underline;
+            cursor: pointer; font-family: inherit;
+        }
+        button.linkish:hover { color: var(--ink); }
+        button.linkish:focus-visible { outline: 2px solid var(--ink); outline-offset: 2px; border-radius: 4px; }
+
+        /* ===== Menu ===== */
+        .menu-choices { display: grid; gap: 0.8rem; max-width: 420px; }
+        .menu-card {
+            appearance: none; font-family: inherit; cursor: pointer;
+            display: flex; align-items: center; gap: 0.95rem; text-align: left;
+            background: var(--surface); border: 1px solid var(--line-strong);
+            border-radius: var(--radius); padding: 1rem 1.1rem;
+            transition: border-color 0.15s, transform 0.1s, box-shadow 0.15s;
+        }
+        .menu-card:hover { border-color: var(--ink); box-shadow: 0 2px 8px rgba(0,0,0,0.06); }
+        .menu-card:focus-visible { outline: 2px solid var(--ink); outline-offset: 2px; }
+        .menu-card:active { transform: translateY(1px); }
+        .menu-card .mc-ico {
+            width: 44px; height: 44px; border-radius: 11px; flex-shrink: 0;
+            background: var(--ink); color: #fff;
+            display: inline-flex; align-items: center; justify-content: center;
+            font-size: 1.3rem;
+        }
+        .menu-card .mc-title { display: block; font-weight: 650; font-size: 1rem; }
+        .menu-card .mc-sub { display: block; font-size: 0.85rem; color: var(--muted); margin-top: 0.1rem; line-height: 1.4; }
+
+        details.rules {
+            border: 1px solid var(--line);
+            border-radius: var(--radius);
+            background: var(--surface);
+            padding: 0.25rem 1rem;
+            margin-top: 1.6rem;
+            max-width: 560px;
+        }
+        details.rules summary { cursor: pointer; font-weight: 600; font-size: 0.9rem; padding: 0.65rem 0.1rem; border-radius: 8px; }
+        details.rules summary:focus-visible { outline: 2px solid var(--ink); outline-offset: 2px; }
+        details.rules[open] { padding-bottom: 0.9rem; }
+        details.rules p, details.rules li { font-size: 0.9rem; color: var(--muted); line-height: 1.55; }
+        details.rules ul { padding-left: 1.2rem; margin: 0.4rem 0; }
+        details.rules strong { color: var(--ink); }
+
+        .name-row { display: flex; gap: 0.6rem; align-items: flex-end; flex-wrap: wrap; margin: 1.2rem 0 0; max-width: 420px; }
+        .name-row > div { flex: 1; min-width: 180px; }
+        .f-label { display: block; font-weight: 600; font-size: 0.9rem; margin-bottom: 0.35rem; }
+        input.field {
+            width: 100%;
+            border: 1px solid var(--line-strong); border-radius: 11px;
+            padding: 0.65rem 0.85rem; font-size: 0.95rem; font-family: inherit;
+            color: var(--ink); background: var(--surface); outline: none;
+        }
+        input.field:focus { border-color: var(--ink); box-shadow: 0 0 0 3px rgba(22,22,26,0.08); }
+
+        /* ===== Lobby ===== */
+        .lobby-card {
+            background: var(--surface); border: 1px solid var(--line);
+            border-radius: var(--radius); padding: 1.3rem 1.4rem; max-width: 480px;
+        }
+        .lobby-card h2 { margin: 0 0 0.4rem; font-size: 1.15rem; }
+        .lobby-card p { color: var(--muted); font-size: 0.92rem; line-height: 1.5; }
+        .invite-row { display: flex; gap: 0.6rem; margin: 0.9rem 0; flex-wrap: wrap; }
+        .invite-row input { flex: 1; min-width: 200px; font-family: var(--mono); font-size: 0.82rem; }
+        .pulse-dots::after {
+            content: '…'; display: inline-block; width: 1.2em; text-align: left;
+            animation: dots 1.4s steps(4) infinite;
+        }
+        @keyframes dots { 0% { content: ''; } 25% { content: '.'; } 50% { content: '..'; } 75% { content: '...'; } }
+
+        .banner {
+            display: flex; gap: 0.55rem; align-items: flex-start;
+            border-radius: 10px; padding: 0.75rem 0.9rem;
+            font-size: 0.88rem; line-height: 1.45; margin-top: 1rem; max-width: 480px;
+        }
+        .banner.warn { background: var(--warn-bg); color: #7a2314; border: 1px solid #f0ccc5; }
+
+        /* ===== Game header ===== */
+        .game-head {
+            display: flex; justify-content: space-between; align-items: flex-start;
+            gap: 1rem; margin-bottom: 0.9rem; flex-wrap: wrap;
+        }
+        .floor-tag {
+            font-size: 0.75rem; font-weight: 700; text-transform: uppercase;
+            letter-spacing: 0.08em; color: var(--muted); margin: 0 0 0.15rem;
+        }
+        .floor-name { font-size: 1.25rem; font-weight: 650; margin: 0; line-height: 1.25; }
+        .floor-flavor { font-size: 0.85rem; color: var(--muted); margin: 0.15rem 0 0; max-width: 40ch; }
+
+        .scoreline { display: flex; align-items: center; gap: 0.9rem; }
+        .player-chip { display: flex; flex-direction: column; align-items: center; gap: 0.2rem; min-width: 74px; }
+        .player-chip .dot {
+            width: 26px; height: 26px; border-radius: 50%;
+            border: 2.5px solid transparent;
+            box-shadow: inset 0 -3px 0 rgba(0,0,0,0.15);
+        }
+        .player-chip.turn .dot { border-color: var(--ink); box-shadow: inset 0 -3px 0 rgba(0,0,0,0.15), 0 0 0 3px rgba(22,22,26,0.12); }
+        .player-chip .pname {
+            font-size: 0.78rem; font-weight: 600; max-width: 90px;
+            overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
+        }
+        .player-chip .crowns { font-size: 0.72rem; color: var(--muted); letter-spacing: 0.06em; min-height: 1em; }
+        .vs { font-size: 0.75rem; font-weight: 700; color: var(--faint); }
+
+        /* Floor progress pips */
+        .floor-pips { display: flex; gap: 5px; margin-top: 0.5rem; }
+        .floor-pips span {
+            width: 9px; height: 9px; border-radius: 3px;
+            background: var(--line-strong);
+        }
+        .floor-pips span.done { background: var(--ink); }
+        .floor-pips span.now { background: var(--surface); border: 2px solid var(--ink); width: 11px; height: 11px; margin: -1px; border-radius: 4px; }
+
+        /* ===== Board ===== */
+        .board-zone { position: relative; margin: 0 auto; max-width: 620px; }
+        .board {
+            display: grid;
+            gap: clamp(3px, 0.8vw, 6px);
+            background: var(--ink);
+            border-radius: 18px;
+            padding: clamp(7px, 1.6vw, 12px);
+            box-shadow: 0 10px 24px rgba(22,22,26,0.18), inset 0 2px 0 rgba(255,255,255,0.06);
+        }
+        .board.shake { animation: shake 0.45s ease; }
+        @keyframes shake {
+            0%, 100% { transform: translate(0, 0); }
+            20% { transform: translate(-5px, 2px) rotate(-0.4deg); }
+            40% { transform: translate(5px, -2px) rotate(0.4deg); }
+            60% { transform: translate(-4px, -1px); }
+            80% { transform: translate(3px, 2px); }
+        }
+        .bcol {
+            appearance: none; border: none; padding: 0; margin: 0;
+            background: transparent; cursor: pointer; font-family: inherit;
+            display: grid;
+            gap: clamp(3px, 0.8vw, 6px);
+            border-radius: 10px;
+        }
+        .bcol:focus-visible { outline: 2px solid #fff; outline-offset: 2px; }
+        .bcol[disabled] { cursor: default; }
+        .cell {
+            position: relative;
+            aspect-ratio: 1;
+            border-radius: 50%;
+            background: var(--bg);
+            box-shadow: inset 0 2px 4px rgba(22,22,26,0.25);
+            overflow: visible;
+        }
+        .disc {
+            position: absolute; inset: 7%;
+            border-radius: 50%;
+            box-shadow: inset 0 -4px 0 rgba(0,0,0,0.18), inset 0 3px 3px rgba(255,255,255,0.35);
+        }
+        .disc.p1 { background: var(--p1); }
+        .disc.p2 { background: var(--p2); }
+        .disc.stone {
+            background: var(--stone);
+            border-radius: 22%;
+            inset: 10%;
+            box-shadow: inset 0 -4px 0 rgba(0,0,0,0.3), inset 0 2px 2px rgba(255,255,255,0.18);
+        }
+        .disc.wild { background: conic-gradient(var(--p1) 0 90deg, var(--p2) 90deg 180deg, var(--p1) 180deg 270deg, var(--p2) 270deg 360deg); }
+        .disc.drop { animation: fall 0.42s cubic-bezier(0.34, 1.3, 0.64, 1); }
+        @keyframes fall {
+            from { transform: translateY(var(--fd, -300%)); }
+            to { transform: translateY(0); }
+        }
+        .disc.winner { animation: winpulse 0.9s ease-in-out infinite; }
+        @keyframes winpulse {
+            0%, 100% { box-shadow: inset 0 -4px 0 rgba(0,0,0,0.18), 0 0 0 3px #fff, 0 0 14px 4px rgba(255,255,255,0.55); }
+            50% { box-shadow: inset 0 -4px 0 rgba(0,0,0,0.18), 0 0 0 2px #fff, 0 0 4px 1px rgba(255,255,255,0.3); }
+        }
+        .ghost {
+            position: absolute; inset: 7%; border-radius: 50%;
+            opacity: 0.35; pointer-events: none;
+        }
+        .ghost.p1 { background: var(--p1); }
+        .ghost.p2 { background: var(--p2); }
+        .ghost.stone { background: var(--stone); border-radius: 22%; inset: 10%; }
+        .ghost.smash-mark, .ghost.mine-mark {
+            background: transparent; opacity: 0.9;
+            display: flex; align-items: center; justify-content: center;
+            font-size: clamp(0.9rem, 3vw, 1.4rem);
+        }
+
+        .status-line {
+            min-height: 1.6rem;
+            text-align: center;
+            font-size: 0.95rem;
+            font-weight: 600;
+            margin: 0.9rem 0 0;
+        }
+        .status-line .sub { display: block; font-weight: 400; font-size: 0.82rem; color: var(--muted); margin-top: 0.15rem; }
+
+        /* ===== Relic tray ===== */
+        .relic-tray {
+            display: flex; gap: 0.55rem; justify-content: center; flex-wrap: wrap;
+            margin-top: 1rem; min-height: 2.6rem;
+        }
+        .relic-btn {
+            appearance: none; font-family: inherit; cursor: pointer;
+            display: inline-flex; align-items: center; gap: 0.45rem;
+            background: var(--surface); border: 1px solid var(--line-strong);
+            border-radius: 999px; padding: 0.45rem 0.85rem;
+            font-size: 0.88rem; font-weight: 600; color: var(--ink);
+            transition: border-color 0.15s, background 0.15s;
+        }
+        .relic-btn:hover:not(:disabled) { border-color: var(--ink); }
+        .relic-btn:focus-visible { outline: 2px solid var(--ink); outline-offset: 2px; }
+        .relic-btn:disabled { color: var(--faint); cursor: not-allowed; background: transparent; }
+        .relic-btn.arming { background: var(--ink); color: #fff; border-color: var(--ink); }
+        .relic-btn .cnt { font-size: 0.75rem; color: var(--muted); font-weight: 700; }
+        .relic-btn.arming .cnt { color: #d3d3ce; }
+
+        /* ===== Overlays (draft / floor result / run end) ===== */
+        .overlay {
+            position: fixed; inset: 0; z-index: 40;
+            background: rgba(22, 22, 26, 0.45);
+            display: flex; align-items: center; justify-content: center;
+            padding: 1.25rem;
+        }
+        .overlay-card {
+            background: var(--surface); border-radius: 18px;
+            padding: 1.6rem 1.7rem; max-width: 540px; width: 100%;
+            box-shadow: 0 24px 60px rgba(22,22,26,0.35);
+            max-height: 88vh; overflow-y: auto;
+        }
+        .overlay-card h2 { margin: 0 0 0.35rem; font-size: 1.35rem; letter-spacing: -0.01em; }
+        .overlay-card .oc-sub { color: var(--muted); font-size: 0.92rem; line-height: 1.5; margin: 0 0 1.1rem; }
+
+        .draft-grid { display: grid; gap: 0.7rem; }
+        @media (min-width: 540px) { .draft-grid { grid-template-columns: repeat(3, 1fr); } }
+        .draft-card {
+            appearance: none; font-family: inherit; cursor: pointer; text-align: center;
+            background: var(--bg); border: 1.5px solid var(--line-strong);
+            border-radius: var(--radius); padding: 1rem 0.7rem;
+            transition: border-color 0.15s, transform 0.12s, box-shadow 0.15s;
+        }
+        .draft-card:hover { border-color: var(--ink); transform: translateY(-2px); box-shadow: 0 6px 14px rgba(0,0,0,0.1); }
+        .draft-card:focus-visible { outline: 2px solid var(--ink); outline-offset: 2px; }
+        .draft-card .dc-ico { font-size: 1.7rem; display: block; margin-bottom: 0.4rem; }
+        .draft-card .dc-name { font-weight: 650; font-size: 0.95rem; display: block; }
+        .draft-card .dc-desc { font-size: 0.78rem; color: var(--muted); line-height: 1.45; display: block; margin-top: 0.3rem; }
+
+        .recap-list { list-style: none; margin: 0 0 1.2rem; padding: 0; }
+        .recap-list li {
+            display: flex; justify-content: space-between; gap: 1rem;
+            font-size: 0.92rem; padding: 0.45rem 0;
+            border-bottom: 1px dashed var(--line);
+        }
+        .recap-list li span:last-child { font-weight: 650; }
+        .overlay-actions { display: flex; gap: 0.6rem; flex-wrap: wrap; margin-top: 0.4rem; }
+        .overlay-actions .btn { flex: 1; min-width: 140px; }
+
+        .big-title { font-size: 2rem; text-align: center; margin: 0 0 0.2rem; }
+        .big-emoji { font-size: 2.6rem; text-align: center; display: block; margin-bottom: 0.5rem; }
+
+        /* ===== Emotes ===== */
+        .emote-row { display: flex; gap: 0.4rem; justify-content: center; margin-top: 0.8rem; }
+        .emote-btn {
+            appearance: none; border: 1px solid var(--line); background: var(--surface);
+            border-radius: 10px; font-size: 1.1rem; padding: 0.3rem 0.55rem; cursor: pointer;
+            transition: transform 0.1s, border-color 0.15s;
+        }
+        .emote-btn:hover { border-color: var(--ink); transform: scale(1.12); }
+        .emote-btn:focus-visible { outline: 2px solid var(--ink); outline-offset: 2px; }
+        .emote-bubble {
+            position: absolute; top: -14px; right: 4px; z-index: 10;
+            background: var(--surface); border: 1px solid var(--line-strong);
+            border-radius: 999px; padding: 0.3rem 0.6rem; font-size: 1.3rem;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+            animation: emotepop 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+        }
+        @keyframes emotepop { from { transform: scale(0.3); opacity: 0; } to { transform: scale(1); opacity: 1; } }
+
+        .mute-btn {
+            appearance: none; border: 1px solid var(--line); background: var(--surface);
+            border-radius: 9px; padding: 0.35rem 0.55rem; cursor: pointer; font-size: 0.95rem;
+        }
+        .mute-btn:hover { border-color: var(--ink); }
+        .mute-btn:focus-visible { outline: 2px solid var(--ink); outline-offset: 2px; }
+
+        .game-foot-row { display: flex; justify-content: space-between; align-items: center; margin-top: 1.1rem; flex-wrap: wrap; gap: 0.5rem; }
+
+        .foot {
+            text-align: center; padding: 1.5rem 1rem 2rem;
+            font-size: 0.8rem; color: var(--muted);
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            .disc.drop { animation: none; }
+            .disc.winner { animation: none; box-shadow: inset 0 -4px 0 rgba(0,0,0,0.18), 0 0 0 3px #fff; }
+            .board.shake { animation: none; }
+            .emote-bubble { animation: none; }
+            .btn, .menu-card, .draft-card, .relic-btn, .home-link img, .home-link .tip, .emote-btn { transition: none; }
+            .pulse-dots::after { animation: none; content: '…'; }
+        }
+
+        @media (max-width: 480px) {
+            h1 { font-size: 1.6rem; }
+            .wrap { padding-top: 1.25rem; }
+            .player-chip { min-width: 60px; }
+            .player-chip .pname { max-width: 70px; }
+        }
+
+        /* ---- Site footer ----
+           footer.liquid is written against Tailwind utilities, which this
+           standalone page doesn't load; these rules cover exactly the classes
+           that markup uses (plus sketch-styles.liquid for the doodles). */
+        footer.brand-color-background { position: relative; overflow: visible; padding: 1rem; }
+        footer .mx-auto { margin-left: auto; margin-right: auto; }
+        footer .max-w-7xl { max-width: 80rem; padding: 3rem 1rem; }
+        footer .max-w-2xl { max-width: 42rem; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; }
+        footer .mb-4 { display: inline-block; margin-bottom: 1rem; border-radius: 1rem; }
+        footer img { height: 4rem; width: 4rem; }
+        footer h2 { margin: 0 0 0.5rem; font-size: 1.125rem; font-weight: 700; }
+        footer p { margin: 0; font-size: 0.875rem; }
+        footer .text-stone-600 { color: #57534e; }
+        footer .font-semibold { font-weight: 600; }
+        footer .text-base { font-size: 1rem; }
+        footer .text-lg { font-size: 1.125rem; }
+        footer .flex-wrap { display: flex; flex-wrap: wrap; justify-content: center; gap: 1rem; margin-top: 2rem; }
+        footer .flex-wrap a { display: inline-flex; padding: 0.5rem; border-radius: 1rem; color: #78716c; transition: color 0.15s; }
+        footer .flex-wrap svg { height: 1.5rem; width: 1.5rem; }
+        footer .hover\:text-blue-400:hover { color: #60a5fa; }
+        footer .hover\:text-pink-500:hover { color: #ec4899; }
+        footer .hover\:text-indigo-500:hover { color: #6366f1; }
+        footer .hover\:text-stone-900:hover { color: #1c1917; }
+        footer .hover\:text-red-500:hover { color: #ef4444; }
+        footer p.text-center { margin-top: 2rem; text-align: center; }
+        footer a:focus-visible { outline: 2px solid var(--ink); outline-offset: 2px; }
+        @media (min-width: 640px) {
+            footer.brand-color-background { padding: 1.5rem; }
+            footer .sm\:text-lg { font-size: 1.125rem; }
+            footer .sm\:text-xl { font-size: 1.25rem; }
+            footer .max-w-7xl { padding: 4rem 1.5rem; }
+            footer img { height: 5rem; width: 5rem; }
+            footer h2 { font-size: 1.25rem; }
+            footer p { font-size: 1rem; }
+            footer .flex-wrap { gap: 1.5rem; margin-top: 3rem; }
+            footer .flex-wrap svg { height: 1.75rem; width: 1.75rem; }
+            footer p.text-center { margin-top: 2.5rem; }
+        }
+        @media (min-width: 1024px) {
+            footer.brand-color-background { padding: 2.5rem; }
+            footer .max-w-7xl { padding: 5rem 2rem; }
+            footer img { height: 6rem; width: 6rem; }
+            footer h2 { font-size: 1.5rem; }
+            footer .flex-wrap { margin-top: 4rem; }
+            footer p.text-center { margin-top: 3rem; }
+        }
+    </style>
+    {% include sketch-styles.liquid %}
+</head>
+
+<body>
+{% raw %}
+    <a href="#tool" class="skip">Skip to the game</a>
+
+    <!-- Shown only if the CDN scripts fail — the app stays v-cloak-hidden. -->
+    <div id="load-fallback" class="wrap" hidden>
+        <p class="lede">The game couldn&rsquo;t load a couple of files it needs. Check your connection and refresh the page.</p>
+    </div>
+    <noscript>
+        <div class="wrap"><p class="lede">Drop Dungeon needs JavaScript turned on to play.</p></div>
+    </noscript>
+
+    <main v-cloak id="app" class="wrap">
+
+        <div class="topbar">
+            <a href="/" class="home-link" aria-label="Back to coffeeandfun.com">
+                <img src="/assets/images/coffee-and-fun-logo-dark.png" alt="" width="40" height="40" decoding="async" />
+                <span class="tip" aria-hidden="true">Back to coffeeandfun.com</span>
+            </a>
+            <button type="button" class="mute-btn" @click="toggleMute" :aria-pressed="muted ? 'true' : 'false'"
+                    :aria-label="muted ? 'Sound is off — turn it on' : 'Sound is on — turn it off'">
+                <span aria-hidden="true">{{ muted ? '🔇' : '🔊' }}</span>
+            </button>
+        </div>
+
+        <!-- Live status for screen readers -->
+        <div class="sr-only" role="status" aria-live="polite">{{ announcement }}</div>
+
+        <!-- ===================== MENU ===================== -->
+        <section v-if="screen === 'menu'" id="tool">
+            <h1>Drop Dungeon</h1>
+            <p class="lede">Connect four to clear the floor. Win, grab a relic, and descend — the dungeon fights dirtier the deeper you go. Seven floors stand between you and the bottom.</p>
+
+            <div class="menu-choices">
+                <button type="button" class="menu-card" @click="startSolo">
+                    <span class="mc-ico" aria-hidden="true">🕯️</span>
+                    <span>
+                        <span class="mc-title">Descend alone</span>
+                        <span class="mc-sub">You against the dungeon. It gets smarter every floor.</span>
+                    </span>
+                </button>
+                <button type="button" class="menu-card" @click="startHost" :disabled="!peerOk">
+                    <span class="mc-ico" aria-hidden="true">⚔️</span>
+                    <span>
+                        <span class="mc-title">Duel a friend — host</span>
+                        <span class="mc-sub">Get an invite link. First to win 4 floors takes the run.</span>
+                    </span>
+                </button>
+                <button type="button" class="menu-card" @click="screen = 'join'" :disabled="!peerOk">
+                    <span class="mc-ico" aria-hidden="true">🔗</span>
+                    <span>
+                        <span class="mc-title">Duel a friend — join</span>
+                        <span class="mc-sub">Got a link or a game code? Jump into their dungeon.</span>
+                    </span>
+                </button>
+            </div>
+            <p v-if="!peerOk" class="lede" style="margin-top:1rem; font-size:0.85rem;">Duels are unavailable right now — the connection library didn&rsquo;t load. Solo still works.</p>
+
+            <details class="rules">
+                <summary>How it works</summary>
+                <p><strong>Each floor is a game of Connect&nbsp;Four</strong> — but the dungeon keeps changing the rules. Wider caverns, stones that belong to no one, wild gems that count for everyone, floors that crumble beneath you, and at the bottom&hellip; four isn&rsquo;t enough.</p>
+                <ul>
+                    <li><strong>Win a floor</strong> and you draft a relic — a one-use dirty trick.</li>
+                    <li><strong>💣 Boulder</strong> — drop a stone that blocks a column&rsquo;s path.</li>
+                    <li><strong>🔨 Smash</strong> — shatter the top disc of any column.</li>
+                    <li><strong>🕳️ Undermine</strong> — pull the bottom disc out; everything above falls.</li>
+                    <li><strong>⏳ Time warp</strong> — your opponent loses their next turn.</li>
+                </ul>
+                <p>Solo, one loss ends the run — that&rsquo;s dungeon law. In a duel it&rsquo;s first to four floors, and the <strong>loser</strong> of each floor drafts the relic. Stay gracious.</p>
+            </details>
+        </section>
+
+        <!-- ===================== JOIN ===================== -->
+        <section v-else-if="screen === 'join'" id="tool">
+            <h1>Join a duel</h1>
+            <p class="lede">Paste the game code from your friend&rsquo;s invite link — or if you opened their link, it&rsquo;s already filled in.</p>
+            <div class="name-row">
+                <div>
+                    <label class="f-label" for="dd-name">Your name</label>
+                    <input id="dd-name" class="field" type="text" v-model="myName" maxlength="20" placeholder="Sir Dropsalot" />
+                </div>
+            </div>
+            <div class="name-row">
+                <div>
+                    <label class="f-label" for="dd-code">Game code</label>
+                    <input id="dd-code" class="field" type="text" v-model="joinId" spellcheck="false" autocapitalize="off" placeholder="e.g. 3f2a1b…" />
+                </div>
+                <button type="button" class="btn btn-primary" @click="connectToHost" :disabled="!joinId.trim() || connecting">
+                    {{ connecting ? 'Connecting…' : 'Join' }}
+                </button>
+            </div>
+            <div v-if="netError" class="banner warn" role="alert">
+                <span>{{ netError }}</span>
+            </div>
+            <p style="margin-top:1.2rem;"><button type="button" class="linkish" @click="backToMenu">&larr; Back</button></p>
+        </section>
+
+        <!-- ===================== LOBBY (host waiting) ===================== -->
+        <section v-else-if="screen === 'lobby'" id="tool">
+            <h1>Your dungeon awaits</h1>
+            <div class="lobby-card">
+                <h2 v-if="!peerId" class="pulse-dots">Digging the arena</h2>
+                <template v-else>
+                    <h2 class="pulse-dots">Waiting for your rival</h2>
+                    <p>Send them this invite link — the duel starts the moment they arrive.</p>
+                    <div class="invite-row">
+                        <input class="field" type="text" readonly :value="inviteLink" aria-label="Invite link" @focus="$event.target.select()" />
+                        <button type="button" class="btn btn-secondary" @click="copyInvite">{{ copied ? 'Copied ✓' : 'Copy link' }}</button>
+                    </div>
+                </template>
+                <div class="name-row" style="margin-top:0.4rem;">
+                    <div>
+                        <label class="f-label" for="dd-hostname">Your name</label>
+                        <input id="dd-hostname" class="field" type="text" v-model="myName" maxlength="20" placeholder="Dungeon Keeper" />
+                    </div>
+                </div>
+            </div>
+            <div v-if="netError" class="banner warn" role="alert"><span>{{ netError }}</span></div>
+            <p style="margin-top:1.2rem;"><button type="button" class="linkish" @click="backToMenu">&larr; Cancel and go back</button></p>
+        </section>
+
+        <!-- ===================== GAME ===================== -->
+        <section v-else-if="screen === 'game'" id="tool">
+            <div class="game-head">
+                <div>
+                    <p class="floor-tag">Floor {{ floor + 1 }} of {{ FLOORS.length }}</p>
+                    <h1 class="floor-name">{{ floorDef.name }}</h1>
+                    <p class="floor-flavor">{{ floorDef.flavor }}</p>
+                    <div class="floor-pips" aria-hidden="true">
+                        <span v-for="(f, i) in FLOORS" :key="i" :class="{ done: i < floor, now: i === floor }"></span>
+                    </div>
+                </div>
+                <div style="position: relative;">
+                    <div class="scoreline">
+                        <div class="player-chip" :class="{ turn: turn === 1 && !over }">
+                            <span class="dot" :style="{ background: 'var(--p1)' }"></span>
+                            <span class="pname">{{ nameOf(1) }}</span>
+                            <span class="crowns">{{ crownStr(1) }}</span>
+                        </div>
+                        <span class="vs" aria-hidden="true">VS</span>
+                        <div class="player-chip" :class="{ turn: turn === 2 && !over }">
+                            <span class="dot" :style="{ background: 'var(--p2)' }"></span>
+                            <span class="pname">{{ nameOf(2) }}</span>
+                            <span class="crowns">{{ crownStr(2) }}</span>
+                        </div>
+                        <span v-if="emoteShown" class="emote-bubble" aria-hidden="true">{{ emoteShown }}</span>
+                    </div>
+                    <div v-if="isDuel" class="emote-row">
+                        <button v-for="e in EMOTES" :key="e" type="button" class="emote-btn"
+                                :aria-label="'Send ' + e + ' to your rival'" @click="sendEmote(e)">{{ e }}</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="board-zone" :style="{ maxWidth: boardMaxW }">
+                <div class="board" :class="{ shake: shaking }" :style="{ gridTemplateColumns: 'repeat(' + bw + ', 1fr)' }">
+                    <button v-for="c in bw" :key="'c' + (c-1) + '-' + boardEpoch" type="button" class="bcol"
+                            :style="{ gridTemplateRows: 'repeat(' + bh + ', 1fr)' }"
+                            :disabled="columnDisabled(c-1)"
+                            :aria-label="colLabel(c-1)"
+                            @click="clickColumn(c-1)"
+                            @mouseenter="hoverCol = c-1" @mouseleave="hoverCol = -1"
+                            @focus="hoverCol = c-1" @blur="hoverCol = -1">
+                        <div v-for="r in bh" :key="'r' + (r-1)" class="cell"
+                             :style="{ gridRow: bh - (r-1) }">
+                            <div v-if="cellAt(c-1, r-1)" class="disc"
+                                 :class="[discClass(cellAt(c-1, r-1)), { drop: cellAt(c-1, r-1).fresh, winner: isWinCell(c-1, r-1) }]"
+                                 :style="cellAt(c-1, r-1).fresh ? { '--fd': (-(bh - (r-1)) * 108) + '%' } : null"></div>
+                            <div v-else-if="showGhostAt(c-1, r-1)" class="ghost" :class="ghostClass"></div>
+                            <div v-if="showSmashMarkAt(c-1, r-1)" class="ghost smash-mark" aria-hidden="true">🔨</div>
+                            <div v-if="showMineMarkAt(c-1, r-1)" class="ghost mine-mark" aria-hidden="true">🕳️</div>
+                        </div>
+                    </button>
+                </div>
+            </div>
+
+            <p class="status-line">
+                {{ statusText }}
+                <span v-if="statusSub" class="sub">{{ statusSub }}</span>
+            </p>
+
+            <div class="relic-tray" v-if="myRelicList.length">
+                <button v-for="rk in myRelicList" :key="rk.kind" type="button" class="relic-btn"
+                        :class="{ arming: targeting === rk.kind }"
+                        :disabled="!canUseRelic(rk.kind)"
+                        @click="armRelic(rk.kind)">
+                    <span aria-hidden="true">{{ RELICS[rk.kind].icon }}</span>
+                    {{ targeting === rk.kind ? 'Pick a column…' : RELICS[rk.kind].name }}
+                    <span class="cnt">×{{ rk.count }}</span>
+                </button>
+                <button v-if="targeting" type="button" class="relic-btn" @click="targeting = null">Cancel</button>
+            </div>
+
+            <div class="game-foot-row">
+                <button type="button" class="linkish" @click="abandonRun">Abandon run</button>
+                <span style="font-size:0.78rem; color:var(--muted);">{{ isDuel ? 'First to 4 floors wins the run' : 'One loss ends the run — dungeon law' }}</span>
+            </div>
+        </section>
+
+        <!-- ===================== DRAFT OVERLAY ===================== -->
+        <div v-if="draftOpen" class="overlay" role="dialog" aria-modal="true" aria-label="Choose a relic">
+            <div class="overlay-card">
+                <template v-if="iAmDrafting">
+                    <h2>{{ isDuel ? 'Spoils for the fallen' : 'The floor is yours' }}</h2>
+                    <p class="oc-sub">{{ isDuel ? 'You lost the floor — so you loot the room. Pick one relic.' : 'Take a relic for the road down. Pick one.' }}</p>
+                    <div class="draft-grid">
+                        <button v-for="(kind, i) in draftOffer" :key="i" type="button" class="draft-card" @click="pickDraft(i)">
+                            <span class="dc-ico" aria-hidden="true">{{ RELICS[kind].icon }}</span>
+                            <span class="dc-name">{{ RELICS[kind].name }}</span>
+                            <span class="dc-desc">{{ RELICS[kind].desc }}</span>
+                        </button>
+                    </div>
+                </template>
+                <template v-else>
+                    <h2 class="pulse-dots">{{ oppName }} is looting the room</h2>
+                    <p class="oc-sub">They lost the floor, so they draft a relic. The next floor starts when they&rsquo;ve chosen.</p>
+                </template>
+            </div>
+        </div>
+
+        <!-- ===================== FLOOR RESULT OVERLAY ===================== -->
+        <div v-if="floorResult" class="overlay" role="dialog" aria-modal="true" aria-label="Floor result">
+            <div class="overlay-card" style="text-align:center;">
+                <span class="big-emoji" aria-hidden="true">{{ floorResult.emoji }}</span>
+                <h2 class="big-title">{{ floorResult.title }}</h2>
+                <p class="oc-sub">{{ floorResult.sub }}</p>
+                <div class="overlay-actions">
+                    <button type="button" class="btn btn-primary" @click="floorResultContinue">{{ floorResult.cta }}</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- ===================== RUN END OVERLAY ===================== -->
+        <div v-if="runEnd" class="overlay" role="dialog" aria-modal="true" aria-label="Run over">
+            <div class="overlay-card">
+                <span class="big-emoji" aria-hidden="true">{{ runEnd.won ? '🏆' : '💀' }}</span>
+                <h2 class="big-title" style="text-align:center;">{{ runEnd.title }}</h2>
+                <p class="oc-sub" style="text-align:center;">{{ runEnd.sub }}</p>
+                <ul class="recap-list">
+                    <li><span>Floors cleared</span><span>{{ runEnd.floors }}</span></li>
+                    <li v-if="isDuel"><span>Floors won by {{ oppName }}</span><span>{{ crowns[oppPlayer] }}</span></li>
+                    <li><span>Relics collected</span><span>{{ runEnd.relics }}</span></li>
+                    <li><span>Discs dropped</span><span>{{ runEnd.moves }}</span></li>
+                </ul>
+                <div class="overlay-actions">
+                    <button v-if="!isDuel" type="button" class="btn btn-primary" @click="startSolo">Run it again</button>
+                    <template v-else-if="isHost">
+                        <button v-if="!rematchOffered" type="button" class="btn btn-primary" @click="hostRematch">Offer a rematch</button>
+                        <button v-else type="button" class="btn btn-primary" disabled>Waiting for {{ oppName }}…</button>
+                    </template>
+                    <template v-else>
+                        <button v-if="rematchOffered" type="button" class="btn btn-primary" @click="joinerAcceptRematch">Accept rematch</button>
+                        <button v-else type="button" class="btn btn-primary" disabled>Waiting for a rematch offer…</button>
+                    </template>
+                    <button type="button" class="btn btn-secondary" @click="backToMenu">Back to the door</button>
+                </div>
+            </div>
+        </div>
+
+        <p class="foot">Runs entirely in your browser. Duels connect you and your friend directly — no accounts, no servers keeping score.</p>
+    </main>
+{% endraw %}
+
+    {% include footer.liquid %}
+
+    <script>
+        if (typeof Vue === 'undefined') {
+            document.getElementById('load-fallback').hidden = false;
+            throw new Error('Vue failed to load');
+        }
+        const { createApp } = Vue;
+        const PEER_OK = typeof Peer !== 'undefined';
+
+        /* ---------- Deterministic RNG (host seeds, both sides replay) ---------- */
+        function mulberry32(a) {
+            return function () {
+                a |= 0; a = a + 0x6D2B79F5 | 0;
+                let t = Math.imul(a ^ a >>> 15, 1 | a);
+                t = t + Math.imul(t ^ t >>> 7, 61 | t) ^ t;
+                return ((t ^ t >>> 14) >>> 0) / 4294967296;
+            };
+        }
+
+        /* ---------- Floor definitions ---------- */
+        const FLOORS = [
+            { name: 'The Doorstep', flavor: 'A classic board. The dungeon is being polite. It won’t last.', w: 7, h: 6, need: 4, twist: 'none', depth: 2 },
+            { name: 'The Wide Cavern', flavor: 'Nine columns of nothing. Plenty of room to make mistakes.', w: 9, h: 6, need: 4, twist: 'none', depth: 2 },
+            { name: 'The Rubble Room', flavor: 'Stones litter the board. They belong to no one.', w: 7, h: 6, need: 4, twist: 'stones', depth: 3 },
+            { name: 'The Gem Hollow', flavor: 'Wild gems count for whoever needs them. Including them.', w: 7, h: 6, need: 4, twist: 'wilds', depth: 3 },
+            { name: 'The Crumbling Deep', flavor: 'Every tenth disc, the bottom row gives way.', w: 7, h: 6, need: 4, twist: 'crumble', depth: 4 },
+            { name: 'The Tall Shaft', flavor: 'A narrow climb. Watch your head.', w: 6, h: 9, need: 4, twist: 'none', depth: 4 },
+            { name: 'The Long Count', flavor: 'Four isn’t enough down here. Connect five.', w: 9, h: 7, need: 5, twist: 'none', depth: 4 }
+        ];
+
+        const RELICS = {
+            boulder: { icon: '💣', name: 'Boulder', desc: 'Drop a stone into a column. It blocks the path and belongs to no one.' },
+            smash: { icon: '🔨', name: 'Smash', desc: 'Shatter the top disc of any column — yours or theirs.' },
+            undermine: { icon: '🕳️', name: 'Undermine', desc: 'Pull the bottom disc out of a column. Everything above falls one row.' },
+            timewarp: { icon: '⏳', name: 'Time warp', desc: 'Play it, then drop as usual — your opponent loses their next turn.' }
+        };
+        const RELIC_KINDS = Object.keys(RELICS);
+        const EMOTES = ['👋', '😄', '😱', '☕'];
+        const CRUMBLE_EVERY = 10;
+
+        let uid = 1;
+
+        createApp({
+            data() {
+                return {
+                    FLOORS, RELICS, EMOTES,
+                    peerOk: PEER_OK,
+                    screen: 'menu',
+                    mode: 'solo',          // solo | duel
+                    isHost: true,
+                    mePlayer: 1,           // 1 = coral, 2 = amber
+                    myName: localStorage.getItem('ddName') || '',
+                    oppName: 'Rival',
+                    // net
+                    peer: null, conn: null, peerId: '', joinId: '',
+                    connecting: false, netError: '', copied: false, copyTimer: null,
+                    rematchOffered: false,
+                    // run
+                    seed: 0,
+                    floor: 0,
+                    crowns: { 1: 0, 2: 0 },
+                    relics: { 1: {}, 2: {} },   // kind -> charges
+                    relicsCollected: 0,
+                    totalMoves: 0,
+                    attempt: 0,                 // bumps on floor draw-replays
+                    boardEpoch: 0,              // forces column re-render between floors
+                    // floor state
+                    cols: [],                   // array of stacks; cell = {o, id, fresh}
+                    bw: 7, bh: 6, need: 4,
+                    turn: 1, moveNum: 0,
+                    skipNext: { 1: false, 2: false },
+                    over: false, winner: 0, winCells: [],
+                    starter: 1,
+                    // ui
+                    hoverCol: -1,
+                    targeting: null,
+                    aiThinking: false,
+                    shaking: false,
+                    draftOpen: false, draftOffer: [], iAmDrafting: false,
+                    floorResult: null,
+                    runEnd: null,
+                    emoteShown: '', emoteTimer: null,
+                    announcement: '',
+                    muted: localStorage.getItem('ddMuted') === '1',
+                    audioCtx: null
+                };
+            },
+            computed: {
+                isDuel() { return this.mode === 'duel'; },
+                oppPlayer() { return this.mePlayer === 1 ? 2 : 1; },
+                floorDef() { return FLOORS[this.floor]; },
+                inviteLink() {
+                    return window.location.origin + window.location.pathname + '?gameId=' + this.peerId;
+                },
+                myTurn() {
+                    if (this.over) return false;
+                    if (this.isDuel) return this.turn === this.mePlayer;
+                    return this.turn === 1 && !this.aiThinking;
+                },
+                boardMaxW() {
+                    // Keep header + board + relic tray on one screen: tall shafts
+                    // go narrow, wide caverns get a bit more room.
+                    if (this.bh > this.bw) return '330px';
+                    if (this.bw >= 9) return '560px';
+                    return '470px';
+                },
+                ghostClass() {
+                    if (this.targeting === 'boulder') return 'stone';
+                    return this.mePlayer === 1 ? 'p1' : 'p2';
+                },
+                myRelicList() {
+                    const mine = this.relics[this.mePlayer] || {};
+                    return RELIC_KINDS.filter(k => mine[k] > 0).map(k => ({ kind: k, count: mine[k] }));
+                },
+                statusText() {
+                    if (this.over) {
+                        if (this.winner === 0) return 'A draw?! The dungeon demands a rematch.';
+                        return this.winner === this.mePlayer || (!this.isDuel && this.winner === 1)
+                            ? 'Floor cleared!' : (this.isDuel ? this.nameOf(this.winner) + ' takes the floor.' : 'The dungeon takes the floor.');
+                    }
+                    if (this.targeting) return RELICS[this.targeting].icon + ' ' + RELICS[this.targeting].name + ' armed — pick a column.';
+                    if (this.aiThinking) return 'The dungeon is thinking…';
+                    if (this.myTurn) return 'Your move.';
+                    return this.isDuel ? 'Waiting on ' + this.oppName + '…' : 'The dungeon is thinking…';
+                },
+                statusSub() {
+                    if (this.over || this.targeting) return '';
+                    if (this.floorDef.twist === 'crumble' && !this.over) {
+                        const left = CRUMBLE_EVERY - (this.moveNum % CRUMBLE_EVERY);
+                        return left <= 3 ? 'The floor crumbles in ' + left + ' disc' + (left === 1 ? '' : 's') + '…' : '';
+                    }
+                    const meP = this.isDuel ? this.mePlayer : 1;
+                    if (this.skipNext[meP]) return '⏳ You’re frozen in time — you’ll lose your next turn.';
+                    if (this.skipNext[meP === 1 ? 2 : 1]) return '⏳ Time warp is set — they lose their next turn.';
+                    return '';
+                }
+            },
+            mounted() {
+                const params = new URLSearchParams(window.location.search);
+                const gid = params.get('gameId');
+                if (gid && PEER_OK) {
+                    this.joinId = gid;
+                    this.screen = 'join';
+                }
+                window.addEventListener('beforeunload', this.cleanupPeer);
+            },
+            beforeUnmount() {
+                this.cleanupPeer();
+                window.removeEventListener('beforeunload', this.cleanupPeer);
+            },
+            methods: {
+                /* ---------- helpers ---------- */
+                announce(msg) {
+                    this.announcement = '';
+                    this.$nextTick(() => { this.announcement = msg; });
+                },
+                nameOf(p) {
+                    if (!this.isDuel) return p === 1 ? (this.myName || 'You') : 'The Dungeon';
+                    if (p === this.mePlayer) return this.myName || 'You';
+                    return this.oppName;
+                },
+                crownStr(p) {
+                    if (!this.isDuel) return p === 1 ? '⚑ floor ' + (this.floor + 1) : '';
+                    return '👑'.repeat(this.crowns[p]) || '—';
+                },
+                oppTurnPlayer() { return this.turn === 1 ? 2 : 1; },
+                rng(tag) {
+                    // deterministic per (seed, floor, attempt, tag)
+                    let h = this.seed ^ (this.floor * 2654435761) ^ (this.attempt * 40503) ^ tag;
+                    return mulberry32(h);
+                },
+
+                /* ---------- audio ---------- */
+                toggleMute() {
+                    this.muted = !this.muted;
+                    localStorage.setItem('ddMuted', this.muted ? '1' : '0');
+                },
+                sfx(kind, opt) {
+                    if (this.muted) return;
+                    try {
+                        if (!this.audioCtx) this.audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+                        const ctx = this.audioCtx;
+                        if (ctx.state === 'suspended') ctx.resume();
+                        const t = ctx.currentTime;
+                        const play = (freq, start, dur, type, vol) => {
+                            const o = ctx.createOscillator(), g = ctx.createGain();
+                            o.type = type || 'sine'; o.frequency.setValueAtTime(freq, t + start);
+                            g.gain.setValueAtTime(vol || 0.12, t + start);
+                            g.gain.exponentialRampToValueAtTime(0.0001, t + start + dur);
+                            o.connect(g).connect(ctx.destination);
+                            o.start(t + start); o.stop(t + start + dur + 0.02);
+                        };
+                        if (kind === 'drop') play(240 + (opt || 0) * 36, 0, 0.12, 'sine', 0.14);
+                        else if (kind === 'win') { play(523, 0, 0.14); play(659, 0.12, 0.14); play(784, 0.24, 0.28); }
+                        else if (kind === 'lose') { play(330, 0, 0.2, 'triangle'); play(233, 0.18, 0.34, 'triangle'); }
+                        else if (kind === 'smash') { play(120, 0, 0.18, 'sawtooth', 0.16); play(90, 0.04, 0.2, 'sawtooth', 0.12); }
+                        else if (kind === 'crumble') { play(70, 0, 0.5, 'sawtooth', 0.14); play(55, 0.1, 0.5, 'sawtooth', 0.1); }
+                        else if (kind === 'draft') { play(660, 0, 0.1); play(880, 0.09, 0.16); }
+                        else if (kind === 'emote') play(740, 0, 0.09, 'triangle', 0.08);
+                    } catch (e) { /* audio is garnish */ }
+                },
+
+                /* ---------- run / floor setup ---------- */
+                startSolo() {
+                    this.mode = 'solo';
+                    this.isHost = true;
+                    this.mePlayer = 1;
+                    this.seed = (Math.random() * 0xFFFFFFFF) >>> 0;
+                    this.beginRun();
+                },
+                beginRun() {
+                    this.floor = 0;
+                    this.crowns = { 1: 0, 2: 0 };
+                    this.relics = { 1: {}, 2: {} };
+                    this.relicsCollected = 0;
+                    this.totalMoves = 0;
+                    this.runEnd = null;
+                    this.floorResult = null;
+                    this.draftOpen = false;
+                    this.rematchOffered = false;
+                    this.starter = 1;
+                    this.screen = 'game';
+                    this.setupFloor();
+                    this.announce('Run started. ' + this.floorDef.name + '. ' + (this.turn === this.mePlayer || !this.isDuel ? 'Your move.' : this.oppName + ' moves first.'));
+                },
+                setupFloor() {
+                    const def = FLOORS[this.floor];
+                    this.bw = def.w; this.bh = def.h; this.need = def.need;
+                    this.cols = Array.from({ length: def.w }, () => []);
+                    this.turn = this.starter;
+                    this.moveNum = 0;
+                    this.skipNext = { 1: false, 2: false };
+                    this.over = false; this.winner = 0; this.winCells = [];
+                    this.targeting = null;
+                    this.hoverCol = -1;
+                    this.boardEpoch++;
+
+                    // Twist seeding — deterministic on both peers
+                    const rnd = this.rng(97);
+                    if (def.twist === 'stones') {
+                        for (let i = 0; i < 5; i++) {
+                            const c = Math.floor(rnd() * def.w);
+                            if (this.cols[c].length < def.h - 2) this.cols[c].push({ o: 4, id: uid++, fresh: false });
+                        }
+                    } else if (def.twist === 'wilds') {
+                        let placed = 0, guard = 0;
+                        while (placed < 3 && guard++ < 40) {
+                            const c = Math.floor(rnd() * def.w);
+                            if (this.cols[c].length < def.h - 2) { this.cols[c].push({ o: 3, id: uid++, fresh: false }); placed++; }
+                        }
+                    }
+
+                    if (!this.isDuel && this.turn === 2) this.scheduleAi();
+                },
+
+                /* ---------- board reads ---------- */
+                cellAt(c, r) { return this.cols[c] ? this.cols[c][r] || null : null; },
+                discClass(cell) { return cell.o === 1 ? 'p1' : cell.o === 2 ? 'p2' : cell.o === 4 ? 'stone' : 'wild'; },
+                isWinCell(c, r) { return this.winCells.some(w => w[0] === c && w[1] === r); },
+                colFull(c) { return this.cols[c].length >= this.bh; },
+                colLabel(c) {
+                    const n = this.cols[c] ? this.cols[c].length : 0;
+                    let base = 'Column ' + (c + 1) + ' of ' + this.bw + ' — ' + n + ' of ' + this.bh + ' filled.';
+                    if (this.targeting) return RELICS[this.targeting].name + ': ' + base;
+                    return base + (this.myTurn ? ' Drop here.' : '');
+                },
+                canActOnColumn(c) {
+                    if (this.over || this.draftOpen || this.floorResult || this.runEnd) return false;
+                    if (!this.myTurn) return false;
+                    if (this.targeting === 'smash') return this.cols[c].length > 0 && this.cols[c][this.cols[c].length - 1].o !== 4;
+                    if (this.targeting === 'undermine') return this.cols[c].length > 0 && this.cols[c][0].o !== 4;
+                    return !this.colFull(c);
+                },
+                columnDisabled(c) {
+                    // Buttons stay enabled during the opponent's turn so keyboard focus
+                    // isn't dumped to <body> after every move — clicks no-op via
+                    // canActOnColumn. Only hard-disable when the floor is done.
+                    return this.over || !!this.floorResult || !!this.runEnd || this.draftOpen;
+                },
+                showGhostAt(c, r) {
+                    if (this.hoverCol !== c || !this.myTurn || this.over) return false;
+                    if (this.targeting === 'smash' || this.targeting === 'undermine') return false;
+                    return this.cols[c].length === r && r < this.bh;
+                },
+                showSmashMarkAt(c, r) {
+                    return this.targeting === 'smash' && this.hoverCol === c && this.myTurn
+                        && this.cols[c].length - 1 === r && this.cols[c].length > 0;
+                },
+                showMineMarkAt(c, r) {
+                    return this.targeting === 'undermine' && this.hoverCol === c && this.myTurn && r === 0 && this.cols[c].length > 0;
+                },
+
+                /* ---------- core rules ---------- */
+                grid() {
+                    // owner grid[c][r]: 0 empty, 1, 2, 3 wild, 4 stone
+                    return this.cols.map(stack => {
+                        const col = new Array(this.bh).fill(0);
+                        stack.forEach((cell, r) => { col[r] = cell.o; });
+                        return col;
+                    });
+                },
+                findWin(g, p) {
+                    const dirs = [[1, 0], [0, 1], [1, 1], [1, -1]];
+                    const okCell = (v) => v === p || v === 3;
+                    for (let c = 0; c < this.bw; c++) {
+                        for (let r = 0; r < this.bh; r++) {
+                            if (!okCell(g[c][r])) continue;
+                            for (const [dc, dr] of dirs) {
+                                const cells = [[c, r]];
+                                let cc = c + dc, rr = r + dr;
+                                while (cc >= 0 && cc < this.bw && rr >= 0 && rr < this.bh && okCell(g[cc][rr])) {
+                                    cells.push([cc, rr]);
+                                    if (cells.length === this.need) {
+                                        // a line of pure wilds shouldn't win for anyone
+                                        if (cells.some(([x, y]) => g[x][y] === p)) return cells;
+                                    }
+                                    cc += dc; rr += dr;
+                                }
+                            }
+                        }
+                    }
+                    return null;
+                },
+                boardFull() {
+                    return this.cols.every((s, c) => this.colFull(c));
+                },
+                clearFresh() {
+                    this.cols.forEach(s => s.forEach(cell => { cell.fresh = false; }));
+                },
+
+                /* ---------- actions (applied identically on both peers) ---------- */
+                clickColumn(c) {
+                    if (!this.canActOnColumn(c)) return;
+                    if (this.targeting) {
+                        const kind = this.targeting;
+                        this.targeting = null;
+                        this.doAction({ t: 'relic', kind, col: c }, true);
+                    } else {
+                        this.doAction({ t: 'move', col: c }, true);
+                    }
+                },
+                armRelic(kind) {
+                    if (!this.canUseRelic(kind)) return;
+                    if (kind === 'timewarp') {
+                        this.doAction({ t: 'relic', kind: 'timewarp' }, true);
+                        return;
+                    }
+                    this.targeting = this.targeting === kind ? null : kind;
+                },
+                canUseRelic(kind) {
+                    if (this.over || !this.myTurn || this.draftOpen || this.floorResult) return false;
+                    if (!(this.relics[this.mePlayer][kind] > 0)) return false;
+                    if (kind === 'timewarp') return !this.skipNext[this.oppPlayer];
+                    if (kind === 'boulder') return this.cols.some((s, c) => !this.colFull(c));
+                    if (kind === 'smash') return this.cols.some(s => s.length > 0 && s[s.length - 1].o !== 4);
+                    if (kind === 'undermine') return this.cols.some(s => s.length > 0 && s[0].o !== 4);
+                    return false;
+                },
+                doAction(action, mine) {
+                    // mine=true → local player initiated: send to peer first
+                    if (mine && this.isDuel && this.conn && this.conn.open) {
+                        this.conn.send(action);
+                    }
+                    this.applyAction(action, mine ? this.mePlayer : (this.isDuel ? this.oppPlayer : 2));
+                },
+                applyAction(action, byPlayer) {
+                    if (this.over) return;
+                    if (byPlayer !== this.turn) return; // stale or out-of-turn message
+                    if (action.t === 'move') {
+                        const c = Number(action.col);
+                        if (!(c >= 0 && c < this.bw)) return;
+                        this.applyDrop(c, byPlayer);
+                    } else if (action.t === 'relic') {
+                        this.applyRelic(action, byPlayer);
+                    }
+                },
+                applyDrop(c, by) {
+                    if (this.colFull(c)) return;
+                    this.clearFresh();
+                    const row = this.cols[c].length;
+                    this.cols[c].push({ o: by, id: uid++, fresh: true });
+                    this.moveNum++;
+                    this.totalMoves++;
+                    this.sfx('drop', row);
+                    this.announce((by === this.mePlayer || (!this.isDuel && by === 1) ? 'You dropped' : this.nameOf(by) + ' dropped') + ' in column ' + (c + 1) + '.');
+                    this.afterMutation(by, true);
+                },
+                applyRelic(action, by) {
+                    const kind = action.kind;
+                    if (!(this.relics[by][kind] > 0)) return;
+                    this.relics[by][kind]--;
+                    if (kind === 'timewarp') {
+                        this.skipNext[by === 1 ? 2 : 1] = true;
+                        this.sfx('draft');
+                        this.announce(this.nameOf(by) + ' played Time warp — ' + this.nameOf(by === 1 ? 2 : 1) + ' will lose their next turn.');
+                        return; // free action; turn continues
+                    }
+                    this.clearFresh();
+                    const c = action.col;
+                    if (kind === 'boulder') {
+                        if (this.colFull(c)) return;
+                        this.cols[c].push({ o: 4, id: uid++, fresh: true });
+                        this.sfx('drop', this.cols[c].length);
+                        this.announce(this.nameOf(by) + ' dropped a boulder in column ' + (c + 1) + '.');
+                        // A boulder is a dropped piece: it advances (and can trigger) the crumble count.
+                        this.moveNum++;
+                        this.afterMutation(by, true);
+                        return;
+                    }
+                    if (kind === 'smash') {
+                        if (!this.cols[c].length) return;
+                        this.cols[c].pop();
+                        this.sfx('smash');
+                        this.shakeBoard();
+                        this.announce(this.nameOf(by) + ' smashed the top disc of column ' + (c + 1) + '.');
+                    } else if (kind === 'undermine') {
+                        if (!this.cols[c].length) return;
+                        this.cols[c].shift();
+                        this.sfx('smash');
+                        this.shakeBoard();
+                        this.announce(this.nameOf(by) + ' undermined column ' + (c + 1) + ' — everything fell one row.');
+                    }
+                    // Removals aren't drops: the "every tenth disc" crumble count doesn't move.
+                    this.afterMutation(by, false);
+                },
+                afterMutation(by, wasDrop) {
+                    // crumble check (drops only count the counter, but any mutation can trigger win)
+                    if (this.floorDef.twist === 'crumble' && wasDrop && this.moveNum > 0 && this.moveNum % CRUMBLE_EVERY === 0) {
+                        const anyBottom = this.cols.some(s => s.length > 0);
+                        if (anyBottom) {
+                            this.cols.forEach(s => s.shift());
+                            this.sfx('crumble');
+                            this.shakeBoard();
+                            this.announce('The floor crumbles! The bottom row is gone.');
+                        }
+                    }
+                    const g = this.grid();
+                    // acting player checked first — smash/undermine/crumble can gift lines
+                    const mineWin = this.findWin(g, by);
+                    const other = by === 1 ? 2 : 1;
+                    const theirWin = mineWin ? null : this.findWin(g, other);
+                    if (mineWin || theirWin) {
+                        this.finishFloor(mineWin ? by : other, mineWin || theirWin);
+                        return;
+                    }
+                    if (this.boardFull()) {
+                        this.finishFloor(0, []);
+                        return;
+                    }
+                    // next turn (honoring time warp)
+                    let next = other;
+                    if (this.skipNext[next]) {
+                        this.skipNext[next] = false;
+                        this.announce(this.nameOf(next) + ' is frozen in time — ' + this.nameOf(by) + ' goes again.');
+                        next = by;
+                    }
+                    this.turn = next;
+                    if (!this.isDuel && this.turn === 2 && !this.over) this.scheduleAi();
+                },
+                shakeBoard() {
+                    this.shaking = false;
+                    requestAnimationFrame(() => { this.shaking = true; setTimeout(() => { this.shaking = false; }, 500); });
+                },
+
+                /* ---------- floor + run resolution ---------- */
+                finishFloor(winner, cells) {
+                    this.over = true;
+                    this.winner = winner;
+                    this.winCells = cells || [];
+                    this.targeting = null;
+                    // Compute the draft offer NOW, deterministically — both peers derive
+                    // the same list from the shared seed, so a {draft, idx} message maps
+                    // correctly even if this peer hasn't clicked through the overlay yet.
+                    if (winner !== 0) {
+                        const rnd = this.rng(211);
+                        const pool = RELIC_KINDS.slice();
+                        for (let i = pool.length - 1; i > 0; i--) {
+                            const j = Math.floor(rnd() * (i + 1));
+                            const tmp = pool[i]; pool[i] = pool[j]; pool[j] = tmp;
+                        }
+                        this.draftOffer = pool.slice(0, 3);
+                    }
+
+                    if (winner === 0) {
+                        this.sfx('lose');
+                        this.announce('A draw. The dungeon insists you settle it — same floor, fresh board.');
+                        setTimeout(() => {
+                            this.floorResult = {
+                                emoji: '🤝', title: 'A draw?!',
+                                sub: 'The dungeon refuses ambiguity. Same floor, fresh board.',
+                                cta: 'Replay the floor', kind: 'draw'
+                            };
+                        }, 700);
+                        return;
+                    }
+
+                    const iWon = this.isDuel ? winner === this.mePlayer : winner === 1;
+                    this.sfx(iWon ? 'win' : 'lose');
+                    this.announce(iWon ? 'You cleared the floor!' : (this.isDuel ? this.oppName + ' took the floor.' : 'The dungeon took the floor. The run is over.'));
+
+                    if (this.isDuel) {
+                        this.crowns[winner]++;
+                        const champ = this.crowns[winner] >= 4;
+                        setTimeout(() => {
+                            if (champ) {
+                                this.showRunEnd(winner === this.mePlayer);
+                            } else {
+                                this.floorResult = {
+                                    emoji: iWon ? '🎉' : '🪦',
+                                    title: iWon ? 'Floor yours!' : this.oppName + ' takes it',
+                                    sub: iWon
+                                        ? 'They loot the room for a relic, then the descent continues.'
+                                        : 'You loot the room — pick a relic on the next screen.',
+                                    cta: 'Continue', kind: 'duel-next'
+                                };
+                            }
+                        }, 900);
+                    } else {
+                        setTimeout(() => {
+                            if (!iWon) {
+                                this.showRunEnd(false);
+                            } else if (this.floor === FLOORS.length - 1) {
+                                this.showRunEnd(true);
+                            } else {
+                                this.floorResult = {
+                                    emoji: '🎉', title: 'Floor cleared!',
+                                    sub: 'Grab a relic before the stairs — the next floor is meaner.',
+                                    cta: 'Loot the room', kind: 'solo-next'
+                                };
+                            }
+                        }, 900);
+                    }
+                },
+                floorResultContinue() {
+                    const kind = this.floorResult.kind;
+                    this.floorResult = null;
+                    if (kind === 'draw') {
+                        this.attempt++;
+                        this.setupFloor();
+                        return;
+                    }
+                    if (kind === 'solo-next') {
+                        this.openDraft(true);
+                        return;
+                    }
+                    if (kind === 'duel-next') {
+                        const loser = this.winner === 1 ? 2 : 1;
+                        this.openDraft(loser === this.mePlayer);
+                    }
+                },
+                openDraft(mine) {
+                    // Offer was computed in finishFloor (deterministic on both peers).
+                    this.iAmDrafting = mine;
+                    this.draftOpen = true;
+                    if (mine) this.announce('Choose a relic: ' + this.draftOffer.map(k => RELICS[k].name).join(', ') + '.');
+                },
+                pickDraft(idx) {
+                    const kind = this.draftOffer[idx];
+                    if (this.isDuel && this.conn && this.conn.open) {
+                        this.conn.send({ t: 'draft', idx });
+                    }
+                    this.applyDraft(idx, this.mePlayer);
+                },
+                applyDraft(idx, byPlayer) {
+                    const kind = this.draftOffer[idx];
+                    if (!kind) return; // defensive: bad index or no offer
+                    this.relics[byPlayer][kind] = (this.relics[byPlayer][kind] || 0) + 1;
+                    if (byPlayer === this.mePlayer) this.relicsCollected++;
+                    this.sfx('draft');
+                    this.announce(this.nameOf(byPlayer) + ' took ' + RELICS[kind].name + '.');
+                    this.draftOpen = false;
+                    this.floorResult = null; // peer may still be on the floor-result overlay
+                    this.nextFloor();
+                },
+                nextFloor() {
+                    if (this.isDuel) {
+                        // loser of the previous floor starts the next
+                        this.starter = this.winner === 1 ? 2 : 1;
+                        this.floor = Math.min(this.floor + 1, FLOORS.length - 1);
+                    } else {
+                        this.floor++;
+                        this.starter = (this.floor % 2 === 0) ? 1 : 2; // player starts even-index floors
+                    }
+                    this.attempt = 0;
+                    this.setupFloor();
+                    this.announce(this.floorDef.name + '. ' + (this.turn === this.mePlayer || (!this.isDuel && this.turn === 1) ? 'Your move.' : this.nameOf(this.turn) + ' moves first.'));
+                },
+                showRunEnd(won) {
+                    const floors = this.isDuel ? this.crowns[this.mePlayer] : this.floor + (won ? 1 : 0);
+                    this.runEnd = {
+                        won,
+                        title: won
+                            ? (this.isDuel ? 'You win the run!' : 'You reached the bottom!')
+                            : (this.isDuel ? this.oppName + ' wins the run' : 'The dungeon claims you'),
+                        sub: won
+                            ? (this.isDuel ? 'Four floors, fair and square-ish. The dungeon applauds politely.' : 'Seven floors, one legend. The dungeon will be telling stories about you.')
+                            : (this.isDuel ? 'First to four floors — they got there. Demand a rematch.' : 'Dungeon law: one loss ends the run. It was floor ' + (this.floor + 1) + ' that got you.'),
+                        floors,
+                        relics: this.relicsCollected,
+                        moves: this.totalMoves
+                    };
+                },
+                abandonRun() {
+                    if (!this.over && this.moveNum > 0) {
+                        this.showRunEnd(false);
+                        this.runEnd.title = 'Run abandoned';
+                        this.runEnd.sub = 'The dungeon shrugs. It has seen braver.';
+                        if (this.isDuel && this.conn && this.conn.open) this.conn.send({ t: 'abandon' });
+                    } else {
+                        this.backToMenu();
+                    }
+                },
+
+                /* ---------- AI ---------- */
+                scheduleAi() {
+                    this.aiThinking = true;
+                    const delay = 550 + Math.random() * 650;
+                    setTimeout(() => {
+                        if (this.over || this.screen !== 'game' || this.isDuel) { this.aiThinking = false; return; }
+                        const col = this.aiPick();
+                        this.aiThinking = false;
+                        if (col >= 0) this.applyAction({ t: 'move', col }, 2);
+                    }, delay);
+                },
+                aiPick() {
+                    const open = [];
+                    for (let c = 0; c < this.bw; c++) if (!this.colFull(c)) open.push(c);
+                    if (!open.length) return -1;
+                    const g = this.grid();
+                    // 1. win now
+                    for (const c of open) if (this.wouldWin(g, c, 2)) return c;
+                    // 2. block player win
+                    for (const c of open) if (this.wouldWin(g, c, 1)) return c;
+                    // 3. negamax
+                    const depth = this.floorDef.depth;
+                    let best = -Infinity, bestCols = [];
+                    const order = open.slice().sort((a, b) => Math.abs(this.bw / 2 - a) - Math.abs(this.bw / 2 - b));
+                    for (const c of order) {
+                        this.simDrop(g, c, 2);
+                        const v = -this.negamax(g, depth - 1, -Infinity, Infinity, 1);
+                        this.simUndo(g, c);
+                        if (v > best + 0.001) { best = v; bestCols = [c]; }
+                        else if (Math.abs(v - best) <= 0.001) bestCols.push(c);
+                    }
+                    return bestCols[Math.floor(Math.random() * bestCols.length)];
+                },
+                simTop(g, c) { let r = 0; while (r < this.bh && g[c][r] !== 0) r++; return r; },
+                simDrop(g, c, p) { g[c][this.simTop(g, c)] = p; },
+                simUndo(g, c) { let r = this.bh - 1; while (r >= 0 && g[c][r] === 0) r--; if (r >= 0) g[c][r] = 0; },
+                wouldWin(g, c, p) {
+                    const r = this.simTop(g, c);
+                    if (r >= this.bh) return false;
+                    g[c][r] = p;
+                    const win = this.findWin(g, p) !== null;
+                    g[c][r] = 0;
+                    return win;
+                },
+                negamax(g, depth, alpha, beta, p) {
+                    const opp = p === 1 ? 2 : 1;
+                    if (this.findWin(g, opp)) return -10000 - depth;
+                    const open = [];
+                    for (let c = 0; c < this.bw; c++) if (this.simTop(g, c) < this.bh) open.push(c);
+                    if (!open.length) return 0;
+                    if (depth === 0) return this.evalBoard(g, p);
+                    let best = -Infinity;
+                    const order = open.slice().sort((a, b) => Math.abs(this.bw / 2 - a) - Math.abs(this.bw / 2 - b));
+                    for (const c of order) {
+                        this.simDrop(g, c, p);
+                        const v = -this.negamax(g, depth - 1, -beta, -alpha, opp);
+                        this.simUndo(g, c);
+                        if (v > best) best = v;
+                        if (best > alpha) alpha = best;
+                        if (alpha >= beta) break;
+                    }
+                    return best;
+                },
+                evalBoard(g, p) {
+                    const opp = p === 1 ? 2 : 1;
+                    const score = (who) => {
+                        let s = 0;
+                        const dirs = [[1, 0], [0, 1], [1, 1], [1, -1]];
+                        for (let c = 0; c < this.bw; c++) {
+                            for (let r = 0; r < this.bh; r++) {
+                                for (const [dc, dr] of dirs) {
+                                    let own = 0, empty = 0, dead = false;
+                                    for (let k = 0; k < this.need; k++) {
+                                        const cc = c + dc * k, rr = r + dr * k;
+                                        if (cc < 0 || cc >= this.bw || rr < 0 || rr >= this.bh) { dead = true; break; }
+                                        const v = g[cc][rr];
+                                        if (v === who || v === 3) own++;
+                                        else if (v === 0) empty++;
+                                        else { dead = true; break; }
+                                    }
+                                    if (!dead && own > 1) s += own * own;
+                                }
+                            }
+                        }
+                        return s;
+                    };
+                    return score(p) - score(opp);
+                },
+
+                /* ---------- PeerJS duel ---------- */
+                startHost() {
+                    if (!PEER_OK) return;
+                    this.cleanupPeer();
+                    this.mode = 'duel';
+                    this.isHost = true;
+                    this.mePlayer = 1;
+                    this.netError = '';
+                    this.peerId = '';
+                    this.screen = 'lobby';
+                    this.peer = new Peer({
+                        config: {
+                            iceServers: [
+                                { urls: 'stun:stun.l.google.com:19302' },
+                                { urls: 'stun:global.stun.twilio.com:3478' }
+                            ]
+                        }
+                    });
+                    this.peer.on('open', (id) => {
+                        this.peerId = id;
+                        try {
+                            const url = new URL(window.location);
+                            url.searchParams.set('gameId', id);
+                            window.history.replaceState({}, document.title, url.toString());
+                        } catch (e) { /* cosmetic */ }
+                    });
+                    this.peer.on('connection', (incoming) => {
+                        if (this.conn && this.conn.open) { incoming.close(); return; } // one rival at a time
+                        incoming.on('open', () => {
+                            this.conn = incoming;
+                            this.wireConnection();
+                            this.seed = (Math.random() * 0xFFFFFFFF) >>> 0;
+                            this.conn.send({ t: 'setup', seed: this.seed, name: (this.myName || 'Dungeon Keeper').slice(0, 20) });
+                        });
+                    });
+                    this.peer.on('error', (err) => this.netFail(err));
+                    this.peer.on('disconnected', () => {
+                        if (this.peer && !this.peer.destroyed) this.peer.reconnect();
+                    });
+                },
+                connectToHost() {
+                    if (!PEER_OK || !this.joinId.trim()) return;
+                    this.cleanupPeer();
+                    this.mode = 'duel';
+                    this.isHost = false;
+                    this.mePlayer = 2;
+                    this.netError = '';
+                    this.connecting = true;
+                    localStorage.setItem('ddName', this.myName || '');
+                    this.peer = new Peer({
+                        config: {
+                            iceServers: [
+                                { urls: 'stun:stun.l.google.com:19302' },
+                                { urls: 'stun:global.stun.twilio.com:3478' }
+                            ]
+                        }
+                    });
+                    const timeout = setTimeout(() => {
+                        if (this.connecting) this.netFail({ type: 'timeout' });
+                    }, 25000);
+                    this.peer.on('open', () => {
+                        this.conn = this.peer.connect(this.joinId.trim());
+                        if (!this.conn) { clearTimeout(timeout); this.netFail({ type: 'network' }); return; }
+                        this.conn.on('open', () => {
+                            clearTimeout(timeout);
+                            this.connecting = false;
+                            this.wireConnection();
+                            this.conn.send({ t: 'hello', name: (this.myName || 'The Challenger').slice(0, 20) });
+                        });
+                        this.conn.on('error', (err) => { clearTimeout(timeout); this.netFail(err); });
+                    });
+                    this.peer.on('error', (err) => { clearTimeout(timeout); this.netFail(err); });
+                },
+                wireConnection() {
+                    this.conn.on('data', (data) => {
+                        if (!data || typeof data.t !== 'string') return;
+                        this.handleMessage(data);
+                    });
+                    this.conn.on('close', () => {
+                        if (this.screen === 'game' || this.draftOpen || this.floorResult) {
+                            this.netError = this.oppName + ' left the dungeon. The run ends here.';
+                            this.showRunEnd(true);
+                            this.runEnd.title = this.oppName + ' fled!';
+                            this.runEnd.sub = 'Your rival disconnected. The dungeon awards you the run by default.';
+                        } else if (this.screen !== 'menu') {
+                            this.netError = 'The connection closed.';
+                        }
+                    });
+                },
+                handleMessage(data) {
+                    switch (data.t) {
+                        case 'hello': // host receives joiner's name
+                            this.oppName = String(data.name || 'The Challenger').slice(0, 20);
+                            localStorage.setItem('ddName', this.myName || '');
+                            this.beginRun();
+                            break;
+                        case 'setup': // joiner receives seed + host name
+                            this.seed = data.seed >>> 0;
+                            this.oppName = String(data.name || 'Dungeon Keeper').slice(0, 20);
+                            this.beginRun();
+                            break;
+                        case 'move':
+                        case 'relic':
+                            this.applyAction(data, this.oppPlayer);
+                            break;
+                        case 'draft':
+                            this.applyDraft(data.idx, this.oppPlayer);
+                            break;
+                        case 'emote':
+                            this.showEmote(String(data.e).slice(0, 4));
+                            this.sfx('emote');
+                            break;
+                        case 'rematch': // host offers a new run
+                            this.seed = data.seed >>> 0;
+                            this.rematchOffered = true;
+                            this.announce(this.oppName + ' wants a rematch!');
+                            break;
+                        case 'rematch-accept': // joiner accepted — host starts too
+                            this.rematchOffered = false;
+                            this.beginRun();
+                            break;
+                        case 'abandon':
+                            this.showRunEnd(true);
+                            this.runEnd.title = this.oppName + ' fled!';
+                            this.runEnd.sub = 'Your rival abandoned the run. The dungeon awards it to you.';
+                            break;
+                    }
+                },
+                hostRematch() {
+                    this.seed = (Math.random() * 0xFFFFFFFF) >>> 0;
+                    this.rematchOffered = true; // reused as "offer sent, waiting" on the host
+                    if (this.conn && this.conn.open) {
+                        this.conn.send({ t: 'rematch', seed: this.seed });
+                    }
+                },
+                joinerAcceptRematch() {
+                    this.rematchOffered = false;
+                    if (this.conn && this.conn.open) this.conn.send({ t: 'rematch-accept' });
+                    this.beginRun();
+                },
+                sendEmote(e) {
+                    if (this.conn && this.conn.open) this.conn.send({ t: 'emote', e });
+                    this.sfx('emote');
+                },
+                showEmote(e) {
+                    this.emoteShown = e;
+                    if (this.emoteTimer) clearTimeout(this.emoteTimer);
+                    this.emoteTimer = setTimeout(() => { this.emoteShown = ''; }, 2400);
+                },
+                copyInvite() {
+                    const link = this.inviteLink;
+                    navigator.clipboard.writeText(link).then(() => {
+                        this.copied = true;
+                        this.announce('Invite link copied.');
+                        if (this.copyTimer) clearTimeout(this.copyTimer);
+                        this.copyTimer = setTimeout(() => { this.copied = false; }, 2000);
+                    }).catch(() => {
+                        this.announce('Copy didn’t work — select the link and copy it yourself.');
+                    });
+                },
+                netFail(err) {
+                    this.connecting = false;
+                    const type = err && err.type;
+                    if (type === 'peer-unavailable') this.netError = 'No dungeon found at that code — double-check the invite link.';
+                    else if (type === 'timeout') this.netError = 'Couldn’t reach them — the host may have closed the page.';
+                    else if (type === 'network') this.netError = 'Network hiccup — check your connection and try again.';
+                    else this.netError = 'The connection failed. Try again in a moment.';
+                    this.announce(this.netError);
+                },
+                cleanupPeer() {
+                    if (this.conn) { try { this.conn.close(); } catch (e) {} this.conn = null; }
+                    if (this.peer) { try { this.peer.destroy(); } catch (e) {} this.peer = null; }
+                },
+                backToMenu() {
+                    this.cleanupPeer();
+                    localStorage.setItem('ddName', this.myName || '');
+                    this.screen = 'menu';
+                    this.runEnd = null;
+                    this.floorResult = null;
+                    this.draftOpen = false;
+                    this.netError = '';
+                    this.connecting = false;
+                    this.rematchOffered = false;
+                    this.mode = 'solo';
+                    this.mePlayer = 1;
+                    try {
+                        const url = new URL(window.location);
+                        url.searchParams.delete('gameId');
+                        window.history.replaceState({}, document.title, url.toString());
+                    } catch (e) { /* cosmetic */ }
+                }
+            }
+        }).mount('#app');
+    </script>
+</body>
+</html>
