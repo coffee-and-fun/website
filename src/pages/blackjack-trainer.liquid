@@ -52,6 +52,34 @@
         "author": { "@type": "Organization", "name": "Coffee & Fun LLC" }
     }
     </script>
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "FAQPage",
+        "mainEntity": [
+            {
+                "@type": "Question",
+                "name": "When should you hit or stand in blackjack?",
+                "acceptedAnswer": { "@type": "Answer", "text": "Always stand on hard 17 or more. With hard 13–16, stand when the dealer shows 2–6 (they bust often) and hit against 7 through ace. Hard 12 is the exception: hit against a 2 or 3, stand against 4–6. Always hit hard 8 or less, and hit soft hands until at least soft 18." }
+            },
+            {
+                "@type": "Question",
+                "name": "When should you split pairs in blackjack?",
+                "acceptedAnswer": { "@type": "Answer", "text": "Always split aces and eights. Never split tens or fives. Split 2s, 3s, and 7s against a dealer 2–7, split 6s against 2–6, and split 9s against 2–6 and 8–9 (stand against 7, 10, or ace)." }
+            },
+            {
+                "@type": "Question",
+                "name": "When should you double down?",
+                "acceptedAnswer": { "@type": "Answer", "text": "Double hard 11 against everything except an ace, hard 10 against 2–9, and hard 9 against 3–6. Soft hands double against a weak dealer: for example, double soft 17 (A-6) against 3–6, and soft 18 (A-7) against 3–6." }
+            },
+            {
+                "@type": "Question",
+                "name": "Does basic strategy guarantee you win at blackjack?",
+                "acceptedAnswer": { "@type": "Answer", "text": "No. Basic strategy is the mathematically best decision for every hand, which shrinks the house edge to roughly half a percent — the lowest of any standard casino game — but the casino keeps a small long-run advantage. This trainer is for learning, not for gambling." }
+            }
+        ]
+    }
+    </script>
 
     <!-- Casino marquee font -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -133,10 +161,9 @@
 
         .home-link {
             position: relative; display: inline-flex; border-radius: 12px;
-            background: var(--cream); padding: 4px;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.45);
+            filter: drop-shadow(0 2px 8px rgba(0, 0, 0, 0.45));
         }
-        .home-link img { width: 36px; height: 36px; display: block; transition: transform 0.15s ease; }
+        .home-link img { width: 64px; height: 64px; display: block; transition: transform 0.15s ease; }
         .home-link:hover img, .home-link:focus-visible img { transform: rotate(-8deg) scale(1.08); }
         .home-link:focus-visible { outline: 2px solid var(--gold); outline-offset: 3px; }
         .home-link .tip {
@@ -507,7 +534,7 @@
 
         <div class="topbar">
             <a href="/" class="home-link" aria-label="Back to coffeeandfun.com">
-                <img src="/assets/images/coffee-and-fun-logo-dark.png" alt="" width="36" height="36" decoding="async" />
+                <img src="/assets/images/coffee-and-fun-logo-dark.png" alt="" width="64" height="64" decoding="async" />
                 <span class="tip" aria-hidden="true">Back to coffeeandfun.com</span>
             </a>
             <button type="button" class="mute-btn" @click="toggleMute" :aria-pressed="muted ? 'true' : 'false'"
