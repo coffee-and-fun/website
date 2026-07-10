@@ -1,0 +1,1132 @@
+<!DOCTYPE html>
+<html class="antialiased" lang="en" style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <!-- Primary Meta Tags -->
+    <title>Free Blackjack Strategy Trainer - Learn When to Hit, Stand, Double & Split | Coffee & Fun LLC</title>
+    <meta name="description" content="Drill perfect blackjack basic strategy one hand at a time. Get graded on every hit, stand, double, split, and surrender — with the full strategy chart, dealer bust odds, and your personal accuracy stats. Free, no signup." />
+    <meta name="author" content="Coffee & Fun LLC" />
+    <meta name="robots" content="index, follow" />
+
+    <!-- Canonical URL -->
+    <link rel="canonical" href="https://www.coffeeandfun.com/blackjack-trainer/" />
+
+    <!-- Favicon -->
+    <link rel="icon" href="/assets/images/favicon.png" sizes="any" />
+
+    <!-- Open Graph -->
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="Coffee & Fun" />
+    <meta property="og:title" content="Free Blackjack Strategy Trainer - Learn When to Hit, Stand, Double & Split" />
+    <meta property="og:description" content="Drill perfect blackjack basic strategy one hand at a time — graded decisions, the full chart, dealer bust odds, and your personal stats." />
+    <meta property="og:url" content="https://www.coffeeandfun.com/blackjack-trainer/" />
+    <meta property="og:image" content="https://www.coffeeandfun.com/assets/images/social/pages/blackjack-trainer.png" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content="Free Blackjack Strategy Trainer by Coffee & Fun" />
+    <meta property="og:locale" content="en_US" />
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:site" content="@bycoffeeandfun" />
+    <meta name="twitter:title" content="Free Blackjack Strategy Trainer" />
+    <meta name="twitter:description" content="Drill perfect basic strategy one hand at a time — graded decisions, the full chart, and your stats." />
+    <meta name="twitter:image" content="https://www.coffeeandfun.com/assets/images/social/pages/blackjack-trainer.png" />
+    <meta name="twitter:image:alt" content="Free Blackjack Strategy Trainer by Coffee & Fun" />
+
+    <meta name="theme-color" content="#0b4a30" />
+
+    <!-- Structured Data -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "SoftwareApplication",
+        "name": "Free Blackjack Strategy Trainer",
+        "description": "Practice blackjack basic strategy with instant grading, plain-English explanations, the full strategy chart, dealer bust odds, and personal accuracy stats. Educational — no gambling, no bets.",
+        "url": "https://www.coffeeandfun.com/blackjack-trainer/",
+        "applicationCategory": "EducationalApplication",
+        "operatingSystem": "Web Browser",
+        "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" },
+        "author": { "@type": "Organization", "name": "Coffee & Fun LLC" }
+    }
+    </script>
+
+    <!-- Casino marquee font -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Limelight&display=swap" rel="stylesheet" />
+
+    <script src="https://unpkg.com/vue@3"></script>
+
+    <style>
+        :root {
+            --felt: #0b4a30;
+            --felt-deep: #072e1e;
+            --felt-hi: #11633f;
+            --felt-line: rgba(243, 234, 211, 0.35);
+            --wood: #5d3a1e;
+            --wood-hi: #7a4f28;
+            --cream: #f3ead3;
+            --muted: #b3cdbb;
+            --faint: #7fa38c;
+            --gold: #d9b24a;
+            --gold-deep: #a8842e;
+            --card: #fdfbf5;
+            --suit-red: #c8322b;
+            --suit-black: #23232b;
+            --hit: #c0392b;
+            --stand: #d9b24a;
+            --dbl: #2fa477;
+            --split: #4a7dce;
+            --surr: #9a6bc9;
+            --radius: 14px;
+            --mono: ui-monospace, 'SF Mono', 'JetBrains Mono', Menlo, Consolas, monospace;
+            --display: 'Limelight', 'Georgia', serif;
+        }
+
+        * { box-sizing: border-box; }
+
+        html { background: var(--felt-deep); }
+        body {
+            margin: 0;
+            color: var(--cream);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            -webkit-font-smoothing: antialiased;
+            accent-color: var(--gold);
+            background:
+                radial-gradient(110vw 80vh ellipse at 50% -10%, var(--felt-hi), var(--felt) 55%, var(--felt-deep) 100%);
+            background-attachment: fixed;
+        }
+
+        [v-cloak] { display: none; }
+
+        .sr-only {
+            position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px;
+            overflow: hidden; clip: rect(0,0,0,0); white-space: nowrap; border: 0;
+        }
+
+        a.skip {
+            position: absolute; left: -9999px; top: 0;
+            background: var(--gold); color: #241708; padding: 0.6rem 1rem; z-index: 50;
+            border-radius: 0 0 8px 0; font-weight: 700;
+        }
+        a.skip:focus { left: 0; }
+
+        .wrap {
+            width: 100%;
+            max-width: 760px;
+            margin: 0 auto;
+            padding: 2rem 1.25rem 4rem;
+            flex: 1;
+        }
+
+        .topbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.8rem;
+        }
+
+        .home-link {
+            position: relative; display: inline-flex; border-radius: 12px;
+            background: var(--cream); padding: 4px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.45);
+        }
+        .home-link img { width: 36px; height: 36px; display: block; transition: transform 0.15s ease; }
+        .home-link:hover img, .home-link:focus-visible img { transform: rotate(-8deg) scale(1.08); }
+        .home-link:focus-visible { outline: 2px solid var(--gold); outline-offset: 3px; }
+        .home-link .tip {
+            position: absolute; top: calc(100% + 9px); left: 0;
+            background: var(--gold); color: #241708;
+            font-size: 0.78rem; font-weight: 700;
+            white-space: nowrap; padding: 0.4rem 0.7rem; border-radius: 8px;
+            opacity: 0; transform: translateY(-4px); pointer-events: none;
+            transition: opacity 0.15s, transform 0.15s;
+            z-index: 30;
+        }
+        .home-link .tip::before {
+            content: ''; position: absolute; top: -4px; left: 16px;
+            width: 8px; height: 8px; background: var(--gold);
+            transform: rotate(45deg);
+        }
+        .home-link:hover .tip, .home-link:focus-visible .tip { opacity: 1; transform: translateY(0); }
+
+        .mute-btn {
+            appearance: none; border: 1px solid var(--felt-line);
+            background: rgba(0,0,0,0.25);
+            border-radius: 9px; padding: 0.35rem 0.55rem; cursor: pointer; font-size: 0.95rem;
+            color: var(--cream);
+        }
+        .mute-btn:hover { border-color: var(--gold); }
+        .mute-btn:focus-visible { outline: 2px solid var(--gold); outline-offset: 2px; }
+
+        h1 {
+            font-family: var(--display);
+            font-size: 2.6rem;
+            line-height: 1.08;
+            margin: 0 0 0.5rem;
+            font-weight: 400;
+            color: var(--gold);
+            text-shadow: 0 0 26px rgba(217, 178, 74, 0.35), 0 2px 0 rgba(0,0,0,0.55);
+            letter-spacing: 0.02em;
+        }
+        .lede {
+            color: var(--muted);
+            font-size: 1rem;
+            line-height: 1.6;
+            margin: 0 0 1.6rem;
+            max-width: 54ch;
+        }
+
+        /* ===== View tabs ===== */
+        .views { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 1.6rem; }
+        .view-chip {
+            display: inline-flex; align-items: center; gap: 0.4rem;
+            border: 1.5px solid var(--felt-line);
+            border-radius: 999px;
+            padding: 0.5rem 1.05rem;
+            cursor: pointer;
+            font-size: 0.92rem; font-weight: 700; color: var(--cream);
+            background: rgba(0,0,0,0.22);
+            transition: border-color 0.15s, background 0.15s, color 0.15s;
+        }
+        .view-chip:hover { border-color: var(--gold); }
+        .view-chip.on {
+            background: var(--gold); color: #241708; border-color: var(--gold);
+            box-shadow: 0 0 16px rgba(217, 178, 74, 0.35);
+        }
+        .view-chip:has(input:focus-visible) { outline: 2px solid var(--gold); outline-offset: 2px; }
+        @supports not selector(.x:has(a)) {
+            .view-chip:focus-within { outline: 2px solid var(--gold); outline-offset: 2px; }
+        }
+
+        /* ===== The table (felt) ===== */
+        .table-zone {
+            background: radial-gradient(130% 150% at 50% -20%, var(--felt-hi), var(--felt) 62%, #09402a);
+            border: 9px solid var(--wood);
+            box-shadow:
+                inset 0 0 0 2px var(--gold-deep),
+                inset 0 10px 40px rgba(0, 0, 0, 0.35),
+                0 16px 44px rgba(0, 0, 0, 0.5);
+            border-radius: 26px 26px 46% 46% / 26px 26px 22% 22%;
+            padding: 1.5rem 1.25rem 2.4rem;
+            text-align: center;
+        }
+        .deck-label {
+            font-size: 0.68rem; font-weight: 700; letter-spacing: 0.18em;
+            text-transform: uppercase; color: var(--faint); margin: 0 0 0.55rem;
+        }
+        .felt-print {
+            font-size: 0.72rem; font-weight: 700; letter-spacing: 0.14em;
+            text-transform: uppercase; color: rgba(243, 234, 211, 0.4);
+            margin: 1.1rem 0;
+        }
+        .cards-row {
+            display: flex; justify-content: center; align-items: center; gap: 0.6rem;
+            min-height: 108px;
+        }
+
+        .pcard {
+            width: clamp(60px, 17vw, 84px);
+            aspect-ratio: 5 / 7;
+            background: var(--card);
+            border-radius: 9px;
+            position: relative;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.45), inset 0 0 0 1px rgba(0,0,0,0.08);
+            color: var(--suit-black);
+            flex-shrink: 0;
+        }
+        .pcard.red { color: var(--suit-red); }
+        .pcard.deal { animation: dealin 0.4s cubic-bezier(0.22, 1.2, 0.36, 1); }
+        @keyframes dealin {
+            from { transform: translateY(-34px) rotate(-7deg); opacity: 0; }
+            to { transform: translateY(0) rotate(0); opacity: 1; }
+        }
+        .pcard .corner {
+            position: absolute; top: 6px; left: 7px;
+            font-size: clamp(0.78rem, 2.4vw, 0.95rem); font-weight: 800; line-height: 1.02;
+            text-align: center;
+        }
+        .pcard .corner.flip {
+            top: auto; left: auto; bottom: 6px; right: 7px;
+            transform: rotate(180deg);
+        }
+        .pcard .mid {
+            position: absolute; inset: 0;
+            display: flex; flex-direction: column; align-items: center; justify-content: center;
+            font-weight: 800;
+        }
+        .pcard .mid .r { font-size: clamp(1.5rem, 5vw, 2rem); line-height: 1; }
+        .pcard .mid .s { font-size: clamp(1rem, 3.4vw, 1.35rem); line-height: 1.15; }
+        .pcard.back {
+            background:
+                repeating-linear-gradient(45deg, #7c1f1f 0 5px, #942929 5px 10px);
+            border: 5px solid var(--card);
+        }
+
+        .hand-total {
+            display: inline-flex; align-items: center; gap: 0.45rem;
+            margin-top: 0.8rem;
+            background: rgba(0, 0, 0, 0.3);
+            border: 1px solid var(--felt-line);
+            border-radius: 999px;
+            padding: 0.32rem 0.9rem;
+            font-size: 0.88rem; font-weight: 700; color: var(--cream);
+        }
+
+        /* ===== Action chips ===== */
+        .actions {
+            display: flex; gap: 0.6rem; justify-content: center; flex-wrap: wrap;
+            margin-top: 1.1rem;
+        }
+        .act {
+            appearance: none; cursor: pointer; font-family: inherit;
+            border-radius: 999px;
+            padding: 0.72rem 1.25rem;
+            font-size: 0.92rem; font-weight: 800; letter-spacing: 0.05em;
+            color: #fff;
+            border: 3px dashed rgba(255, 255, 255, 0.5);
+            box-shadow: 0 3px 0 rgba(0, 0, 0, 0.45), inset 0 2px 6px rgba(255,255,255,0.18);
+            text-shadow: 0 1px 2px rgba(0,0,0,0.4);
+            transition: transform 0.1s, filter 0.15s, opacity 0.15s;
+        }
+        .act:hover:not(:disabled) { filter: brightness(1.12); }
+        .act:active:not(:disabled) { transform: translateY(2px); box-shadow: 0 1px 0 rgba(0,0,0,0.45); }
+        .act:focus-visible { outline: 2px solid var(--cream); outline-offset: 3px; }
+        .act:disabled { opacity: 0.35; cursor: not-allowed; }
+        .act.hit { background: var(--hit); }
+        .act.stand { background: var(--stand); color: #241708; text-shadow: none; border-color: rgba(0,0,0,0.25); }
+        .act.double { background: var(--dbl); }
+        .act.split { background: var(--split); }
+        .act.surrender { background: var(--surr); }
+
+        .keys-hint { font-size: 0.72rem; color: var(--faint); margin-top: 0.7rem; }
+        .keys-hint kbd {
+            font-family: var(--mono); background: rgba(0,0,0,0.3); border: 1px solid var(--felt-line);
+            border-radius: 4px; padding: 0 0.3em; font-size: 0.72rem;
+        }
+
+        /* ===== Feedback ===== */
+        .feedback {
+            margin-top: 1.1rem;
+            border-radius: var(--radius);
+            padding: 1.05rem 1.2rem;
+            text-align: left;
+            border: 1.5px solid;
+        }
+        .feedback.good { background: rgba(47, 164, 119, 0.14); border-color: var(--dbl); }
+        .feedback.bad { background: rgba(192, 57, 43, 0.16); border-color: var(--hit); }
+        .feedback .fb-head {
+            display: flex; align-items: center; gap: 0.5rem;
+            font-family: var(--display); font-weight: 400; font-size: 1.25rem;
+            margin: 0 0 0.3rem; letter-spacing: 0.02em;
+        }
+        .feedback.good .fb-head { color: #8fe0bb; }
+        .feedback.bad .fb-head { color: #ffab9e; }
+        .feedback .fb-why { font-size: 0.92rem; line-height: 1.6; color: var(--cream); margin: 0; }
+        .feedback .fb-why strong { color: var(--gold); }
+        .fb-row { display: flex; gap: 0.7rem; align-items: center; flex-wrap: wrap; margin-top: 0.85rem; }
+
+        .btn {
+            appearance: none; border-radius: 12px;
+            padding: 0.8rem 1.5rem;
+            font-size: 0.98rem; font-weight: 800; cursor: pointer; font-family: inherit;
+            letter-spacing: 0.03em;
+            display: inline-flex; align-items: center; justify-content: center; gap: 0.5rem;
+            transition: filter 0.15s, transform 0.1s;
+        }
+        .btn:focus-visible { outline: 2px solid var(--gold); outline-offset: 2px; }
+        .btn:active { transform: translateY(1px); }
+        .btn-primary {
+            background: linear-gradient(180deg, #e8c766, #bd923a);
+            color: #241708;
+            border: 1px solid #8a5f1d;
+            box-shadow: 0 3px 0 #6d4a14, 0 0 18px rgba(217, 178, 74, 0.25);
+        }
+        .btn-primary:hover { filter: brightness(1.08); }
+        .btn-ghost {
+            background: rgba(0,0,0,0.25); color: var(--cream);
+            border: 1px solid var(--felt-line);
+        }
+        .btn-ghost:hover { border-color: var(--gold); }
+
+        button.linkish {
+            appearance: none; border: none; background: none; padding: 0;
+            font-size: 0.85rem; color: var(--muted); text-decoration: underline;
+            cursor: pointer; font-family: inherit;
+        }
+        button.linkish:hover { color: var(--gold); }
+        button.linkish:focus-visible { outline: 2px solid var(--gold); outline-offset: 2px; border-radius: 4px; }
+
+        /* ===== Practice settings ===== */
+        .drill-row {
+            display: flex; justify-content: space-between; align-items: center;
+            gap: 0.8rem; flex-wrap: wrap; margin-top: 1rem;
+        }
+        .focus-set { display: flex; gap: 6px; flex-wrap: wrap; }
+        .focus-chip {
+            display: inline-flex; align-items: center;
+            border: 1px solid var(--felt-line); border-radius: 999px;
+            padding: 0.3rem 0.75rem; cursor: pointer;
+            font-size: 0.78rem; font-weight: 700; color: var(--muted);
+            background: rgba(0,0,0,0.2);
+        }
+        .focus-chip:hover { border-color: var(--gold); }
+        .focus-chip.on { background: var(--cream); color: #17402c; border-color: var(--cream); }
+        .focus-chip:has(input:focus-visible) { outline: 2px solid var(--gold); outline-offset: 2px; }
+        @supports not selector(.x:has(a)) {
+            .focus-chip:focus-within { outline: 2px solid var(--gold); outline-offset: 2px; }
+        }
+        label.surr-toggle {
+            display: inline-flex; align-items: center; gap: 0.45rem;
+            font-size: 0.82rem; color: var(--muted); cursor: pointer;
+        }
+        label.surr-toggle input { width: 15px; height: 15px; }
+        label.surr-toggle input:focus-visible { outline: 2px solid var(--gold); outline-offset: 2px; }
+
+        /* ===== Chart ===== */
+        .chart-note { font-size: 0.85rem; color: var(--muted); line-height: 1.55; margin: 0 0 1rem; max-width: 60ch; }
+        .legend { display: flex; gap: 0.5rem 1.1rem; flex-wrap: wrap; margin: 0 0 1.1rem; }
+        .legend span { display: inline-flex; align-items: center; gap: 0.4rem; font-size: 0.8rem; color: var(--muted); font-weight: 600; }
+        .lg {
+            width: 20px; height: 20px; border-radius: 5px; display: inline-flex;
+            align-items: center; justify-content: center;
+            font-size: 0.68rem; font-weight: 800; color: #fff;
+        }
+        h2.chart-h {
+            font-family: var(--display); font-weight: 400; font-size: 1.35rem;
+            color: var(--gold); letter-spacing: 0.02em; margin: 1.6rem 0 0.6rem;
+        }
+        .chart-scroll { overflow-x: auto; border-radius: 10px; }
+        table.strat {
+            border-collapse: collapse; width: 100%; min-width: 520px;
+            background: rgba(0, 0, 0, 0.25);
+            border-radius: 10px; overflow: hidden;
+        }
+        table.strat caption { text-align: left; }
+        table.strat th {
+            font-size: 0.75rem; font-weight: 800; color: var(--cream);
+            padding: 0.4rem 0.3rem; background: rgba(0,0,0,0.35);
+        }
+        table.strat th[scope="row"] { white-space: nowrap; padding: 0.3rem 0.6rem; font-size: 0.8rem; }
+        table.strat td {
+            text-align: center; padding: 0;
+        }
+        .cellbox {
+            margin: 2px; border-radius: 5px;
+            font-size: 0.72rem; font-weight: 800; color: #fff;
+            padding: 0.34rem 0;
+            min-width: 34px;
+        }
+        .cellbox.c-H { background: var(--hit); }
+        .cellbox.c-S { background: var(--stand); color: #241708; }
+        .cellbox.c-D, .cellbox.c-Ds { background: var(--dbl); }
+        .cellbox.c-P { background: var(--split); }
+        .cellbox.c-Su { background: var(--surr); }
+        .cellbox.hot { outline: 3px solid var(--cream); outline-offset: 1px; }
+        .chart-foot { font-size: 0.78rem; color: var(--faint); line-height: 1.55; margin-top: 0.8rem; }
+
+        /* ===== Stats ===== */
+        .stat-grid { display: grid; gap: 0.8rem; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); margin-bottom: 1.4rem; }
+        .stat-card {
+            background: rgba(0, 0, 0, 0.25);
+            border: 1px solid var(--felt-line);
+            border-radius: var(--radius);
+            padding: 1rem 1.1rem; text-align: center;
+        }
+        .stat-card .num { font-family: var(--display); font-weight: 400; font-size: 2rem; color: var(--gold); line-height: 1.1; }
+        .stat-card .lbl { font-size: 0.75rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); margin-top: 0.25rem; }
+        .kind-bars { margin: 0 0 1.4rem; }
+        .kind-bar { margin-bottom: 0.7rem; }
+        .kind-bar .kb-label { display: flex; justify-content: space-between; font-size: 0.85rem; font-weight: 700; margin-bottom: 0.3rem; }
+        .kind-bar .kb-label span:last-child { color: var(--muted); font-weight: 600; }
+        .kb-track { height: 10px; border-radius: 999px; background: rgba(0,0,0,0.35); overflow: hidden; }
+        .kb-fill { height: 100%; border-radius: 999px; background: linear-gradient(90deg, var(--gold-deep), var(--gold)); }
+        h2.stats-h {
+            font-family: var(--display); font-weight: 400; font-size: 1.35rem;
+            color: var(--gold); letter-spacing: 0.02em; margin: 1.5rem 0 0.6rem;
+        }
+        .miss-list { list-style: none; margin: 0; padding: 0; }
+        .miss-list li {
+            display: flex; justify-content: space-between; gap: 1rem; align-items: baseline;
+            padding: 0.55rem 0; font-size: 0.92rem;
+            border-bottom: 1px dashed var(--felt-line);
+        }
+        .miss-list .mkey { font-weight: 800; }
+        .miss-list .mbest { color: var(--muted); font-size: 0.82rem; }
+        .miss-list .mcount { color: var(--gold); font-weight: 800; white-space: nowrap; }
+        .empty-note { color: var(--muted); font-size: 0.9rem; line-height: 1.6; }
+
+        table.bust {
+            border-collapse: collapse; width: 100%; max-width: 460px;
+            background: rgba(0,0,0,0.25); border-radius: 10px; overflow: hidden;
+        }
+        table.bust th, table.bust td {
+            padding: 0.45rem 0.4rem; text-align: center; font-size: 0.85rem;
+        }
+        table.bust th { background: rgba(0,0,0,0.35); font-size: 0.75rem; }
+        table.bust td.hotrow { color: var(--gold); font-weight: 800; }
+
+        .foot {
+            text-align: center; padding: 1.5rem 1rem 2rem;
+            font-size: 0.8rem; color: var(--faint); line-height: 1.6;
+        }
+        .foot a { color: var(--muted); }
+        .foot a:hover { color: var(--gold); }
+
+        @media (prefers-reduced-motion: reduce) {
+            .pcard.deal { animation: none; }
+            .act, .btn, .view-chip, .home-link img, .home-link .tip { transition: none; }
+        }
+
+        @media (max-width: 480px) {
+            h1 { font-size: 2rem; }
+            .wrap { padding-top: 1.25rem; }
+            .act { padding: 0.62rem 0.95rem; font-size: 0.85rem; }
+        }
+    </style>
+</head>
+
+<body>
+{% raw %}
+    <a href="#tool" class="skip">Skip to the trainer</a>
+
+    <!-- Shown only if the CDN script fails — the app stays v-cloak-hidden. -->
+    <div id="load-fallback" class="wrap" hidden>
+        <p class="lede">The trainer couldn&rsquo;t load a file it needs. Check your connection and refresh the page.</p>
+    </div>
+    <noscript>
+        <div class="wrap"><p class="lede">The blackjack trainer needs JavaScript turned on.</p></div>
+    </noscript>
+
+    <main v-cloak id="app" class="wrap">
+
+        <div class="topbar">
+            <a href="/" class="home-link" aria-label="Back to coffeeandfun.com">
+                <img src="/assets/images/coffee-and-fun-logo-dark.png" alt="" width="36" height="36" decoding="async" />
+                <span class="tip" aria-hidden="true">Back to coffeeandfun.com</span>
+            </a>
+            <button type="button" class="mute-btn" @click="toggleMute" :aria-pressed="muted ? 'true' : 'false'"
+                    :aria-label="muted ? 'Sound is off — turn it on' : 'Sound is on — turn it off'">
+                <span aria-hidden="true">{{ muted ? '🔇' : '🔊' }}</span>
+            </button>
+        </div>
+
+        <header id="tool">
+            <h1>Hit or Stand?</h1>
+            <p class="lede">Learn perfect blackjack one decision at a time. The dealer shows a card, you make the call, and the book grades you on the spot — with the why, the full chart, and your stats.</p>
+        </header>
+
+        <!-- Live status for screen readers -->
+        <div class="sr-only" role="status" aria-live="polite">{{ announcement }}</div>
+
+        <!-- View tabs -->
+        <fieldset style="border:0;padding:0;margin:0;">
+            <legend class="sr-only">Choose a view</legend>
+            <div class="views">
+                <label class="view-chip" :class="{ on: view === 'play' }">
+                    <input type="radio" class="sr-only" name="view" value="play" v-model="view" />
+                    🃏 Practice
+                </label>
+                <label class="view-chip" :class="{ on: view === 'chart' }">
+                    <input type="radio" class="sr-only" name="view" value="chart" v-model="view" />
+                    📋 The chart
+                </label>
+                <label class="view-chip" :class="{ on: view === 'stats' }">
+                    <input type="radio" class="sr-only" name="view" value="stats" v-model="view" />
+                    📈 Your stats
+                </label>
+            </div>
+        </fieldset>
+
+        <!-- ===================== PRACTICE ===================== -->
+        <section v-if="view === 'play'" aria-label="Practice table">
+            <div class="table-zone">
+                <p class="deck-label">Dealer shows</p>
+                <div class="cards-row">
+                    <div class="pcard" :class="[{ red: isRed(up.s) }, dealAnim ? 'deal' : '']" role="img" :aria-label="cardName(up)">
+                        <span class="corner" aria-hidden="true">{{ up.r }}<br>{{ up.s }}</span>
+                        <span class="mid" aria-hidden="true"><span class="r">{{ up.r }}</span><span class="s">{{ up.s }}</span></span>
+                        <span class="corner flip" aria-hidden="true">{{ up.r }}<br>{{ up.s }}</span>
+                    </div>
+                    <div class="pcard back" role="img" aria-label="Dealer's face-down card"></div>
+                </div>
+
+                <p class="felt-print" aria-hidden="true">Blackjack pays 3 to 2 &nbsp;·&nbsp; Dealer stands on soft 17</p>
+
+                <p class="deck-label">Your hand</p>
+                <div class="cards-row">
+                    <div class="pcard" :class="[{ red: isRed(p1.s) }, dealAnim ? 'deal' : '']" role="img" :aria-label="cardName(p1)">
+                        <span class="corner" aria-hidden="true">{{ p1.r }}<br>{{ p1.s }}</span>
+                        <span class="mid" aria-hidden="true"><span class="r">{{ p1.r }}</span><span class="s">{{ p1.s }}</span></span>
+                        <span class="corner flip" aria-hidden="true">{{ p1.r }}<br>{{ p1.s }}</span>
+                    </div>
+                    <div class="pcard" :class="[{ red: isRed(p2.s) }, dealAnim ? 'deal' : '']" role="img" :aria-label="cardName(p2)">
+                        <span class="corner" aria-hidden="true">{{ p2.r }}<br>{{ p2.s }}</span>
+                        <span class="mid" aria-hidden="true"><span class="r">{{ p2.r }}</span><span class="s">{{ p2.s }}</span></span>
+                        <span class="corner flip" aria-hidden="true">{{ p2.r }}<br>{{ p2.s }}</span>
+                    </div>
+                </div>
+                <span class="hand-total">{{ handLabel }} vs dealer {{ upLabel }}</span>
+
+                <div class="actions" role="group" aria-label="Your decision">
+                    <button type="button" class="act hit" @click="answer('hit')" :disabled="phase !== 'decide'">HIT</button>
+                    <button type="button" class="act stand" @click="answer('stand')" :disabled="phase !== 'decide'">STAND</button>
+                    <button type="button" class="act double" @click="answer('double')" :disabled="phase !== 'decide'">DOUBLE</button>
+                    <button type="button" class="act split" @click="answer('split')" :disabled="phase !== 'decide' || !isPair">SPLIT</button>
+                    <button type="button" class="act surrender" @click="answer('surrender')" :disabled="phase !== 'decide' || !surrenderAllowed">SURRENDER</button>
+                </div>
+                <p class="keys-hint" aria-hidden="true">Keys: <kbd>H</kbd> hit · <kbd>S</kbd> stand · <kbd>D</kbd> double · <kbd>P</kbd> split · <kbd>U</kbd> surrender · <kbd>N</kbd> next</p>
+            </div>
+
+            <div v-if="phase === 'feedback'" class="feedback" :class="lastResult.correct ? 'good' : 'bad'">
+                <p class="fb-head">
+                    <span aria-hidden="true">{{ lastResult.correct ? '✓' : '✗' }}</span>
+                    {{ lastResult.correct ? feedbackPraise : 'The book says: ' + actionName(lastResult.best) }}
+                </p>
+                <p class="fb-why" v-html="lastResult.why"></p>
+                <div class="fb-row">
+                    <button type="button" class="btn btn-primary" @click="nextHand">Next hand</button>
+                    <button type="button" class="linkish" @click="showOnChart">See it on the chart</button>
+                    <span style="font-size:0.82rem;color:var(--muted);">Streak: {{ stats.streak }}{{ stats.streak >= 5 ? ' 🔥' : '' }}</span>
+                </div>
+            </div>
+
+            <div class="drill-row">
+                <div class="focus-set" role="group" aria-label="What to practice">
+                    <label v-for="f in FOCUSES" :key="f.key" class="focus-chip" :class="{ on: focus === f.key }">
+                        <input type="radio" class="sr-only" name="focus" :value="f.key" v-model="focus" />
+                        {{ f.name }}
+                    </label>
+                </div>
+                <label class="surr-toggle">
+                    <input type="checkbox" v-model="surrenderAllowed" />
+                    This table allows surrender
+                </label>
+            </div>
+        </section>
+
+        <!-- ===================== CHART ===================== -->
+        <section v-else-if="view === 'chart'" aria-label="Basic strategy chart">
+            <p class="chart-note">The complete basic strategy for the most common game: <strong>4–8 decks, dealer stands on soft 17, double after split allowed</strong>. Find your hand on the left, the dealer&rsquo;s up-card along the top — the cell is the mathematically best play. It doesn&rsquo;t guarantee a win; it guarantees the smallest possible house edge.</p>
+            <div class="legend" aria-hidden="true">
+                <span><span class="lg c-H cellbox" style="margin:0;">H</span> Hit</span>
+                <span><span class="lg c-S cellbox" style="margin:0;">S</span> Stand</span>
+                <span><span class="lg c-D cellbox" style="margin:0;">D</span> Double (else hit)</span>
+                <span><span class="lg c-Ds cellbox" style="margin:0;">Ds</span> Double (else stand)</span>
+                <span><span class="lg c-P cellbox" style="margin:0;">P</span> Split</span>
+                <span><span class="lg c-Su cellbox" style="margin:0;">Su</span> Surrender (else hit)</span>
+            </div>
+
+            <h2 class="chart-h">Hard totals</h2>
+            <div class="chart-scroll" tabindex="0" role="region" aria-label="Hard totals strategy table">
+                <table class="strat">
+                    <caption class="sr-only">Best play for hard totals against each dealer up-card</caption>
+                    <thead>
+                        <tr><th scope="col">You have</th><th v-for="d in DEALERS" :key="'hh'+d" scope="col">{{ dLabel(d) }}</th></tr>
+                    </thead>
+                    <tbody>
+                        <tr v-for="t in HARD_ROWS" :key="'hr'+t">
+                            <th scope="row">{{ t === 8 ? '8 or less' : (t === 17 ? '17+' : t) }}</th>
+                            <td v-for="d in DEALERS" :key="'hc'+t+'-'+d">
+                                <div class="cellbox" :class="['c' + '-' + chartCode('hard', t, d), { hot: isHot('hard', t, d) }]" :id="cellId('hard', t, d)">{{ chartCode('hard', t, d) }}</div>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <h2 class="chart-h">Soft totals (you have an ace)</h2>
+            <div class="chart-scroll" tabindex="0" role="region" aria-label="Soft totals strategy table">
+                <table class="strat">
+                    <caption class="sr-only">Best play for soft totals against each dealer up-card</caption>
+                    <thead>
+                        <tr><th scope="col">You have</th><th v-for="d in DEALERS" :key="'sh'+d" scope="col">{{ dLabel(d) }}</th></tr>
+                    </thead>
+                    <tbody>
+                        <tr v-for="t in SOFT_ROWS" :key="'sr'+t">
+                            <th scope="row">A + {{ t - 11 }} <span style="color:var(--faint);font-weight:600;">(soft {{ t }})</span></th>
+                            <td v-for="d in DEALERS" :key="'sc'+t+'-'+d">
+                                <div class="cellbox" :class="['c' + '-' + chartCode('soft', t, d), { hot: isHot('soft', t, d) }]" :id="cellId('soft', t, d)">{{ chartCode('soft', t, d) }}</div>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <h2 class="chart-h">Pairs</h2>
+            <div class="chart-scroll" tabindex="0" role="region" aria-label="Pairs strategy table">
+                <table class="strat">
+                    <caption class="sr-only">Best play for pairs against each dealer up-card</caption>
+                    <thead>
+                        <tr><th scope="col">You have</th><th v-for="d in DEALERS" :key="'ph'+d" scope="col">{{ dLabel(d) }}</th></tr>
+                    </thead>
+                    <tbody>
+                        <tr v-for="v in PAIR_ROWS" :key="'pr'+v">
+                            <th scope="row">{{ pairLabel(v) }}</th>
+                            <td v-for="d in DEALERS" :key="'pc'+v+'-'+d">
+                                <div class="cellbox" :class="['c' + '-' + chartCode('pair', v, d), { hot: isHot('pair', v, d) }]" :id="cellId('pair', v, d)">{{ chartCode('pair', v, d) }}</div>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <p class="chart-foot">Su = surrender if the table allows it; otherwise hit. D = double if you&rsquo;re allowed; otherwise hit. Ds = double if allowed; otherwise stand. Fives are missing from the pairs table on purpose — a pair of fives is just a ten. Never split it, double it.</p>
+        </section>
+
+        <!-- ===================== STATS ===================== -->
+        <section v-else aria-label="Your stats">
+            <div class="stat-grid">
+                <div class="stat-card">
+                    <div class="num">{{ stats.t === 0 ? '—' : accuracy + '%' }}</div>
+                    <div class="lbl">Accuracy</div>
+                </div>
+                <div class="stat-card">
+                    <div class="num">{{ stats.t }}</div>
+                    <div class="lbl">Hands drilled</div>
+                </div>
+                <div class="stat-card">
+                    <div class="num">{{ stats.best }}</div>
+                    <div class="lbl">Best streak</div>
+                </div>
+            </div>
+
+            <div class="kind-bars" v-if="stats.t > 0">
+                <div v-for="k in KINDS" :key="k.key" class="kind-bar">
+                    <div class="kb-label">
+                        <span>{{ k.name }}</span>
+                        <span>{{ stats.kinds[k.key].t === 0 ? 'not drilled yet' : kindPct(k.key) + '% of ' + stats.kinds[k.key].t }}</span>
+                    </div>
+                    <div class="kb-track" role="img" :aria-label="k.name + ' accuracy ' + (stats.kinds[k.key].t === 0 ? 'not drilled yet' : kindPct(k.key) + ' percent')">
+                        <div class="kb-fill" :style="{ width: (stats.kinds[k.key].t === 0 ? 0 : kindPct(k.key)) + '%' }"></div>
+                    </div>
+                </div>
+            </div>
+            <p v-else class="empty-note">No hands yet — play a few rounds in Practice and your numbers will show up here. Everything stays on this device.</p>
+
+            <template v-if="missList.length">
+                <h2 class="stats-h">Hands that keep getting you</h2>
+                <ul class="miss-list">
+                    <li v-for="m in missList" :key="m.key">
+                        <span><span class="mkey">{{ m.key }}</span> <span class="mbest">— the book says {{ m.best }}</span></span>
+                        <span class="mcount">missed ×{{ m.count }}</span>
+                    </li>
+                </ul>
+            </template>
+
+            <h2 class="stats-h">Know your enemy</h2>
+            <p class="chart-note">How often the dealer busts, by up-card. This is the whole secret of basic strategy: when the dealer is likely to break, don&rsquo;t risk breaking first.</p>
+            <table class="bust">
+                <caption class="sr-only">Dealer bust probability by up-card</caption>
+                <thead>
+                    <tr><th scope="col">Dealer shows</th><th v-for="d in DEALERS" :key="'bd'+d" scope="col">{{ dLabel(d) }}</th></tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <th scope="row">Bust chance</th>
+                        <td v-for="d in DEALERS" :key="'bc'+d" :class="{ hotrow: d >= 4 && d <= 6 }">{{ BUST[d] }}%</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <p style="margin-top:1.6rem;">
+                <button v-if="!resetArmed" type="button" class="linkish" @click="armReset">Reset my stats</button>
+                <button v-else type="button" class="btn btn-ghost" @click="doReset">Press again to wipe everything</button>
+            </p>
+        </section>
+
+        <p class="foot">A learning table, not a casino — no bets, no chips, no accounts, and your stats never leave this device. If you play for real money, set a limit and keep it fun.<br>Dealt by <a href="https://www.coffeeandfun.com/">Coffee &amp; Fun</a>.</p>
+    </main>
+{% endraw %}
+
+    <script>
+        if (typeof Vue === 'undefined') {
+            document.getElementById('load-fallback').hidden = false;
+            throw new Error('Vue failed to load');
+        }
+        const { createApp } = Vue;
+
+        /* =====================================================================
+           Basic strategy — 4–8 decks, dealer STANDS on soft 17, double after
+           split allowed, late surrender optional. One source of truth: these
+           functions grade the drill AND render the chart.
+           d = dealer up-card value 2..10, 11 for ace.
+        ===================================================================== */
+        function hardCode(t, d) {
+            if (t >= 17) return 'S';
+            if (t >= 13) return d <= 6 ? 'S' : 'H';
+            if (t === 12) return (d >= 4 && d <= 6) ? 'S' : 'H';
+            if (t === 11) return d <= 10 ? 'D' : 'H';
+            if (t === 10) return d <= 9 ? 'D' : 'H';
+            if (t === 9) return (d >= 3 && d <= 6) ? 'D' : 'H';
+            return 'H';
+        }
+        function softCode(t, d) { // t = ace-as-11 total, 13..20
+            if (t >= 19) return 'S';
+            if (t === 18) {
+                if (d >= 3 && d <= 6) return 'Ds';
+                if (d === 2 || d === 7 || d === 8) return 'S';
+                return 'H';
+            }
+            if (t === 17) return (d >= 3 && d <= 6) ? 'D' : 'H';
+            if (t >= 15) return (d >= 4 && d <= 6) ? 'D' : 'H';
+            return (d === 5 || d === 6) ? 'D' : 'H';
+        }
+        function pairCode(v, d) { // v = value of each card, 2..10, 11 for A,A
+            if (v === 11 || v === 8) return 'P';
+            if (v === 10) return 'S';
+            if (v === 9) return (d === 7 || d >= 10) ? 'S' : 'P';
+            if (v === 7) return d <= 7 ? 'P' : 'H';
+            if (v === 6) return d <= 6 ? 'P' : 'H';
+            if (v === 5) return hardCode(10, d);
+            if (v === 4) return (d === 5 || d === 6) ? 'P' : 'H';
+            return d <= 7 ? 'P' : 'H'; // 2,2 and 3,3
+        }
+        // Late surrender (S17): hard 16 (but not 8,8) vs 9/10/A; hard 15 vs 10.
+        function shouldSurrender(isPair, pairV, hardT, isSoft, d) {
+            if (isSoft) return false;
+            if (isPair && pairV === 8) return false;
+            if (hardT === 16 && d >= 9) return true;
+            if (hardT === 15 && d === 10) return true;
+            return false;
+        }
+
+        const RANKS = ['A', '2', '3', '4', '5', '6', '7', '8', '9', '10', 'J', 'Q', 'K'];
+        const SUITS = ['♠', '♥', '♦', '♣'];
+        const BUST = { 2: 35, 3: 38, 4: 40, 5: 43, 6: 42, 7: 26, 8: 24, 9: 23, 10: 21, 11: 12 };
+        const PRAISE = ['By the book.', 'Textbook.', 'The pit boss is nervous.', 'Cold-blooded. Correct.', 'That’s the play.', 'Dealer hates to see it.'];
+
+        function rankValue(r) {
+            if (r === 'A') return 11;
+            if (r === 'J' || r === 'Q' || r === 'K') return 10;
+            return Number(r);
+        }
+        function draw(exceptAce) {
+            let r;
+            do { r = RANKS[Math.floor(Math.random() * RANKS.length)]; } while (exceptAce && r === 'A');
+            return { r, s: SUITS[Math.floor(Math.random() * SUITS.length)] };
+        }
+
+        createApp({
+            data() {
+                let stats;
+                try { stats = JSON.parse(localStorage.getItem('bjTrainer')) || null; } catch (e) { stats = null; }
+                if (!stats || typeof stats.t !== 'number') {
+                    stats = { t: 0, c: 0, streak: 0, best: 0,
+                              kinds: { hard: { t: 0, c: 0 }, soft: { t: 0, c: 0 }, pair: { t: 0, c: 0 } },
+                              misses: {} };
+                }
+                return {
+                    DEALERS: [2, 3, 4, 5, 6, 7, 8, 9, 10, 11],
+                    HARD_ROWS: [8, 9, 10, 11, 12, 13, 14, 15, 16, 17],
+                    SOFT_ROWS: [13, 14, 15, 16, 17, 18, 19, 20],
+                    PAIR_ROWS: [2, 3, 4, 6, 7, 8, 9, 10, 11],
+                    FOCUSES: [
+                        { key: 'all', name: 'Everything' },
+                        { key: 'hard', name: 'Hard totals' },
+                        { key: 'soft', name: 'Soft totals' },
+                        { key: 'pair', name: 'Pairs' }
+                    ],
+                    KINDS: [
+                        { key: 'hard', name: 'Hard totals' },
+                        { key: 'soft', name: 'Soft totals' },
+                        { key: 'pair', name: 'Pairs' }
+                    ],
+                    BUST,
+                    view: 'play',
+                    focus: localStorage.getItem('bjFocus') || 'all',
+                    surrenderAllowed: localStorage.getItem('bjSurr') !== '0',
+                    p1: { r: 'A', s: '♠' }, p2: { r: 'K', s: '♥' }, up: { r: '6', s: '♦' },
+                    phase: 'decide',
+                    dealAnim: true,
+                    lastResult: null,
+                    feedbackPraise: PRAISE[0],
+                    hot: null,           // {tbl, row, col} — highlighted chart cell
+                    stats,
+                    resetArmed: false,
+                    resetTimer: null,
+                    announcement: '',
+                    muted: localStorage.getItem('bjMuted') === '1',
+                    audioCtx: null
+                };
+            },
+            computed: {
+                isPair() { return rankValue(this.p1.r) === rankValue(this.p2.r); },
+                isSoft() { return !this.isPair && (this.p1.r === 'A' || this.p2.r === 'A'); },
+                handTotal() {
+                    let t = rankValue(this.p1.r) + rankValue(this.p2.r);
+                    if (t > 21) t -= 10; // two aces handled as pair anyway
+                    return t;
+                },
+                handLabel() {
+                    if (this.isPair) return this.p1.r === 'A' ? 'A pair of aces' : 'A pair of ' + this.p1.r + 's';
+                    if (this.isSoft) return 'Soft ' + this.handTotal;
+                    return 'Hard ' + this.handTotal;
+                },
+                upValue() { return rankValue(this.up.r); },
+                upLabel() { return this.up.r === 'A' ? 'ace' : (rankValue(this.up.r) === 10 ? this.up.r + ' (10)' : this.up.r); },
+                bestAction() {
+                    const d = this.upValue;
+                    const pairV = rankValue(this.p1.r);
+                    if (this.surrenderAllowed && shouldSurrender(this.isPair, pairV, this.handTotal, this.isSoft, d)) {
+                        return 'surrender';
+                    }
+                    let code;
+                    if (this.isPair) {
+                        code = pairCode(pairV, d);
+                        if (code === 'P') return 'split';
+                    } else if (this.isSoft) {
+                        code = softCode(this.handTotal, d);
+                    } else {
+                        code = hardCode(this.handTotal, d);
+                    }
+                    if (!code) code = this.isSoft ? softCode(this.handTotal, d) : hardCode(this.handTotal, d);
+                    if (code === 'D' || code === 'Ds') return 'double';
+                    if (code === 'S') return 'stand';
+                    return 'hit';
+                },
+                accuracy() { return this.stats.t === 0 ? 0 : Math.round(100 * this.stats.c / this.stats.t); },
+                missList() {
+                    return Object.entries(this.stats.misses)
+                        .map(([key, v]) => ({ key, count: v.count, best: v.best }))
+                        .sort((a, b) => b.count - a.count)
+                        .slice(0, 6);
+                }
+            },
+            watch: {
+                focus(v) { localStorage.setItem('bjFocus', v); if (this.phase === 'decide') this.deal(); },
+                surrenderAllowed(v) { localStorage.setItem('bjSurr', v ? '1' : '0'); }
+            },
+            mounted() {
+                this.deal();
+                window.addEventListener('keydown', this.onKey);
+            },
+            beforeUnmount() {
+                window.removeEventListener('keydown', this.onKey);
+            },
+            methods: {
+                /* ---------- deck + dealing ---------- */
+                isRed(s) { return s === '♥' || s === '♦'; },
+                cardName(c) {
+                    const names = { A: 'Ace', J: 'Jack', Q: 'Queen', K: 'King' };
+                    const suits = { '♠': 'spades', '♥': 'hearts', '♦': 'diamonds', '♣': 'clubs' };
+                    return (names[c.r] || c.r) + ' of ' + suits[c.s];
+                },
+                deal() {
+                    let kind = this.focus;
+                    if (kind === 'all') {
+                        const roll = Math.random();
+                        kind = roll < 0.45 ? 'hard' : roll < 0.7 ? 'soft' : 'pair';
+                    }
+                    if (kind === 'pair') {
+                        const c = draw(false);
+                        let s2;
+                        do { s2 = SUITS[Math.floor(Math.random() * SUITS.length)]; } while (s2 === c.s);
+                        this.p1 = c;
+                        this.p2 = { r: c.r, s: s2 };
+                    } else if (kind === 'soft') {
+                        const other = draw(true);
+                        // keep soft totals interesting: 2-9 kicker
+                        while (rankValue(other.r) === 10) { const n = draw(true); other.r = n.r; other.s = n.s; }
+                        if (Math.random() < 0.5) { this.p1 = { r: 'A', s: SUITS[Math.floor(Math.random() * 4)] }; this.p2 = other; }
+                        else { this.p2 = { r: 'A', s: SUITS[Math.floor(Math.random() * 4)] }; this.p1 = other; }
+                    } else {
+                        // hard: no aces, not a pair
+                        let a = draw(true), b = draw(true);
+                        while (rankValue(a.r) === rankValue(b.r)) b = draw(true);
+                        this.p1 = a; this.p2 = b;
+                    }
+                    this.up = draw(false);
+                    this.phase = 'decide';
+                    this.lastResult = null;
+                    this.dealAnim = false;
+                    requestAnimationFrame(() => { this.dealAnim = true; });
+                    this.sfx('deal');
+                },
+                nextHand() {
+                    this.deal();
+                    this.announce('New hand: ' + this.handLabel + ' against dealer ' + this.upLabel + '.');
+                },
+                onKey(e) {
+                    if (this.view !== 'play') return;
+                    if (e.metaKey || e.ctrlKey || e.altKey) return;
+                    const k = e.key.toLowerCase();
+                    if (this.phase === 'decide') {
+                        if (k === 'h') this.answer('hit');
+                        else if (k === 's') this.answer('stand');
+                        else if (k === 'd') this.answer('double');
+                        else if (k === 'p' && this.isPair) this.answer('split');
+                        else if (k === 'u' && this.surrenderAllowed) this.answer('surrender');
+                    } else if (k === 'n' || k === 'enter') {
+                        this.nextHand();
+                    }
+                },
+
+                /* ---------- grading ---------- */
+                actionName(a) {
+                    return { hit: 'Hit', stand: 'Stand', double: 'Double down', split: 'Split', surrender: 'Surrender' }[a];
+                },
+                scenarioKey() {
+                    if (this.isPair) return (this.p1.r === 'A' ? 'A,A' : this.p1.r + ',' + this.p1.r) + ' vs ' + (this.up.r === 'A' ? 'A' : (this.upValue === 10 ? '10' : this.up.r));
+                    const d = this.up.r === 'A' ? 'A' : (this.upValue === 10 ? '10' : this.up.r);
+                    return (this.isSoft ? 'Soft ' : 'Hard ') + this.handTotal + ' vs ' + d;
+                },
+                kindKey() { return this.isPair ? 'pair' : (this.isSoft ? 'soft' : 'hard'); },
+                answer(chosen) {
+                    if (this.phase !== 'decide') return;
+                    const best = this.bestAction;
+                    const correct = chosen === best;
+                    const why = this.explain(best);
+                    this.lastResult = { correct, best, chosen, why };
+                    this.feedbackPraise = PRAISE[Math.floor(Math.random() * PRAISE.length)];
+                    this.phase = 'feedback';
+
+                    // stats
+                    const kk = this.kindKey();
+                    this.stats.t++; this.stats.kinds[kk].t++;
+                    if (correct) {
+                        this.stats.c++; this.stats.kinds[kk].c++;
+                        this.stats.streak++;
+                        if (this.stats.streak > this.stats.best) this.stats.best = this.stats.streak;
+                    } else {
+                        this.stats.streak = 0;
+                        const key = this.scenarioKey();
+                        if (!this.stats.misses[key]) this.stats.misses[key] = { count: 0, best: this.actionName(best).toLowerCase() };
+                        this.stats.misses[key].count++;
+                    }
+                    try { localStorage.setItem('bjTrainer', JSON.stringify(this.stats)); } catch (e) { /* private mode */ }
+
+                    this.sfx(correct ? 'good' : 'bad');
+                    const plain = this.lastResult.why.replace(/<[^>]+>/g, '');
+                    this.announce((correct ? 'Correct. ' : 'Not quite — the book says ' + this.actionName(best).toLowerCase() + '. ') + plain);
+                },
+
+                /* ---------- explanations ---------- */
+                explain(best) {
+                    const d = this.upValue;
+                    const dName = this.up.r === 'A' ? 'an ace' : 'a ' + (d === 10 ? this.up.r + ' (worth 10)' : this.up.r);
+                    const bust = BUST[d];
+                    const t = this.handTotal;
+                    const b = (s) => '<strong>' + s + '</strong>';
+
+                    if (best === 'surrender') {
+                        return 'Hard ' + t + ' against ' + dName + ' is one of the worst spots in blackjack — you win barely one hand in four. ' +
+                               b('Giving up half the bet loses less than playing it out.') + ' No surrender at the table? Hit instead.';
+                    }
+                    if (best === 'split') {
+                        const v = rankValue(this.p1.r);
+                        if (v === 11) return 'Two aces is a lousy 2 or 12 — but split them and you have ' + b('two hands that each start with 11') + ', the best card in the game. Always split aces.';
+                        if (v === 8) return 'Sixteen is the worst total there is. Split the 8s and you have ' + b('two decent starts instead of one disaster') + '. Always split eights — yes, even against a ten.';
+                        if (v === 9) return 'Eighteen is good, but against ' + dName + ' it isn’t good enough to sit on — ' + b('two hands of 9 earn more') + ' with the dealer in trouble.';
+                        if (v === 4) return 'Only correct because you can double after splitting: against ' + dName + ' — the weakest cards in the deck — ' + b('two hands starting from 4 print money') + '.';
+                        return 'One weak hand becomes ' + b('two hands against a dealer in trouble') + ' — ' + dName + ' busts about ' + bust + '% of the time.';
+                    }
+                    if (best === 'double') {
+                        if (this.isSoft) return 'Soft ' + t + ' can’t bust with one card, and ' + dName + ' busts about ' + bust + '% of the time. ' + b('Push more money out while you’re safe and they’re not.');
+                        if (t === 11 || t === 10 || (this.isPair && rankValue(this.p1.r) === 5)) return 'With ' + b((this.isPair ? '10' : t) + ' in hand, one ten makes you a monster') + ' — and the deck is a third tens. You’re the favorite: get more money on the table.';
+                        return 'A 9 against ' + dName + ' has you ahead — ' + b('one good card and the hand is yours') + '. Double while the odds lean your way.';
+                    }
+                    if (best === 'stand') {
+                        if (this.isPair && rankValue(this.p1.r) === 10) return 'Twenty. ' + b('Never split tens') + ' — greed turns one winning hand into two coin flips.';
+                        if (this.isPair && rankValue(this.p1.r) === 9 && (d === 7 || d >= 10)) return 'Against a 7 your 18 already beats the dealer’s most likely 17 — and against ' + dName + ', splitting nines just doubles your trouble. ' + b('Stand.');
+                        if (this.isSoft) return 'Soft ' + t + ' is already a made hand. ' + b('Nineteen and twenty don’t get improved — they get protected.');
+                        if (t >= 17) return 'Hard ' + t + ' busts far too often to touch. ' + b('Stand on hard 17 or better, always.');
+                        return 'The dealer’s ' + dName.replace('a ', '').replace('an ', '') + ' is in the bust zone — they break about ' + b(bust + '% of the time') + '. Don’t risk busting first; stand back and let them.';
+                    }
+                    // hit
+                    if (t <= 8 && !this.isSoft) return 'You can’t bust — this card is free. ' + b('Always hit 8 or less.');
+                    if (this.isSoft) return 'Soft ' + t + ' is weaker than it looks, and you ' + b('can’t bust a soft hand') + ' — take the card and try to improve.';
+                    if (t === 12 && (d === 2 || d === 3)) return 'The exception to the bust-zone rule: ' + dName + ' breaks less often than the middle cards, and only a ten busts your 12. ' + b('Take one.');
+                    if (t >= 12 && d >= 7) return 'With ' + dName + ' showing, the dealer finishes on 17+ far more often than they bust (' + bust + '%). ' + b('Your ' + t + ' can’t win by standing — you have to improve it.');
+                    return 'Doubling would lock you into one card against ' + dName + ' — too strong an up-card for that. ' + b('Just hit.');
+                },
+
+                /* ---------- chart ---------- */
+                dLabel(d) { return d === 11 ? 'A' : d; },
+                pairLabel(v) { return v === 11 ? 'A + A' : v + ' + ' + v; },
+                chartCode(tbl, row, d) {
+                    if (tbl === 'hard') {
+                        if (this.surrChart(row, d)) return 'Su';
+                        return hardCode(row, d);
+                    }
+                    if (tbl === 'soft') return softCode(row, d);
+                    return pairCode(row, d);
+                },
+                surrChart(t, d) { return (t === 16 && d >= 9) || (t === 15 && d === 10); },
+                cellId(tbl, row, d) { return 'cell-' + tbl + '-' + row + '-' + d; },
+                isHot(tbl, row, d) {
+                    return this.hot && this.hot.tbl === tbl && this.hot.row === row && this.hot.col === d;
+                },
+                showOnChart() {
+                    const d = this.upValue;
+                    let tbl, row;
+                    if (this.isPair) { tbl = 'pair'; row = rankValue(this.p1.r); }
+                    else if (this.isSoft) { tbl = 'soft'; row = this.handTotal; }
+                    else { tbl = 'hard'; row = Math.min(Math.max(this.handTotal, 8), 17); }
+                    this.hot = { tbl, row, col: d };
+                    this.view = 'chart';
+                    this.$nextTick(() => {
+                        const el = document.getElementById(this.cellId(tbl, row, d));
+                        if (el) el.scrollIntoView({ block: 'center', inline: 'center', behavior: 'auto' });
+                    });
+                },
+
+                /* ---------- stats ---------- */
+                kindPct(k) {
+                    const s = this.stats.kinds[k];
+                    return s.t === 0 ? 0 : Math.round(100 * s.c / s.t);
+                },
+                armReset() {
+                    this.resetArmed = true;
+                    if (this.resetTimer) clearTimeout(this.resetTimer);
+                    this.resetTimer = setTimeout(() => { this.resetArmed = false; }, 5000);
+                },
+                doReset() {
+                    this.resetArmed = false;
+                    if (this.resetTimer) clearTimeout(this.resetTimer);
+                    this.stats = { t: 0, c: 0, streak: 0, best: 0,
+                                   kinds: { hard: { t: 0, c: 0 }, soft: { t: 0, c: 0 }, pair: { t: 0, c: 0 } },
+                                   misses: {} };
+                    try { localStorage.setItem('bjTrainer', JSON.stringify(this.stats)); } catch (e) {}
+                    this.announce('Stats wiped. Fresh shoe.');
+                },
+
+                /* ---------- misc ---------- */
+                announce(msg) {
+                    this.announcement = '';
+                    this.$nextTick(() => { this.announcement = msg; });
+                },
+                toggleMute() {
+                    this.muted = !this.muted;
+                    localStorage.setItem('bjMuted', this.muted ? '1' : '0');
+                },
+                sfx(kind) {
+                    if (this.muted) return;
+                    try {
+                        if (!this.audioCtx) this.audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+                        const ctx = this.audioCtx;
+                        if (ctx.state === 'suspended') ctx.resume();
+                        const t = ctx.currentTime;
+                        const play = (freq, start, dur, type, vol) => {
+                            const o = ctx.createOscillator(), g = ctx.createGain();
+                            o.type = type || 'sine'; o.frequency.setValueAtTime(freq, t + start);
+                            g.gain.setValueAtTime(vol || 0.1, t + start);
+                            g.gain.exponentialRampToValueAtTime(0.0001, t + start + dur);
+                            o.connect(g).connect(ctx.destination);
+                            o.start(t + start); o.stop(t + start + dur + 0.02);
+                        };
+                        if (kind === 'deal') { play(1400, 0, 0.03, 'triangle', 0.05); play(900, 0.05, 0.04, 'triangle', 0.05); }
+                        else if (kind === 'good') { play(660, 0, 0.1); play(880, 0.09, 0.18); }
+                        else if (kind === 'bad') { play(220, 0, 0.16, 'triangle', 0.12); play(165, 0.13, 0.24, 'triangle', 0.1); }
+                    } catch (e) { /* audio is garnish */ }
+                }
+            }
+        }).mount('#app');
+    </script>
+</body>
+</html>
