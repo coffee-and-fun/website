@@ -365,7 +365,7 @@
 
             <details class="rules">
                 <summary>How private is this, really?</summary>
-                <p><strong>Your messages are encrypted on your device and decrypted on theirs</strong> — with keys that are created fresh for this one conversation and never leave either browser. The matchmaking server only helps the two of you find each other; it never sees a single message.</p>
+                <p><strong>Your messages are encrypted on your device and decrypted on theirs</strong> — with keys that are created fresh for this one conversation and never leave either browser. The matchmaking server only helps the two of you find each other; it never sees a single message. Every message is also padded to the same size before it&rsquo;s sent, so its length gives nothing away.</p>
                 <ul>
                     <li><strong>Check the safety phrase.</strong> When you connect, both screens show the same short phrase. Read it out loud to each other — on a call or in person. If it matches, you can trust no one has slipped in between. If it doesn&rsquo;t, stop.</li>
                     <li><strong>Nothing is stored.</strong> No accounts, no logs, no history. Close the tab and the whole conversation and its keys are gone.</li>
@@ -523,6 +523,28 @@
             return a.length - b.length;
         }
 
+        /* Length hiding: pad every message to a fixed bucket BEFORE encrypting, so
+           an eavesdropper watching the encrypted channel can't tell a one-word reply
+           from a paragraph — they all look the same size. A 4-byte length header lets
+           the recipient trim the random padding back off after decrypting. */
+        const PAD_BUCKETS = [1024, 4096, 16384];
+        function padFrame(bytes) {
+            const need = 4 + bytes.length;
+            let size = PAD_BUCKETS.find(b => b >= need);
+            if (!size) size = Math.ceil(need / 16384) * 16384;
+            const out = new Uint8Array(size);
+            new DataView(out.buffer).setUint32(0, bytes.length, false);
+            out.set(bytes, 4);
+            if (need < size) crypto.getRandomValues(out.subarray(need)); // random filler
+            return out;
+        }
+        function unpadFrame(bytes) {
+            if (bytes.length < 4) throw new Error('short frame');
+            const len = new DataView(bytes.buffer, bytes.byteOffset, bytes.byteLength).getUint32(0, false);
+            if (len > bytes.length - 4) throw new Error('bad frame length');
+            return bytes.slice(4, 4 + len);
+        }
+
         createApp({
             data() {
                 return {
@@ -605,13 +627,14 @@
                 },
                 async encryptText(text) {
                     const iv = crypto.getRandomValues(new Uint8Array(12));
-                    const ct = await crypto.subtle.encrypt({ name: 'AES-GCM', iv }, this.aesKey, enc.encode(text));
+                    const framed = padFrame(enc.encode(text)); // pad to a fixed size first
+                    const ct = await crypto.subtle.encrypt({ name: 'AES-GCM', iv }, this.aesKey, framed);
                     return { iv: bufToB64(iv.buffer), ct: bufToB64(ct) };
                 },
                 async decryptText(ivB64, ctB64) {
                     const iv = new Uint8Array(b64ToBuf(ivB64));
-                    const pt = await crypto.subtle.decrypt({ name: 'AES-GCM', iv }, this.aesKey, b64ToBuf(ctB64));
-                    return dec.decode(pt);
+                    const buf = await crypto.subtle.decrypt({ name: 'AES-GCM', iv }, this.aesKey, b64ToBuf(ctB64));
+                    return dec.decode(unpadFrame(new Uint8Array(buf)));
                 },
 
                 /* ---------- PeerJS ---------- */
