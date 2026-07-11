@@ -367,8 +367,9 @@
                 <summary>How private is this, really?</summary>
                 <p><strong>Your messages are encrypted on your device and decrypted on theirs</strong> — with keys that are created fresh for this one conversation and never leave either browser. The matchmaking server only helps the two of you find each other; it never sees a single message.</p>
                 <ul>
-                    <li><strong>Check the safety phrase.</strong> When you connect, both screens show the same short phrase. Read it out loud to each other — on a call or in person. If it matches, no one is secretly in the middle. If it doesn&rsquo;t, stop.</li>
+                    <li><strong>Check the safety phrase.</strong> When you connect, both screens show the same short phrase. Read it out loud to each other — on a call or in person. If it matches, you can trust no one has slipped in between. If it doesn&rsquo;t, stop.</li>
                     <li><strong>Nothing is stored.</strong> No accounts, no logs, no history. Close the tab and the whole conversation and its keys are gone.</li>
+                    <li><strong>It hides what you say, not that you talked.</strong> You connect directly, phone to phone, so the two of you can see each other&rsquo;s IP address, and the server that introduces you knows you connected — never <em>what</em> you said. It&rsquo;s for a private word between people who already know each other, not for staying anonymous.</li>
                     <li><strong>It&rsquo;s a fun, honest privacy tool</strong> — great for a quick private word. It hasn&rsquo;t been independently audited, so don&rsquo;t bet your life on it.</li>
                 </ul>
             </details>
@@ -439,7 +440,7 @@
                     <span aria-hidden="true">{{ verified ? '🛡️' : '🔑' }}</span>
                     {{ verified ? 'Safety phrase verified' : 'Check your safety phrase' }}
                 </p>
-                <p class="s-sub" v-if="!verified">Both of you should see the <strong>same</strong> words. Say them out loud on a call or in person. If they match, no one is listening in. If they don&rsquo;t, someone might be — leave and try again.</p>
+                <p class="s-sub" v-if="!verified">Both of you should see the <strong>same</strong> words. Say them out loud on a call or in person. If they match, you can trust no one has slipped in between. If they don&rsquo;t, someone might have — leave and try again.</p>
                 <p class="s-sub" v-else>You confirmed these words match on both screens. This line is genuinely just the two of you.</p>
                 <p class="sr-only" id="phrase-label">Your safety phrase, {{ safetyWords.length }} words to read aloud:</p>
                 <p class="phrase">{{ safetyWords.join('  ') }}</p>
@@ -542,6 +543,7 @@
                     messages: [], draft: '', msgId: 1,
                     theirTyping: false, theirTypingTimer: null,
                     lastTypingSent: 0,
+                    dataChain: null,
                     announcement: ''
                 };
             },
@@ -636,9 +638,15 @@
                     });
                     this.peer.on('connection', (incoming) => {
                         // Single-use link: one guest, ever. Once someone has arrived this
-                        // room is spent — no one can rejoin or take their place.
-                        if (this.guestArrived) { incoming.close(); return; }
-                        incoming.on('open', () => { this.conn = incoming; this.onConnected(); });
+                        // room is spent — no one can rejoin or take their place. The guard
+                        // is re-checked at 'open' too, so two peers racing before either
+                        // opens can't both slip through and clobber the session.
+                        if (this.guestArrived || this.conn) { incoming.close(); return; }
+                        incoming.on('open', () => {
+                            if (this.guestArrived || this.conn) { incoming.close(); return; }
+                            this.conn = incoming;
+                            this.onConnected();
+                        });
                     });
                     this.peer.on('error', (err) => this.netFail(err));
                     this.peer.on('disconnected', () => { if (this.peer && !this.peer.destroyed) this.peer.reconnect(); });
@@ -661,6 +669,15 @@
                 onConnected() {
                     this.connected = true;
                     if (this.isHost) this.guestArrived = true; // burn the single-use link
+                    // Drop ?chat=<id> from the address bar now that the link is spent —
+                    // keeps the ephemeral room id out of browser history.
+                    try {
+                        const url = new URL(window.location);
+                        if (url.searchParams.has('chat')) {
+                            url.searchParams.delete('chat');
+                            window.history.replaceState({}, document.title, url.toString());
+                        }
+                    } catch (e) {}
                     this.screen = 'chat';
                     this.messages = [];
                     this.secured = false; this.verified = false; this.aesKey = null; this.theirPubBuf = null;
@@ -670,7 +687,14 @@
                     // send our public key + name to start the handshake
                     this.conn.send({ t: 'hello', pub: this.myPubB64, name: (this.myName || 'Anonymous').slice(0, 24) });
                 },
-                async handleData(d) {
+                handleData(d) {
+                    // Process frames strictly in order: a 'msg' that arrives while the
+                    // 'hello' handshake is still deriving the key waits its turn instead
+                    // of racing ahead and being dropped before aesKey exists.
+                    this.dataChain = (this.dataChain || Promise.resolve())
+                        .then(() => this.handleFrame(d)).catch(() => {});
+                },
+                async handleFrame(d) {
                     if (!d || typeof d.t !== 'string') return;
                     if (d.t === 'hello') {
                         if (this.secured || this.theirPubBuf) return; // one handshake only
@@ -680,6 +704,7 @@
                             await this.deriveSharedKey();
                             this.$nextTick(() => { if (this.$refs.composer) this.$refs.composer.focus(); });
                         } catch (e) {
+                            this.theirPubBuf = null; // let a fresh hello retry instead of wedging
                             this.pushSystem('Couldn’t set up encryption with the other side. Try leaving and reconnecting.');
                         }
                     } else if (d.t === 'msg') {
