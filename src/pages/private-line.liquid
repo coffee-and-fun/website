@@ -279,8 +279,11 @@
         .send-btn:focus-visible { outline: 2px solid var(--mint); outline-offset: 2px; }
         .send-btn:disabled { background: #24332c; color: #6a7d73; cursor: not-allowed; }
 
-        .chat-foot-row { display: flex; justify-content: space-between; align-items: center; margin-top: 0.7rem; gap: 0.5rem; flex-wrap: wrap; }
-        .chat-foot-row .lock-note { font-size: 0.74rem; color: var(--faint); }
+        .chat-foot-row { display: flex; justify-content: space-between; align-items: center; margin-top: 0.7rem; gap: 0.5rem 1rem; flex-wrap: wrap; }
+        .lock-note { font-size: 0.74rem; color: var(--faint); }
+        .typing-toggle { display: inline-flex; align-items: center; gap: 0.45rem; font-size: 0.8rem; color: var(--muted); cursor: pointer; }
+        .typing-toggle input { width: 15px; height: 15px; }
+        .typing-toggle input:focus-visible { outline: 2px solid var(--mint); outline-offset: 2px; }
 
         /* Rules */
         details.rules { border: 1px solid var(--line); border-radius: var(--radius); background: var(--surface); padding: 0.25rem 1rem; margin-top: 1.6rem; max-width: 560px; }
@@ -475,9 +478,13 @@
                 </button>
             </form>
             <div class="chat-foot-row">
+                <label class="typing-toggle">
+                    <input type="checkbox" v-model="sendTyping" @change="onTypingToggle" />
+                    Let them see when I&rsquo;m typing
+                </label>
                 <button type="button" class="linkish" @click="leaveChat">End this chat</button>
-                <span class="lock-note" aria-hidden="true">🔒 Encrypted on your device · nothing stored</span>
             </div>
+            <p class="lock-note" aria-hidden="true" style="text-align:center;margin:0.5rem 0 0;">🔒 Encrypted on your device · nothing stored</p>
         </section>
 
         <p class="foot">The matchmaking server helps you connect but never sees your messages — they&rsquo;re encrypted on your device and decrypted on theirs. No accounts, no logs, nothing kept.<br>A privacy tool from <a href="https://www.coffeeandfun.com/">Coffee &amp; Fun</a>.</p>
@@ -565,6 +572,7 @@
                     messages: [], draft: '', msgId: 1,
                     theirTyping: false, theirTypingTimer: null,
                     lastTypingSent: 0,
+                    sendTyping: true,   // broadcast my "…is typing" — off = quieter footprint
                     dataChain: null,
                     announcement: ''
                 };
@@ -792,12 +800,18 @@
                 },
                 onType() {
                     this.autoGrow();
+                    if (!this.sendTyping) return; // typing indicator gated off
                     if (!this.connected || !this.secured || !this.conn || !this.conn.open) return;
                     const now = Date.now();
                     if (now - this.lastTypingSent > 1500) {
                         this.lastTypingSent = now;
                         try { this.conn.send({ t: 'typing' }); } catch (e) {}
                     }
+                },
+                onTypingToggle() {
+                    this.announce(this.sendTyping
+                        ? 'They can now see when you’re typing.'
+                        : 'Turned off. They can no longer see when you’re typing.');
                 },
                 autoGrow() {
                     this.$nextTick(() => {
