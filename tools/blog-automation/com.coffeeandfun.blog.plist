@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+  <key>Label</key>
+  <string>com.coffeeandfun.blog</string>
+
+  <key>ProgramArguments</key>
+  <array>
+    <string>/bin/bash</string>
+    <string>/Users/commander/Documents/Major/code/coffee/website/tools/blog-automation/run-blog.sh</string>
+  </array>
+
+  <key>WorkingDirectory</key>
+  <string>/Users/commander/Documents/Major/code/coffee/website</string>
+
+  <!-- launchd uses a minimal environment; set PATH + HOME so node/git/claude resolve.
+       On Apple Silicon Homebrew lives in /opt/homebrew/bin; on Intel it's /usr/local/bin. -->
+  <key>EnvironmentVariables</key>
+  <dict>
+    <key>PATH</key>
+    <string>/opt/homebrew/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin</string>
+    <key>HOME</key>
+    <string>/Users/commander</string>
+  </dict>
+
+  <!-- Mon (1), Wed (3), Fri (5) at 09:00 local time. -->
+  <key>StartCalendarInterval</key>
+  <array>
+    <dict><key>Weekday</key><integer>1</integer><key>Hour</key><integer>9</integer><key>Minute</key><integer>0</integer></dict>
+    <dict><key>Weekday</key><integer>3</integer><key>Hour</key><integer>9</integer><key>Minute</key><integer>0</integer></dict>
+    <dict><key>Weekday</key><integer>5</integer><key>Hour</key><integer>9</integer><key>Minute</key><integer>0</integer></dict>
+  </array>
+
+  <key>StandardOutPath</key>
+  <string>/Users/commander/Documents/Major/code/coffee/website/tools/blog-automation/logs/launchd.out.log</string>
+  <key>StandardErrorPath</key>
+  <string>/Users/commander/Documents/Major/code/coffee/website/tools/blog-automation/logs/launchd.err.log</string>
+
+  <key>ThrottleInterval</key>
+  <integer>3600</integer>
+</dict>
+</plist>
