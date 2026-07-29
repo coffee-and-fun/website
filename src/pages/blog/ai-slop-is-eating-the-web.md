@@ -77,7 +77,7 @@ One suspicious page is a page. Twenty pages on the same site, all published the 
 
 ## The stores have the same disease
 
-I have written before about [why extension stores need higher standards](/blog/browser-extension-stores-need-higher-standards/) and later about [the app stores sliding the same way](/blog/the-app-store-needs-higher-standards-too/). AI slop is the accelerant on both fires.
+I have written before about [why extension stores need higher standards](/blog/browser-extension-stores-need-higher-standards/), and later about the mobile app stores sliding the same way. AI slop is the accelerant on both fires.
 
 When a submission costs a developer twenty minutes of prompting instead of six months of work, the economics of a storefront invert. Spam stops being a nuisance and becomes the default. Google Play deleting roughly half its catalogue was not an overreaction, it was a store discovering it had been graded on "does it launch" for a decade. And the same logic applies to any listing you read: a description written by something that never used the product will always sound better than one written by someone who did, because honesty includes limitations.
 
