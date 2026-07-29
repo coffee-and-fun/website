@@ -9,7 +9,6 @@ em dashes. Add new ideas to the bottom any time; reorder to change what publishe
 
 ## Queue
 
-- [ ] AI Slop Is Eating the Web: How to Spot Machine-Made Junk (and Why It Matters)
 - [ ] Dark Patterns in the App Stores: The Tricks Between You and the Uninstall Button
 - [ ] The Real Cost of "Free" Browser Extensions
 - [ ] Your Extension Needs a Privacy Policy: What Chrome, Edge, Firefox, and Safari Require in 2026
@@ -21,6 +20,7 @@ em dashes. Add new ideas to the bottom any time; reorder to change what publishe
 
 ## Published
 
+- [x] AI Slop Is Eating the Web: How to Spot Machine-Made Junk (and Why It Matters) (published 2026-07-29)
 - [x] Manifest V3 in 2026: What Changed, What Broke, and How to Migrate Without Losing Users (published 2026-07-28)
 - [x] The App Store Needs Higher Standards Too (published 2026-07-27)
 - [x] How to Vet a Browser Extension Before You Trust It (published 2026-07-27)
