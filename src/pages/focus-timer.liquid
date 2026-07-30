@@ -1,0 +1,901 @@
+<!DOCTYPE html>
+<html class="scroll-smooth antialiased" lang="en" data-theme="light" style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <!-- Primary Meta Tags -->
+    <title>Focus Timer — Free ADHD-Friendly Pomodoro Timer | Coffee & Fun</title>
+    <meta name="title" content="Focus Timer — Free ADHD-Friendly Pomodoro Timer | Coffee & Fun" />
+    <meta name="description" content="A free, ADHD-friendly Pomodoro timer that keeps things simple: tiny sprints, one task at a time, visible progress, and the exact time you'll finish. No signup, no tracking." />
+    <meta name="keywords" content="focus timer, pomodoro timer, ADHD timer, time blindness, visual timer, colorblind friendly timer, study timer, work timer, deep work, Coffee & Fun" />
+    <meta name="author" content="Coffee & Fun LLC" />
+    <meta name="robots" content="index, follow" />
+    <meta name="rating" content="safe for kids" />
+
+    <!-- Canonical URL -->
+    <link rel="canonical" href="https://www.coffeeandfun.com/focus-timer/" />
+
+    <!-- Favicon -->
+    <link rel="icon" href="/assets/images/favicon.png" sizes="any" />
+
+    <!-- Open Graph Meta Tags -->
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="Coffee & Fun" />
+    <meta property="og:title" content="Focus Timer — Free ADHD-Friendly Pomodoro Timer" />
+    <meta property="og:description" content="A clean Pomodoro timer built for ADHD brains. Tiny sprints, one task at a time, visible progress, and the exact time you'll finish. Free, private, no signup." />
+    <meta property="og:url" content="https://www.coffeeandfun.com/focus-timer/" />
+    <meta property="og:image" content="https://www.coffeeandfun.com/assets/images/social/pages/focus-timer.png" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content="Focus Timer — a clean, ADHD-friendly Pomodoro timer" />
+    <meta property="og:locale" content="en_US" />
+
+    <!-- Twitter Card Meta Tags -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:site" content="@bycoffeeandfun" />
+    <meta name="twitter:creator" content="@bycoffeeandfun" />
+    <meta name="twitter:title" content="Focus Timer — Free ADHD-Friendly Pomodoro Timer" />
+    <meta name="twitter:description" content="A clean Pomodoro timer built for ADHD brains. Tiny sprints, one task at a time, visible progress, and the exact time you'll finish. Free, private, no signup." />
+    <meta name="twitter:image" content="https://www.coffeeandfun.com/assets/images/social/pages/focus-timer.png" />
+    <meta name="twitter:image:alt" content="Focus Timer — a clean, ADHD-friendly Pomodoro timer" />
+    <meta name="twitter:domain" content="coffeeandfun.com" />
+    <meta name="twitter:url" content="https://www.coffeeandfun.com/focus-timer/" />
+
+    <!-- PWA Manifest -->
+    <link rel="manifest" href="/assets/images/social/site.webmanifest" />
+
+    <!-- Theme & Mobile Meta -->
+    <meta name="theme-color" content="#a04c28" id="theme-color-meta" />
+    <meta name="mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="default" />
+
+    <!-- Icons -->
+    <link rel="apple-touch-icon" href="/assets/images/social/192.png" />
+    <link rel="icon" href="/assets/images/social/192.png" sizes="192x192" type="image/png" />
+
+    <!-- Structured Data (JSON-LD) -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "WebApplication",
+        "name": "Focus Timer",
+        "description": "A free, ADHD-friendly Pomodoro focus timer. Tiny sprint presets, one task at a time, visible progress, finish-time display, gentle chimes, desktop notifications, colorblind-safe design.",
+        "url": "https://www.coffeeandfun.com/focus-timer/",
+        "applicationCategory": "ProductivityApplication",
+        "operatingSystem": "Any (web browser)",
+        "browserRequirements": "Requires JavaScript.",
+        "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" },
+        "featureList": [
+            "Tiny sprint presets (10, 15, 25, 45 minutes) to make starting easier",
+            "One-task line instead of a busy to-do list",
+            "Progress bar and tab-title countdown — time made visible",
+            "Shows the clock time your sprint will finish",
+            "Gentle chime and optional desktop notifications",
+            "Colorblind-safe, keyboard-friendly, respects reduced motion",
+            "No account, no tracking — everything stays on your device"
+        ],
+        "publisher": {
+            "@type": "Organization",
+            "name": "Coffee & Fun LLC",
+            "url": "https://www.coffeeandfun.com",
+            "sameAs": ["https://x.com/bycoffeeandfun"]
+        }
+    }
+    </script>
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "FAQPage",
+        "mainEntity": [
+            { "@type": "Question", "name": "What is the Pomodoro Technique?",
+              "acceptedAnswer": { "@type": "Answer", "text": "A time-management method that breaks work into focused sprints — traditionally 25 minutes — with short breaks between them and a longer break after about four. The fixed, visible countdown makes it easier to start and easier to notice time passing." } },
+            { "@type": "Question", "name": "Why does this timer help with ADHD?",
+              "acceptedAnswer": { "@type": "Answer", "text": "Three reasons. Starting is the hard part, so the sprint presets go down to 10 minutes — small enough that starting feels easy. Time blindness makes minutes invisible, so a progress bar fills as you work, the tab title counts down, and the timer shows the actual clock time you'll finish. And decisions are distractions, so there's one task line, one big button, and nothing else fighting for your attention." } },
+            { "@type": "Question", "name": "Can I change the sprint and break lengths?",
+              "acceptedAnswer": { "@type": "Answer", "text": "Yes. Use the quick presets (10, 15, 25, or 45 minutes) or open Settings to set any focus, short-break, and long-break lengths, how many sprints make a round, and whether the next session starts automatically." } },
+            { "@type": "Question", "name": "Is it colorblind friendly?",
+              "acceptedAnswer": { "@type": "Answer", "text": "Yes. The three mode colors differ in warmth and lightness, not just hue, so they stay distinguishable across the common types of color vision deficiency — and color is never the only signal anyway: every mode also has an icon and a word, states are spelled out in plain language, and progress is shown by a filling bar and a countdown." } },
+            { "@type": "Question", "name": "Is it free, and does it need an account?",
+              "acceptedAnswer": { "@type": "Answer", "text": "Completely free, no account, no tracking. It runs entirely in your browser, and your settings and task are saved on your own device only." } }
+        ]
+    }
+    </script>
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "BreadcrumbList",
+        "itemListElement": [
+            { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://www.coffeeandfun.com/" },
+            { "@type": "ListItem", "position": 2, "name": "Apps", "item": "https://www.coffeeandfun.com/apps/" },
+            { "@type": "ListItem", "position": 3, "name": "Focus Timer", "item": "https://www.coffeeandfun.com/focus-timer/" }
+        ]
+    }
+    </script>
+
+    {% bundledCss %}
+
+    <style>
+        /* ===== Mode palette =====
+           One deep, muted color per mode (Pomofocus-style), tuned so white text
+           keeps WCAG AA contrast even on the lightened panel. Color is never the
+           only signal: every mode also has an icon + a word, and states are
+           written out in plain language. */
+        .theme-focus { --bg: #a04c28; }   /* Focus — burnt sienna (warm, mid)    */
+        .theme-short { --bg: #2b6a9b; }   /* Short — cerulean (cool, lighter)    */
+        .theme-long  { --bg: #274b77; }   /* Long  — evening blue (cool, darkest) */
+        :root {
+            --panel: rgba(255, 255, 255, 0.1);
+            --panel-hi: rgba(0, 0, 0, 0.15);
+            --ink: #333333;
+            --body-text: #555555;
+            --line: #e5e5e5;
+        }
+
+        html { background: #a04c28; }
+        body { margin: 0; }
+
+        .app {
+            min-height: 100vh;
+            min-height: 100svh;
+            display: flex;
+            flex-direction: column;
+            background: var(--bg, #a04c28);
+            color: #fff;
+            transition: background-color 0.5s ease;
+        }
+        .app :is(a, button, input, summary):focus-visible { outline: 3px solid #fff; outline-offset: 3px; }
+        @media (prefers-reduced-motion: reduce) { .app { transition: none; } }
+
+        .skip-link { position: absolute; left: -9999px; top: 0; background: #fff; color: var(--ink);
+            padding: 0.6rem 1.1rem; z-index: 60; border-radius: 0 0 8px 0; font-weight: 700; text-decoration: none; }
+        .skip-link:focus { left: 0; }
+
+        /* Thin glanceable session progress along the top */
+        .top-progress { position: fixed; top: 0; left: 0; height: 5px; z-index: 40; width: 0%;
+            background: rgba(255, 255, 255, 0.9); border-radius: 0 3px 3px 0; transition: width 0.4s linear; }
+        @media (prefers-reduced-motion: reduce) { .top-progress { transition: none; } }
+
+        /* ===== Top bar ===== */
+        .topbar { width: 100%; max-width: 620px; margin: 0 auto; padding: 1rem 1rem 0.75rem;
+            display: flex; align-items: center; justify-content: space-between; gap: 0.75rem;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.25); }
+        .brand { display: inline-flex; align-items: center; gap: 0.5rem; color: #fff; text-decoration: none; }
+        .brand svg { flex-shrink: 0; }
+        .brand-name { font-size: 1.25rem; font-weight: 700; margin: 0; line-height: 1.3; }
+        .topbar-btn { display: inline-flex; align-items: center; gap: 0.4rem; min-height: 44px;
+            background: rgba(0, 0, 0, 0.15); border: 0; border-radius: 8px; color: #fff;
+            font-size: 0.88rem; font-weight: 600; padding: 0.5rem 0.85rem; cursor: pointer; transition: background 0.15s; }
+        .topbar-btn:hover { background: rgba(0, 0, 0, 0.25); }
+        @media (prefers-reduced-motion: reduce) { .topbar-btn { transition: none; } }
+
+        /* ===== Stage ===== */
+        .stage { flex: 1; width: 100%; max-width: 480px; margin: 0 auto;
+            padding: 1.75rem 1rem 3rem; display: flex; flex-direction: column; align-items: center; }
+
+        .panel { width: 100%; background: var(--panel); border-radius: 10px;
+            padding: 1.4rem 1rem 1.9rem; text-align: center; }
+
+        .modes { display: flex; justify-content: center; flex-wrap: wrap; gap: 0.25rem; margin-bottom: 0.9rem; }
+        .mode-btn { display: inline-flex; align-items: center; gap: 0.35rem; min-height: 44px;
+            padding: 0.4rem 0.8rem; border-radius: 8px; border: 0; background: transparent; color: #fff;
+            font-weight: 600; font-size: 0.95rem; cursor: pointer; transition: background 0.15s; }
+        .mode-btn:hover { background: rgba(0, 0, 0, 0.1); }
+        .mode-btn[aria-pressed="true"] { background: var(--panel-hi); font-weight: 700; }
+        @media (prefers-reduced-motion: reduce) { .mode-btn { transition: none; } }
+
+        .digits { font-weight: 700; font-size: clamp(4.5rem, 22vw, 7.5rem); line-height: 1.1;
+            letter-spacing: -0.01em; font-variant-numeric: tabular-nums; margin: 0.4rem 0 0.6rem; }
+
+        .bar-track { width: 72%; max-width: 300px; height: 6px; border-radius: 3px;
+            background: rgba(255, 255, 255, 0.25); margin: 0 auto 1.15rem; overflow: hidden; }
+        .bar-fill { height: 100%; width: 0%; border-radius: 3px; background: #fff; transition: width 0.4s linear; }
+        @media (prefers-reduced-motion: reduce) { .bar-fill { transition: none; } }
+
+        .start-btn { display: inline-block; min-width: 200px; max-width: 92%; min-height: 62px;
+            padding: 0.8rem 2rem; background: #fff; color: var(--bg, #a04c28); border: 0; border-radius: 8px;
+            cursor: pointer; font-size: 1.5rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase;
+            box-shadow: 0 6px 0 rgba(0, 0, 0, 0.2); transition: transform 0.08s, box-shadow 0.08s, filter 0.15s; }
+        .start-btn:hover { filter: brightness(0.97); }
+        .start-btn.is-running { transform: translateY(5px); box-shadow: 0 1px 0 rgba(0, 0, 0, 0.2); }
+        @media (prefers-reduced-motion: reduce) { .start-btn { transition: none; } .start-btn.is-running { transform: none; } }
+
+        .mini-controls { display: flex; justify-content: center; gap: 0.9rem; margin-top: 1.4rem; }
+        .mini-btn { display: inline-flex; flex-direction: column; align-items: center; gap: 0.25rem;
+            min-width: 56px; min-height: 44px; background: transparent; border: 0; padding: 0.4rem 0.5rem;
+            cursor: pointer; color: #fff; border-radius: 8px; transition: background 0.15s; }
+        .mini-btn:hover { background: rgba(0, 0, 0, 0.12); }
+        .mini-btn[aria-pressed="true"] { background: rgba(0, 0, 0, 0.18); }
+        .mini-btn .mini-label { font-size: 0.75rem; font-weight: 600; }
+        @media (prefers-reduced-motion: reduce) { .mini-btn { transition: none; } }
+
+        /* ===== Session info under the card ===== */
+        .session { text-align: center; margin-top: 1.5rem; }
+        .session .count { font-size: 1rem; opacity: 0.9; margin: 0; }
+        .session .msg { font-size: 1.35rem; font-weight: 600; margin: 0.15rem 0 0; }
+        @media (prefers-reduced-motion: no-preference) {
+            .msg-pop { animation: msg-pop 0.45s ease; }
+            @keyframes msg-pop {
+                0% { transform: scale(0.92); opacity: 0.4; }
+                60% { transform: scale(1.05); }
+                100% { transform: scale(1); opacity: 1; }
+            }
+        }
+        .session .sub { font-size: 0.98rem; opacity: 0.95; margin: 0.35rem 0 0; min-height: 1.4em; }
+        .session .cadence { font-size: 0.85rem; opacity: 0.85; margin: 0.3rem 0 0; }
+
+        /* ===== Presets ===== */
+        #presets-block { width: 100%; margin-top: 1.6rem; text-align: center; }
+        .presets-title { font-weight: 700; font-size: 0.95rem; margin: 0 0 0.55rem; }
+        .presets { display: flex; justify-content: center; flex-wrap: wrap; gap: 0.4rem; }
+        .preset-btn { min-height: 48px; min-width: 64px; padding: 0.35rem 0.75rem; border-radius: 8px;
+            border: 0; background: rgba(0, 0, 0, 0.15); cursor: pointer; color: #fff;
+            display: inline-flex; flex-direction: column; align-items: center; justify-content: center;
+            line-height: 1.2; transition: background 0.15s; }
+        .preset-btn:hover { background: rgba(0, 0, 0, 0.25); }
+        .preset-btn .mins { font-weight: 700; font-size: 1rem; }
+        .preset-btn .word { font-size: 0.75rem; }
+        .preset-btn[aria-pressed="true"] { background: #fff; color: var(--bg, #a04c28); }
+        .presets-hint { font-size: 0.85rem; opacity: 0.85; margin: 0.55rem 0 0; }
+        @media (prefers-reduced-motion: reduce) { .preset-btn { transition: none; } }
+
+        /* ===== Task ===== */
+        .task-block { width: 100%; margin-top: 1.9rem; }
+        .task-head { display: flex; align-items: center; justify-content: space-between;
+            border-bottom: 2px solid rgba(255, 255, 255, 0.35); padding-bottom: 0.5rem; margin-bottom: 0.8rem; }
+        .task-head h2 { font-size: 1.05rem; font-weight: 700; margin: 0; }
+        .task-box { display: flex; align-items: center; gap: 0.4rem;
+            border: 2px dashed rgba(255, 255, 255, 0.75); border-radius: 8px; padding: 0.35rem 0.5rem 0.35rem 0.9rem; }
+        .task-box input { flex: 1; min-width: 0; background: transparent; border: 0; color: #fff;
+            font-size: 1.02rem; font-weight: 600; padding: 0.55rem 0; }
+        .task-box input::placeholder { color: rgba(255, 255, 255, 0.92); font-weight: 500; }
+        .clear-intention { width: 44px; height: 44px; flex-shrink: 0; border: 0; background: transparent;
+            color: rgba(255, 255, 255, 0.92); font-size: 1.1rem; line-height: 1; cursor: pointer;
+            border-radius: 8px; display: none; align-items: center; justify-content: center; }
+        .clear-intention:hover { background: rgba(255, 255, 255, 0.18); color: #fff; }
+        .task-block.has-text .clear-intention { display: inline-flex; }
+
+        .kbd-hint { text-align: center; font-size: 0.8rem; color: rgba(255, 255, 255, 0.85); margin: 1.7rem auto 0; }
+        .kbd-hint kbd { background: rgba(0, 0, 0, 0.25); border-radius: 4px; padding: 0.05em 0.4em;
+            font-family: ui-monospace, Menlo, monospace; color: #fff; }
+
+        /* ===== Content sections (below the app, crawlable) ===== */
+        .content { background: #fff; color: var(--body-text); overflow-x: hidden; }
+        .content-inner { max-width: 44rem; margin: 0 auto; padding: 3.5rem 1.25rem 1rem; }
+        .content h2 { font-size: clamp(1.45rem, 4vw, 1.8rem); line-height: 1.35; color: var(--ink);
+            font-weight: 800; margin: 0 0 1.1rem; }
+        .content section + section { margin-top: 3rem; }
+        .content p { line-height: 1.7; margin: 0 0 1rem; }
+        .content ul.plain { padding-left: 1.2rem; margin: 0; }
+        .content ul.plain li { line-height: 1.7; margin-bottom: 0.55rem; }
+        .content strong { color: var(--ink); }
+        .content a { color: #2563eb; font-weight: 600; text-decoration: underline; text-underline-offset: 2px; }
+        .content :is(a, summary):focus-visible { outline: 3px solid #333; outline-offset: 2px; }
+
+        .step-grid { display: grid; gap: 1rem; grid-template-columns: 1fr; }
+        @media (min-width: 640px) { .step-grid { grid-template-columns: repeat(3, 1fr); } }
+        .how-step { background: #fafafa; border: 1px solid var(--line); border-radius: 10px; padding: 1.25rem 1.1rem; text-align: center; }
+        .how-step .n { width: 44px; height: 44px; border-radius: 50%; background: #a04c28; color: #fff;
+            display: flex; align-items: center; justify-content: center; font-weight: 800; margin: 0 auto 0.7rem; }
+        .how-step h3 { margin: 0 0 0.4rem; font-size: 1.02rem; color: var(--ink); }
+        .how-step p { font-size: 0.92rem; margin: 0; }
+
+        .faq details { background: #fafafa; border: 1px solid var(--line); border-radius: 8px; padding: 0.2rem 1rem; margin-bottom: 0.6rem; }
+        .faq summary { font-weight: 700; color: var(--ink); cursor: pointer; padding: 0.85rem 0.1rem; }
+        .faq details p { font-size: 0.95rem; margin: 0 0 0.9rem; }
+
+        .related-grid { display: grid; gap: 1rem; grid-template-columns: 1fr; }
+        @media (min-width: 640px) { .related-grid { grid-template-columns: repeat(3, 1fr); } }
+        .related-card { text-decoration: none; display: block; background: #fafafa; border: 1px solid var(--line);
+            border-radius: 10px; padding: 1.15rem 1.1rem; transition: border-color 0.15s, box-shadow 0.15s; }
+        .related-card:hover { border-color: #bbb; box-shadow: 0 4px 14px -8px rgba(0, 0, 0, 0.25); }
+        .related-card h3 { margin: 0 0 0.35rem; font-size: 1rem; color: var(--ink); }
+        .related-card p { margin: 0; font-size: 0.88rem; color: var(--body-text); line-height: 1.55; }
+        @media (prefers-reduced-motion: reduce) { .related-card { transition: none; } }
+
+        .foot-note { text-align: center; font-size: 0.85rem; color: var(--body-text); background: #fff;
+            margin: 0; padding: 2.5rem 1.25rem 3rem; }
+        .foot-note a { color: #2563eb; text-decoration: underline; text-underline-offset: 2px; }
+        .foot-note a:focus-visible { outline: 3px solid #333; outline-offset: 2px; }
+
+        /* ===== Settings dialog ===== */
+        dialog.settings { margin: auto; border: 1px solid var(--line); border-radius: 12px; padding: 0; max-width: 26rem; width: calc(100% - 2rem); }
+        dialog.settings::backdrop { background: rgba(0, 0, 0, 0.5); }
+        .settings-inner { padding: 1.5rem 1.4rem 1.4rem; color: var(--body-text); }
+        .settings-inner h2 { margin: 0 0 1.1rem; color: var(--ink); font-size: 1.2rem; }
+        .settings-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 0.9rem; }
+        .settings-grid label { display: flex; flex-direction: column; gap: 0.3rem; font-size: 0.85rem; font-weight: 700; color: var(--ink); }
+        .settings-grid input { border: 1.5px solid #767676; border-radius: 8px; padding: 0.55rem 0.7rem; font-size: 1rem; color: var(--ink); width: 100%; }
+        .settings-toggles { margin-top: 1.1rem; display: flex; flex-direction: column; gap: 0.65rem; }
+        .settings-toggles label { display: flex; align-items: center; gap: 0.6rem; font-size: 0.92rem; cursor: pointer; }
+        .settings-toggles input { width: 20px; height: 20px; accent-color: #a04c28; }
+        .notify-blocked { color: #b3261e; font-size: 0.85rem; margin: 0.6rem 0 0; }
+        .settings-actions { display: flex; justify-content: flex-end; margin-top: 1.3rem; }
+        .btn-done { background: #a04c28; color: #fff; border: 0; border-radius: 8px; padding: 0.65rem 1.6rem;
+            font-weight: 700; font-size: 1rem; cursor: pointer; min-height: 48px; }
+        .btn-done:hover { filter: brightness(1.08); }
+        dialog.settings :is(button, input, summary):focus-visible { outline: 3px solid #333; outline-offset: 2px; }
+
+        .sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden;
+            clip: rect(0, 0, 0, 0); white-space: nowrap; border: 0; }
+    </style>
+</head>
+
+<body>
+    <a href="#timer" class="skip-link">Skip to the timer</a>
+
+    <div class="app theme-focus" id="app-root">
+        <div class="top-progress" id="top-progress" aria-hidden="true"></div>
+
+        <header class="topbar">
+            <a href="/" class="brand" aria-label="Focus Timer — back to coffeeandfun.com home">
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M12 7v5l3 3"/></svg>
+                <h1 class="brand-name">Focus Timer</h1>
+            </a>
+            <button type="button" class="topbar-btn" id="settings-btn" aria-haspopup="dialog">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
+                Settings
+            </button>
+        </header>
+
+        <main id="timer" class="stage">
+            <!-- Live region for discrete announcements only -->
+            <p class="sr-only" role="status" aria-live="polite" id="announce"></p>
+
+            <section class="panel" aria-label="Timer">
+                <div class="modes" role="group" aria-label="Timer mode">
+                    <button type="button" class="mode-btn" data-mode="focus" aria-pressed="true"><span aria-hidden="true">&#127919;</span> Focus</button>
+                    <button type="button" class="mode-btn" data-mode="short" aria-pressed="false"><span aria-hidden="true">&#9749;</span> Short Break</button>
+                    <button type="button" class="mode-btn" data-mode="long" aria-pressed="false"><span aria-hidden="true">&#127796;</span> Long Break</button>
+                </div>
+
+                <div class="digits" role="timer" aria-live="off" id="digits">25:00</div>
+                <div class="bar-track" aria-hidden="true"><div class="bar-fill" id="bar-fill"></div></div>
+
+                <button type="button" class="start-btn" id="start-btn">Start</button>
+
+                <div class="mini-controls" role="group" aria-label="More controls">
+                    <button type="button" class="mini-btn" id="reset-btn" aria-label="Reset the current timer">
+                        <span aria-hidden="true"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12a9 9 0 1 0 3-6.7L3 8"/><path d="M3 3v5h5"/></svg></span>
+                        <span class="mini-label" aria-hidden="true">Reset</span>
+                    </button>
+                    <button type="button" class="mini-btn" id="skip-btn" aria-label="Skip to the next session">
+                        <span aria-hidden="true"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 4l10 8-10 8z"/><path d="M19 5v14"/></svg></span>
+                        <span class="mini-label" aria-hidden="true">Skip</span>
+                    </button>
+                    <button type="button" class="mini-btn" id="sound-btn" aria-pressed="true">
+                        <span aria-hidden="true"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8a6 6 0 0 0-12 0c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.7 21a2 2 0 0 1-3.4 0"/></svg></span>
+                        <span class="mini-label" id="sound-label">Chime on</span>
+                    </button>
+                </div>
+            </section>
+
+            <div class="session">
+                <p class="count" id="sprint-count">#1</p>
+                <p class="msg" id="session-msg">Time to focus!</p>
+                <p class="sub" id="session-sub">Press start when you&rsquo;re ready</p>
+                <p class="cadence" id="beans-caption">Long break after 4 sprints</p>
+            </div>
+
+            <div id="presets-block">
+                <p class="presets-title" id="presets-title">How long can you focus right now?</p>
+                <div class="presets" role="group" aria-labelledby="presets-title">
+                    <button type="button" class="preset-btn" data-mins="10" aria-label="Set focus length to 10 minutes" aria-pressed="false"><span class="mins">10 min</span><span class="word" aria-hidden="true">tiny</span></button>
+                    <button type="button" class="preset-btn" data-mins="15" aria-label="Set focus length to 15 minutes" aria-pressed="false"><span class="mins">15 min</span><span class="word" aria-hidden="true">short</span></button>
+                    <button type="button" class="preset-btn" data-mins="25" aria-label="Set focus length to 25 minutes" aria-pressed="true"><span class="mins">25 min</span><span class="word" aria-hidden="true">classic</span></button>
+                    <button type="button" class="preset-btn" data-mins="45" aria-label="Set focus length to 45 minutes" aria-pressed="false"><span class="mins">45 min</span><span class="word" aria-hidden="true">deep</span></button>
+                </div>
+                <p class="presets-hint">If starting feels hard, start tiny.</p>
+            </div>
+
+            <div class="task-block" id="one-thing">
+                <div class="task-head">
+                    <h2 id="task-heading">Task</h2>
+                </div>
+                <div class="task-box">
+                    <label class="sr-only" for="intention">What are you working on?</label>
+                    <input id="intention" type="text" maxlength="120" autocomplete="off" spellcheck="false"
+                        placeholder="What are you working on?" />
+                    <button type="button" class="clear-intention" id="clear-intention" aria-label="Clear your task">&#10005;</button>
+                </div>
+            </div>
+
+            <p class="kbd-hint"><span aria-hidden="true"><kbd>Space</kbd> start / pause &middot; <kbd>R</kbd> reset &middot; <kbd>S</kbd> skip</span><span class="sr-only">Keyboard shortcuts: Space starts or pauses, R resets, S skips to the next session. You can turn them off in Settings.</span></p>
+        </main>
+    </div>
+
+    <!-- ===== Crawlable supporting content ===== -->
+    <div class="content">
+        <div class="content-inner">
+            <section aria-labelledby="h-see">
+                <h2 id="h-see">Time you can see</h2>
+                <p>If your brain doesn&rsquo;t <em>feel</em> minutes passing &mdash; a very ADHD thing called <strong>time blindness</strong> &mdash; a normal countdown is just a number that occasionally surprises you. So this timer makes time visible in three ways: a <strong>progress bar</strong> fills across the top of the page as your sprint goes, the <strong>tab title counts down</strong> so you can see it from any other tab, and the timer shows the <strong>actual clock time you&rsquo;ll finish</strong> (&ldquo;done around 3:42&rdquo;) &mdash; because &ldquo;25 minutes from now&rdquo; is abstract, but &ldquo;3:42&rdquo; is a real thing you can hold onto.</p>
+            </section>
+
+            <section aria-labelledby="h-how">
+                <h2 id="h-how">How it works</h2>
+                <div class="step-grid">
+                    <div class="how-step"><div class="n" aria-hidden="true">1</div><h3>Name one task</h3><p>Type a single task under the timer. Not a list &mdash; one thing. That&rsquo;s the whole plan.</p></div>
+                    <div class="how-step"><div class="n" aria-hidden="true">2</div><h3>Pick a length</h3><p>10, 15, 25, or 45 minutes. If starting feels impossible, choose tiny. Ten focused minutes beats zero perfect ones.</p></div>
+                    <div class="how-step"><div class="n" aria-hidden="true">3</div><h3>Focus, then rest</h3><p>Work until the chime, then take a real break &mdash; stand up, stretch, look out a window. Then go again.</p></div>
+                </div>
+            </section>
+
+            <section aria-labelledby="h-brains">
+                <h2 id="h-brains">Made for ADHD brains (and every other kind)</h2>
+                <p>Every choice here is deliberate:</p>
+                <ul class="plain">
+                    <li><strong>Starting is the hard part</strong>, so the presets go down to 10 minutes and the start button is the biggest thing on the page.</li>
+                    <li><strong>Decisions are distractions</strong>, so there&rsquo;s one task line and one button &mdash; not a project manager.</li>
+                    <li><strong>Nothing relies on color alone.</strong> Each mode has its own background color &mdash; picked to stay distinct in every common type of color vision &mdash; and it always comes with an icon and a word, with states written out in plain language.</li>
+                    <li><strong>Motion is optional.</strong> If your system asks for reduced motion, transitions stop and everything holds still.</li>
+                    <li><strong>Keyboard first.</strong> Space starts and pauses, R resets, S skips &mdash; and you can turn the shortcuts off in Settings.</li>
+                    <li><strong>Private by default.</strong> No account, no tracking &mdash; your settings and task live in your browser and nowhere else.</li>
+                </ul>
+            </section>
+
+            <section aria-labelledby="h-faq">
+                <h2 id="h-faq">Questions, answered</h2>
+                <div class="faq">
+                    <details>
+                        <summary>What is the Pomodoro Technique?</summary>
+                        <p>A time-management method that breaks work into focused sprints &mdash; traditionally 25 minutes &mdash; with short breaks between them and a longer break after about four. The fixed, visible countdown makes it easier to start and easier to notice time passing.</p>
+                    </details>
+                    <details>
+                        <summary>Why does this timer help with ADHD?</summary>
+                        <p>Three reasons. Starting is the hard part, so the sprint presets go down to 10 minutes &mdash; small enough that starting feels easy. Time blindness makes minutes invisible, so a progress bar fills as you work, the tab title counts down, and the timer shows the actual clock time you&rsquo;ll finish. And decisions are distractions, so there&rsquo;s one task line, one big button, and nothing else fighting for your attention.</p>
+                    </details>
+                    <details>
+                        <summary>Can I change the sprint and break lengths?</summary>
+                        <p>Yes. Use the quick presets (10, 15, 25, or 45 minutes) or open Settings to set any focus, short-break, and long-break lengths, how many sprints make a round, and whether the next session starts automatically.</p>
+                    </details>
+                    <details>
+                        <summary>Is it colorblind friendly?</summary>
+                        <p>Yes. The three mode colors differ in warmth and lightness, not just hue, so they stay distinguishable across the common types of color vision deficiency &mdash; and color is never the only signal anyway: every mode also has an icon and a word, states are spelled out in plain language, and progress is shown by a filling bar and a countdown.</p>
+                    </details>
+                    <details>
+                        <summary>Is it free, and does it need an account?</summary>
+                        <p>Completely free, no account, no tracking. It runs entirely in your browser, and your settings and task are saved on your own device only.</p>
+                    </details>
+                </div>
+            </section>
+
+            <section aria-labelledby="h-related">
+                <h2 id="h-related">Pairs well with</h2>
+                <div class="related-grid">
+                    <a class="related-card" href="/procrastinot/">
+                        <h3>ProcrastiNOT</h3>
+                        <p>Blocks the sites that eat your sprints. You have to solve math to turn it off &mdash; future you says thanks.</p>
+                    </a>
+                    <a class="related-card" href="/word-clock/">
+                        <h3>Word Clock</h3>
+                        <p>The time, written out in words. A calmer way to check the clock between sprints.</p>
+                    </a>
+                    <a class="related-card" href="/flip/">
+                        <h3>Flip a Coin</h3>
+                        <p>Can&rsquo;t decide which task goes first? Let the coin pick so you can get started.</p>
+                    </a>
+                </div>
+            </section>
+        </div>
+    </div>
+
+    <p class="foot-note">Free &amp; private &mdash; a web app by <a href="https://www.coffeeandfun.com/">Coffee &amp; Fun</a>.</p>
+
+    <!-- Settings dialog -->
+    <dialog class="settings" id="settings-dialog" aria-labelledby="settings-title">
+        <form method="dialog" class="settings-inner">
+            <h2 id="settings-title">Timer settings</h2>
+            <div class="settings-grid">
+                <label>Focus (minutes)
+                    <input type="number" id="set-focus" min="1" max="90" inputmode="numeric" /></label>
+                <label>Short break (minutes)
+                    <input type="number" id="set-short" min="1" max="30" inputmode="numeric" /></label>
+                <label>Long break (minutes)
+                    <input type="number" id="set-long" min="1" max="60" inputmode="numeric" /></label>
+                <label>Sprints per long break
+                    <input type="number" id="set-every" min="2" max="8" inputmode="numeric" /></label>
+            </div>
+            <div class="settings-toggles">
+                <label><input type="checkbox" id="set-auto-breaks" /> Start breaks automatically</label>
+                <label><input type="checkbox" id="set-auto-focus" /> Start the next focus automatically</label>
+                <label><input type="checkbox" id="set-notify" /> Desktop notifications</label>
+                <label><input type="checkbox" id="set-keys" /> Keyboard shortcuts (Space, R, S)</label>
+            </div>
+            <p class="notify-blocked" id="notify-blocked" role="alert" hidden>Notifications are blocked for this site &mdash; you can allow them from the address bar. The chime still works.</p>
+            <div class="settings-actions">
+                <button type="submit" class="btn-done">Done</button>
+            </div>
+        </form>
+    </dialog>
+
+    <script>
+    (function () {
+        'use strict';
+
+        var DEFAULT_TITLE = document.title;
+        var MODES = {
+            focus: { label: 'Focus', color: '#a04c28', msg: 'Time to focus!', readySub: 'Press start when you’re ready' },
+            short: { label: 'Short Break', color: '#2b6a9b', msg: 'Time for a break!', readySub: 'Stand up, stretch, look out a window' },
+            long:  { label: 'Long Break', color: '#274b77', msg: 'Time for a long break!', readySub: 'Properly step away — you did the work' }
+        };
+        var STORE_KEY = 'cfFocusTimer';
+        var INTENT_KEY = 'cfFocusIntention';
+
+        /* ---------- state ---------- */
+        var saved = {};
+        try { saved = JSON.parse(localStorage.getItem(STORE_KEY)) || {}; } catch (e) {}
+        if (typeof saved !== 'object' || saved === null || Array.isArray(saved)) saved = {};
+        var clampNum = function (v, lo, hi, dflt) { if (String(v).trim() === '') return dflt; v = Math.round(Number(v)); return isNaN(v) ? dflt : Math.min(hi, Math.max(lo, v)); };
+
+        var s = {
+            mode: 'focus',
+            focusMin: clampNum(saved.focusMin, 1, 90, 25),
+            shortMin: clampNum(saved.shortMin, 1, 30, 5),
+            longMin: clampNum(saved.longMin, 1, 60, 15),
+            longEvery: clampNum(saved.longEvery, 2, 8, 4),
+            autoStartBreaks: !!saved.autoStartBreaks,
+            autoStartFocus: !!saved.autoStartFocus,
+            soundOn: saved.soundOn !== false,
+            keysOn: saved.keysOn !== false,
+            notifyOn: false,
+            running: false,
+            started: false,
+            remaining: 0,
+            sessionTotal: 0,
+            endAt: 0,
+            ticker: null,
+            cycleCount: 0,
+            celebrate: null,
+            audioCtx: null
+        };
+        s.remaining = s.sessionTotal = s.focusMin * 60;
+
+        /* ---------- elements ---------- */
+        var $ = function (id) { return document.getElementById(id); };
+        var els = {
+            appRoot: $('app-root'), topProgress: $('top-progress'), barFill: $('bar-fill'),
+            digits: $('digits'), startBtn: $('start-btn'),
+            sprintCount: $('sprint-count'), sessionMsg: $('session-msg'), sessionSub: $('session-sub'),
+            beansCaption: $('beans-caption'),
+            announce: $('announce'), presetsBlock: $('presets-block'),
+            intention: $('intention'), oneThing: $('one-thing'), clearIntention: $('clear-intention'),
+            dialog: $('settings-dialog'), notifyBlocked: $('notify-blocked'),
+            soundBtn: $('sound-btn'), soundLabel: $('sound-label'),
+            themeMeta: $('theme-color-meta')
+        };
+        var modeBtns = Array.prototype.slice.call(document.querySelectorAll('.mode-btn'));
+        var presetBtns = Array.prototype.slice.call(document.querySelectorAll('.preset-btn'));
+
+        /* ---------- helpers ---------- */
+        function modeMinutes() { return s.mode === 'focus' ? s.focusMin : s.mode === 'short' ? s.shortMin : s.longMin; }
+        function totalSeconds() { return Math.max(1, modeMinutes() * 60); }
+        function fmt(sec) {
+            sec = Math.max(0, Math.ceil(sec));
+            return String(Math.floor(sec / 60)).padStart(2, '0') + ':' + String(sec % 60).padStart(2, '0');
+        }
+        function clockTime(ms) {
+            try { return new Date(ms).toLocaleTimeString([], { hour: 'numeric', minute: '2-digit' }); }
+            catch (e) { return ''; }
+        }
+        function announce(msg) {
+            els.announce.textContent = '';
+            window.setTimeout(function () { els.announce.textContent = msg; }, 50);
+        }
+        function persist() {
+            try {
+                localStorage.setItem(STORE_KEY, JSON.stringify({
+                    focusMin: s.focusMin, shortMin: s.shortMin, longMin: s.longMin, longEvery: s.longEvery,
+                    autoStartBreaks: s.autoStartBreaks, autoStartFocus: s.autoStartFocus,
+                    soundOn: s.soundOn, keysOn: s.keysOn, notifyOn: s.notifyOn
+                }));
+            } catch (e) {}
+        }
+
+        /* ---------- rendering ---------- */
+        function sessionProgress() {
+            var t = s.sessionTotal || totalSeconds();
+            return Math.min(1, Math.max(0, 1 - s.remaining / t));
+        }
+        function render() {
+            var m = MODES[s.mode];
+            els.appRoot.className = 'app theme-' + s.mode;
+            document.documentElement.style.background = m.color;
+            if (els.themeMeta) els.themeMeta.setAttribute('content', m.color);
+            var pct = (sessionProgress() * 100).toFixed(1) + '%';
+            els.topProgress.style.width = pct;
+            els.barFill.style.width = pct;
+
+            els.digits.textContent = fmt(s.remaining);
+            els.digits.setAttribute('aria-label', fmt(s.remaining) + ' remaining — ' + m.label);
+
+            // "#N" — which focus sprint of the round you're on
+            var sprintNo = s.mode === 'focus' ? s.cycleCount + 1 : Math.max(1, s.cycleCount);
+            els.sprintCount.textContent = '#' + sprintNo;
+            var msg = m.msg;
+            if (s.celebrate && s.mode !== 'focus') {
+                msg = s.celebrate.type === 'round'
+                    ? 'Round complete — ' + s.celebrate.n + ' sprints! \uD83C\uDFC6'
+                    : 'Sprint ' + s.celebrate.n + ' done — nice work! \uD83C\uDF89';
+            }
+            if (els.sessionMsg.textContent !== msg) {
+                els.sessionMsg.textContent = msg;
+                els.sessionMsg.classList.remove('msg-pop');
+                void els.sessionMsg.offsetWidth; // restart the animation
+                els.sessionMsg.classList.add('msg-pop');
+            }
+
+            if (s.running) {
+                els.sessionSub.textContent = 'Done around ' + clockTime(s.endAt);
+            } else if (s.started) {
+                els.sessionSub.textContent = 'Paused — about ' + Math.max(1, Math.ceil(s.remaining / 60)) + ' min left';
+            } else {
+                els.sessionSub.textContent = m.readySub;
+            }
+
+            var doneCount = Math.min(s.cycleCount, s.longEvery);
+            var leftCount = s.longEvery - doneCount;
+            els.beansCaption.textContent =
+                s.mode === 'long' ? 'The sprint counter resets after this break'
+                : leftCount <= 0 ? 'Long break is next!'
+                : 'Long break after ' + leftCount + (leftCount === 1 ? ' more sprint' : ' more sprints');
+
+            els.startBtn.textContent = s.running ? 'Pause' : (s.started ? 'Resume' : 'Start');
+            els.startBtn.classList.toggle('is-running', s.running);
+
+            modeBtns.forEach(function (b) { b.setAttribute('aria-pressed', b.dataset.mode === s.mode ? 'true' : 'false'); });
+            presetBtns.forEach(function (b) { b.setAttribute('aria-pressed', Number(b.dataset.mins) === s.focusMin ? 'true' : 'false'); });
+
+            // While a sprint runs, hide the length picker — fewer decisions mid-focus.
+            var hidePresets = s.running || s.mode !== 'focus';
+            if (hidePresets && !els.presetsBlock.hidden && els.presetsBlock.contains(document.activeElement)) {
+                els.startBtn.focus({ preventScroll: true });
+            }
+            els.presetsBlock.hidden = hidePresets;
+
+            document.title = (s.running || s.started)
+                ? fmt(s.remaining) + ' · ' + m.label + ' — Focus Timer'
+                : DEFAULT_TITLE;
+        }
+
+        /* ---------- timer core ---------- */
+        function stopTicker() { if (s.ticker) { clearInterval(s.ticker); s.ticker = null; } }
+        function tick() {
+            if (!s.running) return;
+            s.remaining = Math.max(0, (s.endAt - Date.now()) / 1000);
+            render();
+            if (s.remaining <= 0) complete();
+        }
+        function start() {
+            if (s.running) return;
+            if (s.remaining <= 0) { s.remaining = totalSeconds(); s.sessionTotal = totalSeconds(); }
+            s.running = true; s.started = true;
+            s.endAt = Date.now() + s.remaining * 1000;
+            stopTicker(); s.ticker = setInterval(tick, 500);
+            warmAudio();
+            var mins = Math.ceil(s.remaining / 60);
+            announce(MODES[s.mode].label + ' started — ' + mins + (mins === 1 ? ' minute' : ' minutes') + ', done around ' + clockTime(s.endAt) + '.');
+            render();
+        }
+        function pause() {
+            if (!s.running) return;
+            var endBefore = s.endAt;
+            tick(); // settle remaining from the clock — may complete + advance
+            if (!s.running || s.endAt !== endBefore) return; // session ended/auto-advanced; don't stomp it
+            s.running = false; stopTicker();
+            announce('Paused — ' + fmt(s.remaining) + ' left.');
+            render();
+        }
+        function reset() {
+            stopTicker(); s.running = false; s.started = false;
+            s.remaining = s.sessionTotal = totalSeconds();
+            announce(MODES[s.mode].label + ' reset to ' + fmt(s.remaining) + '.');
+            render();
+        }
+        function complete() {
+            stopTicker(); s.running = false; s.remaining = 0;
+            if (s.soundOn) chime();
+            advance(true);
+        }
+        function advance(fromComplete) {
+            var next, auto = false;
+            if (s.mode === 'focus') {
+                if (fromComplete) s.cycleCount++;
+                next = s.cycleCount >= s.longEvery ? 'long' : 'short';
+                auto = s.autoStartBreaks;
+            } else {
+                if (s.mode === 'long') s.cycleCount = 0; // the round ends once the long break is done
+                next = 'focus';
+                auto = s.autoStartFocus;
+            }
+            if (fromComplete && s.mode === 'focus') {
+                s.celebrate = { type: next === 'long' ? 'round' : 'sprint', n: s.cycleCount };
+            }
+            if (next === 'focus') s.celebrate = null;
+            if (fromComplete) {
+                var doneLabel = MODES[s.mode].label, nextLabel = MODES[next].label;
+                announce(doneLabel + ' finished — nice work! ' + (next === 'focus' ? 'Back to focus when you’re ready.' : 'Time for a ' + nextLabel.toLowerCase() + '.'));
+                if (s.notifyOn) notify(doneLabel + ' finished', next === 'focus' ? 'Ready for another sprint?' : 'Take a ' + nextLabel.toLowerCase() + ' — you earned it.');
+            }
+            setMode(next, { silent: true, autostart: auto, keepCelebration: true });
+            if (!fromComplete) announce('Skipped — ' + MODES[s.mode].label + ', ' + fmt(s.remaining) + '.');
+        }
+        function setMode(mode, opts) {
+            opts = opts || {};
+            if (!opts.keepCelebration) s.celebrate = null;
+            if (s.mode === 'long' && mode === 'focus') s.cycleCount = 0; // new round
+            stopTicker(); s.running = false; s.started = false;
+            s.mode = mode;
+            s.remaining = s.sessionTotal = totalSeconds();
+            if (!opts.silent) announce(MODES[mode].label + ' selected — ' + fmt(s.remaining) + '.');
+            render();
+            if (opts.autostart) start();
+        }
+
+        /* ---------- audio + notifications ---------- */
+        function warmAudio() {
+            try {
+                if (!s.audioCtx) s.audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+                if (s.audioCtx.state === 'suspended') s.audioCtx.resume();
+            } catch (e) {}
+        }
+        function chime() {
+            try {
+                warmAudio();
+                var ctx = s.audioCtx; if (!ctx) return;
+                var t = ctx.currentTime;
+                [880, 1174, 1568].forEach(function (f, i) {
+                    var o = ctx.createOscillator(), g = ctx.createGain();
+                    o.type = 'sine'; o.frequency.value = f;
+                    g.gain.setValueAtTime(0.0001, t + i * 0.18);
+                    g.gain.exponentialRampToValueAtTime(0.22, t + i * 0.18 + 0.02);
+                    g.gain.exponentialRampToValueAtTime(0.0001, t + i * 0.18 + 0.4);
+                    o.connect(g); g.connect(ctx.destination);
+                    o.start(t + i * 0.18); o.stop(t + i * 0.18 + 0.42);
+                });
+            } catch (e) {}
+        }
+        function notify(title, body) {
+            if (!('Notification' in window) || Notification.permission !== 'granted') return;
+            var opts = { body: body, icon: '/assets/images/favicon.png', tag: 'cf-focus-timer' };
+            try {
+                new Notification(title, opts);
+            } catch (e) {
+                // Chrome for Android: page-created notifications throw; go through the SW.
+                try {
+                    if (navigator.serviceWorker) navigator.serviceWorker.getRegistration().then(function (reg) {
+                        if (reg) reg.showNotification(title, opts);
+                    }).catch(function () {});
+                } catch (e2) {}
+            }
+        }
+
+        /* ---------- settings dialog ---------- */
+        function openSettings() {
+            $('set-focus').value = s.focusMin;
+            $('set-short').value = s.shortMin;
+            $('set-long').value = s.longMin;
+            $('set-every').value = s.longEvery;
+            $('set-auto-breaks').checked = s.autoStartBreaks;
+            $('set-auto-focus').checked = s.autoStartFocus;
+            $('set-keys').checked = s.keysOn;
+            $('set-notify').checked = s.notifyOn;
+            els.notifyBlocked.hidden = true;
+            els.dialog.showModal();
+        }
+        function applySettings() {
+            var beforeTotal = totalSeconds();
+            s.focusMin = clampNum($('set-focus').value, 1, 90, 25);
+            s.shortMin = clampNum($('set-short').value, 1, 30, 5);
+            s.longMin = clampNum($('set-long').value, 1, 60, 15);
+            s.longEvery = clampNum($('set-every').value, 2, 8, 4);
+            s.autoStartBreaks = $('set-auto-breaks').checked;
+            s.autoStartFocus = $('set-auto-focus').checked;
+            s.keysOn = $('set-keys').checked;
+            persist();
+            // Re-arm only when the current mode's length changed — never wipe a paused sprint.
+            if (!s.running && (totalSeconds() !== beforeTotal || !s.started)) {
+                s.remaining = s.sessionTotal = totalSeconds();
+                s.started = false;
+            }
+            render();
+        }
+        var MSG_BLOCKED = 'Notifications are blocked for this site — you can allow them from the address bar. The chime still works.';
+        var MSG_UNSUPPORTED = 'This browser doesn’t support desktop notifications. The chime still works.';
+        function onNotifyToggle(e) {
+            var want = e.target.checked;
+            els.notifyBlocked.hidden = true;
+            if (!('Notification' in window)) { e.target.checked = false; els.notifyBlocked.textContent = MSG_UNSUPPORTED; els.notifyBlocked.hidden = false; return; }
+            els.notifyBlocked.textContent = MSG_BLOCKED;
+            if (!want) { s.notifyOn = false; persist(); return; }
+            if (Notification.permission === 'granted') { s.notifyOn = true; persist(); return; }
+            if (Notification.permission === 'denied') { s.notifyOn = false; persist(); e.target.checked = false; els.notifyBlocked.hidden = false; return; }
+            Notification.requestPermission().then(function (p) {
+                s.notifyOn = p === 'granted';
+                persist();
+                if (p !== 'granted') { e.target.checked = false; }
+                if (p === 'denied') els.notifyBlocked.hidden = false;
+            }).catch(function () { e.target.checked = false; });
+        }
+
+        /* ---------- task line ---------- */
+        function syncIntentionUI() { els.oneThing.classList.toggle('has-text', els.intention.value.trim().length > 0); }
+        try { els.intention.value = localStorage.getItem(INTENT_KEY) || ''; } catch (e) {}
+        syncIntentionUI();
+        els.intention.addEventListener('input', function () {
+            try { localStorage.setItem(INTENT_KEY, els.intention.value); } catch (e) {}
+            syncIntentionUI();
+        });
+        els.clearIntention.addEventListener('click', function () {
+            els.intention.value = '';
+            try { localStorage.removeItem(INTENT_KEY); } catch (e) {}
+            syncIntentionUI();
+            els.intention.focus();
+        });
+
+        /* ---------- wiring ---------- */
+        els.startBtn.addEventListener('click', function () { s.running ? pause() : start(); });
+        $('reset-btn').addEventListener('click', reset);
+        $('skip-btn').addEventListener('click', function () { stopTicker(); s.running = false; advance(false); });
+        els.soundBtn.addEventListener('click', function () {
+            s.soundOn = !s.soundOn; persist();
+            els.soundBtn.setAttribute('aria-pressed', s.soundOn ? 'true' : 'false');
+            els.soundLabel.textContent = s.soundOn ? 'Chime on' : 'Chime off';
+            announce(s.soundOn ? 'Chime on.' : 'Chime off.');
+            if (s.soundOn) chime(); // a little preview so you know what to expect
+        });
+        $('settings-btn').addEventListener('click', openSettings);
+        // Apply on BOTH submit (the Done button) and close (Esc / backdrop) —
+        // some browsers skip the dialog's close event after a method="dialog" submit.
+        els.dialog.querySelector('form').addEventListener('submit', applySettings);
+        els.dialog.addEventListener('close', applySettings);
+        $('set-notify').addEventListener('change', onNotifyToggle);
+        var backdropPress = false;
+        els.dialog.addEventListener('pointerdown', function (e) { backdropPress = e.target === els.dialog; });
+        els.dialog.addEventListener('click', function (e) { if (backdropPress && e.target === els.dialog) els.dialog.close(); backdropPress = false; });
+
+        modeBtns.forEach(function (b) {
+            b.addEventListener('click', function () { setMode(b.dataset.mode); });
+        });
+        presetBtns.forEach(function (b) {
+            b.addEventListener('click', function () {
+                var newMin = clampNum(b.dataset.mins, 1, 90, 25);
+                var changed = newMin !== s.focusMin;
+                s.focusMin = newMin;
+                persist();
+                if (s.mode === 'focus' && !s.running && (changed || !s.started)) {
+                    s.remaining = s.sessionTotal = totalSeconds();
+                    s.started = false;
+                }
+                announce('Focus length set to ' + s.focusMin + ' minutes.');
+                render();
+            });
+        });
+
+        window.addEventListener('keydown', function (e) {
+            if (els.dialog.open) return;
+            var t = e.target || {};
+            var tag = t.tagName || '';
+            if (tag === 'INPUT' || tag === 'TEXTAREA' || t.isContentEditable || e.metaKey || e.ctrlKey || e.altKey) return;
+            // Shortcuts never fire while a control has focus (Space must activate it
+            // natively — WCAG 2.1.1), never with Shift, and can be turned off in
+            // Settings (WCAG 2.1.4).
+            var onControl = tag === 'BUTTON' || tag === 'A' || tag === 'SELECT' || tag === 'SUMMARY';
+            if (!s.keysOn || onControl || e.shiftKey) return;
+            if (e.code === 'Space' || e.key === ' ') {
+                e.preventDefault();
+                s.running ? pause() : start();
+            } else if (e.key === 'r' || e.key === 'R') { reset(); }
+            else if (e.key === 's' || e.key === 'S') { stopTicker(); s.running = false; advance(false); }
+        });
+        document.addEventListener('visibilitychange', function () { if (!document.hidden && s.running) tick(); });
+
+        if ('Notification' in window && Notification.permission === 'granted' && saved.notifyOn !== false) s.notifyOn = true;
+        els.soundBtn.setAttribute('aria-pressed', s.soundOn ? 'true' : 'false');
+        els.soundLabel.textContent = s.soundOn ? 'Chime on' : 'Chime off';
+        render();
+    })();
+    </script>
+</body>
+</html>
