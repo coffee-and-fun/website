@@ -1,5 +1,9 @@
-<!-- Font preloads -->
+<!-- Font preloads. Pages that never render .brand-heading can set
+     skipPacificoPreload before including to keep the LCP lane clear. -->
+{% assign skipPacificoPreload = skipPacificoPreload | default: false %}
+{% unless skipPacificoPreload %}
 <link rel="preload" href="/assets/fonts/Pacifico-Regular.woff2" as="font" type="font/woff2" crossorigin>
+{% endunless %}
 <link rel="preload" href="/assets/fonts/Caveat-Regular.woff2" as="font" type="font/woff2" crossorigin>
 
 <style>

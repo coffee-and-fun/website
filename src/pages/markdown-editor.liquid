@@ -8,7 +8,7 @@
     <title>Markdown Editor — Chrome, Edge, Firefox, Safari &amp; Mac | Coffee &amp; Fun</title>
     <meta name="title" content="Markdown Editor — Chrome, Edge, Firefox, Safari & Mac | Coffee & Fun" />
     <meta name="description" content="Markdown editor with live preview, templates, version history, math and diagrams. Free on Chrome, Edge and Firefox — $5 once on Mac, iPad and iPhone." />
-    <meta name="keywords" content="markdown editor, markdown app, markdown live preview, GitHub flavored markdown, Chrome extension, Edge extension, Firefox extension, Safari extension, macOS markdown editor, iPad markdown editor, offline markdown editor, Coffee and Fun" />
+    <meta name="keywords" content="markdown editor, markdown app, markdown live preview, GitHub flavored markdown, Chrome extension, Edge extension, Firefox extension, Safari extension, macOS markdown editor, iPad markdown editor, offline markdown editor, markdown editor changelog, Coffee and Fun" />
     <meta name="author" content="Coffee & Fun LLC" />
     <meta name="publisher" content="Coffee & Fun LLC" />
     <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1" />
@@ -56,8 +56,12 @@
         "description": "A markdown editor with live GitHub-flavored preview, formatting toolbar, find and replace, outline, version history, templates, smart paste, KaTeX math, Mermaid diagrams, word goals, themed HTML export, and ZIP backups. Works offline with no account.",
         "url": "https://www.coffeeandfun.com/markdown-editor/",
         "image": "https://www.coffeeandfun.com/assets/images/social/pages/markdown-editor.png",
+        "screenshot": "https://www.coffeeandfun.com/assets/images/markdown-editor-app@2x.png",
         "applicationCategory": "ProductivityApplication",
         "operatingSystem": "macOS, iOS, iPadOS, Chrome, Edge, Firefox, Safari",
+        "softwareVersion": "2026.7.30",
+        "dateModified": "2026-07-30",
+        "releaseNotes": "https://www.coffeeandfun.com/markdown-editor/#changelog",
         "offers": [
             { "@type": "Offer", "name": "Browser extension (Chrome, Edge, Firefox)", "price": "0", "priceCurrency": "USD" },
             { "@type": "Offer", "name": "Mac, iPad & iPhone app with Safari extension", "price": "5", "priceCurrency": "USD" }
@@ -118,27 +122,16 @@
 
     {% bundledCss %}
     {% include scripts.html %}
+    {% assign skipPacificoPreload = true %}
     {% include sketch-styles.liquid %}
-
-    <!-- JetBrains Mono — the editor's own typeface, used inside the mockup -->
-    <link rel="preload" href="/assets/fonts/jetbrains-mono-latin-400-normal.woff2" as="font" type="font/woff2" crossorigin />
-    <link rel="preload" href="/assets/fonts/jetbrains-mono-latin-700-normal.woff2" as="font" type="font/woff2" crossorigin />
 
     <style>
         /* ============================================================
-           Markdown Editor product page — dark, Apple-minimal.
-           The page wears the app's own night theme (daisyUI night:
-           base #0f172a, sky #38bdf8, indigo #818cf8) with the system
-           SF stack for UI and JetBrains Mono only inside the mockup.
-           All text pairs meet WCAG AA on their actual backgrounds.
+           Markdown Editor product page — the app's own night theme,
+           Apple-minimal and flat. System SF stack for UI; JetBrains
+           Mono only for version numbers (an app artifact). The hero
+           shows the real app: a live screenshot of the night theme.
            ============================================================ */
-        @font-face {
-            font-family: 'JetBrains Mono';
-            font-style: normal;
-            font-weight: 400;
-            font-display: swap;
-            src: url('/assets/fonts/jetbrains-mono-latin-400-normal.woff2') format('woff2');
-        }
         @font-face {
             font-family: 'JetBrains Mono';
             font-style: normal;
@@ -150,29 +143,23 @@
         :root {
             --sf: -apple-system, BlinkMacSystemFont, 'SF Pro Text', 'SF Pro Display', system-ui, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
             --mono: 'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, monospace;
-            --base: #0f172a;        /* night base — page background */
-            --well: #0b1120;        /* deeper band */
-            --panel: #1e293b;       /* cards, panes */
-            --border: #334155;      /* hairlines */
-            --text: #f1f5f9;        /* headings */
-            --text-2: #cbd5e1;      /* body — 11.7:1 on base */
-            --text-3: #94a3b8;      /* secondary — 7.1:1 on base */
-            --sky: #38bdf8;         /* the app's primary */
-            --sky-ink: #082f49;     /* text on sky — 8.4:1 */
-            --indigo: #818cf8;      /* the app's secondary */
-            --teal: #2dd4bf;
-            --amber: #f4bf50;
-            --pink: #f471b5;
+            --base: #0f172a;
+            --well: #0b1120;
+            --panel: #1e293b;
+            --border: #334155;
+            --text: #f1f5f9;
+            --text-2: #cbd5e1;
+            --text-3: #94a3b8;
+            --sky: #38bdf8;
+            --sky-ink: #082f49;
         }
 
         html { background: var(--base); }
         body { font-family: var(--sf); color: var(--text-2); background: var(--base); }
 
-        /* Reduced motion: no smooth scrolling, no animation anywhere. */
         @media (prefers-reduced-motion: reduce) {
             html.scroll-smooth { scroll-behavior: auto; }
             .reveal { opacity: 1; transform: none; transition: none; }
-            .mock-cat { animation: none; }
         }
 
         /* ===== Type ===== */
@@ -210,19 +197,62 @@
             font-weight: 600;
             line-height: 1.2;
             white-space: nowrap;
-            transition: background-color 0.2s ease, transform 0.2s ease, border-color 0.2s ease;
+            transition: background-color 0.2s ease, border-color 0.2s ease;
         }
         .btn-fill { background: var(--sky); color: var(--sky-ink); }
         .btn-fill:hover { background: #7dd3fc; }
-        .btn-quiet { background: var(--panel); color: var(--text); border: 1px solid var(--border); }
-        .btn-quiet:hover { border-color: var(--text-3); }
+        .btn-quiet { background: var(--panel); color: var(--text); }
+        .btn-quiet:hover { background: #27364d; }
         a:focus-visible, summary:focus-visible {
             outline: 2.5px solid var(--sky);
             outline-offset: 3px;
-            border-radius: 0.5rem;
         }
 
-        /* ===== Tiles (feature cards) ===== */
+        /* ===== App-style header (mirrors the editor's own top bar) ===== */
+        .site-nav {
+            position: sticky;
+            top: 0;
+            z-index: 40;
+            background: rgba(15, 23, 42, 0.88);
+            backdrop-filter: saturate(180%) blur(20px);
+            -webkit-backdrop-filter: saturate(180%) blur(20px);
+            border-bottom: 1px solid rgba(51, 65, 85, 0.6);
+        }
+        .nav-brand {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.6rem;
+            min-height: 44px;
+            font-weight: 700;
+            font-size: 1.05rem;
+            white-space: nowrap;
+            color: var(--sky); /* the app titles itself in sky — so do we */
+        }
+        /* No display here — Tailwind's `hidden md:inline-flex` must stay
+           in charge of when these links exist. */
+        .nav-ghost {
+            align-items: center;
+            min-height: 44px;
+            padding: 0.35rem 0.8rem;
+            border-radius: 0.6rem;
+            font-size: 0.95rem;
+            font-weight: 500;
+            color: var(--text-2);
+            transition: background-color 0.15s ease, color 0.15s ease;
+        }
+        .nav-ghost:hover { background: var(--panel); color: var(--text); }
+
+        /* ===== The real app screenshot ===== */
+        .app-shot {
+            border: 1px solid var(--border);
+            border-radius: 1.1rem;
+            box-shadow: 0 50px 100px -50px rgba(0, 0, 0, 0.8);
+            overflow: hidden;
+            background: var(--base);
+        }
+        .app-shot img { display: block; width: 100%; height: auto; }
+
+        /* ===== Tiles ===== */
         .tile {
             background: var(--panel);
             border-radius: 1.4rem;
@@ -231,45 +261,6 @@
         .tile h3 { color: var(--text); font-weight: 600; font-size: 1.1rem; letter-spacing: -0.01em; }
         .tile p { color: var(--text-3); font-size: 0.98rem; line-height: 1.55; }
         .tile-icon { color: var(--sky); margin-bottom: 1.1rem; }
-
-        /* ===== Editor mockup — the app as it ships (night theme) ===== */
-        .mock-window {
-            background: var(--panel);
-            border: 1px solid var(--border);
-            border-radius: 1.1rem;
-            box-shadow: 0 50px 100px -50px rgba(0, 0, 0, 0.8);
-            overflow: hidden;
-            text-align: left;
-        }
-        .mock-editor { font-family: var(--mono); font-size: clamp(0.82rem, 1.1vw, 0.96rem); line-height: 1.85; color: var(--text-2); background: var(--base); }
-        .mock-editor .tok { color: var(--indigo); }
-        .mock-editor .tok-h { color: var(--sky); font-weight: 700; }
-        .mock-editor .tok-b { color: var(--text); font-weight: 700; }
-        .mock-editor .tok-c { color: var(--pink); }
-        .mock-preview { font-size: clamp(0.9rem, 1.15vw, 1rem); line-height: 1.75; color: var(--text-2); background: var(--panel); }
-        .mock-preview h3 { font-size: 1.3rem; font-weight: 700; color: var(--text); letter-spacing: -0.02em; margin-bottom: 0.4rem; }
-        .mock-preview blockquote { border-left: 3px solid var(--sky); padding-left: 0.8rem; color: var(--text-3); font-style: italic; margin: 0.55rem 0; }
-        .mock-preview code { background: var(--base); border: 1px solid var(--border); border-radius: 0.375rem; padding: 0.1rem 0.35rem; font-size: 0.85em; font-family: var(--mono); color: var(--pink); }
-        .mock-check { display: flex; align-items: center; gap: 0.5rem; margin: 0.2rem 0; }
-        .mock-checkbox { width: 1rem; height: 1rem; border-radius: 0.25rem; border: 1.5px solid var(--text-3); flex-shrink: 0; }
-        .mock-checkbox.done { background: var(--sky); border-color: var(--sky); position: relative; }
-        .mock-checkbox.done::after { content: "✓"; position: absolute; inset: 0; color: var(--sky-ink); font-size: 0.72rem; line-height: 1rem; text-align: center; font-weight: 700; }
-        .mock-toolbtn {
-            display: inline-flex; align-items: center; justify-content: center;
-            min-width: 1.8rem; height: 1.8rem; padding: 0 0.4rem;
-            border-radius: 0.4rem; background: var(--panel); border: 1px solid var(--border);
-            font-size: 0.74rem; color: var(--text-3);
-        }
-        .goal-ring { transform: rotate(-90deg); }
-        .goal-ring .track { stroke: var(--border); }
-        .goal-ring .fill { stroke: var(--sky); stroke-linecap: round; }
-
-        /* The pet cat: one short stroll (under 5s), then she sits. */
-        @keyframes cat-stroll {
-            0%   { transform: translateX(0); }
-            100% { transform: translateX(150px); }
-        }
-        .mock-cat { display: inline-block; animation: cat-stroll 4.5s ease-in-out 1 forwards; }
 
         /* ===== Chaos band ===== */
         .well-band { background: var(--well); }
@@ -306,7 +297,24 @@
         .store-btn-light { background: #ffffff; border-color: #ffffff; color: #1d1d1f; }
         .store-btn-light:hover { border-color: #ffffff; background: #e8e8ed; }
 
-        /* ===== FAQ — hairline dividers ===== */
+        /* ===== Changelog ===== */
+        .log-entry { border-top: 1px solid var(--border); padding: 2rem 0.25rem; }
+        .log-entry:last-of-type { border-bottom: 1px solid var(--border); }
+        .log-version {
+            font-family: var(--mono);
+            font-weight: 700;
+            font-size: 0.95rem;
+            color: var(--sky);
+            background: var(--panel);
+            border-radius: 0.5rem;
+            padding: 0.25rem 0.6rem;
+            display: inline-block;
+        }
+        .log-date { color: var(--text-3); font-size: 0.9rem; font-weight: 500; }
+        .log-entry h3 { color: var(--text); font-weight: 600; font-size: 1.15rem; letter-spacing: -0.01em; margin-top: 0.9rem; }
+        .log-entry p { color: var(--text-3); line-height: 1.65; margin-top: 0.5rem; max-width: 44rem; }
+
+        /* ===== FAQ ===== */
         details.faq { border-top: 1px solid var(--border); }
         details.faq:last-of-type { border-bottom: 1px solid var(--border); }
         details.faq summary {
@@ -327,25 +335,12 @@
         details.faq[open] summary .faq-chevron { transform: rotate(180deg); }
         details.faq .faq-body { padding: 0 0.25rem 1.35rem; color: var(--text-3); line-height: 1.65; max-width: 44rem; }
 
-        /* ===== Nav ===== */
-        .site-nav {
-            position: sticky;
-            top: 0;
-            z-index: 40;
-            background: rgba(15, 23, 42, 0.82);
-            backdrop-filter: saturate(180%) blur(20px);
-            -webkit-backdrop-filter: saturate(180%) blur(20px);
-            border-bottom: 1px solid rgba(51, 65, 85, 0.6);
-        }
-        .nav-link { min-height: 44px; align-items: center; }
-
         /* ===== Reveal ===== */
         .reveal { opacity: 0; transform: translateY(14px); transition: opacity 0.7s ease, transform 0.7s ease; }
         .reveal.revealed { opacity: 1; transform: none; }
 
         /* Site footer, tamed for this page: keep doodles inside the cream
-           block, and make their motion finite (WCAG 2.2.2 — moving content
-           must not auto-run past 5s without a pause control). */
+           block, and make their motion finite (WCAG 2.2.2). */
         footer.brand-color-background { overflow: hidden; }
         .sketch-float, .sketch-float-slow, .sketch-wiggle { animation-iteration-count: 1; }
     </style>
@@ -356,19 +351,21 @@
 
 <body>
 
-    <!-- ============ NAV ============ -->
+    <!-- ============ HEADER — styled like the app's own top bar ============ -->
     <header class="site-nav">
         <a href="#main-content" class="sr-only focus:not-sr-only focus:absolute focus:top-2 focus:left-2 focus:z-50 focus:px-4 focus:py-2 focus:rounded-lg focus:text-sm focus:font-semibold" style="background:#38bdf8; color:#082f49;">
             Skip to main content
         </a>
-        <div class="mx-auto max-w-6xl px-6 flex items-center gap-3 py-2.5">
-            <a href="/" class="nav-link inline-flex items-center gap-2.5">
+        <div class="mx-auto max-w-6xl px-6 flex items-center gap-2 py-2">
+            <a href="/" class="nav-brand">
                 <img src="/assets/images/markdown-editor-icon.png" alt="" width="30" height="30" class="rounded-lg" />
-                <span class="font-semibold text-[0.95rem]" style="color:var(--text);">Markdown Editor<span class="sr-only"> — Coffee &amp; Fun home</span></span>
+                Markdown Editor<span class="sr-only"> — Coffee &amp; Fun home</span>
             </a>
-            <nav class="ml-auto flex items-center gap-5" aria-label="Get the app">
-                <a href="https://apps.apple.com/us/app/markdown-editor-for-safari/id6578456621" target="_blank" rel="noopener noreferrer" class="nav-link hidden sm:inline-flex text-sm font-medium hover:underline" style="color:var(--text-2);">Apple&nbsp;devices&nbsp;·&nbsp;$5</a>
-                <a href="#get" class="btn-fill !py-2 !px-4 !text-sm">Get it free</a>
+            <nav class="ml-auto flex items-center gap-1 sm:gap-2" aria-label="Page">
+                <a href="#features" class="nav-ghost hidden md:inline-flex">Features</a>
+                <a href="#changelog" class="nav-ghost hidden md:inline-flex">Changelog</a>
+                <a href="#questions" class="nav-ghost hidden md:inline-flex">Questions</a>
+                <a href="#get" class="btn-fill !py-2 !px-4 !text-sm ml-1">Get it free</a>
             </nav>
         </div>
     </header>
@@ -376,17 +373,17 @@
     <main id="main-content">
 
         <!-- ============ HERO ============ -->
-        <section class="pt-20 sm:pt-28 pb-20 sm:pb-32" aria-labelledby="hero-heading">
+        <section class="pt-20 sm:pt-28 pb-16 sm:pb-24" aria-labelledby="hero-heading">
             <div class="mx-auto max-w-4xl px-6 text-center">
                 <h1 id="hero-heading" class="t-hero">
                     It’s just a <span class="nowrap">markdown editor.</span><br />
                     <span class="t-accent">Until it isn’t.</span>
                 </h1>
-                <p class="t-sub mx-auto mt-6 max-w-2xl">
+                <p class="t-sub mx-auto mt-7 max-w-2xl">
                     Write markdown on the left, watch it come to life on the right.
                     Every word stays on your device — no account, no cloud, no subscription.
                 </p>
-                <div class="mt-8 flex flex-col sm:flex-row items-center justify-center gap-3.5">
+                <div class="mt-9 flex flex-col sm:flex-row items-center justify-center gap-3.5">
                     <a href="#get" class="btn-fill">Get it free for your browser</a>
                     <a href="https://apps.apple.com/us/app/markdown-editor-for-safari/id6578456621" target="_blank" rel="noopener noreferrer" class="btn-quiet">$5 once on Apple&nbsp;devices</a>
                 </div>
@@ -395,66 +392,30 @@
                 </p>
             </div>
 
-            <!-- ============ PRODUCT MOCKUP — front and center ============ -->
+            <!-- The real thing: an actual screenshot of the app, night theme -->
             <div class="mx-auto max-w-6xl px-4 sm:px-6 mt-14 sm:mt-16">
-                <div class="relative">
-                    <span class="mock-cat absolute -top-6 left-10 text-2xl" aria-hidden="true">🐈‍⬛</span>
-                    <div class="mock-window" role="img" aria-label="The Markdown Editor app in its night theme: markdown source beside the rendered preview, with a formatting toolbar and live writing stats.">
-                        <!-- Title bar -->
-                        <div class="flex items-center gap-3 px-5 py-3.5" style="border-bottom:1px solid var(--border);">
-                            <div class="flex gap-1.5" aria-hidden="true">
-                                <span class="w-3 h-3 rounded-full" style="background:#fb7085;"></span>
-                                <span class="w-3 h-3 rounded-full" style="background:#f4bf50;"></span>
-                                <span class="w-3 h-3 rounded-full" style="background:#2dd4bf;"></span>
-                            </div>
-                            <span class="text-xs font-bold tracking-wide" style="font-family:var(--mono); color:var(--text-3);">weekend-in-tokyo.md</span>
-                            <div class="ml-auto hidden sm:flex items-center gap-1" aria-hidden="true">
-                                <span class="mock-toolbtn font-bold">B</span>
-                                <span class="mock-toolbtn italic font-serif">I</span>
-                                <span class="mock-toolbtn line-through">S</span>
-                                <span class="mock-toolbtn"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg></span>
-                                <span class="mock-toolbtn"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M8 6h13M8 12h13M8 18h13M3.5 6h.01M3.5 12h.01M3.5 18h.01"/></svg></span>
-                                <span class="mock-toolbtn"><svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor"><path d="M6 17h3l2-4V7H5v6h3zm8 0h3l2-4V7h-6v6h3z"/></svg></span>
-                            </div>
-                        </div>
-                        <!-- Panes -->
-                        <div class="grid sm:grid-cols-2" aria-hidden="true">
-                            <div class="mock-editor px-6 py-5" style="border-right:1px solid var(--border);">
-                                <div><span class="tok-h"># Weekend in Tokyo</span> 🗼</div>
-                                <div><span class="tok">**</span><span class="tok-b">Day one:</span><span class="tok">**</span> arrive, drop bags, eat.</div>
-                                <div><span class="tok">- [x]</span> Ramen at 2 a.m.</div>
-                                <div><span class="tok">- [ ]</span> Sunrise at the fish market</div>
-                                <div><span class="tok">&gt;</span> "We'll sleep when we're home."</div>
-                                <div><span class="tok-c">`budget_left = "yes"`</span></div>
-                            </div>
-                            <div class="mock-preview px-6 py-5">
-                                <h3>Weekend in Tokyo 🗼</h3>
-                                <p><strong style="color:var(--text);">Day one:</strong> arrive, drop bags, eat.</p>
-                                <div class="mock-check"><span class="mock-checkbox done"></span><span class="line-through" style="color:var(--text-3);">Ramen at 2 a.m.</span></div>
-                                <div class="mock-check"><span class="mock-checkbox"></span><span>Sunrise at the fish market</span></div>
-                                <blockquote>"We'll sleep when we're home."</blockquote>
-                                <p><code>budget_left = "yes"</code></p>
-                            </div>
-                        </div>
-                        <!-- Status bar -->
-                        <div class="flex items-center gap-4 px-6 py-3 text-[0.74rem] font-bold" style="font-family:var(--mono); border-top:1px solid var(--border); color:var(--text-3);" aria-hidden="true">
-                            <span>26 words</span>
-                            <span class="hidden sm:inline">1 min read</span>
-                            <span class="hidden sm:inline" style="color:var(--amber);">62 wpm 🔥</span>
-                            <span class="ml-auto inline-flex items-center gap-1.5">
-                                <svg class="goal-ring" width="15" height="15" viewBox="0 0 20 20"><circle class="track" cx="10" cy="10" r="8" fill="none" stroke-width="3"/><circle class="fill" cx="10" cy="10" r="8" fill="none" stroke-width="3" stroke-dasharray="50.3" stroke-dashoffset="18"/></svg>
-                                daily goal
-                            </span>
-                            <span class="hidden md:inline" style="color:var(--teal);">saved ✓</span>
-                        </div>
+                <figure>
+                    <div class="app-shot">
+                        <picture>
+                            <source type="image/webp"
+                                    srcset="/assets/images/markdown-editor-app.webp 1440w, /assets/images/markdown-editor-app@2x.webp 2880w"
+                                    sizes="(min-width: 1152px) 1104px, 100vw" />
+                            <img src="/assets/images/markdown-editor-app@2x.png"
+                                 srcset="/assets/images/markdown-editor-app.png 1440w, /assets/images/markdown-editor-app@2x.png 2880w"
+                                 sizes="(min-width: 1152px) 1104px, 100vw"
+                                 alt="The actual Markdown Editor in its night theme: markdown source for a “Weekend in Tokyo” note on the left with the formatting toolbar above it, the rendered preview with checklist, quote, table, and highlighted code on the right, a live word count and reading time, and the pixel-art pet cat walking along the bottom of the window."
+                                 width="1440" height="860" fetchpriority="high" decoding="async" />
+                        </picture>
                     </div>
-                </div>
-                <p class="mt-6 text-center text-[0.95rem]" style="color:var(--text-3);">The night theme — one of eight. Pet cat optional.</p>
+                    <figcaption class="mt-6 text-center text-[0.95rem]" style="color:var(--text-3);">
+                        Not a mockup — the actual editor, night theme, pet cat on duty.
+                    </figcaption>
+                </figure>
             </div>
         </section>
 
         <!-- ============ FEATURES ============ -->
-        <section class="py-20 sm:py-32" aria-labelledby="features-heading">
+        <section id="features" class="py-20 sm:py-32 scroll-mt-16" aria-labelledby="features-heading">
             <div class="mx-auto max-w-6xl px-6">
                 <div class="max-w-2xl mb-16">
                     <h2 id="features-heading" class="t-section">Everything you need.<br /><span style="color:var(--text-3);">Nothing to set up.</span></h2>
@@ -508,7 +469,6 @@
                     </div>
                 </div>
 
-                <!-- Themes -->
                 <div class="mt-20 flex flex-wrap items-center gap-x-7 gap-y-4">
                     <span class="text-sm font-semibold" style="color:var(--text);">Eight themes</span>
                     <span class="theme-dot-item"><span class="theme-dot" style="background:#38bdf8;"></span>Night</span>
@@ -531,7 +491,7 @@
                     Hidden in Settings is a drawer of completely optional toys.
                     Zero productivity value. Infinite joy. Every one of them off by default.
                 </p>
-                <ul class="mt-10 flex flex-wrap justify-center gap-2.5 list-none">
+                <ul class="mt-10 flex flex-wrap justify-center gap-2.5 list-none max-w-2xl mx-auto" role="list">
                     <li class="chaos-pill"><span aria-hidden="true">🐱</span> Pet cat</li>
                     <li class="chaos-pill"><span aria-hidden="true">🟩</span> Matrix rain</li>
                     <li class="chaos-pill"><span aria-hidden="true">🌴</span> Vaporwave</li>
@@ -555,7 +515,6 @@
                 </div>
 
                 <div class="grid grid-cols-1 lg:grid-cols-2 gap-5 items-stretch">
-                    <!-- Free browser card -->
                     <div class="tile reveal !p-9 flex flex-col">
                         <h3 class="!text-2xl !font-bold" style="letter-spacing:-0.015em;">Free in your browser</h3>
                         <p class="mt-2 mb-7">Every feature, unlimited documents, works offline. No account, no catch.</p>
@@ -575,7 +534,6 @@
                         </div>
                     </div>
 
-                    <!-- Apple card -->
                     <div class="tile reveal !p-9 flex flex-col">
                         <h3 class="!text-2xl !font-bold" style="letter-spacing:-0.015em;">$5 once on Apple devices</h3>
                         <p class="mt-2 mb-7">Native Mac, iPad &amp; iPhone app with the Safari extension included. One purchase, no subscription, yours forever.</p>
@@ -588,8 +546,7 @@
                     </div>
                 </div>
 
-                <!-- Privacy line -->
-                <p class="mt-12 text-center t-sub mx-auto max-w-2xl">
+                <p class="mt-14 text-center t-sub mx-auto max-w-2xl">
                     <span style="color:var(--text); font-weight:600;">Private by design.</span>
                     Your documents live on your device — never uploaded, never tracked.
                     Hand-translated into 70 languages. Works entirely offline.
@@ -597,8 +554,51 @@
             </div>
         </section>
 
+        <!-- ============ CHANGELOG ============ -->
+        <section id="changelog" class="well-band py-20 sm:py-32 scroll-mt-16" aria-labelledby="changelog-heading">
+            <div class="mx-auto max-w-3xl px-6">
+                <h2 id="changelog-heading" class="t-section mb-6">Changelog</h2>
+                <p class="t-sub mb-12">What’s new, straight from the workshop. The version number is the date — no decoder ring needed.</p>
+
+                <div>
+                    <article class="log-entry">
+                        <span class="log-version">2026.7.30</span>
+                        <span class="log-date">&ensp;July 30, 2026</span>
+                        <h3>The big one</h3>
+                        <p>
+                            A formatting toolbar with ⌘B, ⌘I, and ⌘K. Find &amp; replace (⌘F). An outline panel.
+                            Automatic version history. Templates. Smart paste that turns web clippings into clean markdown.
+                            Typewriter scrolling, word goals with a progress ring, themed HTML export, and one-click .zip
+                            backup of every document. Math with KaTeX, diagrams with Mermaid, send-to for ChatGPT, Claude,
+                            and Perplexity, a built-in markdown guide (⌘/), a redesigned Documents view — and the whole app
+                            hand-translated into 70 languages.
+                        </p>
+                    </article>
+                    <article class="log-entry">
+                        <span class="log-version">2025.1.26</span>
+                        <span class="log-date">&ensp;January 26, 2025</span>
+                        <h3>The fun one</h3>
+                        <p>
+                            The era of themes and toys: eight color themes and the chaos zone grew up here — the pet cat,
+                            Matrix rain, vaporwave mode, the combo counter, typewriter sounds, and friends — alongside a
+                            long tail of preview and performance polish.
+                        </p>
+                    </article>
+                    <article class="log-entry">
+                        <span class="log-version">1.2</span>
+                        <span class="log-date">&ensp;October 26, 2024</span>
+                        <h3>The beginning</h3>
+                        <p>
+                            A fast, private markdown editor with live GitHub-flavored preview, offline documents that never
+                            leave your device, and one-click HTML export. Small, quick, and quietly determined to stay that way.
+                        </p>
+                    </article>
+                </div>
+            </div>
+        </section>
+
         <!-- ============ FAQ ============ -->
-        <section class="well-band py-20 sm:py-32" aria-labelledby="faq-heading">
+        <section id="questions" class="py-20 sm:py-32 scroll-mt-16" aria-labelledby="faq-heading">
             <div class="mx-auto max-w-3xl px-6">
                 <h2 id="faq-heading" class="t-section mb-10">Questions &amp;&nbsp;answers</h2>
 
