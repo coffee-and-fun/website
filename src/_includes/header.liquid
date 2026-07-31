@@ -41,6 +41,12 @@
   .cf-mm-link:hover { color: var(--color-espresso); }
   .cf-mm-link:focus-visible { outline: 2px solid var(--color-espresso); outline-offset: 2px; }
 
+  /* Current section: hand-drawn underline sitting under the label, in both
+     the megamenu and the fallback pill nav. */
+  .cf-mm-cur { position: relative; color: var(--color-espresso); }
+  .cf-mm-cur::after { content: ''; position: absolute; left: 0.7rem; right: 0.7rem; bottom: 0.1em;
+    height: 3px; border-radius: 2px; background: var(--color-coral); opacity: 0.65; transform: rotate(-0.6deg); }
+
   /* megamenu-wide pins the panel to the trigger-pill width; multi-column panels
      need more room, so widen them (higher specificity than daisyUI's rule). */
   .megamenu.megamenu-wide .cf-mm-panel { width: max-content; min-width: 34rem; max-width: min(92vw, 44rem); }
@@ -58,6 +64,19 @@
   .cf-mm-panel a:focus-visible { outline: 2px solid var(--color-espresso); outline-offset: 1px; }
   .cf-mm-foot { margin: 1rem 0 0; padding-top: 0.75rem; border-top: 1px solid #ece3d7; }
   .cf-mm-foot a { font-weight: 600; color: var(--color-espresso); font-size: 0.9rem; }
+
+  /* Featured tile inside the Apps panel */
+  .cf-mm-flex { display: flex; gap: 1.5rem; align-items: stretch; }
+  .cf-mm-feat { display: flex; flex-direction: column; width: 200px; flex-shrink: 0;
+    border-radius: 0.75rem; overflow: hidden; background: #faf5ee; text-decoration: none;
+    border: 1px solid #ece3d7; }
+  .cf-mm-feat img { display: block; width: 100%; aspect-ratio: 3 / 2; object-fit: cover; }
+  .cf-mm-feat-body { padding: 0.65rem 0.8rem 0.8rem; }
+  .cf-mm-feat-name { display: block; font-weight: 700; font-size: 0.95rem; color: #292524; }
+  .cf-mm-feat-sub { display: block; margin-top: 0.15rem; font-size: 0.8rem; line-height: 1.4; color: #6b6560; }
+  .cf-mm-feat:hover { background: #f6ece2; }
+  .cf-mm-feat:hover .cf-mm-feat-name { color: var(--color-espresso); }
+  .cf-mm-feat:focus-visible { outline: 2px solid var(--color-espresso); outline-offset: 2px; }
   @media (prefers-reduced-motion: reduce) {
     .megamenu-active, .megamenu [popover] { transition: none !important; }
   }
@@ -112,6 +131,19 @@
           </button>
         {% endif %}
 
+        <!-- Which top-level section does this page belong to? Drives the
+             "you are here" underline in both desktop navs. -->
+        {% assign navSection = '' %}
+        {% if page.url contains '/blog' %}{% assign navSection = 'blog' %}
+        {% elsif page.url contains '/about' or page.url contains '/privacy' %}{% assign navSection = 'company' %}
+        {% elsif page.url contains '/apps' %}{% assign navSection = 'apps' %}
+        {% elsif page.url contains '/help' %}{% assign navSection = 'help' %}
+        {% elsif page.url contains '/support' %}{% assign navSection = 'support' %}
+        {% else %}
+          {% assign toolPaths = '/focus-timer/|/timezone-converter/|/word-clock/|/flip/|/receipt-generator/|/private-line/|/meta-images/|/secret-message-image-encoder/|/mp3-transcript/|/meta-tags/|/text-converter/|/email-signature-generator/|/chrome-extension-icon-generator/|/tactical-tiles/|/drop-dungeon/|/blackjack-trainer/|/silicon-dreams/|/minecraft-pixel-art/|/emoji/' | split: '|' %}
+          {% for t in toolPaths %}{% if page.url == t %}{% assign navSection = 'tools' %}{% endif %}{% endfor %}
+        {% endif %}
+
         <!-- Desktop mega menu, keeps the cream pill + Caveat character, adds
              rich panels. Falls back to the simple pill nav below on browsers
              without CSS anchor positioning, and the modal menu works everywhere. -->
@@ -119,7 +151,7 @@
           <div class="megamenu megamenu-wide cf-pill" style="font-family: 'Caveat', cursive;">
             <div class="megamenu-active" aria-hidden="true"></div>
 
-            <button type="button" popovertarget="mm-company" class="cf-mm-trigger">Company</button>
+            <button type="button" popovertarget="mm-company" class="cf-mm-trigger{% if navSection == 'company' %} cf-mm-cur{% endif %}"{% if navSection == 'company' %} aria-current="true"{% endif %}>Company</button>
             <div popover id="mm-company" class="cf-mm-panel">
               <div class="cf-mm-grid">
                 <div>
@@ -149,40 +181,49 @@
               <p class="cf-mm-foot"><a href="/support/">Talk to a human &rarr;</a></p>
             </div>
 
-            <a href="/blog/" class="cf-mm-link">Blog</a>
+            <a href="/blog/" class="cf-mm-link{% if navSection == 'blog' %} cf-mm-cur{% endif %}"{% if navSection == 'blog' %} aria-current="page"{% endif %}>Blog</a>
 
-            <button type="button" popovertarget="mm-apps" class="cf-mm-trigger">Apps</button>
-            <div popover id="mm-apps" class="cf-mm-panel">
-              <div class="cf-mm-grid">
-                <div>
-                  <p class="cf-mm-head">Mac &amp; iOS</p>
-                  <ul>
-                    <li><a href="/immersive-reader/">Immersive Reader</a></li>
-                    <li><a href="/procrastinot/">ProcrastiNOT</a></li>
-                    <li><a href="https://apps.apple.com/us/app/simple-screenshot-pro/id6504689499" target="_blank" rel="noopener">Simple Screenshot Pro</a></li>
-                  </ul>
-                </div>
-                <div>
-                  <p class="cf-mm-head">Browser extensions</p>
-                  <ul>
-                    <li><a href="/hide-spoilers-extension/">Hide Spoilers</a></li>
-                    <li><a href="https://www.incognitomode.app" target="_blank" rel="noopener">Incognito Bear</a></li>
-                    <li><a href="/markdown-editor/">Markdown Editor</a></li>
-                  </ul>
-                </div>
-                <div>
-                  <p class="cf-mm-head">Open source</p>
-                  <ul>
-                    <li><a href="https://github.com/coffee-and-fun/google-profanity-words" target="_blank" rel="noopener">Profanity Words</a></li>
-                    <li><a href="https://github.com/coffee-and-fun/remove-pii" target="_blank" rel="noopener">Remove PII</a></li>
-                    <li><a href="https://www.npmjs.com/package/@coffeeandfun/maths-captcha" target="_blank" rel="noopener">Maths Captcha</a></li>
-                  </ul>
+            <button type="button" popovertarget="mm-apps" class="cf-mm-trigger{% if navSection == 'apps' %} cf-mm-cur{% endif %}"{% if navSection == 'apps' %} aria-current="true"{% endif %}>Apps</button>
+            <div popover id="mm-apps" class="cf-mm-panel cf-mm-panel-lg">
+              <div class="cf-mm-flex">
+                <a href="/markdown-editor/" class="cf-mm-feat">
+                  <img src="/assets/images/apps/markdown.png" alt="" width="600" height="400" loading="lazy" decoding="async" />
+                  <span class="cf-mm-feat-body">
+                    <span class="cf-mm-feat-name">Markdown Editor</span>
+                    <span class="cf-mm-feat-sub">Distraction-free writing, loved by 20,000+ people.</span>
+                  </span>
+                </a>
+                <div class="cf-mm-grid">
+                  <div>
+                    <p class="cf-mm-head">Mac &amp; iOS</p>
+                    <ul>
+                      <li><a href="/immersive-reader/">Immersive Reader</a></li>
+                      <li><a href="/procrastinot/">ProcrastiNOT</a></li>
+                      <li><a href="https://apps.apple.com/us/app/simple-screenshot-pro/id6504689499" target="_blank" rel="noopener">Simple Screenshot Pro</a></li>
+                    </ul>
+                  </div>
+                  <div>
+                    <p class="cf-mm-head">Browser extensions</p>
+                    <ul>
+                      <li><a href="/hide-spoilers-extension/">Hide Spoilers</a></li>
+                      <li><a href="https://www.incognitomode.app" target="_blank" rel="noopener">Incognito Bear</a></li>
+                      <li><a href="/markdown-editor/">Markdown Editor</a></li>
+                    </ul>
+                  </div>
+                  <div>
+                    <p class="cf-mm-head">Open source</p>
+                    <ul>
+                      <li><a href="https://github.com/coffee-and-fun/google-profanity-words" target="_blank" rel="noopener">Profanity Words</a></li>
+                      <li><a href="https://github.com/coffee-and-fun/remove-pii" target="_blank" rel="noopener">Remove PII</a></li>
+                      <li><a href="https://www.npmjs.com/package/@coffeeandfun/maths-captcha" target="_blank" rel="noopener">Maths Captcha</a></li>
+                    </ul>
+                  </div>
                 </div>
               </div>
               <p class="cf-mm-foot"><a href="/apps/">See all apps &amp; extensions &rarr;</a></p>
             </div>
 
-            <button type="button" popovertarget="mm-tools" class="cf-mm-trigger">Tools</button>
+            <button type="button" popovertarget="mm-tools" class="cf-mm-trigger{% if navSection == 'tools' %} cf-mm-cur{% endif %}"{% if navSection == 'tools' %} aria-current="true"{% endif %}>Tools</button>
             <div popover id="mm-tools" class="cf-mm-panel cf-mm-panel-lg">
               <div class="cf-mm-grid cf-mm-grid-4">
                 <div>
@@ -228,8 +269,8 @@
               <p class="cf-mm-foot"><a href="/apps/">Browse every free tool &rarr;</a></p>
             </div>
 
-            <a href="/help/" class="cf-mm-link">Help</a>
-            <a href="/support/" class="cf-mm-link">Support</a>
+            <a href="/help/" class="cf-mm-link{% if navSection == 'help' %} cf-mm-cur{% endif %}"{% if navSection == 'help' %} aria-current="page"{% endif %}>Help</a>
+            <a href="/support/" class="cf-mm-link{% if navSection == 'support' %} cf-mm-cur{% endif %}"{% if navSection == 'support' %} aria-current="page"{% endif %}>Support</a>
           </div>
         </nav>
 
@@ -242,7 +283,7 @@
             <li>
               <a
                 href="/apps/"
-                class="relative block px-4 py-1.5 transition hover:text-espresso focus:outline-none focus-visible:text-espresso focus-visible:rounded-full focus-visible:ring-2 focus-visible:ring-espresso focus-visible:ring-offset-2"
+                {% if navSection == 'apps' %}aria-current="page" {% endif %}class="relative block px-4 py-1.5{% if navSection == 'apps' %} cf-mm-cur{% endif %} transition hover:text-espresso focus:outline-none focus-visible:text-espresso focus-visible:rounded-full focus-visible:ring-2 focus-visible:ring-espresso focus-visible:ring-offset-2"
               >
                 Apps
               </a>
@@ -250,7 +291,7 @@
             <li>
               <a
                 href="/blog/"
-                class="relative block px-4 py-1.5 transition hover:text-espresso focus:outline-none focus-visible:text-espresso focus-visible:rounded-full focus-visible:ring-2 focus-visible:ring-espresso focus-visible:ring-offset-2"
+                {% if navSection == 'blog' %}aria-current="page" {% endif %}class="relative block px-4 py-1.5{% if navSection == 'blog' %} cf-mm-cur{% endif %} transition hover:text-espresso focus:outline-none focus-visible:text-espresso focus-visible:rounded-full focus-visible:ring-2 focus-visible:ring-espresso focus-visible:ring-offset-2"
               >
                 Blog
               </a>
@@ -258,7 +299,7 @@
             <li>
               <a
                 href="/about/"
-                class="relative block px-4 py-1.5 transition hover:text-espresso focus:outline-none focus-visible:text-espresso focus-visible:rounded-full focus-visible:ring-2 focus-visible:ring-espresso focus-visible:ring-offset-2"
+                {% if navSection == 'company' %}aria-current="page" {% endif %}class="relative block px-4 py-1.5{% if navSection == 'company' %} cf-mm-cur{% endif %} transition hover:text-espresso focus:outline-none focus-visible:text-espresso focus-visible:rounded-full focus-visible:ring-2 focus-visible:ring-espresso focus-visible:ring-offset-2"
               >
                 About
               </a>
@@ -266,7 +307,7 @@
             <li>
               <a
                 href="/help/"
-                class="relative block px-4 py-1.5 transition hover:text-espresso focus:outline-none focus-visible:text-espresso focus-visible:rounded-full focus-visible:ring-2 focus-visible:ring-espresso focus-visible:ring-offset-2"
+                {% if navSection == 'help' %}aria-current="page" {% endif %}class="relative block px-4 py-1.5{% if navSection == 'help' %} cf-mm-cur{% endif %} transition hover:text-espresso focus:outline-none focus-visible:text-espresso focus-visible:rounded-full focus-visible:ring-2 focus-visible:ring-espresso focus-visible:ring-offset-2"
               >
                 Help
               </a>
@@ -274,7 +315,7 @@
             <li>
               <a
                 href="/support/"
-                class="relative block px-4 py-1.5 transition hover:text-espresso focus:outline-none focus-visible:text-espresso focus-visible:rounded-full focus-visible:ring-2 focus-visible:ring-espresso focus-visible:ring-offset-2"
+                {% if navSection == 'support' %}aria-current="page" {% endif %}class="relative block px-4 py-1.5{% if navSection == 'support' %} cf-mm-cur{% endif %} transition hover:text-espresso focus:outline-none focus-visible:text-espresso focus-visible:rounded-full focus-visible:ring-2 focus-visible:ring-espresso focus-visible:ring-offset-2"
               >
                 Support
               </a>
