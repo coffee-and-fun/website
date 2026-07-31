@@ -36,7 +36,11 @@
   <meta property="og:url" content="https://www.coffeeandfun.com{{ page.url }}" />
   <meta property="og:description" content="{{ description | escape }}" />
   <meta property="og:type" content="article" />
-  {% if img %}<meta property="og:image" content="https://www.coffeeandfun.com{{img}}" />{% endif %}
+  {% assign ogImg = img | default: '/assets/images/social/pages/support.png' %}
+  <meta property="og:image" content="https://www.coffeeandfun.com{{ ogImg }}" />
+  {% assign ogW = ogImg | imageWidth %}{% assign ogH = ogImg | imageHeight %}{% if ogW != '' and ogH != '' %}<meta property="og:image:width" content="{{ ogW }}" />
+  <meta property="og:image:height" content="{{ ogH }}" />
+  {% endif %}<meta property="og:image:alt" content="Coffee & Fun help guide: {{ title | escape }}" />
   <meta property="article:author" content="Coffee & Fun LLC" />
   <meta property="article:published_time" content="{{date | date: '%Y-%m-%d' }}" />
 
@@ -45,8 +49,8 @@
   <meta name="twitter:site" content="@bycoffeeandfun" />
   <meta name="twitter:title" content="{{ title | escape }} - Coffee & Fun LLC" />
   <meta name="twitter:description" content="{{ description | escape }}" />
-  {% if img %}<meta name="twitter:image" content="https://www.coffeeandfun.com{{img}}" />
-  <meta name="twitter:image:alt" content="{{ title | escape }} - Coffee & Fun LLC" />{% endif %}
+  <meta name="twitter:image" content="https://www.coffeeandfun.com{{ ogImg }}" />
+  <meta name="twitter:image:alt" content="Coffee & Fun help guide: {{ title | escape }}" />
 
   <!-- Structured Data -->
   <script type="application/ld+json">

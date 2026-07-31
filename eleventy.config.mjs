@@ -5,6 +5,7 @@ import svgContents from 'eleventy-plugin-svg-contents';
 import fs from 'fs';
 import path from 'path';
 import crypto from 'crypto';
+import { execSync } from 'child_process';
 import { formatTitle } from './tools/format-title.js';
 import orderCoffeeShopsByRating from './src/_data/sortedReviews.js';
 import format from 'date-fns/format/index.js';
@@ -96,6 +97,39 @@ export default function (eleventyConfig) {
 	// blocks. Wraps strings in quotes and escapes quotes/backslashes/control chars, so
 	// `"headline": {{ title | json }}` stays valid JSON regardless of frontmatter content.
 	eleventyConfig.addLiquidFilter('json', (value) => JSON.stringify(value == null ? '' : value));
+
+	// Real pixel dimensions for og:image:width/height. PNG is parsed directly
+	// (IHDR bytes 16-24); other formats fall back to macOS sips, and any
+	// failure returns '' so templates simply omit the tags rather than lie.
+	const imageDimsCache = new Map();
+	const imageDims = (src) => {
+		if (!src || typeof src !== 'string') return null;
+		const rel = src.replace(/^https?:\/\/[^/]+/, '').split('?')[0];
+		if (imageDimsCache.has(rel)) return imageDimsCache.get(rel);
+		let dims = null;
+		try {
+			const file = path.join('src', rel);
+			if (fs.existsSync(file)) {
+				const buf = fs.readFileSync(file);
+				if (buf.length > 24 && buf.readUInt32BE(0) === 0x89504e47) {
+					dims = { w: buf.readUInt32BE(16), h: buf.readUInt32BE(20) };
+				} else {
+					const out = execSync(`sips -g pixelWidth -g pixelHeight ${JSON.stringify(file)}`, {
+						encoding: 'utf8'
+					});
+					const w = out.match(/pixelWidth: (\d+)/);
+					const h = out.match(/pixelHeight: (\d+)/);
+					if (w && h) dims = { w: Number(w[1]), h: Number(h[1]) };
+				}
+			}
+		} catch {
+			dims = null;
+		}
+		imageDimsCache.set(rel, dims);
+		return dims;
+	};
+	eleventyConfig.addLiquidFilter('imageWidth', (src) => imageDims(src)?.w ?? '');
+	eleventyConfig.addLiquidFilter('imageHeight', (src) => imageDims(src)?.h ?? '');
 
 	eleventyConfig.addPlugin(svgContents);
 
