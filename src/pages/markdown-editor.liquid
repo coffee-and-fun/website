@@ -192,12 +192,7 @@
             color: var(--text);
             text-wrap: balance;
         }
-        .t-grad {
-            background: linear-gradient(92deg, var(--sky) 5%, var(--indigo) 95%);
-            -webkit-background-clip: text;
-            background-clip: text;
-            color: transparent;
-        }
+        .t-accent { color: var(--sky); }
         .t-sub { font-size: clamp(1.1rem, 1.7vw, 1.3rem); line-height: 1.55; color: var(--text-3); font-weight: 400; }
         .nowrap { white-space: nowrap; }
         @media (max-width: 429px) { .nowrap { white-space: normal; } }
@@ -230,9 +225,8 @@
         /* ===== Tiles (feature cards) ===== */
         .tile {
             background: var(--panel);
-            border: 1px solid var(--border);
-            border-radius: 1.15rem;
-            padding: 1.8rem;
+            border-radius: 1.4rem;
+            padding: 2rem;
         }
         .tile h3 { color: var(--text); font-weight: 600; font-size: 1.1rem; letter-spacing: -0.01em; }
         .tile p { color: var(--text-3); font-size: 0.98rem; line-height: 1.55; }
@@ -243,7 +237,7 @@
             background: var(--panel);
             border: 1px solid var(--border);
             border-radius: 1.1rem;
-            box-shadow: 0 60px 120px -50px rgba(0, 0, 0, 0.85), 0 0 80px -40px rgba(56, 189, 248, 0.3);
+            box-shadow: 0 50px 100px -50px rgba(0, 0, 0, 0.8);
             overflow: hidden;
             text-align: left;
         }
@@ -284,9 +278,8 @@
             align-items: center;
             gap: 0.5rem;
             border-radius: 980px;
-            padding: 0.6rem 1.1rem;
+            padding: 0.65rem 1.2rem;
             background: var(--panel);
-            border: 1px solid var(--border);
             font-size: 0.95rem;
             font-weight: 500;
             color: var(--text-2);
@@ -383,11 +376,11 @@
     <main id="main-content">
 
         <!-- ============ HERO ============ -->
-        <section class="pt-14 sm:pt-20 pb-16 sm:pb-24" aria-labelledby="hero-heading">
+        <section class="pt-20 sm:pt-28 pb-20 sm:pb-32" aria-labelledby="hero-heading">
             <div class="mx-auto max-w-4xl px-6 text-center">
                 <h1 id="hero-heading" class="t-hero">
                     It’s just a <span class="nowrap">markdown editor.</span><br />
-                    <span class="t-grad">Until it isn’t.</span>
+                    <span class="t-accent">Until it isn’t.</span>
                 </h1>
                 <p class="t-sub mx-auto mt-6 max-w-2xl">
                     Write markdown on the left, watch it come to life on the right.
@@ -403,7 +396,7 @@
             </div>
 
             <!-- ============ PRODUCT MOCKUP — front and center ============ -->
-            <div class="mx-auto max-w-6xl px-4 sm:px-6 mt-10 sm:mt-12">
+            <div class="mx-auto max-w-6xl px-4 sm:px-6 mt-14 sm:mt-16">
                 <div class="relative">
                     <span class="mock-cat absolute -top-6 left-10 text-2xl" aria-hidden="true">🐈‍⬛</span>
                     <div class="mock-window" role="img" aria-label="The Markdown Editor app in its night theme: markdown source beside the rendered preview, with a formatting toolbar and live writing stats.">
@@ -461,13 +454,13 @@
         </section>
 
         <!-- ============ FEATURES ============ -->
-        <section class="py-16 sm:py-24" aria-labelledby="features-heading" style="border-top:1px solid var(--panel);">
+        <section class="py-20 sm:py-32" aria-labelledby="features-heading">
             <div class="mx-auto max-w-6xl px-6">
-                <div class="max-w-2xl mb-12">
+                <div class="max-w-2xl mb-16">
                     <h2 id="features-heading" class="t-section">Everything you need.<br /><span style="color:var(--text-3);">Nothing to set up.</span></h2>
                 </div>
 
-                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
                     <div class="tile reveal">
                         <div class="tile-icon" aria-hidden="true"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M1 12s4-7 11-7 11 7 11 7-4 7-11 7-11-7-11-7z"/><circle cx="12" cy="12" r="3"/></svg></div>
                         <h3 class="mb-1.5">Live preview</h3>
@@ -516,24 +509,24 @@
                 </div>
 
                 <!-- Themes -->
-                <div class="mt-14 flex flex-wrap items-center gap-x-6 gap-y-3">
+                <div class="mt-20 flex flex-wrap items-center gap-x-7 gap-y-4">
                     <span class="text-sm font-semibold" style="color:var(--text);">Eight themes</span>
-                    <span class="theme-dot-item"><span class="theme-dot" style="background:linear-gradient(135deg,#0f172a 50%,#38bdf8 50%);"></span>Night</span>
-                    <span class="theme-dot-item"><span class="theme-dot" style="background:linear-gradient(135deg,#282a36 50%,#ff79c6 50%);"></span>Dracula</span>
-                    <span class="theme-dot-item"><span class="theme-dot" style="background:linear-gradient(135deg,#20161f 50%,#db924b 50%);"></span>Coffee</span>
-                    <span class="theme-dot-item"><span class="theme-dot" style="background:linear-gradient(135deg,#121c22 50%,#ff865b 50%);"></span>Sunset</span>
-                    <span class="theme-dot-item"><span class="theme-dot" style="background:linear-gradient(135deg,#2a303c 50%,#9fe88d 50%);"></span>Dim</span>
-                    <span class="theme-dot-item"><span class="theme-dot" style="background:linear-gradient(135deg,#2e3440 50%,#5e81ac 50%);"></span>Nord</span>
-                    <span class="theme-dot-item"><span class="theme-dot" style="background:linear-gradient(135deg,#faf7f5 50%,#65c3c8 50%);"></span>Cupcake</span>
-                    <span class="theme-dot-item"><span class="theme-dot" style="background:linear-gradient(135deg,#1a103d 50%,#e779c1 50%);"></span>Synthwave</span>
+                    <span class="theme-dot-item"><span class="theme-dot" style="background:#38bdf8;"></span>Night</span>
+                    <span class="theme-dot-item"><span class="theme-dot" style="background:#ff79c6;"></span>Dracula</span>
+                    <span class="theme-dot-item"><span class="theme-dot" style="background:#db924b;"></span>Coffee</span>
+                    <span class="theme-dot-item"><span class="theme-dot" style="background:#ff865b;"></span>Sunset</span>
+                    <span class="theme-dot-item"><span class="theme-dot" style="background:#9fe88d;"></span>Dim</span>
+                    <span class="theme-dot-item"><span class="theme-dot" style="background:#5e81ac;"></span>Nord</span>
+                    <span class="theme-dot-item"><span class="theme-dot" style="background:#65c3c8;"></span>Cupcake</span>
+                    <span class="theme-dot-item"><span class="theme-dot" style="background:#e779c1;"></span>Synthwave</span>
                 </div>
             </div>
         </section>
 
         <!-- ============ CHAOS ZONE ============ -->
-        <section class="well-band py-16 sm:py-24" aria-labelledby="chaos-heading">
+        <section class="well-band py-20 sm:py-32" aria-labelledby="chaos-heading">
             <div class="mx-auto max-w-4xl px-6 text-center">
-                <h2 id="chaos-heading" class="t-section">All work and no play?<br /><span class="t-grad">Not here.</span></h2>
+                <h2 id="chaos-heading" class="t-section">All work and no play?<br /><span class="t-accent">Not here.</span></h2>
                 <p class="t-sub mx-auto mt-6 max-w-2xl">
                     Hidden in Settings is a drawer of completely optional toys.
                     Zero productivity value. Infinite joy. Every one of them off by default.
@@ -554,14 +547,14 @@
         </section>
 
         <!-- ============ PRICING / GET IT ============ -->
-        <section id="get" class="py-16 sm:py-24 scroll-mt-16" aria-labelledby="pricing-heading">
+        <section id="get" class="py-20 sm:py-32 scroll-mt-16" aria-labelledby="pricing-heading">
             <div class="mx-auto max-w-5xl px-6">
-                <div class="text-center max-w-2xl mx-auto mb-12">
+                <div class="text-center max-w-2xl mx-auto mb-16">
                     <h2 id="pricing-heading" class="t-section">Every platform.<br />Every feature.</h2>
                     <p class="t-sub mt-5">If a feature can’t work everywhere, we don’t ship it. Chrome to iPhone, it’s&nbsp;the same&nbsp;editor.</p>
                 </div>
 
-                <div class="grid grid-cols-1 lg:grid-cols-2 gap-4 items-stretch">
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-5 items-stretch">
                     <!-- Free browser card -->
                     <div class="tile reveal !p-9 flex flex-col">
                         <h3 class="!text-2xl !font-bold" style="letter-spacing:-0.015em;">Free in your browser</h3>
@@ -583,7 +576,7 @@
                     </div>
 
                     <!-- Apple card -->
-                    <div class="tile reveal !p-9 flex flex-col" style="border-color:rgba(56,189,248,0.5); box-shadow:0 30px 70px -45px rgba(56,189,248,0.4);">
+                    <div class="tile reveal !p-9 flex flex-col">
                         <h3 class="!text-2xl !font-bold" style="letter-spacing:-0.015em;">$5 once on Apple devices</h3>
                         <p class="mt-2 mb-7">Native Mac, iPad &amp; iPhone app with the Safari extension included. One purchase, no subscription, yours forever.</p>
                         <div class="mt-auto">
@@ -605,7 +598,7 @@
         </section>
 
         <!-- ============ FAQ ============ -->
-        <section class="well-band py-16 sm:py-24" aria-labelledby="faq-heading">
+        <section class="well-band py-20 sm:py-32" aria-labelledby="faq-heading">
             <div class="mx-auto max-w-3xl px-6">
                 <h2 id="faq-heading" class="t-section mb-10">Questions &amp;&nbsp;answers</h2>
 
@@ -657,9 +650,9 @@
         </section>
 
         <!-- ============ CLOSING CTA ============ -->
-        <section class="py-20 sm:py-28" aria-labelledby="cta-heading">
+        <section class="py-24 sm:py-36" aria-labelledby="cta-heading">
             <div class="mx-auto max-w-3xl px-6 text-center">
-                <h2 id="cta-heading" class="t-section">Ready to write<br /><span class="t-grad">something wonderful?</span></h2>
+                <h2 id="cta-heading" class="t-section">Ready to write<br /><span class="t-accent">something wonderful?</span></h2>
                 <div class="mt-9 flex flex-col sm:flex-row items-center justify-center gap-3.5">
                     <a href="https://chromewebstore.google.com/detail/markdown-editor-for-chrom/dkpldbigkfcgpamifjimiejipmodkigk" target="_blank" rel="noopener noreferrer" class="btn-fill">Add to your browser — free</a>
                     <a href="https://apps.apple.com/us/app/markdown-editor-for-safari/id6578456621" target="_blank" rel="noopener noreferrer" class="btn-quiet">Get it on the App&nbsp;Store</a>
