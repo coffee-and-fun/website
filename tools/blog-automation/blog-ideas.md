@@ -9,13 +9,8 @@ em dashes. Add new ideas to the bottom any time; reorder to change what publishe
 
 ## Queue
 
-- [ ] Dark Patterns in the App Stores: The Tricks Between You and the Uninstall Button
-- [ ] The Real Cost of "Free" Browser Extensions
-- [ ] Your Extension Needs a Privacy Policy: What Chrome, Edge, Firefox, and Safari Require in 2026
-- [ ] What the "Featured" and "Verified" Badges Actually Mean (and What They Should)
-- [ ] How to Read an App's Permissions on iOS and Android Before You Install
+- [ ] The History of Flock cameras are made by Flock Safety officially Flock Group Inc.
 - [ ] The Case for Version-by-Version Extension Review
-- [ ] Why Your Extension Update Takes Five Days: Inside the Review Backlog
 - [ ] A Field Guide to OG Images That Do Not Break in 2026
 
 ## Published
