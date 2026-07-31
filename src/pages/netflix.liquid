@@ -49,7 +49,7 @@
 
     <style>
         :root {
-            /* Dark cinema palette — every text/background pair verified for WCAG AA. */
+            /* Dark cinema palette, every text/background pair verified for WCAG AA. */
             --bg: #141414;
             --surface: #1f1f1f;
             --surface-hover: #2a2a2a;
@@ -57,7 +57,7 @@
             --muted: #b3b3b3;        /* 8.79:1 on --bg, 7.86:1 on --surface, 6.85:1 on --surface-hover */
             --line: rgba(255, 255, 255, 0.12);
             --line-strong: rgba(255, 255, 255, 0.2);
-            --input-border: #757575; /* 3.54:1 vs --bg — passes 3:1 non-text */
+            --input-border: #757575; /* 3.54:1 vs --bg, passes 3:1 non-text */
             --red: #e50914;          /* non-text accents + large bold only: 3.84:1 on --bg */
             --red-deep: #b00610;     /* solid red surfaces: white on it is 7.29:1 */
             --red-soft: #f0777d;     /* red for small text: 6.70:1 on --bg, 5.22:1 on --surface-hover */
@@ -148,7 +148,7 @@
             margin: 0 0 0.6rem;
             font-weight: 650;
         }
-        /* Red kicker bar — decorative accent, never body-size red text */
+        /* Red kicker bar, decorative accent, never body-size red text */
         h1::before {
             content: '';
             display: block;
@@ -165,7 +165,7 @@
             max-width: 58ch;
         }
 
-        /* Search — sticks to the top while you scroll the list */
+        /* Search, sticks to the top while you scroll the list */
         .searchbar {
             position: sticky; top: 0; z-index: 5;
             background: var(--bg);
@@ -405,7 +405,7 @@
 
         <header>
             <h1>Every hidden Netflix category, in one list</h1>
-            <p class="lede">Netflix sorts its catalog into numbered micro-genres — most never appear in its menus, but each one has a page you can open directly. Search all {{ netflixCatalog.totalText }} codes below, then jump straight to any of them on Netflix.</p>
+            <p class="lede">Netflix sorts its catalog into numbered micro-genres, most never appear in its menus, but each one has a page you can open directly. Search all {{ netflixCatalog.totalText }} codes below, then jump straight to any of them on Netflix.</p>
         </header>
 
         <!-- Live status for screen readers (copy feedback) -->
@@ -458,20 +458,20 @@
 
         <section class="about" aria-labelledby="h-about">
             <h2 id="h-about">What are Netflix&rsquo;s hidden category codes?</h2>
-            <p>Behind the scenes, Netflix files everything into thousands of oddly specific micro-genres — <strong>&ldquo;Cult Sci-Fi &amp; Fantasy from the 1970s&rdquo;</strong>, say, or <strong>&ldquo;Goofy Detective Movies&rdquo;</strong>. Each one has a number, and adding that number to <code>netflix.com/browse/genre/</code> opens its page — even when Netflix never shows you that shelf in its own menus.</p>
+            <p>Behind the scenes, Netflix files everything into thousands of oddly specific micro-genres, <strong>&ldquo;Cult Sci-Fi &amp; Fantasy from the 1970s&rdquo;</strong>, say, or <strong>&ldquo;Goofy Detective Movies&rdquo;</strong>. Each one has a number, and adding that number to <code>netflix.com/browse/genre/</code> opens its page, even when Netflix never shows you that shelf in its own menus.</p>
 
             <h2>How to use a code</h2>
             <ol>
-                <li><strong>Search or browse</strong> — filter by genre, decade, country, mood, or an actor&rsquo;s name.</li>
-                <li><strong>Open it on Netflix</strong> — every category links straight to its page. You&rsquo;ll need to be signed in to your own Netflix account.</li>
-                <li><strong>Copy the link</strong> — save it or send it to someone so they land on the exact same shelf.</li>
+                <li><strong>Search or browse</strong>, filter by genre, decade, country, mood, or an actor&rsquo;s name.</li>
+                <li><strong>Open it on Netflix</strong>, every category links straight to its page. You&rsquo;ll need to be signed in to your own Netflix account.</li>
+                <li><strong>Copy the link</strong>, save it or send it to someone so they land on the exact same shelf.</li>
             </ol>
 
             <h2>Good to know</h2>
-            <p>Netflix&rsquo;s catalog differs by country, so a category can be full in one place and nearly empty in another. Codes also shuffle over time as Netflix reorganizes — if one comes up empty, try a search here for something similar.</p>
+            <p>Netflix&rsquo;s catalog differs by country, so a category can be full in one place and nearly empty in another. Codes also shuffle over time as Netflix reorganizes, if one comes up empty, try a search here for something similar.</p>
         </section>
 
-        <p class="foot">The search happens in your browser — nothing you type leaves this page. Coffee &amp; Fun is not affiliated with Netflix, Inc.</p>
+        <p class="foot">The search happens in your browser, nothing you type leaves this page. Coffee &amp; Fun is not affiliated with Netflix, Inc.</p>
     </main>
 
     {% include footer.liquid %}
@@ -601,7 +601,7 @@
                 }
             });
 
-            /* Copy links — one delegated handler for all 1,900+ buttons. */
+            /* Copy links, one delegated handler for all 1,900+ buttons. */
             function announce(msg) {
                 announceEl.textContent = '';
                 setTimeout(function () { announceEl.textContent = msg; }, 30);
@@ -645,7 +645,7 @@
                     if (ok) {
                         flashButton(btn, 'Copied ✓', 'done', 'Link for ' + name + ' copied to your clipboard.');
                     } else {
-                        flashButton(btn, 'Copy failed', 'failed', 'Copying didn’t work — you can open the link and copy the address instead.');
+                        flashButton(btn, 'Copy failed', 'failed', 'Copying didn’t work, you can open the link and copy the address instead.');
                     }
                 }
 
@@ -659,7 +659,7 @@
                 }
             });
 
-            /* Give a copy button a specific accessible name once it's reachable —
+            /* Give a copy button a specific accessible name once it's reachable 
                done lazily so 1,900+ aria-labels don't have to ship in the HTML. */
             catalog.addEventListener('focusin', function (e) {
                 var btn = e.target;

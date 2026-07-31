@@ -30,7 +30,7 @@ tags:
 
 A broken update just went live and your users are feeling it. Before rollback existed, you'd have to fix the bug, resubmit, and wait days for review. Now you can revert in minutes.
 
-The rollback feature re-publishes your previous version under a new version number — and **skips the review queue** because that code already passed review.
+The rollback feature re-publishes your previous version under a new version number, and **skips the review queue** because that code already passed review.
 
 ---
 

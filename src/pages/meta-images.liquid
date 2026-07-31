@@ -6,7 +6,7 @@
 
     <!-- Primary Meta Tags -->
     <title>Free Photo Metadata Viewer & Remover - See What Your Photo Gives Away | Coffee & Fun LLC</title>
-    <meta name="description" content="Drop in a photo and see what its file quietly reveals — location, date, camera — then download a clean copy that says nothing. Free, private, works entirely in your browser." />
+    <meta name="description" content="Drop in a photo and see what its file quietly reveals, location, date, camera, then download a clean copy that says nothing. Free, private, works entirely in your browser." />
     <meta name="author" content="Coffee & Fun LLC" />
     <meta name="robots" content="index, follow" />
 
@@ -20,7 +20,7 @@
     <meta property="og:type" content="website" />
     <meta property="og:site_name" content="Coffee & Fun" />
     <meta property="og:title" content="Free Photo Metadata Viewer & Remover - See What Your Photo Gives Away" />
-    <meta property="og:description" content="Drop in a photo and see what its file quietly reveals — location, date, camera — then download a clean copy that says nothing." />
+    <meta property="og:description" content="Drop in a photo and see what its file quietly reveals, location, date, camera, then download a clean copy that says nothing." />
     <meta property="og:url" content="https://www.coffeeandfun.com/meta-images/" />
     <meta property="og:image" content="https://www.coffeeandfun.com/assets/images/social/pages/meta-images.png" />
     <meta property="og:image:width" content="1200" />
@@ -32,7 +32,7 @@
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:site" content="@bycoffeeandfun" />
     <meta name="twitter:title" content="Free Photo Metadata Viewer & Remover - See What Your Photo Gives Away" />
-    <meta name="twitter:description" content="See what a photo quietly reveals — location, date, camera — then download a clean copy that says nothing." />
+    <meta name="twitter:description" content="See what a photo quietly reveals, location, date, camera, then download a clean copy that says nothing." />
     <meta name="twitter:image" content="https://www.coffeeandfun.com/assets/images/social/pages/meta-images.png" />
     <meta name="twitter:image:alt" content="Free Photo Metadata Viewer and Remover by Coffee & Fun" />
 
@@ -44,7 +44,7 @@
         "@context": "https://schema.org",
         "@type": "SoftwareApplication",
         "name": "Free Photo Metadata Viewer & Remover",
-        "description": "See what a photo's file quietly reveals — GPS location, date, camera, editing software — and download a clean copy with all metadata removed. Processing happens entirely in the browser.",
+        "description": "See what a photo's file quietly reveals, GPS location, date, camera, editing software, and download a clean copy with all metadata removed. Processing happens entirely in the browser.",
         "url": "https://www.coffeeandfun.com/meta-images/",
         "applicationCategory": "UtilityApplication",
         "operatingSystem": "Web Browser",
@@ -53,7 +53,7 @@
             "Plain-English list of what a photo reveals",
             "GPS location decoding",
             "One-click metadata removal",
-            "Local processing — no uploads"
+            "Local processing, no uploads"
         ]
     }
     </script>
@@ -417,7 +417,7 @@
 {% raw %}
     <a href="#tool" class="skip">Skip to the tool</a>
 
-    <!-- Shown only if the CDN scripts fail — the app stays v-cloak-hidden. -->
+    <!-- Shown only if the CDN scripts fail, the app stays v-cloak-hidden. -->
     <div id="load-fallback" class="wrap" hidden>
         <p class="lede">This tool couldn&rsquo;t load a couple of files it needs. Check your connection and refresh the page.</p>
     </div>
@@ -436,7 +436,7 @@
 
         <header id="tool">
             <h1>See what your photo gives away</h1>
-            <p class="lede">Drop in a photo and get a plain-English list of what its file quietly reveals — where it was taken, when, and on what. Then download a clean copy that says nothing. The photo never leaves your browser.</p>
+            <p class="lede">Drop in a photo and get a plain-English list of what its file quietly reveals, where it was taken, when, and on what. Then download a clean copy that says nothing. The photo never leaves your browser.</p>
         </header>
 
         <!-- Live status for screen readers -->
@@ -444,13 +444,13 @@
 
         <!-- ===== Step 1: the photo ===== -->
         <section class="step" aria-labelledby="h-photo">
-            <h2 class="step-label" id="h-photo">1 — Drop in a photo</h2>
+            <h2 class="step-label" id="h-photo">1, Drop in a photo</h2>
 
             <label v-if="!img" for="mi-file" class="drop" :class="{ drag: dragging }"
                    @dragover.prevent="dragging = true" @dragleave="dragging = false" @drop.prevent="onDrop">
                 <div class="ico"><svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="9" cy="9" r="2"/><path d="m21 15-3.086-3.086a2 2 0 0 0-2.828 0L6 21"/></svg></div>
                 <div class="main">Drop a photo here, or click to choose</div>
-                <div class="sub">JPG, PNG, or WEBP — it never leaves your browser</div>
+                <div class="sub">JPG, PNG, or WEBP, it never leaves your browser</div>
                 <input id="mi-file" ref="fileInput" type="file" accept="image/jpeg,image/png,image/webp" class="sr-only" @change="onPick" />
             </label>
 
@@ -460,7 +460,7 @@
                     <div class="name">{{ img.name }}</div>
                     <div class="dim">{{ prettySize(img.size) }}<template v-if="img.w"> · {{ img.w }} × {{ img.h }}</template> · {{ prettyType(img.type) }}</div>
                 </div>
-                <button type="button" class="btn-ghost" @click="reset" aria-label="Change photo — remove this one and choose another">Change</button>
+                <button type="button" class="btn-ghost" @click="reset" aria-label="Change photo, remove this one and choose another">Change</button>
             </div>
 
             <div v-if="error" class="banner warn" role="alert">
@@ -471,7 +471,7 @@
             <!-- Empty-state teaser: the verdict's own skeleton -->
             <template v-if="!img">
                 <ul class="teaser" role="list">
-                    <li><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 10c0 7-9 13-9 13S3 17 3 10a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg> Where it was taken — sometimes down to the street</li>
+                    <li><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 10c0 7-9 13-9 13S3 17 3 10a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg> Where it was taken, sometimes down to the street</li>
                     <li><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg> The exact moment you pressed the button</li>
                     <li><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/><circle cx="12" cy="13" r="4"/></svg> What phone or camera you own</li>
                     <li><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 20h9"/><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"/></svg> What software touched it</li>
@@ -482,7 +482,7 @@
 
         <!-- ===== Step 2: the reveal ===== -->
         <section v-if="img" class="step" aria-labelledby="h-reveal">
-            <h2 class="step-label" id="h-reveal">2 — What it reveals</h2>
+            <h2 class="step-label" id="h-reveal">2, What it reveals</h2>
 
             <div class="result">
                 <p class="verdict-head">{{ verdictHead }}</p>
@@ -496,7 +496,7 @@
                         <svg v-else width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="9" cy="9" r="2"/><path d="m21 15-3.086-3.086a2 2 0 0 0-2.828 0L6 21"/></svg>
                         <span>
                             {{ f.text }}
-                            <a v-if="f.map" :href="f.map" target="_blank" rel="noopener">See the spot on a map</a><template v-if="f.map"> <span class="sub">(opens OpenStreetMap — that sends these coordinates to them)</span></template>
+                            <a v-if="f.map" :href="f.map" target="_blank" rel="noopener">See the spot on a map</a><template v-if="f.map"> <span class="sub">(opens OpenStreetMap, that sends these coordinates to them)</span></template>
                             <span v-if="f.sub" class="sub">{{ f.sub }}</span>
                         </span>
                     </li>
@@ -522,7 +522,7 @@
 
         <!-- ===== Step 3: the clean copy ===== -->
         <section v-if="img" class="step" aria-labelledby="h-clean">
-            <h2 class="step-label" id="h-clean">3 — Make a clean copy</h2>
+            <h2 class="step-label" id="h-clean">3, Make a clean copy</h2>
 
             <template v-if="!cleaned">
                 <button type="button" class="btn btn-primary" @click="makeClean">
@@ -531,14 +531,14 @@
                 </button>
                 <p class="note">
                     <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/></svg>
-                    <span>The copy is re-saved with nothing inside — no location, no dates, no camera, not even the hidden mini-thumbnail some photos carry. A JPEG loses a whisker of quality; keep the original for printing.</span>
+                    <span>The copy is re-saved with nothing inside, no location, no dates, no camera, not even the hidden mini-thumbnail some photos carry. A JPEG loses a whisker of quality; keep the original for printing.</span>
                 </p>
             </template>
 
             <div v-else class="clean-card">
                 <p class="headline">
                     <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
-                    Done — this copy says nothing at all.
+                    Done, this copy says nothing at all.
                 </p>
                 <p class="file-line">
                     {{ cleaned.name }} · {{ prettySize(cleaned.size) }}<template v-if="cleaned.size < img.size"> (was {{ prettySize(img.size) }})</template>
@@ -551,7 +551,7 @@
             </div>
         </section>
 
-        <p class="foot">Your photo never leaves your browser — reading and cleaning both happen on this device.</p>
+        <p class="foot">Your photo never leaves your browser, reading and cleaning both happen on this device.</p>
     </main>
 {% endraw %}
 
@@ -617,7 +617,7 @@
                                      + Math.abs(lon).toFixed(5) + '° ' + (lon >= 0 ? 'E' : 'W');
                         let text = 'It quietly records where it was taken: ' + pretty + '.';
                         if (typeof gps.Altitude === 'number' && isFinite(gps.Altitude) && Math.abs(gps.Altitude) > 1) {
-                            text = text.slice(0, -1) + ' — about ' + Math.round(Math.abs(gps.Altitude)) + ' m '
+                            text = text.slice(0, -1) + ', about ' + Math.round(Math.abs(gps.Altitude)) + ' m '
                                  + (gps.Altitude >= 0 ? 'above' : 'below') + ' sea level.';
                         }
                         out.push({
@@ -654,20 +654,20 @@
 
                     // Hidden thumbnail
                     if (t.Thumbnail) {
-                        out.push({ kind: 'thumb', text: 'There’s a hidden mini-copy of the photo tucked inside — sometimes an older or uncropped version.' });
+                        out.push({ kind: 'thumb', text: 'There’s a hidden mini-copy of the photo tucked inside, sometimes an older or uncropped version.' });
                     }
 
                     return out;
                 },
                 verdictHead() {
                     if (!this.exifOk) {
-                        return 'This page couldn’t load its metadata reader, so it can’t show what’s inside — but the clean copy below still works and still removes everything.';
+                        return 'This page couldn’t load its metadata reader, so it can’t show what’s inside, but the clean copy below still works and still removes everything.';
                     }
                     if (this.readFailed) {
-                        return 'This photo’s hidden data couldn’t be read — the file may be unusual or very large. The clean copy below still removes everything.';
+                        return 'This photo’s hidden data couldn’t be read, the file may be unusual or very large. The clean copy below still removes everything.';
                     }
                     const n = this.findings.length;
-                    if (n === 0) return 'Good news — this photo keeps its secrets. Nothing personal found inside.';
+                    if (n === 0) return 'Good news, this photo keeps its secrets. Nothing personal found inside.';
                     if (n === 1) return 'This photo is telling people one thing:';
                     const words = ['', 'one', 'two', 'three', 'four', 'five', 'six'];
                     return 'This photo is telling people ' + (words[n] || n) + ' things:';
@@ -701,7 +701,7 @@
             },
             mounted() {
                 // Without these, a photo dropped outside the drop zone (or after
-                // one is already loaded — the natural "replace it" gesture)
+                // one is already loaded, the natural "replace it" gesture)
                 // navigates the whole tab to the image file.
                 this.onDocDragover = (e) => e.preventDefault();
                 this.onDocDrop = (e) => {
@@ -767,8 +767,8 @@
                     this.error = '';
                     if (!ALLOWED.includes(file.type)) {
                         this.rejectFile(file.type === 'image/heic' || /\.heic$/i.test(file.name)
-                            ? 'That’s a HEIC photo — this browser can’t open it here. Export it as a JPEG first.'
-                            : 'That doesn’t look like a photo this tool can read — try a JPG, PNG, or WEBP.');
+                            ? 'That’s a HEIC photo, this browser can’t open it here. Export it as a JPEG first.'
+                            : 'That doesn’t look like a photo this tool can read, try a JPG, PNG, or WEBP.');
                         return;
                     }
                     const url = URL.createObjectURL(file);
@@ -781,7 +781,7 @@
                     if (gen !== this.gen) { URL.revokeObjectURL(url); return; }
                     if (!decoded) {
                         URL.revokeObjectURL(url);
-                        this.rejectFile('That photo couldn’t be opened — the file may be damaged. Try another one.');
+                        this.rejectFile('That photo couldn’t be opened, the file may be damaged. Try another one.');
                         return;
                     }
                     if (this.img) URL.revokeObjectURL(this.img.url);
@@ -815,13 +815,13 @@
                     } else if (this.readFailed) {
                         summary = 'Photo added, but its hidden data couldn’t be read. The clean copy still removes everything.';
                     } else if (this.findings.length === 0) {
-                        summary = 'Photo read. It reveals nothing personal — ' + this.fieldCount + ' fields in all.';
+                        summary = 'Photo read. It reveals nothing personal, ' + this.fieldCount + ' fields in all.';
                     } else {
                         const kinds = { gps: 'your location', date: 'when it was taken', camera: 'your camera', software: 'your editing software', person: 'a name', thumb: 'a hidden thumbnail' };
                         const list = this.findings.map(f => kinds[f.kind]).filter(Boolean);
-                        summary = 'Photo read. It reveals ' + list.join(', ') + ' — ' + this.fieldCount + ' fields in all.';
+                        summary = 'Photo read. It reveals ' + list.join(', ') + ', ' + this.fieldCount + ' fields in all.';
                     }
-                    if (count > 1) summary = 'One photo at a time — reading the first one. ' + summary;
+                    if (count > 1) summary = 'One photo at a time, reading the first one. ' + summary;
                     this.announce(summary);
                 },
                 async makeClean() {
@@ -844,7 +844,7 @@
                         if (!canvas.width || !canvas.height) throw new Error('empty canvas');
                         canvas.getContext('2d').drawImage(image, 0, 0);
 
-                        // Only two output formats — anything else silently falls back
+                        // Only two output formats, anything else silently falls back
                         // to PNG inside toBlob, which would mislabel the download.
                         const outType = source.type === 'image/jpeg' ? 'image/jpeg' : 'image/png';
                         const blob = await new Promise(res => canvas.toBlob(res, outType, 0.95));
@@ -864,8 +864,8 @@
                         this.announce('Done. The clean copy is ' + this.prettySize(blob.size) + ' and says nothing at all. The download button is just below.');
                     } catch (err) {
                         this.busy = false;
-                        if (gen !== this.gen) return; // user cleared the photo mid-scrub — not an error
-                        this.error = 'Scrubbing didn’t work — that photo may be too large for this browser. Try a smaller one.';
+                        if (gen !== this.gen) return; // user cleared the photo mid-scrub, not an error
+                        this.error = 'Scrubbing didn’t work, that photo may be too large for this browser. Try a smaller one.';
                         this.announce(this.error);
                     }
                 },
@@ -879,7 +879,7 @@
                     a.click();
                     document.body.removeChild(a);
                     URL.revokeObjectURL(url);
-                    this.announce('Downloaded ' + this.cleaned.name + ' — the clean copy without the hidden data.');
+                    this.announce('Downloaded ' + this.cleaned.name + ', the clean copy without the hidden data.');
                 },
                 reset() {
                     this.gen++; // invalidate any in-flight read or scrub

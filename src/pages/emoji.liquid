@@ -181,7 +181,7 @@
         .row-head h2.step-label:focus { outline: none; }
         .counter { font-size: 0.8rem; color: var(--muted); }
 
-        /* Search box — one big friendly field, front and center */
+        /* Search box, one big friendly field, front and center */
         .search-row { display: flex; gap: 10px; flex-wrap: wrap; max-width: 640px; }
         .search { position: relative; flex: 1 1 300px; min-width: 0; }
         .search .mag {
@@ -222,7 +222,7 @@
             .kbd-hint { display: none; }
         }
 
-        /* Surprise button — lives beside the search */
+        /* Surprise button, lives beside the search */
         .btn.surprise { min-height: 56px; border-radius: 16px; }
         .surprise .die { font-family: var(--emoji-font); font-size: 1.25rem; line-height: 1; }
 
@@ -241,7 +241,7 @@
         button.linkish:hover { color: var(--ink); }
         button.linkish:focus-visible { outline: 2px solid var(--ink); outline-offset: 2px; border-radius: 4px; }
 
-        /* Category chips — one quiet row, scrolls sideways on small screens */
+        /* Category chips, one quiet row, scrolls sideways on small screens */
         .cats {
             display: flex; flex-wrap: nowrap; gap: 8px;
             overflow-x: auto; -webkit-overflow-scrolling: touch;
@@ -262,7 +262,7 @@
         .cat:focus-visible { outline: 2px solid var(--ink); outline-offset: 2px; }
         .cat .ico { font-family: var(--emoji-font); margin-right: 0.3rem; }
 
-        /* Emoji buttons — the emoji are the color, the chrome recedes */
+        /* Emoji buttons, the emoji are the color, the chrome recedes */
         .ebtn {
             appearance: none; font-family: inherit;
             background: transparent;
@@ -432,7 +432,7 @@
 
         <header id="tool">
             <h1>The emoji you want, one click away</h1>
-            <p class="lede">Search {{ totalFormatted }} emoji, click your favorite, and it&rsquo;s copied — ready to paste anywhere.</p>
+            <p class="lede">Search {{ totalFormatted }} emoji, click your favorite, and it&rsquo;s copied, ready to paste anywhere.</p>
         </header>
 
         <!-- Live status for screen readers -->
@@ -534,7 +534,7 @@
             </div>
         </section>
 
-        <p class="foot">Everything happens in your browser — clicking an emoji just copies it to your clipboard.</p>
+        <p class="foot">Everything happens in your browser, clicking an emoji just copies it to your clipboard.</p>
 
         <!-- Copied toast (announced separately for screen readers) -->
         <transition name="toast">
@@ -552,7 +552,7 @@
         const { createApp } = Vue;
 
         const EMOJI_DATA = {{ emojis | json }};
-        // Precompute the search haystack once, then freeze — frozen objects are
+        // Precompute the search haystack once, then freeze, frozen objects are
         // skipped by Vue's reactivity, which keeps a 5,000-item list snappy.
         for (let i = 0; i < EMOJI_DATA.length; i++) {
             const e = EMOJI_DATA[i];
@@ -740,13 +740,13 @@
                 setGroup(g) {
                     this.selectedGroup = g;
                     this.displayLimit = PAGE_SIZE;
-                    this.announce(this.catLabel(g) + ' — ' + this.filteredEmojis.length.toLocaleString() + ' emoji.');
+                    this.announce(this.catLabel(g) + ', ' + this.filteredEmojis.length.toLocaleString() + ' emoji.');
                 },
                 loadMore() {
                     this.displayLimit += PAGE_SIZE;
                     this.announce('Now showing ' + this.displayedEmojis.length.toLocaleString()
                         + ' of ' + this.filteredEmojis.length.toLocaleString() + ' emoji.');
-                    // If that was the last batch the button disappears — keep
+                    // If that was the last batch the button disappears, keep
                     // keyboard focus on the page instead of dropping it.
                     if (this.remainingCount === 0) {
                         this.$nextTick(() => {
@@ -771,7 +771,7 @@
                         this.addToRecent(emoji);
                         this.announce('Copied ' + emoji.name + ' to clipboard.');
                     } else {
-                        this.announce('Sorry — copying didn’t work in this browser.');
+                        this.announce('Sorry, copying didn’t work in this browser.');
                     }
                 },
                 fallbackCopy(text) {
@@ -826,7 +826,7 @@
                 saveRecent() {
                     try {
                         localStorage.setItem(RECENT_KEY, JSON.stringify(this.recentEmojis));
-                    } catch { /* private mode — recents just won't persist */ }
+                    } catch { /* private mode, recents just won't persist */ }
                 },
                 clearRecent() {
                     this.recentEmojis = [];

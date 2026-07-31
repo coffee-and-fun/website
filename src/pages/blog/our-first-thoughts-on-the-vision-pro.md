@@ -36,7 +36,7 @@ to the next level. When the Vision Pro landed, we had to see what all the buzz w
 made the leap and brought one in to test.
 
 Right out of the box, it’s clear the Vision Pro is a marvel of engineering. This thing feels like a
-glimpse into the future. The interface, the display, the potential—it’s all jaw-dropping. But as
+glimpse into the future. The interface, the display, the potential, it’s all jaw-dropping. But as
 incredible as it is, we quickly realized this isn’t something you casually throw on and forget
 about.
 
@@ -45,7 +45,7 @@ about.
 One of the first things we noticed was the weight. At 22.9 ounces (or roughly the weight of an iPad
 Pro), it’s not exactly light. And trust us, you’ll feel every ounce after wearing it for a while.
 It’s not just the weight, though. The heat buildup after extended use made us take frequent
-breaks—it’s definitely something to get used to.
+breaks, it’s definitely something to get used to.
 
 That said, once you adjust to the heft, it’s clear this isn’t just a gadget; it’s a whole new way to
 experience tech. The Vision Pro feels like it’s laying the foundation for what’s to come, and that’s
@@ -58,7 +58,7 @@ exciting.
 Here’s where the big question comes in: is this worth the investment? From a development
 perspective, the Vision Pro feels very much like version 0. It’s an amazing piece of hardware, but
 its current use cases are somewhat limited outside of immersive media experiences. For us, we’re
-primarily interested in how this tech can fit into and enhance our projects—not just wow us with
+primarily interested in how this tech can fit into and enhance our projects, not just wow us with
 pretty visuals.
 
 We’ve got a 14-day return window to really dig in and see what’s possible. That means testing it
@@ -70,7 +70,7 @@ of work we do at Coffee & Fun.
 ## Final Thoughts (For Now)
 
 Right now, we’re undecided. There’s no doubt the Vision Pro is groundbreaking, but it comes with its
-share of challenges—weight, heat, and its early-stage ecosystem being just a few. It’s a tough call
+share of challenges, weight, heat, and its early-stage ecosystem being just a few. It’s a tough call
 to make because it’s clear this technology has a ton of potential, but potential doesn’t always
 translate into immediate value.
 
@@ -79,5 +79,5 @@ device enhance our work? Can we create something amazing with it? And most impor
 justify the hefty price tag?
 
 Stay tuned as we continue to explore what the Vision Pro can (and can’t) do. We’ll share our final
-decision and any cool experiments we try out. For now, we’re cautiously optimistic—but we’ll let the
+decision and any cool experiments we try out. For now, we’re cautiously optimistic, but we’ll let the
 testing do the talking.

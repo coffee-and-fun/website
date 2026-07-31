@@ -44,7 +44,7 @@
         "@context": "https://schema.org",
         "@type": "SoftwareApplication",
         "name": "Free Text Case Converter",
-        "description": "Convert text to uppercase, lowercase, sentence case, Title Case, alternating case, camelCase, snake_case, or kebab-case — with live results, text statistics, and tidy-up tools.",
+        "description": "Convert text to uppercase, lowercase, sentence case, Title Case, alternating case, camelCase, snake_case, or kebab-case, with live results, text statistics, and tidy-up tools.",
         "url": "https://www.coffeeandfun.com/text-converter/",
         "applicationCategory": "UtilityApplication",
         "operatingSystem": "Web Browser",
@@ -223,7 +223,7 @@
             transition: background 0.15s, border-color 0.15s, box-shadow 0.15s;
         }
         .chip:hover { border-color: var(--ink); }
-        /* .on is a Vue class mirror of :checked — the working path in browsers
+        /* .on is a Vue class mirror of :checked, the working path in browsers
            without :has() support, harmless duplication everywhere else. */
         .chip.on {
             background: var(--surface);
@@ -297,7 +297,7 @@
             .wrap { padding-top: 1.5rem; }
             .topbar { margin-bottom: 2rem; }
             .result-actions .btn { min-width: 100%; }
-            /* Counter on its own line, action link right-aligned below — the row
+            /* Counter on its own line, action link right-aligned below, the row
                keeps one shape whether the link says Clear or Try an example. */
             .io-row { justify-content: flex-end; }
             .io-row .counter { flex: 1 0 100%; }
@@ -368,7 +368,7 @@
 
         <header id="tool">
             <h1>Change the case of any text</h1>
-            <p class="lede">Type or paste your words, pick a style, and the result updates as you type — ready to copy. Nothing you write leaves your browser.</p>
+            <p class="lede">Type or paste your words, pick a style, and the result updates as you type, ready to copy. Nothing you write leaves your browser.</p>
         </header>
 
         <!-- Live status for screen readers -->
@@ -376,7 +376,7 @@
 
         <!-- ===== Step 1: input ===== -->
         <section class="step" aria-labelledby="h-text">
-            <h2 class="step-label" id="h-text">1 — Your text</h2>
+            <h2 class="step-label" id="h-text">1, Your text</h2>
             <label class="sr-only" for="tc-input">Your text</label>
             <textarea id="tc-input" ref="input" class="msg" v-model="inputText"
                       placeholder="Type or paste anything…"
@@ -394,7 +394,7 @@
         <!-- ===== Step 2: style ===== -->
         <section class="step" aria-labelledby="h-style">
             <fieldset class="cases">
-                <legend><h2 class="step-label" id="h-style">2 — Pick a style</h2></legend>
+                <legend><h2 class="step-label" id="h-style">2, Pick a style</h2></legend>
                 <div class="chips">
                     <label class="chip" v-for="c in cases" :key="c.key" :class="{ on: caseChoice === c.key }">
                         <input type="radio" class="sr-only" name="case" :value="c.key" v-model="caseChoice"
@@ -423,7 +423,7 @@
 
         <!-- ===== Step 3: result ===== -->
         <section class="step" aria-labelledby="h-result">
-            <h2 class="step-label" id="h-result">3 — Your result</h2>
+            <h2 class="step-label" id="h-result">3, Your result</h2>
 
             <template v-if="inputText">
                 <label class="sr-only" for="tc-output">Your converted text</label>
@@ -440,11 +440,11 @@
                 </button>
             </div>
             <p v-if="!inputText" class="copy-note">Type or paste some text above first.</p>
-            <p v-else-if="!result" class="copy-note">Nothing to copy yet — this style keeps only letters and numbers, and there aren&rsquo;t any.</p>
-            <p v-if="copyFailed" class="copy-note bad">Copy didn&rsquo;t work — the text is selected, press Ctrl+C or Cmd+C.</p>
+            <p v-else-if="!result" class="copy-note">Nothing to copy yet, this style keeps only letters and numbers, and there aren&rsquo;t any.</p>
+            <p v-if="copyFailed" class="copy-note bad">Copy didn&rsquo;t work, the text is selected, press Ctrl+C or Cmd+C.</p>
         </section>
 
-        <p class="foot">Everything happens in your browser — nothing you type leaves this page.</p>
+        <p class="foot">Everything happens in your browser, nothing you type leaves this page.</p>
     </main>
 {% endraw %}
 
@@ -454,7 +454,7 @@
         const { createApp } = Vue;
 
         /* Shared tokenizer: split camelCase humps (both fooBar and HTMLParser
-           shapes), then take letter/mark/number runs. Unicode-aware — accented
+           shapes), then take letter/mark/number runs. Unicode-aware, accented
            letters and combining marks are word characters, not separators. */
         function toWords(t) {
             return t.replace(/([\p{Ll}\p{N}])(\p{Lu})/gu, '$1 $2')
@@ -474,7 +474,7 @@
             sentence(t) {
                 return t.toLowerCase()
                     .replace(/(^[^\p{L}]*|[.!?…]+["'”’)\]]*\s+|\n\s*)(\p{L})/gu, (m, pre, ch) => pre + ch.toUpperCase())
-                    // Standalone pronoun I only — not i18n, i-beam, or i.e.
+                    // Standalone pronoun I only, not i18n, i-beam, or i.e.
                     .replace(/(^|[^\p{L}\p{N}])i(?=$|[^\p{L}\p{N}.\-])/gu, '$1I');
             },
             lower(t) { return t.toLowerCase(); },
@@ -546,9 +546,9 @@
                         { key: 'upper', name: 'Uppercase', eg: 'LIKE THIS' },
                         { key: 'title', name: 'Title Case', eg: 'Like This' },
                         { key: 'alternating', name: 'Alternating', eg: 'lIkE tHiS', desc: 'Every other letter switches between capitals and small letters.' },
-                        { key: 'camel', name: 'Camel case', eg: 'likeThis', desc: 'Words joined together, each new word starting with a capital — like variable names in code.' },
+                        { key: 'camel', name: 'Camel case', eg: 'likeThis', desc: 'Words joined together, each new word starting with a capital, like variable names in code.' },
                         { key: 'snake', name: 'Snake case', eg: 'like_this', desc: 'Small letters joined with underscores.' },
-                        { key: 'kebab', name: 'Kebab case', eg: 'like-this', desc: 'Small letters joined with dashes — like web addresses.' }
+                        { key: 'kebab', name: 'Kebab case', eg: 'like-this', desc: 'Small letters joined with dashes, like web addresses.' }
                     ]
                 };
             },
@@ -654,7 +654,7 @@
                             this.markCopied();
                         } else {
                             this.copyFailed = true;
-                            this.announce('Copy didn’t work. The text is selected — press Control C or Command C.');
+                            this.announce('Copy didn’t work. The text is selected, press Control C or Command C.');
                         }
                     }
                 },

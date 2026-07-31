@@ -63,7 +63,7 @@ Replace `PUBLISHER_ID` and `EXTENSION_ID` with your values. Your OAuth token nee
 ## Good to Know
 
 - **Six cancellations per day** per publisher. If you're hitting that limit, add pre-submission checks to your workflow.
-- Canceled submissions go back to **draft state** — nothing gets deleted.
+- Canceled submissions go back to **draft state**, nothing gets deleted.
 - This only works while the submission is **still in review**. If it's already published, use the [rollback feature](/blog/how-to-rollback-chrome-extension-version/) instead.
 
 ---

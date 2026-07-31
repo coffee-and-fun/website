@@ -8,12 +8,12 @@
 
 <style>
     /* Cream page/footer background. Also defined in scripts.html, but tool pages
-       include only this partial — without it the footer loses its cream backdrop. */
+       include only this partial, without it the footer loses its cream backdrop. */
     .brand-color-background {
         background-color: #fef5ec;
     }
 
-    /* Brand tokens — duplicated from coco.css @theme so pages that don't load
+    /* Brand tokens, duplicated from coco.css @theme so pages that don't load
        engine.css (Tailwind Play CDN tool pages) still resolve var(--color-*). */
     :root {
         --color-cream: #fef5ec;
@@ -26,7 +26,7 @@
         --color-coral-deep: #c4413a;
     }
 
-    /* Pacifico display font — duplicated from coco.css so Tailwind-CDN tool
+    /* Pacifico display font, duplicated from coco.css so Tailwind-CDN tool
        pages (which don't load engine.css) still render .brand-heading correctly. */
     @font-face {
         font-family: 'Pacifico';
@@ -36,7 +36,7 @@
         src: url('/assets/fonts/Pacifico-Regular.woff2') format('woff2');
     }
 
-    /* Caveat handwriting font — self-hosted */
+    /* Caveat handwriting font, self-hosted */
     @font-face {
         font-family: 'Caveat';
         font-style: normal;
@@ -59,7 +59,7 @@
         src: url('/assets/fonts/Caveat-Bold.woff2') format('woff2');
     }
 
-    /* Brand display heading — Pacifico script with a soft coral offset shadow.
+    /* Brand display heading, Pacifico script with a soft coral offset shadow.
        Single source of truth: pages include this partial instead of redefining it. */
     .brand-heading {
         font-family: 'Pacifico', cursive;
@@ -278,7 +278,7 @@
         .sketch-note { display: none; }
     }
 
-    /* Respect the OS motion preference — the draw-in script already checks it,
+    /* Respect the OS motion preference, the draw-in script already checks it,
        but these looping CSS animations need their own guard. */
     @media (prefers-reduced-motion: reduce) {
         .sketch-float, .sketch-float-slow, .sketch-wiggle { animation: none; }
@@ -291,7 +291,7 @@ document.addEventListener('DOMContentLoaded', () => {
     notes.forEach((el) => el.setAttribute('aria-hidden', 'true'));
 
     // Draw-in: sketch strokes hand-draw themselves when scrolled into view.
-    // Progressive enhancement — without JS or with reduced motion, sketches
+    // Progressive enhancement, without JS or with reduced motion, sketches
     // are simply visible. Dashed styles (sketch-circle, sketch-dash) are
     // skipped so their dash pattern survives.
     if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;

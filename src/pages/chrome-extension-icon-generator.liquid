@@ -447,7 +447,7 @@
 
         <header id="tool">
             <h1>Every Chrome extension icon size, from one image</h1>
-            <p class="lede">Drop in one big picture — 1024 &times; 1024 works best — and get back all nine sizes Chrome asks for, ready to download one by one or all at once. Your image never leaves your browser.</p>
+            <p class="lede">Drop in one big picture, 1024 &times; 1024 works best, and get back all nine sizes Chrome asks for, ready to download one by one or all at once. Your image never leaves your browser.</p>
         </header>
 
         <!-- Live status for screen readers -->
@@ -455,13 +455,13 @@
 
         <!-- ===== Step 1: upload ===== -->
         <section class="step" aria-labelledby="h-pick">
-            <h2 class="step-label" id="h-pick">1 — Pick your icon</h2>
+            <h2 class="step-label" id="h-pick">1, Pick your icon</h2>
 
             <label v-if="!image" for="icon-file" class="drop" :class="{ drag: dragging }"
                    @dragover.prevent="dragging = true" @dragleave="dragging = false" @drop.prevent="onDrop">
                 <div class="ico"><svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="9" cy="9" r="2"/><path d="m21 15-3.086-3.086a2 2 0 0 0-2.828 0L6 21"/></svg></div>
                 <div class="main">Drop your picture, or click to choose</div>
-                <div class="sub">PNG, JPG, or WEBP — a square PNG with transparency works best</div>
+                <div class="sub">PNG, JPG, or WEBP, a square PNG with transparency works best</div>
                 <input id="icon-file" ref="fileInput" type="file"
                        accept="image/png,image/jpeg,image/jpg,image/webp"
                        class="sr-only" @change="onFileChange" aria-labelledby="h-pick" />
@@ -484,17 +484,17 @@
 
         <!-- ===== Step 2: generate ===== -->
         <section class="step" aria-labelledby="h-make">
-            <h2 class="step-label" id="h-make">2 — Make every size</h2>
+            <h2 class="step-label" id="h-make">2, Make every size</h2>
             <button type="button" class="btn btn-primary" @click="generate" :disabled="!image || generating">
                 <span v-if="generating" class="spin" aria-hidden="true"></span>
                 {{ generating ? 'Generating…' : 'Generate all icon sizes' }}
             </button>
-            <p class="hint">Makes 16, 19, 32, 38, 48, 64, 128, 512, and 1024 px — everything your <span style="font-family: var(--mono); font-size: 0.95em;">manifest.json</span>, toolbar, and the Chrome Web Store ask for.</p>
+            <p class="hint">Makes 16, 19, 32, 38, 48, 64, 128, 512, and 1024 px, everything your <span style="font-family: var(--mono); font-size: 0.95em;">manifest.json</span>, toolbar, and the Chrome Web Store ask for.</p>
         </section>
 
         <!-- ===== Step 3: download ===== -->
         <section class="step" aria-labelledby="h-download">
-            <h2 class="step-label" id="h-download">3 — Download your sizes</h2>
+            <h2 class="step-label" id="h-download">3, Download your sizes</h2>
 
             <template v-if="icons.length">
                 <ul class="icon-grid">
@@ -516,7 +516,7 @@
                         {{ zipBusy ? 'Zipping…' : 'Download all ' + icons.length + ' as a zip' }}
                     </button>
                     <p v-if="zipError" class="copy-note bad" role="alert">{{ zipError }}</p>
-                    <p v-else class="copy-note">One file, <span style="font-family: var(--mono); font-size: 0.95em;">extension-icons.zip</span>, with every size named by its pixel width — 16.png, 19.png, and so on.</p>
+                    <p v-else class="copy-note">One file, <span style="font-family: var(--mono); font-size: 0.95em;">extension-icons.zip</span>, with every size named by its pixel width, 16.png, 19.png, and so on.</p>
                 </div>
             </template>
             <div v-else class="code-empty">Your nine icon sizes will appear here once you generate them.</div>
@@ -524,14 +524,14 @@
 
         <!-- ===== Step 4: manifest snippet ===== -->
         <section class="step" aria-labelledby="h-manifest">
-            <h2 class="step-label" id="h-manifest">4 — Paste into your manifest</h2>
+            <h2 class="step-label" id="h-manifest">4, Paste into your manifest</h2>
 
             <template v-if="icons.length">
                 <button type="button" class="btn btn-primary" @click="copyManifest">
                     {{ copied ? 'Copied ✓' : 'Copy the snippet' }}
                 </button>
-                <p v-if="copyFailed" class="copy-note bad">Copy didn&rsquo;t work — the snippet below is selected, press Ctrl+C or Cmd+C.</p>
-                <p class="paste-hint">Add this to your <code>manifest.json</code>. The paths assume the icons live in an <code>icons/</code> folder next to it — rename them to match your project.</p>
+                <p v-if="copyFailed" class="copy-note bad">Copy didn&rsquo;t work, the snippet below is selected, press Ctrl+C or Cmd+C.</p>
+                <p class="paste-hint">Add this to your <code>manifest.json</code>. The paths assume the icons live in an <code>icons/</code> folder next to it, rename them to match your project.</p>
                 <div class="code-scroll" tabindex="0" role="region" aria-label="Your manifest.json icons snippet">
                     <pre ref="codePre">{{ manifestSnippet }}</pre>
                 </div>
@@ -541,7 +541,7 @@
 
         <p class="note">
             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
-            <span>Everything happens on your own device — your pictures are resized right here in the browser and never uploaded anywhere.</span>
+            <span>Everything happens on your own device, your pictures are resized right here in the browser and never uploaded anywhere.</span>
         </p>
 
         <p class="foot">A free tool by Coffee &amp; Fun · Works offline once loaded · No sign-up</p>
@@ -589,18 +589,18 @@
                     if (w !== h) {
                         return {
                             tone: 'warn',
-                            text: 'Your picture is ' + w + ' × ' + h + ' — not square. Icons are square, so it will be stretched to fit and may look distorted.'
+                            text: 'Your picture is ' + w + ' × ' + h + ', not square. Icons are square, so it will be stretched to fit and may look distorted.'
                         };
                     }
                     if (w < 1024) {
                         return {
                             tone: 'warn',
-                            text: 'Your picture is ' + w + ' × ' + h + '. It will work, but the biggest icons have to be scaled up and may look soft — 1024 × 1024 gives the sharpest results.'
+                            text: 'Your picture is ' + w + ' × ' + h + '. It will work, but the biggest icons have to be scaled up and may look soft, 1024 × 1024 gives the sharpest results.'
                         };
                     }
                     return {
                         tone: 'note',
-                        text: 'Your picture is ' + w + ' × ' + h + ' — bigger than needed, which is great. Every size is scaled down from it.'
+                        text: 'Your picture is ' + w + ' × ' + h + ', bigger than needed, which is great. Every size is scaled down from it.'
                     };
                 }
             },
@@ -667,7 +667,7 @@
                         });
                         this.icons = out;
                         this.generating = false;
-                        this.announce('Done — all ' + out.length + ' sizes are ready to download below.');
+                        this.announce('Done, all ' + out.length + ' sizes are ready to download below.');
                     };
                     img.onerror = () => {
                         this.generating = false;
@@ -680,7 +680,7 @@
                 async downloadAll() {
                     if (!this.icons.length || this.zipBusy) return;
                     if (typeof JSZip === 'undefined') {
-                        this.zipError = 'The zip helper could not load — you can still download each size on its own above.';
+                        this.zipError = 'The zip helper could not load, you can still download each size on its own above.';
                         this.announce(this.zipError);
                         return;
                     }
@@ -700,9 +700,9 @@
                         link.click();
                         document.body.removeChild(link);
                         setTimeout(() => URL.revokeObjectURL(url), 4000);
-                        this.announce('Zip downloaded — all ' + this.icons.length + ' sizes in one file.');
+                        this.announce('Zip downloaded, all ' + this.icons.length + ' sizes in one file.');
                     } catch (e) {
-                        this.zipError = 'Could not build the zip — you can still download each size on its own above.';
+                        this.zipError = 'Could not build the zip, you can still download each size on its own above.';
                         this.announce(this.zipError);
                     }
                     this.zipBusy = false;
@@ -742,7 +742,7 @@
                             this.markCopied();
                         } else {
                             this.copyFailed = true;
-                            this.announce('Copy didn’t work. The snippet is selected — press Control C or Command C.');
+                            this.announce('Copy didn’t work. The snippet is selected, press Control C or Command C.');
                         }
                     }
                 },

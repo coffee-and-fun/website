@@ -6,7 +6,7 @@ header: true
 layout: templates/post.liquid
 title: Coffee & Fun LLC 2025/2026 – A Year of Building, Breaking, and Looking Ahead
 description:
-  A behind-the-scenes look at what Coffee & Fun LLC worked on this year—from Helperbird updates and VR experiments to hardware hacks, guides, giveaways, and what we’re planning for 2026.
+  A behind-the-scenes look at what Coffee & Fun LLC worked on this year, from Helperbird updates and VR experiments to hardware hacks, guides, giveaways, and what we’re planning for 2026.
 keywords:
   'Coffee & Fun LLC, Helperbird updates, accessibility tools, VR projects, Apple Vision Pro review,
   Roomba hacks, Pi-hole kits, 3D printing projects, fix-it guides, indie software company'
@@ -15,7 +15,7 @@ isBlog: true
 blog_cat: Company
 cardTitle: Coffee & Fun LLC 2025/2026 – Year in Review
 blog_snip:
-  From accessibility tools to hardware experiments and indie side projects, here’s a look at what we built this year—and what’s coming next.
+  From accessibility tools to hardware experiments and indie side projects, here’s a look at what we built this year, and what’s coming next.
 name: Robert James Gabriel
 img: /assets/images/blog/coffee-and-fun-year-2025-2026-in-review.png
 date: 2025-12-31T00:00:00.000Z
@@ -37,7 +37,7 @@ Our focus hasn’t changed:
 - Stay curious  
 - Make tech feel more human, accessible, and affordable  
 
-Here’s a deeper look at what we worked on—and where we’re heading next.
+Here’s a deeper look at what we worked on, and where we’re heading next.
 
 ---
 
@@ -60,7 +60,7 @@ Helperbird’s growth this year reinforced something important for us: focusing 
 
 ## VR Projects & Reality Checks 🥽
 
-We spent time experimenting with the Apple Vision Pro, and there’s no denying it—it’s impressive technology.
+We spent time experimenting with the Apple Vision Pro, and there’s no denying it, it’s impressive technology.
 
 The visuals, interaction model, and overall experience clearly show where computing is heading. That said, we don’t think it’s quite ready for mainstream adoption yet.
 
@@ -70,7 +70,7 @@ Our main concerns:
 - The price (~$4,800) is far too high for widespread use  
 - Real-world use cases are still limited for most people  
 
-That doesn’t mean we’re dismissing it. Quite the opposite—we’re keeping a close eye on VR and spatial computing and staying ready for when the technology makes its next big leap.
+That doesn’t mean we’re dismissing it. Quite the opposite, we’re keeping a close eye on VR and spatial computing and staying ready for when the technology makes its next big leap.
 
 You can read our full thoughts here:  
 👉 https://www.coffeeandfun.com/blog/our-first-thoughts-on-the-vision-pro/
@@ -121,7 +121,7 @@ Looking ahead, we hopefully plan to:
 - Make setup easier for non-technical users  
 - Send a portion of proceeds back to the Pi-hole team  
 
-Supporting open-source projects isn’t optional for us—it’s essential.
+Supporting open-source projects isn’t optional for us, it’s essential.
 
 ---
 
@@ -176,7 +176,7 @@ Here’s what we’re planning:
 
 ## Final Thoughts ❤️
 
-Times are tough for a lot of people right now—and we feel that too.
+Times are tough for a lot of people right now, and we feel that too.
 
 Our goal hasn’t changed:
 
@@ -187,4 +187,4 @@ Our goal hasn’t changed:
 Ideas will always be copied. Tools will always be cloned.  
 But people stay for care, curiosity, and genuine effort.
 
-That’s what Coffee & Fun LLC is about—and we’re just getting started.
+That’s what Coffee & Fun LLC is about, and we’re just getting started.

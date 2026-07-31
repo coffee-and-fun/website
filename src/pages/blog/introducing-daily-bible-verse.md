@@ -6,7 +6,7 @@ header: true
 layout: templates/post.liquid
 title: Introducing Daily Bible Verse for iOS
 description:
-  Discover Daily Bible Verse — a beautifully simple and spiritual app created to bring one verse a
+  Discover Daily Bible Verse, a beautifully simple and spiritual app created to bring one verse a
   day into your life. Learn why we built it, what it can do, and how it helps you pause and reflect.
 keywords:
   Bible App, Daily Verse, Scripture App, iOS Bible App, Spiritual Apps, Encouraging Apps, Bible
@@ -17,7 +17,7 @@ isBlog: true
 blog_cat: Usecase
 cardTitle: Meet Daily Bible Verse for iOS 📖
 blog_snip:
-  Discover Daily Bible Verse — a beautifully simple and spiritual app created to bring one verse a
+  Discover Daily Bible Verse, a beautifully simple and spiritual app created to bring one verse a
   day into your life. Learn why we built it, what it can do, and how it helps you pause and reflect.
 name: Robert James Gabriel
 img: /assets/images/blog/daily-bible-verse-app.png
@@ -40,7 +40,7 @@ We’ve just launched **Daily Bible Verse**, and we’re really excited to final
 
 This app was born out of something we all feel from time to time: that quiet nudge for a little more
 calm, a little more clarity, a little more meaning in the middle of our everyday hustle. Life can
-get loud — and we wanted to make something that brings a sense of stillness and grounding.
+get loud, and we wanted to make something that brings a sense of stillness and grounding.
 
 So we built an app that offers just **one thoughtful Bible verse a day**, that’s it. No overwhelm.
 No pressure. Just a soft, encouraging word to meet you where you are.
@@ -52,7 +52,7 @@ No pressure. Just a soft, encouraging word to meet you where you are.
 We were looking for something simple, something that felt more like a quiet breath than another
 noisy app. A small ritual that brings comfort, reflection, or even just a moment to pause.
 
-Daily Bible Verse is our way of giving that to ourselves — and hopefully to you, too.
+Daily Bible Verse is our way of giving that to ourselves, and hopefully to you, too.
 
 ---
 
@@ -101,4 +101,4 @@ with something meaningful, we hope Daily Bible Verse can be that for you.
 Thanks so much for being here. And we truly hope today’s verse brings a little bit of calm and light
 to your day.
 
-— Coffee & Fun LLC
+*Coffee & Fun LLC*

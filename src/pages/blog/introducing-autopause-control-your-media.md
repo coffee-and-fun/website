@@ -42,7 +42,7 @@ you the story behind it and how it might just solve one of your everyday problem
 ## The Inspiration: A Critical Role Problem
 
 My wife is a huge fan of **Critical Role**. (If you haven’t heard of it, it’s this amazing Dungeons
-& Dragons series.) She loves watching it in bed before falling asleep, but—and here’s the kicker—she
+& Dragons series.) She loves watching it in bed before falling asleep, but, and here’s the kicker, she
 _never_ pauses it when she dozes off. Every night, I’d have to stop what I was doing, grab her phone
 or laptop, and pause it myself.
 
@@ -82,7 +82,7 @@ Using AutoPause is a breeze:
 
 ### **Set a Timer**
 
-Pick a duration—1 minute, 5 minutes, 15 minutes, or more.
+Pick a duration, 1 minute, 5 minutes, 15 minutes, or more.
 
 ### **Relax**
 
@@ -92,7 +92,7 @@ AutoPause runs quietly in the background, keeping track of time.
 
 When the timer ends, all audio and video playing in your browser pauses.
 
-And don’t worry—AutoPause respects your privacy. It doesn’t track anything. Everything runs locally
+And don’t worry, AutoPause respects your privacy. It doesn’t track anything. Everything runs locally
 in your browser, just the way it should.
 
 ---

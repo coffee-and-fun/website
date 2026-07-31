@@ -6,7 +6,7 @@
 
     <!-- Primary Meta Tags -->
     <title>Private Line - End-to-End Encrypted One-to-One Chat, No Signup | Coffee & Fun LLC</title>
-    <meta name="description" content="Open a private, end-to-end encrypted chat with one other person straight from your browser. No accounts, no servers storing messages — your words are encrypted on your device and gone when you close the tab. Free and peer-to-peer." />
+    <meta name="description" content="Open a private, end-to-end encrypted chat with one other person straight from your browser. No accounts, no servers storing messages, your words are encrypted on your device and gone when you close the tab. Free and peer-to-peer." />
     <meta name="author" content="Coffee & Fun LLC" />
     <meta name="robots" content="index, follow" />
 
@@ -25,16 +25,16 @@
     <meta property="og:image" content="https://www.coffeeandfun.com/assets/images/social/pages/private-line.png" />
     <meta property="og:image:width" content="1200" />
     <meta property="og:image:height" content="630" />
-    <meta property="og:image:alt" content="Private Line — end-to-end encrypted one-to-one chat by Coffee & Fun" />
+    <meta property="og:image:alt" content="Private Line, end-to-end encrypted one-to-one chat by Coffee & Fun" />
     <meta property="og:locale" content="en_US" />
 
     <!-- Twitter Card -->
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:site" content="@bycoffeeandfun" />
     <meta name="twitter:title" content="Private Line - End-to-End Encrypted One-to-One Chat" />
-    <meta name="twitter:description" content="A private, end-to-end encrypted chat for two — no accounts, no stored messages, peer-to-peer." />
+    <meta name="twitter:description" content="A private, end-to-end encrypted chat for two, no accounts, no stored messages, peer-to-peer." />
     <meta name="twitter:image" content="https://www.coffeeandfun.com/assets/images/social/pages/private-line.png" />
-    <meta name="twitter:image:alt" content="Private Line — end-to-end encrypted one-to-one chat by Coffee & Fun" />
+    <meta name="twitter:image:alt" content="Private Line, end-to-end encrypted one-to-one chat by Coffee & Fun" />
 
     <meta name="theme-color" content="#0e1512" />
 
@@ -342,7 +342,7 @@
         <!-- ===================== START ===================== -->
         <section v-if="screen === 'start'" id="tool">
             <h1>Private Line</h1>
-            <p class="lede">A private chat for exactly two people, encrypted end-to-end right here in your browser. No account, no history, nothing kept — when you both close the tab, it&rsquo;s gone.</p>
+            <p class="lede">A private chat for exactly two people, encrypted end-to-end right here in your browser. No account, no history, nothing kept, when you both close the tab, it&rsquo;s gone.</p>
 
             <div class="menu-choices">
                 <button type="button" class="menu-card" @click="startHost" :disabled="!ready">
@@ -368,12 +368,12 @@
 
             <details class="rules">
                 <summary>How private is this, really?</summary>
-                <p><strong>Your messages are encrypted on your device and decrypted on theirs</strong> — with keys that are created fresh for this one conversation and never leave either browser. The matchmaking server only helps the two of you find each other; it never sees a single message. Every message is also padded to the same size before it&rsquo;s sent, so its length gives nothing away.</p>
+                <p><strong>Your messages are encrypted on your device and decrypted on theirs</strong>, with keys that are created fresh for this one conversation and never leave either browser. The matchmaking server only helps the two of you find each other; it never sees a single message. Every message is also padded to the same size before it&rsquo;s sent, so its length gives nothing away.</p>
                 <ul>
-                    <li><strong>Check the safety phrase.</strong> When you connect, both screens show the same short phrase. Read it out loud to each other — on a call or in person. If it matches, you can trust no one has slipped in between. If it doesn&rsquo;t, stop.</li>
+                    <li><strong>Check the safety phrase.</strong> When you connect, both screens show the same short phrase. Read it out loud to each other, on a call or in person. If it matches, you can trust no one has slipped in between. If it doesn&rsquo;t, stop.</li>
                     <li><strong>Nothing is stored.</strong> No accounts, no logs, no history. Close the tab and the whole conversation and its keys are gone.</li>
-                    <li><strong>It hides what you say, not that you talked.</strong> You connect directly, phone to phone, so the two of you can see each other&rsquo;s IP address, and the server that introduces you knows you connected — never <em>what</em> you said. It&rsquo;s for a private word between people who already know each other, not for staying anonymous.</li>
-                    <li><strong>It&rsquo;s a fun, honest privacy tool</strong> — great for a quick private word. It hasn&rsquo;t been independently audited, so don&rsquo;t bet your life on it.</li>
+                    <li><strong>It hides what you say, not that you talked.</strong> You connect directly, phone to phone, so the two of you can see each other&rsquo;s IP address, and the server that introduces you knows you connected, never <em>what</em> you said. It&rsquo;s for a private word between people who already know each other, not for staying anonymous.</li>
+                    <li><strong>It&rsquo;s a fun, honest privacy tool</strong>, great for a quick private word. It hasn&rsquo;t been independently audited, so don&rsquo;t bet your life on it.</li>
                 </ul>
             </details>
         </section>
@@ -408,7 +408,7 @@
                 <h2 v-if="!peerId" class="pulse-dots">Setting up the line</h2>
                 <template v-else>
                     <h2 class="pulse-dots">Waiting for them to join</h2>
-                    <p>Send this invite link to the one person you want to talk to. The chat opens the moment they arrive, and for your privacy the link works only once — if you get cut off, just open a fresh room.</p>
+                    <p>Send this invite link to the one person you want to talk to. The chat opens the moment they arrive, and for your privacy the link works only once, if you get cut off, just open a fresh room.</p>
                     <div class="invite-row">
                         <input class="field" type="text" readonly :value="inviteLink" aria-label="Invite link" @focus="$event.target.select()" />
                         <button type="button" class="btn btn-ghost" @click="copyInvite">{{ copied ? 'Copied ✓' : 'Copy link' }}</button>
@@ -443,12 +443,12 @@
                     <span aria-hidden="true">{{ verified ? '🛡️' : '🔑' }}</span>
                     {{ verified ? 'Safety phrase verified' : 'Check your safety phrase' }}
                 </p>
-                <p class="s-sub" v-if="!verified">Both of you should see the <strong>same</strong> words. Say them out loud on a call or in person. If they match, you can trust no one has slipped in between. If they don&rsquo;t, someone might have — leave and try again.</p>
+                <p class="s-sub" v-if="!verified">Both of you should see the <strong>same</strong> words. Say them out loud on a call or in person. If they match, you can trust no one has slipped in between. If they don&rsquo;t, someone might have, leave and try again.</p>
                 <p class="s-sub" v-else>You confirmed these words match on both screens. This line is genuinely just the two of you.</p>
                 <p class="sr-only" id="phrase-label">Your safety phrase, {{ safetyWords.length }} words to read aloud:</p>
                 <p class="phrase">{{ safetyWords.join('  ') }}</p>
                 <div class="safety-actions" v-if="!verified">
-                    <button type="button" class="btn btn-primary" style="padding:0.55rem 1.1rem;font-size:0.9rem;" @click="markVerified">They match — I&rsquo;m sure</button>
+                    <button type="button" class="btn btn-primary" style="padding:0.55rem 1.1rem;font-size:0.9rem;" @click="markVerified">They match, I&rsquo;m sure</button>
                 </div>
                 <div class="safety-actions" v-else>
                     <span class="verified-tag" aria-hidden="true">🛡️ Verified</span>
@@ -456,7 +456,7 @@
             </div>
 
             <div class="msg-log" ref="log" role="log" aria-live="polite" aria-label="Conversation">
-                <p v-if="messages.length === 0" class="msg-empty">This line is open and encrypted. Say hello — messages appear here and are never saved anywhere.</p>
+                <p v-if="messages.length === 0" class="msg-empty">This line is open and encrypted. Say hello, messages appear here and are never saved anywhere.</p>
                 <div v-for="m in messages" :key="m.id" class="bubble" :class="m.kind">
                     <span v-if="m.kind === 'theirs'" class="sr-only">{{ theirName || 'They' }} said: </span>
                     <span v-else-if="m.kind === 'mine'" class="sr-only">You said: </span>
@@ -470,7 +470,7 @@
             <form class="composer" @submit.prevent="sendMessage">
                 <label class="sr-only" for="pl-msg">Type a message</label>
                 <textarea id="pl-msg" ref="composer" class="field" v-model="draft" rows="1"
-                          :placeholder="connected ? (secured ? 'Type a message…' : 'Securing the line…') : 'They left — this line is closed'"
+                          :placeholder="connected ? (secured ? 'Type a message…' : 'Securing the line…') : 'They left, this line is closed'"
                           :disabled="!connected || !secured"
                           @input="onType" @keydown="onComposerKey"></textarea>
                 <button type="submit" class="send-btn" :disabled="!connected || !secured || !draft.trim()" aria-label="Send message">
@@ -487,7 +487,7 @@
             <p class="lock-note" aria-hidden="true" style="text-align:center;margin:0.5rem 0 0;">🔒 Encrypted on your device · nothing stored</p>
         </section>
 
-        <p class="foot">The matchmaking server helps you connect but never sees your messages — they&rsquo;re encrypted on your device and decrypted on theirs. No accounts, no logs, nothing kept.<br>A privacy tool from <a href="https://www.coffeeandfun.com/">Coffee &amp; Fun</a>.</p>
+        <p class="foot">The matchmaking server helps you connect but never sees your messages, they&rsquo;re encrypted on your device and decrypted on theirs. No accounts, no logs, nothing kept.<br>A privacy tool from <a href="https://www.coffeeandfun.com/">Coffee &amp; Fun</a>.</p>
     </main>
 {% endraw %}
 
@@ -502,7 +502,7 @@
         const dec = new TextDecoder();
 
         /* Read-aloud-friendly word list for the safety phrase (64 words). Modulo
-           mapping, so exact count isn't load-bearing — it's just entropy per word. */
+           mapping, so exact count isn't load-bearing, it's just entropy per word. */
         const WORDS = [
             'anchor','bishop','cactus','dragon','ember','falcon','garden','harbor',
             'island','jungle','kettle','lantern','meadow','needle','orchard','pebble',
@@ -532,7 +532,7 @@
 
         /* Length hiding: pad every message to a fixed bucket BEFORE encrypting, so
            an eavesdropper watching the encrypted channel can't tell a one-word reply
-           from a paragraph — they all look the same size. A 4-byte length header lets
+           from a paragraph, they all look the same size. A 4-byte length header lets
            the recipient trim the random padding back off after decrypting. */
         const PAD_BUCKETS = [1024, 4096, 16384];
         function padFrame(bytes) {
@@ -572,7 +572,7 @@
                     messages: [], draft: '', msgId: 1,
                     theirTyping: false, theirTypingTimer: null,
                     lastTypingSent: 0,
-                    sendTyping: true,   // broadcast my "…is typing" — off = quieter footprint
+                    sendTyping: true,   // broadcast my "…is typing", off = quieter footprint
                     dataChain: null,
                     announcement: ''
                 };
@@ -601,7 +601,7 @@
 
                 /* ---------- crypto ---------- */
                 async regenKeys() {
-                    // Fresh ephemeral keypair for EACH conversation — so keys really are
+                    // Fresh ephemeral keypair for EACH conversation, so keys really are
                     // per-conversation (forward secrecy), never reused across sessions.
                     this.keyPair = await crypto.subtle.generateKey({ name: 'ECDH', namedCurve: 'P-256' }, false, ['deriveBits']);
                     const raw = await crypto.subtle.exportKey('raw', this.keyPair.publicKey);
@@ -621,7 +621,7 @@
                 async computeSafety(sharedBits) {
                     // Bind the phrase to BOTH public keys AND the agreed shared secret,
                     // so forging a matching phrase costs an ECDH per attempt (not just a
-                    // hash) — and show 10 words (~60 bits) so a live man-in-the-middle
+                    // hash), and show 10 words (~60 bits) so a live man-in-the-middle
                     // can't feasibly grind a collision during a handshake.
                     const mine = new Uint8Array(b64ToBuf(this.myPubB64));
                     const theirs = new Uint8Array(this.theirPubBuf);
@@ -669,7 +669,7 @@
                     });
                     this.peer.on('connection', (incoming) => {
                         // Single-use link: one guest, ever. Once someone has arrived this
-                        // room is spent — no one can rejoin or take their place. The guard
+                        // room is spent, no one can rejoin or take their place. The guard
                         // is re-checked at 'open' too, so two peers racing before either
                         // opens can't both slip through and clobber the session.
                         if (this.guestArrived || this.conn) { incoming.close(); return; }
@@ -700,7 +700,7 @@
                 onConnected() {
                     this.connected = true;
                     if (this.isHost) this.guestArrived = true; // burn the single-use link
-                    // Drop ?chat=<id> from the address bar now that the link is spent —
+                    // Drop ?chat=<id> from the address bar now that the link is spent 
                     // keeps the ephemeral room id out of browser history.
                     try {
                         const url = new URL(window.location);
@@ -745,7 +745,7 @@
                             this.pushMessage('theirs', text);
                             this.theirTyping = false;
                         } catch (e) {
-                            this.pushSystem('A message couldn’t be decrypted — it may have been tampered with.');
+                            this.pushSystem('A message couldn’t be decrypted, it may have been tampered with.');
                         }
                     } else if (d.t === 'typing') {
                         this.theirTyping = true;
@@ -759,7 +759,7 @@
                     this.theirTyping = false;
                     if (this.conn) { try { this.conn.close(); } catch (e) {} this.conn = null; }
                     // The system bubble lands in the role=log live region, so it's
-                    // already announced — no separate announce() (avoids double-speak).
+                    // already announced, no separate announce() (avoids double-speak).
                     this.pushSystem((this.theirName || 'They') + ' left. This line is closed.');
                 },
 
@@ -829,14 +829,14 @@
                         this.copied = true; this.announce('Invite link copied.');
                         if (this.copyTimer) clearTimeout(this.copyTimer);
                         this.copyTimer = setTimeout(() => { this.copied = false; }, 2000);
-                    }).catch(() => { this.announce('Copy didn’t work — select the link and copy it yourself.'); });
+                    }).catch(() => { this.announce('Copy didn’t work, select the link and copy it yourself.'); });
                 },
                 netFail(err) {
                     this.connecting = false;
                     const t = err && err.type;
-                    if (t === 'peer-unavailable') this.netError = 'No room found with that code — double-check the invite link.';
-                    else if (t === 'timeout') this.netError = 'Couldn’t reach them — the room may have closed.';
-                    else if (t === 'network') this.netError = 'Network hiccup — check your connection and try again.';
+                    if (t === 'peer-unavailable') this.netError = 'No room found with that code, double-check the invite link.';
+                    else if (t === 'timeout') this.netError = 'Couldn’t reach them, the room may have closed.';
+                    else if (t === 'network') this.netError = 'Network hiccup, check your connection and try again.';
                     else this.netError = 'The connection failed. Try again in a moment.';
                     this.announce(this.netError);
                 },

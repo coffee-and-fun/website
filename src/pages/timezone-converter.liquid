@@ -32,7 +32,7 @@
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:site" content="@bycoffeeandfun" />
     <meta name="twitter:title" content="Free Time Zone Converter - See What Time It Is There" />
-    <meta name="twitter:description" content="Pick a city and instantly see the local time there — and whether it's a decent hour to call." />
+    <meta name="twitter:description" content="Pick a city and instantly see the local time there, and whether it's a decent hour to call." />
     <meta name="twitter:image" content="https://www.coffeeandfun.com/assets/images/social/pages/timezone-converter.png" />
     <meta name="twitter:image:alt" content="Free Time Zone Converter by Coffee & Fun" />
 
@@ -401,7 +401,7 @@
 {% raw %}
     <a href="#tool" class="skip">Skip to the tool</a>
 
-    <!-- Shown only if the CDN scripts fail — the app stays v-cloak-hidden. -->
+    <!-- Shown only if the CDN scripts fail, the app stays v-cloak-hidden. -->
     <div id="load-fallback" class="wrap" hidden>
         <p class="lede">This tool couldn&rsquo;t load a couple of files it needs. Check your connection and refresh the page.</p>
     </div>
@@ -420,7 +420,7 @@
 
         <header id="tool">
             <h1>See what time it is there</h1>
-            <p class="lede">Pick a place and see the local time right now — plus whether it&rsquo;s a decent hour to call. Planning ahead? You can check any time, too.</p>
+            <p class="lede">Pick a place and see the local time right now, plus whether it&rsquo;s a decent hour to call. Planning ahead? You can check any time, too.</p>
         </header>
 
         <p class="your-line">
@@ -450,7 +450,7 @@
         <!-- ===== Step 1: pick their city ===== -->
         <section class="step" aria-labelledby="h-city">
             <fieldset class="cities">
-                <legend><h2 class="step-label" id="h-city">1 — Pick their city</h2></legend>
+                <legend><h2 class="step-label" id="h-city">1, Pick their city</h2></legend>
                 <div class="chips">
                     <label class="chip" v-for="c in cities" :key="c.zone" :class="{ on: toZone === c.zone }">
                         <input type="radio" class="sr-only" name="place" :value="c.zone" v-model="toZone" @change="announcePick" />
@@ -461,7 +461,7 @@
             </fieldset>
 
             <div class="elsewhere">
-                <label class="f-label" for="tz-to">Somewhere else — all 400+ places</label>
+                <label class="f-label" for="tz-to">Somewhere else, all 400+ places</label>
                 <select id="tz-to" class="field" v-model="toZone" aria-describedby="tz-to-hint" @change="announcePick">
                     <optgroup v-for="g in zoneGroups" :key="g.label" :label="g.label">
                         <option v-for="z in g.items" :key="z.value" :value="z.value">{{ z.label }}</option>
@@ -473,7 +473,7 @@
 
         <!-- ===== Step 2: the answer ===== -->
         <section class="step" aria-labelledby="h-there">
-            <h2 class="step-label" id="h-there">2 — The time there</h2>
+            <h2 class="step-label" id="h-there">2, The time there</h2>
 
             <div class="result">
                 <span v-if="!pinned" class="live-tag"><span class="live-dot" aria-hidden="true"></span> live</span>
@@ -492,7 +492,7 @@
 
             <div class="io-row">
                 <button type="button" class="linkish small" @click="copyLine">{{ copied ? 'Copied ✓' : 'Copy this line' }}</button>
-                <span v-if="copyFailed" class="copy-note bad">Copy didn&rsquo;t work — select the sentence and press Ctrl+C or Cmd+C.</span>
+                <span v-if="copyFailed" class="copy-note bad">Copy didn&rsquo;t work, select the sentence and press Ctrl+C or Cmd+C.</span>
             </div>
 
             <!-- Planning -->
@@ -569,7 +569,7 @@
                 zones = [];
             }
             // Some ICU builds enumerate old aliases (Asia/Calcutta) but not the
-            // modern name the chips use (Asia/Kolkata) — and vice versa. Make sure
+            // modern name the chips use (Asia/Kolkata), and vice versa. Make sure
             // every zone the page itself offers is actually in the list.
             const required = CITIES.map(c => c.zone).concat([detectZone(), 'UTC']);
             for (const z of required) {
@@ -602,7 +602,7 @@
             },
             computed: {
                 zoneGroups() {
-                    // No 'Popular' group here — the chips are the popular picker, and
+                    // No 'Popular' group here, the chips are the popular picker, and
                     // duplicate <option> values make Vue's v-model display the first
                     // match ('Mumbai') instead of the one the user clicked ('Kolkata').
                     const groups = {};
@@ -640,9 +640,9 @@
                 },
                 diffText() {
                     // Round: pre-1900s zones used local mean time with fractional
-                    // minute offsets (Paris 9.35) — nobody needs the seconds.
+                    // minute offsets (Paris 9.35), nobody needs the seconds.
                     const mins = Math.round(this.theirDT.offset - this.myDT.offset);
-                    if (mins === 0) return 'the same time as you — no maths needed';
+                    if (mins === 0) return 'the same time as you, no maths needed';
                     const abs = Math.abs(mins);
                     const h = Math.trunc(abs / 60);
                     const m = abs % 60;
@@ -664,8 +664,8 @@
                     const wd = this.fmtWeekday(this.theirDT);
                     if (d === 1) return ' It’s already ' + wd + ' for them.';
                     if (d === -1) return ' It’s still ' + wd + ' for them.';
-                    if (d > 1) return ' They’re ' + d + ' days ahead — ' + wd + ' for them.';
-                    return ' They’re ' + Math.abs(d) + ' days back — ' + wd + ' for them.';
+                    if (d > 1) return ' They’re ' + d + ' days ahead, ' + wd + ' for them.';
+                    return ' They’re ' + Math.abs(d) + ' days back, ' + wd + ' for them.';
                 },
                 sentenceHtml() {
                     const esc = (s) => String(s).replace(/[&<>"']/g, ch => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#039;' }[ch]));
@@ -675,20 +675,20 @@
                     const diff = esc(this.diffText);
                     const day = esc(this.dayClause);
                     if (!this.pinned) {
-                        return 'It’s <strong>' + theirTime + '</strong> in ' + theirCity + ' — ' + diff + '.' + day;
+                        return 'It’s <strong>' + theirTime + '</strong> in ' + theirCity + ', ' + diff + '.' + day;
                     }
                     const myTime = esc(this.fmtTime(this.myDT));
                     const myDay = esc(this.fmtWeekday(this.myDT));
                     const theirDay = esc(this.fmtWeekday(this.theirDT));
                     if (this.anchor === 'mine') {
                         return 'When it’s <strong>' + myTime + '</strong> on ' + myDay + ' for you in ' + myCity +
-                               ', it’s <strong>' + theirTime + '</strong> in ' + theirCity + ' — ' + diff + '.' + day;
+                               ', it’s <strong>' + theirTime + '</strong> in ' + theirCity + ', ' + diff + '.' + day;
                     }
                     let myDayClause = '';
                     if (this.dayDelta === 1) myDayClause = ' It’s still ' + myDay + ' for you.';
                     else if (this.dayDelta === -1) myDayClause = ' It’s already ' + myDay + ' for you.';
                     return 'When it’s <strong>' + theirTime + '</strong> on ' + theirDay + ' for them in ' + theirCity +
-                           ', it’s <strong>' + myTime + '</strong> for you in ' + myCity + ' — they’re ' + diff + '.' + myDayClause;
+                           ', it’s <strong>' + myTime + '</strong> for you in ' + myCity + ', they’re ' + diff + '.' + myDayClause;
                 },
                 sentencePlain() {
                     const div = this.sentenceHtml.replace(/<[^>]+>/g, '');
@@ -699,16 +699,16 @@
                 statusText() {
                     const h = this.theirDT.hour;
                     const weekend = this.theirDT.weekday >= 6;
-                    if (h >= 23 || h < 6) return 'The middle of the night there — they’re almost certainly asleep.';
-                    if (h >= 6 && h < 7) return 'Very early there — maybe give it an hour.';
-                    if (h >= 7 && h < 9) return 'Early morning there — coffee hours.';
+                    if (h >= 23 || h < 6) return 'The middle of the night there, they’re almost certainly asleep.';
+                    if (h >= 6 && h < 7) return 'Very early there, maybe give it an hour.';
+                    if (h >= 7 && h < 9) return 'Early morning there, coffee hours.';
                     if (h >= 9 && h < 17) {
                         return weekend
-                            ? 'Daytime on their weekend — fine for friends, maybe not for work.'
-                            : 'The middle of their workday — a good time to call.';
+                            ? 'Daytime on their weekend, fine for friends, maybe not for work.'
+                            : 'The middle of their workday, a good time to call.';
                     }
-                    if (h >= 17 && h < 21) return 'Evening there — fine for friends and family.';
-                    return 'Late evening there — they’re probably winding down.';
+                    if (h >= 17 && h < 21) return 'Evening there, fine for friends and family.';
+                    return 'Late evening there, they’re probably winding down.';
                 },
                 zoneMeta() {
                     const dt = this.theirDT;
@@ -720,7 +720,7 @@
                     // Whole-day skip (e.g. Samoa jumped over 30 Dec 2011 entirely).
                     if (this.pinnedDT.toFormat('yyyy-MM-dd') !== this.planDate) {
                         return 'Heads up: that date was skipped in ' + this.cityName(zone) +
-                               ' — the calendar jumped straight past it, so we used ' +
+                               ', the calendar jumped straight past it, so we used ' +
                                this.pinnedDT.toLocaleString(DateTime.DATE_MED) + ' instead.';
                     }
                     const typed = this.planTime.split(':');
@@ -730,7 +730,7 @@
                     const typedDT = DateTime.fromISO('2000-01-01T' + this.planTime);
                     const typedLabel = typedDT.isValid ? this.fmtTime(typedDT) : this.planTime;
                     return 'Heads up: ' + typedLabel + ' doesn’t exist in ' + this.cityName(zone) +
-                           ' that night — the clocks jump forward, so we used ' + this.fmtTime(this.pinnedDT) + ' instead.';
+                           ' that night, the clocks jump forward, so we used ' + this.fmtTime(this.pinnedDT) + ' instead.';
                 }
             },
             mounted() {
@@ -764,7 +764,7 @@
                 },
                 announcePick() {
                     this.announce('In ' + this.cityName(this.toZone) + ' it’s ' + this.fmtTime(this.theirDT) +
-                                  ' on ' + this.fmtWeekday(this.theirDT) + ' — ' + this.diffText + '. ' + this.statusText);
+                                  ' on ' + this.fmtWeekday(this.theirDT) + ', ' + this.diffText + '. ' + this.statusText);
                 },
                 announceAnchor() {
                     this.announce(this.anchor === 'mine'
@@ -775,7 +775,7 @@
                     if (e.target.open === this.planOpen) return; // programmatic no-op toggle
                     this.planOpen = e.target.open;
                     if (this.planOpen && (!this.planDate || !this.planTime)) {
-                        // Prefill with the anchor zone's current wall clock — never
+                        // Prefill with the anchor zone's current wall clock, never
                         // the user's wall clock parsed as another zone's time.
                         const zone = this.anchor === 'mine' ? this.fromZone : this.toZone;
                         const nowThere = DateTime.now().setZone(zone);

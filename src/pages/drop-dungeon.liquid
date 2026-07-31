@@ -6,7 +6,7 @@
 
     <!-- Primary Meta Tags -->
     <title>Drop Dungeon - Roguelike Connect Four, Solo or With a Friend | Coffee & Fun LLC</title>
-    <meta name="description" content="Connect four to clear the floor, grab a relic, and descend. A free roguelike twist on Connect 4 — battle the dungeon solo or duel a friend online. No signup, no ads." />
+    <meta name="description" content="Connect four to clear the floor, grab a relic, and descend. A free roguelike twist on Connect 4, battle the dungeon solo or duel a friend online. No signup, no ads." />
     <meta name="author" content="Coffee & Fun LLC" />
     <meta name="robots" content="index, follow" />
 
@@ -25,7 +25,7 @@
     <meta property="og:image" content="https://www.coffeeandfun.com/assets/images/social/pages/drop-dungeon.png" />
     <meta property="og:image:width" content="1200" />
     <meta property="og:image:height" content="630" />
-    <meta property="og:image:alt" content="Drop Dungeon — roguelike Connect Four by Coffee & Fun" />
+    <meta property="og:image:alt" content="Drop Dungeon, roguelike Connect Four by Coffee & Fun" />
     <meta property="og:locale" content="en_US" />
 
     <!-- Twitter Card -->
@@ -34,7 +34,7 @@
     <meta name="twitter:title" content="Drop Dungeon - Roguelike Connect Four" />
     <meta name="twitter:description" content="Connect four to clear the floor, grab a relic, and descend. Solo or with a friend." />
     <meta name="twitter:image" content="https://www.coffeeandfun.com/assets/images/social/pages/drop-dungeon.png" />
-    <meta name="twitter:image:alt" content="Drop Dungeon — roguelike Connect Four by Coffee & Fun" />
+    <meta name="twitter:image:alt" content="Drop Dungeon, roguelike Connect Four by Coffee & Fun" />
 
     <meta name="theme-color" content="#141009" />
 
@@ -44,7 +44,7 @@
         "@context": "https://schema.org",
         "@type": "VideoGame",
         "name": "Drop Dungeon",
-        "description": "A roguelike twist on Connect Four: clear seven mutating floors, collect relics, and outdrop the dungeon — solo against an escalating AI or head-to-head with a friend online.",
+        "description": "A roguelike twist on Connect Four: clear seven mutating floors, collect relics, and outdrop the dungeon, solo against an escalating AI or head-to-head with a friend online.",
         "url": "https://www.coffeeandfun.com/drop-dungeon/",
         "genre": ["Strategy", "Roguelike"],
         "gamePlatform": "Web Browser",
@@ -102,7 +102,7 @@
                 radial-gradient(120vw 90vh ellipse at 50% 10%, #221910, var(--bg) 70%);
             background-attachment: fixed;
         }
-        /* torch flicker — two warm glows breathing at the top corners */
+        /* torch flicker, two warm glows breathing at the top corners */
         .torch {
             position: fixed; top: -8vh; width: 34vw; height: 34vh;
             pointer-events: none; z-index: 0;
@@ -588,7 +588,7 @@
 {% raw %}
     <a href="#tool" class="skip">Skip to the game</a>
 
-    <!-- Shown only if the CDN scripts fail — the app stays v-cloak-hidden. -->
+    <!-- Shown only if the CDN scripts fail, the app stays v-cloak-hidden. -->
     <div id="load-fallback" class="wrap" hidden>
         <p class="lede">The game couldn&rsquo;t load a couple of files it needs. Check your connection and refresh the page.</p>
     </div>
@@ -604,7 +604,7 @@
                 <span class="tip" aria-hidden="true">Back to coffeeandfun.com</span>
             </a>
             <button type="button" class="mute-btn" @click="toggleMute" :aria-pressed="muted ? 'true' : 'false'"
-                    :aria-label="muted ? 'Sound is off — turn it on' : 'Sound is on — turn it off'">
+                    :aria-label="muted ? 'Sound is off, turn it on' : 'Sound is on, turn it off'">
                 <span aria-hidden="true">{{ muted ? '🔇' : '🔊' }}</span>
             </button>
         </div>
@@ -615,7 +615,7 @@
         <!-- ===================== MENU ===================== -->
         <section v-if="screen === 'menu'" id="tool">
             <h1>Drop Dungeon</h1>
-            <p class="lede">Connect four to clear the floor. Win, grab a relic, and descend — the dungeon fights dirtier the deeper you go. Seven floors stand between you and the bottom.</p>
+            <p class="lede">Connect four to clear the floor. Win, grab a relic, and descend, the dungeon fights dirtier the deeper you go. Seven floors stand between you and the bottom.</p>
 
             <div class="menu-choices">
                 <button type="button" class="menu-card" @click="startSolo">
@@ -628,38 +628,38 @@
                 <button type="button" class="menu-card" @click="startHost" :disabled="!peerOk">
                     <span class="mc-ico" aria-hidden="true">⚔️</span>
                     <span>
-                        <span class="mc-title">Duel a friend — host</span>
+                        <span class="mc-title">Duel a friend, host</span>
                         <span class="mc-sub">Get an invite link. First to win 4 floors takes the run.</span>
                     </span>
                 </button>
                 <button type="button" class="menu-card" @click="screen = 'join'" :disabled="!peerOk">
                     <span class="mc-ico" aria-hidden="true">🔗</span>
                     <span>
-                        <span class="mc-title">Duel a friend — join</span>
+                        <span class="mc-title">Duel a friend, join</span>
                         <span class="mc-sub">Got a link or a game code? Jump into their dungeon.</span>
                     </span>
                 </button>
             </div>
-            <p v-if="!peerOk" class="lede" style="margin-top:1rem; font-size:0.85rem;">Duels are unavailable right now — the connection library didn&rsquo;t load. Solo still works.</p>
+            <p v-if="!peerOk" class="lede" style="margin-top:1rem; font-size:0.85rem;">Duels are unavailable right now, the connection library didn&rsquo;t load. Solo still works.</p>
 
             <details class="rules">
                 <summary>How it works</summary>
-                <p><strong>Each floor is a game of Connect&nbsp;Four</strong> — but the dungeon keeps changing the rules. Wider caverns, stones that belong to no one, wild gems that count for everyone, floors that crumble beneath you, and at the bottom&hellip; four isn&rsquo;t enough.</p>
+                <p><strong>Each floor is a game of Connect&nbsp;Four</strong>, but the dungeon keeps changing the rules. Wider caverns, stones that belong to no one, wild gems that count for everyone, floors that crumble beneath you, and at the bottom&hellip; four isn&rsquo;t enough.</p>
                 <ul>
-                    <li><strong>Win a floor</strong> and you draft a relic — a one-use dirty trick.</li>
-                    <li><strong>💣 Boulder</strong> — drop a stone that blocks a column&rsquo;s path.</li>
-                    <li><strong>🔨 Smash</strong> — shatter the top disc of any column.</li>
-                    <li><strong>🕳️ Undermine</strong> — pull the bottom disc out; everything above falls.</li>
-                    <li><strong>⏳ Time warp</strong> — your opponent loses their next turn.</li>
+                    <li><strong>Win a floor</strong> and you draft a relic, a one-use dirty trick.</li>
+                    <li><strong>💣 Boulder</strong>, drop a stone that blocks a column&rsquo;s path.</li>
+                    <li><strong>🔨 Smash</strong>, shatter the top disc of any column.</li>
+                    <li><strong>🕳️ Undermine</strong>, pull the bottom disc out; everything above falls.</li>
+                    <li><strong>⏳ Time warp</strong>, your opponent loses their next turn.</li>
                 </ul>
-                <p>Solo, one loss ends the run — that&rsquo;s dungeon law. In a duel it&rsquo;s first to four floors, and the <strong>loser</strong> of each floor drafts the relic. Stay gracious.</p>
+                <p>Solo, one loss ends the run, that&rsquo;s dungeon law. In a duel it&rsquo;s first to four floors, and the <strong>loser</strong> of each floor drafts the relic. Stay gracious.</p>
             </details>
         </section>
 
         <!-- ===================== JOIN ===================== -->
         <section v-else-if="screen === 'join'" id="tool">
             <h1>Join a duel</h1>
-            <p class="lede">Paste the game code from your friend&rsquo;s invite link — or if you opened their link, it&rsquo;s already filled in.</p>
+            <p class="lede">Paste the game code from your friend&rsquo;s invite link, or if you opened their link, it&rsquo;s already filled in.</p>
             <div class="name-row">
                 <div>
                     <label class="f-label" for="dd-name">Your name</label>
@@ -688,7 +688,7 @@
                 <h2 v-if="!peerId" class="pulse-dots">Digging the arena</h2>
                 <template v-else>
                     <h2 class="pulse-dots">Waiting for your rival</h2>
-                    <p>Send them this invite link — the duel starts the moment they arrive.</p>
+                    <p>Send them this invite link, the duel starts the moment they arrive.</p>
                     <div class="invite-row">
                         <input class="field" type="text" readonly :value="inviteLink" aria-label="Invite link" @focus="$event.target.select()" />
                         <button type="button" class="btn btn-secondary" @click="copyInvite">{{ copied ? 'Copied ✓' : 'Copy link' }}</button>
@@ -779,7 +779,7 @@
 
             <div class="game-foot-row">
                 <button type="button" class="linkish" @click="abandonRun">Abandon run</button>
-                <span style="font-size:0.78rem; color:var(--muted);">{{ isDuel ? 'First to 4 floors wins the run' : 'One loss ends the run — dungeon law' }}</span>
+                <span style="font-size:0.78rem; color:var(--muted);">{{ isDuel ? 'First to 4 floors wins the run' : 'One loss ends the run, dungeon law' }}</span>
             </div>
         </section>
 
@@ -788,7 +788,7 @@
             <div class="overlay-card">
                 <template v-if="iAmDrafting">
                     <h2>{{ isDuel ? 'Spoils for the fallen' : 'The floor is yours' }}</h2>
-                    <p class="oc-sub">{{ isDuel ? 'You lost the floor — so you loot the room. Pick one relic.' : 'Take a relic for the road down. Pick one.' }}</p>
+                    <p class="oc-sub">{{ isDuel ? 'You lost the floor, so you loot the room. Pick one relic.' : 'Take a relic for the road down. Pick one.' }}</p>
                     <div class="draft-grid">
                         <button v-for="(kind, i) in draftOffer" :key="i" type="button" class="draft-card" @click="pickDraft(i)">
                             <span class="dc-ico" aria-hidden="true">{{ RELICS[kind].icon }}</span>
@@ -843,7 +843,7 @@
             </div>
         </div>
 
-        <p class="foot">Runs entirely in your browser. Duels connect you and your friend directly — no accounts, no servers keeping score. Forged by <a href="https://www.coffeeandfun.com/">Coffee &amp; Fun</a>.</p>
+        <p class="foot">Runs entirely in your browser. Duels connect you and your friend directly, no accounts, no servers keeping score. Forged by <a href="https://www.coffeeandfun.com/">Coffee &amp; Fun</a>.</p>
     </main>
 {% endraw %}
 
@@ -879,9 +879,9 @@
 
         const RELICS = {
             boulder: { icon: '💣', name: 'Boulder', desc: 'Drop a stone into a column. It blocks the path and belongs to no one.' },
-            smash: { icon: '🔨', name: 'Smash', desc: 'Shatter the top disc of any column — yours or theirs.' },
+            smash: { icon: '🔨', name: 'Smash', desc: 'Shatter the top disc of any column, yours or theirs.' },
             undermine: { icon: '🕳️', name: 'Undermine', desc: 'Pull the bottom disc out of a column. Everything above falls one row.' },
-            timewarp: { icon: '⏳', name: 'Time warp', desc: 'Play it, then drop as usual — your opponent loses their next turn.' }
+            timewarp: { icon: '⏳', name: 'Time warp', desc: 'Play it, then drop as usual, your opponent loses their next turn.' }
         };
         const RELIC_KINDS = Object.keys(RELICS);
         const EMOTES = ['👋', '😄', '😱', '☕'];
@@ -967,7 +967,7 @@
                         return this.winner === this.mePlayer || (!this.isDuel && this.winner === 1)
                             ? 'Floor cleared!' : (this.isDuel ? this.nameOf(this.winner) + ' takes the floor.' : 'The dungeon takes the floor.');
                     }
-                    if (this.targeting) return RELICS[this.targeting].icon + ' ' + RELICS[this.targeting].name + ' armed — pick a column.';
+                    if (this.targeting) return RELICS[this.targeting].icon + ' ' + RELICS[this.targeting].name + ' armed, pick a column.';
                     if (this.aiThinking) return 'The dungeon is thinking…';
                     if (this.myTurn) return 'Your move.';
                     return this.isDuel ? 'Waiting on ' + this.oppName + '…' : 'The dungeon is thinking…';
@@ -979,8 +979,8 @@
                         return left <= 3 ? 'The floor crumbles in ' + left + ' disc' + (left === 1 ? '' : 's') + '…' : '';
                     }
                     const meP = this.isDuel ? this.mePlayer : 1;
-                    if (this.skipNext[meP]) return '⏳ You’re frozen in time — you’ll lose your next turn.';
-                    if (this.skipNext[meP === 1 ? 2 : 1]) return '⏳ Time warp is set — they lose their next turn.';
+                    if (this.skipNext[meP]) return '⏳ You’re frozen in time, you’ll lose your next turn.';
+                    if (this.skipNext[meP === 1 ? 2 : 1]) return '⏳ Time warp is set, they lose their next turn.';
                     return '';
                 }
             },
@@ -1010,7 +1010,7 @@
                 },
                 crownStr(p) {
                     if (!this.isDuel) return p === 1 ? '⚑ floor ' + (this.floor + 1) : '';
-                    return '👑'.repeat(this.crowns[p]) || '—';
+                    return '👑'.repeat(this.crowns[p]) || ', ';
                 },
                 oppTurnPlayer() { return this.turn === 1 ? 2 : 1; },
                 rng(tag) {
@@ -1084,7 +1084,7 @@
                     this.hoverCol = -1;
                     this.boardEpoch++;
 
-                    // Twist seeding — deterministic on both peers
+                    // Twist seeding, deterministic on both peers
                     const rnd = this.rng(97);
                     if (def.twist === 'stones') {
                         for (let i = 0; i < 5; i++) {
@@ -1109,7 +1109,7 @@
                 colFull(c) { return this.cols[c].length >= this.bh; },
                 colLabel(c) {
                     const n = this.cols[c] ? this.cols[c].length : 0;
-                    let base = 'Column ' + (c + 1) + ' of ' + this.bw + ' — ' + n + ' of ' + this.bh + ' filled.';
+                    let base = 'Column ' + (c + 1) + ' of ' + this.bw + ', ' + n + ' of ' + this.bh + ' filled.';
                     if (this.targeting) return RELICS[this.targeting].name + ': ' + base;
                     return base + (this.myTurn ? ' Drop here.' : '');
                 },
@@ -1122,7 +1122,7 @@
                 },
                 columnDisabled(c) {
                     // Buttons stay enabled during the opponent's turn so keyboard focus
-                    // isn't dumped to <body> after every move — clicks no-op via
+                    // isn't dumped to <body> after every move, clicks no-op via
                     // canActOnColumn. Only hard-disable when the floor is done.
                     return this.over || !!this.floorResult || !!this.runEnd || this.draftOpen;
                 },
@@ -1241,7 +1241,7 @@
                     if (kind === 'timewarp') {
                         this.skipNext[by === 1 ? 2 : 1] = true;
                         this.sfx('draft');
-                        this.announce(this.nameOf(by) + ' played Time warp — ' + this.nameOf(by === 1 ? 2 : 1) + ' will lose their next turn.');
+                        this.announce(this.nameOf(by) + ' played Time warp, ' + this.nameOf(by === 1 ? 2 : 1) + ' will lose their next turn.');
                         return; // free action; turn continues
                     }
                     this.clearFresh();
@@ -1267,7 +1267,7 @@
                         this.cols[c].shift();
                         this.sfx('smash');
                         this.shakeBoard();
-                        this.announce(this.nameOf(by) + ' undermined column ' + (c + 1) + ' — everything fell one row.');
+                        this.announce(this.nameOf(by) + ' undermined column ' + (c + 1) + ', everything fell one row.');
                     }
                     // Removals aren't drops: the "every tenth disc" crumble count doesn't move.
                     this.afterMutation(by, false);
@@ -1284,7 +1284,7 @@
                         }
                     }
                     const g = this.grid();
-                    // acting player checked first — smash/undermine/crumble can gift lines
+                    // acting player checked first, smash/undermine/crumble can gift lines
                     const mineWin = this.findWin(g, by);
                     const other = by === 1 ? 2 : 1;
                     const theirWin = mineWin ? null : this.findWin(g, other);
@@ -1300,7 +1300,7 @@
                     let next = other;
                     if (this.skipNext[next]) {
                         this.skipNext[next] = false;
-                        this.announce(this.nameOf(next) + ' is frozen in time — ' + this.nameOf(by) + ' goes again.');
+                        this.announce(this.nameOf(next) + ' is frozen in time, ' + this.nameOf(by) + ' goes again.');
                         next = by;
                     }
                     this.turn = next;
@@ -1317,7 +1317,7 @@
                     this.winner = winner;
                     this.winCells = cells || [];
                     this.targeting = null;
-                    // Compute the draft offer NOW, deterministically — both peers derive
+                    // Compute the draft offer NOW, deterministically, both peers derive
                     // the same list from the shared seed, so a {draft, idx} message maps
                     // correctly even if this peer hasn't clicked through the overlay yet.
                     if (winner !== 0) {
@@ -1332,7 +1332,7 @@
 
                     if (winner === 0) {
                         this.sfx('lose');
-                        this.announce('A draw. The dungeon insists you settle it — same floor, fresh board.');
+                        this.announce('A draw. The dungeon insists you settle it, same floor, fresh board.');
                         setTimeout(() => {
                             this.floorResult = {
                                 emoji: '🤝', title: 'A draw?!',
@@ -1359,7 +1359,7 @@
                                     title: iWon ? 'Floor yours!' : this.oppName + ' takes it',
                                     sub: iWon
                                         ? 'They loot the room for a relic, then the descent continues.'
-                                        : 'You loot the room — pick a relic on the next screen.',
+                                        : 'You loot the room, pick a relic on the next screen.',
                                     cta: 'Continue', kind: 'duel-next'
                                 };
                             }
@@ -1373,7 +1373,7 @@
                             } else {
                                 this.floorResult = {
                                     emoji: '🎉', title: 'Floor cleared!',
-                                    sub: 'Grab a relic before the stairs — the next floor is meaner.',
+                                    sub: 'Grab a relic before the stairs, the next floor is meaner.',
                                     cta: 'Loot the room', kind: 'solo-next'
                                 };
                             }
@@ -1443,7 +1443,7 @@
                             : (this.isDuel ? this.oppName + ' wins the run' : 'The dungeon claims you'),
                         sub: won
                             ? (this.isDuel ? 'Four floors, fair and square-ish. The dungeon applauds politely.' : 'Seven floors, one legend. The dungeon will be telling stories about you.')
-                            : (this.isDuel ? 'First to four floors — they got there. Demand a rematch.' : 'Dungeon law: one loss ends the run. It was floor ' + (this.floor + 1) + ' that got you.'),
+                            : (this.isDuel ? 'First to four floors, they got there. Demand a rematch.' : 'Dungeon law: one loss ends the run. It was floor ' + (this.floor + 1) + ' that got you.'),
                         floors,
                         relics: this.relicsCollected,
                         moves: this.totalMoves
@@ -1666,7 +1666,7 @@
                             this.rematchOffered = true;
                             this.announce(this.oppName + ' wants a rematch!');
                             break;
-                        case 'rematch-accept': // joiner accepted — host starts too
+                        case 'rematch-accept': // joiner accepted, host starts too
                             this.rematchOffered = false;
                             this.beginRun();
                             break;
@@ -1706,15 +1706,15 @@
                         if (this.copyTimer) clearTimeout(this.copyTimer);
                         this.copyTimer = setTimeout(() => { this.copied = false; }, 2000);
                     }).catch(() => {
-                        this.announce('Copy didn’t work — select the link and copy it yourself.');
+                        this.announce('Copy didn’t work, select the link and copy it yourself.');
                     });
                 },
                 netFail(err) {
                     this.connecting = false;
                     const type = err && err.type;
-                    if (type === 'peer-unavailable') this.netError = 'No dungeon found at that code — double-check the invite link.';
-                    else if (type === 'timeout') this.netError = 'Couldn’t reach them — the host may have closed the page.';
-                    else if (type === 'network') this.netError = 'Network hiccup — check your connection and try again.';
+                    if (type === 'peer-unavailable') this.netError = 'No dungeon found at that code, double-check the invite link.';
+                    else if (type === 'timeout') this.netError = 'Couldn’t reach them, the host may have closed the page.';
+                    else if (type === 'network') this.netError = 'Network hiccup, check your connection and try again.';
                     else this.netError = 'The connection failed. Try again in a moment.';
                     this.announce(this.netError);
                 },

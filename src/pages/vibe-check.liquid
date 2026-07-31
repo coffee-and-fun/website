@@ -364,7 +364,7 @@
             margin: 0.9rem 0 0;
         }
 
-        /* Confetti — emoji bits, skipped entirely for reduced motion */
+        /* Confetti, emoji bits, skipped entirely for reduced motion */
         .confetti-bit {
             position: fixed;
             top: -2.5rem;
@@ -468,7 +468,7 @@
 
         <header id="tool">
             <h1>VIBE CHECK <span aria-hidden="true">✨</span></h1>
-            <p class="lede">Four emoji, one mood. You get four tries to name it — everyone in the world gets the same puzzle today.</p>
+            <p class="lede">Four emoji, one mood. You get four tries to name it, everyone in the world gets the same puzzle today.</p>
             <p class="puzzle-meta"><span aria-hidden="true">📅</span> Puzzle #{{ puzzleNumber }}</p>
         </header>
 
@@ -502,7 +502,7 @@
                             @click="makeGuess(option)">
                         <span v-if="isWrong(option)" class="wrong-mark" aria-hidden="true">✗</span>
                         {{ option }}
-                        <span v-if="isWrong(option)" class="sr-only">— not it</span>
+                        <span v-if="isWrong(option)" class="sr-only">, not it</span>
                     </button>
                 </div>
 
@@ -520,7 +520,7 @@
                 <div class="banner good">
                     <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg>
                     <div>
-                        <p><span class="sr-only">Correct — </span><span class="answer">{{ currentPuzzle.answer }}</span></p>
+                        <p><span class="sr-only">Correct, </span><span class="answer">{{ currentPuzzle.answer }}</span></p>
                         <p>{{ currentPuzzle.description }}</p>
                     </div>
                 </div>
@@ -533,7 +533,7 @@
                 <button type="button" class="btn btn-primary" @click="shareResults">
                     {{ copied ? 'Copied ✓' : '📤 Share your vibe' }}
                 </button>
-                <p v-if="copyFailed" class="copy-note bad">Copy didn&rsquo;t work — your result is selected below, press Ctrl+C or Cmd+C.</p>
+                <p v-if="copyFailed" class="copy-note bad">Copy didn&rsquo;t work, your result is selected below, press Ctrl+C or Cmd+C.</p>
                 <pre v-if="copyFailed" class="share-pre" ref="sharePre" tabindex="0" aria-label="Your shareable result">{{ shareText }}</pre>
 
                 <p class="tomorrow">Come back tomorrow for a new vibe! <span aria-hidden="true">🌅</span></p>
@@ -554,13 +554,13 @@
 
                 <p class="stats">
                     <span class="blocks" aria-hidden="true">{{ shareBlocks }}</span>
-                    Out of tries — {{ attempts }} of {{ maxAttempts }} used
+                    Out of tries, {{ attempts }} of {{ maxAttempts }} used
                 </p>
 
                 <button type="button" class="btn btn-primary" @click="shareResults">
                     {{ copied ? 'Copied ✓' : '📤 Share your attempt' }}
                 </button>
-                <p v-if="copyFailed" class="copy-note bad">Copy didn&rsquo;t work — your result is selected below, press Ctrl+C or Cmd+C.</p>
+                <p v-if="copyFailed" class="copy-note bad">Copy didn&rsquo;t work, your result is selected below, press Ctrl+C or Cmd+C.</p>
                 <pre v-if="copyFailed" class="share-pre" ref="sharePre" tabindex="0" aria-label="Your shareable result">{{ shareText }}</pre>
 
                 <p class="tomorrow">Come back tomorrow for a new vibe! <span aria-hidden="true">🌅</span></p>
@@ -572,13 +572,13 @@
             <h2 class="step-label" id="h-how">How to play</h2>
             <ol>
                 <li>Read the four emoji clues.</li>
-                <li>Pick the mood they add up to — you get four tries.</li>
+                <li>Pick the mood they add up to, you get four tries.</li>
                 <li>Share your result and dare your friends to beat it.</li>
             </ol>
-            <p class="midnight"><span aria-hidden="true">✨</span> A new vibe lands every midnight — same puzzle for everyone.</p>
+            <p class="midnight"><span aria-hidden="true">✨</span> A new vibe lands every midnight, same puzzle for everyone.</p>
         </section>
 
-        <p class="foot">Your daily result is saved in this browser — nothing you play leaves this page.</p>
+        <p class="foot">Your daily result is saved in this browser, nothing you play leaves this page.</p>
     </main>
 {% endraw %}
 
@@ -587,7 +587,7 @@
     <script>
         const { createApp } = Vue;
 
-        /* Day-of-year puzzle number — this exact formula is the public
+        /* Day-of-year puzzle number, this exact formula is the public
            date→puzzle contract. Changing it would hand everyone a different
            puzzle and break saved games, so it stays byte-for-byte the same
            as it has always been. */
@@ -737,7 +737,7 @@ coffeeandfun.com/vibe-check`;
                                 type: 'wrong',
                                 message: 'Not quite! Try again! 🤔'
                             };
-                            this.announce('Not quite — ' + option + ' isn’t it. ' +
+                            this.announce('Not quite, ' + option + ' isn’t it. ' +
                                 (this.maxAttempts - this.attempts) + ' ' +
                                 ((this.maxAttempts - this.attempts) === 1 ? 'try' : 'tries') + ' left.');
                             if (this.feedbackTimer) clearTimeout(this.feedbackTimer);
@@ -767,7 +767,7 @@ coffeeandfun.com/vibe-check`;
                     } catch {
                         // Fallback: show the share text on the page, pre-selected.
                         this.copyFailed = true;
-                        this.announce('Copy didn’t work. Your result is shown below — press Control C or Command C.');
+                        this.announce('Copy didn’t work. Your result is shown below, press Control C or Command C.');
                         this.$nextTick(() => {
                             const pre = this.$refs.sharePre;
                             if (pre && window.getSelection) {
@@ -837,7 +837,7 @@ coffeeandfun.com/vibe-check`;
                             // New day! Reset game
                             this.resetGame();
                             this.puzzleNumber = today;
-                            this.announce('It’s a new day — a fresh vibe puzzle is ready.');
+                            this.announce('It’s a new day, a fresh vibe puzzle is ready.');
                         }
                     }, 60000);
                 },

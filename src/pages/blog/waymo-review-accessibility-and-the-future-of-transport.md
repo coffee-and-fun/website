@@ -7,7 +7,7 @@ layout: templates/post.liquid
 title: We Took Waymo Around San Francisco. Here's What We Learned About Accessibility and the Future of Transport.
 description:
   As an accessibility-focused company, we spent a day riding Waymo's autonomous vehicles across San
-  Francisco — at night, during rush hour, and through quiet streets. Here's our honest review of the
+  Francisco, at night, during rush hour, and through quiet streets. Here's our honest review of the
   tech, the ride, and what it means for people with disabilities.
 keywords:
   Waymo, Autonomous Vehicles, Self Driving Cars, Accessibility, Jaguar I-PACE, Lidar, San Francisco,
@@ -59,7 +59,7 @@ The [5th-generation Waymo Driver](https://waymo.com/blog/2020/03/introducing-5th
 
 Lidar stands for Light Detection and Ranging. It works by firing millions of laser pulses in every direction and measuring how long each one takes to bounce back off objects. This builds a detailed 3D point cloud of everything within 300 metres of the car, updated in real time. Unlike cameras, lidar works just as well at night and isn't affected by glare, shadows, or low light conditions.
 
-The main lidar unit sits on the roof in that distinctive dome. It handles the long-range view, scanning the road ahead and behind. Four perimeter lidar units are placed around the body of the car at different heights. These cover the close-range blind spots that the roof unit can't see — cyclists pulling up alongside, pedestrians stepping off the kerb, or objects low to the ground. [TechCrunch](https://techcrunch.com/2020/03/06/inside-the-next-gen-tech-on-waymos-self-driving-jaguar-i-pace/) described the perimeter units as providing "unparalleled coverage with a wide field of view" that helps the car navigate tight gaps in city traffic and hilly terrain.
+The main lidar unit sits on the roof in that distinctive dome. It handles the long-range view, scanning the road ahead and behind. Four perimeter lidar units are placed around the body of the car at different heights. These cover the close-range blind spots that the roof unit can't see, cyclists pulling up alongside, pedestrians stepping off the kerb, or objects low to the ground. [TechCrunch](https://techcrunch.com/2020/03/06/inside-the-next-gen-tech-on-waymos-self-driving-jaguar-i-pace/) described the perimeter units as providing "unparalleled coverage with a wide field of view" that helps the car navigate tight gaps in city traffic and hilly terrain.
 
 ### Radar and Cameras
 
@@ -69,13 +69,13 @@ The 29 cameras provide visual context that lidar and radar can't. They read traf
 
 ### How the AI Puts It All Together
 
-Instead of relying on GPS alone, which can lose signal between tall buildings, the Waymo Driver uses [highly detailed custom maps](https://waymo.com/waymo-driver/) matched with real-time sensor data. The AI takes all the data from the lidar, radar, and cameras, fuses it together, and builds a real-time understanding of the world. It can identify and track hundreds of objects at once — pedestrians, cyclists, other vehicles, construction zones, even a plastic bag blowing across the road — and predict what each one is likely to do next.
+Instead of relying on GPS alone, which can lose signal between tall buildings, the Waymo Driver uses [highly detailed custom maps](https://waymo.com/waymo-driver/) matched with real-time sensor data. The AI takes all the data from the lidar, radar, and cameras, fuses it together, and builds a real-time understanding of the world. It can identify and track hundreds of objects at once, pedestrians, cyclists, other vehicles, construction zones, even a plastic bag blowing across the road, and predict what each one is likely to do next.
 
 This prediction system is what makes the ride feel so smooth. The car doesn't just react to what's happening right now. It anticipates what's about to happen. That's why it starts slowing down before a pedestrian steps off the kerb, or moves over before a car ahead starts merging.
 
 ### What's Next: The 6th Generation
 
-Waymo is already rolling out their [6th-generation Waymo Driver](https://waymo.com/blog/2024/08/meet-the-6th-generation-waymo-driver/) on a completely new vehicle platform — the [Waymo Ojai](https://en.wikipedia.org/wiki/Waymo_Ojai), built by Zeekr (a Geely subsidiary). The new system actually uses fewer sensors — 13 cameras down from 29, and three lidar units instead of four — but with better resolution and range. The new lidar can [see up to 500 metres](https://techannouncer.com/waymos-6th-generation-a-leap-forward-in-autonomous-vehicle-technology/), nearly double the previous generation. It also includes external audio receivers (EARs) that can hear emergency sirens and other important sounds. The Ojai has been [in service since February 2026](https://www.cnbc.com/2026/02/12/waymo-begins-deploying-next-gen-ojai-robotaxis-to-extend-its-us-lead.html).
+Waymo is already rolling out their [6th-generation Waymo Driver](https://waymo.com/blog/2024/08/meet-the-6th-generation-waymo-driver/) on a completely new vehicle platform, the [Waymo Ojai](https://en.wikipedia.org/wiki/Waymo_Ojai), built by Zeekr (a Geely subsidiary). The new system actually uses fewer sensors, 13 cameras down from 29, and three lidar units instead of four, but with better resolution and range. The new lidar can [see up to 500 metres](https://techannouncer.com/waymos-6th-generation-a-leap-forward-in-autonomous-vehicle-technology/), nearly double the previous generation. It also includes external audio receivers (EARs) that can hear emergency sirens and other important sounds. The Ojai has been [in service since February 2026](https://www.cnbc.com/2026/02/12/waymo-begins-deploying-next-gen-ojai-robotaxis-to-extend-its-us-lead.html).
 
 ---
 
@@ -83,19 +83,19 @@ Waymo is already rolling out their [6th-generation Waymo Driver](https://waymo.c
 
 You open the Waymo app, set your pickup and drop-off, and a car is assigned. The app shows you the car approaching in real time. When it arrives, you unlock the doors through the app and get in.
 
-![The Waymo dashboard greeting — "Good morning, Robert James"](/assets/images/blog/waymo-review/dashboard-greeting.webp)
+![The Waymo dashboard greeting, "Good morning, Robert James"](/assets/images/blog/waymo-review/dashboard-greeting.webp)
 
-Inside, there's a screen on the back of the front seats that shows your route, your estimated arrival, and a live view of what the car is "seeing" — other vehicles, lane markings, traffic lights. It's fascinating to watch. The screen greeted us by name when we got in, which was a nice touch.
+Inside, there's a screen on the back of the front seats that shows your route, your estimated arrival, and a live view of what the car is "seeing", other vehicles, lane markings, traffic lights. It's fascinating to watch. The screen greeted us by name when we got in, which was a nice touch.
 
 The ride itself felt like being in a very competent Uber, minus the small talk. The car obeyed every speed limit, every stop sign, and every traffic light with zero ambiguity. It didn't tailgate. It didn't run yellows. On steep San Francisco hills, it handled the inclines and blind turns confidently.
 
 We took rides at different times to stress-test it. Early morning was smooth, as you'd expect. Rush hour through the Financial District was the real test, and it handled the stop-and-go traffic, double-parked delivery trucks, and jaywalking pedestrians without any drama. The night ride was impressive too. The lidar doesn't care about lighting conditions, so the car drove just as confidently in the dark as it did at noon.
 
-![The Waymo Jaguar I-PACE from the front — sensor dome and Jaguar badge visible](/assets/images/blog/waymo-review/waymo-front.webp)
+![The Waymo Jaguar I-PACE from the front, sensor dome and Jaguar badge visible](/assets/images/blog/waymo-review/waymo-front.webp)
 
 ![Rear view of the Waymo showing WAYMO branding and "Ride today" sticker](/assets/images/blog/waymo-review/waymo-rear.webp)
 
-![Inside the Waymo — no driver, steering wheel untouched, navigation showing arrival time](/assets/images/blog/waymo-review/waymo-interior.webp)
+![Inside the Waymo, no driver, steering wheel untouched, navigation showing arrival time](/assets/images/blog/waymo-review/waymo-interior.webp)
 
 ---
 
@@ -123,13 +123,13 @@ The [National Federation of the Blind](https://waymo.com/community/articles/nati
 
 Here's what Waymo has built for blind and low-vision riders, according to their [accessibility features page](https://support.google.com/waymo/answer/9566824?hl=en):
 
-The app is built with full screen reader support — every button and element is properly labelled for VoiceOver on iOS and TalkBack on Android. That sounds basic, but it's not something you can say about most ride-hailing apps. We've tested enough apps in our accessibility work to know how rare this is.
+The app is built with full screen reader support, every button and element is properly labelled for VoiceOver on iOS and TalkBack on Android. That sounds basic, but it's not something you can say about most ride-hailing apps. We've tested enough apps in our accessibility work to know how rare this is.
 
-When your car arrives, the app has a "Find my car" feature that gives turn-by-turn directions to the vehicle using visual, audio, and haptic cues. You can also set a preference to minimise walking distance at pickup. The car itself makes purpose-built sounds — a distinctive musical tone — so you can hear it approaching. For someone who can't see the car pulling up, this is a big deal.
+When your car arrives, the app has a "Find my car" feature that gives turn-by-turn directions to the vehicle using visual, audio, and haptic cues. You can also set a preference to minimise walking distance at pickup. The car itself makes purpose-built sounds, a distinctive musical tone, so you can hear it approaching. For someone who can't see the car pulling up, this is a big deal.
 
 Inside the car, assistive audio announces the start of the ride and key events along the way. You don't have to rely on the screen to know what's happening. The car tells you.
 
-Bryan Bashin, CEO of the [LightHouse for the Blind and Visually Impaired](https://waymo.com/community/articles/lighthouse-for-the-blind-sf/) in San Francisco, has spoken about how Waymo is connecting blind people to their communities in ways that weren't possible before. Think about it — no more negotiating with a driver who's uncomfortable with a guide dog. No more cancelled rides. No more waiting for accessible public transit. Just open the app and go.
+Bryan Bashin, CEO of the [LightHouse for the Blind and Visually Impaired](https://waymo.com/community/articles/lighthouse-for-the-blind-sf/) in San Francisco, has spoken about how Waymo is connecting blind people to their communities in ways that weren't possible before. Think about it, no more negotiating with a driver who's uncomfortable with a guide dog. No more cancelled rides. No more waiting for accessible public transit. Just open the app and go.
 
 ### For Riders Who Are Deaf or Hard of Hearing
 
@@ -173,7 +173,7 @@ This is the kind of thing that separates good accessibility from great accessibi
 
 We left San Francisco genuinely excited about what Waymo represents. Not just as a tech product, but as a mobility tool.
 
-Think about what autonomous ride-hailing means for people who can't drive. People who are blind. People with epilepsy. Older adults who've had to give up their licence. People in wheelchairs who've been refused rides by human drivers — [which happens more often than you'd think](https://www.sfexaminer.com/forum/waymo-sf-disability-community-essential/article_9da7d8bb-1ab3-4be9-ae28-7f4f4f989a0b.html). People who live in areas with limited public transit. People who can't afford to own a car but need reliable transport to get to work, medical appointments, or the grocery store.
+Think about what autonomous ride-hailing means for people who can't drive. People who are blind. People with epilepsy. Older adults who've had to give up their licence. People in wheelchairs who've been refused rides by human drivers, [which happens more often than you'd think](https://www.sfexaminer.com/forum/waymo-sf-disability-community-essential/article_9da7d8bb-1ab3-4be9-ae28-7f4f4f989a0b.html). People who live in areas with limited public transit. People who can't afford to own a car but need reliable transport to get to work, medical appointments, or the grocery store.
 
 A self-driving car doesn't judge. It doesn't refuse your guide dog. It doesn't decide your wheelchair is too much hassle. It doesn't cancel on you because you're going to a neighbourhood the driver doesn't like. It just takes you where you need to go. That's a powerful thing.
 
@@ -185,9 +185,9 @@ And with the [6th-generation vehicles](https://www.cnbc.com/2026/02/12/waymo-beg
 
 ## Our Verdict
 
-The tech is remarkable. The ride is smooth, safe, and genuinely impressive. The [safety data](https://waymo.com/safety/impact/) speaks for itself — 90% fewer serious crashes than human drivers. The accessibility work is some of the best we've seen from any transport company, and the involvement of 13 disability organisations in the product development process isn't something we've seen anywhere else.
+The tech is remarkable. The ride is smooth, safe, and genuinely impressive. The [safety data](https://waymo.com/safety/impact/) speaks for itself, 90% fewer serious crashes than human drivers. The accessibility work is some of the best we've seen from any transport company, and the involvement of 13 disability organisations in the product development process isn't something we've seen anywhere else.
 
-The one weak spot — pickup clarity when the car can't park right next to you — is fixable and directly affects the riders who need this technology the most. We hope Waymo keeps pushing on that.
+The one weak spot, pickup clarity when the car can't park right next to you, is fixable and directly affects the riders who need this technology the most. We hope Waymo keeps pushing on that.
 
 If you're in San Francisco, Phoenix, Los Angeles, or Austin, try it. And if you work in accessibility, pay attention to what Waymo is doing. They're setting a standard that the rest of the industry should be following.
 

@@ -7,7 +7,7 @@ layout: templates/post.liquid
 title: 🧼 Delete Your Tweets, Retweets & Likes Without Installing Anything
 description:
   Want to clean up your Twitter without giving access to third-party apps? This simple script lets
-  you delete tweets, unretweet, and unlike right from Chrome — and it even pauses to avoid rate
+  you delete tweets, unretweet, and unlike right from Chrome, and it even pauses to avoid rate
   limits.
 keywords:
   Twitter Cleanup, JavaScript Tools, Chrome Console, Delete Tweets, Unretweet, Unlike Tweets, Coffee

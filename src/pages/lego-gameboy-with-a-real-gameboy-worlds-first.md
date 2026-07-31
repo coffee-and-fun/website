@@ -8,7 +8,7 @@ layout: templates/post.liquid
 title: 
   "World’s First LEGO Game Boy With a Real Nintendo Inside (Work in Progress Build Log)"
 description: 
-  "I got my hands on the LEGO Game Boy set early through eBay and I’m attempting to fit an original Nintendo Game Boy inside it — aiming to be the first in the world to pull it off. This live blog tracks the build, mods, and progress."
+  "I got my hands on the LEGO Game Boy set early through eBay and I’m attempting to fit an original Nintendo Game Boy inside it, aiming to be the first in the world to pull it off. This live blog tracks the build, mods, and progress."
 keywords: 
   - LEGO Game Boy
   - LEGO Game Boy Mod
@@ -24,7 +24,7 @@ blog_cat: LEGO Projects
 youtubeId: '' # add once your video is live
 cardTitle: "Fitting a Real Game boy Into the LEGO Game Boy (World’s First Attempt)"
 blog_snip: 
-  "I managed to snag the LEGO Game Boy before its official release — and I’m documenting my attempt to fit a real Nintendo Game Boy inside it. This is a live build log, updated as the project evolves."
+  "I managed to snag the LEGO Game Boy before its official release, and I’m documenting my attempt to fit a real Nintendo Game Boy inside it. This is a live build log, updated as the project evolves."
 name: Robert James Gabriel
 img: /assets/images/social/pages/lego-gameboy-mod.png # swap with your first unboxing/build shot
 date: 2025-09-08T21:43:57.317930
@@ -39,7 +39,7 @@ tags:
 ---
 
 
-I managed to snag the LEGO Game Boy set early off eBay — before its official release date in October 2025.  
+I managed to snag the LEGO Game Boy set early off eBay, before its official release date in October 2025.  
 My goal? To fit an **original Nintendo Game Boy** inside it, making this the first of its kind in the world.  
 This is a live build log, updated as I go. Stay tuned for photos, updates, and the final reveal!
 
@@ -70,7 +70,7 @@ This is a live build log, updated as I go. Stay tuned for photos, updates, and t
 
 ## Build Log – Step 2: Testing the Fit  
 *Coming soon…*  
-(Placing the real Game Boy inside the LEGO shell — will it fit?)
+(Placing the real Game Boy inside the LEGO shell, will it fit?)
 
 ---
 

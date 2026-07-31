@@ -40,7 +40,7 @@ Last week, I received an email that made my blood boil. A well-known business in
 
 The problem? I never created a profile with them. I never gave them permission. And worst of all, **every single detail** they were publishing was completely, laughably wrong.
 
-What followed was one of the most frustrating email exchanges I've ever had — a masterclass in corporate gaslighting, policy theater, and the kind of circular logic that makes you want to throw your laptop out the window.
+What followed was one of the most frustrating email exchanges I've ever had, a masterclass in corporate gaslighting, policy theater, and the kind of circular logic that makes you want to throw your laptop out the window.
 
 ## The Unwelcome Surprise
 
@@ -106,7 +106,7 @@ I didn't hold back in my last email:
 
 *"I'm not providing additional details, as I don't trust a site that emails me out of the blue with a profile I never created and that appears to profit from collecting and publishing company data without consent."*
 
-And I called out one more thing that really bothered me: their email footer said "Don't want to receive these emails? Manage your email preferences" — but to manage those preferences, I'd have to create an account with them.
+And I called out one more thing that really bothered me: their email footer said "Don't want to receive these emails? Manage your email preferences", but to manage those preferences, I'd have to create an account with them.
 
 Think about that. To opt out of emails about a profile I never created, I need to create an account with the very platform I'm trying to distance myself from. 
 
@@ -135,17 +135,17 @@ When did it become acceptable for companies to create profiles about us, publish
 
 The internet has created incredible opportunities for transparency and information sharing. But it's also created a new kind of problem: platforms that aggregate, publish, and profit from information about people and companies who never asked to be in their database.
 
-I'm still waiting to see if they'll actually delete the profile. But regardless of the outcome, this exchange was a reminder that in the age of data aggregation, we need to be vigilant about how our information is being used — and willing to push back when it's being misused.
+I'm still waiting to see if they'll actually delete the profile. But regardless of the outcome, this exchange was a reminder that in the age of data aggregation, we need to be vigilant about how our information is being used, and willing to push back when it's being misused.
 
 ## Update
 
 They removed the profile. But here's the kicker: they never emailed me back to confirm it.
 
-After all those back-and-forth emails about how they "couldn't delete profiles" because of their policy, about how they could only remove the public-facing version but not the client-facing one, about how they wanted to "work with me" to ensure accuracy — they just quietly removed it and ghosted me.
+After all those back-and-forth emails about how they "couldn't delete profiles" because of their policy, about how they could only remove the public-facing version but not the client-facing one, about how they wanted to "work with me" to ensure accuracy, they just quietly removed it and ghosted me.
 
 No confirmation. No apology. No acknowledgment that they could, in fact, delete the profile they said they couldn't delete.
 
-**Here's what I think happened:** The moment I pointed out the contradiction between their GDPR claims and their email opt-out process, they realized they had a problem. They were proudly citing GDPR compliance while simultaneously requiring account creation to manage email preferences. That's not just bad practice — it's potentially a violation of the very regulation they were using to justify themselves.
+**Here's what I think happened:** The moment I pointed out the contradiction between their GDPR claims and their email opt-out process, they realized they had a problem. They were proudly citing GDPR compliance while simultaneously requiring account creation to manage email preferences. That's not just bad practice, it's potentially a violation of the very regulation they were using to justify themselves.
 
 So they did what any company caught in a contradiction does: they silently fixed the problem and hoped I wouldn't notice they'd just invalidated every excuse they'd given me.
 

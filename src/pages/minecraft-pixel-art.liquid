@@ -294,7 +294,7 @@
 
           <h2 class="font-mc text-sm text-white mb-3" style="text-shadow: 2px 2px 0 rgba(0,0,0,.6);">DROP IMAGE HERE</h2>
           <p class="font-px text-2xl text-stone-100">click to browse &bull; or paste with Ctrl+V</p>
-          <p class="font-px text-xl text-stone-300 mt-1">PNG, JPG, or WEBP &mdash; any size</p>
+          <p class="font-px text-xl text-stone-300 mt-1">PNG, JPG, or WEBP, any size</p>
 
           <button type="button" @click.stop="loadSample" class="mc-btn mc-btn-gold mt-6">
             NO IMAGE? TRY A SAMPLE
@@ -361,7 +361,7 @@
         </div>
         <p class="font-px text-xl text-emerald-800 mt-4 flex items-center gap-2" role="status" aria-live="polite">
           <span v-if="isGenerating">Mining blocks&hellip;</span>
-          <span v-else>Changes apply instantly &mdash; no button mashing needed.</span>
+          <span v-else>Changes apply instantly, no button mashing needed.</span>
         </p>
       </section>
 
@@ -392,7 +392,7 @@
           <!-- Build guide tab -->
           <div v-show="activeTab === 'guide'" role="tabpanel" aria-label="Numbered build guide">
             <p class="font-px text-xl text-stone-700 mb-3">
-              Every cell shows the block number. Click a chip to spotlight one block and see exactly where it goes &mdash; everything else fades out. Bold lines mark 16-block chunks.
+              Every cell shows the block number. Click a chip to spotlight one block and see exactly where it goes, everything else fades out. Bold lines mark 16-block chunks.
             </p>
 
             <!-- Block spotlight chips -->
@@ -413,7 +413,7 @@
             </div>
 
             <p v-if="highlightNum !== null" class="font-px text-xl text-emerald-800 mb-3" role="status" aria-live="polite">
-              {% raw %}Spotlighting #{{ highlightNum }} — {{ highlightName }} ({{ highlightCount.toLocaleString() }} to place){% endraw %}
+              {% raw %}Spotlighting #{{ highlightNum }}, {{ highlightName }} ({{ highlightCount.toLocaleString() }} to place){% endraw %}
             </p>
 
             <div class="mc-viewport" tabindex="0" aria-label="Scrollable build guide. Each cell is numbered with the block to place.">
@@ -484,11 +484,11 @@
           <ol class="space-y-4 font-px text-2xl text-stone-800">
             <li class="flex gap-4 items-start">
               <span class="mc-chip" style="background:#417a28; color:#fff;">1</span>
-              <span>Download the <strong>Build Guide PNG</strong> &mdash; every cell is numbered, and the legend at the bottom maps numbers to blocks.</span>
+              <span>Download the <strong>Build Guide PNG</strong>, every cell is numbered, and the legend at the bottom maps numbers to blocks.</span>
             </li>
             <li class="flex gap-4 items-start">
               <span class="mc-chip" style="background:#417a28; color:#fff;">2</span>
-              <span>Gather the blocks from the shopping list. A stack is 64 &mdash; the list does the math for you.</span>
+              <span>Gather the blocks from the shopping list. A stack is 64, the list does the math for you.</span>
             </li>
             <li class="flex gap-4 items-start">
               <span class="mc-chip" style="background:#417a28; color:#fff;">3</span>
@@ -515,7 +515,7 @@
   <script>
     const { createApp } = Vue;
 
-    // Minecraft block palette — name, [R, G, B]
+    // Minecraft block palette, name, [R, G, B]
     const MINECRAFT_BLOCKS = [
       { name: 'White Concrete', rgb: [207, 213, 214] },
       { name: 'Orange Concrete', rgb: [224, 97, 1] },
@@ -622,7 +622,7 @@
     });
 
     function colorDistance(r1, g1, b1, r2, g2, b2) {
-      // Weighted Euclidean — human eyes are more sensitive to green
+      // Weighted Euclidean, human eyes are more sensitive to green
       const rMean = (r1 + r2) / 2;
       const dr = r1 - r2;
       const dg = g1 - g2;
@@ -1167,7 +1167,7 @@
           ctx.textBaseline = 'middle';
           ctx.fillStyle = '#111111';
           ctx.font = 'bold 14px ui-sans-serif, system-ui, sans-serif';
-          ctx.fillText('LEGEND — number = block', MARGIN, ly - 8);
+          ctx.fillText('LEGEND, number = block', MARGIN, ly - 8);
           ly += 10;
           const colWidth = Math.floor((gridW + MARGIN - 20) / legendCols);
           this.numberedBlocks.forEach((nb, i) => {
@@ -1203,7 +1203,7 @@
 
         downloadGuide() {
           const link = document.createElement('a');
-          // Downloads exactly what you see — with a spotlight active, this
+          // Downloads exactly what you see, with a spotlight active, this
           // makes a printable per-block placement sheet.
           link.download = this.highlightNum !== null
             ? 'minecraft-build-guide-block-' + this.highlightNum + '.png'

@@ -38,7 +38,7 @@ We updated with a new script, that works correctly and explained it in more deta
 ## 🧠 What Happened
 
 A friend of mine recently got locked out of their Poshmark store. They had built up over **20,000
-listings** over the years — detailed titles, prices, photos, descriptions, the whole deal. But with
+listings** over the years, detailed titles, prices, photos, descriptions, the whole deal. But with
 no way to log in and no official export tool, they had no way to get it all back.
 
 So I built them a script to do exactly that, ethically.
@@ -69,7 +69,7 @@ This script automates the following:
 5. Saves everything to folders
 6. Compiles a clean `listings.csv` with everything
 
-It mimics human browsing and respects site structure — no flooding, no abuse, and no logins needed.
+It mimics human browsing and respects site structure, no flooding, no abuse, and no logins needed.
 
 ---
 
@@ -343,14 +343,14 @@ You’ll see:
 
 ## 🧠 How It Works (Behind the Scenes)
 
-This script might look simple at a glance, but it actually handles some cool stuff under the hood —
+This script might look simple at a glance, but it actually handles some cool stuff under the hood 
 especially when you realize it’s mimicking human behavior in a really smooth way.
 
 ---
 
 ### 🌀 Scrolling Listings
 
-Poshmark doesn’t load all listings at once — they load dynamically as you scroll. So the script uses
+Poshmark doesn’t load all listings at once, they load dynamically as you scroll. So the script uses
 this function:
 
 ```js
@@ -358,7 +358,7 @@ window.scrollTo(0, document.body.scrollHeight);
 ```
 
 and does it in a loop, waiting between scrolls (`sleep(3000)`) to give the page time to load new
-listings. It also checks if no new tiles were added — which is a slick way of knowing, “hey, we’re
+listings. It also checks if no new tiles were added, which is a slick way of knowing, “hey, we’re
 done scrolling.”
 
 This lets it work with **10 listings or 20,000** without changing anything. Super flexible.
@@ -374,7 +374,7 @@ Then it waits for:
 page.waitForNavigation({ waitUntil: 'domcontentloaded' });
 ```
 
-This tells Puppeteer to hang tight until the page is fully loaded — which is a great way to avoid
+This tells Puppeteer to hang tight until the page is fully loaded, which is a great way to avoid
 scraping before the content is ready.
 
 This also means it’ll work even if Poshmark updates their URL structure, as long as the page UI
@@ -388,7 +388,7 @@ Once inside a listing, it pulls:
 
 - The title (used for naming folders)
 - The current price (from the `.h1` that contains mixed elements)
-- The description (if it exists — and gracefully skips it if not)
+- The description (if it exists, and gracefully skips it if not)
 - The current URL (for linking back)
 - All images from the slideshow (using `.img__container--square` containers)
 
@@ -401,7 +401,7 @@ Array.from(el.childNodes)
 	.join(' ');
 ```
 
-That little snippet is low-key clever — it grabs just the visible price text and skips things like
+That little snippet is low-key clever, it grabs just the visible price text and skips things like
 the original crossed-out price or embedded spans.
 
 ---
@@ -411,7 +411,7 @@ the original crossed-out price or embedded spans.
 Instead of just copying the image URLs, it **downloads every image** and saves them into the folder
 with names like `1.jpg`, `2.jpg`, etc.
 
-The download uses native Node.js `https` streams — so there are no external libraries or
+The download uses native Node.js `https` streams, so there are no external libraries or
 dependencies. Just clean, raw file writing:
 
 ```js
@@ -420,7 +420,7 @@ https.get(url, (response) => {
 });
 ```
 
-And it retries or skips gracefully if something fails — so the script doesn’t crash halfway through
+And it retries or skips gracefully if something fails, so the script doesn’t crash halfway through
 a big run.
 
 ---
@@ -433,7 +433,7 @@ The most satisfying part?
 - Inside is:
   - A `.txt` file with the title, description, price, and link
   - The images
-- And the CSV file includes everything, **even the full image paths** — so you can import it into a
+- And the CSV file includes everything, **even the full image paths**, so you can import it into a
   spreadsheet and sort/search easily
 
 ## 🛡️ Why It’s Ethical
@@ -447,10 +447,10 @@ content** or help a friend recover theirs.
 ## 🧾 Final Thoughts
 
 I built this tool to solve a real problem. If you're a seller on Poshmark, you deserve a way to own
-your own data. This script helps you do that safely and ethically — and it works.
+your own data. This script helps you do that safely and ethically, and it works.
 
 Need help running it or want to export to Google Sheets, JSON, or even zip the folders? Let me know
-— happy to help.
+I'm happy to help.
 
 Built with ☕️ and code by  
 **The Coffee and Fun Team**

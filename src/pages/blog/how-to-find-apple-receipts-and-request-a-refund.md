@@ -29,7 +29,7 @@ tags:
 
 # How to Find Apple Receipts and Request a Refund (Without Losing Your Mind)
 
-Let’s be honest—Apple charges sneak up on all of us. A forgotten subscription, an accidental in-app purchase, or a kid tapping **Buy** a little too confidently. The good news? Apple actually makes it pretty easy to **find receipts and request refunds**… if you know where to look.
+Let’s be honest, Apple charges sneak up on all of us. A forgotten subscription, an accidental in-app purchase, or a kid tapping **Buy** a little too confidently. The good news? Apple actually makes it pretty easy to **find receipts and request refunds**… if you know where to look.
 
 Let’s get you sorted quickly.
 
@@ -110,7 +110,7 @@ Perfect for:
 
 ### 5. Request a Refund (If Needed)
 
-If something looks wrong—or you didn’t mean to buy it:
+If something looks wrong, or you didn’t mean to buy it:
 
 1. Click **Request a refund** or **Report a problem**
 2. Choose a reason (accidental purchase, didn’t mean to subscribe, etc.)
@@ -118,7 +118,7 @@ If something looks wrong—or you didn’t mean to buy it:
 
 Apple usually responds within **24–48 hours** by email.
 
-> Refunds aren’t guaranteed, but Apple is generally fair—especially for recent or accidental
+> Refunds aren’t guaranteed, but Apple is generally fair, especially for recent or accidental
 > purchases.
 
 ---
@@ -139,7 +139,7 @@ If approved, the refund usually lands back on your original payment method withi
 
 - Subscriptions are easier to refund **soon after renewal**
 - One-time app purchases are often refundable if unused
-- Be honest when selecting a reason—it actually helps
+- Be honest when selecting a reason, it actually helps
 - Family Sharing purchases appear under the organizer’s Apple ID
 
 ---

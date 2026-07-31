@@ -7,7 +7,7 @@
   <!-- Primary Meta Tags -->
   <title>Word Clock - Time in Words | Coffee & Fun</title>
   <meta name="title" content="Word Clock - Time in Words | Coffee & Fun" />
-  <meta name="description" content="A word clock that spells out the current time — the right words light up in a grid of letters. IT IS TWENTY MINUTES PAST TEN. Free, no sign-up, runs in your browser." />
+  <meta name="description" content="A word clock that spells out the current time, the right words light up in a grid of letters. IT IS TWENTY MINUTES PAST TEN. Free, no sign-up, runs in your browser." />
   <meta name="keywords" content="word clock, time display, clock widget, time in words, digital clock, Coffee and Fun" />
   <meta name="author" content="Coffee & Fun LLC" />
   <meta name="publisher" content="Coffee & Fun LLC" />
@@ -16,7 +16,7 @@
   <meta property="og:type" content="website" />
   <meta property="og:url" content="https://www.coffeeandfun.com/word-clock/" />
   <meta property="og:title" content="Word Clock - Time in Words" />
-  <meta property="og:description" content="A word clock that spells out the current time — the right words light up in a grid of letters." />
+  <meta property="og:description" content="A word clock that spells out the current time, the right words light up in a grid of letters." />
   <meta property="og:image" content="https://www.coffeeandfun.com/assets/images/social/pages/word-clock.png" />
   <meta property="og:image:width" content="1200" />
   <meta property="og:image:height" content="630" />
@@ -53,7 +53,7 @@
     "@context": "https://schema.org",
     "@type": "WebApplication",
     "name": "Word Clock",
-    "description": "A word clock that spells out the current time — the right words light up in a grid of letters.",
+    "description": "A word clock that spells out the current time, the right words light up in a grid of letters.",
     "url": "https://www.coffeeandfun.com/word-clock/",
     "applicationCategory": "UtilityApplication",
     "operatingSystem": "Any",
@@ -179,7 +179,7 @@
       font-size: clamp(0.95rem, 4.4vw, 1.7rem);
       font-weight: 500;
       letter-spacing: 0.02em;
-      color: var(--faint); /* decorative, aria-hidden — the one place faint is fine */
+      color: var(--faint); /* decorative, aria-hidden, the one place faint is fine */
     }
     .letter.on { color: var(--ink); }
     .letters.smooth .letter { transition: color 0.6s ease; }
@@ -362,7 +362,7 @@
 
     <header id="tool">
       <h1>The time, spelled out in letters</h1>
-      <p class="lede">A grid of letters where the right words light up &mdash; IT IS TWENTY MINUTES PAST TEN. Leave it open on a spare screen, or take it full screen and watch the minutes drift by.</p>
+      <p class="lede">A grid of letters where the right words light up, IT IS TWENTY MINUTES PAST TEN. Leave it open on a spare screen, or take it full screen and watch the minutes drift by.</p>
     </header>
 
     <!-- Spoken time for screen readers, updated once a minute -->
@@ -370,7 +370,7 @@
 
     <section class="clock-card" id="clock-card" aria-label="Word clock">
       <noscript>
-        <p class="noscript-note">The clock needs JavaScript to light up &mdash; turn it on and reload to see the time in words.</p>
+        <p class="noscript-note">The clock needs JavaScript to light up, turn it on and reload to see the time in words.</p>
       </noscript>
       <div class="letters" id="letters" aria-hidden="true"></div>
       <p class="plain-time" id="digital-time"></p>
@@ -390,7 +390,7 @@
       <button type="button" class="btn-fs" id="btn-fullscreen">Full screen</button>
     </div>
 
-    <p class="foot">The clock runs entirely in your browser &mdash; nothing to install, nothing tracked.</p>
+    <p class="foot">The clock runs entirely in your browser, nothing to install, nothing tracked.</p>
   </main>
 
   {% include footer.liquid %}
@@ -399,7 +399,7 @@
     (function () {
       'use strict';
 
-      /* 11×11 letter grid. Same vocabulary and shape as always —
+      /* 11×11 letter grid. Same vocabulary and shape as always 
          IT IS <minutes> MINUTES PAST/TO <hour> / <hour> O'CLOCK. */
       var ROWS = [
         'ITLISASTHPM',
@@ -497,7 +497,7 @@
         return out;
       }
 
-      /* Settings — same localStorage key as before, so saved
+      /* Settings, same localStorage key as before, so saved
          preferences carry over. */
       var settings = { use24Hour: false, smoothTransitions: true };
       try {
@@ -509,7 +509,7 @@
       function saveSettings() {
         try {
           localStorage.setItem('wordClockSettings', JSON.stringify(settings));
-        } catch (e) { /* storage blocked — settings just won't persist */ }
+        } catch (e) { /* storage blocked, settings just won't persist */ }
       }
 
       function applySmooth() {
@@ -566,7 +566,7 @@
           if (document.fullscreenElement) {
             document.exitFullscreen();
           } else {
-            card.requestFullscreen().catch(function () { /* denied — no-op */ });
+            card.requestFullscreen().catch(function () { /* denied, no-op */ });
           }
         });
         document.addEventListener('fullscreenchange', function () {

@@ -6,7 +6,7 @@
 
     <!-- Primary Meta Tags -->
     <title>Video Metadata Viewer & Remover - See & Strip Hidden Video Data | Coffee & Fun</title>
-    <meta name="description" content="See the hidden metadata inside your videos — GPS location, device, timestamps — and download a clean copy with it removed. Free, private, and everything happens in your browser." />
+    <meta name="description" content="See the hidden metadata inside your videos, GPS location, device, timestamps, and download a clean copy with it removed. Free, private, and everything happens in your browser." />
     <meta name="keywords" content="video metadata, video EXIF, video privacy, metadata removal, video editor, MP4 metadata, Coffee and Fun" />
     <meta name="author" content="Coffee & Fun LLC" />
     <meta name="publisher" content="Coffee & Fun LLC" />
@@ -23,7 +23,7 @@
     <meta property="og:type" content="website" />
     <meta property="og:site_name" content="Coffee & Fun" />
     <meta property="og:title" content="Video Metadata Viewer & Remover - See & Strip Hidden Video Data" />
-    <meta property="og:description" content="See the hidden metadata inside your videos — GPS location, device, timestamps — and download a clean copy. Everything happens in your browser." />
+    <meta property="og:description" content="See the hidden metadata inside your videos, GPS location, device, timestamps, and download a clean copy. Everything happens in your browser." />
     <meta property="og:url" content="https://www.coffeeandfun.com/meta-videos" />
     <meta property="og:image" content="https://www.coffeeandfun.com/assets/images/social/pages/meta-videos.png" />
     <meta property="og:image:width" content="1200" />
@@ -36,7 +36,7 @@
     <meta name="twitter:site" content="@bycoffeeandfun" />
     <meta name="twitter:creator" content="@bycoffeeandfun" />
     <meta name="twitter:title" content="Video Metadata Viewer & Remover - See & Strip Hidden Video Data" />
-    <meta name="twitter:description" content="See the hidden metadata inside your videos and download a clean copy. Free and private — nothing is uploaded." />
+    <meta name="twitter:description" content="See the hidden metadata inside your videos and download a clean copy. Free and private, nothing is uploaded." />
     <meta name="twitter:image" content="https://www.coffeeandfun.com/assets/images/social/pages/meta-videos.png" />
 
     <meta name="theme-color" content="#f4f4f2" />
@@ -65,7 +65,7 @@
                 "@id": "https://www.coffeeandfun.com/meta-videos#webpage",
                 "url": "https://www.coffeeandfun.com/meta-videos",
                 "name": "Video Metadata Viewer & Remover",
-                "description": "See the hidden metadata inside your videos and download a clean copy with it removed — all in your browser.",
+                "description": "See the hidden metadata inside your videos and download a clean copy with it removed, all in your browser.",
                 "isPartOf": {
                     "@id": "https://www.coffeeandfun.com/#website"
                 },
@@ -463,7 +463,7 @@
 
         <header id="tool">
             <h1>See what your videos know about you</h1>
-            <p class="lede">Phone videos quietly carry your location, your device, and the exact moment you pressed record. Drop one in to read everything — then download a clean copy with that data blanked out. Nothing is uploaded; it all happens on your device.</p>
+            <p class="lede">Phone videos quietly carry your location, your device, and the exact moment you pressed record. Drop one in to read everything, then download a clean copy with that data blanked out. Nothing is uploaded; it all happens on your device.</p>
         </header>
 
         <!-- Live status for screen readers -->
@@ -471,13 +471,13 @@
 
         <!-- ===== Step 1: pick a video ===== -->
         <section class="step" aria-labelledby="h-pick">
-            <h2 class="step-label" id="h-pick">1 — Pick a video</h2>
+            <h2 class="step-label" id="h-pick">1, Pick a video</h2>
 
             <label v-if="!file" for="vid-file" class="drop" :class="{ drag: dragOver }"
                    @dragover.prevent="dragOver = true" @dragleave="dragOver = false" @drop.prevent="onDrop">
                 <div class="ico"><svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m16 10 6-4v12l-6-4"/><rect x="2" y="6" width="14" height="12" rx="2"/></svg></div>
                 <div class="main">Drop a video here, or click to choose</div>
-                <div class="sub">MP4, MOV, WebM, MKV, AVI — most video formats work</div>
+                <div class="sub">MP4, MOV, WebM, MKV, AVI, most video formats work</div>
                 <input id="vid-file" ref="fileInput" type="file" accept="video/*,.mp4,.mov,.m4v,.3gp,.webm,.mkv,.avi" class="sr-only" @change="onFileChange" aria-labelledby="h-pick" />
             </label>
 
@@ -502,7 +502,7 @@
 
             <p v-if="busyReading" class="status" role="status">
                 <span class="spin dark" aria-hidden="true"></span>
-                <span>{{ statusText }}<template v-if="phase === 'reading' && progress > 0"> — {{ progress }}%</template></span>
+                <span>{{ statusText }}<template v-if="phase === 'reading' && progress > 0">, {{ progress }}%</template></span>
             </p>
             <div v-if="phase === 'reading'" class="bar" aria-hidden="true">
                 <div class="bar-fill" :style="{ width: progress + '%' }"></div>
@@ -516,7 +516,7 @@
 
         <!-- ===== Step 2: what's inside ===== -->
         <section v-if="hasResults" class="step" aria-labelledby="h-inside">
-            <h2 class="step-label" id="h-inside">2 — What&rsquo;s inside</h2>
+            <h2 class="step-label" id="h-inside">2, What&rsquo;s inside</h2>
 
             <div class="chip-row">
                 <span class="chip-stat">{{ fieldCount }} metadata field{{ fieldCount === 1 ? '' : 's' }}</span>
@@ -555,7 +555,7 @@
 
         <!-- ===== Step 3: clean it ===== -->
         <section v-if="hasResults" class="step" aria-labelledby="h-clean">
-            <h2 class="step-label" id="h-clean">3 — Clean it</h2>
+            <h2 class="step-label" id="h-clean">3, Clean it</h2>
 
             <template v-if="!cleaned">
                 <p class="hint-p">{{ cleanExplainer }}</p>
@@ -567,12 +567,12 @@
             </template>
 
             <div v-else class="result">
-                <p class="result-title">{{ cleaned.removed.length ? 'Done — here’s what was blanked out:' : (canRewrite ? 'Already clean' : 'Copied as-is') }}</p>
+                <p class="result-title">{{ cleaned.removed.length ? 'Done, here’s what was blanked out:' : (canRewrite ? 'Already clean' : 'Copied as-is') }}</p>
                 <ul v-if="cleaned.removed.length" class="removed">
                     <li v-for="r in cleaned.removed" :key="r">{{ r }}</li>
                 </ul>
                 <p v-if="cleaned.note" class="hint-p">{{ cleaned.note }}</p>
-                <p class="stamp">Original {{ formatFileSize(fileSize) }} → clean copy {{ formatFileSize(cleaned.size) }}. The picture and sound are copied bit-for-bit — no re-encoding, no quality loss.</p>
+                <p class="stamp">Original {{ formatFileSize(fileSize) }} → clean copy {{ formatFileSize(cleaned.size) }}. The picture and sound are copied bit-for-bit, no re-encoding, no quality loss.</p>
                 <div class="result-actions">
                     <button type="button" class="btn btn-primary" @click="downloadClean">Download clean copy</button>
                     <button type="button" class="btn btn-secondary" @click="reset">Clean another video</button>
@@ -582,7 +582,7 @@
 
         <p class="note" style="margin-top: 2.5rem;">
             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
-            <span>Your videos never leave your browser. Reading and cleaning both happen on your own device — nothing is uploaded, nothing is tracked.</span>
+            <span>Your videos never leave your browser. Reading and cleaning both happen on your own device, nothing is uploaded, nothing is tracked.</span>
         </p>
 
         <!-- ===== About ===== -->
@@ -591,10 +591,10 @@
             <h3>What is video metadata?</h3>
             <p>Video files carry more than pictures and sound. Depending on what recorded them, they can include GPS coordinates, the device make and model, creation timestamps, the software that edited them, and sometimes names or other personal details.</p>
             <h3>Why remove it?</h3>
-            <p>Metadata can reveal when and where a video was recorded and what recorded it. Blanking it before you share a file protects your privacy — the video itself looks and plays exactly the same.</p>
+            <p>Metadata can reveal when and where a video was recorded and what recorded it. Blanking it before you share a file protects your privacy, the video itself looks and plays exactly the same.</p>
         </section>
 
-        <p class="foot">Everything happens in your browser — your videos never leave this page.</p>
+        <p class="foot">Everything happens in your browser, your videos never leave this page.</p>
     </main>
 {% endraw %}
 
@@ -602,7 +602,7 @@
 
     <script>
         /* ============================================================
-           Inline container parsers — no CDN parser library needed.
+           Inline container parsers, no CDN parser library needed.
            Everything reads the raw bytes locally:
              - ISO BMFF (MP4 / MOV / M4V / 3GP): boxes, udta, meta/ilst,
                QuickTime keys, GPS (©xyz / ISO 6709), codecs, timestamps
@@ -948,21 +948,21 @@
                             if (currentHandler === 'vide' && !meta['Video Codec']) meta['Video Codec'] = nice;
                             else if (currentHandler === 'soun' && !meta['Audio Codec']) meta['Audio Codec'] = nice;
                             else if (format === 'gpmd' || currentHandler === 'meta') {
-                                meta['Embedded Data Track'] = 'Present (' + (format === 'gpmd' ? 'GoPro GPMF telemetry — may include GPS' : format.trim() || currentHandler) + ')';
+                                meta['Embedded Data Track'] = 'Present (' + (format === 'gpmd' ? 'GoPro GPMF telemetry, may include GPS' : format.trim() || currentHandler) + ')';
                                 notes.push('This video carries an embedded telemetry track inside the video stream itself (for example GoPro GPMF, which can include GPS). Blanking tools can’t remove that without re-encoding, so it stays in the clean copy.');
                             }
                         }
                     } else if (h.type === 'udta') {
                         freeBoxes.push({ start: off, header: h.header, end: boxEnd });
-                        addLabel('User-data atom (udta) — device, app and location tags');
+                        addLabel('User-data atom (udta), device, app and location tags');
                         walkUdta(payload, boxEnd);
                     } else if (h.type === 'meta') {
                         freeBoxes.push({ start: off, header: h.header, end: boxEnd });
-                        addLabel('Metadata atom (meta / ilst) — key-value tags');
+                        addLabel('Metadata atom (meta / ilst), key-value tags');
                         parseMetaBox(payload, boxEnd);
                     } else if (h.type === 'uuid') {
                         freeBoxes.push({ start: off, header: h.header, end: boxEnd });
-                        addLabel('Extended (uuid) atom — often XMP metadata');
+                        addLabel('Extended (uuid) atom, often XMP metadata');
                         setText('XMP / uuid Metadata', 'Present (' + h.size + ' bytes)');
                     } else if (BMFF_CONTAINERS[h.type]) {
                         if (h.type === 'trak') currentHandler = '';
@@ -1017,7 +1017,7 @@
             const view = new DataView(buffer);
             const meta = {};
             const notes = [];
-            const junkChunks = []; // { start, end } — rename to JUNK + zero data
+            const junkChunks = []; // { start, end }, rename to JUNK + zero data
             const removedLabels = [];
             const form = fourcc(view, 8);
             meta['Container Format'] = form === 'AVI ' ? 'AVI (RIFF)' : 'RIFF (' + form.trim() + ')';
@@ -1051,7 +1051,7 @@
                         const listType = fourcc(view, dataStart);
                         if (listType === 'INFO') {
                             junkChunks.push({ start: off, end: dataEnd });
-                            addLabel('INFO block — title, software, dates and credits');
+                            addLabel('INFO block, title, software, dates and credits');
                             walkInfo(dataStart + 4, dataEnd);
                         } else {
                             walk(dataStart + 4, dataEnd, depth + 1);
@@ -1060,7 +1060,7 @@
                         const value = decodeBytes(view, dataStart, size);
                         if (value) meta['Creation Date'] = value;
                         junkChunks.push({ start: off, end: dataEnd });
-                        addLabel('IDIT chunk — original recording date');
+                        addLabel('IDIT chunk, original recording date');
                     }
                     off = dataEnd + (size & 1);
                 }
@@ -1173,7 +1173,7 @@
                                     const ms = Number(nanos / 1000000n) + Date.UTC(2001, 0, 1);
                                     const d = new Date(ms);
                                     if (!isNaN(d)) meta['Date Recorded (UTC)'] = d.toLocaleString();
-                                } catch (e) { /* BigInt unsupported — skip display, still strippable */ }
+                                } catch (e) { /* BigInt unsupported, skip display, still strippable */ }
                                 voidTargets.push({ start: iStart, total: iDataEnd - iStart });
                                 addLabel('Recording date (DateUTC)');
                             }
@@ -1181,7 +1181,7 @@
                     } else if (cid === EBML.TAGS) {
                         meta['Embedded Tags'] = 'Present (' + (cDataEnd - cStart) + ' bytes)';
                         voidTargets.push({ start: cStart, total: cDataEnd - cStart });
-                        addLabel('Tags block — arbitrary key-value tags');
+                        addLabel('Tags block, arbitrary key-value tags');
                     }
                 });
             });
@@ -1220,7 +1220,7 @@
 
         const { createApp } = Vue;
 
-        const MAX_BYTES = 2 * 1024 * 1024 * 1024; // ~2 GB — browser memory ceiling for one ArrayBuffer read
+        const MAX_BYTES = 2 * 1024 * 1024 * 1024; // ~2 GB, browser memory ceiling for one ArrayBuffer read
 
         createApp({
             data() {
@@ -1231,7 +1231,7 @@
                     fileType: '',
                     lastModified: 0,
                     previewUrl: '',
-                    videoInfo: {},          // duration, width, height, bitrate — from the <video> element
+                    videoInfo: {},          // duration, width, height, bitrate, from the <video> element
                     parsedMeta: {},         // real fields read from the container bytes
                     parseNotes: [],
                     container: '',          // 'mp4' | 'riff' | 'ebml' | 'unknown'
@@ -1300,11 +1300,11 @@
                 privacyFindings() {
                     const m = this.metadata;
                     const out = [];
-                    if (this.hasGpsData) out.push('GPS coordinates — they reveal exactly where this was recorded.');
-                    if (this.hasPersonalData) out.push('Personal details — names or other identifying information in the tags.');
-                    if (m['Device Make'] || m['Device Model']) out.push('Device information — reveals what recorded it.');
-                    if (m['Software'] || m['Encoder']) out.push('Software information — may reveal the tools that made or edited it.');
-                    if (m['Creation Time'] || m['Modification Time'] || m['Creation Date'] || m['Date Recorded (UTC)']) out.push('Timestamps — reveal exactly when it was recorded.');
+                    if (this.hasGpsData) out.push('GPS coordinates, they reveal exactly where this was recorded.');
+                    if (this.hasPersonalData) out.push('Personal details, names or other identifying information in the tags.');
+                    if (m['Device Make'] || m['Device Model']) out.push('Device information, reveals what recorded it.');
+                    if (m['Software'] || m['Encoder']) out.push('Software information, may reveal the tools that made or edited it.');
+                    if (m['Creation Time'] || m['Modification Time'] || m['Creation Date'] || m['Date Recorded (UTC)']) out.push('Timestamps, reveal exactly when it was recorded.');
                     return out;
                 },
 
@@ -1332,13 +1332,13 @@
                 cleanExplainer() {
                     if (this.canRewrite && this.planLabels.length) {
                         return 'One click rewrites the file on your device and blanks: ' +
-                               this.planLabels.map(function (l) { return l.split(' — ')[0].toLowerCase(); }).join('; ') +
+                               this.planLabels.map(function (l) { return l.split(', ')[0].toLowerCase(); }).join('; ') +
                                '. The video and audio streams aren’t touched or re-encoded.';
                     }
                     if (this.canRewrite) {
-                        return 'Good news — we didn’t find any removable metadata atoms in this file. It already looks clean, but you can still download a copy.';
+                        return 'Good news, we didn’t find any removable metadata atoms in this file. It already looks clean, but you can still download a copy.';
                     }
-                    return 'This file isn’t one we can safely rewrite in the browser, so the fields above are what we could read — and the download will be an unchanged copy of your file.';
+                    return 'This file isn’t one we can safely rewrite in the browser, so the fields above are what we could read, and the download will be an unchanged copy of your file.';
                 },
 
                 cleanButtonLabel() {
@@ -1404,7 +1404,7 @@
                         this.parsedMeta = this.estimatedMetadata();
                         this.parseNotes = ['We couldn’t load the whole file into memory, so the fields shown are estimates based on the file type. Cleaning isn’t available for this file.'];
                         this.phase = 'ready';
-                        this.errorText = 'The file couldn’t be fully read — it may be too large for this browser.';
+                        this.errorText = 'The file couldn’t be fully read, it may be too large for this browser.';
                         return;
                     }
 
@@ -1473,7 +1473,7 @@
                     };
                 },
 
-                /* Fallback when the container can't be deep-read — the original
+                /* Fallback when the container can't be deep-read, the original
                    page's extension-based estimates, preserved. */
                 estimatedMetadata() {
                     const m = {};
@@ -1516,7 +1516,7 @@
                     if (this.phase === 'cleaning' || !this.file) return;
 
                     // The file never made it into memory (for example, over the ~2 GB
-                    // ceiling) — hand back the original File object as an exact copy.
+                    // ceiling), hand back the original File object as an exact copy.
                     if (!this._buffer) {
                         this.cleaned = {
                             blob: this.file,
@@ -1555,7 +1555,7 @@
                         }
 
                         if (plan && removed.length === 0) {
-                            note = 'We scanned the whole file and found no removable metadata atoms — this copy is byte-for-byte identical to your original.';
+                            note = 'We scanned the whole file and found no removable metadata atoms, this copy is byte-for-byte identical to your original.';
                         }
 
                         const blob = new Blob([bytes], { type: this.fileType || 'application/octet-stream' });
@@ -1575,7 +1575,7 @@
                         console.error('Cleaning failed:', e);
                         this.phase = 'ready';
                         this.statusText = '';
-                        this.errorText = 'Something went wrong while writing the clean copy. The original file was not changed — you can try again.';
+                        this.errorText = 'Something went wrong while writing the clean copy. The original file was not changed, you can try again.';
                         this.announce(this.errorText);
                     }
                 },

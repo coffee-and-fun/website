@@ -7,7 +7,7 @@ layout: templates/post.liquid
 title: Apple’s Passwords App Is Surprisingly Great (And Yes, There’s a Chrome Extension)
 description:
   We’ve been using Apple’s new Passwords app at Coffee & Fun, and it’s honestly a game-changer.
-  Here’s why we recommend it to anyone in the Apple ecosystem — and how the Chrome extension makes
+  Here’s why we recommend it to anyone in the Apple ecosystem, and how the Chrome extension makes
   it even better.
 keywords:
   Apple Passwords App, iCloud Keychain, Password Manager, Chrome Extension, Apple Ecosystem, 2FA,
@@ -20,7 +20,7 @@ youtubeId:
 cardTitle: Why We Recommend Apple’s Passwords App to Our Friends
 blog_snip:
   A quick, real-world look at Apple’s new Passwords app. We’ve been using it, we love it, and here’s
-  why we think you should give it a try — especially if you’re already on Apple devices.
+  why we think you should give it a try, especially if you’re already on Apple devices.
 name: Robert James Gabriel
 img: /assets/images/blog/apple-passwords-app-coffee-and-fun.png
 date: 2025-03-21T00:00:00.000Z
@@ -51,7 +51,7 @@ Yup. You know how Apple’s had iCloud Keychain for a while? The thing that reme
 and fills them in automatically?
 
 They’ve now turned that into its own app called **Passwords**. So instead of digging through
-settings, you can just open the app and boom — everything’s there. Logins, 2FA codes, Wi-Fi
+settings, you can just open the app and boom, everything’s there. Logins, 2FA codes, Wi-Fi
 passwords, passkeys. Super clean and easy to use.
 
 If you’re running iOS 17, iPadOS 17, or macOS Sonoma, you probably already have it. Just search
@@ -93,7 +93,7 @@ on Windows or Mac and autofill your saved stuff. It works really well.
 
 ## Is it worth switching?
 
-If you already use Apple stuff every day and don’t have a password manager yet — yes, definitely
+If you already use Apple stuff every day and don’t have a password manager yet, yes, definitely
 check it out.
 
 It’s free, it works quietly in the background, and it actually does what it says it does. That’s

@@ -37,7 +37,7 @@ tags:
 
 Last week, an email landed in my inbox that every app developer knows and dreads: **"Action Items needed."**
 
-Our add-on [Helperbird](https://www.helperbird.com) — which over 1,000,000 people use to make Google Docs™, Google Slides™, and the web more accessible — had been flagged in a Google Workspace Marketplace re-review. The issue? Our short description was "longer than required."
+Our add-on [Helperbird](https://www.helperbird.com), which over 1,000,000 people use to make Google Docs™, Google Slides™, and the web more accessible, had been flagged in a Google Workspace Marketplace re-review. The issue? Our short description was "longer than required."
 
 Here's the thing. I checked the documentation Google linked in that same email. The limit is **200 characters**. Our description was **181**.
 
@@ -67,7 +67,7 @@ That's **181 characters**. Nineteen under the documented limit.
 
 ## So What Was Actually Wrong?
 
-Reading the email more closely, the real complaint wasn't the character count at all. The reviewer's notes were about UI fit — text getting cut off with "..." in the Marketplace card. In some views, Google truncates your short description before 200 characters, so a fully compliant description can still *look* too long in certain placements.
+Reading the email more closely, the real complaint wasn't the character count at all. The reviewer's notes were about UI fit, text getting cut off with "..." in the Marketplace card. In some views, Google truncates your short description before 200 characters, so a fully compliant description can still *look* too long in certain placements.
 
 In other words: we followed the written rule, and got flagged on an unwritten one.
 
@@ -81,7 +81,7 @@ Two things, in this order:
 
 ### 1. Fixed it first
 
-I trimmed the description from 181 to 170 characters. The edit was tiny — dropping a redundant "Including" and a trailing period:
+I trimmed the description from 181 to 170 characters. The edit was tiny, dropping a redundant "Including" and a trailing period:
 
 > Read, understand and navigate the web easier. Features to make Google Docs™, Google Slides™ & Google Drive™ more accessible. Including Immersive reader & dyslexia support
 
@@ -93,7 +93,7 @@ I updated the listing the same morning and replied to let them know. The next da
 
 ### 2. Then, politely, stated the facts
 
-When I resubmitted, I didn't just say "done." I pointed out — politely, with a quote from their own documentation — that the original version was within the published limit:
+When I resubmitted, I didn't just say "done." I pointed out, politely, with a quote from their own documentation, that the original version was within the published limit:
 
 ![My reply pointing out the description was 181 characters, within the documented 200 limit](/assets/images/blog/gwm-review/reply-email.webp)
 
@@ -123,7 +123,7 @@ A short, factual, friendly note does three things:
 
 ## Takeaways for Other Developers
 
-**Read the documentation before you respond.** Not your memory of it — the actual current page. The reviewer linked the doc that proved our point. That only helps if you check it.
+**Read the documentation before you respond.** Not your memory of it, the actual current page. The reviewer linked the doc that proved our point. That only helps if you check it.
 
 **Fix fast, argue second.** Your users don't care who was right. Getting re-approved was worth more than winning the argument, and doing both is allowed.
 
@@ -137,7 +137,7 @@ A short, factual, friendly note does three things:
 
 ## The Happy Ending
 
-Helperbird is approved, live, and now sporting a slightly tidier 170-character description. Google's review team was responsive throughout, and the whole thing was resolved in about a day — which, credit where it's due, is fast for any app store.
+Helperbird is approved, live, and now sporting a slightly tidier 170-character description. Google's review team was responsive throughout, and the whole thing was resolved in about a day, which, credit where it's due, is fast for any app store.
 
 If you've been through a review rejection that didn't match the documentation, I'd genuinely love to hear about it. Come tell me on [Twitter](https://twitter.com/bycoffeeandfun) or in our [Discord](https://discord.com/invite/J6EeMvSBYg).
 

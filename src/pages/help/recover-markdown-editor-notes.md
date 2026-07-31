@@ -18,7 +18,7 @@ app: Markdown Editor
 category: Recovery
 cardTitle: Recovering Lost Notes in Markdown Editor
 intro:
-  Documents list empty? Welcome text back? Breathe. In most cases your notes are still there — the
+  Documents list empty? Welcome text back? Breathe. In most cases your notes are still there, the
   extension just can't see them. This guide walks every recovery path, easiest first.
 name: Coffee & Fun Team
 date: 2026-04-20T00:00:00.000Z
@@ -35,27 +35,27 @@ tags:
 
 Markdown Editor stores everything locally in your browser's extension storage under two keys:
 
-- `markdownDocuments` — your full document list (titles, content, timestamps).
-- `markdownCurrentDoc` — the raw text last shown in the editor pane.
+- `markdownDocuments`, your full document list (titles, content, timestamps).
+- `markdownCurrentDoc`, the raw text last shown in the editor pane.
 
 Common causes when the list looks empty:
 
-- **Storage was cleared** — often Firefox for Android's *Delete browsing data on quit* or site-data cleanup.
-- **Extension was reinstalled or moved profile** — sideload, new profile, or cleared via debug tools.
-- **Storage is unreadable** — if the JSON can't parse, the editor silently falls back to empty. Your data may still be on disk.
-- **You're in a different profile** — private browsing, a synced device, or a second install.
+- **Storage was cleared**, often Firefox for Android's *Delete browsing data on quit* or site-data cleanup.
+- **Extension was reinstalled or moved profile**, sideload, new profile, or cleared via debug tools.
+- **Storage is unreadable**, if the JSON can't parse, the editor silently falls back to empty. Your data may still be on disk.
+- **You're in a different profile**, private browsing, a synced device, or a second install.
 
-Work through the steps in order — easiest first.
+Work through the steps in order, easiest first.
 
 ---
 
-## Step 1 — Freeze the extension
+## Step 1, Freeze the extension
 
 Close the tab. Don't save, don't create, don't clear. If you're on a phone, put it down.
 
 ---
 
-## Step 2 — Look for a backup file
+## Step 2, Look for a backup file
 
 If you ever used **Export All Documents**, there's a file like `markdown-docs-2025-09-14.json` in Downloads (or iCloud / Drive / Dropbox).
 
@@ -63,9 +63,9 @@ Found one? Open the extension → **Import** → pick the file. Even an old expo
 
 ---
 
-## Step 3 — Check other browsers and devices
+## Step 3, Check other browsers and devices
 
-Extension storage doesn't sync between devices — but a separate copy may exist on another one.
+Extension storage doesn't sync between devices, but a separate copy may exist on another one.
 
 1. Open Markdown Editor everywhere you've used it.
 2. If you find intact documents, **Export All Documents immediately**.
@@ -73,7 +73,7 @@ Extension storage doesn't sync between devices — but a separate copy may exist
 
 ---
 
-## Step 4 — Inspect storage directly (desktop Firefox)
+## Step 4, Inspect storage directly (desktop Firefox)
 
 This recovers the most cases.
 
@@ -102,9 +102,9 @@ This recovers the most cases.
 
 ---
 
-## Step 5 — Firefox for Android (USB debugging)
+## Step 5, Firefox for Android (USB debugging)
 
-Android Firefox has no `about:debugging` — drive it from a desktop instead.
+Android Firefox has no `about:debugging`, drive it from a desktop instead.
 
 1. Phone: Firefox → **Settings → About Firefox** → tap the logo 5× to unlock *Secret Settings*.
 2. Back in Settings → turn on **Remote debugging via USB**.
@@ -117,22 +117,22 @@ Android Firefox has no `about:debugging` — drive it from a desktop instead.
 
 ---
 
-## Step 6 — Dig into the profile folder (advanced)
+## Step 6, Dig into the profile folder (advanced)
 
 If the extension won't load at all, or Step 4 is empty, data may still be on disk.
 
 1. Go to `about:profiles` → click **Open Folder** next to *Root Directory* on the active profile.
 2. Look inside:
-   - `storage/default/moz-extension+++…/idb/` — IndexedDB files.
-   - `browser-extension-data/{extension-id}/storage.js` — older storage file.
+   - `storage/default/moz-extension+++…/idb/`, IndexedDB files.
+   - `browser-extension-data/{extension-id}/storage.js`, older storage file.
 3. Search for chunks of your text.
 4. Found something? **Copy the whole folder elsewhere** before touching it, then email filenames (not contents) to [hello@coffeeandfun.com](mailto:hello@coffeeandfun.com).
 
-> Never edit profile files in place — a corrupted one stops Firefox from starting.
+> Never edit profile files in place, a corrupted one stops Firefox from starting.
 
 ---
 
-## Step 7 — Chrome, Edge, and Safari
+## Step 7, Chrome, Edge, and Safari
 
 Same idea, different menus.
 
@@ -156,18 +156,18 @@ chrome.storage.local.get(['markdownDocuments', 'markdownCurrentDoc'], d => conso
 
 ---
 
-## Step 8 — Stop it happening again
+## Step 8, Stop it happening again
 
 - **Export monthly.** *Export All Documents* → save to iCloud / Drive / Dropbox. The file is tiny.
-- **Check "clear on quit" settings.** Firefox Android → *Delete browsing data on quit* — make sure **Site data** and **Cookies** are off. Same idea in Chrome / Edge.
-- **Don't uninstall to "reset".** Uninstalling wipes storage. Email us first — we can almost always fix it in place.
+- **Check "clear on quit" settings.** Firefox Android → *Delete browsing data on quit*, make sure **Site data** and **Cookies** are off. Same idea in Chrome / Edge.
+- **Don't uninstall to "reset".** Uninstalling wipes storage. Email us first, we can almost always fix it in place.
 - **Split long documents.** Extension storage caps around 5 MB. Ten small files survive better than one huge one.
 
 ---
 
 ## A small promise
 
-Markdown Editor stays out of your way — no accounts, no cloud, no telemetry. The trade-off: the data lives on your device, and device storage can get cleared. That's what the Export button is for. Open the editor and find it — takes two seconds.
+Markdown Editor stays out of your way, no accounts, no cloud, no telemetry. The trade-off: the data lives on your device, and device storage can get cleared. That's what the Export button is for. Open the editor and find it, takes two seconds.
 
 ---
 

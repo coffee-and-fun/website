@@ -33,7 +33,7 @@ tags:
 
 # Should You Test in Production? F\*\*\* It, Let’s Do It Live!
 
-If you’ve ever written code, you’ve probably had _that_ moment—something’s broken, there’s no time
+If you’ve ever written code, you’ve probably had _that_ moment, something’s broken, there’s no time
 to test properly, and someone says, “Just push it live and see what happens.” It’s chaotic, a little
 terrifying, and somehow funny at the same time.
 
@@ -53,7 +53,7 @@ it. That’s every developer’s vibe when a critical bug pops up at 11 PM on a 
 right way to do things (and it’s probably going to bite you later), but sometimes it’s just _real_.
 
 I love sharing this meme because it’s so relatable for devs. We all know testing in production is a
-bad idea, but we’ve all had to do it at some point. And let’s be real—surviving those moments and
+bad idea, but we’ve all had to do it at some point. And let’s be real, surviving those moments and
 laughing about them later is what makes coding so fun.
 
 ## A Laugh for Fellow Devs

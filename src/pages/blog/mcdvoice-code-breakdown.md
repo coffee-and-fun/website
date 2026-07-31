@@ -104,8 +104,8 @@ Breaking it down:
 - `03963`: Store ID
 - `06000`: Register ID
 - `41025`: Julian date = April 10, 2025 (04/10/25)
-- `14028`: 14:02 PM (minutes since midnight, with milliseconds rounded — confirmed)
-- `00024`: Item ID — a Medium Diet Coke in my case
+- `14028`: 14:02 PM (minutes since midnight, with milliseconds rounded, confirmed)
+- `00024`: Item ID, a Medium Diet Coke in my case
 - `6` or `7`: Final digit (checksum or internal validation indicator)
 
 Both transactions happened minutes apart, so we could confirm what each part of the code meant.
@@ -191,7 +191,7 @@ testing.
 
 ## ✅ So… Can You Actually Use This?
 
-Yes — if your fake code is well-formed and submitted shortly after a real visit, the **McDVoice site
+Yes, if your fake code is well-formed and submitted shortly after a real visit, the **McDVoice site
 will let you in**.
 
 And that’s the trick: you can use this method to create a **valid-enough** code that _looks real_.

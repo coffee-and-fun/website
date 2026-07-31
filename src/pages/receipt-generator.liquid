@@ -580,7 +580,7 @@
                                 </div>
                             </div>
                             <div>
-                                <label class="form-label" for="f-logo">Logo <span class="optional-tag">(optional — printed black &amp; white, like a real register)</span></label>
+                                <label class="form-label" for="f-logo">Logo <span class="optional-tag">(optional, printed black &amp; white, like a real register)</span></label>
                                 <input id="f-logo" type="file" @change="handleLogoUpload" accept="image/png,image/jpeg,image/webp" class="form-input" style="padding: 0.4rem;" />
                                 <button v-if="receipt.logo" @click="removeLogo" class="btn-brand btn-danger btn-sm-brand" style="margin-top: 0.5rem;">Remove Logo</button>
                             </div>
@@ -767,7 +767,7 @@
                                 <p class="validation-hint" role="status">
                                     <template v-if="!isValidReceipt">
                                         <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
-                                        <span>{% raw %}To download, add {{ missingList }} — or {% endraw %}<button @click="loadExample" style="background:none;border:none;padding:0;font:inherit;color:var(--color-espresso);text-decoration:underline;cursor:pointer;">load the example</button>.</span>
+                                        <span>{% raw %}To download, add {{ missingList }}, or {% endraw %}<button @click="loadExample" style="background:none;border:none;padding:0;font:inherit;color:var(--color-espresso);text-decoration:underline;cursor:pointer;">load the example</button>.</span>
                                     </template>
                                 </p>
                                 <p style="margin-top: 0.5rem; font-size: 0.75rem; color: #767676;">The PDF downloads at real 80mm thermal-receipt size with a scannable barcode.</p>
@@ -805,7 +805,7 @@
         const { createApp } = Vue;
 
         // Code 39 barcode: 9 elements per char (bars/spaces alternating, starts
-        // with a bar); 'w' = wide, 'n' = narrow. Standard table — scans for real.
+        // with a bar); 'w' = wide, 'n' = narrow. Standard table, scans for real.
         const CODE39 = {
             '0': 'nnnwwnwnn', '1': 'wnnwnnnnw', '2': 'nnwwnnnnw', '3': 'wnwwnnnnn',
             '4': 'nnnwwnnnw', '5': 'wnnwwnnnn', '6': 'nnwwwnnnn', '7': 'nnnwnnwnw',
@@ -934,7 +934,7 @@
                     return this.receipt.businessPhone || this.receipt.businessEmail;
                 },
                 receiptDisplayNumber() {
-                    return this.receipt.receiptNumber || '—';
+                    return this.receipt.receiptNumber || ', ';
                 },
                 posDate() {
                     if (!this.receipt.date) return '--/--/----';
@@ -1000,7 +1000,7 @@
                             this.showToast('Restored your unsaved draft');
                         }
                     }
-                } catch (e) { /* corrupt draft — ignore */ }
+                } catch (e) { /* corrupt draft, ignore */ }
 
                 if (!restored && this.hasSavedBusinessInfo && !this.receipt.businessName) {
                     this.loadBusinessInfo(true);
@@ -1011,7 +1011,7 @@
                 this.posTime = new Date().toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit' });
                 this.drawBarcode();
 
-                // Initial focus (desktop only — avoids popping the mobile keyboard)
+                // Initial focus (desktop only, avoids popping the mobile keyboard)
                 if (window.matchMedia('(min-width: 768px)').matches) {
                     this.$nextTick(() => {
                         const target = this.receipt.businessName
@@ -1078,7 +1078,7 @@
                         { description: 'Cold brew growler', quantity: 1, price: 14.00 }
                     ];
                     this.receipt.taxRate = 8.25;
-                    this.showToast('Example loaded — edit anything, then download');
+                    this.showToast('Example loaded, edit anything, then download');
                 },
 
                 drawBarcode() {
@@ -1122,7 +1122,7 @@
                         const img = new Image();
                         img.onload = () => {
                             try {
-                                // Downscale, flatten onto white, and grayscale — thermal
+                                // Downscale, flatten onto white, and grayscale, thermal
                                 // printers are black-and-white, so the receipt logo is too.
                                 const maxW = 600;
                                 const scale = Math.min(1, maxW / img.naturalWidth);
@@ -1205,7 +1205,7 @@
                         this.hasSavedBusinessInfo = true;
                         if (!silent) this.showToast('Details remembered on this device');
                     } catch (e) {
-                        if (!silent) this.showToast('Could not save — the logo may be too large');
+                        if (!silent) this.showToast('Could not save, the logo may be too large');
                     }
                 },
 
@@ -1278,7 +1278,7 @@
                     };
                     const itemRow = (desc, priceStr) => {
                         // Wrap long descriptions in a column that leaves room for the
-                        // price on the first line — mirrors real register output.
+                        // price on the first line, mirrors real register output.
                         scratch.setFont('courier', 'normal');
                         scratch.setFontSize(9);
                         const availW = Math.max(20, W - priceStr.length * charW(9) - 2);
@@ -1367,7 +1367,7 @@
                     // format to landscape if h < w, so never go below 120mm.
                     const pageH = Math.max(120, Math.ceil(contentH + TOP + BOTTOM));
                     if (pageH > 2000) {
-                        this.showToast('Too many items for one receipt — split it into two');
+                        this.showToast('Too many items for one receipt, split it into two');
                         return;
                     }
 

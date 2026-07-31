@@ -8,7 +8,7 @@ title: We’re Putting a Real Game Boy Inside the Lego Game Boy
 description:
   On October 1st, Lego is releasing a 1:1 scale replica of the original Nintendo Game Boy. 
   At Coffee & Fun, we’re attempting to become the first people on the internet to place the 
-  insides of a real Game Boy into the brand-new Lego Game Boy — live on stream starting at 6 AM. 
+  insides of a real Game Boy into the brand-new Lego Game Boy, live on stream starting at 6 AM. 
   Join us for a full day of chaos, nostalgia, and fun as we try to make brick-game history.
 keywords:
   lego game boy, lego nintendo, lego release 2025, game boy, livestream, coffee and fun, retro gaming, lego set, nostalgia build
@@ -34,9 +34,9 @@ tags:
   - coffee-and-fun
 ---
 
-# 🎮 We’re (Trying to Be) the First to Put a Real Game Boy Into the Lego Game Boy — Live on October 1st!  
+# 🎮 We’re (Trying to Be) the First to Put a Real Game Boy Into the Lego Game Boy, Live on October 1st!  
 
-Hey friends, gamers, nostalgia nerds — mark your calendars because we’re doing something *absolutely wild* on **October 1st**. LEGO is dropping a **near 1:1 scale replica** of the original Game Boy, made of bricks, loaded with tactile buttons, dials, and swappable Game Paks — and we’re trying to take it *one step further*.  
+Hey friends, gamers, nostalgia nerds, mark your calendars because we’re doing something *absolutely wild* on **October 1st**. LEGO is dropping a **near 1:1 scale replica** of the original Game Boy, made of bricks, loaded with tactile buttons, dials, and swappable Game Paks, and we’re trying to take it *one step further*.  
 
 ---
 
@@ -64,7 +64,7 @@ We’ve got a *real* original Game Boy ready (thank you, donor unit), and we’r
 - **Instagram**: [@coffeeandfun](https://www.instagram.com/coffeeandfunllc)  
 - **YouTube**: [Coffee & Fun channel](https://www.youtube.com/@CoffeeFunLLC)  
 
-Expect coffee, chaos, LEGO bricks galore, and mayhem — all in real time.  
+Expect coffee, chaos, LEGO bricks galore, and mayhem, all in real time.  
 
 ---
 

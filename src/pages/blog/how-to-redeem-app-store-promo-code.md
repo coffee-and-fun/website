@@ -89,7 +89,7 @@ It’s in the list of options that pops up.
 
 ### 4. Paste the Code or Use Camera
 
-Same deal—paste or scan it.
+Same deal, paste or scan it.
 
 ### 5. Enjoy Your Freebie 🎉
 
@@ -100,18 +100,18 @@ Whatever the promo unlocks will be automatically added to your account.
 ## 🧠 Pro Tips
 
 - **Codes are case insensitive**, but make sure there are no extra spaces when pasting.
-- Some codes only work in specific regions—check that yours matches.
+- Some codes only work in specific regions, check that yours matches.
 - Already own the app? Some promos unlock extra features or subscriptions instead.
 
 ---
 
 ### Wrapping Up
 
-That’s it! Redeeming App Store promo codes is easier than it looks—once you know where to tap (or
+That’s it! Redeeming App Store promo codes is easier than it looks, once you know where to tap (or
 click).
 
 Whether you scored a free app, a bonus subscription, or some in-game gold, enjoy the treat!
 
 Got a code? Redeem it now: [apps.apple.com/redeem](https://apps.apple.com/redeem)
 
-And hey, if you’re a dev giving out promo codes—this is a great link to share. 😉
+And hey, if you’re a dev giving out promo codes, this is a great link to share. 😉

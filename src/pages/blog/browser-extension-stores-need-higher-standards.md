@@ -7,7 +7,7 @@ layout: templates/post.liquid
 title: Browser Extension Stores Need Higher Standards. All of Them.
 description:
   After 15 years of publishing extensions and managing products with over a million users, I'm
-  watching every major browser extension store struggle with the same problems — low-effort
+  watching every major browser extension store struggle with the same problems, low-effort
   submissions, security breaches, and inconsistent review standards. It's time for all of them to
   step up.
 keywords:
@@ -21,7 +21,7 @@ blog_cat: Usecase
 youtubeId:
 cardTitle: Browser Extension Stores Need Higher Standards
 blog_snip:
-  Every major browser extension store — Chrome, Firefox, Edge, and Safari — is dealing with the same
+  Every major browser extension store, Chrome, Firefox, Edge, and Safari, is dealing with the same
   problems. Low-effort submissions, security breaches, and review standards that aren't keeping up.
   After 15 years of publishing, it's time to talk about raising the bar across the board.
 name: Robert James Gabriel
@@ -41,7 +41,7 @@ Every major browser extension store has a quality problem right now, and it's ac
 
 ## What's Actually Happening Across the Board
 
-If you submit an extension update to the Chrome Web Store today, you're looking at four to five days for a review. That's become the new normal. Firefox Add-ons can be faster for listed add-ons, but their unlisted review queue has its own backlogs. Edge Add-ons often mirrors Chrome's delays since many developers publish to both simultaneously. Safari is the outlier — Apple's review is generally faster, but their ecosystem is also much smaller.
+If you submit an extension update to the Chrome Web Store today, you're looking at four to five days for a review. That's become the new normal. Firefox Add-ons can be faster for listed add-ons, but their unlisted review queue has its own backlogs. Edge Add-ons often mirrors Chrome's delays since many developers publish to both simultaneously. Safari is the outlier, Apple's review is generally faster, but their ecosystem is also much smaller.
 
 The rise of what people are calling "vibe coding", where someone uses AI to generate an entire extension in an afternoon, has created a tidal wave of new submissions across every platform. Everyone and their mother is shipping a browser extension right now. Most of them shouldn't be.
 
@@ -70,11 +70,11 @@ Take [Get Token Cookie](https://chromewebstore.google.com/detail/get-token-cooki
 
 Or look at [this 2FA extension](https://chromewebstore.google.com/detail/2fa/ebhcbenbgjmaebpgbldimndmfomjmphd) that uses the Google Authenticator branding, the Google blue, the Google name, right there in the listing image. It's not made by Google. It has a "Featured" badge. How did this pass? On the Apple App Store, this would be rejected in about thirty seconds for trademark issues alone.
 
-![A 2FA extension using Google Authenticator branding — Featured badge, not made by Google](/assets/images/blog/cws-standards/2fa-google-auth.png)
+![A 2FA extension using Google Authenticator branding, Featured badge, not made by Google](/assets/images/blog/cws-standards/2fa-google-auth.png)
 
-Here's another one — [RandomCats](https://chromewebstore.google.com/detail/randomcats-just-random-ph/cfjpjbokkcbghmdieflchhklaldlhfkm), a Featured extension that just shows random photos of cats. 567 users, 4 ratings, and a Featured badge. The screenshots are a single popup window. This is what the Featured badge is being given to now.
+Here's another one, [RandomCats](https://chromewebstore.google.com/detail/randomcats-just-random-ph/cfjpjbokkcbghmdieflchhklaldlhfkm), a Featured extension that just shows random photos of cats. 567 users, 4 ratings, and a Featured badge. The screenshots are a single popup window. This is what the Featured badge is being given to now.
 
-![RandomCats — a Featured extension for random cat photos with 567 users](/assets/images/blog/cws-standards/random-cats.webp)
+![RandomCats, a Featured extension for random cat photos with 567 users](/assets/images/blog/cws-standards/random-cats.webp)
 
 And then there's [meowad](https://chromewebstore.google.com/detail/meowad/nnhfkogbcflegfcbemlllmapfggjiffj), which replaces ads on Twitter with cat meowing. 4.9 stars, 56 ratings, and its description literally says "meow :3". I'm not making this up.
 
@@ -87,17 +87,17 @@ Again, nothing personal against these developers. But the fact that these listin
 
 I want to ask a genuine question here. Look at these two listings side by side.
 
-![RandomCats — a Featured extension with 567 users that shows random cat photos](/assets/images/blog/cws-standards/random-cats.webp)
+![RandomCats, a Featured extension with 567 users that shows random cat photos](/assets/images/blog/cws-standards/random-cats.webp)
 
-![A 2FA extension using Google Authenticator branding — Featured badge, not affiliated with Google](/assets/images/blog/cws-standards/2fa-google-auth.png)
+![A 2FA extension using Google Authenticator branding, Featured badge, not affiliated with Google](/assets/images/blog/cws-standards/2fa-google-auth.png)
 
-One is RandomCats. It shows random photos of cats. 567 users, 4 ratings, a single screenshot that's just the popup window. It has a Featured badge. The other is a 2FA extension that's wrapped itself entirely in Google's Authenticator branding — the name, the blue, the logo style — despite having nothing to do with Google. It also has a Featured badge.
+One is RandomCats. It shows random photos of cats. 567 users, 4 ratings, a single screenshot that's just the popup window. It has a Featured badge. The other is a 2FA extension that's wrapped itself entirely in Google's Authenticator branding, the name, the blue, the logo style, despite having nothing to do with Google. It also has a Featured badge.
 
 What do these add to the store? What value do they bring to users? What problem are they solving that isn't already solved by a thousand other things?
 
-Let's be honest about RandomCats. Should it even be in the store? It's a popup that shows a random cat photo. That's it. There's no utility, no problem being solved, no reason for it to exist as a browser extension when you could just open a browser tab and type "cat" into Google Images. This isn't a tool. It's barely a feature. And yet it passed review, got published, and somehow earned a Featured badge — the same badge that's supposed to tell users "this meets our highest standards." A popup that fetches a random cat photo meets Google's highest standards? Come on.
+Let's be honest about RandomCats. Should it even be in the store? It's a popup that shows a random cat photo. That's it. There's no utility, no problem being solved, no reason for it to exist as a browser extension when you could just open a browser tab and type "cat" into Google Images. This isn't a tool. It's barely a feature. And yet it passed review, got published, and somehow earned a Featured badge, the same badge that's supposed to tell users "this meets our highest standards." A popup that fetches a random cat photo meets Google's highest standards? Come on.
 
-And the 2FA one is worse, because it's not just low effort — it's actively misleading. A regular user sees "Google Authenticator" in the listing image with a Featured badge and thinks Google made it. They trust it with their two-factor authentication codes. That's not a quality problem. That's a trust problem. That's the kind of thing that erodes confidence in the entire platform.
+And the 2FA one is worse, because it's not just low effort, it's actively misleading. A regular user sees "Google Authenticator" in the listing image with a Featured badge and thinks Google made it. They trust it with their two-factor authentication codes. That's not a quality problem. That's a trust problem. That's the kind of thing that erodes confidence in the entire platform.
 
 I keep coming back to the same thought: if you submitted either of these to the Apple App Store, they'd be rejected before lunch. The cat app would get flagged for low functionality. The 2FA app would get rejected for trademark violation. And honestly, that's the right call in both cases. Not because there's anything wrong with building a fun cat extension, but because a curated store has to mean something. If everything gets in, the curation means nothing.
 
@@ -107,7 +107,7 @@ I keep coming back to the same thought: if you submitted either of these to the 
 
 I wrote about this last year, and it's only gotten worse. The Featured badge on the Chrome Web Store is supposed to signal that an extension meets Google's standards for quality, design, and best practices. It used to mean something.
 
-Now? Look at the examples above. Extensions with AI-generated icons, boilerplate descriptions, screenshots that wouldn't pass a college presentation review, and outright trademark infringement — all wearing the same badge as extensions built by teams who've spent years earning user trust. If Featured doesn't meaningfully separate high-quality extensions from the rest, what's the point of it?
+Now? Look at the examples above. Extensions with AI-generated icons, boilerplate descriptions, screenshots that wouldn't pass a college presentation review, and outright trademark infringement, all wearing the same badge as extensions built by teams who've spent years earning user trust. If Featured doesn't meaningfully separate high-quality extensions from the rest, what's the point of it?
 
 Firefox's "Recommended" badge program actually does a better job here. Mozilla's Recommended extensions are hand-curated by staff and undergo ongoing security reviews. It's a smaller list, but it means something. When you see that badge on Firefox, there's a real human who vetted it. Chrome's Featured badge has become so broadly applied that it's lost that signal.
 
@@ -145,13 +145,13 @@ Mozilla isn't immune either. Researchers have demonstrated that malicious add-on
 
 ### Edge Add-ons
 
-Microsoft's Edge Add-ons store has had its own serious issues. In 2024, researchers found [over 125 malicious Edge extensions](https://www.techradar.com/pro/security/over-125-malicious-edge-extensions-found-in-microsofts-store) that had been sitting in the store undetected. The "RedDirection" campaign was particularly alarming — extensions that started clean and legitimate, built up user bases over years, and then pushed malicious updates that redirected users to phishing sites. Microsoft has been slower than Google to respond to these reports, and their review infrastructure hasn't scaled to match the growth in submissions.
+Microsoft's Edge Add-ons store has had its own serious issues. In 2024, researchers found [over 125 malicious Edge extensions](https://www.techradar.com/pro/security/over-125-malicious-edge-extensions-found-in-microsofts-store) that had been sitting in the store undetected. The "RedDirection" campaign was particularly alarming, extensions that started clean and legitimate, built up user bases over years, and then pushed malicious updates that redirected users to phishing sites. Microsoft has been slower than Google to respond to these reports, and their review infrastructure hasn't scaled to match the growth in submissions.
 
 ### The Cross-Platform Problem
 
-Then there's [DarkSpectre](https://thehackernews.com/2025/12/darkspectre-browser-extension-campaigns.html), a campaign attributed to a Chinese threat actor that ran across multiple browser extension stores — not just Chrome, but Firefox and Edge as well — through operations like ShadyPanda, Zoom Stealer, and GhostPoster, [affecting 8.8 million users over seven years](https://www.foxnews.com/tech/browser-extension-malware-infected-8-8m-users-darkspectre-attack). Seven years. That's how long malicious extensions can operate before getting caught. And as researchers warned: "DarkSpectre likely has more infrastructure in place right now — extensions that look completely legitimate because they are legitimate, for now. They're still in the trust-building phase, accumulating users, earning badges, waiting."
+Then there's [DarkSpectre](https://thehackernews.com/2025/12/darkspectre-browser-extension-campaigns.html), a campaign attributed to a Chinese threat actor that ran across multiple browser extension stores, not just Chrome, but Firefox and Edge as well, through operations like ShadyPanda, Zoom Stealer, and GhostPoster, [affecting 8.8 million users over seven years](https://www.foxnews.com/tech/browser-extension-malware-infected-8-8m-users-darkspectre-attack). Seven years. That's how long malicious extensions can operate before getting caught. And as researchers warned: "DarkSpectre likely has more infrastructure in place right now, extensions that look completely legitimate because they are legitimate, for now. They're still in the trust-building phase, accumulating users, earning badges, waiting."
 
-In March 2026, [an extension was transferred to a new owner and turned malicious](https://thehackernews.com/2026/03/chrome-extension-turns-malicious-after.html), injecting code and stealing user data — despite having previously received a "Featured" badge. This ownership-transfer attack vector exists on every platform that allows extension transfers, and none of them have adequate safeguards for it.
+In March 2026, [an extension was transferred to a new owner and turned malicious](https://thehackernews.com/2026/03/chrome-extension-turns-malicious-after.html), injecting code and stealing user data, despite having previously received a "Featured" badge. This ownership-transfer attack vector exists on every platform that allows extension transfers, and none of them have adequate safeguards for it.
 
 This is what happens when the barrier to entry is five dollars and there's no real identity verification. Attackers can create throwaway developer accounts, phish their way into legitimate ones, or just buy ownership of existing extensions and flip them malicious overnight. The current system, across all platforms, makes all of this too easy.
 
@@ -165,7 +165,7 @@ Apple charges $99 a year for their developer program. Every developer has a veri
 
 Is Apple's system perfect? No. Their review process can be frustratingly opaque, and the $99 fee genuinely does create a barrier for hobbyist developers. The Safari extension ecosystem is also much smaller, which makes the problem more manageable.
 
-But the result speaks for itself. You don't see the same flood of low-effort, AI-generated junk on the Safari extension gallery. You don't see extensions impersonating other companies' products. You don't see the same scale of security breaches. The higher bar creates a better experience for everyone — developers and users alike.
+But the result speaks for itself. You don't see the same flood of low-effort, AI-generated junk on the Safari extension gallery. You don't see extensions impersonating other companies' products. You don't see the same scale of security breaches. The higher bar creates a better experience for everyone, developers and users alike.
 
 Apple proves that it's possible to run an extension store with real standards. The question is why everyone else refuses to follow that model.
 
@@ -173,7 +173,7 @@ Apple proves that it's possible to run an extension store with real standards. T
 
 ## What I Think Should Change
 
-I've been thinking about this for a while, and I don't think the solutions need to be complicated. They just need to exist — and they need to exist on every platform, not just one.
+I've been thinking about this for a while, and I don't think the solutions need to be complicated. They just need to exist, and they need to exist on every platform, not just one.
 
 ### Raise the Submission Standards
 
@@ -185,7 +185,7 @@ These aren't unreasonable asks. This is the bare minimum for any app store that 
 
 Right now, it costs $5 one-time to register as a Chrome Web Store developer. Five dollars, once, forever. Firefox Add-ons is completely free. Edge Add-ons is free. There's essentially no financial barrier to flooding these stores with junk.
 
-I think every platform should move to an annual fee — $50 a year is reasonable. Will that exclude some people? Maybe. But it would also dramatically cut down on throwaway accounts and low-effort spam. If you're serious about building something people will use, fifty dollars a year is nothing. If you're spinning up extensions for SEO juice or to test what ChatGPT can build in an afternoon, maybe you think twice.
+I think every platform should move to an annual fee, $50 a year is reasonable. Will that exclude some people? Maybe. But it would also dramatically cut down on throwaway accounts and low-effort spam. If you're serious about building something people will use, fifty dollars a year is nothing. If you're spinning up extensions for SEO juice or to test what ChatGPT can build in an afternoon, maybe you think twice.
 
 Apple charges $99 a year. Google Play charges $25 one-time. The Chrome Web Store's $5 lifetime fee and Firefox and Edge's free-for-all are out of step with the responsibility that comes with publishing code that runs in someone's browser.
 

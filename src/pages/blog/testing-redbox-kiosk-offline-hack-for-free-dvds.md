@@ -83,7 +83,7 @@ possible and understand what was really going on. So, here’s how the experimen
 
 I went to a Redbox kiosk at a specific location with permission to test this out. First, I had to
 turn on the breaker for the kiosk, which booted it up. When it started, it showed a message saying,
-“Redbox is sorry, this kiosk is not working”—meaning it wasn’t able to connect to Redbox’s server.
+“Redbox is sorry, this kiosk is not working”, meaning it wasn’t able to connect to Redbox’s server.
 
 ### 2. Waiting for Offline Mode
 
@@ -129,5 +129,5 @@ winds down. Server connections and online validation are essential for these sys
 expected, and without that connection, things can go a bit haywire.
 
 This Redbox experiment highlights how quickly technology moves and how companies need to plan for
-everything—even shutdowns. As we all move toward more streaming and digital options, this is a
+everything, even shutdowns. As we all move toward more streaming and digital options, this is a
 reminder of how tech companies have to stay adaptable, even when saying goodbye to a service.

@@ -74,7 +74,7 @@ tossing it.
 ## Exploring Pokémon Card Grading with AI
 
 Here’s something we’re really excited about: Pokémon card grading. If you’ve ever collected cards,
-you know how small details—like centering or corner sharpness—can decide if a card is graded a 1 or
+you know how small details, like centering or corner sharpness, can decide if a card is graded a 1 or
 a perfect 10.
 
 We’ve bought **10 Pokémon booster packs** and a **PSA 10 card** to test how AI might help predict
@@ -115,4 +115,4 @@ can count on updates and new features throughout the year.
 
 2025 is shaping up to be a fun and creative year for us at Coffee & Fun LLC. From Pokémon cards and
 VR to 3D printing and new apps, we’re excited to keep building and exploring. Thanks for being part
-of the journey—let’s make this year amazing!
+of the journey, let’s make this year amazing!

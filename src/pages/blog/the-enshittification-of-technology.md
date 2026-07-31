@@ -6,7 +6,7 @@ header: true
 layout: templates/post.liquid
 title: The Enshittification of Technology
 description:
-  A detailed look at why modern technology keeps getting worse—what enshittification means, where the term comes from, and real-world examples like Nest, Litter-Robot 3, and streaming services.
+  A detailed look at why modern technology keeps getting worse, what enshittification means, where the term comes from, and real-world examples like Nest, Litter-Robot 3, and streaming services.
 keywords:
   'enshittification, technology getting worse, Cory Doctorow, Burnie Burns, Morning Somewhere,
   Nest thermostat, Litter-Robot 3, tech decay, accessibility, smart home frustration'
@@ -15,7 +15,7 @@ isBlog: true
 blog_cat: Commentary
 cardTitle: The Enshittification of Technology
 blog_snip:
-  Technology didn’t get worse by accident. It followed incentives. Here’s why—and how we see it everywhere.
+  Technology didn’t get worse by accident. It followed incentives. Here’s why, and how we see it everywhere.
 name: Robert James Gabriel
 img: /assets/images/blog/enshittification-of-technology.png
 date: 2025-12-31T00:00:00.000Z
@@ -59,7 +59,7 @@ There’s a word for it.
 
 The term **enshittification** was coined and popularized by writer and technologist **Cory Doctorow**.
 
-Doctorow uses it to describe the *systematic decay of technology platforms and products over time*. Not because engineers forget how to build good things—but because the **incentives behind the product change**.
+Doctorow uses it to describe the *systematic decay of technology platforms and products over time*. Not because engineers forget how to build good things, but because the **incentives behind the product change**.
 
 At a high level, the pattern looks like this:
 
@@ -132,7 +132,7 @@ Taken together, they rot the experience.
 
 ---
 
-## Example 1: Nest — smart home magic, slowly diluted
+## Example 1: Nest, smart home magic, slowly diluted
 
 When Nest launched, it felt genuinely revolutionary.
 
@@ -144,7 +144,7 @@ When Nest launched, it felt genuinely revolutionary.
 You bought the hardware.  
 You owned the experience.
 
-After Google acquired Nest, things didn’t break overnight—but they slowly eroded:
+After Google acquired Nest, things didn’t break overnight, but they slowly eroded:
 
 - Forced Google account migrations  
 - Broken integrations  
@@ -163,7 +163,7 @@ It just got worse.
 
 ---
 
-## Example 2: Litter-Robot 3 — smaller bags, bigger frustration
+## Example 2: Litter-Robot 3, smaller bags, bigger frustration
 
 The Litter-Robot 3 by Whisker is genuinely clever hardware.
 
@@ -187,7 +187,7 @@ This is a textbook enshittification move:
 make the replaceable part worse so it needs replacing more often.
 
 Nothing breaks.  
-You just feel quietly annoyed—and slightly ripped off.
+You just feel quietly annoyed, and slightly ripped off.
 
 ---
 
@@ -216,7 +216,7 @@ Useful context:
 
 We didn’t escape cable.
 
-We rebuilt it—with worse UX and more friction.
+We rebuilt it, with worse UX and more friction.
 
 ---
 
@@ -238,7 +238,7 @@ Less control.
 
 Accessibility rarely breaks dramatically.
 
-It erodes quietly—until the product no longer works for the people who depended on it most.
+It erodes quietly, until the product no longer works for the people who depended on it most.
 
 ---
 
@@ -262,6 +262,6 @@ Good technology should feel human.
 It should respect your time.
 It should get out of your way.
 
-If a product feels adversarial, manipulative, or exhausting—something went wrong.
+If a product feels adversarial, manipulative, or exhausting, something went wrong.
 
 Naming that wrong is the first step toward fixing it.

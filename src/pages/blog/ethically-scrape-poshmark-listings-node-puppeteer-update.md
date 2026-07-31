@@ -53,7 +53,7 @@ Runtime.callFunctionOn timed out. Increase the 'protocolTimeout' setting in laun
 
 ```
 
-After way too many failed runs, I finally figured out why — and how to actually fix it. This post is
+After way too many failed runs, I finally figured out why, and how to actually fix it. This post is
 the follow-up to that original blog, walking through what went wrong and how I made it right.
 
 ---
@@ -155,7 +155,7 @@ Let’s me run the scraper over and over again without repeating work.
 writeLastBatchIndex(currentBatchIndex);
 ```
 
-On each batch, the script saves its progress. So even if I kill it, crash it, or lose power — it’ll
+On each batch, the script saves its progress. So even if I kill it, crash it, or lose power, it’ll
 pick right back up where it left off.
 
 ---
@@ -164,11 +164,11 @@ pick right back up where it left off.
 
 | Feature                       | Old Script ❌   | New Script ✅                |
 | ----------------------------- | --------------- | ---------------------------- |
-| One browser for all listings  | Yes             | No — fresh browser per batch |
-| Timeout handling              | No              | Yes — fast fail and move on  |
-| Resume support                | No              | Yes — `last_batch.txt`       |
-| Re-scrape protection          | No              | Yes — skips done folders     |
-| Batching                      | No (1 big loop) | Yes — smaller and stable     |
+| One browser for all listings  | Yes             | No, fresh browser per batch |
+| Timeout handling              | No              | Yes, fast fail and move on  |
+| Resume support                | No              | Yes, `last_batch.txt`       |
+| Re-scrape protection          | No              | Yes, skips done folders     |
+| Batching                      | No (1 big loop) | Yes, smaller and stable     |
 | Reliable over 1,000+ listings | Unstable        | Solid and scalable 🚀        |
 
 ---

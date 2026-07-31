@@ -304,7 +304,7 @@
         },
 
         accuracy() {
-          if (!this.cards.length) return "—";
+          if (!this.cards.length) return ", ";
           return `${Math.round((this.correctCount / this.cards.length) * 100)}%`;
         },
 
@@ -380,7 +380,7 @@
             document.execCommand("copy");
             alert("Copied to clipboard!");
           } catch (e) {
-            alert("Could not copy automatically — please copy manually.");
+            alert("Could not copy automatically, please copy manually.");
           } finally {
             document.body.removeChild(ta);
           }

@@ -7,7 +7,7 @@ layout: templates/post.liquid
 title: Quarterly Check-In From Coffee & Fun LLC
 description:
   It’s been a wild and wonderful start to the year at Coffee & Fun. From open source Roomba tools
-  and a Markdown Editor milestone to Hide Spoilers blowing up on iOS — here’s a peek behind the
+  and a Markdown Editor milestone to Hide Spoilers blowing up on iOS, here’s a peek behind the
   scenes.
 keywords:
   Coffee and Fun, Quarterly Update, Open Source, Roomba Hacks, Hide Spoilers, Markdown Editor,
@@ -19,7 +19,7 @@ blog_cat: Update
 youtubeId:
 cardTitle: A Peek Behind the Scenes at Coffee & Fun ☕
 blog_snip:
-  From new Roomba tools and extension glow-ups to Hide Spoilers going viral — here’s what the Coffee
+  From new Roomba tools and extension glow-ups to Hide Spoilers going viral, here’s what the Coffee
   & Fun team has been up to this quarter.
 name: Robert James Gabriel
 img: /assets/images/blog/coffee-and-fun-quarterly-update-spring-2025.png
@@ -50,7 +50,7 @@ Last year, we got ourselves a Roomba. We ran it a lot. Like, _a lot a lot_. And 
 great, we started seeing ways to make it even better.
 
 So we're kicking off a new project: **open source (and maybe even paid) tools for Roomba** lovers.
-First up? A **kit that lets you see what your Roomba sees** — straight from your phone or computer.
+First up? A **kit that lets you see what your Roomba sees**, straight from your phone or computer.
 Because if it’s going to crash into chairs, we at least want to watch it happen in real time.
 
 This is just the beginning, and we’re excited to share more soon.
@@ -59,7 +59,7 @@ This is just the beginning, and we’re excited to share more soon.
 
 ## 🔠 Fonts with heart: OpenDyslexic & Elexend
 
-Our font-focused extensions **OpenDyslexic** and **Elexend** — just got a major glow-up.  
+Our font-focused extensions **OpenDyslexic** and **Elexend**, just got a major glow-up.  
 We redesigned the UI, made everything snappier, and fixed a bunch of little things that were bugging
 us (and probably you too).
 
@@ -71,7 +71,7 @@ tools like these.
 ## 📝 More blogs, more vibes
 
 We’re sharing more behind-the-scenes stories, experiments, and tools right here on our blog. You’ll
-find everything from movie hacks to weird hardware setups — and maybe a few coffee-fueled rants.
+find everything from movie hacks to weird hardware setups, and maybe a few coffee-fueled rants.
 It's all part of the fun.
 
 ---
@@ -87,8 +87,8 @@ Want to be part of the chaos? Come say hi!
 
 ## 🚀 Hide Spoilers is taking off
 
-One of our favorite little side projects —
-[**Hide Spoilers**](https://www.coffeeandfun.com/hide-spoilers-extension/) — quietly blew up thanks
+One of our favorite little side projects 
+[**Hide Spoilers**](https://www.coffeeandfun.com/hide-spoilers-extension/), quietly blew up thanks
 to the hype around Apple TV's _Severance_ Season 2 finale.
 
 Let’s just say, spoiler-free browsing is **in** right now, and we’re fully embracing it. This
@@ -126,7 +126,7 @@ Oh, and we added **Bing-powered translations**, with more tools and improvements
 - Upgraded our testing tools
 - Got nerdy with VR headsets (they’re amazing, but yeah, still pricey)
 
-It's been a weird, wonderful, experimental kind of year — exactly how we like it.
+It's been a weird, wonderful, experimental kind of year, exactly how we like it.
 
 ---
 
@@ -135,7 +135,7 @@ It's been a weird, wonderful, experimental kind of year — exactly how we like 
 Whether you’ve been with us since day one or just found us through a random spoiler-blocking rabbit
 hole, we’re so glad you’re here.
 
-We’ve got so much more to share in the next few months — from open source projects to app updates,
+We’ve got so much more to share in the next few months, from open source projects to app updates,
 new experiments, giveaways, and more.
 
 Come hang with us on [Discord](https://discord.com/invite/J6EeMvSBYg), follow us on

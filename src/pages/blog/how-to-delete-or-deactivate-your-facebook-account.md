@@ -31,7 +31,7 @@ tags:
 
 # How to Delete or Deactivate Your Facebook Account (Because They Make It So Annoying!)
 
-Let’s be real—Facebook makes it harder than it should be to step away from the platform. Whether
+Let’s be real, Facebook makes it harder than it should be to step away from the platform. Whether
 you’re looking for a break or you’re ready to ditch it for good, the process can feel like a maze.
 Luckily, I’ve got you covered.
 
@@ -46,7 +46,7 @@ Here is the link to delete or deactive your account.
 
 - **Deactivating**: This is like putting your account on pause. Your profile disappears, but if you
   ever feel like coming back, everything will still be there, just the way you left it.
-- **Deleting**: This is the big one—once you hit delete, it’s game over. Your account, posts,
+- **Deleting**: This is the big one, once you hit delete, it’s game over. Your account, posts,
   photos, and everything else will be wiped for good. **You do get 30 days to change your mind,
   though.**
 
@@ -57,7 +57,7 @@ Here is the link to delete or deactive your account.
 Facebook doesn’t exactly make it easy to find the right page, so here’s a shortcut:
 [Deactivate/Delete Account Page](https://www.facebook.com/deactivate_delete_account).
 
-This will take you straight to where you need to be—no hunting through settings!
+This will take you straight to where you need to be, no hunting through settings!
 
 ### 2. Pick Deactivate or Delete
 
