@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html class="brand-color-background scroll-smooth antialiased" lang="en" data-theme="light" style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;">
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  {%- assign product_data = help.products[product] -%}
+
+  <!-- Primary Meta Tags -->
+  <title>{{ title | escape }} — {{ product_data.name | default: 'Help' }} Help | Coffee &amp; Fun</title>
+  <meta name="title" content="{{ title | escape }} — {{ product_data.name | default: 'Help' }} Help | Coffee & Fun" />
+  <meta name="description" content="{{ description | escape }}" />
+  <meta name="author" content="Coffee & Fun LLC" />
+  <meta name="publisher" content="Coffee & Fun LLC" />
+  <meta name="keywords" content="{{ keywords | escape }}" />
+  <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large" />
+  <meta name="rating" content="general" />
+  <link rel="canonical" href="https://www.coffeeandfun.com{{ page.url }}" />
+
+  <!-- Favicon & PWA -->
+  <link rel="icon" href="/assets/images/brand/favicon.png" />
+  <link rel="manifest" href="/assets/images/social/site.webmanifest" />
+  <meta name="theme-color" content="#fef5ec" />
+  <link rel="apple-touch-icon" href="/assets/images/social/192.png" />
+
+  <!-- Open Graph -->
+  <meta property="og:type" content="article" />
+  <meta property="og:url" content="https://www.coffeeandfun.com{{ page.url }}" />
+  <meta property="og:title" content="{{ title | escape }} — {{ product_data.name | default: 'Help' }} Help" />
+  <meta property="og:description" content="{{ description | escape }}" />
+  {% assign ogImg = img | default: '/assets/images/social/pages/support.png' %}
+  <meta property="og:image" content="https://www.coffeeandfun.com{{ ogImg }}" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta property="og:image:alt" content="Coffee & Fun help guide: {{ title | escape }}" />
+  <meta property="og:site_name" content="Coffee & Fun" />
+  <meta property="og:locale" content="en_US" />
+  <meta property="article:author" content="Coffee & Fun LLC" />
+  <meta property="article:published_time" content="{{ date | date: '%Y-%m-%d' }}" />
+  {% if updated %}<meta property="article:modified_time" content="{{ updated | date: '%Y-%m-%d' }}" />{% endif %}
+
+  <!-- Twitter -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:site" content="@bycoffeeandfun" />
+  <meta name="twitter:title" content="{{ title | escape }} — {{ product_data.name | default: 'Help' }} Help" />
+  <meta name="twitter:description" content="{{ description | escape }}" />
+  <meta name="twitter:image" content="https://www.coffeeandfun.com{{ ogImg }}" />
+  <meta name="twitter:image:alt" content="Coffee & Fun help guide: {{ title | escape }}" />
+
+  <!-- Structured Data -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "TechArticle",
+    "headline": {{ title | json }},
+    "description": {{ description | json }},
+    "image": "https://www.coffeeandfun.com{{ ogImg }}",
+    "author": { "@type": "Organization", "name": "Coffee & Fun LLC" },
+    "publisher": {
+      "@type": "Organization",
+      "name": "Coffee & Fun LLC",
+      "logo": { "@type": "ImageObject", "url": "https://www.coffeeandfun.com/assets/images/brand/coffee-and-fun-logo-dark.png" }
+    },
+    "datePublished": "{{ date | date: '%Y-%m-%d' }}",
+    "dateModified": "{{ updated | default: date | date: '%Y-%m-%d' }}",
+    "mainEntityOfPage": { "@type": "WebPage", "@id": "https://www.coffeeandfun.com{{ page.url }}" }
+  }
+  </script>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      { "@type": "ListItem", "position": 1, "name": "Help Center", "item": "https://www.coffeeandfun.com/help/" },
+      { "@type": "ListItem", "position": 2, "name": {{ product_data.name | default: 'Guides' | json }}, "item": "https://www.coffeeandfun.com{{ product_data.productUrl | default: '/help/' }}" },
+      { "@type": "ListItem", "position": 3, "name": {{ title | json }}, "item": "https://www.coffeeandfun.com{{ page.url }}" }
+    ]
+  }
+  </script>
+
+  {% bundledCss %}
+  {% include sketch-styles.liquid %}
+
+  <!-- Service Worker -->
+  <script>
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', () => {
+        navigator.serviceWorker.register('/service-worker.js').catch(() => {});
+      });
+    }
+  </script>
+
+  {% include scripts.html %}
+
+  <style>
+    /* ===== Help-doc layout: breadcrumb bar, product sidebar, article, TOC ===== */
+    .help-card { background: #ffffff; border: 1px solid #e7e5e4; border-radius: 1rem; }
+
+    .help-side-link {
+      display: block;
+      padding: 0.42rem 0.75rem;
+      border-radius: 0.5rem;
+      font-size: 0.92rem;
+      color: #57534e;
+      transition: background-color 0.15s ease, color 0.15s ease;
+    }
+    .help-side-link:hover { background: #f5f5f4; color: #292524; }
+    .help-side-link[aria-current="page"] {
+      background: var(--color-mocha);
+      color: #ffffff;
+      font-weight: 600;
+    }
+
+    .help-toc-link {
+      display: block;
+      padding: 0.3rem 0;
+      font-size: 0.88rem;
+      color: #78716c;
+    }
+    .help-toc-link:hover { color: var(--color-mocha); text-decoration: underline; }
+
+    a:focus-visible, summary:focus-visible {
+      outline: 2.5px solid var(--color-mocha);
+      outline-offset: 2px;
+      border-radius: 0.375rem;
+    }
+
+    /* Article prose */
+    .doc-content { font-size: 1.02rem; line-height: 1.75; color: #44403c; }
+    .doc-content h2 { margin: 2.2rem 0 0.9rem; font-size: 1.45rem; font-weight: 700; color: #1c1917; letter-spacing: -0.01em; scroll-margin-top: 6rem; }
+    .doc-content h3 { margin: 1.6rem 0 0.6rem; font-size: 1.15rem; font-weight: 600; color: #292524; scroll-margin-top: 6rem; }
+    .doc-content p { margin-bottom: 1.1rem; }
+    .doc-content ul, .doc-content ol { margin: 0 0 1.2rem; padding-left: 1.4rem; }
+    .doc-content li { margin-bottom: 0.45rem; }
+    .doc-content ul li { list-style: disc; }
+    .doc-content ol li { list-style: decimal; }
+    .doc-content a { color: var(--color-mocha); font-weight: 500; text-decoration: underline; text-underline-offset: 2px; }
+    .doc-content strong { color: #1c1917; }
+    .doc-content code { background: #f5f5f4; border: 1px solid #e7e5e4; border-radius: 0.375rem; padding: 0.1rem 0.35rem; font-size: 0.88em; color: #96603c; }
+    .doc-content blockquote { border-left: 4px solid var(--color-toffee); background: #fef5ec; border-radius: 0 0.75rem 0.75rem 0; padding: 0.9rem 1.1rem; margin: 1.4rem 0; color: #57534e; }
+    .doc-content blockquote p:last-child { margin-bottom: 0; }
+    .doc-content .kbd { background: #f5f5f4; border-color: #d6d3d1; color: #44403c; }
+    .doc-content table { width: 100%; border-collapse: collapse; margin: 1.2rem 0; font-size: 0.95rem; }
+    .doc-content th { text-align: left; font-weight: 600; color: #1c1917; border-bottom: 2px solid #e7e5e4; padding: 0.5rem 0.75rem; }
+    .doc-content td { border-bottom: 1px solid #f5f5f4; padding: 0.5rem 0.75rem; }
+
+    @media (prefers-reduced-motion: reduce) {
+      html.scroll-smooth { scroll-behavior: auto; }
+    }
+  </style>
+</head>
+
+<body>
+  {% assign showFun = true %}
+  {% include header.liquid %}
+
+  <main id="main-content" class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 pt-4 pb-16 sm:pb-24">
+
+    <!-- Breadcrumbs -->
+    <nav aria-label="Breadcrumb" class="help-card px-5 py-3 mb-6">
+      <div class="breadcrumbs text-sm p-0">
+        <ul>
+          <li><a href="/help/" class="font-semibold" style="color: var(--color-mocha);">Help Center</a></li>
+          {% if product_data %}<li><a href="{{ product_data.productUrl }}" class="font-semibold" style="color: var(--color-mocha);">{{ product_data.name }}</a></li>{% endif %}
+          <li><span class="text-stone-600" aria-current="page">{{ title }}</span></li>
+        </ul>
+      </div>
+    </nav>
+
+    <div class="grid grid-cols-1 lg:grid-cols-[15rem_minmax(0,1fr)] xl:grid-cols-[15rem_minmax(0,1fr)_13rem] gap-6 items-start">
+
+      <!-- Product sidebar (desktop) -->
+      {% if product_data %}
+      <aside class="hidden lg:block help-card p-4 sticky top-6" aria-label="{{ product_data.name }} guides">
+        <a href="{{ product_data.productUrl }}" class="flex items-center gap-2.5 px-2 pb-3 mb-3 border-b border-stone-200">
+          <img src="{{ product_data.icon }}" alt="" width="26" height="26" class="rounded-md" />
+          <span class="font-bold text-[0.95rem] text-stone-900">{{ product_data.name }}</span>
+        </a>
+        <nav aria-label="{{ product_data.name }} help articles">
+          {% for section in product_data.sections %}
+          <p class="px-2 mt-3 mb-1 text-[0.72rem] font-bold uppercase tracking-wider text-stone-400">{{ section.title }}</p>
+          <ul class="list-none">
+            {% for article in section.articles %}
+            <li>
+              <a href="{{ article.url }}" class="help-side-link" {% if article.url == page.url %}aria-current="page"{% endif %}>{{ article.title }}</a>
+            </li>
+            {% endfor %}
+          </ul>
+          {% endfor %}
+        </nav>
+      </aside>
+
+      <!-- Product nav (mobile) -->
+      <details class="lg:hidden help-card px-5 py-4">
+        <summary class="cursor-pointer font-semibold text-stone-900 text-[0.95rem]">Browse {{ product_data.name }} guides</summary>
+        <nav aria-label="{{ product_data.name }} help articles" class="mt-3">
+          {% for section in product_data.sections %}
+          <p class="mt-3 mb-1 text-[0.72rem] font-bold uppercase tracking-wider text-stone-400">{{ section.title }}</p>
+          <ul class="list-none">
+            {% for article in section.articles %}
+            <li><a href="{{ article.url }}" class="help-side-link" {% if article.url == page.url %}aria-current="page"{% endif %}>{{ article.title }}</a></li>
+            {% endfor %}
+          </ul>
+          {% endfor %}
+        </nav>
+      </details>
+      {% endif %}
+
+      <!-- Article -->
+      <article class="help-card p-6 sm:p-10" aria-labelledby="article-title">
+        <header class="mb-8">
+          <h1 id="article-title" class="text-3xl sm:text-4xl font-bold tracking-tight text-stone-900 leading-tight" style="color: var(--color-espresso);">
+            {{ cardTitle | default: title }}
+          </h1>
+          <p class="mt-4 text-lg text-stone-500 leading-relaxed">{{ description }}</p>
+          <p class="mt-4 text-sm text-stone-400">
+            <time datetime="{{ date | date: '%Y-%m-%d' }}">Published {{ date | formatDateWithOrdinal }}</time>
+            {% if updated %} · <time datetime="{{ updated | date: '%Y-%m-%d' }}">Updated {{ updated | formatDateWithOrdinal }}</time>{% endif %}
+            {% if time %} · {{ time }}{% endif %}
+          </p>
+          <hr class="mt-6 border-stone-200" />
+        </header>
+
+        <div class="doc-content" id="doc-content">
+          {{ content | safe }}
+        </div>
+
+        <!-- Related guides -->
+        {% if related and related.size > 0 %}
+        <section class="mt-12 pt-8 border-t border-stone-200" aria-labelledby="related-heading">
+          <h2 id="related-heading" class="text-lg font-bold text-stone-900 mb-4">Related guides</h2>
+          <ul class="grid grid-cols-1 sm:grid-cols-2 gap-3 list-none">
+            {% for rel in related %}
+            <li>
+              <a href="{{ rel.url }}" class="block rounded-xl border border-stone-200 px-4 py-3 text-[0.95rem] font-medium text-stone-700 hover:border-stone-400 transition-colors">
+                {{ rel.title }} <span aria-hidden="true">&rarr;</span>
+              </a>
+            </li>
+            {% endfor %}
+          </ul>
+        </section>
+        {% endif %}
+
+        <!-- Article footer -->
+        <footer class="mt-10 pt-6 border-t border-stone-200 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
+          <p class="text-sm text-stone-500">
+            Didn't solve it?
+            <a href="/support/" class="font-semibold" style="color: var(--color-mocha);">Contact support &rarr;</a>
+          </p>
+          <a href="/help/" class="text-sm font-medium" style="color: var(--color-mocha);">&larr; All help guides</a>
+        </footer>
+      </article>
+
+      <!-- On this page (desktop TOC) -->
+      <aside class="hidden xl:block help-card p-5 sticky top-6" aria-label="On this page">
+        <p class="text-[0.72rem] font-bold uppercase tracking-wider text-stone-400 mb-2">On this page</p>
+        <nav id="toc-nav" aria-label="Table of contents"></nav>
+        <noscript><p class="text-sm text-stone-400">Headings are listed within the article.</p></noscript>
+      </aside>
+    </div>
+  </main>
+
+  {% include modals.liquid %}
+  {% include footer.liquid %}
+
+  <script>
+    // Build the "On this page" list from the article's h2 headings.
+    (function () {
+      var nav = document.getElementById('toc-nav');
+      var heads = document.querySelectorAll('#doc-content h2[id]');
+      if (!nav || !heads.length) return;
+      var ul = document.createElement('ul');
+      ul.className = 'list-none';
+      heads.forEach(function (h) {
+        var li = document.createElement('li');
+        var a = document.createElement('a');
+        a.href = '#' + h.id;
+        a.textContent = h.textContent;
+        a.className = 'help-toc-link';
+        li.appendChild(a);
+        ul.appendChild(li);
+      });
+      nav.appendChild(ul);
+    })();
+  </script>
+</body>
+
+</html>

@@ -3,7 +3,7 @@ new: true
 submit: false
 footer: true
 header: true
-layout: templates/help.liquid
+layout: templates/help-doc.liquid
 title: Recovering Lost Notes in Markdown Editor
 description: "Opened Markdown Editor and your notes are gone? Breathe, they are usually still there. Check the extension storage, pull them out, and stop it happening again."
 keywords:
@@ -12,6 +12,7 @@ keywords:
   Fun
 url: help/recover-markdown-editor-notes/
 isHelp: true
+product: markdown-editor
 app: Markdown Editor
 category: Recovery
 cardTitle: Recovering Lost Notes in Markdown Editor
@@ -20,6 +21,13 @@ intro:
   extension just can't see them. This guide walks every recovery path, easiest first.
 name: Coffee & Fun Team
 date: 2026-04-20T00:00:00.000Z
+updated: 2026-07-31T12:00:00.000Z
+img: /assets/images/social/help/recover-markdown-editor-notes.png
+related:
+  - title: "Documents, saving & backups"
+    url: /help/markdown-editor-documents-and-backups/
+  - title: "Fix common problems"
+    url: /help/markdown-editor-troubleshooting/
 time: 8 min read
 tags:
   - help
