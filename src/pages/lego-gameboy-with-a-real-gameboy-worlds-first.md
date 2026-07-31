@@ -5,10 +5,8 @@ footer: true
 mcD: false
 header: true
 layout: templates/post.liquid
-title: 
-  "World’s First LEGO Game Boy With a Real Nintendo Inside (Work in Progress Build Log)"
-description: 
-  "I got my hands on the LEGO Game Boy set early through eBay and I’m attempting to fit an original Nintendo Game Boy inside it, aiming to be the first in the world to pull it off. This live blog tracks the build, mods, and progress."
+title: "Fitting a Real Game Boy Inside LEGO's Set"
+description: "I got the LEGO Game Boy set early and I am attempting a world first: fitting an original Nintendo Game Boy inside it. A live build log of the mods and progress."
 keywords: 
   - LEGO Game Boy
   - LEGO Game Boy Mod

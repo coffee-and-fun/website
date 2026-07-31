@@ -5,9 +5,7 @@ footer: true
 header: true
 layout: templates/help.liquid
 title: Recovering Lost Notes in Markdown Editor
-description:
-  Opened Markdown Editor and your documents are gone? Breathe. They're usually still there. Here's
-  how to check the extension storage, pull them out, and stop it happening again.
+description: "Opened Markdown Editor and your notes are gone? Breathe, they are usually still there. Check the extension storage, pull them out, and stop it happening again."
 keywords:
   Markdown Editor, recover notes, Firefox extension storage, Chrome extension storage, restore
   markdown documents, Markdown Editor Android, Markdown Editor backup, about:debugging, Coffee and
