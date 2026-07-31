@@ -20,16 +20,17 @@ eleventyExcludeFromCollections: true
     <meta property="og:title" content="404 Tournament: Page Not Found - Coffee & Fun LLC" />
     <meta property="og:description" content="This page is missing, so settle it in the 404 Tournament: a tiny pixel cat fighting game starring Crash and Coco. Then head back to the good stuff." />
     <meta property="og:url" content="https://www.coffeeandfun.com/404.html" />
-    <meta property="og:image" content="https://www.coffeeandfun.com/assets/images/social/1200.png" />
+    <meta property="og:image" content="https://www.coffeeandfun.com/assets/images/social/pages/404-tournament.png" />
     <meta property="og:image:width" content="1200" />
-    <meta property="og:image:height" content="800" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content="Pixel cats Crash and Coco face off under a 404 Tournament sign" />
 
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:site" content="@bycoffeeandfun" />
     <meta name="twitter:title" content="404 Tournament: Page Not Found - Coffee & Fun LLC" />
     <meta name="twitter:description" content="This page is missing, so settle it in the 404 Tournament: a tiny pixel cat fighting game starring Crash and Coco. Then head back to the good stuff." />
-    <meta name="twitter:image" content="https://www.coffeeandfun.com/assets/images/social/1200.png" />
-    <meta name="twitter:image:alt" content="Coffee & Fun logo above a grid of store loyalty cards" />
+    <meta name="twitter:image" content="https://www.coffeeandfun.com/assets/images/social/pages/404-tournament.png" />
+    <meta name="twitter:image:alt" content="Pixel cats Crash and Coco face off under a 404 Tournament sign" />
 
     <link rel="icon" href="/assets/images/brand/favicon.png" sizes="any" />
     <link rel="apple-touch-icon" href="/assets/images/social/192.png" />
@@ -72,10 +73,6 @@ eleventyExcludeFromCollections: true
             display: flex;
             flex-direction: column;
             align-items: center;
-            padding: 1.2rem 1rem 3rem;
-            background:
-                radial-gradient(1200px 500px at 50% -10%, #1d1030 0%, transparent 60%),
-                var(--bg);
         }
 
         .skip { position: absolute; left: -9999px; }
@@ -91,206 +88,23 @@ eleventyExcludeFromCollections: true
             text-decoration: none;
         }
 
-        /* ---------- Marquee ---------- */
-        .marquee { text-align: center; margin: 0.6rem 0 1.1rem; }
-        .presents {
-            font-size: clamp(8px, 1.6vw, 11px);
-            letter-spacing: 0.35em;
-            color: var(--gold);
-            margin: 0 0 0.9rem;
-            text-transform: uppercase;
-        }
-        h1.title {
-            margin: 0;
-            font-size: clamp(26px, 6.5vw, 58px);
-            line-height: 1.15;
-            color: var(--gold);
-            text-shadow:
-                0 3px 0 var(--gold-dark),
-                0 6px 0 #3a2405,
-                0 0 26px rgba(232, 177, 58, 0.35);
-            letter-spacing: 0.04em;
-        }
-        h1.title .four {
-            color: var(--blood);
-            text-shadow: 0 3px 0 var(--blood-dark), 0 6px 0 #35060a, 0 0 26px rgba(194, 42, 51, 0.4);
-        }
-        .tagline {
-            margin: 1rem auto 0;
-            max-width: 60ch;
-            font-size: clamp(9px, 1.8vw, 12px);
-            line-height: 1.9;
-            color: #b8a88f;
-        }
-        .tagline strong { color: var(--ink); }
-
-        /* ---------- The TV ---------- */
-        .cabinet { width: min(96vw, 980px); margin-top: 0.4rem; }
-
-        .antenna {
-            position: relative;
-            height: 74px;
-            margin-bottom: -12px;
-            pointer-events: none;
-        }
-        .antenna .rod {
+        .sr-only {
             position: absolute;
-            bottom: 0;
-            left: 50%;
-            width: 5px;
-            height: 84px;
-            background: linear-gradient(180deg, #8d8578, #3d3830);
-            border-radius: 3px;
-            transform-origin: bottom center;
-        }
-        .antenna .rod.l { transform: rotate(-34deg); }
-        .antenna .rod.r { transform: rotate(30deg); }
-        .antenna .rod::after {
-            content: '';
-            position: absolute;
-            top: -7px;
-            left: -3px;
-            width: 11px;
-            height: 11px;
-            border-radius: 50%;
-            background: #b8ae9d;
-        }
-        .antenna .base {
-            position: absolute;
-            bottom: -4px;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 74px;
-            height: 20px;
-            background: #241a12;
-            border-radius: 8px 8px 0 0;
-            border: 3px solid #120c07;
-            border-bottom: 0;
-        }
-
-        .tv-body {
-            position: relative;
-            display: grid;
-            grid-template-columns: 1fr 118px;
-            gap: 14px;
-            padding: 22px;
-            background:
-                repeating-linear-gradient(92deg, rgba(0,0,0,0.13) 0 7px, rgba(0,0,0,0) 7px 15px),
-                linear-gradient(180deg, #57402b, #3f2d1d 60%, #332417);
-            border: 6px solid #1d1209;
-            border-radius: 22px;
-            box-shadow:
-                inset 0 2px 0 rgba(255, 230, 180, 0.18),
-                0 24px 70px rgba(0, 0, 0, 0.75);
-        }
-
-        .screen-wrap {
-            position: relative;
-            border: 10px solid #14100c;
-            border-radius: 26px;
+            width: 1px;
+            height: 1px;
+            padding: 0;
+            margin: -1px;
             overflow: hidden;
-            background: #000;
-            box-shadow:
-                inset 0 0 0 3px #060402,
-                inset 0 0 44px rgba(0, 0, 0, 0.9);
-        }
-        .glass {
-            position: absolute;
-            inset: 0;
-            pointer-events: none;
-            border-radius: 16px;
-            background:
-                radial-gradient(130% 90% at 22% 8%, rgba(255, 255, 255, 0.09) 0%, transparent 42%),
-                radial-gradient(125% 125% at 50% 50%, transparent 62%, rgba(0, 0, 0, 0.5) 100%);
+            clip: rect(0 0 0 0);
+            white-space: nowrap;
+            border: 0;
         }
 
-        .tv-panel {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 14px;
-            padding: 10px 6px;
-            background: #241a12;
-            border: 3px solid #14100c;
-            border-radius: 12px;
-        }
-        .knob {
-            width: 44px;
-            height: 44px;
-            border-radius: 50%;
-            background: radial-gradient(circle at 34% 30%, #6b5a45, #241d14 68%);
-            border: 3px solid #0f0a06;
+        /* ---------- Full-page arena ---------- */
+        .stage {
             position: relative;
-        }
-        .knob::after {
-            content: '';
-            position: absolute;
-            left: 50%;
-            top: 4px;
-            width: 4px;
-            height: 14px;
-            margin-left: -2px;
-            background: #d8cbb2;
-            border-radius: 2px;
-        }
-        .knob.small { width: 32px; height: 32px; }
-        .knob.small::after { height: 9px; }
-        .speaker {
-            width: 78%;
-            flex: 1;
-            min-height: 60px;
-            border-radius: 8px;
-            background: repeating-linear-gradient(
-                180deg,
-                #14100c 0 4px,
-                #2c2118 4px 8px
-            );
-            border: 2px solid #0f0a06;
-        }
-        .badge {
-            font-size: 7px;
-            color: var(--gold);
-            letter-spacing: 0.12em;
-            text-align: center;
-            line-height: 1.7;
-        }
-        .led {
-            width: 10px;
-            height: 10px;
-            border-radius: 50%;
-            background: #ff4646;
-            box-shadow: 0 0 10px #ff4646, 0 0 20px rgba(255, 70, 70, 0.6);
-        }
-
-        .tv-feet {
-            display: flex;
-            justify-content: space-between;
-            padding: 0 60px;
-            margin-top: -3px;
-        }
-        .tv-feet i {
-            width: 74px;
-            height: 16px;
-            background: #1d1209;
-            border-radius: 0 0 10px 10px;
-        }
-
-        @media (max-width: 640px) {
-            .tv-body {
-                grid-template-columns: 1fr;
-                padding: 14px;
-                border-radius: 16px;
-            }
-            .tv-panel {
-                flex-direction: row;
-                justify-content: center;
-                padding: 8px;
-            }
-            .speaker { width: auto; flex: 1; min-height: 34px; align-self: stretch; }
-            .antenna { height: 46px; }
-            .antenna .rod { height: 56px; }
-            .tv-feet { padding: 0 30px; }
-            .screen-wrap { border-width: 6px; border-radius: 14px; }
+            width: min(100%, calc(78dvh * 16 / 9));
+            margin: 0 auto;
         }
         canvas#game {
             display: block;
@@ -306,8 +120,14 @@ eleventyExcludeFromCollections: true
                 to bottom,
                 rgba(0, 0, 0, 0) 0px,
                 rgba(0, 0, 0, 0) 2px,
-                rgba(0, 0, 0, 0.16) 3px
+                rgba(0, 0, 0, 0.13) 3px
             );
+        }
+        .vignette {
+            position: absolute;
+            inset: 0;
+            pointer-events: none;
+            background: radial-gradient(120% 120% at 50% 45%, transparent 60%, rgba(0, 0, 0, 0.45) 100%);
         }
 
         /* DOM overlay screens */
@@ -335,6 +155,8 @@ eleventyExcludeFromCollections: true
             line-height: 1.9;
             margin: 0.4rem 0;
         }
+        .scr .rec { color: var(--gold); }
+        .scr .hint { color: #6f6552; font-size: clamp(7px, 1.3vw, 9px); }
 
         .btn {
             font-family: inherit;
@@ -377,7 +199,7 @@ eleventyExcludeFromCollections: true
             color: var(--ink);
             cursor: pointer;
         }
-        .slot:hover, .slot:focus-visible { border-color: var(--gold); outline: none; }
+        .slot:hover:not(:disabled), .slot:focus-visible { border-color: var(--gold); outline: none; }
         .slot .face {
             display: block;
             width: 96px;
@@ -399,13 +221,36 @@ eleventyExcludeFromCollections: true
             font-size: 34px;
         }
 
-        /* deck under the screen */
+        /* toast for the Konami unlock */
+        .toast {
+            position: fixed;
+            top: 14px;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 40;
+            background: var(--panel);
+            border: 3px solid var(--gold);
+            border-radius: 8px;
+            color: var(--gold);
+            font-size: 10px;
+            letter-spacing: 0.08em;
+            padding: 12px 18px;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.3s;
+        }
+        .toast.on { opacity: 1; }
+
+        /* console: controls under the fight */
+        .console {
+            width: min(96vw, 900px);
+            padding: 12px 8px 0;
+        }
         .deck {
             display: flex;
             align-items: center;
             justify-content: space-between;
             gap: 12px;
-            padding: 10px 4px 0;
             flex-wrap: wrap;
         }
         .deck .keys { font-size: 8px; color: #8d7f68; line-height: 1.9; }
@@ -422,7 +267,6 @@ eleventyExcludeFromCollections: true
         }
         .iconbtn:hover, .iconbtn:focus-visible { border-color: var(--gold); outline: none; }
 
-        /* touch controls */
         .touchpad {
             display: none;
             justify-content: space-between;
@@ -450,30 +294,25 @@ eleventyExcludeFromCollections: true
         }
         .tbtn:active { border-color: var(--gold); background: #241a33; }
 
-        /* site links */
-        nav.exits { margin-top: 2rem; text-align: center; }
-        nav.exits h2 {
-            font-size: 10px;
-            letter-spacing: 0.3em;
-            color: #8d7f68;
-            margin: 0 0 0.9rem;
-            text-transform: uppercase;
-        }
-        .exitrow { display: flex; gap: 10px; flex-wrap: wrap; justify-content: center; }
+        /* exit + credits */
+        .exitwrap { margin: 1.6rem 0 0.6rem; text-align: center; }
         .exit {
-            font-size: clamp(9px, 1.8vw, 11px);
-            color: var(--ink);
+            display: inline-block;
+            font-size: clamp(10px, 2vw, 13px);
+            color: #1a1206;
             text-decoration: none;
-            border: 3px solid var(--edge);
-            background: var(--panel);
+            background: linear-gradient(180deg, #f3c95c, var(--gold) 55%, #c8901f);
+            border: 3px solid #4a3208;
             border-radius: 6px;
-            padding: 0.9em 1.3em;
-            letter-spacing: 0.06em;
+            padding: 0.9em 1.6em;
+            letter-spacing: 0.08em;
+            box-shadow: 0 4px 0 #4a3208, 0 8px 20px rgba(0, 0, 0, 0.5);
         }
-        .exit:hover, .exit:focus-visible { border-color: var(--gold); color: var(--gold); outline: none; }
+        .exit:hover { filter: brightness(1.08); }
+        .exit:focus-visible { outline: 3px solid #fff; outline-offset: 3px; }
 
         .credits {
-            margin-top: 2.2rem;
+            margin: 1.4rem 1rem 2rem;
             font-size: 7px;
             line-height: 2.1;
             color: #6f6552;
@@ -482,118 +321,84 @@ eleventyExcludeFromCollections: true
         }
         .credits a { color: #9d8f74; }
 
-        .sr-only {
-            position: absolute;
-            width: 1px;
-            height: 1px;
-            padding: 0;
-            margin: -1px;
-            overflow: hidden;
-            clip: rect(0 0 0 0);
-            white-space: nowrap;
-            border: 0;
-        }
-
         @media (prefers-reduced-motion: reduce) {
             .scanlines { display: none; }
+            .toast { transition: none; }
         }
 
         @media (max-width: 480px) {
             .touchpad { gap: 8px; }
-            .tgroup { gap: 8px; flex: 1; }
-            .tgroup:last-child { flex: 1.6; }
-            .tbtn { flex: 1; min-width: 0; height: 60px; font-size: 8px; padding: 0 4px; }
+            .tgroup { gap: 6px; flex: 1; }
+            .tgroup:last-child { flex: 2.1; }
+            .tbtn { flex: 1; min-width: 0; height: 60px; font-size: 8px; padding: 0 3px; }
         }
     </style>
 </head>
 <body>
-    <a class="skip" href="#exits">Skip to site links</a>
+    <a class="skip" href="#home-link">Skip to home link</a>
+    <h1 class="sr-only">404 Tournament: Page Not Found</h1>
 
-    <header class="marquee">
-        <p class="presents">Coffee &amp; Fun LLC presents</p>
-        <h1 class="title"><span class="four">404</span> TOURNAMENT</h1>
-        <p class="tagline">
-            <strong>ERROR 404: PAGE NOT FOUND.</strong><br />
-            The page you wanted has left the arena. Two cats remain.<br />
-            Settle it, then head back to the good stuff below.
-        </p>
-    </header>
+    <main class="stage">
+        <canvas id="game" width="640" height="360" role="img" aria-label="404 Tournament: a small pixel-art fighting game where two cats, Crash and Coco, battle on a rooftop under a giant 404 sign. Playable with keyboard or touch. The home link below works without playing."></canvas>
+        <div class="scanlines" aria-hidden="true"></div>
+        <div class="vignette" aria-hidden="true"></div>
 
-    <main class="cabinet">
-        <div class="antenna" aria-hidden="true">
-            <span class="rod l"></span>
-            <span class="rod r"></span>
-            <span class="base"></span>
-        </div>
-        <div class="tv-body">
-        <div class="screen-wrap">
-            <canvas id="game" width="640" height="360" role="img" aria-label="404 Tournament: a small pixel-art fighting game where two cats, Crash and Coco, battle on a rooftop. Playable with keyboard or touch. The site links below work without playing."></canvas>
-            <div class="scanlines" aria-hidden="true"></div>
+        <div class="ui" id="ui">
+            <!-- start -->
+            <section class="scr" id="scr-start">
+                <h2>INSERT COFFEE<br />TO CONTINUE</h2>
+                <p>A very small fighting game about a very missing page.</p>
+                <p>Best of 3 rounds. 60 seconds each.</p>
+                <p class="rec" id="rec-start" hidden></p>
+                <p style="margin-top: 1.2rem"><button class="btn" id="btn-start" type="button">PRESS START</button></p>
+            </section>
 
-            <div class="ui" id="ui">
-                <!-- start -->
-                <section class="scr" id="scr-start">
-                    <h2>INSERT COFFEE<br />TO CONTINUE</h2>
-                    <p>A very small fighting game about a very missing page.</p>
-                    <p style="margin-bottom: 1.2rem">Best of 3 rounds. 60 seconds each.</p>
-                    <button class="btn" id="btn-start" type="button">PRESS START</button>
-                </section>
-
-                <!-- choose fighter -->
-                <section class="scr" id="scr-select" hidden>
-                    <h2>CHOOSE YOUR FIGHTER</h2>
-                    <div class="roster">
-                        <button class="slot" type="button" data-pick="crash">
-                            <span class="face" id="face-crash" aria-hidden="true"></span>
-                            <span class="nm">CRASH</span>
-                            <span class="rl">HEAD OF SECURITY</span>
-                        </button>
-                        <button class="slot" type="button" data-pick="coco">
-                            <span class="face" id="face-coco" aria-hidden="true"></span>
-                            <span class="nm">COCO</span>
-                            <span class="rl">HEAD OF SEARCH</span>
-                        </button>
-                        <div class="slot locked" aria-hidden="true">
-                            <span class="face">?</span>
-                            <span class="nm">???</span>
-                            <span class="rl">PAGE NOT FOUND</span>
-                        </div>
-                        <div class="slot locked" aria-hidden="true">
-                            <span class="face">?</span>
-                            <span class="nm">???</span>
-                            <span class="rl">PAGE NOT FOUND</span>
-                        </div>
+            <!-- choose fighter -->
+            <section class="scr" id="scr-select" hidden>
+                <h2>CHOOSE YOUR FIGHTER</h2>
+                <div class="roster">
+                    <button class="slot" type="button" data-pick="crash">
+                        <span class="face" id="face-crash" aria-hidden="true"></span>
+                        <span class="nm">CRASH</span>
+                        <span class="rl">HEAD OF SECURITY</span>
+                    </button>
+                    <button class="slot" type="button" data-pick="coco">
+                        <span class="face" id="face-coco" aria-hidden="true"></span>
+                        <span class="nm">COCO</span>
+                        <span class="rl">HEAD OF SEARCH</span>
+                    </button>
+                    <button class="slot locked" type="button" data-pick="konami" id="slot-konami" disabled>
+                        <span class="face" id="face-konami" aria-hidden="true">?</span>
+                        <span class="nm" id="nm-konami">???</span>
+                        <span class="rl" id="rl-konami">PAGE NOT FOUND</span>
+                    </button>
+                    <div class="slot locked" aria-hidden="true">
+                        <span class="face">?</span>
+                        <span class="nm">???</span>
+                        <span class="rl">PAGE NOT FOUND</span>
                     </div>
-                    <p>The other cat fights for the machine.</p>
-                </section>
+                </div>
+                <p>The other cat fights for the machine.</p>
+            </section>
 
-                <!-- end -->
-                <section class="scr" id="scr-end" hidden>
-                    <h2 id="end-title">YOU WIN</h2>
-                    <p id="end-quip">The page is still missing. But honor is restored.</p>
-                    <p style="margin-top: 1.2rem">
-                        <button class="btn" id="btn-rematch" type="button">REMATCH</button>
-                        <button class="btn ghost" id="btn-reselect" type="button">CHANGE FIGHTER</button>
-                    </p>
-                </section>
-            </div>
-            <div class="glass" aria-hidden="true"></div>
+            <!-- end -->
+            <section class="scr" id="scr-end" hidden>
+                <h2 id="end-title">YOU WIN</h2>
+                <p id="end-quip">The page is still missing. But honor is restored.</p>
+                <p class="rec" id="rec-end"></p>
+                <p class="hint" id="konami-hint" hidden>PSST... UP UP DOWN DOWN LEFT RIGHT LEFT RIGHT B A</p>
+                <p style="margin-top: 1.2rem">
+                    <button class="btn" id="btn-rematch" type="button">REMATCH</button>
+                    <button class="btn ghost" id="btn-reselect" type="button">CHANGE FIGHTER</button>
+                </p>
+            </section>
         </div>
+    </main>
 
-        <div class="tv-panel" aria-hidden="true">
-            <span class="knob"></span>
-            <span class="knob small"></span>
-            <span class="speaker"></span>
-            <span class="badge">COFFEE &amp; FUN<br />CRT-404</span>
-            <span class="led"></span>
-        </div>
-        </div>
-
-        <div class="tv-feet" aria-hidden="true"><i></i><i></i></div>
-
+    <div class="console">
         <div class="deck">
             <p class="keys">
-                <b>&larr;&rarr;</b> MOVE &nbsp; <b>&uarr;</b> JUMP &nbsp; <b>Z</b> PUNCH &nbsp; <b>X</b> ROLL &nbsp; <b>P</b> PAUSE
+                <b>ARROWS</b> MOVE &nbsp; <b>UP</b> JUMP &nbsp; <b>Z</b> PUNCH &nbsp; <b>X</b> ROLL &nbsp; <b>C</b> BLOCK &nbsp; <b>P</b> PAUSE
             </p>
             <div>
                 <button class="iconbtn" id="btn-sound" type="button" aria-pressed="true">SOUND: ON</button>
@@ -603,38 +408,34 @@ eleventyExcludeFromCollections: true
 
         <div class="touchpad">
             <div class="tgroup">
-                <button class="tbtn" data-t="left" type="button" aria-label="Move left">&larr;</button>
-                <button class="tbtn" data-t="right" type="button" aria-label="Move right">&rarr;</button>
+                <button class="tbtn" data-t="left" type="button" aria-label="Move left">&lt;</button>
+                <button class="tbtn" data-t="right" type="button" aria-label="Move right">&gt;</button>
             </div>
             <div class="tgroup">
                 <button class="tbtn" data-t="jump" type="button">JUMP</button>
-                <button class="tbtn" data-t="roll" type="button">ROLL</button>
                 <button class="tbtn" data-t="punch" type="button">PUNCH</button>
+                <button class="tbtn" data-t="roll" type="button">ROLL</button>
+                <button class="tbtn" data-t="block" type="button">BLOCK</button>
             </div>
         </div>
-    </main>
+    </div>
 
-    <nav class="exits" id="exits" aria-label="Site links">
-        <h2>Exit the arena</h2>
-        <div class="exitrow">
-            <a class="exit" href="/">HOME</a>
-            <a class="exit" href="/apps/">ALL APPS</a>
-            <a class="exit" href="/blog/">BLOG</a>
-            <a class="exit" href="/support/">SUPPORT</a>
-        </div>
-    </nav>
+    <div class="exitwrap">
+        <a class="exit" id="home-link" href="/">TAKE ME HOME</a>
+    </div>
 
     <p class="credits">
         Cat fighters: <a href="https://pixelfight.itch.io/cat-pack" rel="noopener">Pixel Cats! by PixelFight</a> (CC0).
         Font: Press Start 2P (SIL OFL). Crash and Coco are real cats. No cats were harmed; one page was lost.
     </p>
 
+    <div class="toast" id="toast" role="status"></div>
     <div class="sr-only" role="status" aria-live="polite" id="announcer-live"></div>
 
     <noscript>
-        <p style="max-width: 60ch; text-align: center; font-size: 11px; line-height: 2">
+        <p style="max-width: 60ch; text-align: center; font-size: 11px; line-height: 2; padding: 0 1rem 2rem">
             The tournament needs JavaScript, but the important part doesn't:
-            this page wasn't found. Use the links above to get back to the site.
+            this page wasn't found. Use the TAKE ME HOME link above to get back to the site.
         </p>
     </noscript>
 
@@ -651,6 +452,10 @@ eleventyExcludeFromCollections: true
         const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
         const live = document.getElementById('announcer-live');
         const say = (t) => { live.textContent = t; };
+        const store = {
+            get(k) { try { return localStorage.getItem(k); } catch (e) { return null; } },
+            set(k, v) { try { localStorage.setItem(k, v); } catch (e) { /* private mode */ } }
+        };
 
         /* Sprite sheets: 8 cols x 15 rows of 32px frames, 120 linear frames.
            Ranges come from the pack's Aseprite frame tags. */
@@ -667,8 +472,9 @@ eleventyExcludeFromCollections: true
             jumpR:  { s: 112, n: 8, fps: 12 }
         };
         const CATS = {
-            crash: { name: 'CRASH', img: '/assets/images/games/404/crash.png' },
-            coco:  { name: 'COCO',  img: '/assets/images/games/404/coco.png' }
+            crash:  { name: 'CRASH',  img: '/assets/images/games/404/crash.png' },
+            coco:   { name: 'COCO',   img: '/assets/images/games/404/coco.png' },
+            konami: { name: 'KONAMI', img: '/assets/images/games/404/konami.png' }
         };
         const sheets = {};
         for (const k of Object.keys(CATS)) {
@@ -679,9 +485,21 @@ eleventyExcludeFromCollections: true
         document.getElementById('face-crash').style.backgroundImage = "url('" + CATS.crash.img + "')";
         document.getElementById('face-coco').style.backgroundImage = "url('" + CATS.coco.img + "')";
 
+        /* ============================== records ============================== */
+        function record() {
+            try { return JSON.parse(store.get('cf404_rec')) || { w: 0, l: 0 }; }
+            catch (e) { return { w: 0, l: 0 }; }
+        }
+        function recText(r) { return 'YOUR RECORD: ' + r.w + 'W - ' + r.l + 'L'; }
+        function showRecords() {
+            const r = record();
+            const el = document.getElementById('rec-start');
+            if (r.w + r.l > 0) { el.textContent = recText(r); el.hidden = false; }
+            document.getElementById('rec-end').textContent = recText(r);
+        }
+
         /* ============================== audio ============================== */
-        let AC = null, muted = false;
-        try { muted = localStorage.getItem('cf404_mute') === '1'; } catch (e) { /* private mode */ }
+        let AC = null, muted = store.get('cf404_mute') === '1';
         const sndBtn = document.getElementById('btn-sound');
         const syncSnd = () => {
             sndBtn.textContent = muted ? 'SOUND: OFF' : 'SOUND: ON';
@@ -690,7 +508,7 @@ eleventyExcludeFromCollections: true
         syncSnd();
         sndBtn.addEventListener('click', () => {
             muted = !muted;
-            try { localStorage.setItem('cf404_mute', muted ? '1' : '0'); } catch (e) { /* fine */ }
+            store.set('cf404_mute', muted ? '1' : '0');
             syncSnd();
         });
         function beep(freq, dur, type, vol, slide) {
@@ -716,11 +534,52 @@ eleventyExcludeFromCollections: true
                 setTimeout(() => beep(784, 0.16, 'square', 0.05), 220);
             },
             whiff:  () => beep(190, 0.06, 'sawtooth', 0.03),
-            hit:    () => { beep(120, 0.09, 'square', 0.07, 60); beep(45, 0.12, 'triangle', 0.08); },
+            hit:    () => { beep(105 + Math.random() * 45, 0.09, 'square', 0.07, 55); beep(45, 0.12, 'triangle', 0.08); },
+            block:  () => beep(880, 0.05, 'square', 0.05, 660),
             roll:   () => beep(300, 0.08, 'triangle', 0.035, 520),
             ko:     () => beep(500, 0.6, 'sawtooth', 0.07, 40),
             round:  () => beep(330, 0.12, 'square', 0.05, 440)
         };
+
+        /* ============================== konami ============================== */
+        const KONAMI = ['ArrowUp','ArrowUp','ArrowDown','ArrowDown','ArrowLeft','ArrowRight','ArrowLeft','ArrowRight','KeyB','KeyA'];
+        let konamiAt = 0;
+        let konamiUnlocked = store.get('cf404_konami') === '1';
+        function applyKonamiSlot() {
+            if (!konamiUnlocked) return;
+            const slot = document.getElementById('slot-konami');
+            slot.disabled = false;
+            slot.classList.remove('locked');
+            const face = document.getElementById('face-konami');
+            face.textContent = '';
+            face.style.display = 'block';
+            face.style.backgroundImage = "url('" + CATS.konami.img + "')";
+            document.getElementById('nm-konami').textContent = 'KONAMI';
+            document.getElementById('rl-konami').textContent = 'UP UP DOWN DOWN';
+            document.getElementById('konami-hint').hidden = true;
+        }
+        function unlockKonami() {
+            if (konamiUnlocked) return;
+            konamiUnlocked = true;
+            store.set('cf404_konami', '1');
+            applyKonamiSlot();
+            sfx.start();
+            toast('KONAMI HAS ENTERED THE TOURNAMENT');
+            say('Secret fighter Konami unlocked.');
+        }
+        addEventListener('keydown', (e) => {
+            konamiAt = e.code === KONAMI[konamiAt] ? konamiAt + 1 : (e.code === KONAMI[0] ? 1 : 0);
+            if (konamiAt === KONAMI.length) { konamiAt = 0; unlockKonami(); }
+        });
+        let toastT = null;
+        function toast(msg) {
+            const el = document.getElementById('toast');
+            el.textContent = msg;
+            el.classList.add('on');
+            clearTimeout(toastT);
+            toastT = setTimeout(() => el.classList.remove('on'), 2600);
+        }
+        applyKonamiSlot();
 
         /* ============================== input ============================== */
         const keys = {};
@@ -729,7 +588,8 @@ eleventyExcludeFromCollections: true
             ArrowRight: 'right', KeyD: 'right',
             ArrowUp: 'jump', KeyW: 'jump',
             KeyZ: 'punch', KeyJ: 'punch',
-            KeyX: 'roll', KeyK: 'roll'
+            KeyX: 'roll', KeyK: 'roll',
+            KeyC: 'block', KeyL: 'block'
         };
         addEventListener('keydown', (e) => {
             if (e.code === 'KeyP' || e.code === 'Escape') {
@@ -757,7 +617,7 @@ eleventyExcludeFromCollections: true
         /* ============================== fighters ============================== */
         const SPEED = 170, JUMP_V = -470, GRAV = 1300, ROLL_V = 330;
         const PUNCH_TIME = 3 / A.punchL.fps, ROLL_TIME = 0.34;
-        const PUNCH_REACH = 52, PUNCH_DMG = 9, BODY_W = 34;
+        const PUNCH_REACH = 52, PUNCH_DMG = 9, AIR_DMG = 12, CHIP_DMG = 2, ROLL_DMG = 3, BODY_W = 34;
 
         function mkFighter(catKey, x, facing, isCPU) {
             return {
@@ -766,11 +626,11 @@ eleventyExcludeFromCollections: true
                 facing, isCPU,
                 hp: 100, rounds: 0,
                 state: 'idle', t: 0, animT: 0,
-                punchDidHit: false,
+                punchDidHit: false, jumpHeld: true,
                 rollCd: 0, punchCd: 0,
                 stun: 0, invuln: 0,
                 flash: 0, koSpin: 0,
-                ai: { think: 0, dir: 0, wantPunch: false, wantRoll: false, wantJump: false }
+                ai: { think: 0, gap: 0, dir: 0, wantPunch: false, wantRoll: false, wantJump: false, wantBlock: 0 }
             };
         }
 
@@ -782,24 +642,33 @@ eleventyExcludeFromCollections: true
         function sfxIf(f, name) { if (!f.isCPU) sfx[name](); }
 
         function fighterInput(f, inp, dt, foe) {
-            if (f.state === 'ko' || f.state === 'win') { f.vx = 0; return; }
+            if (f.state === 'ko' || f.state === 'win') { f.vx = 0; f.jumpHeld = true; return; }
             f.rollCd = Math.max(0, f.rollCd - dt);
             f.punchCd = Math.max(0, f.punchCd - dt);
-            if (f.stun > 0) { f.stun -= dt; setState(f, 'hit'); return; }
+            if (f.stun > 0) { f.stun -= dt; setState(f, 'hit'); f.jumpHeld = !!inp.jump; return; }
 
             const grounded = f.y >= GROUND - 0.5;
             if (f.state === 'punch') {
                 if (f.t >= PUNCH_TIME) setState(f, grounded ? 'idle' : 'jump');
-                else return;
+                else { f.jumpHeld = !!inp.jump; return; }
             }
             if (f.state === 'roll') {
                 f.vx = f.facing * ROLL_V;
                 if (f.t >= ROLL_TIME) { f.vx = 0; setState(f, grounded ? 'idle' : 'jump'); }
-                else return;
+                else { f.jumpHeld = !!inp.jump; return; }
             }
 
             // square up with the opponent while grounded
             if (grounded) f.facing = foe.x >= f.x ? 1 : -1;
+
+            // block: hold to guard, grounded only
+            if (inp.block && grounded) {
+                setState(f, 'block');
+                f.vx = 0;
+                f.jumpHeld = !!inp.jump;
+                return;
+            }
+            if (f.state === 'block') setState(f, 'idle');
 
             let mx = 0;
             if (inp.left) mx -= 1;
@@ -810,6 +679,7 @@ eleventyExcludeFromCollections: true
                 f.punchCd = 0.42;
                 setState(f, 'punch');
                 sfxIf(f, 'whiff');
+                f.jumpHeld = !!inp.jump;
                 return;
             }
             if (inp.roll && grounded && f.rollCd <= 0) {
@@ -818,11 +688,30 @@ eleventyExcludeFromCollections: true
                 f.invuln = ROLL_TIME;
                 setState(f, 'roll');
                 sfxIf(f, 'roll');
+                f.jumpHeld = !!inp.jump;
                 return;
             }
-            if (inp.jump && grounded) { f.vy = JUMP_V; setState(f, 'jump'); return; }
-            if (grounded) setState(f, mx !== 0 ? 'run' : 'idle');
-            else if (f.state !== 'jump') setState(f, 'jump');
+
+            // jump: edge-triggered; airborne at a wall = wall jump
+            const jumpPressed = inp.jump && !f.jumpHeld;
+            const atWall = f.x <= 48 || f.x >= W - 48;
+            if (jumpPressed) {
+                if (grounded) {
+                    f.vy = JUMP_V;
+                    setState(f, 'jump');
+                } else if (atWall) {
+                    f.vy = JUMP_V * 0.92;
+                    f.facing = f.x <= 48 ? 1 : -1;
+                    f.vx = f.facing * SPEED * 1.35;
+                    setState(f, 'jump');
+                    f.animT = 0;
+                    sfxIf(f, 'roll');
+                }
+            }
+            f.jumpHeld = !!inp.jump;
+
+            if (grounded && f.state !== 'jump') setState(f, mx !== 0 ? 'run' : 'idle');
+            else if (!grounded && f.state !== 'jump') setState(f, 'jump');
         }
 
         function fighterPhysics(f, dt) {
@@ -838,6 +727,8 @@ eleventyExcludeFromCollections: true
                 f.vy = 0;
                 if (f.state === 'jump') setState(f, 'idle');
             }
+            // winner does a little victory bounce
+            if (f.state === 'win' && f.y >= GROUND - 0.5) f.vy = -240;
             f.x = Math.max(46, Math.min(W - 46, f.x));
             if (f.state === 'ko') { f.koSpin += dt; f.vx *= 0.9; }
         }
@@ -850,16 +741,37 @@ eleventyExcludeFromCollections: true
             const reach = att.x + att.facing * PUNCH_REACH;
             const dx = Math.abs(reach - def.x);
             const dy = Math.abs(att.y - def.y);
-            if (dx < BODY_W && dy < 40) {
-                att.punchDidHit = true;
-                def.hp = Math.max(0, def.hp - PUNCH_DMG);
-                def.stun = 0.26;
+            if (dx >= BODY_W || dy >= 44) return;
+            att.punchDidHit = true;
+            const airborne = att.y < GROUND - 0.5;
+            const blocked = def.state === 'block' && def.facing === -att.facing;
+            if (blocked) {
+                def.hp = Math.max(0, def.hp - CHIP_DMG);
+                def.vx = att.facing * 90;
+                sfx.block();
+                shake = reduceMotion ? 0 : 2;
+            } else {
+                def.hp = Math.max(0, def.hp - (airborne ? AIR_DMG : PUNCH_DMG));
+                def.stun = airborne ? 0.55 : 0.26;         // air punch knocks down
                 def.flash = 0.18;
-                def.vx = att.facing * 210;
-                def.vy = -60;
+                def.vx = att.facing * (airborne ? 260 : 210);
+                def.vy = airborne ? -280 : -60;
                 sfx.hit();
-                shake = reduceMotion ? 0 : 5;
-                hitstop = 0.055;
+                shake = reduceMotion ? 0 : (airborne ? 7 : 5);
+                hitstop = airborne ? 0.08 : 0.055;
+            }
+            if (def.hp <= 0) startKO(att, def);
+        }
+
+        // rolling through the opponent claws them on the way past
+        function tryChip(att, def) {
+            if (att.state !== 'roll' || att.punchDidHit) return;
+            if (def.invuln > 0 || def.state === 'ko' || def.state === 'block') return;
+            if (Math.abs(att.x - def.x) < 30 && Math.abs(att.y - def.y) < 40) {
+                att.punchDidHit = true;
+                def.hp = Math.max(0, def.hp - ROLL_DMG);
+                def.flash = 0.1;
+                sfx.whiff();
                 if (def.hp <= 0) startKO(att, def);
             }
         }
@@ -867,7 +779,8 @@ eleventyExcludeFromCollections: true
         /* ============================== AI ============================== */
         function aiThink(f, foe, dt) {
             const ai = f.ai;
-            ai.gap = (ai.gap || 0) - dt;                  // personal punch pacing
+            ai.gap -= dt;
+            ai.wantBlock = Math.max(0, ai.wantBlock - dt);
             ai.think -= dt;
             if (ai.think > 0) return;
             ai.think = 0.11 + Math.random() * 0.09;
@@ -877,20 +790,20 @@ eleventyExcludeFromCollections: true
             const punchGap = Math.max(0.42, 0.95 - round * 0.18);
             ai.dir = 0; ai.wantPunch = false; ai.wantRoll = false; ai.wantJump = false;
 
-            if (foe.state === 'punch' && dist < 95 && Math.random() < 0.24) {
-                ai.wantRoll = true;
-                ai.dir = -dir;                             // dodge away
-                return;
+            if (foe.state === 'punch' && dist < 95) {
+                const r = Math.random();
+                if (r < 0.2) { ai.wantRoll = true; ai.dir = -dir; return; }   // dodge away
+                if (r < 0.5) { ai.wantBlock = 0.25 + Math.random() * 0.3; return; }
             }
             if (dist > 240 && Math.random() < 0.1) ai.wantJump = true;
             if (dist > 66) {
                 ai.dir = dir;
-                if (dist > 120 && Math.random() < 0.05) ai.wantRoll = true;         // roll in
+                if (dist > 120 && Math.random() < 0.05) ai.wantRoll = true;  // roll in
             } else if (ai.gap <= 0) {
                 const r = Math.random();
                 if (r < 0.55) { ai.wantPunch = true; ai.gap = punchGap; }
                 else if (r < 0.75) { ai.wantRoll = true; ai.dir = -dir; ai.gap = punchGap * 0.7; } // whiff bait
-                else ai.dir = -dir;                                                  // back off
+                else ai.dir = -dir;                                          // back off
             } else if (Math.random() < 0.25) {
                 ai.dir = -dir;                             // circle out while waiting
             }
@@ -898,7 +811,8 @@ eleventyExcludeFromCollections: true
         function aiInput(f) {
             return {
                 left: f.ai.dir < 0, right: f.ai.dir > 0,
-                jump: f.ai.wantJump, punch: f.ai.wantPunch, roll: f.ai.wantRoll
+                jump: f.ai.wantJump, punch: f.ai.wantPunch, roll: f.ai.wantRoll,
+                block: f.ai.wantBlock > 0
             };
         }
 
@@ -907,7 +821,7 @@ eleventyExcludeFromCollections: true
         let p1 = null, p2 = null;     // p1 = human
         let round = 0, timer = 60;
         let banner = null, bannerT = 0, inputLock = true;
-        let shake = 0, hitstop = 0;
+        let shake = 0, hitstop = 0, slowmo = 0;
         let finishText = '';
 
         const ui = document.getElementById('ui');
@@ -921,10 +835,14 @@ eleventyExcludeFromCollections: true
             for (const k of Object.keys(scr)) scr[k].hidden = k !== name;
         }
 
+        function cpuFor(pickKey) {
+            if (pickKey === 'crash') return 'coco';
+            if (pickKey === 'coco') return 'crash';
+            return Math.random() < 0.5 ? 'crash' : 'coco';  // Konami fights a classic cat
+        }
         function startMatch(pickKey) {
-            const cpuKey = pickKey === 'crash' ? 'coco' : 'crash';
             p1 = mkFighter(pickKey, 180, 1, false);
-            p2 = mkFighter(cpuKey, W - 180, -1, true);
+            p2 = mkFighter(cpuFor(pickKey), W - 180, -1, true);
             round = 0;
             nextRound();
         }
@@ -959,6 +877,7 @@ eleventyExcludeFromCollections: true
             loser.vx = winner.facing * 130;
             loser.vy = -180;
             sfx.ko();
+            if (!reduceMotion) slowmo = 0.85;
             finishText = winner.hp === 100 ? 'PURRFECT!' : 'CLAWTALITY!';
             endRound(winner);
         }
@@ -981,10 +900,15 @@ eleventyExcludeFromCollections: true
         function endMatch(winner) {
             state = 'end';
             const youWon = winner === p1;
+            const r = record();
+            if (youWon) r.w++; else r.l++;
+            store.set('cf404_rec', JSON.stringify(r));
+            showRecords();
             document.getElementById('end-title').textContent = youWon ? 'YOU WIN' : 'CPU WINS';
             document.getElementById('end-quip').textContent = youWon
                 ? 'The page is still missing. But honor is restored.'
                 : winner.name + ' takes the belt. The page remains at large.';
+            document.getElementById('konami-hint').hidden = konamiUnlocked;
             show('end');
         }
         function togglePause(force) {
@@ -998,7 +922,11 @@ eleventyExcludeFromCollections: true
             show('select');
         });
         document.querySelectorAll('.slot[data-pick]').forEach((b) =>
-            b.addEventListener('click', () => { sfx.select(); startMatch(b.dataset.pick); }));
+            b.addEventListener('click', () => {
+                if (b.disabled) return;
+                sfx.select();
+                startMatch(b.dataset.pick);
+            }));
         document.getElementById('btn-rematch').addEventListener('click', () => { sfx.start(); startMatch(p1.cat); });
         document.getElementById('btn-reselect').addEventListener('click', () => {
             sfx.select();
@@ -1006,6 +934,7 @@ eleventyExcludeFromCollections: true
             show('select');
         });
         document.getElementById('btn-pause').addEventListener('click', () => togglePause());
+        showRecords();
         show('start');
 
         /* ============================== drawing ============================== */
@@ -1019,18 +948,29 @@ eleventyExcludeFromCollections: true
             // stars
             cx.fillStyle = 'rgba(245,233,210,0.5)';
             for (let i = 0; i < 40; i++) {
-                if ((i + Math.floor(t)) % 7 === 0) continue; // twinkle
+                if (!reduceMotion && (i + Math.floor(t)) % 7 === 0) continue; // twinkle
                 cx.fillRect((i * 97) % W, (i * 53) % 180, 2, 2);
             }
             // moon
             cx.fillStyle = '#f3e6c8';
             cx.beginPath();
-            cx.arc(540, 62, 30, 0, 7);
+            cx.arc(566, 54, 26, 0, 7);
             cx.fill();
             cx.fillStyle = '#e2d2ae';
-            cx.fillRect(528, 52, 8, 6);
-            cx.fillRect(548, 70, 10, 6);
-            cx.fillRect(538, 62, 6, 4);
+            cx.fillRect(556, 46, 8, 6);
+            cx.fillRect(572, 60, 10, 6);
+            // the 404 sign hanging over the arena
+            cx.textAlign = 'center';
+            cx.font = '44px "Press Start 2P", monospace';
+            cx.fillStyle = '#2f0d12';
+            cx.fillText('404', W / 2 + 4, 102 + 4);
+            cx.fillStyle = '#c22a33';
+            cx.fillText('404', W / 2, 102);
+            cx.font = '17px "Press Start 2P", monospace';
+            cx.fillStyle = '#3a2405';
+            cx.fillText('TOURNAMENT', W / 2 + 3, 130 + 3);
+            cx.fillStyle = '#e8b13a';
+            cx.fillText('TOURNAMENT', W / 2, 130);
             // skyline
             cx.fillStyle = '#171020';
             const bl = [[0,150,70],[60,120,54],[110,170,80],[185,135,60],[240,180,70],[305,120,80],[380,160,66],[440,130,90],[525,150,70],[590,120,50]];
@@ -1048,6 +988,7 @@ eleventyExcludeFromCollections: true
             cx.fillStyle = '#413055';
             for (let gx = 0; gx < W; gx += 32) cx.fillRect(gx, GROUND + 14, 16, 3);
             // pillar torches: steaming coffee cups
+            const anim = reduceMotion ? 1 : t;             // stills the steam
             for (const px of [34, W - 58]) {
                 cx.fillStyle = '#1b1326';
                 cx.fillRect(px - 6, GROUND - 38, 36, 58);
@@ -1059,7 +1000,7 @@ eleventyExcludeFromCollections: true
                 cx.fillRect(px, GROUND - 46, 24, 4);
                 cx.fillStyle = '#f5e9d2';
                 cx.fillRect(px + 3, GROUND - 60, 18, 3);    // foam
-                const st = Math.sin(t * 2 + px) * 3;        // steam
+                const st = Math.sin(anim * 2 + px) * 3;     // steam
                 cx.fillStyle = 'rgba(245,233,210,0.35)';
                 cx.fillRect(px + 8 + st, GROUND - 74, 3, 6);
                 cx.fillRect(px + 14 - st, GROUND - 84, 3, 6);
@@ -1072,9 +1013,33 @@ eleventyExcludeFromCollections: true
             let anim, frame;
             const airborne = f.y < GROUND - 0.5;
             const dirKey = f.facing === 1 ? 'R' : 'L';
+
+            // ground shadow
+            cx.fillStyle = 'rgba(0,0,0,0.35)';
+            cx.beginPath();
+            cx.ellipse(f.x, GROUND + 12, 26, 6, 0, 0, 7);
+            cx.fill();
+
+            // KO: spin, then flat on the back
+            if (f.state === 'ko' && f.koSpin >= 0.7) {
+                const idx0 = A.idle.s;
+                cx.save();
+                cx.translate(f.x, GROUND - 12);
+                cx.rotate(f.facing * -Math.PI / 2);
+                cx.drawImage(sheet, (idx0 % COLS) * FR, Math.floor(idx0 / COLS) * FR, FR, FR,
+                    -DRAW / 2, -DRAW / 2, DRAW, DRAW);
+                cx.restore();
+                cx.fillStyle = '#e8b13a';                   // dizzy stars
+                for (let i = 0; i < 3; i++) {
+                    const a = (reduceMotion ? 1 : t) * 3 + i * 2.1;
+                    cx.fillRect(f.x + Math.cos(a) * 22 - 2, GROUND - 68 + Math.sin(a) * 7, 4, 4);
+                }
+                return;
+            }
+
             if (f.state === 'ko') {
                 anim = A['roll' + dirKey];
-                frame = f.koSpin < 0.7 ? Math.floor(f.koSpin * 20) % anim.n : 3; // spin, then rest as a ball
+                frame = Math.floor(f.koSpin * 20) % anim.n;
             } else if (f.state === 'roll') {
                 anim = A['roll' + dirKey];
                 frame = Math.min(anim.n - 1, Math.floor((f.t / ROLL_TIME) * anim.n));
@@ -1091,9 +1056,9 @@ eleventyExcludeFromCollections: true
             } else if (f.state === 'hit') {
                 anim = A.idle;
                 frame = 1;
-            } else {
+            } else {                                        // idle, block, win (grounded beat)
                 anim = A.idle;
-                frame = Math.floor(f.animT * anim.fps) % anim.n;
+                frame = f.state === 'block' ? 0 : Math.floor(f.animT * anim.fps) % anim.n;
             }
             const idx = anim.s + frame;
             const sxp = (idx % COLS) * FR;
@@ -1101,24 +1066,20 @@ eleventyExcludeFromCollections: true
             const dx = Math.round(f.x - DRAW / 2);
             const dy = Math.round(f.y - DRAW + 10);
 
-            // ground shadow (airborne frames get their baked shadow cropped off)
-            cx.fillStyle = 'rgba(0,0,0,0.35)';
-            cx.beginPath();
-            cx.ellipse(f.x, GROUND + 12, 26, 6, 0, 0, 7);
-            cx.fill();
-
-            const crop = (airborne || f.state === 'jump') ? 5 : 0;
+            const crop = (airborne || f.state === 'jump') ? 5 : 0;   // strip baked-in shadow
             cx.save();
             if (f.flash > 0 && Math.floor(f.flash * 30) % 2 === 0) cx.filter = 'brightness(3)';
             cx.drawImage(sheet, sxp, syp, FR, FR - crop, dx, dy, DRAW, DRAW - crop * SCALE);
             cx.restore();
 
-            if (f.state === 'ko' && f.koSpin > 0.7) {       // dizzy stars
-                cx.fillStyle = '#e8b13a';
-                for (let i = 0; i < 3; i++) {
-                    const a = t * 3 + i * 2.1;
-                    cx.fillRect(f.x + Math.cos(a) * 22 - 2, f.y - 60 + Math.sin(a) * 7, 4, 4);
-                }
+            // block guard shimmer
+            if (f.state === 'block') {
+                const mid = f.facing === 1 ? 0 : Math.PI;
+                cx.strokeStyle = 'rgba(232,177,58,0.85)';
+                cx.lineWidth = 4;
+                cx.beginPath();
+                cx.arc(f.x + f.facing * 26, f.y - 40, 28, mid - 1.05, mid + 1.05);
+                cx.stroke();
             }
         }
 
@@ -1182,6 +1143,7 @@ eleventyExcludeFromCollections: true
             const t = now / 1000;
 
             if (hitstop > 0) { hitstop -= dt; dt = 0; }
+            if (slowmo > 0) { slowmo -= dt; dt *= 0.3; }    // KO slow-mo (never set with reduced motion)
 
             if (state === 'play' && dt > 0) {
                 timer -= dt;
@@ -1192,6 +1154,8 @@ eleventyExcludeFromCollections: true
                 fighterPhysics(p2, dt);
                 tryHit(p1, p2);
                 tryHit(p2, p1);
+                tryChip(p1, p2);
+                tryChip(p2, p1);
                 if (timer <= 0 && state === 'play') {
                     finishText = 'TIME!';
                     endRound(p1.hp >= p2.hp ? p1 : p2);
