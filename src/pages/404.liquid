@@ -13,8 +13,6 @@ eleventyExcludeFromCollections: true
     <meta name="description" content="This page is missing, so settle it in the 404 Tournament: a tiny pixel cat fighting game starring Crash and Coco. Then head back to the good stuff." />
     <meta name="robots" content="noindex, nofollow" />
 
-    <link rel="canonical" href="https://www.coffeeandfun.com/404.html" />
-
     <meta property="og:type" content="website" />
     <meta property="og:site_name" content="Coffee & Fun" />
     <meta property="og:title" content="404 Tournament: Page Not Found - Coffee & Fun LLC" />
@@ -103,6 +101,7 @@ eleventyExcludeFromCollections: true
         /* ---------- Full-page arena ---------- */
         .stage {
             position: relative;
+            width: min(100%, calc(78vh * 16 / 9));   /* fallback */
             width: min(100%, calc(78dvh * 16 / 9));
             margin: 0 auto;
         }
@@ -156,7 +155,7 @@ eleventyExcludeFromCollections: true
             margin: 0.4rem 0;
         }
         .scr .rec { color: var(--gold); }
-        .scr .hint { color: #6f6552; font-size: clamp(7px, 1.3vw, 9px); }
+        .scr .hint { color: #a99b80; font-size: clamp(8px, 1.4vw, 10px); }
 
         .btn {
             font-family: inherit;
@@ -192,6 +191,7 @@ eleventyExcludeFromCollections: true
         .slot {
             font-family: inherit;
             width: clamp(84px, 17vw, 132px);
+            min-width: 116px; /* the 96px portrait + padding must always fit */
             padding: 10px 6px 8px;
             background: var(--panel);
             border: 3px solid var(--edge);
@@ -326,6 +326,12 @@ eleventyExcludeFromCollections: true
             .toast { transition: none; }
         }
 
+        /* On phones the 16:9 stage is a short strip, so menu screens take the
+           whole viewport instead of squeezing into it. */
+        @media (max-width: 640px) {
+            .ui { position: fixed; z-index: 30; background: rgba(7, 4, 12, 0.97); }
+        }
+
         @media (max-width: 480px) {
             .touchpad { gap: 8px; }
             .tgroup { gap: 6px; flex: 1; }
@@ -402,7 +408,7 @@ eleventyExcludeFromCollections: true
             </p>
             <div>
                 <button class="iconbtn" id="btn-sound" type="button" aria-pressed="true">SOUND: ON</button>
-                <button class="iconbtn" id="btn-pause" type="button">PAUSE</button>
+                <button class="iconbtn" id="btn-pause" type="button" aria-pressed="false">PAUSE</button>
             </div>
         </div>
 
@@ -487,8 +493,11 @@ eleventyExcludeFromCollections: true
 
         /* ============================== records ============================== */
         function record() {
-            try { return JSON.parse(store.get('cf404_rec')) || { w: 0, l: 0 }; }
-            catch (e) { return { w: 0, l: 0 }; }
+            try {
+                const v = JSON.parse(store.get('cf404_rec'));
+                if (v && typeof v.w === 'number' && typeof v.l === 'number') return v;
+            } catch (e) { /* fall through */ }
+            return { w: 0, l: 0 };
         }
         function recText(r) { return 'YOUR RECORD: ' + r.w + 'W - ' + r.l + 'L'; }
         function showRecords() {
@@ -510,11 +519,19 @@ eleventyExcludeFromCollections: true
             muted = !muted;
             store.set('cf404_mute', muted ? '1' : '0');
             syncSnd();
+            if (!muted) {
+                // create/resume inside the click gesture so Safari actually unmutes
+                try {
+                    AC = AC || new (window.AudioContext || window.webkitAudioContext)();
+                    AC.resume();
+                } catch (e) { /* audio unavailable */ }
+            }
         });
         function beep(freq, dur, type, vol, slide) {
             if (muted) return;
             try {
                 AC = AC || new (window.AudioContext || window.webkitAudioContext)();
+                if (AC.state === 'suspended') AC.resume();
                 const o = AC.createOscillator(), g = AC.createGain();
                 o.type = type || 'square';
                 o.frequency.setValueAtTime(freq, AC.currentTime);
@@ -552,7 +569,6 @@ eleventyExcludeFromCollections: true
             slot.classList.remove('locked');
             const face = document.getElementById('face-konami');
             face.textContent = '';
-            face.style.display = 'block';
             face.style.backgroundImage = "url('" + CATS.konami.img + "')";
             document.getElementById('nm-konami').textContent = 'KONAMI';
             document.getElementById('rl-konami').textContent = 'UP UP DOWN DOWN';
@@ -602,7 +618,12 @@ eleventyExcludeFromCollections: true
             keys[k] = true;
         });
         addEventListener('keyup', (e) => { const k = KEYMAP[e.code]; if (k) keys[k] = false; });
-        addEventListener('blur', () => { if (state === 'play') togglePause(true); });
+        function clearKeys() { for (const k in keys) keys[k] = false; }
+        addEventListener('blur', () => {
+            clearKeys();                      // keyups fired elsewhere never reach us
+            if (state === 'play') togglePause(true);
+            else if (state === 'round' || state === 'roundend') pendingPause = true;
+        });
 
         document.querySelectorAll('.tbtn').forEach((b) => {
             const k = b.dataset.t;
@@ -612,6 +633,8 @@ eleventyExcludeFromCollections: true
             b.addEventListener('pointerup', off);
             b.addEventListener('pointercancel', off);
             b.addEventListener('pointerleave', off);
+            b.addEventListener('keydown', (e) => { if (e.code === 'Enter' || e.code === 'Space') on(e); });
+            b.addEventListener('keyup', (e) => { if (e.code === 'Enter' || e.code === 'Space') off(e); });
         });
 
         /* ============================== fighters ============================== */
@@ -626,7 +649,7 @@ eleventyExcludeFromCollections: true
                 facing, isCPU,
                 hp: 100, rounds: 0,
                 state: 'idle', t: 0, animT: 0,
-                punchDidHit: false, jumpHeld: true,
+                punchDidHit: false, jumpHeld: true, wallJumped: false,
                 rollCd: 0, punchCd: 0,
                 stun: 0, invuln: 0,
                 flash: 0, koSpin: 0,
@@ -699,7 +722,8 @@ eleventyExcludeFromCollections: true
                 if (grounded) {
                     f.vy = JUMP_V;
                     setState(f, 'jump');
-                } else if (atWall) {
+                } else if (atWall && !f.wallJumped) {
+                    f.wallJumped = true;
                     f.vy = JUMP_V * 0.92;
                     f.facing = f.x <= 48 ? 1 : -1;
                     f.vx = f.facing * SPEED * 1.35;
@@ -725,10 +749,12 @@ eleventyExcludeFromCollections: true
             if (f.y > GROUND) {
                 f.y = GROUND;
                 f.vy = 0;
+                f.wallJumped = false;
                 if (f.state === 'jump') setState(f, 'idle');
             }
+            if (f.y < 70) { f.y = 70; f.vy = Math.max(f.vy, 0); }  // stay on screen
             // winner does a little victory bounce
-            if (f.state === 'win' && f.y >= GROUND - 0.5) f.vy = -240;
+            if (!reduceMotion && f.state === 'win' && f.y >= GROUND - 0.5) f.vy = -240;
             f.x = Math.max(46, Math.min(W - 46, f.x));
             if (f.state === 'ko') { f.koSpin += dt; f.vx *= 0.9; }
         }
@@ -747,7 +773,7 @@ eleventyExcludeFromCollections: true
             const blocked = def.state === 'block' && def.facing === -att.facing;
             if (blocked) {
                 def.hp = Math.max(0, def.hp - CHIP_DMG);
-                def.vx = att.facing * 90;
+                def.x = Math.max(46, Math.min(W - 46, def.x + att.facing * 14));
                 sfx.block();
                 shake = reduceMotion ? 0 : 2;
             } else {
@@ -821,7 +847,7 @@ eleventyExcludeFromCollections: true
         let p1 = null, p2 = null;     // p1 = human
         let round = 0, timer = 60;
         let banner = null, bannerT = 0, inputLock = true;
-        let shake = 0, hitstop = 0, slowmo = 0;
+        let shake = 0, hitstop = 0, slowmo = 0, pendingPause = false;
         let finishText = '';
 
         const ui = document.getElementById('ui');
@@ -831,8 +857,15 @@ eleventyExcludeFromCollections: true
             end: document.getElementById('scr-end')
         };
         function show(name) {
+            const hadFocus = ui.contains(document.activeElement);
             ui.hidden = !name;
             for (const k of Object.keys(scr)) scr[k].hidden = k !== name;
+            if (name && (hadFocus || name !== 'start')) {
+                const target = scr[name].querySelector('button:not(:disabled)');
+                if (target) target.focus({ preventScroll: true });
+            } else if (!name && hadFocus && document.activeElement && document.activeElement.blur) {
+                document.activeElement.blur();   // focus falls to body, not a hidden node
+            }
         }
 
         function cpuFor(pickKey) {
@@ -843,6 +876,9 @@ eleventyExcludeFromCollections: true
         function startMatch(pickKey) {
             p1 = mkFighter(pickKey, 180, 1, false);
             p2 = mkFighter(cpuFor(pickKey), W - 180, -1, true);
+            cv.setAttribute('aria-label', '404 Tournament fighting game: ' + p1.name +
+                ' versus ' + p2.name + ' on a rooftop under a giant 404 sign. ' +
+                'The home link below works without playing.');
             round = 0;
             nextRound();
         }
@@ -853,15 +889,22 @@ eleventyExcludeFromCollections: true
             for (const [f, x, face] of spots) {
                 f.hp = 100; f.x = x; f.y = GROUND; f.vx = 0; f.vy = 0; f.facing = face;
                 f.stun = 0; f.invuln = 0; f.flash = 0; f.koSpin = 0;
+                f.rollCd = 0; f.punchCd = 0; f.wallJumped = false;
+                if (f.ai) { f.ai.gap = 0; f.ai.wantBlock = 0; }
                 setState(f, 'idle');
             }
+            pendingPause = false;
             show(null);
             state = 'round';
             inputLock = true;
             const intro = () => {
                 setBanner('ROUND ' + round, 1.0, () => {
                     sfx.round();
-                    setBanner('FIGHT!', 0.55, () => { inputLock = false; state = 'play'; });
+                    setBanner('FIGHT!', 0.55, () => {
+                        inputLock = false;
+                        state = 'play';
+                        if (pendingPause || !document.hasFocus()) { pendingPause = false; togglePause(true); }
+                    });
                 });
                 say('Round ' + round + '. Fight!');
             };
@@ -911,9 +954,20 @@ eleventyExcludeFromCollections: true
             document.getElementById('konami-hint').hidden = konamiUnlocked;
             show('end');
         }
+        const pauseBtn = document.getElementById('btn-pause');
         function togglePause(force) {
-            if (state === 'play' || force === true) { state = 'pause'; say('Paused'); }
-            else if (state === 'pause') { state = 'play'; say('Resumed'); }
+            if (state === 'play' || force === true) {
+                state = 'pause';
+                clearKeys();
+                pauseBtn.textContent = 'RESUME';
+                pauseBtn.setAttribute('aria-pressed', 'true');
+                say('Paused');
+            } else if (state === 'pause') {
+                state = 'play';
+                pauseBtn.textContent = 'PAUSE';
+                pauseBtn.setAttribute('aria-pressed', 'false');
+                say('Resumed');
+            }
         }
 
         document.getElementById('btn-start').addEventListener('click', () => {
@@ -933,7 +987,7 @@ eleventyExcludeFromCollections: true
             state = 'select';
             show('select');
         });
-        document.getElementById('btn-pause').addEventListener('click', () => togglePause());
+        pauseBtn.addEventListener('click', () => togglePause());
         showRecords();
         show('start');
 
@@ -1068,7 +1122,9 @@ eleventyExcludeFromCollections: true
 
             const crop = (airborne || f.state === 'jump') ? 5 : 0;   // strip baked-in shadow
             cx.save();
-            if (f.flash > 0 && Math.floor(f.flash * 30) % 2 === 0) cx.filter = 'brightness(3)';
+            if (f.flash > 0 && (reduceMotion || Math.floor(f.flash * 30) % 2 === 0)) {
+                cx.filter = reduceMotion ? 'brightness(1.8)' : 'brightness(3)';
+            }
             cx.drawImage(sheet, sxp, syp, FR, FR - crop, dx, dy, DRAW, DRAW - crop * SCALE);
             cx.restore();
 
@@ -1138,7 +1194,7 @@ eleventyExcludeFromCollections: true
         let last = performance.now();
         function loop(now) {
             requestAnimationFrame(loop);
-            let dt = Math.min(0.05, (now - last) / 1000);
+            let dt = Math.min(0.05, Math.max(0, (now - last) / 1000));
             last = now;
             const t = now / 1000;
 
