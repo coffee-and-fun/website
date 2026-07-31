@@ -16,6 +16,12 @@
 /* Brand palette tokens — generates utilities like bg-mocha, text-coral-deep, ring-espresso.
    caramel + coral-deep are the AA-contrast steps: white text on caramel ≈ 5.2:1,
    coral-deep on cream ≈ 4.7:1. Use coral/mocha for large display text only. */
+/* daisyUI's aura only SLOWS its infinite glow under reduced-motion (6s -> 24s).
+   Continuous motion with no pause is a WCAG 2.2.2 concern, so stop it outright. */
+@media (prefers-reduced-motion: reduce) {
+	.aura { animation: none !important; }
+}
+
 @theme {
 	--color-cream: #fef5ec;
 	--color-toffee: #c4813a;

@@ -102,6 +102,26 @@
   <main id="main-content" class="mx-auto max-w-7xl">
     <div class="mx-auto max-w-4xl pt-8 pb-12 sm:pt-12 sm:pb-16 lg:pt-16 lg:pb-20 px-4 sm:px-6 lg:px-8">
       
+      <!-- Breadcrumbs — orients the reader and gives Google a clear path -->
+      <nav aria-label="Breadcrumb" class="breadcrumbs text-sm mb-4 text-stone-600">
+        <ul>
+          <li><a href="/" class="hover:text-espresso">Home</a></li>
+          <li><a href="/blog/" class="hover:text-espresso">Blog</a></li>
+          <li><span aria-current="page" class="text-stone-500">{{ title }}</span></li>
+        </ul>
+      </nav>
+      <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "BreadcrumbList",
+        "itemListElement": [
+          { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://www.coffeeandfun.com/" },
+          { "@type": "ListItem", "position": 2, "name": "Blog", "item": "https://www.coffeeandfun.com/blog/" },
+          { "@type": "ListItem", "position": 3, "name": {{ title | jsonify }} }
+        ]
+      }
+      </script>
+
       <!-- Back Navigation -->
       <nav aria-label="Blog navigation" class="relative mb-6 sm:mb-8">
         <!-- Sketch: "← back to blog" -->
