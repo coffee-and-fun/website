@@ -1,4 +1,4 @@
-# Install the Mon/Wed/Fri blog automation
+# Install the weekly blog automation
 
 Do these once on the Mac that hosts the repo (`commanders-mac-mini-local`). All commands assume the
 repo at `/Users/commander/Documents/Major/code/coffee/website`.
@@ -45,5 +45,5 @@ redeploys. If anything looks off, `launchctl unload ...` to pause and tell Claud
 
 ## 4. It's live
 
-Once the test run looks good, leave it loaded. It will publish Mon/Wed/Fri at 9:00. Edit
+Once the test run looks good, leave it loaded. It will publish every Monday at 9:00. Edit
 `tools/blog-automation/blog-ideas.md` whenever you want to steer topics.

@@ -1,6 +1,6 @@
 # Coffee & Fun blog automation
 
-Publishes one blog post to `main` three times a week (Mon/Wed/Fri, 9:00 local) using headless
+Publishes one blog post to `main` once a week (Mondays, 9:00 local) using headless
 Claude Code. The site host rebuilds from `main` on push.
 
 ## Pieces
