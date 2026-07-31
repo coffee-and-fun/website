@@ -30,14 +30,22 @@
   .cf-pill { background: color-mix(in srgb, var(--color-cream) 95%, transparent);
     border-radius: 9999px; padding-inline: 0.5rem; box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1);
     outline: 1px solid color-mix(in srgb, var(--color-mocha) 20%, transparent); backdrop-filter: blur(4px); }
-  .cf-mm-trigger { font-size: 1.5rem; font-weight: 600; color: #292524; background: transparent;
-    border: 0; border-radius: 9999px; padding-inline: 1rem; cursor: pointer; }
+  .cf-mm-trigger { font-size: 1.4rem; font-weight: 600; color: #292524; background: transparent;
+    border: 0; border-radius: 9999px; padding-inline: 0.7rem; cursor: pointer; white-space: nowrap; }
   .cf-mm-trigger:hover { color: var(--color-espresso); }
   .cf-mm-trigger:focus-visible { outline: 2px solid var(--color-espresso); outline-offset: 2px; }
 
-  /* megamenu-wide pins the panel to the trigger-pill width; a 3-column panel
-     needs more room, so widen it (higher specificity than daisyUI's rule). */
+  /* Blog is a direct link, not a dropdown — match the trigger styling, no caret */
+  .cf-mm-link { display: flex; align-items: center; font-size: 1.4rem; font-weight: 600;
+    color: #292524; text-decoration: none; padding-inline: 0.7rem; border-radius: 9999px; white-space: nowrap; }
+  .cf-mm-link:hover { color: var(--color-espresso); }
+  .cf-mm-link:focus-visible { outline: 2px solid var(--color-espresso); outline-offset: 2px; }
+
+  /* megamenu-wide pins the panel to the trigger-pill width; multi-column panels
+     need more room, so widen them (higher specificity than daisyUI's rule). */
   .megamenu.megamenu-wide .cf-mm-panel { width: max-content; min-width: 34rem; max-width: min(92vw, 44rem); }
+  .megamenu.megamenu-wide .cf-mm-panel-lg { min-width: 46rem; max-width: min(94vw, 58rem); }
+  .cf-mm-grid-4 { grid-template-columns: repeat(4, minmax(150px, 1fr)) !important; }
   .cf-mm-panel { padding: 1.25rem 1.4rem 1rem; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
     box-shadow: 0 20px 40px -12px rgb(0 0 0 / 0.25); }
   .cf-mm-grid { display: grid; grid-template-columns: repeat(3, minmax(160px, 1fr)); gap: 1.5rem 2rem; }
@@ -111,69 +119,6 @@
           <div class="megamenu megamenu-wide cf-pill" style="font-family: 'Caveat', cursive;">
             <div class="megamenu-active" aria-hidden="true"></div>
 
-            <button type="button" popovertarget="mm-tools" class="cf-mm-trigger">Tools</button>
-            <div popover id="mm-tools" class="cf-mm-panel">
-              <div class="cf-mm-grid">
-                <div>
-                  <p class="cf-mm-head">Focus &amp; everyday</p>
-                  <ul>
-                    <li><a href="/focus-timer/">Focus timer</a></li>
-                    <li><a href="/timezone-converter/">Time zone converter</a></li>
-                    <li><a href="/word-clock/">Word clock</a></li>
-                    <li><a href="/flip/">Flip a coin</a></li>
-                  </ul>
-                </div>
-                <div>
-                  <p class="cf-mm-head">Privacy</p>
-                  <ul>
-                    <li><a href="/private-line/">Private Line chat</a></li>
-                    <li><a href="/meta-images/">Photo metadata remover</a></li>
-                    <li><a href="/secret-message-image-encoder/">Hide a secret message</a></li>
-                    <li><a href="/instant-incognito/">Instant Incognito</a></li>
-                  </ul>
-                </div>
-                <div>
-                  <p class="cf-mm-head">For the web</p>
-                  <ul>
-                    <li><a href="/meta-tags/">Meta tags generator</a></li>
-                    <li><a href="/text-converter/">Text case converter</a></li>
-                    <li><a href="/markdown-editor/">Markdown editor</a></li>
-                    <li><a href="/email-signature-generator/">Email signature maker</a></li>
-                  </ul>
-                </div>
-              </div>
-              <p class="cf-mm-foot"><a href="/apps/">See all apps &amp; tools &rarr;</a></p>
-            </div>
-
-            <button type="button" popovertarget="mm-play" class="cf-mm-trigger">Play</button>
-            <div popover id="mm-play" class="cf-mm-panel">
-              <div class="cf-mm-grid">
-                <div>
-                  <p class="cf-mm-head">Head to head</p>
-                  <ul>
-                    <li><a href="/tactical-tiles/">Tactical Tiles</a></li>
-                    <li><a href="/drop-dungeon/">Drop Dungeon</a></li>
-                  </ul>
-                </div>
-                <div>
-                  <p class="cf-mm-head">Solo</p>
-                  <ul>
-                    <li><a href="/blackjack-trainer/">Blackjack trainer</a></li>
-                    <li><a href="/silicon-dreams/">Silicon Dreams</a></li>
-                    <li><a href="/vibe-check/">Vibe Check</a></li>
-                  </ul>
-                </div>
-                <div>
-                  <p class="cf-mm-head">Make something</p>
-                  <ul>
-                    <li><a href="/minecraft-pixel-art/">Minecraft pixel art</a></li>
-                    <li><a href="/emoji/">Emoji tools</a></li>
-                  </ul>
-                </div>
-              </div>
-              <p class="cf-mm-foot"><a href="/apps/">Browse everything &rarr;</a></p>
-            </div>
-
             <button type="button" popovertarget="mm-company" class="cf-mm-trigger">Company</button>
             <div popover id="mm-company" class="cf-mm-panel">
               <div class="cf-mm-grid">
@@ -203,6 +148,88 @@
               </div>
               <p class="cf-mm-foot"><a href="/support/">Talk to a human &rarr;</a></p>
             </div>
+
+            <a href="/blog/" class="cf-mm-link">Blog</a>
+
+            <button type="button" popovertarget="mm-apps" class="cf-mm-trigger">Apps</button>
+            <div popover id="mm-apps" class="cf-mm-panel">
+              <div class="cf-mm-grid">
+                <div>
+                  <p class="cf-mm-head">Mac &amp; iOS</p>
+                  <ul>
+                    <li><a href="/immersive-reader/">Immersive Reader</a></li>
+                    <li><a href="/procrastinot/">ProcrastiNOT</a></li>
+                    <li><a href="https://apps.apple.com/us/app/simple-screenshot-pro/id6504689499" target="_blank" rel="noopener">Simple Screenshot Pro</a></li>
+                  </ul>
+                </div>
+                <div>
+                  <p class="cf-mm-head">Browser extensions</p>
+                  <ul>
+                    <li><a href="/hide-spoilers-extension/">Hide Spoilers</a></li>
+                    <li><a href="https://www.incognitomode.app" target="_blank" rel="noopener">Incognito Bear</a></li>
+                    <li><a href="/markdown-editor/">Markdown Editor</a></li>
+                  </ul>
+                </div>
+                <div>
+                  <p class="cf-mm-head">Open source</p>
+                  <ul>
+                    <li><a href="https://github.com/coffee-and-fun/google-profanity-words" target="_blank" rel="noopener">Profanity Words</a></li>
+                    <li><a href="https://github.com/coffee-and-fun/remove-pii" target="_blank" rel="noopener">Remove PII</a></li>
+                    <li><a href="https://www.npmjs.com/package/@coffeeandfun/maths-captcha" target="_blank" rel="noopener">Maths Captcha</a></li>
+                  </ul>
+                </div>
+              </div>
+              <p class="cf-mm-foot"><a href="/apps/">See all apps &amp; extensions &rarr;</a></p>
+            </div>
+
+            <button type="button" popovertarget="mm-tools" class="cf-mm-trigger">Tools</button>
+            <div popover id="mm-tools" class="cf-mm-panel cf-mm-panel-lg">
+              <div class="cf-mm-grid cf-mm-grid-4">
+                <div>
+                  <p class="cf-mm-head">Everyday</p>
+                  <ul>
+                    <li><a href="/focus-timer/">Focus timer</a></li>
+                    <li><a href="/timezone-converter/">Time zone converter</a></li>
+                    <li><a href="/word-clock/">Word clock</a></li>
+                    <li><a href="/flip/">Flip a coin</a></li>
+                    <li><a href="/receipt-generator/">Receipt generator</a></li>
+                  </ul>
+                </div>
+                <div>
+                  <p class="cf-mm-head">Privacy</p>
+                  <ul>
+                    <li><a href="/private-line/">Private Line chat</a></li>
+                    <li><a href="/meta-images/">Photo metadata remover</a></li>
+                    <li><a href="/secret-message-image-encoder/">Hide text in images</a></li>
+                    <li><a href="/mp3-transcript/">MP3 to transcript</a></li>
+                  </ul>
+                </div>
+                <div>
+                  <p class="cf-mm-head">For the web</p>
+                  <ul>
+                    <li><a href="/meta-tags/">Meta tags generator</a></li>
+                    <li><a href="/text-converter/">Text case converter</a></li>
+                    <li><a href="/email-signature-generator/">Email signature maker</a></li>
+                    <li><a href="/chrome-extension-icon-generator/">Extension icon resizer</a></li>
+                  </ul>
+                </div>
+                <div>
+                  <p class="cf-mm-head">Games &amp; experiments</p>
+                  <ul>
+                    <li><a href="/tactical-tiles/">Tactical Tiles</a></li>
+                    <li><a href="/drop-dungeon/">Drop Dungeon</a></li>
+                    <li><a href="/blackjack-trainer/">Blackjack trainer</a></li>
+                    <li><a href="/silicon-dreams/">Silicon Dreams</a></li>
+                    <li><a href="/minecraft-pixel-art/">Minecraft pixel art</a></li>
+                    <li><a href="/emoji/">Emoji search</a></li>
+                  </ul>
+                </div>
+              </div>
+              <p class="cf-mm-foot"><a href="/apps/">Browse every free tool &rarr;</a></p>
+            </div>
+
+            <a href="/help/" class="cf-mm-link">Help</a>
+            <a href="/support/" class="cf-mm-link">Support</a>
           </div>
         </nav>
 
