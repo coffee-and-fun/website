@@ -253,8 +253,8 @@ export default function (eleventyConfig) {
 			'/assets/fonts/Caveat-Regular.woff2',
 			'/assets/fonts/Caveat-SemiBold.woff2',
 			'/assets/fonts/Caveat-Bold.woff2',
-			'/assets/images/favicon.png',
-			'/assets/images/coffee-and-fun-logo-dark.png'
+			'/assets/images/brand/favicon.png',
+			'/assets/images/brand/coffee-and-fun-logo-dark.png'
 		];
 		const outputJsonPath = './docs/cache-assets.json';
 		fs.writeFileSync(outputJsonPath, JSON.stringify(coreAssets, null, 2));
