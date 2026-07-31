@@ -293,23 +293,19 @@
           </svg>
       </div>
 
-      <div class="grid lg:grid-cols-2 gap-10 lg:gap-16 items-center">
-        <div>
-          <h2 class="brand-heading text-3xl sm:text-4xl lg:text-5xl leading-[1.25] mb-6">Who We Are</h2>
-          <p class="text-xl sm:text-2xl text-stone-600 leading-relaxed">
-            We're a small team of passionate coffee enthusiasts and software
-            engineers who believe in the power of community and creativity.
-          </p>
-        </div>
-        <div>
-          <p class="text-lg sm:text-xl text-stone-600 leading-relaxed">
-            Our mission is to bring joy and a little bit of mischief to your daily
-            routine through our innovative products and engaging content.
-            Whether it's crafting the perfect cup of coffee or sharing our
-            latest adventures, we strive to make every interaction with Coffee &
-            Fun a delightful experience.
-          </p>
-        </div>
+      <div class="max-w-3xl mx-auto text-center">
+        <h2 class="brand-heading text-3xl sm:text-4xl lg:text-5xl leading-[1.25] mb-6">Who We Are</h2>
+        <p class="text-xl sm:text-2xl text-stone-600 leading-relaxed mb-6">
+          We're a small team of passionate coffee enthusiasts and software
+          engineers who believe in the power of community and creativity.
+        </p>
+        <p class="text-lg sm:text-xl text-stone-600 leading-relaxed">
+          Our mission is to bring joy and a little bit of mischief to your daily
+          routine through our innovative products and engaging content.
+          Whether it's crafting the perfect cup of coffee or sharing our
+          latest adventures, we strive to make every interaction with Coffee &amp;
+          Fun a delightful experience.
+        </p>
       </div>
     </section>
 
@@ -364,7 +360,7 @@
     </section>
 
     <!-- Team Section -->
-    <section class="relative max-w-6xl mx-auto py-16 sm:py-24 px-4 sm:px-6 lg:px-8 overflow-visible">
+    <section class="relative max-w-3xl mx-auto py-16 sm:py-24 px-4 sm:px-6 lg:px-8 overflow-visible">
       <div class="mb-14 sm:mb-20 text-center">
         <h2 class="brand-heading text-3xl sm:text-4xl lg:text-5xl leading-[1.25] mb-5">Our Team</h2>
         <p class="text-xl sm:text-2xl text-stone-600 max-w-3xl mx-auto">
@@ -380,118 +376,60 @@
         woof!
       </div>
 
-      <div class="relative grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-8">
-        <!-- Sketch: "the boss" with arrow to Robert -->
-        <div class="sketch-note text-base sm:text-lg" style="top: -20px; left: 4%; transform: rotate(-4deg);">
+      <div class="relative flex flex-col items-center gap-14">
+        <!-- Sketch: "the boss" pointing at the founder -->
+        <div class="sketch-note text-base sm:text-lg" style="top: -8px; left: 50%; margin-left: -170px; transform: rotate(-4deg);">
             the boss
-            <svg width="30" height="24" style="bottom: -20px; left: 16px;">
-                <path d="M15 2 C12 10, 8 16, 6 20" class="sketch-arrow"/>
-                <path d="M1 16 L6 22 L10 15" class="sketch-arrow"/>
+            <svg width="34" height="26" style="bottom: -22px; left: 20px;">
+                <path d="M17 2 C14 10, 9 17, 7 22" class="sketch-arrow"/>
+                <path d="M2 18 L7 24 L11 17" class="sketch-arrow"/>
             </svg>
         </div>
 
-        <!-- Sketch: floating heart near the pups -->
-        <div class="sketch-note sketch-float" style="top: 30%; right: -1%; --sketch-rotate: 6deg;">
-            <svg width="18" height="16" viewBox="0 0 24 22">
-                <path d="M12 21 C12 21, 2 14, 2 7 C2 3, 5 1, 8 2 C10 3, 11 5, 12 6 C13 5, 14 3, 16 2 C19 1, 22 3, 22 7 C22 14, 12 21, 12 21 Z" class="sketch-heart-filled"/>
-            </svg>
-        </div>
-
-        <!-- Sketch: swirl near the pets -->
-        <div class="sketch-note" style="bottom: 8%; left: 50%; transform: translateX(-50%);">
-            <svg width="28" height="28" viewBox="0 0 30 30">
-                <path d="M15 15 C15 10, 20 8, 22 12 C24 16, 20 20, 15 18 C10 16, 8 10, 12 6 C16 2, 24 4, 26 10 C28 18, 22 26, 12 24" class="sketch-swirl"/>
-            </svg>
-        </div>
-
-        <!-- Sketch: exclamation near the team heading -->
-        <div class="sketch-note" style="top: -15px; left: 38%;">
-            <svg width="8" height="22" viewBox="0 0 10 24">
-                <path d="M5 2 L5 16" class="sketch-exclaim"/>
-                <circle cx="5" cy="22" r="2" fill="#fd6155" opacity="0.4"/>
-            </svg>
-        </div>
-
-        <!-- Sketch: lightning near bottom-left -->
-        <div class="sketch-note sketch-wiggle" style="bottom: 3%; left: 3%; --sketch-rotate: -10deg;">
-            <svg width="14" height="24" viewBox="0 0 16 28">
-                <path d="M10 0 L4 12 L10 12 L6 28" class="sketch-lightning"/>
-            </svg>
-        </div>
-
-        <div class="team-card text-center">
-          <div class="mb-6">
+        <!-- Founder, haloed with an aura -->
+        <div class="text-center">
+          <span class="aura aura-lg text-caramel inline-block mb-6" style="--aura-radius: 1.5rem;">
             <img
-              class="w-full aspect-square object-cover rounded-2xl"
-              loading="lazy"
-              decoding="async"
+              class="block w-40 h-40 sm:w-48 sm:h-48 object-cover rounded-3xl"
+              loading="lazy" decoding="async"
               src="/assets/images/about/rob.png"
-              alt="Robert James"
+              alt="Robert James, founder of Coffee &amp; Fun"
               width="400" height="400"
             />
-          </div>
-          <h3 class="text-xl font-bold text-stone-900 mb-1">Robert James</h3>
+          </span>
+          <h3 class="text-2xl font-bold text-stone-900 mb-1">Robert James</h3>
           <p class="text-xl text-caramel" style="font-family: 'Caveat', cursive;">Founder / CTO</p>
         </div>
 
-        <div class="team-card text-center">
-          <div class="mb-6">
-            <img
-              class="w-full aspect-square object-cover rounded-2xl"
-              loading="lazy"
-              decoding="async"
-              src="/assets/images/about/coco.webp"
-              alt="Coco"
-              width="400" height="400"
-            />
-          </div>
-          <h3 class="text-xl font-bold text-stone-900 mb-1">Coco</h3>
-          <p class="text-xl text-caramel" style="font-family: 'Caveat', cursive;">Head of Search</p>
-        </div>
-
-        <div class="team-card text-center">
-          <div class="mb-6">
-            <img
-              class="w-full aspect-square object-cover rounded-2xl"
-              loading="lazy"
-              decoding="async"
-              src="/assets/images/about/crash.webp"
-              alt="Crash"
-              width="400" height="400"
-            />
-          </div>
-          <h3 class="text-xl font-bold text-stone-900 mb-1">Crash</h3>
-          <p class="text-xl text-caramel" style="font-family: 'Caveat', cursive;">Head of Security</p>
-        </div>
-
-        <div class="team-card text-center">
-          <div class="mb-6">
-            <img
-              class="w-full aspect-square object-cover rounded-2xl"
-              loading="lazy"
-              decoding="async"
-              src="/assets/images/about/honey.webp"
-              alt="Honey"
-              width="400" height="400"
-            />
-          </div>
-          <h3 class="text-xl font-bold text-stone-900 mb-1">Honey</h3>
-          <p class="text-xl text-caramel" style="font-family: 'Caveat', cursive;">Head of Activity</p>
-        </div>
-
-        <div class="team-card text-center">
-          <div class="mb-6">
-            <img
-              class="w-full aspect-square object-cover rounded-2xl"
-              loading="lazy"
-              decoding="async"
-              src="/assets/images/about/juneo.webp"
-              alt="Juneau"
-              width="400" height="400"
-            />
-          </div>
-          <h3 class="text-xl font-bold text-stone-900 mb-1">Juneau</h3>
-          <p class="text-xl text-caramel" style="font-family: 'Caveat', cursive;">Assistant</p>
+        <!-- The pups: hover or focus for their job title -->
+        <div>
+          <p class="text-center text-sm font-semibold uppercase tracking-wider text-stone-500 mb-6">And the pups</p>
+          <ul class="flex flex-wrap justify-center gap-8 sm:gap-12 list-none p-0 m-0">
+            <li class="text-center">
+              <div class="tooltip" data-tip="Head of Search">
+                <img class="block w-28 h-28 sm:w-32 sm:h-32 object-cover rounded-2xl" loading="lazy" decoding="async"
+                  src="/assets/images/about/coco.webp" alt="Coco, Head of Search" width="400" height="400" />
+              </div>
+              <h3 class="text-lg font-bold text-stone-900 mt-3">Coco</h3>
+              <p class="text-lg text-caramel" style="font-family: 'Caveat', cursive;">Head of Search</p>
+            </li>
+            <li class="text-center">
+              <div class="tooltip" data-tip="Head of Security">
+                <img class="block w-28 h-28 sm:w-32 sm:h-32 object-cover rounded-2xl" loading="lazy" decoding="async"
+                  src="/assets/images/about/crash.webp" alt="Crash, Head of Security" width="400" height="400" />
+              </div>
+              <h3 class="text-lg font-bold text-stone-900 mt-3">Crash</h3>
+              <p class="text-lg text-caramel" style="font-family: 'Caveat', cursive;">Head of Security</p>
+            </li>
+            <li class="text-center">
+              <div class="tooltip" data-tip="Head of Activity">
+                <img class="block w-28 h-28 sm:w-32 sm:h-32 object-cover rounded-2xl" loading="lazy" decoding="async"
+                  src="/assets/images/about/honey.webp" alt="Honey, Head of Activity" width="400" height="400" />
+              </div>
+              <h3 class="text-lg font-bold text-stone-900 mt-3">Honey</h3>
+              <p class="text-lg text-caramel" style="font-family: 'Caveat', cursive;">Head of Activity</p>
+            </li>
+          </ul>
         </div>
       </div>
     </section>
