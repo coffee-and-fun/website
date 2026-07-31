@@ -4,11 +4,8 @@ submit: false
 footer: true
 header: true
 layout: templates/post.liquid
-title: How to Replace the Battery in Your Nintendo Switch
-description:
-  Is your Nintendo Switch not holding its charge like it used to? It's probably time to replace that
-  battery. While it might sound tricky, I'll walk you through every single step, with detailed
-  instructions on the screws and parts you'll encounter along the way!
+title: "Nintendo Switch Battery Replacement Guide"
+description: "Swap a worn Nintendo Switch battery yourself. Every screw, the tri-wing driver, the isopropyl trick for the glue, and how to put it all back together."
 keywords:
   'Change battery in Apple AirTag, Replace AirTag battery, How to change AirTag battery, Apple
   AirTag battery replacement, AirTag battery change guide, AirTag battery replacement tutorial,

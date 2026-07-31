@@ -4,10 +4,8 @@ submit: false
 footer: true
 header: true
 layout: templates/post.liquid
-title: ProcrastiNOT Update - The Maths Challenge is Here! 🎉
-description:
-  We’re excited to roll out a fresh new update for ProcrastiNOT, bringing in a fun twist and some
-  polish to keep things sharp. Let’s break down what’s new!
+title: "ProcrastiNOT Adds a Maths Challenge"
+description: "The latest ProcrastiNOT update makes you solve a maths question before you can switch the extension off, and it ships some UI polish alongside that."
 keywords:
   ProcrastiNOT, Maths Challenge, procrastination, focus tool, productivity extension, stay focused,
   avoid procrastination, math question, UI improvements, smooth experience, toggle extension,

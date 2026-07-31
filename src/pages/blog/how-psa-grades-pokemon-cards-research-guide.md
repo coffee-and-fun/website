@@ -4,11 +4,8 @@ submit: false
 footer: true
 header: true
 layout: templates/post.liquid
-title: How PSA Grades Pokémon Cards - A Research Guide
-description:
-  We're building an AI-powered Pokémon card grading estimator at Coffee & Fun. Here's everything we
-  learned about how PSA actually grades cards, from centering tolerances to surface flaws, plus
-  updated pricing and submission tips for 2026.
+title: "PSA Grading Explained for Pokémon Cards"
+description: "How PSA grades Pokémon cards on centering, corners, edges and surface, what each grade actually needs, plus 2026 costs and tips for submitting cards."
 keywords:
   'PSA grading, Pokémon cards, AI grading tool, card grading research, Coffee & Fun LLC, PSA 10, PSA
   9, card condition, centering, edges, corners, surface, PSA grading cost 2026'

@@ -4,11 +4,8 @@ submit: false
 footer: true
 header: true
 layout: templates/post.liquid
-title: Why the Same Emoji Looks Different on Every Phone
-description:
-  You sent 😬 and they saw something else entirely. Emoji aren't images, they're characters that
-  every platform draws in its own handwriting. How the Unicode standard actually works, why the
-  burger caused a scandal, and what those empty boxes mean.
+title: "Why Emoji Look Different on Every Phone"
+description: "Emoji are characters, not images, so every platform draws its own. How Unicode works, why Google's burger caused a scandal, and what empty boxes mean."
 keywords:
   emoji, why emoji look different, unicode emoji, emoji rendering, emoji meaning, apple emoji vs
   android, emoji search, ZWJ sequence, emoji explained, Coffee and Fun

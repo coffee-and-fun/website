@@ -4,11 +4,8 @@ submit: false
 footer: true
 header: true
 layout: templates/post.liquid
-title: How to Ethically Hack Woobox Voting with Node.js and Puppeteer
-description:
-  Learn how to ethically automate voting on Woobox using Node.js and Puppeteer. This guide walks you
-  through creating a voting script for educational purposes, exploring the mechanics of online
-  voting and best practices for securing platforms.
+title: "Woobox Voting Automation With Puppeteer"
+description: "How Node.js and Puppeteer were used to study a Woobox cat photo contest, from URL patterns to clearing cookies, plus the checks Woobox could add to stop bots."
 keywords:
   'ethical hacking, Woobox voting automation, Node.js Puppeteer tutorial, automate online voting,
   Node.js scripting, Puppeteer guide, voting script tutorial, online voting security, ethical

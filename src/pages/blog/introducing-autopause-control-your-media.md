@@ -4,11 +4,8 @@ submit: false
 footer: true
 header: true
 layout: templates/post.liquid
-title: Welcome AutoPause - Auto pause Your Videos
-description:
-  AutoPause is the latest browser extension from Coffee & Fun LLC, designed to let you set a timer
-  and automatically pause your media playback. Discover how this simple extension can make your life
-  a little easier.
+title: "AutoPause: Pause Browser Media on a Timer"
+description: "AutoPause is a browser extension that pauses any audio or video when your timer runs out. It runs locally, tracks nothing, and started as a bedtime fix."
 keywords:
   'AutoPause, media control, browser extension, media playback timer, productivity tools, Coffee &
   Fun, pause video, pause audio, Chrome extension, media timer app, simple extensions, personal

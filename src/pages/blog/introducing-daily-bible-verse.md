@@ -4,10 +4,8 @@ submit: false
 footer: true
 header: true
 layout: templates/post.liquid
-title: Introducing Daily Bible Verse for iOS
-description:
-  Discover Daily Bible Verse, a beautifully simple and spiritual app created to bring one verse a
-  day into your life. Learn why we built it, what it can do, and how it helps you pause and reflect.
+title: "Daily Bible Verse: One Verse a Day on iOS"
+description: "Daily Bible Verse is an iOS app that shows one verse a day. Listen to it aloud, save favorites, pick calm accessible themes, and add a home screen widget."
 keywords:
   Bible App, Daily Verse, Scripture App, iOS Bible App, Spiritual Apps, Encouraging Apps, Bible
   Widget, Christian Meditation, Verse of the Day, Swift App, Bible Reading, AVSpeechSynthesizer,

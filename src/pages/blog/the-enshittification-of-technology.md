@@ -4,9 +4,8 @@ submit: false
 footer: true
 header: true
 layout: templates/post.liquid
-title: The Enshittification of Technology
-description:
-  A detailed look at why modern technology keeps getting worse, what enshittification means, where the term comes from, and real-world examples like Nest, Litter-Robot 3, and streaming services.
+title: "Enshittification: Why Tech Gets Worse"
+description: "Enshittification is Cory Doctorow's word for the slow decay of tech products. Nest, the Litter-Robot 3, and streaming show the pattern, and who it hurts most."
 keywords:
   'enshittification, technology getting worse, Cory Doctorow, Burnie Burns, Morning Somewhere,
   Nest thermostat, Litter-Robot 3, tech decay, accessibility, smart home frustration'

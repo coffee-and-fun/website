@@ -4,11 +4,8 @@ submit: false
 footer: true
 header: true
 layout: templates/post.liquid
-title: "Netflix's Hidden Genre Codes, Explained: Why \"British Horror From the 1960s\" Is a Real Category"
-description:
-  Netflix has thousands of hyper-specific categories it almost never shows you, and every one has
-  a number you can type straight into the address bar. Here's where the codes come from, why they
-  exist, and how to browse all 1,900+ of them.
+title: "Netflix Hidden Genre Codes, Explained"
+description: "Netflix has over 1,900 hidden category codes you can type straight into the browse URL. Here is where the micro genre codes come from and how to use them."
 keywords:
   Netflix hidden categories, Netflix genre codes, Netflix secret codes, Netflix category codes,
   browse genre Netflix, Netflix micro genres, Netflix codes list, Coffee and Fun

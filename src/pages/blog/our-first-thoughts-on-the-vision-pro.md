@@ -4,11 +4,8 @@ submit: false
 footer: true
 header: true
 layout: templates/post.liquid
-title: Our First Thoughts on the Vision Pro  Heavy, Incredible, and a Big Question Mark
-description:
-  We’re testing the Vision Pro at Coffee & Fun LLC. It’s groundbreaking tech that feels like the
-  future, but with its weight and early limitations, we’re still figuring out if it’s worth the
-  investment for development.
+title: "Apple Vision Pro First Impressions"
+description: "We brought an Apple Vision Pro in to test. At 22.9 ounces it is heavy, it runs warm, and we have a 14 day return window to decide if it fits our work."
 keywords:
   'Coffee & Fun LLC, Vision Pro review, VR development, Apple Vision Pro, tech innovation, VR for
   developers, Vision Pro usability, Apple Vision Pro for work'

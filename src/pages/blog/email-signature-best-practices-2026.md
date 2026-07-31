@@ -4,11 +4,8 @@ submit: false
 footer: true
 header: true
 layout: templates/post.liquid
-title: What Belongs in an Email Signature in 2026 (And What Really Doesn't)
-description:
-  Four lines beat fourteen. What to include in a professional email signature, why image-only
-  signatures quietly fail, the dark-mode trap, and how to build a signature that survives Gmail,
-  Outlook, and Apple Mail without falling apart.
+title: "Email Signature Best Practices for 2026"
+description: "Four lines beat fourteen. What belongs in a professional email signature, why image only ones fail, the dark mode trap, and how to survive Outlook rendering."
 keywords:
   email signature, professional email signature, email signature 2026, HTML email signature,
   email signature best practices, gmail signature, outlook signature, email signature generator,

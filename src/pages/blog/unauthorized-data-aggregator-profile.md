@@ -4,9 +4,8 @@ submit: false
 footer: true
 header: true
 layout: templates/post.liquid
-title: When Data Aggregators Create Your Company Profile Without Permission (And Won't Delete It)
-description:
-  In this blog post, I share my infuriating experience with a business intelligence platform that created an unauthorized profile about my company with completely wrong information, then refused to delete it citing "company policy." After being stonewalled with corporate gaslighting and GDPR theater, I finally got them to remove it by catching them in their ow contradiction. Learn how these data aggregators operate, why the "publicly available data" defense is nonsense, and exactly how to fight back when this happens to you.
+title: "Data Aggregator Profile I Never Asked For"
+description: "A business intelligence platform published a profile of my company with every detail wrong, refused to delete it, then quietly removed it without a word."
 keywords:
   data privacy, unauthorized profile, business intelligence, PitchBook, data aggregation, GDPR,
   company profile, data removal, right to be forgotten, publicly available data, data scraping,

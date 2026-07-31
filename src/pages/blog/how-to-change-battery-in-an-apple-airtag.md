@@ -4,10 +4,8 @@ submit: false
 footer: true
 header: true
 layout: templates/post.liquid
-title: How to Change the Battery in an Apple AirTag
-description:
-  Learn how to easily replace the battery in your Apple AirTag with this simple guide. We'll walk
-  you through each step so you can keep your AirTag working smoothly and your items safely tracked.
+title: "Change an Apple AirTag Battery in 4 Steps"
+description: "Swap a dead AirTag battery in a minute or two: twist the metal back counterclockwise, drop in a fresh CR2032 with the plus side up, then twist it shut."
 keywords:
   'Change battery in Apple AirTag, Replace AirTag battery, How to change AirTag battery, Apple
   AirTag battery replacement, AirTag battery change guide, AirTag battery replacement tutorial,

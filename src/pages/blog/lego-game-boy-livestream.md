@@ -4,12 +4,8 @@ submit: false
 footer: true
 header: true
 layout: templates/post.liquid
-title: We’re Putting a Real Game Boy Inside the Lego Game Boy
-description:
-  On October 1st, Lego is releasing a 1:1 scale replica of the original Nintendo Game Boy. 
-  At Coffee & Fun, we’re attempting to become the first people on the internet to place the 
-  insides of a real Game Boy into the brand-new Lego Game Boy, live on stream starting at 6 AM. 
-  Join us for a full day of chaos, nostalgia, and fun as we try to make brick-game history.
+title: "LEGO Game Boy: Putting Real Guts Inside"
+description: "LEGO's 421 piece brick Game Boy lands on October 1, 2025. We are going live on Instagram and YouTube to try fitting a real Game Boy's insides into it."
 keywords:
   lego game boy, lego nintendo, lego release 2025, game boy, livestream, coffee and fun, retro gaming, lego set, nostalgia build
 url: blog/lego-game-boy-livestream/

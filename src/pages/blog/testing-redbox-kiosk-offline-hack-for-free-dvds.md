@@ -4,11 +4,8 @@ submit: false
 footer: true
 header: true
 layout: templates/post.liquid
-title: What Happens When Redbox Shuts Down? Trying the Redbox Free DVD Hack
-description:
-  With Redbox shutting down, I tested a curious hack, accessing a kiosk in offline mode to see if
-  DVDs could be rented for free. Dive into what I discovered about Redbox’s kiosks, their connection
-  issues, and how they function when the servers go down.
+title: "Redbox Kiosk Offline Mode: Free DVD Test"
+description: "With Redbox shutting down, I got permission to boot a kiosk and watch it drop into offline mode. Here is what it did without a server connection."
 keywords:
   Redbox shutdown, Redbox kiosk hack, free DVD rental, Redbox offline mode, DVD rental experiment,
   Redbox server issues, Redbox bankruptcy, Redbox free DVD trick, rental kiosk technology, DVD

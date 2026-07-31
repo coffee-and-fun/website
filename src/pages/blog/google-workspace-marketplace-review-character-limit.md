@@ -4,12 +4,8 @@ submit: false
 footer: true
 header: true
 layout: templates/post.liquid
-title: Google Flagged Our 181-Character Description. Their Own Docs Allow 200.
-description:
-  Our Google Workspace add-on with over 1,000,000 users failed a Marketplace re-review because the
-  short description was "longer than required." The documentation Google linked says the limit is
-  200 characters. Ours was 181. Here's what actually happened, how we got re-approved in a day, and
-  what every developer should know about app store reviews.
+title: "Google Workspace Marketplace Rejection"
+description: "Our Helperbird add-on failed a Google Workspace Marketplace re-review over a 181 character description, when the linked docs allow 200. Here is what happened."
 keywords:
   Google Workspace Marketplace, add-on review, app store review, short description character limit,
   Helperbird, Google Docs add-on, marketplace rejection, app review appeal, developer documentation,

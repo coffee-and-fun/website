@@ -4,11 +4,8 @@ submit: false
 footer: true
 header: true
 layout: templates/post.liquid
-title: Introducing Hide Spoilers - Browse Without Worrying About Spoilers
-description:
-  Avoid spoilers for your favorite shows, games, and movies with Hide Spoilers Extension. This
-  extension blurs text, images, and sections containing spoilers, offering a stress-free browsing
-  experience.
+title: "Hide Spoilers: A Spoiler Blocker Extension"
+description: "Hide Spoilers blurs text, images and whole page sections that match your keywords. Free on the Chrome Web Store, or $2.99 for iOS and Safari."
 keywords:
   'Hide Spoilers extension, avoid spoilers online, blur text and images, spoiler-free browsing,
   customize keywords, block spoilers, Chrome extension, Safari iOS extension, spoiler blocker,

@@ -4,11 +4,8 @@ submit: false
 footer: true
 header: true
 layout: templates/post.liquid
-title: Building Just the Headlines - Why I Created a Clean News Experience
-description:
-  I got tired of modern news websites with their ads, pop-ups, and information overload. So I built
-  something different - a clean, minimal news site that shows just the headlines without all the
-  noise. Here's how I did it with Node.js, Eleventy, and free APIs.
+title: "Just the Headlines: Building a News Site"
+description: "Just the Headlines pulled Hacker News and Reddit into a static Eleventy site for a year before I retired it. Here is the Node scraper and the build pattern."
 keywords:
   'clean news website, minimal news aggregator, Node.js news scraper, Reddit API news, Hacker News
   API, static site generator, Eleventy news site, Vue.js news app, GitHub Actions automation,

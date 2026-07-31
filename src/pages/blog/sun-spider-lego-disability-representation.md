@@ -4,10 +4,8 @@ submit: false
 footer: true
 header: true
 layout: templates/post.liquid
-title: 'Sun-Spider Swings Into LEGO: A Victory for Disability Representation'
-description:
-  'The new LEGO Spider-Man minifigures series includes Sun-Spider, a disabled superhero with
-  crutches, marking a huge win for disability representation in toys.'
+title: "Sun-Spider LEGO Minifigure: A Disabled Hero"
+description: "LEGO Collectible Minifigures Marvel Series 2 includes Sun-Spider, a disabled hero who uses forearm crutches. Here is why that representation matters."
 keywords:
   - 'Sun-Spider LEGO'
   - 'Disability Representation'

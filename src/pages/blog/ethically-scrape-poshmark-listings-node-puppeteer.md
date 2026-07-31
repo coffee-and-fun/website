@@ -4,11 +4,8 @@ submit: false
 footer: true
 header: true
 layout: templates/post.liquid
-title: How I Scraped 20,000 Poshmark Listings Using Node.js and Puppeteer
-description:
-  Learn how I scraped and backed up 20,000 listings from a Poshmark store using Node.js and
-  Puppeteer. This guide explains the full process, includes code, and helps you recover public
-  listing data for educational or personal use.
+title: "Poshmark Scraper in Node.js and Puppeteer"
+description: "Poshmark scraper built with Node.js and Puppeteer to back up 20,000 public listings, images and a CSV. This first version was later replaced by a rewrite."
 keywords:
   'ethical scraping, Poshmark backup, Node.js Puppeteer tutorial, Poshmark automation, online
   listing backup, ethical scraping guide, Puppeteer project, ecommerce recovery, scraping listings

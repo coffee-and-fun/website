@@ -4,10 +4,8 @@ submit: false
 footer: true
 header: true
 layout: templates/post.liquid
-title: How to Cancel a Chrome Web Store Submission That's Already in Review
-description:
-  Submitted your Chrome extension update and immediately spotted a mistake? Here's how to cancel a
-  pending review from the dashboard or via the API.
+title: "Cancel a Chrome Web Store Submission"
+description: "Google now lets you cancel a pending Chrome Web Store review from the developer dashboard or the API. The submission returns to draft, six cancels a day."
 keywords:
   Chrome Web Store, Cancel Review, Extension Development, Chrome Extension, Cancel Submission,
   Developer Dashboard, Chrome Web Store API, Extension Publishing, Review Process, Coffee and Fun

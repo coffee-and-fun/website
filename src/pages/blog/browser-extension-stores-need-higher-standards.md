@@ -4,12 +4,8 @@ submit: false
 footer: true
 header: true
 layout: templates/post.liquid
-title: Browser Extension Stores Need Higher Standards. All of Them.
-description:
-  After 15 years of publishing extensions and managing products with over a million users, I'm
-  watching every major browser extension store struggle with the same problems, low-effort
-  submissions, security breaches, and inconsistent review standards. It's time for all of them to
-  step up.
+title: "Browser Extension Stores Need a Higher Bar"
+description: "Chrome, Firefox and Edge are drowning in low effort submissions and security breaches, while Safari holds a higher bar. The case for fees and verified identity."
 keywords:
   Browser Extensions, Chrome Web Store, Firefox Add-ons, Edge Add-ons, Safari Extensions, Apple App
   Store, Extension Standards, Vibe Coding, AI Extensions, Extension Review, Extension Quality,

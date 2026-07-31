@@ -4,10 +4,8 @@ submit: false
 footer: true
 header: true
 layout: templates/post.liquid
-title: Should You Test Your Code in Production? F*** It, Let’s Do It Live! 😂
-description:
-  A fun take on the age-old dev question, inspired by one of my favorite memes.
-  ShouldYouTestInProduction.com answers it with humor and a nod to chaos.
+title: "Testing in Production: Let's Do It Live"
+description: "Testing in production is a bad idea and most developers have done it anyway. Here is why I bought ShouldYouTestInProduction.com and where it sends you."
 keywords:
   testing in production, developer humor, programming jokes, coding memes, Bill O'Reilly, software
   engineering, testing code live, coding fails, tech humor, dev culture

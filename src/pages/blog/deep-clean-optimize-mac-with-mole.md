@@ -4,8 +4,8 @@ submit: false
 footer: true
 header: true
 layout: templates/post.liquid
-title: 🧹 How to Deep Clean and Optimize Your Mac Using Mole
-description: Learn how to safely install and use Mole, a powerful open-source tool to clean, uninstall, and optimize your Mac all from the terminal for free.
+title: "Deep Clean Your Mac With Mole in Terminal"
+description: "Mole is a free, open source terminal tool for macOS. Install it with Homebrew, preview with a dry run, then clear caches, uninstall apps and check disk use."
 keywords:
   - mac cleaner
   - uninstall apps mac

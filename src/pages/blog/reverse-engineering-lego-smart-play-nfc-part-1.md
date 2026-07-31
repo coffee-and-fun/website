@@ -4,9 +4,8 @@ submit: false
 footer: true
 header: true
 layout: templates/post.liquid
-title: "Reverse Engineering LEGO Smart Play: Discovery & First NFC Reads (Part 1)"
-description: |
-  A discovery post documenting our attempt to be the first to fully reverse engineer the LEGO Smart Play NFC protocol. We tear down the NFC tags in the Star Wars 75423 X-Wing set using a Flipper Zero, analyze the encrypted payloads, and share raw dump files.
+title: "LEGO Smart Play NFC: First Reads, Part 1"
+description: "We scanned the LEGO Smart Play tags from the Star Wars 75423 X-Wing with a Flipper Zero. Here are the UIDs, the encrypted payloads and the raw dumps."
 keywords: |
   LEGO Smart Play, NFC reverse engineering, Flipper Zero, LEGO Star Wars 75423, Smart Brick, NFC-V, ISO 15693, EM4237, Grain-128A, LEGO hack, NFC dump, Smart Tags, LEGO minifigure NFC
 url: blog/reverse-engineering-lego-smart-play-nfc-part-1/

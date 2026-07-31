@@ -4,10 +4,8 @@ submit: false
 footer: true
 header: true
 layout: templates/post.liquid
-title: How to Find Apple Receipts and Request a Refund
-description:
-  Learn how to find your Apple purchase receipts and request a refund in just a few clicks using
-  Apple’s official Report a Problem page. Simple, fast, and stress-free.
+title: "Find Apple Receipts and Request a Refund"
+description: "Apple's Report a Problem page lists every charge on your Apple ID. Sign in, open a purchase to see the receipt, and request a refund if something is wrong."
 keywords:
   'Apple refund, Apple receipt, request Apple refund, report a problem Apple, Apple purchase
   history, App Store refund, Apple subscription refund, iTunes receipt, Apple charges'

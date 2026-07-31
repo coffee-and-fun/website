@@ -5,12 +5,8 @@ footer: true
 mcD: true
 header: true
 layout: templates/post.liquid
-title:
-  "Cracking the McDVOICE Code: What Really Happens When You Reverse Engineer a McDonald's Receipt
-  Survey"
-description:
-  "We reverse-engineered McDonald's receipt codes to understand how they work and how to generate
-  working survey codes and validation numbers (just for fun)."
+title: "McDVOICE Code: What Receipt Digits Mean"
+description: "Two McDonald's receipts bought minutes apart showed how a McDVOICE code encodes store, register, date, time and item. It was fun, but not free food."
 keywords:
   - 'McDonald’s Survey Hack'
   - McDVOICE Code

@@ -4,11 +4,8 @@ submit: false
 footer: true
 header: true
 layout: templates/post.liquid
-title: What’s Coming for Coffee & Fun LLC in 2025
-description:
-  Coffee & Fun LLC is gearing up for an exciting 2025! From supporting Helperbird updates to
-  exploring VR, Pokémon grading with AI, 3D printing, and new apps like Step Hero, check out what
-  we’re planning.
+title: "Coffee & Fun LLC Plans for 2025"
+description: "Our plans for 2025: supporting Helperbird, VR experiments, Roomba hacks, 3D printing, repair guides, AI Pokemon card grading, and new apps like Step Hero."
 keywords:
   'Coffee & Fun LLC, 2025 plans, Helperbird updates, VR development, Pokémon card grading, AI tools,
   3D printing projects, Step Hero game, new apps 2025, AI homework helper, tech innovation 2025'

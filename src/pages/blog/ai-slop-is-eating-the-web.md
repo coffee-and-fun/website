@@ -4,10 +4,8 @@ submit: false
 footer: true
 header: true
 layout: templates/post.liquid
-title: AI Slop Is Eating the Web, and How to Spot Machine-Made Junk
-description:
-  Half of all new articles online are now AI-generated. Here is how to spot AI slop in seconds,
-  why it is flooding stores and search, and what it costs the rest of us.
+title: "AI Slop Is Eating the Web: How to Spot It"
+description: "Roughly half of every new article online is machine made. Here is how to spot AI slop in ten seconds, and why 86% of what ranks in Google is human written."
 keywords:
   ai slop, ai generated content, how to spot ai writing, machine made content, low quality ai
   articles, ai content detection, scaled content abuse, content quality standards, ai slop apps,

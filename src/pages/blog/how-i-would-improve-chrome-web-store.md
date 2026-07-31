@@ -4,10 +4,8 @@ submit: false
 footer: true
 header: true
 layout: templates/post.liquid
-title: How I would Improve the Chrome Web Store
-description:
-  Join me as I share real, hands-on tips for improving the Chrome Web Store. Everything from more
-  meaningful badges and better review tools to showing genuine user engagement.
+title: "Chrome Web Store: 8 Ideas to Improve It"
+description: "Eight changes I would make to the Chrome Web Store after a decade of publishing extensions: clearer badges, version specific reviews and an annual fee."
 keywords:
   Chrome Web Store, Extension Development, Google Chrome Extensions, Trusted Badge, Best Standards,
   User Engagement, Security Breaches, Two-Factor Authentication (2FA), Developer Fees, Smarter

@@ -4,12 +4,8 @@ submit: false
 footer: true
 header: true
 layout: templates/post.liquid
-title: How to Price Your App Without Losing Your Shirt (Or Your Users)
-description:
-  After running several apps, I've learned that pricing is a delicate balance between covering costs,
-  staying competitive, and not scaring away users. Learn my proven strategies for pricing apps,
-  including the 3x rule for one-time payments, the sweet spot for yearly subscriptions, calculating
-  per-user costs, and why you should start lower than established competitors.
+title: "How to Price Your App: 3x and 6x Rules"
+description: "Yearly subscriptions at $20 to $30 are my sweet spot. Multiply per user costs by six, triple that price for one time payments, and start below the incumbents."
 keywords:
   app pricing, SaaS pricing, subscription pricing, one-time payment, pricing strategy, startup
   pricing, profit margins, business model, product pricing, indie developer, bootstrapping

@@ -4,11 +4,8 @@ submit: false
 footer: true
 header: true
 layout: templates/post.liquid
-title: How to Write a Chrome Web Store Listing That Passes Review the First Time
-description:
-  Chrome Web Store review can take days and end in a vague rejection. After 15 years and a
-  million-user add-on that got flagged, here's how to pass review the first time by getting single
-  purpose, permissions, metadata, and assets right.
+title: "Chrome Web Store Listing That Passes Review"
+description: "Single purpose, narrow permissions, honest metadata, correct assets and clean code. The pre submit checklist we run after 15 years of publishing extensions."
 keywords:
   chrome web store review, chrome web store listing, extension review process, single purpose policy,
   chrome extension permissions justification, chrome web store rejection, publish chrome extension,

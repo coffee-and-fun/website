@@ -4,11 +4,8 @@ submit: false
 footer: true
 header: true
 layout: templates/post.liquid
-title: We Took Waymo Around San Francisco. Here's What We Learned About Accessibility and the Future of Transport.
-description:
-  As an accessibility-focused company, we spent a day riding Waymo's autonomous vehicles across San
-  Francisco, at night, during rush hour, and through quiet streets. Here's our honest review of the
-  tech, the ride, and what it means for people with disabilities.
+title: "Waymo Review: Accessibility in San Francisco"
+description: "We rode Waymo across San Francisco at night and in rush hour. Honest notes on the sensors, the safety data, and the one accessibility flaw to fix."
 keywords:
   Waymo, Autonomous Vehicles, Self Driving Cars, Accessibility, Jaguar I-PACE, Lidar, San Francisco,
   Disability, Blind, Deaf, Wheelchair, Coffee and Fun, Waymo Review, Robotaxi

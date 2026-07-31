@@ -4,10 +4,8 @@ submit: false
 footer: true
 header: true
 layout: templates/post.liquid
-title: How to Rollback Your Chrome Extension to a Previous Version
-description:
-  Pushed a bad update to your Chrome extension? The Chrome Web Store lets you roll back to the
-  previous published version without waiting for a new review. Here's how.
+title: "Chrome Extension Rollback in the Web Store"
+description: "Roll a published Chrome extension back to its previous version from the developer dashboard. It skips the review queue, but only goes one version back."
 keywords:
   Chrome Web Store, Rollback, Extension Development, Chrome Extension, Revert Version, Developer
   Dashboard, Chrome Web Store API, Extension Publishing, Version Control, Bug Fix, Coffee and Fun

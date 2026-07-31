@@ -4,11 +4,8 @@ submit: false
 footer: true
 header: true
 layout: templates/post.liquid
-title: Every Icon Size Your Chrome Extension Actually Needs (And What Each One Is For)
-description:
-  16, 32, 48, 128, Chrome extension icon requirements look arbitrary until you know where each
-  size shows up. A practical guide to manifest icons, action icons, store requirements, and the
-  one-source-file workflow that generates them all.
+title: "Chrome Extension Icon Sizes: 16, 32, 48, 128"
+description: "What 16, 32, 48 and 128 are each for, plus the toolbar sizes, the store's 128 icon, the legacy 19 and 38, and a one master file workflow that makes them all."
 keywords:
   chrome extension icon sizes, manifest v3 icons, chrome extension icons, 128x128 chrome web store,
   extension icon generator, browser extension development, action icon, chrome web store listing,

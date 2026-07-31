@@ -1,8 +1,8 @@
 <!-- Font preloads. Pages that never render .brand-heading can set
-     skipDisplayFontPreload before including to keep the LCP lane clear. -->
-{% assign skipDisplayFontPreload = skipDisplayFontPreload | default: false %}
-{% unless skipDisplayFontPreload %}
-<link rel="preload" href="/assets/fonts/Grandstander-latin.woff2" as="font" type="font/woff2" crossorigin>
+     skipPacificoPreload before including to keep the LCP lane clear. -->
+{% assign skipPacificoPreload = skipPacificoPreload | default: false %}
+{% unless skipPacificoPreload %}
+<link rel="preload" href="/assets/fonts/Pacifico-Regular.woff2" as="font" type="font/woff2" crossorigin>
 {% endunless %}
 <link rel="preload" href="/assets/fonts/Caveat-Regular.woff2" as="font" type="font/woff2" crossorigin>
 
@@ -26,23 +26,14 @@
         --color-coral-deep: #c4413a;
     }
 
-    /* Grandstander display font, duplicated from coco.css so Tailwind-CDN tool
+    /* Pacifico display font, duplicated from coco.css so Tailwind-CDN tool
        pages (which don't load engine.css) still render .brand-heading correctly. */
     @font-face {
-        font-family: 'Grandstander';
+        font-family: 'Pacifico';
         font-style: normal;
-        font-weight: 400 700;
         font-display: swap;
-        src: url('/assets/fonts/Grandstander-latin.woff2') format('woff2');
-        unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
-    }
-    @font-face {
-        font-family: 'Grandstander';
-        font-style: normal;
-        font-weight: 400 700;
-        font-display: swap;
-        src: url('/assets/fonts/Grandstander-latin-ext.woff2') format('woff2');
-        unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+        font-weight: 400;
+        src: url('/assets/fonts/Pacifico-Regular.woff2') format('woff2');
     }
 
     /* Caveat handwriting font, self-hosted */
@@ -68,11 +59,10 @@
         src: url('/assets/fonts/Caveat-Bold.woff2') format('woff2');
     }
 
-    /* Brand display heading, Grandstander with a soft coral offset shadow.
+    /* Brand display heading, Pacifico script with a soft coral offset shadow.
        Single source of truth: pages include this partial instead of redefining it. */
     .brand-heading {
-        font-family: 'Grandstander', 'Trebuchet MS', sans-serif;
-        font-weight: 600;
+        font-family: 'Pacifico', cursive;
         color: var(--color-mocha);
         text-shadow: 1.5px 2.5px 0px rgba(253, 97, 85, 0.45);
     }

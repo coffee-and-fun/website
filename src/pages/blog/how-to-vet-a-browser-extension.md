@@ -4,11 +4,8 @@ submit: false
 footer: true
 header: true
 layout: templates/post.liquid
-title: How to Vet a Browser Extension Before You Trust It
-description:
-  A browser extension asking to "read and change all your data on all websites" is a big ask. Here
-  is a plain-English, 60-second way to check whether it deserves that access, covering permissions,
-  publisher, reviews, and the data it collects.
+title: "Browser Extension Safety: A 60-Second Check"
+description: "A 60 second checklist before you install: do the permissions match the job, who published it, what recent reviews say, what it collects, and do you need it."
 keywords:
   vet a browser extension, browser extension permissions, chrome extension safety, read and change
   all your data, is this extension safe, extension privacy, check chrome extension, extension

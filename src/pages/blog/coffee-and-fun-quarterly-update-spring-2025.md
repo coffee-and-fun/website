@@ -4,11 +4,8 @@ submit: false
 footer: true
 header: true
 layout: templates/post.liquid
-title: Quarterly Check-In From Coffee & Fun LLC
-description:
-  It’s been a wild and wonderful start to the year at Coffee & Fun. From open source Roomba tools
-  and a Markdown Editor milestone to Hide Spoilers blowing up on iOS, here’s a peek behind the
-  scenes.
+title: "Coffee & Fun Spring 2025 Quarterly Update"
+description: "A look at our spring quarter: open source Roomba tools in progress, redesigned OpenDyslexic and Elexend, a new Discord, and Markdown Editor past 20,000 users."
 keywords:
   Coffee and Fun, Quarterly Update, Open Source, Roomba Hacks, Hide Spoilers, Markdown Editor,
   Helperbird Updates, Accessibility Tools, Behind the Scenes, Developer Blog, Product Updates, Tech

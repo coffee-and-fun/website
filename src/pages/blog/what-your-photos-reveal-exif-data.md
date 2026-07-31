@@ -4,11 +4,8 @@ submit: false
 footer: true
 header: true
 layout: templates/post.liquid
-title: "Your Photos Are Talking Behind Your Back: A Plain-English Guide to EXIF Data"
-description:
-  Every photo you take carries an invisible passenger, where you were, when you were there, what
-  device you used. Here's what EXIF metadata actually contains, when it matters, which apps strip
-  it for you, and how to remove it yourself in seconds.
+title: "EXIF Data: What Your Photos Reveal"
+description: "EXIF data hides GPS coordinates, timestamps and your phone model inside every photo. What it contains, when it leaks, and how to strip it in seconds."
 keywords:
   EXIF data, photo metadata, remove EXIF, GPS in photos, photo privacy, image metadata viewer,
   strip metadata, location data in pictures, EXIF remover, privacy tools, Coffee and Fun

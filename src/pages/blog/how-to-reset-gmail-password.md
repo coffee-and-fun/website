@@ -4,10 +4,8 @@ submit: false
 footer: true
 header: true
 layout: templates/post.liquid
-title: How to Reset Your Gmail Password and Sign Out of All Devices
-description:
-  A simple guide to changing or resetting your Gmail password and signing out of every device
-  connected to your Google account.
+title: "Gmail Password Reset and Device Sign Out"
+description: "Change a Gmail password you still know, recover one you have forgotten, and sign out of every device or browser session still logged into your account."
 keywords:
   Gmail, Reset Password, Google Account, Sign Out All Devices, Google Security, Password Recovery,
   Account Security, Coffee and Fun

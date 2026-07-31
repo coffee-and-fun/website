@@ -4,11 +4,8 @@ submit: false
 footer: true
 header: true
 layout: templates/post.liquid
-title: How to Skip Movie Trailers Without Missing the Start of the Movie (We Tested This!)
-description:
-  At Coffee & Fun, we ran a little experiment to see if we could show up to the movies *just* in
-  time for the opening scene. Turns out, the food pickup time reveals everything. Here’s what we
-  discovered.
+title: "Skip Movie Trailers With This Timing Trick"
+description: "Pre-order your snacks at a theater like Cinemark and pick the latest pickup time offered. In our tests that time is when the movie itself actually starts."
 keywords:
   Movie Tips, Skip Trailers, Cinemark Hack, Spoiler Free, Hide Spoilers, Movie Timing Trick,
   Pre-order Snacks, Movie Hacks, Coffee and Fun, Theater Tips, Movie Night Tips

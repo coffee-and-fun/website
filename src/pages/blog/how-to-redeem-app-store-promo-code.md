@@ -4,10 +4,8 @@ submit: false
 footer: true
 header: true
 layout: templates/post.liquid
-title: How to Redeem an App Store Promo Code
-description:
-  Learn how to redeem an App Store promo code on iPhone, iPad, or Mac with this quick and simple
-  guide. Perfect for unlocking paid apps, games, or subscriptions with ease!
+title: "Redeem an App Store Promo Code on iPhone"
+description: "The apps.apple.com/redeem link opens the code screen on iPhone, iPad and Mac. You can also tap your profile picture and choose Redeem Gift Card or Code."
 keywords:
   'redeem App Store promo code, App Store gift code, how to use App Store promo, redeem iPhone code,
   free app code iOS, Mac App Store promo, Apple promo code redemption'

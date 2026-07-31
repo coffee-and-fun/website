@@ -4,11 +4,8 @@ submit: false
 footer: true
 header: true
 layout: templates/post.liquid
-title: The App Store Needs Higher Standards Too
-description:
-  Apple blocked $2.2B in App Store fraud last year and Google Play deleted almost half its catalog.
-  After 15 years shipping apps and extensions, here's why the mobile stores still need higher
-  standards, and what "higher" should actually mean.
+title: "App Store Standards: Apple and Google Play"
+description: "Apple blocked $2.2B in App Store fraud and Google Play cut nearly half its catalog. After 15 years shipping apps, here is what higher standards mean."
 keywords:
   app store standards, apple app store review, google play policy, app store fraud, fleeceware,
   copycat apps, ai slop apps, app store curation, google play low quality apps, app review,

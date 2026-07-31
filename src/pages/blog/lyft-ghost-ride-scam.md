@@ -4,13 +4,8 @@ submit: false
 footer: true
 header: true
 layout: templates/post.liquid
-title: How I Got Scammed by a Lyft "Ghost Ride" (And How You Can Get Your Money Back)
-description:
-  In this blog post, I share my frustrating experience with a Lyft ghost ride scam where a driver
-  started my ride without me and drove 40 minutes away. After being charged $36 for a ride I never
-  took, I navigated Lyft's unhelpful AI support system and eventually found a way to get a full
-  refund. Learn what ghost rides are, how to protect yourself, and the exact steps to get your money
-  back if this happens to you.
+title: "Lyft Ghost Ride Scam: How I Got Refunded"
+description: "A Lyft driver started my ride without me and charged me 36 dollars. The support bot offered 4 dollars, so here is how I reached a human and a full refund."
 keywords:
   lyft, ghost ride, scam, rideshare, refund, driver scam, lyft support, charge back, ride
   verification, PIN protection, consumer protection, rideshare safety

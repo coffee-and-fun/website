@@ -4,11 +4,8 @@ submit: false
 footer: true
 header: true
 layout: templates/post.liquid
-title: Apple’s Passwords App Is Surprisingly Great (And Yes, There’s a Chrome Extension)
-description:
-  We’ve been using Apple’s new Passwords app at Coffee & Fun, and it’s honestly a game-changer.
-  Here’s why we recommend it to anyone in the Apple ecosystem, and how the Chrome extension makes
-  it even better.
+title: "Apple Passwords App: Why We Recommend It"
+description: "Apple's Passwords app is already on your iPhone, iPad and Mac. It holds logins, 2FA codes and passkeys, and there is an iCloud Passwords extension for Chrome."
 keywords:
   Apple Passwords App, iCloud Keychain, Password Manager, Chrome Extension, Apple Ecosystem, 2FA,
   Passkeys, Secure Login, iOS 17, macOS Sonoma, iCloud Passwords, Coffee and Fun Tools, Privacy,

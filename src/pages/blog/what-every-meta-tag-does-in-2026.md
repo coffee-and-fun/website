@@ -4,11 +4,8 @@ submit: false
 footer: true
 header: true
 layout: templates/post.liquid
-title: What Every Meta Tag Actually Does in 2026 (And Which Ones Are Dead)
-description:
-  Title, description, canonical, Open Graph, X cards, a plain-English tour of every meta tag that
-  still matters in 2026, what Google and social networks actually do with each one, and the zombie
-  tags you can finally delete.
+title: "Meta Tags in 2026: What Still Matters"
+description: "A plain English tour of the meta tags Google, Facebook and X actually read in 2026, the sizes that matter, and the zombie tags you can delete today."
 keywords:
   meta tags, meta tags 2026, open graph, og image, twitter card, x card, SEO meta tags, title tag,
   meta description, canonical URL, meta keywords dead, social preview, meta tags generator,

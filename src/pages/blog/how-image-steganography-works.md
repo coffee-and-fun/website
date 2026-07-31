@@ -4,11 +4,8 @@ submit: false
 footer: true
 header: true
 layout: templates/post.liquid
-title: How Image Steganography Actually Works (In Plain English)
-description:
-  Our Hide Text in Images tool can tuck a whole paragraph inside a photo without changing how it
-  looks. Here's exactly how that trick works, pixels, bits, and why a change of one in 255 is
-  invisible to the human eye. No math degree required.
+title: "Image Steganography Explained Simply"
+description: "Image steganography hides text in a photo by flipping the last bit of each color value. How the trick works, how much a photo holds, and why PNG survives."
 keywords:
   steganography, image steganography, hide text in image, LSB steganography, least significant bit,
   hidden message in picture, how steganography works, secret message encoder, PNG steganography,

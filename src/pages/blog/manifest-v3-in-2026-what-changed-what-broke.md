@@ -4,10 +4,8 @@ submit: false
 footer: true
 header: true
 layout: templates/post.liquid
-title: Manifest V3 in 2026, What Changed, What Broke, and How to Migrate Without Losing Users
-description:
-  Manifest V3 in 2026 is not a debate any more, it is a deadline. What changed, what broke, and
-  how to migrate your extension without losing the users you have.
+title: "Manifest V3 in 2026: What Actually Broke"
+description: "Chrome removes the last Manifest V2 listings on August 31, 2026. What broke, what quietly got better, and how to ship the migration without losing users."
 keywords:
   manifest v3 2026, manifest v2 deprecation, chrome extension migration, declarativeNetRequest,
   extension service worker, chrome web store manifest v2 removal, mv2 to mv3, firefox manifest v3,

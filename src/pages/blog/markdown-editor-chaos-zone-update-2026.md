@@ -4,10 +4,8 @@ submit: false
 footer: true
 header: true
 layout: templates/post.liquid
-title: We Put a Pet Cat in Our Markdown Editor (and That's Just the Start)
-description:
-  The Markdown Editor just got a major update. A pixel cat that walks, sleeps, and reacts to clicks.
-  Matrix rain. Vaporwave mode. A combo counter. And somehow, it's still a really good markdown editor.
+title: "Markdown Editor: A Pet Cat and Chaos Zone"
+description: "The Markdown Editor's new Chaos Zone adds a pixel cat with 38 animations, matrix rain, vaporwave mode and a combo counter. Still free, still no tracking."
 keywords:
   Markdown Editor, Chrome Extension, Safari Extension, Edge Extension, Firefox Extension, Markdown
   Editor Update, Chaos Zone, Pet Cat, Matrix Rain, Vaporwave Mode, Combo Counter, Free Markdown

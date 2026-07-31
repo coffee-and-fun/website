@@ -4,9 +4,8 @@ submit: false
 footer: true
 header: true
 layout: templates/post.liquid
-title: Coffee & Fun LLC 2025/2026 – A Year of Building, Breaking, and Looking Ahead
-description:
-  A behind-the-scenes look at what Coffee & Fun LLC worked on this year, from Helperbird updates and VR experiments to hardware hacks, guides, giveaways, and what we’re planning for 2026.
+title: "Coffee & Fun LLC 2025 Year in Review"
+description: "Our year in review: Helperbird work and a planned $25 individual plan, honest Apple Vision Pro doubts, Roomba teardowns, Pi-hole kit plans and 22 plus guides."
 keywords:
   'Coffee & Fun LLC, Helperbird updates, accessibility tools, VR projects, Apple Vision Pro review,
   Roomba hacks, Pi-hole kits, 3D printing projects, fix-it guides, indie software company'
