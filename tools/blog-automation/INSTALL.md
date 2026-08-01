@@ -46,4 +46,4 @@ redeploys. If anything looks off, `launchctl unload ...` to pause and tell Claud
 ## 4. It's live
 
 Once the test run looks good, leave it loaded. It will publish every Monday at 9:00. Edit
-`tools/blog-automation/blog-ideas.md` whenever you want to steer topics.
+`BLOG-QUEUE.md` at the repo root whenever you want to steer topics.

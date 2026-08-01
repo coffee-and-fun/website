@@ -1,14 +1,14 @@
 # Coffee & Fun blog automation
 
-Publishes one blog post to `main` once a week (Mondays, 9:00 local) using headless
-Claude Code. The site host rebuilds from `main` on push.
+Drafts one blog post once a week (Mondays, 9:00 local) using headless Claude Code and
+commits it locally. It never pushes: Robert reviews each draft and publishes it himself.
 
 ## Pieces
 
-- `write-post.md` — the instructions Claude follows to write + publish one post (voice, SEO,
-  links, card, no em dashes, verify, commit, push).
-- `blog-ideas.md` — the topic queue. The runner takes the first unchecked `- [ ]` and checks it
-  off when published. Add or reorder ideas any time.
+- `write-post.md` — the instructions Claude follows to draft one post (voice rules, receipts,
+  SEO, links, card, no em dashes, verify, local commit).
+- `../../BLOG-QUEUE.md` (repo root) — the topic queue AND the binding voice rules. The runner takes the first unchecked `[ ]` and checks it
+  off when drafted. Add or reorder ideas any time.
 - `run-blog.sh` — the launchd entry point. Sets PATH, pulls latest, runs Claude headless, logs to
   `logs/`.
 - `com.coffeeandfun.blog.plist` — the launchd schedule. Copy to `~/Library/LaunchAgents/`.
@@ -21,9 +21,9 @@ Claude Code. The site host rebuilds from `main` on push.
 3. Researches it, verifies every external link loads and every internal link exists.
 4. Writes `src/pages/blog/<slug>.md` (single H1 from `cardTitle`, no em dashes, valid YAML).
 5. Generates the purple OG card with `tools/social-card.mjs` and a `.webp` via `sips`.
-6. Prepends an entry to `src/_data/blog.json`, checks the idea off in `blog-ideas.md`.
-7. Runs `npm run build`; if it fails, it fixes it and does not push a broken build.
-8. `git commit` + `git push origin main`. The host redeploys.
+6. Prepends an entry to `src/_data/blog.json`, checks the idea off in `BLOG-QUEUE.md`.
+7. Runs `npm run build`; if it fails, it fixes it and does not commit a broken build.
+8. `git commit` locally, then stops. Robert reviews the draft and pushes when it earns it.
 
 ## Controls
 
@@ -31,7 +31,7 @@ Claude Code. The site host rebuilds from `main` on push.
 - Resume: `launchctl load  ~/Library/LaunchAgents/com.coffeeandfun.blog.plist`
 - Run now (test): `launchctl start com.coffeeandfun.blog`  then  `tail -f tools/blog-automation/logs/*.log`
 - Change cadence/time: edit the `StartCalendarInterval` in the plist, then unload + load.
-- Change topics: edit `blog-ideas.md`.
+- Change topics: edit `BLOG-QUEUE.md` at the repo root.
 
 ## Cards stay consistent
 

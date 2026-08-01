@@ -13,6 +13,8 @@ The July 2026 batch failed because it was well-written filler. Every post here m
 - **A falsifiable spine.** Say something a reader could argue with.
 - **Endings land a thought**, never a product funnel.
 - **One post at a time.** Never batch-publish; never cross-link a same-week mesh.
+- **Never fabricate.** No invented stats, quotes, test results, or URLs. Mark evidence you cannot gather with `<!-- TODO: Robert verify/capture -->`. An honest hole beats a made-up receipt.
+- **No em dashes or en dashes**, anywhere, ever. Commas, periods, colons, parentheses.
 - Plain, warm, rhythmically short sentences. Dry jokes in passing, not performed.
 
 ## The queue
@@ -28,6 +30,15 @@ The July 2026 batch failed because it was well-written filler. Every post here m
 9. [ ] **What Is Dead Media? Every Way Your Stuff Dies** — Taxonomy explainer: format death (Flash, HD-DVD), server death (DRM checks, delisted "purchases"), platform death (Vine), version death (silent cut-swaps). Enshittification-lineage essay. SEO: "dead media", "do you own digital movies" cluster.
 10. [ ] **How to Catch an App Phoning Home (Practice on Ours)** — DevTools + Proxyman walkthrough with our own app as the guinea pig; the punchline is the boring empty request log. SEO: "how to see what data an app sends", "check if app is tracking you".
 11. [ ] **How to Delete Your Data from OpenAI — Who to Email, and What Can't Be Removed** — Settings path, privacy portal, DSAR email, GDPR vs elsewhere, and the honest half nobody writes: what survives deletion (safety retention, de-identified data, litigation holds — VERIFY current policy at write time). SEO: "delete OpenAI data", "OpenAI GDPR request".
+
+## Icebox (not scheduled)
+
+Ideas inherited from the old `blog-ideas.md` queue. The writer never touches this section:
+promote an item into "The queue" above if you want it written.
+
+- [ ] The history of Flock cameras, made by Flock Safety (officially Flock Group Inc.)
+- [ ] The case for version-by-version extension review
+- [ ] A field guide to OG images that do not break in 2026
 
 ## Process checklist per post (see memory + help docs conventions)
 
