@@ -126,7 +126,7 @@ for (const lines of groups) {
 
 // Logo bottom-center (resolved relative to this file so cwd doesn't matter).
 const logo = await loadImage(
-	path.join(__dirname, '..', 'src', 'assets', 'images', 'coffee-and-fun-logo-dark.png')
+	path.join(__dirname, '..', 'src', 'assets', 'images', 'brand', 'coffee-and-fun-logo-dark.png')
 );
 const logoH = 96;
 const logoW = (logo.width / logo.height) * logoH;
