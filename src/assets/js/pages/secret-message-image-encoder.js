@@ -1,3 +1,7 @@
+if (typeof Vue === 'undefined') {
+    document.getElementById('load-fallback').hidden = false;
+    throw new Error('Vue failed to load');
+}
 const { createApp } = Vue;
 
 createApp({

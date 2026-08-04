@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html class="antialiased" lang="en" style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;">
+<html class="antialiased" lang="en" data-theme="light" style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;">
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -103,23 +103,63 @@
     <main v-cloak id="main-content" class="wrap">
 
         <header id="tool">
-            <h1>See what your videos know about you</h1>
+            <h1 class="brand-heading text-3xl sm:text-4xl">See what your videos know about you</h1>
             <p class="lede">Phone videos quietly carry your location, your device, and the exact moment you pressed record. Drop one in to read everything, then download a clean copy with that data blanked out. Nothing is uploaded; it all happens on your device.</p>
+
+            <!-- Sketch: sparkle, top right -->
+            <div class="sketch-note sketch-float" style="top: -16px; right: -4%; --sketch-rotate: 8deg;">
+                <svg aria-hidden="true" width="22" height="22" viewBox="0 0 24 24">
+                    <path d="M12 2 L13.5 10.5 L22 12 L13.5 13.5 L12 22 L10.5 13.5 L2 12 L10.5 10.5 Z" class="sketch-sparkle"/>
+                </svg>
+            </div>
+
+            <!-- Sketch: "drop it here" pointing at the drop zone -->
+            <div class="sketch-note text-base" style="bottom: -12px; right: 3%; transform: rotate(-4deg);">
+                drop it here
+                <svg aria-hidden="true" width="26" height="22" viewBox="0 0 28 24" style="position: relative; display: inline-block; margin-left: 2px; vertical-align: middle;">
+                    <path d="M2 4 C10 4, 20 8, 24 20 M24 20 L17 17 M24 20 L25 12" class="sketch-arrow"/>
+                </svg>
+            </div>
+
+            <!-- Sketch: squiggle under the heading, left edge -->
+            <div class="sketch-note" style="top: 44%; left: -3%;">
+                <svg aria-hidden="true" width="30" height="10" viewBox="0 0 34 12">
+                    <path d="M2 6 C6 1, 10 11, 14 6 C18 1, 22 11, 26 6 C28 3, 30 5, 32 6" class="sketch-squiggle"/>
+                </svg>
+            </div>
+
+            <!-- Sketch: dashed circle, right of the lede -->
+            <div class="sketch-note sketch-float-slow" style="top: 54%; right: -2%; --sketch-rotate: -6deg;">
+                <svg aria-hidden="true" width="26" height="26" viewBox="0 0 36 36">
+                    <circle cx="18" cy="18" r="12" class="sketch-circle" transform="rotate(20 18 18)"/>
+                </svg>
+            </div>
+
+            <!-- Sketch: small cross, far left -->
+            <div class="sketch-note sketch-wiggle" style="top: 6px; left: -4%; --sketch-rotate: -12deg;">
+                <svg aria-hidden="true" width="14" height="14" viewBox="0 0 16 16">
+                    <path d="M3 3 L13 13 M13 3 L3 13" class="sketch-cross"/>
+                </svg>
+            </div>
         </header>
 
         <!-- Live status for screen readers -->
         <div class="sr-only" role="status" aria-live="polite">{{ announcement }}</div>
 
         <!-- ===== Step 1: pick a video ===== -->
-        <section class="step" aria-labelledby="h-pick">
+        <section class="cf-step" aria-labelledby="h-pick">
             <h2 class="step-label" id="h-pick">1, Pick a video</h2>
 
             <label v-if="!file" for="vid-file" class="drop" :class="{ drag: dragOver }"
                    @dragover.prevent="dragOver = true" @dragleave="dragOver = false" @drop.prevent="onDrop">
                 <div class="ico"><svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m16 10 6-4v12l-6-4"/><rect x="2" y="6" width="14" height="12" rx="2"/></svg></div>
+                <!-- The wrapping label names the input. No aria-labelledby on the
+                     input itself: it would win over the label and collapse the
+                     accessible name to "1, Pick a video", losing both this line and
+                     the supported-format list below it. -->
                 <div class="main">Drop a video here, or click to choose</div>
                 <div class="sub">MP4, MOV, WebM, MKV, AVI, most video formats work</div>
-                <input id="vid-file" ref="fileInput" type="file" accept="video/*,.mp4,.mov,.m4v,.3gp,.webm,.mkv,.avi" class="sr-only" @change="onFileChange" aria-labelledby="h-pick" />
+                <input id="vid-file" ref="fileInput" type="file" accept="video/*,.mp4,.mov,.m4v,.3gp,.webm,.mkv,.avi" class="sr-only" @change="onFileChange" />
             </label>
 
             <template v-else>
@@ -130,7 +170,7 @@
                         <div class="name">{{ fileName }}</div>
                         <div class="dim">{{ formatFileSize(fileSize) }}<template v-if="videoInfo.duration"> · {{ formatDuration(videoInfo.duration) }}</template><template v-if="videoInfo.width"> · {{ videoInfo.width }} × {{ videoInfo.height }}</template></div>
                     </div>
-                    <button type="button" class="btn-brand btn-ghost-brand" @click="reset" aria-label="Remove this video and start over">Change</button>
+                    <button type="button" class="btn btn-sm btn-outline" style="--btn-color: var(--color-cocoa)" @click="reset" aria-label="Remove this video and start over">Change</button>
                 </div>
 
                 <details class="more">
@@ -141,7 +181,10 @@
                 </details>
             </template>
 
-            <p v-if="busyReading" class="status-brand" role="status">
+            <!-- No role="status" here, or role="alert" on the banner below: the
+                 sr-only live region above already announces every state change,
+                 and a second announcer reads each event twice. -->
+            <p v-if="busyReading" class="status-brand">
                 <span class="spin dark" aria-hidden="true"></span>
                 <span>{{ statusText }}<template v-if="phase === 'reading' && progress > 0">, {{ progress }}%</template></span>
             </p>
@@ -149,18 +192,18 @@
                 <div class="bar-fill" :style="{ width: progress + '%' }"></div>
             </div>
 
-            <div v-if="errorText" class="banner warn" role="alert" style="margin-top: 0.9rem;">
+            <div v-if="errorText" class="banner warn" style="margin-top: 0.9rem;">
                 <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 9v4"/><path d="M12 17h.01"/><circle cx="12" cy="12" r="10"/></svg>
                 <span>{{ errorText }}</span>
             </div>
         </section>
 
         <!-- ===== Step 2: what's inside ===== -->
-        <section v-if="hasResults" class="step" aria-labelledby="h-inside">
+        <section v-if="hasResults" class="cf-step" aria-labelledby="h-inside">
             <h2 class="step-label" id="h-inside">2, What&rsquo;s inside</h2>
 
             <div class="chip-row">
-                <span class="chip-stat">{{ fieldCount }} metadata field{{ fieldCount === 1 ? '' : 's' }}</span>
+                <span class="chip-stat">{{ fieldCount }} field{{ fieldCount === 1 ? '' : 's' }} read from this file</span>
                 <span v-if="hasGpsData" class="chip-stat bad">Location data found</span>
                 <span v-if="hasPersonalData" class="chip-stat bad">Personal info found</span>
             </div>
@@ -178,7 +221,7 @@
             <div v-for="group in groupedMetadata" :key="group.name" class="meta-card">
                 <h3>{{ group.name }}</h3>
                 <table class="kv">
-                    <caption class="sr-only">{{ group.name }} metadata read from this video</caption>
+                    <caption class="sr-only">{{ group.caption }}</caption>
                     <tbody>
                         <tr v-for="row in group.rows" :key="row.key">
                             <th scope="row">{{ row.key }}</th>
@@ -195,16 +238,16 @@
         </section>
 
         <!-- ===== Step 3: clean it ===== -->
-        <section v-if="hasResults" class="step" aria-labelledby="h-clean">
+        <section v-if="hasResults" class="cf-step" aria-labelledby="h-clean">
             <h2 class="step-label" id="h-clean">3, Clean it</h2>
 
             <template v-if="!cleaned">
                 <p class="hint-p">{{ cleanExplainer }}</p>
-                <button type="button" class="btn-brand btn-primary-brand" @click="cleanVideo" :disabled="phase === 'cleaning'">
+                <button type="button" class="btn btn-lg" style="--btn-color: var(--color-cocoa); --btn-fg: #fff" @click="cleanVideo" :disabled="phase === 'cleaning'">
                     <span v-if="phase === 'cleaning'" class="spin" aria-hidden="true"></span>
                     {{ phase === 'cleaning' ? 'Cleaning…' : cleanButtonLabel }}
                 </button>
-                <p v-if="phase === 'cleaning'" class="status-brand" role="status">{{ statusText }}</p>
+                <p v-if="phase === 'cleaning'" class="status-brand">{{ statusText }}</p>
             </template>
 
             <div v-else class="result">
@@ -215,8 +258,8 @@
                 <p v-if="cleaned.note" class="hint-p">{{ cleaned.note }}</p>
                 <p class="stamp">Original {{ formatFileSize(fileSize) }} → clean copy {{ formatFileSize(cleaned.size) }}. The picture and sound are copied bit-for-bit, no re-encoding, no quality loss.</p>
                 <div class="result-actions">
-                    <button type="button" class="btn-brand btn-primary-brand" @click="downloadClean">Download clean copy</button>
-                    <button type="button" class="btn-brand btn-secondary-brand" @click="reset">Clean another video</button>
+                    <button type="button" class="btn btn-lg" style="--btn-color: var(--color-cocoa); --btn-fg: #fff" @click="downloadClean">Download clean copy</button>
+                    <button type="button" class="btn btn-lg btn-outline" style="--btn-color: var(--color-cocoa)" @click="reset">Clean another video</button>
                 </div>
             </div>
         </section>

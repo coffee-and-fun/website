@@ -652,8 +652,10 @@ createApp({
             return !!this.file && (this.phase === 'ready' || this.phase === 'cleaning' || this.phase === 'cleaned');
         },
 
-        /* One combined view: live file/video facts + fields read from the bytes. */
-        metadata() {
+        /* Facts about the file itself, computed here rather than read out of the
+           container bytes. Kept separate from parsedMeta so the count on screen
+           can be honest about which is which. */
+        derivedMeta() {
             if (!this.file) return {};
             const m = {};
             m['File Name'] = this.fileName;
@@ -672,11 +674,20 @@ createApp({
                     m['Estimated Quality'] = perPixel > 0.1 ? 'High' : (perPixel > 0.05 ? 'Medium' : 'Low');
                 }
             }
-            return Object.assign(m, this.parsedMeta);
+            return m;
         },
 
+        /* One combined view: live file/video facts + fields read from the bytes. */
+        metadata() {
+            if (!this.file) return {};
+            return Object.assign({}, this.derivedMeta, this.parsedMeta);
+        },
+
+        /* Only the fields that actually came out of the file. Counting the
+           derived rows too made the chip say "19 metadata fields" while step 3
+           reported blanking two kinds, which reads as 17 left behind. */
         fieldCount() {
-            return Object.keys(this.metadata).length;
+            return Object.keys(this.parsedMeta).length;
         },
 
         hasGpsData() {
@@ -706,9 +717,25 @@ createApp({
         },
 
         groupedMetadata() {
-            const groups = CATEGORIES.map(function (c) { return { name: c.name, rows: [] }; });
-            const other = { name: 'Other', rows: [] };
-            const entries = Object.entries(this.metadata);
+            /* The derived rows get their own heading. They are facts about the
+               file, not tags stored inside it, and mixing them into Technical
+               and Date & time made it look as though the file carried far more
+               than it does. */
+            const about = { name: 'About the file', caption: 'About the file, facts worked out from the file itself', rows: [] };
+            const groups = CATEGORIES.map(function (c) {
+                return { name: c.name, caption: c.name + ' metadata read from this video', rows: [] };
+            });
+            const other = { name: 'Other', caption: 'Other metadata read from this video', rows: [] };
+
+            const derived = this.derivedMeta;
+            const derivedKeys = Object.keys(derived);
+            for (let d = 0; d < derivedKeys.length; d++) {
+                const dk = derivedKeys[d];
+                if (Object.prototype.hasOwnProperty.call(this.parsedMeta, dk)) continue;
+                about.rows.push({ key: dk, value: this.formatValue(derived[dk]) });
+            }
+
+            const entries = Object.entries(this.parsedMeta);
             for (let i = 0; i < entries.length; i++) {
                 const key = entries[i][0];
                 const row = { key: key, value: this.formatValue(entries[i][1]) };
@@ -722,6 +749,7 @@ createApp({
                 }
                 if (!placed) other.rows.push(row);
             }
+            groups.unshift(about);
             groups.push(other);
             return groups.filter(function (g) { return g.rows.length > 0; });
         },
@@ -841,7 +869,8 @@ createApp({
             this.phase = 'ready';
             this.statusText = '';
             this.$nextTick(() => {
-                this.announce('Done. Found ' + this.fieldCount + ' metadata fields.' +
+                this.announce('Done. Read ' + this.fieldCount + ' metadata field' +
+                    (this.fieldCount === 1 ? '' : 's') + ' from this file.' +
                     (this.hasGpsData ? ' Location data was found.' : '') +
                     (this.hasPersonalData ? ' Personal information was found.' : ''));
             });

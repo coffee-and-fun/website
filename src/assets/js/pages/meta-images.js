@@ -7,6 +7,11 @@ const EXIF_OK = typeof ExifReader !== 'undefined';
 
 const ALLOWED = ['image/jpeg', 'image/png', 'image/webp'];
 
+// How much of you each finding gives away. The list is sorted by this, so the
+// thing that can point at your front door is never buried under the name of
+// your photo editor. Array#sort is stable, so equal risks keep the order below.
+const RISK_RANK = { high: 0, medium: 1, low: 2 };
+
 const GROUP_ORDER = [
     ['gps', 'Location (decoded)'],
     ['exif', 'Photo details (EXIF)'],
@@ -55,13 +60,18 @@ createApp({
                 const lat = gps.Latitude, lon = gps.Longitude;
                 const pretty = Math.abs(lat).toFixed(5) + '° ' + (lat >= 0 ? 'N' : 'S') + ', '
                              + Math.abs(lon).toFixed(5) + '° ' + (lon >= 0 ? 'E' : 'W');
-                let text = 'It quietly records where it was taken: ' + pretty + '.';
+                // The headline is plain words. A decimal coordinate pair is not
+                // something a non-technical person can read, so it moves down to
+                // the sub line, wording intact, where it still gets indexed.
+                let sub = 'It quietly records where it was taken: ' + pretty + '.';
                 if (typeof gps.Altitude === 'number' && isFinite(gps.Altitude) && Math.abs(gps.Altitude) > 1) {
-                    text = text.slice(0, -1) + ', about ' + Math.round(Math.abs(gps.Altitude)) + ' m '
-                         + (gps.Altitude >= 0 ? 'above' : 'below') + ' sea level.';
+                    sub = sub.slice(0, -1) + ', about ' + Math.round(Math.abs(gps.Altitude)) + ' m '
+                        + (gps.Altitude >= 0 ? 'above' : 'below') + ' sea level.';
                 }
                 out.push({
-                    kind: 'gps', text,
+                    kind: 'gps', risk: 'high',
+                    text: 'This photo pins the exact spot it was taken.',
+                    sub,
                     map: 'https://www.openstreetmap.org/?mlat=' + lat.toFixed(6) + '&mlon=' + lon.toFixed(6) + '&zoom=16'
                 });
             }
@@ -70,7 +80,7 @@ createApp({
             const when = desc('exif', 'DateTimeOriginal') || desc('exif', 'DateTimeDigitized') || desc('exif', 'DateTime');
             if (when) {
                 const human = this.humanExifDate(when);
-                out.push({ kind: 'date', text: human
+                out.push({ kind: 'date', risk: 'medium', text: human
                     ? 'It says exactly when: ' + human + '.'
                     : 'It carries the exact date and time it was taken.' });
             }
@@ -81,22 +91,25 @@ createApp({
                 let cam = model && make && model.toLowerCase().startsWith(make.toLowerCase())
                     ? model : [make, model].filter(Boolean).join(' ');
                 const lens = desc('exif', 'LensModel');
-                out.push({ kind: 'camera', text: 'It names the camera: ' + cam + '.', sub: lens ? 'Lens: ' + lens : '' });
+                out.push({ kind: 'camera', risk: 'low', text: 'It names the camera: ' + cam + '.', sub: lens ? 'Lens: ' + lens : '' });
             }
 
             // Software
             const sw = desc('exif', 'Software') || desc('xmp', 'CreatorTool');
-            if (sw) out.push({ kind: 'software', text: 'It admits it was edited: ' + sw + '.' });
+            if (sw) out.push({ kind: 'software', risk: 'low', text: 'It admits it was edited: ' + sw + '.' });
 
             // A person
             const person = desc('exif', 'Artist') || desc('iptc', 'By-line') || desc('xmp', 'creator') || desc('exif', 'Copyright');
-            if (person) out.push({ kind: 'person', text: 'It carries a name: ' + person + '.' });
+            if (person) out.push({ kind: 'person', risk: 'medium', text: 'It carries a name: ' + person + '.' });
 
             // Hidden thumbnail
             if (t.Thumbnail) {
-                out.push({ kind: 'thumb', text: 'There’s a hidden mini-copy of the photo tucked inside, sometimes an older or uncropped version.' });
+                out.push({ kind: 'thumb', risk: 'low', text: 'There’s a hidden mini-copy of the photo tucked inside, sometimes an older or uncropped version.' });
             }
 
+            // Worst first. The reader meets the thing that can locate them
+            // before the name of the app that touched the file.
+            out.sort((a, b) => RISK_RANK[a.risk] - RISK_RANK[b.risk]);
             return out;
         },
         verdictHead() {

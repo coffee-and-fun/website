@@ -7,14 +7,24 @@
     --ink: var(--color-cocoa);
     --muted: #6b6259;
     --faint: #8a7f74;
+    /* --line only ever edges non-interactive cards and table rows, so it has
+       no contrast minimum to meet. --line-strong draws control boundaries
+       (the drop zone, the details disclosure, the Download button) and was
+       #dbcab8, which measured 1.48:1 on cream and 1.56:1 on the surface,
+       failing WCAG 1.4.11. Mocha is 4.18:1 on cream and stays in palette. */
     --line: #ece0d4;
-    --line-strong: #dbcab8;
+    --line-strong: var(--color-mocha);
     --good: #0f7b4f;
     --good-bg: #eaf6ef;
-    --warn: #b4341f;
+    /* 8.80:1 on --warn-bg. Was #b4341f with no consumer at all while
+       .banner.warn hardcoded the same value it now reads from here. */
+    --warn: #7a2314;
     --warn-bg: #fbecea;
     --radius: 14px;
-    --mono: ui-monospace, 'SF Mono', 'JetBrains Mono', 'Fira Code', Menlo, Consolas, monospace;
+    /* House monospace stack. The old one named 'JetBrains Mono', which
+       branding.md reserves for one page and this one never loads, so anyone
+       with it installed locally saw a different metadata table. */
+    --mono: Consolas, Monaco, 'Andale Mono', 'Ubuntu Mono', monospace;
 }
 
 * { box-sizing: border-box; }
@@ -38,7 +48,7 @@ body {
 
 a.skip {
     position: absolute; left: -9999px; top: 0;
-    background: var(--ink); color: #fff; padding: 0.6rem 1rem; z-index: 20;
+    background: var(--ink); color: #fff; padding: 0.6rem 1rem; z-index: 50;
     border-radius: 0 0 8px 0;
 }
 a.skip:focus { left: 0; }
@@ -51,12 +61,14 @@ a.skip:focus { left: 0; }
     flex: 1;
 }
 
+/* The doodles are absolutely positioned against this block. */
+header#tool { position: relative; }
+
+/* No font-size here on purpose: the h1 carries .brand-heading with Tailwind's
+   text-3xl / sm:text-4xl, and an unlayered page rule would beat the utility. */
 h1 {
-    font-size: 1.9rem;
-    line-height: 1.2;
-    letter-spacing: -0.02em;
+    line-height: 1.25;
     margin: 0 0 0.6rem;
-    font-weight: 650;
 }
 .lede {
     color: var(--muted);
@@ -87,7 +99,13 @@ section.step { margin-bottom: 2.25rem; }
     cursor: pointer;
     transition: border-color 0.15s, background 0.15s;
 }
-.drop:hover, .drop.drag { border-color: var(--ink); background: #faf5ee; }
+/* .drag is the drag-over state, not a hover state, so it stays unconditional.
+   The hover half is gated the way daisyUI gates its own, or a touch device
+   keeps the hover fill after the tap that opened the file picker. */
+.drop.drag { border-color: var(--ink); background: #faf5ee; }
+@media (hover: hover) {
+    .drop:hover { border-color: var(--ink); background: #faf5ee; }
+}
 .drop:focus-within { outline: 2px solid var(--ink); outline-offset: 2px; }
 .drop .ico { color: var(--faint); margin-bottom: 0.6rem; }
 .drop .main { font-weight: 600; font-size: 0.95rem; }
@@ -119,13 +137,6 @@ section.step { margin-bottom: 2.25rem; }
 .thumb-meta { flex: 1; min-width: 0; }
 .thumb-meta .name { font-weight: 600; font-size: 0.9rem; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
 .thumb-meta .dim { color: var(--muted); font-size: 0.82rem; }
-.btn-ghost-brand {
-    appearance: none; border: none; background: transparent;
-    color: var(--muted); padding: 0.6rem 0.9rem; font-size: 0.9rem;
-    font-weight: 600; cursor: pointer; border-radius: 9px; font-family: inherit;
-}
-.btn-ghost-brand:hover { color: var(--ink); }
-.btn-ghost-brand:focus-visible { outline: 2px solid var(--ink); outline-offset: 2px; }
 
 /* Verdict card */
 .result {
@@ -144,13 +155,25 @@ ul.verdict li {
 }
 ul.verdict li:first-child { border-top: 0; padding-top: 0; }
 ul.verdict svg { flex-shrink: 0; margin-top: 3px; color: var(--ink); }
+/* The highest-risk finding, the one that can point at somebody's front door,
+   gets the AA-safe coral. 4.70:1 on cream, 4.79:1 on the card surface. */
+ul.verdict li.is-high > svg { color: var(--color-coral-deep); }
+ul.verdict .risk-tag { margin-left: 0.4rem; }
 ul.verdict .sub { display: block; font-size: 0.82rem; color: var(--muted); margin-top: 0.15rem; }
-ul.verdict a { color: var(--ink); }
+/* Tailwind preflight strips link underlines, and the anchor inherited the exact
+   colour of the sentence around it, so the map link measured 1.00:1 against its
+   own context with no underline. Colour alone fails WCAG 1.4.1 anyway. */
+ul.verdict a {
+    color: var(--color-espresso);
+    text-decoration: underline;
+    text-underline-offset: 2px;
+}
 ul.verdict a:focus-visible { outline: 2px solid var(--ink); outline-offset: 2px; border-radius: 4px; }
 
-/* Details disclosure + table */
+/* Details disclosure + table. The disclosure is interactive, so its edge takes
+   --line-strong like every other control boundary on the page. */
 details.more {
-    border: 1px solid var(--line);
+    border: 1px solid var(--line-strong);
     border-radius: var(--radius);
     background: var(--surface);
     padding: 0.25rem 1rem;
@@ -184,22 +207,15 @@ table.meta-table td {
 table.meta-table tr { border-top: 1px dashed var(--line); }
 table.meta-table tr:first-child { border-top: 0; }
 
-/* Buttons */
-.btn-brand {
-    appearance: none; border: none; border-radius: 11px;
-    padding: 0.85rem 1.4rem;
-    font-size: 0.98rem; font-weight: 600; cursor: pointer; font-family: inherit;
-    display: inline-flex; align-items: center; justify-content: center; gap: 0.5rem;
-    transition: background 0.15s, opacity 0.15s, border-color 0.15s;
-}
-.btn-brand:focus-visible { outline: 2px solid var(--ink); outline-offset: 2px; }
-.btn-primary-brand { background: var(--ink); color: #fff; width: 100%; }
-.btn-primary-brand:hover { background: var(--color-espresso); }
-.btn-secondary-brand {
-    background: var(--surface); color: var(--ink);
-    border: 1px solid var(--line-strong);
-}
-.btn-secondary-brand:hover { border-color: var(--ink); }
+/* Buttons are real daisyUI buttons now. Everything the five hand-rolled classes
+   used to re-implement (padding, radius, inline-flex centring, gap, transition,
+   focus-visible) already ships in the bundle. What is left is sizing, scoped
+   through element and cf- selectors, never a bare .btn rule. */
+.cf-make { --size: 3rem; --fontsize: 0.98rem; }
+/* daisyUI's default button border is a near-white grey that measured about
+   1.1:1 against the green card. A control edge needs 3:1 under WCAG 1.4.11.
+   The link-style reset button has no boundary to draw, so it is excluded. */
+.clean-card .actions > button:not(.btn-link) { --btn-border: var(--color-mocha); }
 
 .clean-card {
     background: var(--good-bg);
@@ -228,16 +244,8 @@ table.meta-table tr:first-child { border-top: 0; }
     border-radius: 10px; padding: 0.75rem 0.9rem;
     font-size: 0.88rem; line-height: 1.45; margin-top: 1rem;
 }
-.banner.warn { background: var(--warn-bg); color: #7a2314; border: 1px solid #f0ccc5; }
+.banner.warn { background: var(--warn-bg); color: var(--warn); border: 1px solid #f0ccc5; }
 .banner.warn svg { flex-shrink: 0; margin-top: 1px; }
-
-button.linkish {
-    appearance: none; border: none; background: none; padding: 0;
-    font-size: 0.88rem; color: var(--muted); text-decoration: underline;
-    cursor: pointer; font-family: inherit;
-}
-button.linkish:hover { color: var(--ink); }
-button.linkish:focus-visible { outline: 2px solid var(--ink); outline-offset: 2px; border-radius: 4px; }
 
 .spin {
     width: 15px; height: 15px; border: 2px solid rgba(255,255,255,0.4);
@@ -252,11 +260,13 @@ button.linkish:focus-visible { outline: 2px solid var(--ink); outline-offset: 2p
 }
 
 @media (prefers-reduced-motion: reduce) {
-    .drop, .btn-brand { transition: none; }
+    .drop, .cf-make, .thumb-row button, .clean-card .actions > button { transition: none; }
     .spin { animation: none; }
 }
 
 @media (max-width: 480px) {
-    h1 { font-size: 1.6rem; }
     .wrap { padding-top: 1.5rem; }
+    /* Thumb-sized targets. "Change" rendered 82x41 and "Check another photo"
+       rendered 137x21, under the 24px floor of WCAG 2.5.8 before this. */
+    .thumb-row button, .clean-card .actions > button { min-height: 44px; }
 }

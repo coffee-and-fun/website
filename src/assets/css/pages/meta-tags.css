@@ -6,12 +6,18 @@
     --surface: #fffcf7;
     --ink: var(--color-cocoa);
     --muted: #6b6259;
-    --faint: #8a7f74;
+    /* --line stays soft: it only draws decorative card edges. --line-strong
+       draws control boundaries, so it has to clear WCAG 1.4.11's 3:1. It was
+       #dbcab8, which measured 1.48:1 on cream and 1.56:1 on the surface, so
+       every text field, the @ prefix and the empty-code box had a boundary you
+       could not see. Mocha is 4.18:1 on cream and 4.41:1 on the surface. */
     --line: #ece0d4;
-    --line-strong: #dbcab8;
-    --good: #0f7b4f;
-    --warn: #b4341f;
-    --warn-bg: #fbecea;
+    --line-strong: var(--color-mocha);
+    /* Was #b4341f, an invented red. coral-deep is the palette's AA-safe red,
+       4.68:1 on cream and 4.93:1 on the surface. */
+    --warn: var(--color-coral-deep);
+    /* The warm strip behind the preview tabs and inline code. */
+    --strip: #f4ebe0;
     --radius: 14px;
     --mono: ui-monospace, 'SF Mono', 'JetBrains Mono', 'Fira Code', Menlo, Consolas, monospace;
 }
@@ -50,12 +56,15 @@ a.skip:focus { left: 0; }
     flex: 1;
 }
 
+/* The doodles are absolutely positioned against this block. */
+header#tool { position: relative; }
+
+/* No font-size here on purpose. Page CSS is unlayered, so it would beat the
+   text-3xl / sm:text-4xl utilities on the .brand-heading and flatten it back
+   to one size at every width. */
 h1 {
-    font-size: 1.9rem;
     line-height: 1.2;
-    letter-spacing: -0.02em;
     margin: 0 0 0.6rem;
-    font-weight: 650;
 }
 .lede {
     color: var(--muted);
@@ -69,7 +78,10 @@ h1 {
 .cols > section { min-width: 0; }
 @media (min-width: 920px) {
     .cols { grid-template-columns: minmax(0, 400px) minmax(0, 1fr); gap: 3.5rem; align-items: start; }
-    .sticky-col { position: sticky; top: 1.25rem; }
+    /* The site header is sticky and 124px tall above 640px. top: 1.25rem parked
+       the preview column 104px underneath it, so the tabs and the top of the
+       card were hidden behind the nav for the whole scroll. */
+    .sticky-col { position: sticky; top: calc(124px + 1rem); }
 }
 
 h2.step-label {
@@ -99,11 +111,17 @@ h2.step-label {
     line-height: 1.5;
     color: var(--ink);
     background: var(--surface);
-    outline: none;
 }
-.field:focus { border-color: var(--ink); box-shadow: 0 0 0 3px rgba(22,22,26,0.08); }
+/* This used to be `outline: none` plus a 3px rgba(22,22,26,0.08) ring, which is
+   an 8% wash of an off-palette blue-black: the keyboard focus indicator was
+   effectively invisible. A real 2px cocoa outline is 12.46:1 against cream. */
+.field:focus { border-color: var(--ink); }
+.field:focus-visible { outline: 2px solid var(--ink); outline-offset: 2px; }
 .field::placeholder { color: var(--muted); }
 textarea.field { min-height: 88px; resize: vertical; }
+
+/* Replaces three copies of an inline style="font-weight:400;color:var(--muted)". */
+.opt { font-weight: 400; color: var(--muted); }
 
 .hint {
     font-size: 0.8rem;
@@ -125,7 +143,7 @@ textarea.field { min-height: 88px; resize: vertical; }
     border: 1px solid var(--line-strong); border-right: 0;
     border-radius: 11px 0 0 11px;
     padding: 0 0.8rem;
-    background: #f4ebe0; color: var(--muted); font-weight: 600;
+    background: var(--strip); color: var(--muted); font-weight: 600;
 }
 .prefix-input .field { border-radius: 0 11px 11px 0; }
 
@@ -155,29 +173,39 @@ fieldset.kind legend { font-weight: 600; font-size: 0.92rem; margin-bottom: 0.5r
     display: inline-flex; align-items: center; gap: 0.45rem;
     font-size: 0.9rem; margin-right: 1.4rem; cursor: pointer;
 }
+.kind label input:focus-visible { outline: 2px solid var(--ink); outline-offset: 2px; }
 
-/* Preview tabs. Renamed off .tabs/.tab because daisyUI now owns those names. */
-.tabs-brand {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 4px;
-    background: #f4ebe0;
-    border-radius: 12px;
-    padding: 4px;
+/* Preview tabs are daisyUI `tabs tabs-box` now, so the grid, the radii, the
+   focus handling and the aria-selected wiring all come from the bundle. Only
+   the palette and the selected state are overridden here, scoped under
+   .cf-preview-tabs so no bare .tab or .tabs rule is ever defined.
+
+   daisyUI's own selected state is base-100 on base-200, and the equivalent here
+   measured 1.15:1: you genuinely could not tell which preview you were looking
+   at. A cocoa fill is 11.39:1 against the strip, with white label text at
+   13.43:1, so the state clears 1.4.11 on the boundary and 1.4.3 on the text. */
+.cf-preview-tabs {
+    background-color: var(--strip);
     margin-bottom: 1rem;
     max-width: 500px;
+    --tab-height: 2.75rem; /* 44px, a thumb-sized target at every width */
 }
-.tab-brand {
-    appearance: none; border: none; background: transparent;
-    padding: 0.6rem 0.5rem; border-radius: 9px;
-    font-size: 0.92rem; font-weight: 600; color: #5c5049; /* AA on the #f4ebe0 strip */
-    cursor: pointer; transition: background 0.15s, color 0.15s;
+.cf-preview-tabs .tab {
+    flex: 1;
+    font-size: 0.92rem;
+    font-weight: 600;
+    color: #5c5049; /* 6.60:1 on the strip. daisyUI's default is a 50% wash. */
 }
-.tab-brand[aria-selected="true"] {
-    background: var(--surface); color: var(--ink);
-    box-shadow: 0 1px 3px rgba(0,0,0,0.08);
+.cf-preview-tabs .tab[aria-selected="true"] {
+    --tab-bg: var(--color-cocoa);
+    color: #fff;
 }
-.tab-brand:focus-visible { outline: 2px solid var(--ink); outline-offset: 2px; }
+/* daisyUI's tab focus ring is `outline: 2px solid` with no colour, so it
+   inherits currentColor and would go white on the selected tab. */
+.cf-preview-tabs .tab:focus-visible { outline-color: var(--color-cocoa); }
+@media (hover: hover) {
+    .cf-preview-tabs .tab:not([aria-selected="true"]):hover { color: var(--ink); }
+}
 
 .sample-row {
     display: flex; align-items: center; gap: 0.7rem; flex-wrap: wrap;
@@ -186,15 +214,12 @@ fieldset.kind legend { font-weight: 600; font-size: 0.92rem; margin-bottom: 0.5r
 .sample-chip {
     display: inline-flex; align-items: center; gap: 0.4rem;
     font-size: 0.78rem; color: #5c5049;
-    background: #f4ebe0; border-radius: 999px; padding: 0.28rem 0.75rem;
+    background: var(--strip); border-radius: 999px; padding: 0.28rem 0.75rem;
 }
-button.linkish {
-    appearance: none; border: none; background: none; padding: 0;
-    font-size: 0.78rem; color: var(--muted); text-decoration: underline;
-    cursor: pointer; font-family: inherit;
-}
-button.linkish:hover { color: var(--ink); }
-button.linkish:focus-visible { outline: 2px solid var(--ink); outline-offset: 2px; border-radius: 4px; }
+/* Element selector on purpose: never a bare .btn rule in page CSS. The link
+   button replaces a hand-rolled .linkish that hard-coded --muted at 5.54:1;
+   espresso is 6.58:1 on cream and is the palette's link colour. */
+.sample-row button { --fontsize: 0.78rem; }
 
 .panel { max-width: 500px; }
 
@@ -213,7 +238,7 @@ button.linkish:focus-visible { outline: 2px solid var(--ink); outline-offset: 2p
 }
 .g-id { min-width: 0; flex: 1; }
 .g-site { display: block; font-size: 14px; color: #202124; line-height: 1.3; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
-.g-crumb { font-size: 12px; color: #4d5156; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.g-crumb { display: block; font-size: 12px; color: #4d5156; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
 .g-title {
     font-size: 20px; font-weight: 400; color: #1a0dab; line-height: 1.3;
     margin: 0 0 0.25rem;
@@ -254,29 +279,44 @@ button.linkish:focus-visible { outline: 2px solid var(--ink); outline-offset: 2p
 }
 .x-from { font-size: 13px; color: #536471; margin-top: 6px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
 
-/* Buttons. Renamed off .btn/.btn-primary because daisyUI now owns those names. */
-.btn-brand {
-    appearance: none; border: none; border-radius: 11px;
-    padding: 0.85rem 1.4rem;
-    font-size: 0.98rem; font-weight: 600; cursor: pointer; font-family: inherit;
-    display: inline-flex; align-items: center; justify-content: center; gap: 0.5rem;
-    transition: background 0.15s, opacity 0.15s;
+/* Copy is a real daisyUI button now. Everything the old .btn-brand hand-rolled
+   (radius, padding, inline-flex centring, gap, transition, focus-visible) ships
+   in the bundle. Element selector, not .btn: daisyUI owns that name. */
+.code-actions { margin-top: 0.9rem; }
+.code-actions > button { width: 100%; max-width: 500px; }
+/* Gated on hover:hover so touch devices do not get a stuck hover fill, matching
+   how daisyUI guards its own .btn:hover. --btn-fg is set alongside --btn-bg: a
+   background swap without a matching foreground is how a previous page ended up
+   with dark text on a dark fill at 2.50:1. White on espresso is 7.09:1. */
+@media (hover: hover) {
+    .code-actions > button:hover {
+        --btn-bg: var(--color-espresso);
+        --btn-border: var(--color-espresso);
+        --btn-fg: #fff;
+    }
 }
-.btn-brand:focus-visible { outline: 2px solid var(--ink); outline-offset: 2px; }
-.btn-primary-brand { background: var(--ink); color: #fff; width: 100%; max-width: 500px; }
-.btn-primary-brand:hover { background: var(--color-espresso); }
-.btn-primary-brand:disabled { background: #e8dccd; color: var(--muted); cursor: not-allowed; }
+/* The disabled fill was #e8dccd, 1.25:1 against cream, so the button all but
+   vanished and its label sat at 4.42:1. Outlined on the page background instead:
+   the boundary is mocha at 4.18:1 and the label is 5.54:1. */
+.code-actions > button:disabled {
+    background-color: transparent;
+    border-color: var(--line-strong);
+    color: var(--muted);
+    box-shadow: none;
+}
 
 /* Code output */
 .code-section { margin-top: 3rem; }
 .paste-hint { font-size: 0.85rem; color: var(--muted); line-height: 1.5; margin: 0.6rem 0 1rem; max-width: 60ch; }
 .paste-hint code, .code-empty code {
     font-family: var(--mono); font-size: 0.8em;
-    background: #f4ebe0; border-radius: 4px; padding: 0.1em 0.35em;
+    background: var(--strip); border-radius: 4px; padding: 0.1em 0.35em;
 }
+/* --line-strong, not --line: this is a focusable scrolling region, and its edge
+   is the only thing telling you the block scrolls. --line is 1.20:1 on cream. */
 .code-scroll {
     background: var(--surface);
-    border: 1px solid var(--line);
+    border: 1px solid var(--line-strong);
     border-radius: var(--radius);
     max-height: 340px; overflow: auto;
     padding: 1.1rem 1.2rem;
@@ -304,15 +344,27 @@ button.linkish:focus-visible { outline: 2px solid var(--ink); outline-offset: 2p
     text-align: center; padding: 1.5rem 1rem 2rem;
     font-size: 0.8rem; color: var(--muted);
 }
-.foot a { color: var(--muted); text-decoration: underline; text-underline-offset: 2px; }
-.foot a:hover { color: var(--ink); }
+/* Espresso, not --muted: this is the one outbound link on the page and it was
+   the same colour as the sentence around it. 6.58:1 on cream. */
+.foot a { color: var(--color-espresso); text-decoration: underline; text-underline-offset: 2px; }
+@media (hover: hover) {
+    .foot a:hover { color: var(--ink); }
+}
 .foot a:focus-visible { outline: 2px solid var(--ink); outline-offset: 2px; }
 
 @media (prefers-reduced-motion: reduce) {
-    .tab-brand, .btn-brand { transition: none; }
+    .cf-preview-tabs .tab, .code-actions > button { transition: none; }
 }
 
 @media (max-width: 480px) {
-    h1 { font-size: 1.6rem; }
+    /* No h1 font-size override here any more. It used to force 1.6rem, which,
+       being unlayered page CSS, beat the text-3xl utility on the .brand-heading
+       at every width. */
     .wrap { padding-top: 1.5rem; }
+    /* Thumb-sized targets. The radios were 13px and the disclosure row 40px. */
+    .kind label { min-height: 44px; margin-right: 0; width: 100%; }
+    .kind label input { width: 20px; height: 20px; }
+    /* Padding, not display:flex: flex on a summary drops the disclosure marker. */
+    details.more summary { padding-top: 0.85rem; padding-bottom: 0.85rem; }
+    .code-actions > button { max-width: 100%; }
 }

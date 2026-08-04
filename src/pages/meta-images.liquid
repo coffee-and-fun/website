@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html class="antialiased" lang="en" style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;">
+<html class="brand-color-background antialiased" lang="en" data-theme="light" style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;">
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -82,10 +82,13 @@
     </head>
 
 <body>
-    {% include header.liquid %}
-{% raw %}
+    <!-- First in the DOM on purpose. Below the header include it made a keyboard
+         user walk the logo and the whole nav before reaching the control whose
+         only job is skipping them. -->
     <a href="#tool" class="skip">Skip to the tool</a>
 
+    {% include header.liquid %}
+{% raw %}
     <!-- Shown only if the CDN scripts fail, the app stays v-cloak-hidden. -->
     <div id="load-fallback" class="wrap" hidden>
         <p class="lede">This tool couldn&rsquo;t load a couple of files it needs. Check your connection and refresh the page.</p>
@@ -97,8 +100,44 @@
     <main v-cloak id="main-content" class="wrap">
 
         <header id="tool">
-            <h1>See what your photo gives away</h1>
+            <h1 class="brand-heading text-3xl sm:text-4xl">See what your photo gives away</h1>
             <p class="lede">Drop in a photo and get a plain-English list of what its file quietly reveals, where it was taken, when, and on what. Then download a clean copy that says nothing. The photo never leaves your browser.</p>
+
+            <!-- Sketch: sparkle top-right -->
+            <div class="sketch-note sketch-float" style="top: -12px; right: 0; --sketch-rotate: 8deg;">
+                <svg aria-hidden="true" width="22" height="22" viewBox="0 0 24 24">
+                    <path d="M12 2 L13.5 10.5 L22 12 L13.5 13.5 L12 22 L10.5 13.5 L2 12 L10.5 10.5 Z" class="sketch-sparkle"/>
+                </svg>
+            </div>
+
+            <!-- Sketch: "drop it here" pointing down at the drop zone -->
+            <div class="sketch-note text-base" style="bottom: 8px; right: 3%; transform: rotate(-4deg);">
+                drop it here
+                <svg aria-hidden="true" width="26" height="22" viewBox="0 0 28 24" style="position: relative; display: inline-block; margin-left: 2px; vertical-align: middle;">
+                    <path d="M2 4 C10 4, 20 8, 24 20 M24 20 L17 17 M24 20 L25 12" class="sketch-arrow"/>
+                </svg>
+            </div>
+
+            <!-- Sketch: squiggle under the heading, left edge -->
+            <div class="sketch-note" style="top: 44%; left: -2%;">
+                <svg aria-hidden="true" width="30" height="10" viewBox="0 0 34 12">
+                    <path d="M2 6 C6 1, 10 11, 14 6 C18 1, 22 11, 26 6 C28 3, 30 5, 32 6" class="sketch-squiggle"/>
+                </svg>
+            </div>
+
+            <!-- Sketch: dashed circle, right of the lede -->
+            <div class="sketch-note sketch-float-slow" style="top: 50%; right: 1%; --sketch-rotate: -6deg;">
+                <svg aria-hidden="true" width="26" height="26" viewBox="0 0 36 36">
+                    <circle cx="18" cy="18" r="12" class="sketch-circle" transform="rotate(20 18 18)"/>
+                </svg>
+            </div>
+
+            <!-- Sketch: small cross, far left -->
+            <div class="sketch-note sketch-wiggle" style="top: 6px; left: -3%; --sketch-rotate: -12deg;">
+                <svg aria-hidden="true" width="14" height="14" viewBox="0 0 16 16">
+                    <path d="M3 3 L13 13 M13 3 L3 13" class="sketch-cross"/>
+                </svg>
+            </div>
         </header>
 
         <!-- Live status for screen readers -->
@@ -117,15 +156,18 @@
             </label>
 
             <div v-else class="thumb-row">
-                <img :src="img.url" alt="" class="thumb" />
+                <img :src="img.url" alt="" class="thumb" width="56" height="56" />
                 <div class="thumb-meta">
                     <div class="name">{{ img.name }}</div>
                     <div class="dim">{{ prettySize(img.size) }}<template v-if="img.w"> · {{ img.w }} × {{ img.h }}</template> · {{ prettyType(img.type) }}</div>
                 </div>
-                <button type="button" class="btn-ghost-brand" @click="reset" aria-label="Change photo, remove this one and choose another">Change</button>
+                <button type="button" class="btn btn-ghost btn-sm" style="--btn-color: var(--color-cocoa); --btn-fg: #fff" @click="reset" aria-label="Change photo, remove this one and choose another">Change</button>
             </div>
 
-            <div v-if="error" class="banner warn" role="alert">
+            <!-- No role="alert" here. rejectFile() and the makeClean() catch both
+                 also push the same sentence into the sr-only live region below the
+                 header, and the pair read it out twice in a row. -->
+            <div v-if="error" class="banner warn">
                 <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
                 <span>{{ error }}</span>
             </div>
@@ -149,7 +191,7 @@
             <div class="result">
                 <p class="verdict-head">{{ verdictHead }}</p>
                 <ul class="verdict" role="list" v-if="findings.length" aria-labelledby="h-reveal">
-                    <li v-for="f in findings" :key="f.kind">
+                    <li v-for="f in findings" :key="f.kind" :class="{ 'is-high': f.risk === 'high' }">
                         <svg v-if="f.kind === 'gps'" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 10c0 7-9 13-9 13S3 17 3 10a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
                         <svg v-else-if="f.kind === 'date'" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
                         <svg v-else-if="f.kind === 'camera'" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/><circle cx="12" cy="13" r="4"/></svg>
@@ -158,7 +200,12 @@
                         <svg v-else width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="9" cy="9" r="2"/><path d="m21 15-3.086-3.086a2 2 0 0 0-2.828 0L6 21"/></svg>
                         <span>
                             {{ f.text }}
-                            <a v-if="f.map" :href="f.map" target="_blank" rel="noopener">See the spot on a map</a><template v-if="f.map"> <span class="sub">(opens OpenStreetMap, that sends these coordinates to them)</span></template>
+                            <span v-if="f.risk === 'high'" class="badge badge-sm risk-tag" style="--badge-color: var(--color-coral-deep); --badge-fg: #fff">Most revealing</span>
+                            <!-- The OpenStreetMap warning rides in the link's accessible
+                                 name so it travels with the control, and stays on screen
+                                 as an aria-hidden sibling so it is not read out twice. -->
+                            <a v-if="f.map" :href="f.map" target="_blank" rel="noopener" class="link"
+                               aria-label="See the spot on a map, opens OpenStreetMap, that sends these coordinates to them">See the spot on a map</a><template v-if="f.map"> <span class="sub" aria-hidden="true">(opens OpenStreetMap, that sends these coordinates to them)</span></template>
                             <span v-if="f.sub" class="sub">{{ f.sub }}</span>
                         </span>
                     </li>
@@ -187,7 +234,7 @@
             <h2 class="step-label" id="h-clean">3, Make a clean copy</h2>
 
             <template v-if="!cleaned">
-                <button type="button" class="btn-brand btn-primary-brand" @click="makeClean">
+                <button type="button" class="btn btn-block cf-make" style="--btn-color: var(--color-cocoa); --btn-fg: #fff" @click="makeClean">
                     <span v-if="busy" class="spin" aria-hidden="true"></span>
                     {{ busy ? 'Scrubbing…' : 'Make a clean copy' }}
                 </button>
@@ -207,8 +254,11 @@
                     <template v-if="cleaned.changedFormat"> · re-saved as {{ prettyType(cleaned.type) }} so nothing hides in it</template>
                 </p>
                 <div class="actions">
-                    <button type="button" class="btn-brand btn-secondary-brand" @click="download">Download {{ cleaned.name }}</button>
-                    <button type="button" class="linkish" @click="reset">Check another photo</button>
+                    <!-- Labelled with the action, not the filename. The filename is
+                         already on the .file-line one row up, and echoing it made the
+                         button wrap to three lines and 100px tall at 375px. -->
+                    <button type="button" class="btn" style="--btn-color: var(--surface); --btn-fg: var(--color-cocoa)" @click="download">Download the clean copy</button>
+                    <button type="button" class="btn btn-link btn-sm" style="--btn-color: var(--color-espresso)" @click="reset">Check another photo</button>
                 </div>
             </div>
         </section>

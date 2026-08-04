@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html class="antialiased" lang="en" style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;">
+<html class="antialiased" lang="en" data-theme="light" style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;">
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -81,8 +81,46 @@
     <main v-cloak id="main-content" class="wrap">
 
         <header id="tool">
-            <h1>Make your link look good everywhere</h1>
+            <h1 class="brand-heading text-3xl sm:text-4xl">Make your link look good everywhere</h1>
             <p class="lede">Fill in four things, watch exactly how your page will appear on Google, Facebook, and X, then copy one block of code into your site.</p>
+
+            <!-- Sketch: sparkle top-right -->
+            <div class="sketch-note sketch-float" style="top: -16px; right: 2%; --sketch-rotate: 8deg;">
+                <svg aria-hidden="true" width="22" height="22" viewBox="0 0 24 24">
+                    <path d="M12 2 L13.5 10.5 L22 12 L13.5 13.5 L12 22 L10.5 13.5 L2 12 L10.5 10.5 Z" class="sketch-sparkle"/>
+                </svg>
+            </div>
+
+            <!-- Sketch: squiggle under the heading, left edge -->
+            <div class="sketch-note" style="top: 44%; left: -3%;">
+                <svg aria-hidden="true" width="30" height="10" viewBox="0 0 34 12">
+                    <path d="M2 6 C6 1, 10 11, 14 6 C18 1, 22 11, 26 6 C28 3, 30 5, 32 6" class="sketch-squiggle"/>
+                </svg>
+            </div>
+
+            <!-- Sketch: "watch it change" pointing down at the previews.
+                 aria-hidden in markup, not left to the partial's script, because
+                 this one carries readable text and script runs late. -->
+            <div class="sketch-note text-base" aria-hidden="true" style="bottom: -18px; right: 6%; transform: rotate(-4deg);">
+                watch it change
+                <svg aria-hidden="true" width="26" height="22" viewBox="0 0 28 24" style="position: relative; display: inline-block; margin-left: 2px; vertical-align: middle;">
+                    <path d="M2 4 C10 4, 20 8, 24 20 M24 20 L17 17 M24 20 L25 12" class="sketch-arrow"/>
+                </svg>
+            </div>
+
+            <!-- Sketch: dashed circle, right of the lede -->
+            <div class="sketch-note sketch-float-slow" style="top: 58%; right: -2%; --sketch-rotate: -6deg;">
+                <svg aria-hidden="true" width="26" height="26" viewBox="0 0 36 36">
+                    <circle cx="18" cy="18" r="12" class="sketch-circle" transform="rotate(20 18 18)"/>
+                </svg>
+            </div>
+
+            <!-- Sketch: small cross, far left -->
+            <div class="sketch-note sketch-wiggle" style="top: 6px; left: -4%; --sketch-rotate: -12deg;">
+                <svg aria-hidden="true" width="14" height="14" viewBox="0 0 16 16">
+                    <path d="M3 3 L13 13 M13 3 L3 13" class="sketch-cross"/>
+                </svg>
+            </div>
         </header>
 
         <!-- Live status for screen readers -->
@@ -146,12 +184,12 @@
                     <summary>More options</summary>
 
                     <div class="field-group">
-                        <label class="f-label" for="mt-sitename">Website name <span style="font-weight:400;color:var(--muted)">, optional</span></label>
+                        <label class="f-label" for="mt-sitename">Website name <span class="opt">, optional</span></label>
                         <input id="mt-sitename" class="field" type="text" v-model="meta.siteName" placeholder="Your Site" />
                     </div>
 
                     <div class="field-group">
-                        <label class="f-label" for="mt-handle">Your X (Twitter) handle <span style="font-weight:400;color:var(--muted)">, optional</span></label>
+                        <label class="f-label" for="mt-handle">Your X (Twitter) handle <span class="opt">, optional</span></label>
                         <div class="prefix-input">
                             <span class="pfx" aria-hidden="true">@</span>
                             <input id="mt-handle" class="field" type="text" v-model="meta.handle"
@@ -164,7 +202,7 @@
                     </div>
 
                     <div class="field-group">
-                        <label class="f-label" for="mt-alt">Describe the picture <span style="font-weight:400;color:var(--muted)">, optional</span></label>
+                        <label class="f-label" for="mt-alt">Describe the picture <span class="opt">, optional</span></label>
                         <input id="mt-alt" class="field" type="text" v-model="meta.imageAlt"
                                placeholder="A pour-over coffee mid-brew"
                                aria-describedby="mt-alt-hint" />
@@ -185,19 +223,19 @@
             <section aria-labelledby="h-preview" class="sticky-col">
                 <h2 class="step-label" id="h-preview">2, See how your link will look</h2>
 
-                <div class="tabs-brand" role="tablist" aria-label="Choose a preview" @keydown="onTabKey">
-                    <button class="tab-brand" role="tab" id="tab-google" aria-controls="panel-google" :aria-selected="previewTab === 'google' ? 'true' : 'false'"
+                <div class="tabs tabs-box cf-preview-tabs" role="tablist" aria-label="Choose a preview" @keydown="onTabKey">
+                    <button class="tab" role="tab" id="tab-google" aria-controls="panel-google" :aria-selected="previewTab === 'google' ? 'true' : 'false'"
                             :tabindex="previewTab === 'google' ? 0 : -1" @click="previewTab = 'google'">Google</button>
-                    <button class="tab-brand" role="tab" id="tab-facebook" aria-controls="panel-facebook" :aria-selected="previewTab === 'facebook' ? 'true' : 'false'"
+                    <button class="tab" role="tab" id="tab-facebook" aria-controls="panel-facebook" :aria-selected="previewTab === 'facebook' ? 'true' : 'false'"
                             :tabindex="previewTab === 'facebook' ? 0 : -1" @click="previewTab = 'facebook'">Facebook</button>
-                    <button class="tab-brand" role="tab" id="tab-x" aria-controls="panel-x" :aria-selected="previewTab === 'x' ? 'true' : 'false'"
+                    <button class="tab" role="tab" id="tab-x" aria-controls="panel-x" :aria-selected="previewTab === 'x' ? 'true' : 'false'"
                             :tabindex="previewTab === 'x' ? 0 : -1" @click="previewTab = 'x'">X</button>
                 </div>
 
                 <div class="sample-row">
                     <template v-if="usingSample">
-                        <span class="sample-chip">Example, type to replace it</span>
-                        <button type="button" class="linkish" @click="fillExample">Use this example</button>
+                        <span class="sample-chip">{{ sampleNote }}</span>
+                        <button v-if="formEmpty" type="button" class="btn btn-link btn-sm" style="--btn-color: var(--color-espresso)" @click="fillExample">Fill it in for me</button>
                     </template>
                 </div>
 
@@ -208,7 +246,7 @@
                             <span class="g-fav" aria-hidden="true">{{ pMonogram }}</span>
                             <span class="g-id">
                                 <span class="g-site">{{ pSite }}</span>
-                                <span class="g-crumb" style="display:block">{{ pCrumb }}</span>
+                                <span class="g-crumb">{{ pCrumb }}</span>
                             </span>
                         </div>
                         <p class="g-title">{{ pTitle }}</p>
@@ -245,11 +283,6 @@
         <section class="code-section" aria-labelledby="h-code">
             <h2 class="step-label" id="h-code">3, Copy the code into your page</h2>
 
-            <button type="button" class="btn-brand btn-primary-brand" @click="copyCode" :disabled="!hasCode">
-                {{ copied ? 'Copied ✓' : 'Copy the code' }}
-            </button>
-            <p v-if="!hasCode" class="copy-note">Add a title, description, address, or picture link above to build your code.</p>
-            <p v-if="copyFailed" class="copy-note bad">Copy didn&rsquo;t work, the code below is selected, press Ctrl+C or Cmd+C.</p>
             <p class="paste-hint">Paste it near the top of your page&rsquo;s <code>&lt;head&gt;</code>, the invisible section before your content. That&rsquo;s everything Google, Facebook, and X need.</p>
 
             <div v-if="hasCode" class="code-scroll" tabindex="0" role="region" aria-label="Your generated code">
@@ -258,6 +291,14 @@
             <div v-else class="code-empty">
                 Your code will appear here as you fill in step 1.
             </div>
+
+            <div class="code-actions">
+                <button type="button" class="btn btn-lg" style="--btn-color: var(--color-cocoa); --btn-fg: #fff" @click="copyCode" :disabled="!hasCode">
+                    {{ copied ? 'Copied ✓' : 'Copy the code' }}
+                </button>
+            </div>
+            <p v-if="!hasCode" class="copy-note">Add a title, description, address, or picture link above to build your code.</p>
+            <p v-if="copyFailed" class="copy-note bad">Copy didn&rsquo;t work, the code above is selected, press Ctrl+C or Cmd+C.</p>
         </section>
 
         <p class="foot">Everything happens in your browser, nothing you type leaves this page.

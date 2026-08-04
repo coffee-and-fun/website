@@ -6,11 +6,17 @@
     --surface: #fffcf7;
     --ink: var(--color-cocoa);
     --muted: #6b6259;
-    --faint: #8a7f74;
+    /* --line stays a decorative token. It measures 1.20:1 on cream, so it now
+       draws only the two non-interactive rules inside the result card: the
+       card border and the dashed divider above .status-brand. */
     --line: #ece0d4;
-    --line-strong: #dbcab8;
+    /* --line-strong was #dbcab8, 1.48:1 on cream, which failed WCAG 1.4.11 on
+       every control boundary it drew: the twelve city chips, both selects,
+       both date and time inputs and the planning disclosure. Mocha is 4.18:1
+       on cream and 4.41:1 on the surface, and stays in palette. */
+    --line-strong: var(--color-mocha);
     --good: #0f7b4f;
-    --warn: #b4341f;
+    --warn: var(--color-coral-deep);
     --radius: 14px;
     --mono: ui-monospace, 'SF Mono', 'JetBrains Mono', 'Fira Code', Menlo, Consolas, monospace;
 }
@@ -49,12 +55,15 @@ a.skip:focus { left: 0; }
     flex: 1;
 }
 
+/* The doodles are absolutely positioned against this block. */
+header#tool { position: relative; }
+
+/* Size and weight come from .brand-heading plus text-3xl sm:text-4xl. The old
+   -0.02em tracking went with them: Pacifico is a connected script and negative
+   tracking collides its joins. */
 h1 {
-    font-size: 1.9rem;
-    line-height: 1.2;
-    letter-spacing: -0.02em;
+    line-height: 1.25;
     margin: 0 0 0.6rem;
-    font-weight: 650;
 }
 .lede {
     color: var(--muted);
@@ -74,14 +83,11 @@ h1 {
 .your-line strong { color: var(--ink); font-weight: 650; }
 .your-line time { font-variant-numeric: tabular-nums; }
 
-button.linkish {
-    appearance: none; border: none; background: none; padding: 0;
-    font-size: inherit; color: var(--muted); text-decoration: underline;
-    cursor: pointer; font-family: inherit;
-}
-button.linkish:hover { color: var(--ink); }
-button.linkish:focus-visible { outline: 2px solid var(--ink); outline-offset: 2px; border-radius: 4px; }
-.linkish.small { font-size: 0.82rem; }
+/* No .linkish block any more. The four text buttons are real daisyUI
+   components, so padding, target size, focus-visible and hover all ship in
+   the bundle instead of being hand-rolled here. Element selectors, never a
+   bare .btn rule: btn-sm ships 0.75rem, smaller than the copy it sits in. */
+.your-line button, .hint button, .io-row button, .plan-actions button { --fontsize: 0.85rem; }
 
 .from-picker { margin: -1.25rem 0 2.25rem; }
 
@@ -93,7 +99,8 @@ h2.step-label {
     color: var(--muted);
     margin: 0 0 0.8rem;
 }
-section.step { margin-bottom: 2.25rem; }
+/* cf- prefix, not the bare .step: daisyUI owns that name via `.steps &`. */
+section.cf-step { margin-bottom: 2.25rem; }
 
 .f-label {
     display: block;
@@ -111,9 +118,13 @@ select.field, input.field {
     font-family: inherit;
     color: var(--ink);
     background: var(--surface);
-    outline: none;
 }
-select.field:focus, input.field:focus { border-color: var(--ink); box-shadow: 0 0 0 3px rgba(22,22,26,0.08); }
+/* The old focus treatment was a 3px rgba(22,22,26,0.08) shadow, which
+   composites to #eceae5: 1.17:1 on the field, invisible. These four fields
+   now use the same 2px ink outline as the chips, the summary, the text
+   buttons and the anchor radios. */
+select.field:focus, input.field:focus { border-color: var(--ink); }
+select.field:focus-visible, input.field:focus-visible { outline: 2px solid var(--ink); outline-offset: 2px; }
 
 /* City chips */
 fieldset.cities { border: 0; padding: 0; margin: 0 0 1rem; }
@@ -128,11 +139,21 @@ fieldset.cities legend { padding: 0; }
     cursor: pointer;
     transition: background 0.15s, border-color 0.15s, box-shadow 0.15s;
 }
-.chip:hover { border-color: var(--ink); }
+/* Hover and selected live on different channels. They both used to flip
+   border-color to --ink, so while the pointer was anywhere in the grid two
+   chips looked chosen, and on a touch device the stuck hover left the last
+   city tapped looking selected for good. Gated on hover:hover, the way
+   daisyUI guards its own hover rules. */
+@media (hover: hover) {
+    .chip:hover { border-color: var(--color-caramel); }
+}
+/* .on is a Vue class mirror of :checked, the working path in browsers
+   without :has() support, harmless duplication everywhere else. */
 .chip.on {
     background: var(--surface);
     border-color: var(--ink);
-    box-shadow: 0 1px 3px rgba(0,0,0,0.08);
+    /* Inset ring, so selected reads as a 2px edge with no layout shift. */
+    box-shadow: inset 0 0 0 1px var(--ink), 0 1px 3px rgba(0,0,0,0.08);
 }
 .chip:has(input:focus-visible) { outline: 2px solid var(--ink); outline-offset: 2px; }
 @supports not selector(.x:has(a)) {
@@ -144,19 +165,22 @@ fieldset.cities legend { padding: 0; }
 .elsewhere { margin-top: 1rem; }
 .hint { font-size: 0.8rem; color: var(--muted); line-height: 1.45; margin-top: 0.4rem; }
 
-/* Result card */
+/* Result card. --line, not --line-strong: this border is decoration around a
+   read-only panel, not a control boundary. */
 .result {
-    position: relative;
     background: var(--surface);
     border: 1px solid var(--line);
     border-radius: var(--radius);
     padding: 1.4rem 1.5rem 1.3rem;
 }
+/* In flow, above the number it describes. Pinned at top/right it sat on top
+   of the weekday: at 320px the card is about 222px wide inside its padding
+   and the time plus the day name needs about 207px of it. */
 .live-tag {
-    position: absolute; top: 0.9rem; right: 1.1rem;
-    display: inline-flex; align-items: center; gap: 0.35rem;
+    display: flex; align-items: center; gap: 0.35rem;
     font-size: 0.7rem; font-weight: 700; letter-spacing: 0.08em;
     text-transform: uppercase; color: var(--muted);
+    margin-bottom: 0.35rem;
 }
 .live-dot {
     width: 7px; height: 7px; border-radius: 50%;
@@ -192,15 +216,16 @@ fieldset.cities legend { padding: 0; }
 .zone-meta { font-size: 0.78rem; color: var(--muted); margin: 0.9rem 0 0; }
 
 .io-row {
-    display: flex; justify-content: space-between; align-items: baseline;
+    display: flex; justify-content: space-between; align-items: center;
     gap: 1rem; margin-top: 0.55rem; flex-wrap: wrap;
 }
 .copy-note { font-size: 0.82rem; color: var(--muted); }
 .copy-note.bad { color: var(--warn); font-weight: 600; }
 
-/* Planning disclosure */
+/* Planning disclosure. --line-strong, not --line: the summary is a control,
+   so this box is a control boundary and owes WCAG 1.4.11 its 3:1. */
 details.more {
-    border: 1px solid var(--line);
+    border: 1px solid var(--line-strong);
     border-radius: var(--radius);
     background: var(--surface);
     padding: 0.25rem 1rem;
@@ -243,7 +268,12 @@ fieldset.whose legend { font-weight: 600; font-size: 0.92rem; padding: 0; margin
 }
 
 @media (max-width: 480px) {
-    h1 { font-size: 1.6rem; }
     .wrap { padding-top: 1.5rem; }
     .big-time time { font-size: 2.1rem; }
+    /* Thumb-sized targets. Everything on this page is inline text and 15px
+       native radios otherwise, and the two anchor radios carry the hardest
+       decision here: is the time I am typing mine or theirs? */
+    .io-row button, .plan-actions button { min-height: 44px; }
+    .whose label { min-height: 44px; }
+    .whose input { width: 20px; height: 20px; }
 }

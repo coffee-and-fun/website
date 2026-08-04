@@ -6,11 +6,21 @@
     --surface: #fffcf7;
     --ink: var(--color-cocoa);
     --muted: #6b6259;
-    --faint: #8a7f74;
-    --line: #ece0d4;
-    --line-strong: #dbcab8;
-    --good: #0f7b4f;
-    --warn: #b4341f;
+
+    /* Every visible control boundary: the search field, the empty state, the
+       kbd cap. It used to be #dbcab8, which measures 1.48:1 against the cream
+       page and 1.56:1 against the surface, far under the 3:1 that WCAG 1.4.11
+       asks of anything that identifies a control. Mocha is the lightest brand
+       token that clears it, 4.18:1 on cream and 4.41:1 on the surface. */
+    --line-strong: var(--color-mocha);
+
+    /* Focus colour is espresso site-wide, per style.md. 6.58:1 on cream. */
+    --focus: var(--color-espresso);
+
+    /* A toffee tint, used for the hover wash behind an emoji and the clear
+       button. Named rather than repeated as a magic hex in two places. */
+    --hover-tint: #f6ece2;
+
     --radius: 14px;
     --mono: ui-monospace, 'SF Mono', 'JetBrains Mono', 'Fira Code', Menlo, Consolas, monospace;
     --emoji-font: 'Apple Color Emoji', 'Segoe UI Emoji', 'Noto Color Emoji', sans-serif;
@@ -42,27 +52,54 @@ a.skip {
 }
 a.skip:focus { left: 0; }
 
+/* The grid of emoji IS the page, so it gets the screen. Everything above it is
+   chrome and stays short: one line of heading, the search, the category row.
+   The description that carries this page's search terms sits BELOW the grid,
+   where it keeps every word of its value without pushing the emoji off the
+   first screen.
+
+   min-height subtracts a fixed allowance for the sticky header rather than
+   taking a percentage of the viewport, so a short window never overflows. The
+   header is 108px below 640px and 124px above, matching coco.css. 100svh, not
+   100vh, so mobile browser chrome that comes and goes never clips the fold. */
 .wrap {
     width: 100%;
-    max-width: 880px;
+    /* 1280px, style.md's width for a full-width grid. The old 880px reading
+       column fitted 8 columns of emoji on a desktop and left the rest of the
+       screen empty; this fits 13. */
+    max-width: 1280px;
     margin: 0 auto;
-    padding: 2rem 1.25rem 4rem;
+    padding: 1.25rem 1.25rem 2.5rem;
     flex: 1;
+    min-height: calc(100svh - 108px);
+}
+@media (min-width: 640px) {
+    .wrap { min-height: calc(100svh - 124px); }
 }
 
+/* Compact, one line. Deliberately not .brand-heading: Pacifico is a connected
+   script that branding.md reserves for large headings, and this one is small
+   on purpose so the grid starts higher. */
+header#tool {
+    position: relative;
+    margin-bottom: 1rem;
+}
 h1 {
-    font-size: 2.1rem;
-    line-height: 1.2;
-    letter-spacing: -0.02em;
-    margin: 0 0 0.6rem;
+    font-size: clamp(1.3rem, 2.4vw, 1.7rem);
+    line-height: 1.25;
+    letter-spacing: -0.015em;
+    margin: 0;
     font-weight: 650;
 }
+
+/* Sits under the grid now, so it never competes for height. */
 .lede {
     color: var(--muted);
-    font-size: 1rem;
+    font-size: 0.95rem;
     line-height: 1.55;
-    margin: 0 0 2.25rem;
-    max-width: 56ch;
+    margin: 2.25rem auto 0;
+    max-width: 60ch;
+    text-align: center;
 }
 
 h2.step-label {
@@ -71,16 +108,28 @@ h2.step-label {
     text-transform: uppercase;
     letter-spacing: 0.07em;
     color: var(--muted);
-    margin: 0 0 0.8rem;
+    margin: 0 0 0.65rem;
 }
-section.step { margin-bottom: 2.25rem; }
+/* Named cf-step, not step: daisyUI ships a .step component (a grid cell with a
+   numbered ::after circle). It is currently scoped under .steps, so nothing is
+   broken today, but the name is one daisyUI release away from being ours to
+   lose, and style.md lists it as a known landmine. */
+.cf-step { margin-bottom: 1.15rem; }
 .row-head {
     display: flex; justify-content: space-between; align-items: baseline;
-    gap: 1rem; flex-wrap: wrap; margin-bottom: 0.8rem;
+    gap: 1rem; flex-wrap: wrap; margin-bottom: 0.65rem;
 }
 .row-head h2.step-label { margin: 0; }
 .row-head h2.step-label:focus { outline: none; }
 .counter { font-size: 0.8rem; color: var(--muted); }
+
+/* Recently used and Popular sit side by side once there is room, so two short
+   rows cost one row of height instead of two. */
+.quick-rows {
+    display: flex; flex-wrap: wrap; gap: 1.15rem 2.5rem;
+    margin-bottom: 1.15rem;
+}
+.quick-rows > .cf-step { flex: 1 1 20rem; margin-bottom: 0; min-width: 0; }
 
 /* Search box, one big friendly field, front and center */
 .search-row { display: flex; gap: 10px; flex-wrap: wrap; max-width: 640px; }
@@ -102,7 +151,14 @@ section.step { margin-bottom: 2.25rem; }
     background: var(--surface);
     outline: none;
 }
-.field:focus { border-color: var(--ink); box-shadow: 0 0 0 3px rgba(22,22,26,0.08); }
+/* Was a 3px ring of rgba(22,22,26,0.08), which lands at roughly 1.05:1 over
+   cream, i.e. invisible. A real espresso outline matches every other control
+   on the page and measures 6.58:1. */
+.field:focus {
+    border-color: var(--focus);
+    outline: 2px solid var(--focus);
+    outline-offset: 2px;
+}
 .field::placeholder { color: var(--muted); }
 .field::-webkit-search-cancel-button { display: none; }
 .clear-btn {
@@ -113,8 +169,7 @@ section.step { margin-bottom: 2.25rem; }
     cursor: pointer; font-family: inherit;
     display: inline-flex; align-items: center; justify-content: center;
 }
-.clear-btn:hover { color: var(--ink); background: #f6ece2; }
-.clear-btn:focus-visible { outline: 2px solid var(--ink); outline-offset: 2px; }
+.clear-btn:focus-visible { outline: 2px solid var(--focus); outline-offset: 2px; }
 .kbd-hint {
     position: absolute; right: 0.95rem; top: 50%; transform: translateY(-50%);
     pointer-events: none;
@@ -123,9 +178,14 @@ section.step { margin-bottom: 2.25rem; }
     .kbd-hint { display: none; }
 }
 
-/* Surprise button, lives beside the search */
-.btn-brand.surprise { min-height: 56px; border-radius: 16px; }
-.surprise .die { font-family: var(--emoji-font); font-size: 1.25rem; line-height: 1; }
+/* Surprise me, a daisyUI outline button sized to match the search field. */
+.cf-surprise {
+    --size: 56px;
+    --btn-p: 1.25rem;
+    --radius-field: 16px;
+    --fontsize: 0.98rem;
+}
+.cf-surprise .die { font-family: var(--emoji-font); font-size: 1.25rem; line-height: 1; }
 
 kbd {
     font-family: var(--mono); font-size: 0.72rem;
@@ -139,10 +199,13 @@ button.linkish {
     font-size: 0.82rem; color: var(--muted); text-decoration: underline;
     cursor: pointer; font-family: inherit; white-space: nowrap;
 }
-button.linkish:hover { color: var(--ink); }
-button.linkish:focus-visible { outline: 2px solid var(--ink); outline-offset: 2px; border-radius: 4px; }
+button.linkish:focus-visible { outline: 2px solid var(--focus); outline-offset: 2px; border-radius: 4px; }
 
-/* Category chips, one quiet row, scrolls sideways on small screens */
+/* Category chips are daisyUI buttons now. --btn-color paints the resting label
+   and border; --btn-fg paints the label once daisyUI swaps the background in on
+   hover and on .btn-active. Setting only the colour is how an outline button
+   ends up with dark text on a dark fill. Espresso is the brand's "you are here"
+   colour: 6.58:1 as a label on cream, and white on espresso is 7.09:1. */
 .cats {
     display: flex; flex-wrap: nowrap; gap: 8px;
     overflow-x: auto; -webkit-overflow-scrolling: touch;
@@ -150,18 +213,25 @@ button.linkish:focus-visible { outline: 2px solid var(--ink); outline-offset: 2p
     padding: 5px; margin: -5px; /* room for focus outlines inside the scroller */
 }
 .cats::-webkit-scrollbar { display: none; }
-.cat {
-    appearance: none; font-family: inherit;
-    border: 1px solid var(--line-strong); background: transparent;
-    border-radius: 999px; padding: 0.45rem 0.9rem;
-    font-size: 0.85rem; font-weight: 600; color: var(--ink);
-    cursor: pointer; white-space: nowrap; flex: 0 0 auto;
-    transition: background 0.15s, border-color 0.15s, color 0.15s;
+/* The scrollbar is hidden, so fade the trailing edge instead. Without a cue,
+   nobody discovers the categories that sit off the right of a phone screen. */
+@media (max-width: 1023px) {
+    .cats {
+        mask-image: linear-gradient(to right, #000 calc(100% - 2.5rem), transparent);
+    }
 }
-.cat:hover { border-color: var(--ink); }
-.cat[aria-pressed="true"] { background: var(--ink); border-color: var(--ink); color: #fff; }
-.cat:focus-visible { outline: 2px solid var(--ink); outline-offset: 2px; }
-.cat .ico { font-family: var(--emoji-font); margin-right: 0.3rem; }
+@media (min-width: 1024px) {
+    .cats { flex-wrap: wrap; overflow-x: visible; mask-image: none; }
+}
+.cf-cat {
+    --btn-color: var(--color-espresso);
+    --btn-fg: #fff;
+    --radius-field: 999px;
+    --fontsize: 0.85rem;
+    --btn-p: 0.85rem;
+    flex: 0 0 auto;
+}
+.cf-cat .ico { font-family: var(--emoji-font); }
 
 /* Emoji buttons, the emoji are the color, the chrome recedes */
 .ebtn {
@@ -175,13 +245,12 @@ button.linkish:focus-visible { outline: 2px solid var(--ink); outline-offset: 2p
     display: flex; flex-direction: column; align-items: center; gap: 0.3rem;
     transition: background 0.15s;
 }
-.ebtn:hover { background: #f6ece2; }
-.ebtn:focus-visible { outline: 2px solid var(--ink); outline-offset: 2px; }
+.ebtn:focus-visible { outline: 2px solid var(--focus); outline-offset: 2px; }
 .ebtn .glyph {
     font-size: 2.5rem; line-height: 1.15; font-family: var(--emoji-font);
     transition: transform 0.12s ease;
 }
-.ebtn:hover .glyph, .ebtn:focus-visible .glyph { transform: scale(1.12); }
+.ebtn:focus-visible .glyph { transform: scale(1.12); }
 .ebtn:active .glyph { transform: scale(0.92); }
 .ebtn .ename {
     font-size: 0.7rem; color: var(--muted); line-height: 1.25; text-align: center;
@@ -193,6 +262,19 @@ button.linkish:focus-visible { outline: 2px solid var(--ink); outline-offset: 2p
     justify-content: center; gap: 0;
 }
 .ebtn.mini .glyph { font-size: 1.8rem; }
+
+/* Hover states live behind @media (hover: hover), the way daisyUI wraps its
+   own. Without it a tap on a touch screen leaves the emoji stuck with a beige
+   wash and a scaled-up glyph until you tap something else. */
+@media (hover: hover) {
+    .clear-btn:hover { color: var(--ink); background: var(--hover-tint); }
+    button.linkish:hover { color: var(--ink); }
+    .ebtn:hover { background: var(--hover-tint); }
+    /* The wash comes with its matching foreground: cocoa on the tint is
+       11.52:1, where the resting muted grey would have been 5.12:1. */
+    .ebtn:hover .ename { color: var(--ink); }
+    .ebtn:hover .glyph { transform: scale(1.12); }
+}
 
 .egrid {
     display: grid;
@@ -213,20 +295,6 @@ button.linkish:focus-visible { outline: 2px solid var(--ink); outline-offset: 2p
 }
 .code-empty .big { font-size: 2.2rem; font-family: var(--emoji-font); display: block; margin-bottom: 0.5rem; }
 
-/* Buttons */
-.btn-brand {
-    appearance: none; border: none; border-radius: 11px;
-    padding: 0.85rem 1.4rem;
-    font-size: 0.98rem; font-weight: 600; cursor: pointer; font-family: inherit;
-    display: inline-flex; align-items: center; justify-content: center; gap: 0.5rem;
-    transition: background 0.15s, opacity 0.15s, border-color 0.15s;
-}
-.btn-brand:focus-visible { outline: 2px solid var(--ink); outline-offset: 2px; }
-.btn-secondary-brand {
-    background: var(--surface); color: var(--ink);
-    border: 1px solid var(--line-strong);
-}
-.btn-secondary-brand:hover { border-color: var(--ink); }
 .load-wrap { display: flex; justify-content: center; margin-top: 1.4rem; }
 
 /* Copied toast (decorative twin of the screen-reader announcement).
@@ -257,18 +325,20 @@ button.linkish:focus-visible { outline: 2px solid var(--ink); outline-offset: 2p
 .toast-leave-to { opacity: 0; transform: translate(-50%, 8px); }
 
 .foot {
-    text-align: center; padding: 1.5rem 1rem 2rem;
+    text-align: center; padding: 1.25rem 1rem 0;
     font-size: 0.8rem; color: var(--muted);
 }
 
 @media (prefers-reduced-motion: reduce) {
-    .cat, .btn-brand, .ebtn, .ebtn .glyph { transition: none; }
-    .ebtn:hover .glyph, .ebtn:focus-visible .glyph, .ebtn:active .glyph { transform: none; }
+    .ebtn, .ebtn .glyph { transition: none; }
+    .ebtn:focus-visible .glyph, .ebtn:active .glyph { transform: none; }
     .toast-enter-active, .toast-leave-active { animation: none; transition: none; }
+}
+@media (prefers-reduced-motion: reduce) and (hover: hover) {
+    .ebtn:hover .glyph { transform: none; }
 }
 
 @media (max-width: 480px) {
-    h1 { font-size: 1.7rem; }
-    .wrap { padding-top: 1.5rem; }
+    .wrap { padding-top: 1rem; }
     .egrid { grid-template-columns: repeat(auto-fill, minmax(78px, 1fr)); }
 }

@@ -126,6 +126,17 @@ createApp({
         usingSample() {
             return !this.cleanTitle || !this.cleanDesc || !this.urlOk || !(this.imageOk && !this.imgFailed);
         },
+        // Nothing typed yet. fillExample overwrites four fields with no undo, so
+        // the button that calls it is only offered while there is nothing to lose.
+        formEmpty() {
+            return !this.cleanTitle && !this.cleanDesc && !this.cleanUrl
+                && !this.cleanImage && !this.cleanSite;
+        },
+        sampleNote() {
+            return this.formEmpty
+                ? 'An example, so you can see what this does'
+                : 'Anything you have not filled in is still the example';
+        },
 
         /* ---- Generated code: real input only ---- */
         generatedCode() {

@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html class="antialiased" lang="en" style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;">
+<html class="antialiased" lang="en" data-theme="light" style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;">
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -78,28 +78,59 @@
 
     {% bundledCss %}
     {% pageCss "emoji" %}
+    {% comment %} The heading here is one compact line, so it stays in the system
+    stack rather than Pacifico. Nothing on the page renders .brand-heading, so
+    the Pacifico preload would only crowd the LCP lane. {% endcomment %}
+    {% assign skipPacificoPreload = true %}
     {% include sketch-styles.liquid %}
 {% include schema-org.liquid %}
 
     </head>
 
 <body>
-    {% include header.liquid %}
-{% raw %}
     <a href="#tool" class="skip">Skip to the tool</a>
 
+    {% include header.liquid %}
+{% raw %}
     <main v-cloak id="main-content" class="wrap">
 
         <header id="tool">
             <h1>The emoji you want, one click away</h1>
-            <p class="lede">Search {{ totalFormatted }} emoji, click your favorite, and it&rsquo;s copied, ready to paste anywhere.</p>
+
+            <!-- Sketch: sparkle above the heading, right -->
+            <div class="sketch-note sketch-float" style="top: -18px; right: 2%; --sketch-rotate: 8deg;">
+                <svg aria-hidden="true" width="22" height="22" viewBox="0 0 24 24">
+                    <path d="M12 2 L13.5 10.5 L22 12 L13.5 13.5 L12 22 L10.5 13.5 L2 12 L10.5 10.5 Z" class="sketch-sparkle"/>
+                </svg>
+            </div>
+
+            <!-- Sketch: squiggle under the heading, left edge -->
+            <div class="sketch-note" style="bottom: -14px; left: -2%;">
+                <svg aria-hidden="true" width="30" height="10" viewBox="0 0 34 12">
+                    <path d="M2 6 C6 1, 10 11, 14 6 C18 1, 22 11, 26 6 C28 3, 30 5, 32 6" class="sketch-squiggle"/>
+                </svg>
+            </div>
+
+            <!-- Sketch: small cross, far left of the heading -->
+            <div class="sketch-note sketch-wiggle" style="top: 2px; left: -3%; --sketch-rotate: -12deg;">
+                <svg aria-hidden="true" width="14" height="14" viewBox="0 0 16 16">
+                    <path d="M3 3 L13 13 M13 3 L3 13" class="sketch-cross"/>
+                </svg>
+            </div>
+
+            <!-- Sketch: dashed circle in the empty space right of the heading -->
+            <div class="sketch-note sketch-float-slow" style="top: 0; right: 22%; --sketch-rotate: -6deg;">
+                <svg aria-hidden="true" width="26" height="26" viewBox="0 0 36 36">
+                    <circle cx="18" cy="18" r="12" class="sketch-circle" transform="rotate(20 18 18)"/>
+                </svg>
+            </div>
         </header>
 
         <!-- Live status for screen readers -->
         <div class="sr-only" role="status" aria-live="polite">{{ announcement }}</div>
 
         <!-- ===== Search ===== -->
-        <section class="step" aria-labelledby="h-search">
+        <section class="cf-step" aria-labelledby="h-search">
             <h2 class="step-label sr-only" id="h-search">Search</h2>
             <label class="sr-only" for="emoji-search">Search emoji by name</label>
             <div class="search-row">
@@ -116,7 +147,8 @@
                     </button>
                     <span v-else class="kbd-hint" aria-hidden="true"><kbd>{{ kbdHint }}</kbd></span>
                 </div>
-                <button type="button" class="btn-brand btn-secondary-brand surprise" @click="surpriseMe">
+                <button type="button" class="btn btn-outline cf-surprise"
+                        style="--btn-color: var(--color-cocoa); --btn-fg: #fff" @click="surpriseMe">
                     <span class="die" aria-hidden="true">&#127922;</span> Surprise me
                 </button>
             </div>
@@ -124,10 +156,12 @@
         </section>
 
         <!-- ===== Categories ===== -->
-        <section v-if="!appliedQuery" class="step" aria-labelledby="h-cats">
+        <section v-if="!appliedQuery" class="cf-step" aria-labelledby="h-cats">
             <h2 class="step-label sr-only" id="h-cats">Browse by category</h2>
             <div class="cats" role="group" aria-label="Emoji categories">
-                <button v-for="g in availableGroups" :key="g" type="button" class="cat"
+                <button v-for="g in availableGroups" :key="g" type="button"
+                        class="btn btn-outline cf-cat"
+                        :class="{ 'btn-active': selectedGroup === g }"
                         :aria-pressed="selectedGroup === g ? 'true' : 'false'"
                         @click="setGroup(g)">
                     <span class="ico" aria-hidden="true">{{ catIcon(g) }}</span>{{ catLabel(g) }}
@@ -135,35 +169,38 @@
             </div>
         </section>
 
-        <!-- ===== Recently used ===== -->
-        <section v-if="!appliedQuery && recentEmojis.length" class="step" aria-labelledby="h-recent">
-            <div class="row-head">
-                <h2 class="step-label" id="h-recent">Recently used</h2>
-                <button type="button" class="linkish" @click="clearRecent">Clear this list</button>
-            </div>
-            <div class="mini-row">
-                <button v-for="emoji in recentEmojis" :key="'recent-' + emoji.codes" type="button"
-                        class="ebtn mini" :title="'Copy ' + emoji.name"
-                        :aria-label="'Copy ' + emoji.name" @click="copyEmoji(emoji)">
-                    <span class="glyph" aria-hidden="true">{{ emoji.char }}</span>
-                </button>
-            </div>
-        </section>
+        <!-- Recently used and Popular share a row once there is width for it -->
+        <div v-if="!appliedQuery" class="quick-rows">
+            <!-- ===== Recently used ===== -->
+            <section v-if="recentEmojis.length" class="cf-step" aria-labelledby="h-recent">
+                <div class="row-head">
+                    <h2 class="step-label" id="h-recent">Recently used</h2>
+                    <button type="button" class="linkish" @click="clearRecent">Clear this list</button>
+                </div>
+                <div class="mini-row">
+                    <button v-for="emoji in recentEmojis" :key="'recent-' + emoji.codes" type="button"
+                            class="ebtn mini" :title="'Copy ' + emoji.name"
+                            :aria-label="'Copy ' + emoji.name" @click="copyEmoji(emoji)">
+                        <span class="glyph" aria-hidden="true">{{ emoji.char }}</span>
+                    </button>
+                </div>
+            </section>
 
-        <!-- ===== Popular ===== -->
-        <section v-if="!appliedQuery" class="step" aria-labelledby="h-popular">
-            <h2 class="step-label" id="h-popular">Popular right now</h2>
-            <div class="mini-row">
-                <button v-for="emoji in trendingEmojis" :key="'trending-' + emoji.codes" type="button"
-                        class="ebtn mini" :title="'Copy ' + emoji.name"
-                        :aria-label="'Copy ' + emoji.name" @click="copyEmoji(emoji)">
-                    <span class="glyph" aria-hidden="true">{{ emoji.char }}</span>
-                </button>
-            </div>
-        </section>
+            <!-- ===== Popular ===== -->
+            <section class="cf-step" aria-labelledby="h-popular">
+                <h2 class="step-label" id="h-popular">The most copied emoji</h2>
+                <div class="mini-row">
+                    <button v-for="emoji in trendingEmojis" :key="'trending-' + emoji.codes" type="button"
+                            class="ebtn mini" :title="'Copy ' + emoji.name"
+                            :aria-label="'Copy ' + emoji.name" @click="copyEmoji(emoji)">
+                        <span class="glyph" aria-hidden="true">{{ emoji.char }}</span>
+                    </button>
+                </div>
+            </section>
+        </div>
 
         <!-- ===== The grid ===== -->
-        <section class="step" aria-labelledby="h-browse">
+        <section class="cf-step" aria-labelledby="h-browse">
             <div class="row-head">
                 <h2 class="step-label" id="h-browse" tabindex="-1">{{ browseHeading }}</h2>
                 <span class="counter">{{ countLine }}</span>
@@ -187,12 +224,18 @@
             </div>
 
             <div v-if="remainingCount > 0" class="load-wrap">
-                <button type="button" class="btn-brand btn-secondary-brand" @click="loadMore">
+                <button type="button" class="btn btn-outline"
+                        style="--btn-color: var(--color-cocoa); --btn-fg: #fff" @click="loadMore">
                     {{ remainingCount > 120 ? 'Show 120 more' : 'Show the last ' + remainingCount }}
                     <span v-if="remainingCount > 120">&middot; {{ remainingCount.toLocaleString() }} left</span>
                 </button>
             </div>
         </section>
+
+        <!-- The description sits under the grid rather than above it. It still
+             carries the page's search terms and reads in a natural place, but it
+             no longer takes height away from the thing people came for. -->
+        <p class="lede">Search {{ totalFormatted }} emoji by name, browse them by category, and click your favorite to copy it, ready to paste anywhere.</p>
 
         <p class="foot">Everything happens in your browser, clicking an emoji just copies it to your clipboard.</p>
 
@@ -495,7 +538,7 @@
                     this.announce('Recently used list cleared.');
                 }
             }
-        }).mount('#app');
+        }).mount('#main-content');
     </script>
 </body>
 </html>

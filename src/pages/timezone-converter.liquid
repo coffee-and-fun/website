@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html class="antialiased" lang="en" style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;">
+<html class="antialiased" lang="en" data-theme="light" style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;">
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -98,13 +98,52 @@
     <main v-cloak id="main-content" class="wrap">
 
         <header id="tool">
-            <h1>See what time it is there</h1>
+            <h1 class="brand-heading text-3xl sm:text-4xl">See what time it is there</h1>
             <p class="lede">Pick a place and see the local time right now, plus whether it&rsquo;s a decent hour to call. Planning ahead? You can check any time, too.</p>
+
+            <!-- Sketch: sparkle in the gutter right of the heading. Offsets are
+                 positive, so the doodle never reaches past the column padding
+                 and the page cannot scroll sideways at any width. -->
+            <div class="sketch-note sketch-float" style="top: -12px; right: 8%; --sketch-rotate: 8deg;">
+                <svg aria-hidden="true" width="22" height="22" viewBox="0 0 24 24">
+                    <path d="M12 2 L13.5 10.5 L22 12 L13.5 13.5 L12 22 L10.5 13.5 L2 12 L10.5 10.5 Z" class="sketch-sparkle"/>
+                </svg>
+            </div>
+
+            <!-- Sketch: small cross, far left -->
+            <div class="sketch-note sketch-wiggle" style="top: 6px; left: -3%; --sketch-rotate: -12deg;">
+                <svg aria-hidden="true" width="14" height="14" viewBox="0 0 16 16">
+                    <path d="M3 3 L13 13 M13 3 L3 13" class="sketch-cross"/>
+                </svg>
+            </div>
+
+            <!-- Sketch: squiggle down the left edge -->
+            <div class="sketch-note" style="top: 58%; left: -6%;">
+                <svg aria-hidden="true" width="30" height="10" viewBox="0 0 34 12">
+                    <path d="M2 6 C6 1, 10 11, 14 6 C18 1, 22 11, 26 6 C28 3, 30 5, 32 6" class="sketch-squiggle"/>
+                </svg>
+            </div>
+
+            <!-- Sketch: dashed circle in the gutter beside the lede -->
+            <div class="sketch-note sketch-float-slow" style="top: 46%; right: 4%; --sketch-rotate: -6deg;">
+                <svg aria-hidden="true" width="26" height="26" viewBox="0 0 36 36">
+                    <circle cx="18" cy="18" r="12" class="sketch-circle" transform="rotate(20 18 18)"/>
+                </svg>
+            </div>
+
+            <!-- Sketch: "any city on earth" pointing down at the picker. It sits
+                 below the header block, in the space the your-time line leaves. -->
+            <div class="sketch-note text-base" style="bottom: -62px; right: 0; transform: rotate(-4deg);">
+                any city on earth
+                <svg aria-hidden="true" width="26" height="22" viewBox="0 0 28 24" style="position: relative; display: inline-block; margin-left: 2px; vertical-align: middle;">
+                    <path d="M2 4 C10 4, 20 8, 24 20 M24 20 L17 17 M24 20 L25 12" class="sketch-arrow"/>
+                </svg>
+            </div>
         </header>
 
         <p class="your-line">
             It&rsquo;s <strong><time :datetime="myNow.toISO()">{{ fmtTime(myNow) }}</time> on {{ fmtWeekday(myNow) }}</strong> for you in {{ cityName(fromZone) }}.
-            <button type="button" class="linkish" @click="showFromPicker = !showFromPicker"
+            <button type="button" class="btn btn-link btn-sm" style="--btn-color: var(--color-espresso)" @click="showFromPicker = !showFromPicker"
                     :aria-expanded="showFromPicker ? 'true' : 'false'" aria-controls="from-picker">
                 {{ showFromPicker ? 'Hide the time zone list' : 'Not ' + cityName(fromZone) + '?' }}
             </button>
@@ -119,7 +158,7 @@
             </select>
             <p class="hint">
                 Tip: with the list open, type a city name to jump to it.
-                <button v-if="fromZone !== detectedZone" type="button" class="linkish small" @click="fromZone = detectedZone">Use my detected time zone ({{ cityName(detectedZone) }})</button>
+                <button v-if="fromZone !== detectedZone" type="button" class="btn btn-link btn-sm" style="--btn-color: var(--color-espresso)" @click="fromZone = detectedZone">Use my detected time zone ({{ cityName(detectedZone) }})</button>
             </p>
         </div>
 
@@ -127,7 +166,7 @@
         <div class="sr-only" role="status" aria-live="polite">{{ announcement }}</div>
 
         <!-- ===== Step 1: pick their city ===== -->
-        <section class="step" aria-labelledby="h-city">
+        <section class="cf-step" aria-labelledby="h-city">
             <fieldset class="cities">
                 <legend><h2 class="step-label" id="h-city">1, Pick their city</h2></legend>
                 <div class="chips">
@@ -151,7 +190,7 @@
         </section>
 
         <!-- ===== Step 2: the answer ===== -->
-        <section class="step" aria-labelledby="h-there">
+        <section class="cf-step" aria-labelledby="h-there">
             <h2 class="step-label" id="h-there">2, The time there</h2>
 
             <div class="result">
@@ -170,7 +209,7 @@
             </div>
 
             <div class="io-row">
-                <button type="button" class="linkish small" @click="copyLine">{{ copied ? 'Copied ✓' : 'Copy this line' }}</button>
+                <button type="button" class="btn btn-sm" style="--btn-color: var(--color-cocoa); --btn-fg: #fff" @click="copyLine">{{ copied ? 'Copied ✓' : 'Copy this line' }}</button>
                 <span v-if="copyFailed" class="copy-note bad">Copy didn&rsquo;t work, select the sentence and press Ctrl+C or Cmd+C.</span>
             </div>
 
@@ -198,7 +237,7 @@
                 <p v-if="gapNote" class="gap-note">{{ gapNote }}</p>
 
                 <p class="plan-actions">
-                    <button type="button" class="linkish" @click="backToNow">Back to right now</button>
+                    <button type="button" class="btn btn-link btn-sm" style="--btn-color: var(--color-espresso)" @click="backToNow">Back to right now</button>
                 </p>
             </details>
         </section>

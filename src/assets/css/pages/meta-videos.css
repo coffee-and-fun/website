@@ -8,12 +8,13 @@
     --surface: #fffcf7;
     --ink: var(--color-cocoa);
     --muted: #6b6259;
-    --faint: #8a7f74;
+    /* --line stays decorative, it only draws card edges and table rules.
+       --line-strong was #dbcab8, which measured 1.48:1 on cream and 1.56:1 on
+       the surface, and it draws the boundary of the drop zone, the disclosure
+       and the outline buttons. WCAG 1.4.11 wants 3:1 for a UI component
+       boundary. Mocha is 4.18:1 on cream and stays in palette. */
     --line: #ece0d4;
-    --line-strong: #dbcab8;
-    --good: #0f7b4f;
-    --good-bg: #eaf6ef;
-    --warn: #b4341f;
+    --line-strong: var(--color-mocha);
     --warn-bg: #fbecea;
     --radius: 14px;
     --mono: ui-monospace, 'SF Mono', 'JetBrains Mono', 'Fira Code', Menlo, Consolas, monospace;
@@ -49,22 +50,24 @@ a.skip:focus { left: 0; }
     width: 100%;
     max-width: 640px;
     margin: 0 auto;
-    padding: 2rem 1.25rem 4rem;
+    padding: 1.25rem 1.25rem 4rem;
     flex: 1;
 }
 
+/* The doodles are absolutely positioned against this block. */
+header#tool { position: relative; }
+
+/* Size comes from the Tailwind utilities on the h1 itself, .brand-heading
+   supplies the Pacifico face and the coral offset shadow. */
 h1 {
-    font-size: 1.9rem;
-    line-height: 1.2;
-    letter-spacing: -0.02em;
+    line-height: 1.25;
     margin: 0 0 0.6rem;
-    font-weight: 650;
 }
 .lede {
     color: var(--muted);
     font-size: 1rem;
     line-height: 1.55;
-    margin: 0 0 2.25rem;
+    margin: 0 0 1.25rem;
     max-width: 52ch;
 }
 
@@ -76,7 +79,8 @@ h2.step-label {
     color: var(--muted);
     margin: 0 0 0.8rem;
 }
-section.step { margin-bottom: 2.25rem; }
+/* cf- prefix, not the bare .step: daisyUI owns that name via `.steps &`. */
+section.cf-step { margin-bottom: 2.25rem; }
 
 /* Drop zone */
 .drop {
@@ -89,9 +93,17 @@ section.step { margin-bottom: 2.25rem; }
     cursor: pointer;
     transition: border-color 0.15s, background 0.15s;
 }
-.drop:hover, .drop.drag { border-color: var(--ink); background: #faf5ee; }
+.drop.drag { border-color: var(--ink); background: #faf5ee; }
+/* Gated on hover:hover so a tap does not leave the fill stuck on a touch
+   device, matching how daisyUI guards its own hover rules. */
+@media (hover: hover) {
+    .drop:hover { border-color: var(--ink); background: #faf5ee; }
+}
 .drop:focus-within { outline: 2px solid var(--ink); outline-offset: 2px; }
-.drop .ico { color: var(--faint); margin-bottom: 0.6rem; }
+/* Tailwind preflight makes every svg a block box, so text-align: center on
+   .drop cannot reach the icon. Centre it explicitly. */
+.drop .ico { color: var(--muted); margin-bottom: 0.6rem; }
+.drop .ico svg { display: block; margin-inline: auto; }
 .drop .main { font-weight: 600; font-size: 0.95rem; }
 .drop .sub { color: var(--muted); font-size: 0.85rem; margin-top: 0.25rem; }
 
@@ -113,7 +125,9 @@ video.thumb {
 .thumb-meta .dim { color: var(--muted); font-size: 0.82rem; }
 
 details.more {
-    border: 1px solid var(--line);
+    /* --line-strong, not --line: the summary is a real control and its box is
+       the only thing that marks it as one. */
+    border: 1px solid var(--line-strong);
     border-radius: var(--radius);
     background: var(--surface);
     padding: 0.25rem 1rem;
@@ -203,26 +217,6 @@ table.kv { width: 100%; border-collapse: collapse; }
 }
 .kv tr + tr th, .kv tr + tr td { border-top: 1px solid var(--line); }
 
-/* Buttons, suffixed -brand so daisyUI's .btn family doesn't fight them */
-.btn-brand {
-    appearance: none; border: none; border-radius: 11px;
-    padding: 0.85rem 1.4rem;
-    font-size: 0.98rem; font-weight: 600; cursor: pointer; font-family: inherit;
-    display: inline-flex; align-items: center; justify-content: center; gap: 0.5rem;
-    transition: background 0.15s, opacity 0.15s, border-color 0.15s;
-}
-.btn-brand:focus-visible { outline: 2px solid var(--ink); outline-offset: 2px; }
-.btn-primary-brand { background: var(--ink); color: #fff; width: 100%; }
-.btn-primary-brand:hover { background: var(--color-espresso); }
-.btn-primary-brand:disabled { background: #e8dccd; color: var(--muted); cursor: not-allowed; }
-.btn-secondary-brand {
-    background: var(--surface); color: var(--ink);
-    border: 1px solid var(--line-strong);
-}
-.btn-secondary-brand:hover { border-color: var(--ink); }
-.btn-ghost-brand { background: transparent; color: var(--muted); padding: 0.6rem 0.9rem; }
-.btn-ghost-brand:hover { color: var(--ink); }
-
 .hint-p { font-size: 0.9rem; color: var(--muted); line-height: 1.55; margin: 0 0 1rem; max-width: 56ch; }
 
 /* Result card */
@@ -236,7 +230,20 @@ table.kv { width: 100%; border-collapse: collapse; }
 ul.removed { margin: 0 0 0.9rem; padding-left: 1.2rem; list-style: disc; font-size: 0.9rem; line-height: 1.65; }
 .stamp { font-size: 0.8rem; color: var(--muted); margin: 0 0 1rem; }
 .result-actions { display: flex; gap: 0.6rem; flex-wrap: wrap; }
-.result-actions .btn-brand { flex: 1; min-width: 160px; }
+/* Element selector, not .btn: daisyUI owns that name and these are real
+   daisyUI buttons now. Padding, radius, inline-flex centring, gap, transition
+   and focus-visible all ship in the bundle. */
+.result-actions > button { flex: 1; min-width: 160px; }
+/* Gated on hover:hover so touch devices do not get a stuck hover fill. --btn-fg
+   matters: without it the outline button kept dark text on the espresso fill,
+   which measured 2.50:1. White on espresso is 7.09:1. */
+@media (hover: hover) {
+    .result-actions > button:hover {
+        --btn-bg: var(--color-espresso);
+        --btn-border: var(--color-espresso);
+        --btn-fg: #fff;
+    }
+}
 
 /* About */
 .about h3 { font-size: 0.95rem; margin: 1.2rem 0 0.3rem; }
@@ -256,14 +263,12 @@ ul.removed { margin: 0 0 0.9rem; padding-left: 1.2rem; list-style: disc; font-si
 @keyframes spin { to { transform: rotate(360deg); } }
 
 @media (prefers-reduced-motion: reduce) {
-    html { scroll-behavior: auto; }
     .spin { animation: none; }
-    .btn-brand, .drop, .bar-fill { transition: none; }
+    .drop, .bar-fill, .result-actions > button { transition: none; }
 }
 
 @media (max-width: 480px) {
-    h1 { font-size: 1.6rem; }
     .wrap { padding-top: 1.5rem; }
-    .result-actions .btn-brand { min-width: 100%; }
+    .result-actions > button { min-width: 100%; }
     .kv th { width: 38%; }
 }

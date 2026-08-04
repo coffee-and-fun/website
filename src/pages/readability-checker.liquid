@@ -178,131 +178,177 @@
         <!-- Live status for screen readers -->
         <div class="sr-only" role="status" aria-live="polite">{{ announcement }}</div>
 
-        <!-- ===== 1: the text ===== -->
-        <section class="cf-step" aria-labelledby="h-text">
-            <h2 class="step-label" id="h-text">1. Your text</h2>
+        <!-- Input on the left, answer on the right, so pasting produces a visible
+             change at the same vertical position instead of below the fold. The
+             empty state sits where the answer will appear, which is the cue that
+             tells a first time visitor where to look. -->
+        <div class="cf-work grid items-start gap-6 lg:grid-cols-2">
 
-            <label class="sr-only" for="rc-input">The text you want to check</label>
-            <textarea id="rc-input" ref="input" class="msg" v-model="text"
-                      placeholder="Paste or type your writing here…"
-                      aria-describedby="rc-stats" spellcheck="true"></textarea>
+            <!-- ===== the text ===== -->
+            <section class="card cf-panel cf-input-card lg:sticky lg:top-36" aria-labelledby="h-text">
+                <div class="card-body cf-input-body">
+                    <h2 class="step-label" id="h-text">Your text</h2>
 
-            <div class="io-row">
-                <span class="counter" id="rc-stats">{{ statsLine }}</span>
-                <span class="io-actions">
-                    <button v-if="text" type="button" class="linkish" @click="clearText">Clear</button>
-                </span>
-            </div>
+                    <label class="sr-only" for="rc-input">The text you want to check</label>
+                    <textarea id="rc-input" ref="input" class="textarea w-full cf-input" v-model="text"
+                              placeholder="Paste or type your writing here…"
+                              aria-describedby="rc-stats" spellcheck="true"></textarea>
 
-            <div class="samples">
-                <span class="samples-label" id="h-samples">Or try an example:</span>
-                <span class="join" role="group" aria-labelledby="h-samples">
-                    <button type="button" class="btn btn-sm join-item" @click="loadSample('simple')">Simple</button>
-                    <button type="button" class="btn btn-sm join-item" @click="loadSample('average')">Average</button>
-                    <button type="button" class="btn btn-sm join-item" @click="loadSample('complex')">Complex</button>
-                </span>
-            </div>
-        </section>
+                    <div class="io-row">
+                        <span class="counter" id="rc-stats">{{ statsLine }}</span>
+                        <span class="io-actions">
+                            <button v-if="text" type="button" class="link cf-linkish" @click="clearText">Clear</button>
+                        </span>
+                    </div>
 
-        <!-- ===== 2: the verdict ===== -->
-        <section class="cf-step" aria-labelledby="h-result">
-            <h2 class="step-label" id="h-result">2. How it reads</h2>
-
-            <div v-if="!hasEnough" class="empty-state">
-                <p>Add at least ten words and your reading level will appear here as you type.</p>
-            </div>
-
-            <template v-else>
-                <div class="verdict" :class="'band-' + band.label.toLowerCase().replace(/ /g, '-')">
-                    <p class="verdict-line">
-                        Reads like <strong>{{ verdict.grade }}</strong>
-                    </p>
-                    <p class="verdict-band">{{ verdict.label }}</p>
-                    <p class="verdict-who">{{ verdict.who }}.</p>
+                    <div class="samples">
+                        <span class="samples-label" id="h-samples">Or try an example:</span>
+                        <span class="join" role="group" aria-labelledby="h-samples">
+                            <button type="button" class="btn btn-sm btn-outline join-item cf-sample" style="--btn-color: var(--color-espresso); --btn-fg: #fff" @click="loadSample('simple')">Simple</button>
+                            <button type="button" class="btn btn-sm btn-outline join-item cf-sample" style="--btn-color: var(--color-espresso); --btn-fg: #fff" @click="loadSample('average')">Average</button>
+                            <button type="button" class="btn btn-sm btn-outline join-item cf-sample" style="--btn-color: var(--color-espresso); --btn-fg: #fff" @click="loadSample('complex')">Complex</button>
+                        </span>
+                    </div>
                 </div>
+            </section>
 
-                <ul class="quickstats">
-                    <li><span class="qs-num">{{ wordCount }}</span> <span class="qs-lab">words</span></li>
-                    <li><span class="qs-num">{{ sentenceCount }}</span> <span class="qs-lab">sentences</span></li>
-                    <li><span class="qs-num">{{ readingTime }}</span> <span class="qs-lab">to read</span></li>
-                    <li><span class="qs-num">{{ complexPercent }}%</span> <span class="qs-lab">long words</span></li>
-                </ul>
-            </template>
-        </section>
+            <!-- ===== the answer ===== -->
+            <div class="cf-answer">
 
-        <!-- ===== 3: what to change ===== -->
-        <section v-if="hasEnough" class="cf-step" aria-labelledby="h-fix">
-            <h2 class="step-label" id="h-fix">3. What to change</h2>
+                <section aria-labelledby="h-result">
+                    <h2 class="step-label" id="h-result">How it reads</h2>
 
-            <div v-for="s in suggestions" :key="s.id" class="suggestion">
-                <h3 class="sugg-title">{{ s.title }}</h3>
-                <p class="sugg-detail">{{ s.detail }}</p>
+                    <div v-if="!hasEnough" class="alert cf-empty"
+                         style="--alert-color: #fffcf7; --alert-border-color: var(--color-mocha)">
+                        <p>Add at least ten words and your reading level will appear here as you type.</p>
+                    </div>
+
+                    <template v-else>
+                        <div class="card card-lg cf-panel cf-verdict" :class="'band-' + band.label.toLowerCase().replace(/ /g, '-')">
+                            <div class="card-body cf-verdict-body">
+                                <p class="verdict-line">
+                                    Reads like <strong>{{ verdict.grade }}</strong>
+                                </p>
+                                <p class="verdict-band">{{ verdict.label }}</p>
+                                <p class="verdict-who">{{ verdict.who }}.</p>
+                            </div>
+                        </div>
+
+                        <div class="stats stats-vertical sm:stats-horizontal w-full cf-panel cf-quickstats">
+                            <div class="stat cf-stat">
+                                <div class="stat-title cf-stat-label">words</div>
+                                <div class="stat-value cf-stat-value">{{ wordCount }}</div>
+                            </div>
+                            <div class="stat cf-stat">
+                                <div class="stat-title cf-stat-label">sentences</div>
+                                <div class="stat-value cf-stat-value">{{ sentenceCount }}</div>
+                            </div>
+                            <div class="stat cf-stat">
+                                <div class="stat-title cf-stat-label">to read</div>
+                                <div class="stat-value cf-stat-value">{{ readingTime }}</div>
+                            </div>
+                            <div class="stat cf-stat">
+                                <div class="stat-title cf-stat-label">long words</div>
+                                <div class="stat-value cf-stat-value">{{ complexPercent }}%</div>
+                            </div>
+                        </div>
+
+                        <div class="result-actions">
+                            <button type="button" class="btn btn-lg" style="--btn-color: var(--color-cocoa); --btn-fg: #fff" @click="copySummary">
+                                {{ copied ? 'Copied ✓' : 'Copy the summary' }}
+                            </button>
+                        </div>
+                    </template>
+                </section>
+
+                <!-- ===== what to change ===== -->
+                <section v-if="hasEnough" aria-labelledby="h-fix">
+                    <h2 class="step-label" id="h-fix">What to change</h2>
+
+                    <div class="cf-notes">
+                        <!-- The inner div is load bearing: .alert is grid-auto-flow:column
+                             and lays two element children out side by side. -->
+                        <div v-for="s in suggestions" :key="s.id" class="alert cf-note"
+                             style="--alert-color: #fffcf7; --alert-border-color: var(--color-caramel)">
+                            <div>
+                                <h3 class="cf-note-title">{{ s.title }}</h3>
+                                <p class="cf-note-detail">{{ s.detail }}</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div v-if="longSentences.length" class="fixlist">
+                        <h3 class="fixlist-title">
+                            Your longest sentences
+                            <span class="fixlist-count">{{ longSentences.length }} over 25 words</span>
+                        </h3>
+                        <ol class="sentence-list">
+                            <li v-for="(s, i) in longSentences" :key="i">
+                                <span class="badge badge-sm rounded-full cf-len"
+                                      style="--badge-color: var(--color-mocha); --badge-bg: #f3e6d8; --badge-fg: var(--color-espresso)">{{ s.words }} words</span>
+                                <span class="sentence-text">{{ s.text }}</span>
+                            </li>
+                        </ol>
+                    </div>
+
+                    <div v-if="complexWords.length" class="fixlist">
+                        <h3 class="fixlist-title">
+                            Longest words
+                            <span class="fixlist-count">{{ complexWords.length }} with 3+ syllables</span>
+                        </h3>
+                        <ul class="cf-chips">
+                            <li v-for="w in complexWords.slice(0, 24)" :key="w.word"
+                                class="badge badge-lg rounded-full"
+                                style="--badge-color: var(--color-mocha); --badge-bg: #f3e6d8; --badge-fg: var(--color-espresso)">
+                                <span class="wl-word">{{ w.word }}</span>
+                                <span class="wl-syll">{{ w.syllables }} syllables</span>
+                            </li>
+                        </ul>
+                    </div>
+                </section>
+
+                <!-- ===== the formulas, deliberately last and folded away ===== -->
+                <section v-if="hasEnough" aria-labelledby="h-scores">
+                    <details class="collapse collapse-arrow cf-panel cf-scores">
+                        <summary class="collapse-title cf-scores-title">
+                            <h2 class="step-label cf-scores-head" id="h-scores">The six scores</h2>
+                        </summary>
+                        <div class="collapse-content">
+                            <p class="section-note">
+                                Each formula measures something slightly different. The reading level above is the
+                                average of the ones that apply to your text.
+                            </p>
+
+                            <div class="cf-formula-grid">
+                                <div v-for="f in formulaRows" :key="f.key" class="card cf-panel cf-panel-soft">
+                                    <div class="card-body cf-formula-body">
+                                        <p class="formula-name">{{ f.name }}</p>
+                                        <p v-if="!f.unavailable" class="formula-value">
+                                            {{ f.value }}<span class="formula-unit" v-if="f.unit === 'grade'"> grade</span>
+                                        </p>
+                                        <p v-else class="formula-value formula-na">Not yet</p>
+                                        <p class="formula-plain">{{ f.why || f.plain }}</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </details>
+                </section>
+
             </div>
-
-            <div v-if="longSentences.length" class="fixlist">
-                <h3 class="fixlist-title">
-                    Your longest sentences
-                    <span class="fixlist-count">{{ longSentences.length }} over 25 words</span>
-                </h3>
-                <ol class="sentence-list">
-                    <li v-for="(s, i) in longSentences" :key="i">
-                        <span class="sentence-len">{{ s.words }} words</span>
-                        <span class="sentence-text">{{ s.text }}</span>
-                    </li>
-                </ol>
-            </div>
-
-            <div v-if="complexWords.length" class="fixlist">
-                <h3 class="fixlist-title">
-                    Longest words
-                    <span class="fixlist-count">{{ complexWords.length }} with 3+ syllables</span>
-                </h3>
-                <ul class="word-list">
-                    <li v-for="w in complexWords.slice(0, 24)" :key="w.word">
-                        <span class="wl-word">{{ w.word }}</span>
-                        <span class="wl-syll">{{ w.syllables }} syllables</span>
-                    </li>
-                </ul>
-            </div>
-        </section>
-
-        <!-- ===== 4: the formulas ===== -->
-        <section v-if="hasEnough" class="cf-step" aria-labelledby="h-scores">
-            <h2 class="step-label" id="h-scores">4. The six scores</h2>
-            <p class="section-note">
-                Each formula measures something slightly different. The reading level above is the
-                average of the ones that apply to your text.
-            </p>
-
-            <div class="formula-grid">
-                <div v-for="f in formulaRows" :key="f.key" class="formula">
-                    <p class="formula-name">{{ f.name }}</p>
-                    <p v-if="!f.unavailable" class="formula-value">
-                        {{ f.value }}<span class="formula-unit" v-if="f.unit === 'grade'"> grade</span>
-                    </p>
-                    <p v-else class="formula-value formula-na">Not yet</p>
-                    <p class="formula-plain">{{ f.why || f.plain }}</p>
-                </div>
-            </div>
-
-            <div class="result-actions">
-                <button type="button" class="btn btn-lg" style="--btn-color: var(--color-cocoa); --btn-fg: #fff" @click="copySummary">
-                    {{ copied ? 'Copied ✓' : 'Copy the summary' }}
-                </button>
-            </div>
-        </section>
+        </div>
 {% endraw %}
 
         <!-- ===== Reference and FAQ: real content, and what this page ranks for ===== -->
-        <section class="cf-step" aria-labelledby="h-guide">
+        <section class="cf-ref" aria-labelledby="h-guide">
             <h2 class="step-label" id="h-guide">What the grade levels mean</h2>
             <p class="section-note">
                 Readability formulas report a US school grade. It is a rough guide to how much effort
                 a reader has to spend, not a judgement of how good the writing is.
             </p>
 
-            <div class="table-scroll">
-                <table class="band-table">
+            <div class="overflow-x-auto cf-panel">
+                <table class="table cf-band-table">
                     <caption class="sr-only">Reading grade levels and the audiences they suit</caption>
                     <thead>
                         <tr>
@@ -324,11 +370,11 @@
             </div>
         </section>
 
-        <section class="cf-step" aria-labelledby="h-faq">
+        <section class="cf-ref" aria-labelledby="h-faq">
             <h2 class="step-label" id="h-faq">Common questions</h2>
 
-            <div class="faq">
-                <details class="collapse collapse-arrow faq-item">
+            <div class="cf-faq">
+                <details class="collapse collapse-arrow cf-panel cf-faq-item">
                     <summary class="collapse-title">My score went up but the writing feels worse. What happened?</summary>
                     <div class="collapse-content">
                         <p>Readability formulas count sentence length and syllables. They cannot tell whether
@@ -338,7 +384,7 @@
                     </div>
                 </details>
 
-                <details class="collapse collapse-arrow faq-item">
+                <details class="collapse collapse-arrow cf-panel cf-faq-item">
                     <summary class="collapse-title">Is writing for a lower grade the same as dumbing it down?</summary>
                     <div class="collapse-content">
                         <p>No. A lower grade means less effort to decode, not less to say. Specialists read
@@ -348,7 +394,7 @@
                     </div>
                 </details>
 
-                <details class="collapse collapse-arrow faq-item">
+                <details class="collapse collapse-arrow cf-panel cf-faq-item">
                     <summary class="collapse-title">My subject has long words I cannot avoid. Does that mean I fail?</summary>
                     <div class="collapse-content">
                         <p>Not really. These formulas count syllables, not familiarity, so photosynthesis
@@ -358,7 +404,7 @@
                     </div>
                 </details>
 
-                <details class="collapse collapse-arrow faq-item">
+                <details class="collapse collapse-arrow cf-panel cf-faq-item">
                     <summary class="collapse-title">What should I paste in? Do headings and bullet points count?</summary>
                     <div class="collapse-content">
                         <p>Paste the prose you actually want measured. Headings and bullet fragments often
@@ -368,7 +414,7 @@
                     </div>
                 </details>
 
-                <details class="collapse collapse-arrow faq-item">
+                <details class="collapse collapse-arrow cf-panel cf-faq-item">
                     <summary class="collapse-title">What can these scores not see?</summary>
                     <div class="collapse-content">
                         <p>Quite a lot. They cannot tell whether your paragraphs are in a sensible order,
@@ -378,7 +424,7 @@
                     </div>
                 </details>
 
-                <details class="collapse collapse-arrow faq-item">
+                <details class="collapse collapse-arrow cf-panel cf-faq-item">
                     <summary class="collapse-title">Does reading level matter for accessibility?</summary>
                     <div class="collapse-content">
                         <p>It can. WCAG 2.2 includes a success criterion called Reading Level, numbered 3.1.5,
@@ -390,7 +436,7 @@
                     </div>
                 </details>
 
-                <details class="collapse collapse-arrow faq-item">
+                <details class="collapse collapse-arrow cf-panel cf-faq-item">
                     <summary class="collapse-title">Does readability affect Google rankings?</summary>
                     <div class="collapse-content">
                         <p>Not directly. Google has never listed a readability score as a ranking factor, and

@@ -12,6 +12,7 @@ createApp({
             icons: [],
             zipBusy: false,
             zipError: '',
+            fileError: '',
             copied: false,
             copyFailed: false,
             copyTimer: null,
@@ -61,15 +62,31 @@ createApp({
         // ---------- file intake ----------
         onFileChange(event) {
             const file = event.target.files[0];
-            if (file && file.type.match('image.*')) this.acceptFile(file);
+            if (file && file.type.match('image.*')) {
+                this.acceptFile(file);
+            } else if (file) {
+                this.rejectFile();
+            }
         },
         onDrop(event) {
             this.dragging = false;
             const file = event.dataTransfer.files[0];
-            if (file && file.type.match('image.*')) this.acceptFile(file);
+            if (file && file.type.match('image.*')) {
+                this.acceptFile(file);
+            } else if (file) {
+                this.rejectFile();
+            }
+        },
+        // The accept attribute only filters the click-to-choose picker, drag and
+        // drop ignores it, so a dropped PDF or zip has to be answered here.
+        rejectFile() {
+            this.fileError = 'That file is not a picture we can use. Pick a PNG, JPG, or WEBP.';
+            this.announce(this.fileError);
+            if (this.$refs.fileInput) this.$refs.fileInput.value = '';
         },
         acceptFile(file) {
             this.fileName = file.name;
+            this.fileError = '';
             const reader = new FileReader();
             reader.onload = (e) => {
                 const img = new Image();
@@ -82,7 +99,8 @@ createApp({
                     this.announce('Picture added, ' + img.width + ' by ' + img.height + ' pixels. Ready to generate.');
                 };
                 img.onerror = () => {
-                    this.announce('That file could not be read as a picture. Try a PNG, JPG, or WEBP.');
+                    this.fileError = 'That file could not be read as a picture. Try a PNG, JPG, or WEBP.';
+                    this.announce(this.fileError);
                 };
                 img.src = e.target.result;
             };
@@ -202,6 +220,7 @@ createApp({
             this.imgH = 0;
             this.icons = [];
             this.zipError = '';
+            this.fileError = '';
             this.copied = false;
             this.copyFailed = false;
             if (this.copyTimer) clearTimeout(this.copyTimer);
