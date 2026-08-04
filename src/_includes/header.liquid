@@ -30,15 +30,28 @@
   .cf-pill { background: color-mix(in srgb, var(--color-cream) 95%, transparent);
     border-radius: 9999px; padding-inline: 0.5rem; box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1);
     outline: 1px solid color-mix(in srgb, var(--color-mocha) 20%, transparent); backdrop-filter: blur(4px); }
+  /* appearance:none is doing real work here. Tailwind's preflight sets
+     `appearance: button` on every button, which leaves the browser free to paint
+     its own widget chrome for hover and pressed states, in a cool grey that has
+     nothing to do with this palette. Setting `background: transparent` alone does
+     not stop it, and what it paints differs between Chrome, Safari and Firefox. */
   .cf-mm-trigger { font-size: 1.4rem; font-weight: 600; color: #292524; background: transparent;
-    border: 0; border-radius: 9999px; padding-inline: 0.7rem; cursor: pointer; white-space: nowrap; }
-  .cf-mm-trigger:hover { color: var(--color-espresso); }
+    appearance: none; -webkit-appearance: none;
+    border: 0; border-radius: 9999px; padding-inline: 0.7rem; cursor: pointer; white-space: nowrap;
+    transition: background-color 0.15s ease, color 0.15s ease; }
+  .cf-mm-trigger:hover { color: var(--color-espresso); background: #f6ece2; }
+  /* There is deliberately no "lit while open" rule here. The obvious selector,
+     .cf-mm-trigger:has(+ [popover]:popover-open), is valid and matches, but Chrome
+     does not invalidate styles when the popover opens, so it only paints after an
+     unrelated reflow. Doing it properly needs a toggle listener, not CSS. */
   .cf-mm-trigger:focus-visible { outline: 2px solid var(--color-espresso); outline-offset: 2px; }
 
   /* Blog is a direct link, not a dropdown, match the trigger styling, no caret */
   .cf-mm-link { display: flex; align-items: center; font-size: 1.4rem; font-weight: 600;
-    color: #292524; text-decoration: none; padding-inline: 0.7rem; border-radius: 9999px; white-space: nowrap; }
-  .cf-mm-link:hover { color: var(--color-espresso); }
+    color: #292524; text-decoration: none; padding-inline: 0.7rem; border-radius: 9999px; white-space: nowrap;
+    transition: background-color 0.15s ease, color 0.15s ease; }
+  /* Same warm hover as the dropdown triggers, so the whole bar behaves as one thing. */
+  .cf-mm-link:hover { color: var(--color-espresso); background: #f6ece2; }
   .cf-mm-link:focus-visible { outline: 2px solid var(--color-espresso); outline-offset: 2px; }
 
   /* Current section: hand-drawn underline sitting under the label, in both
@@ -52,15 +65,24 @@
   .megamenu.megamenu-wide .cf-mm-panel { width: max-content; min-width: 34rem; max-width: min(92vw, 44rem); }
   .megamenu.megamenu-wide .cf-mm-panel-lg { min-width: 46rem; max-width: min(94vw, 58rem); }
   .cf-mm-grid-4 { grid-template-columns: repeat(4, minmax(150px, 1fr)) !important; }
+  /* Warm off-white, not the popover default of pure white. The bar this drops out
+     of is cream, so plain white read cold against it. Still light enough to sit
+     clearly above the page. */
   .cf-mm-panel { padding: 1.25rem 1.4rem 1rem; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    background: #fffcf7;
     box-shadow: 0 20px 40px -12px rgb(0 0 0 / 0.25); }
   .cf-mm-grid { display: grid; grid-template-columns: repeat(3, minmax(160px, 1fr)); gap: 1.5rem 2rem; }
+  /* #8a7f74 failed AA on the old white panel (3.91:1) and this is 11px bold, so it
+     gets no large-text exemption. #786d62 clears it at 4.93:1 on the panel. */
   .cf-mm-head { font-size: 0.7rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase;
-    color: #8a7f74; margin: 0 0 0.5rem; }
+    color: #786d62; margin: 0 0 0.5rem; }
   .cf-mm-panel ul { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 0.15rem; }
   .cf-mm-panel a { display: block; padding: 0.4rem 0.5rem; margin-inline: -0.5rem; border-radius: 0.5rem;
     font-size: 0.95rem; color: #44403c; text-decoration: none; }
-  .cf-mm-panel a:hover { background: #faf5ee; color: var(--color-espresso); }
+  /* #f8f2e9, not #faf5ee. The old value was tuned against a pure white panel, and
+     warming the panel to #fffcf7 flattened the step. This restores the same
+     perceived lift the row had before. */
+  .cf-mm-panel a:hover { background: #f8f2e9; color: var(--color-espresso); }
   .cf-mm-panel a:focus-visible { outline: 2px solid var(--color-espresso); outline-offset: 1px; }
   .cf-mm-foot { margin: 1rem 0 0; padding-top: 0.75rem; border-top: 1px solid #ece3d7; }
   .cf-mm-foot a { font-weight: 600; color: var(--color-espresso); font-size: 0.9rem; }
@@ -78,7 +100,8 @@
   .cf-mm-feat:hover .cf-mm-feat-name { color: var(--color-espresso); }
   .cf-mm-feat:focus-visible { outline: 2px solid var(--color-espresso); outline-offset: 2px; }
   @media (prefers-reduced-motion: reduce) {
-    .megamenu-active, .megamenu [popover] { transition: none !important; }
+    .megamenu-active, .megamenu [popover],
+    .cf-mm-trigger, .cf-mm-link { transition: none !important; }
   }
 </style>
 
