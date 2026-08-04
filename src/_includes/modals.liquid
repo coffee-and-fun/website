@@ -170,15 +170,15 @@
       <div class="px-3 pb-1">
         <p class="px-3 pt-3 pb-2 text-xs font-semibold uppercase tracking-wider text-stone-500">Pages</p>
         <ul>
-          <li><a href="/apps/" class="cf-menu-link"{% if navSection == 'apps' %} aria-current="page"{% endif %}>
+          <li><a href="/apps/" class="cf-menu-link"{% if page.url == '/apps/' %} aria-current="page"{% elsif navSection == 'apps' %} aria-current="true"{% endif %}>
             <span class="cf-menu-ico" style="background:#ede9fe;color:#5b21b6;" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 -960 960 960" fill="currentColor"><path d="M183.5-183.5Q160-207 160-240t23.5-56.5Q207-320 240-320t56.5 23.5Q320-273 320-240t-23.5 56.5Q273-160 240-160t-56.5-23.5Zm0-240Q160-447 160-480t23.5-56.5Q207-560 240-560t56.5 23.5Q320-513 320-480t-23.5 56.5Q273-400 240-400t-56.5-23.5Zm0-240Q160-687 160-720t23.5-56.5Q207-800 240-800t56.5 23.5Q320-753 320-720t-23.5 56.5Q273-640 240-640t-56.5-23.5Zm240 0Q400-687 400-720t23.5-56.5Q447-800 480-800t56.5 23.5Q560-753 560-720t-23.5 56.5Q513-640 480-640t-56.5-23.5Zm240 0Q640-687 640-720t23.5-56.5Q687-800 720-800t56.5 23.5Q800-753 800-720t-23.5 56.5Q753-640 720-640t-56.5-23.5Zm-240 240Q400-447 400-480t23.5-56.5Q447-560 480-560t56.5 23.5Q560-513 560-480t-23.5 56.5Q513-400 480-400t-56.5-23.5ZM520-160v-123l221-220q9-9 20-13t22-4q12 0 23 4.5t20 13.5l37 37q8 9 12.5 20t4.5 22q0 11-4 22.5T863-380L643-160H520Zm300-263-37-37 37 37ZM580-220h38l121-122-18-19-19-18-122 121v38Zm141-141-19-18 37 37-18-19Z"/></svg></span>
             <span class="cf-menu-text"><span class="cf-menu-title">Apps &amp; Tools</span><span class="cf-menu-sub">Free web tools, games and extensions</span></span></a></li>
 
-          <li><a href="/blog/" class="cf-menu-link"{% if navSection == 'blog' %} aria-current="page"{% endif %}>
+          <li><a href="/blog/" class="cf-menu-link"{% if page.url == '/blog/' %} aria-current="page"{% elsif navSection == 'blog' %} aria-current="true"{% endif %}>
             <span class="cf-menu-ico" style="background:#fef3c7;color:#92400e;" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 -960 960 960" fill="currentColor"><path d="M200-120q-33 0-56.5-23.5T120-200v-560q0-33 23.5-56.5T200-840h440l200 200v440q0 33-23.5 56.5T760-120H200Zm0-80h560v-400H600v-160H200v560Zm80-80h400v-80H280v80Zm0-320h200v-80H280v80Zm0 160h400v-80H280v80Zm-80-320v160-160 560-560Z"/></svg></span>
             <span class="cf-menu-text"><span class="cf-menu-title">Blog</span><span class="cf-menu-sub">Guides, build notes and updates</span></span></a></li>
 
-          <li><a href="/about/" class="cf-menu-link"{% if navSection == 'company' %} aria-current="page"{% endif %}>
+          <li><a href="/about/" class="cf-menu-link"{% if page.url == '/about/' %} aria-current="page"{% elsif navSection == 'company' %} aria-current="true"{% endif %}>
             <span class="cf-menu-ico" style="background:#f6ece2;color:#7a4e31;" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 -960 960 960" fill="currentColor"><path d="M440-240q-117 0-198.5-81.5T160-520v-240q0-33 23.5-56.5T240-840h500q58 0 99 41t41 99q0 58-41 99t-99 41h-20v40q0 117-81.5 198.5T440-240ZM240-640h400v-120H240v120Zm200 320q83 0 141.5-58.5T640-520v-40H240v40q0 83 58.5 141.5T440-320Zm280-320h20q25 0 42.5-17.5T800-700q0-25-17.5-42.5T740-760h-20v120ZM160-120v-80h640v80H160Zm280-440Z"/></svg></span>
             <span class="cf-menu-text"><span class="cf-menu-title">About</span><span class="cf-menu-sub">Who we are and what we build</span></span></a></li>
 
@@ -194,11 +194,11 @@
       <div class="px-3 pb-3">
         <p class="px-3 pt-3 pb-2 text-xs font-semibold uppercase tracking-wider text-stone-500">Connect</p>
         <ul>
-          <li><a href="/help/" class="cf-menu-link"{% if navSection == 'help' %} aria-current="page"{% endif %}>
+          <li><a href="/help/" class="cf-menu-link"{% if page.url == '/help/' %} aria-current="page"{% elsif navSection == 'help' %} aria-current="true"{% endif %}>
             <span class="cf-menu-ico" style="background:#e0f2fe;color:#075985;" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 -960 960 960" fill="currentColor"><path d="M476-280q21 0 35.5-14.5T526-330q0-21-14.5-35.5T476-380q-21 0-35.5 14.5T426-330q0 21 14.5 35.5T476-280Zm-36-154h74q0-17 1.5-29t6.5-23q5-11 12.5-20.5T556-530q35-35 49.5-58.5T620-642q0-53-36-85.5T487-760q-55 0-93.5 27T340-658l66 26q7-27 28-43.5t49-16.5q27 0 45 14.5t18 38.5q0 17-11 36t-37 42q-17 14-27.5 27.5T453-505q-7 15-10 31.5t-3 39.5Zm40 394L360-160H200q-33 0-56.5-23.5T120-240v-560q0-33 23.5-56.5T200-880h560q33 0 56.5 23.5T840-800v560q0 33-23.5 56.5T760-160H600L480-40ZM200-240h192l88 88 88-88h192v-560H200v560Zm280-280Z"/></svg></span>
             <span class="cf-menu-text"><span class="cf-menu-title">Help Center</span><span class="cf-menu-sub">Answers to common questions</span></span></a></li>
 
-          <li><a href="/support/" class="cf-menu-link"{% if navSection == 'support' %} aria-current="page"{% endif %}>
+          <li><a href="/support/" class="cf-menu-link"{% if page.url == '/support/' %} aria-current="page"{% elsif navSection == 'support' %} aria-current="true"{% endif %}>
             <span class="cf-menu-ico" style="background:#ffe4e6;color:#9f1239;" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 -960 960 960" fill="currentColor"><path d="M440-120v-80h320v-284q0-117-81.5-198.5T480-764q-117 0-198.5 81.5T200-484v244h-40q-33 0-56.5-23.5T80-320v-80q0-21 10.5-39.5T120-469l3-53q8-68 39.5-126t79-101q47.5-43 109-67T480-840q68 0 129 24t109 66.5Q766-707 797-649t40 126l3 52q19 9 29.5 27t10.5 38v92q0 20-10.5 38T840-249v49q0 33-23.5 56.5T760-120H440ZM331.5-411.5Q320-423 320-440t11.5-28.5Q343-480 360-480t28.5 11.5Q400-457 400-440t-11.5 28.5Q377-400 360-400t-28.5-11.5Zm240 0Q560-423 560-440t11.5-28.5Q583-480 600-480t28.5 11.5Q640-457 640-440t-11.5 28.5Q617-400 600-400t-28.5-11.5ZM241-462q-7-106 64-182t177-76q89 0 156.5 56.5T720-519q-91-1-167.5-49T435-698q-16 80-67.5 142.5T241-462Z"/></svg></span>
             <span class="cf-menu-text"><span class="cf-menu-title">Support</span><span class="cf-menu-sub">Get in touch with a human</span></span></a></li>
 
