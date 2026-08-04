@@ -177,6 +177,13 @@ Each entry's `schemaType` decides how that product is typed in the list. For any
 
 The include treats everything after `apps + tools + opensource` as retired and gives it the Discontinued offer, so **section order in `apps.json` is load-bearing**: `graveyard` must stay last.
 
+**`link` is optional.** Some products are gone outright: no store listing, no repo, no page. Those entries drop `link` entirely rather than pointing somewhere wrong. Both consumers handle its absence:
+
+- `apps.liquid` renders the card as a `div` instead of an `a`, drops the hover-lift and focus ring, and adds a "No longer available" pill. An `<a href="">` would silently reload `/apps/`, and a card that lifts on hover promises somewhere to go.
+- `apps-itemlist.liquid` omits `url` from that item rather than emitting `""` or a bare `https://www.coffeeandfun.com`.
+
+The card keeps its `app-card` class and `data-title` / `data-description` / `data-platforms` attributes either way, so the search and filter JS in `apps.js` treats linked and unlinked cards identically.
+
 ### Rules that are easy to break
 
 - **Only describe what the page actually shows.** The homepage used to declare a `SoftwareApplication` for an app it never rendered. It links to `/apps/`, so the catalogue belongs on `/apps/`.

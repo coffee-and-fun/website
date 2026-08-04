@@ -24,10 +24,18 @@
     "itemListElement": [
       {%- for item in catalogue -%}
       {%- if forloop.index0 > 0 -%},{%- endif -%}
-      {%- if item.link contains "://" -%}
-        {%- assign itemUrl = item.link -%}
-      {%- else -%}
-        {%- capture itemUrl -%}https://www.coffeeandfun.com{{ item.link }}{%- endcapture -%}
+      {%- comment -%}
+        A few retired products are gone outright: no store listing, no repo, no
+        page. They keep their entry so the history is honest, but they get no
+        "url", because a link that goes nowhere is worse than no link at all.
+      {%- endcomment -%}
+      {%- assign itemUrl = "" -%}
+      {%- if item.link -%}
+        {%- if item.link contains "://" -%}
+          {%- assign itemUrl = item.link -%}
+        {%- else -%}
+          {%- capture itemUrl -%}https://www.coffeeandfun.com{{ item.link }}{%- endcapture -%}
+        {%- endif -%}
       {%- endif %}
       {
         "@type": "ListItem",
@@ -36,7 +44,9 @@
           "@type": "{{ item.schemaType }}",
           "name": {{ item.name | strip | json }},
           "description": {{ item.description | strip | json }},
+          {%- if itemUrl != "" %}
           "url": {{ itemUrl | json }},
+          {%- endif %}
           "image": {{ item.image | prepend: "https://www.coffeeandfun.com" | json }},
           {%- if item.schemaType == "SoftwareSourceCode" %}
           "codeRepository": {{ itemUrl | json }},
