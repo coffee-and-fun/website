@@ -326,9 +326,11 @@
               class="dropdown-content z-[1] menu p-2 shadow bg-base-300 rounded-box w-48"
             >
               <li>
-                <a
+                <button
+                  type="button"
                   @click="setGameMode('offline')"
                   :class="{'active': gameMode === 'offline'}"
+                  :aria-pressed="gameMode === 'offline' ? 'true' : 'false'"
                   ><svg
                     xmlns="http://www.w3.org/2000/svg"
                     class="h-5 w-5"
@@ -340,13 +342,15 @@
                     />
                   </svg>
                   Local Play
-                </a>
+                </button>
               </li>
               <li>
-                <a
+                <button
+                  type="button"
                   @click="setGameMode('ai')"
                   :class="{'active': gameMode === 'ai'}"
-                >
+                  :aria-pressed="gameMode === 'ai' ? 'true' : 'false'"
+                  >
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
                     class="h-5 w-5"
@@ -358,13 +362,15 @@
                     />
                   </svg>
                   AI
-                </a>
+                </button>
               </li>
               <li>
-                <a
+                <button
+                  type="button"
                   @click="setGameMode('multiplayer')"
                   :class="{'active': gameMode === 'multiplayer'}"
-                >
+                  :aria-pressed="gameMode === 'multiplayer' ? 'true' : 'false'"
+                  >
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
                     class="h-5 w-5"
@@ -376,36 +382,40 @@
                     />
                   </svg>
                   Multiplayer
-                </a>
+                </button>
               </li>
               <div v-if="gameMode === 'ai'" class="divider my-1"></div>
               <li v-if="gameMode === 'ai'">
-                <a
+                <button
+                  type="button"
                   class="btn btn-ghost btn-sm gap-2"
                   @click="setAIDifficulty('easy')"
-                  >🟢 Novice</a
-                >
+                  >🟢 Novice</button
+                  >
               </li>
               <li v-if="gameMode === 'ai'">
-                <a
+                <button
+                  type="button"
                   class="btn btn-ghost btn-sm gap-2"
                   @click="setAIDifficulty('medium')"
-                  >🟡 Skilled</a
-                >
+                  >🟡 Skilled</button
+                  >
               </li>
               <li v-if="gameMode === 'ai'">
-                <a
+                <button
+                  type="button"
                   class="btn btn-ghost btn-sm gap-2"
                   @click="setAIDifficulty('hard')"
-                  >🔴 Expert</a
-                >
+                  >🔴 Expert</button
+                  >
               </li>
               <li v-if="gameMode === 'ai'">
-                <a
+                <button
+                  type="button"
                   class="btn btn-ghost btn-sm gap-2"
                   @click="setAIDifficulty('random')"
-                  >🎲 Random</a
-                >
+                  >🎲 Random</button
+                  >
               </li>
             </ul>
           </div>

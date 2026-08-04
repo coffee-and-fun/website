@@ -87,7 +87,7 @@ touch poshmark_scraper.js
 
 Here’s the full script:
 
-You can download it [here](https://github.com/coffee-and-fun/poshmark_scrapper) or paste it directly
+You can download the [Poshmark scraper on GitHub](https://github.com/coffee-and-fun/poshmark_scrapper) or paste it directly
 into `poshmark_scraper.js`.
 
 ```js
