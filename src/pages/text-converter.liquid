@@ -41,32 +41,46 @@
 
     <!-- Structured Data -->
     <script type="application/ld+json">
-    {
+      {
         "@context": "https://schema.org",
-        "@type": "SoftwareApplication",
+        "@type": "WebApplication",
         "name": "Free Text Case Converter",
         "description": "Convert text to uppercase, lowercase, sentence case, Title Case, alternating case, camelCase, snake_case, or kebab-case, with live results, text statistics, and tidy-up tools.",
         "url": "https://www.coffeeandfun.com/text-converter/",
-        "applicationCategory": "UtilityApplication",
+        "applicationCategory": "UtilitiesApplication",
         "operatingSystem": "Web Browser",
-        "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" },
+        "offers": {
+          "@type": "Offer",
+          "price": "0",
+          "priceCurrency": "USD"
+        },
         "featureList": [
-            "UPPERCASE and lowercase conversion",
-            "Sentence case and Title Case",
-            "camelCase, snake_case, and kebab-case",
-            "aLtErNaTiNg case",
-            "Live word, character, sentence, and line counts",
-            "Tidy up spacing and line breaks",
-            "Copy or download the result"
-        ]
-    }
+          "UPPERCASE and lowercase conversion",
+          "Sentence case and Title Case",
+          "camelCase, snake_case, and kebab-case",
+          "aLtErNaTiNg case",
+          "Live word, character, sentence, and line counts",
+          "Tidy up spacing and line breaks",
+          "Copy or download the result"
+        ],
+        "publisher": {
+          "@id": "https://www.coffeeandfun.com/#organization"
+        },
+        "creator": {
+          "@id": "https://www.coffeeandfun.com/#founder"
+        },
+        "isAccessibleForFree": true,
+        "inLanguage": "en"
+      }
     </script>
 
     <script src="https://unpkg.com/vue@3"></script>
 
     {% pageCss "text-converter" %}
     {% include sketch-styles.liquid %}
-</head>
+{% include schema-org.liquid %}
+
+    </head>
 
 <body>
 {% raw %}

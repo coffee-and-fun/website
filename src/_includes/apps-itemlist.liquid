@@ -1,0 +1,60 @@
+{%- comment -%}
+  The catalogue as structured data, generated from src/_data/apps.json so it
+  always matches the cards the page actually renders.
+
+  Each entry's "schemaType" is the authority on what a thing is: a game is a
+  VideoGame, a browser extension is a SoftwareApplication, an open source
+  project is SoftwareSourceCode. For anything with its own page on this site
+  that value was read from that page's own JSON-LD, so the two cannot drift.
+
+  Everything after the live sections is a retired product, so it carries a
+  Discontinued offer rather than being quietly listed as if you could still
+  get it.
+{%- endcomment -%}
+{%- assign catalogue = apps.apps | concat: apps.tools | concat: apps.opensource | concat: apps.graveyard -%}
+{%- assign liveCount = apps.apps.size | plus: apps.tools.size | plus: apps.opensource.size -%}
+<script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "ItemList",
+    "@id": "https://www.coffeeandfun.com/apps/#catalogue",
+    "name": "Apps, extensions, games and free web tools by Coffee & Fun LLC",
+    "numberOfItems": {{ catalogue.size }},
+    "itemListOrder": "https://schema.org/ItemListUnordered",
+    "itemListElement": [
+      {%- for item in catalogue -%}
+      {%- if forloop.index0 > 0 -%},{%- endif -%}
+      {%- if item.link contains "://" -%}
+        {%- assign itemUrl = item.link -%}
+      {%- else -%}
+        {%- capture itemUrl -%}https://www.coffeeandfun.com{{ item.link }}{%- endcapture -%}
+      {%- endif %}
+      {
+        "@type": "ListItem",
+        "position": {{ forloop.index }},
+        "item": {
+          "@type": "{{ item.schemaType }}",
+          "name": {{ item.name | strip | json }},
+          "description": {{ item.description | strip | json }},
+          "url": {{ itemUrl | json }},
+          "image": {{ item.image | prepend: "https://www.coffeeandfun.com" | json }},
+          {%- if item.schemaType == "SoftwareSourceCode" %}
+          "codeRepository": {{ itemUrl | json }},
+          "author": { "@id": "https://www.coffeeandfun.com/#founder" },
+          {%- else %}
+          "operatingSystem": {{ item.platform | join: ", " | json }},
+          "creator": { "@id": "https://www.coffeeandfun.com/#founder" },
+          {%- endif %}
+          {%- if forloop.index0 >= liveCount %}
+          "offers": {
+            "@type": "Offer",
+            "availability": "https://schema.org/Discontinued"
+          },
+          {%- endif %}
+          "publisher": { "@id": "https://www.coffeeandfun.com/#organization" }
+        }
+      }
+      {%- endfor %}
+    ]
+  }
+</script>

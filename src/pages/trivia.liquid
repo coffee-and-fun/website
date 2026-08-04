@@ -48,39 +48,49 @@
   <meta name="apple-mobile-web-app-title" content="Coco's Trivia" />
 
   <script type="application/ld+json">
-  {
-    "@context": "https://schema.org",
-    "@graph": [
-      {
-        "@type": "WebSite",
-        "name": "Coffee & Fun",
-        "url": "https://www.coffeeandfun.com",
-        "potentialAction": {
-          "@type": "SearchAction",
-          "target": "https://www.coffeeandfun.com/search?q={search_term_string}",
-          "query-input": "required name=search_term_string"
-        }
+    {
+      "@context": "https://schema.org",
+      "@type": "VideoGame",
+      "@id": "https://www.coffeeandfun.com/trivia/",
+      "name": "Coco's Trivia Corner",
+      "description": "Ten new trivia questions every day, drawn from a bank of more than 53,000, with scoring and ranks.",
+      "url": "https://www.coffeeandfun.com/trivia/",
+      "image": "https://www.coffeeandfun.com/assets/images/social/pages/trivia.png",
+      "genre": [
+        "Trivia",
+        "Quiz",
+        "Educational"
+      ],
+      "numberOfPlayers": {
+        "@type": "QuantitativeValue",
+        "minValue": 1,
+        "maxValue": 1
       },
-      {
-        "@type": "Game",
-        "@id": "https://www.coffeeandfun.com/trivia/",
-        "name": "Coco's Trivia Corner",
-        "description": "Ten new trivia questions every day, drawn from a bank of more than 53,000, with scoring and ranks.",
-        "url": "https://www.coffeeandfun.com/trivia/",
-        "image": "https://www.coffeeandfun.com/assets/images/social/pages/trivia.png",
-        "genre": ["Trivia", "Quiz", "Educational"],
-        "numberOfPlayers": { "@type": "QuantitativeValue", "minValue": 1, "maxValue": 1 },
-        "playMode": "SinglePlayer",
-        "gamePlatform": ["Web Browser", "Mobile Browser"],
-        "applicationCategory": "Game",
-        "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" },
-        "creator": { "@type": "Organization", "name": "Coffee & Fun LLC", "url": "https://www.coffeeandfun.com" }
-      }
-    ]
-  }
+      "playMode": "SinglePlayer",
+      "gamePlatform": [
+        "Web Browser",
+        "Mobile Browser"
+      ],
+      "applicationCategory": "GameApplication",
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "USD"
+      },
+      "creator": {
+        "@id": "https://www.coffeeandfun.com/#founder"
+      },
+      "publisher": {
+        "@id": "https://www.coffeeandfun.com/#organization"
+      },
+      "isAccessibleForFree": true,
+      "inLanguage": "en"
+    }
   </script>
 
-  {% bundledCss %}
+  {% include schema-org.liquid %}
+
+    {% bundledCss %}
 
     {% pageCss "trivia" %}
 

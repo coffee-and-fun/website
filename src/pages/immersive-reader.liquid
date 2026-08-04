@@ -56,78 +56,108 @@
 
     <!-- Structured Data (JSON-LD) -->
     <script type="application/ld+json">
-    {
+      {
         "@context": "https://schema.org",
         "@type": "SoftwareApplication",
         "name": "Immersive Reader for Safari",
         "description": "Safari extension for macOS, iPhone & iPad that turns web pages into calm, customizable reading experiences with text-to-speech, adjustable fonts, focus modes, and translation.",
         "url": "https://www.coffeeandfun.com/immersive-reader/",
         "applicationCategory": "EducationalApplication",
-        "operatingSystem": ["macOS", "iOS", "iPadOS"],
+        "operatingSystem": [
+          "macOS",
+          "iOS",
+          "iPadOS"
+        ],
         "offers": {
-            "@type": "Offer",
-            "price": "0",
-            "priceCurrency": "USD",
-            "description": "Free download with subscription"
+          "@type": "Offer",
+          "price": "0",
+          "priceCurrency": "USD",
+          "description": "Free download with subscription"
         },
         "publisher": {
-            "@type": "Organization",
-            "name": "Coffee & Fun LLC",
-            "url": "https://www.coffeeandfun.com",
-            "sameAs": [
-                "https://x.com/bycoffeeandfun"
-            ]
+          "@id": "https://www.coffeeandfun.com/#organization"
         },
         "featureList": [
-            "Text-to-speech with natural voices",
-            "Adjustable text size, spacing, and fonts",
-            "Focus modes to reduce distractions",
-            "Translation tools for multiple languages",
-            "Picture dictionary for visual learners",
-            "Grammar tools to highlight parts of speech"
-        ]
-    }
+          "Text-to-speech with natural voices",
+          "Adjustable text size, spacing, and fonts",
+          "Focus modes to reduce distractions",
+          "Translation tools for multiple languages",
+          "Picture dictionary for visual learners",
+          "Grammar tools to highlight parts of speech"
+        ],
+        "creator": {
+          "@id": "https://www.coffeeandfun.com/#founder"
+        },
+        "isAccessibleForFree": true,
+        "inLanguage": "en"
+      }
     </script>
 
     <!-- FAQ Structured Data -->
     <script type="application/ld+json">
-    {
+      {
         "@context": "https://schema.org",
         "@type": "FAQPage",
         "mainEntity": [
-            {
-                "@type": "Question",
-                "name": "Why does Immersive Reader for Safari require a subscription?",
-                "acceptedAnswer": { "@type": "Answer", "text": "There are real costs associated with providing access to the text-to-speech and accessibility services. Your subscription helps us maintain and improve the app while keeping it accessible and reliable." }
-            },
-            {
-                "@type": "Question",
-                "name": "How do I cancel my subscription?",
-                "acceptedAnswer": { "@type": "Answer", "text": "Open the Settings app on iPhone or iPad, tap your name, tap Subscriptions, select Immersive Reading, and tap Cancel Subscription. Your access continues until the end of the current billing period." }
-            },
-            {
-                "@type": "Question",
-                "name": "Does it work offline?",
-                "acceptedAnswer": { "@type": "Answer", "text": "The extension requires an internet connection to access the text-to-speech and accessibility services." }
-            },
-            {
-                "@type": "Question",
-                "name": "Is this affiliated with Microsoft?",
-                "acceptedAnswer": { "@type": "Answer", "text": "No. This app is created by Coffee & Fun LLC, independent developers who are fans of accessible reading technology. We are not affiliated with, endorsed by, or connected to Microsoft Corporation." }
-            },
-            {
-                "@type": "Question",
-                "name": "What devices are supported?",
-                "acceptedAnswer": { "@type": "Answer", "text": "Immersive Reading works on iPhone, iPad, and Mac. You need iOS 15+ or macOS 12+ to use the extension." }
-            },
-            {
-                "@type": "Question",
-                "name": "Can schools purchase bulk licenses?",
-                "acceptedAnswer": { "@type": "Answer", "text": "Yes. Bulk licensing is available for schools, universities, and organizations through Apple's Volume Purchase Program. Contact support@coffeeandfun.com for institutional pricing and deployment options." }
+          {
+            "@type": "Question",
+            "name": "Why does Immersive Reader for Safari require a subscription?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "There are real costs associated with providing access to the text-to-speech and accessibility services. Your subscription helps us maintain and improve the app while keeping it accessible and reliable."
             }
-        ]
-    }
+          },
+          {
+            "@type": "Question",
+            "name": "How do I cancel my subscription?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Open the Settings app on iPhone or iPad, tap your name, tap Subscriptions, select Immersive Reading, and tap Cancel Subscription. Your access continues until the end of the current billing period."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Does it work offline?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "The extension requires an internet connection to access the text-to-speech and accessibility services."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Is this affiliated with Microsoft?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "No. This app is created by Coffee & Fun LLC, independent developers who are fans of accessible reading technology. We are not affiliated with, endorsed by, or connected to Microsoft Corporation."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "What devices are supported?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Immersive Reading works on iPhone, iPad, and Mac. You need iOS 15+ or macOS 12+ to use the extension."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Can schools purchase bulk licenses?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Yes. Bulk licensing is available for schools, universities, and organizations through Apple's Volume Purchase Program. Contact support@coffeeandfun.com for institutional pricing and deployment options."
+            }
+          }
+        ],
+        "publisher": {
+          "@id": "https://www.coffeeandfun.com/#organization"
+        },
+        "isPartOf": {
+          "@id": "https://www.coffeeandfun.com/#website"
+        }
+      }
     </script>
+
+    {% include schema-org.liquid %}
 
     {% bundledCss %}
 

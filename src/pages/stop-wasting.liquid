@@ -56,27 +56,36 @@
 
 		<!-- Structured Data (JSON-LD) -->
 		<script type="application/ld+json">
-			{
-				"@context": "https://schema.org",
-				"@type": "WebPage",
-				"name": "ProcrastiNOT - Website Blocked",
-				"description": "Blocked page displayed by ProcrastiNOT when users attempt to access time-wasting websites",
-				"url": "https://www.coffeeandfun.com/stop-wasting/",
-				"isPartOf": {
-					"@type": "SoftwareApplication",
-					"name": "ProcrastiNOT",
-					"applicationCategory": "ProductivityApplication",
-					"operatingSystem": ["macOS", "iOS", "iPadOS"],
-					"publisher": {
-						"@type": "Organization",
-						"name": "Coffee & Fun LLC",
-						"url": "https://www.coffeeandfun.com"
-					}
-				}
-			}
+		  {
+		    "@context": "https://schema.org",
+		    "@type": "WebPage",
+		    "name": "ProcrastiNOT - Website Blocked",
+		    "description": "Blocked page displayed by ProcrastiNOT when users attempt to access time-wasting websites",
+		    "url": "https://www.coffeeandfun.com/stop-wasting/",
+		    "isPartOf": {
+		      "@type": "SoftwareApplication",
+		      "name": "ProcrastiNOT",
+		      "applicationCategory": "ProductivityApplication",
+		      "operatingSystem": [
+		        "macOS",
+		        "iOS",
+		        "iPadOS"
+		      ],
+		      "publisher": {
+		        "@type": "Organization",
+		        "name": "Coffee & Fun LLC",
+		        "url": "https://www.coffeeandfun.com"
+		      }
+		    },
+		    "publisher": {
+		      "@id": "https://www.coffeeandfun.com/#organization"
+		    }
+		  }
 		</script>
 
-		{% bundledCss %}
+		{% include schema-org.liquid %}
+
+    {% bundledCss %}
 
 
 		{% include scripts.html %}

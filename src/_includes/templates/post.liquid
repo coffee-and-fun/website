@@ -61,18 +61,10 @@
     "headline": {{ title | json }},
     "description": {{ description | json }},
     "image": "https://www.coffeeandfun.com{{img}}",
-    "author": {
-      "@type": "Organization",
-      "name": "Coffee & Fun LLC"
-    },
-    "publisher": {
-      "@type": "Organization",
-      "name": "Coffee & Fun LLC",
-      "logo": {
-        "@type": "ImageObject",
-        "url": "https://www.coffeeandfun.com/assets/images/brand/coffee-and-fun-logo-dark.png"
-      }
-    },
+    "author": { "@id": "https://www.coffeeandfun.com/#founder" },
+    "publisher": { "@id": "https://www.coffeeandfun.com/#organization" },
+    "isPartOf": { "@id": "https://www.coffeeandfun.com/#website" },
+    "inLanguage": "en",
     "datePublished": "{{date | date: '%Y-%m-%d' }}",
     "dateModified": "{{date | date: '%Y-%m-%d' }}",
     "mainEntityOfPage": {
@@ -82,7 +74,9 @@
   }
   </script>
 
-  {% bundledCss %}
+  {% include schema-org.liquid %}
+
+    {% bundledCss %}
   {% include sketch-styles.liquid %}
 
   <!-- Service Worker -->

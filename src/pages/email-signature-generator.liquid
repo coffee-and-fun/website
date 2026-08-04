@@ -40,7 +40,9 @@
   <link rel="manifest" href="/assets/images/social/site.webmanifest" />
   <meta name="theme-color" content="#fef5ec" />
 
-  {% bundledCss %}
+  {% include schema-org.liquid %}
+
+    {% bundledCss %}
   {% include scripts.html %}
   {% include sketch-styles.liquid %}
 
@@ -49,22 +51,38 @@
     {% pageCss "email-signature-generator" %}
 
   <script type="application/ld+json">
-  {
-    "@context": "https://schema.org",
-    "@type": "WebApplication",
-    "name": "Email Signature Generator",
-    "description": "Create an HTML email signature with photos, social icons, and a live preview, then copy it into Gmail, Outlook, or Apple Mail, or download it for Thunderbird.",
-    "url": "https://www.coffeeandfun.com/email-signature-generator/",
-    "applicationCategory": "BusinessApplication",
-    "operatingSystem": "Web Browser",
-    "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" },
-    "featureList": ["Six signature templates", "Live email preview", "Rich one-click copy for Gmail, Outlook and Apple Mail", "Copy HTML source and download .html for Thunderbird", "Photo support with hosted-image guidance", "Social links", "Autosave", "Local processing"],
-    "creator": {
-      "@type": "Organization",
-      "name": "Coffee & Fun LLC",
-      "url": "https://www.coffeeandfun.com"
+    {
+      "@context": "https://schema.org",
+      "@type": "WebApplication",
+      "name": "Email Signature Generator",
+      "description": "Create an HTML email signature with photos, social icons, and a live preview, then copy it into Gmail, Outlook, or Apple Mail, or download it for Thunderbird.",
+      "url": "https://www.coffeeandfun.com/email-signature-generator/",
+      "applicationCategory": "BusinessApplication",
+      "operatingSystem": "Web Browser",
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "USD"
+      },
+      "featureList": [
+        "Six signature templates",
+        "Live email preview",
+        "Rich one-click copy for Gmail, Outlook and Apple Mail",
+        "Copy HTML source and download .html for Thunderbird",
+        "Photo support with hosted-image guidance",
+        "Social links",
+        "Autosave",
+        "Local processing"
+      ],
+      "creator": {
+        "@id": "https://www.coffeeandfun.com/#founder"
+      },
+      "publisher": {
+        "@id": "https://www.coffeeandfun.com/#organization"
+      },
+      "isAccessibleForFree": true,
+      "inLanguage": "en"
     }
-  }
   </script>
 </head>
 

@@ -42,6 +42,8 @@
     <meta name="apple-mobile-web-app-status-bar-style" content="default" />
     <meta name="apple-mobile-web-app-title" content="Receipt Generator" />
 
+    {% include schema-org.liquid %}
+
     {% bundledCss %}
     {% include scripts.html %}
     {% include sketch-styles.liquid %}
@@ -52,29 +54,42 @@
     {% pageCss "receipt-generator" %}
 
     <script type="application/ld+json">
-    {
+      {
         "@context": "https://schema.org",
-        "@graph": [
-            {
-                "@type": "WebPage",
-                "@id": "https://www.coffeeandfun.com/receipt-generator/#webpage",
-                "url": "https://www.coffeeandfun.com/receipt-generator/",
-                "name": "Free Receipt Generator",
-                "description": "Generate realistic thermal-style replacement receipts for bookkeeping with our privacy-focused tool.",
-                "isPartOf": { "@id": "https://www.coffeeandfun.com/#website" },
-                "mainEntity": {
-                    "@type": "SoftwareApplication",
-                    "name": "Free Receipt Generator",
-                    "description": "Privacy-focused web-based tool for creating realistic thermal-style business receipts with PDF export, barcode, and tax calculations",
-                    "url": "https://www.coffeeandfun.com/receipt-generator/",
-                    "applicationCategory": "BusinessApplication",
-                    "operatingSystem": "Web Browser",
-                    "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" },
-                    "featureList": ["Realistic 80mm thermal receipt PDF", "Scannable Code 39 barcode", "Tax and discount calculations", "Multi-currency support", "Cash tendered and change", "Auto-incrementing receipt numbers", "Draft autosave", "Local processing", "No data tracking"]
-                }
-            }
+        "@type": "WebApplication",
+        "@id": "https://www.coffeeandfun.com/receipt-generator/#webpage",
+        "url": "https://www.coffeeandfun.com/receipt-generator/",
+        "name": "Free Receipt Generator",
+        "description": "Generate realistic thermal-style replacement receipts for bookkeeping with our privacy-focused tool.",
+        "isPartOf": {
+          "@id": "https://www.coffeeandfun.com/#website"
+        },
+        "applicationCategory": "BusinessApplication",
+        "publisher": {
+          "@id": "https://www.coffeeandfun.com/#organization"
+        },
+        "creator": {
+          "@id": "https://www.coffeeandfun.com/#founder"
+        },
+        "isAccessibleForFree": true,
+        "inLanguage": "en",
+        "offers": {
+          "@type": "Offer",
+          "price": "0",
+          "priceCurrency": "USD"
+        },
+        "featureList": [
+          "Realistic 80mm thermal receipt PDF",
+          "Scannable Code 39 barcode",
+          "Tax and discount calculations",
+          "Multi-currency support",
+          "Cash tendered and change",
+          "Auto-incrementing receipt numbers",
+          "Draft autosave",
+          "Local processing",
+          "No data tracking"
         ]
-    }
+      }
     </script>
 </head>
 

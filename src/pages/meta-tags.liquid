@@ -40,23 +40,37 @@
 
     <!-- Structured Data -->
     <script type="application/ld+json">
-    {
+      {
         "@context": "https://schema.org",
-        "@type": "SoftwareApplication",
+        "@type": "WebApplication",
         "name": "Free Meta Tags Generator",
         "description": "Preview how your page looks on Google, Facebook, and X, then copy ready-made meta tags into your site.",
         "url": "https://www.coffeeandfun.com/meta-tags/",
         "applicationCategory": "DeveloperApplication",
         "operatingSystem": "Web Browser",
-        "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" }
-    }
+        "offers": {
+          "@type": "Offer",
+          "price": "0",
+          "priceCurrency": "USD"
+        },
+        "publisher": {
+          "@id": "https://www.coffeeandfun.com/#organization"
+        },
+        "creator": {
+          "@id": "https://www.coffeeandfun.com/#founder"
+        },
+        "isAccessibleForFree": true,
+        "inLanguage": "en"
+      }
     </script>
 
     <script src="https://unpkg.com/vue@3"></script>
 
     {% pageCss "meta-tags" %}
     {% include sketch-styles.liquid %}
-</head>
+{% include schema-org.liquid %}
+
+    </head>
 
 <body>
 {% raw %}

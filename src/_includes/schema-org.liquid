@@ -1,0 +1,87 @@
+{%- comment -%}
+  The shared structured-data graph: the company, the founder, and the site.
+
+  Every page includes this once. Page-specific entities (a tool, a game, an
+  article) live in the page's own JSON-LD block and point back here by @id
+  rather than repeating any of it:
+
+      "publisher": { "@id": "https://www.coffeeandfun.com/#organization" }
+      "author":    { "@id": "https://www.coffeeandfun.com/#founder" }
+
+  That way the founding date, the Wikidata links and the social profiles are
+  stated in one place. They used to be copy-pasted onto five pages and missing
+  from the rest.
+{%- endcomment -%}
+<script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "Organization",
+        "@id": "https://www.coffeeandfun.com/#organization",
+        "name": "Coffee & Fun LLC",
+        "legalName": "Coffee & Fun LLC",
+        "alternateName": "Coffee and Fun",
+        "url": "https://www.coffeeandfun.com/",
+        "foundingDate": "2022",
+        "email": "hello@coffeeandfun.com",
+        "description": "Coffee & Fun LLC builds accessible apps, browser extensions and free web tools.",
+        "logo": {
+          "@type": "ImageObject",
+          "@id": "https://www.coffeeandfun.com/#logo",
+          "url": "https://www.coffeeandfun.com/assets/images/brand/coffee-and-fun-logo-dark.png",
+          "width": 512,
+          "height": 512,
+          "caption": "Coffee & Fun LLC"
+        },
+        "image": { "@id": "https://www.coffeeandfun.com/#logo" },
+        "founder": { "@id": "https://www.coffeeandfun.com/#founder" },
+        "employee": [
+          { "@id": "https://www.coffeeandfun.com/#founder" },
+          { "@type": "Person", "name": "Courtney Hood", "jobTitle": "Head of Marketing" },
+          { "@type": "Person", "name": "Anna Brown", "jobTitle": "Support Agent" }
+        ],
+        "contactPoint": {
+          "@type": "ContactPoint",
+          "email": "hello@coffeeandfun.com",
+          "contactType": "customer support",
+          "url": "https://www.coffeeandfun.com/support/",
+          "availableLanguage": "English"
+        },
+        "sameAs": [
+          "https://www.wikidata.org/wiki/Q140453358",
+          "https://x.com/bycoffeeandfun",
+          "https://github.com/coffee-and-fun",
+          "https://www.instagram.com/coffeeandfunllc",
+          "https://www.youtube.com/@CoffeeFunLLC",
+          "https://www.npmjs.com/org/coffeeandfun"
+        ]
+      },
+      {
+        "@type": "Person",
+        "@id": "https://www.coffeeandfun.com/#founder",
+        "name": "Robert James Gabriel",
+        "givenName": "Robert",
+        "familyName": "Gabriel",
+        "jobTitle": "Founder and CTO",
+        "url": "https://www.coffeeandfun.com/about/",
+        "worksFor": { "@id": "https://www.coffeeandfun.com/#organization" },
+        "sameAs": [
+          "https://www.wikidata.org/wiki/Q140453422",
+          "https://x.com/RobertJGabriel",
+          "https://github.com/RobertJGabriel",
+          "https://www.robertgabriel.ninja"
+        ]
+      },
+      {
+        "@type": "WebSite",
+        "@id": "https://www.coffeeandfun.com/#website",
+        "url": "https://www.coffeeandfun.com/",
+        "name": "Coffee & Fun",
+        "description": "Accessible apps, browser extensions and free web tools.",
+        "inLanguage": "en",
+        "publisher": { "@id": "https://www.coffeeandfun.com/#organization" }
+      }
+    ]
+  }
+</script>

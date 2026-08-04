@@ -41,19 +41,28 @@
 
     <!-- Structured Data -->
     <script type="application/ld+json">
-    {
+      {
         "@context": "https://schema.org",
         "@type": "CollectionPage",
         "name": "Netflix Hidden Categories & Secret Codes",
         "description": "A searchable list of {{ netflixCatalog.totalText }} Netflix hidden category codes, each linking straight to its page on Netflix.",
         "url": "https://www.coffeeandfun.com{{ page.url }}",
-        "isPartOf": { "@type": "WebSite", "name": "Coffee & Fun", "url": "https://www.coffeeandfun.com/" }
-    }
+        "isPartOf": {
+          "@type": "WebSite",
+          "name": "Coffee & Fun",
+          "url": "https://www.coffeeandfun.com/"
+        },
+        "publisher": {
+          "@id": "https://www.coffeeandfun.com/#organization"
+        }
+      }
     </script>
 
     {% pageCss "netflix" %}
     {% include sketch-styles.liquid %}
-</head>
+{% include schema-org.liquid %}
+
+    </head>
 
 <body>
     <a href="#tool" class="skip">Skip to the search</a>

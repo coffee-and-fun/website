@@ -48,66 +48,51 @@
 
     <!-- Structured Data -->
     <script type="application/ld+json">
-    {
+      {
         "@context": "https://schema.org",
-        "@graph": [
-            {
-                "@type": "WebSite",
-                "@id": "https://www.coffeeandfun.com/#website",
-                "name": "Coffee & Fun",
-                "description": "Apps, games, and digital experiences by Coffee & Fun LLC",
-                "url": "https://www.coffeeandfun.com/",
-                "publisher": {
-                    "@id": "https://www.coffeeandfun.com/#organization"
-                }
-            },
-            {
-                "@type": "WebPage",
-                "@id": "https://www.coffeeandfun.com/meta-videos#webpage",
-                "url": "https://www.coffeeandfun.com/meta-videos",
-                "name": "Video Metadata Viewer & Remover",
-                "description": "See the hidden metadata inside your videos and download a clean copy with it removed, all in your browser.",
-                "isPartOf": {
-                    "@id": "https://www.coffeeandfun.com/#website"
-                },
-                "about": {
-                    "@type": "Thing",
-                    "name": "Video Metadata Tool"
-                },
-                "mainEntity": {
-                    "@type": "SoftwareApplication",
-                    "name": "Video Metadata Viewer & Remover",
-                    "description": "Web-based tool for viewing and removing video metadata locally in the browser",
-                    "url": "https://www.coffeeandfun.com/meta-videos",
-                    "applicationCategory": "Utility",
-                    "operatingSystem": "Web Browser",
-                    "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" },
-                    "featureList": ["View video metadata", "GPS and location warnings", "Remove metadata without re-encoding", "Local processing", "No uploads"]
-                }
-            },
-            {
-                "@type": "Organization",
-                "@id": "https://www.coffeeandfun.com/#organization",
-                "name": "Coffee & Fun LLC",
-                "legalName": "Coffee & Fun LLC",
-                "url": "https://www.coffeeandfun.com/",
-                "logo": {
-                    "@type": "ImageObject",
-                    "url": "https://www.coffeeandfun.com/assets/images/brand/logo.png",
-                    "width": 512,
-                    "height": 512
-                },
-                "description": "Digital experiences and applications company specializing in clean, user-friendly web applications."
-            }
+        "@type": "WebApplication",
+        "@id": "https://www.coffeeandfun.com/meta-videos#webpage",
+        "url": "https://www.coffeeandfun.com/meta-videos",
+        "name": "Video Metadata Viewer & Remover",
+        "description": "See the hidden metadata inside your videos and download a clean copy with it removed, all in your browser.",
+        "isPartOf": {
+          "@id": "https://www.coffeeandfun.com/#website"
+        },
+        "about": {
+          "@type": "Thing",
+          "name": "Video Metadata Tool"
+        },
+        "applicationCategory": "UtilitiesApplication",
+        "publisher": {
+          "@id": "https://www.coffeeandfun.com/#organization"
+        },
+        "creator": {
+          "@id": "https://www.coffeeandfun.com/#founder"
+        },
+        "isAccessibleForFree": true,
+        "inLanguage": "en",
+        "offers": {
+          "@type": "Offer",
+          "price": "0",
+          "priceCurrency": "USD"
+        },
+        "featureList": [
+          "View video metadata",
+          "GPS and location warnings",
+          "Remove metadata without re-encoding",
+          "Local processing",
+          "No uploads"
         ]
-    }
+      }
     </script>
 
     <script src="https://unpkg.com/vue@3"></script>
 
     {% pageCss "meta-videos" %}
     {% include sketch-styles.liquid %}
-</head>
+{% include schema-org.liquid %}
+
+    </head>
 
 <body>
 {% raw %}

@@ -41,18 +41,40 @@
 
     <!-- Structured Data -->
     <script type="application/ld+json">
-    {
+      {
         "@context": "https://schema.org",
         "@type": "VideoGame",
         "name": "Drop Dungeon",
         "description": "A roguelike twist on Connect Four: clear seven mutating floors, collect relics, and outdrop the dungeon, solo against an escalating AI or head-to-head with a friend online.",
         "url": "https://www.coffeeandfun.com/drop-dungeon/",
-        "genre": ["Strategy", "Roguelike"],
+        "genre": [
+          "Strategy",
+          "Roguelike"
+        ],
         "gamePlatform": "Web Browser",
-        "playMode": ["SinglePlayer", "MultiPlayer"],
-        "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" },
-        "author": { "@type": "Organization", "name": "Coffee & Fun LLC" }
-    }
+        "playMode": [
+          "SinglePlayer",
+          "MultiPlayer"
+        ],
+        "offers": {
+          "@type": "Offer",
+          "price": "0",
+          "priceCurrency": "USD"
+        },
+        "author": {
+          "@type": "Organization",
+          "name": "Coffee & Fun LLC"
+        },
+        "applicationCategory": "GameApplication",
+        "publisher": {
+          "@id": "https://www.coffeeandfun.com/#organization"
+        },
+        "creator": {
+          "@id": "https://www.coffeeandfun.com/#founder"
+        },
+        "isAccessibleForFree": true,
+        "inLanguage": "en"
+      }
     </script>
 
     <!-- Dungeon display font -->
@@ -64,7 +86,9 @@
     <script src="https://unpkg.com/peerjs@1.5.5/dist/peerjs.min.js"></script>
 
     {% pageCss "drop-dungeon" %}
-</head>
+{% include schema-org.liquid %}
+
+    </head>
 
 <body>
     <div class="torch l" aria-hidden="true"></div>

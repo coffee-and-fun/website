@@ -54,45 +54,38 @@
 
     <!-- Structured Data -->
     <script type="application/ld+json">
-    {
+      {
         "@context": "https://schema.org",
-        "@graph": [
-            {
-                "@type": "WebSite",
-                "name": "Coffee & Fun",
-                "url": "https://www.coffeeandfun.com",
-                "potentialAction": {
-                    "@type": "SearchAction",
-                    "target": "https://www.coffeeandfun.com/search?q={search_term_string}",
-                    "query-input": "required name=search_term_string"
-                }
-            },
-            {
-                "@type": "WebApplication",
-                "@id": "https://www.coffeeandfun.com/chrome-extension-icon-generator/",
-                "name": "Chrome Extension Icon Generator",
-                "description": "Generate all required icon sizes for your Chrome extension from a single 1024x1024 image. Outputs 16, 19, 32, 38, 48, 64, 128, 512, and 1024px icons.",
-                "url": "https://www.coffeeandfun.com/chrome-extension-icon-generator/",
-                "image": "https://www.coffeeandfun.com/assets/images/social/pages/chrome-extension-icon-generator.png",
-                "applicationCategory": "UtilityApplication",
-                "operatingSystem": "Web Browser",
-                "browserRequirements": "Requires JavaScript. Requires HTML5.",
-                "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" },
-                "featureList": [
-                    "Nine icon sizes from one upload (16 to 1024 px)",
-                    "Download each size individually",
-                    "Download every size as one zip",
-                    "Ready-made manifest.json snippet",
-                    "Local processing - images never leave the browser"
-                ],
-                "creator": {
-                    "@type": "Organization",
-                    "name": "Coffee & Fun LLC",
-                    "url": "https://www.coffeeandfun.com"
-                }
-            }
-        ]
-    }
+        "@type": "WebApplication",
+        "@id": "https://www.coffeeandfun.com/chrome-extension-icon-generator/",
+        "name": "Chrome Extension Icon Generator",
+        "description": "Generate all required icon sizes for your Chrome extension from a single 1024x1024 image. Outputs 16, 19, 32, 38, 48, 64, 128, 512, and 1024px icons.",
+        "url": "https://www.coffeeandfun.com/chrome-extension-icon-generator/",
+        "image": "https://www.coffeeandfun.com/assets/images/social/pages/chrome-extension-icon-generator.png",
+        "applicationCategory": "UtilitiesApplication",
+        "operatingSystem": "Web Browser",
+        "browserRequirements": "Requires JavaScript. Requires HTML5.",
+        "offers": {
+          "@type": "Offer",
+          "price": "0",
+          "priceCurrency": "USD"
+        },
+        "featureList": [
+          "Nine icon sizes from one upload (16 to 1024 px)",
+          "Download each size individually",
+          "Download every size as one zip",
+          "Ready-made manifest.json snippet",
+          "Local processing - images never leave the browser"
+        ],
+        "creator": {
+          "@id": "https://www.coffeeandfun.com/#founder"
+        },
+        "publisher": {
+          "@id": "https://www.coffeeandfun.com/#organization"
+        },
+        "isAccessibleForFree": true,
+        "inLanguage": "en"
+      }
     </script>
 
     <script src="https://unpkg.com/vue@3"></script>
@@ -100,7 +93,9 @@
 
     {% pageCss "chrome-extension-icon-generator" %}
     {% include sketch-styles.liquid %}
-</head>
+{% include schema-org.liquid %}
+
+    </head>
 
 <body>
 {% raw %}

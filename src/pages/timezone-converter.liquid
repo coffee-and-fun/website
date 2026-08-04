@@ -41,23 +41,35 @@
 
     <!-- Structured Data -->
     <script type="application/ld+json">
-    {
+      {
         "@context": "https://schema.org",
-        "@type": "SoftwareApplication",
+        "@type": "WebApplication",
         "name": "Free Time Zone Converter",
         "description": "See the live local time in any city, how far ahead or behind you it is, and whether it's a reasonable hour to call. Handles daylight saving automatically.",
         "url": "https://www.coffeeandfun.com/timezone-converter/",
-        "applicationCategory": "UtilityApplication",
+        "applicationCategory": "UtilitiesApplication",
         "operatingSystem": "Web Browser",
-        "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" },
+        "offers": {
+          "@type": "Offer",
+          "price": "0",
+          "priceCurrency": "USD"
+        },
         "featureList": [
-            "Live local time in 400+ places",
-            "Plain-English time difference",
-            "Good-time-to-call indicator",
-            "Plan a call at any date and time",
-            "Automatic daylight saving handling"
-        ]
-    }
+          "Live local time in 400+ places",
+          "Plain-English time difference",
+          "Good-time-to-call indicator",
+          "Plan a call at any date and time",
+          "Automatic daylight saving handling"
+        ],
+        "publisher": {
+          "@id": "https://www.coffeeandfun.com/#organization"
+        },
+        "creator": {
+          "@id": "https://www.coffeeandfun.com/#founder"
+        },
+        "isAccessibleForFree": true,
+        "inLanguage": "en"
+      }
     </script>
 
     <script src="https://unpkg.com/vue@3"></script>
@@ -65,7 +77,9 @@
 
     {% pageCss "timezone-converter" %}
     {% include sketch-styles.liquid %}
-</head>
+{% include schema-org.liquid %}
+
+    </head>
 
 <body>
 {% raw %}

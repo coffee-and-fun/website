@@ -56,65 +56,86 @@
 
 		<!-- Structured Data (JSON-LD) -->
 		<script type="application/ld+json">
-			{
-				"@context": "https://schema.org",
-				"@type": "SoftwareApplication",
-				"name": "ProcrastiNOT",
-				"description": "A Safari extension for macOS, iPhone, and iPad that blocks time-wasting websites. To turn blocking off, you have to solve a math problem first.",
-				"url": "https://www.coffeeandfun.com/procrastinot/",
-				"applicationCategory": "ProductivityApplication",
-				"operatingSystem": ["macOS", "iOS", "iPadOS"],
-				"downloadUrl": "https://apps.apple.com/us/app/procrastinot-website-blocker/id6569216739",
-				"offers": {
-					"@type": "Offer",
-					"price": "2.99",
-					"priceCurrency": "USD"
-				},
-				"publisher": {
-					"@type": "Organization",
-					"name": "Coffee & Fun LLC",
-					"url": "https://www.coffeeandfun.com",
-					"sameAs": [
-						"https://x.com/bycoffeeandfun"
-					]
-				},
-				"screenshot": "/assets/videos/blocker.mp4",
-				"featureList": [
-					"Block distracting websites",
-					"Math problem challenges to disable",
-					"Works on Safari for macOS, iPhone & iPad",
-					"Privacy-focused - no data tracking",
-					"Easy setup and customization"
-				]
-			}
+		  {
+		    "@context": "https://schema.org",
+		    "@type": "SoftwareApplication",
+		    "name": "ProcrastiNOT",
+		    "description": "A Safari extension for macOS, iPhone, and iPad that blocks time-wasting websites. To turn blocking off, you have to solve a math problem first.",
+		    "url": "https://www.coffeeandfun.com/procrastinot/",
+		    "applicationCategory": "ProductivityApplication",
+		    "operatingSystem": [
+		      "macOS",
+		      "iOS",
+		      "iPadOS"
+		    ],
+		    "downloadUrl": "https://apps.apple.com/us/app/procrastinot-website-blocker/id6569216739",
+		    "offers": {
+		      "@type": "Offer",
+		      "price": "2.99",
+		      "priceCurrency": "USD"
+		    },
+		    "publisher": {
+		      "@id": "https://www.coffeeandfun.com/#organization"
+		    },
+		    "screenshot": "/assets/videos/blocker.mp4",
+		    "featureList": [
+		      "Block distracting websites",
+		      "Math problem challenges to disable",
+		      "Works on Safari for macOS, iPhone & iPad",
+		      "Privacy-focused - no data tracking",
+		      "Easy setup and customization"
+		    ],
+		    "creator": {
+		      "@id": "https://www.coffeeandfun.com/#founder"
+		    },
+		    "isAccessibleForFree": true,
+		    "inLanguage": "en"
+		  }
 		</script>
 
 		<!-- FAQ Structured Data -->
 		<script type="application/ld+json">
-			{
-				"@context": "https://schema.org",
-				"@type": "FAQPage",
-				"mainEntity": [
-					{
-						"@type": "Question",
-						"name": "What does ProcrastiNOT do?",
-						"acceptedAnswer": { "@type": "Answer", "text": "ProcrastiNOT helps you stay focused by blocking websites you choose, like Facebook or YouTube. If you try to visit a blocked site, it redirects you with a message to refocus, and you'll need to solve a math problem to turn it off." }
-					},
-					{
-						"@type": "Question",
-						"name": "Does ProcrastiNOT track or store my data?",
-						"acceptedAnswer": { "@type": "Answer", "text": "No. We don't keep tabs on where you go or what you do, no tracking, period. Since we don't store data, there's nothing to see." }
-					},
-					{
-						"@type": "Question",
-						"name": "Why does ProcrastiNOT cost $2.99?",
-						"acceptedAnswer": { "@type": "Answer", "text": "The $2.99 helps us keep the app running, add new features, and make improvements. It supports all the work that goes into making the app better for you." }
-					}
-				]
-			}
+		  {
+		    "@context": "https://schema.org",
+		    "@type": "FAQPage",
+		    "mainEntity": [
+		      {
+		        "@type": "Question",
+		        "name": "What does ProcrastiNOT do?",
+		        "acceptedAnswer": {
+		          "@type": "Answer",
+		          "text": "ProcrastiNOT helps you stay focused by blocking websites you choose, like Facebook or YouTube. If you try to visit a blocked site, it redirects you with a message to refocus, and you'll need to solve a math problem to turn it off."
+		        }
+		      },
+		      {
+		        "@type": "Question",
+		        "name": "Does ProcrastiNOT track or store my data?",
+		        "acceptedAnswer": {
+		          "@type": "Answer",
+		          "text": "No. We don't keep tabs on where you go or what you do, no tracking, period. Since we don't store data, there's nothing to see."
+		        }
+		      },
+		      {
+		        "@type": "Question",
+		        "name": "Why does ProcrastiNOT cost $2.99?",
+		        "acceptedAnswer": {
+		          "@type": "Answer",
+		          "text": "The $2.99 helps us keep the app running, add new features, and make improvements. It supports all the work that goes into making the app better for you."
+		        }
+		      }
+		    ],
+		    "publisher": {
+		      "@id": "https://www.coffeeandfun.com/#organization"
+		    },
+		    "isPartOf": {
+		      "@id": "https://www.coffeeandfun.com/#website"
+		    }
+		  }
 		</script>
 
-		{% bundledCss %}
+		{% include schema-org.liquid %}
+
+    {% bundledCss %}
 
 
 		{% include scripts.html %}

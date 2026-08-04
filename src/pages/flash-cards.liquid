@@ -54,7 +54,7 @@
     
     <!-- Structured Data -->
     <script type="application/ld+json">
-    {
+      {
         "@context": "https://schema.org",
         "@type": "SoftwareApplication",
         "name": "Instant Flash Cards",
@@ -63,50 +63,72 @@
         "applicationCategory": "EducationalApplication",
         "operatingSystem": "Chrome, Firefox, Safari, Edge",
         "offers": {
-            "@type": "Offer",
-            "price": "15.00",
-            "priceCurrency": "USD",
-            "priceValidUntil": "2026-12-31"
+          "@type": "Offer",
+          "price": "15.00",
+          "priceCurrency": "USD",
+          "priceValidUntil": "2026-12-31"
         },
         "creator": {
-            "@type": "Organization",
-            "name": "Coffee & Fun LLC",
-            "url": "https://www.coffeeandfun.com",
-            "sameAs": ["https://x.com/bycoffeeandfun"]
-        }
-    }
+          "@id": "https://www.coffeeandfun.com/#founder"
+        },
+        "publisher": {
+          "@id": "https://www.coffeeandfun.com/#organization"
+        },
+        "isAccessibleForFree": true,
+        "inLanguage": "en"
+      }
     </script>
 
     <!-- FAQ Structured Data -->
     <script type="application/ld+json">
-    {
+      {
         "@context": "https://schema.org",
         "@type": "FAQPage",
         "mainEntity": [
-            {
-                "@type": "Question",
-                "name": "Why does Instant Flash Cards cost $15 per year?",
-                "acceptedAnswer": { "@type": "Answer", "text": "The $15 annual fee covers the costs of keeping the app running smoothly. It supports ongoing improvements, bug fixes, and the development of new features." }
-            },
-            {
-                "@type": "Question",
-                "name": "How does Instant Flash Cards handle my data?",
-                "acceptedAnswer": { "@type": "Answer", "text": "We only collect the text you've selected when creating flashcards. Text is processed using ChatGPT with custom commands to generate flashcards, then immediately discarded. All data transmission is encrypted, and we never store your content after flashcard creation." }
-            },
-            {
-                "@type": "Question",
-                "name": "What is the refund policy?",
-                "acceptedAnswer": { "@type": "Answer", "text": "We offer a no-questions-asked refund policy for 3 days following your purchase. Email hello@coffeeandfun.com and we'll process your refund promptly." }
-            },
-            {
-                "@type": "Question",
-                "name": "How do I cancel my subscription?",
-                "acceptedAnswer": { "@type": "Answer", "text": "Open the Instant Flash Cards extension, click Settings, select Manage in the modal window, then click Cancel Subscription. You're always welcome back!" }
+          {
+            "@type": "Question",
+            "name": "Why does Instant Flash Cards cost $15 per year?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "The $15 annual fee covers the costs of keeping the app running smoothly. It supports ongoing improvements, bug fixes, and the development of new features."
             }
-        ]
-    }
+          },
+          {
+            "@type": "Question",
+            "name": "How does Instant Flash Cards handle my data?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "We only collect the text you've selected when creating flashcards. Text is processed using ChatGPT with custom commands to generate flashcards, then immediately discarded. All data transmission is encrypted, and we never store your content after flashcard creation."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "What is the refund policy?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "We offer a no-questions-asked refund policy for 3 days following your purchase. Email hello@coffeeandfun.com and we'll process your refund promptly."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "How do I cancel my subscription?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Open the Instant Flash Cards extension, click Settings, select Manage in the modal window, then click Cancel Subscription. You're always welcome back!"
+            }
+          }
+        ],
+        "publisher": {
+          "@id": "https://www.coffeeandfun.com/#organization"
+        },
+        "isPartOf": {
+          "@id": "https://www.coffeeandfun.com/#website"
+        }
+      }
     </script>
     
+    {% include schema-org.liquid %}
+
     {% bundledCss %}
     
     

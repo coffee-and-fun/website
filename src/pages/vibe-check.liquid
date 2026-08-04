@@ -52,50 +52,43 @@
 
     <!-- Schema.org structured data -->
     <script type="application/ld+json">
-    {
-      "@context": "https://schema.org",
-      "@graph": [
-        {
-          "@type": "WebSite",
-          "name": "Coffee & Fun",
-          "url": "https://www.coffeeandfun.com",
-          "potentialAction": {
-            "@type": "SearchAction",
-            "target": "https://www.coffeeandfun.com/search?q={search_term_string}",
-            "query-input": "required name=search_term_string"
-          }
+      {
+        "@context": "https://schema.org",
+        "@type": "VideoGame",
+        "@id": "https://www.coffeeandfun.com/vibe-check/",
+        "name": "Vibe Check: Daily Mood Puzzle Game",
+        "description": "Guess the day's vibe from four emoji clues. Four tries per day, the same puzzle for everyone, and a new one at midnight.",
+        "url": "https://www.coffeeandfun.com/vibe-check/",
+        "image": "https://www.coffeeandfun.com/assets/images/social/pages/vibe-check.png",
+        "applicationCategory": "GameApplication",
+        "operatingSystem": "Any",
+        "browserRequirements": "Requires JavaScript. Requires HTML5.",
+        "softwareVersion": "1.0",
+        "offers": {
+          "@type": "Offer",
+          "price": "0",
+          "priceCurrency": "USD"
         },
-        {
-          "@type": "WebApplication",
-          "@id": "https://www.coffeeandfun.com/vibe-check/",
-          "name": "Vibe Check: Daily Mood Puzzle Game",
-          "description": "Guess the day's vibe from four emoji clues. Four tries per day, the same puzzle for everyone, and a new one at midnight.",
-          "url": "https://www.coffeeandfun.com/vibe-check/",
-          "image": "https://www.coffeeandfun.com/assets/images/social/pages/vibe-check.png",
-          "applicationCategory": "GameApplication",
-          "operatingSystem": "Any",
-          "browserRequirements": "Requires JavaScript. Requires HTML5.",
-          "softwareVersion": "1.0",
-          "offers": {
-            "@type": "Offer",
-            "price": "0",
-            "priceCurrency": "USD"
-          },
-          "creator": {
-            "@type": "Organization",
-            "name": "Coffee & Fun LLC",
-            "url": "https://www.coffeeandfun.com"
-          }
-        }
-      ]
-    }
+        "creator": {
+          "@id": "https://www.coffeeandfun.com/#founder"
+        },
+        "publisher": {
+          "@id": "https://www.coffeeandfun.com/#organization"
+        },
+        "isAccessibleForFree": true,
+        "inLanguage": "en",
+        "gamePlatform": "Web Browser",
+        "playMode": "SinglePlayer"
+      }
     </script>
 
     <script src="https://unpkg.com/vue@3"></script>
 
     {% pageCss "vibe-check" %}
     {% include sketch-styles.liquid %}
-</head>
+{% include schema-org.liquid %}
+
+    </head>
 
 <body>
 {% raw %}

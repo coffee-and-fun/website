@@ -54,64 +54,30 @@
     
     <!-- Structured Data -->
     <script type="application/ld+json">
-    {
+      {
         "@context": "https://schema.org",
-        "@graph": [
-            {
-                "@type": "WebSite",
-                "name": "Coffee & Fun",
-                "url": "https://www.coffeeandfun.com",
-                "potentialAction": {
-                    "@type": "SearchAction",
-                    "target": "/search?q={search_term_string}",
-                    "query-input": "required name=search_term_string"
-                }
-            },
-            {
-                "@type": "Blog",
-                "@id": "/blog/",
-                "name": "Coffee & Fun Blog",
-                "description": "Official blog featuring research, announcements, guides, and updates from Coffee & Fun LLC",
-                "url": "/blog/",
-                "image": "/assets/images/social/pages/blog.png",
-                "publisher": {
-                    "@type": "Organization",
-                    "name": "Coffee & Fun LLC",
-                    "logo": {
-                        "@type": "ImageObject",
-                        "url": "/assets/images/brand/coffee-and-fun-logo-dark.png",
-                        "width": 180,
-                        "height": 180
-                    },
-                    "sameAs": [
-                        "https://x.com/bycoffeeandfun"
-                    ]
-                },
-                "blogPost": {
-                    "@type": "BlogPosting",
-                    "headline": "Latest Updates from Coffee & Fun",
-                    "description": "Discover our latest product releases, guides, and announcements"
-                }
-            },
-            {
-                "@type": "Organization",
-                "name": "Coffee & Fun LLC",
-                "url": "https://www.coffeeandfun.com",
-                "logo": {
-                    "@type": "ImageObject",
-                    "url": "/assets/images/brand/coffee-and-fun-logo-dark.png",
-                    "width": 180,
-                    "height": 180
-                },
-                "description": "Apps, games, and digital experiences by Coffee & Fun LLC",
-                "sameAs": [
-                    "https://x.com/bycoffeeandfun"
-                ]
-            }
-        ]
-    }
+        "@type": "Blog",
+        "@id": "/blog/",
+        "name": "Coffee & Fun Blog",
+        "description": "Official blog featuring research, announcements, guides, and updates from Coffee & Fun LLC",
+        "url": "/blog/",
+        "image": "/assets/images/social/pages/blog.png",
+        "publisher": {
+          "@id": "https://www.coffeeandfun.com/#organization"
+        },
+        "blogPost": {
+          "@type": "BlogPosting",
+          "headline": "Latest Updates from Coffee & Fun",
+          "description": "Discover our latest product releases, guides, and announcements"
+        },
+        "isPartOf": {
+          "@id": "https://www.coffeeandfun.com/#website"
+        }
+      }
     </script>
     
+    {% include schema-org.liquid %}
+
     {% bundledCss %}
     {% include sketch-styles.liquid %}
 

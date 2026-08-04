@@ -131,7 +131,7 @@ Twelve files in `src/_data/`, each becoming a global named after its basename.
 
 | File | Shape | Notes |
 |---|---|---|
-| `apps.json` | 4 arrays: `apps` 7, `tools` 21, `opensource` 3, `graveyard` 13 | Entries are `{name, description, link, platform[], image}` |
+| `apps.json` | 4 arrays: `apps` 7, `tools` 21, `opensource` 3, `graveyard` 13 | Entries are `{name, description, link, platform[], image, schemaType}`. See [Structured data](#structured-data) for `schemaType` |
 | `blog.json` | `{ posts: [49] }` | **Hand-maintained.** See the warning below |
 | `help.json` | `guides[9]` plus a `products` tree | The `products` tree drives the help sidebar |
 | `site.js` | `{ url }` | Only two consumers: `robots.njk` and `sitemap.njk` |
@@ -141,6 +141,49 @@ Twelve files in `src/_data/`, each becoming a global named after its basename.
 | `announcement.json`, `credits.json`, `forgot.json` | small config blobs | one consumer each |
 
 > **`blog.json` is decoupled from the actual posts.** Nothing generates it. Forty-nine JSON entries sit beside forty-nine Markdown files with no link between them. **A new post is invisible on the blog index until you hand-add its entry.** This is the most reliable way to lose an afternoon in this repo.
+
+---
+
+## Structured data
+
+Every one of the 103 built pages carries JSON-LD, and every page tells search engines the same three facts: who made this (Coffee & Fun LLC, founded 2022), who founded it (Robert James Gabriel), and what site it belongs to.
+
+Those three entities are declared **once**, in `src/_includes/schema-org.liquid`, as a `@graph` of `Organization` + `Person` + `WebSite` with stable `@id`s:
+
+```
+https://www.coffeeandfun.com/#organization
+https://www.coffeeandfun.com/#founder
+https://www.coffeeandfun.com/#website
+```
+
+Every page includes that file. Page-specific entities never repeat the company or the founder, they **point at those `@id`s**:
+
+```json
+"publisher": { "@id": "https://www.coffeeandfun.com/#organization" },
+"creator":   { "@id": "https://www.coffeeandfun.com/#founder" }
+```
+
+So the founding date, the Wikidata links and the social profiles are stated in exactly one place. Change them there and all 103 pages change.
+
+**Type a thing as what it actually is.** A game is a `VideoGame`, not a generic app. A browser extension or native app is a `SoftwareApplication`. A browser-based tool is a `WebApplication`. An open source project is `SoftwareSourceCode`. Blog posts are `BlogPosting` authored by `#founder`, which matches the visible byline; help articles are `TechArticle`.
+
+**Retired products stay listed but are marked dead**, via an offer with `availability: "https://schema.org/Discontinued"`. Never quietly list a closed product as though you can still get it.
+
+### `schemaType` in `apps.json`
+
+`/apps/` renders all 44 products, so it publishes an `ItemList` of all 44, built by `src/_includes/apps-itemlist.liquid` straight from `apps.json`. That means the list cannot drift from the cards on the page.
+
+Each entry's `schemaType` decides how that product is typed in the list. For anything with a page on this site, the value was **read from that page's own JSON-LD**, so the two agree by construction. If you retype a product on its own page, update its `schemaType` here to match.
+
+The include treats everything after `apps + tools + opensource` as retired and gives it the Discontinued offer, so **section order in `apps.json` is load-bearing**: `graveyard` must stay last.
+
+### Rules that are easy to break
+
+- **Only describe what the page actually shows.** The homepage used to declare a `SoftwareApplication` for an app it never rendered. It links to `/apps/`, so the catalogue belongs on `/apps/`.
+- **One node per thing.** Four tool pages used to be a `WebApplication` that also declared the *same* product again under `mainEntity`, with two different `applicationCategory` values. One product, one node.
+- `applicationCategory` is free text, schema.org enumerates nothing. This site uses one spelling per concept, `UtilitiesApplication` (not `UtilityApplication`), `GameApplication` (not `Game`). Match what is already there.
+
+To check the whole site after a change, parse every `docs/**/*.html` and assert: no parse errors, no page missing `#organization` or `#founder`, no duplicate `Organization`, and no `@id` reference that nothing defines.
 
 ---
 

@@ -54,7 +54,7 @@
 
     <!-- Structured Data -->
     <script type="application/ld+json">
-    {
+      {
         "@context": "https://schema.org",
         "@type": "SoftwareApplication",
         "name": "Hide Spoilers",
@@ -63,48 +63,70 @@
         "applicationCategory": "BrowserApplication",
         "operatingSystem": "Chrome, Safari",
         "offers": {
-            "@type": "Offer",
-            "price": "0",
-            "priceCurrency": "USD"
+          "@type": "Offer",
+          "price": "0",
+          "priceCurrency": "USD"
         },
         "creator": {
-            "@type": "Organization",
-            "name": "Coffee & Fun LLC",
-            "url": "https://www.coffeeandfun.com",
-            "sameAs": ["https://x.com/bycoffeeandfun"]
-        }
-    }
+          "@id": "https://www.coffeeandfun.com/#founder"
+        },
+        "publisher": {
+          "@id": "https://www.coffeeandfun.com/#organization"
+        },
+        "isAccessibleForFree": true,
+        "inLanguage": "en"
+      }
     </script>
 
     <!-- FAQ Structured Data -->
     <script type="application/ld+json">
-    {
+      {
         "@context": "https://schema.org",
         "@type": "FAQPage",
         "mainEntity": [
-            {
-                "@type": "Question",
-                "name": "How does Hide Spoilers work?",
-                "acceptedAnswer": { "@type": "Answer", "text": "It scans pages for your keywords and blurs anything that matches, text, images, and entire sections." }
-            },
-            {
-                "@type": "Question",
-                "name": "Can I choose my own keywords?",
-                "acceptedAnswer": { "@type": "Answer", "text": "Yes. Add or remove keywords anytime, show names, character names, whatever you want to avoid." }
-            },
-            {
-                "@type": "Question",
-                "name": "Does it work on all websites?",
-                "acceptedAnswer": { "@type": "Answer", "text": "Most sites, including Twitter, YouTube, Reddit, and news sites. We're constantly improving compatibility." }
-            },
-            {
-                "@type": "Question",
-                "name": "Is Hide Spoilers free?",
-                "acceptedAnswer": { "@type": "Answer", "text": "Yes. Completely free on both Chrome and Safari." }
+          {
+            "@type": "Question",
+            "name": "How does Hide Spoilers work?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "It scans pages for your keywords and blurs anything that matches, text, images, and entire sections."
             }
-        ]
-    }
+          },
+          {
+            "@type": "Question",
+            "name": "Can I choose my own keywords?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Yes. Add or remove keywords anytime, show names, character names, whatever you want to avoid."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Does it work on all websites?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Most sites, including Twitter, YouTube, Reddit, and news sites. We're constantly improving compatibility."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Is Hide Spoilers free?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Yes. Completely free on both Chrome and Safari."
+            }
+          }
+        ],
+        "publisher": {
+          "@id": "https://www.coffeeandfun.com/#organization"
+        },
+        "isPartOf": {
+          "@id": "https://www.coffeeandfun.com/#website"
+        }
+      }
     </script>
+
+    {% include schema-org.liquid %}
 
     {% bundledCss %}
     {% include scripts.html %}

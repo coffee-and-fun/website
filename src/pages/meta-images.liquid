@@ -41,22 +41,34 @@
 
     <!-- Structured Data -->
     <script type="application/ld+json">
-    {
+      {
         "@context": "https://schema.org",
-        "@type": "SoftwareApplication",
+        "@type": "WebApplication",
         "name": "Free Photo Metadata Viewer & Remover",
         "description": "See what a photo's file quietly reveals, GPS location, date, camera, editing software, and download a clean copy with all metadata removed. Processing happens entirely in the browser.",
         "url": "https://www.coffeeandfun.com/meta-images/",
-        "applicationCategory": "UtilityApplication",
+        "applicationCategory": "UtilitiesApplication",
         "operatingSystem": "Web Browser",
-        "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" },
+        "offers": {
+          "@type": "Offer",
+          "price": "0",
+          "priceCurrency": "USD"
+        },
         "featureList": [
-            "Plain-English list of what a photo reveals",
-            "GPS location decoding",
-            "One-click metadata removal",
-            "Local processing, no uploads"
-        ]
-    }
+          "Plain-English list of what a photo reveals",
+          "GPS location decoding",
+          "One-click metadata removal",
+          "Local processing, no uploads"
+        ],
+        "publisher": {
+          "@id": "https://www.coffeeandfun.com/#organization"
+        },
+        "creator": {
+          "@id": "https://www.coffeeandfun.com/#founder"
+        },
+        "isAccessibleForFree": true,
+        "inLanguage": "en"
+      }
     </script>
 
     <script src="https://unpkg.com/vue@3"></script>
@@ -64,7 +76,9 @@
 
     {% pageCss "meta-images" %}
     {% include sketch-styles.liquid %}
-</head>
+{% include schema-org.liquid %}
+
+    </head>
 
 <body>
 {% raw %}

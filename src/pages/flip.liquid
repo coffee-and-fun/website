@@ -54,37 +54,41 @@
     
     <!-- Structured Data -->
     <script type="application/ld+json">
-    {
+      {
         "@context": "https://schema.org",
         "@type": "WebApplication",
         "name": "Flip a Coin",
         "description": "Virtual coin flip tool for making quick decisions",
         "url": "https://www.coffeeandfun.com/flip/",
-        "applicationCategory": "UtilityApplication",
+        "applicationCategory": "UtilitiesApplication",
         "operatingSystem": "Any",
         "offers": {
-            "@type": "Offer",
-            "price": "0",
-            "priceCurrency": "USD"
+          "@type": "Offer",
+          "price": "0",
+          "priceCurrency": "USD"
         },
         "creator": {
-            "@type": "Organization",
-            "name": "Coffee & Fun LLC",
-            "url": "https://www.coffeeandfun.com",
-            "sameAs": ["https://x.com/bycoffeeandfun"]
+          "@id": "https://www.coffeeandfun.com/#founder"
         },
         "featureList": [
-            "Instant coin flip animation",
-            "Share results",
-            "Keyboard accessible",
-            "Mobile friendly"
-        ]
-    }
+          "Instant coin flip animation",
+          "Share results",
+          "Keyboard accessible",
+          "Mobile friendly"
+        ],
+        "publisher": {
+          "@id": "https://www.coffeeandfun.com/#organization"
+        },
+        "isAccessibleForFree": true,
+        "inLanguage": "en"
+      }
     </script>
     
     <!-- Preload Critical Resources -->
     <link rel="preload" href="/assets/images/brand/favicon.png" as="image" />
     
+    {% include schema-org.liquid %}
+
     {% bundledCss %}
     {% include scripts.html %}
     

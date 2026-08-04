@@ -52,47 +52,45 @@
 
   <!-- Schema.org structured data -->
   <script type="application/ld+json">
-  {
-    "@context": "https://schema.org",
-    "@graph": [
-      {
-        "@type": "WebSite",
-        "name": "Coffee & Fun",
-        "url": "https://www.coffeeandfun.com",
-        "potentialAction": {
-          "@type": "SearchAction",
-          "target": "https://www.coffeeandfun.com/search?q={search_term_string}",
-          "query-input": "required name=search_term_string"
-        }
+    {
+      "@context": "https://schema.org",
+      "@type": "WebApplication",
+      "@id": "https://www.coffeeandfun.com/minecraft-pixel-art/",
+      "name": "Minecraft Pixel Art Generator",
+      "description": "Convert any image into Minecraft pixel art. Get a numbered build guide showing which block goes in every spot, plus a complete shopping list of every block needed. Works entirely in your browser.",
+      "url": "https://www.coffeeandfun.com/minecraft-pixel-art/",
+      "image": "https://www.coffeeandfun.com/assets/images/social/pages/minecraft-pixel-art.png",
+      "applicationCategory": "UtilitiesApplication",
+      "operatingSystem": "Any",
+      "browserRequirements": "Requires JavaScript. Requires HTML5 Canvas.",
+      "softwareVersion": "2.0",
+      "featureList": [
+        "Instant block preview",
+        "Numbered build guide",
+        "Block shopping list with stacks",
+        "Floyd-Steinberg dithering",
+        "Clipboard paste support",
+        "Local processing"
+      ],
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "USD"
       },
-      {
-        "@type": "WebApplication",
-        "@id": "https://www.coffeeandfun.com/minecraft-pixel-art/",
-        "name": "Minecraft Pixel Art Generator",
-        "description": "Convert any image into Minecraft pixel art. Get a numbered build guide showing which block goes in every spot, plus a complete shopping list of every block needed. Works entirely in your browser.",
-        "url": "https://www.coffeeandfun.com/minecraft-pixel-art/",
-        "image": "https://www.coffeeandfun.com/assets/images/social/pages/minecraft-pixel-art.png",
-        "applicationCategory": "GameApplication",
-        "operatingSystem": "Any",
-        "browserRequirements": "Requires JavaScript. Requires HTML5 Canvas.",
-        "softwareVersion": "2.0",
-        "featureList": ["Instant block preview", "Numbered build guide", "Block shopping list with stacks", "Floyd-Steinberg dithering", "Clipboard paste support", "Local processing"],
-        "offers": {
-          "@type": "Offer",
-          "price": "0",
-          "priceCurrency": "USD"
-        },
-        "creator": {
-          "@type": "Organization",
-          "name": "Coffee & Fun LLC",
-          "url": "https://www.coffeeandfun.com"
-        }
-      }
-    ]
-  }
+      "creator": {
+        "@id": "https://www.coffeeandfun.com/#founder"
+      },
+      "publisher": {
+        "@id": "https://www.coffeeandfun.com/#organization"
+      },
+      "isAccessibleForFree": true,
+      "inLanguage": "en"
+    }
   </script>
 
-  {% bundledCss %}
+  {% include schema-org.liquid %}
+
+    {% bundledCss %}
   {% include sketch-styles.liquid %}
 
   <!-- Pixel fonts for the Minecraft look -->

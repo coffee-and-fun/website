@@ -51,30 +51,35 @@
 
   <!-- Structured Data -->
   <script type="application/ld+json">
-  {
-    "@context": "https://schema.org",
-    "@type": "WebApplication",
-    "name": "Word Clock",
-    "description": "A word clock that spells out the current time, the right words light up in a grid of letters.",
-    "url": "https://www.coffeeandfun.com/word-clock/",
-    "applicationCategory": "UtilityApplication",
-    "operatingSystem": "Any",
-    "offers": {
-      "@type": "Offer",
-      "price": "0",
-      "priceCurrency": "USD"
-    },
-    "creator": {
-      "@type": "Organization",
-      "name": "Coffee & Fun LLC",
-      "url": "https://www.coffeeandfun.com"
+    {
+      "@context": "https://schema.org",
+      "@type": "WebApplication",
+      "name": "Word Clock",
+      "description": "A word clock that spells out the current time, the right words light up in a grid of letters.",
+      "url": "https://www.coffeeandfun.com/word-clock/",
+      "applicationCategory": "UtilitiesApplication",
+      "operatingSystem": "Any",
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "USD"
+      },
+      "creator": {
+        "@id": "https://www.coffeeandfun.com/#founder"
+      },
+      "publisher": {
+        "@id": "https://www.coffeeandfun.com/#organization"
+      },
+      "isAccessibleForFree": true,
+      "inLanguage": "en"
     }
-  }
   </script>
 
     {% pageCss "word-clock" %}
   {% include sketch-styles.liquid %}
-</head>
+{% include schema-org.liquid %}
+
+    </head>
 
 <body>
   <a href="#tool" class="skip">Skip to the clock</a>

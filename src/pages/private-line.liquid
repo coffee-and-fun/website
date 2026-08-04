@@ -40,24 +40,41 @@
 
     <!-- Structured Data -->
     <script type="application/ld+json">
-    {
+      {
         "@context": "https://schema.org",
-        "@type": "SoftwareApplication",
+        "@type": "WebApplication",
         "name": "Private Line",
         "description": "A browser-based, end-to-end encrypted one-to-one chat. Ephemeral ECDH key agreement and AES-256-GCM encryption run entirely on your device; the matchmaking server never sees message contents. No accounts, no stored history.",
         "url": "https://www.coffeeandfun.com/private-line/",
         "applicationCategory": "CommunicationApplication",
         "operatingSystem": "Web Browser",
-        "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" },
-        "author": { "@type": "Organization", "name": "Coffee & Fun LLC" }
-    }
+        "offers": {
+          "@type": "Offer",
+          "price": "0",
+          "priceCurrency": "USD"
+        },
+        "author": {
+          "@type": "Organization",
+          "name": "Coffee & Fun LLC"
+        },
+        "publisher": {
+          "@id": "https://www.coffeeandfun.com/#organization"
+        },
+        "creator": {
+          "@id": "https://www.coffeeandfun.com/#founder"
+        },
+        "isAccessibleForFree": true,
+        "inLanguage": "en"
+      }
     </script>
 
     <script src="https://unpkg.com/vue@3"></script>
     <script src="https://unpkg.com/peerjs@1.5.5/dist/peerjs.min.js"></script>
 
     {% pageCss "private-line" %}
-</head>
+{% include schema-org.liquid %}
+
+    </head>
 
 <body>
 {% raw %}

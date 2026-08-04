@@ -54,29 +54,38 @@
 
   <!-- Structured Data -->
   <script type="application/ld+json">
-  {
-    "@context": "https://schema.org",
-    "@type": "Game",
-    "name": "Silicon Dreams",
-    "description": "A retro 1980s-style text adventure RPG about the founders of Apple, Microsoft, and Google. Real historical events shape branching choices that determine which Silicon Valley legend you become, or whether you become the teacher who inspired them all.",
-    "url": "https://www.coffeeandfun.com/silicon-dreams/",
-    "applicationCategory": "GameApplication",
-    "genre": ["Interactive Fiction", "RPG", "Educational"],
-    "operatingSystem": "Any",
-    "offers": {
-      "@type": "Offer",
-      "price": "0",
-      "priceCurrency": "USD"
-    },
-    "creator": {
-      "@type": "Organization",
-      "name": "Coffee & Fun LLC",
-      "url": "https://www.coffeeandfun.com"
+    {
+      "@context": "https://schema.org",
+      "@type": "VideoGame",
+      "name": "Silicon Dreams",
+      "description": "A retro 1980s-style text adventure RPG about the founders of Apple, Microsoft, and Google. Real historical events shape branching choices that determine which Silicon Valley legend you become, or whether you become the teacher who inspired them all.",
+      "url": "https://www.coffeeandfun.com/silicon-dreams/",
+      "applicationCategory": "GameApplication",
+      "genre": [
+        "Interactive Fiction",
+        "RPG",
+        "Educational"
+      ],
+      "operatingSystem": "Any",
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "USD"
+      },
+      "creator": {
+        "@id": "https://www.coffeeandfun.com/#founder"
+      },
+      "publisher": {
+        "@id": "https://www.coffeeandfun.com/#organization"
+      },
+      "isAccessibleForFree": true,
+      "inLanguage": "en"
     }
-  }
   </script>
 
-  {% bundledCss %}
+  {% include schema-org.liquid %}
+
+    {% bundledCss %}
   {% include scripts.html %}
 
     {% pageCss "silicon-dreams" %}

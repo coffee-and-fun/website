@@ -43,35 +43,44 @@
 
     <!-- Structured Data -->
     <script type="application/ld+json">
-    {
+      {
         "@context": "https://schema.org",
         "@type": "WebApplication",
         "name": "Emoji Search & Copy",
         "description": "Search thousands of emoji by name, browse by category, and copy any of them with one click.",
         "url": "https://www.coffeeandfun.com/emoji/",
-        "applicationCategory": "UtilityApplication",
+        "applicationCategory": "UtilitiesApplication",
         "operatingSystem": "Web Browser",
-        "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" },
+        "offers": {
+          "@type": "Offer",
+          "price": "0",
+          "priceCurrency": "USD"
+        },
         "creator": {
-            "@type": "Organization",
-            "name": "Coffee & Fun LLC",
-            "url": "https://www.coffeeandfun.com"
+          "@id": "https://www.coffeeandfun.com/#founder"
         },
         "featureList": [
-            "Search emoji by name or keyword",
-            "Browse by category",
-            "One-click copy to clipboard",
-            "Recently used emoji list",
-            "Popular emoji shortcuts"
-        ]
-    }
+          "Search emoji by name or keyword",
+          "Browse by category",
+          "One-click copy to clipboard",
+          "Recently used emoji list",
+          "Popular emoji shortcuts"
+        ],
+        "publisher": {
+          "@id": "https://www.coffeeandfun.com/#organization"
+        },
+        "isAccessibleForFree": true,
+        "inLanguage": "en"
+      }
     </script>
 
     <script src="https://unpkg.com/vue@3"></script>
 
     {% pageCss "emoji" %}
     {% include sketch-styles.liquid %}
-</head>
+{% include schema-org.liquid %}
+
+    </head>
 
 <body>
 {% raw %}

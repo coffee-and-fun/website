@@ -41,45 +41,78 @@
 
     <!-- Structured Data -->
     <script type="application/ld+json">
-    {
+      {
         "@context": "https://schema.org",
-        "@type": "SoftwareApplication",
+        "@type": "VideoGame",
         "name": "Free Blackjack Strategy Trainer",
         "description": "Practice blackjack basic strategy with instant grading, plain-English explanations, the full strategy chart, dealer bust odds, and personal accuracy stats. Educational, no gambling, no bets.",
         "url": "https://www.coffeeandfun.com/blackjack-trainer/",
         "applicationCategory": "EducationalApplication",
         "operatingSystem": "Web Browser",
-        "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" },
-        "author": { "@type": "Organization", "name": "Coffee & Fun LLC" }
-    }
+        "offers": {
+          "@type": "Offer",
+          "price": "0",
+          "priceCurrency": "USD"
+        },
+        "author": {
+          "@type": "Organization",
+          "name": "Coffee & Fun LLC"
+        },
+        "publisher": {
+          "@id": "https://www.coffeeandfun.com/#organization"
+        },
+        "creator": {
+          "@id": "https://www.coffeeandfun.com/#founder"
+        },
+        "isAccessibleForFree": true,
+        "inLanguage": "en"
+      }
     </script>
     <script type="application/ld+json">
-    {
+      {
         "@context": "https://schema.org",
         "@type": "FAQPage",
         "mainEntity": [
-            {
-                "@type": "Question",
-                "name": "When should you hit or stand in blackjack?",
-                "acceptedAnswer": { "@type": "Answer", "text": "Always stand on hard 17 or more. With hard 13–16, stand when the dealer shows 2–6 (they bust often) and hit against 7 through ace. Hard 12 is the exception: hit against a 2 or 3, stand against 4–6. Always hit hard 8 or less, and hit soft hands until at least soft 18." }
-            },
-            {
-                "@type": "Question",
-                "name": "When should you split pairs in blackjack?",
-                "acceptedAnswer": { "@type": "Answer", "text": "Always split aces and eights. Never split tens or fives. Split 2s, 3s, and 7s against a dealer 2–7, split 6s against 2–6, and split 9s against 2–6 and 8–9 (stand against 7, 10, or ace)." }
-            },
-            {
-                "@type": "Question",
-                "name": "When should you double down?",
-                "acceptedAnswer": { "@type": "Answer", "text": "Double hard 11 against everything except an ace, hard 10 against 2–9, and hard 9 against 3–6. Soft hands double against a weak dealer: for example, double soft 17 (A-6) against 3–6, and soft 18 (A-7) against 3–6." }
-            },
-            {
-                "@type": "Question",
-                "name": "Does basic strategy guarantee you win at blackjack?",
-                "acceptedAnswer": { "@type": "Answer", "text": "No. Basic strategy is the mathematically best decision for every hand, which shrinks the house edge to roughly half a percent, the lowest of any standard casino game, but the casino keeps a small long-run advantage. This trainer is for learning, not for gambling." }
+          {
+            "@type": "Question",
+            "name": "When should you hit or stand in blackjack?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Always stand on hard 17 or more. With hard 13–16, stand when the dealer shows 2–6 (they bust often) and hit against 7 through ace. Hard 12 is the exception: hit against a 2 or 3, stand against 4–6. Always hit hard 8 or less, and hit soft hands until at least soft 18."
             }
-        ]
-    }
+          },
+          {
+            "@type": "Question",
+            "name": "When should you split pairs in blackjack?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Always split aces and eights. Never split tens or fives. Split 2s, 3s, and 7s against a dealer 2–7, split 6s against 2–6, and split 9s against 2–6 and 8–9 (stand against 7, 10, or ace)."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "When should you double down?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Double hard 11 against everything except an ace, hard 10 against 2–9, and hard 9 against 3–6. Soft hands double against a weak dealer: for example, double soft 17 (A-6) against 3–6, and soft 18 (A-7) against 3–6."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Does basic strategy guarantee you win at blackjack?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "No. Basic strategy is the mathematically best decision for every hand, which shrinks the house edge to roughly half a percent, the lowest of any standard casino game, but the casino keeps a small long-run advantage. This trainer is for learning, not for gambling."
+            }
+          }
+        ],
+        "publisher": {
+          "@id": "https://www.coffeeandfun.com/#organization"
+        },
+        "isPartOf": {
+          "@id": "https://www.coffeeandfun.com/#website"
+        }
+      }
     </script>
 
     <!-- Casino marquee font -->
@@ -90,7 +123,9 @@
     <script src="https://unpkg.com/vue@3"></script>
 
     {% pageCss "blackjack-trainer" %}
-</head>
+{% include schema-org.liquid %}
+
+    </head>
 
 <body>
 {% raw %}

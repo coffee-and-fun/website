@@ -57,7 +57,7 @@
 
     <!-- Structured Data (JSON-LD) -->
     <script type="application/ld+json">
-    {
+      {
         "@context": "https://schema.org",
         "@type": "WebApplication",
         "name": "Focus Timer",
@@ -66,53 +66,112 @@
         "applicationCategory": "ProductivityApplication",
         "operatingSystem": "Any (web browser)",
         "browserRequirements": "Requires JavaScript.",
-        "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" },
+        "offers": {
+          "@type": "Offer",
+          "price": "0",
+          "priceCurrency": "USD"
+        },
         "featureList": [
-            "Tiny sprint presets (10, 15, 25, 45 minutes) to make starting easier",
-            "One-task line instead of a busy to-do list",
-            "Progress bar and tab-title countdown, time made visible",
-            "Shows the clock time your sprint will finish",
-            "Gentle chime and optional desktop notifications",
-            "Colorblind-safe, keyboard-friendly, respects reduced motion",
-            "No account, no tracking, everything stays on your device"
+          "Tiny sprint presets (10, 15, 25, 45 minutes) to make starting easier",
+          "One-task line instead of a busy to-do list",
+          "Progress bar and tab-title countdown, time made visible",
+          "Shows the clock time your sprint will finish",
+          "Gentle chime and optional desktop notifications",
+          "Colorblind-safe, keyboard-friendly, respects reduced motion",
+          "No account, no tracking, everything stays on your device"
         ],
         "publisher": {
-            "@type": "Organization",
-            "name": "Coffee & Fun LLC",
-            "url": "https://www.coffeeandfun.com",
-            "sameAs": ["https://x.com/bycoffeeandfun"]
-        }
-    }
+          "@id": "https://www.coffeeandfun.com/#organization"
+        },
+        "creator": {
+          "@id": "https://www.coffeeandfun.com/#founder"
+        },
+        "isAccessibleForFree": true,
+        "inLanguage": "en"
+      }
     </script>
     <script type="application/ld+json">
-    {
+      {
         "@context": "https://schema.org",
         "@type": "FAQPage",
         "mainEntity": [
-            { "@type": "Question", "name": "What is the Pomodoro Technique?",
-              "acceptedAnswer": { "@type": "Answer", "text": "A time-management method that breaks work into focused sprints, traditionally 25 minutes, with short breaks between them and a longer break after about four. The fixed, visible countdown makes it easier to start and easier to notice time passing." } },
-            { "@type": "Question", "name": "Why does this timer help with ADHD?",
-              "acceptedAnswer": { "@type": "Answer", "text": "Three reasons. Starting is the hard part, so the sprint presets go down to 10 minutes, small enough that starting feels easy. Time blindness makes minutes invisible, so a progress bar fills as you work, the tab title counts down, and the timer shows the actual clock time you'll finish. And decisions are distractions, so there's one task line, one big button, and nothing else fighting for your attention." } },
-            { "@type": "Question", "name": "Can I change the sprint and break lengths?",
-              "acceptedAnswer": { "@type": "Answer", "text": "Yes. Use the quick presets (10, 15, 25, or 45 minutes) or open Settings to set any focus, short-break, and long-break lengths, how many sprints make a round, and whether the next session starts automatically." } },
-            { "@type": "Question", "name": "Is it colorblind friendly?",
-              "acceptedAnswer": { "@type": "Answer", "text": "Yes. The three mode colors differ in warmth and lightness, not just hue, so they stay distinguishable across the common types of color vision deficiency, and color is never the only signal anyway: every mode also has an icon and a word, states are spelled out in plain language, and progress is shown by a filling bar and a countdown." } },
-            { "@type": "Question", "name": "Is it free, and does it need an account?",
-              "acceptedAnswer": { "@type": "Answer", "text": "Completely free, no account, no tracking. It runs entirely in your browser, and your settings and task are saved on your own device only." } }
-        ]
-    }
+          {
+            "@type": "Question",
+            "name": "What is the Pomodoro Technique?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "A time-management method that breaks work into focused sprints, traditionally 25 minutes, with short breaks between them and a longer break after about four. The fixed, visible countdown makes it easier to start and easier to notice time passing."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Why does this timer help with ADHD?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Three reasons. Starting is the hard part, so the sprint presets go down to 10 minutes, small enough that starting feels easy. Time blindness makes minutes invisible, so a progress bar fills as you work, the tab title counts down, and the timer shows the actual clock time you'll finish. And decisions are distractions, so there's one task line, one big button, and nothing else fighting for your attention."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Can I change the sprint and break lengths?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Yes. Use the quick presets (10, 15, 25, or 45 minutes) or open Settings to set any focus, short-break, and long-break lengths, how many sprints make a round, and whether the next session starts automatically."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Is it colorblind friendly?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Yes. The three mode colors differ in warmth and lightness, not just hue, so they stay distinguishable across the common types of color vision deficiency, and color is never the only signal anyway: every mode also has an icon and a word, states are spelled out in plain language, and progress is shown by a filling bar and a countdown."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Is it free, and does it need an account?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Completely free, no account, no tracking. It runs entirely in your browser, and your settings and task are saved on your own device only."
+            }
+          }
+        ],
+        "publisher": {
+          "@id": "https://www.coffeeandfun.com/#organization"
+        },
+        "isPartOf": {
+          "@id": "https://www.coffeeandfun.com/#website"
+        }
+      }
     </script>
     <script type="application/ld+json">
-    {
+      {
         "@context": "https://schema.org",
         "@type": "BreadcrumbList",
         "itemListElement": [
-            { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://www.coffeeandfun.com/" },
-            { "@type": "ListItem", "position": 2, "name": "Apps", "item": "https://www.coffeeandfun.com/apps/" },
-            { "@type": "ListItem", "position": 3, "name": "Focus Timer", "item": "https://www.coffeeandfun.com/focus-timer/" }
+          {
+            "@type": "ListItem",
+            "position": 1,
+            "name": "Home",
+            "item": "https://www.coffeeandfun.com/"
+          },
+          {
+            "@type": "ListItem",
+            "position": 2,
+            "name": "Apps",
+            "item": "https://www.coffeeandfun.com/apps/"
+          },
+          {
+            "@type": "ListItem",
+            "position": 3,
+            "name": "Focus Timer",
+            "item": "https://www.coffeeandfun.com/focus-timer/"
+          }
         ]
-    }
+      }
     </script>
+
+    {% include schema-org.liquid %}
 
     {% bundledCss %}
 

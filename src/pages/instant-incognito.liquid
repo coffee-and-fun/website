@@ -54,7 +54,7 @@
     
     <!-- Structured Data -->
     <script type="application/ld+json">
-    {
+      {
         "@context": "https://schema.org",
         "@type": "SoftwareApplication",
         "name": "Instant Incognito",
@@ -63,48 +63,70 @@
         "applicationCategory": "BrowserApplication",
         "operatingSystem": "Chrome, Edge, Firefox, Safari",
         "offers": {
-            "@type": "Offer",
-            "price": "0",
-            "priceCurrency": "USD"
+          "@type": "Offer",
+          "price": "0",
+          "priceCurrency": "USD"
         },
         "creator": {
-            "@type": "Organization",
-            "name": "Coffee & Fun LLC",
-            "url": "https://www.coffeeandfun.com",
-            "sameAs": ["https://x.com/bycoffeeandfun"]
-        }
-    }
+          "@id": "https://www.coffeeandfun.com/#founder"
+        },
+        "publisher": {
+          "@id": "https://www.coffeeandfun.com/#organization"
+        },
+        "isAccessibleForFree": true,
+        "inLanguage": "en"
+      }
     </script>
 
     <!-- FAQ Structured Data -->
     <script type="application/ld+json">
-    {
+      {
         "@context": "https://schema.org",
         "@type": "FAQPage",
         "mainEntity": [
-            {
-                "@type": "Question",
-                "name": "What does Instant Incognito do?",
-                "acceptedAnswer": { "@type": "Answer", "text": "It automatically opens certain websites in private mode. Add sites to your list, and whenever you visit them, they'll open in incognito automatically, keeping your browsing private without any extra clicks." }
-            },
-            {
-                "@type": "Question",
-                "name": "Does Instant Incognito track or store my data?",
-                "acceptedAnswer": { "@type": "Answer", "text": "Absolutely not. We don't monitor your browsing activity, your settings stay on your device only, and what you browse is your business alone." }
-            },
-            {
-                "@type": "Question",
-                "name": "What permissions does it need?",
-                "acceptedAnswer": { "@type": "Answer", "text": "webNavigation to detect when you're navigating to a website, tabs to open and manage incognito tabs automatically, and storage to save your settings locally on your device." }
-            },
-            {
-                "@type": "Question",
-                "name": "Is Instant Incognito really free?",
-                "acceptedAnswer": { "@type": "Answer", "text": "Yes! The extension is completely free to use with all features unlocked. Donations are welcome but never required." }
+          {
+            "@type": "Question",
+            "name": "What does Instant Incognito do?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "It automatically opens certain websites in private mode. Add sites to your list, and whenever you visit them, they'll open in incognito automatically, keeping your browsing private without any extra clicks."
             }
-        ]
-    }
+          },
+          {
+            "@type": "Question",
+            "name": "Does Instant Incognito track or store my data?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Absolutely not. We don't monitor your browsing activity, your settings stay on your device only, and what you browse is your business alone."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "What permissions does it need?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "webNavigation to detect when you're navigating to a website, tabs to open and manage incognito tabs automatically, and storage to save your settings locally on your device."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Is Instant Incognito really free?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Yes! The extension is completely free to use with all features unlocked. Donations are welcome but never required."
+            }
+          }
+        ],
+        "publisher": {
+          "@id": "https://www.coffeeandfun.com/#organization"
+        },
+        "isPartOf": {
+          "@id": "https://www.coffeeandfun.com/#website"
+        }
+      }
     </script>
+
+    {% include schema-org.liquid %}
 
     {% bundledCss %}
     {% include scripts.html %}

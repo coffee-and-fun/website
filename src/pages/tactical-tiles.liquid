@@ -47,6 +47,8 @@
     <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin />
 
     <!-- Site-compiled Tailwind v4 + daisyUI bundle (replaces the Tailwind/daisyUI CDNs) -->
+    {% include schema-org.liquid %}
+
     {% bundledCss %}
 
     <!-- Vue 3 with version pinning for stability -->
@@ -85,15 +87,22 @@
     <script type="application/ld+json">
       {
         "@context": "https://schema.org",
-        "@type": ["Game", "WebApplication", "SoftwareApplication"],
+        "@type": "VideoGame",
         "name": "Tactical Tiles",
         "alternateName": "Multiplayer Tic-Tac-Toe with Power Ups",
         "description": "Tactical Tiles is a free multiplayer tic tac toe game with power-ups. Play a friend online, locally, or against the AI on a 4x4 board with no account needed.",
         "url": "https://www.coffeeandfun.com/tactical-tiles/",
         "applicationCategory": "GameApplication",
         "operatingSystem": "Web Browser",
-        "genre": ["Strategy Game", "Puzzle Game", "Board Game"],
-        "playMode": ["MultiPlayer", "SinglePlayer"],
+        "genre": [
+          "Strategy Game",
+          "Puzzle Game",
+          "Board Game"
+        ],
+        "playMode": [
+          "MultiPlayer",
+          "SinglePlayer"
+        ],
         "numberOfPlayers": "1-2",
         "gamePlatform": "Web Browser",
         "contentRating": "Everyone",
@@ -108,9 +117,7 @@
           "availability": "https://schema.org/InStock"
         },
         "creator": {
-          "@type": "Organization",
-          "name": "Coffee & Fun LLC",
-          "url": "https://www.coffeeandfun.com"
+          "@id": "https://www.coffeeandfun.com/#founder"
         },
         "datePublished": "2025-01-01",
         "inLanguage": "en",
@@ -125,7 +132,10 @@
           "fullKeyboardControl",
           "fullMouseControl",
           "fullTouchControl"
-        ]
+        ],
+        "publisher": {
+          "@id": "https://www.coffeeandfun.com/#organization"
+        }
       }
     </script>
 

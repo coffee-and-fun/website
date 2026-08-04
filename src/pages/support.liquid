@@ -39,29 +39,27 @@
     <meta name="apple-mobile-web-app-capable" content="yes" />
     <meta name="apple-mobile-web-app-status-bar-style" content="default" />
 
+    {% include schema-org.liquid %}
+
     {% bundledCss %}
     {% include scripts.html %}
     {% include sketch-styles.liquid %}
 
 
     <script type="application/ld+json">
-    {
+      {
         "@context": "https://schema.org",
         "@type": "ContactPage",
         "name": "Support for Our Apps and Extensions - Coffee & Fun LLC",
         "description": "Get help with any Coffee & Fun app or extension. Send us a question through the contact form or email hello@coffeeandfun.com and a real human will reply.",
         "url": "https://www.coffeeandfun.com/support/",
         "publisher": {
-            "@type": "Organization",
-            "name": "Coffee & Fun LLC",
-            "url": "https://www.coffeeandfun.com",
-            "contactPoint": {
-                "@type": "ContactPoint",
-                "email": "hello@coffeeandfun.com",
-                "contactType": "customer support"
-            }
+          "@id": "https://www.coffeeandfun.com/#organization"
+        },
+        "isPartOf": {
+          "@id": "https://www.coffeeandfun.com/#website"
         }
-    }
+      }
     </script>
 </head>
 

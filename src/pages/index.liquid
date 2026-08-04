@@ -54,80 +54,31 @@
     
     <!-- Structured Data -->
     <script type="application/ld+json">
-    {
+      {
         "@context": "https://schema.org",
         "@graph": [
-            {
-                "@type": "WebSite",
-                "name": "Coffee & Fun",
-                "alternateName": "Coffee and Fun",
-                "url": "https://www.coffeeandfun.com",
-                "publisher": { "@id": "https://www.coffeeandfun.com/#organization" }
+          {
+            "@type": "WebPage",
+            "@id": "https://www.coffeeandfun.com/#webpage",
+            "url": "https://www.coffeeandfun.com/",
+            "name": "Coffee & Fun LLC",
+            "description": "Accessible apps, browser extensions and free web tools from Coffee & Fun LLC.",
+            "isPartOf": {
+              "@id": "https://www.coffeeandfun.com/#website"
             },
-            {
-                "@type": "Organization",
-                "@id": "https://www.coffeeandfun.com/#organization",
-                "name": "Coffee & Fun LLC",
-                "legalName": "Coffee & Fun LLC",
-                "alternateName": ["Coffee & Fun", "Coffee and Fun LLC"],
-                "url": "https://www.coffeeandfun.com/",
-                "foundingDate": "2022",
-                "slogan": "Crafting Software, One Brew at a Time",
-                "founder": {
-                    "@type": "Person",
-                    "@id": "https://www.coffeeandfun.com/#founder",
-                    "name": "Robert James Gabriel",
-                    "jobTitle": "Founder",
-                    "url": "https://www.coffeeandfun.com/about/",
-                    "sameAs": [
-                        "https://www.wikidata.org/wiki/Q140453422",
-                        "https://x.com/RobertJGabriel",
-                        "https://github.com/RobertJGabriel",
-                        "https://www.robertgabriel.ninja"
-                    ]
-                },
-                "logo": {
-                    "@type": "ImageObject",
-                    "url": "https://www.coffeeandfun.com/assets/images/brand/coffee-and-fun-logo-dark.png",
-                    "width": 512,
-                    "height": 512
-                },
-                "image": "https://www.coffeeandfun.com/assets/images/brand/coffee-and-fun-logo-dark.png",
-                "description": "Modern development studio creating award-winning apps, browser extensions, and free web tools that blend thoughtful design with everyday usefulness and accessibility.",
-                "email": "hello@coffeeandfun.com",
-                "sameAs": [
-                    "https://x.com/bycoffeeandfun",
-                    "https://twitter.com/bycoffeeandfun",
-                    "https://github.com/coffee-and-fun",
-                    "https://www.instagram.com/coffeeandfunllc",
-                    "https://www.youtube.com/@CoffeeFunLLC",
-                    "https://www.npmjs.com/org/coffeeandfun",
-                    "https://www.wikidata.org/wiki/Q140453358"
-                ],
-                "address": {
-                    "@type": "PostalAddress",
-                    "addressCountry": "US"
-                },
-                "contactPoint": {
-                    "@type": "ContactPoint",
-                    "email": "hello@coffeeandfun.com",
-                    "contactType": "customer support",
-                    "url": "https://www.coffeeandfun.com/support/"
-                }
+            "about": {
+              "@id": "https://www.coffeeandfun.com/#organization"
             },
-            {
-                "@type": "SoftwareApplication",
-                "name": "Incognito Bear",
-                "applicationCategory": "BrowserApplication",
-                "operatingSystem": "Web Browser",
-                "creator": {
-                    "@id": "https://www.coffeeandfun.com/#organization"
-                }
+            "publisher": {
+              "@id": "https://www.coffeeandfun.com/#organization"
             }
+          }
         ]
-    }
+      }
     </script>
     
+    {% include schema-org.liquid %}
+
     {% bundledCss %}
     
     

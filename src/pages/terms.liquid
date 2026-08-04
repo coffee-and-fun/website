@@ -52,20 +52,32 @@
         "description": "Coffee & Fun LLC terms of use and refund policy, including the 30 day refund window.",
         "url": "https://www.coffeeandfun.com/terms/",
         "publisher": {
-          "@type": "Organization",
-          "name": "Coffee & Fun LLC",
-          "url": "https://www.coffeeandfun.com/",
-          "email": "hello@coffeeandfun.com"
+          "@id": "https://www.coffeeandfun.com/#organization"
         },
         "breadcrumb": {
           "@type": "BreadcrumbList",
           "itemListElement": [
-            { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://www.coffeeandfun.com/" },
-            { "@type": "ListItem", "position": 2, "name": "Terms & Refunds", "item": "https://www.coffeeandfun.com/terms/" }
+            {
+              "@type": "ListItem",
+              "position": 1,
+              "name": "Home",
+              "item": "https://www.coffeeandfun.com/"
+            },
+            {
+              "@type": "ListItem",
+              "position": 2,
+              "name": "Terms & Refunds",
+              "item": "https://www.coffeeandfun.com/terms/"
+            }
           ]
+        },
+        "isPartOf": {
+          "@id": "https://www.coffeeandfun.com/#website"
         }
       }
     </script>
+
+    {% include schema-org.liquid %}
 
     {% bundledCss %}
 
