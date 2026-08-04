@@ -1,0 +1,454 @@
+[v-cloak] { display: none; }
+
+/* Page-local override: this page's title matches its thermal-receipt
+   theme (bold Courier caps) while the rest of the site keeps the
+   cursive Pacifico brand heading. */
+.brand-heading {
+    font-family: 'Courier New', Courier, monospace;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.02em;
+    color: var(--color-cocoa);
+    text-shadow: 2px 3px 0 rgba(253, 97, 85, 0.4);
+}
+
+.sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border: 0;
+}
+
+/* Receipt-paper form sections: thermal stock with faint scan lines,
+   square corners, and a perforation rule under each legend. */
+fieldset.form-section {
+    background:
+        repeating-linear-gradient(0deg, rgba(0, 0, 0, 0.012) 0 1px, transparent 1px 3px),
+        #fdfcf7;
+    border-radius: 2px;
+    padding: 1.5rem;
+    border: 1.5px solid #e0d7ca;
+    box-shadow: 0 3px 10px rgba(61, 43, 31, 0.07);
+    margin: 0;
+    min-width: 0;
+}
+
+legend.section-title,
+h2.section-title {
+    font-family: 'Courier New', Courier, monospace;
+    font-size: 0.85rem;
+    font-weight: 700;
+    color: var(--color-cocoa);
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    margin-bottom: 1rem;
+    padding-bottom: 0.55rem;
+    border-bottom: 1.5px dashed #c9bda9;
+}
+legend.section-title {
+    float: left;
+    width: 100%;
+    padding-left: 0;
+    padding-right: 0;
+}
+legend.section-title + * { clear: both; }
+
+.panel-card {
+    background:
+        repeating-linear-gradient(0deg, rgba(0, 0, 0, 0.012) 0 1px, transparent 1px 3px),
+        #fdfcf7;
+    border-radius: 2px;
+    padding: 1.25rem;
+    border: 1.5px solid #e0d7ca;
+    box-shadow: 0 3px 10px rgba(61, 43, 31, 0.07);
+}
+
+h2.section-title { margin-top: 0; }
+
+.form-label {
+    display: block;
+    font-family: 'Courier New', Courier, monospace;
+    font-size: 0.72rem;
+    font-weight: 700;
+    color: var(--color-espresso);
+    margin-bottom: 0.35rem;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+}
+
+.form-input {
+    width: 100%;
+    padding: 0.6rem 0.85rem;
+    border: 1.5px solid #d6ccbd;
+    border-radius: 2px;
+    font-family: 'Courier New', Courier, monospace;
+    font-size: 0.95rem;
+    color: #1a1a1a;
+    background: #ffffff;
+    transition: border-color 0.2s;
+    outline: none;
+}
+.form-input:focus {
+    border-color: var(--color-cocoa);
+    box-shadow: 0 0 0 3px rgba(61, 43, 31, 0.12);
+}
+.form-input::placeholder {
+    color: #8a6a44;
+}
+
+select.form-input {
+    appearance: none;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%237a4e31' d='M6 8L1 3h10z'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 0.75rem center;
+    padding-right: 2rem;
+}
+
+textarea.form-input {
+    resize: vertical;
+    min-height: 3.5rem;
+}
+
+/* Register-style buttons: square, Courier caps, solid ink */
+.btn-brand {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    padding: 0.6rem 1.25rem;
+    border-radius: 2px;
+    font-family: 'Courier New', Courier, monospace;
+    font-size: 0.8rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    border: 2px solid transparent;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+.btn-brand:focus-visible {
+    outline: 2px solid var(--color-cocoa);
+    outline-offset: 2px;
+}
+.btn-primary-brand {
+    background: var(--color-cocoa);
+    border-color: var(--color-cocoa);
+    color: var(--color-cream);
+}
+.btn-primary-brand:hover { background: var(--color-espresso); border-color: var(--color-espresso); }
+.btn-primary-brand:disabled {
+    opacity: 0.45;
+    cursor: not-allowed;
+}
+
+.btn-secondary-brand {
+    background: #ffffff;
+    color: var(--color-espresso);
+    border-color: var(--color-espresso);
+}
+.btn-secondary-brand:hover {
+    background: var(--color-espresso);
+    color: var(--color-cream);
+}
+
+/* Ghost = perforated stub */
+.btn-ghost-brand {
+    background: transparent;
+    color: var(--color-caramel);
+    border: 2px dashed #c9bda9;
+}
+.btn-ghost-brand:hover {
+    border-color: var(--color-espresso);
+    color: var(--color-espresso);
+}
+
+.btn-danger {
+    background: #ffffff;
+    color: #c0392b;
+    border: 2px dashed #dda69c;
+}
+.btn-danger:hover {
+    background: #c0392b;
+    border-style: solid;
+    border-color: #c0392b;
+    color: white;
+}
+
+.btn-sm-brand {
+    padding: 0.35rem 0.85rem;
+    font-size: 0.72rem;
+}
+
+.item-remove {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 2.25rem;
+    height: 2.25rem;
+    margin: -0.5rem -0.5rem -0.35rem 0;
+    background: none;
+    border: none;
+    border-radius: 0.375rem;
+    color: #c0392b;
+    font-size: 1.1rem;
+    line-height: 1;
+    cursor: pointer;
+}
+.item-remove:hover { background: #fdeeec; }
+.item-remove:focus-visible {
+    outline: 2px solid var(--color-mocha);
+    outline-offset: 2px;
+}
+
+/* Line items: perforated register entries */
+.item-row {
+    padding: 0.65rem 0.85rem;
+    background: #ffffff;
+    border: 1.5px dashed #c9bda9;
+    border-radius: 2px;
+}
+
+.optional-tag {
+    font-weight: 400;
+    letter-spacing: 0;
+    color: #767676;
+}
+
+.validation-hint {
+    margin-top: 0.65rem;
+    font-family: 'Courier New', Courier, monospace;
+    font-size: 0.78rem;
+    color: var(--color-caramel);
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+}
+
+.line-total {
+    text-align: right;
+    font-family: 'Courier New', Courier, monospace;
+    font-size: 0.72rem;
+    font-weight: 700;
+    color: var(--color-caramel);
+    margin-top: 0.35rem;
+}
+
+/* ====== Thermal receipt preview ====== */
+.receipt-stage {
+    display: flex;
+    justify-content: center;
+    padding: 14px 6px 20px;
+}
+
+.receipt-paper {
+    width: 302px;
+    max-width: 100%;
+    background:
+        repeating-linear-gradient(0deg, rgba(0, 0, 0, 0.015) 0 1px, transparent 1px 3px),
+        #fdfcf7;
+    color: #1a1a1a;
+    font-family: 'Courier New', Courier, monospace;
+    font-size: 12px;
+    line-height: 1.45;
+    padding: 20px 14px 24px;
+    position: relative;
+    box-shadow: 0 8px 20px rgba(61, 43, 31, 0.18);
+    transform: rotate(0.35deg);
+}
+.receipt-paper::before,
+.receipt-paper::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    right: 0;
+    height: 8px;
+}
+.receipt-paper::before {
+    top: -8px;
+    background:
+        linear-gradient(45deg, transparent 33%, #fdfcf7 33%) 0 0 / 16px 8px repeat-x,
+        linear-gradient(-45deg, transparent 33%, #fdfcf7 33%) 8px 0 / 16px 8px repeat-x;
+}
+.receipt-paper::after {
+    bottom: -8px;
+    background:
+        linear-gradient(135deg, transparent 33%, #fdfcf7 33%) 0 0 / 16px 8px repeat-x,
+        linear-gradient(-135deg, transparent 33%, #fdfcf7 33%) 8px 0 / 16px 8px repeat-x;
+}
+
+.rc-center { text-align: center; }
+.rc-name {
+    text-align: center;
+    font-weight: 700;
+    font-size: 15px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    word-break: break-word;
+}
+.rc-small { font-size: 11px; }
+.rc-sep {
+    white-space: nowrap;
+    overflow: hidden;
+    letter-spacing: 1px;
+    margin: 6px 0;
+    user-select: none;
+}
+.rc-row {
+    display: flex;
+    justify-content: space-between;
+    gap: 8px;
+}
+.rc-row > span:last-child { text-align: right; white-space: nowrap; }
+.rc-item-desc {
+    text-transform: uppercase;
+    word-break: break-word;
+}
+.rc-total {
+    font-weight: 700;
+    font-size: 15px;
+}
+.rc-logo {
+    max-width: 130px;
+    max-height: 56px;
+    object-fit: contain;
+    margin: 0 auto 6px;
+    display: block;
+    filter: grayscale(1) contrast(1.15);
+}
+.rc-barcode {
+    display: block;
+    width: 78%;
+    margin: 8px auto 0;
+    image-rendering: pixelated;
+}
+
+/* Toast */
+.toast-msg {
+    position: fixed;
+    bottom: 1.5rem;
+    right: 1.5rem;
+    padding: 0.75rem 1.25rem;
+    border-radius: 2px;
+    font-family: 'Courier New', Courier, monospace;
+    font-size: 0.8rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: var(--color-cream);
+    background: var(--color-cocoa);
+    box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+    z-index: 999;
+    animation: toastIn 0.3s ease;
+}
+@keyframes toastIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.privacy-pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+    padding: 0.35rem 0.85rem;
+    border-radius: 2px;
+    font-family: 'Courier New', Courier, monospace;
+    font-size: 0.7rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: #33582f;
+    background: #eef6ee;
+    border: 1.5px dashed #9cc49a;
+}
+
+/* Receipt-style asterisk frame around the page title */
+.rc-frame {
+    font-family: 'Courier New', Courier, monospace;
+    letter-spacing: 0.45em;
+    color: var(--color-coral-deep);
+    opacity: 0.65;
+    user-select: none;
+    white-space: nowrap;
+    overflow: hidden;
+    font-size: 0.75rem;
+}
+
+.page-sub {
+    font-family: 'Courier New', Courier, monospace;
+    text-transform: uppercase;
+    letter-spacing: 0.14em;
+    font-size: 0.78rem;
+    font-weight: 700;
+    color: #6b6257;
+}
+
+/* Mobile action bar: paper strip with a perforated top edge */
+.mobile-actionbar {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 1rem;
+    padding: 0.75rem 1.25rem calc(0.75rem + env(safe-area-inset-bottom));
+    background: #fdfcf7;
+    border-top: 2px dashed #c9bda9;
+    z-index: 50;
+}
+.mobile-actionbar .ma-label {
+    font-family: 'Courier New', Courier, monospace;
+    font-size: 0.65rem;
+    font-weight: 700;
+    color: var(--color-caramel);
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+}
+.mobile-actionbar .ma-total {
+    font-family: 'Courier New', Courier, monospace;
+    font-weight: 700;
+    font-size: 1.05rem;
+    color: var(--color-cocoa);
+}
+@media (min-width: 768px) {
+    .mobile-actionbar { display: none; }
+}
+@media (max-width: 767px) {
+    #app { padding-bottom: 6.5rem !important; }
+    .toast-msg { bottom: 5.5rem; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .toast-msg { animation: none; }
+    html { scroll-behavior: auto !important; }
+    .receipt-paper { transform: none; }
+}
+
+@media print {
+    @page { size: 80mm auto; margin: 0; }
+    body * { visibility: hidden; }
+    .receipt-paper, .receipt-paper * { visibility: visible; }
+    .receipt-paper {
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 72mm;
+        padding: 4mm;
+        box-shadow: none;
+        transform: none;
+        background: white;
+    }
+    .receipt-paper::before, .receipt-paper::after { display: none; }
+}
+
+
+@media (min-width: 768px) {
+    .receipt-layout {
+        grid-template-columns: 1fr 1fr !important;
+    }
+}

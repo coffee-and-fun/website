@@ -1,0 +1,136 @@
+[v-cloak] { display: none; }
+
+.font-mc { font-family: 'Press Start 2P', monospace; }
+.font-px { font-family: 'VT323', monospace; }
+.pixelated { image-rendering: pixelated; }
+
+/* Dark dirt page background with a faint pixel checker */
+.mc-world {
+  background-color: #241a12;
+  background-image:
+    repeating-conic-gradient(#2a1f15 0% 25%, #241a12 0% 50%);
+  background-size: 16px 16px;
+}
+
+/* Classic inventory panel: stone gray, black outline, light TL / dark BR bevel */
+.mc-panel {
+  background: #c6c6c6;
+  border: 3px solid #1a1a1a;
+  box-shadow:
+    inset 3px 3px 0 rgba(255, 255, 255, 0.7),
+    inset -3px -3px 0 rgba(0, 0, 0, 0.35),
+    0 6px 0 rgba(0, 0, 0, 0.4);
+}
+
+/* Inventory slot: inverted bevel (pressed-in look) */
+.mc-slot {
+  background: #8b8b8b;
+  border: 3px solid #1a1a1a;
+  box-shadow:
+    inset 3px 3px 0 rgba(0, 0, 0, 0.45),
+    inset -3px -3px 0 rgba(255, 255, 255, 0.5);
+}
+.mc-slot.dragging { background: #9fae7c; }
+
+/* Classic MC button */
+.mc-btn {
+  font-family: 'Press Start 2P', monospace;
+  font-size: 0.65rem;
+  line-height: 1.4;
+  color: #ffffff;
+  text-shadow: 2px 2px 0 rgba(0, 0, 0, 0.6);
+  background: #6d6d6d;
+  border: 3px solid #1a1a1a;
+  box-shadow:
+    inset 2px 2px 0 rgba(255, 255, 255, 0.55),
+    inset -3px -3px 0 rgba(0, 0, 0, 0.4);
+  padding: 0.85rem 1.15rem;
+  cursor: pointer;
+  transition: background 80ms linear;
+  touch-action: manipulation;
+}
+.mc-btn:hover { background: #7e88cf; }
+.mc-btn:active {
+  box-shadow:
+    inset -2px -2px 0 rgba(255, 255, 255, 0.4),
+    inset 3px 3px 0 rgba(0, 0, 0, 0.4);
+}
+.mc-btn:focus-visible { outline: 3px solid #ffd83d; outline-offset: 2px; }
+.mc-btn:disabled { opacity: 0.5; cursor: not-allowed; }
+
+.mc-btn-green { background: #417a28; }
+.mc-btn-green:hover { background: #4c8a2f; }
+
+.mc-btn-gold { background: #b3831c; }
+.mc-btn-gold:hover { background: #c79422; }
+
+.mc-btn.is-selected {
+  background: #417a28;
+  outline: 3px solid #ffd83d;
+  outline-offset: -6px;
+}
+
+/* Grass ground strip */
+.grass-strip {
+  height: 14px;
+  background: linear-gradient(
+    to bottom,
+    #8fca5c 0%, #8fca5c 40%,
+    #71a844 40%, #71a844 60%,
+    #6a4526 60%, #5c3a20 100%
+  );
+  image-rendering: pixelated;
+}
+
+/* Title screen splash text */
+.mc-splash {
+  font-family: 'VT323', monospace;
+  color: #ffff54;
+  text-shadow: 2px 2px 0 #3f3f00;
+  transform: rotate(-10deg);
+  display: inline-block;
+  animation: splash-pulse 0.9s ease-in-out infinite alternate;
+}
+@keyframes splash-pulse {
+  from { transform: rotate(-10deg) scale(1); }
+  to { transform: rotate(-10deg) scale(1.07); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .mc-splash { animation: none; }
+}
+
+/* Number chip used in the block list */
+.mc-chip {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 2rem;
+  height: 2rem;
+  flex-shrink: 0;
+  border: 2px solid #1a1a1a;
+  font-family: 'Press Start 2P', monospace;
+  font-size: 0.6rem;
+  box-shadow: inset 1px 1px 0 rgba(255,255,255,.4), inset -1px -1px 0 rgba(0,0,0,.3);
+}
+button.mc-chip:focus-visible { outline: 3px solid #ffd83d; outline-offset: 2px; }
+.mc-chip.is-spotlit {
+  outline: 3px solid #ffd83d;
+  outline-offset: 1px;
+  transform: scale(1.12);
+}
+
+/* Scrollable build-guide viewport */
+.mc-viewport {
+  overflow: auto;
+  max-height: 70vh;
+  background: #313131;
+  border: 3px solid #1a1a1a;
+  box-shadow: inset 3px 3px 0 rgba(0,0,0,.5), inset -3px -3px 0 rgba(255,255,255,.15);
+}
+
+.mc-label {
+  font-family: 'Press Start 2P', monospace;
+  font-size: 0.6rem;
+  letter-spacing: 0.02em;
+  color: #3d3d3d;
+}

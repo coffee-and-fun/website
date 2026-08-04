@@ -131,22 +131,10 @@
 
     {% bundledCss %}
 
-    <!-- Service Worker Registration -->
-    <script>
-        if ('serviceWorker' in navigator) {
-        window.addEventListener('load', () => {
-          navigator.serviceWorker.register('/service-worker.js').catch(() => {});
-        });
-      }
-    </script>
     {% include scripts.html %}
     {% include sketch-styles.liquid %}
 
-    <style>
-        /* App accent, Immersive Reader's orange, used sparingly */
-        .ir-accent { color: #fa8e51; }
-        .ir-accent-bg { background-color: #ffd4b8; }
-    </style>
+    {% pageCss "immersive-reader" %}
 </head>
 <body class="min-h-screen">
     {% assign showFun = true %}

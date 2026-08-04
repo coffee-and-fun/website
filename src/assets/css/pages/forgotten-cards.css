@@ -1,0 +1,102 @@
+/* Card hover effects */
+.card-item {
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.card-item:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+}
+
+/* Logo container styling */
+.logo-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 200px;
+    border-radius: 0.75rem;
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+.logo-container::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: radial-gradient(circle at center, transparent 0%, rgba(0, 0, 0, 0.1) 100%);
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.logo-container:hover::before {
+    opacity: 1;
+}
+
+/* Button animations */
+.btn-show-card {
+    position: relative;
+    overflow: hidden;
+}
+
+.btn-show-card::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 0;
+    height: 0;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.3);
+    transform: translate(-50%, -50%);
+    transition: width 0.6s, height 0.6s;
+}
+
+.btn-show-card:hover::before {
+    width: 300px;
+    height: 300px;
+}
+
+/* Modal improvements */
+.modal-box img {
+    border-radius: 0.5rem;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+}
+
+/* Responsive grid adjustments */
+@media (max-width: 768px) {
+    .card-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* Add to phone button pulse */
+@keyframes pulse {
+    0%, 100% {
+        transform: scale(1);
+    }
+    50% {
+        transform: scale(1.05);
+    }
+}
+
+#a2hs-button.visible {
+    animation: pulse 2s infinite;
+}
+
+#a2hs-button:hover {
+    animation: none;
+}
+
+/* Story modal content */
+.story-content {
+    line-height: 1.8;
+    color: #4a5568;
+}
+
+.story-content p {
+    margin-bottom: 1rem;
+}

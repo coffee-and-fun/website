@@ -109,14 +109,6 @@
     {% bundledCss %}
     {% include scripts.html %}
 
-    <!-- Service Worker -->
-    <script>
-        if ('serviceWorker' in navigator) {
-        window.addEventListener('load', () => {
-          navigator.serviceWorker.register('/service-worker.js').catch(() => {});
-        });
-      }
-    </script>
     {% include sketch-styles.liquid %}
 </head>
 

@@ -1,0 +1,220 @@
+/* ============================================================
+   Markdown Editor product page, the app's own night theme,
+   Apple-minimal and flat. System SF stack for UI; JetBrains
+   Mono only for version numbers (an app artifact). The hero
+   shows the real app: a live screenshot of the night theme.
+   ============================================================ */
+@font-face {
+    font-family: 'JetBrains Mono';
+    font-style: normal;
+    font-weight: 700;
+    font-display: swap;
+    src: url('/assets/fonts/jetbrains-mono-latin-700-normal.woff2') format('woff2');
+}
+
+:root {
+    --sf: -apple-system, BlinkMacSystemFont, 'SF Pro Text', 'SF Pro Display', system-ui, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+    --mono: 'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, monospace;
+    --base: #0f172a;
+    --well: #0b1120;
+    --panel: #1e293b;
+    --border: #334155;
+    --text: #f1f5f9;
+    --text-2: #cbd5e1;
+    --text-3: #94a3b8;
+    --sky: #38bdf8;
+    --sky-ink: #082f49;
+}
+
+html { background: var(--base); }
+body { font-family: var(--sf); color: var(--text-2); background: var(--base); }
+
+@media (prefers-reduced-motion: reduce) {
+    html.scroll-smooth { scroll-behavior: auto; }
+    .reveal { opacity: 1; transform: none; transition: none; }
+}
+
+/* ===== Type ===== */
+.t-hero {
+    font-weight: 700;
+    letter-spacing: -0.021em;
+    line-height: 1.07;
+    font-size: clamp(2.4rem, 5.6vw, 4.4rem);
+    color: var(--text);
+    text-wrap: balance;
+}
+.t-section {
+    font-weight: 700;
+    letter-spacing: -0.018em;
+    line-height: 1.12;
+    font-size: clamp(1.8rem, 3.6vw, 2.8rem);
+    color: var(--text);
+    text-wrap: balance;
+}
+.t-accent { color: var(--sky); }
+.t-sub { font-size: clamp(1.1rem, 1.7vw, 1.3rem); line-height: 1.55; color: var(--text-3); font-weight: 400; }
+.nowrap { white-space: nowrap; }
+@media (max-width: 429px) { .nowrap { white-space: normal; } }
+
+/* ===== Buttons ===== */
+.btn-fill, .btn-quiet {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.45rem;
+    border-radius: 980px;
+    padding: 0.85rem 1.6rem;
+    min-height: 44px;
+    font-size: 1.02rem;
+    font-weight: 600;
+    line-height: 1.2;
+    white-space: nowrap;
+    transition: background-color 0.2s ease, border-color 0.2s ease;
+}
+.btn-fill { background: var(--sky); color: var(--sky-ink); }
+.btn-fill:hover { background: #7dd3fc; }
+.btn-quiet { background: var(--panel); color: var(--text); }
+.btn-quiet:hover { background: #27364d; }
+a:focus-visible, summary:focus-visible {
+    outline: 2.5px solid var(--sky);
+    outline-offset: 3px;
+}
+
+/* ===== App-style header (mirrors the editor's own top bar) ===== */
+.site-nav {
+    position: sticky;
+    top: 0;
+    z-index: 40;
+    background: rgba(15, 23, 42, 0.88);
+    backdrop-filter: saturate(180%) blur(20px);
+    -webkit-backdrop-filter: saturate(180%) blur(20px);
+    border-bottom: 1px solid rgba(51, 65, 85, 0.6);
+}
+.nav-brand {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.6rem;
+    min-height: 44px;
+    font-weight: 700;
+    font-size: 1.05rem;
+    white-space: nowrap;
+    color: var(--sky); /* the app titles itself in sky, so do we */
+}
+/* No display here, Tailwind's `hidden md:inline-flex` must stay
+   in charge of when these links exist. */
+.nav-ghost {
+    align-items: center;
+    min-height: 44px;
+    padding: 0.35rem 0.8rem;
+    border-radius: 0.6rem;
+    font-size: 0.95rem;
+    font-weight: 500;
+    color: var(--text-2);
+    transition: background-color 0.15s ease, color 0.15s ease;
+}
+.nav-ghost:hover { background: var(--panel); color: var(--text); }
+
+/* ===== The real app screenshot ===== */
+.app-shot {
+    border: 1px solid var(--border);
+    border-radius: 1.1rem;
+    box-shadow: 0 50px 100px -50px rgba(0, 0, 0, 0.8);
+    overflow: hidden;
+    background: var(--base);
+}
+.app-shot img { display: block; width: 100%; height: auto; }
+
+/* ===== Tiles ===== */
+.tile {
+    background: var(--panel);
+    border-radius: 1.4rem;
+    padding: 2rem;
+}
+.tile h3 { color: var(--text); font-weight: 600; font-size: 1.1rem; letter-spacing: -0.01em; }
+.tile p { color: var(--text-3); font-size: 0.98rem; line-height: 1.55; }
+.tile-icon { color: var(--sky); margin-bottom: 1.1rem; }
+
+/* ===== Chaos band ===== */
+.well-band { background: var(--well); }
+.chaos-pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    border-radius: 980px;
+    padding: 0.65rem 1.2rem;
+    background: var(--panel);
+    font-size: 0.95rem;
+    font-weight: 500;
+    color: var(--text-2);
+}
+
+/* ===== Theme dots ===== */
+.theme-dot-item { display: inline-flex; align-items: center; gap: 0.5rem; color: var(--text-3); font-size: 0.95rem; font-weight: 500; }
+.theme-dot { width: 1.05rem; height: 1.05rem; border-radius: 9999px; border: 1px solid rgba(255,255,255,0.25); flex-shrink: 0; }
+
+/* ===== Store buttons ===== */
+.store-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.7rem;
+    border-radius: 0.9rem;
+    padding: 0.75rem 1.3rem;
+    min-height: 44px;
+    background: var(--base);
+    border: 1px solid var(--border);
+    color: var(--text);
+    transition: border-color 0.2s ease;
+}
+.store-btn:hover { border-color: var(--sky); }
+.store-btn-light { background: #ffffff; border-color: #ffffff; color: #1d1d1f; }
+.store-btn-light:hover { border-color: #ffffff; background: #e8e8ed; }
+
+/* ===== Changelog ===== */
+.log-entry { border-top: 1px solid var(--border); padding: 2rem 0.25rem; }
+.log-entry:last-of-type { border-bottom: 1px solid var(--border); }
+.log-version {
+    font-family: var(--mono);
+    font-weight: 700;
+    font-size: 0.95rem;
+    color: var(--sky);
+    background: var(--panel);
+    border-radius: 0.5rem;
+    padding: 0.25rem 0.6rem;
+    display: inline-block;
+}
+.log-date { color: var(--text-3); font-size: 0.9rem; font-weight: 500; }
+.log-entry h3 { color: var(--text); font-weight: 600; font-size: 1.15rem; letter-spacing: -0.01em; margin-top: 0.9rem; }
+.log-entry p { color: var(--text-3); line-height: 1.65; margin-top: 0.5rem; max-width: 44rem; }
+
+/* ===== FAQ ===== */
+details.faq { border-top: 1px solid var(--border); }
+details.faq:last-of-type { border-bottom: 1px solid var(--border); }
+details.faq summary {
+    cursor: pointer;
+    list-style: none;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    padding: 1.35rem 0.25rem;
+    font-weight: 600;
+    font-size: 1.05rem;
+    color: var(--text);
+    min-height: 44px;
+}
+details.faq summary::-webkit-details-marker { display: none; }
+details.faq summary .faq-chevron { transition: transform 0.2s ease; flex-shrink: 0; color: var(--text-3); }
+details.faq[open] summary .faq-chevron { transform: rotate(180deg); }
+details.faq .faq-body { padding: 0 0.25rem 1.35rem; color: var(--text-3); line-height: 1.65; max-width: 44rem; }
+
+/* ===== Reveal ===== */
+.reveal { opacity: 0; transform: translateY(14px); transition: opacity 0.7s ease, transform 0.7s ease; }
+.reveal.revealed { opacity: 1; transform: none; }
+
+/* Site footer, tamed for this page: keep doodles inside the cream
+   block, and make their motion finite (WCAG 2.2.2). */
+footer.brand-color-background { overflow: hidden; }
+.sketch-float, .sketch-float-slow, .sketch-wiggle { animation-iteration-count: 1; }
+
+
+.reveal { opacity: 1; transform: none; }

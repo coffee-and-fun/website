@@ -1,0 +1,15 @@
+[v-cloak] { display: none; }
+
+@keyframes ticker {
+  0% { transform: translateX(100%); }
+  100% { transform: translateX(-100%); }
+}
+.animate-ticker { animation: ticker 10s linear infinite; }
+.animate-ticker:hover { animation-play-state: paused; }
+
+.card-body { transition: transform 0.3s ease-in-out; }
+
+.draggable-card {
+  transition: top 0.3s ease, left 0.3s ease;
+  position: absolute;
+}

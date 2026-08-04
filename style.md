@@ -111,6 +111,29 @@ Current section gets `cf-mm-cur` (an espresso underline) plus `aria-current`. Th
 
 ---
 
+## Where page CSS and JS live
+
+**Standard: a page never carries a large inline `<style>` or `<script>`.** Both live in real files that can be edited, diffed, syntax-checked and searched like code.
+
+| What | Where | How the page pulls it in |
+|---|---|---|
+| Page CSS | `src/assets/css/pages/<page>.css` | `{% pageCss "<page>" %}` |
+| Page JS | `src/assets/js/pages/<page>.js` | `{% pageJs "<page>" %}` |
+
+`<page>` is the page's filename without `.liquid` (the homepage is `index`; a page at `foo/index.liquid` is `foo`). Both shortcodes append a content hash, so the service worker cannot serve a stale copy after an edit, and `pageJs` emits `defer`.
+
+Adding a page: create the two asset files, drop the shortcodes in, done. If a page has no CSS or no JS of its own, leave the shortcode out rather than creating an empty file.
+
+**Three things stay inline, deliberately:**
+
+- **JSON-LD** (`<script type="application/ld+json">`). It is page metadata, not behaviour, and search engines expect it in the document.
+- **Anything containing Liquid.** Asset files are copied verbatim, never templated, so `{{ }}` and `{% %}` inside them would ship as literal text. `emoji.liquid` is the one page that legitimately keeps an inline script, because it injects a 5,000-entry dataset via `{{ emojis | json }}`.
+- **The service worker registration**, which lives once in `scripts.html`.
+
+**Watch for `{% raw %}`.** Several tool pages wrap inline scripts in `{% raw %}` so Liquid does not eat Vue's `{{ }}`. A shortcode placed inside a raw block prints literally instead of running, and the page silently loses its JS. Once the script is external the raw wrapper is usually unnecessary, so remove it.
+
+---
+
 ## Article typography: two systems, not one
 
 Markdown body copy is styled in **two different places** depending on where it renders. Know which one you are in before changing anything.

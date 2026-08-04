@@ -1,3 +1,14 @@
+<!-- Service worker. Registered here once rather than pasted into every page:
+     19 pages carried byte-identical copies of this block. Scope is site-wide
+     regardless of which page registers it. -->
+<script>
+	if ('serviceWorker' in navigator) {
+		window.addEventListener('load', () => {
+			navigator.serviceWorker.register('/service-worker.js').catch(() => {});
+		});
+	}
+</script>
+
 <style>
 	.brand-color-background {
 		background-color: #fef5ec;

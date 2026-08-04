@@ -1,0 +1,75 @@
+const funnyMessages = [
+	"Nice try! But shouldn't you be working instead of browsing?",
+	"Oops! This site is off-limits. Maybe it's time to pretend to look busy?",
+	"Access denied. Have you considered a productive hobby like underwater basket weaving?",
+	"Hold up! This site is blocked. Why not read the company's 500-page policy manual instead?",
+	"Nope! This site is as off-limits as the boss's parking spot.",
+	"Error 404: Work ethic not found. Please try again after completing your actual tasks.",
+	"Blocked! But don't worry, I'm sure cat videos are overrated anyway.",
+	"Access forbidden. May I suggest a thrilling alternative like organizing your email inbox?",
+	"Sorry, no website for you. How about a nice game of Minesweeper instead?",
+	"This site is blocked. Have you considered staring at the water cooler? I hear it's riveting.",
+	"Denied! Maybe it's time for a quick stretch or a coffee break?",
+	"Not today! This site is off-limits. Time to update your to-do list, perhaps?",
+	"Access restricted. Why not take a moment to daydream about your next vacation?",
+	"Hold on! You can't go there. How about finally tackling that filing pile?",
+	"Stop right there! This site is blocked. Time to give your desk a nice clean-up?",
+	"Sorry, no fun allowed here. Maybe doodle on a notepad instead?",
+	"This site is a no-go. Perfect time to practice your pen spinning skills!",
+	"Blocked! Looks like it's back to reality. How about scheduling your next meeting?",
+	"Nope, you can't access this site. How about brainstorming your next big idea?",
+	"Access denied. Consider it a sign to take a deep breath and relax for a moment.",
+	"Get back to work! Those emails won't answer themselves.",
+	"Blocked! Time to hit the books and get back to studying!",
+	"Nice try, but it's work time. Let's get those tasks done!",
+	"Access denied. How about finishing that project instead?",
+	"Oops, this site is off-limits. Better get back to studying!",
+	"Sorry, no browsing allowed. Time to focus and get back to work!",
+	"Denied! Your study session awaits. Time to hit the books!",
+	"Hold up! This site is blocked. Your work isn't going to do itself!",
+	"Nope! This site is off-limits. Back to studying, you go!",
+	"Access forbidden. How about tackling that next assignment?",
+	"Blocked! It's work time. Let's get those tasks completed!",
+	"Access denied. Time to focus on your studies and ace those exams!",
+	"Houston, we have a problem. This site is blocked. Get back to work!",
+	"Blocked! You shall not pass! Now get back to work, Frodo.",
+	"This is not the droid you're looking for. Move along and get back to studying.",
+	"Blocked! Frankly, my dear, I don't give a damn. Now get back to work.",
+	"Blocked! Toto, I've a feeling we're not in Kansas anymore. Back to your tasks!",
+	"Access denied. May the force be with you... and your work!",
+	"Sorry, kid. Roads? Where we're going, we don't need roads. We need you to get back to work!",
+	"Nope! Hasta la vista, baby. Get back to those tasks!",
+	"Blocked! I'm the king of the world! And you're the ruler of your desk. Get to work!",
+	"You're gonna need a bigger boat... and a better excuse. Back to work!",
+	"Access denied. I'll be back... once you finish your tasks!",
+	"Blocked! Go ahead, make my day... by getting back to work.",
+	"Access denied. To infinity and beyond... but first, finish your work!",
+	"Snark alert! This site is off-limits. Time to get back to work, genius!",
+	"Nice try, Einstein. This site is blocked. Now get back to work!",
+	"Blocked! Sorry, Sherlock, no mysteries here. Just work waiting for you.",
+	"Access denied. Your procrastination skills are impressive, but back to work you go!",
+	"Blocked! Looks like someone needs a break... from slacking off. Get back to it!",
+	"Denied! You weren't really going to slack off, were you? Back to work!",
+	"Access denied. Time to stop pretending to work and actually do it!",
+	"Access halted. The spreadsheet is calling your name.",
+	"Denied. There might be a lonely snack in the break room.",
+	"No entry. That cubicle won't decorate itself.",
+	"Blocked! The coffee mug on your desk could use a refill.",
+	"Stop! Internet fun paused. Is there a to-do list waiting nearby?",
+	"Access refused. Try chatting with your office plant.",
+	"Denied! You can spin in your chair at least ten times, right?",
+	"No entry. A boss might pop by for updates soon.",
+	"Halt! A snack machine might be missing you.",
+	"Uh-oh. There's a stack of tasks with your name on it."
+];
+
+function replaceMessage() {
+	const messageElement = document.getElementById('blockMessage');
+	if (messageElement) {
+		const randomMessage = funnyMessages[Math.floor(Math.random() * funnyMessages.length)];
+		messageElement.textContent = randomMessage;
+	}
+}
+
+// Call the function when the page loads
+window.onload = replaceMessage;

@@ -267,6 +267,28 @@ export default function (eleventyConfig) {
 		strictFilters: false
 	});
 
+	// Page-scoped assets. Every page keeps its own CSS and JS in a real file under
+	// src/assets/{css,js}/pages/ so it can be edited, diffed and linted like code
+	// instead of being buried in a Liquid template. Hashed so the service worker,
+	// which caches static assets, cannot serve a stale one after an edit.
+	const pageAssetTag = (rel, build) => {
+		const src = path.join('src/assets', rel);
+		let v = '';
+		try {
+			v = crypto.createHash('md5').update(fs.readFileSync(src)).digest('hex').slice(0, 10);
+		} catch (e) {
+			console.warn(`[page-asset] missing ${src}`);
+			return '';
+		}
+		return build(`/assets/${rel}?v=${v}`);
+	};
+	eleventyConfig.addShortcode('pageCss', (name) =>
+		pageAssetTag(`css/pages/${name}.css`, (href) => `<link rel="stylesheet" href="${href}" />`)
+	);
+	eleventyConfig.addShortcode('pageJs', (name) =>
+		pageAssetTag(`js/pages/${name}.js`, (src) => `<script src="${src}" defer></script>`)
+	);
+
 	eleventyConfig.addShortcode('bundledCss', () => {
 		const v = assetVersions.css ? `?v=${assetVersions.css}` : '';
 		return `<link href="/assets/css/engine.css${v}" rel="stylesheet" />`;

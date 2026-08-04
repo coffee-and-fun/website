@@ -1,0 +1,212 @@
+/* Critical styles that must load immediately */
+[v-cloak] {
+  display: none;
+}
+/* Ensure grid layout works properly */
+[role="grid"] {
+  width: 100%;
+  max-width: 400px;
+  margin: 0 auto;
+}
+
+@media (max-width: 640px) {
+  [role="grid"] {
+    gap: 0.75rem !important;
+    max-width: 320px;
+  }
+}
+/* Improved loading state */
+.app-loading {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: var(--color-cream);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 9999;
+}
+
+/* Performance: Use transform instead of changing layout properties */
+.game-cell {
+  aspect-ratio: 1;
+  height: 100%;
+  width: 100%;
+  will-change: transform;
+}
+
+@media (max-width: 640px) {
+  .game-cell {
+    min-height: clamp(44px, 15vw, 80px);
+    font-size: clamp(1.25rem, 4vw, 1.75rem);
+  }
+
+  [role="grid"] {
+    gap: 0.75rem !important;
+    max-width: 320px;
+  }
+}
+.fade-out {
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+.winning-cell {
+  animation: pulse 1s infinite;
+  background: linear-gradient(45deg, #10b981, #34d399);
+}
+@keyframes pulse {
+  0%,
+  100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.05);
+  }
+}
+
+@keyframes flash-effect {
+  0% {
+    transform: scale(1);
+    background-color: transparent;
+  }
+  50% {
+    transform: scale(1.05);
+    background-color: rgba(59, 130, 246, 0.3);
+  }
+  100% {
+    transform: scale(1);
+    background-color: transparent;
+  }
+}
+
+.flash-effect {
+  animation: flash-effect 0.6s ease-in-out;
+}
+
+@keyframes expand-grid {
+  0% {
+    transform: scale(0.8);
+    opacity: 0.5;
+  }
+  50% {
+    transform: scale(1.1);
+  }
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+.expand-animation {
+  animation: expand-grid 0.8s ease-out;
+}
+
+.grid-transition {
+  transition: all 0.5s ease-in-out;
+}
+
+@keyframes earthquake {
+  0%,
+  100% {
+    transform: translate(0, 0) rotate(0deg);
+  }
+  10% {
+    transform: translate(-2px, -1px) rotate(-0.5deg);
+  }
+  20% {
+    transform: translate(-3px, 0px) rotate(0.5deg);
+  }
+  30% {
+    transform: translate(3px, 2px) rotate(0deg);
+  }
+  40% {
+    transform: translate(1px, -1px) rotate(0.5deg);
+  }
+  50% {
+    transform: translate(-1px, 2px) rotate(-0.5deg);
+  }
+  60% {
+    transform: translate(-3px, 1px) rotate(0deg);
+  }
+  70% {
+    transform: translate(3px, 1px) rotate(-0.5deg);
+  }
+  80% {
+    transform: translate(-1px, -1px) rotate(0.5deg);
+  }
+  90% {
+    transform: translate(1px, 2px) rotate(0deg);
+  }
+}
+
+.earthquake {
+  animation: earthquake 0.8s ease-in-out;
+}
+
+@keyframes tilt-n-move-shaking {
+  0% {
+    transform: translate(0, 0) rotate(0deg);
+  }
+  25% {
+    transform: translate(5px, 5px) rotate(5deg);
+  }
+  50% {
+    transform: translate(0, 0) rotate(0deg);
+  }
+  75% {
+    transform: translate(-5px, 5px) rotate(-5deg);
+  }
+  100% {
+    transform: translate(0, 0) rotate(0deg);
+  }
+}
+.tilt-n-move-shaking {
+  animation: tilt-n-move-shaking 0.5s ease-in-out;
+}
+
+@keyframes tile-bounce {
+  0%,
+  100% {
+    transform: scale(1) translateY(0);
+  }
+  25% {
+    transform: scale(1.1) translateY(-5px);
+  }
+  50% {
+    transform: scale(1.05) translateY(-2px);
+  }
+  75% {
+    transform: scale(1.02) translateY(-1px);
+  }
+}
+
+.tile-bounce {
+  animation: tile-bounce 0.5s ease-out;
+}
+
+/* Reduced motion support */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* High contrast mode support */
+@media (prefers-contrast: high) {
+  .btn {
+    border: 2px solid;
+  }
+}
+
+/* Dark mode support */
+@media (prefers-color-scheme: dark) {
+  :root {
+    color-scheme: dark;
+  }
+}

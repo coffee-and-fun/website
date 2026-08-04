@@ -125,36 +125,8 @@
     {% bundledCss %}
     {% include sketch-styles.liquid %}
 
-    <style>
-      .stat-number {
-        font-family: 'Pacifico', cursive;
-        font-size: clamp(2.75rem, 7vw, 5rem);
-        line-height: 1.2;
-      }
+    {% pageCss "about" %}
 
-      .full-bleed {
-        width: 100vw;
-        margin-left: calc(50% - 50vw);
-      }
-
-      .team-card img {
-        transition: transform 0.3s ease;
-      }
-      @media (prefers-reduced-motion: no-preference) {
-        .team-card:hover img,
-        .team-card:focus-within img {
-          transform: scale(1.03) rotate(-1deg);
-        }
-      }
-    </style>
-
-    <script>
-      if ('serviceWorker' in navigator) {
-        window.addEventListener('load', () => {
-          navigator.serviceWorker.register('/service-worker.js').catch(() => {});
-        });
-      }
-    </script>
 
     {% include scripts.html %}
   </head>
