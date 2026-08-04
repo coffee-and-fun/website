@@ -144,15 +144,17 @@ The house style, 1200x630:
 
 | Element | Value |
 |---|---|
-| Background | Forest green `#3b563e` |
+| Background | Deep purple `#412070` |
 | Text plates | Yellow `#fbf2b3`, rounded, one per line, overlapping so they merge into a single sticker |
-| Headline | Red `#eb2030`, uppercase, **BlocC** (`tools/fonts/BlocC-Regular.ttf`) |
+| Headline | Red `#eb2030`, uppercase, weight 900, **Bloc Bold** (`tools/fonts/Bloc-Bold.ttf`) |
 | Logo | Bottom left |
 | Topic badge | Optional, bottom right in a cream circle, via `--icon` |
 
 Pass the headline as **one argument**. Two arguments makes two separate stickers with a gap between them, which is occasionally what you want but is not the default look.
 
-BlocC is used only here, in generated images. It is not a web font and is never loaded by the site.
+Bloc Bold is used only here, in generated images. It is not a web font and is never loaded by the site.
+
+**You do not have to remember to run this.** The Eleventy build checks every blog post and generates a card for any whose `img` file is missing, so a new post cannot ship without one. It never overwrites a card that already exists, so hand-made artwork is safe. Run the command yourself only when you want to *replace* an existing card.
 
 ---
 

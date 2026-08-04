@@ -72,6 +72,8 @@ python3 -c "from PIL import Image; im=Image.open('src/assets/images/blog/<slug>.
 
 Confirm both files exist and the PNG is 1200x630.
 
+If you skip this step the build will generate the PNG for you from `cardTitle`, but it will not make the WebP, so make both here.
+
 If the post has a natural topic mark (a product logo, a mascot), you can add
 `--icon <path>` and it will be dropped into a cream circle bottom right. Most
 posts do not need one; the default is just the Coffee & Fun logo bottom left.

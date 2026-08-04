@@ -17,71 +17,37 @@ import markdownItAnchor from 'markdown-it-anchor';
 import tailwindcss from '@tailwindcss/postcss';
 import cssnano from 'cssnano';
 
-const createSocialImageForArticle = async (input, output) => {
+// Backfill a social/OG card for any blog post whose `img` file is missing, so a
+// new post can never ship without one. Existing cards are never touched, which
+// keeps hand-made artwork safe. `canvas` is a native module that fails to load
+// on some machines, so it is imported lazily inside a try/catch: a broken
+// install degrades to "no card generated" rather than breaking the build.
+const backfillSocialCards = async () => {
+	const postsDir = 'src/pages/blog';
+	if (!fs.existsSync(postsDir)) return;
+
+	const wanted = [];
+	for (const file of fs.readdirSync(postsDir).filter((f) => f.endsWith('.md'))) {
+		const raw = fs.readFileSync(path.join(postsDir, file), 'utf-8');
+		const fm = raw.match(/^---\n([\s\S]*?)\n---/);
+		if (!fm) continue;
+		const img = (fm[1].match(/^img:\s*(.+)$/m) || [])[1];
+		const headline = (fm[1].match(/^cardTitle:\s*(.+)$/m) || [])[1];
+		if (!img || !headline) continue;
+		const target = path.join('src', img.trim().replace(/^["']|["']$/g, ''));
+		if (fs.existsSync(target)) continue;
+		wanted.push({ target, headline: headline.trim().replace(/^["']|["']$/g, ''), file });
+	}
+	if (!wanted.length) return;
+
 	try {
-		// `canvas` is a native module that frequently fails to load (missing
-		// system libs like libpixman on fresh machines / CI). Import it lazily
-		// so a broken canvas install can never take down the whole build. This
-		// helper is opt-in and not wired into the default build.
-		const { createCanvas, loadImage } = await import('canvas');
-
-		const data = fs.readFileSync(input, 'utf-8');
-		const match = data.match(/cardTitle:(.*)/);
-		if (!match) {
-			console.warn(`⚠️  Skipping social image: no "cardTitle:" frontmatter in ${input}`);
-			return;
+		const { renderCard } = await import('./tools/social-card.mjs');
+		for (const { target, headline, file } of wanted) {
+			await renderCard({ output: target, paragraphs: [headline] });
+			console.log(`[social-card] generated ${target} for ${file}`);
 		}
-
-		const post = {
-			title: match[1],
-			author: 'coffeeandfun.com'
-		};
-
-		const width = 1200;
-		const height = 627;
-		const canvas = createCanvas(width, height);
-		const context = canvas.getContext('2d');
-
-		const splashSolid = await loadImage('./tools/images/splash-1.png');
-		const splashStriped = await loadImage('./tools/images/splash-2.png');
-		const helperbirdLogo = await loadImage('./tools/images/helperbird-logo.png');
-
-		context.fillStyle = '#450a75';
-		context.fillRect(0, 0, width, height);
-
-		const titleText = formatTitle(post.title);
-		context.font = "bold 50pt 'PT Sans'";
-		context.textAlign = 'center';
-		context.fillStyle = '#ffffff';
-		context.fillText(titleText[0], 600, 260);
-		if (titleText[1]) {
-			context.fillText(titleText[1], 600, 360);
-		}
-
-		context.font = "25pt 'PT Sans'";
-		context.fillText(`${post.author}`, 650, 525);
-
-		context.drawImage(helperbirdLogo, 455, 475, 70, 70);
-		context.drawImage(splashSolid, 1000, 0, 403, 409);
-		context.drawImage(splashSolid, 200, 500, 403, 409);
-		context.drawImage(splashStriped, -80, 48, 348, 252);
-		context.drawImage(splashStriped, 1000, 400, 348, 252);
-		context.drawImage(splashStriped, 100, 600, 348, 252);
-
-		const outputDir = path.dirname(output);
-		if (!fs.existsSync(outputDir)) {
-			fs.mkdirSync(outputDir, { recursive: true });
-		}
-
-		await new Promise((resolve, reject) => {
-			const stream = fs.createWriteStream(output);
-			stream.on('finish', resolve);
-			stream.on('error', reject);
-			canvas.createPNGStream({ quality: 1.0 }).pipe(stream);
-		});
 	} catch (e) {
-		console.error(`❌ Error generating social image for ${input}:`, e);
-		throw e;
+		console.warn('[social-card] skipped, could not render:', e.message);
 	}
 };
 
@@ -247,6 +213,8 @@ export default function (eleventyConfig) {
 	});
 
 	eleventyConfig.on('eleventy.before', async () => {
+		await backfillSocialCards();
+
 		const tailwindInputPath = path.resolve('./src/assets/css/coco.css');
 		const tailwindOutputPath = './docs/assets/css/engine.css';
 		const cssContent = fs.readFileSync(tailwindInputPath, 'utf8');
