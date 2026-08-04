@@ -79,50 +79,58 @@
             "mainEntity": [
               {
                 "@type": "Question",
-                "name": "What reading level should I aim for?",
+                "name": "My score went up but the writing feels worse. What happened?",
                 "acceptedAnswer": {
                   "@type": "Answer",
-                  "text": "For a general audience, grade 8 to 10 is a good target. News writing usually lands around grade 9. Government and health information is often written to grade 6 to 8 so it reaches as many people as possible. Technical documentation for specialists can sit higher without being a problem."
+                  "text": "Readability formulas count sentence length and syllables. They cannot tell whether a sentence still makes sense. Chopping everything in half will raise your score and can leave prose that reads like a telegram. Use the score to find candidates for rewriting, then judge the rewrite by reading it, not by watching the number move."
                 }
               },
               {
                 "@type": "Question",
-                "name": "What is a good Flesch Reading Ease score?",
+                "name": "Is writing for a lower grade the same as dumbing it down?",
                 "acceptedAnswer": {
                   "@type": "Answer",
-                  "text": "Flesch Reading Ease runs from 0 to 100, and higher means easier. Scores of 60 to 70 suit a general adult audience. Below 30 the text is genuinely hard and most readers will struggle. Above 80 is very easy and suits younger readers or anyone skim reading."
+                  "text": "No. A lower grade means less effort to decode, not less to say. Specialists read plain writing faster than dense writing on their own subject, and they are usually the ones reading in a hurry. You are removing friction, not content. If an idea is genuinely complex, keep the idea and simplify the sentence carrying it."
                 }
               },
               {
                 "@type": "Question",
-                "name": "Why does the SMOG index say it needs 30 sentences?",
+                "name": "My subject has long words I cannot avoid. Does that mean I fail?",
                 "acceptedAnswer": {
                   "@type": "Answer",
-                  "text": "The SMOG formula was designed and validated on samples of 30 sentences. Run it on less than that and the result swings wildly, so this tool holds it back rather than showing a number you cannot trust. Every other formula still works on shorter text."
+                  "text": "Not really. These formulas count syllables, not familiarity, so photosynthesis costs the same as any other five syllable word even though most people met it at school. If a technical term is the right word, keep it. Shorten the sentence around it instead, and the score comes down while the meaning stays put."
                 }
               },
               {
                 "@type": "Question",
-                "name": "Does my text get uploaded anywhere?",
+                "name": "What should I paste in? Do headings and bullet points count?",
                 "acceptedAnswer": {
                   "@type": "Answer",
-                  "text": "No. Every calculation happens in your browser using JavaScript on this page. Your text is never sent to a server, never stored, and never logged. You can disconnect from the internet after the page loads and the tool still works."
+                  "text": "Paste the prose you actually want measured. Headings and bullet fragments often have no full stop, so the tool joins them onto whatever follows and reports one long sentence you never wrote. For the most accurate reading, leave out navigation, captions and code, and check your body text on its own."
                 }
               },
               {
                 "@type": "Question",
-                "name": "Why do the six formulas disagree with each other?",
+                "name": "What can these scores not see?",
                 "acceptedAnswer": {
                   "@type": "Answer",
-                  "text": "Each formula measures something slightly different. Flesch Kincaid and Gunning Fog count syllables, Coleman Liau and ARI count letters, and SMOG counts long words. Text full of short technical terms scores differently from text full of long plain words. The consensus grade averages them so one formula's blind spot does not decide the result."
+                  "text": "Quite a lot. They cannot tell whether your paragraphs are in a sensible order, whether a sentence is ambiguous, whether your reader already knows your jargon, or whether what you wrote is true. A confusing argument in short sentences scores well. Treat the number as one signal and read the words."
                 }
               },
               {
                 "@type": "Question",
-                "name": "Does this work for languages other than English?",
+                "name": "Does reading level matter for accessibility?",
                 "acceptedAnswer": {
                   "@type": "Answer",
-                  "text": "No. These formulas were built and validated on English, and the syllable counting rules are English rules. Running other languages through them produces numbers, but those numbers do not mean anything."
+                  "text": "It can. WCAG 2.2 includes a success criterion called Reading Level, numbered 3.1.5, at the AAA level. Where text demands more reading ability than lower secondary education, which WCAG puts at seven to nine years of schooling, it asks you to offer a simpler version or a summary. Plain writing also helps people with dyslexia, people reading in a second language, and anyone who is tired or distracted."
+                }
+              },
+              {
+                "@type": "Question",
+                "name": "Does readability affect Google rankings?",
+                "acceptedAnswer": {
+                  "@type": "Answer",
+                  "text": "Not directly. Google has never listed a readability score as a ranking factor, and plenty of dense pages rank well. What it does affect is what happens after someone arrives: how far they read, whether they understand you, and whether they do the thing you wanted. That is usually worth more than the position."
                 }
               }
             ]
@@ -321,58 +329,74 @@
 
             <div class="faq">
                 <details class="collapse collapse-arrow faq-item">
-                    <summary class="collapse-title">What reading level should I aim for?</summary>
+                    <summary class="collapse-title">My score went up but the writing feels worse. What happened?</summary>
                     <div class="collapse-content">
-                        <p>For a general audience, grade 8 to 10 is a good target. News writing usually lands
-                        around grade 9. Government and health information is often written to grade 6 to 8 so
-                        it reaches as many people as possible. Technical documentation for specialists can sit
-                        higher without being a problem.</p>
+                        <p>Readability formulas count sentence length and syllables. They cannot tell whether
+                        a sentence still makes sense. Chopping everything in half will raise your score and
+                        can leave prose that reads like a telegram. Use the score to find candidates for
+                        rewriting, then judge the rewrite by reading it, not by watching the number move.</p>
                     </div>
                 </details>
 
                 <details class="collapse collapse-arrow faq-item">
-                    <summary class="collapse-title">What is a good Flesch Reading Ease score?</summary>
+                    <summary class="collapse-title">Is writing for a lower grade the same as dumbing it down?</summary>
                     <div class="collapse-content">
-                        <p>Flesch Reading Ease runs from 0 to 100, and higher means easier. Scores of 60 to 70
-                        suit a general adult audience. Below 30 the text is genuinely hard and most readers
-                        will struggle. Above 80 is very easy and suits younger readers or anyone skim reading.</p>
+                        <p>No. A lower grade means less effort to decode, not less to say. Specialists read
+                        plain writing faster than dense writing on their own subject, and they are usually the
+                        ones reading in a hurry. You are removing friction, not content. If an idea is
+                        genuinely complex, keep the idea and simplify the sentence carrying it.</p>
                     </div>
                 </details>
 
                 <details class="collapse collapse-arrow faq-item">
-                    <summary class="collapse-title">Why does the SMOG index say it needs 30 sentences?</summary>
+                    <summary class="collapse-title">My subject has long words I cannot avoid. Does that mean I fail?</summary>
                     <div class="collapse-content">
-                        <p>The SMOG formula was designed and validated on samples of 30 sentences. Run it on
-                        less than that and the result swings wildly, so this tool holds it back rather than
-                        showing a number you cannot trust. Every other formula still works on shorter text.</p>
+                        <p>Not really. These formulas count syllables, not familiarity, so photosynthesis
+                        costs the same as any other five syllable word even though most people met it at
+                        school. If a technical term is the right word, keep it. Shorten the sentence around it
+                        instead, and the score comes down while the meaning stays put.</p>
                     </div>
                 </details>
 
                 <details class="collapse collapse-arrow faq-item">
-                    <summary class="collapse-title">Does my text get uploaded anywhere?</summary>
+                    <summary class="collapse-title">What should I paste in? Do headings and bullet points count?</summary>
                     <div class="collapse-content">
-                        <p>No. Every calculation happens in your browser using JavaScript on this page. Your
-                        text is never sent to a server, never stored, and never logged. You can disconnect
-                        from the internet after the page loads and the tool still works.</p>
+                        <p>Paste the prose you actually want measured. Headings and bullet fragments often
+                        have no full stop, so the tool joins them onto whatever follows and reports one long
+                        sentence you never wrote. For the most accurate reading, leave out navigation,
+                        captions and code, and check your body text on its own.</p>
                     </div>
                 </details>
 
                 <details class="collapse collapse-arrow faq-item">
-                    <summary class="collapse-title">Why do the six formulas disagree with each other?</summary>
+                    <summary class="collapse-title">What can these scores not see?</summary>
                     <div class="collapse-content">
-                        <p>Each formula measures something slightly different. Flesch Kincaid and Gunning Fog
-                        count syllables, Coleman Liau and ARI count letters, and SMOG counts long words. Text
-                        full of short technical terms scores differently from text full of long plain words.
-                        The consensus grade averages them so one formula's blind spot does not decide the result.</p>
+                        <p>Quite a lot. They cannot tell whether your paragraphs are in a sensible order,
+                        whether a sentence is ambiguous, whether your reader already knows your jargon, or
+                        whether what you wrote is true. A confusing argument in short sentences scores well.
+                        Treat the number as one signal and read the words.</p>
                     </div>
                 </details>
 
                 <details class="collapse collapse-arrow faq-item">
-                    <summary class="collapse-title">Does this work for languages other than English?</summary>
+                    <summary class="collapse-title">Does reading level matter for accessibility?</summary>
                     <div class="collapse-content">
-                        <p>No. These formulas were built and validated on English, and the syllable counting
-                        rules are English rules. Running other languages through them produces numbers, but
-                        those numbers do not mean anything.</p>
+                        <p>It can. WCAG 2.2 includes a success criterion called Reading Level, numbered 3.1.5,
+                        at the AAA level. Where text demands more reading ability than lower secondary
+                        education, which WCAG puts at seven to nine years of schooling, it asks you to offer a
+                        simpler version or a summary. Plain
+                        writing also helps people with dyslexia, people reading in a second language, and
+                        anyone who is tired or distracted.</p>
+                    </div>
+                </details>
+
+                <details class="collapse collapse-arrow faq-item">
+                    <summary class="collapse-title">Does readability affect Google rankings?</summary>
+                    <div class="collapse-content">
+                        <p>Not directly. Google has never listed a readability score as a ranking factor, and
+                        plenty of dense pages rank well. What it does affect is what happens after someone
+                        arrives: how far they read, whether they understand you, and whether they do the thing
+                        you wanted. That is usually worth more than the position.</p>
                     </div>
                 </details>
             </div>
