@@ -29,8 +29,6 @@ tags:
   - testing
 ---
 
-# Should You Test in Production? F\*\*\* It, Let’s Do It Live!
-
 If you’ve ever written code, you’ve probably had _that_ moment, something’s broken, there’s no time
 to test properly, and someone says, “Just push it live and see what happens.” It’s chaotic, a little
 terrifying, and somehow funny at the same time.

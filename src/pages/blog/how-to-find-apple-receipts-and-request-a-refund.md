@@ -25,8 +25,6 @@ tags:
   - refunds
 ---
 
-# How to Find Apple Receipts and Request a Refund (Without Losing Your Mind)
-
 Let’s be honest, Apple charges sneak up on all of us. A forgotten subscription, an accidental in-app purchase, or a kid tapping **Buy** a little too confidently. The good news? Apple actually makes it pretty easy to **find receipts and request refunds**… if you know where to look.
 
 Let’s get you sorted quickly.

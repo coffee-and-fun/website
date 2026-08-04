@@ -25,7 +25,6 @@ tags:
   - commentary
   - smart-home
 ---
-# The Enshittification of Technology
 
 There’s a very specific kind of frustration that comes from using modern technology.
 

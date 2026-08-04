@@ -30,8 +30,6 @@ tags:
   - community
 ---
 
-# ☕ Quarterly Check-In from the Coffee & Fun Coffee Shop
-
 Hey friends! Welcome to our first official **quarterly check-in** straight from the warm, slightly
 chaotic, and very caffeinated corner of the internet we call **Coffee & Fun LLC**.
 

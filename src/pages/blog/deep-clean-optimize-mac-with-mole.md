@@ -35,8 +35,6 @@ tags:
   - performance
 ---
 
-# 🧹 How to Deep Clean and Optimize Your Mac Using Mole
-
 If your Mac is running out of space, heating up, or just feeling sluggish, it's time for a cleanup. Meet **Mole**, a free, open-source tool that removes leftover app junk, browser caches, unused data, and even helps you uninstall apps cleanly. Think of it as a powerful, no-fluff alternative to CleanMyMac and AppCleaner.
 
 This guide walks you through installing and using Mole to safely clean and optimize your Mac using **Terminal**, **brew**, or **script**. Let’s dig in.

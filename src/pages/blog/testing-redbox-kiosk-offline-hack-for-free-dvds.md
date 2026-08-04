@@ -29,7 +29,7 @@ tags:
   - hack
 ---
 
-# Introduction
+## Introduction
 
 [Redbox](https://www.redbox.com) has been a staple of movie rentals for years, but with its parent
 company, [Chicken Soup for the Soul Entertainment](https://www.chickensoup.com/), filing for Chapter

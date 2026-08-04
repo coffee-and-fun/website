@@ -29,8 +29,6 @@ tags:
   - markdown
 ---
 
-# We Put a Pet Cat in Our Markdown Editor (and That's Just the Start)
-
 We set out to build a clean, simple markdown editor. No accounts. No tracking. Just write, preview, done. And honestly, that part works really well. Split-pane editing, GitHub Flavored Markdown, syntax highlighting, drag and drop, 8 themes, auto-save, the works.
 
 But then we kept going.

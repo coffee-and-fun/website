@@ -27,8 +27,6 @@ tags:
   - guide
 ---
 
-# How to Delete or Deactivate Your Facebook Account (Because They Make It So Annoying!)
-
 Let’s be real, Facebook makes it harder than it should be to step away from the platform. Whether
 you’re looking for a break or you’re ready to ditch it for good, the process can feel like a maze.
 Luckily, I’ve got you covered.

@@ -27,8 +27,6 @@ tags:
   - future plans
 ---
 
-# What’s Coming for Coffee & Fun LLC in 2025?
-
 As we kick off 2025, we’re excited to share our plans for the year ahead. At Coffee & Fun LLC, we’re
 all about creating, experimenting, and having fun with tech. Here’s a glimpse of what’s in store.
 

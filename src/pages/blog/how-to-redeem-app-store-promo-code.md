@@ -26,8 +26,6 @@ tags:
   - guide
 ---
 
-# How to Redeem an App Store Promo Code
-
 Got your hands on a shiny App Store promo code for a free app, subscription, or in-app bonus? Nice!
 🎉 The good news: redeeming it is actually super easy, if you know where to go.
 

@@ -30,8 +30,6 @@ tags:
   - strategy
 ---
 
-# How to Price Your App Without Losing Your Shirt (Or Your Users)
-
 After running several apps over the years, I've learned that pricing isn't just about pulling a number out of thin air. It's a delicate balance between covering your costs, staying competitive, and not scaring away the very people you're trying to serve. Here's what I've learned about pricing your product the right way.
 
 ## Know Your Business Model

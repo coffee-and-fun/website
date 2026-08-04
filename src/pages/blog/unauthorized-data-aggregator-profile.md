@@ -33,8 +33,6 @@ tags:
   - founders
 ---
 
-# When Data Aggregators Create Your Company Profile Without Permission
-
 Last week, I received an email that made my blood boil. A well-known business intelligence platform reached out, asking me to "review and update" information they were publishing about my company to over 100,000 professionals making investment decisions.
 
 The problem? I never created a profile with them. I never gave them permission. And worst of all, **every single detail** they were publishing was completely, laughably wrong.
@@ -172,6 +170,5 @@ The best part? If I hadn't called out their GDPR contradiction, they probably wo
 This is the game they play. And they're betting you'll give up before you catch them in their contradictions.
 
 ---
-
 
 **Note:** Company and individual names have been anonymized in this post, but the exchange is real and the issues are widespread across the data aggregation industry.

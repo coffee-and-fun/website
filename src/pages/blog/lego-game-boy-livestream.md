@@ -30,8 +30,6 @@ tags:
   - coffee-and-fun
 ---
 
-# 🎮 We’re (Trying to Be) the First to Put a Real Game Boy Into the Lego Game Boy, Live on October 1st!  
-
 Hey friends, gamers, nostalgia nerds, mark your calendars because we’re doing something *absolutely wild* on **October 1st**. LEGO is dropping a **near 1:1 scale replica** of the original Game Boy, made of bricks, loaded with tactile buttons, dials, and swappable Game Paks, and we’re trying to take it *one step further*.  
 
 ---

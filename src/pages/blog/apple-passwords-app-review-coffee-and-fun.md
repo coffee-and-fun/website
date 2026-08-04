@@ -31,8 +31,6 @@ tags:
   - recommendation
 ---
 
-# 🔐 Apple's New Passwords App Is Actually Really Good (And We Think You Should Try It)
-
 So here’s something we’ve been talking about a lot lately at Coffee & Fun.
 
 Apple quietly rolled out a new **Passwords app**, and honestly... it’s really solid.

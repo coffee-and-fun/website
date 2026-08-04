@@ -34,8 +34,7 @@ tags:
   - mcdonalds
 ---
 
-
-# 🚧 Content Update Notice  
+## 🚧 Content Update Notice  
 
 This post was originally written for **research and educational purposes** to explore how customer feedback systems work. We fully respect McDonald’s rights and have updated the content accordingly.  
 

@@ -28,8 +28,6 @@ tags:
   - faith
 ---
 
-# ✨ Introducing Daily Bible Verse for iOS
-
 _A gentle moment of peace, one verse at a time._
 
 Hey everyone 👋

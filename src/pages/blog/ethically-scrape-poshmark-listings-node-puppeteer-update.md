@@ -30,8 +30,6 @@ tags:
   - puppeteer
 ---
 
-# Scraping 20,000 Poshmark Listings (For Real This Time)
-
 Back last week, I wrote a blog post titled
 _[How I Scraped 20,000 Poshmark Listings Using Node.js and Puppeteer](blog/ethically-scrape-poshmark-listings-node-puppeteer)_.
 The idea seemed solid: scroll through a Poshmark closet, grab every listing URL, and scrape each

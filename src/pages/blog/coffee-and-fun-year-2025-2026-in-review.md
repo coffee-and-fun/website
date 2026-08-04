@@ -26,8 +26,6 @@ tags:
   - hardware
 ---
 
-# Coffee & Fun LLC: A Year of Building, Breaking, and Looking Ahead
-
 This year at Coffee & Fun LLC was busy in the best possible way. We shipped meaningful updates, experimented with new tech, took things apart just to see how they work, and learned a lot along the way.
 
 Our focus hasn’t changed:
