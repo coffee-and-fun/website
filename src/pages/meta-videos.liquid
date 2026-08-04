@@ -96,12 +96,11 @@
     </head>
 
 <body>
-    {% assign showFun = true %}
     {% include header.liquid %}
 {% raw %}
     <a href="#tool" class="skip">Skip to the tool</a>
 
-    <main v-cloak id="app" class="wrap">
+    <main v-cloak id="main-content" class="wrap">
 
         <header id="tool">
             <h1>See what your videos know about you</h1>
@@ -142,7 +141,7 @@
                 </details>
             </template>
 
-            <p v-if="busyReading" class="status" role="status">
+            <p v-if="busyReading" class="status-brand" role="status">
                 <span class="spin dark" aria-hidden="true"></span>
                 <span>{{ statusText }}<template v-if="phase === 'reading' && progress > 0">, {{ progress }}%</template></span>
             </p>
@@ -205,7 +204,7 @@
                     <span v-if="phase === 'cleaning'" class="spin" aria-hidden="true"></span>
                     {{ phase === 'cleaning' ? 'Cleaning…' : cleanButtonLabel }}
                 </button>
-                <p v-if="phase === 'cleaning'" class="status" role="status">{{ statusText }}</p>
+                <p v-if="phase === 'cleaning'" class="status-brand" role="status">{{ statusText }}</p>
             </template>
 
             <div v-else class="result">

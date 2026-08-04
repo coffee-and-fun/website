@@ -1053,4 +1053,4 @@ createApp({
             return name + '_cleaned.' + ext;
         }
     }
-}).mount('#app');
+}).mount('#main-content');

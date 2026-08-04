@@ -1,3 +1,5 @@
+/* .status-brand, not .status: daisyUI ships a bare unscoped .status that would
+   override the properties this rule does not set. */
 :root {
     /* Brand tokens, not the old cool greys. --bg was #f4f4f2, which read
        grey against the rest of the site. The surface stays near-white so
@@ -134,7 +136,7 @@ video.player {
 video.player:focus-visible { outline: 2px solid var(--ink); outline-offset: 2px; }
 
 /* Progress / status */
-.status {
+.status-brand {
     display: flex; align-items: center; gap: 0.55rem;
     font-size: 0.88rem; color: var(--muted);
     margin: 0.9rem 0 0; min-height: 1.4em;
@@ -165,7 +167,7 @@ video.player:focus-visible { outline: 2px solid var(--ink); outline-offset: 2px;
 }
 .banner.warn { background: var(--warn-bg); color: #7a2314; border: 1px solid #f0ccc5; }
 .banner svg { flex-shrink: 0; margin-top: 2px; }
-.banner ul.plain { margin: 0.35rem 0 0; padding-left: 1.1rem; }
+.banner ul.plain { margin: 0.35rem 0 0; padding-left: 1.1rem; list-style: disc; }
 .banner ul.plain li { margin: 0.2rem 0; }
 
 .note {
@@ -231,7 +233,7 @@ table.kv { width: 100%; border-collapse: collapse; }
     padding: 1.25rem;
 }
 .result-title { font-weight: 650; margin: 0 0 0.4rem; font-size: 1rem; }
-ul.removed { margin: 0 0 0.9rem; padding-left: 1.2rem; font-size: 0.9rem; line-height: 1.65; }
+ul.removed { margin: 0 0 0.9rem; padding-left: 1.2rem; list-style: disc; font-size: 0.9rem; line-height: 1.65; }
 .stamp { font-size: 0.8rem; color: var(--muted); margin: 0 0 1rem; }
 .result-actions { display: flex; gap: 0.6rem; flex-wrap: wrap; }
 .result-actions .btn-brand { flex: 1; min-width: 160px; }

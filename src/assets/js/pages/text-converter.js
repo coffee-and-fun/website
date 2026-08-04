@@ -225,4 +225,4 @@ createApp({
             this.announce('Downloaded as ' + filename + '.');
         }
     }
-}).mount('#app');
+}).mount('#main-content');

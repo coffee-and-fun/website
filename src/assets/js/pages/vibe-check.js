@@ -265,4 +265,4 @@ coffeeandfun.com/vibe-check`;
                     try { localStorage.removeItem('vibeCheckGame'); } catch { /* ignore */ }
                 }
             }
-        }).mount('#app');
+        }).mount('#main-content');

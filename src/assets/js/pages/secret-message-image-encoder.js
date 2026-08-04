@@ -325,4 +325,4 @@ createApp({
             if (this.$refs.decodeInput) this.$refs.decodeInput.value = '';
         }
     }
-}).mount('#app');
+}).mount('#main-content');

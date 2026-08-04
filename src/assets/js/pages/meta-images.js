@@ -336,4 +336,4 @@ createApp({
             });
         }
     }
-}).mount('#app');
+}).mount('#main-content');

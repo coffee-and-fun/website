@@ -229,8 +229,14 @@ button.linkish:focus-visible { outline: 2px solid var(--ink); outline-offset: 2p
 .btn-secondary-brand:hover { border-color: var(--ink); }
 .load-wrap { display: flex; justify-content: center; margin-top: 1.4rem; }
 
-/* Copied toast (decorative twin of the screen-reader announcement) */
-.toast {
+/* Copied toast (decorative twin of the screen-reader announcement).
+   Named .toast-brand, not .toast: daisyUI ships an unscoped .toast that
+   pins to the bottom-right corner and stacks its children in a column.
+   The page rules win on the properties they set, but flex-direction,
+   inset-inline-end and width are ones this pill never declared, so
+   daisyUI's values leaked through and stretched it. The Vue transition
+   is still called "toast", so .toast-enter-active and friends stay. */
+.toast-brand {
     position: fixed; left: 50%; bottom: 1.4rem; transform: translateX(-50%);
     background: var(--ink); color: #fff;
     border-radius: 999px; padding: 0.5rem 1.3rem 0.5rem 0.8rem;
@@ -239,8 +245,8 @@ button.linkish:focus-visible { outline: 2px solid var(--ink); outline-offset: 2p
     box-shadow: 0 6px 24px rgba(0,0,0,0.18);
     z-index: 30; max-width: calc(100vw - 2rem);
 }
-.toast .glyph { font-size: 1.9rem; line-height: 1; font-family: var(--emoji-font); }
-.toast .tname { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.toast-brand .glyph { font-size: 1.9rem; line-height: 1; font-family: var(--emoji-font); }
+.toast-brand .tname { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
 @keyframes toast-pop {
     0% { opacity: 0; transform: translate(-50%, 10px) scale(0.9); }
     60% { opacity: 1; transform: translate(-50%, -2px) scale(1.03); }

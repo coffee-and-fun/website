@@ -11,12 +11,12 @@ const SAMPLE = {
 
 const SAMPLE_IMG = 'data:image/svg+xml,' + encodeURIComponent(
     "<svg xmlns='http://www.w3.org/2000/svg' width='1200' height='630' viewBox='0 0 1200 630'>" +
-    "<rect width='1200' height='630' fill='#16161a'/>" +
-    "<circle cx='930' cy='315' r='220' fill='none' stroke='#f4f4f2' stroke-width='2.5' opacity='.85'/>" +
-    "<circle cx='930' cy='315' r='150' fill='none' stroke='#f4f4f2' stroke-width='2.5' opacity='.5'/>" +
-    "<circle cx='930' cy='315' r='80' fill='#f4f4f2' opacity='.9'/>" +
-    "<text x='90' y='320' font-family='Georgia,serif' font-size='58' fill='#f4f4f2'>Your picture here</text>" +
-    "<text x='92' y='378' font-family='Menlo,monospace' font-size='26' fill='#9a9aa2'>1200 × 630 works best</text>" +
+    "<rect width='1200' height='630' fill='#3d2b1f'/>" +
+    "<circle cx='930' cy='315' r='220' fill='none' stroke='#fef5ec' stroke-width='2.5' opacity='.85'/>" +
+    "<circle cx='930' cy='315' r='150' fill='none' stroke='#fef5ec' stroke-width='2.5' opacity='.5'/>" +
+    "<circle cx='930' cy='315' r='80' fill='#fef5ec' opacity='.9'/>" +
+    "<text x='90' y='320' font-family='Georgia,serif' font-size='58' fill='#fef5ec'>Your picture here</text>" +
+    "<text x='92' y='378' font-family='Menlo,monospace' font-size='26' fill='#c9bcae'>1200 × 630 works best</text>" +
     "</svg>"
 );
 
@@ -293,4 +293,4 @@ createApp({
             }
         }
     }
-}).mount('#app');
+}).mount('#main-content');

@@ -84,12 +84,11 @@
     </head>
 
 <body>
-    {% assign showFun = true %}
     {% include header.liquid %}
 {% raw %}
     <a href="#tool" class="skip">Skip to the tool</a>
 
-    <main v-cloak id="app" class="wrap">
+    <main v-cloak id="main-content" class="wrap">
 
         <header id="tool">
             <h1>The emoji you want, one click away</h1>
@@ -199,7 +198,7 @@
 
         <!-- Copied toast (announced separately for screen readers) -->
         <transition name="toast">
-            <div v-if="toastVisible" class="toast" aria-hidden="true">
+            <div v-if="toastVisible" class="toast-brand" aria-hidden="true">
                 <span class="glyph">{{ toastChar }}</span>
                 <span class="tname">{{ toastPhrase }}</span>
             </div>

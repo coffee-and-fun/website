@@ -92,12 +92,11 @@
     </head>
 
 <body>
-    {% assign showFun = true %}
     {% include header.liquid %}
 {% raw %}
     <a href="#tool" class="skip">Skip to the game</a>
 
-    <main v-cloak id="app" class="wrap">
+    <main v-cloak id="main-content" class="wrap">
 
         <header id="tool">
             <h1>VIBE CHECK <span aria-hidden="true">✨</span></h1>
@@ -158,7 +157,7 @@
                     </div>
                 </div>
 
-                <p class="stats">
+                <p class="stats-brand">
                     <span class="blocks" aria-hidden="true">{{ shareBlocks }}</span>
                     Solved in {{ attempts }} of {{ maxAttempts }} {{ attempts === 1 ? 'try' : 'tries' }}
                 </p>
@@ -185,7 +184,7 @@
                     </div>
                 </div>
 
-                <p class="stats">
+                <p class="stats-brand">
                     <span class="blocks" aria-hidden="true">{{ shareBlocks }}</span>
                     Out of tries, {{ attempts }} of {{ maxAttempts }} used
                 </p>

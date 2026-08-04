@@ -1,3 +1,5 @@
+/* .stats-brand, not .stats: daisyUI ships a bare unscoped .stats that would
+   override the properties this rule does not set. */
 :root {
     /* Brand tokens, not the old cool greys. --bg was #f4f4f2, which read
        grey against the rest of the site. The surface stays near-white so
@@ -185,12 +187,12 @@ h1 {
     margin: 0.6rem 0 0;
 }
 .outcome .banner { margin-top: 1.25rem; }
-.stats {
+.stats-brand {
     font-size: 0.92rem;
     color: var(--muted);
     margin: 1.1rem 0 0;
 }
-.stats .blocks {
+.stats-brand .blocks {
     display: block;
     font-size: 1.15rem;
     letter-spacing: 0.15em;
@@ -232,7 +234,7 @@ h1 {
 
 /* How to play */
 .how { margin-bottom: 1.5rem; }
-.how ol {
+.how ol { list-style-type: decimal;
     margin: 0;
     padding-left: 1.25rem;
     color: var(--ink);

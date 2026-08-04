@@ -209,4 +209,4 @@ createApp({
             this.announce('Picture removed. Pick a new one to start over.');
         }
     }
-}).mount('#app');
+}).mount('#main-content');
