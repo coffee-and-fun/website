@@ -132,6 +132,30 @@ They are personality, not decoration. Treat them as such:
 
 ---
 
+## Blog social cards
+
+Every blog post gets one card, generated rather than designed by hand so they stay consistent:
+
+```bash
+node tools/social-card.mjs src/assets/images/blog/<slug>.png "<cardTitle>"
+```
+
+The house style, 1200x630:
+
+| Element | Value |
+|---|---|
+| Background | Forest green `#3b563e` |
+| Text plates | Yellow `#fbf2b3`, rounded, one per line, overlapping so they merge into a single sticker |
+| Headline | Red `#eb2030`, uppercase, **BlocC** (`tools/fonts/BlocC-Regular.ttf`) |
+| Logo | Bottom left |
+| Topic badge | Optional, bottom right in a cream circle, via `--icon` |
+
+Pass the headline as **one argument**. Two arguments makes two separate stickers with a gap between them, which is occasionally what you want but is not the default look.
+
+BlocC is used only here, in generated images. It is not a web font and is never loaded by the site.
+
+---
+
 ## Mascots
 
 **Crash** and **Coco** are Robert's real cats. They appear as the two fighters in the 404 Tournament, drawn from the CC0 [Pixel Cats!](https://pixelfight.itch.io/cat-pack) pack. Crash is the black cat, Coco the orange one. A third fighter, **Konami**, unlocks with the Konami code.

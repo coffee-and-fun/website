@@ -54,14 +54,27 @@ Hard rules:
 
 ## 6. Make the social/OG card
 
-Pick a short, punchy two-line headline pulled from the post (each line a few words). Then run, from the repo root:
+Pass the post's `cardTitle` as a SINGLE argument. The generator wraps it and
+merges the line plates into one sticker, which is the house look. Passing two
+arguments splits it into two separate stickers with a gap, so only do that when
+you actually want two blocks.
 
 ```
-node tools/social-card.mjs src/assets/images/blog/<slug>.png "LINE ONE" "LINE TWO"
-sips -s format webp src/assets/images/blog/<slug>.png --out src/assets/images/blog/<slug>.webp
+node tools/social-card.mjs src/assets/images/blog/<slug>.png "<cardTitle>"
+```
+
+Then make the WebP. `sips` cannot write WebP on every machine (it fails with
+"Can't write format: org.webmproject.webp"), so use Python, which can:
+
+```
+python3 -c "from PIL import Image; im=Image.open('src/assets/images/blog/<slug>.png').convert('RGB'); im.save('src/assets/images/blog/<slug>.webp','WEBP',quality=88,method=6)"
 ```
 
 Confirm both files exist and the PNG is 1200x630.
+
+If the post has a natural topic mark (a product logo, a mascot), you can add
+`--icon <path>` and it will be dropped into a cream circle bottom right. Most
+posts do not need one; the default is just the Coffee & Fun logo bottom left.
 
 ## 7. Update the index and the queue
 

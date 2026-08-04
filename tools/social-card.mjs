@@ -1,10 +1,13 @@
-// Blog social-card generator, purple background, cream "blob" text plates,
-// chunky red uppercase headline, Coffee & Fun logo at the bottom.
+// Blog social/OG card generator: forest-green background, yellow rounded "blob"
+// plates hugging each line, chunky red BlocC headline, Coffee & Fun logo bottom
+// left and an optional topic badge bottom right.
 //
 // Usage:
 //   node tools/social-card.mjs <output.png> "First headline" ["Second headline"]
+//   node tools/social-card.mjs <output.png> "Headline" --icon src/assets/images/blog/foo.png
 //
-// Each headline becomes its own cream blob; lines wrap automatically.
+// Each headline becomes its own group of plates; lines wrap automatically and
+// overlapping plates merge into one sticker, which is the look we want.
 import { createCanvas, loadImage, registerFont } from 'canvas';
 import fs from 'fs';
 import path from 'path';
@@ -12,34 +15,42 @@ import { fileURLToPath } from 'url';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
-// Bundle a heavy display font so cards render identically on every machine
+// Bundle the display font so cards render identically on every machine
 // (a teammate's laptop, CI, the scheduled launchd job) instead of depending on
-// a system "Arial Black" that may or may not be installed. Falls back to a
-// system heavy sans if the bundled file is ever missing.
+// a locally installed copy. Falls back to a system heavy sans if it is missing.
 try {
-	registerFont(path.join(__dirname, 'fonts', 'ArchivoBlack.ttf'), { family: 'CoffeeHeadline' });
+	registerFont(path.join(__dirname, 'fonts', 'BlocC-Regular.ttf'), { family: 'CoffeeHeadline' });
 } catch (e) {
 	console.warn('social-card: bundled font not registered, using system fallback:', e.message);
 }
 
-const [, , output, ...paragraphs] = process.argv;
+const argv = process.argv.slice(2);
+const iconFlag = argv.indexOf('--icon');
+const iconPath = iconFlag === -1 ? null : argv[iconFlag + 1];
+const rest = iconFlag === -1 ? argv : argv.slice(0, iconFlag).concat(argv.slice(iconFlag + 2));
+const [output, ...paragraphs] = rest;
+
 if (!output || paragraphs.length === 0) {
-	console.error('Usage: node tools/social-card.mjs <output.png> "Headline one" ["Headline two"]');
+	console.error(
+		'Usage: node tools/social-card.mjs <output.png> "Headline one" ["Headline two"] [--icon <image>]'
+	);
 	process.exit(1);
 }
 
+// 1200x630 is the size social platforms actually want. The house style was
+// designed at 800x420, so every measurement below is that design scaled 1.5x.
 const W = 1200;
 const H = 630;
-const PURPLE = '#41206f';
-const CREAM = '#faf0c4';
-const RED = '#e8261d';
+const GREEN = '#3b563e';
+const YELLOW = '#fbf2b3';
+const RED = '#eb2030';
 const FONT = (size) =>
 	`${size}px 'CoffeeHeadline', 'Arial Black', 'Helvetica Neue', Helvetica, sans-serif`;
 
 const canvas = createCanvas(W, H);
 const ctx = canvas.getContext('2d');
 
-ctx.fillStyle = PURPLE;
+ctx.fillStyle = GREEN;
 ctx.fillRect(0, 0, W, H);
 
 // Wrap text into lines that fit maxWidth at the given font size.
@@ -62,75 +73,98 @@ const wrap = (text, size, maxWidth) => {
 };
 
 const roundRect = (x, y, w, h, r) => {
+	const rad = Math.min(r, h / 2, w / 2);
 	ctx.beginPath();
-	ctx.moveTo(x + r, y);
-	ctx.arcTo(x + w, y, x + w, y + h, r);
-	ctx.arcTo(x + w, y + h, x, y + h, r);
-	ctx.arcTo(x, y + h, x, y, r);
-	ctx.arcTo(x, y, x + w, y, r);
+	ctx.moveTo(x + rad, y);
+	ctx.arcTo(x + w, y, x + w, y + h, rad);
+	ctx.arcTo(x + w, y + h, x, y + h, rad);
+	ctx.arcTo(x, y + h, x, y, rad);
+	ctx.arcTo(x, y, x + w, y, rad);
 	ctx.closePath();
 };
 
-// Pick a font size that lets everything fit above the logo zone.
-const MAX_TEXT_WIDTH = 980;
-const PLATE_PAD_X = 40;
-const PLATE_PAD_Y = 14;
-const GROUP_GAP = 44;
-const LOGO_ZONE = 150;
+// Leave room for the logo strip along the bottom.
+const MAX_TEXT_WIDTH = 1010;
+const PLATE_PAD_X = 34; // "spread": how far the plate reaches past the glyphs
+const PLATE_RADIUS = 46; // "roundness"
+const GROUP_GAP = 30;
+const BOTTOM_ZONE = 168;
 
-let size = 84;
+let size = 96;
 let groups;
 let totalTextHeight;
 const measure = () => {
-	const LINE_H = size * 1.22;
+	const lh = size * 1.16;
 	totalTextHeight =
-		groups.reduce((sum, g) => sum + g.length * (LINE_H + PLATE_PAD_Y) + PLATE_PAD_Y, 0) +
-		GROUP_GAP * (groups.length - 1);
+		groups.reduce((sum, g) => sum + g.length * lh, 0) + GROUP_GAP * (groups.length - 1);
 	return totalTextHeight;
 };
 do {
 	groups = paragraphs.map((p) => wrap(p, size, MAX_TEXT_WIDTH));
-	if (measure() <= H - LOGO_ZONE - 60) break;
+	if (measure() <= H - BOTTOM_ZONE - 56) break;
 	size -= 4;
-} while (size > 40);
+} while (size > 34);
 
-const LINE_H = size * 1.22;
-let y = Math.max(40, (H - LOGO_ZONE - totalTextHeight) / 2);
+const LINE_H = size * 1.16;
+const PLATE_H = size * 1.3; // taller than the line so consecutive plates merge
+let y = Math.max(46, (H - BOTTOM_ZONE - totalTextHeight) / 2);
 
 ctx.textAlign = 'center';
 ctx.textBaseline = 'middle';
 
 for (const lines of groups) {
 	ctx.font = FONT(size);
-	// One rounded cream plate per line (overlapping lines merge into a blob),
-	// drawn with a soft drop shadow so the sticker lifts off the purple.
-	ctx.save();
-	ctx.shadowColor = 'rgba(30,8,50,0.32)';
-	ctx.shadowBlur = 28;
-	ctx.shadowOffsetX = 0;
-	ctx.shadowOffsetY = 13;
-	ctx.fillStyle = CREAM;
+
+	// One rounded yellow plate per line. Because PLATE_H exceeds LINE_H they
+	// overlap and read as a single hand-cut sticker, which is the whole effect.
+	ctx.fillStyle = YELLOW;
 	lines.forEach((line, i) => {
 		const w = ctx.measureText(line).width + PLATE_PAD_X * 2;
-		const x = (W - w) / 2;
-		roundRect(x, y + i * LINE_H - 4, w, LINE_H + PLATE_PAD_Y, 34);
+		const cy = y + i * LINE_H + LINE_H / 2;
+		roundRect((W - w) / 2, cy - PLATE_H / 2, w, PLATE_H, PLATE_RADIUS);
 		ctx.fill();
 	});
-	ctx.restore();
+
 	ctx.fillStyle = RED;
 	lines.forEach((line, i) => {
-		ctx.fillText(line, W / 2, y + i * LINE_H + (LINE_H + PLATE_PAD_Y) / 2 - 6);
+		// Nudge down a touch: BlocC sits high in its em box.
+		ctx.fillText(line, W / 2, y + i * LINE_H + LINE_H / 2 + size * 0.04);
 	});
-	y += lines.length * LINE_H + PLATE_PAD_Y * 2 + GROUP_GAP - PLATE_PAD_Y;
+
+	y += lines.length * LINE_H + GROUP_GAP;
 }
 
-// Logo bottom-center (resolved relative to this file so cwd doesn't matter).
+// Logo bottom left (resolved relative to this file so cwd does not matter).
 const logo = await loadImage(
-	path.join(__dirname, '..', 'src', 'assets', 'images', 'brand', 'coffee-and-fun-logo-dark.png')
+	path.join(__dirname, '..', 'src', 'assets', 'images', 'brand', 'coffee-and-fun-logo.png')
 );
-const logoH = 96;
+const logoH = 132;
 const logoW = (logo.width / logo.height) * logoH;
-ctx.drawImage(logo, (W - logoW) / 2, H - logoH - 30, logoW, logoH);
+ctx.drawImage(logo, 58, H - logoH - 34, logoW, logoH);
+
+// Optional topic badge bottom right, dropped into a cream circle so any
+// artwork sits on a consistent shape.
+if (iconPath) {
+	try {
+		const icon = await loadImage(path.resolve(iconPath));
+		const D = 138;
+		const cx = W - 58 - D / 2;
+		const cy = H - 34 - D / 2;
+		ctx.save();
+		ctx.fillStyle = '#fdfaf0';
+		ctx.beginPath();
+		ctx.arc(cx, cy, D / 2, 0, Math.PI * 2);
+		ctx.fill();
+		ctx.clip();
+		const scale = Math.min((D * 0.72) / icon.width, (D * 0.72) / icon.height);
+		const iw = icon.width * scale;
+		const ih = icon.height * scale;
+		ctx.drawImage(icon, cx - iw / 2, cy - ih / 2, iw, ih);
+		ctx.restore();
+	} catch (e) {
+		console.warn('social-card: icon skipped:', e.message);
+	}
+}
 
 fs.writeFileSync(output, canvas.toBuffer('image/png'));
-console.log('wrote', output);
+console.log('wrote', output, `${W}x${H}`, `type ${size}px`);
