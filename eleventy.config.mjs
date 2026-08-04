@@ -10,6 +10,7 @@ import { formatTitle } from './tools/format-title.js';
 import orderCoffeeShopsByRating from './src/_data/sortedReviews.js';
 import format from 'date-fns/format/index.js';
 import parseISO from 'date-fns/parseISO/index.js';
+import { buildSitemap } from './tools/build-sitemap.mjs';
 import postcss from 'postcss';
 import markdownIt from 'markdown-it';
 import markdownItClass from '@toycode/markdown-it-class';
@@ -260,6 +261,24 @@ export default function (eleventyConfig) {
 		];
 		const outputJsonPath = './docs/cache-assets.json';
 		fs.writeFileSync(outputJsonPath, JSON.stringify(coreAssets, null, 2));
+	});
+
+	// The sitemap is generated from the pages that were actually written, not from
+	// a template looping over collections, so it cannot list a noindex page or
+	// disagree with a page's own canonical. See tools/build-sitemap.mjs.
+	//
+	// The lastmod ledger is only rewritten on a production build. A dev server
+	// rebuilds constantly and would otherwise churn a committed file.
+	eleventyConfig.on('eleventy.after', async () => {
+		const isProd = process.env.ELEVENTY_ENV === 'production';
+		const result = buildSitemap({ persist: isProd });
+		if (result.skipped) return;
+		const changed = result.changed.length;
+		console.log(
+			`[sitemap] ${result.urls} urls, ${changed} with a new lastmod` +
+				`${result.skipped.length ? `, ${result.skipped.length} excluded` : ''}` +
+				`${isProd ? '' : ' (ledger not written, dev build)'}`
+		);
 	});
 
 	eleventyConfig.setLiquidOptions({

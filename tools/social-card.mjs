@@ -46,6 +46,18 @@ const H = 630;
 const PURPLE = '#412070';
 const YELLOW = '#fbf2b3';
 const RED = '#eb2030';
+const CREAM = '#fef5ec';
+
+// Two card families share this renderer. Blog posts get the deep purple field,
+// which is the default so the Eleventy backfill keeps producing what it always
+// did. Page cards (the /assets/images/social/pages/ set) sit on the site's own
+// cream instead, so an OG card looks like the page it belongs to.
+const THEMES = {
+	blog: { bg: PURPLE, plate: YELLOW, ink: RED, logo: 'coffee-and-fun-logo.png' },
+	// The dark logo, not the light one. The light mark is drawn for the purple
+	// field and washes out to almost nothing on cream.
+	page: { bg: CREAM, plate: YELLOW, ink: RED, logo: 'coffee-and-fun-logo-dark.png' }
+};
 // Weight 900 to match the reference design; the face is registered at that
 // weight so canvas selects it rather than synthesising a fake bold.
 const FONT = (size) =>
@@ -57,13 +69,14 @@ const PLATE_RADIUS = 46; // "roundness"
 const GROUP_GAP = 30;
 const BOTTOM_ZONE = 168;
 
-export async function renderCard({ output, paragraphs, icon = null }) {
+export async function renderCard({ output, paragraphs, icon = null, theme = 'blog' }) {
+	const palette = THEMES[theme] || THEMES.blog;
 	ensureFont();
 
 	const canvas = createCanvas(W, H);
 	const ctx = canvas.getContext('2d');
 
-	ctx.fillStyle = PURPLE;
+	ctx.fillStyle = palette.bg;
 	ctx.fillRect(0, 0, W, H);
 
 	const wrap = (text, size, maxWidth) => {
@@ -123,7 +136,7 @@ export async function renderCard({ output, paragraphs, icon = null }) {
 
 		// One rounded yellow plate per line. Because PLATE_H exceeds LINE_H they
 		// overlap and read as a single hand-cut sticker, which is the whole effect.
-		ctx.fillStyle = YELLOW;
+		ctx.fillStyle = palette.plate;
 		lines.forEach((line, i) => {
 			const w = ctx.measureText(line).width + PLATE_PAD_X * 2;
 			const cy = y + i * LINE_H + LINE_H / 2;
@@ -131,7 +144,7 @@ export async function renderCard({ output, paragraphs, icon = null }) {
 			ctx.fill();
 		});
 
-		ctx.fillStyle = RED;
+		ctx.fillStyle = palette.ink;
 		lines.forEach((line, i) => {
 			// Nudge down a touch: Bloc Bold sits high in its em box.
 			ctx.fillText(line, W / 2, y + i * LINE_H + LINE_H / 2 + size * 0.04);
@@ -142,7 +155,7 @@ export async function renderCard({ output, paragraphs, icon = null }) {
 
 	// Logo bottom left (resolved relative to this file so cwd does not matter).
 	const logo = await loadImage(
-		path.join(__dirname, '..', 'src', 'assets', 'images', 'brand', 'coffee-and-fun-logo.png')
+		path.join(__dirname, '..', 'src', 'assets', 'images', 'brand', palette.logo)
 	);
 	const logoH = 132;
 	const logoW = (logo.width / logo.height) * logoH;
@@ -184,6 +197,9 @@ export async function renderCard({ output, paragraphs, icon = null }) {
 // CLI entry point, only when this file is run directly.
 if (process.argv[1] && import.meta.url === pathToFileURL(process.argv[1]).href) {
 	const argv = process.argv.slice(2);
+	const themeFlag = argv.indexOf('--theme');
+	const theme = themeFlag === -1 ? 'blog' : argv[themeFlag + 1];
+	if (themeFlag !== -1) argv.splice(themeFlag, 2);
 	const iconFlag = argv.indexOf('--icon');
 	const icon = iconFlag === -1 ? null : argv[iconFlag + 1];
 	const rest = iconFlag === -1 ? argv : argv.slice(0, iconFlag).concat(argv.slice(iconFlag + 2));
@@ -191,10 +207,10 @@ if (process.argv[1] && import.meta.url === pathToFileURL(process.argv[1]).href) 
 
 	if (!output || paragraphs.length === 0) {
 		console.error(
-			'Usage: node tools/social-card.mjs <output.png> "Headline" [--icon <image>]'
+			'Usage: node tools/social-card.mjs <output.png> "Headline" [--icon <image>] [--theme blog|page]'
 		);
 		process.exit(1);
 	}
-	const r = await renderCard({ output, paragraphs, icon });
+	const r = await renderCard({ output, paragraphs, icon, theme });
 	console.log('wrote', r.output, `${r.width}x${r.height}`, `type ${r.size}px`);
 }
