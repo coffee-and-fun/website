@@ -1,11 +1,14 @@
 :root {
-    --bg: #f4f4f2;
-    --surface: #ffffff;
-    --ink: #16161a;
-    --muted: #6c6c74;
-    --faint: #9a9aa2;
-    --line: #e4e4e0;
-    --line-strong: #d3d3ce;
+    /* Brand tokens, not the old cool greys. --bg was #f4f4f2, which read
+       grey against the rest of the site. The surface stays near-white so
+       the result card keeps its contrast against the cream page. */
+    --bg: var(--color-cream);
+    --surface: #fffcf7;
+    --ink: var(--color-cocoa);
+    --muted: #6b6259;
+    --faint: #8a7f74;
+    --line: #ece0d4;
+    --line-strong: #dbcab8;
     --good: #0f7b4f;
     --warn: #b4341f;
     --radius: 14px;
@@ -44,46 +47,6 @@ a.skip:focus { left: 0; }
     margin: 0 auto;
     padding: 2rem 1.25rem 4rem;
     flex: 1;
-}
-
-.topbar {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 2.75rem;
-}
-.topbar a {
-    font-size: 0.82rem;
-    color: var(--muted);
-    text-decoration: none;
-    letter-spacing: 0.01em;
-}
-.topbar a:hover { color: var(--ink); }
-.topbar a:focus-visible { outline: 2px solid var(--ink); outline-offset: 2px; border-radius: 4px; }
-
-/* Logo home link + tooltip (hover AND keyboard focus) */
-.home-link { position: relative; display: inline-flex; border-radius: 10px; }
-.home-link img { width: 40px; height: 40px; display: block; transition: transform 0.15s ease; }
-.home-link:hover img, .home-link:focus-visible img { transform: rotate(-8deg) scale(1.08); }
-.home-link:focus-visible { outline: 2px solid var(--ink); outline-offset: 3px; }
-.home-link .tip {
-    position: absolute; top: calc(100% + 9px); left: 0;
-    background: var(--ink); color: #fff;
-    font-size: 0.78rem; font-weight: 600; letter-spacing: 0.01em;
-    white-space: nowrap; padding: 0.4rem 0.7rem; border-radius: 8px;
-    opacity: 0; transform: translateY(-4px); pointer-events: none;
-    transition: opacity 0.15s, transform 0.15s;
-    z-index: 30;
-}
-.home-link .tip::before {
-    content: ''; position: absolute; top: -4px; left: 14px;
-    width: 8px; height: 8px; background: var(--ink);
-    transform: rotate(45deg);
-}
-.home-link:hover .tip, .home-link:focus-visible .tip { opacity: 1; transform: translateY(0); }
-@media (prefers-reduced-motion: reduce) {
-    .home-link img, .home-link .tip { transition: none; }
-    .home-link:hover img, .home-link:focus-visible img { transform: none; }
 }
 
 h1 {
@@ -215,13 +178,17 @@ fieldset.cities legend { padding: 0; }
 .big-time .day { font-size: 1.05rem; color: var(--muted); font-weight: 600; }
 .sentence { font-size: 1rem; line-height: 1.6; margin: 0 0 0.9rem; }
 .sentence strong { font-weight: 650; }
-.status {
+/* .status-brand, not .status: daisyUI owns a bare, unscoped .status that
+   paints an 8px round dot (aspect-ratio, fixed width/height, background).
+   The page CSS wins on the properties it sets, but not on the ones it
+   doesn't, so the un-renamed version collapsed this line to a blob. */
+.status-brand {
     display: flex; align-items: flex-start; gap: 0.55rem;
     font-size: 0.92rem; line-height: 1.5; color: var(--muted);
     border-top: 1px dashed var(--line);
     padding-top: 0.9rem; margin: 0;
 }
-.status svg { flex-shrink: 0; margin-top: 2px; color: var(--ink); }
+.status-brand svg { flex-shrink: 0; margin-top: 2px; color: var(--ink); }
 .zone-meta { font-size: 0.78rem; color: var(--muted); margin: 0.9rem 0 0; }
 
 .io-row {
@@ -278,53 +245,5 @@ fieldset.whose legend { font-weight: 600; font-size: 0.92rem; padding: 0; margin
 @media (max-width: 480px) {
     h1 { font-size: 1.6rem; }
     .wrap { padding-top: 1.5rem; }
-    .topbar { margin-bottom: 2rem; }
     .big-time time { font-size: 2.1rem; }
-}
-
-/* ---- Site footer ----
-   footer.liquid is written against Tailwind utilities, which this
-   standalone page doesn't load; these rules cover exactly the classes
-   that markup uses (plus sketch-styles.liquid for the doodles). */
-footer.brand-color-background { position: relative; overflow: visible; padding: 1rem; }
-footer .mx-auto { margin-left: auto; margin-right: auto; }
-footer .max-w-7xl { max-width: 80rem; padding: 3rem 1rem; }
-footer .max-w-2xl { max-width: 42rem; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; }
-footer .mb-4 { display: inline-block; margin-bottom: 1rem; border-radius: 1rem; }
-footer img { height: 4rem; width: 4rem; }
-footer h2 { margin: 0 0 0.5rem; font-size: 1.125rem; font-weight: 700; }
-footer p { margin: 0; font-size: 0.875rem; }
-footer .text-stone-600 { color: #57534e; }
-footer .font-semibold { font-weight: 600; }
-footer .text-base { font-size: 1rem; }
-footer .text-lg { font-size: 1.125rem; }
-footer .flex-wrap { display: flex; flex-wrap: wrap; justify-content: center; gap: 1rem; margin-top: 2rem; }
-footer .flex-wrap a { display: inline-flex; padding: 0.5rem; border-radius: 1rem; color: #78716c; transition: color 0.15s; }
-footer .flex-wrap svg { height: 1.5rem; width: 1.5rem; }
-footer .hover\:text-blue-400:hover { color: #60a5fa; }
-footer .hover\:text-pink-500:hover { color: #ec4899; }
-footer .hover\:text-indigo-500:hover { color: #6366f1; }
-footer .hover\:text-stone-900:hover { color: #1c1917; }
-footer .hover\:text-red-500:hover { color: #ef4444; }
-footer p.text-center { margin-top: 2rem; text-align: center; }
-footer a:focus-visible { outline: 2px solid var(--ink); outline-offset: 2px; }
-@media (min-width: 640px) {
-    footer.brand-color-background { padding: 1.5rem; }
-    footer .sm\:text-lg { font-size: 1.125rem; }
-    footer .sm\:text-xl { font-size: 1.25rem; }
-    footer .max-w-7xl { padding: 4rem 1.5rem; }
-    footer img { height: 5rem; width: 5rem; }
-    footer h2 { font-size: 1.25rem; }
-    footer p { font-size: 1rem; }
-    footer .flex-wrap { gap: 1.5rem; margin-top: 3rem; }
-    footer .flex-wrap svg { height: 1.75rem; width: 1.75rem; }
-    footer p.text-center { margin-top: 2.5rem; }
-}
-@media (min-width: 1024px) {
-    footer.brand-color-background { padding: 2.5rem; }
-    footer .max-w-7xl { padding: 5rem 2rem; }
-    footer img { height: 6rem; width: 6rem; }
-    footer h2 { font-size: 1.5rem; }
-    footer .flex-wrap { margin-top: 4rem; }
-    footer p.text-center { margin-top: 3rem; }
 }

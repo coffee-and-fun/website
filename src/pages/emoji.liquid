@@ -39,7 +39,7 @@
     <meta name="twitter:image" content="https://www.coffeeandfun.com/assets/images/social/pages/emoji.png" />
     <meta name="twitter:image:alt" content="A laughing emoji above the words Emoji Search" />
 
-    <meta name="theme-color" content="#f4f4f2" />
+    <meta name="theme-color" content="#fef5ec" />
 
     <!-- Structured Data -->
     <script type="application/ld+json">
@@ -76,6 +76,7 @@
 
     <script src="https://unpkg.com/vue@3"></script>
 
+    {% bundledCss %}
     {% pageCss "emoji" %}
     {% include sketch-styles.liquid %}
 {% include schema-org.liquid %}
@@ -83,17 +84,12 @@
     </head>
 
 <body>
+    {% assign showFun = true %}
+    {% include header.liquid %}
 {% raw %}
     <a href="#tool" class="skip">Skip to the tool</a>
 
     <main v-cloak id="app" class="wrap">
-
-        <div class="topbar">
-            <a href="/" class="home-link" aria-label="Back to coffeeandfun.com">
-                <img src="/assets/images/brand/coffee-and-fun-logo-dark.png" alt="" width="40" height="40" decoding="async" />
-                <span class="tip" aria-hidden="true">Back to coffeeandfun.com</span>
-            </a>
-        </div>
 
         <header id="tool">
             <h1>The emoji you want, one click away</h1>
@@ -121,7 +117,7 @@
                     </button>
                     <span v-else class="kbd-hint" aria-hidden="true"><kbd>{{ kbdHint }}</kbd></span>
                 </div>
-                <button type="button" class="btn btn-secondary surprise" @click="surpriseMe">
+                <button type="button" class="btn-brand btn-secondary-brand surprise" @click="surpriseMe">
                     <span class="die" aria-hidden="true">&#127922;</span> Surprise me
                 </button>
             </div>
@@ -192,7 +188,7 @@
             </div>
 
             <div v-if="remainingCount > 0" class="load-wrap">
-                <button type="button" class="btn btn-secondary" @click="loadMore">
+                <button type="button" class="btn-brand btn-secondary-brand" @click="loadMore">
                     {{ remainingCount > 120 ? 'Show 120 more' : 'Show the last ' + remainingCount }}
                     <span v-if="remainingCount > 120">&middot; {{ remainingCount.toLocaleString() }} left</span>
                 </button>
@@ -211,6 +207,7 @@
     </main>
 {% endraw %}
 
+    {% include modals.liquid %}
     {% include footer.liquid %}
 
     <script>

@@ -40,7 +40,7 @@
     <meta name="twitter:image" content="https://www.coffeeandfun.com/assets/images/social/pages/meta-videos.png" />
     <meta name="twitter:image:alt" content="Video Metadata Viewer & Remover card with a video file icon and the Coffee & Fun cup logo" />
 
-    <meta name="theme-color" content="#f4f4f2" />
+    <meta name="theme-color" content="#fef5ec" />
     <meta name="mobile-web-app-capable" content="yes" />
     <meta name="apple-mobile-web-app-capable" content="yes" />
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
@@ -88,6 +88,7 @@
 
     <script src="https://unpkg.com/vue@3"></script>
 
+    {% bundledCss %}
     {% pageCss "meta-videos" %}
     {% include sketch-styles.liquid %}
 {% include schema-org.liquid %}
@@ -95,20 +96,12 @@
     </head>
 
 <body>
+    {% assign showFun = true %}
+    {% include header.liquid %}
 {% raw %}
     <a href="#tool" class="skip">Skip to the tool</a>
 
     <main v-cloak id="app" class="wrap">
-
-        <div class="topbar">
-            <span class="brandmark">
-                <span class="mark" aria-hidden="true">
-                    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="m16 10 6-4v12l-6-4"/><rect x="2" y="6" width="14" height="12" rx="2"/></svg>
-                </span>
-                Video Metadata
-            </span>
-            <a href="/">&larr; coffeeandfun.com</a>
-        </div>
 
         <header id="tool">
             <h1>See what your videos know about you</h1>
@@ -138,7 +131,7 @@
                         <div class="name">{{ fileName }}</div>
                         <div class="dim">{{ formatFileSize(fileSize) }}<template v-if="videoInfo.duration"> · {{ formatDuration(videoInfo.duration) }}</template><template v-if="videoInfo.width"> · {{ videoInfo.width }} × {{ videoInfo.height }}</template></div>
                     </div>
-                    <button type="button" class="btn btn-ghost" @click="reset" aria-label="Remove this video and start over">Change</button>
+                    <button type="button" class="btn-brand btn-ghost-brand" @click="reset" aria-label="Remove this video and start over">Change</button>
                 </div>
 
                 <details class="more">
@@ -208,7 +201,7 @@
 
             <template v-if="!cleaned">
                 <p class="hint-p">{{ cleanExplainer }}</p>
-                <button type="button" class="btn btn-primary" @click="cleanVideo" :disabled="phase === 'cleaning'">
+                <button type="button" class="btn-brand btn-primary-brand" @click="cleanVideo" :disabled="phase === 'cleaning'">
                     <span v-if="phase === 'cleaning'" class="spin" aria-hidden="true"></span>
                     {{ phase === 'cleaning' ? 'Cleaning…' : cleanButtonLabel }}
                 </button>
@@ -223,8 +216,8 @@
                 <p v-if="cleaned.note" class="hint-p">{{ cleaned.note }}</p>
                 <p class="stamp">Original {{ formatFileSize(fileSize) }} → clean copy {{ formatFileSize(cleaned.size) }}. The picture and sound are copied bit-for-bit, no re-encoding, no quality loss.</p>
                 <div class="result-actions">
-                    <button type="button" class="btn btn-primary" @click="downloadClean">Download clean copy</button>
-                    <button type="button" class="btn btn-secondary" @click="reset">Clean another video</button>
+                    <button type="button" class="btn-brand btn-primary-brand" @click="downloadClean">Download clean copy</button>
+                    <button type="button" class="btn-brand btn-secondary-brand" @click="reset">Clean another video</button>
                 </div>
             </div>
         </section>
@@ -247,6 +240,7 @@
     </main>
 {% endraw %}
 
+    {% include modals.liquid %}
     {% include footer.liquid %}
 
     {% pageJs "meta-videos" %}

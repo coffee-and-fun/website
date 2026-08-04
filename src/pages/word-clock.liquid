@@ -39,7 +39,7 @@
   <meta name="apple-mobile-web-app-capable" content="yes" />
   <meta name="apple-mobile-web-app-status-bar-style" content="default" />
   <meta name="apple-mobile-web-app-title" content="Word Clock" />
-  <meta name="theme-color" content="#f4f4f2" />
+  <meta name="theme-color" content="#fef5ec" />
 
   <!-- Search Engine -->
   <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1" />
@@ -75,6 +75,7 @@
     }
   </script>
 
+    {% bundledCss %}
     {% pageCss "word-clock" %}
   {% include sketch-styles.liquid %}
 {% include schema-org.liquid %}
@@ -82,19 +83,11 @@
     </head>
 
 <body>
+  {% assign showFun = true %}
+  {% include header.liquid %}
   <a href="#tool" class="skip">Skip to the clock</a>
 
   <main class="wrap">
-
-    <div class="topbar">
-      <span class="brandmark">
-        <span class="mark" aria-hidden="true">
-          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>
-        </span>
-        Word Clock
-      </span>
-      <a href="/">&larr; coffeeandfun.com</a>
-    </div>
 
     <header id="tool">
       <h1>The time, spelled out in letters</h1>
@@ -129,6 +122,7 @@
     <p class="foot">The clock runs entirely in your browser, nothing to install, nothing tracked.</p>
   </main>
 
+  {% include modals.liquid %}
   {% include footer.liquid %}
 
     {% pageJs "word-clock" %}

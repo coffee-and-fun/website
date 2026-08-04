@@ -1,11 +1,14 @@
 :root {
-    --bg: #f4f4f2;
-    --surface: #ffffff;
-    --ink: #16161a;
-    --muted: #6c6c74;
-    --faint: #9a9aa2;
-    --line: #e4e4e0;
-    --line-strong: #d3d3ce;
+    /* Brand tokens, not the old cool greys. --bg was #f4f4f2, which read
+       grey against the rest of the site. The surface stays near-white so
+       the cards and drop zone keep their contrast against the cream page. */
+    --bg: var(--color-cream);
+    --surface: #fffcf7;
+    --ink: var(--color-cocoa);
+    --muted: #6b6259;
+    --faint: #8a7f74;
+    --line: #ece0d4;
+    --line-strong: #dbcab8;
     --good: #0f7b4f;
     --good-bg: #eaf6ef;
     --warn: #b4341f;
@@ -48,30 +51,6 @@ a.skip:focus { left: 0; }
     flex: 1;
 }
 
-.topbar {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 2.75rem;
-}
-.topbar a {
-    font-size: 0.82rem;
-    color: var(--muted);
-    text-decoration: none;
-    letter-spacing: 0.01em;
-}
-.topbar a:hover { color: var(--ink); }
-.topbar a:focus-visible { outline: 2px solid var(--ink); outline-offset: 2px; border-radius: 4px; }
-.brandmark {
-    display: inline-flex; align-items: center; gap: 0.5rem;
-    font-weight: 600; font-size: 0.85rem; letter-spacing: 0.02em;
-}
-.brandmark .mark {
-    width: 22px; height: 22px; border-radius: 6px;
-    background: var(--ink); color: #fff;
-    display: inline-flex; align-items: center; justify-content: center;
-}
-
 h1 {
     font-size: 1.9rem;
     line-height: 1.2;
@@ -108,7 +87,7 @@ section.step { margin-bottom: 2.25rem; }
     cursor: pointer;
     transition: border-color 0.15s, background 0.15s;
 }
-.drop:hover, .drop.drag { border-color: var(--ink); background: #fbfbfa; }
+.drop:hover, .drop.drag { border-color: var(--ink); background: #faf5ee; }
 .drop:focus-within { outline: 2px solid var(--ink); outline-offset: 2px; }
 .drop .ico { color: var(--faint); margin-bottom: 0.6rem; }
 .drop .main { font-weight: 600; font-size: 0.95rem; }
@@ -124,7 +103,7 @@ section.step { margin-bottom: 2.25rem; }
 }
 video.thumb {
     width: 72px; height: 56px; border-radius: 9px;
-    object-fit: cover; background: #16161a; flex-shrink: 0;
+    object-fit: cover; background: var(--ink); flex-shrink: 0;
     border: 1px solid var(--line);
 }
 .thumb-meta { flex: 1; min-width: 0; }
@@ -149,7 +128,7 @@ details.more summary {
 details.more summary:focus-visible { outline: 2px solid var(--ink); outline-offset: 2px; }
 video.player {
     display: block; width: 100%; max-height: 320px;
-    border-radius: 10px; background: #000;
+    border-radius: 10px; background: var(--ink);
     margin: 0.4rem 0 0.8rem;
 }
 video.player:focus-visible { outline: 2px solid var(--ink); outline-offset: 2px; }
@@ -161,7 +140,7 @@ video.player:focus-visible { outline: 2px solid var(--ink); outline-offset: 2px;
     margin: 0.9rem 0 0; min-height: 1.4em;
 }
 .bar {
-    height: 6px; background: #ececea; border-radius: 999px;
+    height: 6px; background: var(--line); border-radius: 999px;
     overflow: hidden; margin-top: 0.5rem;
 }
 .bar-fill {
@@ -173,8 +152,8 @@ video.player:focus-visible { outline: 2px solid var(--ink); outline-offset: 2px;
 .chip-row { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-bottom: 1rem; }
 .chip-stat {
     display: inline-flex; align-items: center; gap: 0.35rem;
-    font-size: 0.78rem; font-weight: 600; color: #5c5c64; /* AA on the #ececea chip */
-    background: #ececea; border-radius: 999px; padding: 0.3rem 0.8rem;
+    font-size: 0.78rem; font-weight: 600; color: #5c5148; /* 5.94:1 on the warm chip, AA */
+    background: var(--line); border-radius: 999px; padding: 0.3rem 0.8rem;
 }
 .chip-stat.bad { background: var(--warn-bg); color: #7a2314; border: 1px solid #f0ccc5; }
 
@@ -222,25 +201,25 @@ table.kv { width: 100%; border-collapse: collapse; }
 }
 .kv tr + tr th, .kv tr + tr td { border-top: 1px solid var(--line); }
 
-/* Buttons */
-.btn {
+/* Buttons, suffixed -brand so daisyUI's .btn family doesn't fight them */
+.btn-brand {
     appearance: none; border: none; border-radius: 11px;
     padding: 0.85rem 1.4rem;
     font-size: 0.98rem; font-weight: 600; cursor: pointer; font-family: inherit;
     display: inline-flex; align-items: center; justify-content: center; gap: 0.5rem;
     transition: background 0.15s, opacity 0.15s, border-color 0.15s;
 }
-.btn:focus-visible { outline: 2px solid var(--ink); outline-offset: 2px; }
-.btn-primary { background: var(--ink); color: #fff; width: 100%; }
-.btn-primary:hover { background: #000; }
-.btn-primary:disabled { background: #dcdcd7; color: #6c6c74; cursor: not-allowed; }
-.btn-secondary {
+.btn-brand:focus-visible { outline: 2px solid var(--ink); outline-offset: 2px; }
+.btn-primary-brand { background: var(--ink); color: #fff; width: 100%; }
+.btn-primary-brand:hover { background: var(--color-espresso); }
+.btn-primary-brand:disabled { background: #e8dccd; color: var(--muted); cursor: not-allowed; }
+.btn-secondary-brand {
     background: var(--surface); color: var(--ink);
     border: 1px solid var(--line-strong);
 }
-.btn-secondary:hover { border-color: var(--ink); }
-.btn-ghost { background: transparent; color: var(--muted); padding: 0.6rem 0.9rem; }
-.btn-ghost:hover { color: var(--ink); }
+.btn-secondary-brand:hover { border-color: var(--ink); }
+.btn-ghost-brand { background: transparent; color: var(--muted); padding: 0.6rem 0.9rem; }
+.btn-ghost-brand:hover { color: var(--ink); }
 
 .hint-p { font-size: 0.9rem; color: var(--muted); line-height: 1.55; margin: 0 0 1rem; max-width: 56ch; }
 
@@ -255,7 +234,7 @@ table.kv { width: 100%; border-collapse: collapse; }
 ul.removed { margin: 0 0 0.9rem; padding-left: 1.2rem; font-size: 0.9rem; line-height: 1.65; }
 .stamp { font-size: 0.8rem; color: var(--muted); margin: 0 0 1rem; }
 .result-actions { display: flex; gap: 0.6rem; flex-wrap: wrap; }
-.result-actions .btn { flex: 1; min-width: 160px; }
+.result-actions .btn-brand { flex: 1; min-width: 160px; }
 
 /* About */
 .about h3 { font-size: 0.95rem; margin: 1.2rem 0 0.3rem; }
@@ -271,66 +250,18 @@ ul.removed { margin: 0 0 0.9rem; padding-left: 1.2rem; font-size: 0.9rem; line-h
     border-top-color: #fff; border-radius: 50%; flex-shrink: 0;
     animation: spin 0.7s linear infinite;
 }
-.spin.dark { border-color: rgba(22,22,26,0.2); border-top-color: var(--ink); }
+.spin.dark { border-color: rgba(61,43,31,0.2); border-top-color: var(--ink); }
 @keyframes spin { to { transform: rotate(360deg); } }
 
 @media (prefers-reduced-motion: reduce) {
     html { scroll-behavior: auto; }
     .spin { animation: none; }
-    .btn, .drop, .bar-fill { transition: none; }
+    .btn-brand, .drop, .bar-fill { transition: none; }
 }
 
 @media (max-width: 480px) {
     h1 { font-size: 1.6rem; }
     .wrap { padding-top: 1.5rem; }
-    .topbar { margin-bottom: 2rem; }
-    .result-actions .btn { min-width: 100%; }
+    .result-actions .btn-brand { min-width: 100%; }
     .kv th { width: 38%; }
-}
-
-/* ---- Site footer ----
-   footer.liquid is written against Tailwind utilities, which this
-   standalone page doesn't load; these rules cover exactly the classes
-   that markup uses (plus sketch-styles.liquid for the doodles). */
-footer.brand-color-background { position: relative; overflow: visible; padding: 1rem; }
-footer .mx-auto { margin-left: auto; margin-right: auto; }
-footer .max-w-7xl { max-width: 80rem; padding: 3rem 1rem; }
-footer .max-w-2xl { max-width: 42rem; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; }
-footer .mb-4 { display: inline-block; margin-bottom: 1rem; border-radius: 1rem; }
-footer img { height: 4rem; width: 4rem; }
-footer h2 { margin: 0 0 0.5rem; font-size: 1.125rem; font-weight: 700; }
-footer p { margin: 0; font-size: 0.875rem; }
-footer .text-stone-600 { color: #57534e; }
-footer .font-semibold { font-weight: 600; }
-footer .text-base { font-size: 1rem; }
-footer .text-lg { font-size: 1.125rem; }
-footer .flex-wrap { display: flex; flex-wrap: wrap; justify-content: center; gap: 1rem; margin-top: 2rem; }
-footer .flex-wrap a { display: inline-flex; padding: 0.5rem; border-radius: 1rem; color: #78716c; transition: color 0.15s; }
-footer .flex-wrap svg { height: 1.5rem; width: 1.5rem; }
-footer .hover\:text-blue-400:hover { color: #60a5fa; }
-footer .hover\:text-pink-500:hover { color: #ec4899; }
-footer .hover\:text-indigo-500:hover { color: #6366f1; }
-footer .hover\:text-stone-900:hover { color: #1c1917; }
-footer .hover\:text-red-500:hover { color: #ef4444; }
-footer p.text-center { margin-top: 2rem; text-align: center; }
-footer a:focus-visible { outline: 2px solid var(--ink); outline-offset: 2px; }
-@media (min-width: 640px) {
-    footer.brand-color-background { padding: 1.5rem; }
-    footer .sm\:text-lg { font-size: 1.125rem; }
-    footer .sm\:text-xl { font-size: 1.25rem; }
-    footer .max-w-7xl { padding: 4rem 1.5rem; }
-    footer img { height: 5rem; width: 5rem; }
-    footer h2 { font-size: 1.25rem; }
-    footer p { font-size: 1rem; }
-    footer .flex-wrap { gap: 1.5rem; margin-top: 3rem; }
-    footer .flex-wrap svg { height: 1.75rem; width: 1.75rem; }
-    footer p.text-center { margin-top: 2.5rem; }
-}
-@media (min-width: 1024px) {
-    footer.brand-color-background { padding: 2.5rem; }
-    footer .max-w-7xl { padding: 5rem 2rem; }
-    footer img { height: 6rem; width: 6rem; }
-    footer h2 { font-size: 1.5rem; }
-    footer .flex-wrap { margin-top: 4rem; }
-    footer p.text-center { margin-top: 3rem; }
 }

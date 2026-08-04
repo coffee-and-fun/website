@@ -36,7 +36,7 @@
     <meta name="twitter:image" content="https://www.coffeeandfun.com/assets/images/social/pages/meta-tags.png" />
     <meta name="twitter:image:alt" content="Meta Tags Generator card with a social media like counter and the words Preview, Edit and Create" />
 
-    <meta name="theme-color" content="#f4f4f2" />
+    <meta name="theme-color" content="#fef5ec" />
 
     <!-- Structured Data -->
     <script type="application/ld+json">
@@ -66,6 +66,7 @@
 
     <script src="https://unpkg.com/vue@3"></script>
 
+    {% bundledCss %}
     {% pageCss "meta-tags" %}
     {% include sketch-styles.liquid %}
 {% include schema-org.liquid %}
@@ -73,17 +74,12 @@
     </head>
 
 <body>
+    {% assign showFun = true %}
+    {% include header.liquid %}
 {% raw %}
     <a href="#tool" class="skip">Skip to the tool</a>
 
     <main v-cloak id="app" class="wrap">
-
-        <div class="topbar">
-            <a href="/" class="home-link" aria-label="Back to coffeeandfun.com">
-                <img src="/assets/images/brand/coffee-and-fun-logo-dark.png" alt="" width="40" height="40" decoding="async" />
-                <span class="tip" aria-hidden="true">Back to coffeeandfun.com</span>
-            </a>
-        </div>
 
         <header id="tool">
             <h1>Make your link look good everywhere</h1>
@@ -190,12 +186,12 @@
             <section aria-labelledby="h-preview" class="sticky-col">
                 <h2 class="step-label" id="h-preview">2, See how your link will look</h2>
 
-                <div class="tabs" role="tablist" aria-label="Choose a preview" @keydown="onTabKey">
-                    <button class="tab" role="tab" id="tab-google" aria-controls="panel-google" :aria-selected="previewTab === 'google' ? 'true' : 'false'"
+                <div class="tabs-brand" role="tablist" aria-label="Choose a preview" @keydown="onTabKey">
+                    <button class="tab-brand" role="tab" id="tab-google" aria-controls="panel-google" :aria-selected="previewTab === 'google' ? 'true' : 'false'"
                             :tabindex="previewTab === 'google' ? 0 : -1" @click="previewTab = 'google'">Google</button>
-                    <button class="tab" role="tab" id="tab-facebook" aria-controls="panel-facebook" :aria-selected="previewTab === 'facebook' ? 'true' : 'false'"
+                    <button class="tab-brand" role="tab" id="tab-facebook" aria-controls="panel-facebook" :aria-selected="previewTab === 'facebook' ? 'true' : 'false'"
                             :tabindex="previewTab === 'facebook' ? 0 : -1" @click="previewTab = 'facebook'">Facebook</button>
-                    <button class="tab" role="tab" id="tab-x" aria-controls="panel-x" :aria-selected="previewTab === 'x' ? 'true' : 'false'"
+                    <button class="tab-brand" role="tab" id="tab-x" aria-controls="panel-x" :aria-selected="previewTab === 'x' ? 'true' : 'false'"
                             :tabindex="previewTab === 'x' ? 0 : -1" @click="previewTab = 'x'">X</button>
                 </div>
 
@@ -250,7 +246,7 @@
         <section class="code-section" aria-labelledby="h-code">
             <h2 class="step-label" id="h-code">3, Copy the code into your page</h2>
 
-            <button type="button" class="btn btn-primary" @click="copyCode" :disabled="!hasCode">
+            <button type="button" class="btn-brand btn-primary-brand" @click="copyCode" :disabled="!hasCode">
                 {{ copied ? 'Copied ✓' : 'Copy the code' }}
             </button>
             <p v-if="!hasCode" class="copy-note">Add a title, description, address, or picture link above to build your code.</p>
@@ -270,6 +266,7 @@
     </main>
 {% endraw %}
 
+    {% include modals.liquid %}
     {% include footer.liquid %}
 
     {% pageJs "meta-tags" %}

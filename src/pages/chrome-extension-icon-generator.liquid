@@ -46,7 +46,7 @@
 
     <!-- Web App Manifest -->
     <link rel="manifest" href="/assets/images/social/site.webmanifest" />
-    <meta name="theme-color" content="#f4f4f2" />
+    <meta name="theme-color" content="#fef5ec" />
     <meta name="mobile-web-app-capable" content="yes" />
     <meta name="apple-mobile-web-app-capable" content="yes" />
     <meta name="apple-mobile-web-app-status-bar-style" content="default" />
@@ -91,6 +91,7 @@
     <script src="https://unpkg.com/vue@3"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
 
+    {% bundledCss %}
     {% pageCss "chrome-extension-icon-generator" %}
     {% include sketch-styles.liquid %}
 {% include schema-org.liquid %}
@@ -98,20 +99,12 @@
     </head>
 
 <body>
+    {% assign showFun = true %}
+    {% include header.liquid %}
 {% raw %}
     <a href="#tool" class="skip">Skip to the tool</a>
 
     <main v-cloak id="app" class="wrap">
-
-        <div class="topbar">
-            <span class="brandmark">
-                <span class="mark" aria-hidden="true">
-                    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg>
-                </span>
-                Icon Sizer
-            </span>
-            <a href="/">&larr; coffeeandfun.com</a>
-        </div>
 
         <header id="tool">
             <h1>Every Chrome extension icon size, from one image</h1>
@@ -141,7 +134,7 @@
                     <div class="name">{{ fileName || 'Your picture' }}</div>
                     <div class="dim">{{ imgW }} &times; {{ imgH }} px</div>
                 </div>
-                <button type="button" class="btn btn-ghost" @click="reset" aria-label="Remove this picture and start over">Change</button>
+                <button type="button" class="btn-brand btn-ghost-brand" @click="reset" aria-label="Remove this picture and start over">Change</button>
             </div>
 
             <div v-if="sizeBanner" class="banner" :class="sizeBanner.tone">
@@ -153,7 +146,7 @@
         <!-- ===== Step 2: generate ===== -->
         <section class="step" aria-labelledby="h-make">
             <h2 class="step-label" id="h-make">2, Make every size</h2>
-            <button type="button" class="btn btn-primary" @click="generate" :disabled="!image || generating">
+            <button type="button" class="btn-brand btn-primary-brand" @click="generate" :disabled="!image || generating">
                 <span v-if="generating" class="spin" aria-hidden="true"></span>
                 {{ generating ? 'Generating…' : 'Generate all icon sizes' }}
             </button>
@@ -172,14 +165,14 @@
                                  :width="Math.min(icon.size, 64)" :height="Math.min(icon.size, 64)" />
                         </div>
                         <p class="size" aria-hidden="true">{{ icon.size }} &times; {{ icon.size }}</p>
-                        <a class="btn btn-secondary dl" :href="icon.dataUrl" :download="icon.size + '.png'"
+                        <a class="btn-brand btn-secondary-brand dl" :href="icon.dataUrl" :download="icon.size + '.png'"
                            :aria-label="'Download the ' + icon.size + ' by ' + icon.size + ' pixel icon as ' + icon.size + '.png'"
                            @click="announce(icon.size + ' by ' + icon.size + ' icon downloaded.')">Download</a>
                     </li>
                 </ul>
 
                 <div class="dl-all">
-                    <button type="button" class="btn btn-primary" @click="downloadAll" :disabled="zipBusy">
+                    <button type="button" class="btn-brand btn-primary-brand" @click="downloadAll" :disabled="zipBusy">
                         <span v-if="zipBusy" class="spin" aria-hidden="true"></span>
                         {{ zipBusy ? 'Zipping…' : 'Download all ' + icons.length + ' as a zip' }}
                     </button>
@@ -195,7 +188,7 @@
             <h2 class="step-label" id="h-manifest">4, Paste into your manifest</h2>
 
             <template v-if="icons.length">
-                <button type="button" class="btn btn-primary" @click="copyManifest">
+                <button type="button" class="btn-brand btn-primary-brand" @click="copyManifest">
                     {{ copied ? 'Copied ✓' : 'Copy the snippet' }}
                 </button>
                 <p v-if="copyFailed" class="copy-note bad">Copy didn&rsquo;t work, the snippet below is selected, press Ctrl+C or Cmd+C.</p>
@@ -216,6 +209,7 @@
     </main>
 {% endraw %}
 
+    {% include modals.liquid %}
     {% include footer.liquid %}
 
     {% pageJs "chrome-extension-icon-generator" %}

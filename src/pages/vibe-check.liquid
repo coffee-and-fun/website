@@ -44,7 +44,7 @@
 
     <!-- Web App Manifest -->
     <link rel="manifest" href="/assets/images/social/site.webmanifest" />
-    <meta name="theme-color" content="#f4f4f2" />
+    <meta name="theme-color" content="#fef5ec" />
     <meta name="mobile-web-app-capable" content="yes" />
     <meta name="apple-mobile-web-app-capable" content="yes" />
     <meta name="apple-mobile-web-app-status-bar-style" content="default" />
@@ -84,6 +84,7 @@
 
     <script src="https://unpkg.com/vue@3"></script>
 
+    {% bundledCss %}
     {% pageCss "vibe-check" %}
     {% include sketch-styles.liquid %}
 {% include schema-org.liquid %}
@@ -91,20 +92,12 @@
     </head>
 
 <body>
+    {% assign showFun = true %}
+    {% include header.liquid %}
 {% raw %}
     <a href="#tool" class="skip">Skip to the game</a>
 
     <main v-cloak id="app" class="wrap">
-
-        <div class="topbar">
-            <span class="brandmark">
-                <span class="mark" aria-hidden="true">
-                    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v3M12 18v3M3 12h3M18 12h3M5.6 5.6l2.1 2.1M16.3 16.3l2.1 2.1M18.4 5.6l-2.1 2.1M7.7 16.3l-2.1 2.1"/></svg>
-                </span>
-                Vibe Check
-            </span>
-            <a href="/">&larr; coffeeandfun.com</a>
-        </div>
 
         <header id="tool">
             <h1>VIBE CHECK <span aria-hidden="true">✨</span></h1>
@@ -115,7 +108,7 @@
         <!-- Live status for screen readers -->
         <div class="sr-only" role="status" aria-live="polite">{{ announcement }}</div>
 
-        <section class="card" aria-label="Today's vibe puzzle">
+        <section class="card-brand" aria-label="Today's vibe puzzle">
 
             <!-- ===== Playing ===== -->
             <div v-if="gameState === 'playing'">
@@ -170,7 +163,7 @@
                     Solved in {{ attempts }} of {{ maxAttempts }} {{ attempts === 1 ? 'try' : 'tries' }}
                 </p>
 
-                <button type="button" class="btn btn-primary" @click="shareResults">
+                <button type="button" class="btn-brand btn-primary-brand" @click="shareResults">
                     {{ copied ? 'Copied ✓' : '📤 Share your vibe' }}
                 </button>
                 <p v-if="copyFailed" class="copy-note bad">Copy didn&rsquo;t work, your result is selected below, press Ctrl+C or Cmd+C.</p>
@@ -197,7 +190,7 @@
                     Out of tries, {{ attempts }} of {{ maxAttempts }} used
                 </p>
 
-                <button type="button" class="btn btn-primary" @click="shareResults">
+                <button type="button" class="btn-brand btn-primary-brand" @click="shareResults">
                     {{ copied ? 'Copied ✓' : '📤 Share your attempt' }}
                 </button>
                 <p v-if="copyFailed" class="copy-note bad">Copy didn&rsquo;t work, your result is selected below, press Ctrl+C or Cmd+C.</p>
@@ -222,6 +215,7 @@
     </main>
 {% endraw %}
 
+    {% include modals.liquid %}
     {% include footer.liquid %}
 
     {% pageJs "vibe-check" %}

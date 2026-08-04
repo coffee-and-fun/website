@@ -1,11 +1,14 @@
 :root {
-    --bg: #f4f4f2;
-    --surface: #ffffff;
-    --ink: #16161a;
-    --muted: #6c6c74;
-    --faint: #9a9aa2;
-    --line: #e4e4e0;
-    --line-strong: #d3d3ce;
+    /* Brand tokens, not the old cool greys. --bg was #f4f4f2, which read
+       grey against the rest of the site. The surface stays near-white so
+       the game board keeps its contrast against the cream page. */
+    --bg: var(--color-cream);
+    --surface: #fffcf7;
+    --ink: var(--color-cocoa);
+    --muted: #6b6259;
+    --faint: #8a7f74;
+    --line: #ece0d4;
+    --line-strong: #dbcab8;
     --good: #0f7b4f;
     --good-bg: #eaf6ef;
     --warn: #b4341f;
@@ -47,30 +50,6 @@ a.skip:focus { left: 0; }
     flex: 1;
 }
 
-.topbar {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 2.75rem;
-}
-.topbar a {
-    font-size: 0.82rem;
-    color: var(--muted);
-    text-decoration: none;
-    letter-spacing: 0.01em;
-}
-.topbar a:hover { color: var(--ink); }
-.topbar a:focus-visible { outline: 2px solid var(--ink); outline-offset: 2px; border-radius: 4px; }
-.brandmark {
-    display: inline-flex; align-items: center; gap: 0.5rem;
-    font-weight: 600; font-size: 0.85rem; letter-spacing: 0.02em;
-}
-.brandmark .mark {
-    width: 22px; height: 22px; border-radius: 6px;
-    background: var(--ink); color: #fff;
-    display: inline-flex; align-items: center; justify-content: center;
-}
-
 h1 {
     font-size: 1.9rem;
     line-height: 1.2;
@@ -103,7 +82,7 @@ h1 {
 }
 
 /* Game board */
-.card {
+.card-brand {
     background: var(--surface);
     border: 1px solid var(--line);
     border-radius: var(--radius);
@@ -224,16 +203,16 @@ h1 {
 }
 
 /* Buttons */
-.btn {
+.btn-brand {
     appearance: none; border: none; border-radius: 11px;
     padding: 0.85rem 1.4rem;
     font-size: 0.98rem; font-weight: 600; cursor: pointer; font-family: inherit;
     display: inline-flex; align-items: center; justify-content: center; gap: 0.5rem;
     transition: background 0.15s, opacity 0.15s;
 }
-.btn:focus-visible { outline: 2px solid var(--ink); outline-offset: 2px; }
-.btn-primary { background: var(--ink); color: #fff; width: 100%; margin-top: 1.5rem; }
-.btn-primary:hover { background: #000; }
+.btn-brand:focus-visible { outline: 2px solid var(--ink); outline-offset: 2px; }
+.btn-primary-brand { background: var(--ink); color: #fff; width: 100%; margin-top: 1.5rem; }
+.btn-primary-brand:hover { background: var(--color-espresso); }
 
 .copy-note { font-size: 0.82rem; color: var(--muted); margin: 0.6rem 0 0; }
 .copy-note.bad { color: var(--warn); font-weight: 600; }
@@ -291,7 +270,7 @@ h1 {
     .clue, .result-emoji { animation: none; }
     .clue { transition: none; }
     .clue:hover { transform: none; }
-    .choice, .btn { transition: none; }
+    .choice, .btn-brand { transition: none; }
     .choice:hover { transform: none; }
     .confetti-bit { display: none; }
 }
@@ -299,54 +278,6 @@ h1 {
 @media (max-width: 480px) {
     h1 { font-size: 1.6rem; }
     .wrap { padding-top: 1.5rem; }
-    .topbar { margin-bottom: 2rem; }
-    .card { padding: 1.4rem 1.1rem; }
+    .card-brand { padding: 1.4rem 1.1rem; }
     .clue { font-size: 2.5rem; }
-}
-
-/* ---- Site footer ----
-   footer.liquid is written against Tailwind utilities, which this
-   standalone page doesn't load; these rules cover exactly the classes
-   that markup uses (plus sketch-styles.liquid for the doodles). */
-footer.brand-color-background { position: relative; overflow: visible; padding: 1rem; }
-footer .mx-auto { margin-left: auto; margin-right: auto; }
-footer .max-w-7xl { max-width: 80rem; padding: 3rem 1rem; }
-footer .max-w-2xl { max-width: 42rem; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; }
-footer .mb-4 { display: inline-block; margin-bottom: 1rem; border-radius: 1rem; }
-footer img { height: 4rem; width: 4rem; }
-footer h2 { margin: 0 0 0.5rem; font-size: 1.125rem; font-weight: 700; }
-footer p { margin: 0; font-size: 0.875rem; }
-footer .text-stone-600 { color: #57534e; }
-footer .font-semibold { font-weight: 600; }
-footer .text-base { font-size: 1rem; }
-footer .text-lg { font-size: 1.125rem; }
-footer .flex-wrap { display: flex; flex-wrap: wrap; justify-content: center; gap: 1rem; margin-top: 2rem; }
-footer .flex-wrap a { display: inline-flex; padding: 0.5rem; border-radius: 1rem; color: #78716c; transition: color 0.15s; }
-footer .flex-wrap svg { height: 1.5rem; width: 1.5rem; }
-footer .hover\:text-blue-400:hover { color: #60a5fa; }
-footer .hover\:text-pink-500:hover { color: #ec4899; }
-footer .hover\:text-indigo-500:hover { color: #6366f1; }
-footer .hover\:text-stone-900:hover { color: #1c1917; }
-footer .hover\:text-red-500:hover { color: #ef4444; }
-footer p.text-center { margin-top: 2rem; text-align: center; }
-footer a:focus-visible { outline: 2px solid var(--ink); outline-offset: 2px; }
-@media (min-width: 640px) {
-    footer.brand-color-background { padding: 1.5rem; }
-    footer .sm\:text-lg { font-size: 1.125rem; }
-    footer .sm\:text-xl { font-size: 1.25rem; }
-    footer .max-w-7xl { padding: 4rem 1.5rem; }
-    footer img { height: 5rem; width: 5rem; }
-    footer h2 { font-size: 1.25rem; }
-    footer p { font-size: 1rem; }
-    footer .flex-wrap { gap: 1.5rem; margin-top: 3rem; }
-    footer .flex-wrap svg { height: 1.75rem; width: 1.75rem; }
-    footer p.text-center { margin-top: 2.5rem; }
-}
-@media (min-width: 1024px) {
-    footer.brand-color-background { padding: 2.5rem; }
-    footer .max-w-7xl { padding: 5rem 2rem; }
-    footer img { height: 6rem; width: 6rem; }
-    footer h2 { font-size: 1.5rem; }
-    footer .flex-wrap { margin-top: 4rem; }
-    footer p.text-center { margin-top: 3rem; }
 }

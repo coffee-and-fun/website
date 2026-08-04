@@ -1,11 +1,14 @@
 :root {
-    --bg: #f4f4f2;
-    --surface: #ffffff;
-    --ink: #16161a;
-    --muted: #6c6c74;
-    --faint: #9a9aa2;
-    --line: #e4e4e0;
-    --line-strong: #d3d3ce;
+    /* Brand tokens, not the old cool greys. --bg was #f4f4f2, which read
+       grey against the rest of the site. The surface stays near-white so
+       the fields and code panel keep their contrast against the cream page. */
+    --bg: var(--color-cream);
+    --surface: #fffcf7;
+    --ink: var(--color-cocoa);
+    --muted: #6b6259;
+    --faint: #8a7f74;
+    --line: #ece0d4;
+    --line-strong: #dbcab8;
     --good: #0f7b4f;
     --warn: #b4341f;
     --warn-bg: #fbecea;
@@ -45,46 +48,6 @@ a.skip:focus { left: 0; }
     margin: 0 auto;
     padding: 2rem 1.25rem 4rem;
     flex: 1;
-}
-
-.topbar {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 2.75rem;
-}
-.topbar a {
-    font-size: 0.82rem;
-    color: var(--muted);
-    text-decoration: none;
-    letter-spacing: 0.01em;
-}
-.topbar a:hover { color: var(--ink); }
-.topbar a:focus-visible { outline: 2px solid var(--ink); outline-offset: 2px; border-radius: 4px; }
-
-/* Logo home link + tooltip (hover AND keyboard focus) */
-.home-link { position: relative; display: inline-flex; border-radius: 10px; }
-.home-link img { width: 40px; height: 40px; display: block; transition: transform 0.15s ease; }
-.home-link:hover img, .home-link:focus-visible img { transform: rotate(-8deg) scale(1.08); }
-.home-link:focus-visible { outline: 2px solid var(--ink); outline-offset: 3px; }
-.home-link .tip {
-    position: absolute; top: calc(100% + 9px); left: 0;
-    background: var(--ink); color: #fff;
-    font-size: 0.78rem; font-weight: 600; letter-spacing: 0.01em;
-    white-space: nowrap; padding: 0.4rem 0.7rem; border-radius: 8px;
-    opacity: 0; transform: translateY(-4px); pointer-events: none;
-    transition: opacity 0.15s, transform 0.15s;
-    z-index: 30;
-}
-.home-link .tip::before {
-    content: ''; position: absolute; top: -4px; left: 14px;
-    width: 8px; height: 8px; background: var(--ink);
-    transform: rotate(45deg);
-}
-.home-link:hover .tip, .home-link:focus-visible .tip { opacity: 1; transform: translateY(0); }
-@media (prefers-reduced-motion: reduce) {
-    .home-link img, .home-link .tip { transition: none; }
-    .home-link:hover img, .home-link:focus-visible img { transform: none; }
 }
 
 h1 {
@@ -139,7 +102,7 @@ h2.step-label {
     outline: none;
 }
 .field:focus { border-color: var(--ink); box-shadow: 0 0 0 3px rgba(22,22,26,0.08); }
-.field::placeholder { color: #74747b; }
+.field::placeholder { color: var(--muted); }
 textarea.field { min-height: 88px; resize: vertical; }
 
 .hint {
@@ -162,7 +125,7 @@ textarea.field { min-height: 88px; resize: vertical; }
     border: 1px solid var(--line-strong); border-right: 0;
     border-radius: 11px 0 0 11px;
     padding: 0 0.8rem;
-    background: #ececea; color: var(--muted); font-weight: 600;
+    background: #f4ebe0; color: var(--muted); font-weight: 600;
 }
 .prefix-input .field { border-radius: 0 11px 11px 0; }
 
@@ -193,28 +156,28 @@ fieldset.kind legend { font-weight: 600; font-size: 0.92rem; margin-bottom: 0.5r
     font-size: 0.9rem; margin-right: 1.4rem; cursor: pointer;
 }
 
-/* Preview tabs */
-.tabs {
+/* Preview tabs. Renamed off .tabs/.tab because daisyUI now owns those names. */
+.tabs-brand {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     gap: 4px;
-    background: #ececea;
+    background: #f4ebe0;
     border-radius: 12px;
     padding: 4px;
     margin-bottom: 1rem;
     max-width: 500px;
 }
-.tab {
+.tab-brand {
     appearance: none; border: none; background: transparent;
     padding: 0.6rem 0.5rem; border-radius: 9px;
-    font-size: 0.92rem; font-weight: 600; color: #5c5c64; /* AA on the #ececea strip */
+    font-size: 0.92rem; font-weight: 600; color: #5c5049; /* AA on the #f4ebe0 strip */
     cursor: pointer; transition: background 0.15s, color 0.15s;
 }
-.tab[aria-selected="true"] {
+.tab-brand[aria-selected="true"] {
     background: var(--surface); color: var(--ink);
     box-shadow: 0 1px 3px rgba(0,0,0,0.08);
 }
-.tab:focus-visible { outline: 2px solid var(--ink); outline-offset: 2px; }
+.tab-brand:focus-visible { outline: 2px solid var(--ink); outline-offset: 2px; }
 
 .sample-row {
     display: flex; align-items: center; gap: 0.7rem; flex-wrap: wrap;
@@ -222,8 +185,8 @@ fieldset.kind legend { font-weight: 600; font-size: 0.92rem; margin-bottom: 0.5r
 }
 .sample-chip {
     display: inline-flex; align-items: center; gap: 0.4rem;
-    font-size: 0.78rem; color: #5c5c64;
-    background: #ececea; border-radius: 999px; padding: 0.28rem 0.75rem;
+    font-size: 0.78rem; color: #5c5049;
+    background: #f4ebe0; border-radius: 999px; padding: 0.28rem 0.75rem;
 }
 button.linkish {
     appearance: none; border: none; background: none; padding: 0;
@@ -291,25 +254,25 @@ button.linkish:focus-visible { outline: 2px solid var(--ink); outline-offset: 2p
 }
 .x-from { font-size: 13px; color: #536471; margin-top: 6px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
 
-/* Buttons */
-.btn {
+/* Buttons. Renamed off .btn/.btn-primary because daisyUI now owns those names. */
+.btn-brand {
     appearance: none; border: none; border-radius: 11px;
     padding: 0.85rem 1.4rem;
     font-size: 0.98rem; font-weight: 600; cursor: pointer; font-family: inherit;
     display: inline-flex; align-items: center; justify-content: center; gap: 0.5rem;
     transition: background 0.15s, opacity 0.15s;
 }
-.btn:focus-visible { outline: 2px solid var(--ink); outline-offset: 2px; }
-.btn-primary { background: var(--ink); color: #fff; width: 100%; max-width: 500px; }
-.btn-primary:hover { background: #000; }
-.btn-primary:disabled { background: #dcdcd7; color: #6c6c74; cursor: not-allowed; }
+.btn-brand:focus-visible { outline: 2px solid var(--ink); outline-offset: 2px; }
+.btn-primary-brand { background: var(--ink); color: #fff; width: 100%; max-width: 500px; }
+.btn-primary-brand:hover { background: var(--color-espresso); }
+.btn-primary-brand:disabled { background: #e8dccd; color: var(--muted); cursor: not-allowed; }
 
 /* Code output */
 .code-section { margin-top: 3rem; }
 .paste-hint { font-size: 0.85rem; color: var(--muted); line-height: 1.5; margin: 0.6rem 0 1rem; max-width: 60ch; }
 .paste-hint code, .code-empty code {
     font-family: var(--mono); font-size: 0.8em;
-    background: #ececea; border-radius: 4px; padding: 0.1em 0.35em;
+    background: #f4ebe0; border-radius: 4px; padding: 0.1em 0.35em;
 }
 .code-scroll {
     background: var(--surface);
@@ -346,58 +309,10 @@ button.linkish:focus-visible { outline: 2px solid var(--ink); outline-offset: 2p
 .foot a:focus-visible { outline: 2px solid var(--ink); outline-offset: 2px; }
 
 @media (prefers-reduced-motion: reduce) {
-    .tab, .btn { transition: none; }
+    .tab-brand, .btn-brand { transition: none; }
 }
 
 @media (max-width: 480px) {
     h1 { font-size: 1.6rem; }
     .wrap { padding-top: 1.5rem; }
-    .topbar { margin-bottom: 2rem; }
-}
-
-/* ---- Site footer ----
-   footer.liquid is written against Tailwind utilities, which this
-   standalone page doesn't load; these rules cover exactly the classes
-   that markup uses (plus sketch-styles.liquid for the doodles). */
-footer.brand-color-background { position: relative; overflow: visible; padding: 1rem; }
-footer .mx-auto { margin-left: auto; margin-right: auto; }
-footer .max-w-7xl { max-width: 80rem; padding: 3rem 1rem; }
-footer .max-w-2xl { max-width: 42rem; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; }
-footer .mb-4 { display: inline-block; margin-bottom: 1rem; border-radius: 1rem; }
-footer img { height: 4rem; width: 4rem; }
-footer h2 { margin: 0 0 0.5rem; font-size: 1.125rem; font-weight: 700; }
-footer p { margin: 0; font-size: 0.875rem; }
-footer .text-stone-600 { color: #57534e; }
-footer .font-semibold { font-weight: 600; }
-footer .text-base { font-size: 1rem; }
-footer .text-lg { font-size: 1.125rem; }
-footer .flex-wrap { display: flex; flex-wrap: wrap; justify-content: center; gap: 1rem; margin-top: 2rem; }
-footer .flex-wrap a { display: inline-flex; padding: 0.5rem; border-radius: 1rem; color: #78716c; transition: color 0.15s; }
-footer .flex-wrap svg { height: 1.5rem; width: 1.5rem; }
-footer .hover\:text-blue-400:hover { color: #60a5fa; }
-footer .hover\:text-pink-500:hover { color: #ec4899; }
-footer .hover\:text-indigo-500:hover { color: #6366f1; }
-footer .hover\:text-stone-900:hover { color: #1c1917; }
-footer .hover\:text-red-500:hover { color: #ef4444; }
-footer p.text-center { margin-top: 2rem; text-align: center; }
-footer a:focus-visible { outline: 2px solid var(--ink); outline-offset: 2px; }
-@media (min-width: 640px) {
-    footer.brand-color-background { padding: 1.5rem; }
-    footer .sm\:text-lg { font-size: 1.125rem; }
-    footer .sm\:text-xl { font-size: 1.25rem; }
-    footer .max-w-7xl { padding: 4rem 1.5rem; }
-    footer img { height: 5rem; width: 5rem; }
-    footer h2 { font-size: 1.25rem; }
-    footer p { font-size: 1rem; }
-    footer .flex-wrap { gap: 1.5rem; margin-top: 3rem; }
-    footer .flex-wrap svg { height: 1.75rem; width: 1.75rem; }
-    footer p.text-center { margin-top: 2.5rem; }
-}
-@media (min-width: 1024px) {
-    footer.brand-color-background { padding: 2.5rem; }
-    footer .max-w-7xl { padding: 5rem 2rem; }
-    footer img { height: 6rem; width: 6rem; }
-    footer h2 { font-size: 1.5rem; }
-    footer .flex-wrap { margin-top: 4rem; }
-    footer p.text-center { margin-top: 3rem; }
 }
