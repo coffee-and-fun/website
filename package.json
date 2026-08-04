@@ -1,76 +1,78 @@
 {
-	"name": "Website",
-	"version": "2.0.3",
-	"description": "It's (j)ust (e)leventy and (t)ailwind … OK, and a few other things; it's still *really* small though.",
-	"scripts": {
-		"clean": "rimraf docs",
-		"dev": "eleventy --serve",
-		"start": "eleventy --serve",
-		"format": "prettier --write .",
-		"build": "ELEVENTY_ENV=production eleventy",
-		"preview": "node tools/serve-docs.mjs"
-	},
-	"repository": {
-		"type": "git",
-		"url": "git+https://marcamos@github.com/marcamos/jet.git"
-	},
-	"keywords": [
-		"eleventy",
-		"11ty",
-		"tailwind",
-		"tailwindcss"
-	],
-	"license": "ISC",
-	"bugs": {
-		"url": "https://github.com/marcamos/jet/issues"
-	},
-	"homepage": "https://github.com/marcamos/jet#readme",
-	"devDependencies": {
-		"@11ty/eleventy": "^3.0.0",
-		"@tailwindcss/postcss": "^4.1.4",
-		"cssnano": "^5.1.15",
-		"daisyui": "^5.7.9",
-		"date-fns": "^2.30.0",
-		"eslint": "^9.0.0",
-		"eslint-config-prettier": "^10.0.0",
-		"eslint-plugin-prettier": "^5.0.0",
-		"highlight.js": "^11.11.1",
-		"lighthouse": "^12.8.2",
-		"postcss": "^8.5.3",
-		"prettier": "^3.0.0",
-		"prettier-plugin-tailwindcss": "^0.6.0",
-		"rimraf": "^5.0.0",
-		"tailwindcss": "^4.1.4"
-	},
-	"eslintConfig": {
-		"root": true,
-		"extends": [
-			"plugin:prettier/recommended",
-			"eslint:recommended"
-		],
-		"env": {
-			"browser": true,
-			"jest": true,
-			"node": true
-		},
-		"globals": {
-			"chrome": true
-		},
-		"rules": {
-			"eol-last": 0,
-			"quotes": [
-				2,
-				"single"
-			]
-		}
-	},
-	"dependencies": {
-		"@tailwindcss/typography": "^0.5.16",
-		"@toycode/markdown-it-class": "^1.2.4",
-		"canvas": "^3.2.3",
-		"eleventy-plugin-svg-contents": "^0.7.0",
-		"html-minifier-terser": "^7.2.0",
-		"markdown-it": "^14.3.0",
-		"markdown-it-anchor": "^9.2.0"
-	}
+  "name": "Website",
+  "version": "2.0.3",
+  "description": "It's (j)ust (e)leventy and (t)ailwind \u2026 OK, and a few other things; it's still *really* small though.",
+  "scripts": {
+    "clean": "rimraf docs",
+    "dev": "eleventy --serve",
+    "start": "eleventy --serve",
+    "format": "prettier --write .",
+    "build": "ELEVENTY_ENV=production eleventy",
+    "preview": "node tools/serve-docs.mjs",
+    "seo": "node tools/seo-audit.mjs",
+    "sitemap:check": "node tools/build-sitemap.mjs"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://marcamos@github.com/marcamos/jet.git"
+  },
+  "keywords": [
+    "eleventy",
+    "11ty",
+    "tailwind",
+    "tailwindcss"
+  ],
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/marcamos/jet/issues"
+  },
+  "homepage": "https://github.com/marcamos/jet#readme",
+  "devDependencies": {
+    "@11ty/eleventy": "^3.0.0",
+    "@tailwindcss/postcss": "^4.1.4",
+    "cssnano": "^5.1.15",
+    "daisyui": "^5.7.9",
+    "date-fns": "^2.30.0",
+    "eslint": "^9.0.0",
+    "eslint-config-prettier": "^10.0.0",
+    "eslint-plugin-prettier": "^5.0.0",
+    "highlight.js": "^11.11.1",
+    "lighthouse": "^12.8.2",
+    "postcss": "^8.5.3",
+    "prettier": "^3.0.0",
+    "prettier-plugin-tailwindcss": "^0.6.0",
+    "rimraf": "^5.0.0",
+    "tailwindcss": "^4.1.4"
+  },
+  "eslintConfig": {
+    "root": true,
+    "extends": [
+      "plugin:prettier/recommended",
+      "eslint:recommended"
+    ],
+    "env": {
+      "browser": true,
+      "jest": true,
+      "node": true
+    },
+    "globals": {
+      "chrome": true
+    },
+    "rules": {
+      "eol-last": 0,
+      "quotes": [
+        2,
+        "single"
+      ]
+    }
+  },
+  "dependencies": {
+    "@tailwindcss/typography": "^0.5.16",
+    "@toycode/markdown-it-class": "^1.2.4",
+    "canvas": "^3.2.3",
+    "eleventy-plugin-svg-contents": "^0.7.0",
+    "html-minifier-terser": "^7.2.0",
+    "markdown-it": "^14.3.0",
+    "markdown-it-anchor": "^9.2.0"
+  }
 }

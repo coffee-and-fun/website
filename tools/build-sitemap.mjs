@@ -111,7 +111,15 @@ export function buildSitemap({ persist = false, today = new Date() } = {}) {
 		const previous = ledger[canonical];
 		const lastmod = previous && previous.hash === hash ? previous.lastmod : stamp;
 
-		pages.push({ url: canonical, lastmod, hash, changed: !previous || previous.hash !== hash });
+		pages.push({
+			url: canonical,
+			lastmod,
+			hash,
+			changed: !previous || previous.hash !== hash,
+			// htmlminify runs production-only with useShortDoctype, so a capitalised
+			// doctype means this file came from a dev build.
+			devShaped: /^\s*<!DOCTYPE/.test(html)
+		});
 	}
 
 	// Two pages resolving to one canonical is a real duplicate-content signal, not
@@ -124,6 +132,21 @@ export function buildSitemap({ persist = false, today = new Date() } = {}) {
 
 	if (problems.length) {
 		throw new Error(`Sitemap build failed:\n  - ${problems.join('\n  - ')}`);
+	}
+
+	// A running `eleventy --serve` rewrites docs/ in dev mode whenever a source file
+	// changes, and it does not skip the htmlmin transform the way a production build
+	// applies it. If a dev-shaped page is sitting in docs/ during what is supposed to
+	// be a production build, some other process wrote it, and its hash is not
+	// comparable to a production hash. Persisting then would stamp today's date onto
+	// pages that never changed. Generate the sitemap, but leave the ledger alone.
+	const devShaped = pages.filter((p) => p.devShaped).length;
+	if (persist && devShaped) {
+		persist = false;
+		process.stderr.write(
+			`[sitemap] ledger NOT updated: ${devShaped} page(s) in docs/ are unminified, ` +
+				'so a dev server is writing here concurrently. Stop "eleventy --serve" and rebuild.\n'
+		);
 	}
 
 	pages.sort((a, b) => a.url.localeCompare(b.url));
@@ -153,4 +176,30 @@ export function buildSitemap({ persist = false, today = new Date() } = {}) {
 		skipped,
 		persisted: persist
 	};
+}
+
+/**
+ * `npm run sitemap:check` runs this. It rebuilds the sitemap from whatever is in
+ * docs/ right now and reports, without touching the ledger, then exits non-zero if
+ * anything is wrong. Eleventy swallows writes made from inside an `eleventy.after`
+ * hook, so this is how the result is actually visible, and it is what CI should run.
+ */
+if (process.argv[1] && process.argv[1].endsWith('build-sitemap.mjs')) {
+	try {
+		const r = buildSitemap({ persist: false });
+		if (r.skipped === 'no docs directory') {
+			console.error('docs/ not found. Run a build first.');
+			process.exit(1);
+		}
+		console.log(`sitemap: ${r.urls} urls`);
+		console.log(`  excluded (noindex): ${r.skipped.length}`);
+		for (const s of r.skipped) console.log(`    ${s.file}`);
+		console.log(`  lastmod moved since the ledger: ${r.changed.length}`);
+		for (const u of r.changed.slice(0, 20)) console.log(`    ${u}`);
+		if (r.changed.length > 20) console.log(`    ... and ${r.changed.length - 20} more`);
+		console.log('  no duplicate canonicals, every listed page is indexable');
+	} catch (e) {
+		console.error(e.message);
+		process.exit(1);
+	}
 }

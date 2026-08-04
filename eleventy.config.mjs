@@ -267,18 +267,20 @@ export default function (eleventyConfig) {
 	// a template looping over collections, so it cannot list a noindex page or
 	// disagree with a page's own canonical. See tools/build-sitemap.mjs.
 	//
-	// The lastmod ledger is only rewritten on a production build. A dev server
-	// rebuilds constantly and would otherwise churn a committed file.
+	// Production only, deliberately. lastmod is decided by hashing the rendered
+	// HTML, and a dev build skips the htmlmin transform, so its output hashes
+	// differently for reasons that have nothing to do with the content changing.
+	// Letting dev builds run this would either churn the committed ledger or write
+	// a sitemap claiming every page changed. The last production sitemap simply
+	// stays in place while you work.
 	eleventyConfig.on('eleventy.after', async () => {
-		const isProd = process.env.ELEVENTY_ENV === 'production';
-		const result = buildSitemap({ persist: isProd });
+		if (process.env.ELEVENTY_ENV !== 'production') return;
+		const result = buildSitemap({ persist: true });
 		if (result.skipped) return;
-		const changed = result.changed.length;
-		console.log(
-			`[sitemap] ${result.urls} urls, ${changed} with a new lastmod` +
-				`${result.skipped.length ? `, ${result.skipped.length} excluded` : ''}` +
-				`${isProd ? '' : ' (ledger not written, dev build)'}`
-		);
+		// Eleventy swallows writes made from inside this hook, so the visible
+		// report lives in `npm run sitemap:check` instead. Failures still throw,
+		// which does surface and stops the build.
+		void result;
 	});
 
 	eleventyConfig.setLiquidOptions({
