@@ -38,8 +38,11 @@
   .cf-mm-trigger { font-size: 1.4rem; font-weight: 600; color: #292524; background: transparent;
     appearance: none; -webkit-appearance: none;
     border: 0; border-radius: 9999px; padding-inline: 0.7rem; cursor: pointer; white-space: nowrap;
-    transition: background-color 0.15s ease, color 0.15s ease; }
-  .cf-mm-trigger:hover { color: var(--color-espresso); background: #f6ece2; }
+    transition: color 0.15s ease; }
+  /* Hover changes the colour and nothing else. A filled pill behind the label read
+     as a grey slab sitting in the middle of the bar, which is the same thing
+     appearance:none was added to stop the browser doing. */
+  .cf-mm-trigger:hover { color: var(--color-espresso); }
   /* There is deliberately no "lit while open" rule here. The obvious selector,
      .cf-mm-trigger:has(+ [popover]:popover-open), is valid and matches, but Chrome
      does not invalidate styles when the popover opens, so it only paints after an
@@ -49,9 +52,10 @@
   /* Blog is a direct link, not a dropdown, match the trigger styling, no caret */
   .cf-mm-link { display: flex; align-items: center; font-size: 1.4rem; font-weight: 600;
     color: #292524; text-decoration: none; padding-inline: 0.7rem; border-radius: 9999px; white-space: nowrap;
-    transition: background-color 0.15s ease, color 0.15s ease; }
-  /* Same warm hover as the dropdown triggers, so the whole bar behaves as one thing. */
-  .cf-mm-link:hover { color: var(--color-espresso); background: #f6ece2; }
+    transition: color 0.15s ease; }
+  /* Matches the dropdown triggers: colour only, no fill, so the whole bar behaves
+     as one thing. */
+  .cf-mm-link:hover { color: var(--color-espresso); }
   .cf-mm-link:focus-visible { outline: 2px solid var(--color-espresso); outline-offset: 2px; }
 
   /* Current section: hand-drawn underline sitting under the label, in both
