@@ -37,7 +37,7 @@
     <meta name="twitter:image" content="https://www.coffeeandfun.com/assets/images/social/pages/meta-images.png" />
     <meta name="twitter:image:alt" content="A photo icon above the words Image Metadata Viewer & Editor, with the Coffee & Fun logo." />
 
-    <meta name="theme-color" content="#f4f4f2" />
+    <meta name="theme-color" content="#fef5ec" />
 
     <!-- Structured Data -->
     <script type="application/ld+json">
@@ -74,6 +74,7 @@
     <script src="https://unpkg.com/vue@3"></script>
     <script src="https://cdn.jsdelivr.net/npm/exifreader@4/dist/exif-reader.min.js"></script>
 
+    {% bundledCss %}
     {% pageCss "meta-images" %}
     {% include sketch-styles.liquid %}
 {% include schema-org.liquid %}
@@ -81,6 +82,8 @@
     </head>
 
 <body>
+    {% assign showFun = true %}
+    {% include header.liquid %}
 {% raw %}
     <a href="#tool" class="skip">Skip to the tool</a>
 
@@ -93,13 +96,6 @@
     </noscript>
 
     <main v-cloak id="app" class="wrap">
-
-        <div class="topbar">
-            <a href="/" class="home-link" aria-label="Back to coffeeandfun.com">
-                <img src="/assets/images/brand/coffee-and-fun-logo-dark.png" alt="" width="40" height="40" decoding="async" />
-                <span class="tip" aria-hidden="true">Back to coffeeandfun.com</span>
-            </a>
-        </div>
 
         <header id="tool">
             <h1>See what your photo gives away</h1>
@@ -127,7 +123,7 @@
                     <div class="name">{{ img.name }}</div>
                     <div class="dim">{{ prettySize(img.size) }}<template v-if="img.w"> · {{ img.w }} × {{ img.h }}</template> · {{ prettyType(img.type) }}</div>
                 </div>
-                <button type="button" class="btn-ghost" @click="reset" aria-label="Change photo, remove this one and choose another">Change</button>
+                <button type="button" class="btn-ghost-brand" @click="reset" aria-label="Change photo, remove this one and choose another">Change</button>
             </div>
 
             <div v-if="error" class="banner warn" role="alert">
@@ -192,7 +188,7 @@
             <h2 class="step-label" id="h-clean">3, Make a clean copy</h2>
 
             <template v-if="!cleaned">
-                <button type="button" class="btn btn-primary" @click="makeClean">
+                <button type="button" class="btn-brand btn-primary-brand" @click="makeClean">
                     <span v-if="busy" class="spin" aria-hidden="true"></span>
                     {{ busy ? 'Scrubbing…' : 'Make a clean copy' }}
                 </button>
@@ -212,7 +208,7 @@
                     <template v-if="cleaned.changedFormat"> · re-saved as {{ prettyType(cleaned.type) }} so nothing hides in it</template>
                 </p>
                 <div class="actions">
-                    <button type="button" class="btn btn-secondary" @click="download">Download {{ cleaned.name }}</button>
+                    <button type="button" class="btn-brand btn-secondary-brand" @click="download">Download {{ cleaned.name }}</button>
                     <button type="button" class="linkish" @click="reset">Check another photo</button>
                 </div>
             </div>
@@ -222,6 +218,7 @@
     </main>
 {% endraw %}
 
+    {% include modals.liquid %}
     {% include footer.liquid %}
 
     {% pageJs "meta-images" %}
