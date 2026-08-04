@@ -156,7 +156,10 @@
     <main v-cloak id="main-content" class="wrap">
 
         <header id="tool" class="page-head">
-            <h1 class="brand-heading">Readability checker</h1>
+            <!-- Sized like every other page title. At the inherited 16px the mocha
+                 brand heading measured 4.18:1, which fails AA for normal text. Past
+                 24px it counts as large text, where 3:1 applies and it clears. -->
+            <h1 class="brand-heading text-3xl sm:text-4xl">Readability checker</h1>
             <p class="lede">
                 Paste your writing below and see how hard it is to read, in plain English rather than
                 jargon. You get a reading level, six standard readability scores, and the exact

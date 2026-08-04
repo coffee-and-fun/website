@@ -274,7 +274,15 @@ createApp({
 			if (!this.hasEnough) return null;
 			const g = this.consensusGrade;
 			const b = this.band;
-			const grade = g < 1 ? 'below grade 1' : `grade ${Math.round(g)}`;
+			/* These formulas were built on school-age reading and stop meaning
+			   anything much past grade 18. A wall of jargon can compute to grade
+			   47, which is a true number and useless information, so the top and
+			   bottom are reported as open ended rather than pretending to a
+			   precision the formulas do not have. */
+			let grade;
+			if (g < 1) grade = 'grade 1 or below';
+			else if (g > 18) grade = 'grade 18 or beyond';
+			else grade = `grade ${Math.round(g)}`;
 			return { grade, label: b.label, who: b.who };
 		},
 
