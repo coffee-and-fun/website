@@ -14,9 +14,6 @@ isBlog: true
 blog_cat: Development
 youtubeId:
 cardTitle: How to Reset Your Gmail Password
-blog_snip:
-  Forgot your Gmail password or need to sign out everywhere? Here's how to do both in a few
-  minutes.
 name: Robert James Gabriel
 img: /assets/images/blog/how-to-reset-gmail-password.png
 date: 2026-04-20T00:00:00.000Z

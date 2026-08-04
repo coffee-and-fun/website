@@ -13,8 +13,6 @@ url: blog/the-enshittification-of-technology/
 isBlog: true
 blog_cat: Commentary
 cardTitle: The Enshittification of Technology
-blog_snip:
-  Technology didn’t get worse by accident. It followed incentives. Here’s why, and how we see it everywhere.
 name: Robert James Gabriel
 img: /assets/images/blog/enshittification-of-technology.png
 date: 2025-12-31T00:00:00.000Z

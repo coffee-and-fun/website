@@ -14,9 +14,6 @@ isBlog: true
 blog_cat: Tools
 youtubeId:
 cardTitle: Why the Same Emoji Looks Different on Every Phone
-blog_snip:
-  Emoji aren't images, they're characters every platform draws in its own handwriting. How
-  Unicode actually works, the burger scandal, and what those empty boxes mean.
 name: Robert James Gabriel
 img: /assets/images/blog/why-emoji-look-different-on-every-phone.png
 date: 2026-07-06T00:00:00.000Z

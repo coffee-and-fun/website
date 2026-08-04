@@ -15,9 +15,6 @@ isBlog: true
 blog_cat: Tools
 youtubeId: null
 cardTitle: Welcome AutoPause -  Auto pause Your Videos
-blog_snip:
-  AutoPause is the latest friendly app from Coffee & Fun. Set a timer and let AutoPause handle your
-  media playback automatically. Made for fans of simplicity and peace of mind.
 name: Robert James Gabriel
 img: /assets/images/blog/autopause.png
 date: 2024-11-18T00:00:00.000Z

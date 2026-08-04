@@ -21,9 +21,6 @@ isBlog: true
 blog_cat: Reverse Engineering
 youtubeId: ''
 cardTitle: 'We Cracked McDonald’s Survey Code System (For Fun)'
-blog_snip:
-  'We went into McDonald’s, got two receipts, reverse-engineered the code, generated fake ones, and
-  tested them online. Here’s how it all worked.'
 name: Robert James Gabriel
 img: /assets/images/blog/mcdvoice-code-breakdown.png
 date: 2025-04-10T21:43:57.317930

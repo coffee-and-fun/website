@@ -20,9 +20,6 @@ isBlog: true
 blog_cat: Inclusion
 youtubeId: ''
 cardTitle: 'Sun-Spider in LEGO: Why Disability Representation in Toys Matters'
-blog_snip:
-  'The new LEGO Spider-Man blind bag series features Sun-Spider, a disabled hero who uses crutches.
-  Heres why this inclusion is so important.'
 name: Robert James Gabriel
 img: /assets/images/blog/sun-spider-lego.png
 date: 2025-01-02T10:00:00.000000

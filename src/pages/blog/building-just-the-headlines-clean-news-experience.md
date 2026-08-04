@@ -14,11 +14,6 @@ url: blog/building-just-the-headlines-clean-news-experience/
 isBlog: true
 blog_cat: Development
 cardTitle: Building Just the Headlines - A Clean News Experience
-blog_snip:
-  "I got tired of modern news websites with their ads, pop-ups, and information overload. So I built
-  something different - a clean, minimal news site that shows just the headlines without all the
-  noise. Here's the technical story of how I built it with Node.js, free APIs, and static site
-  generation."
 name: Robert James Gabriel
 img: /assets/images/blog/just-the-headlines.png
 date: 2025-07-01T00:00:00.000Z

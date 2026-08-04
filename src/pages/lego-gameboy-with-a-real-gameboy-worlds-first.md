@@ -21,8 +21,6 @@ isBlog: true
 blog_cat: LEGO Projects
 youtubeId: '' # add once your video is live
 cardTitle: "Fitting a Real Game boy Into the LEGO Game Boy (World’s First Attempt)"
-blog_snip: 
-  "I managed to snag the LEGO Game Boy before its official release, and I’m documenting my attempt to fit a real Nintendo Game Boy inside it. This is a live build log, updated as the project evolves."
 name: Robert James Gabriel
 img: /assets/images/social/pages/lego-gameboy-mod.png # swap with your first unboxing/build shot
 date: 2025-09-08T21:43:57.317930

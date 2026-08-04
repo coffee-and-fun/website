@@ -16,10 +16,6 @@ isBlog: true
 blog_cat: Usecase
 youtubeId:
 cardTitle: Browser Extension Stores Need Higher Standards
-blog_snip:
-  Every major browser extension store, Chrome, Firefox, Edge, and Safari, is dealing with the same
-  problems. Low-effort submissions, security breaches, and review standards that aren't keeping up.
-  After 15 years of publishing, it's time to talk about raising the bar across the board.
 name: Robert James Gabriel
 img: /assets/images/blog/browser-extension-stores-need-higher-standards.png
 date: 2026-04-04T00:00:00.000Z

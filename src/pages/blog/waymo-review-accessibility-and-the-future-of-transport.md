@@ -14,9 +14,6 @@ isBlog: true
 blog_cat: Usecase
 youtubeId:
 cardTitle: We Took Waymo Around San Francisco
-blog_snip:
-  As an accessibility-focused company, we spent a day riding Waymo across San Francisco. Here's our
-  honest review of the tech, the accessibility, and the one thing they need to fix.
 name: Robert James Gabriel
 img: /assets/images/blog/waymo-review-accessibility-and-the-future-of-transport.png
 date: 2026-05-13T00:00:00.000Z

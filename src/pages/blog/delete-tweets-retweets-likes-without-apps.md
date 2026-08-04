@@ -14,9 +14,6 @@ isBlog: true
 blog_cat: Tools
 youtubeId:
 cardTitle: 🧼 Delete Your Tweets, Retweets & Likes Without Installing Anything
-blog_snip:
-  A simple, browser based script that lets you delete tweets, unretweet, and unlike, no installs, no
-  apps, just your browser and a little Coffee & Fun magic.
 name: Robert James Gabriel
 img: /assets/images/blog/delete-tweets-retweets-likes-without-apps.png
 date: 2025-03-25T00:00:00.000Z

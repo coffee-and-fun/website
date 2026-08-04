@@ -14,9 +14,6 @@ isBlog: true
 blog_cat: Usecase
 youtubeId:
 cardTitle: How to Redeem an App Store Promo Code
-blog_snip:
-  Learn how to redeem an App Store promo code on iPhone, iPad, or Mac with this quick and simple
-  guide. Perfect for unlocking paid apps, games, or subscriptions with ease!
 name: Robert James Gabriel
 img: /assets/images/blog/app-store-promo.png
 date: 2025-03-30T00:00:00.000Z

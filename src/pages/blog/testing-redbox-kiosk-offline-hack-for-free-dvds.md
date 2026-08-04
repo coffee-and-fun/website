@@ -16,10 +16,6 @@ isBlog: true
 blog_cat: Usecase
 youtubeId: HqSjk8fC1tA
 cardTitle: What Happens When Redbox Shuts Down? Trying the Redbox Free DVD Hack
-blog_snip:
-  With Redbox shutting down, I tested a curious hack, accessing a kiosk in offline mode to see if
-  DVDs could be rented for free. Dive into what I discovered about Redbox’s kiosks, their connection
-  issues, and how they function when the servers go down.
 name: Robert James Gabriel
 img: /assets/images/blog/redbox.png
 date: 2024-11-09T00:00:00.000Z

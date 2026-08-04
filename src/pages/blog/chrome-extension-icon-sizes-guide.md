@@ -15,9 +15,6 @@ isBlog: true
 blog_cat: Development
 youtubeId:
 cardTitle: Every Icon Size Your Chrome Extension Actually Needs
-blog_snip:
-  Chrome extension icon requirements look arbitrary until you know where each size shows up.
-  What 16, 32, 48, and 128 are each for, and the one-source workflow that makes them all.
 name: Robert James Gabriel
 img: /assets/images/blog/chrome-extension-icon-sizes-guide.png
 date: 2026-07-06T00:00:00.000Z

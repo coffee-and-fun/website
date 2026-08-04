@@ -15,9 +15,6 @@ isBlog: true
 blog_cat: Tools
 youtubeId:
 cardTitle: What Every Meta Tag Actually Does in 2026
-blog_snip:
-  A plain-English tour of the meta tags that still matter in 2026, what Google, Facebook, and X
-  actually read, the sizes and limits that count, and the zombie tags you can delete today.
 name: Robert James Gabriel
 img: /assets/images/blog/what-every-meta-tag-does-in-2026.png
 date: 2026-07-06T00:00:00.000Z

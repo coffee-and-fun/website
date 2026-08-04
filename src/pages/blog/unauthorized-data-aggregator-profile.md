@@ -15,10 +15,6 @@ isBlog: true
 blog_cat: Privacy & Data Rights
 youtubeId:
 cardTitle: I Fought a Data Aggregator That Created a Fake Profile About My Company
-blog_snip:
-  Learn how I dealt with a business intelligence platform that created an unauthorized profile with
-  false information about my company, and discover the exact tactics that finally got them to delete
-  it after they claimed they couldn't.
 name: Robert James Gabriel
 img: /assets/images/blog/unauthorized-data-aggregator-profile.png
 date: 2025-11-06T00:00:00.000Z

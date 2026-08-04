@@ -15,9 +15,6 @@ isBlog: true
 blog_cat: Tools
 youtubeId:
 cardTitle: What Belongs in an Email Signature in 2026
-blog_snip:
-  Four lines beat fourteen. What to include, why image-only signatures quietly fail, the dark-mode
-  trap, and how to build a signature that survives every mail client.
 name: Robert James Gabriel
 img: /assets/images/blog/email-signature-best-practices-2026.png
 date: 2026-07-06T00:00:00.000Z

@@ -13,8 +13,6 @@ url: blog/coffee-and-fun-year-2025-2026-in-review/
 isBlog: true
 blog_cat: Company
 cardTitle: Coffee & Fun LLC 2025/2026 Year in Review
-blog_snip:
-  From accessibility tools to hardware experiments and indie side projects, here’s a look at what we built this year, and what’s coming next.
 name: Robert James Gabriel
 img: /assets/images/blog/coffee-and-fun-year-2025-2026-in-review.png
 date: 2025-12-31T00:00:00.000Z

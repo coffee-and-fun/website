@@ -15,10 +15,6 @@ isBlog: true
 blog_cat: Usecase
 youtubeId:
 cardTitle: Introducing Hide Spoilers - Browse Without Worrying About Spoilers
-blog_snip:
-  Avoid spoilers for your favorite shows, games, and movies with Hide Spoilers Extension. This
-  extension blurs text, images, and sections containing spoilers, offering a stress-free browsing
-  experience.
 name: Robert James Gabriel
 img: /assets/images/blog/hide-spoilers.png
 date: 2024-11-06T00:00:00.000Z

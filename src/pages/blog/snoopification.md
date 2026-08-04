@@ -16,10 +16,6 @@ isBlog: true
 blog_cat: Commentary
 youtubeId:
 cardTitle: "Snoopification: When a Mascot or Brand Goes on Everything"
-blog_snip:
-  "My wife Courtney Hood coined a word for it. Snoopification: when a mascot or a brand gets put on
-  every surface with no shame. Why Snoopy and Supreme walk away from it, and Garfield and
-  Harley-Davidson did not."
 name: Robert James Gabriel
 img: /assets/images/blog/snoopification.png
 date: 2026-08-02T12:00:00.000Z

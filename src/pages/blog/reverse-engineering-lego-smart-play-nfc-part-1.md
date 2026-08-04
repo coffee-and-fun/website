@@ -13,8 +13,6 @@ isBlog: true
 blog_cat: Development
 youtubeId:
 cardTitle: "Reverse Engineering LEGO Smart Play: Discovery & First NFC Reads (Part 1)"
-blog_snip: |
-  We got early access to LEGO's new Smart Play system and started reverse engineering the NFC protocol. Here's what we found inside the tags using a Flipper Zero, including UIDs, encrypted payloads, and a Grain-128A hypothesis.
 name: Robert James Gabriel
 img: /assets/images/blog/reverse-engineering-lego-smart-play-nfc-part-1.png
 date: 2026-02-28T00:00:00.000Z

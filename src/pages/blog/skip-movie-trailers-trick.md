@@ -14,9 +14,6 @@ isBlog: true
 blog_cat: Experiment
 youtubeId:
 cardTitle: Skip the Trailers With This Weird Movie Timing Hack
-blog_snip:
-  Want to skip the trailers and ads at the movies without missing the start? We found a sneaky
-  little trick using food pickup times, and it works.
 name: Robert James Gabriel
 img: /assets/images/blog/skip-movie-trailers-trick.png
 date: 2025-03-21T00:00:00.000Z

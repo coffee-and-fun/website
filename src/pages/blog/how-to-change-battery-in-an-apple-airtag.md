@@ -15,9 +15,6 @@ isBlog: true
 blog_cat: Usecase
 youtubeId: HqSjk8fC1tA
 cardTitle: How to Change the Battery in an Apple AirTag
-blog_snip:
-  "Learn how to easily replace the battery in your Apple AirTag with this simple guide. We'll walk
-  you through each step so you can keep your AirTag working smoothly and your items safely tracked."
 name: Robert James Gabriel
 img: /assets/images/blog/airtag.png
 date: 2024-10-11T00:00:00.000Z

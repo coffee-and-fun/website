@@ -15,10 +15,6 @@ isBlog: true
 blog_cat: Developer Stories
 youtubeId:
 cardTitle: Google Flagged Our 181-Character Description. Their Own Docs Allow 200.
-blog_snip:
-  Our add-on with 1,000,000+ users failed a Marketplace re-review over a description that was within
-  Google's own documented character limit. Here's how we handled it, and why reading the
-  documentation is your best defense.
 name: Robert James Gabriel
 img: /assets/images/blog/google-workspace-marketplace-review-character-limit.png
 date: 2026-06-11T12:00:00.000Z

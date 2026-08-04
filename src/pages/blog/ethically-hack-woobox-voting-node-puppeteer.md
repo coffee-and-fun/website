@@ -15,10 +15,6 @@ isBlog: true
 blog_cat: Usecase
 youtubeId: HqSjk8fC1tA
 cardTitle: How to Ethically Hack Woobox Voting with Node.js and Puppeteer
-blog_snip:
-  Learn how to ethically automate voting on Woobox using Node.js and Puppeteer. This guide walks you
-  through creating a voting script for educational purposes, exploring the mechanics of online
-  voting and best practices for securing platforms.
 name: Robert James Gabriel
 img: /assets/images/blog/woobox.png
 date: 2024-11-06T00:00:00.000Z

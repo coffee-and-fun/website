@@ -14,9 +14,6 @@ isBlog: true
 blog_cat: Tools
 youtubeId:
 cardTitle: Your Photos Are Talking Behind Your Back
-blog_snip:
-  Every photo carries an invisible passenger, where you were, when, and what device you used.
-  What EXIF data contains, when it actually matters, and how to strip it in seconds.
 name: Robert James Gabriel
 img: /assets/images/blog/what-your-photos-reveal-exif-data.png
 date: 2026-07-06T00:00:00.000Z

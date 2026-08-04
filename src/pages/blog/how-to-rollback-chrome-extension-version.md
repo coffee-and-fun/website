@@ -14,9 +14,6 @@ isBlog: true
 blog_cat: Development
 youtubeId:
 cardTitle: How to Rollback Your Chrome Extension Version
-blog_snip:
-  Pushed a bad update to your Chrome extension? Here's how to use the Chrome Web Store rollback
-  feature to revert to your previous published version without waiting for a new review.
 name: Robert James Gabriel
 img: /assets/images/blog/how-to-rollback-chrome-extension-version.png
 date: 2026-04-12T00:00:00.000Z

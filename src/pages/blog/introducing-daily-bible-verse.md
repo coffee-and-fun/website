@@ -14,9 +14,6 @@ url: blog/introducing-daily-bible-verse/
 isBlog: true
 blog_cat: Usecase
 cardTitle: Meet Daily Bible Verse for iOS 📖
-blog_snip:
-  Discover Daily Bible Verse, a beautifully simple and spiritual app created to bring one verse a
-  day into your life. Learn why we built it, what it can do, and how it helps you pause and reflect.
 name: Robert James Gabriel
 img: /assets/images/blog/daily-bible-verse-app.png
 date: 2025-04-05T00:00:00.000Z

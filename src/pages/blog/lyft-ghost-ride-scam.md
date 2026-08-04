@@ -14,9 +14,6 @@ isBlog: true
 blog_cat: Consumer Protection
 youtubeId:
 cardTitle: How I Beat a Lyft Ghost Ride Scam and Got My Money Back
-blog_snip:
-  Learn how I dealt with a Lyft ghost ride scam where a driver charged me $36 for a ride I never
-  took, and discover the exact steps to get your money back if this happens to you.
 name: Robert James Gabriel
 img: /assets/images/blog/lyft-ghost-ride-scam.png
 date: 2025-01-20T00:00:00.000Z

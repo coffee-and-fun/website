@@ -13,10 +13,6 @@ isBlog: true
 blog_cat: Livestream Events
 youtubeId:
 cardTitle: Watch Us Put a Real Game Boy Inside the Lego Game Boy
-blog_snip:
-  Lego’s new 1:1 scale Game Boy launches October 1st, and we’re going live at 6 AM to attempt 
-  something no one’s done before, putting a real Game Boy’s insides into the Lego replica. 
-  Follow along on Instagram and YouTube as we make brick-game history.
 name: Robert James Gabriel
 img: /assets/images/blog/lego-gameboy-livestream.png
 date: 2025-10-01T06:00:00.000Z

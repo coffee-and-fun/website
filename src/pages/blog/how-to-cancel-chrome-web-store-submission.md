@@ -14,9 +14,6 @@ isBlog: true
 blog_cat: Development
 youtubeId:
 cardTitle: How to Cancel a Chrome Web Store Submission
-blog_snip:
-  Submitted your Chrome extension update and immediately regretted it? Here's exactly how to cancel
-  a pending review and get your submission back to draft state.
 name: Robert James Gabriel
 img: /assets/images/blog/how-to-cancel-chrome-web-store-submission.png
 date: 2026-04-12T00:00:00.000Z

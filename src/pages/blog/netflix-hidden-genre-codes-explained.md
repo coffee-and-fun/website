@@ -14,9 +14,6 @@ isBlog: true
 blog_cat: Tools
 youtubeId:
 cardTitle: Netflix's Hidden Genre Codes, Explained
-blog_snip:
-  Netflix has thousands of hyper-specific categories it almost never shows you, and each one has
-  a number you can type straight into the address bar. Here's how the codes work.
 name: Robert James Gabriel
 img: /assets/images/blog/netflix-hidden-genre-codes-explained.png
 date: 2026-07-06T00:00:00.000Z

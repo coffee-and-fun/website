@@ -13,8 +13,6 @@ url: blog/how-to-find-apple-receipts-and-request-a-refund/
 isBlog: true
 blog_cat: Usecase
 cardTitle: How to Find Apple Receipts and Request a Refund
-blog_snip:
-  Need an Apple receipt or want a refund? This quick step-by-step guide shows you exactly where to find your charges and how to request a refund from Apple.
 name: Robert James Gabriel
 img: /assets/images/blog/apple-refund.png
 date: 2024-10-11T00:00:00.000Z

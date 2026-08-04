@@ -14,9 +14,6 @@ isBlog: true
 blog_cat: Business
 youtubeId:
 cardTitle: How to Price Your App Without Losing Your Shirt (Or Your Users)
-blog_snip:
-  Learn the proven strategies I use to price apps profitably, including the 3x rule, the $20-30
-  sweet spot for yearly subscriptions, and why you should start lower than your competitors.
 name: Robert James Gabriel
 img: /assets/images/blog/how-to-price-your-app.png
 date: 2025-01-20T00:00:00.000Z

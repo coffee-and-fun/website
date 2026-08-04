@@ -21,7 +21,6 @@ isBlog: true
 blog_cat: How-To
 youtubeId:
 cardTitle: How to Deep Clean and Optimize Your Mac Using Mole
-blog_snip: Want to free up space and speed up your Mac? Mole is a free, open-source tool that safely deletes junk, uninstalls apps, and more, right from Terminal.
 name: Robert James Gabriel
 img: /assets/images/blog/deep-clean-optimize-mac-with-mole.png
 date: 2026-01-20T00:00:00.000Z

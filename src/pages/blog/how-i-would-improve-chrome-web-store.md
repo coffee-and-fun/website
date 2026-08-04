@@ -17,9 +17,6 @@ isBlog: true
 blog_cat: Usecase
 youtubeId: HqSjk8fC1tA
 cardTitle: How I would Improve the Chrome Web Store
-blog_snip:
-  Join me as I share real, hands-on tips for improving the Chrome Web Store. Everything from more
-  meaningful badges and better review tools to showing genuine user engagement.
 name: Robert James Gabriel
 img: /assets/images/blog/how-i-would-improve.png
 date: 2024-11-06T00:00:00.000Z

@@ -14,9 +14,6 @@ isBlog: true
 blog_cat: Usecase
 youtubeId: HqSjk8fC1tA
 cardTitle: Should You Test in Production? F*** It, Let’s Do It Live! 😂
-blog_snip:
-  A fun take on the age-old dev question, inspired by one of my favorite memes.
-  ShouldYouTestInProduction.com answers it with humor and a nod to chaos.
 name: Robert James Gabriel
 img: /assets/images/blog/test-in-production.png
 date: 2024-11-17T00:00:00.000Z

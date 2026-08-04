@@ -15,9 +15,6 @@ isBlog: true
 blog_cat: Update
 youtubeId:
 cardTitle: We Put a Pet Cat in Our Markdown Editor
-blog_snip:
-  Matrix rain, a pixel pet cat, vaporwave mode, and a combo counter. The Markdown Editor's new Chaos
-  Zone turns a simple writing tool into something you didn't know you needed.
 name: Robert James Gabriel
 img: /assets/images/blog/markdown-editor-chaos-zone-update-2026.png
 date: 2026-04-04T00:00:00.000Z

@@ -15,10 +15,6 @@ isBlog: true
 blog_cat: Usecase
 youtubeId: HqSjk8fC1tA
 cardTitle: How to Replace the Battery in Your Nintendo Switch
-blog_snip:
-  "Is your Nintendo Switch not holding its charge like it used to? It's probably time to replace
-  that battery. While it might sound tricky, I'll walk you through every single step, with detailed
-  instructions on the screws and parts you'll encounter along the way!"
 name: Robert James Gabriel
 img: /assets/images/blog/switch-battery.png
 date: 2024-10-11T00:00:00.000Z

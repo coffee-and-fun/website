@@ -14,12 +14,6 @@ url: blog/ethically-scrape-poshmark-listings-node-puppeteer-update/
 isBlog: true
 blog_cat: Usecase
 cardTitle: Scraping 20,000 Poshmark Listings (For Real This Time)
-blog_snip:
-  Back last week, I wrote a blog post titled How I Scraped 20,000 Poshmark Listings Using Node.js
-  and Puppeteer. The idea seemed solid, scroll through a Poshmark closet, grab every listing URL,
-  and scrape each listing one by one. But in reality? The script crashed constantly. It would hang,
-  freeze, or get stuck on a single listing. Chrome would balloon in memory, and Puppeteer would
-  throw vague timeout errors like
 name: Robert James Gabriel
 img: /assets/images/blog/ethically-scrape-poshmark-listings-node-puppeteer.png
 date: 2025-03-28T00:00:00.000Z

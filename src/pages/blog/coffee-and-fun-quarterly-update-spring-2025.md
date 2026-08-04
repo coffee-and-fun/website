@@ -15,9 +15,6 @@ isBlog: true
 blog_cat: Update
 youtubeId:
 cardTitle: A Peek Behind the Scenes at Coffee & Fun ☕
-blog_snip:
-  From new Roomba tools and extension glow-ups to Hide Spoilers going viral, here’s what the Coffee
-  & Fun team has been up to this quarter.
 name: Robert James Gabriel
 img: /assets/images/blog/coffee-and-fun-quarterly-update-spring-2025.png
 date: 2025-03-21T00:00:00.000Z

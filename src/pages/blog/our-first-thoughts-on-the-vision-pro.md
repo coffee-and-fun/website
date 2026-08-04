@@ -14,9 +14,6 @@ isBlog: true
 blog_cat: Announcement
 youtubeId:
 cardTitle: Our First Thoughts on the Vision Pro
-blog_snip:
-  The Vision Pro feels like a glimpse into the future, but is it practical for development? We’re
-  testing it at Coffee & Fun LLC to find out.
 name: Robert James Gabriel
 img: /assets/images/blog/vision-pro-thoughts.png
 date: 2024-12-23T00:00:00.000Z

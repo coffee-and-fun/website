@@ -7,7 +7,9 @@ The repository is your current working directory. Everything you need is in it.
 ## 1. Learn the conventions (read these first)
 
 - `BLOG-QUEUE.md` (repo root), the topic queue AND the binding voice rules. Read the whole file before anything else.
-- `src/pages/blog/the-enshittification-of-technology.md` and `src/pages/blog/xbox-dvr-exploit-api-major-nelson.md`: the blog at its best. Copy this front matter shape and this voice.
+- `src/pages/blog/snoopification.md`: **the exemplar.** Copy this front matter shape, this voice, and this structure. It is the only post written after the voice rules landed, so it is the only one that follows all of them. Note in particular how it opens on a concrete moment, quarantines its own weak spots into a named section rather than hedging throughout, sources every number with a checked-on date, and ends on a thought.
+- `src/pages/blog/the-enshittification-of-technology.md`: useful as a second reference for rhythm, the short sentences and deliberate one-line fragments. Its curly quotes are legacy; use straight ASCII.
+- **Do not copy any other existing post.** The other 47 predate the rules and break them freely: emoji headings, funnel endings, credential-flexing. `xbox-dvr-exploit-api-major-nelson.md` was cited here as an exemplar until August 2026 and has 11 emoji headings, which is exactly the kind of thing that gets copied forward.
 - `src/_includes/templates/post.liquid`: note the page renders the single `<h1>` from `cardTitle`, and uses `img` for the hero + OG image.
 - `src/_data/blog.json`: the index grid. New posts must be PREPENDED here. Also read every existing `link` and `src/pages/blog/*.md` filename so you never repeat a topic or slug.
 
@@ -37,7 +39,7 @@ The voice rules in `BLOG-QUEUE.md` are binding. In short:
 
 ## 5. Write `src/pages/blog/<slug>.md`
 
-Front matter must match the sample posts exactly, including these keys: `new: true`, `submit: false`, `footer: true`, `header: true`, `layout: templates/post.liquid`, `title`, `description`, `keywords`, `url: blog/<slug>/`, `isBlog: true`, `blog_cat`, `youtubeId:`, `cardTitle`, `blog_snip`, `name: Robert James Gabriel`, `img: /assets/images/blog/<slug>.png`, `date`, `time`, `tags`.
+Front matter must match the sample posts exactly, including these keys: `new: true`, `submit: false`, `footer: true`, `header: true`, `layout: templates/post.liquid`, `title`, `description`, `keywords`, `url: blog/<slug>/`, `isBlog: true`, `blog_cat`, `youtubeId:`, `cardTitle`, `name: Robert James Gabriel`, `img: /assets/images/blog/<slug>.png`, `date`, `time`, `tags`.
 
 - `date`: run `date -u +%Y-%m-%dT12:00:00.000Z` and use that value (noon UTC, so the displayed date is right in every timezone).
 - `time`: reading time at ~185 words per minute (e.g. "8 min").
@@ -47,7 +49,7 @@ Hard rules:
 
 - **NEVER use em dashes (U+2014) or en dashes (U+2013) anywhere** in the post or front matter. Use commas, periods, colons (in body text only), or parentheses.
 - **Exactly one H1**: it comes from `cardTitle`. Do NOT put a `# Heading` in the body. Use `##` and `###` only.
-- **YAML safety in front matter**: for the folded values (`description`, `blog_snip`, `keywords`) do NOT start a value with a double quote, and do NOT put `": "` (colon-then-space) inside them. Keep them as plain sentences. After writing, verify the file parses (see step 8).
+- **YAML safety in front matter**: for the folded values (`description`, `keywords`) do NOT start a value with a double quote, and do NOT put `": "` (colon-then-space) inside them. Keep them as plain sentences. After writing, verify the file parses (see step 8).
 - **SEO**: use the queue item's stated target query. Put the focus keyphrase in the `title`, the first paragraph, at least one `##`, and naturally throughout. `description` ~150 to 160 characters and compelling.
 
 ## 6. Make the social/OG card

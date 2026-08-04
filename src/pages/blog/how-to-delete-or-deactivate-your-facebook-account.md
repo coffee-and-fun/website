@@ -15,9 +15,6 @@ isBlog: true
 blog_cat: Usecase
 youtubeId: HqSjk8fC1tA
 cardTitle: How to Delete or Deactivate Your Facebook Account
-blog_snip:
-  Learn how to easily delete or deactivate your Facebook account with this simple, step-by-step
-  guide. Whether you're taking a break or leaving for good, we’ve got you covered!"
 name: Robert James Gabriel
 img: /assets/images/blog/facebook.png
 date: 2024-10-11T00:00:00.000Z

@@ -14,9 +14,6 @@ isBlog: true
 blog_cat: Research
 youtubeId:
 cardTitle: How PSA Grades Pokémon Cards - A Research Guide
-blog_snip:
-  We ordered PSA 10, 9, and 8 graded Pokémon cards to reverse-engineer the grading process. Here's
-  what we found and how we're turning it into an AI grading tool.
 name: Robert James Gabriel
 img: /assets/images/blog/psa-grading-research.png
 date: 2024-12-12T00:00:00.000Z

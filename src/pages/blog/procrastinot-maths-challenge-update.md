@@ -16,9 +16,6 @@ isBlog: true
 blog_cat: Usecase
 youtubeId: HqSjk8fC1tA
 cardTitle: ProcrastiNOT Update - The Maths Challenge is Here! 🎉
-blog_snip:
-  We’re excited to roll out a fresh new update for ProcrastiNOT, bringing in a fun twist and some
-  polish to keep things sharp. Let’s break down what’s new!
 name: Robert James Gabriel
 img: /assets/images/blog/maths-update.png
 date: 2024-10-11T00:00:00.000Z
