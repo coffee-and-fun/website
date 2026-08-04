@@ -37,7 +37,7 @@
     <meta name="twitter:image" content="https://www.coffeeandfun.com/assets/images/social/pages/text-converter.png" />
     <meta name="twitter:image:alt" content="Text Case Converter card listing uppercase, lowercase and Title Case styles" />
 
-    <meta name="theme-color" content="#f4f4f2" />
+    <meta name="theme-color" content="#fef5ec" />
 
     <!-- Structured Data -->
     <script type="application/ld+json">
@@ -76,6 +76,7 @@
 
     <script src="https://unpkg.com/vue@3"></script>
 
+    {% bundledCss %}
     {% pageCss "text-converter" %}
     {% include sketch-styles.liquid %}
 {% include schema-org.liquid %}
@@ -83,17 +84,12 @@
     </head>
 
 <body>
+    {% assign showFun = true %}
+    {% include header.liquid %}
 {% raw %}
     <a href="#tool" class="skip">Skip to the tool</a>
 
     <main v-cloak id="app" class="wrap">
-
-        <div class="topbar">
-            <a href="/" class="home-link" aria-label="Back to coffeeandfun.com">
-                <img src="/assets/images/brand/coffee-and-fun-logo-dark.png" alt="" width="40" height="40" decoding="async" />
-                <span class="tip" aria-hidden="true">Back to coffeeandfun.com</span>
-            </a>
-        </div>
 
         <header id="tool">
             <h1>Change the case of any text</h1>
@@ -161,10 +157,10 @@
             <div v-else class="code-empty">Your converted text will appear here as you type.</div>
 
             <div class="result-actions">
-                <button type="button" class="btn btn-primary" @click="copyResult" :disabled="!result">
+                <button type="button" class="btn-brand btn-primary-brand" @click="copyResult" :disabled="!result">
                     {{ copied ? 'Copied ✓' : 'Copy result' }}
                 </button>
-                <button type="button" class="btn btn-secondary" @click="downloadResult" :disabled="!result">
+                <button type="button" class="btn-brand btn-secondary-brand" @click="downloadResult" :disabled="!result">
                     Download .txt
                 </button>
             </div>
@@ -177,6 +173,7 @@
     </main>
 {% endraw %}
 
+    {% include modals.liquid %}
     {% include footer.liquid %}
 
     {% pageJs "text-converter" %}
