@@ -70,6 +70,79 @@ html, body { overflow-x: clip; }
 	src: url('/assets/fonts/Caveat-Bold.woff2') format('woff2');
 }
 
+/* Blog and help article typography.
+   The article element carries `prose prose-lg`, and @tailwindcss/typography owns
+   the rhythm: sizes, margins, list indents, table padding. Theming it through
+   its own variables keeps brand colour in one place and stops utility classes
+   fighting the plugin, which is what used to happen: link utilities lost to
+   prose on table cells, and an mx-2 on links put an 8px gap either side of every
+   inline link. */
+.prose {
+	--tw-prose-body: var(--color-stone-700);
+	--tw-prose-headings: var(--color-stone-900);
+	--tw-prose-lead: var(--color-stone-600);
+	--tw-prose-links: var(--color-caramel);
+	--tw-prose-bold: var(--color-stone-900);
+	--tw-prose-counters: var(--color-caramel);
+	--tw-prose-bullets: var(--color-toffee);
+	--tw-prose-hr: var(--color-stone-200);
+	--tw-prose-quotes: var(--color-stone-700);
+	--tw-prose-quote-borders: var(--color-toffee);
+	--tw-prose-captions: var(--color-stone-500);
+	--tw-prose-code: var(--color-espresso);
+	--tw-prose-th-borders: var(--color-stone-300);
+	--tw-prose-td-borders: var(--color-stone-200);
+}
+
+/* Tables. Prose leaves the first column flush to the text edge and its rules at
+   5% alpha, which reads as unfinished on cream. Give them the same warm border
+   and rounded corner the cards elsewhere use. border-collapse must be separate
+   for the radius to clip. */
+.prose table {
+	border-collapse: separate;
+	border-spacing: 0;
+	border: 1px solid var(--color-stone-200);
+	border-radius: 0.75rem;
+	overflow: hidden;
+	font-size: 0.95em;
+}
+/* Not --color-cream: the page is already cream, so the header row would vanish.
+   This is the same warm tint the site menu uses for its current-page row. */
+.prose thead {
+	background: #f6ece2;
+}
+.prose th,
+.prose td {
+	padding: 0.7rem 1rem;
+	border-bottom: 1px solid var(--color-stone-200);
+	vertical-align: top;
+}
+.prose th {
+	color: var(--color-stone-900);
+	font-weight: 600;
+	text-align: left;
+}
+.prose tbody tr:last-child td {
+	border-bottom: 0;
+}
+
+/* A wide table scrolls on its own rather than pushing the page sideways. */
+@media (max-width: 639px) {
+	.prose table {
+		display: block;
+		overflow-x: auto;
+	}
+}
+
+/* Links keep the site's two-pixel underline rather than prose's hairline. */
+.prose a {
+	text-decoration-thickness: 2px;
+	text-underline-offset: 2px;
+}
+.prose a:hover {
+	color: var(--color-espresso);
+}
+
 /* Code blocks, Highlight.js */
 pre code.hljs { display: block; overflow-x: auto; padding: 1em; }
 code.hljs { padding: 3px 5px; }
