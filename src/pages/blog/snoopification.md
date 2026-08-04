@@ -4,8 +4,8 @@ submit: false
 footer: true
 header: true
 layout: templates/post.liquid
-title: "Snoopification: Mascots and Brands on Everything"
-description: "Snoopification is putting a mascot or brand on every surface with no shame. Coined by Courtney Hood. Why Snoopy and Supreme survive it, why Garfield and Harley paid for it."
+title: "Snoopification: Mascots and Brands Everywhere"
+description: "Snoopification is putting a mascot or brand on every surface with no shame. Why Snoopy and Supreme get away with it, and why Garfield and Harley did not."
 keywords:
   snoopification, mascot overexposure, brand mascot overuse, character licensing, brand dilution,
   brand extension failure, logo on everything, Snoopy licensing, Peanuts Worldwide,
@@ -31,8 +31,7 @@ tags:
   - culture
 ---
 
-My wife, Courtney Hood, coined a word I have not stopped using since.
-<!-- TODO: Robert, link Courtney here if she wants one. I did not want to guess at a URL. -->
+My wife, [Courtney Hood](/about/), coined a word I have not stopped using since.
 
 **Snoopification.** Noun. The practice of putting a mascot or a brand on every available surface, with no shame and no particular reason. To snoopify is to decide that a character or a logo is no longer a character or a logo, it is a pattern, and a pattern can go on anything.
 
@@ -186,7 +185,7 @@ If I am going to argue this, I should name the case that argues back.
 
 If you make things, this is the useful part. The tells are consistent:
 
-1. **It appears where it cannot help.** Error states, legal pages, invoices, a 404. If your mascot is apologising for a payment failure, or your logo is embossed on a thing that has no use for a logo, ask who that is for.
+1. **It appears where it cannot help.** Error states, legal pages, invoices, a 404. If your mascot is apologising for a payment failure, or your logo is embossed on a thing that has no use for a logo, ask who that is for. I am not clean here. Our own [404 page](/404.html) is a fighting game starring my two cats, on a surface that did not ask for one.
 2. **No one can say what it wants.** If your team can list twelve products it is on and zero things it believes, you have a pattern, not a character and not a brand.
 3. **New meaning has stopped being made.** Merchandising is a withdrawal. Something has to be a deposit. Strips, episodes, stories, jokes, a genuinely better motorcycle, anything that adds rather than reprints.
 4. **It is doing the work the product should do.** The Snoopy on the front of the shop is not why the shop is good. The box logo is not why the brick is a brick.
