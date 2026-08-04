@@ -38,27 +38,50 @@ a.skip {
 }
 a.skip:focus { left: 0; }
 
+/* The clock is the page. It fills the screen below the sticky header, and the
+   footer sits under it rather than competing with it.
+
+   100svh, not 100vh: on mobile the small viewport unit accounts for the browser
+   chrome that comes and goes, so the grid never gets clipped behind it. The
+   header is 108px below 640px and 124px above, matching coco.css. */
 .wrap {
   width: 100%;
-  max-width: 640px;
   margin: 0 auto;
-  padding: 2rem 1.25rem 4rem;
+  padding: 1.25rem 1.25rem 2rem;
   flex: 1;
+  min-height: calc(100svh - 108px);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 1.25rem;
+}
+@media (min-width: 640px) {
+  .wrap { min-height: calc(100svh - 124px); }
 }
 
-h1 {
-  font-size: 1.9rem;
-  line-height: 1.2;
-  letter-spacing: -0.02em;
-  margin: 0 0 0.6rem;
-  font-weight: 650;
+/* The heading and description still carry the page's search terms, so they stay
+   in the document. They just stop being the loudest thing on it. */
+#tool {
+  text-align: center;
+  max-width: 54ch;
 }
+h1 {
+  font-size: clamp(1.1rem, 2.6vw, 1.45rem);
+  line-height: 1.25;
+  letter-spacing: -0.01em;
+  margin: 0 0 0.35rem;
+  font-weight: 600;
+}
+/* The lede sits below the clock, so it never competes for height and does not
+   need hiding on short screens. */
 .lede {
   color: var(--muted);
-  font-size: 1rem;
-  line-height: 1.55;
-  margin: 0 0 2.25rem;
-  max-width: 50ch;
+  font-size: 0.9rem;
+  line-height: 1.5;
+  margin: 0;
+  text-align: center;
+  max-width: 54ch;
 }
 
 /* ---- The clock ---- */
@@ -66,23 +89,43 @@ h1 {
   background: var(--surface);
   border: 1px solid var(--line);
   border-radius: var(--radius);
-  padding: clamp(1.1rem, 4vw, 2rem);
+  padding: clamp(0.75rem, 2vw, 1.5rem);
+  width: max-content;
+  max-width: 100%;
 }
 
+/* The grid is 11 columns of square cells, so it is square overall. Sizing it off
+   the smaller of the two viewport axes is what makes it as big as it can be
+   without ever needing to scroll. Everything else, gaps and letter size, derives
+   from that one number so the proportions hold at every screen size. */
 .letters {
+  /* Subtracting a fixed allowance, rather than taking a flat percentage of the
+     height, is what keeps the whole grid on screen. The allowance covers the
+     sticky header, the heading block and the card padding. max() stops the grid
+     collapsing to nothing on very short windows. */
+  --grid: max(230px, min(92vw, calc(100svh - 235px)));
+  width: var(--grid);
   display: grid;
   grid-template-columns: repeat(11, 1fr);
-  gap: clamp(2px, 0.9vw, 8px);
+  gap: calc(var(--grid) / 150);
   font-family: var(--mono);
   user-select: none;
   -webkit-user-select: none;
+}
+@media (min-width: 640px) {
+  /* The clock is the point of the page, so it takes as much of the viewport as
+     it can while still showing all eleven rows. The reading, the controls and
+     the privacy line sit below it and scroll into view. */
+  .letters { --grid: max(260px, min(86vw, calc(100svh - 275px))); }
 }
 .letter {
   display: flex;
   align-items: center;
   justify-content: center;
   aspect-ratio: 1;
-  font-size: clamp(0.95rem, 4.4vw, 1.7rem);
+  /* A cell is --grid/11, so this is roughly 62% of the cell, which keeps the
+     letters large without them touching their neighbours. */
+  font-size: calc(var(--grid) / 17.5);
   font-weight: 500;
   letter-spacing: 0.02em;
   color: var(--faint); /* decorative, aria-hidden, the one place faint is fine */
@@ -91,8 +134,8 @@ h1 {
 .letters.smooth .letter { transition: color 0.6s ease; }
 
 .plain-time {
-  margin: 1.4rem 0 0;
-  padding-top: 1.1rem;
+  margin: 0.85rem 0 0;
+  padding-top: 0.7rem;
   border-top: 1px solid var(--line);
   text-align: center;
   font-family: var(--mono);
@@ -183,7 +226,7 @@ label.ctl input:focus-visible { outline: 2px solid var(--ink); outline-offset: 2
 .btn-fs[hidden] { display: none; }
 
 .foot {
-  text-align: center; padding: 1.5rem 1rem 2rem;
+  text-align: center; padding: 0.5rem 1rem 1.5rem;
   font-size: 0.8rem; color: var(--muted);
 }
 .foot a { color: var(--muted); text-decoration: none; }
@@ -195,7 +238,8 @@ label.ctl input:focus-visible { outline: 2px solid var(--ink); outline-offset: 2
 }
 
 @media (max-width: 480px) {
-  h1 { font-size: 1.6rem; }
-  .wrap { padding-top: 1.5rem; }
-  .controls { gap: 0.8rem 1.2rem; }
+  /* No h1 override here any more. It used to force 1.6rem, which fought the
+     compact clamp above and stole height the clock now uses. */
+  .wrap { padding-top: 1rem; }
+  .controls { gap: 0.8rem 1.2rem; margin-top: 0; }
 }
