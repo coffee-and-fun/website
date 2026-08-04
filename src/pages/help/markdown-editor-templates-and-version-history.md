@@ -27,19 +27,19 @@ tags:
 ## Start from a template
 
 1. Open **Documents** and choose **Start new**.
-2. Pick **Blank**, or one of the templates — README, meeting notes, blog post, and more.
-3. The template drops in ready-to-edit placeholder structure — headings, lists, and links you replace with your own words.
+2. Pick **Blank**, or one of the templates: README, meeting notes, blog post, and more.
+3. The template drops in ready-to-edit placeholder structure: headings, lists, and links you replace with your own words.
 
 ## Version history
 
-The editor takes **automatic snapshots** of your document as you work — no setup needed.
+The editor takes **automatic snapshots** of your document as you work. No setup needed.
 
 ## Restore an earlier version
 
 1. Open the **history** panel from the header.
 2. Browse snapshots by time.
 3. Click **Restore** on the one you want.
-4. The restored text lands in your editor — **save it** to keep it.
+4. The restored text lands in your editor. **Save it** to keep it.
 
 > Restoring never destroys anything: the snapshot replaces your editor content, but it only becomes permanent when you save. Change your mind? Restore a different snapshot.
 
@@ -47,4 +47,4 @@ The editor takes **automatic snapshots** of your document as you work — no set
 
 - Snapshots are stored on your device, like everything else.
 - Each document keeps its own history.
-- A snapshot is taken when meaningful changes accumulate — you don't get spammed with one per keystroke.
+- A snapshot is taken when meaningful changes accumulate, so you don't get spammed with one per keystroke.

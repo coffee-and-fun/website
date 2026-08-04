@@ -26,7 +26,7 @@ tags:
 
 ## How saving works
 
-- The editor **auto-saves as you type** — watch for *saved ✓* in the status bar.
+- The editor **auto-saves as you type**: watch for *saved ✓* in the status bar.
 - Each document keeps its own name, content, and dates.
 - Everything is stored **on your device** in the browser's or app's local storage. Nothing is uploaded.
 
@@ -34,24 +34,24 @@ tags:
 
 Click the **file icon** in the header to open your documents.
 
-- **New** — start a blank document (your current one is saved first).
-- **Load** — click any document to open it.
-- **Delete** — click twice to confirm; there's a rage-quit guard so one stray click can't wipe a note.
-- **Recent** — the clock icon in the header jumps straight to recently opened documents.
+- **New**: start a blank document (your current one is saved first).
+- **Load**: click any document to open it.
+- **Delete**: click twice to confirm; there's a rage-quit guard so one stray click can't wipe a note.
+- **Recent**: the clock icon in the header jumps straight to recently opened documents.
 
 ## Download a single document
 
-- Click the **download icon** and choose **Download .md** — you get a standard markdown file, readable everywhere.
+- Click the **download icon** and choose **Download .md**: you get a standard markdown file, readable everywhere.
 
 ## Back up everything at once
 
 1. Open the **download menu** in the header.
 2. Choose **Export .zip**.
-3. You get one zip with every document as its own `.md` file — perfect for backups or moving machines.
+3. You get one zip with every document as its own `.md` file, perfect for backups or moving machines.
 
 > **Make zip backups a habit.** Browser storage is wiped if you uninstall the extension or clear site data. A monthly `.zip` means that's never a disaster.
 
 ## Import files
 
 - Drag any `.md` file onto the editor, or use **Open file** in the header.
-- Only markdown files are accepted — if an import fails, check the file ends in `.md`.
+- Only markdown files are accepted. If an import fails, check the file ends in `.md`.

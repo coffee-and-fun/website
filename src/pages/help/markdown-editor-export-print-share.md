@@ -28,13 +28,13 @@ tags:
 
 Click the **download icon** in the header:
 
-- **Download .md** — your document as a plain markdown file.
-- **Export to HTML** — a fully styled, standalone HTML file. Pick from several **export themes** in Settings.
-- **Export .zip** — every document at once, each as its own `.md` file.
+- **Download .md**: your document as a plain markdown file.
+- **Export to HTML**: a fully styled, standalone HTML file. Pick from several **export themes** in Settings.
+- **Export .zip**: every document at once, each as its own `.md` file.
 
 ## Print (and print to PDF)
 
-- Click the **print icon** — the rendered preview prints, not the raw markdown.
+- Click the **print icon**: the rendered preview prints, not the raw markdown.
 - Choose **Save as PDF** in the print dialog to make a PDF.
 
 ## Share to ChatGPT, Claude, or Perplexity
@@ -49,4 +49,4 @@ Working on a draft with an AI? Skip the copy-paste dance:
 
 ## Copy as HTML
 
-Need the rendered HTML for a blog or CMS? Use **Copy HTML** — the generated markup lands on your clipboard.
+Need the rendered HTML for a blog or CMS? Use **Copy HTML**. The generated markup lands on your clipboard.

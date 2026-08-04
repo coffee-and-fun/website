@@ -1,4 +1,4 @@
-// Build-time shaping of netflix.json for /netflix/ — sorts the 1,900+ genre
+// Build-time shaping of netflix.json for /netflix/. Sorts the 1,900+ genre
 // codes alphabetically, groups them into A–Z sections, and pre-computes the
 // "popular filter" chips so the page ships zero of this work to the browser.
 const raw = require('./netflix.json');
@@ -36,7 +36,7 @@ for (const item of items) {
 	group.items.push(item);
 }
 
-// Popular filter chips — same keyword extraction the old page ran in the
+// Popular filter chips, same keyword extraction the old page ran in the
 // browser. Every tag is a substring of the names it was pulled from, so a
 // plain text search for the tag finds the same rows.
 const DECADES = /\b(1920s|1930s|1940s|1950s|1960s|1970s|1980s)\b/gi;

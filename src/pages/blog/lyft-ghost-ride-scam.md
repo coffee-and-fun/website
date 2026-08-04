@@ -41,7 +41,7 @@ back.
 
 Last week, I decided to try Lyft instead of my usual Uber. Big mistake. I requested a ride for what
 should have been a simple 19-minute trip. The driver was supposedly "arriving," but they never
-showed up at my location. Here's where it gets interesting – and by interesting, I mean infuriating.
+showed up at my location. Here's where it gets interesting, and by interesting, I mean infuriating.
 
 Without ever picking me up, the driver somehow started the ride. I was standing at my pickup
 location, watching on the app as my "ride" began without me. The driver proceeded to drive 40
@@ -66,7 +66,7 @@ Here's how the scam typically works:
 ## The 53-Minute Nightmare
 
 My 19-minute ride turned into a 53-minute ordeal. I watched helplessly as the driver meandered
-around town, racking up charges. I sent multiple messages through the app – no response. When the
+around town, racking up charges. I sent multiple messages through the app. No response. When the
 ride finally "ended," I had been virtually dropped off at a location I'd never been to, and my
 account was charged $36.
 
@@ -93,7 +93,7 @@ never received.
 Here's the part that might save you hours of frustration: I discovered that buried deep in Lyft's
 settings, if you report an **unsafe driver**, you actually get through to a live human agent.
 
-This felt ridiculous – I had to essentially lie about the nature of my complaint just to talk to a
+This felt ridiculous. I had to essentially lie about the nature of my complaint just to talk to a
 real person. But it worked. I explained my situation to the live agent, who seemed genuinely
 surprised that the AI had only offered $4. They transferred me to the "right department" (why wasn't
 I there in the first place?), I sent my screenshots showing I was never picked up, and within
@@ -107,7 +107,7 @@ After this experience, I've learned some crucial lessons:
    verification PIN. This requires the driver to get a PIN from you before starting the ride.
 
 2. **Screenshot Everything**: The moment something seems off, start taking screenshots. Get the
-   driver's info, the route, the times – everything.
+   driver's info, the route, the times, everything.
 
 3. **Don't Wait**: If a driver starts a ride without you, immediately start documenting and
    reporting. Don't wait until the ride ends.

@@ -21,7 +21,7 @@ const createSocialImageForArticle = async (input, output) => {
 	try {
 		// `canvas` is a native module that frequently fails to load (missing
 		// system libs like libpixman on fresh machines / CI). Import it lazily
-		// so a broken canvas install can never take down the whole build — this
+		// so a broken canvas install can never take down the whole build. This
 		// helper is opt-in and not wired into the default build.
 		const { createCanvas, loadImage } = await import('canvas');
 
@@ -223,7 +223,7 @@ export default function (eleventyConfig) {
 					useShortDoctype: true,
 					removeComments: true,
 					collapseWhitespace: true,
-					// Never delete a space outright — collapseWhitespace around an
+					// Never delete a space outright. collapseWhitespace around an
 					// ignoreCustomFragments placeholder otherwise eats the gap after
 					// a tag that ends with a {{ }} expression ("10:06 PMon Sunday").
 					conservativeCollapse: true,
@@ -278,7 +278,7 @@ export default function (eleventyConfig) {
 				: '';
 		assetVersions.css = hash(tailwindOutputPath);
 
-		// Service-worker precache list. Only the core shell goes here — everything
+		// Service-worker precache list. Only the core shell goes here, everything
 		// else is cached at runtime as it's requested. Precaching the whole docs/
 		// tree would force every first-time visitor to download the entire site.
 		const coreAssets = [

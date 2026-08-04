@@ -3,7 +3,7 @@ new: true
 submit: false
 layout: templates/help-doc.liquid
 title: "Formatting toolbar & keyboard shortcuts"
-description: "Bold, italic, links, lists, and quotes with one click — plus every keyboard shortcut, including find & replace."
+description: "Bold, italic, links, lists, and quotes with one click, plus every keyboard shortcut, including find & replace."
 keywords: markdown editor shortcuts, markdown toolbar, cmd b bold, find and replace markdown, keyboard shortcuts, Coffee and Fun
 url: help/markdown-editor-formatting-and-shortcuts/
 isHelp: true
@@ -28,10 +28,10 @@ tags:
 
 The toolbar sits above the editor pane. One click wraps your selection:
 
-- **B** — bold, *I* — italic, **S** — strikethrough
-- **Link** — wraps the selection and asks for the URL
-- **Lists** — bulleted or numbered
-- **Quote** — blockquote
+- **B**: bold, *I*: italic, **S**: strikethrough
+- **Link**: wraps the selection and asks for the URL
+- **Lists**: bulleted or numbered
+- **Quote**: blockquote
 
 You can hide the toolbar in **Settings → Writing tools** if you prefer a bare editor.
 
@@ -51,7 +51,7 @@ On Windows and Linux, use <kbd class="kbd kbd-sm">Ctrl</kbd> instead of <kbd cla
 ## Find & replace
 
 1. Press <kbd class="kbd kbd-sm">⌘</kbd> + <kbd class="kbd kbd-sm">F</kbd>.
-2. Type your search — matches are counted as you type, with an optional **match case** toggle.
+2. Type your search. Matches are counted as you type, with an optional **match case** toggle.
 3. Jump between matches with the arrows, then **replace one** or **replace all**.
 
 ## Lists that just work
@@ -61,4 +61,4 @@ On Windows and Linux, use <kbd class="kbd kbd-sm">Ctrl</kbd> instead of <kbd cla
 
 ## The outline panel
 
-Long document? Open the **outline** from the header — every heading becomes a link, so you can jump anywhere in one click.
+Long document? Open the **outline** from the header. Every heading becomes a link, so you can jump anywhere in one click.

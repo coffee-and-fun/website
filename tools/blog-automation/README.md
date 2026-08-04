@@ -5,14 +5,14 @@ commits it locally. It never pushes: Robert reviews each draft and publishes it 
 
 ## Pieces
 
-- `write-post.md` — the instructions Claude follows to draft one post (voice rules, receipts,
+- `write-post.md`: the instructions Claude follows to draft one post (voice rules, receipts,
   SEO, links, card, no em dashes, verify, local commit).
-- `../../BLOG-QUEUE.md` (repo root) — the topic queue AND the binding voice rules. The runner takes the first unchecked `[ ]` and checks it
+- `../../BLOG-QUEUE.md` (repo root), the topic queue AND the binding voice rules. The runner takes the first unchecked `[ ]` and checks it
   off when drafted. Add or reorder ideas any time.
-- `run-blog.sh` — the launchd entry point. Sets PATH, pulls latest, runs Claude headless, logs to
+- `run-blog.sh`: the launchd entry point. Sets PATH, pulls latest, runs Claude headless, logs to
   `logs/`.
-- `com.coffeeandfun.blog.plist` — the launchd schedule. Copy to `~/Library/LaunchAgents/`.
-- `logs/` — one timestamped log per run, plus launchd's own out/err logs.
+- `com.coffeeandfun.blog.plist`: the launchd schedule. Copy to `~/Library/LaunchAgents/`.
+- `logs/`: one timestamped log per run, plus launchd's own out/err logs.
 
 ## How a run works
 

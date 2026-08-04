@@ -26,7 +26,7 @@ tags:
 
 ## A document won't save
 
-- Look for an error toast — the editor **tells you** when a save fails instead of failing silently.
+- Look for an error toast. The editor **tells you** when a save fails instead of failing silently.
 - The usual cause is **full browser storage**. Export a `.zip` backup, then delete documents you no longer need.
 - Copy your current text somewhere safe before troubleshooting further.
 
@@ -36,8 +36,8 @@ tags:
 
 ## Import fails
 
-- Only markdown files are accepted — the file must end in `.md` (any capitalization is fine).
-- Exports from other apps sometimes use `.txt` — rename the file to `.md` and try again.
+- Only markdown files are accepted. The file must end in `.md` (any capitalization is fine).
+- Exports from other apps sometimes use `.txt`. Rename the file to `.md` and try again.
 
 ## Math or diagrams don't render
 
@@ -50,8 +50,8 @@ tags:
 
 ## A feature seems missing on my platform
 
-- It isn't — every feature ships on every platform. If something looks absent, update to the latest version from your store; older versions predate the newer tools.
+- It isn't. Every feature ships on every platform. If something looks absent, update to the latest version from your store; older versions predate the newer tools.
 
 ## Still stuck?
 
-- Email us at [hello@coffeeandfun.com](mailto:hello@coffeeandfun.com) or use the [support page](/support/) — a human reads everything.
+- Email us at [hello@coffeeandfun.com](mailto:hello@coffeeandfun.com) or use the [support page](/support/). A human reads everything.

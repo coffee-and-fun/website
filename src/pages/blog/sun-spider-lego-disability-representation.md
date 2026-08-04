@@ -51,7 +51,7 @@ own Spider-Person. Created by Dayn Broder, Sun-Spider quickly captured hearts as
 superhero who uses forearm crutches and deals with Ehlers-Danlos Syndrome, a genetic condition
 affecting connective tissues that can cause joint hypermobility, chronic pain, and fatigue.
 
-What makes Charlie special isn't just her spider-powers – it's how she adapts them to work with her
+What makes Charlie special isn't just her spider-powers, it's how she adapts them to work with her
 disability, not against it. She modified her web-shooters to work with her crutches and uses her
 spider-sense to anticipate and prevent joint dislocations.
 
@@ -73,7 +73,7 @@ black costume and her mobility aids, showing that heroes come in all forms.
 
 By including Sun-Spider alongside Spider-Man, Ghost-Spider, and other fan favorites, LEGO sends a
 powerful message: disability is part of the superhero landscape. Charlie isn't a "special edition"
-or relegated to a separate line – she's right there with everyone else, ready for adventure.
+or relegated to a separate line. She's right there with everyone else, ready for adventure.
 
 ### Expanding the Spider-Verse
 
@@ -95,7 +95,7 @@ is just another part of being a hero. This isn't just inclusion, it's celebratio
 
 The attention to detail in the minifigure is remarkable too. Her crutches aren't an afterthought;
 they're designed to fit perfectly with the LEGO system, allowing for dynamic poses and play
-scenarios. It shows that LEGO didn't just include her for representation points – they thoughtfully
+scenarios. It shows that LEGO didn't just include her for representation points. They thoughtfully
 designed her to be a fully functional part of the collection.
 
 ---
@@ -106,7 +106,7 @@ Sun-Spider in LEGO form represents progress. It shows that toy companies are lis
 better representation and that "lesser-known" characters can still make a massive impact.
 
 For every child who sees themselves in Charlie, for every parent grateful to have these
-conversations through play, and for every collector who understands the significance – this is what
+conversations through play, and for every collector who understands the significance, this is what
 inclusion looks like.
 
 Here's hoping this is just the beginning. If Sun-Spider can make it into a LEGO set, perhaps we'll

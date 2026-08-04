@@ -26,12 +26,12 @@ tags:
 
 ## Step 1: Install it
 
-Pick your platform — every feature is identical on all of them:
+Pick your platform. Every feature is identical on all of them:
 
-- **Chrome** — free from the [Chrome Web Store](https://chromewebstore.google.com/detail/markdown-editor-for-chrom/dkpldbigkfcgpamifjimiejipmodkigk).
-- **Edge** — free from [Edge Add-ons](https://microsoftedge.microsoft.com/addons/detail/markdown-editor-for-edge%E2%84%A2/nhepchbjhmhpmdnkdeiecihookmlmocb).
-- **Firefox** — free from [Firefox Add-ons](https://addons.mozilla.org/en-US/firefox/addon/markdown-editor/).
-- **Mac, iPad & iPhone** — one $5 purchase on the [App Store](https://apps.apple.com/us/app/markdown-editor-for-safari/id6578456621). The Safari extension is included.
+- **Chrome**: free from the [Chrome Web Store](https://chromewebstore.google.com/detail/markdown-editor-for-chrom/dkpldbigkfcgpamifjimiejipmodkigk).
+- **Edge**: free from [Edge Add-ons](https://microsoftedge.microsoft.com/addons/detail/markdown-editor-for-edge%E2%84%A2/nhepchbjhmhpmdnkdeiecihookmlmocb).
+- **Firefox**: free from [Firefox Add-ons](https://addons.mozilla.org/en-US/firefox/addon/markdown-editor/).
+- **Mac, iPad & iPhone**: one $5 purchase on the [App Store](https://apps.apple.com/us/app/markdown-editor-for-safari/id6578456621). The Safari extension is included.
 
 ## Step 2: Open the editor
 
@@ -40,7 +40,7 @@ Pick your platform — every feature is identical on all of them:
 
 ## Step 3: Write
 
-Just start typing in the left pane — the preview renders live on the right.
+Just start typing in the left pane. The preview renders live on the right.
 
 - Markdown works as you'd expect: `# heading`, `**bold**`, `- list`.
 - Your document **saves automatically** as you type. The status bar shows *saved ✓* when it's stored.
@@ -48,8 +48,8 @@ Just start typing in the left pane — the preview renders live on the right.
 
 ## Where things live
 
-- **Documents** — the file icon in the header lists every document.
-- **Settings** — the gear icon holds themes, fonts, writing tools, and the chaos zone.
-- **Help** — the question-mark icon opens the markdown guide and shortcut list.
+- **Documents**: the file icon in the header lists every document.
+- **Settings**: the gear icon holds themes, fonts, writing tools, and the chaos zone.
+- **Help**: the question-mark icon opens the markdown guide and shortcut list.
 
-> **Privacy note:** everything is stored on your own device. No account, no cloud, no tracking — and it all works offline.
+> **Privacy note:** everything is stored on your own device. No account, no cloud, no tracking, and it all works offline.

@@ -77,26 +77,26 @@ This is the signature design element. Every page has hand-drawn SVG doodles scat
 - Each doodle is an inline SVG inside a `.sketch-note` div, positioned with inline styles (`top`, `left`, `right`, `bottom`, `transform: rotate()`).
 
 - SVG paths use stroke classes for consistent styling:
-  - `.sketch-arrow` — brown directional pointers (`#a36942`, stroke-width 2)
-  - `.sketch-heart` — coral outline hearts (`#fd6155`, opacity 0.5)
-  - `.sketch-squiggle` — organic wavy lines (`#a36942`, opacity 0.35)
-  - `.sketch-sparkle` — starburst lines (`#fd6155`, opacity 0.4)
-  - `.sketch-circle` — dashed circles (`#fd6155`, dash pattern 6-4)
-  - `.sketch-check` — checkmarks (`#a36942`, opacity 0.45)
-  - `.sketch-lightning` — lightning bolts (`#c4813a`, opacity 0.35)
-  - `.sketch-swirl` — spiral decorations (`#a36942`, opacity 0.3)
-  - `.sketch-leaf` — nature shapes (`#a36942`, opacity 0.3)
+  - `.sketch-arrow`: brown directional pointers (`#a36942`, stroke-width 2)
+  - `.sketch-heart`: coral outline hearts (`#fd6155`, opacity 0.5)
+  - `.sketch-squiggle`: organic wavy lines (`#a36942`, opacity 0.35)
+  - `.sketch-sparkle`: starburst lines (`#fd6155`, opacity 0.4)
+  - `.sketch-circle`: dashed circles (`#fd6155`, dash pattern 6-4)
+  - `.sketch-check`: checkmarks (`#a36942`, opacity 0.45)
+  - `.sketch-lightning`: lightning bolts (`#c4813a`, opacity 0.35)
+  - `.sketch-swirl`: spiral decorations (`#a36942`, opacity 0.3)
+  - `.sketch-leaf`: nature shapes (`#a36942`, opacity 0.3)
   - Plus: dots, crosses, zigzags, loops, dashes, underlines, brackets, exclamation marks
 
 - Some doodles are text annotations with the handwriting font: `"fresh off the press"`, `"we do love coffee!"`, `"dive in!"`. These have small SVG arrows pointing toward relevant content.
 
 - Three animation classes for gentle motion:
-  - `.sketch-float` — 4s ease-in-out vertical bob (translateY 0 to -4px)
-  - `.sketch-float-slow` — 6s ease-in-out vertical bob
-  - `.sketch-wiggle` — 3s ease-in-out rotation wobble (+/- 3deg)
+  - `.sketch-float`: 4s ease-in-out vertical bob (translateY 0 to -4px)
+  - `.sketch-float-slow`: 6s ease-in-out vertical bob
+  - `.sketch-wiggle`: 3s ease-in-out rotation wobble (+/- 3deg)
   - Use CSS custom property `--sketch-rotate` for base rotation
 
-- **Hidden on mobile** (`max-width: 639px`) — doodles disappear cleanly on small screens.
+- **Hidden on mobile** (`max-width: 639px`), doodles disappear cleanly on small screens.
 
 - Parent sections need `overflow: visible` and `position: relative` for doodles to appear outside bounds.
 
@@ -109,9 +109,9 @@ This is the signature design element. Every page has hand-drawn SVG doodles scat
 **Page structure:** Each page is a self-contained HTML document. No shared layout file. Each includes header, footer, modals, scripts, and sketch-styles via Liquid `{% include %}` tags.
 
 **Container widths:**
-- `max-w-5xl` — default content sections
-- `max-w-7xl` — full-width grids (blog, apps)
-- `max-w-3xl` — narrow content (forms, focused reading)
+- `max-w-5xl`: default content sections
+- `max-w-7xl`: full-width grids (blog, apps)
+- `max-w-3xl`: narrow content (forms, focused reading)
 - Always centered with `mx-auto`
 - Responsive horizontal padding: `px-4 sm:px-6 lg:px-8`
 
@@ -236,6 +236,6 @@ font-weight: 500; border: 1.5px solid #d6d3d1; color: #78716c;
 
 The site should feel like walking into a cozy independent coffee shop that happens to make great software. Warm colors, hand-drawn touches, playful copy, but the actual product content is clear and well-organized. Nothing should feel corporate or template-y. Every detail should feel intentional and human.
 
-The doodles aren't decoration — they're personality. They make the site feel alive, like someone just sketched in the margins while having their morning coffee. They guide the eye, add humor, and make people smile. Use them generously but not chaotically.
+The doodles aren't decoration, they're personality. They make the site feel alive, like someone just sketched in the margins while having their morning coffee. They guide the eye, add humor, and make people smile. Use them generously but not chaotically.
 
-White space is your friend. Let content breathe. The warm background does a lot of the heavy lifting — you don't need to fill every pixel. Keep cards clean, keep text readable, keep interactions delightful but not distracting.
+White space is your friend. Let content breathe. The warm background does a lot of the heavy lifting, you don't need to fill every pixel. Keep cards clean, keep text readable, keep interactions delightful but not distracting.

@@ -26,14 +26,14 @@ tags:
 
 ## Turn them on
 
-Both are one toggle away — and off by default to keep the editor light:
+Both are one toggle away, and off by default to keep the editor light:
 
 1. Open **Settings** (gear icon).
 2. Under **Writing tools**, switch on **Math (LaTeX)** and/or **Diagrams (Mermaid)**.
 
 ## Write math with KaTeX
 
-- Inline math: wrap it in single dollars — `$e = mc^2$`
+- Inline math: wrap it in single dollars: `$e = mc^2$`
 - Block math: wrap it in double dollars:
 
 ```
@@ -42,7 +42,7 @@ $$
 $$
 ```
 
-The preview renders it instantly — no internet needed, KaTeX ships inside the app.
+The preview renders it instantly. No internet needed, KaTeX ships inside the app.
 
 ## Draw diagrams with Mermaid
 

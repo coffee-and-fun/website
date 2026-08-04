@@ -60,25 +60,25 @@ This is a live build log, updated as I go. Stay tuned for photos, updates, and t
 
 ---
 
-## Build Log – Step 1: Constructing the LEGO Frame  
+## Build Log Step 1: Constructing the LEGO Frame  
 *Coming soon…*  
 (Progress photos, commentary on accuracy, challenges while building)
 
 ---
 
-## Build Log – Step 2: Testing the Fit  
+## Build Log Step 2: Testing the Fit  
 *Coming soon…*  
 (Placing the real Game Boy inside the LEGO shell, will it fit?)
 
 ---
 
-## Build Log – Step 3: Modding & Adjustments  
+## Build Log Step 3: Modding & Adjustments  
 *Coming soon…*  
 (Any tweaks, piece changes, or creative hacks needed to make it work)
 
 ---
 
-## The Moment of Truth – Does It Fit?  
+## The Moment of Truth: Does It Fit?  
 *Coming soon…*  
 (Big reveal images and maybe a short clip)
 

@@ -1,4 +1,4 @@
-// Blog social-card generator — purple background, cream "blob" text plates,
+// Blog social-card generator, purple background, cream "blob" text plates,
 // chunky red uppercase headline, Coffee & Fun logo at the bottom.
 //
 // Usage:

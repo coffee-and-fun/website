@@ -1,7 +1,7 @@
-# Blog queue — Coffee & Fun
+# Blog queue: Coffee & Fun
 
 The writing schedule works through this list top-to-bottom, one post per week.
-Mark a post `[x]` when drafted. Add, reorder, or cut freely — this file is the
+Mark a post `[x]` when drafted. Add, reorder, or cut freely. This file is the
 single source of truth for what gets written next.
 
 ## Voice rules (non-negotiable, learned the hard way)
@@ -19,17 +19,17 @@ The July 2026 batch failed because it was well-written filler. Every post here m
 
 ## The queue
 
-1. [ ] **Making an Editor Work in Arabic and Hebrew** — Markdown's syntax characters go feral in RTL text. War story from the 70-language release: broken screenshots, a working dev's tour of the bidi algorithm, caret/preview fixes, what's still imperfect (admitted), paid native-speaker review vs pseudo-locales. SEO: "markdown rtl support", "bidirectional text editor".
-2. [ ] **Do Dyslexia Fonts Work? Lexend vs OpenDyslexic vs Dyslexie** — Head-to-head by the dyslexic dev who redesigned OpenDyslexic. What peer-reviewed research says per font, a real reading test, honest verdict: spacing/line-length beat any typeface, but choice still matters. SEO: "best font for dyslexia", "does OpenDyslexic work".
-3. [ ] **Why Accessibility Widgets/Overlays Cause More Harm Than Good** — Ten overlay-equipped sites tested with VoiceOver, recordings as receipts. Compliance-theater economics, the lawsuits overlays didn't prevent, what to do instead. SEO: "accessibility overlay problems", "accessiBe review".
-4. [ ] **How to Translate Your Extension into 70 Languages, Using AI** — The honest modern workflow: why MT-dumping fails users, AI-assisted translation with native conventions + hand review, locale mapping across four stores, what broke (string expansion, plurals, Safari's 112-char clamp), cost/time table. SEO: "how to localize a browser extension", "AI app localization".
-5. [ ] **The European Accessibility Act: What a One-Person Studio Actually Changed** — Every EAA guide is written for enterprises. The solo-dev version: what applies, what changed, what it cost, what's still unclear. SEO: "European Accessibility Act small business/app developer".
-6. [ ] **KaTeX and Mermaid Under a CSP That Hates You** — The exact console errors, what extension CSP forbids, rejected workarounds, what shipped per platform, bundle-size honesty. SEO: "mermaid chrome extension CSP error", "katex content security policy".
-7. [ ] **10 Irish Council Websites Audited for Accessibility, Using AI** — Ten random councils, one page each, AI-assisted audit verified by hand with a screen reader — doubling as a test of whether AI auditing works. Named results table. SEO/links: local press + EAA coverage; repeatable annually.
-8. [ ] **Your Terms of Service Are Written at Grade-19 Reading Level — So Here's a Version Anyone Can Read** — Readability scores on big ToS docs, then the artifact: a plain-language version of our own terms + a copyable template. SEO: "terms of service readability", "plain language terms template".
-9. [ ] **What Is Dead Media? Every Way Your Stuff Dies** — Taxonomy explainer: format death (Flash, HD-DVD), server death (DRM checks, delisted "purchases"), platform death (Vine), version death (silent cut-swaps). Enshittification-lineage essay. SEO: "dead media", "do you own digital movies" cluster.
-10. [ ] **How to Catch an App Phoning Home (Practice on Ours)** — DevTools + Proxyman walkthrough with our own app as the guinea pig; the punchline is the boring empty request log. SEO: "how to see what data an app sends", "check if app is tracking you".
-11. [ ] **How to Delete Your Data from OpenAI — Who to Email, and What Can't Be Removed** — Settings path, privacy portal, DSAR email, GDPR vs elsewhere, and the honest half nobody writes: what survives deletion (safety retention, de-identified data, litigation holds — VERIFY current policy at write time). SEO: "delete OpenAI data", "OpenAI GDPR request".
+1. [ ] **Making an Editor Work in Arabic and Hebrew**: Markdown's syntax characters go feral in RTL text. War story from the 70-language release: broken screenshots, a working dev's tour of the bidi algorithm, caret/preview fixes, what's still imperfect (admitted), paid native-speaker review vs pseudo-locales. SEO: "markdown rtl support", "bidirectional text editor".
+2. [ ] **Do Dyslexia Fonts Work? Lexend vs OpenDyslexic vs Dyslexie**: Head-to-head by the dyslexic dev who redesigned OpenDyslexic. What peer-reviewed research says per font, a real reading test, honest verdict: spacing/line-length beat any typeface, but choice still matters. SEO: "best font for dyslexia", "does OpenDyslexic work".
+3. [ ] **Why Accessibility Widgets/Overlays Cause More Harm Than Good**: Ten overlay-equipped sites tested with VoiceOver, recordings as receipts. Compliance-theater economics, the lawsuits overlays didn't prevent, what to do instead. SEO: "accessibility overlay problems", "accessiBe review".
+4. [ ] **How to Translate Your Extension into 70 Languages, Using AI**: The honest modern workflow: why MT-dumping fails users, AI-assisted translation with native conventions + hand review, locale mapping across four stores, what broke (string expansion, plurals, Safari's 112-char clamp), cost/time table. SEO: "how to localize a browser extension", "AI app localization".
+5. [ ] **The European Accessibility Act: What a One-Person Studio Actually Changed**: Every EAA guide is written for enterprises. The solo-dev version: what applies, what changed, what it cost, what's still unclear. SEO: "European Accessibility Act small business/app developer".
+6. [ ] **KaTeX and Mermaid Under a CSP That Hates You**: The exact console errors, what extension CSP forbids, rejected workarounds, what shipped per platform, bundle-size honesty. SEO: "mermaid chrome extension CSP error", "katex content security policy".
+7. [ ] **10 Irish Council Websites Audited for Accessibility, Using AI**: Ten random councils, one page each, AI-assisted audit verified by hand with a screen reader, doubling as a test of whether AI auditing works. Named results table. SEO/links: local press + EAA coverage; repeatable annually.
+8. [ ] **Your Terms of Service Are Written at Grade-19 Reading Level, So Here's a Version Anyone Can Read**: Readability scores on big ToS docs, then the artifact: a plain-language version of our own terms + a copyable template. SEO: "terms of service readability", "plain language terms template".
+9. [ ] **What Is Dead Media? Every Way Your Stuff Dies**: Taxonomy explainer: format death (Flash, HD-DVD), server death (DRM checks, delisted "purchases"), platform death (Vine), version death (silent cut-swaps). Enshittification-lineage essay. SEO: "dead media", "do you own digital movies" cluster.
+10. [ ] **How to Catch an App Phoning Home (Practice on Ours)**: DevTools + Proxyman walkthrough with our own app as the guinea pig; the punchline is the boring empty request log. SEO: "how to see what data an app sends", "check if app is tracking you".
+11. [ ] **How to Delete Your Data from OpenAI, Who to Email, and What Can't Be Removed**: Settings path, privacy portal, DSAR email, GDPR vs elsewhere, and the honest half nobody writes: what survives deletion (safety retention, de-identified data, litigation holds, VERIFY current policy at write time). SEO: "delete OpenAI data", "OpenAI GDPR request".
 
 ## Icebox (not scheduled)
 
@@ -45,4 +45,4 @@ promote an item into "The queue" above if you want it written.
 - Markdown file in `src/pages/blog/` with full frontmatter (`layout: templates/post.liquid`, dates at T12:00Z)
 - Entry added to `src/_data/blog.json` (posts are invisible without it)
 - 1200x630 social card generated to `/assets/images/blog/<slug>.png` (headless Chrome, house style)
-- `npx eleventy` builds clean; commit locally; **never push** — Robert reviews and pushes
+- `npx eleventy` builds clean; commit locally; **never push**: Robert reviews and pushes

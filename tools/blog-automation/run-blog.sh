@@ -1,5 +1,5 @@
 #!/bin/bash
-# Coffee & Fun — weekly blog runner (invoked by launchd on Mondays).
+# Coffee & Fun: weekly blog runner (invoked by launchd on Mondays).
 # Runs Claude Code headless to write ONE post and push it to main.
 set -u
 

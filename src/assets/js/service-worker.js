@@ -51,7 +51,7 @@ self.addEventListener('fetch', (event) => {
 		return;
 	}
 
-	// Static assets: stale-while-revalidate — serve from cache immediately,
+	// Static assets: stale-while-revalidate, serve from cache immediately,
 	// refresh the cached copy in the background so updates land on the next view.
 	event.respondWith(
 		caches.match(request).then((cached) => {
