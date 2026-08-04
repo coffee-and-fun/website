@@ -21,6 +21,26 @@
    the overflow without creating a scroll container, so the sticky header still works. */
 html, body { overflow-x: clip; }
 
+/* The header is `sticky top-0`, so without this every in-page jump parks its
+   target at viewport top 0, which is underneath the header. That silently broke
+   the header's own "Skip to main content" link, the first focusable element on
+   every page: keyboard users landed on content hidden behind the nav.
+
+   Measured header height is 108px below 640px (16 + 12 padding + an 80px logo)
+   and 124px above it (the logo grows to 96px). The values here clear that with a
+   little breathing room so the target does not sit flush against the nav.
+
+   This is the site-wide fix. Pages that hand-rolled their own scroll-margin-top
+   to work around it can drop those once verified. */
+html {
+	scroll-padding-top: 7.5rem;
+}
+@media (min-width: 640px) {
+	html {
+		scroll-padding-top: 8.5rem;
+	}
+}
+
 /* daisyUI's aura only SLOWS its infinite glow under reduced-motion (6s -> 24s).
    Continuous motion with no pause is a WCAG 2.2.2 concern, so stop it outright. */
 @media (prefers-reduced-motion: reduce) {
