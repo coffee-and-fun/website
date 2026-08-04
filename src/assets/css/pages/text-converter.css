@@ -6,11 +6,9 @@
     --surface: #fffcf7;
     --ink: var(--color-cocoa);
     --muted: #6b6259;
-    --faint: #8a7f74;
     /* Both line tokens are now derived from the palette. --line-strong was
        #dbcab8, which measured 1.48:1 on cream and failed WCAG 1.4.11 on every
        control boundary it drew. Mocha is 4.18:1 on cream and stays in palette. */
-    --line: color-mix(in srgb, var(--color-cocoa) 18%, transparent);
     --line-strong: var(--color-mocha);
     --warn: var(--color-coral-deep);
     --radius: 14px;
@@ -186,7 +184,17 @@ label.tidy input:focus-visible { outline: 2px solid var(--ink); outline-offset: 
    (padding, radius, inline-flex centring, gap, transition, focus-visible)
    ships in the bundle. */
 .result-actions > button { flex: 1; min-width: 150px; }
-.result-actions > button:hover { --btn-bg: var(--color-espresso); --btn-border: var(--color-espresso); }
+/* Gated on hover:hover so touch devices do not get a stuck hover fill, matching
+   how daisyUI guards its own .btn:hover. --btn-fg matters: without it the outline
+   button kept dark text on the espresso fill, which measured 2.50:1. White on
+   espresso is 7.09:1. */
+@media (hover: hover) {
+    .result-actions > button:hover {
+        --btn-bg: var(--color-espresso);
+        --btn-border: var(--color-espresso);
+        --btn-fg: #fff;
+    }
+}
 .result-actions > button:disabled {
     background-color: transparent;
     border-color: var(--line-strong);
@@ -218,4 +226,10 @@ label.tidy input:focus-visible { outline: 2px solid var(--ink); outline-offset: 
        keeps one shape whether the link says Clear or Try an example. */
     .io-row { justify-content: flex-end; }
     .io-row .counter { flex: 1 0 100%; }
+}
+
+/* Not Tailwind's .scroll-smooth utility: that one is unconditional and ignores
+   a reduced-motion preference. */
+@media (prefers-reduced-motion: no-preference) {
+    html { scroll-behavior: smooth; }
 }
