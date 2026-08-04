@@ -87,12 +87,13 @@ createApp({
             undoAvailable: false,
             lastCleared: '',
             announcement: '',
+            revealedResult: false,
             cases: [
                 { key: 'sentence', name: 'Sentence case', eg: 'Like this.' },
                 { key: 'lower', name: 'Lowercase', eg: 'like this' },
                 { key: 'upper', name: 'Uppercase', eg: 'LIKE THIS' },
                 { key: 'title', name: 'Title Case', eg: 'Like This' },
-                { key: 'alternating', name: 'Alternating', eg: 'lIkE tHiS', desc: 'Every other letter switches between capitals and small letters.' },
+                { key: 'alternating', name: 'Alternating case', eg: 'lIkE tHiS', desc: 'Every other letter switches between capitals and small letters.' },
                 { key: 'camel', name: 'Camel case', eg: 'likeThis', desc: 'Words joined together, each new word starting with a capital, like variable names in code.' },
                 { key: 'snake', name: 'Snake case', eg: 'like_this', desc: 'Small letters joined with underscores.' },
                 { key: 'kebab', name: 'Kebab case', eg: 'like-this', desc: 'Small letters joined with dashes, like web addresses.' }
@@ -108,6 +109,13 @@ createApp({
             if (!nv && this.copied) {
                 this.copied = false;
                 if (this.copyTimer) clearTimeout(this.copyTimer);
+            }
+            // First time there is anything to convert, make sure the result box
+            // is actually on screen. Once only, and 'nearest' with no smooth
+            // behaviour, so it never yanks the page around under a typing user.
+            if (nv && !this.revealedResult) {
+                this.revealedResult = true;
+                this.$nextTick(() => this.revealResult());
             }
         }
     },
@@ -152,9 +160,18 @@ createApp({
             this.announcement = '';
             this.$nextTick(() => { this.announcement = msg; });
         },
+        /* Scroll the result into view only if it isn't already. block: 'nearest'
+           is a no-op when the box is on screen, and behavior is forced to
+           'instant' because <html> carries scroll-smooth: a running animation
+           would fight anyone still typing. */
+        revealResult() {
+            this.$refs.output?.scrollIntoView({ block: 'nearest', behavior: 'instant' });
+        },
         fillExample() {
             this.inputText = 'the quick BROWN fox  jumps over\nthe lazy dog.';
             this.announce('Example filled in.');
+            this.revealedResult = true;
+            this.$nextTick(() => this.revealResult());
         },
         clearText() {
             if (!this.inputText) return;

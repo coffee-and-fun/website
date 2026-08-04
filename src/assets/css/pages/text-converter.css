@@ -7,12 +7,16 @@
     --ink: var(--color-cocoa);
     --muted: #6b6259;
     --faint: #8a7f74;
-    --line: #ece0d4;
-    --line-strong: #dbcab8;
-    --good: #0f7b4f;
-    --warn: #b4341f;
+    /* Both line tokens are now derived from the palette. --line-strong was
+       #dbcab8, which measured 1.48:1 on cream and failed WCAG 1.4.11 on every
+       control boundary it drew. Mocha is 4.18:1 on cream and stays in palette. */
+    --line: color-mix(in srgb, var(--color-cocoa) 18%, transparent);
+    --line-strong: var(--color-mocha);
+    --warn: var(--color-coral-deep);
     --radius: 14px;
-    --mono: ui-monospace, 'SF Mono', 'JetBrains Mono', 'Fira Code', Menlo, Consolas, monospace;
+    --mono: Consolas, Monaco, 'Andale Mono', 'Ubuntu Mono', monospace;
+    /* Tinted result fill, so the read-only output never looks like the input. */
+    --result-fill: #fbf2e6;
 }
 
 * { box-sizing: border-box; }
@@ -36,7 +40,7 @@ body {
 
 a.skip {
     position: absolute; left: -9999px; top: 0;
-    background: var(--ink); color: #fff; padding: 0.6rem 1rem; z-index: 20;
+    background: var(--ink); color: #fff; padding: 0.6rem 1rem; z-index: 50;
     border-radius: 0 0 8px 0;
 }
 a.skip:focus { left: 0; }
@@ -45,26 +49,23 @@ a.skip:focus { left: 0; }
     width: 100%;
     max-width: 640px;
     margin: 0 auto;
-    padding: 2rem 1.25rem 4rem;
+    padding: 1.25rem 1.25rem 4rem;
     flex: 1;
 }
 
-/* Logo home link + tooltip (hover AND keyboard focus) */
-@media (prefers-reduced-motion: reduce) {
-    }
+/* The doodles are absolutely positioned against this block. The skip link
+   targets #tool, so it needs the same sticky-header clearance the steps get. */
+header#tool { position: relative; scroll-margin-top: 140px; }
 
 h1 {
-    font-size: 1.9rem;
-    line-height: 1.2;
-    letter-spacing: -0.02em;
+    line-height: 1.25;
     margin: 0 0 0.6rem;
-    font-weight: 650;
 }
 .lede {
     color: var(--muted);
     font-size: 1rem;
     line-height: 1.55;
-    margin: 0 0 2.25rem;
+    margin: 0 0 1.25rem;
     max-width: 50ch;
 }
 
@@ -76,11 +77,16 @@ h2.step-label {
     color: var(--muted);
     margin: 0 0 0.8rem;
 }
-section.step { margin-bottom: 2.25rem; }
+/* cf- prefix, not the bare .step: daisyUI owns that name via `.steps &`. */
+section.cf-step {
+    margin-bottom: 1.5rem;
+    /* Clears the sticky site header when a step is scrolled into view. */
+    scroll-margin-top: 140px;
+}
 
 textarea.msg {
     width: 100%;
-    min-height: 150px;
+    min-height: 120px;
     resize: vertical;
     border: 1px solid var(--line-strong);
     border-radius: var(--radius);
@@ -90,25 +96,27 @@ textarea.msg {
     line-height: 1.55;
     color: var(--ink);
     background: var(--surface);
-    outline: none;
 }
-textarea.msg:focus { border-color: var(--ink); box-shadow: 0 0 0 3px rgba(22,22,26,0.08); }
+textarea.msg:focus { border-color: var(--ink); }
+textarea.msg:focus-visible { outline: 2px solid var(--ink); outline-offset: 2px; }
 textarea.msg::placeholder { color: var(--muted); }
 textarea.msg[readonly] { cursor: text; }
 
+/* The read-only result. Same box, different surface, so it never reads as a
+   second place to type. Matches the dashed empty state it replaces. */
+textarea.msg-result {
+    background: var(--result-fill);
+    border-width: 1.5px;
+    border-style: dashed;
+}
+
 .io-row {
-    display: flex; justify-content: space-between; align-items: baseline;
+    display: flex; justify-content: space-between; align-items: center;
     gap: 1rem; margin-top: 0.45rem; flex-wrap: wrap;
 }
 .counter { font-size: 0.78rem; color: var(--muted); }
-
-button.linkish {
-    appearance: none; border: none; background: none; padding: 0;
-    font-size: 0.82rem; color: var(--muted); text-decoration: underline;
-    cursor: pointer; font-family: inherit; white-space: nowrap;
-}
-button.linkish:hover { color: var(--ink); }
-button.linkish:focus-visible { outline: 2px solid var(--ink); outline-offset: 2px; border-radius: 4px; }
+/* Element selector on purpose: never a bare .btn rule in page CSS. */
+.io-row button { --fontsize: 0.82rem; }
 
 /* Style chips */
 fieldset.cases, fieldset.tidy-set { border: 0; padding: 0; margin: 0; }
@@ -118,18 +126,22 @@ fieldset.cases legend, fieldset.tidy-set legend { padding: 0; }
     display: flex; flex-direction: column; gap: 1px;
     border: 1px solid var(--line-strong);
     border-radius: 11px;
-    background: transparent;
+    background: var(--surface);
     padding: 0.5rem 0.85rem;
     cursor: pointer;
     transition: background 0.15s, border-color 0.15s, box-shadow 0.15s;
 }
-.chip:hover { border-color: var(--ink); }
+/* Hover and selected live on different channels. They both used to flip
+   border-color to --ink, so while the pointer was anywhere in the grid you
+   could not tell which style was actually applied. */
+.chip:hover { border-color: var(--color-caramel); background: var(--surface); }
 /* .on is a Vue class mirror of :checked, the working path in browsers
    without :has() support, harmless duplication everywhere else. */
 .chip.on {
     background: var(--surface);
     border-color: var(--ink);
-    box-shadow: 0 1px 3px rgba(0,0,0,0.08);
+    /* Inset ring, so selected reads as a 2px edge with no layout shift. */
+    box-shadow: inset 0 0 0 1px var(--ink), 0 1px 3px rgba(0,0,0,0.08);
 }
 .chip:has(input:focus-visible) { outline: 2px solid var(--ink); outline-offset: 2px; }
 @supports not selector(.x:has(a)) {
@@ -138,7 +150,8 @@ fieldset.cases legend, fieldset.tidy-set legend { padding: 0; }
 .chip-name { font-weight: 600; font-size: 0.88rem; }
 .chip-eg { font-size: 0.74rem; color: var(--muted); font-family: var(--mono); }
 
-.tidy-set { margin-top: 1.1rem; }
+/* Element-qualified, so it beats the shared fieldset reset above. */
+fieldset.tidy-set { margin-top: 1.5rem; }
 .tidy-set legend {
     font-size: 0.78rem; font-weight: 700; text-transform: uppercase;
     letter-spacing: 0.07em; color: var(--muted); margin-bottom: 0.55rem;
@@ -153,33 +166,33 @@ label.tidy input:focus-visible { outline: 2px solid var(--ink); outline-offset: 
 
 /* Result */
 .code-empty {
+    /* Same height as the textarea that replaces it, so the first character
+       typed does not shove the Copy and Download buttons out from under the
+       pointer. */
+    min-height: 120px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
     border: 1.5px dashed var(--line-strong);
     border-radius: var(--radius);
-    padding: 2.4rem 1.25rem;
+    padding: 1.25rem;
     text-align: center;
     color: var(--muted);
     font-size: 0.9rem;
 }
 .result-actions { display: flex; gap: 0.6rem; margin-top: 0.8rem; flex-wrap: wrap; }
-.result-actions .btn-brand { flex: 1; min-width: 150px; }
-
-.btn-brand {
-    appearance: none; border: none; border-radius: 11px;
-    padding: 0.85rem 1.4rem;
-    font-size: 0.98rem; font-weight: 600; cursor: pointer; font-family: inherit;
-    display: inline-flex; align-items: center; justify-content: center; gap: 0.5rem;
-    transition: background 0.15s, opacity 0.15s, border-color 0.15s;
+/* Element selector, not .btn: daisyUI owns that name and the buttons are
+   real daisyUI buttons now. Everything else these rules used to hand-roll
+   (padding, radius, inline-flex centring, gap, transition, focus-visible)
+   ships in the bundle. */
+.result-actions > button { flex: 1; min-width: 150px; }
+.result-actions > button:hover { --btn-bg: var(--color-espresso); --btn-border: var(--color-espresso); }
+.result-actions > button:disabled {
+    background-color: transparent;
+    border-color: var(--line-strong);
+    color: var(--muted);
+    box-shadow: none;
 }
-.btn-brand:focus-visible { outline: 2px solid var(--ink); outline-offset: 2px; }
-.btn-primary-brand { background: var(--ink); color: #fff; }
-.btn-primary-brand:hover { background: var(--color-espresso); }
-.btn-primary-brand:disabled { background: #e8dccd; color: var(--muted); cursor: not-allowed; }
-.btn-secondary-brand {
-    background: var(--surface); color: var(--ink);
-    border: 1px solid var(--line-strong);
-}
-.btn-secondary-brand:hover { border-color: var(--ink); }
-.btn-secondary-brand:disabled { color: var(--faint); border-color: var(--line); cursor: not-allowed; background: transparent; }
 
 .copy-note { font-size: 0.82rem; color: var(--muted); margin-top: 0.6rem; }
 .copy-note.bad { color: var(--warn); font-weight: 600; }
@@ -190,13 +203,17 @@ label.tidy input:focus-visible { outline: 2px solid var(--ink); outline-offset: 
 }
 
 @media (prefers-reduced-motion: reduce) {
-    .chip, .btn-brand { transition: none; }
+    .chip, .result-actions > button { transition: none; }
 }
 
 @media (max-width: 480px) {
-    h1 { font-size: 1.6rem; }
     .wrap { padding-top: 1.5rem; }
-    .result-actions .btn-brand { min-width: 100%; }
+    .result-actions > button { min-width: 100%; }
+    /* Thumb-sized targets. "Clear" is the only destructive control on the
+       page and it used to be 32x20px. */
+    .io-row button { min-height: 44px; }
+    label.tidy { min-height: 44px; }
+    label.tidy input { width: 20px; height: 20px; }
     /* Counter on its own line, action link right-aligned below, the row
        keeps one shape whether the link says Clear or Try an example. */
     .io-row { justify-content: flex-end; }

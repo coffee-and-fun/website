@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html class="antialiased" lang="en" style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;">
+<html class="brand-color-background scroll-smooth antialiased" lang="en" data-theme="light" style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;">
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -84,23 +84,61 @@
     </head>
 
 <body>
-    {% include header.liquid %}
-{% raw %}
     <a href="#tool" class="skip">Skip to the tool</a>
 
+    {% assign showFun = true %}
+    {% assign showMiddleBadgeWithText = true %}
+    {% include header.liquid %}
+{% raw %}
     <main v-cloak id="main-content" class="wrap">
 
         <header id="tool">
-            <h1>Change the case of any text</h1>
+            <h1 class="brand-heading text-3xl sm:text-4xl">Change the case of any text</h1>
             <p class="lede">Type or paste your words, pick a style, and the result updates as you type, ready to copy. Nothing you write leaves your browser.</p>
+
+            <!-- Sketch: sparkle top-right -->
+            <div class="sketch-note sketch-float" style="top: -14px; right: -5%; --sketch-rotate: 8deg;">
+                <svg aria-hidden="true" width="22" height="22" viewBox="0 0 24 24">
+                    <path d="M12 2 L13.5 10.5 L22 12 L13.5 13.5 L12 22 L10.5 13.5 L2 12 L10.5 10.5 Z" class="sketch-sparkle"/>
+                </svg>
+            </div>
+
+            <!-- Sketch: "type here" pointing at the first box -->
+            <div class="sketch-note text-base" style="bottom: -14px; right: 4%; transform: rotate(-4deg);">
+                type here
+                <svg aria-hidden="true" width="26" height="22" viewBox="0 0 28 24" style="position: relative; display: inline-block; margin-left: 2px; vertical-align: middle;">
+                    <path d="M2 4 C10 4, 20 8, 24 20 M24 20 L17 17 M24 20 L25 12" class="sketch-arrow"/>
+                </svg>
+            </div>
+
+            <!-- Sketch: squiggle under the heading, left edge -->
+            <div class="sketch-note" style="top: 46%; left: -3%;">
+                <svg aria-hidden="true" width="30" height="10" viewBox="0 0 34 12">
+                    <path d="M2 6 C6 1, 10 11, 14 6 C18 1, 22 11, 26 6 C28 3, 30 5, 32 6" class="sketch-squiggle"/>
+                </svg>
+            </div>
+
+            <!-- Sketch: dashed circle, right of the lede -->
+            <div class="sketch-note sketch-float-slow" style="top: 52%; right: -2%; --sketch-rotate: -6deg;">
+                <svg aria-hidden="true" width="26" height="26" viewBox="0 0 36 36">
+                    <circle cx="18" cy="18" r="12" class="sketch-circle" transform="rotate(20 18 18)"/>
+                </svg>
+            </div>
+
+            <!-- Sketch: small cross, far left -->
+            <div class="sketch-note sketch-wiggle" style="top: 8px; left: -4%; --sketch-rotate: -12deg;">
+                <svg aria-hidden="true" width="14" height="14" viewBox="0 0 16 16">
+                    <path d="M3 3 L13 13 M13 3 L3 13" class="sketch-cross"/>
+                </svg>
+            </div>
         </header>
 
         <!-- Live status for screen readers -->
         <div class="sr-only" role="status" aria-live="polite">{{ announcement }}</div>
 
         <!-- ===== Step 1: input ===== -->
-        <section class="step" aria-labelledby="h-text">
-            <h2 class="step-label" id="h-text">1, Your text</h2>
+        <section class="cf-step" aria-labelledby="h-text">
+            <h2 class="step-label" id="h-text">1. Your text</h2>
             <label class="sr-only" for="tc-input">Your text</label>
             <textarea id="tc-input" ref="input" class="msg" v-model="inputText"
                       placeholder="Type or paste anything…"
@@ -108,30 +146,36 @@
             <div class="io-row">
                 <span class="counter" id="tc-stats">{{ statsLine }}</span>
                 <span>
-                    <button v-if="!inputText && !undoAvailable" type="button" class="linkish" @click="fillExample">Try an example</button>
-                    <button v-else-if="undoAvailable" type="button" class="linkish" @click="undoClear">Undo clear</button>
-                    <button v-else type="button" class="linkish" @click="clearText">Clear</button>
+                    <button v-if="!inputText && !undoAvailable" type="button" class="btn btn-link btn-sm" style="--btn-color: var(--color-espresso)" @click="fillExample">Try an example</button>
+                    <button v-else-if="undoAvailable" type="button" class="btn btn-link btn-sm" style="--btn-color: var(--color-espresso)" @click="undoClear">Undo clear</button>
+                    <button v-else type="button" class="btn btn-link btn-sm" style="--btn-color: var(--color-espresso)" @click="clearText">Clear</button>
                 </span>
             </div>
         </section>
 
         <!-- ===== Step 2: style ===== -->
-        <section class="step" aria-labelledby="h-style">
+        <section class="cf-step" aria-labelledby="h-style">
             <fieldset class="cases">
-                <legend><h2 class="step-label" id="h-style">2, Pick a style</h2></legend>
+                <legend><h2 class="step-label" id="h-style">2. Pick a style</h2></legend>
                 <div class="chips">
-                    <label class="chip" v-for="c in cases" :key="c.key" :class="{ on: caseChoice === c.key }">
+                    <label class="chip" v-for="c in cases" :key="c.key"
+                           :class="[{ on: caseChoice === c.key }, c.desc ? 'tooltip tooltip-top' : '']"
+                           :data-tip="c.desc" style="--tt-bg: var(--color-cocoa)">
                         <input type="radio" class="sr-only" name="case" :value="c.key" v-model="caseChoice"
                                :aria-describedby="c.desc ? 'desc-' + c.key : null" @change="announce(c.name + ' selected.')" />
                         <span class="chip-name">{{ c.name }}</span>
                         <span class="chip-eg" aria-hidden="true">{{ c.eg }}</span>
-                        <span v-if="c.desc" :id="'desc-' + c.key" class="sr-only">{{ c.desc }}</span>
+                        <!-- aria-hidden, but still the aria-describedby target. A node
+                             referenced directly by aria-describedby stays in the
+                             description; aria-hidden only removes it from the label's
+                             accessible name, which is what caused the double read. -->
+                        <span v-if="c.desc" :id="'desc-' + c.key" class="sr-only" aria-hidden="true">{{ c.desc }}</span>
                     </label>
                 </div>
             </fieldset>
 
             <fieldset class="tidy-set">
-                <legend>Tidy up</legend>
+                <legend>Tidy up the result</legend>
                 <div class="tidy-row">
                     <label class="tidy">
                         <input type="checkbox" v-model="tidySpaces" @change="announce(tidySpaces ? 'Removing extra spaces from the result.' : 'Keeping spaces as typed.')" />
@@ -146,20 +190,20 @@
         </section>
 
         <!-- ===== Step 3: result ===== -->
-        <section class="step" aria-labelledby="h-result">
-            <h2 class="step-label" id="h-result">3, Your result</h2>
+        <section class="cf-step" aria-labelledby="h-result">
+            <h2 class="step-label" id="h-result">3. Your result</h2>
 
             <template v-if="inputText">
                 <label class="sr-only" for="tc-output">Your converted text</label>
-                <textarea id="tc-output" ref="output" class="msg" readonly :value="result"></textarea>
+                <textarea id="tc-output" ref="output" class="msg msg-result" readonly :value="result"></textarea>
             </template>
             <div v-else class="code-empty">Your converted text will appear here as you type.</div>
 
             <div class="result-actions">
-                <button type="button" class="btn-brand btn-primary-brand" @click="copyResult" :disabled="!result">
+                <button type="button" class="btn btn-lg" style="--btn-color: var(--color-cocoa); --btn-fg: #fff" @click="copyResult" :disabled="!result">
                     {{ copied ? 'Copied ✓' : 'Copy result' }}
                 </button>
-                <button type="button" class="btn-brand btn-secondary-brand" @click="downloadResult" :disabled="!result">
+                <button type="button" class="btn btn-lg btn-outline" style="--btn-color: var(--color-cocoa)" @click="downloadResult" :disabled="!result">
                     Download .txt
                 </button>
             </div>
