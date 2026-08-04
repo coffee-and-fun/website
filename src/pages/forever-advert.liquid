@@ -5,9 +5,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     
     <!-- Primary Meta Tags -->
-    <title>Mystery Rank: Climb the Leaderboard - Coffee & Fun LLC</title>
-    <meta name="title" content="Mystery Rank: Climb the Leaderboard - Coffee & Fun LLC" />
-    <meta name="description" content="Mystery Rank is a playful leaderboard: the more you contribute, the higher you climb, and nobody ever sees what anyone else paid. Rankings are permanent." />
+    <title>Mystery Rank (Closed) - Coffee & Fun LLC</title>
+    <meta name="title" content="Mystery Rank (Closed) - Coffee & Fun LLC" />
+    <meta name="description" content="Mystery Rank was a playful leaderboard experiment: contribute to climb, and nobody ever saw what anyone else paid. It has now closed. The final board is here." />
     <meta name="keywords" content="mystery rank, leaderboard, competition, ranking system, gamification, Coffee and Fun" />
     <meta name="author" content="Coffee & Fun LLC" />
     <meta name="publisher" content="Coffee & Fun LLC" />
@@ -17,8 +17,8 @@
     <!-- Open Graph / Facebook -->
     <meta property="og:type" content="website" />
     <meta property="og:url" content="https://www.coffeeandfun.com/forever-advert/" />
-    <meta property="og:title" content="Mystery Rank: Climb the Leaderboard - Coffee & Fun LLC" />
-    <meta property="og:description" content="Mystery Rank is a playful leaderboard: the more you contribute, the higher you climb, and nobody ever sees what anyone else paid. Rankings are permanent." />
+    <meta property="og:title" content="Mystery Rank (Closed) - Coffee & Fun LLC" />
+    <meta property="og:description" content="Mystery Rank was a playful leaderboard experiment: contribute to climb, and nobody ever saw what anyone else paid. It has now closed. The final board is here." />
     <meta property="og:image" content="https://www.coffeeandfun.com/assets/images/social/pages/forever-advert.png" />
     <meta property="og:image:width" content="1200" />
     <meta property="og:image:height" content="630" />
@@ -29,8 +29,8 @@
     <!-- Twitter -->
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:url" content="https://www.coffeeandfun.com/forever-advert/" />
-    <meta name="twitter:title" content="Mystery Rank: Climb the Leaderboard - Coffee & Fun LLC" />
-    <meta name="twitter:description" content="Mystery Rank is a playful leaderboard: the more you contribute, the higher you climb, and nobody ever sees what anyone else paid. Rankings are permanent." />
+    <meta name="twitter:title" content="Mystery Rank (Closed) - Coffee & Fun LLC" />
+    <meta name="twitter:description" content="Mystery Rank was a playful leaderboard experiment: contribute to climb, and nobody ever saw what anyone else paid. It has now closed. The final board is here." />
     <meta name="twitter:image" content="https://www.coffeeandfun.com/assets/images/social/pages/forever-advert.png" />
     <meta name="twitter:image:alt" content="Coffee & Fun cup logo with the tagline Crafting software, one brew at a time" />
     <meta name="twitter:site" content="@bycoffeeandfun" />
@@ -70,9 +70,9 @@
         },
         "offers": {
             "@type": "Offer",
-            "price": "Variable",
+            "price": "0",
             "priceCurrency": "USD",
-            "availability": "https://schema.org/InStock"
+            "availability": "https://schema.org/Discontinued"
         }
     }
     </script>
@@ -207,7 +207,6 @@
 
 <body style="background-color: black;">
     {% assign showDonation = false %}
-    {% assign showCreditsBuyButton = true %}
     {% assign showMysteryApp = true %}
     {% assign showKeyboardModal = false %}
     {% include header.liquid %}
@@ -219,8 +218,12 @@
                 <h1 class="text-5xl md:text-6xl font-bold mb-4 bg-gradient-to-r from-yellow-400 to-orange-500 bg-clip-text text-transparent">
                     Mystery Rank
                 </h1>
+                <p role="status" class="max-w-2xl mx-auto mb-6 rounded-2xl border-2 border-yellow-400/60 bg-yellow-400/10 px-6 py-4 text-lg text-yellow-200">
+                    <strong class="block text-yellow-300 mb-1">This experiment has ended.</strong>
+                    Mystery Rank is closed and no longer taking contributions. The rankings below are kept as a record of everyone who took part. Thank you, genuinely.
+                </p>
                 <p class="text-xl text-gray-300 max-w-2xl mx-auto">
-                    Compete for the top spots. The twist? Rankings are based on contributions, but amounts remain a mystery.
+                    How it worked: you climbed the board by contributing, but nobody ever saw what anyone else paid.
                 </p>
                 <div class="mt-6 flex justify-center gap-4">
                     <button @click="toggleAutoScroll" class="btn btn-sm btn-outline btn-primary">
@@ -277,34 +280,11 @@
                         {% endfor %}
                     </div>
                     
-                    <!-- CTA Button -->
-                    <div class="text-center">
-                        <a href="https://payments.coffeeandfun.com/b/14k4ifa6gbT62mQ9Bc"
-                           target="_blank"
-                           rel="noopener noreferrer"
-                           title="Secure your spot in {{ category.title }}"
-                           class="btn btn-secondary btn-glow">
-                            Secure Your Spot
-                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="h-5 w-5 ml-2" fill="currentColor" aria-hidden="true">
-                                <path d="M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z"/>
-                            </svg>
-                        </a>
-                    </div>
                     {% else %}
                     <!-- Empty State -->
                     <div class="empty-state">
                         <div class="empty-state-icon">🎯</div>
-                        <p class="text-xl text-gray-400 mb-6">Be the first to claim a spot in this category!</p>
-                        <a href="https://payments.coffeeandfun.com/b/14k4ifa6gbT62mQ9Bc"
-                           target="_blank"
-                           rel="noopener noreferrer"
-                           title="Be the first in {{ category.title }}"
-                           class="btn btn-primary btn-lg btn-glow">
-                            Claim #1 Spot
-                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="h-6 w-6 ml-2" fill="currentColor" aria-hidden="true">
-                                <path d="M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z"/>
-                            </svg>
-                        </a>
+                        <p class="text-xl text-gray-400">Nobody claimed a spot in this category before the experiment closed.</p>
                     </div>
                     {% endif %}
                 </div>
