@@ -107,7 +107,7 @@ Endings that work:
 
 ## Blog front matter
 
-Every post carries the same eighteen fields. The two that matter most are easy to get wrong:
+Every post carries the same seventeen fields. The two that matter most are easy to get wrong:
 
 - **`title`** is the SEO `<title>`. Short, keyword front-loaded, 31 to 48 characters. The template appends ` - Coffee & Fun LLC`.
 - **`cardTitle`** is what renders as the on-page `<h1>`. Longer and punchier.
@@ -148,13 +148,11 @@ Help articles are not blog posts and should not sound like them.
 
 ---
 
-## One thing nobody has decided yet
+## The exemplar
 
-A live contradiction, worth settling rather than letting each new post pick a side.
+`tools/blog-automation/write-post.md` points the weekly draft at `snoopification.md` and nothing else. It used to cite `xbox-dvr-exploit-api-major-nelson.md` as "the blog at its best", and that post has **11 emoji headings**, so every generated draft was being told to copy exactly what the rules ban. `the-enshittification-of-technology.md` is kept as a secondary reference for rhythm only, flagged that its curly quotes are legacy. The prompt now also says explicitly not to copy any other post.
 
-1. **The automation points at a non-compliant exemplar.** `write-post.md:10` holds up `xbox-dvr-exploit-api-major-nelson.md` as "the blog at its best", but that post has an emoji heading, a body H1, and a Twitter funnel close, all three now banned. It is presumably cited for its front matter shape. Worth making that explicit or picking a new exemplar.
-
-*(Resolved: the duplicate-H1 fault across 19 posts was fixed in `824bde4`. All 49 posts now carry exactly one H1, from `cardTitle`.)*
+*(Also resolved: the duplicate-H1 fault across 19 posts, fixed in `824bde4`. All 49 posts now carry exactly one H1, from `cardTitle`.)*
 
 ---
 
