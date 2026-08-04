@@ -111,6 +111,21 @@ Current section gets `cf-mm-cur` (an espresso underline) plus `aria-current`. Th
 
 ---
 
+## Article typography: two systems, not one
+
+Markdown body copy is styled in **two different places** depending on where it renders. Know which one you are in before changing anything.
+
+| Where | Styled by |
+|---|---|
+| Blog posts (`templates/post.liquid`) | `prose prose-lg` from @tailwindcss/typography, themed via `--tw-prose-*` variables in `coco.css` |
+| Help articles (`templates/help-doc.liquid`) | A self-contained `.doc-content` block inside that template |
+
+There is also a `tagMap` in `eleventy.config.mjs` that injects classes onto markdown-generated tags. It is deliberately down to **one entry** (`img`). It used to carry 22, which duplicated and fought `prose`: table cells lost their padding to the plugin, links picked up an 8px side margin, and lists indented 48px with markers inside the box. **Do not grow it again.** Brand changes for blog prose go in the `--tw-prose-*` block in `coco.css`; changes for help go in `.doc-content`.
+
+Because the two are separate, a change to one does not reach the other. When you touch either, check both. Help in particular styles `pre`, `hr` and `img` itself, and its `pre code` rule includes `.hljs` in the selector to beat highlight.js's own padding.
+
+---
+
 ## Accessibility floor
 
 This is a company that ships accessibility software. The site failing an audit is a credibility problem, not just a bug. Non-negotiables:
