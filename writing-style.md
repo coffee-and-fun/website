@@ -148,13 +148,13 @@ Help articles are not blog posts and should not sound like them.
 
 ---
 
-## Two things nobody has decided yet
+## One thing nobody has decided yet
 
-These are live contradictions. Worth settling rather than letting each new page pick a side.
+A live contradiction, worth settling rather than letting each new post pick a side.
 
 1. **The automation points at a non-compliant exemplar.** `write-post.md:10` holds up `xbox-dvr-exploit-api-major-nelson.md` as "the blog at its best", but that post has an emoji heading, a body H1, and a Twitter funnel close, all three now banned. It is presumably cited for its front matter shape. Worth making that explicit or picking a new exemplar.
 
-2. **19 of 49 posts have a body H1** on top of the template's `cardTitle` H1. That is a duplicate-H1 accessibility and SEO fault, and it directly violates `write-post.md:49`.
+*(Resolved: the duplicate-H1 fault across 19 posts was fixed in `824bde4`. All 49 posts now carry exactly one H1, from `cardTitle`.)*
 
 ---
 

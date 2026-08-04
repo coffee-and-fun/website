@@ -116,7 +116,7 @@ Current section gets `cf-mm-cur` (an espresso underline) plus `aria-current`. Th
 This is a company that ships accessibility software. The site failing an audit is a credibility problem, not just a bug. Non-negotiables:
 
 - **Contrast measured, not eyeballed.** 4.5:1 normal text, 3:1 large text and UI. See the palette rules in [branding.md](branding.md).
-- **One `h1` per page**, no skipped heading levels. *Currently violated: 19 blog posts render two `h1`s (the page title and the post title). Known debt, not yet fixed.*
+- **One `h1` per page**, no skipped heading levels. All 49 blog posts comply. Two tool pages (`drop-dungeon`, `private-line`) still ship 3 to 4 `h1`s in their static HTML because every Vue view template is present before hydration and gated by `v-if`; only one ever reaches a user, but a crawler sees them all.
 - **Visible focus on everything interactive.** `focus-visible` with an offset outline.
 - **Decorative SVG is `aria-hidden` in markup**, not applied later by script. Script runs late; screen readers don't wait.
 - **`prefers-reduced-motion` is respected everywhere**, doodle animation, daisyUI `aura` (its built-in reduced-motion handling only slows the glow from 6s to 24s, which still violates WCAG 2.2.2, so we stop it outright), and any canvas animation.
