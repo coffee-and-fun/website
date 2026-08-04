@@ -143,8 +143,87 @@ html, body { overflow-x: clip; }
 	color: var(--color-espresso);
 }
 
-/* Code blocks, Highlight.js */
-pre code.hljs { display: block; overflow-x: auto; padding: 1em; }
-code.hljs { padding: 3px 5px; }
+/* Syntax highlighting.
+   Applied at BUILD time by highlight.js in eleventy.config.mjs, so this file is
+   the only cost: no runtime script, no colouring after paint. A warm light
+   theme, because the site is cream and the old One Dark block looked like a
+   hole punched in the page. Every token was measured against the #f5f5f4 block
+   background and clears 4.5:1, including comments, which most light themes
+   render too faint to read. */
 pre { margin: 0.5em 0; border-radius: 0.5em; overflow: auto; }
-pre code { font-family: Consolas, Monaco, 'Andale Mono', 'Ubuntu Mono', monospace; font-size: 0.9em; line-height: 1.6; tab-size: 4; }
+pre code {
+	font-family: Consolas, Monaco, 'Andale Mono', 'Ubuntu Mono', monospace;
+	font-size: 0.9em;
+	line-height: 1.6;
+	tab-size: 4;
+}
+
+.hljs { color: #292524; background: transparent; }
+
+.hljs-comment,
+.hljs-quote { color: #665f5a; font-style: italic; }
+
+.hljs-keyword,
+.hljs-selector-tag,
+.hljs-literal,
+.hljs-doctag,
+.hljs-formula { color: #a21caf; }
+
+.hljs-string,
+.hljs-addition,
+.hljs-regexp,
+.hljs-meta .hljs-string { color: #15803d; }
+
+.hljs-number,
+.hljs-symbol,
+.hljs-bullet,
+.hljs-link { color: #b45309; }
+
+.hljs-title,
+.hljs-title.function_,
+.hljs-section,
+.hljs-name { color: #1d4ed8; }
+
+.hljs-attr,
+.hljs-attribute,
+.hljs-property,
+.hljs-variable,
+.hljs-variable.language_,
+.hljs-template-variable,
+.hljs-selector-attr,
+.hljs-selector-pseudo { color: #0f766e; }
+
+.hljs-type,
+.hljs-class .hljs-title,
+.hljs-title.class_,
+.hljs-built_in,
+.hljs-selector-class { color: #7c3aed; }
+
+.hljs-deletion { color: #b91c1c; }
+
+.hljs-meta,
+.hljs-punctuation,
+.hljs-operator { color: #57534e; }
+
+.hljs-emphasis { font-style: italic; }
+.hljs-strong { font-weight: 700; }
+
+/* Blog code blocks: prose defaults to a near-black slab, which fights the warm
+   page. Match the help centre's light block instead so both read the same. */
+.prose pre {
+	background: #f5f5f4;
+	border: 1px solid #e7e5e4;
+	color: #292524;
+	padding: 0.9rem 1.1rem;
+}
+.prose pre code { color: inherit; }
+.prose :not(pre) > code {
+	background: #f5f5f4;
+	border: 1px solid #e7e5e4;
+	border-radius: 0.375rem;
+	padding: 0.1rem 0.35rem;
+	font-size: 0.88em;
+	color: var(--color-caramel);
+}
+.prose :not(pre) > code::before,
+.prose :not(pre) > code::after { content: none; }

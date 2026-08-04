@@ -16,6 +16,7 @@ import markdownItClass from '@toycode/markdown-it-class';
 import markdownItAnchor from 'markdown-it-anchor';
 import tailwindcss from '@tailwindcss/postcss';
 import cssnano from 'cssnano';
+import hljs from 'highlight.js';
 
 // Backfill a social/OG card for any blog post whose `img` file is missing, so a
 // new post can never ship without one. Existing cards are never touched, which
@@ -146,7 +147,21 @@ export default function (eleventyConfig) {
 	const markdownOptions = {
 		html: true,
 		breaks: false,
-		linkify: true
+		linkify: true,
+		// Highlight at BUILD time. The alternative was shipping 35KB of
+		// highlight.js to every page with a code block and colouring after
+		// paint. Doing it here means zero client JavaScript, no flash of
+		// unhighlighted code, and the markup is already coloured in view-source.
+		highlight: (code, lang) => {
+			if (lang && hljs.getLanguage(lang)) {
+				try {
+					return hljs.highlight(code, { language: lang, ignoreIllegals: true }).value;
+				} catch (e) {
+					// fall through to plain escaping
+				}
+			}
+			return '';
+		}
 	};
 
 	// Markdown gets its typography from `prose prose-lg` on the article element,

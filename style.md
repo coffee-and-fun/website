@@ -122,6 +122,16 @@ Markdown body copy is styled in **two different places** depending on where it r
 
 There is also a `tagMap` in `eleventy.config.mjs` that injects classes onto markdown-generated tags. It is deliberately down to **one entry** (`img`). It used to carry 22, which duplicated and fought `prose`: table cells lost their padding to the plugin, links picked up an 8px side margin, and lists indented 48px with markers inside the box. **Do not grow it again.** Brand changes for blog prose go in the `--tw-prose-*` block in `coco.css`; changes for help go in `.doc-content`.
 
+### Syntax highlighting
+
+Code is highlighted **at build time** by highlight.js, called from the `highlight` callback in `markdownOptions` in `eleventy.config.mjs`. The browser downloads no JavaScript for it, there is no flash of unhighlighted code, and the colours are already in view-source.
+
+This replaced a runtime setup that fetched a 35KB script on every page containing a code block and coloured it after paint. The whole cost is now about 1.6KB of CSS inside the existing bundle.
+
+The theme is a warm light one in `coco.css`, not the old One Dark, which looked like a hole punched in a cream page. **Every token colour was measured against the `#f5f5f4` block background and clears 4.5:1**, including comments, which most light themes render too faint to read.
+
+A fence with no language tag renders plain, which is correct and intentional. `mermaid` blocks also render plain, since highlight.js has no grammar for them.
+
 Because the two are separate, a change to one does not reach the other. When you touch either, check both. Help in particular styles `pre`, `hr` and `img` itself, and its `pre code` rule includes `.hljs` in the selector to beat highlight.js's own padding.
 
 ---

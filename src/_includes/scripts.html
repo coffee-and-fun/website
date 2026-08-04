@@ -149,18 +149,8 @@
 		}, () => {});
 	}
 
-	document.addEventListener('DOMContentLoaded', () => {
-		// Only pull in highlight.js (and its theme) on pages with code blocks.
-		const blocks = document.querySelectorAll('pre code');
-		if (!blocks.length) return;
-		const theme = document.createElement('link');
-		theme.rel = 'stylesheet';
-		theme.href = '/assets/css/vendor/highlight-theme.min.css';
-		document.head.appendChild(theme);
-		loadScriptOnce('/assets/js/vendor/highlight.min.js').then(() => {
-			blocks.forEach((block) => {
-				hljs.highlightElement(block);
-			});
-		}, () => {});
+	// Syntax highlighting happens at build time (see eleventy.config.mjs), so
+	// there is deliberately no highlight.js loader here.
+
 	});
 </script>
