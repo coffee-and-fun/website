@@ -1,0 +1,135 @@
+---
+permalink: "authors/"
+---
+<!DOCTYPE html>
+<html class="antialiased" lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Authors - Coffee &amp; Fun LLC</title>
+    <meta name="title" content="Authors - Coffee &amp; Fun LLC" />
+    <meta name="description" content="The people who write the Coffee &amp; Fun blog. Robert James Gabriel, Courtney Hood and Anna Brown, and every article each of them has published." />
+    <meta name="robots" content="index, follow" />
+
+    <link rel="canonical" href="https://www.coffeeandfun.com/authors/" />
+    <link rel="icon" href="/assets/images/brand/favicon.png" sizes="any" />
+
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="Coffee &amp; Fun" />
+    <meta property="og:title" content="Authors - Coffee &amp; Fun LLC" />
+    <meta property="og:description" content="The people who write the Coffee &amp; Fun blog." />
+    <meta property="og:url" content="https://www.coffeeandfun.com/authors/" />
+    <meta property="og:image" content="https://www.coffeeandfun.com/assets/images/social/pages/about.png" />
+    <meta property="og:locale" content="en_US" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:site" content="@bycoffeeandfun" />
+    <meta name="twitter:title" content="Authors - Coffee &amp; Fun LLC" />
+    <meta name="twitter:description" content="The people who write the Coffee &amp; Fun blog." />
+    <meta name="twitter:image" content="https://www.coffeeandfun.com/assets/images/social/pages/about.png" />
+
+    <meta name="theme-color" content="#fef5ec" />
+
+    {%- comment -%}
+      A CollectionPage holding an ItemList of the people, each pointing at its
+      own ProfilePage. This is what gives the individual author pages an
+      internal link source other than the bylines, so they are not orphans.
+    {%- endcomment -%}
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "CollectionPage",
+        "url": "https://www.coffeeandfun.com/authors/",
+        "name": "Authors",
+        "description": "The people who write the Coffee & Fun blog.",
+        "isPartOf": { "@id": "https://www.coffeeandfun.com/#website" },
+        "publisher": { "@id": "https://www.coffeeandfun.com/#organization" },
+        "mainEntity": {
+          "@type": "ItemList",
+          "numberOfItems": {{ authors.people.size }},
+          "itemListElement": [
+            {%- for person in authors.people -%}
+            {%- if forloop.index0 > 0 -%},{%- endif %}
+            {
+              "@type": "ListItem",
+              "position": {{ forloop.index }},
+              "item": {
+                "@type": "Person",
+                {% if person.slug == 'robert-james-gabriel' %}"@id": "https://www.coffeeandfun.com/#founder",{% endif %}
+                "name": {{ person.name | json }},
+                "jobTitle": {{ person.title | json }},
+                "url": "https://www.coffeeandfun.com{{ person.url }}",
+                "image": "https://www.coffeeandfun.com{{ person.photo }}",
+                "worksFor": { "@id": "https://www.coffeeandfun.com/#organization" }
+              }
+            }
+            {%- endfor %}
+          ]
+        }
+      }
+    </script>
+
+    {% include schema-org.liquid %}
+
+    {% bundledCss %}
+    {% include sketch-styles.liquid %}
+</head>
+
+<body class="brand-color-background">
+  {% include header.liquid %}
+
+  <main id="main-content" class="mx-auto w-full max-w-3xl px-4 sm:px-6 lg:px-8 py-10 sm:py-14">
+
+    <nav aria-label="Breadcrumb" class="mb-8 text-sm text-stone-600">
+      <a href="/" class="hover:text-espresso underline underline-offset-2">Home</a>
+      <span aria-hidden="true" class="mx-2">/</span>
+      <a href="/about/" class="hover:text-espresso underline underline-offset-2">About</a>
+      <span aria-hidden="true" class="mx-2">/</span>
+      <span aria-current="page" class="text-stone-800">Authors</span>
+    </nav>
+
+    <header class="mb-10">
+      <h1 class="brand-heading text-3xl sm:text-4xl leading-tight mb-2">Authors</h1>
+      <p class="text-stone-700">The people who write the Coffee &amp; Fun blog.</p>
+    </header>
+
+    <ul class="not-prose flex flex-col gap-5">
+      {%- for person in authors.people -%}
+      {%- assign postCount = 0 -%}
+      {%- for item in collections.all -%}
+        {%- if item.data.isBlog -%}
+          {%- assign itemAuthor = item.data.author | default: authors.default -%}
+          {%- if itemAuthor == person.slug -%}{%- assign postCount = postCount | plus: 1 -%}{%- endif -%}
+        {%- endif -%}
+      {%- endfor -%}
+      <li>
+        <a href="{{ person.url }}" class="flex flex-col items-center text-center sm:flex-row sm:items-center sm:text-left gap-4 sm:gap-5 rounded-2xl border border-stone-200 bg-white/70 p-5 transition hover:border-mocha focus:outline-none focus-visible:ring-2 focus-visible:ring-espresso focus-visible:ring-offset-2">
+          <img
+            class="block w-20 h-20 object-cover rounded-2xl shrink-0"
+            src="{{ person.photo }}"
+            alt=""
+            width="420" height="420"
+            loading="lazy" decoding="async"
+          />
+          <span class="block">
+            <span class="block text-lg font-bold text-stone-900">{{ person.name }}</span>
+            <span class="block text-sm text-caramel mb-1">{{ person.title }}</span>
+            <span class="block text-xs text-stone-500">
+              {% if postCount == 1 %}1 article{% else %}{{ postCount }} articles{% endif %}
+            </span>
+          </span>
+        </a>
+      </li>
+      {%- endfor -%}
+    </ul>
+
+    <p class="mt-10 text-sm">
+      <a href="/about/" class="text-caramel underline underline-offset-2 hover:text-espresso">More about Coffee &amp; Fun LLC</a>
+    </p>
+
+  </main>
+
+  {% include modals.liquid %}
+  {% include footer.liquid %}
+</body>
+</html>

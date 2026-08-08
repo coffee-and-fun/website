@@ -15,7 +15,7 @@ eleventyComputed:
 
     <title>{{ person.name }} - Coffee &amp; Fun LLC</title>
     <meta name="title" content="{{ person.name }} - Coffee &amp; Fun LLC" />
-    <meta name="description" content="{{ person.name }} is {{ person.title }} at Coffee &amp; Fun LLC. Read the articles they have written on accessibility, browser extensions and building software people can actually use." />
+    <meta name="description" content="{% if person.bio %}{{ person.bio | escape }}{% else %}{{ person.name }} is {{ person.title }} at Coffee &amp; Fun LLC.{% endif %}" />
     <meta name="author" content="{{ person.name }}" />
     <meta name="robots" content="index, follow" />
 
@@ -112,6 +112,10 @@ eleventyComputed:
       </div>
     </header>
 
+    {% if person.bio %}
+    <p class="text-stone-700 leading-relaxed mb-10 max-w-2xl">{{ person.bio }}</p>
+    {% endif %}
+
     {%- comment -%}
       Posts are matched on the article's own front matter, not on a duplicated
       list, so an author page can never drift from what the articles actually
@@ -160,6 +164,8 @@ eleventyComputed:
     </section>
 
     <p class="mt-10 text-sm">
+      <a href="/authors/" class="text-caramel underline underline-offset-2 hover:text-espresso">All authors</a>
+      <span aria-hidden="true" class="mx-2 text-stone-400">&middot;</span>
       <a href="/about/" class="text-caramel underline underline-offset-2 hover:text-espresso">Meet the rest of the team</a>
     </p>
 
