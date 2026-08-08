@@ -1,0 +1,391 @@
+<!DOCTYPE html>
+<html class="brand-color-background antialiased" lang="en" data-theme="light" style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <!-- Primary Meta Tags -->
+    <title>Color Contrast Checker for WCAG AA & AAA - Coffee & Fun LLC</title>
+    <meta name="title" content="Color Contrast Checker for WCAG AA & AAA - Coffee & Fun LLC" />
+    <meta name="description" content="Check text, link and background colors against WCAG 2.1 AA and AAA in real time, with live examples at every text size and a palette contrast matrix." />
+    <meta name="author" content="Coffee & Fun LLC" />
+    <meta name="robots" content="index, follow" />
+
+    <!-- Canonical URL -->
+    <link rel="canonical" href="https://www.coffeeandfun.com/contrast-checker/" />
+
+    <!-- Favicon -->
+    <link rel="icon" href="/assets/images/brand/favicon.png" sizes="any" />
+
+    <!-- Open Graph -->
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="Coffee & Fun" />
+    <meta property="og:title" content="Color Contrast Checker for WCAG AA & AAA - Coffee & Fun LLC" />
+    <meta property="og:description" content="Check text, link and background colors against WCAG 2.1 AA and AAA in real time, with live examples at every text size and a palette contrast matrix." />
+    <meta property="og:url" content="https://www.coffeeandfun.com/contrast-checker/" />
+    <meta property="og:image" content="https://www.coffeeandfun.com/assets/images/social/pages/contrast-checker.png" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content="Color Contrast Checker card showing a contrast ratio and WCAG pass badges" />
+    <meta property="og:locale" content="en_US" />
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:site" content="@bycoffeeandfun" />
+    <meta name="twitter:title" content="Color Contrast Checker for WCAG AA & AAA - Coffee & Fun LLC" />
+    <meta name="twitter:description" content="Check text, link and background colors against WCAG 2.1 AA and AAA in real time, with live examples at every text size and a palette contrast matrix." />
+    <meta name="twitter:image" content="https://www.coffeeandfun.com/assets/images/social/pages/contrast-checker.png" />
+    <meta name="twitter:image:alt" content="Color Contrast Checker card showing a contrast ratio and WCAG pass badges" />
+
+    <meta name="theme-color" content="#fef5ec" />
+
+    <!-- Structured Data -->
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "WebApplication",
+        "name": "Color Contrast Checker",
+        "alternateName": "WCAG Color Contrast Checker",
+        "description": "Check text, link and background colors against WCAG 2.1 AA and AAA accessibility standards in real time, with live text samples at every size, quick fixes for failing colors, a palette contrast matrix, and shareable links.",
+        "url": "https://www.coffeeandfun.com/contrast-checker/",
+        "applicationCategory": "DeveloperApplication",
+        "operatingSystem": "Web Browser",
+        "offers": {
+          "@type": "Offer",
+          "price": "0",
+          "priceCurrency": "USD"
+        },
+        "featureList": [
+          "WCAG 2.1 AA and AAA contrast checks in real time",
+          "Text, background, and link color inputs",
+          "Live preview at heading, body, large, bold, and small text sizes",
+          "Link color checked against both background and surrounding text",
+          "Quick fix suggestions for failing colors",
+          "Palette contrast matrix for whole design systems",
+          "Shareable links that reload your exact colors",
+          "Runs entirely in the browser"
+        ],
+        "publisher": {
+          "@id": "https://www.coffeeandfun.com/#organization"
+        },
+        "creator": {
+          "@id": "https://www.coffeeandfun.com/#founder"
+        },
+        "isAccessibleForFree": true,
+        "inLanguage": "en"
+      }
+    </script>
+
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "BreadcrumbList",
+        "itemListElement": [
+          { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://www.coffeeandfun.com/" },
+          { "@type": "ListItem", "position": 2, "name": "Apps & Tools", "item": "https://www.coffeeandfun.com/apps/" },
+          { "@type": "ListItem", "position": 3, "name": "Color Contrast Checker" }
+        ]
+      }
+    </script>
+
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "FAQPage",
+        "mainEntity": [
+          {
+            "@type": "Question",
+            "name": "What contrast ratio do I need to pass WCAG AA?",
+            "acceptedAnswer": { "@type": "Answer", "text": "Normal text needs a contrast ratio of at least 4.5:1. Large text, which means 24px and up, or 18.66px and up if bold, needs at least 3:1." }
+          },
+          {
+            "@type": "Question",
+            "name": "What counts as large text?",
+            "acceptedAnswer": { "@type": "Answer", "text": "Text that is at least 24px (18pt) at normal weight, or at least 18.66px (14pt) when bold. Everything smaller counts as normal text and needs the higher thresholds." }
+          },
+          {
+            "@type": "Question",
+            "name": "What does AAA require?",
+            "acceptedAnswer": { "@type": "Answer", "text": "AAA raises the bar to 7:1 for normal text and 4.5:1 for large text. It is worth aiming for on body copy people read for long stretches, but AA is the level most laws and audits reference." }
+          },
+          {
+            "@type": "Question",
+            "name": "Do links need their own contrast rules?",
+            "acceptedAnswer": { "@type": "Answer", "text": "A link needs the same ratio against the background as any other text. If links are not underlined, they also need at least 3:1 against the surrounding text so color is not the only thing identifying them. Keeping links underlined is the simplest way to stay safe." }
+          },
+          {
+            "@type": "Question",
+            "name": "Does this tool upload or store my colors?",
+            "acceptedAnswer": { "@type": "Answer", "text": "No. Everything runs in your browser. The share link encodes your colors in the URL itself, so nothing is sent to or saved on a server." }
+          },
+          {
+            "@type": "Question",
+            "name": "Are these the WCAG 2.2 thresholds too?",
+            "acceptedAnswer": { "@type": "Answer", "text": "Yes. WCAG 2.2 kept the contrast thresholds from 2.1 unchanged. The APCA model sometimes mentioned alongside it is a draft for future guidelines and is not required by any current standard." }
+          }
+        ]
+      }
+    </script>
+
+    {% include schema-org.liquid %}
+
+    {% bundledCss %}
+    {% pageCss "contrast-checker" %}
+    {% include sketch-styles.liquid %}
+</head>
+
+<body>
+    {% include header.liquid %}
+
+    <main id="main-content" class="cc-wrap">
+
+        <header id="tool" class="cc-intro">
+            <!-- Doodles: decorative, hidden below 640px by sketch-styles.liquid -->
+            <div class="sketch-note" style="top: -6px; right: 3%; --sketch-rotate: 8deg;" aria-hidden="true">
+              <svg aria-hidden="true" width="22" height="22" viewBox="0 0 24 24">
+                <path d="M12 2 L12 22 M2 12 L22 12 M5 5 L19 19 M19 5 L5 19" class="sketch-sparkle"/>
+              </svg>
+            </div>
+            <div class="sketch-note text-base sm:text-lg" style="top: 8px; right: 0; --sketch-rotate: -5deg;" aria-hidden="true">
+              every ratio, checked!
+            </div>
+
+            <h1 class="brand-heading text-3xl sm:text-4xl leading-tight mb-2">Color Contrast Checker</h1>
+            <p class="cc-lede">A free color contrast checker for WCAG 2.1 AA and AAA. Test your text, link and background colors live, at every text size that matters. Everything runs in your browser, nothing you pick leaves this page.</p>
+        </header>
+
+        <!-- ===== Colors ===== -->
+        <section class="cc-step" aria-labelledby="h-colors">
+            <h2 class="cc-step-label" id="h-colors">1. Pick your colors</h2>
+
+            <div class="cc-inputs">
+                <div class="cc-field">
+                    <label for="cc-text-hex">Text color</label>
+                    <div class="cc-field-row">
+                        <input type="color" id="cc-text-pick" value="#3d2b1f" aria-label="Text color picker" />
+                        <input type="text" id="cc-text-hex" class="input cc-hex" value="#3d2b1f"
+                               inputmode="text" autocomplete="off" spellcheck="false" maxlength="7"
+                               aria-describedby="cc-text-hint" />
+                        <button type="button" class="cc-eye" id="cc-text-eye" aria-label="Pick text color from screen" hidden>
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="m2 22 1-1h3l9-9"/><path d="M3 21v-3l9-9"/><path d="m15 6 3.4-3.4a2.1 2.1 0 1 1 3 3L18 9l.4.4a2.1 2.1 0 1 1-3 3l-3.8-3.8a2.1 2.1 0 1 1 3-3l.4.4Z"/></svg>
+                        </button>
+                    </div>
+                    <p class="cc-hint" id="cc-text-hint">A 6 digit hex like #3d2b1f</p>
+                </div>
+
+                <button type="button" class="cc-swap" id="cc-swap" aria-label="Swap text and background colors">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 3 4 7l4 4"/><path d="M4 7h16"/><path d="m16 21 4-4-4-4"/><path d="M20 17H4"/></svg>
+                    <span>Swap</span>
+                </button>
+
+                <div class="cc-field">
+                    <label for="cc-bg-hex">Background color</label>
+                    <div class="cc-field-row">
+                        <input type="color" id="cc-bg-pick" value="#fef5ec" aria-label="Background color picker" />
+                        <input type="text" id="cc-bg-hex" class="input cc-hex" value="#fef5ec"
+                               inputmode="text" autocomplete="off" spellcheck="false" maxlength="7"
+                               aria-describedby="cc-bg-hint" />
+                        <button type="button" class="cc-eye" id="cc-bg-eye" aria-label="Pick background color from screen" hidden>
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="m2 22 1-1h3l9-9"/><path d="M3 21v-3l9-9"/><path d="m15 6 3.4-3.4a2.1 2.1 0 1 1 3 3L18 9l.4.4a2.1 2.1 0 1 1-3 3l-3.8-3.8a2.1 2.1 0 1 1 3-3l.4.4Z"/></svg>
+                        </button>
+                    </div>
+                    <p class="cc-hint" id="cc-bg-hint">A 6 digit hex like #fef5ec</p>
+                </div>
+
+                <div class="cc-field">
+                    <label for="cc-link-hex">Link color</label>
+                    <div class="cc-field-row">
+                        <input type="color" id="cc-link-pick" value="#7a4e31" aria-label="Link color picker" />
+                        <input type="text" id="cc-link-hex" class="input cc-hex" value="#7a4e31"
+                               inputmode="text" autocomplete="off" spellcheck="false" maxlength="7"
+                               aria-describedby="cc-link-hint" />
+                        <button type="button" class="cc-eye" id="cc-link-eye" aria-label="Pick link color from screen" hidden>
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="m2 22 1-1h3l9-9"/><path d="M3 21v-3l9-9"/><path d="m15 6 3.4-3.4a2.1 2.1 0 1 1 3 3L18 9l.4.4a2.1 2.1 0 1 1-3 3l-3.8-3.8a2.1 2.1 0 1 1 3-3l.4.4Z"/></svg>
+                        </button>
+                    </div>
+                    <p class="cc-hint" id="cc-link-hint">A 6 digit hex like #7a4e31</p>
+                </div>
+            </div>
+
+            <div class="cc-presets">
+                <span class="cc-presets-label" id="cc-presets-label">Try a pair:</span>
+                <button type="button" class="cc-preset" data-text="3d2b1f" data-bg="fef5ec" data-link="7a4e31">Cocoa on cream</button>
+                <button type="button" class="cc-preset" data-text="ffffff" data-bg="1e293b" data-link="93c5fd">White on slate</button>
+                <button type="button" class="cc-preset" data-text="c4813a" data-bg="fef5ec" data-link="7a4e31">A failing pair</button>
+            </div>
+
+            <label class="cc-underline">
+                <input type="checkbox" class="checkbox checkbox-sm" id="cc-underline" checked />
+                Underline links in the preview
+            </label>
+        </section>
+
+        <!-- ===== Preview ===== -->
+        <section class="cc-step" aria-labelledby="h-preview">
+            <h2 class="cc-step-label" id="h-preview">2. See it at every size</h2>
+            <p class="cc-note">Each sample is labelled with its CSS size and whether WCAG counts it as normal or large text.</p>
+
+            <div class="cc-preview-grid" id="cc-preview">
+                <p class="cc-size-label">Heading<span>32px / 24pt bold, large text</span></p>
+                <div class="cc-sample"><p class="cc-s-h1">To infinity and beyond!</p></div>
+
+                <p class="cc-size-label">Subheading<span>24px / 18pt bold, large text</span></p>
+                <div class="cc-sample"><p class="cc-s-h2">The toys hold a meeting under the bed</p></div>
+
+                <p class="cc-size-label">Large text<span>24px / 18pt regular, large text</span></p>
+                <div class="cc-sample"><p class="cc-s-large">A cowboy doll and a space ranger argue about shelf space.</p></div>
+
+                <p class="cc-size-label">Bold text<span>18.66px / 14pt bold, large text</span></p>
+                <div class="cc-sample"><p class="cc-s-bold">The green aliens have chosen the claw.</p></div>
+
+                <p class="cc-size-label">Body text<span>16px / 12pt regular, normal text</span></p>
+                <div class="cc-sample"><p class="cc-s-body">Every toy in the room freezes when footsteps come up the stairs. The cowboy checks his pull string, the space ranger checks his wrist buttons, and the piggy bank guards the door. New to the numbers? Read <a href="#how-it-works" class="cc-pv-link">how the ratio is calculated</a> further down.</p></div>
+
+                <p class="cc-size-label">Small text<span>12px / 9pt regular, normal text</span></p>
+                <div class="cc-sample"><p class="cc-s-small">No toy gets left behind, not even at 12 pixels.</p></div>
+            </div>
+        </section>
+
+        <!-- ===== Results ===== -->
+        <section class="cc-step" aria-labelledby="h-results">
+            <h2 class="cc-step-label" id="h-results">3. Your results</h2>
+
+            <div class="cc-hero" aria-hidden="false">
+                <p class="cc-hero-num" id="cc-ratio-big">12.46:1</p>
+                <p class="cc-hero-sub">Contrast ratio, text on background</p>
+            </div>
+
+            <ul class="cc-cards">
+                <li class="cc-card" id="cc-aa-n"><span class="cc-card-level">AA</span><span class="cc-card-kind">Normal text</span><span class="cc-card-verdict">Pass</span><span class="cc-card-req">needs 4.5:1</span></li>
+                <li class="cc-card" id="cc-aa-l"><span class="cc-card-level">AA</span><span class="cc-card-kind">Large text</span><span class="cc-card-verdict">Pass</span><span class="cc-card-req">needs 3:1</span></li>
+                <li class="cc-card" id="cc-aaa-n"><span class="cc-card-level">AAA</span><span class="cc-card-kind">Normal text</span><span class="cc-card-verdict">Pass</span><span class="cc-card-req">needs 7:1</span></li>
+                <li class="cc-card" id="cc-aaa-l"><span class="cc-card-level">AAA</span><span class="cc-card-kind">Large text</span><span class="cc-card-verdict">Pass</span><span class="cc-card-req">needs 4.5:1</span></li>
+            </ul>
+
+            <div class="cc-fixes" id="cc-fixes" hidden>
+                <h3 class="cc-h3">Quick fixes</h3>
+                <p class="cc-note">One click nudges the color just far enough to pass. It keeps the hue and changes only the lightness.</p>
+                <p class="cc-note cc-hint-error" id="cc-fix-impossible" hidden></p>
+                <div class="cc-fix-chips" id="cc-fix-chips"></div>
+            </div>
+
+            <div class="cc-links" id="link-guidance">
+                <h3 class="cc-h3">Link colors</h3>
+                <dl class="cc-linkstats">
+                    <div class="cc-linkstat">
+                        <dt>Link on background</dt>
+                        <dd><span class="cc-mono" id="cc-linkbg-ratio">6.58:1</span>
+                            <span class="cc-badge" id="cc-linkbg-aa">AA Pass</span>
+                            <span class="cc-badge" id="cc-linkbg-aaa">AAA Pass</span></dd>
+                    </div>
+                    <div class="cc-linkstat">
+                        <dt>Link against surrounding text</dt>
+                        <dd><span class="cc-mono" id="cc-linktext-ratio">1.89:1</span>
+                            <span class="cc-badge" id="cc-linktext-badge">3:1 Fail</span></dd>
+                    </div>
+                </dl>
+                <p class="cc-note" id="cc-linktext-note">Your links are underlined, so the 3:1 check against surrounding text is informational. It only becomes a requirement when color is the one thing marking a link as a link.</p>
+            </div>
+
+            <div class="cc-share">
+                <h3 class="cc-h3">Share these colors</h3>
+                <p class="cc-note">The link below updates as you change colors, so whoever opens it sees exactly what you see.</p>
+                <div class="cc-share-row">
+                    <input type="text" class="input cc-share-url" id="cc-share-url" readonly aria-label="Shareable link with your colors" />
+                    <button type="button" class="btn cc-btn-solid" id="cc-share-btn">Copy link</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- ===== Palette matrix ===== -->
+        <section class="cc-step" aria-labelledby="h-matrix" id="matrix">
+            <h2 class="cc-step-label" id="h-matrix">4. Palette contrast matrix</h2>
+            <p class="cc-note">Paste your design system colors, one per line or comma separated, and get every foreground and background combination checked at once. Select any cell to load that pair into the checker above.</p>
+
+            <div class="cc-matrix-input">
+                <label class="cc-matrix-label" for="cc-palette">Your palette</label>
+                <textarea id="cc-palette" class="textarea cc-palette" rows="5" spellcheck="false">#fef5ec
+#c4813a
+#a36942
+#96603c
+#7a4e31
+#3d2b1f
+#fd6155
+#c4413a</textarea>
+                <button type="button" class="btn cc-btn-solid" id="cc-matrix-btn">Check palette</button>
+                <p class="cc-hint" id="cc-matrix-note"></p>
+            </div>
+
+            <div class="cc-matrix-scroll" id="cc-matrix" tabindex="0" role="region" aria-label="Palette contrast matrix results"></div>
+
+            <ul class="cc-legend">
+                <li><span class="cc-dot cc-band-aaa" aria-hidden="true"></span> AAA, 7:1 or better</li>
+                <li><span class="cc-dot cc-band-aa" aria-hidden="true"></span> AA, 4.5:1 or better</li>
+                <li><span class="cc-dot cc-band-aal" aria-hidden="true"></span> AA large text only, 3:1 or better</li>
+                <li><span class="cc-dot cc-band-fail" aria-hidden="true"></span> Fails, under 3:1</li>
+            </ul>
+        </section>
+
+        <!-- ===== Thresholds ===== -->
+        <section class="cc-step" aria-labelledby="h-thresholds" id="thresholds">
+            <h2 class="cc-step-label" id="h-thresholds">WCAG 2.1 thresholds</h2>
+            <div class="cc-table-scroll">
+                <table class="cc-table">
+                    <thead>
+                        <tr><th scope="col">Content</th><th scope="col">AA</th><th scope="col">AAA</th></tr>
+                    </thead>
+                    <tbody>
+                        <tr><th scope="row">Normal text (under 24px, or under 18.66px bold)</th><td>4.5:1</td><td>7:1</td></tr>
+                        <tr><th scope="row">Large text (24px and up, or 18.66px and up bold)</th><td>3:1</td><td>4.5:1</td></tr>
+                        <tr><th scope="row">UI components and graphical objects</th><td>3:1</td><td>Not defined</td></tr>
+                        <tr><th scope="row">Links against surrounding text, when not underlined</th><td>3:1</td><td>Not defined</td></tr>
+                    </tbody>
+                </table>
+            </div>
+            <p class="cc-note">The same thresholds carry forward unchanged into WCAG 2.2. Ratios here are shown to two decimals, but pass or fail is judged on the full precision value, so 4.4996:1 fails AA even though it displays as 4.50:1.</p>
+        </section>
+
+        <!-- ===== How it works ===== -->
+        <section class="cc-step" aria-labelledby="h-how" id="how-it-works">
+            <h2 class="cc-step-label" id="h-how">How this color contrast checker calculates the ratio</h2>
+            <p class="cc-prose">Every color has a relative luminance, a number between 0 for black and 1 for white that describes how bright it looks to the human eye. Green counts far more than blue, which is why a mid green and a mid blue with the same hex brightness do not read the same.</p>
+            <p class="cc-prose">The contrast ratio compares the luminance of the lighter color with the darker one:</p>
+            <pre class="cc-formula"><code>ratio = (L_lighter + 0.05) / (L_darker + 0.05)</code></pre>
+            <p class="cc-prose">The result runs from 1:1, identical colors, up to 21:1, pure black on pure white. WCAG 2.1 draws its pass lines at 3, 4.5 and 7 depending on the text size and the level you are aiming for. This tool uses the exact formula from the specification, including the piecewise sRGB conversion, so its numbers match what an auditor's tooling will report.</p>
+        </section>
+
+        <!-- ===== FAQ ===== -->
+        <section class="cc-step" aria-labelledby="h-faq" id="faq">
+            <h2 class="cc-step-label" id="h-faq">Frequently asked questions</h2>
+
+            <h3 class="cc-h3">What contrast ratio do I need to pass WCAG AA?</h3>
+            <p class="cc-prose">Normal text needs a contrast ratio of at least 4.5:1. Large text, which means 24px and up, or 18.66px and up if bold, needs at least 3:1.</p>
+
+            <h3 class="cc-h3">What counts as large text?</h3>
+            <p class="cc-prose">Text that is at least 24px (18pt) at normal weight, or at least 18.66px (14pt) when bold. Everything smaller counts as normal text and needs the higher thresholds.</p>
+
+            <h3 class="cc-h3">What does AAA require?</h3>
+            <p class="cc-prose">AAA raises the bar to 7:1 for normal text and 4.5:1 for large text. It is worth aiming for on body copy people read for long stretches, but AA is the level most laws and audits reference.</p>
+
+            <h3 class="cc-h3">Do links need their own contrast rules?</h3>
+            <p class="cc-prose">A link needs the same ratio against the background as any other text. If links are not underlined, they also need at least 3:1 against the surrounding text so color is not the only thing identifying them. Keeping links underlined is the simplest way to stay safe.</p>
+
+            <h3 class="cc-h3">Does this tool upload or store my colors?</h3>
+            <p class="cc-prose">No. Everything runs in your browser. The share link encodes your colors in the URL itself, so nothing is sent to or saved on a server.</p>
+
+            <h3 class="cc-h3">Are these the WCAG 2.2 thresholds too?</h3>
+            <p class="cc-prose">Yes. WCAG 2.2 kept the contrast thresholds from 2.1 unchanged. The APCA model sometimes mentioned alongside it is a draft for future guidelines and is not required by any current standard.</p>
+        </section>
+
+        <!-- Live status for screen readers -->
+        <p class="sr-only" role="status" aria-live="polite" id="cc-live"></p>
+
+        <p class="cc-foot">Free, no sign up, and nothing you pick leaves your browser. Part of the <a href="/apps/">Coffee &amp; Fun tools</a>.</p>
+    </main>
+
+    {% include modals.liquid %}
+    {% include footer.liquid %}
+
+    {% pageJs "contrast-checker" %}
+</body>
+</html>

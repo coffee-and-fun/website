@@ -167,7 +167,7 @@
         {% elsif page.url contains '/help' %}{% assign navSection = 'help' %}
         {% elsif page.url contains '/support' %}{% assign navSection = 'support' %}
         {% else %}
-          {% assign toolPaths = '/focus-timer/|/timezone-converter/|/word-clock/|/flip/|/receipt-generator/|/private-line/|/meta-images/|/secret-message-image-encoder/|/mp3-transcript/|/meta-tags/|/text-converter/|/email-signature-generator/|/chrome-extension-icon-generator/|/tactical-tiles/|/drop-dungeon/|/blackjack-trainer/|/silicon-dreams/|/minecraft-pixel-art/|/emoji/|/meta-videos/|/vibe-check/' | split: '|' %}
+          {% assign toolPaths = '/focus-timer/|/timezone-converter/|/word-clock/|/flip/|/receipt-generator/|/private-line/|/meta-images/|/secret-message-image-encoder/|/mp3-transcript/|/meta-tags/|/text-converter/|/email-signature-generator/|/chrome-extension-icon-generator/|/tactical-tiles/|/drop-dungeon/|/blackjack-trainer/|/silicon-dreams/|/minecraft-pixel-art/|/emoji/|/meta-videos/|/vibe-check/|/contrast-checker/' | split: '|' %}
           {% for t in toolPaths %}{% if page.url == t %}{% assign navSection = 'tools' %}{% endif %}{% endfor %}
         {% endif %}
 
@@ -284,6 +284,7 @@
                   <p class="cf-mm-head">For the web</p>
                   <ul>
                     <li><a href="/meta-tags/">Meta tags generator</a></li>
+                    <li><a href="/contrast-checker/">Color contrast checker</a></li>
                     <li><a href="/text-converter/">Text case converter</a></li>
                     <li><a href="/email-signature-generator/">Email signature maker</a></li>
                     <li><a href="/chrome-extension-icon-generator/">Extension icon resizer</a></li>

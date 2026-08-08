@@ -131,7 +131,7 @@ Twelve files in `src/_data/`, each becoming a global named after its basename.
 
 | File | Shape | Notes |
 |---|---|---|
-| `apps.json` | 4 arrays: `apps` 7, `tools` 21, `opensource` 3, `graveyard` 13 | Entries are `{name, description, link, platform[], image, schemaType}`. See [Structured data](#structured-data) for `schemaType` |
+| `apps.json` | 4 arrays: `apps` 7, `tools` 22, `opensource` 3, `graveyard` 13 | Entries are `{name, description, link, platform[], image, schemaType}`. See [Structured data](#structured-data) for `schemaType` |
 | `blog.json` | `{ posts: [49] }` | **Hand-maintained.** See the warning below |
 | `help.json` | `guides[9]` plus a `products` tree | The `products` tree drives the help sidebar |
 | `site.js` | `{ url }` | One consumer: `robots.njk`. The sitemap no longer uses it, see [The sitemap](#the-sitemap) |

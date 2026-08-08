@@ -1,0 +1,536 @@
+/* Color Contrast Checker.
+
+   Every class is cc- prefixed because the page loads the full Tailwind and
+   daisyUI bundle: bare names like .btn, .input, .badge or .table belong to
+   daisyUI and defining them here would restyle its components. Where a real
+   daisyUI component fits (btn, input, textarea, checkbox) the markup uses it
+   directly and this file only tunes it through the component's own variables.
+
+   Verdict and matrix band colors were chosen numerically, not by eye. Each
+   text-on-tint pair clears WCAG AA on its own fill, measured with the same
+   formula the tool implements: pass 5.71:1, AAA band 7.40:1, AA band 5.88:1,
+   large-only band 6.48:1, fail band 6.18:1. A contrast checker whose own UI
+   failed contrast would be a joke at its own expense. */
+
+:root {
+    --cc-surface: #fffcf7;
+    --cc-line: #ece0d4;
+    --cc-line-strong: #a36942;
+    --cc-muted: #6b6259;
+    --cc-ink: var(--color-cocoa);
+
+    --cc-pass-bg: #e4f3e2;
+    --cc-pass-text: #1a6b2f;
+    --cc-pass-line: #a9d3a5;
+    --cc-fail-bg: #fceceb;
+    --cc-fail-text: #a13025;
+    --cc-fail-line: #e7b7b1;
+
+    --cc-band-aaa-bg: #d7eed3;
+    --cc-band-aaa-text: #14532d;
+    --cc-band-aa-bg: #e9f6e3;
+    --cc-band-aa-text: #1a6b2f;
+    --cc-band-aal-bg: #fdf3cf;
+    --cc-band-aal-text: #6d5400;
+    --cc-band-fail-bg: #fceceb;
+    --cc-band-fail-text: #a13025;
+
+    --cc-mono: ui-monospace, 'SF Mono', 'JetBrains Mono', Menlo, Consolas, monospace;
+
+    /* The preview colors. JS drives these; the defaults match the JS state so
+       the page is correct even before the script runs. */
+    --pv-text: #3d2b1f;
+    --pv-bg: #fef5ec;
+    --pv-link: #7a4e31;
+}
+
+.cc-wrap {
+    width: 100%;
+    max-width: 46rem;
+    margin: 0 auto;
+    padding: 2rem 1.25rem 4rem;
+}
+
+.cc-intro { position: relative; margin-bottom: 2rem; }
+.cc-lede {
+    color: var(--cc-muted);
+    font-size: 1rem;
+    line-height: 1.55;
+    max-width: 60ch;
+    margin: 0;
+}
+
+.cc-step { margin-top: 2.5rem; }
+.cc-step-label {
+    font-size: 0.8rem;
+    font-weight: 700;
+    letter-spacing: 0.07em;
+    text-transform: uppercase;
+    color: var(--cc-muted);
+    margin: 0 0 0.9rem;
+}
+.cc-h3 {
+    font-size: 1.05rem;
+    font-weight: 700;
+    color: var(--cc-ink);
+    margin: 1.6rem 0 0.4rem;
+}
+.cc-note {
+    font-size: 0.9rem;
+    color: var(--cc-muted);
+    line-height: 1.55;
+    margin: 0 0 0.9rem;
+    max-width: 65ch;
+}
+.cc-prose {
+    font-size: 1rem;
+    color: #44403c;
+    line-height: 1.65;
+    margin: 0 0 1rem;
+    max-width: 65ch;
+}
+.cc-mono { font-family: var(--cc-mono); font-variant-numeric: tabular-nums; }
+
+/* ---- Inputs ---- */
+.cc-inputs {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: flex-end;
+    gap: 1rem 1.5rem;
+}
+.cc-field label {
+    display: block;
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: var(--cc-ink);
+    margin-bottom: 0.35rem;
+}
+.cc-field-row { display: flex; align-items: center; gap: 0.5rem; }
+.cc-hex {
+    width: 7.5rem;
+    font-family: var(--cc-mono);
+    background: var(--cc-surface);
+    border-color: var(--cc-line-strong);
+    color: var(--cc-ink);
+}
+.cc-hex[aria-invalid='true'] { border-color: var(--cc-fail-text); }
+.cc-hint { font-size: 0.78rem; color: var(--cc-muted); margin: 0.3rem 0 0; }
+/* The invalid state speaks in words. The valid and invalid border colors only
+   measure 1.57:1 against each other, which is precisely the color-only
+   signalling this page tells its visitors not to rely on. */
+.cc-hint-error { color: var(--cc-fail-text); font-weight: 600; }
+
+/* The native color input, sized as a proper 44px touch target with a visible
+   boundary, since a pale swatch on a cream page otherwise disappears. */
+#cc-text-pick, #cc-bg-pick, #cc-link-pick {
+    width: 44px;
+    height: 44px;
+    padding: 2px;
+    border: 1px solid var(--cc-line-strong);
+    border-radius: 10px;
+    background: var(--cc-surface);
+    cursor: pointer;
+}
+#cc-text-pick:focus-visible, #cc-bg-pick:focus-visible, #cc-link-pick:focus-visible,
+.cc-hex:focus-visible {
+    outline: 2px solid var(--color-espresso);
+    outline-offset: 2px;
+}
+
+.cc-eye, .cc-swap {
+    appearance: none;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+    min-height: 44px;
+    min-width: 44px;
+    justify-content: center;
+    padding: 0.4rem 0.6rem;
+    font: inherit;
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: var(--cc-ink);
+    background: var(--cc-surface);
+    border: 1px solid var(--cc-line-strong);
+    border-radius: 10px;
+    cursor: pointer;
+}
+@media (hover: hover) {
+    .cc-eye:hover, .cc-swap:hover { background: #f6ece2; color: var(--color-espresso); }
+    .cc-preset:hover { border-color: var(--color-espresso); color: var(--color-espresso); background: var(--cc-surface); }
+}
+.cc-eye:focus-visible, .cc-swap:focus-visible, .cc-preset:focus-visible {
+    outline: 2px solid var(--color-espresso);
+    outline-offset: 2px;
+}
+
+.cc-presets {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.5rem;
+    margin-top: 1.1rem;
+}
+.cc-presets-label { font-size: 0.85rem; color: var(--cc-muted); }
+.cc-preset {
+    appearance: none;
+    font: inherit;
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: var(--cc-ink);
+    background: var(--cc-surface);
+    border: 1px solid var(--cc-line-strong);
+    border-radius: 9999px;
+    padding: 0.45rem 0.9rem;
+    min-height: 44px;
+    cursor: pointer;
+}
+
+.cc-underline {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin-top: 1rem;
+    font-size: 0.9rem;
+    color: var(--cc-ink);
+    cursor: pointer;
+}
+
+/* ---- Preview ---- */
+/* Labels live on the cream page, samples on the chosen background. The labels
+   can never be swallowed by a poorly chosen preview color that way. */
+.cc-preview-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    border: 1px solid var(--cc-line-strong);
+    border-radius: 14px;
+    overflow: hidden;
+}
+.cc-size-label {
+    margin: 0;
+    padding: 0.55rem 1rem 0.15rem;
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--cc-muted);
+    background: var(--color-cream);
+}
+.cc-size-label span {
+    display: block;
+    font-weight: 500;
+    text-transform: none;
+    letter-spacing: normal;
+    padding-bottom: 0.35rem;
+}
+.cc-sample {
+    background: var(--pv-bg);
+    padding: 0.9rem 1rem;
+}
+.cc-sample p { margin: 0; color: var(--pv-text); overflow-wrap: break-word; }
+.cc-s-h1 { font-size: 32px; font-weight: 700; line-height: 1.2; }
+.cc-s-h2 { font-size: 24px; font-weight: 700; line-height: 1.25; }
+.cc-s-large { font-size: 24px; font-weight: 400; line-height: 1.3; }
+.cc-s-bold { font-size: 18.66px; font-weight: 700; line-height: 1.35; }
+.cc-s-body { font-size: 16px; font-weight: 400; line-height: 1.6; }
+.cc-s-small { font-size: 12px; font-weight: 400; line-height: 1.5; }
+.cc-pv-link { color: var(--pv-link); text-decoration: underline; text-underline-offset: 2px; }
+.cc-preview-grid.cc-no-underline .cc-pv-link { text-decoration: none; }
+
+@media (min-width: 640px) {
+    .cc-preview-grid { grid-template-columns: 12rem 1fr; }
+    .cc-size-label {
+        padding: 0.8rem 1rem;
+        border-bottom: 1px solid var(--cc-line);
+    }
+    .cc-size-label span { padding-bottom: 0; margin-top: 0.15rem; }
+    .cc-sample { border-bottom: 1px solid var(--cc-line); }
+    .cc-size-label:nth-last-of-type(1), .cc-preview-grid > .cc-sample:last-child { border-bottom: 0; }
+}
+
+/* ---- Results ---- */
+.cc-hero {
+    background: var(--cc-surface);
+    border: 1px solid var(--cc-line);
+    border-radius: 14px;
+    text-align: center;
+    padding: 1.6rem 1rem 1.3rem;
+}
+.cc-hero-num {
+    margin: 0;
+    font-family: var(--cc-mono);
+    font-variant-numeric: tabular-nums;
+    font-size: clamp(2.6rem, 9vw, 4rem);
+    font-weight: 700;
+    line-height: 1;
+    color: var(--cc-ink);
+}
+.cc-hero-sub { margin: 0.5rem 0 0; font-size: 0.9rem; color: var(--cc-muted); }
+
+.cc-cards {
+    list-style: none;
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 0.75rem;
+    padding: 0;
+    margin: 0.9rem 0 0;
+}
+@media (min-width: 640px) { .cc-cards { grid-template-columns: repeat(4, minmax(0, 1fr)); } }
+.cc-card {
+    border-radius: 12px;
+    padding: 0.9rem 0.75rem;
+    text-align: center;
+    background: var(--cc-pass-bg);
+    border: 1px solid var(--cc-pass-line);
+    color: var(--cc-pass-text);
+}
+.cc-card[data-state='fail'] {
+    background: var(--cc-fail-bg);
+    border-color: var(--cc-fail-line);
+    color: var(--cc-fail-text);
+}
+.cc-card-level { display: block; font-weight: 800; font-size: 1.05rem; letter-spacing: 0.04em; }
+.cc-card-kind { display: block; font-size: 0.82rem; margin-top: 0.1rem; }
+.cc-card-verdict { display: block; font-weight: 800; font-size: 1.05rem; margin-top: 0.35rem; }
+.cc-card-req { display: block; font-size: 0.78rem; margin-top: 0.2rem; opacity: 0.9; }
+
+/* ---- Quick fixes ---- */
+.cc-fixes { margin-top: 1.4rem; }
+.cc-fix-chips { display: flex; flex-wrap: wrap; gap: 0.5rem; }
+.cc-fix {
+    appearance: none;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    font: inherit;
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: var(--cc-ink);
+    background: var(--cc-surface);
+    border: 1px solid var(--cc-line-strong);
+    border-radius: 9999px;
+    padding: 0.45rem 0.9rem 0.45rem 0.5rem;
+    min-height: 44px;
+    cursor: pointer;
+}
+@media (hover: hover) {
+    .cc-fix:hover { border-color: var(--color-espresso); color: var(--color-espresso); background: var(--cc-surface); }
+}
+.cc-fix:focus-visible { outline: 2px solid var(--color-espresso); outline-offset: 2px; }
+.cc-fix-swatch {
+    width: 26px;
+    height: 26px;
+    border-radius: 9999px;
+    border: 1px solid var(--cc-line-strong);
+    flex-shrink: 0;
+}
+.cc-fix .cc-mono { font-weight: 700; }
+
+/* ---- Link results ---- */
+.cc-links { margin-top: 1.6rem; }
+.cc-linkstats { margin: 0; }
+.cc-linkstat {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 0.35rem 1rem;
+    padding: 0.65rem 0;
+    border-bottom: 1px solid var(--cc-line);
+}
+.cc-linkstat dt { font-size: 0.95rem; color: var(--cc-ink); font-weight: 600; }
+.cc-linkstat dd { margin: 0; display: flex; align-items: center; gap: 0.5rem; }
+.cc-linkstat .cc-mono { font-weight: 700; color: var(--cc-ink); }
+.cc-badge {
+    display: inline-block;
+    font-size: 0.75rem;
+    font-weight: 700;
+    border-radius: 9999px;
+    padding: 0.25rem 0.65rem;
+    background: var(--cc-pass-bg);
+    border: 1px solid var(--cc-pass-line);
+    color: var(--cc-pass-text);
+}
+.cc-badge[data-state='fail'] {
+    background: var(--cc-fail-bg);
+    border-color: var(--cc-fail-line);
+    color: var(--cc-fail-text);
+}
+
+/* ---- Share ---- */
+.cc-share { margin-top: 1.6rem; }
+.cc-share-row { display: flex; flex-wrap: wrap; gap: 0.5rem; }
+.cc-share-url {
+    flex: 1;
+    min-width: 220px;
+    font-family: var(--cc-mono);
+    font-size: 0.82rem;
+    background: var(--cc-surface);
+    border-color: var(--cc-line-strong);
+    color: var(--cc-ink);
+}
+.cc-share-url:focus-visible {
+    outline: 2px solid var(--color-espresso);
+    outline-offset: 2px;
+}
+.cc-btn-solid {
+    --btn-color: var(--color-cocoa);
+    --btn-fg: #fff;
+}
+
+/* ---- Matrix ---- */
+.cc-matrix-input { margin-bottom: 1rem; }
+.cc-matrix-label {
+    display: block;
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: var(--cc-ink);
+    margin-bottom: 0.35rem;
+}
+.cc-palette {
+    width: 100%;
+    max-width: 22rem;
+    font-family: var(--cc-mono);
+    font-size: 0.9rem;
+    background: var(--cc-surface);
+    border-color: var(--cc-line-strong);
+    color: var(--cc-ink);
+    margin-bottom: 0.6rem;
+    display: block;
+}
+.cc-palette:focus-visible { outline: 2px solid var(--color-espresso); outline-offset: 2px; }
+
+/* A wide matrix scrolls inside its own container instead of pushing the page
+   sideways, same rule as the prose tables. */
+.cc-matrix-scroll { overflow-x: auto; margin-top: 1rem; }
+.cc-matrix-scroll:focus-visible { outline: 2px solid var(--color-espresso); outline-offset: 2px; }
+.cc-matrix-table { border-collapse: separate; border-spacing: 0; font-size: 0.85rem; }
+.cc-matrix-table th {
+    font-family: var(--cc-mono);
+    font-weight: 600;
+    color: var(--cc-ink);
+    padding: 0.45rem 0.55rem;
+    text-align: left;
+    white-space: nowrap;
+    background: var(--color-cream);
+}
+.cc-matrix-table td { padding: 2px; }
+.cc-swatch {
+    display: inline-block;
+    width: 14px;
+    height: 14px;
+    border-radius: 4px;
+    border: 1px solid var(--cc-line-strong);
+    vertical-align: -2px;
+    margin-right: 0.4rem;
+}
+.cc-cell {
+    appearance: none;
+    font: inherit;
+    font-family: var(--cc-mono);
+    font-variant-numeric: tabular-nums;
+    font-weight: 700;
+    width: 100%;
+    min-width: 4.4rem;
+    min-height: 44px;
+    padding: 0.5rem 0.4rem;
+    border-radius: 8px;
+    border: 1px solid transparent;
+    cursor: pointer;
+    text-align: center;
+}
+.cc-cell.cc-band-aaa { background: var(--cc-band-aaa-bg); color: var(--cc-band-aaa-text); }
+.cc-cell.cc-band-aa { background: var(--cc-band-aa-bg); color: var(--cc-band-aa-text); }
+.cc-cell.cc-band-aal { background: var(--cc-band-aal-bg); color: var(--cc-band-aal-text); }
+.cc-cell.cc-band-fail { background: var(--cc-band-fail-bg); color: var(--cc-band-fail-text); }
+@media (hover: hover) {
+    .cc-cell:hover { border-color: var(--cc-ink); color: var(--cc-ink); }
+}
+.cc-cell:focus-visible { outline: 2px solid var(--color-espresso); outline-offset: 1px; }
+.cc-cell-same {
+    display: block;
+    text-align: center;
+    color: var(--cc-muted);
+    padding: 0.5rem 0.4rem;
+}
+
+.cc-legend {
+    list-style: none;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.4rem 1.25rem;
+    margin: 0.9rem 0 0;
+    padding: 0;
+    font-size: 0.82rem;
+    color: var(--cc-muted);
+}
+.cc-legend li { display: flex; align-items: center; gap: 0.45rem; }
+.cc-dot {
+    width: 14px;
+    height: 14px;
+    border-radius: 4px;
+    border: 1px solid var(--cc-line-strong);
+    display: inline-block;
+}
+.cc-dot.cc-band-aaa { background: var(--cc-band-aaa-bg); }
+.cc-dot.cc-band-aa { background: var(--cc-band-aa-bg); }
+.cc-dot.cc-band-aal { background: var(--cc-band-aal-bg); }
+.cc-dot.cc-band-fail { background: var(--cc-band-fail-bg); }
+
+/* ---- Thresholds table ---- */
+.cc-table-scroll { overflow-x: auto; }
+.cc-table {
+    border-collapse: separate;
+    border-spacing: 0;
+    width: 100%;
+    border: 1px solid var(--cc-line);
+    border-radius: 12px;
+    overflow: hidden;
+    font-size: 0.92rem;
+}
+.cc-table thead th {
+    background: #f6ece2;
+    color: var(--cc-ink);
+    font-weight: 700;
+    text-align: left;
+    padding: 0.65rem 0.9rem;
+}
+.cc-table tbody th {
+    font-weight: 500;
+    text-align: left;
+    color: #44403c;
+}
+.cc-table tbody th, .cc-table td {
+    padding: 0.6rem 0.9rem;
+    border-top: 1px solid var(--cc-line);
+    vertical-align: top;
+}
+.cc-table td { font-family: var(--cc-mono); font-weight: 600; color: var(--cc-ink); white-space: nowrap; }
+
+/* ---- How it works ---- */
+.cc-formula {
+    background: #f5f5f4;
+    border: 1px solid #e7e5e4;
+    border-radius: 0.5em;
+    padding: 0.9rem 1.1rem;
+    margin: 0 0 1rem;
+    overflow-x: auto;
+}
+.cc-formula code {
+    font-family: var(--cc-mono);
+    font-size: 0.92rem;
+    color: #292524;
+}
+
+.cc-foot {
+    margin-top: 3rem;
+    text-align: center;
+    font-size: 0.85rem;
+    color: var(--cc-muted);
+}
+.cc-foot a { color: var(--color-caramel); text-decoration: underline; text-underline-offset: 2px; }
+@media (hover: hover) { .cc-foot a:hover { color: var(--color-espresso); } }
+
+@media (prefers-reduced-motion: no-preference) {
+    .cc-sample, .cc-sample p, .cc-card, .cc-badge { transition: background-color 0.2s ease, color 0.2s ease, border-color 0.2s ease; }
+}
