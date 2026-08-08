@@ -19,7 +19,7 @@ cardTitle: I Built an Offline Movie Player for My Wife's Grandparents
 name: Robert James Gabriel
 img: /assets/images/blog/offline-movie-player-for-grandparents.png
 date: 2026-08-08T12:00:00.000Z
-time: 12 min
+time: 14 min
 tags:
   - accessibility
   - usecase
@@ -81,40 +81,73 @@ That one feature turns a general purpose streaming box into a single purpose app
 
 Kodi makes the films look right. Projectivy makes sure Kodi is all there is.
 
+## Before you start
+
+Gather these first. None of it is expensive.
+
+| What | Why |
+|---|---|
+| The streaming box | The device itself |
+| A USB stick, 32GB or larger | Where the films live. Format it FAT32 or exFAT, see the gotchas |
+| A computer | For downloading and organising. I used a Mac |
+| A Google account | Unavoidable, see step 1 |
+| A free TMDb API key | For posters and backdrops |
+| `yt-dlp` and `ffmpeg` installed | The downloader and the file checker |
+
+Budget an evening. Downloading is the slow part, and most of that is waiting.
+
 ## The build, step by step
 
-### 1. Set up the box, then strip it back
+### Step 1. Set up the box and strip it back
 
-You have to sign into a Google account. There is no way around this on Google TV. Use an account you control, then turn things off:
+1. Run through the normal Google TV setup and sign in. **You cannot skip the Google account.** There is no way around it on this platform, so use an account you control rather than theirs.
+2. Open the account settings and turn off every sync option.
+3. Turn off personalised results and ad personalisation.
+4. Turn off the screensaver.
 
-- Every sync option on that account.
-- Personalised results and ad personalisation.
-- **The screensaver.** Not obvious, this one. If Kodi dims while they are still choosing a film, it looks exactly like the box has died, and that is a phone call.
+That last one is not obvious and it matters. If Kodi dims while they are still deciding which film to watch, it looks exactly like the box has died. That is a phone call.
 
-### 2. Install Kodi and Projectivy, then hide everything else
+### Step 2. Install the two apps
 
-Install both from the Play Store, then in Projectivy hide every app that is not Kodi. Anything still visible is somewhere an 85 year old can end up by accident. Two settings do the real work:
+1. From the Play Store, install **Kodi**.
+2. From the Play Store, install **Projectivy Launcher**.
+3. Open Projectivy and set it as the default launcher when prompted.
 
-- In **Projectivy**, set Kodi to launch on boot.
-- In **Kodi**, set the startup window to the **Movies** library. Miss this and Kodi opens on its own home screen, which has its own menu, and you have rebuilt the problem you were solving.
+### Step 3. Make Kodi the only thing they ever see
 
-### 3. Download the films
+This is the step that does the accessibility work.
 
-I used [yt-dlp](https://github.com/yt-dlp/yt-dlp), a command line downloader that pulls video from YouTube and thousands of other sites.
+1. In **Projectivy**, hide every app except Kodi. Anything still visible is somewhere an 85 year old can end up by accident.
+2. In **Projectivy**, set Kodi to **launch on boot**.
+3. In **Kodi**, set the startup window to the **Movies** library.
 
-Two sources: YouTube, and the [Internet Archive](https://archive.org/details/movies). The Archive was consistently better: higher quality copies, no rate limiting, and many of these titles are there precisely because they are public domain or long out of print. If a film is on the Archive, take it from the Archive.
+That third one is easy to miss. Without it Kodi opens on its own home screen, which has its own menu down the side, and you have carefully rebuilt the problem you were solving.
 
-### 4. Check that every file is actually the film
+<!-- TODO: Robert, add the exact menu paths for the Projectivy auto-start setting and Kodi's startup window setting. You have the box in front of you and I would rather name the real paths than describe them. -->
+
+### Step 4. Download the films
+
+1. Find each film on YouTube or the [Internet Archive](https://archive.org/details/movies).
+2. Download it with [yt-dlp](https://github.com/yt-dlp/yt-dlp), a command line downloader that pulls video from YouTube and thousands of other sites.
+3. Pace yourself. Bulk downloading gets you rate limited, see the gotchas.
+
+**Prefer the Archive.** Better quality copies, no rate limiting, and many of these titles are there precisely because they are public domain or long out of print.
+
+### Step 5. Check that every file is actually the film
 
 This is the most useful practical thing in this post.
 
 **A successful download tells you nothing about what is inside the file.**
 
-Several of mine completed perfectly and turned out to be two or three minute clips. A trailer. A scene someone uploaded. A "full movie" that was the first reel. The download succeeded, the file was fine, it just was not the film.
+Several of mine completed perfectly and turned out to be two or three minute clips. A trailer. A scene someone uploaded. A "full movie" that was the first reel.
 
-I checked every file with `ffprobe`, comparing duration against the film's real runtime, and rejected anything under 45 minutes. That caught every bad one. Skip this and you find out when a grandparent selects Sherlock Holmes and gets 150 seconds of it.
+1. Run `ffprobe` on every file to get its duration.
+2. Compare it against the film's real runtime.
+3. Reject anything under 45 minutes.
 
-### 5. Organise into Kodi's layout
+That caught every bad file I had. Skip it and you find out when a grandparent selects Sherlock Holmes and gets 150 seconds of it.
+
+### Step 6. Organise into Kodi's layout
 
 One folder per film. The folder named `Title (Year)`. The video file inside named the same thing.
 
@@ -122,30 +155,34 @@ One folder per film. The folder named `Title (Year)`. The video file inside name
 Sherlock Holmes/
   01 - The Hound of the Baskervilles (1939)/
     01 - The Hound of the Baskervilles (1939).mp4
+    01 - The Hound of the Baskervilles (1939).en.srt
     poster.jpg
     fanart.jpg
     movie.nfo
 ```
 
-This is not cosmetic tidiness. Kodi identifies a film by parsing the folder name. Get it wrong and Kodi either matches the wrong film or gives up.
+This is not cosmetic tidiness. Kodi identifies a film by parsing the folder name. Get it wrong and Kodi either matches the wrong film or gives up entirely.
 
-### 6. Generate the metadata
+### Step 7. Generate the metadata and artwork
 
-I used Claude Code for the file wrangling. The prompt is below so you can adapt it.
+1. Get a free [TMDb API key](https://developer.themoviedb.org/docs/getting-started). It takes about two minutes from your account settings.
+2. For each film, fetch the poster and the backdrop and save them into the film's folder as `poster.jpg` and `fanart.jpg`.
+3. Write a `movie.nfo` in each folder with the title, year, plot, rating and the **TMDb ID**.
 
-### 7. Fetch real artwork from TMDb
+I used Claude Code to do all three across 48 folders. The prompt is in the next section.
 
-A free [TMDb API key](https://developer.themoviedb.org/docs/getting-started) takes about two minutes from your account settings.
+That TMDb ID matters more than it looks. With it written into the NFO, Kodi cannot mis-match the film. There are four different films called *The Hound of the Baskervilles*. The ID removes the guessing.
 
-Every film got a real theatrical poster and a backdrop, saved next to the video as `poster.jpg` and `fanart.jpg`, plus a `movie.nfo` holding title, year, plot, rating and the **TMDb ID**.
+### Step 8. Copy to the stick and point Kodi at it
 
-That last one matters more than it looks. With the ID in the NFO, Kodi cannot mis-match the film. There are four different films called *The Hound of the Baskervilles*. The ID removes the guessing.
-
-### 8. Copy to the stick and index it
-
-Copy the tree to a USB stick, plug it into the back of the onn, and add it as a source in Kodi with the scraper set to **Local information only**.
-
-That phrase is the one to look for. It tells Kodi: do not go online, everything you need is in the folder.
+1. Copy the whole folder tree to the USB stick.
+2. Run `dot_clean /Volumes/YOURDRIVE` if you are on a Mac, then eject it. See the gotchas for why.
+3. Plug the stick into the back of the box.
+4. In Kodi, add the folder as a video source.
+5. Set the content type to **Movies**.
+6. Set the information provider to **Local information only**. This is the setting the whole project depends on. It tells Kodi: do not go online, everything you need is already in the folder.
+7. Set **Movies are in separate folders** to **Yes**.
+8. Let it scan.
 
 **Result:** power on, Kodi opens, a wall of posters, pick one, it plays. 48 films. 16GB. Zero internet.
 
@@ -179,11 +216,11 @@ This was harder than it should have been, and almost none of the difficulty was 
 
 **FAT32 will not take a file of 4GB or more.** One film was a 4.2GB upload that simply could not be written to the stick. It was not a better copy, it was a badly encoded one. I replaced it with a 345MB version of the same film and it looks identical. A 1940s black and white film at 10 Mbps is about ten times the bitrate it has any use for.
 
-**macOS scatters hidden `._` files across FAT32 drives.** I had nearly 250. Kodi can try to scan these as if they were films, producing phantom entries. Run `dot_clean /Volumes/YOURDRIVE` before you eject.
+**macOS scatters hidden `._` files across FAT32 drives.** I had nearly 250. Kodi can try to scan them as if they were films, so you get phantom entries with no artwork. That is what `dot_clean` in step 8 is for.
 
 **Kodi caches artwork in a database, and Refresh does not clear it.** This cost me an evening. I had scanned once with the online scraper before switching to local files, and the wrong artwork stuck. Refreshing did nothing. Changing the setting did nothing. The fix is to **remove the source from the library entirely**, say yes when it asks whether to remove the movies too, then add it back. Nothing less will do it.
 
-**Set "Movies are in separate folders" to Yes.** Leave it on No and Kodi looks for artwork under a different naming convention, finds none, and you get a grid of blank tiles with correct titles.
+**Leaving "Movies are in separate folders" on No** makes Kodi look for artwork under a different naming convention. It finds none, and you get a grid of blank tiles with correct titles under them.
 
 **Bulk downloading gets you rate limited.** After roughly 50 files, YouTube started returning "Sign in to confirm you're not a bot" for everything, including things that had worked minutes earlier. Pace the requests and use the Archive where you can.
 
