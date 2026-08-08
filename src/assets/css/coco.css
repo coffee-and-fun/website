@@ -248,27 +248,46 @@ pre code {
 .prose :not(pre) > code::before,
 .prose :not(pre) > code::after { content: none; }
 
-/* ---- Author card ----
-   Used at the foot of every blog post and at the top of each author page, so
-   it is defined once here rather than in the post template. Colours are checked
-   against the #fffcf7 surface: the name clears AA comfortably, the job title is
-   5.84:1 and the eyebrow 4.93:1, which matters because the eyebrow is small and
-   bold and gets no large-text exemption. */
+/* ---- Author block ----
+   Used at the foot of every blog post. Deliberately has no card, no border and
+   no fill: it sits directly on the page like the rest of the article footer,
+   rather than arriving as a boxed widget bolted underneath it.
+
+   Colours are checked against the cream page, not a card: the name is 12.46:1,
+   the job title 5.54:1. */
 .cf-author {
-	margin-top: 3rem;
-	padding: 1.5rem;
-	border-radius: 1rem;
-	background: #fffcf7;
-	border: 1px solid #ece0d4;
+	margin: 2.5rem 0 2rem;
 }
-.cf-author-eyebrow {
-	margin: 0 0 1rem;
-	font-size: 0.7rem;
-	font-weight: 700;
-	letter-spacing: 0.08em;
-	text-transform: uppercase;
-	color: #786d62;
+
+/* A real h2, set as handwriting to match the sketch notes around it. Not a
+   .sketch-note div, because those are position:absolute and hidden below
+   640px, which would strip this section's accessible name on every phone. */
+.cf-author-label {
+	position: relative;
+	/* inline-block, not the default block: the arrow is positioned at left:100%
+	   and a full width heading would strand it at the far edge of the page. */
+	display: inline-block;
+	margin: 0 0 0.75rem;
+	font-family: 'Caveat', cursive;
+	font-size: 1.6rem;
+	font-weight: 600;
+	line-height: 1;
+	color: var(--color-caramel);
 }
+/* The decorative half. Hidden on small screens the way the other sketches are,
+   which is safe because the heading itself is not inside it. */
+.cf-author-arrow {
+	position: absolute;
+	top: 0.75rem;
+	left: 100%;
+	margin-left: 0.35rem;
+	overflow: visible;
+	pointer-events: none;
+}
+@media (max-width: 639px) {
+	.cf-author-arrow { display: none; }
+}
+
 /* Stacked and centred on a phone, side by side from 480px up. */
 .cf-author-row {
 	display: flex;
@@ -284,11 +303,11 @@ pre code {
 	line-height: 0;
 }
 .cf-author-avatar img {
-	width: 72px;
-	height: 72px;
+	width: 76px;
+	height: 76px;
 	border-radius: 9999px;
 	object-fit: cover;
-	background: var(--color-cream);
+	background: #fffcf7;
 }
 .cf-author-avatar:focus-visible {
 	outline: 2px solid var(--color-espresso);
@@ -323,6 +342,6 @@ pre code {
 		flex-direction: row;
 		align-items: center;
 		text-align: left;
-		gap: 1.25rem;
+		gap: 1.15rem;
 	}
 }

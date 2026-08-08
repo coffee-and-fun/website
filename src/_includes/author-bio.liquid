@@ -1,16 +1,23 @@
 {%- comment -%}
-  The author card at the foot of a blog post.
+  The author block at the foot of a blog post.
 
   A post picks its author with one front matter key:
 
       author: courtney-hood
 
   Leave it out and you get whoever authors.json names as the default, which is
-  Robert. That is why fifty existing posts needed no edit at all.
+  Robert. That is why fifty one existing posts needed no edit at all.
 
   Everything comes from src/_data/authors.json so a name, a job title or a
   photo is changed in exactly one place, not across fifty posts and three
   templates.
+
+  On the heading: it is a real h2, styled as handwriting, rather than one of the
+  .sketch-note divs used elsewhere in this footer. Those are position:absolute
+  and display:none below 640px, which is fine for decoration but would delete
+  the section's accessible name on every phone. The arrow beside it is the
+  decorative half and is aria-hidden, so it can disappear on small screens
+  without taking the heading with it.
 {%- endcomment -%}
 {%- assign authorSlug = author | default: authors.default -%}
 {%- assign bio = false -%}
@@ -18,9 +25,9 @@
   {%- if person.slug == authorSlug -%}{%- assign bio = person -%}{%- endif -%}
 {%- endfor -%}
 {%- comment -%}
-  An unknown slug falls back to the default rather than rendering an empty card,
-  so a typo in front matter degrades to "written by Robert" instead of a hole in
-  the page.
+  An unknown slug falls back to the default rather than rendering an empty
+  block, so a typo in front matter degrades to "written by Robert" instead of a
+  hole in the page.
 {%- endcomment -%}
 {%- unless bio -%}
   {%- for person in authors.people -%}
@@ -29,7 +36,13 @@
 {%- endunless -%}
 
 <aside class="cf-author" aria-labelledby="cf-author-heading">
-  <h2 id="cf-author-heading" class="cf-author-eyebrow">Written by</h2>
+  <h2 id="cf-author-heading" class="cf-author-label">
+    written by
+    <svg class="cf-author-arrow" width="44" height="38" viewBox="0 0 44 38" aria-hidden="true" focusable="false">
+      <path d="M34 4 C33 15, 28 26, 17 32" class="sketch-arrow" />
+      <path d="M26 32 L15 34 L21 24" class="sketch-arrow" />
+    </svg>
+  </h2>
 
   <div class="cf-author-row">
     <a href="{{ bio.url }}" class="cf-author-avatar" tabindex="-1" aria-hidden="true">
