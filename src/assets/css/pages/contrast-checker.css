@@ -1,5 +1,11 @@
 /* Color Contrast Checker.
 
+   Laid out as a tool, not an article: a two column workbench (controls left,
+   results right), with the preview and the palette matrix as full width panels
+   underneath, and the reference material demoted to a narrow column at the
+   bottom. Panels are white on the cream page for an app feel; the brand look
+   stays in the chrome around it.
+
    Every class is cc- prefixed because the page loads the full Tailwind and
    daisyUI bundle: bare names like .btn, .input, .badge or .table belong to
    daisyUI and defining them here would restyle its components. Where a real
@@ -13,8 +19,9 @@
    failed contrast would be a joke at its own expense. */
 
 :root {
+    --cc-panel: #ffffff;
     --cc-surface: #fffcf7;
-    --cc-line: #ece0d4;
+    --cc-line: #e8ddd0;
     --cc-line-strong: #a36942;
     --cc-muted: #6b6259;
     --cc-ink: var(--color-cocoa);
@@ -46,41 +53,67 @@
 
 .cc-wrap {
     width: 100%;
-    max-width: 46rem;
+    max-width: 72rem;
     margin: 0 auto;
-    padding: 2rem 1.25rem 4rem;
+    padding: 1.5rem 1.25rem 4rem;
 }
 
-.cc-intro { position: relative; margin-bottom: 2rem; }
+/* ---- Compact intro ---- */
+.cc-intro { margin-bottom: 1.5rem; }
+.cc-title {
+    font-size: 1.7rem;
+    font-weight: 800;
+    letter-spacing: -0.01em;
+    color: var(--cc-ink);
+    margin: 0 0 0.35rem;
+}
 .cc-lede {
     color: var(--cc-muted);
-    font-size: 1rem;
+    font-size: 0.95rem;
     line-height: 1.55;
-    max-width: 60ch;
+    max-width: 72ch;
     margin: 0;
 }
 
-.cc-step { margin-top: 2.5rem; }
-.cc-step-label {
-    font-size: 0.8rem;
+/* ---- The workbench grid ---- */
+.cc-app {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1.25rem;
+    align-items: start;
+}
+@media (min-width: 1024px) {
+    .cc-app { grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); }
+}
+
+.cc-panel {
+    background: var(--cc-panel);
+    border: 1px solid var(--cc-line);
+    border-radius: 16px;
+    padding: 1.25rem 1.4rem 1.4rem;
+    box-shadow: 0 1px 2px rgb(61 43 31 / 0.04);
+}
+.cc-panel-full { margin-top: 1.25rem; }
+.cc-panel-title {
+    font-size: 0.78rem;
     font-weight: 700;
     letter-spacing: 0.07em;
     text-transform: uppercase;
     color: var(--cc-muted);
-    margin: 0 0 0.9rem;
+    margin: 0 0 1rem;
 }
 .cc-h3 {
-    font-size: 1.05rem;
+    font-size: 0.98rem;
     font-weight: 700;
     color: var(--cc-ink);
-    margin: 1.6rem 0 0.4rem;
+    margin: 0 0 0.4rem;
 }
 .cc-note {
-    font-size: 0.9rem;
+    font-size: 0.88rem;
     color: var(--cc-muted);
     line-height: 1.55;
     margin: 0 0 0.9rem;
-    max-width: 65ch;
+    max-width: 70ch;
 }
 .cc-prose {
     font-size: 1rem;
@@ -91,37 +124,33 @@
 }
 .cc-mono { font-family: var(--cc-mono); font-variant-numeric: tabular-nums; }
 
-/* ---- Inputs ---- */
-.cc-inputs {
-    display: flex;
-    flex-wrap: wrap;
-    align-items: flex-end;
-    gap: 1rem 1.5rem;
-}
+/* ---- Controls panel ---- */
+.cc-field { margin-bottom: 0.9rem; }
 .cc-field label {
     display: block;
-    font-size: 0.9rem;
+    font-size: 0.85rem;
     font-weight: 600;
     color: var(--cc-ink);
     margin-bottom: 0.35rem;
 }
 .cc-field-row { display: flex; align-items: center; gap: 0.5rem; }
 .cc-hex {
-    width: 7.5rem;
+    flex: 1;
+    min-width: 0;
     font-family: var(--cc-mono);
     background: var(--cc-surface);
     border-color: var(--cc-line-strong);
     color: var(--cc-ink);
 }
 .cc-hex[aria-invalid='true'] { border-color: var(--cc-fail-text); }
-.cc-hint { font-size: 0.78rem; color: var(--cc-muted); margin: 0.3rem 0 0; }
+.cc-hint { font-size: 0.76rem; color: var(--cc-muted); margin: 0.3rem 0 0; }
 /* The invalid state speaks in words. The valid and invalid border colors only
    measure 1.57:1 against each other, which is precisely the color-only
    signalling this page tells its visitors not to rely on. */
 .cc-hint-error { color: var(--cc-fail-text); font-weight: 600; }
 
 /* The native color input, sized as a proper 44px touch target with a visible
-   boundary, since a pale swatch on a cream page otherwise disappears. */
+   boundary, since a pale swatch otherwise disappears against the panel. */
 #cc-text-pick, #cc-bg-pick, #cc-link-pick {
     width: 44px;
     height: 44px;
@@ -130,6 +159,7 @@
     border-radius: 10px;
     background: var(--cc-surface);
     cursor: pointer;
+    flex-shrink: 0;
 }
 #cc-text-pick:focus-visible, #cc-bg-pick:focus-visible, #cc-link-pick:focus-visible,
 .cc-hex:focus-visible {
@@ -137,6 +167,9 @@
     outline-offset: 2px;
 }
 
+/* The swap sits between the text and background fields, aligned right, the
+   way column swap arrows usually do in color tools. */
+.cc-swap-row { display: flex; justify-content: flex-end; margin: -0.4rem 0 0.1rem; }
 .cc-eye, .cc-swap {
     appearance: none;
     display: inline-flex;
@@ -145,19 +178,19 @@
     min-height: 44px;
     min-width: 44px;
     justify-content: center;
-    padding: 0.4rem 0.6rem;
+    padding: 0.35rem 0.6rem;
     font: inherit;
-    font-size: 0.85rem;
+    font-size: 0.82rem;
     font-weight: 600;
     color: var(--cc-ink);
-    background: var(--cc-surface);
+    background: var(--cc-panel);
     border: 1px solid var(--cc-line-strong);
     border-radius: 10px;
     cursor: pointer;
 }
 @media (hover: hover) {
     .cc-eye:hover, .cc-swap:hover { background: #f6ece2; color: var(--color-espresso); }
-    .cc-preset:hover { border-color: var(--color-espresso); color: var(--color-espresso); background: var(--cc-surface); }
+    .cc-preset:hover { border-color: var(--color-espresso); color: var(--color-espresso); background: var(--cc-panel); }
 }
 .cc-eye:focus-visible, .cc-swap:focus-visible, .cc-preset:focus-visible {
     outline: 2px solid var(--color-espresso);
@@ -168,20 +201,22 @@
     display: flex;
     flex-wrap: wrap;
     align-items: center;
-    gap: 0.5rem;
+    gap: 0.4rem;
     margin-top: 1.1rem;
+    padding-top: 1rem;
+    border-top: 1px solid var(--cc-line);
 }
-.cc-presets-label { font-size: 0.85rem; color: var(--cc-muted); }
+.cc-presets-label { font-size: 0.82rem; color: var(--cc-muted); }
 .cc-preset {
     appearance: none;
     font: inherit;
-    font-size: 0.85rem;
+    font-size: 0.82rem;
     font-weight: 600;
     color: var(--cc-ink);
-    background: var(--cc-surface);
+    background: var(--cc-panel);
     border: 1px solid var(--cc-line-strong);
     border-radius: 9999px;
-    padding: 0.45rem 0.9rem;
+    padding: 0.4rem 0.85rem;
     min-height: 44px;
     cursor: pointer;
 }
@@ -190,31 +225,175 @@
     display: inline-flex;
     align-items: center;
     gap: 0.5rem;
-    margin-top: 1rem;
-    font-size: 0.9rem;
+    margin-top: 0.9rem;
+    font-size: 0.88rem;
     color: var(--cc-ink);
     cursor: pointer;
 }
 
-/* ---- Preview ---- */
-/* Labels live on the cream page, samples on the chosen background. The labels
-   can never be swallowed by a poorly chosen preview color that way. */
+.cc-share {
+    margin-top: 1.1rem;
+    padding-top: 1rem;
+    border-top: 1px solid var(--cc-line);
+}
+.cc-share-label {
+    display: block;
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: var(--cc-ink);
+    margin-bottom: 0.35rem;
+}
+.cc-share-row { display: flex; gap: 0.5rem; }
+.cc-share-url {
+    flex: 1;
+    min-width: 0;
+    font-family: var(--cc-mono);
+    font-size: 0.78rem;
+    background: var(--cc-surface);
+    border-color: var(--cc-line-strong);
+    color: var(--cc-ink);
+}
+.cc-share-url:focus-visible {
+    outline: 2px solid var(--color-espresso);
+    outline-offset: 2px;
+}
+.cc-btn-solid {
+    --btn-color: var(--color-cocoa);
+    --btn-fg: #fff;
+    /* daisyUI's btn-sm is 32px and its default 40px; every other control on
+       this page is a 44px target, so these two join them. */
+    min-height: 44px;
+}
+
+/* ---- Results panel ---- */
+.cc-hero {
+    background: var(--cc-surface);
+    border: 1px solid var(--cc-line);
+    border-radius: 12px;
+    text-align: center;
+    padding: 1.1rem 1rem 0.9rem;
+}
+.cc-hero-num {
+    margin: 0;
+    font-family: var(--cc-mono);
+    font-variant-numeric: tabular-nums;
+    font-size: clamp(2.4rem, 6vw, 3.4rem);
+    font-weight: 700;
+    line-height: 1;
+    color: var(--cc-ink);
+}
+.cc-hero-sub { margin: 0.4rem 0 0; font-size: 0.85rem; color: var(--cc-muted); }
+
+.cc-cards {
+    list-style: none;
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 0.6rem;
+    padding: 0;
+    margin: 0.75rem 0 0;
+}
+@media (min-width: 480px) { .cc-cards { grid-template-columns: repeat(4, minmax(0, 1fr)); } }
+@media (min-width: 1024px) { .cc-cards { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+@media (min-width: 1280px) { .cc-cards { grid-template-columns: repeat(4, minmax(0, 1fr)); } }
+.cc-card {
+    border-radius: 10px;
+    padding: 0.75rem 0.6rem;
+    text-align: center;
+    background: var(--cc-pass-bg);
+    border: 1px solid var(--cc-pass-line);
+    color: var(--cc-pass-text);
+}
+.cc-card[data-state='fail'] {
+    background: var(--cc-fail-bg);
+    border-color: var(--cc-fail-line);
+    color: var(--cc-fail-text);
+}
+.cc-card-level { display: block; font-weight: 800; font-size: 1rem; letter-spacing: 0.04em; }
+.cc-card-kind { display: block; font-size: 0.78rem; margin-top: 0.1rem; }
+.cc-card-verdict { display: block; font-weight: 800; font-size: 1rem; margin-top: 0.3rem; }
+.cc-card-req { display: block; font-size: 0.74rem; margin-top: 0.15rem; opacity: 0.9; }
+
+.cc-links { margin-top: 1.2rem; padding-top: 1rem; border-top: 1px solid var(--cc-line); }
+.cc-linkstats { margin: 0; }
+.cc-linkstat {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 0.3rem 1rem;
+    padding: 0.5rem 0;
+    border-bottom: 1px solid var(--cc-line);
+}
+.cc-linkstat:last-of-type { border-bottom: 0; }
+.cc-linkstat dt { font-size: 0.9rem; color: var(--cc-ink); font-weight: 600; }
+.cc-linkstat dd { margin: 0; display: flex; align-items: center; gap: 0.5rem; }
+.cc-linkstat .cc-mono { font-weight: 700; color: var(--cc-ink); }
+.cc-badge {
+    display: inline-block;
+    font-size: 0.72rem;
+    font-weight: 700;
+    border-radius: 9999px;
+    padding: 0.2rem 0.6rem;
+    background: var(--cc-pass-bg);
+    border: 1px solid var(--cc-pass-line);
+    color: var(--cc-pass-text);
+}
+.cc-badge[data-state='fail'] {
+    background: var(--cc-fail-bg);
+    border-color: var(--cc-fail-line);
+    color: var(--cc-fail-text);
+}
+
+.cc-fixes { margin-top: 1.2rem; padding-top: 1rem; border-top: 1px solid var(--cc-line); }
+.cc-fix-chips { display: flex; flex-wrap: wrap; gap: 0.5rem; }
+.cc-fix {
+    appearance: none;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    font: inherit;
+    font-size: 0.82rem;
+    font-weight: 600;
+    color: var(--cc-ink);
+    background: var(--cc-panel);
+    border: 1px solid var(--cc-line-strong);
+    border-radius: 9999px;
+    padding: 0.4rem 0.85rem 0.4rem 0.45rem;
+    min-height: 44px;
+    cursor: pointer;
+}
+@media (hover: hover) {
+    .cc-fix:hover { border-color: var(--color-espresso); color: var(--color-espresso); background: var(--cc-panel); }
+}
+.cc-fix:focus-visible { outline: 2px solid var(--color-espresso); outline-offset: 2px; }
+.cc-fix-swatch {
+    width: 26px;
+    height: 26px;
+    border-radius: 9999px;
+    border: 1px solid var(--cc-line-strong);
+    flex-shrink: 0;
+}
+.cc-fix .cc-mono { font-weight: 700; }
+
+/* ---- Preview panel ---- */
+/* Labels live on the panel background, samples on the chosen background, so a
+   poorly chosen preview color can never swallow its own caption. */
 .cc-preview-grid {
     display: grid;
     grid-template-columns: 1fr;
     border: 1px solid var(--cc-line-strong);
-    border-radius: 14px;
+    border-radius: 12px;
     overflow: hidden;
 }
 .cc-size-label {
     margin: 0;
     padding: 0.55rem 1rem 0.15rem;
-    font-size: 0.72rem;
+    font-size: 0.7rem;
     font-weight: 700;
     letter-spacing: 0.06em;
     text-transform: uppercase;
     color: var(--cc-muted);
-    background: var(--color-cream);
+    background: var(--cc-panel);
 }
 .cc-size-label span {
     display: block;
@@ -225,7 +404,7 @@
 }
 .cc-sample {
     background: var(--pv-bg);
-    padding: 0.9rem 1rem;
+    padding: 0.85rem 1rem;
 }
 .cc-sample p { margin: 0; color: var(--pv-text); overflow-wrap: break-word; }
 .cc-s-h1 { font-size: 32px; font-weight: 700; line-height: 1.2; }
@@ -238,7 +417,7 @@
 .cc-preview-grid.cc-no-underline .cc-pv-link { text-decoration: none; }
 
 @media (min-width: 640px) {
-    .cc-preview-grid { grid-template-columns: 12rem 1fr; }
+    .cc-preview-grid { grid-template-columns: 11rem 1fr; }
     .cc-size-label {
         padding: 0.8rem 1rem;
         border-bottom: 1px solid var(--cc-line);
@@ -248,161 +427,30 @@
     .cc-size-label:nth-last-of-type(1), .cc-preview-grid > .cc-sample:last-child { border-bottom: 0; }
 }
 
-/* ---- Results ---- */
-.cc-hero {
-    background: var(--cc-surface);
-    border: 1px solid var(--cc-line);
-    border-radius: 14px;
-    text-align: center;
-    padding: 1.6rem 1rem 1.3rem;
-}
-.cc-hero-num {
-    margin: 0;
-    font-family: var(--cc-mono);
-    font-variant-numeric: tabular-nums;
-    font-size: clamp(2.6rem, 9vw, 4rem);
-    font-weight: 700;
-    line-height: 1;
-    color: var(--cc-ink);
-}
-.cc-hero-sub { margin: 0.5rem 0 0; font-size: 0.9rem; color: var(--cc-muted); }
-
-.cc-cards {
-    list-style: none;
-    display: grid;
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-    gap: 0.75rem;
-    padding: 0;
-    margin: 0.9rem 0 0;
-}
-@media (min-width: 640px) { .cc-cards { grid-template-columns: repeat(4, minmax(0, 1fr)); } }
-.cc-card {
-    border-radius: 12px;
-    padding: 0.9rem 0.75rem;
-    text-align: center;
-    background: var(--cc-pass-bg);
-    border: 1px solid var(--cc-pass-line);
-    color: var(--cc-pass-text);
-}
-.cc-card[data-state='fail'] {
-    background: var(--cc-fail-bg);
-    border-color: var(--cc-fail-line);
-    color: var(--cc-fail-text);
-}
-.cc-card-level { display: block; font-weight: 800; font-size: 1.05rem; letter-spacing: 0.04em; }
-.cc-card-kind { display: block; font-size: 0.82rem; margin-top: 0.1rem; }
-.cc-card-verdict { display: block; font-weight: 800; font-size: 1.05rem; margin-top: 0.35rem; }
-.cc-card-req { display: block; font-size: 0.78rem; margin-top: 0.2rem; opacity: 0.9; }
-
-/* ---- Quick fixes ---- */
-.cc-fixes { margin-top: 1.4rem; }
-.cc-fix-chips { display: flex; flex-wrap: wrap; gap: 0.5rem; }
-.cc-fix {
-    appearance: none;
-    display: inline-flex;
-    align-items: center;
-    gap: 0.5rem;
-    font: inherit;
-    font-size: 0.85rem;
-    font-weight: 600;
-    color: var(--cc-ink);
-    background: var(--cc-surface);
-    border: 1px solid var(--cc-line-strong);
-    border-radius: 9999px;
-    padding: 0.45rem 0.9rem 0.45rem 0.5rem;
-    min-height: 44px;
-    cursor: pointer;
-}
-@media (hover: hover) {
-    .cc-fix:hover { border-color: var(--color-espresso); color: var(--color-espresso); background: var(--cc-surface); }
-}
-.cc-fix:focus-visible { outline: 2px solid var(--color-espresso); outline-offset: 2px; }
-.cc-fix-swatch {
-    width: 26px;
-    height: 26px;
-    border-radius: 9999px;
-    border: 1px solid var(--cc-line-strong);
-    flex-shrink: 0;
-}
-.cc-fix .cc-mono { font-weight: 700; }
-
-/* ---- Link results ---- */
-.cc-links { margin-top: 1.6rem; }
-.cc-linkstats { margin: 0; }
-.cc-linkstat {
-    display: flex;
-    flex-wrap: wrap;
-    align-items: baseline;
-    justify-content: space-between;
-    gap: 0.35rem 1rem;
-    padding: 0.65rem 0;
-    border-bottom: 1px solid var(--cc-line);
-}
-.cc-linkstat dt { font-size: 0.95rem; color: var(--cc-ink); font-weight: 600; }
-.cc-linkstat dd { margin: 0; display: flex; align-items: center; gap: 0.5rem; }
-.cc-linkstat .cc-mono { font-weight: 700; color: var(--cc-ink); }
-.cc-badge {
-    display: inline-block;
-    font-size: 0.75rem;
-    font-weight: 700;
-    border-radius: 9999px;
-    padding: 0.25rem 0.65rem;
-    background: var(--cc-pass-bg);
-    border: 1px solid var(--cc-pass-line);
-    color: var(--cc-pass-text);
-}
-.cc-badge[data-state='fail'] {
-    background: var(--cc-fail-bg);
-    border-color: var(--cc-fail-line);
-    color: var(--cc-fail-text);
-}
-
-/* ---- Share ---- */
-.cc-share { margin-top: 1.6rem; }
-.cc-share-row { display: flex; flex-wrap: wrap; gap: 0.5rem; }
-.cc-share-url {
-    flex: 1;
-    min-width: 220px;
-    font-family: var(--cc-mono);
-    font-size: 0.82rem;
-    background: var(--cc-surface);
-    border-color: var(--cc-line-strong);
-    color: var(--cc-ink);
-}
-.cc-share-url:focus-visible {
-    outline: 2px solid var(--color-espresso);
-    outline-offset: 2px;
-}
-.cc-btn-solid {
-    --btn-color: var(--color-cocoa);
-    --btn-fg: #fff;
-}
-
-/* ---- Matrix ---- */
-.cc-matrix-input { margin-bottom: 1rem; }
+/* ---- Matrix panel ---- */
+.cc-matrix-input { margin-bottom: 0.5rem; }
 .cc-matrix-label {
     display: block;
-    font-size: 0.9rem;
+    font-size: 0.85rem;
     font-weight: 600;
     color: var(--cc-ink);
     margin-bottom: 0.35rem;
 }
+.cc-matrix-row { display: flex; flex-wrap: wrap; gap: 0.6rem; align-items: flex-start; }
 .cc-palette {
     width: 100%;
-    max-width: 22rem;
+    max-width: 20rem;
     font-family: var(--cc-mono);
-    font-size: 0.9rem;
+    font-size: 0.88rem;
     background: var(--cc-surface);
     border-color: var(--cc-line-strong);
     color: var(--cc-ink);
-    margin-bottom: 0.6rem;
-    display: block;
 }
 .cc-palette:focus-visible { outline: 2px solid var(--color-espresso); outline-offset: 2px; }
 
 /* A wide matrix scrolls inside its own container instead of pushing the page
    sideways, same rule as the prose tables. */
-.cc-matrix-scroll { overflow-x: auto; margin-top: 1rem; }
+.cc-matrix-scroll { overflow-x: auto; margin-top: 0.75rem; }
 .cc-matrix-scroll:focus-visible { outline: 2px solid var(--color-espresso); outline-offset: 2px; }
 .cc-matrix-table { border-collapse: separate; border-spacing: 0; font-size: 0.85rem; }
 .cc-matrix-table th {
@@ -412,7 +460,7 @@
     padding: 0.45rem 0.55rem;
     text-align: left;
     white-space: nowrap;
-    background: var(--color-cream);
+    background: var(--cc-surface);
 }
 .cc-matrix-table td { padding: 2px; }
 .cc-swatch {
@@ -461,7 +509,7 @@
     gap: 0.4rem 1.25rem;
     margin: 0.9rem 0 0;
     padding: 0;
-    font-size: 0.82rem;
+    font-size: 0.8rem;
     color: var(--cc-muted);
 }
 .cc-legend li { display: flex; align-items: center; gap: 0.45rem; }
@@ -477,7 +525,19 @@
 .cc-dot.cc-band-aal { background: var(--cc-band-aal-bg); }
 .cc-dot.cc-band-fail { background: var(--cc-band-fail-bg); }
 
-/* ---- Thresholds table ---- */
+/* ---- The learn column ---- */
+.cc-learn { max-width: 46rem; margin-top: 2.5rem; }
+.cc-step { margin-top: 2.25rem; }
+.cc-step-label {
+    font-size: 0.78rem;
+    font-weight: 700;
+    letter-spacing: 0.07em;
+    text-transform: uppercase;
+    color: var(--cc-muted);
+    margin: 0 0 0.9rem;
+}
+.cc-learn .cc-h3 { margin: 1.4rem 0 0.4rem; font-size: 1.02rem; }
+
 .cc-table-scroll { overflow-x: auto; }
 .cc-table {
     border-collapse: separate;
@@ -487,6 +547,7 @@
     border-radius: 12px;
     overflow: hidden;
     font-size: 0.92rem;
+    background: var(--cc-panel);
 }
 .cc-table thead th {
     background: #f6ece2;
@@ -507,7 +568,6 @@
 }
 .cc-table td { font-family: var(--cc-mono); font-weight: 600; color: var(--cc-ink); white-space: nowrap; }
 
-/* ---- How it works ---- */
 .cc-formula {
     background: #f5f5f4;
     border: 1px solid #e7e5e4;
@@ -524,7 +584,6 @@
 
 .cc-foot {
     margin-top: 3rem;
-    text-align: center;
     font-size: 0.85rem;
     color: var(--cc-muted);
 }
