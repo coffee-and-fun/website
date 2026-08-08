@@ -19,7 +19,7 @@ cardTitle: I Built an Offline Movie Player for My Wife's Grandparents
 name: Robert James Gabriel
 img: /assets/images/blog/offline-movie-player-for-grandparents.png
 date: 2026-08-08T12:00:00.000Z
-time: 14 min
+time: 15 min
 tags:
   - accessibility
   - usecase
@@ -88,11 +88,13 @@ Gather these first. None of it is expensive.
 | What | Why |
 |---|---|
 | The streaming box | The device itself |
-| A USB stick, 32GB or larger | Where the films live. Format it FAT32 or exFAT, see the gotchas |
+| A USB stick, 32GB or larger | Where the films live. Format it FAT32, and read the 4GB gotcha before you do |
 | A computer | For downloading and organising. I used a Mac |
 | A Google account | Unavoidable, see step 1 |
 | A free TMDb API key | For posters and backdrops |
-| `yt-dlp` and `ffmpeg` installed | The downloader and the file checker |
+| `yt-dlp` and `ffmpeg` | The downloader and the file checker |
+
+On a Mac both tools are one command: `brew install yt-dlp ffmpeg`. `ffprobe`, which you need in step 5, comes with ffmpeg.
 
 Budget an evening. Downloading is the slow part, and most of that is waiting.
 
@@ -149,7 +151,7 @@ That caught every bad file I had. Skip it and you find out when a grandparent se
 
 ### Step 6. Organise into Kodi's layout
 
-One folder per film. The folder named `Title (Year)`. The video file inside named the same thing.
+One folder per film, with the video file inside named the same as the folder.
 
 ```
 Sherlock Holmes/
@@ -161,7 +163,9 @@ Sherlock Holmes/
     movie.nfo
 ```
 
-This is not cosmetic tidiness. Kodi identifies a film by parsing the folder name. Get it wrong and Kodi either matches the wrong film or gives up entirely.
+This is not cosmetic tidiness. Without an NFO, Kodi identifies a film by parsing the folder name, so getting it wrong means a wrong match or no match.
+
+I kept the leading series number on the folders, as above, because these are two long series and I wanted them in release order on disk. That is safe here only because every folder has a `movie.nfo` and the scraper is set to local files, so Kodi reads the NFO and never has to guess from the folder name. The number gets stripped from the title inside the NFO, which is what actually shows on screen. If you are not writing NFOs, drop the numbers and name the folders plain `Title (Year)`.
 
 ### Step 7. Generate the metadata and artwork
 
@@ -232,13 +236,13 @@ This was harder than it should have been, and almost none of the difficulty was 
 No. You need it during setup, to sign in and install the two apps. After that the box can live with no network at all. Nothing phones home, nothing expires, nothing checks a licence.
 
 **Can I add more films later?**
-Yes. Add the folder to the stick in the same layout, put it back in the box, tell Kodi to update the library. That is the whole process.
+Yes. Add the new folder to the stick in the same layout, put it back in the box, and in Kodi choose to update the library. That is the whole process, and it is the only maintenance this thing needs.
 
 **Do I need a Google account?**
 Yes, and it is the one unavoidable compromise. Google TV will not complete setup without one. You can turn off every sync and personalisation option afterwards, which is what I did.
 
 **What about subtitles?**
-Kodi reads `.srt` files placed next to the video with a matching name. The films I downloaded came with `.vtt` tracks, which convert to `.srt` easily.
+Kodi reads `.srt` files placed next to the video with a matching name. The films I downloaded came with `.vtt` tracks, which ffmpeg converts in one line: `ffmpeg -i subtitles.vtt subtitles.srt`.
 
 **Will this work on other hardware?**
 Any Android TV or Google TV device with a USB port and enough storage.
