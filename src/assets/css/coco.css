@@ -247,3 +247,82 @@ pre code {
 }
 .prose :not(pre) > code::before,
 .prose :not(pre) > code::after { content: none; }
+
+/* ---- Author card ----
+   Used at the foot of every blog post and at the top of each author page, so
+   it is defined once here rather than in the post template. Colours are checked
+   against the #fffcf7 surface: the name clears AA comfortably, the job title is
+   5.84:1 and the eyebrow 4.93:1, which matters because the eyebrow is small and
+   bold and gets no large-text exemption. */
+.cf-author {
+	margin-top: 3rem;
+	padding: 1.5rem;
+	border-radius: 1rem;
+	background: #fffcf7;
+	border: 1px solid #ece0d4;
+}
+.cf-author-eyebrow {
+	margin: 0 0 1rem;
+	font-size: 0.7rem;
+	font-weight: 700;
+	letter-spacing: 0.08em;
+	text-transform: uppercase;
+	color: #786d62;
+}
+/* Stacked and centred on a phone, side by side from 480px up. */
+.cf-author-row {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	text-align: center;
+	gap: 1rem;
+}
+.cf-author-avatar {
+	display: block;
+	flex-shrink: 0;
+	border-radius: 9999px;
+	line-height: 0;
+}
+.cf-author-avatar img {
+	width: 72px;
+	height: 72px;
+	border-radius: 9999px;
+	object-fit: cover;
+	background: var(--color-cream);
+}
+.cf-author-avatar:focus-visible {
+	outline: 2px solid var(--color-espresso);
+	outline-offset: 3px;
+}
+.cf-author-name {
+	margin: 0;
+	font-size: 1.05rem;
+	font-weight: 700;
+	line-height: 1.3;
+}
+.cf-author-name a {
+	color: var(--color-cocoa);
+	text-decoration: none;
+}
+.cf-author-name a:hover {
+	color: var(--color-espresso);
+	text-decoration: underline;
+}
+.cf-author-name a:focus-visible {
+	outline: 2px solid var(--color-espresso);
+	outline-offset: 2px;
+	border-radius: 0.25rem;
+}
+.cf-author-title {
+	margin: 0.15rem 0 0;
+	font-size: 0.9rem;
+	color: #6b6259;
+}
+@media (min-width: 480px) {
+	.cf-author-row {
+		flex-direction: row;
+		align-items: center;
+		text-align: left;
+		gap: 1.25rem;
+	}
+}

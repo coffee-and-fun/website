@@ -8,7 +8,11 @@
   <!-- Primary Meta Tags -->
   <title>{{ title | escape }} - Coffee & Fun LLC</title>
   <meta name="description" content="{{ description | escape }}" />
-  <meta name="author" content="Coffee & Fun LLC" />
+  {%- assign postAuthorSlug = author | default: authors.default -%}
+{%- assign postAuthor = false -%}
+{%- for p in authors.people -%}{%- if p.slug == postAuthorSlug -%}{%- assign postAuthor = p -%}{%- endif -%}{%- endfor -%}
+{%- unless postAuthor -%}{%- for p in authors.people -%}{%- if p.slug == authors.default -%}{%- assign postAuthor = p -%}{%- endif -%}{%- endfor -%}{%- endunless -%}
+  <meta name="author" content="{{ postAuthor.name }}" />
   <meta name="keywords" content="{{ keywords | escape }}" />
   <meta name="robots" content="index, follow" />
   <meta name="rating" content="safe for kids" />
@@ -61,7 +65,13 @@
     "headline": {{ title | json }},
     "description": {{ description | json }},
     "image": "https://www.coffeeandfun.com{{img}}",
-    "author": { "@id": "https://www.coffeeandfun.com/#founder" },
+    "author": {
+      "@type": "Person",
+      {% if postAuthor.slug == authors.default %}"@id": "https://www.coffeeandfun.com/#founder",{% endif %}
+      "name": {{ postAuthor.name | json }},
+      "jobTitle": {{ postAuthor.title | json }},
+      "url": "https://www.coffeeandfun.com{{ postAuthor.url }}"
+    },
     "publisher": { "@id": "https://www.coffeeandfun.com/#organization" },
     "isPartOf": { "@id": "https://www.coffeeandfun.com/#website" },
     "inLanguage": "en",
@@ -184,7 +194,7 @@
           <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 py-4 border-t border-b border-stone-200">
             <div class="flex flex-wrap items-center gap-2 sm:gap-3">
               <span class="inline-flex items-center px-3 py-1 rounded-full text-xs font-medium text-white" style="background-color: var(--color-mocha);">
-                {{name}}
+                <a href="{{ postAuthor.url }}" rel="author" class="text-white no-underline hover:underline">{{ postAuthor.name }}</a>
               </span>
               <time
                 datetime="{{ date | date: '%Y-%m-%d' }}"
@@ -371,6 +381,8 @@
               thanks for reading!
           </div>
         </footer>
+
+        {% include author-bio.liquid %}
       </article>
     </div>
   </main>

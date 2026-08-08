@@ -1,0 +1,51 @@
+{%- comment -%}
+  The author card at the foot of a blog post.
+
+  A post picks its author with one front matter key:
+
+      author: courtney-hood
+
+  Leave it out and you get whoever authors.json names as the default, which is
+  Robert. That is why fifty existing posts needed no edit at all.
+
+  Everything comes from src/_data/authors.json so a name, a job title or a
+  photo is changed in exactly one place, not across fifty posts and three
+  templates.
+{%- endcomment -%}
+{%- assign authorSlug = author | default: authors.default -%}
+{%- assign bio = false -%}
+{%- for person in authors.people -%}
+  {%- if person.slug == authorSlug -%}{%- assign bio = person -%}{%- endif -%}
+{%- endfor -%}
+{%- comment -%}
+  An unknown slug falls back to the default rather than rendering an empty card,
+  so a typo in front matter degrades to "written by Robert" instead of a hole in
+  the page.
+{%- endcomment -%}
+{%- unless bio -%}
+  {%- for person in authors.people -%}
+    {%- if person.slug == authors.default -%}{%- assign bio = person -%}{%- endif -%}
+  {%- endfor -%}
+{%- endunless -%}
+
+<aside class="cf-author" aria-labelledby="cf-author-heading">
+  <h2 id="cf-author-heading" class="cf-author-eyebrow">Written by</h2>
+
+  <div class="cf-author-row">
+    <a href="{{ bio.url }}" class="cf-author-avatar" tabindex="-1" aria-hidden="true">
+      <img
+        src="{{ bio.photo }}"
+        alt=""
+        width="420" height="420"
+        loading="lazy" decoding="async"
+      />
+    </a>
+
+    <div class="cf-author-text">
+      <p class="cf-author-name">
+        <a href="{{ bio.url }}">{{ bio.name }}</a>
+      </p>
+      <p class="cf-author-title">{{ bio.title }}</p>
+    </div>
+  </div>
+</aside>

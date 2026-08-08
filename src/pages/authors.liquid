@@ -1,0 +1,171 @@
+---
+pagination:
+  data: authors.people
+  size: 1
+  alias: person
+permalink: "authors/{{ person.slug }}/"
+eleventyComputed:
+  title: "{{ person.name }}, {{ person.title }} at Coffee & Fun LLC"
+---
+<!DOCTYPE html>
+<html class="antialiased" lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>{{ person.name }} - Coffee &amp; Fun LLC</title>
+    <meta name="title" content="{{ person.name }} - Coffee &amp; Fun LLC" />
+    <meta name="description" content="{{ person.name }} is {{ person.title }} at Coffee &amp; Fun LLC. Read the articles they have written on accessibility, browser extensions and building software people can actually use." />
+    <meta name="author" content="{{ person.name }}" />
+    <meta name="robots" content="index, follow" />
+
+    <link rel="canonical" href="https://www.coffeeandfun.com/authors/{{ person.slug }}/" />
+    <link rel="icon" href="/assets/images/brand/favicon.png" sizes="any" />
+
+    <meta property="og:type" content="profile" />
+    <meta property="og:site_name" content="Coffee &amp; Fun" />
+    <meta property="og:title" content="{{ person.name }} - Coffee &amp; Fun LLC" />
+    <meta property="og:description" content="{{ person.name }} is {{ person.title }} at Coffee &amp; Fun LLC." />
+    <meta property="og:url" content="https://www.coffeeandfun.com/authors/{{ person.slug }}/" />
+    <meta property="og:image" content="https://www.coffeeandfun.com{{ person.photo }}" />
+    <meta property="og:locale" content="en_US" />
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:site" content="@bycoffeeandfun" />
+    <meta name="twitter:title" content="{{ person.name }} - Coffee &amp; Fun LLC" />
+    <meta name="twitter:description" content="{{ person.name }} is {{ person.title }} at Coffee &amp; Fun LLC." />
+    <meta name="twitter:image" content="https://www.coffeeandfun.com{{ person.photo }}" />
+
+    <meta name="theme-color" content="#fef5ec" />
+
+    {%- comment -%}
+      ProfilePage wrapping a Person, with the Person pointed back at the shared
+      Organization graph. mainEntity is what tells a search engine this page is
+      ABOUT this person rather than merely mentioning them, which is the whole
+      reason these pages help the byline on every article.
+    {%- endcomment -%}
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "ProfilePage",
+        "url": "https://www.coffeeandfun.com/authors/{{ person.slug }}/",
+        "name": {{ person.name | json }},
+        "isPartOf": { "@id": "https://www.coffeeandfun.com/#website" },
+        "mainEntity": {
+          "@type": "Person",
+          {% if person.slug == 'robert-james-gabriel' %}"@id": "https://www.coffeeandfun.com/#founder",{% endif %}
+          "name": {{ person.name | json }},
+          "jobTitle": {{ person.title | json }},
+          "url": "https://www.coffeeandfun.com/authors/{{ person.slug }}/",
+          "image": "https://www.coffeeandfun.com{{ person.photo }}",
+          "worksFor": { "@id": "https://www.coffeeandfun.com/#organization" }
+          {%- if person.sameAs and person.sameAs.size > 0 -%},
+          "sameAs": {{ person.sameAs | json }}
+          {%- endif %}
+        }
+      }
+    </script>
+
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "BreadcrumbList",
+        "itemListElement": [
+          { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://www.coffeeandfun.com/" },
+          { "@type": "ListItem", "position": 2, "name": "About", "item": "https://www.coffeeandfun.com/about/" },
+          { "@type": "ListItem", "position": 3, "name": {{ person.name | json }} }
+        ]
+      }
+    </script>
+
+    {% include schema-org.liquid %}
+
+    {% bundledCss %}
+    {% include sketch-styles.liquid %}
+</head>
+
+<body class="brand-color-background">
+  {% include header.liquid %}
+
+  <main id="main-content" class="mx-auto w-full max-w-3xl px-4 sm:px-6 lg:px-8 py-10 sm:py-14">
+
+    <nav aria-label="Breadcrumb" class="mb-8 text-sm text-stone-600">
+      <a href="/" class="hover:text-espresso underline underline-offset-2">Home</a>
+      <span aria-hidden="true" class="mx-2">/</span>
+      <a href="/about/" class="hover:text-espresso underline underline-offset-2">About</a>
+      <span aria-hidden="true" class="mx-2">/</span>
+      <span aria-current="page" class="text-stone-800">{{ person.name }}</span>
+    </nav>
+
+    <header class="flex flex-col items-center text-center sm:flex-row sm:items-center sm:text-left gap-5 sm:gap-7 mb-10">
+      <span class="aura aura-lg {{ person.aura }} inline-block shrink-0" style="--aura-radius: 1.5rem;">
+        <img
+          class="block w-28 h-28 sm:w-32 sm:h-32 object-cover rounded-3xl"
+          src="{{ person.photo }}"
+          alt="{{ person.alt }}"
+          width="420" height="420"
+          decoding="async"
+        />
+      </span>
+      <div>
+        <h1 class="brand-heading text-3xl sm:text-4xl leading-tight mb-1">{{ person.name }}</h1>
+        <p class="text-lg text-caramel" style="font-family: 'Caveat', cursive;">{{ person.title }} at Coffee &amp; Fun LLC</p>
+      </div>
+    </header>
+
+    {%- comment -%}
+      Posts are matched on the article's own front matter, not on a duplicated
+      list, so an author page can never drift from what the articles actually
+      say. A post with no `author` key counts as the default author, which is
+      how fifty existing posts land here without being edited.
+    {%- endcomment -%}
+    {%- assign postCount = 0 -%}
+    {%- for item in collections.all -%}
+      {%- if item.data.isBlog -%}
+        {%- assign itemAuthor = item.data.author | default: authors.default -%}
+        {%- if itemAuthor == person.slug -%}{%- assign postCount = postCount | plus: 1 -%}{%- endif -%}
+      {%- endif -%}
+    {%- endfor -%}
+
+    <section aria-labelledby="articles-heading">
+      <h2 id="articles-heading" class="text-xl font-bold text-stone-900 mb-1">
+        Articles by {{ person.shortName }}
+      </h2>
+      <p class="text-sm text-stone-600 mb-6">
+        {% if postCount == 1 %}1 article{% else %}{{ postCount }} articles{% endif %}
+      </p>
+
+      {% if postCount > 0 %}
+      <ul class="not-prose flex flex-col gap-4">
+        {%- for item in collections.all reversed -%}
+          {%- if item.data.isBlog -%}
+            {%- assign itemAuthor = item.data.author | default: authors.default -%}
+            {%- if itemAuthor == person.slug -%}
+        <li>
+          <a href="{{ item.url }}" class="block rounded-2xl border border-stone-200 bg-white/70 p-5 transition hover:border-mocha focus:outline-none focus-visible:ring-2 focus-visible:ring-espresso focus-visible:ring-offset-2">
+            <h3 class="text-lg font-bold text-stone-900 mb-1">{{ item.data.cardTitle | default: item.data.title }}</h3>
+            <p class="text-sm text-stone-600 mb-2">{{ item.data.description }}</p>
+            <p class="text-xs text-stone-500">
+              <time datetime="{{ item.data.date | date: '%Y-%m-%d' }}">{{ item.data.date | formatDateWithOrdinal }}</time>
+              {% if item.data.time %}<span aria-hidden="true"> &middot; </span>{{ item.data.time }} read{% endif %}
+            </p>
+          </a>
+        </li>
+            {%- endif -%}
+          {%- endif -%}
+        {%- endfor -%}
+      </ul>
+      {% else %}
+      <p class="text-stone-600">{{ person.shortName }} has not published an article yet.</p>
+      {% endif %}
+    </section>
+
+    <p class="mt-10 text-sm">
+      <a href="/about/" class="text-caramel underline underline-offset-2 hover:text-espresso">Meet the rest of the team</a>
+    </p>
+
+  </main>
+
+  {% include modals.liquid %}
+  {% include footer.liquid %}
+</body>
+</html>
