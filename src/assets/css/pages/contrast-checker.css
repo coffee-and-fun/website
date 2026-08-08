@@ -55,13 +55,13 @@
     width: 100%;
     max-width: 72rem;
     margin: 0 auto;
-    padding: 1.5rem 1.25rem 4rem;
+    padding: 2rem 1.25rem 4.5rem;
 }
 
 /* ---- Compact intro ---- */
-.cc-intro { margin-bottom: 1.5rem; }
+.cc-intro { margin-bottom: 2rem; }
 .cc-title {
-    font-size: 1.7rem;
+    font-size: 1.85rem;
     font-weight: 800;
     letter-spacing: -0.01em;
     color: var(--cc-ink);
@@ -79,7 +79,7 @@
 .cc-app {
     display: grid;
     grid-template-columns: 1fr;
-    gap: 1.25rem;
+    gap: 1.5rem;
     align-items: start;
 }
 @media (min-width: 1024px) {
@@ -89,18 +89,18 @@
 .cc-panel {
     background: var(--cc-panel);
     border: 1px solid var(--cc-line);
-    border-radius: 16px;
-    padding: 1.25rem 1.4rem 1.4rem;
-    box-shadow: 0 1px 2px rgb(61 43 31 / 0.04);
+    border-radius: 18px;
+    padding: 1.5rem 1.6rem 1.7rem;
+    box-shadow: 0 1px 2px rgb(61 43 31 / 0.04), 0 14px 34px -24px rgb(61 43 31 / 0.18);
 }
-.cc-panel-full { margin-top: 1.25rem; }
+.cc-panel-full { margin-top: 1.5rem; }
 .cc-panel-title {
     font-size: 0.78rem;
     font-weight: 700;
     letter-spacing: 0.07em;
     text-transform: uppercase;
     color: var(--cc-muted);
-    margin: 0 0 1rem;
+    margin: 0 0 1.25rem;
 }
 .cc-h3 {
     font-size: 0.98rem;
@@ -125,7 +125,7 @@
 .cc-mono { font-family: var(--cc-mono); font-variant-numeric: tabular-nums; }
 
 /* ---- Controls panel ---- */
-.cc-field { margin-bottom: 0.9rem; }
+.cc-field { margin-bottom: 1.1rem; }
 .cc-field label {
     display: block;
     font-size: 0.85rem;
@@ -201,9 +201,9 @@
     display: flex;
     flex-wrap: wrap;
     align-items: center;
-    gap: 0.4rem;
-    margin-top: 1.1rem;
-    padding-top: 1rem;
+    gap: 0.5rem;
+    margin-top: 1.35rem;
+    padding-top: 1.25rem;
     border-top: 1px solid var(--cc-line);
 }
 .cc-presets-label { font-size: 0.82rem; color: var(--cc-muted); }
@@ -232,8 +232,8 @@
 }
 
 .cc-share {
-    margin-top: 1.1rem;
-    padding-top: 1rem;
+    margin-top: 1.35rem;
+    padding-top: 1.25rem;
     border-top: 1px solid var(--cc-line);
 }
 .cc-share-label {
@@ -267,11 +267,11 @@
 
 /* ---- Results panel ---- */
 .cc-hero {
-    background: var(--cc-surface);
+    background: #ffffff;
     border: 1px solid var(--cc-line);
     border-radius: 12px;
     text-align: center;
-    padding: 1.1rem 1rem 0.9rem;
+    padding: 1.6rem 1rem 1.3rem;
 }
 .cc-hero-num {
     margin: 0;
@@ -288,32 +288,32 @@
     list-style: none;
     display: grid;
     grid-template-columns: repeat(2, minmax(0, 1fr));
-    gap: 0.6rem;
+    gap: 0.75rem;
     padding: 0;
-    margin: 0.75rem 0 0;
+    margin: 1rem 0 0;
 }
 @media (min-width: 480px) { .cc-cards { grid-template-columns: repeat(4, minmax(0, 1fr)); } }
 @media (min-width: 1024px) { .cc-cards { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
 @media (min-width: 1280px) { .cc-cards { grid-template-columns: repeat(4, minmax(0, 1fr)); } }
+/* White cards: the verdict is carried by the accent bar and the colored
+   verdict word, on white, rather than a tinted slab. Measured on white the
+   verdict colors clear AA with room: #1a6b2f 6.59:1, #a13025 7.08:1. */
 .cc-card {
     border-radius: 10px;
-    padding: 0.75rem 0.6rem;
+    padding: 0.95rem 0.7rem 0.85rem;
     text-align: center;
-    background: var(--cc-pass-bg);
-    border: 1px solid var(--cc-pass-line);
-    color: var(--cc-pass-text);
+    background: #ffffff;
+    border: 1px solid var(--cc-line);
+    border-top: 3px solid var(--cc-pass-text);
 }
-.cc-card[data-state='fail'] {
-    background: var(--cc-fail-bg);
-    border-color: var(--cc-fail-line);
-    color: var(--cc-fail-text);
-}
-.cc-card-level { display: block; font-weight: 800; font-size: 1rem; letter-spacing: 0.04em; }
-.cc-card-kind { display: block; font-size: 0.78rem; margin-top: 0.1rem; }
-.cc-card-verdict { display: block; font-weight: 800; font-size: 1rem; margin-top: 0.3rem; }
-.cc-card-req { display: block; font-size: 0.74rem; margin-top: 0.15rem; opacity: 0.9; }
+.cc-card[data-state='fail'] { border-top-color: var(--cc-fail-text); }
+.cc-card-level { display: block; font-weight: 800; font-size: 1rem; letter-spacing: 0.04em; color: var(--cc-ink); }
+.cc-card-kind { display: block; font-size: 0.78rem; margin-top: 0.1rem; color: var(--cc-muted); }
+.cc-card-verdict { display: block; font-weight: 800; font-size: 1.05rem; margin-top: 0.35rem; color: var(--cc-pass-text); }
+.cc-card[data-state='fail'] .cc-card-verdict { color: var(--cc-fail-text); }
+.cc-card-req { display: block; font-size: 0.74rem; margin-top: 0.2rem; color: var(--cc-muted); }
 
-.cc-links { margin-top: 1.2rem; padding-top: 1rem; border-top: 1px solid var(--cc-line); }
+.cc-links { margin-top: 1.5rem; padding-top: 1.25rem; border-top: 1px solid var(--cc-line); }
 .cc-linkstats { margin: 0; }
 .cc-linkstat {
     display: flex;
@@ -344,7 +344,7 @@
     color: var(--cc-fail-text);
 }
 
-.cc-fixes { margin-top: 1.2rem; padding-top: 1rem; border-top: 1px solid var(--cc-line); }
+.cc-fixes { margin-top: 1.5rem; padding-top: 1.25rem; border-top: 1px solid var(--cc-line); }
 .cc-fix-chips { display: flex; flex-wrap: wrap; gap: 0.5rem; }
 .cc-fix {
     appearance: none;
@@ -404,7 +404,7 @@
 }
 .cc-sample {
     background: var(--pv-bg);
-    padding: 0.85rem 1rem;
+    padding: 1rem 1.2rem;
 }
 .cc-sample p { margin: 0; color: var(--pv-text); overflow-wrap: break-word; }
 .cc-s-h1 { font-size: 32px; font-weight: 700; line-height: 1.2; }
@@ -526,8 +526,8 @@
 .cc-dot.cc-band-fail { background: var(--cc-band-fail-bg); }
 
 /* ---- The learn column ---- */
-.cc-learn { max-width: 46rem; margin-top: 2.5rem; }
-.cc-step { margin-top: 2.25rem; }
+.cc-learn { max-width: 46rem; margin-top: 3.5rem; }
+.cc-step { margin-top: 2.75rem; }
 .cc-step-label {
     font-size: 0.78rem;
     font-weight: 700;
