@@ -266,6 +266,15 @@
             <h2 class="cc-panel-title" id="h-preview">Preview at every size</h2>
             <p class="cc-note">Each sample is labelled with its CSS size and whether WCAG counts it as normal or large text.</p>
 
+            <fieldset class="cc-cvd">
+                <legend class="cc-cvd-legend">Simulate color vision</legend>
+                <label class="cc-cvd-opt"><input type="radio" class="sr-only" name="cc-cvd" value="none" data-name="typical vision" checked /><span>Typical</span></label>
+                <label class="cc-cvd-opt"><input type="radio" class="sr-only" name="cc-cvd" value="prot" data-name="protanopia, no red cones" /><span>Protanopia</span></label>
+                <label class="cc-cvd-opt"><input type="radio" class="sr-only" name="cc-cvd" value="deuter" data-name="deuteranopia, no green cones" /><span>Deuteranopia</span></label>
+                <label class="cc-cvd-opt"><input type="radio" class="sr-only" name="cc-cvd" value="trit" data-name="tritanopia, no blue cones" /><span>Tritanopia</span></label>
+            </fieldset>
+            <p class="cc-note">The simulation is an approximation, the Machado model at full severity, the same one browser devtools use. A pair can pass its ratio and still be hard to tell apart here, which is exactly what this view is for. Pass and fail always judge the real colors.</p>
+
             <div class="cc-preview-grid" id="cc-preview">
                 <p class="cc-size-label">Heading<span>32px / 24pt bold, large text</span></p>
                 <div class="cc-sample"><p class="cc-s-h1">To infinity and beyond!</p></div>
@@ -374,6 +383,14 @@
 
         <!-- Live status for screen readers -->
         <p class="sr-only" role="status" aria-live="polite" id="cc-live"></p>
+
+        <svg aria-hidden="true" focusable="false" style="position: absolute; width: 0; height: 0; overflow: hidden;">
+            <defs>
+                <filter id="cc-flt-prot"><feColorMatrix type="matrix" values="0.152286 1.052583 -0.204868 0 0 0.114503 0.786281 0.099216 0 0 -0.003882 -0.048116 1.051998 0 0 0 0 0 1 0" /></filter>
+                <filter id="cc-flt-deuter"><feColorMatrix type="matrix" values="0.367322 0.860646 -0.227968 0 0 0.280085 0.672501 0.047413 0 0 -0.011820 0.042940 0.968881 0 0 0 0 0 1 0" /></filter>
+                <filter id="cc-flt-trit"><feColorMatrix type="matrix" values="1.255528 -0.076749 -0.178779 0 0 -0.078411 0.930809 0.147602 0 0 0.004733 0.691367 0.303900 0 0 0 0 0 1 0" /></filter>
+            </defs>
+        </svg>
     </main>
 
     {% include modals.liquid %}

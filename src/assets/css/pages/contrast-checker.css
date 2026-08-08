@@ -415,6 +415,55 @@
 }
 .cc-fix .cc-mono { font-weight: 700; }
 
+/* ---- Vision simulation control ---- */
+.cc-cvd {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.4rem;
+    border: 0;
+    padding: 0;
+    margin: 0 0 0.75rem;
+}
+.cc-cvd-legend {
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: var(--cc-ink);
+    padding: 0;
+    margin-right: 0.35rem;
+}
+.cc-cvd-opt span {
+    display: inline-flex;
+    align-items: center;
+    min-height: 44px;
+    padding: 0.4rem 0.85rem;
+    font-size: 0.82rem;
+    font-weight: 600;
+    color: var(--cc-ink);
+    background: var(--cc-panel);
+    border: 1px solid var(--cc-line-strong);
+    border-radius: 9999px;
+    cursor: pointer;
+}
+.cc-cvd-opt input:checked + span {
+    background: var(--cc-ink);
+    border-color: var(--cc-ink);
+    color: #fff;
+}
+.cc-cvd-opt input:focus-visible + span {
+    outline: 2px solid var(--color-espresso);
+    outline-offset: 2px;
+}
+@media (hover: hover) {
+    .cc-cvd-opt input:not(:checked) + span:hover { border-color: var(--color-espresso); color: var(--color-espresso); background: var(--cc-panel); }
+}
+
+/* The filters apply to the samples only, never the size labels, so the page's
+   own chrome stays readable while the user's colors are being simulated. */
+.cc-cvd-prot .cc-sample { filter: url('#cc-flt-prot'); }
+.cc-cvd-deuter .cc-sample { filter: url('#cc-flt-deuter'); }
+.cc-cvd-trit .cc-sample { filter: url('#cc-flt-trit'); }
+
 /* ---- Preview panel ---- */
 /* Labels live on the panel background, samples on the chosen background, so a
    poorly chosen preview color can never swallow its own caption. */

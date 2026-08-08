@@ -54,7 +54,13 @@ The preview below the checker shows your colors at six real sizes, each labelled
 
 When a pair fails, **Quick fixes** appears with one-click suggestions. Each one keeps your color's hue and only shifts its lightness, just far enough to pass the level named on the chip.
 
-Sometimes no text color can reach a level on your chosen background. Mid-grey backgrounds are the classic case: nothing reaches 7:1 on them, not even pure black. The tool says so honestly instead of pretending, and the fix in that situation is changing the background.
+Sometimes no text color can reach a level on your chosen background. Mid-grey backgrounds are the classic case: nothing reaches 7:1 on them, not even pure black. When that happens the tool offers a background fix instead, and if not even that can get there on its own, it says so honestly rather than pretending.
+
+## See your colors through color blind eyes
+
+Above the preview there is a **Simulate color vision** switch: protanopia (no red cones), deuteranopia (no green cones) and tritanopia (no blue cones). It repaints the preview samples using the same simulation model browser devtools use.
+
+This matters because a contrast ratio only measures brightness difference. A red and a green can pass AA comfortably and still look nearly identical to someone with deuteranopia. The ratio verdicts always judge your real colors, the simulation just lets you see what the ratio cannot.
 
 ## Check your links
 

@@ -156,14 +156,18 @@
     var chips = [];
     var unreachable = [];
     var defs = [
-      { target: 4.5, color: state.text, label: 'Text passes AA', apply: 'text', name: 'AA for text (4.5:1)' },
-      { target: 7, color: state.text, label: 'Text passes AAA', apply: 'text', name: 'AAA for text (7:1)' },
-      { target: 4.5, color: state.link, label: 'Link passes AA', apply: 'link', name: 'AA for links (4.5:1)' }
+      { target: 4.5, color: state.text, label: 'Text passes AA', bgLabel: 'Background for text AA', apply: 'text', name: 'AA for text (4.5:1)' },
+      { target: 7, color: state.text, label: 'Text passes AAA', bgLabel: 'Background for text AAA', apply: 'text', name: 'AAA for text (7:1)' },
+      { target: 4.5, color: state.link, label: 'Link passes AA', bgLabel: 'Background for link AA', apply: 'link', name: 'AA for links (4.5:1)' }
     ];
     defs.forEach(function (d) {
       if (ratio(d.color, state.bg) >= d.target) return;
       var fix = suggestFix(d.color, state.bg, d.target);
-      if (fix) chips.push({ label: d.label, hex: fix, apply: d.apply });
+      if (fix) { chips.push({ label: d.label, hex: fix, apply: d.apply }); return; }
+      /* The foreground cannot get there. The ratio is symmetric, so walk the
+         background's lightness instead, holding the foreground still. */
+      var bgFix = suggestFix(state.bg, d.color, d.target);
+      if (bgFix) chips.push({ label: d.bgLabel, hex: bgFix, apply: 'bg' });
       else unreachable.push(d.name);
     });
 
@@ -172,7 +176,7 @@
     var impossible = $('cc-fix-impossible');
     host.textContent = '';
     impossible.textContent = unreachable.length
-      ? 'Out of reach on this background: ' + unreachable.join(', ') + '. No text color of any lightness gets there, so the honest fix is changing the background.'
+      ? 'Out of reach by changing any single color: ' + unreachable.join(', ') + '. Both colors would need to move.'
       : '';
     impossible.hidden = !unreachable.length;
     if (!chips.length && !unreachable.length) { wrap.hidden = true; return; }
@@ -287,6 +291,19 @@
   });
 
   $('cc-underline').addEventListener('change', render);
+
+  /* Color vision simulation. The classes swap SVG filters onto the preview
+     samples only; the verdicts always judge the true colors, and the note
+     under the control says so. */
+  document.querySelectorAll('input[name="cc-cvd"]').forEach(function (radio) {
+    radio.addEventListener('change', function () {
+      preview.classList.remove('cc-cvd-prot', 'cc-cvd-deuter', 'cc-cvd-trit');
+      if (radio.value !== 'none') preview.classList.add('cc-cvd-' + radio.value);
+      live.textContent = radio.value === 'none'
+        ? 'Preview showing typical color vision.'
+        : 'Preview simulating ' + radio.dataset.name + '. Pass and fail still judge the real colors.';
+    });
+  });
 
   document.querySelectorAll('.cc-preset').forEach(function (btn) {
     btn.addEventListener('click', function () {
