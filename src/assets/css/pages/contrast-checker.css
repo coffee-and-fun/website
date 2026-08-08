@@ -124,7 +124,7 @@
 .cc-mono { font-family: var(--cc-mono); font-variant-numeric: tabular-nums; }
 
 /* ---- Controls panel ---- */
-.cc-field { margin-bottom: 1.1rem; }
+.cc-field { margin-bottom: 1rem; }
 .cc-field label {
     display: block;
     font-size: 0.85rem;
@@ -132,9 +132,17 @@
     color: var(--cc-ink);
     margin-bottom: 0.35rem;
 }
+.cc-label-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.5rem;
+    margin-bottom: 0.35rem;
+}
+.cc-label-row label { margin-bottom: 0; }
 .cc-field-row { display: flex; align-items: center; gap: 0.5rem; }
 .cc-hex {
-    flex: 1;
+    width: 10.5rem;
     min-width: 0;
     font-family: var(--cc-mono);
     background: var(--cc-surface);
@@ -142,33 +150,56 @@
     color: var(--cc-ink);
 }
 .cc-hex[aria-invalid='true'] { border-color: var(--cc-fail-text); }
+/* Visually hidden until it has an error to report; still referenced by each
+   field's aria-describedby so the format guidance always reaches a screen
+   reader. Three identical "A 6 digit hex like" lines were visual noise. */
+.cc-field .cc-hint {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border: 0;
+}
 .cc-hint { font-size: 0.76rem; color: var(--cc-muted); margin: 0.3rem 0 0; }
 /* The invalid state speaks in words. The valid and invalid border colors only
    measure 1.57:1 against each other, which is precisely the color-only
    signalling this page tells its visitors not to rely on. */
 .cc-hint-error { color: var(--cc-fail-text); font-weight: 600; }
+.cc-field .cc-hint.cc-hint-error {
+    position: static;
+    width: auto;
+    height: auto;
+    margin: 0.35rem 0 0;
+    overflow: visible;
+    clip: auto;
+    white-space: normal;
+}
 
 /* The native color input, sized as a proper 44px touch target with a visible
    boundary, since a pale swatch otherwise disappears against the panel. */
 #cc-text-pick, #cc-bg-pick, #cc-link-pick {
     width: 44px;
     height: 44px;
-    padding: 2px;
+    padding: 3px;
     border: 1px solid var(--cc-line-strong);
     border-radius: 10px;
-    background: var(--cc-surface);
+    background: var(--cc-panel);
     cursor: pointer;
     flex-shrink: 0;
 }
+#cc-text-pick::-webkit-color-swatch-wrapper, #cc-bg-pick::-webkit-color-swatch-wrapper, #cc-link-pick::-webkit-color-swatch-wrapper { padding: 0; }
+#cc-text-pick::-webkit-color-swatch, #cc-bg-pick::-webkit-color-swatch, #cc-link-pick::-webkit-color-swatch { border: none; border-radius: 7px; }
+#cc-text-pick::-moz-color-swatch, #cc-bg-pick::-moz-color-swatch, #cc-link-pick::-moz-color-swatch { border: none; border-radius: 7px; }
 #cc-text-pick:focus-visible, #cc-bg-pick:focus-visible, #cc-link-pick:focus-visible,
 .cc-hex:focus-visible {
     outline: 2px solid var(--color-espresso);
     outline-offset: 2px;
 }
 
-/* The swap sits between the text and background fields, aligned right, the
-   way column swap arrows usually do in color tools. */
-.cc-swap-row { display: flex; justify-content: flex-end; margin: -0.4rem 0 0.1rem; }
 .cc-eye, .cc-swap {
     appearance: none;
     display: inline-flex;
@@ -205,7 +236,14 @@
     padding-top: 1.25rem;
     border-top: 1px solid var(--cc-line);
 }
-.cc-presets-label { font-size: 0.82rem; color: var(--cc-muted); }
+.cc-presets-label {
+    display: block;
+    width: 100%;
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: var(--cc-ink);
+    margin-bottom: 0.1rem;
+}
 .cc-preset {
     appearance: none;
     font: inherit;
