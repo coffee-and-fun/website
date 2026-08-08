@@ -95,12 +95,11 @@
 }
 .cc-panel-full { margin-top: 1.5rem; }
 .cc-panel-title {
-    font-size: 0.78rem;
-    font-weight: 700;
-    letter-spacing: 0.07em;
-    text-transform: uppercase;
-    color: var(--cc-muted);
-    margin: 0 0 1.25rem;
+    font-size: 1.15rem;
+    font-weight: 800;
+    letter-spacing: -0.01em;
+    color: var(--cc-ink);
+    margin: 0 0 1.4rem;
 }
 .cc-h3 {
     font-size: 0.98rem;
@@ -118,8 +117,8 @@
 .cc-prose {
     font-size: 1rem;
     color: #44403c;
-    line-height: 1.65;
-    margin: 0 0 1rem;
+    line-height: 1.7;
+    margin: 0 0 1.1rem;
     max-width: 65ch;
 }
 .cc-mono { font-family: var(--cc-mono); font-variant-numeric: tabular-nums; }
@@ -428,7 +427,7 @@
 }
 
 /* ---- Matrix panel ---- */
-.cc-matrix-input { margin-bottom: 0.5rem; }
+.cc-matrix-input { margin-bottom: 1rem; }
 .cc-matrix-label {
     display: block;
     font-size: 0.85rem;
@@ -436,7 +435,7 @@
     color: var(--cc-ink);
     margin-bottom: 0.35rem;
 }
-.cc-matrix-row { display: flex; flex-wrap: wrap; gap: 0.6rem; align-items: flex-start; }
+.cc-matrix-row { display: flex; flex-wrap: wrap; gap: 0.75rem; align-items: flex-start; }
 .cc-palette {
     width: 100%;
     max-width: 20rem;
@@ -450,7 +449,7 @@
 
 /* A wide matrix scrolls inside its own container instead of pushing the page
    sideways, same rule as the prose tables. */
-.cc-matrix-scroll { overflow-x: auto; margin-top: 0.75rem; }
+.cc-matrix-scroll { overflow-x: auto; margin-top: 1.25rem; }
 .cc-matrix-scroll:focus-visible { outline: 2px solid var(--color-espresso); outline-offset: 2px; }
 .cc-matrix-table { border-collapse: separate; border-spacing: 0; font-size: 0.85rem; }
 .cc-matrix-table th {
@@ -506,8 +505,8 @@
     list-style: none;
     display: flex;
     flex-wrap: wrap;
-    gap: 0.4rem 1.25rem;
-    margin: 0.9rem 0 0;
+    gap: 0.5rem 1.5rem;
+    margin: 1.25rem 0 0;
     padding: 0;
     font-size: 0.8rem;
     color: var(--cc-muted);
@@ -526,17 +525,23 @@
 .cc-dot.cc-band-fail { background: var(--cc-band-fail-bg); }
 
 /* ---- The learn column ---- */
-.cc-learn { max-width: 46rem; margin-top: 3.5rem; }
-.cc-step { margin-top: 2.75rem; }
-.cc-step-label {
-    font-size: 0.78rem;
-    font-weight: 700;
-    letter-spacing: 0.07em;
-    text-transform: uppercase;
-    color: var(--cc-muted);
-    margin: 0 0 0.9rem;
+.cc-learn { max-width: 46rem; margin: 4.5rem auto 0; }
+.cc-step {
+    margin-top: 3.25rem;
+    padding-top: 2.5rem;
+    border-top: 1px solid var(--cc-line);
 }
-.cc-learn .cc-h3 { margin: 1.4rem 0 0.4rem; font-size: 1.02rem; }
+.cc-learn > .cc-step:first-child { margin-top: 0; }
+/* Real headings. The old 0.78rem uppercase labels sat visually BELOW the body
+   text they were meant to head, which read upside down. */
+.cc-step-label {
+    font-size: 1.35rem;
+    font-weight: 800;
+    letter-spacing: -0.01em;
+    color: var(--cc-ink);
+    margin: 0 0 1.1rem;
+}
+.cc-learn .cc-h3 { margin: 1.9rem 0 0.45rem; font-size: 1.08rem; }
 
 .cc-table-scroll { overflow-x: auto; }
 .cc-table {
@@ -583,9 +588,10 @@
 }
 
 .cc-foot {
-    margin-top: 3rem;
+    margin-top: 4rem;
     font-size: 0.85rem;
     color: var(--cc-muted);
+    text-align: center;
 }
 .cc-foot a { color: var(--color-caramel); text-decoration: underline; text-underline-offset: 2px; }
 @media (hover: hover) { .cc-foot a:hover { color: var(--color-espresso); } }
