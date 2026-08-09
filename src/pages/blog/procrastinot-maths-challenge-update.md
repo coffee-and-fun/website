@@ -24,7 +24,7 @@ tags:
   - update
 ---
 
-We’re excited to roll out a fresh new update for ProcrastiNOT, bringing in a fun twist and some
+We’re excited to roll out a fresh new update for [ProcrastiNOT](/procrastinot/), bringing in a fun twist and some
 polish to keep things sharp. Let’s break down what’s new!
 
 ## New Feature: Maths Challenge! 🧠
