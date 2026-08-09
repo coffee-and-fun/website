@@ -1,0 +1,26 @@
+{%- comment -%}
+  Shared hero for the web tools. Renders the page <h1>, so a page including this
+  must not also carry its own, or the document ends up with two.
+
+  Content comes from src/_data/toolHero.json keyed by page.url. A page with no
+  entry renders nothing rather than an empty band, so this is safe to include
+  before its copy has been written.
+
+  Colours are brand tokens with two deliberate exceptions. The eyebrow is
+  #fd776d rather than --color-coral because stock coral is 4.49:1 on cocoa and
+  misses AA by 0.01. The subtitle is #d9c9b8 at 8.31:1, warmer than a grey.
+{%- endcomment -%}
+{%- assign hero = toolHero[page.url] -%}
+{%- if hero -%}
+<section class="bg-cocoa px-6 py-16 text-center sm:py-24">
+    <div class="mx-auto max-w-3xl">
+        {%- if hero.eyebrow %}
+        <p class="text-sm font-bold uppercase tracking-widest text-[#fd776d] sm:text-base">{{ hero.eyebrow }}</p>
+        {%- endif %}
+        <h1 class="mt-4 text-4xl font-bold tracking-tight text-cream sm:text-5xl lg:text-6xl">{{ hero.title }}</h1>
+        {%- if hero.subtitle %}
+        <p class="mx-auto mt-6 max-w-2xl text-lg leading-relaxed text-[#d9c9b8] sm:text-xl">{{ hero.subtitle }}</p>
+        {%- endif %}
+    </div>
+</section>
+{%- endif -%}

@@ -1,0 +1,104 @@
+/* Accessible palette generator.
+   Tailwind and daisyUI carry layout. This file holds the swatch mechanics and
+   the colour-vision filters. Class names are apg- prefixed: daisyUI owns .card,
+   .badge, .range, .tabs and friends in the site-wide bundle. */
+
+.apg-swatch {
+	display: block;
+	width: 100%;
+	border: 0;
+	padding: 0;
+	cursor: pointer;
+	text-align: left;
+	font: inherit;
+	border-radius: 0.75rem;
+	overflow: hidden;
+	transition: transform 0.12s ease, box-shadow 0.12s ease;
+}
+
+.apg-swatch:hover { transform: translateY(-2px); box-shadow: 0 6px 16px rgba(61, 43, 31, 0.16); }
+.apg-swatch:focus-visible { outline: 3px solid #7a4e31; outline-offset: 3px; }
+
+/* The chip is the colour itself. Its label sits inside it in whichever of
+   black or white actually passes on that colour, which is the whole promise of
+   the tool made visible rather than asserted. */
+.apg-chip {
+	min-height: 5.5rem;
+	padding: 0.65rem 0.8rem;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+	font-variant-numeric: tabular-nums;
+}
+
+.apg-chip-step { font-size: 0.8125rem; font-weight: 700; letter-spacing: 0.04em; }
+.apg-chip-hex { font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; font-size: 0.8125rem; }
+
+.apg-meta {
+	background: #fffcf7;
+	border-top: 1px solid #ecdcc7;
+	padding: 0.5rem 0.8rem;
+	font-size: 0.75rem;
+	color: #5c4a3a;
+	display: flex;
+	justify-content: space-between;
+	gap: 0.5rem;
+	font-variant-numeric: tabular-nums;
+}
+
+/* Matrix */
+.apg-matrix-wrap { overflow-x: auto; }
+.apg-matrix { border-collapse: separate; border-spacing: 2px; font-size: 0.6875rem; }
+.apg-matrix th {
+	font-weight: 700;
+	color: #5c4a3a;
+	padding: 0.25rem 0.35rem;
+	white-space: nowrap;
+	font-variant-numeric: tabular-nums;
+}
+.apg-matrix td { padding: 0; }
+
+.apg-cell {
+	width: 3.1rem;
+	height: 2.1rem;
+	border: 0;
+	border-radius: 0.35rem;
+	cursor: pointer;
+	font: inherit;
+	font-size: 0.6875rem;
+	font-weight: 700;
+	font-variant-numeric: tabular-nums;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+.apg-cell:focus-visible { outline: 2px solid #3d2b1f; outline-offset: 1px; }
+
+/* Colour-vision simulation. Same Machado matrices the contrast checker uses,
+   applied to the swatch grid only. The numbers never move: a ratio describes
+   luminance, and these filters change hue, so simulating is for spotting two
+   swatches that pass on paper and look identical in practice. */
+.apg-sim-prot .apg-simulate { filter: url('#apg-flt-prot'); }
+.apg-sim-deuter .apg-simulate { filter: url('#apg-flt-deuter'); }
+.apg-sim-trit .apg-simulate { filter: url('#apg-flt-trit'); }
+
+.apg-code {
+	font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+	font-size: 0.8125rem;
+	line-height: 1.6;
+	background: #3d2b1f;
+	color: #fef5ec;
+	border-radius: 0.85rem;
+	padding: 1rem 1.1rem;
+	overflow-x: auto;
+	white-space: pre;
+	tab-size: 2;
+}
+
+.apg-range { accent-color: #7a4e31; height: 2.25rem; cursor: pointer; }
+.apg-range:focus-visible { outline: 2px solid #7a4e31; outline-offset: 2px; border-radius: 9999px; }
+
+@media (prefers-reduced-motion: reduce) {
+	.apg-swatch { transition: none; }
+	.apg-swatch:hover { transform: none; }
+}

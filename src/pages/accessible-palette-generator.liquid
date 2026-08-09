@@ -1,0 +1,340 @@
+<!DOCTYPE html>
+<html class="antialiased" lang="en" data-theme="light" style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Accessible Color Palette Generator (WCAG AA &amp; AAA) - Coffee &amp; Fun LLC</title>
+    <meta name="title" content="Accessible Color Palette Generator (WCAG AA & AAA) - Coffee & Fun LLC" />
+    <meta name="description" content="Generate a colour scale where every step hits a known WCAG contrast ratio. Pick one colour, get 11 accessible steps with ratios, a full pair matrix and CSS, Tailwind, SCSS or JSON." />
+    <meta name="author" content="Coffee & Fun LLC" />
+    <meta name="robots" content="index, follow" />
+
+    <link rel="canonical" href="https://www.coffeeandfun.com/accessible-palette-generator/" />
+    <link rel="icon" href="/assets/images/brand/favicon.png" sizes="any" />
+
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="Coffee & Fun" />
+    <meta property="og:title" content="Accessible Color Palette Generator (WCAG AA & AAA)" />
+    <meta property="og:description" content="Pick one colour and get 11 steps that each hit a known contrast ratio, with a full pair matrix and copy-ready CSS, Tailwind, SCSS or JSON." />
+    <meta property="og:url" content="https://www.coffeeandfun.com/accessible-palette-generator/" />
+    <meta property="og:image" content="https://www.coffeeandfun.com/assets/images/social/pages/accessible-palette-generator.png" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content="Accessible colour palette generator showing an eleven step scale with contrast ratios" />
+    <meta property="og:locale" content="en_US" />
+
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:site" content="@bycoffeeandfun" />
+    <meta name="twitter:title" content="Accessible Color Palette Generator (WCAG AA & AAA)" />
+    <meta name="twitter:description" content="Pick one colour and get 11 steps that each hit a known contrast ratio, with a full pair matrix and copy-ready code." />
+    <meta name="twitter:image" content="https://www.coffeeandfun.com/assets/images/social/pages/accessible-palette-generator.png" />
+    <meta name="twitter:image:alt" content="Accessible colour palette generator showing an eleven step scale with contrast ratios" />
+
+    <meta name="theme-color" content="#3d2b1f" />
+
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@graph": [
+          {
+            "@type": "WebApplication",
+            "@id": "https://www.coffeeandfun.com/accessible-palette-generator/#app",
+            "name": "Accessible Color Palette Generator",
+            "alternateName": "WCAG accessible colour scale generator",
+            "description": "Generate an eleven step colour scale where every step is solved to hit a target WCAG contrast ratio against white, with a full pair matrix, colour vision simulation and copy-ready CSS, Tailwind, SCSS or JSON.",
+            "url": "https://www.coffeeandfun.com/accessible-palette-generator/",
+            "applicationCategory": "DeveloperApplication",
+            "operatingSystem": "Web Browser",
+            "browserRequirements": "Requires JavaScript",
+            "isAccessibleForFree": true,
+            "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" },
+            "publisher": { "@id": "https://www.coffeeandfun.com/#organization" },
+            "featureList": [
+              "Eleven step scale solved to target WCAG contrast ratios",
+              "Contrast against white and black on every step",
+              "Full pair matrix for every step combination",
+              "Matching tinted neutral scale",
+              "Colour vision deficiency simulation",
+              "Export as CSS custom properties, Tailwind theme, SCSS or JSON",
+              "Shareable link"
+            ]
+          },
+          {
+            "@type": "BreadcrumbList",
+            "@id": "https://www.coffeeandfun.com/accessible-palette-generator/#breadcrumb",
+            "itemListElement": [
+              { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://www.coffeeandfun.com/" },
+              { "@type": "ListItem", "position": 2, "name": "Apps and tools", "item": "https://www.coffeeandfun.com/apps/" },
+              { "@type": "ListItem", "position": 3, "name": "Accessible Color Palette Generator", "item": "https://www.coffeeandfun.com/accessible-palette-generator/" }
+            ]
+          },
+          {
+            "@type": "FAQPage",
+            "@id": "https://www.coffeeandfun.com/accessible-palette-generator/#faq",
+            "mainEntity": [
+              {
+                "@type": "Question",
+                "name": "What makes a colour palette accessible?",
+                "acceptedAnswer": {
+                  "@type": "Answer",
+                  "text": "A palette is accessible when the combinations you actually use clear the WCAG contrast thresholds: 4.5 to 1 for normal text at AA, 3 to 1 for large text, and 7 to 1 for normal text at AAA. A palette cannot be accessible on its own, only a pairing can, which is why this tool shows a ratio for every step and a matrix for every combination."
+                }
+              },
+              {
+                "@type": "Question",
+                "name": "How is this different from other palette generators?",
+                "acceptedAnswer": {
+                  "@type": "Answer",
+                  "text": "Most generators pick colours first and let you discover the contrast afterwards. This one works backwards. Each step is defined by the contrast ratio it has to reach against white, and the generator solves for the lightness that lands on it, so step 600 clears AA body text and step 700 clears AAA for any hue you give it."
+                }
+              },
+              {
+                "@type": "Question",
+                "name": "Why does my brand colour change when I paste it in?",
+                "acceptedAnswer": {
+                  "@type": "Answer",
+                  "text": "Your colour sets the hue and saturation of the scale, but each step has to move to the lightness that hits its target ratio. Your exact colour will usually sit closest to whichever step matches its own contrast. The scale is built around your hue rather than being a list that contains your hex unchanged."
+                }
+              },
+              {
+                "@type": "Question",
+                "name": "Does a passing contrast ratio mean the colours are colour blind safe?",
+                "acceptedAnswer": {
+                  "@type": "Answer",
+                  "text": "No. Contrast measures the difference in luminance, not hue. Two colours can pass AA comfortably and still look nearly identical to someone with deuteranopia. Use the simulation toggle to check, and never rely on colour alone to carry meaning."
+                }
+              },
+              {
+                "@type": "Question",
+                "name": "Is anything uploaded?",
+                "acceptedAnswer": {
+                  "@type": "Answer",
+                  "text": "No. Every calculation runs in your browser. Nothing you pick is sent to a server, logged or stored."
+                }
+              }
+            ]
+          }
+        ]
+      }
+    </script>
+
+    {% include schema-org.liquid %}
+
+    {% bundledCss %}
+    {% pageCss "accessible-palette-generator" %}
+</head>
+
+<body class="bg-cream">
+    {% include header.liquid %}
+
+    {% include tool-hero.liquid %}
+
+    <main id="main-content">
+
+
+        <!-- Colour vision filters. Machado et al. severity 1.0, the same matrices
+             browser devtools use. Hidden from layout and from assistive tech. -->
+        <svg aria-hidden="true" focusable="false" style="position:absolute;width:0;height:0;overflow:hidden">
+            <defs>
+                <filter id="apg-flt-prot" color-interpolation-filters="linearRGB">
+                    <feColorMatrix type="matrix" values="0.152286 1.052583 -0.204868 0 0  0.114503 0.786281 0.099216 0 0  -0.003882 -0.048116 1.051998 0 0  0 0 0 1 0" />
+                </filter>
+                <filter id="apg-flt-deuter" color-interpolation-filters="linearRGB">
+                    <feColorMatrix type="matrix" values="0.367322 0.860646 -0.227968 0 0  0.280085 0.672501 0.047413 0 0  -0.011820 0.042940 0.968881 0 0  0 0 0 1 0" />
+                </filter>
+                <filter id="apg-flt-trit" color-interpolation-filters="linearRGB">
+                    <feColorMatrix type="matrix" values="1.255528 -0.076749 -0.178779 0 0  -0.078411 0.930809 0.147602 0 0  0.004733 0.691367 0.303900 0 0  0 0 0 1 0" />
+                </filter>
+            </defs>
+        </svg>
+
+        <section class="px-4 py-10 sm:px-6 sm:py-14" data-apg>
+            <div class="mx-auto grid max-w-7xl gap-6 lg:grid-cols-[20rem_1fr] lg:items-start">
+
+                <!-- Controls -->
+                <div class="rounded-2xl border border-[#ecdcc7] bg-[#fffcf7] p-6 shadow-sm lg:sticky lg:top-32">
+                    <h2 class="text-lg font-bold text-cocoa">Your colour</h2>
+                    <div class="mt-3 flex items-center gap-3">
+                        <label class="sr-only" for="apg-seed">Pick a colour</label>
+                        <input id="apg-seed" data-apg-seed type="color" value="#4f46e5"
+                            class="h-12 w-14 cursor-pointer rounded-lg border border-[#ddc9ae] bg-white p-1" />
+                        <label class="sr-only" for="apg-seed-hex">Colour hex value</label>
+                        <input id="apg-seed-hex" data-apg-seed-hex type="text" spellcheck="false"
+                            class="input w-full rounded-xl border-[#ddc9ae] bg-white font-mono text-sm uppercase text-cocoa" />
+                    </div>
+                    <button type="button" data-apg-random
+                        class="btn btn-sm mt-3 rounded-full border-[#e3d2ba] bg-[#f6ecdd] text-espresso hover:bg-[#efe0cb]">Try another hue</button>
+
+                    <h2 class="mt-8 text-lg font-bold text-cocoa">Name</h2>
+                    <label class="sr-only" for="apg-name">Palette name used in the exported code</label>
+                    <input id="apg-name" data-apg-name type="text" value="brand" spellcheck="false"
+                        class="input mt-2 w-full rounded-xl border-[#ddc9ae] bg-white text-sm text-cocoa" />
+                    <p class="mt-2 text-xs text-[#5c4a3a]">Used for the variable names in the exported code.</p>
+
+                    <h2 class="mt-8 text-lg font-bold text-cocoa">Judge against</h2>
+                    <div class="mt-2 flex gap-2">
+                        <button type="button" data-apg-level="AA" aria-pressed="true"
+                            class="btn btn-sm flex-1 rounded-full border-[#e3d2ba] bg-[#f6ecdd] text-espresso aria-pressed:bg-espresso aria-pressed:text-cream">AA</button>
+                        <button type="button" data-apg-level="AAA" aria-pressed="false"
+                            class="btn btn-sm flex-1 rounded-full border-[#e3d2ba] bg-[#f6ecdd] text-espresso aria-pressed:bg-espresso aria-pressed:text-cream">AAA</button>
+                    </div>
+
+                    <h2 class="mt-8 text-lg font-bold text-cocoa">Simulate colour vision</h2>
+                    <div class="mt-2 flex flex-wrap gap-2">
+                        <button type="button" data-apg-sim="prot" aria-pressed="false"
+                            class="btn btn-xs rounded-full border-[#e3d2ba] bg-[#f6ecdd] text-espresso aria-pressed:bg-espresso aria-pressed:text-cream">Protanopia</button>
+                        <button type="button" data-apg-sim="deuter" aria-pressed="false"
+                            class="btn btn-xs rounded-full border-[#e3d2ba] bg-[#f6ecdd] text-espresso aria-pressed:bg-espresso aria-pressed:text-cream">Deuteranopia</button>
+                        <button type="button" data-apg-sim="trit" aria-pressed="false"
+                            class="btn btn-xs rounded-full border-[#e3d2ba] bg-[#f6ecdd] text-espresso aria-pressed:bg-espresso aria-pressed:text-cream">Tritanopia</button>
+                    </div>
+                    <p class="mt-2 text-xs text-[#5c4a3a]">Repaints the swatches only. The ratios always describe your real colours.</p>
+
+                    <div class="mt-8 flex items-center gap-3">
+                        <input id="apg-neutral" data-apg-neutral-toggle type="checkbox" checked
+                            class="checkbox checkbox-sm border-[#ddc9ae]" />
+                        <label for="apg-neutral" class="text-sm font-semibold text-cocoa">Include a tinted neutral scale</label>
+                    </div>
+
+                    <div class="mt-8 border-t border-[#ecdcc7] pt-6">
+                        <label class="text-sm font-semibold text-cocoa" for="apg-share">Share this palette</label>
+                        <input id="apg-share" data-apg-share readonly
+                            class="input mt-2 w-full rounded-xl border-[#ddc9ae] bg-cream font-mono text-xs text-[#4a3a2c]" />
+                        <button type="button" data-apg-copy-share
+                            class="btn btn-sm mt-2 rounded-full bg-espresso text-cream hover:bg-cocoa">Copy link</button>
+                        <span class="ml-2 text-sm font-medium text-[#1f6b45]" data-apg-share-msg role="status"></span>
+                    </div>
+
+                    <p class="sr-only" data-apg-status role="status"></p>
+                </div>
+
+                <!-- Output -->
+                <div class="space-y-6">
+                    <div class="rounded-2xl border border-[#ecdcc7] bg-[#fffcf7] p-6 shadow-sm">
+                        <h2 class="text-lg font-bold text-cocoa">Your scale</h2>
+                        <p class="mt-1 text-sm text-[#5c4a3a]">Every step is solved to hit a target contrast against white. Select any swatch to copy its hex.</p>
+                        <div class="mt-4 grid grid-cols-2 gap-3 sm:grid-cols-4 lg:grid-cols-6" data-apg-ramp></div>
+
+                        <div data-apg-neutral-wrap>
+                            <h3 class="mt-8 text-base font-bold text-cocoa">Tinted neutral</h3>
+                            <p class="mt-1 text-sm text-[#5c4a3a]">The same scale at low saturation, for text, borders and backgrounds that still belong to your hue.</p>
+                            <div class="mt-4 grid grid-cols-2 gap-3 sm:grid-cols-4 lg:grid-cols-6" data-apg-neutral></div>
+                        </div>
+                    </div>
+
+                    <div class="rounded-2xl border border-[#ecdcc7] bg-[#fffcf7] p-6 shadow-sm">
+                        <h2 class="text-lg font-bold text-cocoa">What is safe for body text</h2>
+                        <div class="mt-3 text-sm leading-relaxed" data-apg-summary></div>
+                    </div>
+
+                    <div class="rounded-2xl border border-[#ecdcc7] bg-[#fffcf7] p-6 shadow-sm">
+                        <h2 class="text-lg font-bold text-cocoa">Every pair</h2>
+                        <p class="mt-1 text-sm text-[#5c4a3a]">Rows are the text colour, columns the background. Select a cell to open that pair in the contrast checker with this palette loaded.</p>
+                        <div class="apg-matrix-wrap mt-4" data-apg-matrix></div>
+                        <div class="mt-4 flex flex-wrap gap-4 text-xs text-[#5c4a3a]">
+                            <span class="flex items-center gap-2"><span class="inline-block h-3 w-6 rounded" style="background:#dcfce7"></span> passes</span>
+                            <span class="flex items-center gap-2"><span class="inline-block h-3 w-6 rounded" style="background:#fef3c7"></span> large text only</span>
+                            <span class="flex items-center gap-2"><span class="inline-block h-3 w-6 rounded" style="background:#fee2e2"></span> fails</span>
+                        </div>
+                    </div>
+
+                    <div class="rounded-2xl border border-[#ecdcc7] bg-[#fffcf7] p-6 shadow-sm">
+                        <div class="flex flex-wrap items-center justify-between gap-3">
+                            <h2 class="text-lg font-bold text-cocoa">Copy the code</h2>
+                            <div class="flex flex-wrap gap-2">
+                                <button type="button" data-apg-format="css" aria-pressed="true"
+                                    class="btn btn-xs rounded-full border-[#e3d2ba] bg-[#f6ecdd] text-espresso aria-pressed:bg-espresso aria-pressed:text-cream">CSS</button>
+                                <button type="button" data-apg-format="tailwind" aria-pressed="false"
+                                    class="btn btn-xs rounded-full border-[#e3d2ba] bg-[#f6ecdd] text-espresso aria-pressed:bg-espresso aria-pressed:text-cream">Tailwind</button>
+                                <button type="button" data-apg-format="scss" aria-pressed="false"
+                                    class="btn btn-xs rounded-full border-[#e3d2ba] bg-[#f6ecdd] text-espresso aria-pressed:bg-espresso aria-pressed:text-cream">SCSS</button>
+                                <button type="button" data-apg-format="json" aria-pressed="false"
+                                    class="btn btn-xs rounded-full border-[#e3d2ba] bg-[#f6ecdd] text-espresso aria-pressed:bg-espresso aria-pressed:text-cream">JSON</button>
+                            </div>
+                        </div>
+                        <pre class="apg-code mt-4"><code data-apg-code></code></pre>
+                        <button type="button" data-apg-copy-code
+                            class="btn btn-sm mt-3 rounded-full bg-espresso text-cream hover:bg-cocoa">Copy code</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Reference -->
+        <section class="border-t border-[#ecdcc7] bg-[#fffcf7] px-6 py-16">
+            <div class="mx-auto max-w-3xl">
+                <h2 class="text-3xl font-bold tracking-tight text-cocoa">How this works, and why it is backwards</h2>
+                <p class="mt-4 text-lg leading-relaxed text-[#4a3a2c]">
+                    Most palette generators choose colours that look good together and leave you
+                    to discover afterwards which combinations are legible. You end up with a
+                    handsome scale and a spreadsheet of failures.
+                </p>
+                <p class="mt-4 text-lg leading-relaxed text-[#4a3a2c]">
+                    This one runs the other way around. WCAG contrast is a pure function of
+                    relative luminance, and contrast against white is just 1.05 divided by the
+                    luminance plus 0.05. That inverts: name a ratio and you get the exact
+                    luminance that produces it. Each of the eleven steps is defined by the ratio
+                    it must reach, and the generator solves for the lightness that lands there.
+                </p>
+                <p class="mt-4 text-lg leading-relaxed text-[#4a3a2c]">
+                    The practical result is that step 600 clears AA for body text on white and
+                    step 700 clears AAA, whatever hue you started from. You are not checking
+                    whether the scale works. It was built from the requirement.
+                </p>
+
+                <h2 class="mt-14 text-3xl font-bold tracking-tight text-cocoa">What it does not tell you</h2>
+                <p class="mt-4 text-lg leading-relaxed text-[#4a3a2c]">
+                    A ratio measures luminance difference and nothing else. Two colours can pass
+                    AA comfortably and still be indistinguishable to someone with deuteranopia,
+                    which is why the simulation toggle exists and why colour should never be the
+                    only thing carrying meaning.
+                </p>
+                <p class="mt-4 text-lg leading-relaxed text-[#4a3a2c]">
+                    It also cannot judge taste. Preserving your hue and saturation while moving
+                    lightness is a blunt instrument, and at the extreme ends of the scale a
+                    saturated hue can look chalky or muddy. Nudge the seed until the middle of
+                    the scale is the colour you actually wanted, then use the ends for
+                    backgrounds and borders rather than for brand moments.
+                </p>
+
+                <h2 class="mt-14 text-3xl font-bold tracking-tight text-cocoa">Questions</h2>
+                <div class="mt-6 space-y-3">
+                    <details class="rounded-xl border border-[#ecdcc7] bg-cream p-5">
+                        <summary class="cursor-pointer text-lg font-semibold text-cocoa">What makes a palette accessible?</summary>
+                        <p class="mt-3 leading-relaxed text-[#4a3a2c]">Strictly, nothing does. A palette cannot pass or fail on its own, only a pairing can: 4.5:1 for normal text at AA, 3:1 for large text, 7:1 for normal text at AAA. That is why this tool gives you a ratio per step and a matrix for every combination rather than a badge on the palette.</p>
+                    </details>
+                    <details class="rounded-xl border border-[#ecdcc7] bg-cream p-5">
+                        <summary class="cursor-pointer text-lg font-semibold text-cocoa">Why did my exact brand hex not appear in the scale?</summary>
+                        <p class="mt-3 leading-relaxed text-[#4a3a2c]">Your colour sets the hue and saturation, but every step has to move to the lightness that hits its target ratio. Your hex will usually sit nearest whichever step matches its own contrast. The scale is built around your hue rather than being a list that happens to contain it.</p>
+                    </details>
+                    <details class="rounded-xl border border-[#ecdcc7] bg-cream p-5">
+                        <summary class="cursor-pointer text-lg font-semibold text-cocoa">Does passing contrast mean colour blind safe?</summary>
+                        <p class="mt-3 leading-relaxed text-[#4a3a2c]">No, and the two are often confused. Contrast is a luminance measurement, so a red and a green can pass AA and still look the same to a large number of people. Check with the simulation, and make sure colour is never the only signal.</p>
+                    </details>
+                    <details class="rounded-xl border border-[#ecdcc7] bg-cream p-5">
+                        <summary class="cursor-pointer text-lg font-semibold text-cocoa">Is anything uploaded?</summary>
+                        <p class="mt-3 leading-relaxed text-[#4a3a2c]">No. Every calculation happens in your browser. Nothing is sent anywhere, logged or stored.</p>
+                    </details>
+                </div>
+
+                <div class="mt-14 rounded-2xl border border-[#ecdcc7] bg-cream p-6">
+                    <p class="text-sm leading-relaxed text-[#4a3a2c]">
+                        Checking a specific pair instead? Use the
+                        <a class="font-semibold text-espresso underline underline-offset-2" href="/contrast-checker/">colour contrast checker</a>.
+                        Testing type rather than colour? Try the
+                        <a class="font-semibold text-espresso underline underline-offset-2" href="/dyslexia-font-tester/">dyslexia font tester</a>,
+                        or see all our <a class="font-semibold text-espresso underline underline-offset-2" href="/apps/">free tools</a>.
+                    </p>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    {% include modals.liquid %}
+    {% include footer.liquid %}
+
+    {% pageJs "accessible-palette-generator" %}
+</body>
+</html>
