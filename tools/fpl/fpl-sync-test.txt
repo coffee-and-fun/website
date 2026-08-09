@@ -1,0 +1,108 @@
+Run a git sync smoke test on this machine. The point is to prove two things that
+nothing else has tested: that a scheduled task actually fires here, and that git
+can pull and push to GitHub without a human answering a prompt. It is not part
+of The Algorithm pipeline and it must not touch it.
+
+Work in `~/Documents/Major/code/coffee/website`. Run every command from that
+directory.
+
+## Safety rules, do not break these
+
+- **Never use a commit message matching "The Algorithm: gameweek".** `status.mjs`
+  treats any unpushed commit matching that as a post awaiting publication, and
+  the `fpl-publish` task would push it. Use the message given below, exactly.
+- **Do not create or edit `src/pages/blog/the-algorithm-gameweek-1.md`.**
+  `status.mjs` gates `shouldGenerate` on that file not existing, so creating it
+  would stop the real gameweek 1 run from ever firing.
+- **Do not touch `src/_data/fplPicks.json`**, and do not run any script in
+  `tools/fpl/`.
+- **Never enter a username, password, token or passphrase.** If git asks for
+  one, that is the test failing, and it is the result we want to know about.
+  Report it rather than trying to get around it.
+- Only ever stage `tools/fpl/heartbeat.log`. Do not use `git add -A` or
+  `git add .`, which would sweep up unrelated files.
+
+## Steps
+
+1. Clear any stale lock left by an earlier crashed git process, then confirm it
+   is gone:
+
+   ```
+   rm -f .git/index.lock .git/cowork-write-test
+   ls .git/index.lock 2>/dev/null && echo "LOCK STILL PRESENT" || echo "lock clear"
+   ```
+
+   If it says LOCK STILL PRESENT, stop and report that. Nothing else will work.
+
+2. Record the starting state, and report all three values:
+
+   ```
+   git log --oneline -1 main
+   git log --oneline -1 origin/main
+   git status --porcelain
+   ```
+
+3. Append one timestamped line to `tools/fpl/heartbeat.log`, creating the file
+   if it does not exist:
+
+   ```
+   date -u "+%Y-%m-%dT%H:%M:%SZ sync test ok" >> tools/fpl/heartbeat.log
+   ```
+
+   This exists so there is always something to commit. Without it `git commit`
+   exits non-zero with "nothing to commit" and the test tells you nothing.
+
+4. Stage and commit only that file:
+
+   ```
+   git add tools/fpl/heartbeat.log
+   git commit -m "chore: git sync heartbeat"
+   ```
+
+   Report the new commit hash.
+
+5. Pull, rebasing so this does not leave a merge commit. Commit first and pull
+   second is deliberate: pulling with a dirty tree is the thing that actually
+   breaks.
+
+   ```
+   GIT_TERMINAL_PROMPT=0 git pull --rebase
+   ```
+
+   - If it reports a conflict, **stop**. Do not resolve it, do not force
+     anything. Report the conflicting paths and leave the repo as it is.
+
+6. Push, with prompting disabled so it fails fast instead of hanging:
+
+   ```
+   GIT_TERMINAL_PROMPT=0 git push
+   ```
+
+   `GIT_TERMINAL_PROMPT=0` matters. A scheduled task that hits an interactive
+   credential prompt hangs forever instead of failing, and you get no signal at
+   all. With it set, missing credentials become an immediate error you can read.
+
+7. Confirm the two refs now match:
+
+   ```
+   git log --oneline -1 main
+   git log --oneline -1 origin/main
+   ```
+
+## Report back
+
+Lead with a one word verdict, PASS or FAIL.
+
+Then:
+
+- The commit hash you created.
+- Whether `main` and `origin/main` matched at the end. This is the actual test.
+  If they match, the push worked.
+- The exact error text if anything failed, quoted verbatim, not paraphrased.
+- The time the task started, so it can be checked against the schedule it was
+  meant to fire on.
+
+If git asked for credentials, say so plainly and quote what it asked. That means
+the mini cannot authenticate to GitHub non-interactively, which means the
+`fpl-publish` task will fail the same way every week, silently, and that is the
+single most useful thing this test can find.
