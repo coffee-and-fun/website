@@ -1,0 +1,24 @@
+{%- comment -%}
+  Related-tools strip. Renders nothing unless src/_data/relatedTools.json has an
+  entry for this page.url, so it is safe to include anywhere.
+
+  Include it INSIDE <main>, before the closing tag. Outside <main> these read as
+  sitewide furniture, which is exactly the boilerplate signal this is meant to
+  avoid: the whole point is a per-page contextual link, not another nav.
+{%- endcomment -%}
+{%- assign cfRelated = relatedTools.related[page.url] -%}
+{%- if cfRelated -%}
+{%- assign cfHelp = relatedTools.help[page.url] -%}
+<aside class="cf-related" aria-labelledby="cf-related-heading">
+  <h2 id="cf-related-heading" class="cf-related-title">More free tools</h2>
+  <ul class="cf-related-list">
+    {%- for cfUrl in cfRelated -%}
+    <li><a href="{{ cfUrl }}">{{ relatedTools.catalog[cfUrl] }}</a></li>
+    {%- endfor -%}
+    {%- if cfHelp -%}
+    <li><a href="{{ cfHelp.url }}">{{ cfHelp.label }}</a></li>
+    {%- endif -%}
+  </ul>
+  <p class="cf-related-all"><a href="/apps/">See all apps and free tools</a></p>
+</aside>
+{%- endif -%}

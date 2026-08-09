@@ -345,3 +345,63 @@ pre code {
 		gap: 1.15rem;
 	}
 }
+
+/* Related-tools strip (src/_includes/related-tools.liquid).
+   Deliberately palette-agnostic: it renders on tool pages whose backgrounds
+   range from brand cream to the games' own art direction, so it borrows
+   currentColor rather than hard-coding cream and espresso. */
+.cf-related {
+	margin-block-start: 3.5rem;
+	padding-block-start: 1.75rem;
+	border-block-start: 1px solid rgba(122, 78, 49, 0.18);
+	border-block-start-color: color-mix(in srgb, currentColor 18%, transparent);
+}
+.cf-related-title {
+	margin: 0 0 0.9rem;
+	font-size: 1rem;
+	font-weight: 700;
+	letter-spacing: 0.04em;
+	text-transform: uppercase;
+	opacity: 0.75;
+}
+.cf-related-list {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 0.5rem 0.75rem;
+	list-style: none;
+	margin: 0;
+	padding: 0;
+}
+.cf-related-list a {
+	display: inline-block;
+	color: inherit;
+	text-decoration: underline;
+	text-underline-offset: 0.18em;
+	padding: 0.45rem 0.85rem;
+	border: 1px solid rgba(122, 78, 49, 0.25);
+	border-color: color-mix(in srgb, currentColor 25%, transparent);
+	border-radius: 9999px;
+	font-size: 0.9375rem;
+	transition: background-color 0.15s ease;
+}
+.cf-related-list a:hover {
+	background-color: rgba(122, 78, 49, 0.09);
+	background-color: color-mix(in srgb, currentColor 9%, transparent);
+}
+.cf-related-list a:focus-visible {
+	outline: 2px solid currentColor;
+	outline-offset: 2px;
+}
+.cf-related-all {
+	margin: 1rem 0 0;
+	font-size: 0.9375rem;
+}
+.cf-related-all a {
+	color: inherit;
+	text-decoration: underline;
+	text-underline-offset: 0.18em;
+	opacity: 0.85;
+}
+@media (prefers-reduced-motion: reduce) {
+	.cf-related-list a { transition: none; }
+}
