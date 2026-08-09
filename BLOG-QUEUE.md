@@ -31,6 +31,21 @@ The July 2026 batch failed because it was well-written filler. Every post here m
 10. [ ] **How to Catch an App Phoning Home (Practice on Ours)**: DevTools + Proxyman walkthrough with our own app as the guinea pig; the punchline is the boring empty request log. SEO: "how to see what data an app sends", "check if app is tracking you".
 11. [ ] **How to Delete Your Data from OpenAI, Who to Email, and What Can't Be Removed**: Settings path, privacy portal, DSAR email, GDPR vs elsewhere, and the honest half nobody writes: what survives deletion (safety retention, de-identified data, litigation holds, VERIFY current policy at write time). SEO: "delete OpenAI data", "OpenAI GDPR request".
 
+## Running series: The Options Menu (game accessibility reviews)
+
+Methodology post is live at `/blog/how-we-score-game-accessibility/`. Every review
+scores five categories out of five (Seeing, Hearing, Playing, Understanding, Finding
+it) for 25 total, using the shape described in that post: scorecard table up top, a
+full settings inventory per category with the exact values, what is missing, the menu
+path, one thing nailed, one thing missed, and the three settings to change first.
+
+Slug convention `blog/<game>-accessibility-settings/`. Robert plays the games and
+supplies the menu screenshots, so **the writer must not draft one of these unattended**:
+a review invented from memory would be fabricated receipts about a real product. Ask
+which game, or skip to the next queue item.
+
+A running scoreboard page goes up once there are three or four reviews to rank.
+
 ## Icebox (not scheduled)
 
 Ideas inherited from the old `blog-ideas.md` queue. The writer never touches this section:
