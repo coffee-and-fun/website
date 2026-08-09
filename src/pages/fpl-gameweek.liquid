@@ -1,0 +1,135 @@
+---
+pagination:
+  data: fplPicks
+  size: 1
+  alias: week
+permalink: "fpl/gameweek-{{ week.gameweek }}/"
+---
+<!DOCTYPE html>
+<html class="brand-color-background antialiased" lang="en" data-theme="light" style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Gameweek {{ week.gameweek }} AI FPL Picks - Coffee &amp; Fun LLC</title>
+    <meta name="title" content="Gameweek {{ week.gameweek }} AI FPL Picks - Coffee & Fun LLC" />
+    <meta name="description" content="The team an AI picked for Fantasy Premier League gameweek {{ week.gameweek }}: {{ week.formation }}, captained by {{ week.captain.name }}, with the reasoning published before the deadline." />
+    <meta name="author" content="Coffee & Fun LLC" />
+    <meta name="robots" content="index, follow" />
+
+    <link rel="canonical" href="https://www.coffeeandfun.com/fpl/gameweek-{{ week.gameweek }}/" />
+    <link rel="icon" href="/assets/images/brand/favicon.png" sizes="any" />
+
+    <meta property="og:type" content="article" />
+    <meta property="og:site_name" content="Coffee & Fun" />
+    <meta property="og:title" content="Gameweek {{ week.gameweek }} AI FPL Picks" />
+    <meta property="og:description" content="{{ week.formation }}, captained by {{ week.captain.name }}. Picked by an AI and published before the deadline." />
+    <meta property="og:url" content="https://www.coffeeandfun.com/fpl/gameweek-{{ week.gameweek }}/" />
+    <meta property="og:image" content="https://www.coffeeandfun.com/assets/images/social/pages/fpl.png" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content="Can you beat our AI in Fantasy Premier League? Join our league, code BSG8NZ" />
+    <meta property="og:locale" content="en_US" />
+
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:site" content="@bycoffeeandfun" />
+    <meta name="twitter:title" content="Gameweek {{ week.gameweek }} AI FPL Picks" />
+    <meta name="twitter:description" content="{{ week.formation }}, captained by {{ week.captain.name }}." />
+    <meta name="twitter:image" content="https://www.coffeeandfun.com/assets/images/social/pages/fpl.png" />
+    <meta name="twitter:image:alt" content="Can you beat our AI in Fantasy Premier League? Join our league, code BSG8NZ" />
+
+    <meta name="theme-color" content="#fef5ec" />
+
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@graph": [
+          {
+            "@type": "WebPage",
+            "@id": "https://www.coffeeandfun.com/fpl/gameweek-{{ week.gameweek }}/#webpage",
+            "url": "https://www.coffeeandfun.com/fpl/gameweek-{{ week.gameweek }}/",
+            "name": "Gameweek {{ week.gameweek }} AI FPL Picks",
+            "description": "The squad an AI picked for gameweek {{ week.gameweek }}, published before the deadline.",
+            "inLanguage": "en",
+            "datePublished": "{{ week.generatedAt }}",
+            "isPartOf": { "@id": "https://www.coffeeandfun.com/#website" },
+            "publisher": { "@id": "https://www.coffeeandfun.com/#organization" }
+          },
+          {
+            "@type": "BreadcrumbList",
+            "@id": "https://www.coffeeandfun.com/fpl/gameweek-{{ week.gameweek }}/#breadcrumb",
+            "itemListElement": [
+              { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://www.coffeeandfun.com/" },
+              { "@type": "ListItem", "position": 2, "name": "AI Fantasy Premier League Picks", "item": "https://www.coffeeandfun.com/fpl/" },
+              { "@type": "ListItem", "position": 3, "name": "Gameweek {{ week.gameweek }}", "item": "https://www.coffeeandfun.com/fpl/gameweek-{{ week.gameweek }}/" }
+            ]
+          }
+        ]
+      }
+    </script>
+
+    {% include schema-org.liquid %}
+
+    {% bundledCss %}
+    {% pageCss "fpl" %}
+    {% include sketch-styles.liquid %}
+</head>
+
+<body>
+    {% include header.liquid %}
+
+    <main id="main-content" class="fpl-wrap">
+
+        <section class="fpl-hero">
+            <p class="fpl-status">Gameweek {{ week.gameweek }}</p>
+            <h1>The team the algorithm picked for gameweek {{ week.gameweek }}</h1>
+            <p class="fpl-lede">
+                {{ week.formation }}, captained by {{ week.captain.name }}. Published before the
+                deadline, never after the results.
+            </p>
+        </section>
+
+        {% include fpl-xi.liquid %}
+
+        <nav class="fpl-gwnav" aria-label="Gameweek navigation">
+            {%- assign prev = week.gameweek | minus: 1 -%}
+            {%- assign next = week.gameweek | plus: 1 -%}
+            {%- assign hasPrev = false -%}
+            {%- assign hasNext = false -%}
+            {%- for w in fplPicks -%}
+              {%- if w.gameweek == prev %}{% assign hasPrev = true %}{% endif -%}
+              {%- if w.gameweek == next %}{% assign hasNext = true %}{% endif -%}
+            {%- endfor -%}
+
+            {%- if hasPrev -%}
+            <a href="/fpl/gameweek-{{ prev }}/" rel="prev">&larr; Gameweek {{ prev }}</a>
+            {%- else -%}
+            <span>No earlier gameweek</span>
+            {%- endif -%}
+
+            {%- if hasNext -%}
+            <a href="/fpl/gameweek-{{ next }}/" rel="next">Gameweek {{ next }} &rarr;</a>
+            {%- else -%}
+            <a href="/fpl/">Latest team &rarr;</a>
+            {%- endif -%}
+        </nav>
+
+        <section class="fpl-section">
+            <h2>Every gameweek so far</h2>
+            <ul class="fpl-gwlist">
+                {%- for w in fplPicks -%}
+                <li><a href="/fpl/gameweek-{{ w.gameweek }}/"{% if w.gameweek == week.gameweek %} aria-current="page"{% endif %}>{{ w.gameweek }}</a></li>
+                {%- endfor -%}
+            </ul>
+            <p style="margin-top:1.25rem">
+                <a href="/fpl/">Back to the current team</a>, or read
+                <a href="/blog/ai-fantasy-premier-league-experiment/">how the experiment works</a>.
+            </p>
+        </section>
+
+    </main>
+
+    {% include modals.liquid %}
+    {% include footer.liquid %}
+</body>
+</html>

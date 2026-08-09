@@ -162,7 +162,7 @@
     <main id="main-content" class="fpl-wrap">
 
         <section class="fpl-hero">
-            <p class="fpl-status">Coming soon</p>
+            {%- if fplPicks.size > 0 -%}<p class="fpl-status">Live, updated every gameweek</p>{%- else -%}<p class="fpl-status">Coming soon</p>{%- endif -%}
             <h1>An AI picks a Fantasy Premier League team, every gameweek</h1>
             <p class="fpl-lede">
                 This page will show the squad an AI has chosen for the 2026/27 season: the starting
@@ -204,6 +204,19 @@
                 </li>
             </ul>
 
+{%- assign latest = fplPicks | last -%}
+            {%- if latest -%}
+            {%- assign week = latest -%}
+            {% include fpl-xi.liquid %}
+            {%- if fplPicks.size > 1 -%}
+            <p class="fpl-team-foot">Earlier gameweeks: 
+                {%- for w in fplPicks reversed -%}
+                {%- unless forloop.first %} {% endunless -%}
+                <a href="/fpl/gameweek-{{ w.gameweek }}/">GW{{ w.gameweek }}</a>{% unless forloop.last %},{% endunless %}
+                {%- endfor -%}
+            </p>
+            {%- endif -%}
+            {%- else -%}
             <div class="fpl-pitch" aria-hidden="true">
                 <div class="fpl-row"><span class="fpl-slot"></span></div>
                 <div class="fpl-row"><span class="fpl-slot"></span><span class="fpl-slot"></span><span class="fpl-slot"></span><span class="fpl-slot"></span></div>
@@ -211,6 +224,7 @@
                 <div class="fpl-row"><span class="fpl-slot"></span><span class="fpl-slot"></span></div>
             </div>
             <p class="fpl-pitch-note">An empty formation. The real eleven appears here from 21 August.</p>
+            {%- endif -%}
         </section>
 
         <section class="fpl-section">

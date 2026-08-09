@@ -1,0 +1,87 @@
+{%- comment -%}
+  Renders one gameweek's team. Expects `week` to be set by the caller, e.g.
+
+    {% assign week = fplPicks | last %}
+    {% include fpl-xi.liquid %}
+
+  Positions are grouped rather than hard-coded to a formation, so a 3-4-3 and a
+  5-2-3 both lay out correctly without the template knowing which is which.
+{%- endcomment -%}
+{%- assign gks = week.startingXI | where: "position", "GK" -%}
+{%- assign defs = week.startingXI | where: "position", "DEF" -%}
+{%- assign mids = week.startingXI | where: "position", "MID" -%}
+{%- assign fwds = week.startingXI | where: "position", "FWD" -%}
+
+<div class="fpl-team">
+    <div class="fpl-team-head">
+        <div>
+            <p class="fpl-team-gw">Gameweek {{ week.gameweek }}</p>
+            <p class="fpl-team-formation">{{ week.formation }} &middot; £{{ week.budget.spent }}m of £{{ week.budget.cap }}m</p>
+        </div>
+        <div class="fpl-team-xp">
+            <span class="fpl-xp-num">{{ week.expectedPoints.withCaptainDoubled }}</span>
+            <span class="fpl-xp-lab">expected points, captain doubled</span>
+        </div>
+    </div>
+
+    {%- comment -%}
+      Four rows written out rather than looped over a split string. The looped
+      version silently rendered a single row: the for-in-split-filter form did
+      not iterate here, so every row fell through the case to the last branch.
+      Four lines of repetition beats a clever construct that fails quietly.
+    {%- endcomment -%}
+    <div class="fpl-pitch fpl-pitch-live">
+        <div class="fpl-row">
+            {%- for p in gks -%}{% include fpl-player.liquid %}{%- endfor -%}
+        </div>
+        <div class="fpl-row">
+            {%- for p in defs -%}{% include fpl-player.liquid %}{%- endfor -%}
+        </div>
+        <div class="fpl-row">
+            {%- for p in mids -%}{% include fpl-player.liquid %}{%- endfor -%}
+        </div>
+        <div class="fpl-row">
+            {%- for p in fwds -%}{% include fpl-player.liquid %}{%- endfor -%}
+        </div>
+    </div>
+
+    <div class="fpl-bench">
+        <p class="fpl-bench-label">Bench, in order</p>
+        <ol class="fpl-bench-list">
+            {%- for p in week.bench -%}
+            <li><strong>{{ p.name }}</strong> <span>{{ p.club }} &middot; {{ p.position }} &middot; {{ p.xP }}xP</span></li>
+            {%- endfor -%}
+        </ol>
+    </div>
+
+    <div class="fpl-callouts">
+        <div class="fpl-callout">
+            <h3>The captain</h3>
+            <p><strong>{{ week.captain.name }}</strong> ({{ week.captain.club }}), {{ week.captain.xP }} expected points, owned by {{ week.captain.owned }}%.</p>
+            {%- if week.wentDifferential %}
+            <p class="fpl-brave">Went differential. The safe pick was {{ week.safestPick.name }} at {{ week.safestPick.owned }}% ownership.</p>
+            {%- else %}
+            <p>The highest expected points in the squad. No differential was close enough to justify the risk.</p>
+            {%- endif %}
+        </div>
+        <div class="fpl-callout">
+            <h3>Transfers</h3>
+            {%- if week.transfers.action == "transfer" %}
+            <p>
+                Out: {% for p in week.transfers.out %}<strong>{{ p.name }}</strong>{% unless forloop.last %}, {% endunless %}{% endfor %}.
+                In: {% for p in week.transfers.in %}<strong>{{ p.name }}</strong>{% unless forloop.last %}, {% endunless %}{% endfor %}.
+            </p>
+            <p>Net gain {{ week.transfers.netGain }} expected points. {{ week.transfers.note }}</p>
+            {%- elsif week.transfers.action == "roll" %}
+            <p>Transfer rolled. {{ week.transfers.reason }}</p>
+            {%- else %}
+            <p>Opening squad, picked from scratch.</p>
+            {%- endif %}
+        </div>
+    </div>
+
+    <p class="fpl-team-foot">
+        Picked {{ week.generatedAt | date: "%e %B %Y" }}, before the deadline.
+        <a href="{{ week.postUrl }}">Read the full reasoning</a>.
+    </p>
+</div>

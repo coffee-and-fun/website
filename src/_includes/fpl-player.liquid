@@ -1,0 +1,9 @@
+{%- comment -%}
+  One player chip on the pitch. Expects `p` (the player) and `week` in scope.
+{%- endcomment -%}
+<div class="fpl-player{% if p.name == week.captain.name %} is-captain{% endif %}">
+    <span class="fpl-player-name">{{ p.name }}</span>
+    <span class="fpl-player-meta">{{ p.club }} &middot; {{ p.xP }}xP</span>
+    {%- if p.name == week.captain.name %}<span class="fpl-armband" title="Captain">C</span>{% endif -%}
+    {%- if p.name == week.viceCaptain.name %}<span class="fpl-armband fpl-vice" title="Vice captain">V</span>{% endif -%}
+</div>

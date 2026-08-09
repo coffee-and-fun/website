@@ -403,3 +403,114 @@
 @media (prefers-reduced-motion: reduce) {
   .fpl-btn, .fpl-copy { transition: none; }
 }
+
+/* ---------- live team view (src/_includes/fpl-xi.liquid) ---------- */
+
+.fpl-team {
+	background: #fffcf7;
+	border: 1px solid #ecdcc7;
+	border-radius: 1.25rem;
+	padding: 1.5rem;
+	margin-top: 1.75rem;
+}
+@media (min-width: 640px) { .fpl-team { padding: 2rem; } }
+
+.fpl-team-head {
+	display: flex;
+	flex-wrap: wrap;
+	align-items: flex-start;
+	justify-content: space-between;
+	gap: 1rem;
+	margin-bottom: 1.5rem;
+}
+.fpl-team-gw { margin: 0; font-size: 1.35rem; font-weight: 800; color: var(--color-cocoa); }
+.fpl-team-formation { margin: 0.15rem 0 0; font-size: 0.9375rem; color: #5c4a3a; }
+.fpl-team-xp { text-align: right; }
+.fpl-xp-num { display: block; font-size: 2rem; font-weight: 800; line-height: 1; color: var(--color-espresso); font-variant-numeric: tabular-nums; }
+.fpl-xp-lab { display: block; font-size: 0.75rem; color: #5c4a3a; max-width: 11rem; }
+
+.fpl-pitch-live { background: #eef7f0; border-color: #d3e7d9; gap: 1rem; }
+
+.fpl-player {
+	position: relative;
+	flex: 0 1 8.5rem;
+	min-width: 6.5rem;
+	background: #fffcf7;
+	border: 1px solid #cfe2d5;
+	border-radius: 0.7rem;
+	padding: 0.55rem 0.5rem;
+	text-align: center;
+}
+.fpl-player.is-captain { border-color: var(--color-espresso); box-shadow: 0 0 0 2px rgba(122, 78, 49, 0.18); }
+.fpl-player-name { display: block; font-size: 0.875rem; font-weight: 700; color: var(--color-cocoa); }
+.fpl-player-meta { display: block; font-size: 0.75rem; color: #5c4a3a; font-variant-numeric: tabular-nums; }
+
+.fpl-armband {
+	position: absolute;
+	top: -0.45rem;
+	right: -0.45rem;
+	width: 1.4rem;
+	height: 1.4rem;
+	border-radius: 9999px;
+	background: var(--color-espresso);
+	color: #fffcf7;
+	font-size: 0.7rem;
+	font-weight: 800;
+	line-height: 1.4rem;
+}
+.fpl-armband.fpl-vice { background: #96603c; }
+
+.fpl-bench { margin-top: 1.5rem; }
+.fpl-bench-label { margin: 0 0 0.5rem; font-size: 0.75rem; font-weight: 700; letter-spacing: 0.07em; text-transform: uppercase; color: #5c4a3a; }
+.fpl-bench-list { list-style: decimal; padding-left: 1.35rem; margin: 0; display: grid; gap: 0.35rem; }
+.fpl-bench-list li { font-size: 0.9375rem; color: var(--color-cocoa); }
+.fpl-bench-list li span { color: #5c4a3a; font-size: 0.875rem; }
+.fpl-bench-list li::marker { color: var(--color-caramel); font-weight: 700; }
+
+.fpl-callouts { display: grid; gap: 1rem; margin-top: 1.5rem; }
+@media (min-width: 700px) { .fpl-callouts { grid-template-columns: 1fr 1fr; } }
+.fpl-callout { background: var(--color-cream); border: 1px solid #ecdcc7; border-radius: 0.85rem; padding: 1.1rem 1.2rem; }
+.fpl-callout h3 { margin: 0 0 0.4rem; font-size: 0.8125rem; font-weight: 700; letter-spacing: 0.07em; text-transform: uppercase; color: #5c4a3a; }
+.fpl-callout p { margin: 0 0 0.5rem; font-size: 0.9375rem; line-height: 1.6; color: #4a3a2c; }
+.fpl-callout p:last-child { margin-bottom: 0; }
+.fpl-brave { color: var(--color-espresso); font-weight: 600; }
+
+.fpl-team-foot { margin: 1.25rem 0 0; font-size: 0.875rem; color: #5c4a3a; }
+
+/* ---------- gameweek navigation ---------- */
+
+.fpl-gwnav {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	gap: 1rem;
+	margin-top: 1.5rem;
+	padding-top: 1.25rem;
+	border-top: 1px solid #ecdcc7;
+}
+.fpl-gwnav a {
+	color: var(--color-espresso);
+	font-weight: 700;
+	font-size: 0.9375rem;
+	text-decoration: underline;
+	text-underline-offset: 0.18em;
+}
+.fpl-gwnav span { color: #6b5741; font-size: 0.9375rem; }
+
+.fpl-gwlist { display: flex; flex-wrap: wrap; gap: 0.4rem; margin: 1.25rem 0 0; padding: 0; list-style: none; }
+.fpl-gwlist a {
+	display: inline-block;
+	min-width: 2.5rem;
+	text-align: center;
+	padding: 0.4rem 0.6rem;
+	border: 1px solid #e3d2ba;
+	border-radius: 0.5rem;
+	background: var(--color-cream);
+	color: var(--color-espresso);
+	font-size: 0.875rem;
+	font-weight: 600;
+	text-decoration: none;
+	font-variant-numeric: tabular-nums;
+}
+.fpl-gwlist a:hover { background: #f3e7d8; }
+.fpl-gwlist a[aria-current="page"] { background: var(--color-espresso); color: #fffcf7; border-color: var(--color-espresso); }

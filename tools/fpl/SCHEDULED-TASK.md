@@ -83,7 +83,12 @@ Paste this as the prompt:
 >
 > 4. Run `node tools/fpl/optimise.mjs --in data/week{N}`.
 >
-> 5. Read `data/week{N}/picks.json` in full. Everything you write comes from
+> 5. Run `node tools/fpl/to-site.mjs --in data/week{N}`. This writes the slimmed
+>    record into `src/_data/fplPicks.json`, which is what /fpl/ and the gameweek
+>    archive pages are built from. Without this step the site still shows last
+>    week's team.
+>
+> 6. Read `data/week{N}/picks.json` in full. Everything you write comes from
 >    this file. Pay attention to:
 >    - `transfers.action`: `fresh squad` (gameweek 1 or a wildcard), `transfer`,
 >      or `roll`. Each needs a different write-up.
@@ -91,10 +96,10 @@ Paste this as the prompt:
 >      safe pick would have been.
 >    - `flags` on each player, and `model.knownLimitations`.
 >
-> 6. If `data/week{N}/live-gw*.json` exists, read it for last week's result. Also
+> 7. If `data/week{N}/live-gw*.json` exists, read it for last week's result. Also
 >    read `data/week{N}/league-standings.json` for the league position.
 >
-> 7. Write `src/pages/blog/the-algorithm-gameweek-{N}.md`.
+> 8. Write `src/pages/blog/the-algorithm-gameweek-{N}.md`.
 >
 >    **Frontmatter**, exactly this shape:
 >
@@ -156,18 +161,19 @@ Paste this as the prompt:
 >    from `cardTitle`, so use `##` and `###` in the body only. Do not write
 >    "as an AI" or narrate your own process.
 >
-> 8. Prepend an entry to the `posts` array in `src/_data/blog.json` with `name`,
+> 9. Prepend an entry to the `posts` array in `src/_data/blog.json` with `name`,
 >    `description`, `link`, `platform: ["blog","guide"]` and `image`. **Two-space
 >    indentation**, matching the existing entries. A post missing from this file
 >    is invisible on the site.
 >
-> 9. Run `ELEVENTY_ENV=production npx @11ty/eleventy`. It must exit 0 and produce
+> 10. Run `ELEVENTY_ENV=production npx @11ty/eleventy`. It must exit 0 and produce
 >    `docs/blog/the-algorithm-gameweek-{N}/index.html`. If the build fails, fix
 >    the cause and rebuild. Do not proceed on a failing build.
 >
-> 10. Commit **only** the post, `src/_data/blog.json`, and
+> 11. Commit the post, `src/_data/blog.json`, `src/_data/fplPicks.json` and
 >     `tools/sitemap-lastmod.json` if it changed:
 >     `git commit -m "The Algorithm: gameweek {N}"`
+>     Do NOT commit anything under `data/`, which is gitignored for good reason.
 >
 > ## Report back
 >
