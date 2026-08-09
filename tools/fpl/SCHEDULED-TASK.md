@@ -177,12 +177,23 @@ Paste this as the prompt:
 >
 > ## Report back
 >
-> The gameweek, the captain and their ownership, whether the differential rule
-> fired, the transfer or roll, the expected points, the commit hash, and
-> **a clear reminder that Robert still has to enter the team in the FPL app
-> before the deadline**, with the deadline time spelled out.
+> Lead with anything that went wrong. Then, in this order:
 >
-> If anything went wrong, lead with that.
+> 1. **The squad, in full, ready to enter into FPL.** List all 15 with position,
+>    club and price: the starting eleven grouped by position, then the bench in
+>    order, then who is captain and who is vice. Robert enters the team from this
+>    report, so it has to be complete enough to work from without opening
+>    anything else.
+> 2. **The transfer**, if there was one: out, in, and the net gain. If it rolled,
+>    say so.
+> 3. The captain's ownership and whether the differential rule fired.
+> 4. Expected points and the commit hash.
+> 5. **The deadline, spelled out in full**, with a reminder that the team still
+>    has to be entered in the FPL app by then. Nothing else in this pipeline can
+>    do that step.
+>
+> Mention that the post is committed but not yet published, and that the publish
+> task will push it the next morning.
 
 ---
 
