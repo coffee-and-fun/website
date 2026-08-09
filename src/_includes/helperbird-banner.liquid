@@ -2,20 +2,26 @@
   Helperbird cross-promo. Drop `{% include helperbird-banner.liquid %}` anywhere
   inside a page's content and it styles itself from coco.css.
 
+  It breaks out to full viewport width, so place it between sections rather than
+  inside a card or a grid cell. It relies on the site-wide
+  html, body { overflow-x: clip } to do that without a stray scrollbar.
+
   The UTM campaign is derived from page.fileSlug, so every page that carries the
   banner reports separately in analytics without anyone remembering to set it.
 
-  The owl is decorative: the heading beside it already names Helperbird, so an
-  alt text here would just make a screen reader say it twice.
+  The owl is decorative: the heading beside it already names Helperbird, so alt
+  text here would just make a screen reader say it twice.
 {%- endcomment -%}
 <aside class="hb-banner" aria-labelledby="hb-title-{{ page.fileSlug }}">
-    <img class="hb-owl" src="/assets/images/brand/helperbird-owl.png" alt="" width="64" height="64" loading="lazy" decoding="async" />
-    <div class="hb-text">
-        <p class="hb-kicker">From the same team</p>
-        <h2 class="hb-title" id="hb-title-{{ page.fileSlug }}">Struggle to read the web? Try Helperbird.</h2>
-        <p class="hb-body">Dyslexia-friendly fonts, read aloud, colour overlays, a reading ruler and more. A browser extension that reshapes any page to suit how you read.</p>
+    <div class="hb-inner">
+        <img class="hb-owl" src="/assets/images/brand/helperbird-owl.png" alt="" width="56" height="56" loading="lazy" decoding="async" />
+        <div class="hb-text">
+            <p class="hb-kicker">From the same team</p>
+            <h2 class="hb-title" id="hb-title-{{ page.fileSlug }}">Struggle to read the web? Try Helperbird.</h2>
+            <p class="hb-body">Dyslexia-friendly fonts, read aloud, colour overlays, a reading ruler and more. A browser extension that reshapes any page to suit how you read.</p>
+        </div>
+        <a class="hb-cta" href="https://www.helperbird.com/?utm_source=coffeeandfun&amp;utm_medium=referral&amp;utm_campaign={{ page.fileSlug }}" target="_blank" rel="noopener">
+            Check out Helperbird<span class="sr-only"> (opens in a new tab)</span>
+        </a>
     </div>
-    <a class="hb-cta" href="https://www.helperbird.com/?utm_source=coffeeandfun&amp;utm_medium=referral&amp;utm_campaign={{ page.fileSlug }}" target="_blank" rel="noopener">
-        Check out Helperbird<span class="sr-only"> (opens in a new tab)</span>
-    </a>
 </aside>

@@ -417,35 +417,44 @@ pre code {
 }
 
 /* Helperbird cross-promo banner (src/_includes/helperbird-banner.liquid).
-   Every selector is doubled up (.hb-banner .hb-x, not .hb-banner h2). This
-   include can land on any page, and page CSS loads AFTER the bundle: on the
-   focus timer, .content h2 tied on specificity, won on order, and painted the
-   heading dark grey on purple at 1.02:1. Element selectors here are not safe.
-   Deliberately NOT in Coffee & Fun colours: it is an advert for a different
-   product, and it should read as one rather than blending into the page.
+   A full-bleed band, not a card: it is an advert for a different product and
+   should read as one rather than blending into the page.
 
-   --hb-purple is my reading of the bar in Helperbird's own header. If the real
-   brand hex differs, change it here and everything below follows, including
-   the CTA, which inverts to purple-on-cream. */
+   Full bleed via 100vw is safe HERE specifically because coco.css already sets
+   html, body { overflow-x: clip } for the sketch doodles. Without that, 100vw
+   exceeds the content width whenever a classic scrollbar is present and you get
+   a stray horizontal scroll. Do not lift this rule into a project without it.
+
+   Every selector is doubled (.hb-banner .hb-title, not .hb-banner h2). Page CSS
+   loads AFTER the bundle, and on the focus timer .content h2 tied on specificity,
+   won on order, and painted the heading dark grey on purple at 1.02:1. Element
+   selectors are not safe in a component meant to travel.
+
+   --hb-purple is read off the header in Helperbird's own site. If the real brand
+   hex differs, changing it here updates the band and the CTA together. */
 .hb-banner {
 	--hb-purple: #4a0d7a;
-	--hb-purple-dark: #380a5c;
+	width: 100vw;
+	margin-inline: calc(50% - 50vw);
+	margin-block: 3rem;
+	background: var(--hb-purple);
+	padding: 1.6rem 1.25rem;
+}
+.hb-banner .hb-inner {
+	max-width: 64rem;
+	margin-inline: auto;
 	display: flex;
 	align-items: center;
 	gap: 1.25rem;
 	flex-wrap: wrap;
-	background: var(--hb-purple);
-	border-radius: 1.25rem;
-	padding: 1.5rem 1.6rem;
-	margin: 2.5rem 0;
 }
 .hb-banner .hb-owl {
 	flex-shrink: 0;
-	width: 4rem;
-	height: 4rem;
+	width: 3.5rem;
+	height: 3.5rem;
 	border-radius: 9999px;
 	background: #fdf6e9;
-	padding: 0.3rem;
+	padding: 0.25rem;
 	object-fit: contain;
 }
 .hb-banner .hb-text { flex: 1; min-width: 15rem; }
@@ -455,20 +464,21 @@ pre code {
 	letter-spacing: 0.09em;
 	text-transform: uppercase;
 	color: #d9bff5;
-	margin: 0 0 0.2rem;
+	margin: 0 0 0.15rem;
 }
 .hb-banner .hb-title {
-	font-size: 1.2rem;
+	font-size: 1.15rem;
 	line-height: 1.3;
-	margin: 0 0 0.35rem;
+	margin: 0 0 0.25rem;
 	color: #ffffff;
 	font-weight: 700;
 }
 .hb-banner .hb-body {
 	margin: 0;
 	font-size: 0.9375rem;
-	line-height: 1.6;
+	line-height: 1.55;
 	color: #e6d9f7;
+	max-width: 46rem;
 }
 .hb-banner .hb-cta {
 	flex-shrink: 0;
