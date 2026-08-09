@@ -7,6 +7,23 @@
   var copyBtn = document.querySelector('[data-fpl-copy]');
   var status = document.querySelector('[data-fpl-copied]');
 
+  /* If the clipboard write is refused (no user activation, permissions policy, an
+     older browser) select the code instead, so "press Ctrl and C" is advice that
+     actually works rather than advice that only sounds helpful. */
+  function selectCode() {
+    var code = document.querySelector('[data-fpl-code]');
+    if (!code || !window.getSelection || !document.createRange) {
+      status.textContent = 'Could not copy, select the code manually';
+      return;
+    }
+    var range = document.createRange();
+    range.selectNodeContents(code);
+    var sel = window.getSelection();
+    sel.removeAllRanges();
+    sel.addRange(range);
+    status.textContent = 'Selected, now press Ctrl or Cmd and C';
+  }
+
   if (copyBtn && status && navigator.clipboard) {
     copyBtn.hidden = false;
     copyBtn.addEventListener('click', function () {
@@ -14,9 +31,7 @@
         function () {
           status.textContent = 'Copied';
         },
-        function () {
-          status.textContent = 'Press Ctrl or Cmd and C to copy';
-        }
+        selectCode
       );
     });
   }

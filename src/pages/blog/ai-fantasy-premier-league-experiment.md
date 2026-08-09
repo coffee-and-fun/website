@@ -116,8 +116,6 @@ Every week, without exception:
 
 That last one is very easy to promise in August. I am aware of that, and so, presumably, are you.
 
-<!-- TODO: Robert, /fpl/ does not exist in the repo yet. This post links to it. Build the page (or stub it) before this goes live, or the link 404s. -->
-
 ## The prior art, and how these usually go
 
 I am not first, and pretending otherwise would be a strange way to start a project about transparency.
