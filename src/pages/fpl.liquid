@@ -116,7 +116,7 @@
                 "name": "What data does the AI use to pick the team?",
                 "acceptedAnswer": {
                   "@type": "Answer",
-                  "text": "Public data only. The official FPL API and Vaastav's historical dataset for scoring and minutes, FBref via worldfootballR for expected goals and lineups, Football-Data.co.uk for results and odds history, Transfermarkt for injuries and valuations, and Fantasy Football Scout, Fantasy Football Hub and FootyStats for rotation risk. Team strength ratings, fixture congestion, referee card tendencies and weather also feed in."
+                  "text": "Free public data only. The official FPL API for scoring, minutes, prices, ownership, Opta expected goals and injury status, with Vaastav's historical dataset for earlier seasons. Understat for player-level expected goals across the big five European leagues. Football-Data.co.uk for results, odds history and referees. ClubElo for team strength and Open-Meteo for weather. Transfermarkt, FBref, Fantasy Football Scout, Fantasy Football Hub and FootyStats are deliberately not used, because the first two restrict automated access and the rest are subscriptions."
                 }
               },
               {
@@ -240,24 +240,24 @@
             </p>
             <dl class="fpl-sources">
                 <div>
-                    <dt>Core FPL scoring, minutes, cards and bonus</dt>
-                    <dd><a href="https://fantasy.premierleague.com/api/bootstrap-static/" rel="noopener">Official FPL API</a> and <a href="https://github.com/vaastav/Fantasy-Premier-League" rel="noopener">Vaastav's historical dataset</a></dd>
+                    <dt>Core FPL scoring, minutes, cards, bonus, prices and ownership</dt>
+                    <dd><a href="https://fantasy.premierleague.com/api/bootstrap-static/" rel="noopener">Official FPL API</a>, which also carries Opta expected goals and an official injury flag, plus <a href="https://github.com/vaastav/Fantasy-Premier-League" rel="noopener">Vaastav's historical dataset</a> for earlier seasons</dd>
                 </div>
                 <div>
-                    <dt>Expected goals, shot quality, lineups and formations</dt>
-                    <dd><a href="https://fbref.com" rel="noopener">FBref</a>, pulled with <a href="https://github.com/JaseZiv/worldfootballR" rel="noopener">worldfootballR</a></dd>
+                    <dt>Player-level expected goals outside the Premier League</dt>
+                    <dd><a href="https://understat.com" rel="noopener">Understat</a>, covering the big five European leagues</dd>
                 </div>
                 <div>
-                    <dt>Results history, home and away splits, odds history</dt>
+                    <dt>Results history, home and away splits, odds and referees</dt>
                     <dd><a href="https://www.football-data.co.uk" rel="noopener">Football-Data.co.uk</a></dd>
                 </div>
                 <div>
-                    <dt>Squads, injuries, suspensions and valuations</dt>
-                    <dd><a href="https://www.transfermarkt.com" rel="noopener">Transfermarkt</a></dd>
+                    <dt>Team strength</dt>
+                    <dd><a href="http://clubelo.com" rel="noopener">ClubElo</a> ratings</dd>
                 </div>
                 <div>
-                    <dt>Rotation risk and predicted lineups</dt>
-                    <dd><a href="https://www.fantasyfootballscout.co.uk" rel="noopener">Fantasy Football Scout</a>, <a href="https://www.fantasyfootballhub.co.uk" rel="noopener">Fantasy Football Hub</a> and <a href="https://footystats.org" rel="noopener">FootyStats</a></dd>
+                    <dt>Weather at each ground</dt>
+                    <dd><a href="https://open-meteo.com" rel="noopener">Open-Meteo</a>, called at prediction time</dd>
                 </div>
                 <div>
                     <dt>Fixtures, including televised reschedules</dt>
@@ -265,7 +265,11 @@
                 </div>
                 <div>
                     <dt>Also weighted</dt>
-                    <dd>Team strength ratings, fixture difficulty and congestion, referee card tendencies, weather, and the big five European leagues plus the Championship with per league conversion factors applied so promoted players are not judged blind.</dd>
+                    <dd>Fixture difficulty and congestion, referee card tendencies, and per-league conversion factors, because a forty goal Ligue 1 striker is not a forty goal Premier League striker.</dd>
+                </div>
+                <div>
+                    <dt>Deliberately not used</dt>
+                    <dd>Transfermarkt bars automated extraction and FBref restricts scraping, so both are out. Fantasy Football Scout, Fantasy Football Hub and FootyStats are subscriptions, and this runs on sources anyone can check for free. The cost is no predicted lineups, so rotation risk is derived from starts and the official availability flag instead, and promoted club players are judged on shot volume rather than shot quality.</dd>
                 </div>
             </dl>
         </section>
@@ -320,7 +324,7 @@
                 <details>
                     <summary>What data does the AI use?</summary>
                     <div>
-                        <p>Public data only, listed and linked in full above. Scoring and minutes from the FPL API, underlying performance from FBref, results and odds history from Football-Data.co.uk, availability from Transfermarkt, and rotation risk from three predicted lineup sources.</p>
+                        <p>Free public data only, listed and linked in full above. The FPL API does most of the work, including Opta expected goals and official injury status. Understat adds player-level expected goals for the big five European leagues, Football-Data.co.uk supplies results, odds and referees, ClubElo the team strength ratings and Open-Meteo the weather.</p>
                         <p>It gets no insider information and no eye test. It sees numbers, and occasionally that will be an expensive limitation.</p>
                     </div>
                 </details>

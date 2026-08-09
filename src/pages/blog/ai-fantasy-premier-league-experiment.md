@@ -77,17 +77,19 @@ Here is the falsifiable bit, and you are welcome to hold me to it in May: a mode
 
 Every source is credited here and in the site footer. None of it is proprietary, and none of it is scraped from anywhere it should not be.
 
-**Core FPL data.** Scoring, minutes, cards and bonus points come from the [official FPL API](https://fantasy.premierleague.com/api/bootstrap-static/) and from [Vaastav's historical dataset](https://github.com/vaastav/Fantasy-Premier-League), which is the reference archive for past seasons and saves an enormous amount of reinventing.
+**Core FPL data.** Scoring, minutes, cards, bonus points, prices and ownership from the [official FPL API](https://fantasy.premierleague.com/api/bootstrap-static/), plus [Vaastav's historical dataset](https://github.com/vaastav/Fantasy-Premier-League) for the seasons before this one. The FPL API turns out to carry far more than most people realise: 105 fields a player, including Opta expected goals and expected assists, and an official injury flag with a return date attached. A lot of what I assumed I would have to go elsewhere for was sitting in the first call.
 
-**Underlying performance.** Expected goals, expected assists, shot quality, lineups, formations and referee assignments from [FBref](https://fbref.com), pulled with [worldfootballR](https://github.com/JaseZiv/worldfootballR).
+**Underlying performance elsewhere.** Player-level expected goals for the big five European leagues from [Understat](https://understat.com), which is how a summer signing who has never played an FPL gameweek gets judged on something better than a hunch.
 
-**Results history.** Home and away splits, head-to-head records and historical bookmaker odds from [Football-Data.co.uk](https://www.football-data.co.uk).
+**Results history.** Home and away splits, head-to-head records, historical bookmaker odds and, usefully, the referee for every match, from [Football-Data.co.uk](https://www.football-data.co.uk).
 
-**Squads and availability.** Injuries, suspensions and market valuations from [Transfermarkt](https://www.transfermarkt.com).
+**Team strength.** Elo ratings from [ClubElo](http://clubelo.com).
 
-**Rotation risk.** Predicted lineups from [Fantasy Football Scout](https://www.fantasyfootballscout.co.uk), [Fantasy Football Hub](https://www.fantasyfootballhub.co.uk) and [FootyStats](https://footystats.org).
+**Weather.** [Open-Meteo](https://open-meteo.com), called per ground at prediction time.
 
 **Fixtures.** The [official Premier League calendar](https://pl.ecal.com), which auto-updates when games get moved for television, which they will, repeatedly, usually at the least convenient moment.
+
+Five sources I named in an earlier draft are not in this list. Transfermarkt bars automated extraction in its terms, and FBref restricts scraping, so both are out on principle rather than convenience. Fantasy Football Scout, Fantasy Football Hub and FootyStats are subscriptions, and I would rather this ran on things anyone reading can check for free. Their jobs are covered above, with one exception, which is the next section.
 
 On top of the raw data there are a handful of signals that carry more weight than newcomers tend to expect:
 
@@ -97,11 +99,19 @@ On top of the raw data there are a handful of signals that carry more weight tha
 | Fixture difficulty and congestion | Three games in a week means rotation, and rotation means a benched premium and a wasted captaincy |
 | Referee card tendencies | Some referees book far more players than others, and cards are points coming off |
 | Weather | Suppresses scoring, quietly and consistently, and almost nobody prices it in |
-| Big five European leagues plus the Championship | New signings and promoted players do not have to be judged blind |
+| Big five European leagues | New signings do not have to be judged blind, though see the honest bit below about promoted clubs |
 
-That last row is where naive models fall over, so it gets a caveat. La Liga, Bundesliga, Serie A, Ligue 1 and Championship numbers are not Premier League numbers, and treating them as though they are produces confident nonsense every August. Per-league conversion factors get applied to everything imported through [FBref](https://fbref.com). A forty goal Championship striker is not a forty goal Premier League striker, and a model that does not know that will spend the opening month buying promoted forwards and wondering why.
+That last row is where naive models fall over, so it gets a caveat. La Liga, Bundesliga, Serie A and Ligue 1 numbers are not Premier League numbers, and treating them as though they are produces confident nonsense every August. Per-league conversion factors get applied to everything imported. A forty goal Ligue 1 striker is not a forty goal Premier League striker, and a model that does not know that will spend the opening month buying the wrong forwards and wondering why.
 
-It is also worth being clear about what the model does not get. No insider information, no eye test, no sense of whether a player looked sharp in the warm-up. It sees numbers and nothing else. That is a limitation and occasionally it will be an expensive one.
+### The two things it genuinely cannot see
+
+I would rather write these down now than be asked about them in October.
+
+**It has no predicted lineups.** Fantasy Football Scout and Fantasy Football Hub sell human judgement: somebody watching Friday press conferences and reading between the lines. There is no free equivalent, so rotation risk is derived instead, from starts against appearances and the official availability flag. That catches the player who has been rotated for a month. It will never catch the manager hinting on a Friday that someone is being rested.
+
+**It is weaker on promoted clubs.** Understat covers the big five and not the Championship, and the free Championship data has goals and shots but no shot quality. So Coventry, Hull and Ipswich players get judged on shot volume while everyone else gets judged on expected goals. I checked the size of this before writing it down: 73 of the 573 players in the game have no FPL history at all, Understat covers 23 of them including every one priced six million or above, and the remaining fifty are mostly promoted squads and academy graduates. Those fifty are the blind spot, and I would rather say so than pretend the coverage is even.
+
+Beyond that, the usual: no insider information, no eye test, no sense of whether a player looked sharp in the warm-up. It sees numbers and nothing else. That is a limitation and occasionally it will be an expensive one.
 
 ## What gets published every week
 
