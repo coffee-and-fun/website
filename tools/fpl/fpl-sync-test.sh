@@ -68,8 +68,11 @@ echo "  created $NEW"
 
 # --- 6. pull, then push. prompting off so it fails fast instead of hanging --
 echo
-echo "=== 6. pull --rebase"
-if ! GIT_TERMINAL_PROMPT=0 git pull --rebase; then
+echo "=== 6. pull --rebase --autostash"
+# --autostash matters. macOS rewrites .DS_Store whenever Finder touches a
+# folder, and a bare pull --rebase aborts on any unstaged change. Autostash
+# shelves them, rebases, and puts them back.
+if ! GIT_TERMINAL_PROMPT=0 git pull --rebase --autostash; then
   echo "FAIL: pull failed. Repo left as-is, resolve by hand."
   exit 1
 fi

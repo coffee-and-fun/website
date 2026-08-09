@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+  <key>Label</key>
+  <string>com.coffeeandfun.fpl-git</string>
+
+  <key>ProgramArguments</key>
+  <array>
+    <string>/bin/bash</string>
+    <string>/Users/commander/Documents/Major/code/coffee/website/tools/fpl/git-agent.sh</string>
+  </array>
+
+  <!-- Every 5 minutes. Cheap: it exits immediately when there is nothing to do,
+       which is almost always. -->
+  <key>StartInterval</key>
+  <integer>300</integer>
+
+  <key>RunAtLoad</key>
+  <true/>
+
+  <key>StandardOutPath</key>
+  <string>/Users/commander/Library/Logs/fpl-git-agent.log</string>
+  <key>StandardErrorPath</key>
+  <string>/Users/commander/Library/Logs/fpl-git-agent.log</string>
+
+  <key>WorkingDirectory</key>
+  <string>/Users/commander/Documents/Major/code/coffee/website</string>
+</dict>
+</plist>

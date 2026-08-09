@@ -20,10 +20,21 @@ Work in `~/Documents/Major/code/coffee/website`.
    - If it returns a squad that does not match `picks.json`, **stop** and tell
      Robert the team on record differs from the one about to be published.
 
-4. If the checks pass, `git push`.
+4. If the checks pass, approve the push by creating the marker file:
 
-5. Report the gameweek, the commit hash, whether the squad could be verified,
-   and confirmation it pushed.
+   ```
+   touch tools/fpl/.push-approved
+   ```
+
+   **Do not run `git push` yourself.** It cannot authenticate from here and the
+   failure would strand a lock. The native launchd agent sees the marker within
+   five minutes, pushes, and removes it. The marker is the whole point of this
+   task: it is how the squad check gates the push.
+
+5. Report the gameweek, the commit hash you are approving, whether the squad
+   could be verified, and that you created the marker. Do not claim it was
+   pushed; you cannot know that. The agent logs the push to
+   `~/Library/Logs/fpl-git-agent.log`.
 
 If any check fails, say so plainly and do nothing else. A week with no post is
 recoverable. A week with a post that misdescribes the team, or that pretends to

@@ -14,11 +14,16 @@ directory.
   Never quietly substitute your own judgement.
 - **Do not state a number you have not read out of `picks.json`.** No estimated
   points, no invented ownership, no remembered prices.
-- **Do not push.** The publish task does that, after Robert has read it.
+- **Do not run git at all**, not pull, add, commit or push. A failed attempt
+  strands `.git/index.lock`, which then blocks the native agent as well.
+  The agent commits your work; the publish task approves the push.
 
 ## Steps
 
-1. `git pull`, then run `node tools/fpl/status.mjs`.
+1. Run `node tools/fpl/status.mjs`. **Do not run `git pull`**, or any other
+   git command: this environment cannot take a git lock or reach the
+   keychain. A native launchd agent, `git-agent.sh`, does all the git work,
+   pull included, every five minutes.
    If `shouldGenerate` is false, **stop immediately and say nothing further**
    except the value of `why`. This runs daily and most days there is nothing
    to do. Do not generate anything early, and do not override the window.
@@ -121,15 +126,18 @@ directory.
    `docs/blog/the-algorithm-gameweek-{N}/index.html`. If the build fails, fix
    the cause and rebuild. Do not proceed on a failing build.
 
-11. Commit the post, `src/_data/blog.json`, `src/_data/fplPicks.json` and
-    `tools/sitemap-lastmod.json` if it changed:
-    `git commit -m "The Algorithm: gameweek {N}"`
-    Do NOT commit anything under `data/`, which is gitignored for good reason.
+11. **Do not commit.** Leave the post, `src/_data/blog.json`,
+    `src/_data/fplPicks.json` and `tools/sitemap-lastmod.json` modified in the
+    working tree and stop there. The native agent stages exactly those four
+    paths and commits them as "The Algorithm: gameweek {N}" within five minutes,
+    which is the message `status.mjs` looks for. Nothing under `data/` is ever
+    committed; it is gitignored for good reason.
 
 ## Report back
 
 The gameweek, the captain and their ownership, whether the differential rule
-fired, the transfer or roll, the expected points, the commit hash, and
+fired, the transfer or roll, the expected points, the files you left modified
+(the agent commits them, so you will not have a commit hash), and
 **a clear reminder that Robert still has to enter the team in the FPL app
 before the deadline**, with the deadline time spelled out.
 
