@@ -159,7 +159,7 @@ And it is not an attack on small teams. Some of the items above cost real money 
 
 ## Why we are doing this
 
-We build accessibility tools for a living, which mostly means [browser extensions and web tools](/apps/) rather than games. But the questions turn out to be the same ones. When we built our [colour contrast checker](/contrast-checker/), the hard part was never the maths. It was making the results legible to someone who had never heard of WCAG. Games have exactly that problem, at a much larger scale, with far more at stake for the player.
+We build accessibility tools for a living, which mostly means [browser extensions and web tools](/apps/) rather than games. Our own extension, [Helperbird](https://www.helperbird.com), does for a web page roughly what a good accessibility menu does for a game: it lets someone change how a thing is presented until it works for them. The questions turn out to be the same ones. When we built our [colour contrast checker](/contrast-checker/), the hard part was never the maths. It was making the results legible to someone who had never heard of WCAG. Games have exactly that problem, at a much larger scale, with far more at stake for the player.
 
 We have written before about [reviewing a product through an accessibility lens](/blog/waymo-review-accessibility-and-the-future-of-transport/) rather than a features lens, and about [what happens when products decay because nobody is measuring them](/blog/the-enshittification-of-technology/). This series is both of those ideas pointed at games.
 

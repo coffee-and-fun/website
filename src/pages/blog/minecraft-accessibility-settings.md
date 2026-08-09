@@ -240,7 +240,7 @@ For anyone handing Minecraft to a child, a student or themselves:
 
 That split is itself the finding. Two products with the same name, the same publisher and the same price bracket give disabled players meaningfully different games, and nothing at the point of purchase tells you which one you need. A player who buys wrong does not discover it until they are already in.
 
-We have written before about [reviewing a product through an accessibility lens](/blog/waymo-review-accessibility-and-the-future-of-transport/) rather than a features lens. Minecraft is the clearest case yet of why the lens matters. By any normal review standard these are the same game. By this one they are not.
+We have written before about [reviewing a product through an accessibility lens](/blog/waymo-review-accessibility-and-the-future-of-transport/) rather than a features lens, and it is the lens we build our own software with, from [Helperbird](https://www.helperbird.com) to our [free web tools](/apps/). Minecraft is the clearest case yet of why the lens matters. By any normal review standard these are the same game. By this one they are not.
 
 18 out of 25 is the baseline now. Every game in [The Accessibility Options](/blog/how-we-score-game-accessibility/) gets measured against it.
 
