@@ -24,6 +24,7 @@ reads that file and writes the post.
 | `optimise.mjs` | Reads a week folder, writes `picks.json`: squad, XI, formation, captain, and the reasoning for each. |
 | `backfill.mjs` | One-off historical pull: Vaastav, Football-Data, ClubElo. Run once on a new machine. About 78MB, a few minutes. |
 | `backfill-understat.mjs` | One-off: player-level xG for the big five, 2020 to 2025. |
+| `status.mjs` | Should anything happen today? Answers from the real deadline so the scheduled tasks never assume a weekday. |
 
 ```bash
 node tools/fpl/backfill.mjs            # once, on a new machine
@@ -105,7 +106,26 @@ rank however many points it scores. `picks.json` records whether the rule fired.
 - **Promoted-club players** are judged on shot volume, not shot quality, because
   free Championship data has no xG.
 
+## Transfers, blanks and doubles
+
+From gameweek 2 the optimiser plans a move rather than rebuilding: a fresh
+optimal fifteen is only legal on a wildcard, and a pipeline that ignores that
+hands you a squad you cannot field. It reads the real squad from
+`entry/{id}/event/{gw}/picks/`.
+
+Free transfers bank up to five. The API exposes transfers made but not free
+transfers remaining, so the count is reconstructed from history. If it ever
+disagrees with the app, trust the app.
+
+Doubles are handled: expected points multiply by the number of fixtures. Blanks
+are too, and carefully. A held player with no fixture still occupies a squad
+slot, so the transfer planner indexes every player rather than only the
+selectable ones. Building the held squad from the filtered pool is how a blank
+gameweek quietly becomes a fourteen-man squad.
+
 ## Scheduling
 
-See `SCHEDULED-TASK.md`. Wednesday generates and commits locally, Thursday
-publishes after you have read it.
+See `SCHEDULED-TASK.md`. Both tasks run daily and ask `status.mjs` whether
+there is anything to do, because deadlines are not on a fixed day: 2026/27 has 27
+Saturdays, 4 Fridays, 2 Sundays and 5 Wednesdays. A fixed weekday schedule would
+skip five gameweeks.

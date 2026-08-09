@@ -164,7 +164,7 @@ function expectedMinutes(p) {
 
 /* ------------------------------------------------------------ the players */
 
-const pool = boot.elements.map(p => {
+const allPlayers = boot.elements.map(p => {
   const e = expectedPoints(p);
   return {
     id: p.id, name: p.web_name, pos: p.element_type, posName: POS[p.element_type],
@@ -172,7 +172,14 @@ const pool = boot.elements.map(p => {
     owned: parseFloat(p.selected_by_percent),
     ...e,
   };
-}).filter(p => p.ep > 0);
+});
+
+/* Zero-expected-points players cannot be BOUGHT, but they can already be OWNED.
+   In a blank gameweek a whole club has no fixture, and if the held squad is
+   rebuilt from this filtered list those players silently disappear, leaving
+   fewer than fifteen and breaking the transfer planner. Keep a full index. */
+const allById = Object.fromEntries(allPlayers.map(p => [p.id, p]));
+const pool = allPlayers.filter(p => p.ep > 0);
 
 console.log(`GW${GW}: ${pool.length} selectable players of ${boot.elements.length}`);
 
@@ -306,7 +313,134 @@ function solve() {
   return current;
 }
 
-const squad = solve();
+/* ------------------------------------------------- transfers, week 2 onward */
+
+/* Building a fresh optimal fifteen is only legal in gameweek 1 or on a wildcard.
+   After that you get one free transfer, and any extra costs four points. A
+   pipeline that ignores this hands you a squad you physically cannot field,
+   every week, forever. So when a previous squad exists, plan a move instead of
+   a rebuild.
+
+   Selling-price mechanics are simplified: FPL returns the purchase price plus
+   half of any rise, and this treats the sale as the current price. That is worth
+   a tenth or two, not a player, and it is flagged in the output rather than
+   hidden. */
+function readJson(name) {
+  const f = path.join(IN, name);
+  return fs.existsSync(f) ? JSON.parse(fs.readFileSync(f, 'utf8')) : null;
+}
+
+const prevPicks = readJson('entry-picks.json');
+const entry = readJson('entry.json');
+const history = readJson('entry-history.json');
+const HIT_COST = 4;
+const MAX_BANKED_FT = 5;
+const ROLL_THRESHOLD = 0.5;   // not worth burning a transfer for less than this
+
+/* The public API exposes transfers MADE but not free transfers REMAINING, so it
+   has to be reconstructed: one is granted at the start of each gameweek, they
+   bank up to five, and anything beyond what you hold costs four points.
+   Reconstruction, not fact. If it disagrees with the app, trust the app. */
+function freeTransfersAvailable() {
+  if (!history || !Array.isArray(history.current) || !history.current.length) return 1;
+  let ft = 1;
+  for (const gw of history.current) {
+    ft = Math.min(MAX_BANKED_FT, ft + 1);
+    ft = Math.max(0, ft - (gw.event_transfers || 0));
+  }
+  return Math.min(MAX_BANKED_FT, Math.max(1, ft));
+}
+
+let transferPlan = null, squad;
+
+if (prevPicks && prevPicks.picks && prevPicks.picks.length === 15) {
+  /* allById, not pool: a held player with no fixture this week still occupies a
+     squad slot. Dropping them here is how a blank gameweek turns into a
+     fourteen-man squad. */
+  const held = prevPicks.picks.map(p => allById[p.element]).filter(Boolean);
+
+  if (held.length !== 15) {
+    console.error(`  only ${held.length} of 15 held players resolved. Aborting rather than planning from a broken squad.`);
+    process.exit(6);
+  }
+  const blanked = held.filter(p => p.ep === 0);
+  if (blanked.length) {
+    console.warn(`  ${blanked.length} held player(s) blank or ruled out this week: ${blanked.map(p => p.name).join(', ')}`);
+  }
+
+  const freeTransfers = freeTransfersAvailable();
+  console.log(`  free transfers available: ${freeTransfers} (reconstructed, max ${MAX_BANKED_FT})`);
+  const bank = entry ? (entry.last_deadline_bank ?? 0) : 0;
+  const budgetNow = held.reduce((a, p) => a + p.cost, 0) + bank;
+  const baseline = score(held);
+
+  const bestMove = (n) => {
+    let best = { gain: 0, out: [], in: [] };
+    const tryTrial = (trial, outs, ins) => {
+      if (trial.reduce((a, p) => a + p.cost, 0) > budgetNow) return;
+      const byClub = {};
+      for (const p of trial) { byClub[p.team] = (byClub[p.team] || 0) + 1; if (byClub[p.team] > MAX_PER_CLUB) return; }
+      /* Only transfers beyond the ones you hold cost points. With three banked,
+         a second move is free, and charging four for it would talk the model
+         out of a perfectly good week. */
+      const paidFor = Math.max(0, n - freeTransfers);
+      const gain = score(trial) - baseline - paidFor * HIT_COST;
+      if (gain > best.gain) best = { gain, out: outs, in: ins };
+    };
+    if (n === 1) {
+      for (let i = 0; i < held.length; i++) for (const cand of pool) {
+        if (cand.pos !== held[i].pos || held.some(p => p.id === cand.id)) continue;
+        const t = held.slice(); t[i] = cand;
+        tryTrial(t, [held[i]], [cand]);
+      }
+    } else {
+      /* Capped to the strongest candidates per position: the full cross product
+         is millions of combinations and the extra breadth buys nothing. */
+      const top = {};
+      for (const p of pool) (top[p.pos] ||= []).push(p);
+      for (const k of Object.keys(top)) top[k] = top[k].sort((a, b) => b.ep - a.ep).slice(0, 25);
+      for (let i = 0; i < held.length; i++) for (let j = i + 1; j < held.length; j++)
+        for (const a of top[held[i].pos]) {
+          if (held.some(p => p.id === a.id)) continue;
+          for (const b of top[held[j].pos]) {
+            if (b.id === a.id || held.some(p => p.id === b.id)) continue;
+            const t = held.slice(); t[i] = a; t[j] = b;
+            tryTrial(t, [held[i], held[j]], [a, b]);
+          }
+        }
+    }
+    return best;
+  };
+
+  const one = bestMove(1);
+  const two = bestMove(2);
+  const take = two.gain > one.gain && two.gain > 0 ? two : one;
+
+  if (take.gain < ROLL_THRESHOLD) {
+    transferPlan = { action: 'roll', reason: `no move worth making: best gain ${one.gain.toFixed(2)} xP, under the ${ROLL_THRESHOLD} threshold`, hits: 0, freeTransfersAvailable: freeTransfers, banksTo: Math.min(MAX_BANKED_FT, freeTransfers + 1) };
+    squad = held;
+  } else {
+    const hits = Math.max(0, take.out.length - freeTransfers) * HIT_COST;
+    transferPlan = {
+      action: 'transfer',
+      out: take.out.map(p => ({ name: p.name, club: p.club, price: +(p.cost / 10).toFixed(1), expectedPoints: +p.ep.toFixed(2) })),
+      in: take.in.map(p => ({ name: p.name, club: p.club, price: +(p.cost / 10).toFixed(1), expectedPoints: +p.ep.toFixed(2) })),
+      netGain: +take.gain.toFixed(2),
+      hits,
+      freeTransfersAvailable: freeTransfers,
+      bank: +(bank / 10).toFixed(1),
+      note: hits ? `takes a ${hits} point hit, already subtracted from the net gain` : `covered by the ${freeTransfers} free transfer(s) available`,
+      sellPriceCaveat: 'sale modelled at current price, not purchase price plus half the rise',
+    };
+    squad = held.slice();
+    take.out.forEach((o, k) => { squad[squad.findIndex(p => p.id === o.id)] = take.in[k]; });
+  }
+  console.log(`  transfer plan: ${transferPlan.action}${transferPlan.netGain ? ` (+${transferPlan.netGain} xP)` : ''}`);
+} else {
+  console.log('  no previous squad: building a fresh fifteen (gameweek 1 or a wildcard)');
+  squad = solve();
+}
+
 const xi = bestXI(squad);
 const bench = squad.filter(p => !xi.xi.includes(p)).sort((a, b) => b.ep - a.ep);
 
@@ -346,6 +480,7 @@ const picks = {
     startingXI: +xi.total.toFixed(2),
     withCaptainDoubled: +(xi.total + captain.ep).toFixed(2),
   },
+  transfers: transferPlan ?? { action: 'fresh squad', reason: 'no previous squad on record, so nothing to transfer from' },
   captain: strip(captain),
   viceCaptain: strip(vice),
   captaincy: {

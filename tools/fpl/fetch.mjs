@@ -21,6 +21,7 @@ const opt = (n, d) => { const i = args.indexOf(n); return i > -1 ? args[i + 1] :
 const ROOT = opt('--out', path.join(process.cwd(), 'data'));
 const UA = 'coffeeandfun-the-algorithm/1.0 (personal FPL research)';
 const LEAGUE_ID = 626428;
+const ENTRY_ID = 3065962;   // the squad the algorithm actually manages
 const sleep = ms => new Promise(r => setTimeout(r, ms));
 
 async function json(url, { throttle = 220 } = {}) {
@@ -79,6 +80,18 @@ try {
     await json(`https://fantasy.premierleague.com/api/leagues-classic/${LEAGUE_ID}/standings/`));
 } catch (e) { console.warn('  league standings failed:', e.message); }
 
+/* The actual squad, so week 2 onward can plan a transfer instead of pretending
+   it gets to pick fifteen fresh players. entry/{id}/ carries the bank and squad
+   value; the picks endpoint only exists once a gameweek has been played, so it
+   legitimately 404s before the season starts. */
+console.log('fetching entry state');
+try {
+  bytes += write(OUT, 'entry.json',
+    await json(`https://fantasy.premierleague.com/api/entry/${ENTRY_ID}/`));
+  bytes += write(OUT, 'entry-history.json',
+    await json(`https://fantasy.premierleague.com/api/entry/${ENTRY_ID}/history/`));
+} catch (e) { console.warn('  entry state failed:', e.message); }
+
 const finishedGws = boot.events.filter(e => e.finished).map(e => e.id);
 const lastFinished = finishedGws.at(-1);
 if (lastFinished) {
@@ -87,8 +100,14 @@ if (lastFinished) {
     bytes += write(OUT, `live-gw${lastFinished}.json`,
       await json(`https://fantasy.premierleague.com/api/event/${lastFinished}/live/`));
   } catch (e) { console.warn('  live data failed:', e.message); }
+  console.log(`fetching our own picks for GW${lastFinished}`);
+  try {
+    bytes += write(OUT, 'entry-picks.json',
+      await json(`https://fantasy.premierleague.com/api/entry/${ENTRY_ID}/event/${lastFinished}/picks/`));
+  } catch (e) { console.warn('  own picks failed:', e.message); }
 } else {
-  console.log('no finished gameweeks yet, skipping live data');
+  console.log('no finished gameweeks yet, so no live data and no existing squad');
+  console.log('  (gameweek 1 is a free pick: the optimiser builds from scratch)');
 }
 
 console.log(`fetching per-player history for ${boot.elements.length} players (throttled, a few minutes)`);
