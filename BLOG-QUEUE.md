@@ -46,6 +46,27 @@ which game, or skip to the next queue item.
 
 A running scoreboard page goes up once there are three or four reviews to rank.
 
+## Running series: The Algorithm (AI picks the FPL team, 2026/27)
+
+Launch post is live at `/blog/ai-fantasy-premier-league-experiment/`. An AI picks the
+Fantasy Premier League squad, starting eleven and captain every gameweek of the 2026/27
+season, and the reasoning is published before each deadline. Free league "Algorithm By
+Coffee & Fun LLC", join code `bsg8nz`. Season starts Saturday 22 August 2026.
+
+The weekly posts are produced by the separate FPL automation (Wednesday generates,
+Thursday commits and CI deploys), **not** by this blog writer. So the writer must not
+draft one: a gameweek write-up invented without the actual squad, captain and points
+would be fabricated receipts about a real competition that real people have entered.
+
+Two hard rules for anything in this series:
+
+- Never state a rank, score or result that did not come from the data files. If a
+  number is not in the week's file, leave it out or mark it `<!-- TODO: Robert -->`.
+- Bad weeks get written up exactly like good ones. The transparency promise in the
+  launch post is the whole premise, and quietly skipping a disaster breaks it.
+
+A season review goes up in May, win or lose.
+
 ## Icebox (not scheduled)
 
 Ideas inherited from the old `blog-ideas.md` queue. The writer never touches this section:
