@@ -347,60 +347,67 @@ pre code {
 }
 
 /* Related-tools strip (src/_includes/related-tools.liquid).
-   Deliberately palette-agnostic: it renders on tool pages whose backgrounds
-   range from brand cream to the games' own art direction, so it borrows
-   currentColor rather than hard-coding cream and espresso. */
+   Self-contained on purpose. The first version inherited colour from the host
+   page, which measured 1.11:1 on /tactical-tiles/ because the inherited colour
+   there is close to its own background. These pages have too many private
+   palettes to inherit safely, so the strip brings its own surface and its own
+   text colours: cocoa on #fffcf7 is 13.12:1, espresso links are 6.93:1, and
+   that holds no matter what the page around it is doing. */
 .cf-related {
 	margin-block-start: 3.5rem;
-	padding-block-start: 1.75rem;
-	border-block-start: 1px solid rgba(122, 78, 49, 0.18);
-	border-block-start-color: color-mix(in srgb, currentColor 18%, transparent);
+	background: #fffcf7;
+	color: #3d2b1f;
+	border: 1px solid #ecdcc7;
+	border-radius: 1rem;
+	padding: 1.5rem;
+	text-align: left;
 }
 .cf-related-title {
 	margin: 0 0 0.9rem;
-	font-size: 1rem;
+	font-size: 0.8125rem;
 	font-weight: 700;
-	letter-spacing: 0.04em;
+	letter-spacing: 0.08em;
 	text-transform: uppercase;
-	opacity: 0.75;
+	color: #5c4a3a;
 }
 .cf-related-list {
 	display: flex;
 	flex-wrap: wrap;
-	gap: 0.5rem 0.75rem;
+	gap: 0.5rem 0.6rem;
 	list-style: none;
 	margin: 0;
 	padding: 0;
 }
 .cf-related-list a {
 	display: inline-block;
-	color: inherit;
+	color: #7a4e31;
 	text-decoration: underline;
 	text-underline-offset: 0.18em;
-	padding: 0.45rem 0.85rem;
-	border: 1px solid rgba(122, 78, 49, 0.25);
-	border-color: color-mix(in srgb, currentColor 25%, transparent);
+	padding: 0.65rem 0.95rem;
+	border: 1px solid #e3d2ba;
 	border-radius: 9999px;
 	font-size: 0.9375rem;
-	transition: background-color 0.15s ease;
+	font-weight: 600;
+	background: #fef5ec;
+	transition: background-color 0.15s ease, color 0.15s ease;
 }
 .cf-related-list a:hover {
-	background-color: rgba(122, 78, 49, 0.09);
-	background-color: color-mix(in srgb, currentColor 9%, transparent);
+	background: #f3e7d8;
+	color: #3d2b1f;
 }
 .cf-related-list a:focus-visible {
-	outline: 2px solid currentColor;
+	outline: 2px solid #7a4e31;
 	outline-offset: 2px;
 }
 .cf-related-all {
 	margin: 1rem 0 0;
 	font-size: 0.9375rem;
+	color: #5c4a3a;
 }
 .cf-related-all a {
-	color: inherit;
+	color: #7a4e31;
 	text-decoration: underline;
 	text-underline-offset: 0.18em;
-	opacity: 0.85;
 }
 @media (prefers-reduced-motion: reduce) {
 	.cf-related-list a { transition: none; }
