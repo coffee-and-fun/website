@@ -31,7 +31,7 @@ I have made that transfer more times than I would like to put in writing.
 
 So for the 2026/27 season I am not making it at all. An AI picks my Fantasy Premier League team every gameweek, from historical and statistical data, and I publish the reasoning behind every single decision. Thirty-eight gameweeks, no quiet edits, no retroactive genius.
 
-There is a free league if you fancy beating it. The code is **bsg8nz**, and the season starts on Saturday 22 August 2026.
+There is a free league if you fancy beating it. The code is **bsg8nz**, and the first deadline is Friday 21 August 2026 at 18:30 BST.
 
 ## What the experiment actually is
 
@@ -164,6 +164,6 @@ The thing I keep coming back to is that the model's advantage is not intelligenc
 
 Its advantage is that it will never be tired, never be irritated, and never make a decision at eleven o'clock on a Sunday night purely because it cannot stand looking at a player any longer.
 
-Whether that is worth more than knowing things is the entire question, and I genuinely do not know the answer. First picks go up before the deadline on 22 August.
+Whether that is worth more than knowing things is the entire question, and I genuinely do not know the answer. First picks go up before the deadline on 21 August.
 
 *Data sources are credited in full in the site footer and above. This is an experiment run for fun by one person, it is not betting advice, and the league is free to enter with no prizes.*
