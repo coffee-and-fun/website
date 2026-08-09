@@ -10,7 +10,7 @@ keywords:
   game accessibility, video game accessibility settings, accessible gaming, game accessibility
   review, subtitles in games, colourblind mode, button remapping, difficulty options, Xbox
   Accessibility Guidelines, Game Accessibility Guidelines, accessible games ranking,
-  The Options Menu series
+  The Accessibility Options series
 url: blog/how-we-score-game-accessibility/
 isBlog: true
 blog_cat: Inclusion
@@ -32,7 +32,7 @@ That tells you almost nothing.
 
 It does not tell you whether the subtitles have a background, or whether the colourblind mode is a real colour remap or a hue slider someone added in an afternoon. It does not tell you that the remapping menu will not let you touch the sticks. And it never tells you the thing that actually decides whether a game is playable for someone: **how far into the game you have to get before you can change any of it.**
 
-So we are starting a series. It is called **The Options Menu**, because that is where all of this lives and because "options" is also the right word for what a studio chooses to give players.
+So we are starting a series. It is called **The Accessibility Options**, which is both the name of the menu we are reviewing and the right word for what a studio chooses to give its players.
 
 We play the game, we score its accessibility settings against the same rubric every time, and we publish the rubric up front so you can argue with it. This post is the rubric. Every review links back here.
 
@@ -165,4 +165,4 @@ We have written before about [reviewing a product through an accessibility lens]
 
 Mostly though, it is this. Roughly one in six people has a disability. Games are the medium that most often forgets it, and the fix is frequently a checkbox that took an afternoon. Publishing a score is a small amount of pressure in the right direction.
 
-The Options Menu runs as long as there are games worth measuring, which is all of them. The running scoreboard goes up once there are enough reviews to rank. First game lands next.
+The Accessibility Options runs as long as there are games worth measuring, which is all of them. The running scoreboard goes up once there are enough reviews to rank. First game lands next.

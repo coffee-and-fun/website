@@ -31,7 +31,7 @@ The July 2026 batch failed because it was well-written filler. Every post here m
 10. [ ] **How to Catch an App Phoning Home (Practice on Ours)**: DevTools + Proxyman walkthrough with our own app as the guinea pig; the punchline is the boring empty request log. SEO: "how to see what data an app sends", "check if app is tracking you".
 11. [ ] **How to Delete Your Data from OpenAI, Who to Email, and What Can't Be Removed**: Settings path, privacy portal, DSAR email, GDPR vs elsewhere, and the honest half nobody writes: what survives deletion (safety retention, de-identified data, litigation holds, VERIFY current policy at write time). SEO: "delete OpenAI data", "OpenAI GDPR request".
 
-## Running series: The Options Menu (game accessibility reviews)
+## Running series: The Accessibility Options (game accessibility reviews)
 
 Methodology post is live at `/blog/how-we-score-game-accessibility/`. Every review
 scores five categories out of five (Seeing, Hearing, Playing, Understanding, Finding
