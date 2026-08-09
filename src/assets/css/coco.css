@@ -347,12 +347,15 @@ pre code {
 }
 
 /* Related-tools strip (src/_includes/related-tools.liquid).
-   Self-contained on purpose. The first version inherited colour from the host
-   page, which measured 1.11:1 on /tactical-tiles/ because the inherited colour
-   there is close to its own background. These pages have too many private
-   palettes to inherit safely, so the strip brings its own surface and its own
-   text colours: cocoa on #fffcf7 is 13.12:1, espresso links are 6.93:1, and
-   that holds no matter what the page around it is doing. */
+   Self-contained on purpose: cocoa on #fffcf7 is 13.12:1 and espresso links are
+   6.93:1, and that holds no matter what palette the host page uses.
+
+   Correction to an earlier note here, which claimed the inherit-based first
+   version measured 1.11:1 on /tactical-tiles/. It did not. That reading came
+   from a measuring script that parsed Tailwind v4's oklch() values as if they
+   were rgb(); re-measured properly, inheriting would have given 7.22:1 there
+   and passed. Self-contained is still the right call across 20 pages with
+   palettes nobody is tracking, but it was a robustness choice, not a bug fix. */
 .cf-related {
 	margin-block-start: 3.5rem;
 	background: #fffcf7;
