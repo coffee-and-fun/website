@@ -27,7 +27,7 @@ tags:
   - guide
 ---
 
-We've shipped a lot of browser extensions over the years, [Hide Spoilers](https://chromewebstore.google.com/detail/hide-spoilers-block-blur/dglgbepdhdpfihbiklibdcecpadcdcln), Markdown Editor, and plenty more. And every single time, the same speed bump appears right before submission: *icons*. Chrome wants a pile of sizes, the docs scatter the requirements across three pages, and the store rejects things it doesn't like with minimal explanation.
+We've shipped a lot of browser extensions over the years, [Hide Spoilers](https://chromewebstore.google.com/detail/hide-spoilers-block-blur/dglgbepdhdpfihbiklibdcecpadcdcln), [Markdown Editor](/markdown-editor/), and plenty more. And every single time, the same speed bump appears right before submission: *icons*. Chrome wants a pile of sizes, the docs scatter the requirements across three pages, and the store rejects things it doesn't like with minimal explanation.
 
 Here's the complete picture in one place, what each size is actually *for*, plus the workflow we use so icons take ninety seconds instead of an hour.
 

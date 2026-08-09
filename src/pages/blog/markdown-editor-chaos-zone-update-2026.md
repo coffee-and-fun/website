@@ -92,7 +92,7 @@ The editor ships with 8 themes: Night, Dracula, Coffee, Sunset, Dim, Nord, Cupca
 
 ## Privacy first, always
 
-This is the part that doesn't change. The Markdown Editor collects zero data. No analytics. No tracking. No accounts. Everything runs locally in your browser or on your device. We never see your content. That's not a feature we added. It's how the whole thing is built.
+This is the part that doesn't change. The [Markdown Editor](/markdown-editor/) collects zero data. No analytics. No tracking. No accounts. Everything runs locally in your browser or on your device. We never see your content. That's not a feature we added. It's how the whole thing is built.
 
 ---
 

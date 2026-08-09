@@ -162,7 +162,7 @@ Here’s what we’re planning:
 - **Hide Spoilers** gaining serious traction  
   - The hype around *Severance* Season 2 made spoiler-free browsing suddenly essential  
   - We’re leaning into this with new features and better support  
-- **Markdown Editor** reaching over **10,000 users**  
+- **[Markdown Editor](/markdown-editor/)** reaching over **10,000 users**  
   - We plan to polish it further and be much louder about it online  
 - Launching pre-made Pi-hole kits  
 - Experimenting with more shareable and viral side projects  

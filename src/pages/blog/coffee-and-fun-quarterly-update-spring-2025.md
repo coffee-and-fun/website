@@ -90,7 +90,7 @@ response is pushing us to keep developing it with more features and better suppo
 
 ## 🧠 Markdown Editor hits 20K users
 
-Our **Markdown Editor for Safari** just crossed **20,000 users** and is featured on the Apple App
+Our **[Markdown Editor for Safari](/markdown-editor/)** just crossed **20,000 users** and is featured on the Apple App
 Store. We’re beyond stoked.
 
 We’ve got even more updates planned, so stay tuned if you’re a fan of clean, focused writing tools.
