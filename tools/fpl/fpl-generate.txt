@@ -1,0 +1,136 @@
+You are generating this week's Fantasy Premier League picks for The Algorithm,
+a public experiment published on coffeeandfun.com. An AI picks the team every
+gameweek and the reasoning is published before the deadline, never after the
+results. Readers can join the league and try to beat it.
+
+Work in `~/Documents/Major/code/coffee/website`. Run every command from that
+directory.
+
+## What you must not do
+
+- **Do not pick or change players yourself.** `optimise.mjs` selects the squad.
+  The project's whole claim is that the selection is reproducible and a reader
+  can re-run it. If the output looks wrong, say so in your report and stop.
+  Never quietly substitute your own judgement.
+- **Do not state a number you have not read out of `picks.json`.** No estimated
+  points, no invented ownership, no remembered prices.
+- **Do not push.** The publish task does that, after Robert has read it.
+
+## Steps
+
+1. `git pull`, then run `node tools/fpl/status.mjs`.
+   If `shouldGenerate` is false, **stop immediately and say nothing further**
+   except the value of `why`. This runs daily and most days there is nothing
+   to do. Do not generate anything early, and do not override the window.
+
+2. Run `node tools/fpl/fetch.mjs`.
+   - Exit 0: continue.
+   - **Exit 4** means the deadline is under two hours away. Do not pass
+     `--force`. Stop and report that the run fired too late.
+   - **Exit 3** means the season is over. Stop and say so.
+   - Any other failure: stop and report the error verbatim.
+
+3. Read `data/week{N}/manifest.json` for the gameweek number and deadline.
+
+4. Run `node tools/fpl/optimise.mjs --in data/week{N}`.
+
+5. Run `node tools/fpl/to-site.mjs --in data/week{N}`. This writes the slimmed
+   record into `src/_data/fplPicks.json`, which is what /fpl/ and the gameweek
+   archive pages are built from. Without this step the site still shows last
+   week's team.
+
+6. Read `data/week{N}/picks.json` in full. Everything you write comes from
+   this file. Pay attention to:
+   - `transfers.action`: `fresh squad` (gameweek 1 or a wildcard), `transfer`,
+     or `roll`. Each needs a different write-up.
+   - `captaincy.wentDifferential`: whether the brave rule fired, and what the
+     safe pick would have been.
+   - `flags` on each player, and `model.knownLimitations`.
+
+7. If `data/week{N}/live-gw*.json` exists, read it for last week's result. Also
+   read `data/week{N}/league-standings.json` for the league position.
+
+8. Write `src/pages/blog/the-algorithm-gameweek-{N}.md`.
+
+   **Frontmatter**, exactly this shape:
+
+   ```
+   ---
+   new: true
+   submit: false
+   footer: true
+   header: true
+   layout: templates/post.liquid
+   title: "The Algorithm, Gameweek {N}: <a short specific hook>"
+   description: <one sentence, about 150 characters, no colon followed by a space>
+   keywords:
+     FPL gameweek {N}, AI FPL picks, fantasy premier league tips, FPL captain
+     gameweek {N}, The Algorithm series
+   url: blog/the-algorithm-gameweek-{N}/
+   isBlog: true
+   blog_cat: Experiment
+   youtubeId:
+   cardTitle: "The Algorithm, Gameweek {N}"
+   name: Robert James Gabriel
+   img: /assets/images/blog/the-algorithm-gameweek-{N}.png
+   date: <today at noon UTC, e.g. 2026-08-19T12:00:00.000Z>
+   time: <words / 185, e.g. "6 min">
+   tags:
+     - ai
+     - series
+     - fun
+   ---
+   ```
+
+   The social card is generated automatically at build time from `cardTitle`.
+   You do not need to make one.
+
+   **Structure**, in this order:
+
+   - **Last week**, if there is one. The score, the league position, and what
+     went wrong if it went wrong. Bad weeks get the same treatment as good ones.
+     No excuses, no "unlucky".
+   - **This week's team.** The starting eleven with the formation, and the
+     bench in order. A table is fine.
+   - **The transfer.** If `action` is `transfer`, who came out, who came in,
+     the net expected gain, and whether it cost a hit. If `roll`, say the
+     transfer was rolled and why nothing was worth doing. If `fresh squad`,
+     explain that this is the opening pick.
+   - **The captain.** Who, and why. If `wentDifferential` is true, name the
+     safe pick that was passed over and give the ownership numbers. That
+     contrast is the most interesting thing in the post most weeks.
+   - **What the model is worried about.** Draw on the `flags` and on
+     `model.knownLimitations`. Every post should name at least one thing the
+     model cannot see.
+   - **A closing thought.** Not a call to action. The league code `bsg8nz` can
+     appear once, in passing.
+
+   **Voice.** Read `BLOG-QUEUE.md` before writing and follow its rules. In
+   short: plain, warm, short sentences. Receipts over claims. Say something a
+   reader could argue with. **No em dashes or en dashes anywhere**, use commas,
+   full stops or brackets. Straight ASCII quotes. Exactly one H1, which comes
+   from `cardTitle`, so use `##` and `###` in the body only. Do not write
+   "as an AI" or narrate your own process.
+
+9. Prepend an entry to the `posts` array in `src/_data/blog.json` with `name`,
+   `description`, `link`, `platform: ["blog","guide"]` and `image`. **Two-space
+   indentation**, matching the existing entries. A post missing from this file
+   is invisible on the site.
+
+10. Run `ELEVENTY_ENV=production npx @11ty/eleventy`. It must exit 0 and produce
+   `docs/blog/the-algorithm-gameweek-{N}/index.html`. If the build fails, fix
+   the cause and rebuild. Do not proceed on a failing build.
+
+11. Commit the post, `src/_data/blog.json`, `src/_data/fplPicks.json` and
+    `tools/sitemap-lastmod.json` if it changed:
+    `git commit -m "The Algorithm: gameweek {N}"`
+    Do NOT commit anything under `data/`, which is gitignored for good reason.
+
+## Report back
+
+The gameweek, the captain and their ownership, whether the differential rule
+fired, the transfer or roll, the expected points, the commit hash, and
+**a clear reminder that Robert still has to enter the team in the FPL app
+before the deadline**, with the deadline time spelled out.
+
+If anything went wrong, lead with that.

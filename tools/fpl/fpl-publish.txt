@@ -1,0 +1,30 @@
+Publish this week's Fantasy Premier League post for The Algorithm, but only if
+it is safe to.
+
+Work in `~/Documents/Major/code/coffee/website`.
+
+1. Run `node tools/fpl/status.mjs`. If `shouldPublish` is false, **stop
+   immediately** and report only `why`. Most days there is nothing to push.
+   Never generate a post here: one written after the data was pulled would be
+   describing a different week.
+
+2. `status.mjs` has already confirmed the deadline is more than two hours away.
+   Sanity-check `hoursUntilDeadline` in its output looks plausible before
+   continuing; if it does not, stop and report it.
+
+3. Confirm the squad Robert is actually fielding matches what the post says.
+   Fetch
+   `https://fantasy.premierleague.com/api/entry/3065962/event/{N}/picks/`.
+   - If it 404s, the gameweek has not started yet and the squad cannot be read.
+     That is normal. Note in your report that it could not be verified.
+   - If it returns a squad that does not match `picks.json`, **stop** and tell
+     Robert the team on record differs from the one about to be published.
+
+4. If the checks pass, `git push`.
+
+5. Report the gameweek, the commit hash, whether the squad could be verified,
+   and confirmation it pushed.
+
+If any check fails, say so plainly and do nothing else. A week with no post is
+recoverable. A week with a post that misdescribes the team, or that pretends to
+predate a deadline, is not.
