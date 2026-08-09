@@ -137,7 +137,12 @@ body { margin: 0; }
     font-family: ui-monospace, Menlo, monospace; color: #fff; }
 
 /* ===== Content sections (below the app, crawlable) ===== */
-.content { background: #fff; color: var(--body-text); overflow-x: hidden; }
+/* clip, not hidden. CSS will not let one axis be visible while the other is
+   hidden, so overflow-x: hidden silently promoted overflow-y to auto, making
+   this a scroll container and killing position:sticky on anything inside it,
+   including the Helperbird banner. clip does the same horizontal job without
+   creating one. Same reasoning as html, body in coco.css. */
+.content { background: #fff; color: var(--body-text); overflow-x: clip; }
 .content-inner { max-width: 44rem; margin: 0 auto; padding: 3.5rem 1.25rem 1rem; }
 .content h2 { font-size: clamp(1.45rem, 4vw, 1.8rem); line-height: 1.35; color: var(--ink);
     font-weight: 800; margin: 0 0 1.1rem; }

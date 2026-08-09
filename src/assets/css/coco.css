@@ -434,12 +434,17 @@ pre code {
    hex differs, changing it here updates the band and the CTA together. */
 .hb-banner {
 	--hb-purple: #4a0d7a;
+	position: sticky;
+	bottom: 0;
+	z-index: 20;
 	width: 100vw;
 	margin-inline: calc(50% - 50vw);
 	margin-block: 3rem;
 	background: var(--hb-purple);
-	padding: 1.6rem 1.25rem;
+	padding: 1.3rem 1.25rem;
+	box-shadow: 0 -6px 24px rgba(28, 5, 48, 0.25);
 }
+.hb-banner[hidden] { display: none; }
 .hb-banner .hb-inner {
 	max-width: 64rem;
 	margin-inline: auto;
@@ -448,13 +453,12 @@ pre code {
 	gap: 1.25rem;
 	flex-wrap: wrap;
 }
+/* No disc behind the owl: measured on the band, its cream is 10.69:1, its gold
+   6.91:1 and its tan 5.51:1, so it reads on the purple unaided. */
 .hb-banner .hb-owl {
 	flex-shrink: 0;
-	width: 3.5rem;
-	height: 3.5rem;
-	border-radius: 9999px;
-	background: #fdf6e9;
-	padding: 0.25rem;
+	width: 5rem;
+	height: 5rem;
 	object-fit: contain;
 }
 .hb-banner .hb-text { flex: 1; min-width: 15rem; }
@@ -494,4 +498,29 @@ pre code {
 }
 .hb-banner .hb-cta:hover { background: #ffffff; }
 .hb-banner .hb-cta:focus-visible { outline: 3px solid #fdf6e9; outline-offset: 3px; }
-@media (prefers-reduced-motion: reduce) { .hb-banner .hb-cta { transition: none; } }
+/* A sticky bar that cannot be dismissed covers a strip of the page for as long
+   as its section is in view. sessionStorage, not localStorage: it respects the
+   reader now and returns on a later visit. */
+.hb-banner .hb-dismiss {
+	position: absolute;
+	top: 0.35rem;
+	right: 0.5rem;
+	appearance: none;
+	-webkit-appearance: none;
+	background: transparent;
+	border: 0;
+	color: #d9bff5;
+	font-size: 1.4rem;
+	line-height: 1;
+	width: 2.75rem;
+	height: 2.75rem;
+	border-radius: 9999px;
+	cursor: pointer;
+	transition: background 0.15s ease, color 0.15s ease;
+}
+.hb-banner .hb-dismiss:hover { color: #ffffff; background: rgba(255, 255, 255, 0.14); }
+.hb-banner .hb-dismiss:focus-visible { outline: 3px solid #fdf6e9; outline-offset: 2px; }
+@media (prefers-reduced-motion: reduce) {
+	.hb-banner .hb-cta,
+	.hb-banner .hb-dismiss { transition: none; }
+}

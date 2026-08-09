@@ -2,19 +2,25 @@
   Helperbird cross-promo. Drop `{% include helperbird-banner.liquid %}` anywhere
   inside a page's content and it styles itself from coco.css.
 
-  It breaks out to full viewport width, so place it between sections rather than
-  inside a card or a grid cell. It relies on the site-wide
-  html, body { overflow-x: clip } to do that without a stray scrollbar.
+  It is position:sticky at the bottom, so it rides along while its containing
+  section is in view and releases at the end of it. Place it between sections,
+  never inside a card or grid cell: it breaks out to full viewport width, and an
+  ancestor with overflow hidden or auto would kill the stickiness outright.
 
-  The UTM campaign is derived from page.fileSlug, so every page that carries the
-  banner reports separately in analytics without anyone remembering to set it.
+  Full bleed relies on the site-wide html, body { overflow-x: clip }.
+
+  The UTM campaign comes from page.fileSlug, so every page carrying the banner
+  reports separately without anyone remembering to set it.
 
   The owl is decorative: the heading beside it already names Helperbird, so alt
-  text here would just make a screen reader say it twice.
+  text here would only make a screen reader say it twice.
 {%- endcomment -%}
-<aside class="hb-banner" aria-labelledby="hb-title-{{ page.fileSlug }}">
+<aside class="hb-banner" id="hb-banner-{{ page.fileSlug }}" aria-labelledby="hb-title-{{ page.fileSlug }}">
+    <button type="button" class="hb-dismiss" data-hb-dismiss aria-label="Dismiss this Helperbird message">
+        <span aria-hidden="true">&times;</span>
+    </button>
     <div class="hb-inner">
-        <img class="hb-owl" src="/assets/images/brand/helperbird-owl.png" alt="" width="56" height="56" loading="lazy" decoding="async" />
+        <img class="hb-owl" src="/assets/images/brand/helperbird-owl.png" alt="" width="80" height="80" loading="lazy" decoding="async" />
         <div class="hb-text">
             <p class="hb-kicker">From the same team</p>
             <h2 class="hb-title" id="hb-title-{{ page.fileSlug }}">Struggle to read the web? Try Helperbird.</h2>
@@ -25,3 +31,21 @@
         </a>
     </div>
 </aside>
+<script>
+(function () {
+    var el = document.getElementById('hb-banner-{{ page.fileSlug }}');
+    if (!el) return;
+    var KEY = 'hb-dismissed';
+    /* Private mode can throw on storage access, and a promo bar is never worth
+       taking the page down over. */
+    var store = function (fn) { try { return fn(); } catch (e) { return null; } };
+    if (store(function () { return sessionStorage.getItem(KEY); })) {
+        el.hidden = true;
+        return;
+    }
+    el.querySelector('[data-hb-dismiss]').addEventListener('click', function () {
+        el.hidden = true;
+        store(function () { sessionStorage.setItem(KEY, '1'); });
+    });
+})();
+</script>
