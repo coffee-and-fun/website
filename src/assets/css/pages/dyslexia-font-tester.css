@@ -1,0 +1,97 @@
+/* Dyslexia font tester.
+   Tailwind utilities and daisyUI carry the layout, so this file only holds the
+   three @font-face declarations and the custom properties that drive the live
+   preview. Class names are dft- prefixed: daisyUI owns .card, .range, .badge,
+   .tabs and friends in the site-wide bundle. */
+
+@font-face {
+	font-family: 'OpenDyslexic';
+	font-style: normal;
+	font-weight: 400;
+	font-display: swap;
+	src: url('/assets/fonts/opendyslexic-latin-400-normal.woff2') format('woff2');
+}
+
+@font-face {
+	font-family: 'Lexend';
+	font-style: normal;
+	font-weight: 400;
+	font-display: swap;
+	src: url('/assets/fonts/lexend-latin-400-normal.woff2') format('woff2');
+}
+
+@font-face {
+	font-family: 'Atkinson Hyperlegible';
+	font-style: normal;
+	font-weight: 400;
+	font-display: swap;
+	src: url('/assets/fonts/atkinson-hyperlegible-latin-400-normal.woff2') format('woff2');
+}
+
+/* One source of truth for the four controls. JS writes these on .dft-app and
+   every sample inherits, so all fonts are always compared at identical settings,
+   which is the entire point of the tool. */
+.dft-app {
+	--dft-size: 18px;
+	--dft-letter: 0em;
+	--dft-word: 0em;
+	--dft-line: 1.5;
+	--dft-measure: 65ch;
+}
+
+.dft-sample {
+	font-size: var(--dft-size);
+	letter-spacing: var(--dft-letter);
+	word-spacing: var(--dft-word);
+	line-height: var(--dft-line);
+	max-width: var(--dft-measure);
+	white-space: pre-wrap;
+	overflow-wrap: break-word;
+	margin: 0;
+	color: #3d2b1f;
+	transition: none;
+}
+
+.dft-f-system { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; }
+.dft-f-opendyslexic { font-family: 'OpenDyslexic', Comic Sans MS, sans-serif; }
+.dft-f-lexend { font-family: 'Lexend', sans-serif; }
+.dft-f-atkinson { font-family: 'Atkinson Hyperlegible', sans-serif; }
+
+/* The measure ruler sits directly above a sample and shows where the line
+   length limit falls, so the ch value is something you can see rather than a
+   number you have to trust. */
+.dft-ruler {
+	max-width: var(--dft-measure);
+	height: 0.25rem;
+	border-radius: 9999px;
+	background: linear-gradient(90deg, #7a4e31, #c4813a);
+}
+
+/* Focus mode: one font, full width, everything else out of the way. */
+.dft-app[data-focus] .dft-panel { display: none; }
+.dft-app[data-focus='system'] .dft-panel[data-font='system'],
+.dft-app[data-focus='opendyslexic'] .dft-panel[data-font='opendyslexic'],
+.dft-app[data-focus='lexend'] .dft-panel[data-font='lexend'],
+.dft-app[data-focus='atkinson'] .dft-panel[data-font='atkinson'] {
+	display: block;
+	grid-column: 1 / -1;
+}
+
+/* Native range inputs lose their track styling under Tailwind preflight in
+   some engines, and daisyUI's .range only paints when the accent resolves. */
+/* Native ranges came out at exactly 24px, the bare WCAG 2.5.8 floor. On an
+   accessibility tool the controls should not be sitting on the minimum. */
+.dft-range {
+	accent-color: #7a4e31;
+	height: 2.25rem;
+	cursor: pointer;
+}
+.dft-range:focus-visible {
+	outline: 2px solid #7a4e31;
+	outline-offset: 2px;
+	border-radius: 9999px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+	.dft-sample { transition: none; }
+}
