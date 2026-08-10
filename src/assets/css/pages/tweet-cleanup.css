@@ -1,0 +1,46 @@
+/* Tweet Cleanup Script Builder */
+.builder { display: grid; gap: 1.25rem; }
+
+.target-grid { display: grid; gap: .75rem; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); }
+
+.target {
+	display: flex; gap: .75rem; align-items: flex-start;
+	padding: 1rem; border: 2px solid var(--sk-line, #d6cec4); border-radius: 14px;
+	background: #fffdf9; cursor: pointer; transition: border-color .15s, background .15s;
+}
+.target:hover { border-color: #a36942; }
+.target:focus-within { outline: 3px solid #a36942; outline-offset: 2px; }
+.target input { margin-top: .2rem; width: 1.15rem; height: 1.15rem; accent-color: #eb2030; flex: none; }
+.target .t-name { font-weight: 700; display: block; }
+.target .t-desc { font-size: .9rem; opacity: .75; display: block; margin-top: .15rem; }
+.target[data-on='true'] { border-color: #eb2030; background: #fff6f2; }
+
+.tuning { display: grid; gap: 1rem; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); }
+.tuning label { display: block; font-weight: 600; margin-bottom: .35rem; }
+.tuning input[type='number'] { width: 100%; padding: .6rem .7rem; border: 2px solid var(--sk-line, #d6cec4); border-radius: 10px; background: #fffdf9; }
+.tuning .hint { font-size: .82rem; opacity: .7; margin-top: .3rem; }
+
+.estimate { padding: .9rem 1rem; border-radius: 12px; background: #fdf3d8; border: 2px dashed #e3c96b; font-size: .95rem; }
+
+.warn { padding: 1rem; border-radius: 12px; background: #fff1f0; border: 2px solid #f3b5b0; }
+.warn strong { display: block; margin-bottom: .3rem; }
+
+.code-scroll { max-height: 420px; overflow: auto; border-radius: 12px; border: 2px solid var(--sk-line, #d6cec4); background: #1f1b18; }
+.code-scroll pre { margin: 0; padding: 1rem; color: #f7efe6; font-size: .85rem; line-height: 1.5; white-space: pre; }
+.code-scroll:focus-visible { outline: 3px solid #a36942; outline-offset: 2px; }
+
+.copy-note { margin-top: .5rem; font-weight: 600; }
+.copy-note.good { color: #1c7c4a; }
+.copy-note.bad { color: #b3261e; }
+
+.code-empty { padding: 1.25rem; border: 2px dashed var(--sk-line, #d6cec4); border-radius: 12px; opacity: .75; }
+
+.steps { counter-reset: step; display: grid; gap: .85rem; padding: 0; list-style: none; }
+.steps li { counter-increment: step; position: relative; padding-left: 2.6rem; }
+.steps li::before {
+	content: counter(step); position: absolute; left: 0; top: -.1rem;
+	width: 1.9rem; height: 1.9rem; border-radius: 50%; display: grid; place-items: center;
+	background: #eb2030; color: #fff; font-weight: 700; font-size: .95rem;
+}
+
+@media (prefers-reduced-motion: reduce) { .target { transition: none; } }

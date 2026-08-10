@@ -166,14 +166,14 @@ and realized there’s a predictable pattern depending on time of submission and
 We wrote a brute force tool to try and replicate or pre-generate codes. Here's a sample:
 
 ```js
-const crypto = require('crypto');
-
-function fakeValidation(seed) {
-	const hash = crypto.createHash('sha1').update(seed).digest('hex');
-	return parseInt(hash.slice(0, 5), 16).toString().slice(0, 5);
-}
-
-console.log(fakeValidation('03963-06000-41025-14028-00024-6'));
+// Removed at the request of McDonald's.
+//
+// This block previously contained a script that attempted to derive
+// McDVOICE validation codes. It has been taken down and will not be
+// restored.
+//
+// If you want to leave feedback and receive a legitimate validation
+// code, use the official survey: https://www.mcdvoice.com
 ```
 
 Did it match every time? No. But close enough to build a list of expected validation numbers for

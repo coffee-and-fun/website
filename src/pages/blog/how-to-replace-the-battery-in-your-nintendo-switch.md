@@ -7,9 +7,9 @@ layout: templates/post.liquid
 title: "Nintendo Switch Battery Replacement Guide"
 description: "Swap a worn Nintendo Switch battery yourself. Every screw, the tri-wing driver, the isopropyl trick for the glue, and how to put it all back together."
 keywords:
-  'Change battery in Apple AirTag, Replace AirTag battery, How to change AirTag battery, Apple
-  AirTag battery replacement, AirTag battery change guide, AirTag battery replacement tutorial,
-  AirTag battery life, Replace battery in AirTag, Change battery in an Apple AirTag'
+  'Nintendo Switch battery replacement, replace Switch battery, how to replace Nintendo Switch
+  battery, Switch battery location, change Nintendo Switch battery, Switch not holding charge,
+  tri-wing screwdriver, Nintendo Switch repair guide, HAC-003 battery'
 url: blog/how-to-replace-the-battery-in-your-nintendo-switch/
 isBlog: true
 blog_cat: Usecase

@@ -15,7 +15,7 @@ isBlog: true
 blog_cat: Usecase
 cardTitle: Scraping 20,000 Poshmark Listings (For Real This Time)
 name: Robert James Gabriel
-img: /assets/images/blog/ethically-scrape-poshmark-listings-node-puppeteer.png
+img: /assets/images/blog/ethically-scrape-poshmark-listings-node-puppeteer-update.png
 date: 2025-03-28T00:00:00.000Z
 time: 6 min
 tags:

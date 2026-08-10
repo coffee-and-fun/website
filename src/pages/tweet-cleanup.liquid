@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html class="antialiased" lang="en" data-theme="light" style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <!-- Primary Meta Tags -->
+    <title>Delete Retweets, Likes and Tweets - Coffee &amp; Fun LLC</title>
+    <meta name="title" content="Delete Retweets, Likes and Tweets - Coffee &amp; Fun LLC" />
+    <meta name="description" content="Build a free script that deletes your retweets, likes and tweets on X. Pick what to remove, copy it, paste it into your own browser console. No app, no account access." />
+    <meta name="keywords" content="delete retweets, unlike tweets, twitter like deleter, tweet delete tool, delete all retweets free, mass delete retweets, delete liked tweets, x cleanup" />
+    <meta name="author" content="Coffee &amp; Fun LLC" />
+    <meta name="robots" content="index, follow" />
+    <meta name="rating" content="general" />
+
+    <!-- Canonical URL -->
+    <link rel="canonical" href="https://www.coffeeandfun.com/tweet-cleanup/" />
+
+    <!-- Favicon -->
+    <link rel="icon" href="/assets/images/brand/favicon.png" sizes="any" />
+    <link rel="apple-touch-icon" href="/assets/images/social/192.png" />
+    <link rel="icon" href="/assets/images/social/192.png" sizes="192x192" type="image/png" />
+
+    <!-- Open Graph -->
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="Coffee &amp; Fun" />
+    <meta property="og:title" content="Delete Retweets, Likes and Tweets - Coffee &amp; Fun LLC" />
+    <meta property="og:description" content="Build a free script that deletes your retweets, likes and tweets on X. Pick what to remove, copy it, paste it into your own browser console. No app, no account access." />
+    <meta property="og:url" content="https://www.coffeeandfun.com/tweet-cleanup/" />
+    <meta property="og:image" content="https://www.coffeeandfun.com/assets/images/social/pages/tweet-cleanup.png" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content="Delete Retweets, Likes and Tweets card with the Coffee and Fun cup logo" />
+    <meta property="og:locale" content="en_US" />
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:site" content="@bycoffeeandfun" />
+    <meta name="twitter:creator" content="@bycoffeeandfun" />
+    <meta name="twitter:title" content="Delete Retweets, Likes and Tweets - Coffee &amp; Fun LLC" />
+    <meta name="twitter:description" content="Build a free script that deletes your retweets, likes and tweets on X. Pick what to remove, copy it, paste it into your own browser console. No app, no account access." />
+    <meta name="twitter:image" content="https://www.coffeeandfun.com/assets/images/social/pages/tweet-cleanup.png" />
+    <meta name="twitter:image:alt" content="Delete Retweets, Likes and Tweets card with the Coffee and Fun cup logo" />
+    <meta name="twitter:domain" content="coffeeandfun.com" />
+    <meta name="twitter:url" content="https://www.coffeeandfun.com/tweet-cleanup/" />
+
+    <!-- Web App Manifest -->
+    <link rel="manifest" href="/assets/images/social/site.webmanifest" />
+    <meta name="theme-color" content="#fef5ec" />
+    <meta name="mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="default" />
+    <meta name="apple-mobile-web-app-title" content="Tweet Cleanup" />
+
+    <!-- Structured Data -->
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "WebApplication",
+        "@id": "https://www.coffeeandfun.com/tweet-cleanup/",
+        "name": "Tweet Cleanup Script Builder",
+        "url": "https://www.coffeeandfun.com/tweet-cleanup/",
+        "description": "Builds a console script that removes your retweets, likes and tweets on X. You choose what to remove, the page assembles the script, and you run it yourself in your own browser.",
+        "applicationCategory": "UtilitiesApplication",
+        "operatingSystem": "Any",
+        "browserRequirements": "Requires JavaScript",
+        "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" },
+        "publisher": { "@type": "Organization", "name": "Coffee & Fun LLC", "url": "https://www.coffeeandfun.com/" }
+      }
+    </script>
+
+    <script src="https://unpkg.com/vue@3"></script>
+
+    {% bundledCss %}
+    {% pageCss "tweet-cleanup" %}
+    {% include sketch-styles.liquid %}
+{% include schema-org.liquid %}
+
+    </head>
+
+<body>
+    <a href="#tool" class="skip">Skip to the tool</a>
+
+    {% include header.liquid %}
+    {% include tool-hero.liquid %}
+{% raw %}
+    <main v-cloak id="main-content" class="wrap">
+        <header id="tool">
+            <div class="sketch-note sketch-float" aria-hidden="true" style="top: -12px; right: -3%; --sketch-rotate: 8deg;">
+                <svg aria-hidden="true" width="22" height="22" viewBox="0 0 24 24">
+                    <path d="M12 2 L13.5 10.5 L22 12 L13.5 13.5 L12 22 L10.5 13.5 L2 12 L10.5 10.5 Z" class="sketch-sparkle"/>
+                </svg>
+            </div>
+            <div class="sketch-note sketch-wiggle" aria-hidden="true" style="top: 4px; left: -3.5%; --sketch-rotate: -12deg;">
+                <svg aria-hidden="true" width="14" height="14" viewBox="0 0 16 16">
+                    <path d="M3 3 L13 13 M13 3 L3 13" class="sketch-cross"/>
+                </svg>
+            </div>
+
+            <p class="lede">
+                Pick what you want gone, copy the script, and run it in your own browser. No app to install,
+                nothing signs into your account, and nothing is sent to us.
+            </p>
+        </header>
+
+        <div id="app" class="builder">
+            <div class="sr-only" role="status" aria-live="polite">{{ announcement }}</div>
+
+            <section aria-labelledby="what-heading">
+                <h2 id="what-heading">1. What should it remove?</h2>
+                <div class="target-grid">
+                    <label class="target" :data-on="targets.retweets">
+                        <input type="checkbox" v-model="targets.retweets" />
+                        <span>
+                            <span class="t-name">Retweets</span>
+                            <span class="t-desc">Undoes reposts on your profile. The original post is untouched.</span>
+                        </span>
+                    </label>
+                    <label class="target" :data-on="targets.likes">
+                        <input type="checkbox" v-model="targets.likes" />
+                        <span>
+                            <span class="t-name">Likes</span>
+                            <span class="t-desc">Unlikes posts. Run this one on your Likes tab.</span>
+                        </span>
+                    </label>
+                    <label class="target" :data-on="targets.tweets">
+                        <input type="checkbox" v-model="targets.tweets" />
+                        <span>
+                            <span class="t-name">Your own tweets</span>
+                            <span class="t-desc">Deletes posts you wrote. This cannot be undone.</span>
+                        </span>
+                    </label>
+                </div>
+                <p v-if="nothingSelected" class="copy-note bad">Pick at least one thing to remove.</p>
+            </section>
+
+            <section aria-labelledby="tune-heading">
+                <h2 id="tune-heading">2. Tune it (optional)</h2>
+                <div class="tuning">
+                    <div>
+                        <label for="cycles">Passes</label>
+                        <input id="cycles" type="number" v-model.number="maxCycles" min="1" max="200" />
+                        <p class="hint">How many times it scrolls and sweeps.</p>
+                    </div>
+                    <div>
+                        <label for="cap">Pause after</label>
+                        <input id="cap" type="number" v-model.number="requestCap" min="5" max="200" />
+                        <p class="hint">Actions before it waits. 50 is a safe default.</p>
+                    </div>
+                    <div>
+                        <label for="pause">Pause length</label>
+                        <input id="pause" type="number" v-model.number="pauseMinutes" min="1" max="60" />
+                        <p class="hint">Minutes to wait. X uses a 15 minute window.</p>
+                    </div>
+                </div>
+                <p class="estimate">
+                    Rough guide: up to about <strong>{{ estimate.actions }}</strong> items,
+                    with <strong>{{ estimate.pauses }}</strong> pause<span v-if="estimate.pauses !== 1">s</span>,
+                    taking somewhere near <strong>{{ estimate.minutes }}</strong> minutes.
+                    X decides the real limits, so treat this as a ballpark.
+                </p>
+            </section>
+
+            <section aria-labelledby="warn-heading">
+                <h2 id="warn-heading">3. Read this before you run it</h2>
+                <div class="warn">
+                    <strong>Deleting is permanent.</strong>
+                    There is no undo and no bin to recover from. Download your X archive first if there is
+                    anything you would miss. Unliking and unretweeting are reversible only by doing them again
+                    by hand, which in practice means they are not.
+                </div>
+            </section>
+
+            <section aria-labelledby="steps-heading">
+                <h2 id="steps-heading">4. Run it</h2>
+                <ol class="steps">
+                    <li>Open <strong>x.com</strong> on a computer and go to your own profile. For likes, open your <strong>Likes</strong> tab.</li>
+                    <li>Open the console: <kbd>F12</kbd>, or <kbd>Cmd</kbd> + <kbd>Option</kbd> + <kbd>J</kbd> on a Mac, then pick the <strong>Console</strong> tab.</li>
+                    <li>If the console asks, type <code>allow pasting</code> and press Enter. Chrome asks this the first time.</li>
+                    <li>Paste the script below and press Enter.</li>
+                    <li>Leave the tab open and in the foreground. Refresh the page to stop it at any point.</li>
+                </ol>
+            </section>
+
+            <section aria-labelledby="script-heading">
+                <h2 id="script-heading">5. Your script</h2>
+                <template v-if="!nothingSelected">
+                    <p>
+                        <button type="button" @click="copyScript">Copy the script</button>
+                        <button type="button" @click="reset">Reset options</button>
+                    </p>
+                    <p v-if="copied" class="copy-note good">Copied. Paste it into the console and press Enter.</p>
+                    <p v-if="copyFailed" class="copy-note bad">Copy didn&rsquo;t work, the script below is selected, press Ctrl+C or Cmd+C.</p>
+                    <div class="code-scroll" tabindex="0" role="region" aria-label="Your cleanup script">
+                        <pre ref="scriptPre">{{ script }}</pre>
+                    </div>
+                </template>
+                <div v-else class="code-empty">Choose what to remove above and your script will appear here.</div>
+            </section>
+        </div>
+
+        <p class="note">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+            <span>This page only assembles text. It never touches your account, asks for a password, or sends anything anywhere. You run the script yourself, in your own browser, on your own profile.</span>
+        </p>
+
+        <p class="foot">A free tool by Coffee &amp; Fun · Works offline once loaded · No sign-up</p>
+{% endraw %}
+        {% include related-tools.liquid %}
+    </main>
+
+    {% include modals.liquid %}
+    {% include footer.liquid %}
+
+    {% pageJs "tweet-cleanup" %}
+</body>
+</html>
