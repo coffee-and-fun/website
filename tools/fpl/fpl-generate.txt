@@ -22,7 +22,7 @@ directory.
 
 1. Run `node tools/fpl/status.mjs`. **Do not run `git pull`**, or any other
    git command: this environment cannot take a git lock or reach the
-   keychain. A native launchd agent, `git-agent.sh`, does all the git work,
+   keychain. A native cron job, `git-agent.sh`, does all the git work,
    pull included, every five minutes.
    If `shouldGenerate` is false, **stop immediately and say nothing further**
    except the value of `why`. This runs daily and most days there is nothing

@@ -24,6 +24,23 @@ cd "$REPO" || { echo "$(date -u '+%FT%TZ') FATAL cannot cd $REPO"; exit 1; }
 
 log() { echo "$(date -u '+%FT%TZ') $*"; }
 
+# --- 0. run lock -------------------------------------------------------------
+# cron does not care whether the last run finished. A slow network pull could
+# still be going five minutes later, and two of these racing on the same index
+# is how you get a corrupt one. mkdir is atomic, unlike test-then-touch.
+LOCKDIR=/tmp/fpl-git-agent.lock
+if ! mkdir "$LOCKDIR" 2>/dev/null; then
+  # Stale after 30 minutes means a previous run was killed mid-flight.
+  if [ -n "$(find "$LOCKDIR" -maxdepth 0 -mmin +30 2>/dev/null)" ]; then
+    log "removing stale run lock"
+    rmdir "$LOCKDIR" 2>/dev/null
+    mkdir "$LOCKDIR" 2>/dev/null || exit 0
+  else
+    exit 0   # another run is in progress, say nothing
+  fi
+fi
+trap 'rmdir "$LOCKDIR" 2>/dev/null' EXIT
+
 # --- 1. clear a stranded lock ------------------------------------------------
 # Not paranoia. The sandbox cannot unlink, so every failed git operation there
 # leaves one behind, and it blocks every index operation until removed.
