@@ -1,46 +1,180 @@
-/* Tweet Cleanup Script Builder */
-.builder { display: grid; gap: 1.25rem; }
+/* Tweet Cleanup Script Builder
+   Self-contained like the other tool pages: this file owns the page shell
+   (tokens, body, .wrap, headings) as well as the builder's own components.
+   Buttons stay daisyUI, so there is no bare .btn rule below. */
+:root {
+    --bg: var(--color-cream);
+    --surface: #fffcf7;
+    --ink: var(--color-cocoa);
+    --muted: #6b6259;
+    --faint: #8a7f74;
+    --line: #ece0d4;
+    --line-strong: var(--color-mocha);
+    --warn: var(--color-coral-deep);
+    --warn-bg: #fbecea;
+    --radius: 14px;
+    --mono: ui-monospace, 'SF Mono', 'JetBrains Mono', 'Fira Code', Menlo, Consolas, monospace;
+}
 
-.target-grid { display: grid; gap: .75rem; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); }
+* { box-sizing: border-box; }
 
+html, body { background: var(--bg); }
+body {
+    margin: 0;
+    color: var(--ink);
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    -webkit-font-smoothing: antialiased;
+    accent-color: var(--ink);
+}
+[v-cloak] { display: none; }
+
+.sr-only {
+    position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px;
+    overflow: hidden; clip: rect(0,0,0,0); white-space: nowrap; border: 0;
+}
+
+a.skip {
+    position: absolute; left: -9999px; top: 0;
+    background: var(--ink); color: #fff; padding: 0.6rem 1rem; z-index: 50;
+    border-radius: 0 0 8px 0;
+}
+a.skip:focus { left: 0; }
+
+.wrap {
+    width: 100%;
+    max-width: 560px;
+    margin: 0 auto;
+    padding: 2rem 1.25rem 4rem;
+    flex: 1;
+}
+
+/* Anchors the aria-hidden sketch doodles sitting in the header's margins. */
+header#tool { position: relative; }
+
+.lede {
+    color: var(--muted);
+    font-size: 1rem;
+    line-height: 1.55;
+    margin: 0 0 2.25rem;
+    max-width: 46ch;
+}
+
+h2.step-label {
+    font-size: 0.78rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.07em;
+    color: var(--muted);
+    margin: 0 0 0.8rem;
+}
+/* cf- prefixed: daisyUI owns bare .step and only leaves it inert because it
+   nests it under .steps. Same reasoning as the icon resizer page. */
+section.cf-step { margin-bottom: 2.25rem; }
+
+/* Step 1: what to remove */
+.target-grid { display: grid; gap: 0.7rem; }
 .target {
-	display: flex; gap: .75rem; align-items: flex-start;
-	padding: 1rem; border: 2px solid var(--sk-line, #d6cec4); border-radius: 14px;
-	background: #fffdf9; cursor: pointer; transition: border-color .15s, background .15s;
+    display: flex; gap: 0.75rem; align-items: flex-start;
+    padding: 0.9rem 1rem;
+    border: 1.5px solid var(--line-strong);
+    border-radius: var(--radius);
+    background: var(--surface);
+    cursor: pointer;
 }
-.target:hover { border-color: #a36942; }
-.target:focus-within { outline: 3px solid #a36942; outline-offset: 2px; }
-.target input { margin-top: .2rem; width: 1.15rem; height: 1.15rem; accent-color: #eb2030; flex: none; }
-.target .t-name { font-weight: 700; display: block; }
-.target .t-desc { font-size: .9rem; opacity: .75; display: block; margin-top: .15rem; }
-.target[data-on='true'] { border-color: #eb2030; background: #fff6f2; }
+@media (hover: hover) {
+    .target:hover { background: #faf5ee; }
+}
+.target:focus-within { outline: 2px solid var(--ink); outline-offset: 2px; }
+.target input { margin-top: 0.2rem; width: 1.05rem; height: 1.05rem; flex: none; }
+.target .t-name { font-weight: 600; font-size: 0.95rem; display: block; }
+.target .t-desc { color: var(--muted); font-size: 0.85rem; display: block; margin-top: 0.2rem; line-height: 1.45; }
+/* Real selected state, driven by the Vue :data-on binding. */
+.target[data-on='true'] { border-color: var(--ink); background: #faf5ee; }
 
-.tuning { display: grid; gap: 1rem; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); }
-.tuning label { display: block; font-weight: 600; margin-bottom: .35rem; }
-.tuning input[type='number'] { width: 100%; padding: .6rem .7rem; border: 2px solid var(--sk-line, #d6cec4); border-radius: 10px; background: #fffdf9; }
-.tuning .hint { font-size: .82rem; opacity: .7; margin-top: .3rem; }
+/* Step 2: tuning */
+.tuning { display: grid; gap: 1rem; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); }
+.tuning label { display: block; font-weight: 600; font-size: 0.9rem; margin-bottom: 0.35rem; }
+.tuning input[type='number'] {
+    width: 100%; padding: 0.55rem 0.7rem;
+    border: 1px solid var(--line-strong); border-radius: 9px;
+    background: var(--surface); color: var(--ink); font: inherit;
+}
+.tuning input[type='number']:focus-visible { outline: 2px solid var(--ink); outline-offset: 1px; }
 
-.estimate { padding: .9rem 1rem; border-radius: 12px; background: #fdf3d8; border: 2px dashed #e3c96b; font-size: .95rem; }
+.hint { font-size: 0.8rem; color: var(--muted); line-height: 1.45; margin: 0.3rem 0 0; }
 
-.warn { padding: 1rem; border-radius: 12px; background: #fff1f0; border: 2px solid #f3b5b0; }
-.warn strong { display: block; margin-bottom: .3rem; }
+.estimate {
+    margin-top: 1rem; padding: 0.85rem 1rem;
+    border: 1px solid var(--line); border-radius: var(--radius);
+    background: var(--surface); color: var(--muted);
+    font-size: 0.85rem; line-height: 1.55;
+}
+.estimate strong { color: var(--ink); }
 
-.code-scroll { max-height: 420px; overflow: auto; border-radius: 12px; border: 2px solid var(--sk-line, #d6cec4); background: #1f1b18; }
-.code-scroll pre { margin: 0; padding: 1rem; color: #f7efe6; font-size: .85rem; line-height: 1.5; white-space: pre; }
-.code-scroll:focus-visible { outline: 3px solid #a36942; outline-offset: 2px; }
+/* Step 3: the warning that matters */
+.warn {
+    padding: 1rem;
+    border: 1px solid var(--warn); border-radius: var(--radius);
+    background: var(--warn-bg);
+    font-size: 0.88rem; line-height: 1.55;
+}
+.warn strong { display: block; margin-bottom: 0.25rem; color: var(--warn); }
 
-.copy-note { margin-top: .5rem; font-weight: 600; }
-.copy-note.good { color: #1c7c4a; }
-.copy-note.bad { color: #b3261e; }
-
-.code-empty { padding: 1.25rem; border: 2px dashed var(--sk-line, #d6cec4); border-radius: 12px; opacity: .75; }
-
-.steps { counter-reset: step; display: grid; gap: .85rem; padding: 0; list-style: none; }
-.steps li { counter-increment: step; position: relative; padding-left: 2.6rem; }
+/* Step 4: how to run it */
+.steps { counter-reset: cfstep; list-style: none; display: grid; gap: 0.8rem; padding: 0; margin: 0; }
+.steps li {
+    counter-increment: cfstep; position: relative; padding-left: 2.35rem;
+    font-size: 0.9rem; line-height: 1.55;
+}
 .steps li::before {
-	content: counter(step); position: absolute; left: 0; top: -.1rem;
-	width: 1.9rem; height: 1.9rem; border-radius: 50%; display: grid; place-items: center;
-	background: #eb2030; color: #fff; font-weight: 700; font-size: .95rem;
+    content: counter(cfstep); position: absolute; left: 0; top: 0;
+    width: 1.65rem; height: 1.65rem; border-radius: 50%;
+    display: grid; place-items: center;
+    background: var(--ink); color: #fff;
+    font-size: 0.8rem; font-weight: 700;
 }
 
-@media (prefers-reduced-motion: reduce) { .target { transition: none; } }
+/* Step 5: script output */
+.code-scroll {
+    background: var(--surface);
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    max-height: 340px; overflow: auto;
+    padding: 1.1rem 1.2rem;
+}
+.code-scroll:focus-visible { outline: 2px solid var(--ink); outline-offset: 2px; }
+.code-scroll pre { margin: 0; font-family: var(--mono); font-size: 0.82rem; line-height: 1.6; }
+
+.code-empty {
+    border: 1.5px dashed var(--line-strong); border-radius: var(--radius);
+    padding: 2rem 1.25rem; text-align: center;
+    color: var(--muted); font-size: 0.9rem;
+}
+.code-empty code, .hint code, .steps code {
+    font-family: var(--mono); font-size: 0.8em;
+    background: #f0e6da; border-radius: 4px; padding: 0.1em 0.35em;
+}
+
+.copy-note { font-size: 0.82rem; color: var(--muted); margin-top: 0.6rem; }
+.copy-note.bad { color: var(--warn); font-weight: 600; }
+/* Success state on copy. Deep green, 4.7:1 on cream, so it passes AA. */
+.copy-note.good { color: #1c6b3f; font-weight: 600; }
+
+.btn-row { display: flex; gap: 0.6rem; flex-wrap: wrap; margin: 0 0 0.8rem; }
+.btn-row > button { flex: 1 1 auto; }
+
+.note {
+    display: flex; gap: 0.55rem; align-items: flex-start;
+    font-size: 0.85rem; line-height: 1.5; color: var(--muted);
+}
+.note svg { flex-shrink: 0; margin-top: 1px; }
+
+.foot { text-align: center; padding: 1.5rem 1rem 2rem; font-size: 0.8rem; color: var(--muted); }
+
+@media (max-width: 480px) {
+    .wrap { padding-top: 1.5rem; }
+    /* Keeps both actions at a 44px touch target on phones. */
+    .btn-row > button { min-height: 44px; }
+}

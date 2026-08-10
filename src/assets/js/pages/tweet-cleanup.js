@@ -200,4 +200,4 @@ createApp({
 			this.announce('Back to the defaults.');
 		}
 	}
-}).mount('#app');
+}).mount('#main-content');

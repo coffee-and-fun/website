@@ -98,16 +98,15 @@
             </div>
 
             <p class="lede">
-                Pick what you want gone, copy the script, and run it in your own browser. No app to install,
-                nothing signs into your account, and nothing is sent to us.
+                Everything below is assembled in your browser. Choose what to remove, copy the script,
+                then run it yourself on x.com.
             </p>
         </header>
 
-        <div id="app" class="builder">
             <div class="sr-only" role="status" aria-live="polite">{{ announcement }}</div>
 
-            <section aria-labelledby="what-heading">
-                <h2 id="what-heading">1. What should it remove?</h2>
+            <section class="cf-step" aria-labelledby="what-heading">
+                <h2 class="step-label" id="what-heading">1. What should it remove?</h2>
                 <div class="target-grid">
                     <label class="target" :data-on="targets.retweets">
                         <input type="checkbox" v-model="targets.retweets" />
@@ -134,8 +133,8 @@
                 <p v-if="nothingSelected" class="copy-note bad">Pick at least one thing to remove.</p>
             </section>
 
-            <section aria-labelledby="tune-heading">
-                <h2 id="tune-heading">2. Tune it (optional)</h2>
+            <section class="cf-step" aria-labelledby="tune-heading">
+                <h2 class="step-label" id="tune-heading">2. Tune it (optional)</h2>
                 <div class="tuning">
                     <div>
                         <label for="cycles">Passes</label>
@@ -161,8 +160,8 @@
                 </p>
             </section>
 
-            <section aria-labelledby="warn-heading">
-                <h2 id="warn-heading">3. Read this before you run it</h2>
+            <section class="cf-step" aria-labelledby="warn-heading">
+                <h2 class="step-label" id="warn-heading">3. Read this before you run it</h2>
                 <div class="warn">
                     <strong>Deleting is permanent.</strong>
                     There is no undo and no bin to recover from. Download your X archive first if there is
@@ -171,8 +170,8 @@
                 </div>
             </section>
 
-            <section aria-labelledby="steps-heading">
-                <h2 id="steps-heading">4. Run it</h2>
+            <section class="cf-step" aria-labelledby="steps-heading">
+                <h2 class="step-label" id="steps-heading">4. Run it</h2>
                 <ol class="steps">
                     <li>Open <strong>x.com</strong> on a computer and go to your own profile. For likes, open your <strong>Likes</strong> tab.</li>
                     <li>Open the console: <kbd>F12</kbd>, or <kbd>Cmd</kbd> + <kbd>Option</kbd> + <kbd>J</kbd> on a Mac, then pick the <strong>Console</strong> tab.</li>
@@ -182,13 +181,13 @@
                 </ol>
             </section>
 
-            <section aria-labelledby="script-heading">
-                <h2 id="script-heading">5. Your script</h2>
+            <section class="cf-step" aria-labelledby="script-heading">
+                <h2 class="step-label" id="script-heading">5. Your script</h2>
                 <template v-if="!nothingSelected">
-                    <p>
-                        <button type="button" @click="copyScript">Copy the script</button>
-                        <button type="button" @click="reset">Reset options</button>
-                    </p>
+                    <div class="btn-row">
+                        <button type="button" class="btn btn-lg" @click="copyScript">Copy the script</button>
+                        <button type="button" class="btn btn-ghost" @click="reset">Reset options</button>
+                    </div>
                     <p v-if="copied" class="copy-note good">Copied. Paste it into the console and press Enter.</p>
                     <p v-if="copyFailed" class="copy-note bad">Copy didn&rsquo;t work, the script below is selected, press Ctrl+C or Cmd+C.</p>
                     <div class="code-scroll" tabindex="0" role="region" aria-label="Your cleanup script">
@@ -197,8 +196,6 @@
                 </template>
                 <div v-else class="code-empty">Choose what to remove above and your script will appear here.</div>
             </section>
-        </div>
-
         <p class="note">
             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
             <span>This page only assembles text. It never touches your account, asks for a password, or sends anything anywhere. You run the script yourself, in your own browser, on your own profile.</span>
