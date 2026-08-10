@@ -76,6 +76,32 @@ with `node tools/serve-docs.mjs` and look.
 **Before the window opens**, `status.mjs` will say `shouldGenerate: false` with a
 `why` of "too early". That is correct. `fetch.mjs` still runs fine by hand.
 
+## 5b. Step 0, the week 0 base squad
+
+One-off, optional, and only useful before the generate window opens. Produces an
+opening fifteen you can enter in the app now, as a base. Paste **Task 0** from
+`PROMPTS-READY.md` into a normal chat, or just run it by hand:
+
+```bash
+node tools/fpl/status.mjs        # will say "too early". Expected. Continue anyway.
+node tools/fpl/fetch.mjs         # no early guard, only a late one, so this is fine
+node tools/fpl/optimise.mjs --in data/week1
+```
+
+**Stop there.** Do not write the post, do not commit, and do not run
+`to-site.mjs`. `status.mjs` reads both guards off the disk, so a week 0 run that
+behaved like a real one would break the real one:
+
+- `shouldGenerate` is `!postExists && ...`, so creating
+  `src/pages/blog/the-algorithm-gameweek-1.md` now means the real gameweek 1 run
+  never fires.
+- `shouldPublish` is `!!pendingCommit && hours > 2`, where `pendingCommit` is any
+  unpushed commit matching `/The Algorithm: gameweek/i`. Commit with that message
+  now and the publish task pushes a pre-season post the next morning.
+
+Gameweek 1 is a free pick, so the real run also builds fresh rather than
+transferring from whatever you entered. Nothing is locked in by entering early.
+
 ## 6. Create the two scheduled tasks
 
 Only now. Open `SCHEDULED-TASK.md` and paste each prompt into a new scheduled

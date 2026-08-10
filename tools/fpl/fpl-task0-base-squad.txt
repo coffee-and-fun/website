@@ -1,0 +1,77 @@
+Pick a base Fantasy Premier League squad for The Algorithm, ahead of the
+generate window. This is a one-off pre-season run, not the weekly job.
+
+Work in `~/Documents/Major/code/coffee/website`. Run every command from that
+directory.
+
+## What this run is for
+
+Gameweek 1's deadline is Friday 21 August 2026 at 18:30 BST, and the generate
+window does not open until five days before that. Robert wants an opening
+fifteen he can enter in the FPL app now, as a base. The real run will happen
+inside the window and supersedes this one.
+
+## What you must not do
+
+- **Do not write `src/pages/blog/the-algorithm-gameweek-1.md`.** `status.mjs`
+  gates `shouldGenerate` on that file not existing. Creating it now would stop
+  the real gameweek 1 run from ever firing.
+- **Do not commit anything**, and in particular never with a message matching
+  "The Algorithm: gameweek". `status.mjs` treats any unpushed commit matching
+  that as a post awaiting publication, and `fpl-publish` would push it.
+- **Do not push.**
+- **Do not run `to-site.mjs`.** It rewrites the tracked
+  `src/_data/fplPicks.json`, which already holds gameweek 1 data. Leave the site
+  alone until the real run.
+- **Do not pick or change players yourself.** `optimise.mjs` selects the squad.
+  If the output looks wrong, say so and stop. Never substitute your judgement.
+- **Do not state a number you have not read out of `picks.json`.**
+
+## Steps
+
+1. Run `node tools/fpl/status.mjs` and report `gameweek`, `deadlineLondon` and
+   `hoursUntilDeadline`. It will say `shouldGenerate: false` with a `why` of
+   "too early". **That is expected here. Ignore it and continue.** This is the
+   only run that is allowed to.
+
+2. Run `node tools/fpl/fetch.mjs`. It has no early guard, only a late one, so it
+   runs fine this far out. Takes about 3 minutes for 573 player files.
+   - **Exit 4** means the deadline is under two hours away, which would mean
+     something is badly wrong with the date. Do not pass `--force`. Stop.
+   - **Exit 3** means the season is over. Stop and say so.
+   - Any other failure: stop and report the error verbatim.
+
+3. Read `data/week1/manifest.json` and confirm `gameweek` is 1 and
+   `elementSummaryFailures` is low. If more than about 20 player files failed,
+   stop and say so, because the squad would be picked off partial data.
+
+4. Run `node tools/fpl/optimise.mjs --in data/week1`.
+   With no finished gameweeks the picks endpoint 404s, so there is no held squad
+   and the optimiser builds a fresh fifteen. That is correct for gameweek 1.
+
+5. Read `data/week1/picks.json` in full.
+
+## Report back
+
+- The starting eleven with the formation, and the bench in order. A table.
+- Total spent against the 100.0 cap, and the money left in the bank.
+- The captain, their ownership, their expected points, and whether
+  `captaincy.wentDifferential` fired. If it did, name the safe pick that was
+  passed over.
+- Expected points for the starting eleven, and with the captain doubled.
+- Every player carrying a `flags` entry, and what the flag says. Say plainly how
+  many of the fifteen are on a price-implied prior rather than a real record.
+- Confirm in one line that you wrote no post, made no commit, and did not touch
+  `src/_data/fplPicks.json`.
+
+Then remind Robert of two things:
+
+1. He can enter this fifteen now as a base. Gameweek 1 is a free pick, so the
+   real run inside the window will also build fresh, and whatever it produces
+   replaces this squad rather than transferring from it. Nothing is locked in by
+   entering it early.
+2. This data is roughly twelve days ahead of the deadline. Prices will move and
+   injuries will happen, so expect the real squad to differ, and the team that
+   counts is the one entered before 18:30 BST on Friday 21 August.
+
+If anything went wrong, lead with that.
