@@ -225,6 +225,17 @@ pre code {
 .hljs-punctuation,
 .hljs-operator { color: #57534e; }
 
+/* The three tokens highlight.js emits here that had no colour of their own.
+   .hljs-function wraps the punctuation around an arrow function, "(", ")" and
+   "=>", so it takes the operator grey; its nested title and params keep their
+   own colours. .hljs-params is the parameter list, so it matches the variable
+   teal. .hljs-subst was the one actually reading wrong rather than just plain:
+   it nests inside .hljs-string, so $(...) in a shell string inherited the
+   string green and looked like part of the string instead of code. */
+.hljs-function { color: #57534e; }
+.hljs-params { color: #0f766e; }
+.hljs-subst { color: #292524; }
+
 .hljs-emphasis { font-style: italic; }
 .hljs-strong { font-weight: 700; }
 
