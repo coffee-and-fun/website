@@ -172,7 +172,7 @@
 
             <section class="cf-step" aria-labelledby="steps-heading">
                 <h2 class="step-label" id="steps-heading">4. Run it</h2>
-                <ol class="steps">
+                <ol class="cf-steps">
                     <li>Open <strong>x.com</strong> on a computer and go to your own profile. For likes, open your <strong>Likes</strong> tab.</li>
                     <li>Open the console: <kbd>F12</kbd>, or <kbd>Cmd</kbd> + <kbd>Option</kbd> + <kbd>J</kbd> on a Mac, then pick the <strong>Console</strong> tab.</li>
                     <li>If the console asks, type <code>allow pasting</code> and press Enter. Chrome asks this the first time.</li>
@@ -186,7 +186,7 @@
                 <template v-if="!nothingSelected">
                     <div class="btn-row">
                         <button type="button" class="btn btn-lg" @click="copyScript">Copy the script</button>
-                        <button type="button" class="btn btn-ghost" @click="reset">Reset options</button>
+                        <button type="button" class="btn btn-lg btn-ghost" @click="reset">Reset options</button>
                     </div>
                     <p v-if="copied" class="copy-note good">Copied. Paste it into the console and press Enter.</p>
                     <p v-if="copyFailed" class="copy-note bad">Copy didn&rsquo;t work, the script below is selected, press Ctrl+C or Cmd+C.</p>

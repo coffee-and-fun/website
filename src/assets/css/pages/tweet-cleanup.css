@@ -69,8 +69,11 @@ h2.step-label {
     color: var(--muted);
     margin: 0 0 0.8rem;
 }
-/* cf- prefixed: daisyUI owns bare .step and only leaves it inert because it
-   nests it under .steps. Same reasoning as the icon resizer page. */
+/* cf- prefixed: daisyUI owns both .step and .steps. .steps is the real hazard,
+   it is a horizontal stepper (display:inline-grid, grid-auto-flow:column), and
+   a bare .steps here only overrode display, inheriting the column flow and
+   squeezing the five items into five narrow columns. Same reasoning as the
+   icon resizer page. */
 section.cf-step { margin-bottom: 2.25rem; }
 
 /* Step 1: what to remove */
@@ -123,12 +126,12 @@ section.cf-step { margin-bottom: 2.25rem; }
 .warn strong { display: block; margin-bottom: 0.25rem; color: var(--warn); }
 
 /* Step 4: how to run it */
-.steps { counter-reset: cfstep; list-style: none; display: grid; gap: 0.8rem; padding: 0; margin: 0; }
-.steps li {
+.cf-steps { counter-reset: cfstep; list-style: none; display: grid; gap: 0.8rem; padding: 0; margin: 0; }
+.cf-steps li {
     counter-increment: cfstep; position: relative; padding-left: 2.35rem;
     font-size: 0.9rem; line-height: 1.55;
 }
-.steps li::before {
+.cf-steps li::before {
     content: counter(cfstep); position: absolute; left: 0; top: 0;
     width: 1.65rem; height: 1.65rem; border-radius: 50%;
     display: grid; place-items: center;
@@ -152,7 +155,7 @@ section.cf-step { margin-bottom: 2.25rem; }
     padding: 2rem 1.25rem; text-align: center;
     color: var(--muted); font-size: 0.9rem;
 }
-.code-empty code, .hint code, .steps code {
+.code-empty code, .hint code, .cf-steps code {
     font-family: var(--mono); font-size: 0.8em;
     background: #f0e6da; border-radius: 4px; padding: 0.1em 0.35em;
 }
