@@ -1,0 +1,215 @@
+/* Real estate exam prep.
+   Class names are rep- prefixed: daisyUI v5 is in the site-wide bundle and owns
+   .card, .btn, .badge, .progress, .stats. Reusing any of those restyles the page
+   out from under you. */
+
+.rep-wrap {
+	max-width: 52rem;
+	margin-inline: auto;
+	padding: 2rem 1.25rem 5rem;
+}
+@media (min-width: 640px) { .rep-wrap { padding-inline: 2rem; } }
+
+.rep-panel {
+	background: #fffcf7;
+	border: 1px solid #ecdcc7;
+	border-radius: 1.25rem;
+	padding: 1.5rem;
+}
+@media (min-width: 640px) { .rep-panel { padding: 2rem; } }
+
+.rep-panel + .rep-panel { margin-top: 1.5rem; }
+
+.rep-panel h2 {
+	margin: 0 0 0.75rem;
+	font-size: 1.3rem;
+	font-weight: 800;
+	color: var(--color-cocoa);
+}
+.rep-panel p { margin: 0 0 1rem; line-height: 1.7; color: #4a3a2c; }
+.rep-panel p:last-child { margin-bottom: 0; }
+
+/* ---------- controls ---------- */
+
+.rep-controls { display: grid; gap: 1rem; margin: 1.5rem 0; }
+@media (min-width: 560px) { .rep-controls { grid-template-columns: 1fr 1fr; } }
+
+.rep-field label {
+	display: block;
+	font-size: 0.8125rem;
+	font-weight: 700;
+	letter-spacing: 0.05em;
+	text-transform: uppercase;
+	color: #5c4a3a;
+	margin-bottom: 0.35rem;
+}
+.rep-field select {
+	width: 100%;
+	font: inherit;
+	font-size: 1rem;
+	color: var(--color-cocoa);
+	background: #ffffff;
+	border: 1px solid #ddc9ae;
+	border-radius: 0.7rem;
+	padding: 0.7rem 0.8rem;
+}
+.rep-field select:focus-visible { outline: 2px solid var(--color-espresso); outline-offset: 2px; }
+
+.rep-btn {
+	appearance: none;
+	-webkit-appearance: none;
+	font: inherit;
+	font-size: 1rem;
+	font-weight: 700;
+	border: 2px solid var(--color-espresso);
+	background: var(--color-espresso);
+	color: #fffcf7;
+	border-radius: 9999px;
+	padding: 0.85rem 1.6rem;
+	cursor: pointer;
+	transition: background 0.15s ease;
+}
+.rep-btn:hover:not(:disabled) { background: var(--color-cocoa); border-color: var(--color-cocoa); }
+.rep-btn:disabled { opacity: 0.5; cursor: not-allowed; }
+.rep-btn:focus-visible { outline: 3px solid var(--color-cocoa); outline-offset: 3px; }
+
+.rep-btn-ghost { background: transparent; color: var(--color-espresso); }
+.rep-btn-ghost:hover:not(:disabled) { background: #f3e7d8; color: var(--color-cocoa); border-color: var(--color-espresso); }
+
+.rep-btn-small { font-size: 0.875rem; padding: 0.6rem 1.1rem; border-width: 1px; }
+
+/* ---------- quiz ---------- */
+
+.rep-quizhead {
+	display: flex;
+	flex-wrap: wrap;
+	align-items: center;
+	justify-content: space-between;
+	gap: 0.75rem;
+	margin-bottom: 0.75rem;
+}
+.rep-progress { font-size: 0.875rem; font-weight: 700; color: #5c4a3a; font-variant-numeric: tabular-nums; }
+.rep-topicchip {
+	font-size: 0.75rem;
+	font-weight: 700;
+	letter-spacing: 0.04em;
+	text-transform: uppercase;
+	color: var(--color-espresso);
+	background: #f6ecdd;
+	border: 1px solid #e3d2ba;
+	border-radius: 9999px;
+	padding: 0.25rem 0.7rem;
+}
+
+.rep-track { height: 0.4rem; background: #f0e4d4; border-radius: 9999px; overflow: hidden; margin-bottom: 1.5rem; }
+.rep-track > span { display: block; height: 100%; background: var(--color-espresso); transition: width 0.25s ease; }
+
+.rep-question {
+	font-size: 1.15rem;
+	line-height: 1.6;
+	font-weight: 600;
+	color: var(--color-cocoa);
+	margin: 0 0 1.25rem;
+}
+@media (min-width: 640px) { .rep-question { font-size: 1.3rem; } }
+
+.rep-choices { list-style: none; margin: 0; padding: 0; display: grid; gap: 0.65rem; }
+
+.rep-choice {
+	width: 100%;
+	display: flex;
+	align-items: flex-start;
+	gap: 0.8rem;
+	text-align: left;
+	font: inherit;
+	font-size: 1rem;
+	line-height: 1.5;
+	color: var(--color-cocoa);
+	background: #ffffff;
+	border: 1px solid #ddc9ae;
+	border-radius: 0.8rem;
+	padding: 0.9rem 1rem;
+	cursor: pointer;
+	transition: border-color 0.12s ease, background 0.12s ease;
+}
+.rep-choice:hover:not(:disabled) { border-color: var(--color-espresso); background: #fffaf3; }
+.rep-choice:focus-visible { outline: 3px solid var(--color-espresso); outline-offset: 2px; }
+.rep-choice:disabled { cursor: default; }
+
+.rep-letter {
+	flex-shrink: 0;
+	width: 1.6rem;
+	height: 1.6rem;
+	border-radius: 9999px;
+	background: #f3e7d8;
+	color: var(--color-espresso);
+	font-size: 0.8125rem;
+	font-weight: 800;
+	line-height: 1.6rem;
+	text-align: center;
+}
+
+/* Right and wrong never rely on colour alone: the correct row gains a tick and
+   the chosen wrong row a cross, both in text, for anyone who cannot separate
+   the green from the red. */
+.rep-choice.is-right { border-color: #1f6b45; background: #eaf6ef; color: #14432c; }
+.rep-choice.is-right .rep-letter { background: #1f6b45; color: #ffffff; }
+.rep-choice.is-right::after { content: "correct"; margin-left: auto; font-size: 0.75rem; font-weight: 800; text-transform: uppercase; letter-spacing: 0.05em; color: #1f6b45; }
+.rep-choice.is-wrong { border-color: #a3302a; background: #fdeeed; color: #6d1f1b; }
+.rep-choice.is-wrong .rep-letter { background: #a3302a; color: #ffffff; }
+.rep-choice.is-wrong::after { content: "your answer"; margin-left: auto; font-size: 0.75rem; font-weight: 800; text-transform: uppercase; letter-spacing: 0.05em; color: #a3302a; }
+
+.rep-feedback { margin-top: 1.25rem; border-radius: 0.85rem; padding: 1.1rem 1.2rem; border: 1px solid; }
+.rep-feedback.is-right { background: #eaf6ef; border-color: #bfe0cd; }
+.rep-feedback.is-wrong { background: #fdeeed; border-color: #f2cdca; }
+.rep-feedback p { margin: 0 0 0.6rem; font-size: 0.9688rem; line-height: 1.65; color: #3a2f26; }
+.rep-feedback p:last-child { margin-bottom: 0; }
+.rep-verdict { font-weight: 800; font-size: 1rem !important; color: var(--color-cocoa) !important; }
+.rep-tip { font-size: 0.9063rem !important; color: #4a3a2c !important; }
+
+.rep-quizfoot { display: flex; flex-wrap: wrap; gap: 0.75rem; align-items: center; margin-top: 1.5rem; }
+
+/* ---------- results ---------- */
+
+.rep-score {
+	display: flex;
+	flex-wrap: wrap;
+	align-items: baseline;
+	gap: 0.75rem 1.5rem;
+	padding-bottom: 1.25rem;
+	margin-bottom: 1.25rem;
+	border-bottom: 1px solid #ecdcc7;
+}
+.rep-score-pct { font-size: 3rem; font-weight: 800; line-height: 1; color: var(--color-espresso); font-variant-numeric: tabular-nums; }
+.rep-score-raw { font-size: 1.1rem; font-weight: 700; color: var(--color-cocoa); }
+.rep-score-verdict { font-size: 0.9375rem; color: #4a3a2c; flex-basis: 100%; margin: 0; }
+
+.rep-topic-list { list-style: none; margin: 0.75rem 0 0; padding: 0; display: grid; gap: 0.5rem; }
+.rep-topic-list li { display: grid; grid-template-columns: minmax(7rem, 10rem) 1fr auto; align-items: center; gap: 0.75rem; font-size: 0.875rem; }
+.rep-topic-name { color: var(--color-cocoa); font-weight: 600; }
+.rep-topic-bar { height: 0.5rem; background: #f0e4d4; border-radius: 9999px; overflow: hidden; }
+.rep-topic-bar > span { display: block; height: 100%; background: var(--color-caramel); }
+.rep-topic-num { color: #5c4a3a; font-variant-numeric: tabular-nums; font-weight: 700; }
+
+.rep-missed { list-style: none; margin: 0.75rem 0 0; padding: 0; display: grid; gap: 1rem; }
+.rep-missed > li { background: var(--color-cream); border: 1px solid #ecdcc7; border-left: 4px solid #a3302a; border-radius: 0.7rem; padding: 1.1rem 1.2rem; }
+.rep-missed p { margin: 0 0 0.5rem; font-size: 0.9375rem; line-height: 1.6; color: #4a3a2c; }
+.rep-missed p:last-child { margin-bottom: 0; }
+.rep-missed-topic { font-size: 0.75rem !important; font-weight: 800; text-transform: uppercase; letter-spacing: 0.05em; color: #5c4a3a; }
+.rep-missed-q { font-weight: 700; color: var(--color-cocoa) !important; }
+.rep-missed-right { color: #14432c !important; }
+
+/* ---------- lifetime ---------- */
+
+.rep-life-head { display: flex; flex-wrap: wrap; gap: 1.5rem; margin-bottom: 1rem; }
+.rep-life-num { display: block; font-size: 1.9rem; font-weight: 800; line-height: 1; color: var(--color-espresso); font-variant-numeric: tabular-nums; }
+.rep-life-lab { display: block; font-size: 0.8125rem; color: #5c4a3a; margin-top: 0.2rem; }
+.rep-focus { font-size: 0.9375rem; line-height: 1.65; color: #4a3a2c; background: #f6ecdd; border: 1px solid #e3d2ba; border-radius: 0.7rem; padding: 0.85rem 1rem; }
+.rep-empty { font-size: 0.9375rem; color: #5c4a3a; }
+
+.rep-note { font-size: 0.8125rem; line-height: 1.6; color: #5c4a3a; margin-top: 1.25rem; }
+.rep-warn { background: #fdeeed; border: 1px solid #f2cdca; border-radius: 0.7rem; padding: 0.85rem 1rem; font-size: 0.9375rem; color: #6d1f1b; }
+
+@media (prefers-reduced-motion: reduce) {
+	.rep-btn, .rep-choice, .rep-track > span { transition: none; }
+}
