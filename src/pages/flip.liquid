@@ -105,13 +105,9 @@
     {% assign showMiddleBadgeWithText = true %} 
     {% include header.liquid %}
     
-    <main v-cloak id="app" class="mx-auto max-w-7xl p-6">
-        <!-- Page Header -->
-        <div class="text-center mb-8">
-            <h1 class="text-4xl font-bold text-gray-900 mb-2">Flip a Coin</h1>
-            <p class="text-lg text-gray-600">Let fate decide with a simple coin toss</p>
-        </div>
-        
+    {% include tool-hero.liquid %}
+
+    <main v-cloak id="main-content" class="mx-auto max-w-7xl p-6">
         <!-- Coin Container -->
         <div class="coin-container">
             <button
