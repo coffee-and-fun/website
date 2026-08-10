@@ -6,21 +6,125 @@
   entry renders nothing rather than an empty band, so this is safe to include
   before its copy has been written.
 
-  Colours are brand tokens with two deliberate exceptions. The eyebrow is
-  #fd776d rather than --color-coral because stock coral is 4.49:1 on cocoa and
-  misses AA by 0.01. The subtitle is #d9c9b8 at 8.31:1, warmer than a grey.
+  A page can set heroSubtitle before including to pass a subtitle that has to be
+  rendered rather than stored, since Liquid in a JSON data value is emitted
+  literally.
+
+  Sits on the cream page background rather than carrying its own, so the doodles
+  read as part of the page the way they do on the homepage and in the footer.
+  Every page using this already includes sketch-styles.liquid, which is what
+  positions .sketch-note and hides the doodles below 640px.
+
+  The type is styled here rather than with Tailwind utilities on purpose.
+  Tailwind v4 emits utilities inside @layer utilities, and unlayered CSS beats
+  any layered rule whatever its specificity, so on a page carrying its own bare
+  `h1 { font-size }` the utilities lost silently: /emoji/, /vibe-check/ and
+  /word-clock/ were rendering the title at 27, 30 and 23px instead of 60. These
+  rules are unlayered and two classes deep so they win on those pages and on the
+  next tool with its own stylesheet. Sizes are Tailwind's own values, so this is
+  the same type scale it was, just no longer overridable by accident.
+
+  Contrast on cream #fef5ec: cocoa title 12.46:1, coral-deep eyebrow 4.68:1,
+  stone-600 subtitle 7.08:1. The eyebrow is coral-deep rather than stock coral
+  because coral is only 2.78:1 here and it is small text.
+
+  Doodles are decorative and deliberately generic, since this same header runs
+  across every tool. They are aria-hidden both here and again from the script in
+  sketch-styles.liquid, so they stay out of the accessibility tree without JS.
 {%- endcomment -%}
 {%- assign hero = toolHero[page.url] -%}
 {%- if hero -%}
-<section class="bg-cocoa px-6 py-16 text-center sm:py-24">
-    <div class="mx-auto max-w-3xl">
+{%- assign heroSub = heroSubtitle | default: hero.subtitle -%}
+<style>
+    .tool-hero { padding: 4rem 1.5rem; }
+    .tool-hero .tool-hero__inner {
+        position: relative;
+        margin-inline: auto;
+        max-width: 48rem;
+        text-align: center;
+    }
+    .tool-hero .tool-hero__eyebrow {
+        margin: 0;
+        font-size: 0.875rem;
+        line-height: 1.25rem;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 0.1em;
+        color: #c4413a;
+    }
+    .tool-hero .tool-hero__title {
+        margin: 1rem 0 0;
+        font-size: 2.25rem;
+        line-height: 1.1;
+        font-weight: 700;
+        letter-spacing: -0.025em;
+        color: #3d2b1f;
+    }
+    .tool-hero .tool-hero__sub {
+        margin: 1.5rem auto 0;
+        max-width: 42rem;
+        font-size: 1.125rem;
+        line-height: 1.625;
+        color: #57534e;
+    }
+    @media (min-width: 640px) {
+        .tool-hero { padding: 6rem 1.5rem; }
+        .tool-hero .tool-hero__eyebrow { font-size: 1rem; line-height: 1.5rem; }
+        .tool-hero .tool-hero__title { font-size: 3rem; }
+        .tool-hero .tool-hero__sub { font-size: 1.25rem; }
+    }
+    @media (min-width: 1024px) {
+        .tool-hero .tool-hero__title { font-size: 3.75rem; }
+    }
+</style>
+<section class="tool-hero">
+    <div class="tool-hero__inner">
+
+        <!-- Sketch: coffee cup, top left -->
+        <div class="sketch-note sketch-float-slow" aria-hidden="true" style="top: -6px; left: 1%; --sketch-rotate: -10deg; transform: rotate(-10deg);">
+            <svg width="28" height="32" viewBox="0 0 28 32">
+                <path d="M4 10 L4 26 C4 28 6 30 10 30 L18 30 C22 30 24 28 24 26 L24 10" class="sketch-arrow" style="opacity: 0.35;"/>
+                <path d="M24 14 C28 14, 28 22, 24 22" class="sketch-arrow" style="opacity: 0.35;"/>
+                <path d="M9 6 C9 2, 11 0, 11 0" class="sketch-arrow" style="opacity: 0.2;"/>
+                <path d="M15 4 C15 0, 17 -2, 17 -2" class="sketch-arrow" style="opacity: 0.2;"/>
+            </svg>
+        </div>
+
+        <!-- Sketch: sparkles, top right -->
+        <div class="sketch-note" aria-hidden="true" style="top: -2px; right: 2%; transform: rotate(8deg);">
+            <svg width="42" height="40" viewBox="0 0 42 40">
+                <path d="M14 2 L14 18 M6 10 L22 10" class="sketch-sparkle"/>
+                <path d="M31 16 L31 28 M25 22 L37 22" class="sketch-sparkle" style="opacity: 0.28;"/>
+                <circle cx="9" cy="30" r="1.8" class="sketch-dots"/>
+            </svg>
+        </div>
+
         {%- if hero.eyebrow %}
-        <p class="text-sm font-bold uppercase tracking-widest text-[#fd776d] sm:text-base">{{ hero.eyebrow }}</p>
+        <p class="tool-hero__eyebrow">{{ hero.eyebrow }}</p>
         {%- endif %}
-        <h1 class="mt-4 text-4xl font-bold tracking-tight text-cream sm:text-5xl lg:text-6xl">{{ hero.title }}</h1>
-        {%- if hero.subtitle %}
-        <p class="mx-auto mt-6 max-w-2xl text-lg leading-relaxed text-[#d9c9b8] sm:text-xl">{{ hero.subtitle }}</p>
+
+        <h1 class="tool-hero__title">{{ hero.title }}</h1>
+
+        {%- if heroSub %}
+        <p class="tool-hero__sub">{{ heroSub }}</p>
         {%- endif %}
+
+        <!-- Sketch: swirl, bottom left -->
+        <div class="sketch-note sketch-float" aria-hidden="true" style="bottom: -10px; left: 2%; --sketch-rotate: -4deg;">
+            <svg width="34" height="26" viewBox="0 0 34 26">
+                <path d="M2 20 C2 10, 12 4, 20 8 C26 11, 25 20, 19 20 C14 20, 13 13, 18 12 C23 11, 28 15, 30 20" class="sketch-swirl"/>
+            </svg>
+        </div>
+
+        <!-- Sketch: dots and zigzag, bottom right -->
+        <div class="sketch-note" aria-hidden="true" style="bottom: -14px; right: 1%; transform: rotate(-6deg);">
+            <svg width="46" height="28" viewBox="0 0 46 28">
+                <path d="M2 20 L9 11 L16 20 L23 11 L30 20" class="sketch-zigzag"/>
+                <circle cx="37" cy="12" r="2" class="sketch-dots"/>
+                <circle cx="43" cy="19" r="1.5" class="sketch-dots" style="opacity: 0.2;"/>
+            </svg>
+        </div>
+
     </div>
 </section>
 {%- endif -%}
