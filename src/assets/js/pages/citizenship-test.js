@@ -26,7 +26,10 @@
 
   /* --------------------------------------------------------------- storage */
 
-  function blank() { return { v: 1, place: '', mine: {}, q: {}, sets: [] }; }
+  /* deck holds the question numbers already asked in the current pass through
+     the bank, lastSet the numbers from the previous set. Both default when
+     absent, so a store written before they existed still loads. */
+  function blank() { return { v: 1, place: '', mine: {}, q: {}, sets: [], deck: [], lastSet: [] }; }
   function load() {
     try { var r = localStorage.getItem(STORE); if (!r) return blank();
       var p = JSON.parse(r); return p && p.v === 1 ? p : blank(); } catch (e) { return blank(); }
@@ -103,6 +106,13 @@
     els('[data-screen]').forEach(function (s) { s.hidden = s.getAttribute('data-screen') !== name; });
   }
 
+  function shuffle(a) {
+    for (var i = a.length - 1; i > 0; i--) {
+      var j = Math.floor(Math.random() * (i + 1)); var t = a[i]; a[i] = a[j]; a[j] = t;
+    }
+    return a;
+  }
+
   function priority(q, store) {
     var s = store.q[q.n];
     if (!s) return 60;
@@ -111,6 +121,17 @@
     return 100 - (s.right / tries) * 100 + Math.min(15, (Date.now() - (s.last || 0)) / 86400000);
   }
 
+  /* Slots per set kept for questions already answered badly, so a wrong answer
+     comes back soon instead of waiting for the next pass through the bank. */
+  var REVIEW_SLOTS = 2;
+
+  /* Questions are dealt like a deck: every one in the pool is asked before any
+     is asked a second time. Sorting purely by priority meant a question
+     answered wrong sat near 100 until it was answered right, so it re-entered
+     every single set, while unseen questions all tied at exactly 60 and a
+     stable sort kept handing back the same front slice of the bank. Over ten
+     sets a struggling user saw 50 of the 100 questions and met some five
+     times. */
   function start() {
     var store = load();
     var seniorOnly = el('[data-ct-senior]').checked;
@@ -121,13 +142,57 @@
     });
     if (pool.length < 1) { alert('Nothing to practise yet. Pick your state and fill in a few answers.'); return; }
 
-    var scored = pool.map(function (q) { return { q: q, p: priority(q, store) }; });
-    scored.sort(function (a, b) { return b.p - a.p; });
-    var slice = scored.slice(0, Math.min(scored.length, SET_SIZE * 3)).map(function (x) { return x.q; });
-    for (var i = slice.length - 1; i > 0; i--) {
-      var j = Math.floor(Math.random() * (i + 1)); var t = slice[i]; slice[i] = slice[j]; slice[j] = t;
+    var inPool = {};
+    pool.forEach(function (q) { inPool[q.n] = true; });
+    /* Drop anything no longer in the pool, so toggling the 65/20 set does not
+       carry a stale deck across. */
+    var used = (store.deck || []).filter(function (n) { return inPool[n]; });
+    var lastSet = store.lastSet || [];
+    var want = Math.min(SET_SIZE, pool.length);
+
+    var picked = {};
+    var queue = shuffle(pool.filter(function (q) {
+      var s = store.q[q.n];
+      if (!s) return false;
+      var tries = s.right + s.wrong;
+      if (!tries) return false;
+      if (lastSet.indexOf(q.n) >= 0) return false;         /* never straight back */
+      return s.wrong > 0 && (s.right / tries) < 0.7;
+    })).slice(0, Math.min(REVIEW_SLOTS, Math.max(0, want - 1)));
+    queue.forEach(function (q) {
+      picked[q.n] = true;
+      if (used.indexOf(q.n) < 0) used.push(q.n);
+    });
+
+    /* guard only bounds the loop, one pass boundary can fall inside a set */
+    var guard = 0;
+    while (queue.length < want && guard++ < 3) {
+      var remaining = pool.filter(function (q) {
+        return !picked[q.n] && used.indexOf(q.n) < 0;
+      });
+      if (!remaining.length) {
+        used = queue.map(function (q) { return q.n; });    /* pass done, start another */
+        continue;
+      }
+      /* Weakest first within the pass, jittered so equal scores do not always
+         come out in bank order. */
+      var scored = remaining.map(function (q) {
+        return { q: q, p: priority(q, store) + Math.random() * 10 };
+      });
+      scored.sort(function (a, b) { return b.p - a.p; });
+      scored.slice(0, want - queue.length).forEach(function (x) {
+        queue.push(x.q); picked[x.q.n] = true; used.push(x.q.n);
+      });
     }
-    state.queue = slice.slice(0, Math.min(SET_SIZE, pool.length));
+
+    shuffle(queue);
+    /* Recorded now rather than in finish(), so abandoning a set half way still
+       counts those questions as seen and they are not served straight back. */
+    store.deck = used;
+    store.lastSet = queue.map(function (q) { return q.n; });
+    save(store);
+
+    state.queue = queue;
     state.i = 0; state.answers = [];
     show('quiz'); renderQ();
   }
