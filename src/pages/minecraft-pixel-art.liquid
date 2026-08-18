@@ -113,8 +113,9 @@
       </a>
 
       <!-- Back link -->
-      <a href="/" class="font-px text-2xl text-white/80 hover:text-white transition-colors inline-flex items-center gap-2 mb-8" style="text-shadow: 2px 2px 0 rgba(0,0,0,.6);" aria-label="Back to Coffee & Fun homepage">
-        <span aria-hidden="true">&larr;</span> coffeeandfun.com
+      <a href="/" class="mc-backlink font-px text-2xl text-white/80 hover:text-white inline-flex items-center gap-2 mb-8" aria-label="Coffee & Fun home">
+        <span aria-hidden="true" class="mc-backlink-arrow" style="text-shadow: 2px 2px 0 rgba(0,0,0,.6);">&larr;</span>
+        <img src="/assets/images/brand/coffee-and-fun-logo.png" alt="" width="512" height="512" class="mc-backlink-logo" decoding="async" />
       </a>
 
       <!-- Title -->
@@ -253,7 +254,7 @@
           <!-- Build guide tab -->
           <div v-show="activeTab === 'guide'" role="tabpanel" aria-label="Numbered build guide">
             <p class="font-px text-xl text-stone-700 mb-3">
-              Every cell shows the block number. Click a chip to spotlight one block and see exactly where it goes, everything else fades out. Bold lines mark 16-block chunks.
+              Every cell shows the block number. Click a chip to spotlight one block and see exactly where it goes, everything else fades out. Row and column numbers run down the edges, medium lines mark every 5 blocks, and bold lines mark 16-block chunks.
             </p>
 
             <!-- Block spotlight chips -->
@@ -270,6 +271,15 @@
               </button>
               <button v-if="highlightNum !== null" @click="setHighlight(null)" class="mc-btn" style="padding: 0.5rem 0.8rem;">
                 SHOW ALL
+              </button>
+            </div>
+
+            <div class="flex flex-wrap items-center gap-2 mb-3">
+              <button type="button" @click="toggleCoords" class="mc-btn"
+                style="padding: 0.5rem 0.8rem;"
+                :class="{ 'is-selected': showCoords }"
+                :aria-pressed="showCoords ? 'true' : 'false'">
+                {% raw %}{{ showCoords ? 'NUMBERS ON' : 'NUMBERS OFF' }}{% endraw %}
               </button>
             </div>
 

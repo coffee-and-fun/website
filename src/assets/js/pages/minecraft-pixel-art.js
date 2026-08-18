@@ -106,6 +106,32 @@ MINECRAFT_BLOCKS.forEach(b => {
   b.textColor = b.luma > 140 ? '#1a1a1a' : '#ffffff';
 });
 
+const COORD_KEY = 'coffeeandfun.mcpixelart.showCoords';
+
+// Which one-indexed lines get a number. Every fifth, always the first and the
+// last, so the corners are always readable. A small build gets every line,
+// since there is room for them and counting in fives is pointless at that size.
+function coordStops(n) {
+  const stops = new Set();
+  if (n <= 16) {
+    for (let i = 1; i <= n; i++) stops.add(i);
+  } else {
+    for (let i = 5; i <= n; i += 5) stops.add(i);
+    stops.add(1);
+    stops.add(n);
+  }
+  return [...stops].sort((a, b) => a - b);
+}
+
+function loadShowCoords() {
+  try {
+    const raw = localStorage.getItem(COORD_KEY);
+    return raw === null ? true : raw === '1';
+  } catch (e) {
+    return true;
+  }
+}
+
 function colorDistance(r1, g1, b1, r2, g2, b2) {
   // Weighted Euclidean, human eyes are more sensitive to green
   const rMean = (r1 + r2) / 2;
@@ -187,6 +213,7 @@ createApp({
       activeTab: 'art',
       pixelArtDataUrl: null,
       guideDataUrl: null,
+      showCoords: loadShowCoords(),
       numberedBlocks: [],
       highlightNum: null,
       sortBy: 'count',
@@ -241,6 +268,15 @@ createApp({
   },
 
   mounted() {
+    // The coordinate labels are drawn in VT323, which loads async. A guide
+    // built before it arrives would quietly fall back to the monospace stack,
+    // so redraw once the font is in.
+    if (document.fonts && document.fonts.ready) {
+      document.fonts.ready.then(() => {
+        if (this.cellCache) this.guideDataUrl = this.renderGuide();
+      });
+    }
+
     // Paste-to-upload: Ctrl+V anywhere on the page
     document.addEventListener('paste', (e) => {
       const item = [...(e.clipboardData?.items || [])].find(i => i.type.startsWith('image/'));
@@ -539,6 +575,16 @@ createApp({
       });
     },
 
+    toggleCoords() {
+      this.showCoords = !this.showCoords;
+      try {
+        localStorage.setItem(COORD_KEY, this.showCoords ? '1' : '0');
+      } catch (e) {
+        /* Private mode, the choice just does not survive the session. */
+      }
+      if (this.cellCache) this.guideDataUrl = this.renderGuide();
+    },
+
     renderGuide() {
       const cellBlocks = this.cellCache;
       const numByName = this.numByNameCache;
@@ -546,8 +592,13 @@ createApp({
       const h = this.cacheH;
       const hl = this.highlightNum;
       const CELL = 26;
-      const MARGIN = 34;
+      // The gutter only exists to hold the coordinate labels, so it
+      // collapses when they are switched off rather than leaving a band of
+      // white down two sides of the guide.
+      const COORDS = this.showCoords;
+      const MARGIN = COORDS ? 34 : 10;
       const CHUNK = 16;
+      const FIVE = 5;
       const gridW = w * CELL;
       const gridH = h * CELL;
 
@@ -610,6 +661,23 @@ createApp({
       }
       ctx.stroke();
 
+      // Every fifth line, so counting in fives down a row agrees with the
+      // labels. Sits between the hairlines and the chunk lines in weight.
+      ctx.strokeStyle = 'rgba(0,0,0,0.45)';
+      ctx.lineWidth = 1.5;
+      ctx.beginPath();
+      for (let x = FIVE; x < w; x += FIVE) {
+        const px = Math.floor(MARGIN + x * CELL) + 0.5;
+        ctx.moveTo(px, MARGIN);
+        ctx.lineTo(px, MARGIN + gridH);
+      }
+      for (let y = FIVE; y < h; y += FIVE) {
+        const py = Math.floor(MARGIN + y * CELL) + 0.5;
+        ctx.moveTo(MARGIN, py);
+        ctx.lineTo(MARGIN + gridW, py);
+      }
+      ctx.stroke();
+
       // Chunk lines
       ctx.strokeStyle = 'rgba(0,0,0,0.85)';
       ctx.lineWidth = 2;
@@ -632,19 +700,25 @@ createApp({
       ctx.lineTo(MARGIN + gridW, bY);
       ctx.stroke();
 
-      // Coordinates
-      ctx.fillStyle = '#1f2937';
-      ctx.font = 'bold 13px ui-sans-serif, system-ui, sans-serif';
-      ctx.textAlign = 'center';
-      const colStops = new Set();
-      for (let x = 0; x <= w; x += CHUNK) colStops.add(x);
-      colStops.add(w);
-      for (const x of colStops) ctx.fillText(String(x), MARGIN + x * CELL, MARGIN / 2);
-      ctx.textAlign = 'right';
-      const rowStops = new Set();
-      for (let y = 0; y <= h; y += CHUNK) rowStops.add(y);
-      rowStops.add(h);
-      for (const y of rowStops) ctx.fillText(String(y), MARGIN - 6, MARGIN + y * CELL);
+      // Coordinates. One-indexed and centred on the cell rather than on the
+      // gridline, because the number names the block you are placing, not the
+      // seam between two of them. They live in the gutter, so nothing is drawn
+      // over the art and the blocks do not move.
+      if (COORDS) {
+        ctx.fillStyle = '#1f2937';
+        ctx.font = "20px 'VT323', ui-monospace, Menlo, monospace";
+        ctx.textBaseline = 'middle';
+
+        ctx.textAlign = 'center';
+        for (const x of coordStops(w)) {
+          ctx.fillText(String(x), MARGIN + (x - 1) * CELL + CELL / 2, MARGIN / 2);
+        }
+
+        ctx.textAlign = 'right';
+        for (const y of coordStops(h)) {
+          ctx.fillText(String(y), MARGIN - 6, MARGIN + (y - 1) * CELL + CELL / 2);
+        }
+      }
 
       // Legend
       let ly = MARGIN + gridH + 28;

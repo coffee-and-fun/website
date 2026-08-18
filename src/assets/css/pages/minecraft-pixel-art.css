@@ -134,3 +134,41 @@ button.mc-chip:focus-visible { outline: 3px solid #ffd83d; outline-offset: 2px; 
   letter-spacing: 0.02em;
   color: #3d3d3d;
 }
+
+/* Back link. The logo is the link now, with the arrow kept beside it purely as
+   a back affordance, and both scale together. The row never falls below a 44px
+   touch target. The lockup used here is the light-ink one, which is the file
+   without the -dark suffix: that suffix means dark ink for light backgrounds,
+   not a logo for dark backgrounds, and this header is dark. */
+.mc-backlink {
+  min-height: 44px;
+  transition: filter 120ms linear, transform 120ms linear;
+}
+
+.mc-backlink-logo {
+  display: block;
+  height: 64px;
+  width: auto;
+  /* The guide art is deliberately pixelated, the logo is not. */
+  image-rendering: auto;
+}
+
+.mc-backlink-arrow {
+  font-size: 2rem;
+  line-height: 1;
+}
+
+/* The lockup carries small wordmark text, so it needs real size to stay
+   readable next to a header this loud. */
+@media (min-width: 640px) {
+  .mc-backlink-logo { height: 80px; }
+  .mc-backlink-arrow { font-size: 2.5rem; }
+}
+
+.mc-backlink:hover .mc-backlink-logo { filter: brightness(1.15); }
+.mc-backlink:active { transform: translateY(1px); }
+.mc-backlink:focus-visible { outline: 3px solid #ffd83d; outline-offset: 3px; }
+
+@media (prefers-reduced-motion: reduce) {
+  .mc-backlink { transition: none; }
+}
