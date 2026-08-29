@@ -1,0 +1,118 @@
+{%- comment -%}
+  Watch editor. Two shapes behind one sheet: a Craigslist search built from
+  parts, and a plain feed URL. The Craigslist side shows the URL it is
+  assembling as you type, because that URL is the useful artefact whether or
+  not it can ever be fetched.
+{%- endcomment -%}
+<div v-if="showEditor" class="lw-scrim" @click.self="showEditor = false" role="dialog" aria-modal="true" aria-labelledby="editor-title">
+  <div class="lw-sheet p-6">
+    <div class="mb-5 flex items-center gap-3">
+      <span class="lw-icon is-fill" aria-hidden="true" style="font-size:26px; color: var(--lw-primary);">
+        {% raw %}{{ editing.kind === 'craigslist' ? 'travel_explore' : 'rss_feed' }}{% endraw %}
+      </span>
+      <h2 id="editor-title" class="text-lg font-medium">
+        {% raw %}{{ editing.id ? 'Edit watch' : (editing.kind === 'craigslist' ? 'New Craigslist search' : 'New feed') }}{% endraw %}
+      </h2>
+      <button type="button" class="lw-btn lw-btn-icon ml-auto" @click="showEditor = false" aria-label="Close">
+        <span class="lw-icon" aria-hidden="true" style="font-size:24px;">close</span>
+      </button>
+    </div>
+
+    <div class="grid gap-4">
+      <div>
+        <label class="lw-label" for="w-name">Name it</label>
+        <input id="w-name" v-model="editing.name" class="lw-field" placeholder="Cheap couches" />
+      </div>
+
+      <div>
+        <span class="lw-label">Colour</span>
+        <div class="flex flex-wrap gap-2" role="radiogroup" aria-label="Watch colour">
+          <button v-for="c in swatches" :key="c" type="button"
+            class="lw-btn lw-btn-icon" style="min-width:36px; min-height:36px;"
+            :aria-label="'Colour ' + c" :aria-checked="editing.colour === c" role="radio"
+            @click="editing.colour = c">
+            <span style="width:22px;height:22px;border-radius:9999px;display:block;"
+              :style="{ background: c, boxShadow: editing.colour === c ? '0 0 0 3px var(--lw-surface), 0 0 0 5px ' + c : 'none' }"></span>
+          </button>
+        </div>
+      </div>
+
+      <!-- Craigslist builder -->
+      <template v-if="editing.kind === 'craigslist'">
+        <div class="grid gap-4 sm:grid-cols-2">
+          <div>
+            <label class="lw-label" for="w-site">City</label>
+            <input id="w-site" v-model="editing.site" class="lw-field" list="cl-sites" placeholder="sfbay" autocapitalize="off" autocorrect="off" spellcheck="false" />
+            <datalist id="cl-sites">
+              <option v-for="s in sites" :key="s" :value="s"></option>
+            </datalist>
+            <p class="mt-1 text-xs" style="color: var(--lw-ink-faint);">The bit before .craigslist.org</p>
+          </div>
+          <div>
+            <label class="lw-label" for="w-cat">Category</label>
+            <select id="w-cat" v-model="editing.category" class="lw-field">
+              <option v-for="c in categories" :key="c.id" :value="c.id">{% raw %}{{ c.label }}{% endraw %}</option>
+            </select>
+          </div>
+        </div>
+
+        <div>
+          <label class="lw-label" for="w-query">Search terms</label>
+          <input id="w-query" v-model="editing.query" class="lw-field" placeholder="couch, playstation, bike" />
+        </div>
+
+        <div class="grid gap-4 sm:grid-cols-4">
+          <div>
+            <label class="lw-label" for="w-min">Min price</label>
+            <input id="w-min" v-model="editing.minPrice" class="lw-field" type="number" inputmode="numeric" min="0" placeholder="0" />
+          </div>
+          <div>
+            <label class="lw-label" for="w-max">Max price</label>
+            <input id="w-max" v-model="editing.maxPrice" class="lw-field" type="number" inputmode="numeric" min="0" placeholder="500" />
+          </div>
+          <div>
+            <label class="lw-label" for="w-postal">Postcode</label>
+            <input id="w-postal" v-model="editing.postal" class="lw-field" inputmode="numeric" placeholder="94110" />
+          </div>
+          <div>
+            <label class="lw-label" for="w-dist">Miles</label>
+            <input id="w-dist" v-model="editing.distance" class="lw-field" type="number" inputmode="numeric" min="0" placeholder="25" />
+          </div>
+        </div>
+
+        <label class="lw-flat flex items-center gap-3 p-3" style="cursor:pointer;">
+          <input type="checkbox" v-model="editing.hasImage" style="width:20px;height:20px;accent-color:var(--lw-primary);" />
+          <span class="text-sm font-medium">Only listings with a photo</span>
+        </label>
+      </template>
+
+      <!-- Plain feed -->
+      <template v-else>
+        <div>
+          <label class="lw-label" for="w-feed">Feed address</label>
+          <input id="w-feed" v-model="editing.feedUrl" class="lw-field" type="url" inputmode="url" placeholder="https://example.com/feed.xml" autocapitalize="off" autocorrect="off" spellcheck="false" />
+        </div>
+      </template>
+
+      <div class="lw-flat p-3">
+        <p class="lw-label" style="margin-bottom:0.25rem;">This builds</p>
+        <p class="break-all text-xs" style="font-family: ui-monospace, Menlo, monospace; color: var(--lw-ink-soft);">
+          {% raw %}{{ editorUrl || '—' }}{% endraw %}
+        </p>
+      </div>
+    </div>
+
+    <div class="mt-6 flex flex-wrap items-center gap-2">
+      <button type="button" class="lw-btn lw-btn-filled" :disabled="!canSaveEditor" @click="saveWatch">
+        <span class="lw-icon" aria-hidden="true" style="font-size:20px;">check</span> Save watch
+      </button>
+      <a v-if="editorUrl" :href="editorUrl" target="_blank" rel="noopener" class="lw-btn lw-btn-outline">
+        <span class="lw-icon" aria-hidden="true" style="font-size:20px;">open_in_new</span> Preview
+      </a>
+      <button v-if="editing.id" type="button" class="lw-btn lw-danger ml-auto"
+        @click="deleteWatch(editing); showEditor = false">
+        <span class="lw-icon" aria-hidden="true" style="font-size:20px;">delete</span> Delete
+      </button>
+    </div>
+  </div>
+</div>

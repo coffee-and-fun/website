@@ -1,0 +1,87 @@
+{%- comment -%}
+  Settings. Appearance, notifications, the proxy escape hatch, and a way out.
+  The proxy is explained rather than just offered: without knowing why a read
+  fails, the field is meaningless.
+{%- endcomment -%}
+<div v-if="showSettings" class="lw-scrim" @click.self="showSettings = false" role="dialog" aria-modal="true" aria-labelledby="settings-title">
+  <div class="lw-sheet p-6">
+    <div class="mb-5 flex items-center gap-3">
+      <span class="lw-icon is-fill" aria-hidden="true" style="font-size:26px; color: var(--lw-primary);">settings</span>
+      <h2 id="settings-title" class="text-lg font-medium">Settings</h2>
+      <button type="button" class="lw-btn lw-btn-icon ml-auto" @click="showSettings = false" aria-label="Close settings">
+        <span class="lw-icon" aria-hidden="true" style="font-size:24px;">close</span>
+      </button>
+    </div>
+
+    <div class="grid gap-5">
+      <div>
+        <span class="lw-label">Theme</span>
+        <div class="grid grid-cols-3 gap-2" role="radiogroup" aria-label="Theme">
+          <button v-for="t in ['system','light','dark']" :key="t" type="button" role="radio"
+            :aria-checked="settings.theme === t"
+            class="lw-btn" :class="settings.theme === t ? 'lw-btn-tonal' : 'lw-btn-outline'"
+            @click="setTheme(t)">
+            <span class="lw-icon" aria-hidden="true" style="font-size:20px;">
+              {% raw %}{{ t === 'system' ? 'contrast' : (t === 'light' ? 'light_mode' : 'dark_mode') }}{% endraw %}
+            </span>
+            <span class="capitalize">{% raw %}{{ t }}{% endraw %}</span>
+          </button>
+        </div>
+      </div>
+
+      <div>
+        <span class="lw-label">Text size</span>
+        <div class="grid grid-cols-4 gap-2" role="radiogroup" aria-label="Text size">
+          <button v-for="s in [0.9, 1, 1.15, 1.3]" :key="s" type="button" role="radio"
+            :aria-checked="settings.textScale === s"
+            class="lw-btn" :class="settings.textScale === s ? 'lw-btn-tonal' : 'lw-btn-outline'"
+            @click="setScale(s)">
+            {% raw %}{{ s === 0.9 ? 'Small' : s === 1 ? 'Default' : s === 1.15 ? 'Large' : 'Larger' }}{% endraw %}
+          </button>
+        </div>
+      </div>
+
+      <label class="lw-flat flex items-center gap-3 p-3" style="cursor:pointer;">
+        <input type="checkbox" :checked="settings.checkOnLoad"
+          @change="settings.checkOnLoad = $event.target.checked; persist()"
+          style="width:20px;height:20px;accent-color:var(--lw-primary);" />
+        <span>
+          <span class="block text-sm font-medium">Check when the page opens</span>
+          <span class="block text-xs" style="color: var(--lw-ink-faint);">Browsers cannot run this on a timer while closed, so opening the page is the check.</span>
+        </span>
+      </label>
+
+      <button type="button" class="lw-flat flex w-full items-center gap-3 p-3 text-left" @click="toggleNotifications">
+        <span class="lw-icon" aria-hidden="true" style="font-size:22px; color: var(--lw-primary);">
+          {% raw %}{{ settings.notifications ? 'notifications_active' : 'notifications_off' }}{% endraw %}
+        </span>
+        <span class="flex-1">
+          <span class="block text-sm font-medium">Notify me about new listings</span>
+          <span class="block text-xs" style="color: var(--lw-ink-faint);">{% raw %}{{ settings.notifications ? 'On, fires when a check finds something new' : 'Off' }}{% endraw %}</span>
+        </span>
+        <span class="lw-pill" :class="settings.notifications ? 'lw-pill-ok' : 'lw-pill-warn'">{% raw %}{{ settings.notifications ? 'On' : 'Off' }}{% endraw %}</span>
+      </button>
+
+      <div>
+        <label class="lw-label" for="s-proxy">Read through a proxy (optional)</label>
+        <input id="s-proxy" v-model="settings.proxy" @change="persist" class="lw-field"
+          placeholder="https://your-proxy.example/?url={url}" autocapitalize="off" autocorrect="off" spellcheck="false" />
+        <p class="mt-2 text-xs leading-relaxed" style="color: var(--lw-ink-faint);">
+          Browsers refuse to read another site's feed unless that site allows it, and almost none do.
+          Craigslist blocks it outright and dropped RSS entirely, so its searches open in a tab rather
+          than loading here. If you run your own proxy, put it here and use <code>{url}</code> where the
+          address should go. Nothing is sent anywhere until you fill this in.
+        </p>
+      </div>
+
+      <div class="border-t pt-4" style="border-color: var(--lw-line);">
+        <button type="button" class="lw-btn lw-danger" @click="clearEverything">
+          <span class="lw-icon" aria-hidden="true" style="font-size:20px;">delete_forever</span> Clear everything
+        </button>
+        <p class="mt-2 text-xs" style="color: var(--lw-ink-faint);">
+          Every watch, setting and record of what you have already seen lives in this browser only.
+        </p>
+      </div>
+    </div>
+  </div>
+</div>

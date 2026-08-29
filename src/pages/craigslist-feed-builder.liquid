@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <title>Craigslist Feed Builder &amp; Listing Watcher - Coffee &amp; Fun LLC</title>
+  <meta name="description" content="Build Craigslist searches for any city, save them as watches, and track new listings alongside any RSS feed. Prices, new-item alerts, dark mode. Everything stays in your browser." />
+  <meta name="keywords" content="craigslist rss, craigslist feed builder, craigslist search alerts, craigslist notifications, rss watcher, listing tracker, marketplace alerts" />
+  <meta name="author" content="Coffee &amp; Fun LLC" />
+  <meta name="robots" content="index, follow" />
+  <link rel="canonical" href="https://www.coffeeandfun.com/craigslist-feed-builder/" />
+  <link rel="icon" href="/assets/images/brand/favicon.png" sizes="any" />
+  <meta name="theme-color" content="#f1f3f4" />
+
+  <meta property="og:type" content="website" />
+  <meta property="og:site_name" content="Coffee &amp; Fun" />
+  <meta property="og:title" content="Craigslist Feed Builder &amp; Listing Watcher - Coffee &amp; Fun LLC" />
+  <meta property="og:description" content="Build Craigslist searches for any city, save them as watches, and track new listings alongside any RSS feed. Everything stays in your browser." />
+  <meta property="og:url" content="https://www.coffeeandfun.com/craigslist-feed-builder/" />
+  <meta property="og:image" content="https://www.coffeeandfun.com/assets/images/social/pages/home.png" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta property="og:image:alt" content="Coffee &amp; Fun card with the coffee cup logo and the tagline Crafting software, one brew at a time" />
+  <meta property="og:locale" content="en_US" />
+
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:site" content="@bycoffeeandfun" />
+  <meta name="twitter:title" content="Craigslist Feed Builder &amp; Listing Watcher - Coffee &amp; Fun LLC" />
+  <meta name="twitter:description" content="Build Craigslist searches for any city, save them as watches, and track new listings alongside any RSS feed. Everything stays in your browser." />
+  <meta name="twitter:image" content="https://www.coffeeandfun.com/assets/images/social/pages/home.png" />
+  <meta name="twitter:image:alt" content="Coffee &amp; Fun card with the coffee cup logo and the tagline Crafting software, one brew at a time" />
+
+  <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "WebApplication",
+      "name": "Craigslist Feed Builder & Listing Watcher",
+      "description": "Build Craigslist search URLs for any city and category, save them as watches, and track new listings alongside any RSS or Atom feed. Runs entirely in the browser with nothing stored on a server.",
+      "url": "https://www.coffeeandfun.com/craigslist-feed-builder/",
+      "applicationCategory": "UtilitiesApplication",
+      "operatingSystem": "Web Browser",
+      "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" },
+      "publisher": { "@id": "https://www.coffeeandfun.com/#organization" },
+      "creator": { "@id": "https://www.coffeeandfun.com/#founder" },
+      "isAccessibleForFree": true,
+      "inLanguage": "en"
+    }
+  </script>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@24,400,0..1,0&display=swap" rel="stylesheet" />
+
+  <script src="https://unpkg.com/vue@3"></script>
+
+  {% bundledCss %}
+  {% pageCss "craigslist-feed-builder" %}
+{% include schema-org.liquid %}
+</head>
+
+<body class="lw min-h-screen">
+  <a href="#main-content" class="lw-skip lw-btn lw-btn-filled">Skip to the watches</a>
+
+  <div v-cloak id="app">
+
+    <!-- Top bar -->
+    <header class="sticky top-0 z-30" style="background: var(--lw-surface); border-bottom: 1px solid var(--lw-line);">
+      <div class="mx-auto flex max-w-6xl items-center gap-3 px-4 py-2 sm:px-6">
+        <a href="/" class="lw-btn lw-btn-icon" aria-label="Coffee &amp; Fun home" title="Back to coffeeandfun.com">
+          <span class="lw-icon" aria-hidden="true" style="font-size:24px;">arrow_back</span>
+        </a>
+
+        <span class="lw-icon is-fill" aria-hidden="true" style="font-size:28px; color: var(--lw-primary);">radar</span>
+        <h1 class="text-lg font-medium tracking-tight" style="color: var(--lw-ink);">Listing Watcher</h1>
+
+        <div class="ml-auto flex items-center gap-1">
+          <button type="button" class="lw-btn lw-btn-tonal" @click="checkAll" :disabled="checking || !watches.length">
+            <span class="lw-icon" aria-hidden="true" style="font-size:20px;">{% raw %}{{ checking ? 'progress_activity' : 'refresh' }}{% endraw %}</span>
+            <span class="hidden sm:inline">{% raw %}{{ checking ? 'Checking' : 'Check now' }}{% endraw %}</span>
+          </button>
+          <button type="button" class="lw-btn lw-btn-icon" @click="showSettings = true" aria-label="Settings">
+            <span class="lw-icon" aria-hidden="true" style="font-size:24px;">settings</span>
+          </button>
+        </div>
+      </div>
+    </header>
+
+    <main id="main-content" class="mx-auto max-w-6xl px-4 py-6 sm:px-6">
+      <div class="lw-layout">
+
+        <!-- Rail -->
+        <aside class="lw-card lw-rail p-3" aria-label="Your watches">
+          <div class="flex items-center justify-between px-2 pb-2">
+            <h2 class="text-xs font-bold uppercase tracking-wider" style="color: var(--lw-ink-faint);">Watches</h2>
+            <span v-if="newCount" class="lw-badge">{% raw %}{{ newCount }}{% endraw %}</span>
+          </div>
+
+          <button type="button" class="lw-watch" :class="{ 'is-active': activeId === 'all' }" @click="activeId = 'all'">
+            <span class="lw-icon" aria-hidden="true" style="font-size:20px; color: var(--lw-ink-soft);">inbox</span>
+            <span class="flex-1 text-sm font-medium">All listings</span>
+            <span class="text-xs" style="color: var(--lw-ink-faint);">{% raw %}{{ items.length }}{% endraw %}</span>
+          </button>
+
+          <button v-for="w in watches" :key="w.id" type="button"
+            class="lw-watch" :class="{ 'is-active': activeId === w.id }" @click="activeId = w.id">
+            <span class="lw-dot" :style="{ background: w.colour }" aria-hidden="true"></span>
+            <span class="flex-1 truncate text-sm font-medium">{% raw %}{{ w.name }}{% endraw %}</span>
+            <span v-if="(countsByWatch[w.id] || {}).fresh" class="lw-badge">{% raw %}{{ countsByWatch[w.id].fresh }}{% endraw %}</span>
+            <span v-else class="text-xs" style="color: var(--lw-ink-faint);">{% raw %}{{ (countsByWatch[w.id] || {}).total || 0 }}{% endraw %}</span>
+          </button>
+
+          <div class="mt-2 grid gap-2 border-t pt-3" style="border-color: var(--lw-line);">
+            <button type="button" class="lw-btn lw-btn-filled w-full" @click="newWatch('craigslist')">
+              <span class="lw-icon" aria-hidden="true" style="font-size:20px;">add</span> Craigslist search
+            </button>
+            <button type="button" class="lw-btn lw-btn-outline w-full" @click="newWatch('feed')">
+              <span class="lw-icon" aria-hidden="true" style="font-size:20px;">rss_feed</span> Any RSS feed
+            </button>
+          </div>
+        </aside>
+
+        <!-- Results -->
+        <section aria-label="Matching listings">
+          <div class="mb-3 flex flex-wrap items-center gap-2">
+            <p class="text-sm" style="color: var(--lw-ink-soft);">
+              <span v-if="lastChecked">Checked {% raw %}{{ ago(lastChecked) }}{% endraw %}</span>
+              <span v-else>Not checked yet</span>
+            </p>
+            <button v-if="newCount" type="button" class="lw-btn" style="min-height:36px;" @click="markAllRead">
+              <span class="lw-icon" aria-hidden="true" style="font-size:18px;">done_all</span> Mark all seen
+            </button>
+          </div>
+
+          <!-- Per-watch status, only when something needs saying -->
+          <div v-for="w in watches" :key="'s' + w.id">
+            <div v-if="(status[w.id] || {}).state === 'blocked' && (activeId === 'all' || activeId === w.id)"
+              class="lw-flat mb-3 flex flex-wrap items-center gap-3 p-3">
+              <span class="lw-pill lw-pill-warn">Can't auto-check</span>
+              <span class="text-sm" style="color: var(--lw-ink-soft);">
+                <strong style="color: var(--lw-ink);">{% raw %}{{ w.name }}{% endraw %}</strong> — {% raw %}{{ status[w.id].message }}{% endraw %}.
+              </span>
+              <button type="button" class="lw-btn ml-auto" style="min-height:36px;" @click="openWatch(w)">
+                <span class="lw-icon" aria-hidden="true" style="font-size:18px;">open_in_new</span> Open it
+              </button>
+            </div>
+          </div>
+
+          <!-- Empty state -->
+          <div v-if="!watches.length" class="lw-card p-10 text-center">
+            <span class="lw-sticker" style="background: var(--lw-primary-soft);" aria-hidden="true">
+              <span class="lw-icon is-fill" style="font-size:40px; color: var(--lw-primary);">travel_explore</span>
+            </span>
+            <h2 class="mt-5 text-xl font-medium">Watch something</h2>
+            <p class="mx-auto mt-2 max-w-sm text-sm" style="color: var(--lw-ink-soft);">
+              Build a Craigslist search for any city, or paste an RSS feed. New listings get flagged
+              each time you open this page.
+            </p>
+            <button type="button" class="lw-btn lw-btn-filled mt-6" @click="newWatch('craigslist')">
+              <span class="lw-icon" aria-hidden="true" style="font-size:20px;">add</span> Build your first search
+            </button>
+          </div>
+
+          <div v-else-if="!visibleItems.length" class="lw-card p-10 text-center">
+            <span class="lw-sticker" style="background: var(--lw-surface-2);" aria-hidden="true">
+              <span class="lw-icon" style="font-size:40px; color: var(--lw-ink-faint);">search_off</span>
+            </span>
+            <h2 class="mt-5 text-lg font-medium">Nothing here yet</h2>
+            <p class="mx-auto mt-2 max-w-sm text-sm" style="color: var(--lw-ink-soft);">
+              Craigslist blocks reading its searches from a browser, so those open in a tab instead.
+              Feeds that allow it will fill this in.
+            </p>
+          </div>
+
+          <ol v-else class="lw-card divide-y p-2" style="--tw-divide-opacity:1;">
+            <li v-for="item in visibleItems" :key="item.watchId + item.key">
+              <a class="lw-item" :class="{ 'is-new': item.isNew }" :href="item.link" target="_blank" rel="noopener">
+                <span class="lw-dot mt-2" :style="{ background: item.colour }" aria-hidden="true"></span>
+                <span class="min-w-0 flex-1">
+                  <span class="flex flex-wrap items-center gap-2">
+                    <span class="lw-pill lw-pill-new" v-if="item.isNew">New</span>
+                    <span class="truncate font-medium">{% raw %}{{ item.title }}{% endraw %}</span>
+                  </span>
+                  <span class="mt-1 flex flex-wrap items-center gap-x-2 gap-y-1 text-xs" style="color: var(--lw-ink-faint);">
+                    <span>{% raw %}{{ item.watchName }}{% endraw %}</span>
+                    <span v-if="item.time" aria-hidden="true">·</span>
+                    <span v-if="item.time">{% raw %}{{ ago(item.time) }}{% endraw %}</span>
+                  </span>
+                  <p v-if="item.desc" class="mt-1 line-clamp-2 text-sm" style="color: var(--lw-ink-soft);">{% raw %}{{ item.desc }}{% endraw %}</p>
+                </span>
+                <span v-if="item.price" class="lw-price" style="color: var(--lw-ok);">{% raw %}{{ money(item.price) }}{% endraw %}</span>
+                <span class="lw-icon" aria-hidden="true" style="font-size:20px; color: var(--lw-ink-faint);">chevron_right</span>
+              </a>
+            </li>
+          </ol>
+        </section>
+      </div>
+    </main>
+
+    {% include listing-watcher-editor.liquid %}
+    {% include listing-watcher-settings.liquid %}
+
+    <p v-if="toast" class="fixed bottom-4 left-1/2 -translate-x-1/2 rounded-full px-4 py-2 text-sm"
+       style="background: var(--lw-ink); color: var(--lw-surface); z-index:60;" role="status">{% raw %}{{ toast }}{% endraw %}</p>
+  </div>
+
+  <script src="/assets/js/pages/craigslist-feed-builder.js"></script>
+  <script src="/assets/js/pages/craigslist-feed-builder-app.js"></script>
+</body>
+</html>
