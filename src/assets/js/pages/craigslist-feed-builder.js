@@ -17,29 +17,11 @@
   var STORE = 'coffeeandfun.listingwatcher.v1';
   var COLOURS = ['primary', 'secondary', 'accent', 'info', 'success', 'warning', 'error'];
 
-  var CATEGORIES = [
-    { id: 'sss', label: 'All for sale' },
-    { id: 'fua', label: 'Furniture' },
-    { id: 'ela', label: 'Electronics' },
-    { id: 'sya', label: 'Computers' },
-    { id: 'vga', label: 'Video gaming' },
-    { id: 'msa', label: 'Musical instruments' },
-    { id: 'bia', label: 'Bicycles' },
-    { id: 'cta', label: 'Cars & trucks' },
-    { id: 'tla', label: 'Tools' },
-    { id: 'ppa', label: 'Appliances' },
-    { id: 'zip', label: 'Free stuff' },
-    { id: 'apa', label: 'Apartments / housing' },
-    { id: 'jjj', label: 'Jobs' }
-  ];
-
-  // Craigslist runs hundreds of sites, so the field stays free text and this
-  // is only a shortcut for the common ones.
-  var SITES = ['sfbay', 'newyork', 'losangeles', 'chicago', 'seattle', 'boston',
-    'austin', 'denver', 'portland', 'atlanta', 'miami', 'dallas', 'houston',
-    'phoenix', 'sandiego', 'philadelphia', 'washingtondc', 'detroit',
-    'minneapolis', 'sacramento', 'lasvegas', 'orlando', 'vancouver', 'toronto',
-    'montreal', 'london', 'manchester', 'dublin', 'sydney', 'melbourne'];
+  // Sites and categories are craigslist's own, from reference.craigslist.org,
+  // captured at build time into a JSON asset. 707 sites and 175 categories, so
+  // they are fetched once rather than inlined into every page load. Same
+  // origin, so no CORS wrinkle here.
+  var REF_URL = '/assets/data/craigslist-sites.json';
 
   function blank() {
     return {
@@ -145,8 +127,9 @@
         editing: null,
         showSettings: false,
         note: '',
-        sites: SITES,
-        categories: CATEGORIES,
+        sites: [],
+        categoryGroups: {},
+        catLabels: {},
         sizes: ['S', 'M', 'L', 'XL']
       };
     },
@@ -186,6 +169,7 @@
 
     mounted: function () {
       this.applyTheme();
+      this.loadReference();
       if (window.matchMedia) {
         var mq = window.matchMedia('(prefers-color-scheme: dark)');
         if (mq.addEventListener) mq.addEventListener('change', this.applyTheme.bind(this));
@@ -195,6 +179,19 @@
 
     methods: {
       ago: ago,
+
+      loadReference: function () {
+        var self = this;
+        fetch(REF_URL).then(function (r) { return r.json(); }).then(function (d) {
+          self.sites = d.sites || [];
+          self.categoryGroups = d.categories || {};
+          var labels = {};
+          Object.keys(self.categoryGroups).forEach(function (group) {
+            self.categoryGroups[group].forEach(function (c) { labels[c[0]] = c[1]; });
+          });
+          self.catLabels = labels;
+        }).catch(function () { /* the fields still work, just without the lists */ });
+      },
       urlFor: urlFor,
 
       // Two letters for the avatar circle, the way a contact list does it.
@@ -209,8 +206,7 @@
           try { return new URL(w.feedUrl).hostname.replace(/^www\./, ''); }
           catch (e) { return 'Feed'; }
         }
-        var cat = CATEGORIES.find(function (c) { return c.id === w.category; });
-        return [w.site, cat ? cat.label.toLowerCase() : null, w.query || null]
+        return [w.site, this.catLabels[w.category] || w.category, w.query || null]
           .filter(Boolean).join(' · ');
       },
 

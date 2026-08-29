@@ -92,11 +92,11 @@
           </div>
 
           <!-- Watches -->
-          <div class="mt-12 flex items-center gap-4">
-            <h2 class="text-xs font-bold tracking-widest uppercase opacity-50">Watching</h2>
+          <div class="mt-12 flex flex-wrap items-center gap-3">
+            <h2 class="text-primary text-xs font-bold tracking-widest uppercase">Watching</h2>
             <span class="bg-base-300 h-px flex-1"></span>
-            <button class="link link-primary text-sm font-semibold no-underline" @click="newWatch('craigslist')">Add a search</button>
-            <button class="link link-primary text-sm font-semibold no-underline" @click="newWatch('feed')">Add a feed</button>
+            <button class="btn btn-primary btn-sm rounded-full px-4" @click="newWatch('craigslist')">Add a search</button>
+            <button class="btn btn-secondary btn-sm btn-outline rounded-full px-4" @click="newWatch('feed')">Add a feed</button>
           </div>
 
           <p v-if="!watches.length" class="py-12 text-center leading-relaxed opacity-60">
@@ -105,9 +105,12 @@
 
           <ul v-else class="mt-2">
             <li v-for="w in watches" :key="w.id" class="border-base-200 flex items-center gap-4 border-b py-5 last:border-0">
-              <span class="grid size-11 shrink-0 place-items-center rounded-full text-sm font-bold text-gray-900"
-                :class="{ 'bg-violet-300': w.colour === 'primary', 'bg-rose-300': w.colour === 'secondary', 'bg-teal-300': w.colour === 'accent', 'bg-sky-300': w.colour === 'info', 'bg-lime-300': w.colour === 'success', 'bg-amber-300': w.colour === 'warning', 'bg-orange-300': w.colour === 'error' }"
-                aria-hidden="true">{% raw %}{{ initials(w.name) }}{% endraw %}</span>
+              <div class="avatar avatar-placeholder shrink-0" aria-hidden="true">
+                <div class="w-11 rounded-full text-gray-900"
+                  :class="{ 'bg-violet-300': w.colour === 'primary', 'bg-rose-300': w.colour === 'secondary', 'bg-teal-300': w.colour === 'accent', 'bg-sky-300': w.colour === 'info', 'bg-lime-300': w.colour === 'success', 'bg-amber-300': w.colour === 'warning', 'bg-orange-300': w.colour === 'error' }">
+                  <span class="text-sm font-bold">{% raw %}{{ initials(w.name) }}{% endraw %}</span>
+                </div>
+              </div>
 
               <button class="min-w-0 flex-1 text-left" @click="active = active === w.id ? 'all' : w.id"
                 :aria-pressed="active === w.id ? 'true' : 'false'">
@@ -115,10 +118,10 @@
                 <span class="block truncate text-sm opacity-50">{% raw %}{{ source(w) }}{% endraw %}</span>
               </button>
 
-              <a v-if="(status[w.id] || {}).state === 'blocked'" class="link text-sm font-semibold whitespace-nowrap opacity-60"
+              <a v-if="(status[w.id] || {}).state === 'blocked'" class="badge badge-warning badge-sm gap-1 font-semibold whitespace-nowrap"
                  :href="urlFor(w)" target="_blank" rel="noopener">Open it</a>
               <span v-else-if="(counts[w.id] || {}).fresh" class="badge badge-primary badge-sm font-bold">{% raw %}{{ counts[w.id].fresh }}{% endraw %} new</span>
-              <span v-else class="text-sm opacity-40">{% raw %}{{ (counts[w.id] || {}).total || 0 }}{% endraw %}</span>
+              <span v-else class="badge badge-ghost badge-sm">{% raw %}{{ (counts[w.id] || {}).total || 0 }}{% endraw %}</span>
 
               <button class="btn btn-ghost btn-sm btn-circle opacity-40 hover:opacity-100" @click="editWatch(w)"
                 :aria-label="'Edit ' + w.name">
@@ -130,8 +133,8 @@
           <!-- Listings -->
           <template v-if="watches.length">
             <div class="mt-12 flex items-center gap-4">
-              <h2 class="text-xs font-bold tracking-widest uppercase opacity-50">
-                {% raw %}{{ active === 'all' ? 'Listings' : 'Listings from this watch' }}{% endraw %}
+              <h2 class="text-accent text-xs font-bold tracking-widest uppercase">
+                {% raw %}{{ active === 'all' ? 'Listings' : 'Just this watch' }}{% endraw %}
               </h2>
               <span class="bg-base-300 h-px flex-1"></span>
               <button v-if="active !== 'all'" class="link link-primary text-sm font-semibold no-underline" @click="active = 'all'">Show all</button>
@@ -152,12 +155,12 @@
                   <span class="min-w-0 flex-1">
                     <span class="flex flex-wrap items-baseline gap-x-2">
                       <span class="font-bold">{% raw %}{{ i.title }}{% endraw %}</span>
-                      <span v-if="i.fresh" class="text-primary text-xs font-bold tracking-wide uppercase">New</span>
+                      <span v-if="i.fresh" class="badge badge-primary badge-xs font-bold">New</span>
                     </span>
                     <span v-if="i.desc" class="mt-1 line-clamp-2 block text-sm opacity-60">{% raw %}{{ i.desc }}{% endraw %}</span>
                     <span class="mt-1 block text-xs opacity-40">{% raw %}{{ i.watchName }}{{ i.time ? ' · ' + ago(i.time) : '' }}{% endraw %}</span>
                   </span>
-                  <span v-if="i.price" class="shrink-0 font-bold">{% raw %}{{ i.price }}{% endraw %}</span>
+                  <span v-if="i.price" class="badge badge-success badge-outline shrink-0 font-bold">{% raw %}{{ i.price }}{% endraw %}</span>
                 </a>
               </li>
             </ul>
@@ -187,12 +190,17 @@
             <fieldset class="fieldset">
               <legend class="fieldset-legend">City</legend>
               <input v-model="editing.site" class="input w-full" list="cl-sites" placeholder="sfbay" autocapitalize="off" spellcheck="false" />
-              <datalist id="cl-sites"><option v-for="s in sites" :key="s" :value="s"></option></datalist>
+              <datalist id="cl-sites">
+                <option v-for="s in sites" :key="s[0]" :value="s[0]">{% raw %}{{ s[1] }}{{ s[2] ? ', ' + s[2] : '' }}{{ s[3] ? ' (' + s[3] + ')' : '' }}{% endraw %}</option>
+              </datalist>
+              <p class="label">{% raw %}{{ sites.length ? sites.length + ' craigslist sites' : 'Loading sites…' }}{% endraw %}</p>
             </fieldset>
             <fieldset class="fieldset">
               <legend class="fieldset-legend">Category</legend>
               <select v-model="editing.category" class="select w-full">
-                <option v-for="c in categories" :key="c.id" :value="c.id">{% raw %}{{ c.label }}{% endraw %}</option>
+                <optgroup v-for="(list, group) in categoryGroups" :key="group" :label="group">
+                  <option v-for="c in list" :key="c[0]" :value="c[0]">{% raw %}{{ c[1] }}{% endraw %}</option>
+                </optgroup>
               </select>
             </fieldset>
           </div>
