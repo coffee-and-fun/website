@@ -197,6 +197,23 @@
       ago: ago,
       urlFor: urlFor,
 
+      // Two letters for the avatar circle, the way a contact list does it.
+      initials: function (name) {
+        var parts = String(name || '?').trim().split(/\s+/).slice(0, 2);
+        return parts.map(function (w) { return w.charAt(0).toUpperCase(); }).join('') || '?';
+      },
+
+      // What this watch is actually pointed at, said briefly.
+      source: function (w) {
+        if (w.kind !== 'craigslist') {
+          try { return new URL(w.feedUrl).hostname.replace(/^www\./, ''); }
+          catch (e) { return 'Feed'; }
+        }
+        var cat = CATEGORIES.find(function (c) { return c.id === w.category; });
+        return [w.site, cat ? cat.label.toLowerCase() : null, w.query || null]
+          .filter(Boolean).join(' · ');
+      },
+
       persist: function () {
         try {
           localStorage.setItem(STORE, JSON.stringify({

@@ -54,117 +54,127 @@
 {% include schema-org.liquid %}
 </head>
 
-  <script src="https://unpkg.com/vue@3"></script>
-</head>
-
-<body class="bg-base-200 min-h-screen">
+<body class="bg-base-200 min-h-dvh">
   <div v-cloak id="app">
    <div :class="{ 'text-sm': settings.size === 0, 'text-base': settings.size === 1, 'text-lg': settings.size === 2, 'text-xl': settings.size === 3 }">
 
-    <a href="#main-content" class="btn btn-primary sr-only focus:not-sr-only focus:absolute focus:top-4 focus:left-4 focus:z-50">Skip to the watches</a>
+    <a href="#main-content" class="btn btn-primary sr-only focus:not-sr-only focus:absolute focus:top-4 focus:left-4 focus:z-50">Skip to your watches</a>
 
-    <div class="navbar bg-base-100 border-b border-base-300 sticky top-0 z-30 px-2 sm:px-4">
-      <div class="flex-1 gap-2">
-        <a href="/" class="btn btn-ghost btn-circle" aria-label="Coffee &amp; Fun home">
-          <svg viewBox="0 -960 960 960" class="size-6" fill="currentColor" aria-hidden="true"><path d="M400-80 0-480l400-400 71 71-329 329 329 329-71 71Z"/></svg>
-        </a>
-        <span class="text-lg font-semibold">Listing Watcher</span>
-      </div>
-      <div class="flex-none gap-1">
-        <button class="btn btn-primary btn-soft" @click="checkAll" :disabled="checking || !watches.length">
-          <span v-if="checking" class="loading loading-spinner loading-sm"></span>
-          <svg v-else viewBox="0 -960 960 960" class="size-5" fill="currentColor" aria-hidden="true"><path d="M480-160q-134 0-227-93t-93-227q0-134 93-227t227-93q69 0 132 28.5T720-690v-110h80v280H520v-80h168q-32-56-87.5-88T480-720q-100 0-170 70t-70 170q0 100 70 170t170 70q77 0 139-44t87-116h84q-28 106-114 173t-196 67Z"/></svg>
-          <span class="hidden sm:inline">{% raw %}{{ checking ? 'Checking' : 'Check now' }}{% endraw %}</span>
-        </button>
-        <button class="btn btn-ghost btn-circle" @click="showSettings = true" aria-label="Settings">
-          <svg viewBox="0 -960 960 960" class="size-6" fill="currentColor" aria-hidden="true"><path d="m370-80-16-128q-13-5-24.5-12T307-235l-119 50L78-375l103-78q-1-7-1-13.5v-27q0-6.5 1-13.5L78-585l110-190 119 50q11-8 23-15t24-12l16-128h220l16 128q13 5 24.5 12t22.5 15l119-50 110 190-103 78q1 7 1 13.5v27q0 6.5-2 13.5l103 78-110 190-118-50q-11 8-23 15t-24 12L590-80H370Zm112-260q58 0 99-41t41-99q0-58-41-99t-99-41q-59 0-99.5 41T342-480q0 58 40.5 99t99.5 41Z"/></svg>
-        </button>
+    <div class="mx-auto max-w-3xl px-4 py-6 sm:py-10">
+      <div class="bg-base-100 rounded-[2rem] px-5 py-8 sm:px-12 sm:py-14">
+
+        <!-- Chrome, kept to two controls -->
+        <div class="mb-10 flex items-center justify-between">
+          <a href="/" class="btn btn-sm btn-ghost rounded-full gap-1 px-3 font-semibold">
+            <svg viewBox="0 -960 960 960" class="size-4" fill="currentColor" aria-hidden="true"><path d="M400-80 0-480l400-400 71 71-329 329 329 329-71 71Z"/></svg>
+            Coffee &amp; Fun
+          </a>
+          <div class="flex items-center gap-1">
+            <button class="btn btn-sm btn-ghost rounded-full px-3 font-semibold" @click="checkAll" :disabled="checking || !watches.length">
+              <span v-if="checking" class="loading loading-spinner loading-xs"></span>
+              <span>{% raw %}{{ checking ? 'Checking' : 'Check' }}{% endraw %}</span>
+            </button>
+            <button class="btn btn-sm btn-circle btn-ghost" @click="showSettings = true" aria-label="Settings">
+              <svg viewBox="0 -960 960 960" class="size-5" fill="currentColor" aria-hidden="true"><path d="m370-80-16-128q-13-5-24.5-12T307-235l-119 50L78-375l103-78q-1-7-1-13.5v-27q0-6.5 1-13.5L78-585l110-190 119 50q11-8 23-15t24-12l16-128h220l16 128q13 5 24.5 12t22.5 15l119-50 110 190-103 78q1 7 1 13.5v27q0 6.5-2 13.5l103 78-110 190-118-50q-11 8-23 15t-24 12L590-80H370Zm112-260q58 0 99-41t41-99q0-58-41-99t-99-41q-59 0-99.5 41T342-480q0 58 40.5 99t99.5 41Z"/></svg>
+            </button>
+          </div>
+        </div>
+
+        <main id="main-content">
+
+          <!-- Masthead -->
+          <div class="text-center">
+            <h1 class="text-4xl font-extrabold tracking-tight sm:text-5xl">Listing Watcher</h1>
+            <p class="mx-auto mt-4 max-w-md leading-relaxed opacity-60">
+              Searches you are keeping an eye on.<br class="hidden sm:inline" />
+              Anything new gets flagged when you open this page.
+            </p>
+          </div>
+
+          <!-- Watches -->
+          <div class="mt-12 flex items-center gap-4">
+            <h2 class="text-xs font-bold tracking-widest uppercase opacity-50">Watching</h2>
+            <span class="bg-base-300 h-px flex-1"></span>
+            <button class="link link-primary text-sm font-semibold no-underline" @click="newWatch('craigslist')">Add a search</button>
+            <button class="link link-primary text-sm font-semibold no-underline" @click="newWatch('feed')">Add a feed</button>
+          </div>
+
+          <p v-if="!watches.length" class="py-12 text-center leading-relaxed opacity-60">
+            Nothing yet. Build a Craigslist search for any city, or paste an RSS feed.
+          </p>
+
+          <ul v-else class="mt-2">
+            <li v-for="w in watches" :key="w.id" class="border-base-200 flex items-center gap-4 border-b py-5 last:border-0">
+              <span class="grid size-11 shrink-0 place-items-center rounded-full text-sm font-bold text-gray-900"
+                :class="{ 'bg-violet-300': w.colour === 'primary', 'bg-rose-300': w.colour === 'secondary', 'bg-teal-300': w.colour === 'accent', 'bg-sky-300': w.colour === 'info', 'bg-lime-300': w.colour === 'success', 'bg-amber-300': w.colour === 'warning', 'bg-orange-300': w.colour === 'error' }"
+                aria-hidden="true">{% raw %}{{ initials(w.name) }}{% endraw %}</span>
+
+              <button class="min-w-0 flex-1 text-left" @click="active = active === w.id ? 'all' : w.id"
+                :aria-pressed="active === w.id ? 'true' : 'false'">
+                <span class="block truncate font-bold">{% raw %}{{ w.name }}{% endraw %}</span>
+                <span class="block truncate text-sm opacity-50">{% raw %}{{ source(w) }}{% endraw %}</span>
+              </button>
+
+              <a v-if="(status[w.id] || {}).state === 'blocked'" class="link text-sm font-semibold whitespace-nowrap opacity-60"
+                 :href="urlFor(w)" target="_blank" rel="noopener">Open it</a>
+              <span v-else-if="(counts[w.id] || {}).fresh" class="badge badge-primary badge-sm font-bold">{% raw %}{{ counts[w.id].fresh }}{% endraw %} new</span>
+              <span v-else class="text-sm opacity-40">{% raw %}{{ (counts[w.id] || {}).total || 0 }}{% endraw %}</span>
+
+              <button class="btn btn-ghost btn-sm btn-circle opacity-40 hover:opacity-100" @click="editWatch(w)"
+                :aria-label="'Edit ' + w.name">
+                <svg viewBox="0 -960 960 960" class="size-4" fill="currentColor" aria-hidden="true"><path d="M200-200h57l391-391-57-57-391 391v57Zm-80 80v-170l528-527q12-11 26.5-17t30.5-6q16 0 31 6t26 18l55 56q12 11 17.5 26t5.5 30q0 16-5.5 30.5T817-647L290-120H120Z"/></svg>
+              </button>
+            </li>
+          </ul>
+
+          <!-- Listings -->
+          <template v-if="watches.length">
+            <div class="mt-12 flex items-center gap-4">
+              <h2 class="text-xs font-bold tracking-widest uppercase opacity-50">
+                {% raw %}{{ active === 'all' ? 'Listings' : 'Listings from this watch' }}{% endraw %}
+              </h2>
+              <span class="bg-base-300 h-px flex-1"></span>
+              <button v-if="active !== 'all'" class="link link-primary text-sm font-semibold no-underline" @click="active = 'all'">Show all</button>
+              <button v-if="freshCount" class="link link-primary text-sm font-semibold no-underline" @click="markSeen">Mark all seen</button>
+            </div>
+
+            <p v-if="!shown.length" class="mx-auto max-w-md py-12 text-center leading-relaxed opacity-60">
+              Craigslist blocks reading its searches from a browser, so those open in a tab
+              instead. Feeds that allow it will fill this in.
+            </p>
+
+            <ul v-else class="mt-2">
+              <li v-for="i in shown" :key="i.watchId + i.key" class="border-base-200 border-b last:border-0">
+                <a class="flex items-start gap-4 py-5" :href="i.link" target="_blank" rel="noopener">
+                  <span class="mt-2 size-2 shrink-0 rounded-full"
+                    :class="{ 'bg-violet-400': i.colour === 'primary', 'bg-rose-400': i.colour === 'secondary', 'bg-teal-400': i.colour === 'accent', 'bg-sky-400': i.colour === 'info', 'bg-lime-400': i.colour === 'success', 'bg-amber-400': i.colour === 'warning', 'bg-orange-400': i.colour === 'error' }"
+                    aria-hidden="true"></span>
+                  <span class="min-w-0 flex-1">
+                    <span class="flex flex-wrap items-baseline gap-x-2">
+                      <span class="font-bold">{% raw %}{{ i.title }}{% endraw %}</span>
+                      <span v-if="i.fresh" class="text-primary text-xs font-bold tracking-wide uppercase">New</span>
+                    </span>
+                    <span v-if="i.desc" class="mt-1 line-clamp-2 block text-sm opacity-60">{% raw %}{{ i.desc }}{% endraw %}</span>
+                    <span class="mt-1 block text-xs opacity-40">{% raw %}{{ i.watchName }}{{ i.time ? ' · ' + ago(i.time) : '' }}{% endraw %}</span>
+                  </span>
+                  <span v-if="i.price" class="shrink-0 font-bold">{% raw %}{{ i.price }}{% endraw %}</span>
+                </a>
+              </li>
+            </ul>
+          </template>
+
+          <p class="mt-12 text-center text-xs opacity-40">
+            {% raw %}{{ checkedAt ? 'Checked ' + ago(checkedAt) : 'Not checked yet' }}{% endraw %} · Everything stays in this browser
+          </p>
+        </main>
       </div>
     </div>
 
-    <main id="main-content" class="mx-auto max-w-6xl p-4 sm:p-6">
-      <div class="grid gap-6 lg:grid-cols-3">
-
-        <aside class="lg:col-span-1">
-          <div class="card bg-base-100 shadow-sm lg:sticky lg:top-24">
-            <div class="card-body p-3">
-              <ul class="menu w-full p-0">
-                <li>
-                  <button :class="{ 'menu-active': active === 'all' }" @click="active = 'all'">
-                    <span class="flex-1 text-left font-medium">All listings</span>
-                    <span v-if="freshCount" class="badge badge-primary badge-sm">{% raw %}{{ freshCount }}{% endraw %}</span>
-                    <span v-else class="opacity-50">{% raw %}{{ items.length }}{% endraw %}</span>
-                  </button>
-                </li>
-                <li v-for="w in watches" :key="w.id">
-                  <button :class="{ 'menu-active': active === w.id }" @click="active = w.id">
-                    <span class="status" :class="{ 'status-primary': w.colour === 'primary', 'status-secondary': w.colour === 'secondary', 'status-accent': w.colour === 'accent', 'status-info': w.colour === 'info', 'status-success': w.colour === 'success', 'status-warning': w.colour === 'warning', 'status-error': w.colour === 'error' }" aria-hidden="true"></span>
-                    <span class="flex-1 truncate text-left font-medium">{% raw %}{{ w.name }}{% endraw %}</span>
-                    <span v-if="(counts[w.id] || {}).fresh" class="badge badge-primary badge-sm">{% raw %}{{ counts[w.id].fresh }}{% endraw %}</span>
-                    <span v-else class="opacity-50">{% raw %}{{ (counts[w.id] || {}).total || 0 }}{% endraw %}</span>
-                  </button>
-                </li>
-              </ul>
-
-              <div class="divider my-1"></div>
-
-              <button class="btn btn-primary btn-block" @click="newWatch('craigslist')">Craigslist search</button>
-              <button class="btn btn-block" @click="newWatch('feed')">Any RSS feed</button>
-            </div>
-          </div>
-        </aside>
-
-        <section class="lg:col-span-2 flex flex-col gap-4">
-
-          <div class="flex flex-wrap items-center gap-3">
-            <span class="opacity-60">{% raw %}{{ checkedAt ? 'Checked ' + ago(checkedAt) : 'Not checked yet' }}{% endraw %}</span>
-            <button v-if="freshCount" class="btn btn-ghost btn-sm" @click="markSeen">Mark all seen</button>
-          </div>
-
-          <div v-for="w in blocked" :key="'b' + w.id" role="alert" class="alert alert-warning alert-soft">
-            <svg viewBox="0 -960 960 960" class="size-5" fill="currentColor" aria-hidden="true"><path d="M40-120l440-760 440 760H40Zm138-80h604L480-720 178-200Zm302-40q17 0 28.5-11.5T520-280q0-17-11.5-28.5T480-320q-17 0-28.5 11.5T440-280q0 17 11.5 28.5T480-240Zm-40-120h80v-200h-80v200Z"/></svg>
-            <span><strong>{% raw %}{{ w.name }}{% endraw %}</strong> — {% raw %}{{ status[w.id].message }}{% endraw %}.</span>
-            <a class="btn btn-sm" :href="urlFor(w)" target="_blank" rel="noopener">Open it</a>
-          </div>
-
-          <div v-if="!watches.length" class="card bg-base-100 shadow-sm">
-            <div class="card-body items-center py-14 text-center">
-              <h2 class="card-title">Watch something</h2>
-              <p class="max-w-sm opacity-70">Build a Craigslist search for any city, or paste an RSS feed. New listings get flagged each time you open this page.</p>
-              <button class="btn btn-primary mt-2" @click="newWatch('craigslist')">Build your first search</button>
-            </div>
-          </div>
-
-          <div v-else-if="!shown.length" class="card bg-base-100 shadow-sm">
-            <div class="card-body items-center py-14 text-center">
-              <h2 class="card-title">Nothing here yet</h2>
-              <p class="max-w-md opacity-70">Craigslist blocks reading its searches from a browser, so those open in a tab instead. Feeds that allow it will fill this in.</p>
-            </div>
-          </div>
-
-          <ul v-else class="list bg-base-100 rounded-box shadow-sm">
-            <li v-for="i in shown" :key="i.watchId + i.key" class="list-row items-center">
-              <span class="status" :class="{ 'status-primary': i.colour === 'primary', 'status-secondary': i.colour === 'secondary', 'status-accent': i.colour === 'accent', 'status-info': i.colour === 'info', 'status-success': i.colour === 'success', 'status-warning': i.colour === 'warning', 'status-error': i.colour === 'error' }" aria-hidden="true"></span>
-              <a class="min-w-0 flex-1" :href="i.link" target="_blank" rel="noopener">
-                <div class="flex flex-wrap items-center gap-2">
-                  <span v-if="i.fresh" class="badge badge-primary badge-sm">New</span>
-                  <span class="truncate font-medium">{% raw %}{{ i.title }}{% endraw %}</span>
-                </div>
-                <div class="text-xs opacity-60">{% raw %}{{ i.watchName }}{{ i.time ? ' · ' + ago(i.time) : '' }}{% endraw %}</div>
-                <p v-if="i.desc" class="mt-1 line-clamp-2 text-sm opacity-70">{% raw %}{{ i.desc }}{% endraw %}</p>
-              </a>
-              <span v-if="i.price" class="badge badge-success badge-soft font-semibold">{% raw %}{{ i.price }}{% endraw %}</span>
-            </li>
-          </ul>
-        </section>
-      </div>
-    </main>
-
     <!-- Watch editor -->
     <div v-if="editing" class="modal modal-open" role="dialog">
-      <div class="modal-box max-w-lg">
-        <h3 class="text-lg font-semibold">
-          {% raw %}{{ editing.id ? 'Edit watch' : (editing.kind === 'craigslist' ? 'New Craigslist search' : 'New feed') }}{% endraw %}
+      <div class="modal-box max-w-lg rounded-[1.75rem] p-8">
+        <h3 class="text-2xl font-extrabold tracking-tight">
+          {% raw %}{{ editing.id ? 'Edit watch' : (editing.kind === 'craigslist' ? 'New search' : 'New feed') }}{% endraw %}
         </h3>
 
         <fieldset class="fieldset">
@@ -178,7 +188,6 @@
               <legend class="fieldset-legend">City</legend>
               <input v-model="editing.site" class="input w-full" list="cl-sites" placeholder="sfbay" autocapitalize="off" spellcheck="false" />
               <datalist id="cl-sites"><option v-for="s in sites" :key="s" :value="s"></option></datalist>
-              <p class="label">The bit before .craigslist.org</p>
             </fieldset>
             <fieldset class="fieldset">
               <legend class="fieldset-legend">Category</legend>
@@ -200,8 +209,8 @@
             <fieldset class="fieldset"><legend class="fieldset-legend">Miles</legend><input v-model="editing.distance" type="number" inputmode="numeric" min="0" class="input w-full" /></fieldset>
           </div>
 
-          <label class="label cursor-pointer justify-start gap-3 py-2">
-            <input type="checkbox" v-model="editing.hasImage" class="checkbox checkbox-primary" />
+          <label class="label cursor-pointer justify-start gap-3 py-3">
+            <input type="checkbox" v-model="editing.hasImage" class="checkbox checkbox-primary checkbox-sm" />
             <span>Only listings with a photo</span>
           </label>
         </template>
@@ -211,25 +220,21 @@
           <input v-model="editing.feedUrl" type="url" inputmode="url" class="input w-full" placeholder="https://example.com/feed.xml" autocapitalize="off" spellcheck="false" />
         </fieldset>
 
-        <div class="bg-base-200 rounded-box mt-3 p-3">
-          <p class="text-xs font-semibold opacity-60">This builds</p>
-          <p class="mt-1 font-mono text-xs break-all opacity-80">{% raw %}{{ preview || '—' }}{% endraw %}</p>
-        </div>
+        <p class="mt-4 font-mono text-xs break-all opacity-40">{% raw %}{{ preview || '—' }}{% endraw %}</p>
 
-        <div class="modal-action">
-          <button v-if="editing.id" class="btn btn-error btn-ghost mr-auto" @click="removeWatch(editing)">Delete</button>
-          <a v-if="preview" class="btn btn-ghost" :href="preview" target="_blank" rel="noopener">Preview</a>
-          <button class="btn" @click="editing = null">Cancel</button>
-          <button class="btn btn-primary" :disabled="!canSave" @click="saveWatch">Save</button>
+        <div class="modal-action mt-8">
+          <button v-if="editing.id" class="btn btn-ghost text-error mr-auto rounded-full" @click="removeWatch(editing)">Delete</button>
+          <button class="btn btn-ghost rounded-full" @click="editing = null">Cancel</button>
+          <button class="btn btn-primary rounded-full px-6" :disabled="!canSave" @click="saveWatch">Save</button>
         </div>
       </div>
-      <div class="modal-backdrop bg-neutral/40" @click="editing = null"></div>
+      <div class="modal-backdrop bg-neutral/30" @click="editing = null"></div>
     </div>
 
     <!-- Settings -->
     <div v-if="showSettings" class="modal modal-open" role="dialog">
-      <div class="modal-box max-w-lg">
-        <h3 class="text-lg font-semibold">Settings</h3>
+      <div class="modal-box max-w-lg rounded-[1.75rem] p-8">
+        <h3 class="text-2xl font-extrabold tracking-tight">Settings</h3>
 
         <fieldset class="fieldset">
           <legend class="fieldset-legend">Theme</legend>
@@ -249,14 +254,14 @@
           </div>
         </fieldset>
 
-        <label class="label cursor-pointer justify-start gap-3 py-2">
-          <input type="checkbox" class="checkbox checkbox-primary" :checked="settings.checkOnLoad"
+        <label class="label cursor-pointer justify-start gap-3 py-3">
+          <input type="checkbox" class="checkbox checkbox-primary checkbox-sm" :checked="settings.checkOnLoad"
             @change="settings.checkOnLoad = $event.target.checked; persist()" />
           <span>Check when the page opens</span>
         </label>
 
-        <label class="label cursor-pointer justify-start gap-3 py-2">
-          <input type="checkbox" class="checkbox checkbox-primary" :checked="settings.notifications" @change="toggleNotifications" />
+        <label class="label cursor-pointer justify-start gap-3 py-3">
+          <input type="checkbox" class="checkbox checkbox-primary checkbox-sm" :checked="settings.notifications" @change="toggleNotifications" />
           <span>Notify me about new listings</span>
         </label>
 
@@ -266,16 +271,16 @@
           <p class="label whitespace-normal">Browsers refuse to read another site's feed unless that site allows it, and almost none do. Craigslist blocks it outright and dropped RSS, so its searches open in a tab. Put your own proxy here and use {url} for the address. Nothing is sent anywhere until you fill this in.</p>
         </fieldset>
 
-        <div class="modal-action">
-          <button class="btn btn-error btn-ghost mr-auto" @click="clearAll">Clear everything</button>
-          <button class="btn btn-primary" @click="showSettings = false">Done</button>
+        <div class="modal-action mt-8">
+          <button class="btn btn-ghost text-error mr-auto rounded-full" @click="clearAll">Clear everything</button>
+          <button class="btn btn-primary rounded-full px-6" @click="showSettings = false">Done</button>
         </div>
       </div>
-      <div class="modal-backdrop bg-neutral/40" @click="showSettings = false"></div>
+      <div class="modal-backdrop bg-neutral/30" @click="showSettings = false"></div>
     </div>
 
     <div v-if="note" class="toast toast-center z-50">
-      <div class="alert alert-info">{% raw %}{{ note }}{% endraw %}</div>
+      <div class="alert alert-info rounded-full">{% raw %}{{ note }}{% endraw %}</div>
     </div>
    </div>
   </div>
