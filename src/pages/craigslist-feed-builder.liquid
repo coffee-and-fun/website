@@ -48,163 +48,238 @@
     }
   </script>
 
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@24,400,0..1,0&display=swap" rel="stylesheet" />
-
   <script src="https://unpkg.com/vue@3"></script>
 
   {% bundledCss %}
-  {% pageCss "craigslist-feed-builder" %}
 {% include schema-org.liquid %}
 </head>
 
-<body class="lw min-h-screen">
-  <a href="#main-content" class="lw-skip lw-btn lw-btn-filled">Skip to the watches</a>
+  <script src="https://unpkg.com/vue@3"></script>
+</head>
 
+<body class="bg-base-200 min-h-screen">
   <div v-cloak id="app">
+   <div :class="{ 'text-sm': settings.size === 0, 'text-base': settings.size === 1, 'text-lg': settings.size === 2, 'text-xl': settings.size === 3 }">
 
-    <!-- Top bar -->
-    <header class="sticky top-0 z-30" style="background: var(--lw-surface); border-bottom: 1px solid var(--lw-line);">
-      <div class="mx-auto flex max-w-6xl items-center gap-3 px-4 py-2 sm:px-6">
-        <a href="/" class="lw-btn lw-btn-icon" aria-label="Coffee &amp; Fun home" title="Back to coffeeandfun.com">
-          <span class="lw-icon" aria-hidden="true" style="font-size:24px;">arrow_back</span>
+    <a href="#main-content" class="btn btn-primary sr-only focus:not-sr-only focus:absolute focus:top-4 focus:left-4 focus:z-50">Skip to the watches</a>
+
+    <div class="navbar bg-base-100 border-b border-base-300 sticky top-0 z-30 px-2 sm:px-4">
+      <div class="flex-1 gap-2">
+        <a href="/" class="btn btn-ghost btn-circle" aria-label="Coffee &amp; Fun home">
+          <svg viewBox="0 -960 960 960" class="size-6" fill="currentColor" aria-hidden="true"><path d="M400-80 0-480l400-400 71 71-329 329 329 329-71 71Z"/></svg>
         </a>
-
-        <span class="lw-icon is-fill" aria-hidden="true" style="font-size:28px; color: var(--lw-primary);">radar</span>
-        <h1 class="text-lg font-medium tracking-tight" style="color: var(--lw-ink);">Listing Watcher</h1>
-
-        <div class="ml-auto flex items-center gap-1">
-          <button type="button" class="lw-btn lw-btn-tonal" @click="checkAll" :disabled="checking || !watches.length">
-            <span class="lw-icon" aria-hidden="true" style="font-size:20px;">{% raw %}{{ checking ? 'progress_activity' : 'refresh' }}{% endraw %}</span>
-            <span class="hidden sm:inline">{% raw %}{{ checking ? 'Checking' : 'Check now' }}{% endraw %}</span>
-          </button>
-          <button type="button" class="lw-btn lw-btn-icon" @click="showSettings = true" aria-label="Settings">
-            <span class="lw-icon" aria-hidden="true" style="font-size:24px;">settings</span>
-          </button>
-        </div>
+        <span class="text-lg font-semibold">Listing Watcher</span>
       </div>
-    </header>
+      <div class="flex-none gap-1">
+        <button class="btn btn-primary btn-soft" @click="checkAll" :disabled="checking || !watches.length">
+          <span v-if="checking" class="loading loading-spinner loading-sm"></span>
+          <svg v-else viewBox="0 -960 960 960" class="size-5" fill="currentColor" aria-hidden="true"><path d="M480-160q-134 0-227-93t-93-227q0-134 93-227t227-93q69 0 132 28.5T720-690v-110h80v280H520v-80h168q-32-56-87.5-88T480-720q-100 0-170 70t-70 170q0 100 70 170t170 70q77 0 139-44t87-116h84q-28 106-114 173t-196 67Z"/></svg>
+          <span class="hidden sm:inline">{% raw %}{{ checking ? 'Checking' : 'Check now' }}{% endraw %}</span>
+        </button>
+        <button class="btn btn-ghost btn-circle" @click="showSettings = true" aria-label="Settings">
+          <svg viewBox="0 -960 960 960" class="size-6" fill="currentColor" aria-hidden="true"><path d="m370-80-16-128q-13-5-24.5-12T307-235l-119 50L78-375l103-78q-1-7-1-13.5v-27q0-6.5 1-13.5L78-585l110-190 119 50q11-8 23-15t24-12l16-128h220l16 128q13 5 24.5 12t22.5 15l119-50 110 190-103 78q1 7 1 13.5v27q0 6.5-2 13.5l103 78-110 190-118-50q-11 8-23 15t-24 12L590-80H370Zm112-260q58 0 99-41t41-99q0-58-41-99t-99-41q-59 0-99.5 41T342-480q0 58 40.5 99t99.5 41Z"/></svg>
+        </button>
+      </div>
+    </div>
 
-    <main id="main-content" class="mx-auto max-w-6xl px-4 py-6 sm:px-6">
-      <div class="lw-layout">
+    <main id="main-content" class="mx-auto max-w-6xl p-4 sm:p-6">
+      <div class="grid gap-6 lg:grid-cols-3">
 
-        <!-- Rail -->
-        <aside class="lw-card lw-rail p-3" aria-label="Your watches">
-          <div class="flex items-center justify-between px-2 pb-2">
-            <h2 class="text-xs font-bold uppercase tracking-wider" style="color: var(--lw-ink-faint);">Watches</h2>
-            <span v-if="newCount" class="lw-badge">{% raw %}{{ newCount }}{% endraw %}</span>
-          </div>
+        <aside class="lg:col-span-1">
+          <div class="card bg-base-100 shadow-sm lg:sticky lg:top-24">
+            <div class="card-body p-3">
+              <ul class="menu w-full p-0">
+                <li>
+                  <button :class="{ 'menu-active': active === 'all' }" @click="active = 'all'">
+                    <span class="flex-1 text-left font-medium">All listings</span>
+                    <span v-if="freshCount" class="badge badge-primary badge-sm">{% raw %}{{ freshCount }}{% endraw %}</span>
+                    <span v-else class="opacity-50">{% raw %}{{ items.length }}{% endraw %}</span>
+                  </button>
+                </li>
+                <li v-for="w in watches" :key="w.id">
+                  <button :class="{ 'menu-active': active === w.id }" @click="active = w.id">
+                    <span class="status" :class="{ 'status-primary': w.colour === 'primary', 'status-secondary': w.colour === 'secondary', 'status-accent': w.colour === 'accent', 'status-info': w.colour === 'info', 'status-success': w.colour === 'success', 'status-warning': w.colour === 'warning', 'status-error': w.colour === 'error' }" aria-hidden="true"></span>
+                    <span class="flex-1 truncate text-left font-medium">{% raw %}{{ w.name }}{% endraw %}</span>
+                    <span v-if="(counts[w.id] || {}).fresh" class="badge badge-primary badge-sm">{% raw %}{{ counts[w.id].fresh }}{% endraw %}</span>
+                    <span v-else class="opacity-50">{% raw %}{{ (counts[w.id] || {}).total || 0 }}{% endraw %}</span>
+                  </button>
+                </li>
+              </ul>
 
-          <button type="button" class="lw-watch" :class="{ 'is-active': activeId === 'all' }" @click="activeId = 'all'">
-            <span class="lw-icon" aria-hidden="true" style="font-size:20px; color: var(--lw-ink-soft);">inbox</span>
-            <span class="flex-1 text-sm font-medium">All listings</span>
-            <span class="text-xs" style="color: var(--lw-ink-faint);">{% raw %}{{ items.length }}{% endraw %}</span>
-          </button>
+              <div class="divider my-1"></div>
 
-          <button v-for="w in watches" :key="w.id" type="button"
-            class="lw-watch" :class="{ 'is-active': activeId === w.id }" @click="activeId = w.id">
-            <span class="lw-dot" :style="{ background: w.colour }" aria-hidden="true"></span>
-            <span class="flex-1 truncate text-sm font-medium">{% raw %}{{ w.name }}{% endraw %}</span>
-            <span v-if="(countsByWatch[w.id] || {}).fresh" class="lw-badge">{% raw %}{{ countsByWatch[w.id].fresh }}{% endraw %}</span>
-            <span v-else class="text-xs" style="color: var(--lw-ink-faint);">{% raw %}{{ (countsByWatch[w.id] || {}).total || 0 }}{% endraw %}</span>
-          </button>
-
-          <div class="mt-2 grid gap-2 border-t pt-3" style="border-color: var(--lw-line);">
-            <button type="button" class="lw-btn lw-btn-filled w-full" @click="newWatch('craigslist')">
-              <span class="lw-icon" aria-hidden="true" style="font-size:20px;">add</span> Craigslist search
-            </button>
-            <button type="button" class="lw-btn lw-btn-outline w-full" @click="newWatch('feed')">
-              <span class="lw-icon" aria-hidden="true" style="font-size:20px;">rss_feed</span> Any RSS feed
-            </button>
+              <button class="btn btn-primary btn-block" @click="newWatch('craigslist')">Craigslist search</button>
+              <button class="btn btn-block" @click="newWatch('feed')">Any RSS feed</button>
+            </div>
           </div>
         </aside>
 
-        <!-- Results -->
-        <section aria-label="Matching listings">
-          <div class="mb-3 flex flex-wrap items-center gap-2">
-            <p class="text-sm" style="color: var(--lw-ink-soft);">
-              <span v-if="lastChecked">Checked {% raw %}{{ ago(lastChecked) }}{% endraw %}</span>
-              <span v-else>Not checked yet</span>
-            </p>
-            <button v-if="newCount" type="button" class="lw-btn" style="min-height:36px;" @click="markAllRead">
-              <span class="lw-icon" aria-hidden="true" style="font-size:18px;">done_all</span> Mark all seen
-            </button>
+        <section class="lg:col-span-2 flex flex-col gap-4">
+
+          <div class="flex flex-wrap items-center gap-3">
+            <span class="opacity-60">{% raw %}{{ checkedAt ? 'Checked ' + ago(checkedAt) : 'Not checked yet' }}{% endraw %}</span>
+            <button v-if="freshCount" class="btn btn-ghost btn-sm" @click="markSeen">Mark all seen</button>
           </div>
 
-          <!-- Per-watch status, only when something needs saying -->
-          <div v-for="w in watches" :key="'s' + w.id">
-            <div v-if="(status[w.id] || {}).state === 'blocked' && (activeId === 'all' || activeId === w.id)"
-              class="lw-flat mb-3 flex flex-wrap items-center gap-3 p-3">
-              <span class="lw-pill lw-pill-warn">Can't auto-check</span>
-              <span class="text-sm" style="color: var(--lw-ink-soft);">
-                <strong style="color: var(--lw-ink);">{% raw %}{{ w.name }}{% endraw %}</strong> — {% raw %}{{ status[w.id].message }}{% endraw %}.
-              </span>
-              <button type="button" class="lw-btn ml-auto" style="min-height:36px;" @click="openWatch(w)">
-                <span class="lw-icon" aria-hidden="true" style="font-size:18px;">open_in_new</span> Open it
-              </button>
+          <div v-for="w in blocked" :key="'b' + w.id" role="alert" class="alert alert-warning alert-soft">
+            <svg viewBox="0 -960 960 960" class="size-5" fill="currentColor" aria-hidden="true"><path d="M40-120l440-760 440 760H40Zm138-80h604L480-720 178-200Zm302-40q17 0 28.5-11.5T520-280q0-17-11.5-28.5T480-320q-17 0-28.5 11.5T440-280q0 17 11.5 28.5T480-240Zm-40-120h80v-200h-80v200Z"/></svg>
+            <span><strong>{% raw %}{{ w.name }}{% endraw %}</strong> — {% raw %}{{ status[w.id].message }}{% endraw %}.</span>
+            <a class="btn btn-sm" :href="urlFor(w)" target="_blank" rel="noopener">Open it</a>
+          </div>
+
+          <div v-if="!watches.length" class="card bg-base-100 shadow-sm">
+            <div class="card-body items-center py-14 text-center">
+              <h2 class="card-title">Watch something</h2>
+              <p class="max-w-sm opacity-70">Build a Craigslist search for any city, or paste an RSS feed. New listings get flagged each time you open this page.</p>
+              <button class="btn btn-primary mt-2" @click="newWatch('craigslist')">Build your first search</button>
             </div>
           </div>
 
-          <!-- Empty state -->
-          <div v-if="!watches.length" class="lw-card p-10 text-center">
-            <span class="lw-sticker" style="background: var(--lw-primary-soft);" aria-hidden="true">
-              <span class="lw-icon is-fill" style="font-size:40px; color: var(--lw-primary);">travel_explore</span>
-            </span>
-            <h2 class="mt-5 text-xl font-medium">Watch something</h2>
-            <p class="mx-auto mt-2 max-w-sm text-sm" style="color: var(--lw-ink-soft);">
-              Build a Craigslist search for any city, or paste an RSS feed. New listings get flagged
-              each time you open this page.
-            </p>
-            <button type="button" class="lw-btn lw-btn-filled mt-6" @click="newWatch('craigslist')">
-              <span class="lw-icon" aria-hidden="true" style="font-size:20px;">add</span> Build your first search
-            </button>
+          <div v-else-if="!shown.length" class="card bg-base-100 shadow-sm">
+            <div class="card-body items-center py-14 text-center">
+              <h2 class="card-title">Nothing here yet</h2>
+              <p class="max-w-md opacity-70">Craigslist blocks reading its searches from a browser, so those open in a tab instead. Feeds that allow it will fill this in.</p>
+            </div>
           </div>
 
-          <div v-else-if="!visibleItems.length" class="lw-card p-10 text-center">
-            <span class="lw-sticker" style="background: var(--lw-surface-2);" aria-hidden="true">
-              <span class="lw-icon" style="font-size:40px; color: var(--lw-ink-faint);">search_off</span>
-            </span>
-            <h2 class="mt-5 text-lg font-medium">Nothing here yet</h2>
-            <p class="mx-auto mt-2 max-w-sm text-sm" style="color: var(--lw-ink-soft);">
-              Craigslist blocks reading its searches from a browser, so those open in a tab instead.
-              Feeds that allow it will fill this in.
-            </p>
-          </div>
-
-          <ol v-else class="lw-card divide-y p-2" style="--tw-divide-opacity:1;">
-            <li v-for="item in visibleItems" :key="item.watchId + item.key">
-              <a class="lw-item" :class="{ 'is-new': item.isNew }" :href="item.link" target="_blank" rel="noopener">
-                <span class="lw-dot mt-2" :style="{ background: item.colour }" aria-hidden="true"></span>
-                <span class="min-w-0 flex-1">
-                  <span class="flex flex-wrap items-center gap-2">
-                    <span class="lw-pill lw-pill-new" v-if="item.isNew">New</span>
-                    <span class="truncate font-medium">{% raw %}{{ item.title }}{% endraw %}</span>
-                  </span>
-                  <span class="mt-1 flex flex-wrap items-center gap-x-2 gap-y-1 text-xs" style="color: var(--lw-ink-faint);">
-                    <span>{% raw %}{{ item.watchName }}{% endraw %}</span>
-                    <span v-if="item.time" aria-hidden="true">·</span>
-                    <span v-if="item.time">{% raw %}{{ ago(item.time) }}{% endraw %}</span>
-                  </span>
-                  <p v-if="item.desc" class="mt-1 line-clamp-2 text-sm" style="color: var(--lw-ink-soft);">{% raw %}{{ item.desc }}{% endraw %}</p>
-                </span>
-                <span v-if="item.price" class="lw-price" style="color: var(--lw-ok);">{% raw %}{{ money(item.price) }}{% endraw %}</span>
-                <span class="lw-icon" aria-hidden="true" style="font-size:20px; color: var(--lw-ink-faint);">chevron_right</span>
+          <ul v-else class="list bg-base-100 rounded-box shadow-sm">
+            <li v-for="i in shown" :key="i.watchId + i.key" class="list-row items-center">
+              <span class="status" :class="{ 'status-primary': i.colour === 'primary', 'status-secondary': i.colour === 'secondary', 'status-accent': i.colour === 'accent', 'status-info': i.colour === 'info', 'status-success': i.colour === 'success', 'status-warning': i.colour === 'warning', 'status-error': i.colour === 'error' }" aria-hidden="true"></span>
+              <a class="min-w-0 flex-1" :href="i.link" target="_blank" rel="noopener">
+                <div class="flex flex-wrap items-center gap-2">
+                  <span v-if="i.fresh" class="badge badge-primary badge-sm">New</span>
+                  <span class="truncate font-medium">{% raw %}{{ i.title }}{% endraw %}</span>
+                </div>
+                <div class="text-xs opacity-60">{% raw %}{{ i.watchName }}{{ i.time ? ' · ' + ago(i.time) : '' }}{% endraw %}</div>
+                <p v-if="i.desc" class="mt-1 line-clamp-2 text-sm opacity-70">{% raw %}{{ i.desc }}{% endraw %}</p>
               </a>
+              <span v-if="i.price" class="badge badge-success badge-soft font-semibold">{% raw %}{{ i.price }}{% endraw %}</span>
             </li>
-          </ol>
+          </ul>
         </section>
       </div>
     </main>
 
-    {% include listing-watcher-editor.liquid %}
-    {% include listing-watcher-settings.liquid %}
+    <!-- Watch editor -->
+    <div v-if="editing" class="modal modal-open" role="dialog">
+      <div class="modal-box max-w-lg">
+        <h3 class="text-lg font-semibold">
+          {% raw %}{{ editing.id ? 'Edit watch' : (editing.kind === 'craigslist' ? 'New Craigslist search' : 'New feed') }}{% endraw %}
+        </h3>
 
-    <p v-if="toast" class="fixed bottom-4 left-1/2 -translate-x-1/2 rounded-full px-4 py-2 text-sm"
-       style="background: var(--lw-ink); color: var(--lw-surface); z-index:60;" role="status">{% raw %}{{ toast }}{% endraw %}</p>
+        <fieldset class="fieldset">
+          <legend class="fieldset-legend">Name</legend>
+          <input v-model="editing.name" class="input w-full" placeholder="Cheap couches" />
+        </fieldset>
+
+        <template v-if="editing.kind === 'craigslist'">
+          <div class="grid gap-3 sm:grid-cols-2">
+            <fieldset class="fieldset">
+              <legend class="fieldset-legend">City</legend>
+              <input v-model="editing.site" class="input w-full" list="cl-sites" placeholder="sfbay" autocapitalize="off" spellcheck="false" />
+              <datalist id="cl-sites"><option v-for="s in sites" :key="s" :value="s"></option></datalist>
+              <p class="label">The bit before .craigslist.org</p>
+            </fieldset>
+            <fieldset class="fieldset">
+              <legend class="fieldset-legend">Category</legend>
+              <select v-model="editing.category" class="select w-full">
+                <option v-for="c in categories" :key="c.id" :value="c.id">{% raw %}{{ c.label }}{% endraw %}</option>
+              </select>
+            </fieldset>
+          </div>
+
+          <fieldset class="fieldset">
+            <legend class="fieldset-legend">Search terms</legend>
+            <input v-model="editing.query" class="input w-full" placeholder="couch, playstation, bike" />
+          </fieldset>
+
+          <div class="grid grid-cols-2 gap-3 sm:grid-cols-4">
+            <fieldset class="fieldset"><legend class="fieldset-legend">Min $</legend><input v-model="editing.minPrice" type="number" inputmode="numeric" min="0" class="input w-full" /></fieldset>
+            <fieldset class="fieldset"><legend class="fieldset-legend">Max $</legend><input v-model="editing.maxPrice" type="number" inputmode="numeric" min="0" class="input w-full" /></fieldset>
+            <fieldset class="fieldset"><legend class="fieldset-legend">Postcode</legend><input v-model="editing.postal" inputmode="numeric" class="input w-full" /></fieldset>
+            <fieldset class="fieldset"><legend class="fieldset-legend">Miles</legend><input v-model="editing.distance" type="number" inputmode="numeric" min="0" class="input w-full" /></fieldset>
+          </div>
+
+          <label class="label cursor-pointer justify-start gap-3 py-2">
+            <input type="checkbox" v-model="editing.hasImage" class="checkbox checkbox-primary" />
+            <span>Only listings with a photo</span>
+          </label>
+        </template>
+
+        <fieldset v-else class="fieldset">
+          <legend class="fieldset-legend">Feed address</legend>
+          <input v-model="editing.feedUrl" type="url" inputmode="url" class="input w-full" placeholder="https://example.com/feed.xml" autocapitalize="off" spellcheck="false" />
+        </fieldset>
+
+        <div class="bg-base-200 rounded-box mt-3 p-3">
+          <p class="text-xs font-semibold opacity-60">This builds</p>
+          <p class="mt-1 font-mono text-xs break-all opacity-80">{% raw %}{{ preview || '—' }}{% endraw %}</p>
+        </div>
+
+        <div class="modal-action">
+          <button v-if="editing.id" class="btn btn-error btn-ghost mr-auto" @click="removeWatch(editing)">Delete</button>
+          <a v-if="preview" class="btn btn-ghost" :href="preview" target="_blank" rel="noopener">Preview</a>
+          <button class="btn" @click="editing = null">Cancel</button>
+          <button class="btn btn-primary" :disabled="!canSave" @click="saveWatch">Save</button>
+        </div>
+      </div>
+      <div class="modal-backdrop bg-neutral/40" @click="editing = null"></div>
+    </div>
+
+    <!-- Settings -->
+    <div v-if="showSettings" class="modal modal-open" role="dialog">
+      <div class="modal-box max-w-lg">
+        <h3 class="text-lg font-semibold">Settings</h3>
+
+        <fieldset class="fieldset">
+          <legend class="fieldset-legend">Theme</legend>
+          <div class="join">
+            <button v-for="t in ['system','light','dark']" :key="t"
+              class="btn join-item capitalize" :class="{ 'btn-primary': settings.theme === t }"
+              @click="setTheme(t)">{% raw %}{{ t }}{% endraw %}</button>
+          </div>
+        </fieldset>
+
+        <fieldset class="fieldset">
+          <legend class="fieldset-legend">Text size</legend>
+          <div class="join">
+            <button v-for="(s, i) in sizes" :key="s"
+              class="btn join-item" :class="{ 'btn-primary': settings.size === i }"
+              @click="setSize(i)">{% raw %}{{ s }}{% endraw %}</button>
+          </div>
+        </fieldset>
+
+        <label class="label cursor-pointer justify-start gap-3 py-2">
+          <input type="checkbox" class="checkbox checkbox-primary" :checked="settings.checkOnLoad"
+            @change="settings.checkOnLoad = $event.target.checked; persist()" />
+          <span>Check when the page opens</span>
+        </label>
+
+        <label class="label cursor-pointer justify-start gap-3 py-2">
+          <input type="checkbox" class="checkbox checkbox-primary" :checked="settings.notifications" @change="toggleNotifications" />
+          <span>Notify me about new listings</span>
+        </label>
+
+        <fieldset class="fieldset">
+          <legend class="fieldset-legend">Read through a proxy (optional)</legend>
+          <input v-model="settings.proxy" @change="persist" class="input w-full" placeholder="https://your-proxy.example/?url={url}" autocapitalize="off" spellcheck="false" />
+          <p class="label whitespace-normal">Browsers refuse to read another site's feed unless that site allows it, and almost none do. Craigslist blocks it outright and dropped RSS, so its searches open in a tab. Put your own proxy here and use {url} for the address. Nothing is sent anywhere until you fill this in.</p>
+        </fieldset>
+
+        <div class="modal-action">
+          <button class="btn btn-error btn-ghost mr-auto" @click="clearAll">Clear everything</button>
+          <button class="btn btn-primary" @click="showSettings = false">Done</button>
+        </div>
+      </div>
+      <div class="modal-backdrop bg-neutral/40" @click="showSettings = false"></div>
+    </div>
+
+    <div v-if="note" class="toast toast-center z-50">
+      <div class="alert alert-info">{% raw %}{{ note }}{% endraw %}</div>
+    </div>
+   </div>
   </div>
 
-  <script src="/assets/js/pages/craigslist-feed-builder.js"></script>
-  <script src="/assets/js/pages/craigslist-feed-builder-app.js"></script>
+  {% pageJs "craigslist-feed-builder" %}
 </body>
 </html>

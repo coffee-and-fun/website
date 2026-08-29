@@ -1,21 +1,22 @@
 /* Listing Watcher.
    Builds Craigslist searches and watches RSS/Atom feeds, entirely in the
-   browser. Everything lives in localStorage, nothing is sent anywhere.
+   browser. Everything is localStorage, nothing is sent anywhere.
 
-   The honest constraint, surfaced in the UI rather than hidden: browsers block
-   cross-site reads unless the far end sends Access-Control-Allow-Origin, and
-   almost no feed does. Craigslist is worse again, it 403s non-browser traffic
-   and dropped RSS altogether. So checking is best-effort: it tries a direct
-   fetch, and if the user has set a proxy in settings it goes through that.
-   When it cannot read a source it says so plainly instead of showing an empty
-   list that looks like "no results". Building and opening searches always
-   works, since that is just URL construction. */
+   Styling is daisyUI and Tailwind only, so there is no stylesheet for this
+   page: theme is a data-theme swap and text size is a utility class, both
+   applied from here.
+
+   The constraint this app is shaped around: browsers refuse cross-site reads
+   unless the far end sends Access-Control-Allow-Origin, and almost nothing
+   does. Craigslist is worse again, it dropped RSS and 403s non-browser
+   traffic. So reading is best-effort and says so when it fails, while building
+   and opening a search always works, being only URL construction. */
 (function () {
   'use strict';
 
   var STORE = 'coffeeandfun.listingwatcher.v1';
+  var COLOURS = ['primary', 'secondary', 'accent', 'info', 'success', 'warning', 'error'];
 
-  // Craigslist search categories, the ones people actually use.
   var CATEGORIES = [
     { id: 'sss', label: 'All for sale' },
     { id: 'fua', label: 'Furniture' },
@@ -29,106 +30,63 @@
     { id: 'ppa', label: 'Appliances' },
     { id: 'zip', label: 'Free stuff' },
     { id: 'apa', label: 'Apartments / housing' },
-    { id: 'jjj', label: 'Jobs' },
-    { id: 'ggg', label: 'Gigs' }
+    { id: 'jjj', label: 'Jobs' }
   ];
 
-  // A starter list for the datalist. Craigslist has hundreds of sites, so the
-  // field stays free text and this is only a shortcut for the common ones.
-  var SITES = [
-    'sfbay', 'newyork', 'losangeles', 'chicago', 'seattle', 'boston', 'austin',
-    'denver', 'portland', 'atlanta', 'miami', 'dallas', 'houston', 'phoenix',
-    'sandiego', 'philadelphia', 'washingtondc', 'detroit', 'minneapolis',
-    'sacramento', 'lasvegas', 'orlando', 'sanantonio', 'columbus', 'nashville',
-    'raleigh', 'pittsburgh', 'stlouis', 'kansascity', 'cleveland', 'newjersey',
-    'longisland', 'inlandempire', 'orangecounty', 'vancouver', 'toronto',
-    'montreal', 'calgary', 'ottawa', 'edmonton', 'london', 'manchester',
-    'birmingham', 'dublin', 'sydney', 'melbourne', 'brisbane', 'perth'
-  ];
-
-  var SWATCHES = [
-    '#1a73e8', '#d93025', '#f9ab00', '#1e8e3e', '#9334e6',
-    '#e8710a', '#12b5cb', '#e52592', '#5f6368'
-  ];
-
-  function uid() {
-    return 'w' + Date.now().toString(36) + Math.random().toString(36).slice(2, 7);
-  }
+  // Craigslist runs hundreds of sites, so the field stays free text and this
+  // is only a shortcut for the common ones.
+  var SITES = ['sfbay', 'newyork', 'losangeles', 'chicago', 'seattle', 'boston',
+    'austin', 'denver', 'portland', 'atlanta', 'miami', 'dallas', 'houston',
+    'phoenix', 'sandiego', 'philadelphia', 'washingtondc', 'detroit',
+    'minneapolis', 'sacramento', 'lasvegas', 'orlando', 'vancouver', 'toronto',
+    'montreal', 'london', 'manchester', 'dublin', 'sydney', 'melbourne'];
 
   function blank() {
     return {
       v: 1,
       watches: [],
-      seen: {},          /* watchId -> { itemKey: firstSeenMillis } */
-      settings: {
-        theme: 'system',
-        textScale: 1,
-        notifications: false,
-        proxy: '',
-        checkOnLoad: true
-      }
+      seen: {},
+      settings: { theme: 'system', size: 1, notifications: false, proxy: '', checkOnLoad: true }
     };
   }
 
   function load() {
     try {
-      var raw = localStorage.getItem(STORE);
-      if (!raw) return blank();
-      var parsed = JSON.parse(raw);
-      if (!parsed || parsed.v !== 1) return blank();
+      var p = JSON.parse(localStorage.getItem(STORE) || 'null');
+      if (!p || p.v !== 1) return blank();
       var base = blank();
-      parsed.settings = Object.assign(base.settings, parsed.settings || {});
-      parsed.watches = parsed.watches || [];
-      parsed.seen = parsed.seen || {};
-      return parsed;
-    } catch (e) {
-      return blank();
-    }
+      p.settings = Object.assign(base.settings, p.settings || {});
+      p.watches = p.watches || [];
+      p.seen = p.seen || {};
+      return p;
+    } catch (e) { return blank(); }
   }
-
-  function save(state) {
-    try {
-      localStorage.setItem(STORE, JSON.stringify(state));
-      return true;
-    } catch (e) {
-      return false;
-    }
-  }
-
-  /* ------------------------------------------------------------- craigslist */
 
   function craigslistUrl(w) {
     var site = (w.site || 'sfbay').trim().toLowerCase().replace(/[^a-z0-9-]/g, '');
-    var cat = w.category || 'sss';
-    var params = new URLSearchParams();
-    if (w.query) params.set('query', w.query);
-    if (w.minPrice) params.set('min_price', w.minPrice);
-    if (w.maxPrice) params.set('max_price', w.maxPrice);
-    if (w.postal) params.set('postal', w.postal);
-    if (w.distance) params.set('search_distance', w.distance);
-    if (w.hasImage) params.set('hasPic', '1');
-    var qs = params.toString();
-    return 'https://' + site + '.craigslist.org/search/' + cat + (qs ? '?' + qs : '');
+    var q = new URLSearchParams();
+    if (w.query) q.set('query', w.query);
+    if (w.minPrice) q.set('min_price', w.minPrice);
+    if (w.maxPrice) q.set('max_price', w.maxPrice);
+    if (w.postal) q.set('postal', w.postal);
+    if (w.distance) q.set('search_distance', w.distance);
+    if (w.hasImage) q.set('hasPic', '1');
+    var s = q.toString();
+    return 'https://' + site + '.craigslist.org/search/' + (w.category || 'sss') + (s ? '?' + s : '');
   }
 
-  function watchUrl(w) {
+  function urlFor(w) {
     return w.kind === 'craigslist' ? craigslistUrl(w) : (w.feedUrl || '').trim();
   }
 
-  /* ------------------------------------------------------------------ feeds */
-
-  // Pull a price out of a title or description. Craigslist puts it in the
-  // title, most other feeds do not have one at all, hence the null.
-  function parsePrice(text) {
-    if (!text) return null;
-    var m = String(text).match(/(?:^|[\s(>])([$£€])\s?([0-9][0-9,]*(?:\.[0-9]{2})?)/);
+  function price(text) {
+    var m = String(text || '').match(/(?:^|[\s(>])([$£€])\s?([0-9][0-9,]*)/);
     if (!m) return null;
     var n = parseFloat(m[2].replace(/,/g, ''));
-    if (!isFinite(n)) return null;
-    return { symbol: m[1], amount: n };
+    return isFinite(n) ? m[1] + n.toLocaleString() : null;
   }
 
-  function textOf(node, names) {
+  function pick(node, names) {
     for (var i = 0; i < names.length; i++) {
       var el = node.querySelector(names[i]);
       if (el && el.textContent) return el.textContent.trim();
@@ -136,80 +94,267 @@
     return '';
   }
 
-  // RSS 2.0, RDF and Atom in one pass. Feeds in the wild are inconsistent
-  // enough that guessing by root element alone is not reliable.
-  function parseFeed(xmlText) {
-    var doc = new DOMParser().parseFromString(xmlText, 'text/xml');
+  // RSS 2.0, RDF and Atom in one pass, since feeds in the wild are too
+  // inconsistent to branch on the root element.
+  function parseFeed(xml) {
+    var doc = new DOMParser().parseFromString(xml, 'text/xml');
     if (doc.querySelector('parsererror')) throw new Error('That did not parse as RSS or Atom.');
-
     var nodes = [].slice.call(doc.querySelectorAll('item, entry'));
-    if (!nodes.length) throw new Error('No listings found in that feed.');
+    if (!nodes.length) throw new Error('No listings in that feed.');
 
     return nodes.map(function (n) {
-      var title = textOf(n, ['title']);
-      var link = '';
       var linkEl = n.querySelector('link');
-      if (linkEl) link = (linkEl.getAttribute('href') || linkEl.textContent || '').trim();
-      if (!link) link = textOf(n, ['guid', 'id']);
-
-      var desc = textOf(n, ['description', 'summary', 'content']);
-      var when = textOf(n, ['pubDate', 'published', 'updated', 'date']);
-      var stamp = when ? Date.parse(when) : NaN;
-
+      var link = linkEl ? (linkEl.getAttribute('href') || linkEl.textContent || '').trim() : '';
+      var title = pick(n, ['title']) || 'Untitled listing';
+      var desc = pick(n, ['description', 'summary', 'content']).replace(/<[^>]*>/g, ' ').replace(/\s+/g, ' ').trim();
+      var when = Date.parse(pick(n, ['pubDate', 'published', 'updated']));
       return {
-        key: (textOf(n, ['guid', 'id']) || link || title).trim(),
-        title: title || 'Untitled listing',
-        link: link,
-        desc: desc.replace(/<[^>]*>/g, ' ').replace(/\s+/g, ' ').trim().slice(0, 220),
-        time: isFinite(stamp) ? stamp : null,
-        price: parsePrice(title) || parsePrice(desc)
+        key: (pick(n, ['guid', 'id']) || link || title).trim(),
+        title: title,
+        link: link || pick(n, ['guid', 'id']),
+        desc: desc.slice(0, 180),
+        time: isFinite(when) ? when : null,
+        price: price(title) || price(desc)
       };
     }).filter(function (i) { return i.key; });
   }
 
-  function fetchUrl(url, proxy) {
-    var target = url;
-    if (proxy) {
-      // Two shapes cover nearly every proxy people run: a {url} placeholder,
-      // or a prefix the target is appended to.
-      target = proxy.indexOf('{url}') !== -1
-        ? proxy.replace('{url}', encodeURIComponent(url))
-        : proxy + encodeURIComponent(url);
-    }
-    return fetch(target, { redirect: 'follow' }).then(function (res) {
-      if (!res.ok) throw new Error('The source answered ' + res.status + '.');
-      return res.text();
-    });
-  }
-
-  /* ------------------------------------------------------------------- time */
-
   function ago(ms) {
     if (!ms) return '';
-    var s = Math.max(0, (Date.now() - ms) / 1000);
-    if (s < 90) return 'just now';
-    var m = s / 60;
+    var m = Math.max(0, (Date.now() - ms) / 60000);
+    if (m < 2) return 'just now';
     if (m < 60) return Math.round(m) + ' min ago';
-    var h = m / 60;
-    if (h < 24) return Math.round(h) + ' hr ago';
-    var d = Math.round(h / 24);
+    if (m < 1440) return Math.round(m / 60) + ' hr ago';
+    var d = Math.round(m / 1440);
     return d === 1 ? 'yesterday' : d + ' days ago';
   }
 
-  window.ListingWatcher = {
-    STORE: STORE,
-    CATEGORIES: CATEGORIES,
-    SITES: SITES,
-    SWATCHES: SWATCHES,
-    uid: uid,
-    blank: blank,
-    load: load,
-    save: save,
-    craigslistUrl: craigslistUrl,
-    watchUrl: watchUrl,
-    parseFeed: parseFeed,
-    parsePrice: parsePrice,
-    fetchUrl: fetchUrl,
-    ago: ago
-  };
+  var state = load();
+
+  Vue.createApp({
+    data: function () {
+      return {
+        watches: state.watches,
+        seen: state.seen,
+        settings: state.settings,
+        items: [],
+        status: {},
+        active: 'all',
+        checking: false,
+        checkedAt: null,
+        editing: null,
+        showSettings: false,
+        note: '',
+        sites: SITES,
+        categories: CATEGORIES,
+        sizes: ['S', 'M', 'L', 'XL']
+      };
+    },
+
+    computed: {
+      shown: function () {
+        var id = this.active;
+        return (id === 'all' ? this.items : this.items.filter(function (i) { return i.watchId === id; }))
+          .slice().sort(function (a, b) {
+            if (a.fresh !== b.fresh) return a.fresh ? -1 : 1;
+            return (b.time || 0) - (a.time || 0);
+          });
+      },
+      freshCount: function () { return this.items.filter(function (i) { return i.fresh; }).length; },
+      counts: function () {
+        var out = {};
+        this.items.forEach(function (i) {
+          var c = out[i.watchId] || (out[i.watchId] = { total: 0, fresh: 0 });
+          c.total++; if (i.fresh) c.fresh++;
+        });
+        return out;
+      },
+      preview: function () { return this.editing ? urlFor(this.editing) : ''; },
+      canSave: function () {
+        var e = this.editing;
+        if (!e || !e.name.trim()) return false;
+        return e.kind === 'craigslist' ? !!e.site.trim() : /^https?:\/\//i.test((e.feedUrl || '').trim());
+      },
+      blocked: function () {
+        var self = this;
+        return this.watches.filter(function (w) {
+          return (self.status[w.id] || {}).state === 'blocked'
+            && (self.active === 'all' || self.active === w.id);
+        });
+      }
+    },
+
+    mounted: function () {
+      this.applyTheme();
+      if (window.matchMedia) {
+        var mq = window.matchMedia('(prefers-color-scheme: dark)');
+        if (mq.addEventListener) mq.addEventListener('change', this.applyTheme.bind(this));
+      }
+      if (this.settings.checkOnLoad && this.watches.length) this.checkAll();
+    },
+
+    methods: {
+      ago: ago,
+      urlFor: urlFor,
+
+      persist: function () {
+        try {
+          localStorage.setItem(STORE, JSON.stringify({
+            v: 1, watches: this.watches, seen: this.seen, settings: this.settings
+          }));
+        } catch (e) { /* private mode, the session still works */ }
+      },
+
+      say: function (m) {
+        this.note = m;
+        clearTimeout(this._t);
+        var self = this;
+        this._t = setTimeout(function () { self.note = ''; }, 3200);
+      },
+
+      applyTheme: function () {
+        var p = this.settings.theme;
+        var dark = p === 'dark' || (p === 'system' && window.matchMedia
+          && window.matchMedia('(prefers-color-scheme: dark)').matches);
+        document.documentElement.setAttribute('data-theme', dark ? 'dark' : 'light');
+      },
+
+      setTheme: function (v) { this.settings.theme = v; this.applyTheme(); this.persist(); },
+      setSize: function (i) { this.settings.size = i; this.persist(); },
+
+      toggleNotifications: function () {
+        var self = this;
+        if (this.settings.notifications) {
+          this.settings.notifications = false; this.persist(); return;
+        }
+        if (!('Notification' in window)) return this.say('This browser has no notifications.');
+        Notification.requestPermission().then(function (r) {
+          self.settings.notifications = r === 'granted';
+          self.persist();
+          if (r !== 'granted') self.say('The browser kept notifications blocked.');
+        });
+      },
+
+      newWatch: function (kind) {
+        this.editing = {
+          id: null, kind: kind, name: '',
+          colour: COLOURS[this.watches.length % COLOURS.length],
+          site: 'sfbay', category: 'sss', query: '',
+          minPrice: '', maxPrice: '', postal: '', distance: '',
+          hasImage: false, feedUrl: ''
+        };
+      },
+
+      editWatch: function (w) { this.editing = Object.assign({}, w); },
+
+      saveWatch: function () {
+        if (!this.canSave) return;
+        var w = Object.assign({}, this.editing);
+        w.name = w.name.trim();
+        if (w.id) {
+          var i = this.watches.findIndex(function (x) { return x.id === w.id; });
+          if (i !== -1) this.watches.splice(i, 1, w);
+        } else {
+          w.id = 'w' + Date.now().toString(36);
+          this.watches.push(w);
+        }
+        this.persist();
+        this.editing = null;
+        this.checkOne(w);
+      },
+
+      removeWatch: function (w) {
+        var i = this.watches.findIndex(function (x) { return x.id === w.id; });
+        if (i === -1) return;
+        this.watches.splice(i, 1);
+        delete this.seen[w.id];
+        delete this.status[w.id];
+        this.items = this.items.filter(function (x) { return x.watchId !== w.id; });
+        if (this.active === w.id) this.active = 'all';
+        this.editing = null;
+        this.persist();
+        this.say('Watch removed.');
+      },
+
+      checkAll: function () {
+        if (this.checking || !this.watches.length) return;
+        var self = this, before = this.freshCount;
+        this.checking = true;
+        Promise.all(this.watches.map(function (w) { return self.checkOne(w); })).then(function () {
+          self.checking = false;
+          self.checkedAt = Date.now();
+          var gained = self.freshCount - before;
+          if (gained > 0) self.notify(gained);
+        });
+      },
+
+      checkOne: function (w) {
+        var self = this;
+        var url = urlFor(w);
+        if (!url) return Promise.resolve();
+        var target = this.settings.proxy
+          ? (this.settings.proxy.indexOf('{url}') !== -1
+            ? this.settings.proxy.replace('{url}', encodeURIComponent(url))
+            : this.settings.proxy + encodeURIComponent(url))
+          : url;
+
+        this.status[w.id] = { state: 'checking' };
+        return fetch(target)
+          .then(function (r) {
+            if (!r.ok) throw new Error('The source answered ' + r.status + '.');
+            return r.text();
+          })
+          .then(function (text) {
+            var parsed = parseFeed(text);
+            self.absorb(w, parsed);
+            self.status[w.id] = { state: 'ok', message: parsed.length + ' listings' };
+          })
+          .catch(function (err) {
+            // A cross-origin refusal arrives as a bare TypeError with no status,
+            // indistinguishable from being offline, so say the likely thing.
+            self.status[w.id] = {
+              state: 'blocked',
+              message: err instanceof TypeError ? 'Your browser blocked this read' : err.message
+            };
+          });
+      },
+
+      absorb: function (w, parsed) {
+        var seen = this.seen[w.id] || (this.seen[w.id] = {});
+        var firstRun = Object.keys(seen).length === 0;
+        var rows = parsed.map(function (item) {
+          var isNew = !seen[item.key];
+          if (isNew) seen[item.key] = Date.now();
+          return Object.assign({}, item, {
+            watchId: w.id, watchName: w.name, colour: w.colour,
+            // On a first fetch everything is unseen, and flagging all of it is
+            // noise rather than news.
+            fresh: isNew && !firstRun
+          });
+        });
+        this.items = this.items.filter(function (i) { return i.watchId !== w.id; }).concat(rows);
+        this.persist();
+      },
+
+      notify: function (n) {
+        if (!this.settings.notifications || !('Notification' in window)) return;
+        if (Notification.permission !== 'granted') return;
+        try {
+          new Notification(n + (n === 1 ? ' new listing' : ' new listings'), { tag: 'listing-watcher' });
+        } catch (e) { /* some browsers require a service worker here */ }
+      },
+
+      markSeen: function () { this.items.forEach(function (i) { i.fresh = false; }); },
+
+      clearAll: function () {
+        if (!window.confirm('Delete every watch, setting and record of what you have seen?')) return;
+        try { localStorage.removeItem(STORE); } catch (e) { /* nothing to do */ }
+        var f = blank();
+        this.watches = f.watches; this.seen = f.seen; this.settings = f.settings;
+        this.items = []; this.status = {}; this.active = 'all'; this.showSettings = false;
+        this.applyTheme();
+        this.say('Everything cleared.');
+      }
+    }
+  }).mount('#app');
 })();
