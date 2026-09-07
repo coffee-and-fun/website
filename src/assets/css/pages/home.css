@@ -1,0 +1,61 @@
+/* Preserve the illustrated homepage, with less space before the first action. */
+.cf-home-hero {
+	padding-block: clamp(64px, 8vw, 112px) 80px;
+}
+.cf-home-hero h1 {
+	font-size: clamp(2rem, 7.8vw, 6rem);
+	line-height: 1.24;
+}
+.cf-home-hero h1 > span {
+	display: block;
+}
+.cf-home-hero > p:not(.cf-home-trust) {
+	max-width: 46ch;
+	font-size: clamp(1.125rem, 1.7vw, 1.5rem);
+}
+.cf-home-actions .btn {
+	min-height: 48px;
+	border-radius: 12px;
+}
+.cf-home-primary {
+	display: inline-flex;
+}
+.cf-home-trust {
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: center;
+	gap: 4px 16px;
+}
+.cf-home-trust span {
+	white-space: nowrap;
+}
+.cf-home-trust span + span::before {
+	content: '·';
+	margin-right: 16px;
+}
+@media (max-width: 479px) {
+	.cf-home-hero {
+		padding-block: 48px 48px;
+	}
+	.cf-home-actions {
+		gap: 12px;
+	}
+	.cf-home-actions .btn {
+		padding-inline: 20px;
+		font-size: 1rem;
+	}
+	.cf-home-trust {
+		margin-top: 32px;
+		gap: 2px 12px;
+		font-size: 1.25rem;
+	}
+	.cf-home-trust span + span::before {
+		content: none;
+	}
+}
+@media (prefers-reduced-motion: reduce) {
+	.cf-home-actions .btn {
+		transition: none;
+		transform: none;
+	}
+}

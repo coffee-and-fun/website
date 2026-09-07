@@ -16,100 +16,10 @@
   {% include ticker.liquid %}
 {% endif %}
 
-<style>
-  /* Mega menu, daisyUI's megamenu relies on CSS anchor positioning, which
-     Chromium has and Firefox (and older Safari) don't. So: show the megamenu
-     ONLY where anchor positioning works, and fall back to the original pill
-     nav everywhere else. The modal menu remains available on every browser. */
-  .cf-megawrap { display: none; }
-  @supports (anchor-name: --a) {
-    .cf-megawrap { display: none; }
-    @media (min-width: 768px) { .cf-megawrap { display: block; } .cf-navfallback { display: none !important; } }
-  }
+{% pageCss "site-header" %}
+{% pageJs "site-header" %}
 
-  .cf-pill { background: color-mix(in srgb, var(--color-cream) 95%, transparent);
-    border-radius: 9999px; padding-inline: 0.5rem; box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1);
-    outline: 1px solid color-mix(in srgb, var(--color-mocha) 20%, transparent); backdrop-filter: blur(4px); }
-  /* appearance:none is doing real work here. Tailwind's preflight sets
-     `appearance: button` on every button, which leaves the browser free to paint
-     its own widget chrome for hover and pressed states, in a cool grey that has
-     nothing to do with this palette. Setting `background: transparent` alone does
-     not stop it, and what it paints differs between Chrome, Safari and Firefox. */
-  .cf-mm-trigger { font-size: 1.4rem; font-weight: 600; color: #292524; background: transparent;
-    appearance: none; -webkit-appearance: none;
-    border: 0; border-radius: 9999px; padding-inline: 0.7rem; cursor: pointer; white-space: nowrap;
-    transition: color 0.15s ease; }
-  /* Hover changes the colour and nothing else. A filled pill behind the label read
-     as a grey slab sitting in the middle of the bar, which is the same thing
-     appearance:none was added to stop the browser doing. */
-  .cf-mm-trigger:hover { color: var(--color-espresso); }
-  /* There is deliberately no "lit while open" rule here. The obvious selector,
-     .cf-mm-trigger:has(+ [popover]:popover-open), is valid and matches, but Chrome
-     does not invalidate styles when the popover opens, so it only paints after an
-     unrelated reflow. Doing it properly needs a toggle listener, not CSS. */
-  .cf-mm-trigger:focus-visible { outline: 2px solid var(--color-espresso); outline-offset: 2px; }
-
-  /* Blog is a direct link, not a dropdown, match the trigger styling, no caret */
-  .cf-mm-link { display: flex; align-items: center; font-size: 1.4rem; font-weight: 600;
-    color: #292524; text-decoration: none; padding-inline: 0.7rem; border-radius: 9999px; white-space: nowrap;
-    transition: color 0.15s ease; }
-  /* Matches the dropdown triggers: colour only, no fill, so the whole bar behaves
-     as one thing. */
-  .cf-mm-link:hover { color: var(--color-espresso); }
-  .cf-mm-link:focus-visible { outline: 2px solid var(--color-espresso); outline-offset: 2px; }
-
-  /* Current section: hand-drawn underline sitting under the label, in both
-     the megamenu and the fallback pill nav. */
-  .cf-mm-cur { position: relative; color: var(--color-espresso); }
-  .cf-mm-cur::after { content: ''; position: absolute; left: 0.7rem; right: 0.7rem; bottom: 0.1em;
-    height: 3px; border-radius: 2px; background: var(--color-coral); opacity: 0.65; transform: rotate(-0.6deg); }
-
-  /* megamenu-wide pins the panel to the trigger-pill width; multi-column panels
-     need more room, so widen them (higher specificity than daisyUI's rule). */
-  .megamenu.megamenu-wide .cf-mm-panel { width: max-content; min-width: 34rem; max-width: min(92vw, 44rem); }
-  .megamenu.megamenu-wide .cf-mm-panel-lg { min-width: 46rem; max-width: min(94vw, 58rem); }
-  .cf-mm-grid-4 { grid-template-columns: repeat(4, minmax(150px, 1fr)) !important; }
-  /* Warm off-white, not the popover default of pure white. The bar this drops out
-     of is cream, so plain white read cold against it. Still light enough to sit
-     clearly above the page. */
-  .cf-mm-panel { padding: 1.25rem 1.4rem 1rem; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-    background: #fffcf7;
-    box-shadow: 0 20px 40px -12px rgb(0 0 0 / 0.25); }
-  .cf-mm-grid { display: grid; grid-template-columns: repeat(3, minmax(160px, 1fr)); gap: 1.5rem 2rem; }
-  /* #8a7f74 failed AA on the old white panel (3.91:1) and this is 11px bold, so it
-     gets no large-text exemption. #786d62 clears it at 4.93:1 on the panel. */
-  .cf-mm-head { font-size: 0.7rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase;
-    color: #786d62; margin: 0 0 0.5rem; }
-  .cf-mm-panel ul { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 0.15rem; }
-  .cf-mm-panel a { display: block; padding: 0.4rem 0.5rem; margin-inline: -0.5rem; border-radius: 0.5rem;
-    font-size: 0.95rem; color: #44403c; text-decoration: none; }
-  /* #f8f2e9, not #faf5ee. The old value was tuned against a pure white panel, and
-     warming the panel to #fffcf7 flattened the step. This restores the same
-     perceived lift the row had before. */
-  .cf-mm-panel a:hover { background: #f8f2e9; color: var(--color-espresso); }
-  .cf-mm-panel a:focus-visible { outline: 2px solid var(--color-espresso); outline-offset: 1px; }
-  .cf-mm-foot { margin: 1rem 0 0; padding-top: 0.75rem; border-top: 1px solid #ece3d7; }
-  .cf-mm-foot a { font-weight: 600; color: var(--color-espresso); font-size: 0.9rem; }
-
-  /* Featured tile inside the Apps panel */
-  .cf-mm-flex { display: flex; gap: 1.5rem; align-items: stretch; }
-  .cf-mm-feat { display: flex; flex-direction: column; width: 200px; flex-shrink: 0;
-    border-radius: 0.75rem; overflow: hidden; background: #faf5ee; text-decoration: none;
-    border: 1px solid #ece3d7; }
-  .cf-mm-feat img { display: block; width: 100%; aspect-ratio: 3 / 2; object-fit: cover; }
-  .cf-mm-feat-body { padding: 0.65rem 0.8rem 0.8rem; }
-  .cf-mm-feat-name { display: block; font-weight: 700; font-size: 0.95rem; color: #292524; }
-  .cf-mm-feat-sub { display: block; margin-top: 0.15rem; font-size: 0.8rem; line-height: 1.4; color: #6b6560; }
-  .cf-mm-feat:hover { background: #f6ece2; }
-  .cf-mm-feat:hover .cf-mm-feat-name { color: var(--color-espresso); }
-  .cf-mm-feat:focus-visible { outline: 2px solid var(--color-espresso); outline-offset: 2px; }
-  @media (prefers-reduced-motion: reduce) {
-    .megamenu-active, .megamenu [popover],
-    .cf-mm-trigger, .cf-mm-link { transition: none !important; }
-  }
-</style>
-
-<header class="pointer-events-none sticky top-0 z-40">
+<header class="cf-header" data-site-header>
   <a
     href="#main-content"
     class="sr-only focus:not-sr-only focus:absolute focus:top-2 focus:left-2 focus:z-50 focus:px-4 focus:py-2 focus:rounded-lg focus:text-white focus:text-sm focus:font-semibold focus:outline-none focus:ring-2 focus:ring-offset-2 bg-espresso focus:ring-espresso"
@@ -117,18 +27,18 @@
     Skip to main content
   </a>
 
-  <div class="mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8 pt-4 pb-3">
-    <div class="relative flex items-center gap-4">
+  <div class="cf-header-container">
+    <div class="cf-header-bar">
 
-      <!-- Left: Logo (no circle wrap, larger) -->
-      <div class="flex flex-1">
+      <!-- Keep the original illustrated wordmark. -->
+      <div class="cf-header-brand">
         <a
           href="/"
           aria-label="Coffee &amp; Fun homepage"
-          class="pointer-events-auto block h-20 w-20 sm:h-24 sm:w-24 transition hover:scale-105 focus:outline-none focus-visible:ring-2 focus-visible:ring-espresso focus-visible:ring-offset-2 rounded-full"
+          class="cf-brand-link"
         >
           <img
-            alt="Coffee &amp; Fun LLC logo"
+            alt=""
             src="/assets/images/brand/coffee-and-fun-logo-dark.png"
             width="120"
             height="120"
@@ -139,15 +49,16 @@
       </div>
 
       <!-- Center: Nav pill (desktop) / Menu button (mobile) -->
-      <div class="flex flex-1 justify-end md:justify-center">
+      <div class="cf-header-navigation">
 
         <!-- Mobile menu button -->
         {% if showMenu %}
           <button
             type="button"
-            class="pointer-events-auto md:hidden inline-flex items-center gap-2 rounded-full bg-cream/95 px-5 py-2 text-lg font-semibold text-stone-800 shadow-lg ring-1 ring-mocha/20 backdrop-blur-sm transition hover:text-espresso hover:ring-mocha/40 focus:outline-none focus-visible:ring-2 focus-visible:ring-espresso focus-visible:ring-offset-2"
+            class="cf-mobile-menu"
             style="font-family: 'Caveat', cursive;"
-            onclick="my_modal_site_menu.showModal()"
+            onclick="document.getElementById('my_modal_site_menu').showModal()"
+            aria-haspopup="dialog"
             aria-label="Open site navigation menu"
             aria-controls="my_modal_site_menu"
           >
@@ -163,22 +74,20 @@
         {% assign navSection = '' %}
         {% if page.url contains '/blog' %}{% assign navSection = 'blog' %}
         {% elsif page.url contains '/about' or page.url contains '/privacy' or page.url contains '/terms' or page.url contains '/security' or page.url contains '/open-source' %}{% assign navSection = 'company' %}
-        {% elsif page.url contains '/apps' %}{% assign navSection = 'apps' %}
+        {% elsif page.url contains '/apps' or page.url == '/markdown-editor/' or page.url == '/immersive-reader/' or page.url == '/procrastinot/' or page.url == '/hide-spoilers-extension/' or page.url == '/instant-incognito/' %}{% assign navSection = 'apps' %}
         {% elsif page.url contains '/help' %}{% assign navSection = 'help' %}
         {% elsif page.url contains '/support' %}{% assign navSection = 'support' %}
         {% else %}
-          {% assign toolPaths = '/focus-timer/|/timezone-converter/|/word-clock/|/flip/|/receipt-generator/|/private-line/|/meta-images/|/secret-message-image-encoder/|/mp3-transcript/|/meta-tags/|/text-converter/|/email-signature-generator/|/chrome-extension-icon-generator/|/tactical-tiles/|/drop-dungeon/|/blackjack-trainer/|/silicon-dreams/|/minecraft-pixel-art/|/emoji/|/meta-videos/|/vibe-check/|/contrast-checker/' | split: '|' %}
+          {% assign toolPaths = '/focus-timer/|/timezone-converter/|/word-clock/|/flip/|/receipt-generator/|/private-line/|/meta-images/|/secret-message-image-encoder/|/mp3-transcript/|/meta-tags/|/text-converter/|/email-signature-generator/|/chrome-extension-icon-generator/|/tactical-tiles/|/drop-dungeon/|/blackjack-trainer/|/silicon-dreams/|/minecraft-pixel-art/|/emoji/|/meta-videos/|/vibe-check/|/contrast-checker/|/accessible-palette-generator/|/dyslexia-font-tester/|/craigslist-feed-builder/|/citizenship-test/|/realtor-exam-prep/|/flash-cards/|/stop-wasting/' | split: '|' %}
           {% for t in toolPaths %}{% if page.url == t %}{% assign navSection = 'tools' %}{% endif %}{% endfor %}
         {% endif %}
 
-        <!-- Desktop mega menu, keeps the cream pill + Caveat character, adds
-             rich panels. Falls back to the simple pill nav below on browsers
-             without CSS anchor positioning, and the modal menu works everywhere. -->
-        <nav class="pointer-events-auto hidden cf-megawrap md:block" aria-label="Primary">
-          <div class="megamenu megamenu-wide cf-pill" style="font-family: 'Caveat', cursive;">
-            <div class="megamenu-active" aria-hidden="true"></div>
+        <!-- Native popovers share the same layout across browsers. The direct-link
+             fallback and mobile dialog keep navigation available without them. -->
+        <nav class="cf-megawrap" aria-label="Primary">
+          <div class="cf-pill" style="font-family: 'Caveat', cursive;">
 
-            <button type="button" popovertarget="mm-company" class="cf-mm-trigger{% if navSection == 'company' %} cf-mm-cur{% endif %}"{% if navSection == 'company' %} aria-current="true"{% endif %}>Company</button>
+            <button type="button" popovertarget="mm-company" aria-controls="mm-company" class="cf-mm-trigger{% if navSection == 'company' %} cf-mm-cur{% endif %}"{% if navSection == 'company' %} aria-current="true"{% endif %}>Company</button>
             <div popover id="mm-company" class="cf-mm-panel cf-mm-panel-lg">
               <div class="cf-mm-grid cf-mm-grid-4">
                 <div>
@@ -218,14 +127,14 @@
 
             <a href="/blog/" class="cf-mm-link{% if navSection == 'blog' %} cf-mm-cur{% endif %}"{% if page.url == '/blog/' %} aria-current="page"{% elsif navSection == 'blog' %} aria-current="true"{% endif %}>Blog</a>
 
-            <button type="button" popovertarget="mm-apps" class="cf-mm-trigger{% if navSection == 'apps' %} cf-mm-cur{% endif %}"{% if navSection == 'apps' %} aria-current="true"{% endif %}>Apps</button>
+            <button type="button" popovertarget="mm-apps" aria-controls="mm-apps" class="cf-mm-trigger{% if navSection == 'apps' %} cf-mm-cur{% endif %}"{% if navSection == 'apps' %} aria-current="true"{% endif %}>Apps</button>
             <div popover id="mm-apps" class="cf-mm-panel cf-mm-panel-lg">
               <div class="cf-mm-flex">
                 <a href="/markdown-editor/" class="cf-mm-feat">
                   <img src="/assets/images/apps/markdown.png" alt="" width="600" height="400" loading="lazy" decoding="async" />
                   <span class="cf-mm-feat-body">
                     <span class="cf-mm-feat-name">Markdown Editor</span>
-                    <span class="cf-mm-feat-sub">Distraction-free writing, loved by 20,000+ people.</span>
+                    <span class="cf-mm-feat-sub">Write, preview, and keep your notes close.</span>
                   </span>
                 </a>
                 <div class="cf-mm-grid">
@@ -258,7 +167,7 @@
               <p class="cf-mm-foot"><a href="/apps/">See all apps &amp; extensions &rarr;</a></p>
             </div>
 
-            <button type="button" popovertarget="mm-tools" class="cf-mm-trigger{% if navSection == 'tools' %} cf-mm-cur{% endif %}"{% if navSection == 'tools' %} aria-current="true"{% endif %}>Tools</button>
+            <button type="button" popovertarget="mm-tools" aria-controls="mm-tools" class="cf-mm-trigger{% if navSection == 'tools' %} cf-mm-cur{% endif %}"{% if navSection == 'tools' %} aria-current="true"{% endif %}>Tools</button>
             <div popover id="mm-tools" class="cf-mm-panel cf-mm-panel-lg">
               <div class="cf-mm-grid cf-mm-grid-4">
                 <div>
@@ -310,10 +219,10 @@
           </div>
         </nav>
 
-        <!-- Fallback pill nav: shown where CSS anchor positioning isn't supported -->
-        <nav class="pointer-events-auto hidden cf-navfallback md:block" aria-label="Primary">
+        <!-- Direct links for browsers without the Popover API. -->
+        <nav class="cf-navfallback" aria-label="Primary">
           <ul
-            class="flex rounded-full bg-cream/95 px-4 text-2xl font-semibold text-stone-800 shadow-lg ring-1 ring-mocha/20 backdrop-blur-sm"
+            class="cf-fallback-links"
             style="font-family: 'Caveat', cursive;"
           >
             <li>
@@ -361,8 +270,8 @@
       </div>
 
       <!-- Right: Action pill (confetti / cursor / discord) -->
-      <div class="flex flex-1 justify-end">
-        <div class="pointer-events-auto flex items-center gap-1 rounded-full bg-cream/95 px-1.5 py-1 shadow-lg ring-1 ring-mocha/20 backdrop-blur-sm">
+      <div class="cf-header-utilities">
+        <div class="cf-header-actions" role="group" aria-label="Fun and community">
 
           {% if showFun %}
             <button
@@ -414,4 +323,14 @@
 
     </div>
   </div>
+  <noscript>
+    <style>.cf-mobile-menu { display: none; }</style>
+    <nav class="cf-noscript-navigation" aria-label="Primary">
+      <a href="/apps/">Apps &amp; tools</a>
+      <a href="/blog/">Blog</a>
+      <a href="/about/">About</a>
+      <a href="/help/">Help</a>
+      <a href="/support/">Support</a>
+    </nav>
+  </noscript>
 </header>

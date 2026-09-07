@@ -1,223 +1,107 @@
-# Style
+# Coffee & Fun interface style
+
+Build on the cream palette, original artwork, handwritten display type, and generous spacing. The
+objective is a familiar, coherent website that is easy to use.
 
-How the brand is implemented in markup and CSS: components, spacing, class conventions, and the accessibility floor. For *what the brand is*, see [branding.md](branding.md). For *how the build works*, see [architecture.md](architecture.md).
-
----
-
-## The stack
-
-- **Tailwind CSS v4**, CSS-first config. There is no `tailwind.config.js`, everything lives in `src/assets/css/coco.css` via `@theme`, `@source`, and `@plugin`.
-- **daisyUI v5** for component primitives, themes `light --default, retro`.
-- **@tailwindcss/typography** for `prose` blocks in blog and help articles.
-- Light mode only. `data-theme="light"` on `<html>`.
-- **No build step for JavaScript.** Marketing and content pages are vanilla JS. Interactive tools are a different story: **19 of the 39 standalone pages load Vue 3 from a CDN** and use the options API against a `#app` root. That's the established pattern for a tool page, not a wart. It does mean tool pages depend on a third-party CDN at runtime, which is worth revisiting.
-
-Two things in `coco.css` are load-bearing and easy to break:
-
-```css
-@source "../../pages";
-@source "../../_includes";
-@source "../../_data";
-```
-
-Tailwind's auto-detection misses `.liquid` files. Without these, utilities silently vanish from the build. If a class stops working for no reason, check this first.
-
-```css
-@plugin "daisyui" {
-	themes: light --default, retro;
-}
-```
-
-Keep this block minimal. An empty option such as `prefix: ;` parses as `0`, generates an invalid `input.0theme-controller` selector, and silently kills every theme variable on the site.
-
----
-
-## Class naming, and the collision that will bite you
-
-**daisyUI owns a large namespace. Never name a custom class after a daisyUI component.**
-
-This has broken the site at least twice. `.menu-title` is a real daisyUI class that applies `padding-inline: 0.75rem`. Our site-menu rows used the same name, so every row title sat 12px right of its own description for weeks before anyone spotted it.
-
-**The rule: prefix every custom component class with `cf-`.** The header and modals already follow this, `cf-mm-panel`, `cf-menu-link`, `cf-mm-trigger`, `cf-navfallback`.
-
-Known landmines, non-exhaustive: `.hero` (turns the element into a stacked grid and overlaps its children), `.card`, `.menu-title`, `.step`, `.modal`, `.toast`, `.badge`, `.btn`, `.divider`, `.label`, `.link`, `.stat`, `.tab`, `.drawer`, `.navbar`, `.footer`, `.alert`, `.avatar`, `.range`, `.swap`.
-
-Before naming a class, check it against daisyUI. When in doubt, `cf-` it.
-
----
-
-## Spacing and containers
-
-| Purpose | Class |
-|---|---|
-| Default content | `max-w-5xl` |
-| Full-width grids (apps, blog) | `max-w-7xl` |
-| Focused reading, forms, team | `max-w-3xl` |
-| Horizontal padding | `px-4 sm:px-6 lg:px-8` |
-| Major section rhythm | `py-16 sm:py-24` |
-| Subsection rhythm | `py-10 sm:py-14` |
-| Compact hero | `py-12 sm:py-16` |
-
-Always `mx-auto`. Sections holding doodles need `relative` and `overflow-visible`.
-
-Stick to the Tailwind scale. Arbitrary values (`p-[13px]`) are a smell. If the scale doesn't have it, the design probably doesn't need it.
-
----
-
-## Components
-
-### Cards
-
-```html
-<a class="group bg-white rounded-2xl border border-stone-200 overflow-hidden
-          transition-all duration-200 hover:-translate-y-1 hover:shadow-lg">
-```
-
-Image in a `figure` with `px-4 pt-4 pb-1`, content in `p-4 pt-3`, title `text-lg font-semibold text-stone-900`, description `text-sm text-stone-500 line-clamp-2`, platform pills in `flex flex-wrap gap-1.5 mt-4`.
-
-The whole card is one `<a>`. Because the title repeats inside the link, **card images use `alt=""`**, otherwise screen readers announce the name twice.
-
-### Buttons
-
-- Primary: `btn btn-lg rounded-lg px-8 font-semibold text-white border-0 shadow-lg`, background `var(--color-mocha)`.
-- Outline: `btn btn-lg btn-outline rounded-lg px-8 font-semibold border-2`, coral border and text, fills on hover.
-- Never `focus:outline-none` without a replacement. Use `focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-espresso`.
-
-### Platform pills
-
-`text-xs font-medium px-2.5 py-1 rounded-full text-white`, background assigned per platform in a Liquid conditional:
-
-| Platform | Background |
-|---|---|
-| Chrome, macOS | `--color-caramel` |
-| Safari | `#4a7249` |
-| Web | `--color-espresso` |
-| iOS | `--color-coral-deep` |
-| anything else | `--color-mocha` |
-
-All are AA-safe against white text. If you add a platform, measure before you pick.
-
-### Navigation
-
-Three navs coexist, on purpose:
-
-1. **Mega menu** (`cf-megawrap`), desktop, `md` and up. Uses CSS anchor positioning plus the Popover API, so it is gated behind `@supports (anchor-name: --a)`.
-2. **Fallback pill nav** (`cf-navfallback`), shown where anchor positioning isn't supported (currently Firefox).
-3. **Modal menu**, works everywhere, the only nav on mobile.
-
-Top level: Company, Blog, Apps, Tools, Help, Support.
-
-Current section gets `cf-mm-cur` (an espresso underline) plus `aria-current`. The section is derived from `page.url` at the top of `header.liquid`. **Tool pages are matched against a hardcoded path list**, add new tool pages to it or they won't highlight.
-
----
-
-## Where page CSS and JS live
-
-**Standard: a page never carries a large inline `<style>` or `<script>`.** Both live in real files that can be edited, diffed, syntax-checked and searched like code.
-
-| What | Where | How the page pulls it in |
-|---|---|---|
-| Page CSS | `src/assets/css/pages/<page>.css` | `{% pageCss "<page>" %}` |
-| Page JS | `src/assets/js/pages/<page>.js` | `{% pageJs "<page>" %}` |
-
-`<page>` is the page's filename without `.liquid` (the homepage is `index`; a page at `foo/index.liquid` is `foo`). Both shortcodes append a content hash, so the service worker cannot serve a stale copy after an edit, and `pageJs` emits `defer`.
-
-Adding a page: create the two asset files, drop the shortcodes in, done. If a page has no CSS or no JS of its own, leave the shortcode out rather than creating an empty file.
-
-**Three things stay inline, deliberately:**
-
-- **JSON-LD** (`<script type="application/ld+json">`). It is page metadata, not behaviour, and search engines expect it in the document.
-- **Anything containing Liquid.** Asset files are copied verbatim, never templated, so `{{ }}` and `{% %}` inside them would ship as literal text. `emoji.liquid` is the one page that legitimately keeps an inline script, because it injects a 5,000-entry dataset via `{{ emojis | json }}`.
-- **The service worker registration**, which lives once in `scripts.html`.
-
-**Watch for `{% raw %}`.** Several tool pages wrap inline scripts in `{% raw %}` so Liquid does not eat Vue's `{{ }}`. A shortcode placed inside a raw block prints literally instead of running, and the page silently loses its JS. Once the script is external the raw wrapper is usually unnecessary, so remove it.
-
----
-
-## Article typography: two systems, not one
-
-Markdown body copy is styled in **two different places** depending on where it renders. Know which one you are in before changing anything.
-
-| Where | Styled by |
-|---|---|
-| Blog posts (`templates/post.liquid`) | `prose prose-lg` from @tailwindcss/typography, themed via `--tw-prose-*` variables in `coco.css` |
-| Help articles (`templates/help-doc.liquid`) | A self-contained `.doc-content` block inside that template |
-
-There is also a `tagMap` in `eleventy.config.mjs` that injects classes onto markdown-generated tags. It is deliberately down to **one entry** (`img`). It used to carry 22, which duplicated and fought `prose`: table cells lost their padding to the plugin, links picked up an 8px side margin, and lists indented 48px with markers inside the box. **Do not grow it again.** Brand changes for blog prose go in the `--tw-prose-*` block in `coco.css`; changes for help go in `.doc-content`.
-
-### Syntax highlighting
-
-Code is highlighted **at build time** by highlight.js, called from the `highlight` callback in `markdownOptions` in `eleventy.config.mjs`. The browser downloads no JavaScript for it, there is no flash of unhighlighted code, and the colours are already in view-source.
-
-This replaced a runtime setup that fetched a 35KB script on every page containing a code block and coloured it after paint. The whole cost is now about 1.6KB of CSS inside the existing bundle.
-
-The theme is a warm light one in `coco.css`, not the old One Dark, which looked like a hole punched in a cream page. **Every token colour was measured against the `#f5f5f4` block background and clears 4.5:1**, including comments, which most light themes render too faint to read.
-
-A fence with no language tag renders plain, which is correct and intentional. `mermaid` blocks also render plain, since highlight.js has no grammar for them.
-
-Because the two are separate, a change to one does not reach the other. When you touch either, check both. Help in particular styles `pre`, `hr` and `img` itself, and its `pre code` rule includes `.hljs` in the selector to beat highlight.js's own padding.
-
----
-
-## Accessibility floor
-
-This is a company that ships accessibility software. The site failing an audit is a credibility problem, not just a bug. Non-negotiables:
-
-- **Contrast measured, not eyeballed.** 4.5:1 normal text, 3:1 large text and UI. See the palette rules in [branding.md](branding.md).
-- **One `h1` per page**, no skipped heading levels. All 49 blog posts comply. Two tool pages (`drop-dungeon`, `private-line`) still ship 3 to 4 `h1`s in their static HTML because every Vue view template is present before hydration and gated by `v-if`; only one ever reaches a user, but a crawler sees them all.
-- **Visible focus on everything interactive.** `focus-visible` with an offset outline.
-- **Decorative SVG is `aria-hidden` in markup**, not applied later by script. Script runs late; screen readers don't wait.
-- **`prefers-reduced-motion` is respected everywhere**, doodle animation, daisyUI `aura` (its built-in reduced-motion handling only slows the glow from 6s to 24s, which still violates WCAG 2.2.2, so we stop it outright), and any canvas animation.
-- **Explicit `width` and `height` on every image**, for CLS.
-- **Never lazy-load an LCP image.** Hero images load eagerly.
-- **`alt=""` for decorative images**, real descriptions for informative ones, never a bare Liquid variable that might render empty.
-- Skip link first in the DOM.
-- `aria-modal="true"` and a labelled heading on every dialog.
-
-`html, body { overflow-x: clip; }` is deliberate. Absolutely positioned doodles can poke past the viewport; `clip` stops the stray horizontal scrollbar without creating a scroll container, which would break the sticky header. `hidden` would break it.
-
----
-
-## Effects worth knowing
-
-- **`aura`** (daisyUI), a soft animated halo, used on the About team portraits and one homepage element. `--aura-radius` controls the corner rounding. Killed under reduced motion.
-- **`.brand-heading`**, Pacifico with a coral offset shadow that grows at `sm` and `lg`. Defined in `sketch-styles.liquid` and mirrored in `coco.css`; keep them in sync.
-- **Breadcrumbs**, on every blog post, with matching `BreadcrumbList` JSON-LD.
-
----
-
-## Images
-
-| Purpose | Size |
-|---|---|
-| Social / OG card | 1200x630 |
-| Apps grid card | 800x420 |
-| Staff portrait | 420x420 |
-| Logo (JSON-LD) | 512x512 |
-
-Assets live under `src/assets/images/` in eight folders by purpose: `apps`, `bento`, `blog`, `brand`, `forgotten`, `games`, `screenshots`, `social`, `staff`.
-
-`og:image:width` and `og:image:height` are emitted from real file dimensions by the `imageWidth` / `imageHeight` filters, don't hardcode them, the values genuinely vary across posts.
-
----
-
-## Adding a page: the checklist
-
-1. **Don't reuse a daisyUI class name.** `cf-` prefix for anything custom.
-2. Include `sketch-styles.liquid` for `.brand-heading` and doodles; `footer.liquid` for the footer.
-3. One `h1`. Logical heading order.
-4. Both card images (1200x630 social, 800x420 grid).
-5. Register tools in `src/_data/apps.json` under the right group, two-space indent.
-6. Add tool pages to the `toolPaths` list in `header.liquid` so the nav highlights.
-7. Title under 60 characters *including* the ` - Coffee & Fun LLC` suffix; description 140-160.
-8. Canonical, OG, and Twitter tags that agree with each other.
-9. Measure contrast.
-10. `ELEVENTY_ENV=production npx @11ty/eleventy` and check it in a browser.
-
-## Known traps
-
-- Tailwind v4 preflight strips the browser default `dialog { margin: auto }`. Dialogs render pinned top-left until you add it back.
-- Preflight also removes link underlines. Re-add `text-decoration: underline` on prose links, colour alone fails WCAG 1.4.1.
-- A `<dialog>` closed by a `method="dialog"` submit did not reliably fire its `close` event in testing. Bind to the form's `submit` as well.
-- Global single-key shortcuts need an off switch (WCAG 2.1.4) and must bail when focus is in a form control.
-- daisyUI is JIT, a component's CSS only exists if some scanned file uses the class. Adding markup that references it is what makes it appear.
+Use [branding.md](branding.md) for identity, [writing-style.md](writing-style.md) for copy, and
+[design-review.md](design-review.md) for the latest review.
+
+## Source map
+
+| Concern                                                      | Source                                               |
+| ------------------------------------------------------------ | ---------------------------------------------------- |
+| Shared header and section selection                          | `src/_includes/header.liquid`                        |
+| Header, popover, and mobile-menu styling                     | `src/assets/css/pages/site-header.css`               |
+| Popover positioning and keyboard enhancements                | `src/assets/js/pages/site-header.js`                 |
+| Mobile site directory                                        | `src/_includes/modals.liquid`                        |
+| Homepage content and flow                                    | `src/pages/index.liquid`                             |
+| Homepage refinements                                         | `src/assets/css/pages/home.css`                      |
+| Palette, fonts, and article typography                       | `src/assets/css/coco.css`                            |
+| Shared handwritten styling and legacy font/token definitions | `src/_includes/sketch-styles.liquid`                 |
+| Product catalog and announcement                             | `src/_data/apps.json`, `src/_data/announcement.json` |
+
+Preserve the Eleventy, Liquid, Tailwind, and daisyUI stack. Use the existing `pageCss` and `pageJs`
+shortcodes for scoped assets; they add content hashes so the service worker can fetch changed files.
+Do not edit generated `docs/` files or `engine.css` as source.
+
+## Header
+
+Use one warm paper surface with a thin warm border and quiet shadow. Keep the logo left, navigation
+in the center, and the existing fun/community actions right. Utility actions have a subtle divider
+and stay visually secondary.
+
+At 1024px and above, show the desktop navigation. Below that, use the existing modal site directory.
+Small phones retain a 56px logo area and 44px utility targets. Keep the header compact without
+shrinking tap targets. The current layout uses 18px to 24px corner radii depending on width.
+
+Keep the existing destination order and menu contents. Buttons open grouped panels; links go
+directly to a page. A small chevron identifies disclosures. An open trigger gets a warm fill and an
+upward chevron. Current sections get a coral underline, including product and tool detail pages that
+use the shared header.
+
+Use native automatic popovers for Escape and outside-click dismissal. Position them beneath the
+header and constrain their width and height to the viewport. Do not make navigation depend on CSS
+anchor positioning. Browsers without popovers get direct links; small screens with JavaScript
+disabled get a simple visible link list.
+
+Keep dropdown labels in system sans serif. Use readable category labels, at least 44px link rows,
+clear grouping, and one directory link at the bottom. The featured app tile is a link, with an image
+and a concise description. No unsupported audience figures.
+
+## Homepage
+
+Preserve the existing section order and illustrated cards. Keep the signature headline in two block
+spans with fluid typography. The hero uses less vertical space on phones so both primary
+destinations are visible quickly.
+
+Use one solid caramel action and one outlined coral action. Keep labels in sentence case and corners
+at 12px. Use a steady shadow, not perpetual glow. Let the handwritten supporting note add
+personality.
+
+Keep supporting copy around 46 characters per line on wide screens. On small screens, let trust
+statements wrap as whole phrases. Decorative notes must not overlap text or controls, introduce
+horizontal scrolling, or convey essential information alone.
+
+## Type, rhythm, and surfaces
+
+- Body copy: generally 16px or larger, with line height around 1.5 to 1.7.
+- Regular interface labels: generally 14px or larger. Reserve smaller sizes for secondary metadata.
+- Controls: aim for at least 44px in both dimensions when an icon is the entire target.
+- Spacing: use a small, repeatable scale such as 4, 8, 12, 16, 24, 32, 48, and 64px.
+- Surfaces: cream for the page, warm paper for elevated navigation, and existing saturated imagery
+  for feature cards.
+- Borders and shadows: use them to establish grouping and depth, with one clear edge per component.
+
+These are design defaults, not a claim that font size alone establishes accessibility. Check actual
+text, line lengths, contrast, and interaction behavior.
+
+## Interaction and accessibility
+
+Use semantic links, buttons, headings, and landmarks. Keep the skip link first and visible on focus.
+Never remove a focus outline without a clear replacement. A sticky header must leave enough scroll
+offset for anchor targets and focused content.
+
+Check keyboard navigation through open panels, including Tab, Shift+Tab, ArrowDown from a
+disclosure, Escape, and focus restoration. The mobile menu uses a native dialog with a named close
+button and focus containment. Resize an open desktop panel down to mobile and verify it closes
+cleanly.
+
+Test at 320, 390, 768, 1024, and 1440px, plus a short landscape viewport and enlarged text. Text
+must wrap without hiding controls. Check reduced motion and no-JavaScript navigation. Keep static
+content visible without animation or script initialization.
+
+Use the existing color tokens rather than approximations. Check small text at 4.5:1, large text at
+3:1, and meaningful non-text boundaries or indicators at 3:1 where required. Do not assume a
+low-opacity version of an accessible color remains accessible.
+
+## Validation and delivery
+
+Run `npm run build` after shared-template or asset changes. Review the home, apps, blog, help,
+support, and a tool page in a browser. Exercise both desktop popovers and the mobile menu. Run
+automated accessibility checks on the changed surfaces, then manually check focus order, image
+loading, and visual layout.
+
+`npm run dev -- --port=8080` provides a local review. `npm run build` updates the sitemap ledger as
+a side effect; inspect that diff and preserve unrelated in-progress work. Publish through the site's
+existing workflow only when requested. Record what was actually checked and any remaining limits
+instead of claiming a universal audit.
