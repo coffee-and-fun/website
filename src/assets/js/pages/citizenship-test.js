@@ -1,357 +1,417 @@
-/* US citizenship civics practice, 2008 test.
-   Self-assessed rather than multiple choice, because the real test is oral: an
-   officer asks and you answer out loud. Picking from four options teaches
-   recognition, and recognition is not what gets tested.
-   Everything is localStorage. Nothing leaves the device. */
+/* Citizenship study UI. Data and progress stay in this browser. */
 (function () {
   'use strict';
-
-  var root = document.querySelector('[data-ct]');
-  if (!root) return;
-
-  var STORE = 'coffeeandfun.civics2008.v1';
-  var SET_SIZE = 10;
-  var PASS_MARK = 6;
-
-  var data = null, bank = [], places = [];
-  var state = { queue: [], i: 0, answers: [], revealed: false };
-
-  var el = function (s) { return root.querySelector(s); };
-  var els = function (s) { return [].slice.call(root.querySelectorAll(s)); };
-  var esc = function (s) {
-    return String(s).replace(/[&<>"']/g, function (c) {
-      return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c];
+  const root = document.querySelector('[data-ct]');
+  if (!root || !window.CivicsStudy) return;
+  const C = window.CivicsStudy;
+  const STORE = 'coffeeandfun.civics.v2';
+  const LEGACY = 'coffeeandfun.civics2008.v1';
+  const $ = selector => root.querySelector(selector);
+  const $$ = selector => [...root.querySelectorAll(selector)];
+  const esc = value => String(value).replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' })[c]);
+  const list = answers => '<ul>' + answers.map(a => `<li>${esc(a)}</li>`).join('') + '</ul>';
+  const bookmarkKey = q => `${prefs.version}:${q.n}`;
+  let banks, places, refs, prefs, view = 'study', loading = false, revealed = false, hinted = false, gesture = null;
+  const bank = () => banks[prefs.version].questions;
+  const current = () => bank().find(q => q.n === prefs.session?.queue[prefs.session.i]);
+  const stat = q => prefs.q[C.key(q, prefs)] || C.emptyStat();
+  const resolved = q => C.resolve(q, prefs, places, refs);
+  const announce = text => { $('[data-status]').textContent = text; };
+  function save() {
+    try { localStorage.setItem(STORE, JSON.stringify(prefs)); $('[data-save-error]').hidden = true; }
+    catch (_) { $('[data-save-error]').hidden = false; }
+  }
+  function stopSpeech() { if ('speechSynthesis' in window) window.speechSynthesis.cancel(); }
+  function restoreSession() {
+    const s = prefs.session;
+    const valid = s && ['all', 'missed', 'review', 'saved', 'unseen', 'exam', 'repeat'].includes(s.mode) &&
+      Array.isArray(s.queue) && s.queue.length <= 128 && new Set(s.queue).size === s.queue.length &&
+      s.queue.every(n => bank().some(q => q.n === n && (!prefs.senior || q.seniorSet))) &&
+      Number.isInteger(s.i) && s.i >= 0 && s.i <= s.queue.length && Array.isArray(s.answers) && s.answers.length === s.i &&
+      s.answers.every((a, i) => a && a.n === s.queue[i] && typeof a.correct === 'boolean' && typeof a.skipped === 'boolean' && typeof a.assisted === 'boolean' && (a.before === null || (a.before && typeof a.before === 'object')));
+    if (!valid) { prefs.session = null; return false; }
+    // Do not let modified storage supply markup or an arbitrary filter.
+    s.topic = typeof s.topic === 'string' && bank().some(q => q.topic === s.topic) ? s.topic : '';
+    s.hinted = s.hinted === true;
+    s.answers.forEach(a => {
+      if (a.before) a.before = C.normalize({ v: 2, q: { '2025:1': a.before } }).q['2025:1'];
     });
-  };
-
-  /* --------------------------------------------------------------- storage */
-
-  /* deck holds the question numbers already asked in the current pass through
-     the bank, lastSet the numbers from the previous set. Both default when
-     absent, so a store written before they existed still loads. */
-  function blank() { return { v: 1, place: '', mine: {}, q: {}, sets: [], deck: [], lastSet: [] }; }
-  function load() {
-    try { var r = localStorage.getItem(STORE); if (!r) return blank();
-      var p = JSON.parse(r); return p && p.v === 1 ? p : blank(); } catch (e) { return blank(); }
+    return true;
   }
-  function save(d) { try { localStorage.setItem(STORE, JSON.stringify(d)); return true; } catch (e) { return false; } }
-
-  /* ----------------------------------------------------------- your answers */
-
-  /* The nine that change. Four depend on where you live, five on who currently
-     holds office. USCIS prints neither, so neither does this: you fill them in
-     and the app quizzes you on what you wrote. A hardcoded name would be wrong
-     the moment an election happened. */
-  function myAnswerFor(n) {
-    var store = load();
-    if (n === 44) {
-      var p = places.find(function (x) { return x.code === store.place; });
-      if (p) return p.capital ? p.capital : (p.note || 'Not a state, so no capital');
-    }
-    return (store.mine && store.mine[n]) || '';
+  function begin(mode = $('#ct-mode').value, ids = null) {
+    stopSpeech();
+    const rules = C.examRules(prefs);
+    const topic = mode === 'exam' || mode === 'repeat' ? '' : $('#ct-topic').value;
+    prefs.session = { mode, topic, queue: ids || C.queue(bank(), prefs, mode, topic, mode === 'exam' ? rules.size : 10), i: 0, answers: [], hinted: false };
+    save(); renderStudy(view === 'study' && !$('#ct-settings-dialog').open); renderTotals();
   }
-
-  function renderMine() {
-    var store = load();
-    var host = el('[data-ct-mine]');
-    var place = places.find(function (p) { return p.code === store.place; });
-    var variable = bank.filter(function (q) { return q.variable; });
-
-    host.innerHTML = variable.map(function (q) {
-      var v = q.variable;
-      var auto = q.n === 44;
-      var val = myAnswerFor(q.n);
-      var na = place && ((v.kind === 'state' && q.n === 20 && !place.hasSenators) ||
-                         (q.n === 43 && !place.hasGovernor));
-      return '<div class="ct-mine-row">' +
-        '<label for="ct-mine-' + q.n + '"><span class="ct-mine-n">' + q.n + '</span> ' + esc(q.q) + '</label>' +
-        (auto
-          ? '<p class="ct-auto">' + (val ? esc(val) : 'Pick where you live above') + '<span> filled in for you, capitals do not change</span></p>'
-          : '<input id="ct-mine-' + q.n + '" type="text" data-ct-mineinput="' + q.n + '" value="' + esc(val) + '" placeholder="' + esc(v.label) + '" />') +
-        (na ? '<p class="ct-na">' + esc(place.note) + '</p>' : '') +
-        (v.lookup && !auto ? '<p class="ct-look"><a href="' + v.lookup + '" target="_blank" rel="noopener">Look this up<span class="sr-only"> (opens in a new tab)</span></a></p>' : '') +
-        '</div>';
-    }).join('');
-
-    els('[data-ct-mineinput]').forEach(function (input) {
-      input.addEventListener('change', function () {
-        var s = load();
-        s.mine[this.getAttribute('data-ct-mineinput')] = this.value.trim();
-        save(s);
-        renderReady();
-      });
-    });
-    renderReady();
+  function settings() {
+    $('#ct-version').value = prefs.version;
+    $('#ct-place').value = prefs.place;
+    $('#ct-senior').checked = prefs.senior;
+    const rules = C.examRules(prefs);
+    $('[data-test-label]').textContent = `${prefs.version} test · ${prefs.version === '2025' ? 'Filed Oct 20, 2025 or later' : 'Filed before Oct 20, 2025'}${prefs.senior ? ' · 65/20' : ''} ›`;
+    $('[data-version-note]').textContent = `${prefs.version} test${prefs.senior ? ' · 65/20 set' : ''}: ${prefs.senior ? 20 : bank().length} questions to study · Up to ${rules.size} asked · ${rules.pass} correct to pass. Choose by filing date, not interview date.`;
+    const previous = $('#ct-topic').value;
+    $('#ct-topic').innerHTML = '<option value="">All topics</option>' + [...new Set(C.pool(bank(), prefs).map(q => q.topic))].map(t => `<option value="${esc(t)}">${esc(t)}</option>`).join('');
+    $('#ct-topic').value = [...$('#ct-topic').options].some(o => o.value === previous) ? previous : '';
+    $('[data-reference-date]').textContent = `Officeholder reference checked ${refs.verifiedOn}. This is a saved snapshot, not a live feed. Check the sources before your interview; names can change. You can enter an updated answer below.`;
+    const place = places.find(p => p.code === prefs.place);
+    $('[data-place-note]').textContent = place?.note || 'Your U.S. representative depends on your home address. A state or ZIP code alone may cover more than one congressional district.';
   }
-
-  function renderReady() {
-    var store = load();
-    var missing = bank.filter(function (q) { return q.variable && !myAnswerFor(q.n); });
-    var note = el('[data-ct-ready]');
-    if (!store.place) {
-      note.textContent = 'Pick where you live to start.';
-      note.className = 'ct-ready is-warn';
-    } else if (missing.length) {
-      note.textContent = missing.length + ' of your own answers still blank. You can practise without them, and those questions will be skipped.';
-      note.className = 'ct-ready is-warn';
-    } else {
-      note.textContent = 'All set. Every one of the 100 questions is ready to practise.';
-      note.className = 'ct-ready is-ok';
-    }
+  function totals() {
+    const pool = C.pool(bank(), prefs);
+    return { total: pool.length, seen: pool.filter(q => stat(q).right + stat(q).wrong > 0).length, review: pool.filter(q => stat(q).needsReview).length, learned: pool.filter(q => stat(q).streak >= 2).length };
   }
-
-  /* ------------------------------------------------------------------- quiz */
-
-  function show(name) {
-    els('[data-screen]').forEach(function (s) { s.hidden = s.getAttribute('data-screen') !== name; });
+  function renderTotals() {
+    const t = totals();
+    $('[data-totals]').innerHTML = `<div><strong>${t.seen}<span>of ${t.total} tried</span></strong></div><div><strong>${t.review}<span>to practice</span></strong></div><div><strong>${t.learned}<span>learned</span></strong></div>`;
+    $('[data-review-count]').textContent = t.review;
+    $('[data-review-count]').hidden = !t.review;
   }
-
-  function shuffle(a) {
-    for (var i = a.length - 1; i > 0; i--) {
-      var j = Math.floor(Math.random() * (i + 1)); var t = a[i]; a[i] = a[j]; a[j] = t;
-    }
-    return a;
+  function switchView(name, focus = true) {
+    if (name === 'state') { openSettings(); return; }
+    stopSpeech(); view = name;
+    $$('[data-panel]').forEach(p => { p.hidden = p.dataset.panel !== name; });
+    $$('[data-view]').forEach(b => b.setAttribute('aria-pressed', String(b.dataset.view === name)));
+    renderTotals();
+    if (name === 'study') renderStudy(focus);
+    if (name === 'review') renderReview();
+    if (name === 'sheet') renderSheet();
+    if (focus && name !== 'study') $(`[data-panel="${name}"] h2`).focus({ preventScroll: true });
+    if (focus) window.scrollTo({ top: 0, behavior: 'instant' });
   }
-
-  function priority(q, store) {
-    var s = store.q[q.n];
-    if (!s) return 60;
-    var tries = s.right + s.wrong;
-    if (!tries) return 60;
-    return 100 - (s.right / tries) * 100 + Math.min(15, (Date.now() - (s.last || 0)) / 86400000);
+  function isDone() {
+    const s = prefs.session;
+    return !s || s.i >= s.queue.length || (s.mode === 'exam' && C.examOutcome(s.answers, C.examRules(prefs)) !== null);
   }
-
-  /* Slots per set kept for questions already answered badly, so a wrong answer
-     comes back soon instead of waiting for the next pass through the bank. */
-  var REVIEW_SLOTS = 2;
-
-  /* Questions are dealt like a deck: every one in the pool is asked before any
-     is asked a second time. Sorting purely by priority meant a question
-     answered wrong sat near 100 until it was answered right, so it re-entered
-     every single set, while unseen questions all tied at exactly 60 and a
-     stable sort kept handing back the same front slice of the bank. Over ten
-     sets a struggling user saw 50 of the 100 questions and met some five
-     times. */
-  function start() {
-    var store = load();
-    var seniorOnly = el('[data-ct-senior]').checked;
-    var pool = bank.filter(function (q) {
-      if (seniorOnly && !q.seniorSet) return false;
-      if (q.variable && !myAnswerFor(q.n)) return false;   /* skip what we cannot mark */
-      return true;
-    });
-    if (pool.length < 1) { alert('Nothing to practise yet. Pick your state and fill in a few answers.'); return; }
-
-    var inPool = {};
-    pool.forEach(function (q) { inPool[q.n] = true; });
-    /* Drop anything no longer in the pool, so toggling the 65/20 set does not
-       carry a stale deck across. */
-    var used = (store.deck || []).filter(function (n) { return inPool[n]; });
-    var lastSet = store.lastSet || [];
-    var want = Math.min(SET_SIZE, pool.length);
-
-    var picked = {};
-    var queue = shuffle(pool.filter(function (q) {
-      var s = store.q[q.n];
-      if (!s) return false;
-      var tries = s.right + s.wrong;
-      if (!tries) return false;
-      if (lastSet.indexOf(q.n) >= 0) return false;         /* never straight back */
-      return s.wrong > 0 && (s.right / tries) < 0.7;
-    })).slice(0, Math.min(REVIEW_SLOTS, Math.max(0, want - 1)));
-    queue.forEach(function (q) {
-      picked[q.n] = true;
-      if (used.indexOf(q.n) < 0) used.push(q.n);
-    });
-
-    /* guard only bounds the loop, one pass boundary can fall inside a set */
-    var guard = 0;
-    while (queue.length < want && guard++ < 3) {
-      var remaining = pool.filter(function (q) {
-        return !picked[q.n] && used.indexOf(q.n) < 0;
-      });
-      if (!remaining.length) {
-        used = queue.map(function (q) { return q.n; });    /* pass done, start another */
-        continue;
-      }
-      /* Weakest first within the pass, jittered so equal scores do not always
-         come out in bank order. */
-      var scored = remaining.map(function (q) {
-        return { q: q, p: priority(q, store) + Math.random() * 10 };
-      });
-      scored.sort(function (a, b) { return b.p - a.p; });
-      scored.slice(0, want - queue.length).forEach(function (x) {
-        queue.push(x.q); picked[x.q.n] = true; used.push(x.q.n);
-      });
-    }
-
-    shuffle(queue);
-    /* Recorded now rather than in finish(), so abandoning a set half way still
-       counts those questions as seen and they are not served straight back. */
-    store.deck = used;
-    store.lastSet = queue.map(function (q) { return q.n; });
-    save(store);
-
-    state.queue = queue;
-    state.i = 0; state.answers = [];
-    show('quiz'); renderQ();
+  function renderStudy(focus = false) {
+    const s = prefs.session;
+    revealed = false; hinted = s?.hinted === true; gesture = null;
+    $('[data-card]').classList.remove('ct-swipe-left', 'ct-swipe-right');
+    const done = isDone();
+    $('[data-card-area]').hidden = done;
+    $('[data-result]').hidden = !done;
+    $('[data-session-name]').textContent = s?.mode === 'exam' ? 'Practice interview · self-assessed' : ({ all: 'Study cards', missed: 'Missed questions', review: 'Missed + hinted cards', unseen: 'New questions', saved: 'Saved cards', repeat: 'Repeat missed cards' }[s?.mode] || 'Study cards');
+    $('[data-count]').textContent = s?.queue.length ? `${Math.min(s.i + (done ? 0 : 1), s.queue.length)} / ${s.queue.length}` : 'No cards in this set';
+    $('[data-session-progress]').max = s?.queue.length || 1;
+    $('[data-session-progress]').value = s?.i || 0;
+    if (done) { renderResult(focus); return; }
+    const q = current();
+    $('[data-card-topic]').textContent = q.topic;
+    $('[data-question-number]').textContent = `${prefs.version} · Official question ${q.n}${q.required > 1 ? ' · Give ' + q.required + ' items' : ''}${q.seniorSet ? ' · 65/20' : ''}`;
+    $('[data-question]').textContent = q.q;
+    $('[data-answer]').hidden = true;
+    $('[data-answer]').innerHTML = '';
+    $('[data-reveal]').hidden = false;
+    $('[data-grade]').hidden = true;
+    $('[data-hint]').textContent = q.hint;
+    $('[data-hint]').hidden = !hinted;
+    $('[data-hint-button]').hidden = s.mode === 'exam';
+    $('[data-hint-button]').setAttribute('aria-expanded', String(hinted));
+    $('[data-hint-button]').textContent = hinted ? 'Hide hint' : 'Need a hint?';
+    $('[data-undo]').disabled = s.answers.length === 0;
+    $('[data-skip]').textContent = s.mode === 'exam' ? 'I don’t know' : 'Skip';
+    $('[data-gesture-help]').textContent = 'Reveal, then swipe ← or →';
+    renderBookmark();
+    if (focus) $('[data-question]').focus({ preventScroll: true });
   }
-
-  function renderQ() {
-    var q = state.queue[state.i];
-    state.revealed = false;
-    el('[data-ct-count]').textContent = 'Question ' + (state.i + 1) + ' of ' + state.queue.length;
-    el('[data-ct-num]').textContent = 'Official question ' + q.n;
-    el('[data-ct-q]').textContent = q.q;
-    el('[data-ct-bar]').style.width = (state.i / state.queue.length * 100) + '%';
-    el('[data-ct-answer]').hidden = true;
-    el('[data-ct-reveal]').hidden = false;
-    el('[data-ct-mark]').hidden = true;
-    el('[data-ct-reveal]').focus();
+  function renderBookmark() {
+    const saved = prefs.bookmarks.includes(bookmarkKey(current()));
+    $('[data-bookmark]').setAttribute('aria-pressed', String(saved));
+    $('[data-bookmark]').setAttribute('aria-label', saved ? 'Remove this card from saved cards' : 'Save this card');
+    $('[data-bookmark]').textContent = saved ? '★' : '☆';
   }
-
+  function showHint() {
+    if (isDone() || prefs.session.mode === 'exam') return;
+    const box = $('[data-hint]');
+    if (box.hidden) {
+      hinted = true; prefs.session.hinted = true; save();
+      box.hidden = false; announce(current().hint);
+    } else box.hidden = true;
+    $('[data-hint-button]').setAttribute('aria-expanded', String(!box.hidden));
+    $('[data-hint-button]').textContent = box.hidden ? 'Need a hint?' : 'Hide hint';
+  }
+  function answerHtml(q, includeTip = true) {
+    const answer = resolved(q);
+    const label = q.required > 1 ? `Give ${q.required} items. Accepted answers / alternatives:` : answer.answers.length > 1 ? 'Any one of these answers is accepted' : 'Accepted answer';
+    return `<h3>${answer.ready ? label : 'Your local answer is needed'}</h3>${list(answer.answers)}${answer.custom ? '<p class="ct-small">Your saved answer. Check it against an official source.</p>' : ''}${answer.dated ? `<p class="ct-small">Reference checked ${esc(refs.verifiedOn)}. Verify before your interview.</p>` : ''}${answer.source ? `<a class="ct-small" href="${esc(answer.source)}" target="_blank" rel="noopener">Check the source<span class="ct-sr-only"> (opens in a new tab)</span> ↗</a>` : ''}${!answer.ready ? '<button type="button" class="ct-text-btn" data-open-state>Add my local answer ↗</button>' : ''}${includeTip && prefs.session?.mode !== 'exam' ? `<details><summary>Memory tip · Coffee &amp; Fun</summary><p class="ct-small">${esc(q.hint)}</p></details>` : ''}`;
+  }
   function reveal() {
-    var q = state.queue[state.i];
-    state.revealed = true;
-    var list;
-    if (q.variable) {
-      list = '<li><strong>' + esc(myAnswerFor(q.n)) + '</strong> <span class="ct-yours">your answer</span></li>';
-    } else {
-      list = q.answers.map(function (a) { return '<li>' + esc(a) + '</li>'; }).join('');
-    }
-    el('[data-ct-answer]').innerHTML =
-      '<p class="ct-alabel">' + (q.answers.length > 1 && !q.variable ? 'Any one of these is accepted' : 'Accepted answer') + '</p>' +
-      '<ul class="ct-alist">' + list + '</ul>';
-    el('[data-ct-answer]').hidden = false;
-    el('[data-ct-reveal]').hidden = true;
-    el('[data-ct-mark]').hidden = false;
-    el('[data-ct-right]').focus();
+    if (isDone() || revealed) return;
+    revealed = true;
+    $('[data-answer]').innerHTML = answerHtml(current());
+    $('[data-answer]').hidden = false;
+    $('[data-reveal]').hidden = true;
+    $('[data-grade]').hidden = false;
+    $('[data-right]').disabled = !resolved(current()).ready;
+    $('[data-right]').innerHTML = `${hinted ? 'Got it with a hint' : 'Got it'} <span aria-hidden="true">✓</span>`;
+    $('[data-gesture-help]').textContent = resolved(current()).ready ? '← Study again · Got it →' : 'Add your local answer, or skip this card for now.';
+    $('[data-wrong]').focus({ preventScroll: true });
+    announce(`Answer: ${resolved(current()).answers.join('; ')}. ${current().required > 1 ? `Give ${current().required} items.` : ''}`);
   }
-
-  function mark(right) {
-    state.answers.push({ n: state.queue[state.i].n, right: right });
-    state.i++;
-    if (state.i >= state.queue.length) finish(); else renderQ();
+  function mark(correct, skipped = false) {
+    if (isDone() || (!skipped && !revealed)) return;
+    const q = current();
+    if (correct && !resolved(q).ready) { announce('Add your local answer before marking this card correct.'); return; }
+    const k = C.key(q, prefs), s = prefs.session;
+    const before = prefs.q[k] ? { ...prefs.q[k] } : null;
+    const examSkip = skipped && s.mode === 'exam';
+    if (!skipped || examSkip) prefs.q[k] = C.record(before, correct, hinted);
+    s.answers.push({ n: q.n, correct, skipped: skipped && !examSkip, assisted: hinted, before });
+    s.i++; s.hinted = false;
+    stopSpeech(); save(); renderTotals(); renderStudy(true);
+    announce(skipped && !examSkip ? 'Skipped. Your score for that card did not change.' : correct ? hinted ? 'Correct with a hint. This card stays in review.' : 'Marked correct.' : 'Saved for more practice.');
   }
-
-  function finish() {
-    var store = load();
-    state.answers.forEach(function (a) {
-      var s = store.q[a.n] || { right: 0, wrong: 0, last: 0 };
-      if (a.right) s.right++; else s.wrong++;
-      s.last = Date.now();
-      store.q[a.n] = s;
-    });
-    var right = state.answers.filter(function (a) { return a.right; }).length;
-    store.sets.push({ at: Date.now(), total: state.answers.length, right: right });
-    if (store.sets.length > 200) store.sets = store.sets.slice(-200);
-    var ok = save(store);
-
-    var passed = right >= PASS_MARK && state.answers.length >= SET_SIZE;
-    el('[data-ct-score]').textContent = right + ' of ' + state.answers.length;
-    el('[data-ct-pass]').textContent = passed ? 'That would pass' : 'That would not pass';
-    el('[data-ct-pass]').className = 'ct-pass ' + (passed ? 'is-ok' : 'is-warn');
-    el('[data-ct-passnote]').textContent = state.answers.length >= SET_SIZE
-      ? 'The real test asks up to 10 and you need ' + PASS_MARK + ' correct.'
-      : 'A full set is 10 questions, and you need ' + PASS_MARK + ' of them.';
-
-    var missed = state.answers.filter(function (a) { return !a.right; });
-    el('[data-ct-missedwrap]').hidden = !missed.length;
-    el('[data-ct-missed]').innerHTML = missed.map(function (a) {
-      var q = bank.find(function (x) { return x.n === a.n; });
-      var ans = q.variable ? myAnswerFor(q.n) : q.answers.join(' / ');
-      return '<li><p class="ct-missed-q"><span class="ct-mine-n">' + q.n + '</span> ' + esc(q.q) + '</p>' +
-             '<p class="ct-missed-a">' + esc(ans) + '</p></li>';
+  function undo() {
+    const s = prefs.session;
+    if (!s?.answers.length) return;
+    const previous = s.answers.pop(); s.i--; s.hinted = previous.assisted;
+    const q = bank().find(q => q.n === previous.n), k = C.key(q, prefs);
+    if (previous.before) prefs.q[k] = previous.before; else delete prefs.q[k];
+    stopSpeech(); save(); renderTotals(); renderStudy(true); announce('Last answer undone. Try this card again.');
+  }
+  function renderResult(focus) {
+    const s = prefs.session, answers = s?.answers || [];
+    const right = answers.filter(a => a.correct).length;
+    const wrong = answers.filter(a => !a.correct && !a.skipped).length;
+    const skipped = answers.filter(a => a.skipped).length;
+    const empty = !s?.queue.length;
+    $('[data-result-title]').textContent = empty ? 'You’re all caught up.' : s.mode === 'exam' ? (C.examOutcome(answers, C.examRules(prefs)) === 'passed' ? 'Practice target reached.' : 'Keep practicing.') : 'Nice work. Set complete.';
+    $('[data-result-copy]').textContent = empty ? ({ missed: 'No cards need review in this selection. Try new questions or choose another topic.', saved: 'Save a card with the star and it will appear here.', unseen: 'You’ve tried every question in this selection. Keep practicing the ones you want to strengthen.' }[s?.mode] || 'There are no cards for these filters. Try all topics.') : s.mode === 'exam' ? `You marked ${right} answers correct. This self-assessed practice stops at ${C.examRules(prefs).pass} correct or when the pass target is out of reach. It is not an official result.` : 'Every answer is saved. Come back later and test what you remember without the hints.';
+    $('[data-result-stats]').textContent = empty ? '' : `${right} correct · ${wrong} to revisit${skipped ? ' · ' + skipped + ' skipped' : ''}`;
+    $('[data-repeat]').hidden = !wrong;
+    $('[data-result-undo]').hidden = !answers.length;
+    $('[data-next]').textContent = empty ? 'Study all questions' : 'Keep studying';
+    if (focus) $('[data-result-title]').focus({ preventScroll: true });
+  }
+  function renderReview() {
+    const t = totals();
+    $('[data-review-summary]').textContent = `${prefs.version} test${prefs.senior ? ' · 65/20' : ''}${prefs.place ? ' · ' + prefs.place : ''}. Saved as you study, on this device.`;
+    const pool = C.pool(bank(), prefs);
+    const sections = [...new Set(pool.map(q => q.section))];
+    $('[data-review-topics]').innerHTML = sections.map(section => {
+      const qs = pool.filter(q => q.section === section), learned = qs.filter(q => stat(q).streak >= 2).length;
+      return `<article><h3>${esc(section)}</h3><p>${learned} of ${qs.length} learned</p><progress max="${qs.length}" value="${learned}" aria-label="${esc(section)} questions learned"></progress></article>`;
     }).join('');
-
-    el('[data-ct-savewarn]').hidden = ok;
-    renderStats();
-    show('results');
+    const missed = pool.filter(q => stat(q).needsReview).sort((a, b) => stat(b).wrong - stat(a).wrong);
+    const mistakes = missed.filter(q => stat(q).wrong > 0);
+    $('[data-review-start]').disabled = !mistakes.length;
+    $('[data-review-start]').textContent = mistakes.length ? `Review ${mistakes.length} missed ${mistakes.length === 1 ? 'card' : 'cards'}` : 'No missed cards to review';
+    $('[data-review-list]').innerHTML = missed.length ? missed.map(q => `<details class="ct-review-item"><summary><strong>${q.n}. ${esc(q.q)}</strong><span>${stat(q).wrong} missed · ${Math.min(stat(q).streak, 2)}/2 unaided</span></summary>${list(resolved(q).answers)}<p class="ct-small">Memory tip: ${esc(q.hint)}</p><button type="button" class="ct-text-btn" data-practice-one="${q.n}">Practice this card</button></details>`).join('') : '<p class="ct-empty">Nothing to revisit yet. Any card you miss or use a hint on will be waiting here.</p>';
+    const history = pool.filter(q => stat(q).wrong > 0).sort((a, b) => stat(b).wrong - stat(a).wrong);
+    $('[data-mistake-history]').innerHTML = history.length ? history.map(q => `<article class="ct-review-item"><h3>${q.n}. ${esc(q.q)}</h3><p class="ct-small">${stat(q).wrong} missed · ${stat(q).right} correct · ${stat(q).needsReview ? 'Still practicing' : 'Learned'}</p></article>`).join('') : '<p class="ct-small">No mistakes recorded yet.</p>';
   }
-
-  /* ------------------------------------------------------------------ stats */
-
-  function renderStats() {
-    var store = load();
-    var seen = Object.keys(store.q);
-    var hosts = els('[data-ct-stats]');
-    var paint = function (h) { hosts.forEach(function (x) { x.innerHTML = h; }); };
-
-    if (!seen.length) {
-      paint('<p class="ct-empty">No history yet. Finish a set and the questions you keep missing will be listed here.</p>');
+  const roleLabels = { senators: 'One of your U.S. senators', representative: 'Your U.S. representative', governor: 'Your governor', capital: 'Your state capital', president: 'President', vicePresident: 'Vice president', party: 'President’s political party', speaker: 'Speaker of the House', chiefJustice: 'Chief Justice', justices: 'Supreme Court justices' };
+  const localRoles = ['senators', 'representative', 'governor', 'capital'];
+  function officialSource(role) {
+    if (role === 'representative') return 'https://www.house.gov/representatives/find-your-representative';
+    if (role === 'senators') return 'https://www.senate.gov/senators/senators-contact.htm';
+    if (role === 'governor') return refs.places[prefs.place]?.governor?.source || refs.governorSource;
+    return refs.national[role]?.source || 'https://www.usa.gov/states-and-territories';
+  }
+  function renderRepresentative() {
+    const place = places.find(p => p.code === prefs.place);
+    if (!place) { $('[data-representative-setup]').innerHTML = ''; return; }
+    const seats = refs.representatives.places[place.code] || [];
+    const q = bank().find(q => q.variable === 'representative');
+    const r = resolved(q), district = C.districtFor(prefs);
+    const own = prefs.mine[C.answerKey('representative', prefs.place, district)] || '';
+    const picker = seats.length > 1 ? `<div class="ct-field"><label for="ct-district">Your congressional district</label><select id="ct-district" data-district aria-describedby="ct-district-help"><option value="">Choose your district</option>${seats.map(seat => `<option value="${seat.district}"${district === seat.district ? ' selected' : ''}>District ${Number(seat.district)} · ${esc(seat.vacant ? 'Vacant seat' : seat.name)}</option>`).join('')}</select><p id="ct-district-help" class="ct-small">Not sure? <a href="https://www.house.gov/representatives/find-your-representative" target="_blank" rel="noopener">Find your district by address<span class="ct-sr-only"> (opens in a new tab)</span> ↗</a></p></div>` : '<p class="ct-small">One House member serves your whole state or territory. Filled in for you.</p>';
+    $('[data-representative-setup]').innerHTML = `${picker}<div class="ct-field"><label for="ct-representative-answer">${place.hasSenators ? 'Your U.S. representative' : seats[0]?.label === 'Resident Commissioner' ? 'Your resident commissioner' : 'Your House delegate'}</label><input id="ct-representative-answer" data-representative-value type="text" readonly value="${esc(r.ready ? r.answers.join(' / ') : district ? 'Vacant seat — check the official directory' : '')}" placeholder="Choose a district above to fill this in" aria-describedby="ct-representative-note" /><p id="ct-representative-note" class="ct-small">${r.custom ? 'Your saved answer.' : 'Official House roster checked ' + esc(refs.representatives.verifiedOn) + '.'} <a href="https://www.house.gov/representatives" target="_blank" rel="noopener">View source<span class="ct-sr-only"> (opens in a new tab)</span> ↗</a></p></div><details class="ct-representative-edit"><summary>Need to correct this answer?</summary><div class="ct-field"><label for="ct-own-representative">Your updated answer</label><input id="ct-own-representative" type="text" data-own="representative" maxlength="250" autocomplete="off" value="${esc(own)}" /></div><p class="ct-small">Only needed if the roster has changed. Clear your entry to use the prefilled answer.</p></details>`;
+  }
+  function renderOfficials() {
+    const representative = bank().find(q => q.variable === 'representative');
+    const place = places.find(p => p.code === prefs.place);
+    renderRepresentative();
+    const questions = bank().filter(q => q.variable && q !== representative).sort((a, b) => (localRoles.includes(a.variable) ? 0 : 1) - (localRoles.includes(b.variable) ? 0 : 1));
+    $('[data-officials]').innerHTML = questions.map(q => {
+      const role = q.variable, r = resolved(q), localMissing = localRoles.includes(role) && !prefs.place;
+      const own = prefs.mine[C.answerKey(role, prefs.place)] || '';
+      return `<article class="ct-official"><h3>${esc(roleLabels[role])}</h3><p class="ct-official-answer">${esc(r.ready ? r.answers.join(' / ') : localMissing ? 'Choose your state above' : 'Find your congressional district')}</p><p class="ct-small">${r.custom ? 'Your saved answer' : r.dated ? 'Reference checked ' + esc(refs.verifiedOn) : r.ready ? 'Location-specific answer' : 'Use the official lookup, then save the name below.'}</p><a href="${esc(officialSource(role))}" target="_blank" rel="noopener">${role === 'representative' ? 'Find my representative' : 'Check source'}<span class="ct-sr-only"> (opens in a new tab)</span> ↗</a>${role !== 'capital' ? `<details><summary>Update this answer</summary><div class="ct-field"><label for="ct-own-${role}">Your answer</label><input type="text" id="ct-own-${role}" data-own="${role}" value="${esc(own)}" maxlength="250" ${localMissing ? 'disabled' : ''} autocomplete="off" /></div></details>` : ''}</article>`;
+    }).join('');
+  }
+  function sheetQuestions() {
+    const search = $('#ct-search').value.trim().toLocaleLowerCase();
+    return C.pool(bank(), prefs, $('#ct-sheet-missed').checked ? 'missed' : 'all').filter(q => !search || `${q.n} ${q.q} ${resolved(q).answers.join(' ')} ${q.topic}`.toLocaleLowerCase().includes(search));
+  }
+  function sheetHtml(questions) {
+    if (!questions.length) return '<p class="ct-empty">No questions match. Try another search or turn off the practice-only filter.</p>';
+    return [...new Set(questions.map(q => q.topic))].map(topic => `<div class="ct-sheet-group"><h3>${esc(topic)}</h3>${questions.filter(q => q.topic === topic).map(q => `<article class="ct-sheet-item"><h4>${q.n}. ${esc(q.q)}</h4><p>${q.required > 1 ? '<strong>Give ' + q.required + ' items.</strong> ' : ''}${esc(resolved(q).answers.join(' • '))}</p>${q.variable ? `<p class="ct-small">${resolved(q).custom ? 'Your saved answer; verify before your interview.' : resolved(q).dated ? 'Reference checked ' + esc(refs.verifiedOn) + '; verify before your interview.' : 'Answer depends on where you live.'}</p>` : ''}<p class="ct-small">Memory tip: ${esc(q.hint)}</p></article>`).join('')}</div>`).join('');
+  }
+  function renderSheet() {
+    const questions = sheetQuestions();
+    $('[data-sheet-count]').textContent = `${questions.length} questions · ${prefs.version} test${prefs.senior ? ' · 65/20 set' : ''}.`;
+    $('[data-sheet-date]').textContent = `Reference checked ${refs.verifiedOn}. Verify names before your interview.`;
+    $('[data-sheet-officials]').innerHTML = bank().filter(q => q.variable).map(q => `<p><strong>${esc(roleLabels[q.variable])}</strong><span>${esc(resolved(q).ready ? resolved(q).answers.join(' / ') : 'Add in Set up')}${resolved(q).custom ? ' (your answer)' : ''}</span></p>`).join('');
+    $('[data-sheet-content]').innerHTML = sheetHtml(questions);
+    preparePrint();
+  }
+  function preparePrint() {
+    if (!prefs) return;
+    const place = places.find(p => p.code === prefs.place);
+    const rules = C.examRules(prefs), questions = sheetQuestions(), includeQuestions = $('#ct-print-questions').checked;
+    $('[data-print-content]').innerHTML = `<h1>US citizenship · study cheat sheet</h1><p>${prefs.version} test${prefs.senior ? ' · 65/20 set' : ''} · ${esc(place?.name || 'No state selected')}${includeQuestions ? ' · ' + questions.length + ' questions included' : ''}</p><p>Interview: up to ${rules.size} questions; ${rules.pass} correct to pass. Answer out loud and give the number of items requested. Officeholder reference checked ${esc(refs.verifiedOn)}; verify before your interview.</p><div class="ct-facts">${$('.ct-facts').innerHTML}</div><h2>Your local &amp; current answers</h2>${bank().filter(q => q.variable).map(q => `<p><strong>${esc(roleLabels[q.variable])}:</strong> ${esc(resolved(q).answers.join(' / '))}${resolved(q).custom ? ' (your saved answer)' : ''}</p>`).join('')}${includeQuestions ? '<h2>Questions &amp; memory tips</h2>' + sheetHtml(questions) : ''}<h2>Sources</h2><p>Official questions: ${esc(banks[prefs.version]._sourceUrl)}</p><p>Officeholders: senate.gov · nga.org/governors · whitehouse.gov · speaker.gov · supremecourt.gov. Representative lookup: house.gov/representatives/find-your-representative.</p><p>Memory tips by Coffee &amp; Fun are study aids, not USCIS wording. Independent tool; not endorsed by USCIS. coffeeandfun.com/citizenship-test/</p>`;
+    root.classList.add('ct-print-ready');
+  }
+  function openSettings() {
+    if (!prefs) return;
+    $('[data-panel="state"]').hidden = false;
+    renderOfficials();
+    if (!$('#ct-settings-dialog').open) $('#ct-settings-dialog').showModal();
+    $('#ct-version').focus({ preventScroll: true });
+  }
+  async function init() {
+    if (loading) return; loading = true;
+    $('[data-load-error]').hidden = true; $('[data-loading]').hidden = false;
+    try {
+      const responses = await Promise.all(['2008', '2025', 'officials', 'representatives'].map(async name => {
+        const response = await fetch(`/assets/data/civics-${name}.json?v=20260910-house`);
+        if (!response.ok) throw new Error('Study data unavailable');
+        return response.json();
+      }));
+      if (responses[0].questions?.length !== 100 || responses[1].questions?.length !== 128 || !responses[2].places || !responses[3].places) throw new Error('Incomplete study data');
+      banks = { '2008': responses[0], '2025': responses[1] }; places = responses[0].places; refs = responses[2];
+      refs.representatives = responses[3];
+      try {
+        const saved = localStorage.getItem(STORE);
+        prefs = saved ? C.normalize(JSON.parse(saved)) : C.migrate(JSON.parse(localStorage.getItem(LEGACY) || 'null'), banks['2008'].questions);
+      } catch (_) { prefs = C.blank(); }
+      if (!places.some(p => p.code === prefs.place)) prefs.place = '';
+      Object.entries(prefs.districts).forEach(([place, district]) => {
+        if (!refs.representatives.places[place]?.some(s => s.district === district)) {
+          delete prefs.districts[place]; prefs.session = null;
+        }
+      });
+      $('#ct-place').innerHTML = '<option value="">Choose when you’re ready</option>' + places.map(p => `<option value="${p.code}">${esc(p.name)}</option>`).join('');
+      settings();
+      if (!restoreSession()) prefs.session = { mode: 'all', topic: '', queue: C.queue(bank(), prefs), i: 0, answers: [], hinted: false };
+      $('#ct-mode').value = ['exam', 'repeat'].includes(prefs.session.mode) ? 'all' : prefs.session.mode;
+      $('#ct-topic').value = prefs.session.topic;
+      save(); renderTotals(); renderStudy(); renderOfficials(); renderSheet();
+      $('[data-workspace]').hidden = false;
+      $('[data-listen]').hidden = !('speechSynthesis' in window && 'SpeechSynthesisUtterance' in window);
+    } catch (_) { $('[data-load-error]').hidden = false; }
+    finally { loading = false; $('[data-loading]').hidden = true; }
+  }
+  $$('[data-view]').forEach(b => b.addEventListener('click', () => switchView(b.dataset.view)));
+  $$('[data-open-settings]').forEach(b => b.addEventListener('click', openSettings));
+  $('[data-close-settings]').addEventListener('click', () => $('#ct-settings-dialog').close());
+  $$('[data-setting]').forEach(input => input.addEventListener('change', () => {
+    if (!prefs) return;
+    prefs[input.dataset.setting] = input.type === 'checkbox' ? input.checked : input.value;
+    settings(); begin(); renderOfficials(); renderSheet();
+    if (view === 'review') renderReview();
+    announce('Study settings updated. A fresh set is ready; your previous answers are saved.');
+  }));
+  $('[data-new]').addEventListener('click', () => { begin(); switchView('study'); });
+  $('[data-exam]').addEventListener('click', () => { begin('exam'); switchView('study'); announce('Practice interview started. Hints are off. Say your answer before revealing, then assess it honestly.'); });
+  $('[data-reveal]').addEventListener('click', reveal);
+  $('[data-hint-button]').addEventListener('click', showHint);
+  $('[data-wrong]').addEventListener('click', () => mark(false));
+  $('[data-right]').addEventListener('click', () => mark(true));
+  $('[data-skip]').addEventListener('click', () => mark(false, true));
+  $('[data-undo]').addEventListener('click', undo);
+  $('[data-result-undo]').addEventListener('click', undo);
+  $('[data-next]').addEventListener('click', () => {
+    const mode = prefs.session.mode;
+    if (!prefs.session.queue.length) { $('#ct-mode').value = 'all'; $('#ct-topic').value = ''; begin('all'); }
+    else begin(mode === 'repeat' ? 'missed' : mode);
+  });
+  $('[data-repeat]').addEventListener('click', () => begin('repeat', prefs.session.answers.filter(a => !a.correct && !a.skipped).map(a => a.n)));
+  $('[data-review-start]').addEventListener('click', () => { $('#ct-mode').value = 'missed'; $('#ct-topic').value = ''; begin('missed'); switchView('study'); });
+  $('[data-bookmark]').addEventListener('click', () => {
+    const id = bookmarkKey(current());
+    prefs.bookmarks = prefs.bookmarks.includes(id) ? prefs.bookmarks.filter(k => k !== id) : [...prefs.bookmarks, id];
+    save(); renderBookmark(); announce(prefs.bookmarks.includes(id) ? 'Card saved.' : 'Card removed from saved cards.');
+  });
+  root.addEventListener('click', event => {
+    if (event.target.closest('[data-open-state]')) switchView('state');
+    const practice = event.target.closest('[data-practice-one]');
+    if (practice) { begin('repeat', [Number(practice.dataset.practiceOne)]); switchView('study'); }
+  });
+  root.addEventListener('change', event => {
+    if (event.target.matches('[data-district]')) {
+      const value = event.target.value;
+      if (value && !refs.representatives.places[prefs.place]?.some(s => s.district === value)) return;
+      if (value) prefs.districts[prefs.place] = value; else delete prefs.districts[prefs.place];
+      prefs.session = null; begin(); renderRepresentative(); renderSheet();
+      if (view === 'review') renderReview();
+      $('#ct-district').focus({ preventScroll: true });
+      const representative = resolved(bank().find(q => q.variable === 'representative'));
+      announce(value ? representative.ready ? 'District saved. Your representative is filled in on your cards and cheat sheet.' : 'District saved. This seat is vacant in the reference roster; check the official directory.' : 'Choose a district to fill in your representative.');
       return;
     }
-    var tries = 0, right = 0;
-    seen.forEach(function (n) { tries += store.q[n].right + store.q[n].wrong; right += store.q[n].right; });
-
-    var weak = seen.map(function (n) {
-      var s = store.q[n], t = s.right + s.wrong;
-      return { n: +n, pct: Math.round(s.right / t * 100), t: t };
-    }).filter(function (x) { return x.pct < 100; }).sort(function (a, b) { return a.pct - b.pct; }).slice(0, 12);
-
-    paint(
-      '<div class="ct-stat-head">' +
-        '<div><span class="ct-stat-num">' + Math.round(right / tries * 100) + '%</span><span class="ct-stat-lab">correct, ' + tries + ' answers over ' + store.sets.length + ' set(s)</span></div>' +
-        '<div><span class="ct-stat-num">' + seen.length + '</span><span class="ct-stat-lab">of 100 questions seen</span></div>' +
-      '</div>' +
-      (weak.length
-        ? '<p class="ct-weaklead">The ones you keep missing:</p><ul class="ct-weak">' + weak.map(function (w) {
-            var q = bank.find(function (x) { return x.n === w.n; });
-            return '<li><span class="ct-mine-n">' + w.n + '</span> ' + esc(q ? q.q : '') + ' <span class="ct-weakpct">' + w.pct + '%</span></li>';
-          }).join('') + '</ul>'
-        : '<p class="ct-weaklead">Every question you have seen, you have got right at least once.</p>')
-    );
-  }
-
-  /* ------------------------------------------------------------------- wire */
-
-  el('[data-ct-start]').addEventListener('click', start);
-  el('[data-ct-reveal]').addEventListener('click', reveal);
-  el('[data-ct-right]').addEventListener('click', function () { mark(true); });
-  el('[data-ct-wrong]').addEventListener('click', function () { mark(false); });
-  el('[data-ct-again]').addEventListener('click', start);
-  el('[data-ct-home]').addEventListener('click', function () { show('setup'); renderStats(); });
-  el('[data-ct-quit]').addEventListener('click', function () { show('setup'); renderStats(); });
-  el('[data-ct-reset]').addEventListener('click', function () {
-    if (!confirm('Delete your place, your answers and all your progress?')) return;
-    try { localStorage.removeItem(STORE); } catch (e) {}
-    el('[data-ct-place]').value = '';
-    renderMine(); renderStats();
+    const role = event.target.dataset.own;
+    if (!role) return;
+    const ownKey = C.answerKey(role, prefs.place, C.districtFor(prefs));
+    prefs.mine[ownKey] = event.target.value.trim();
+    // A changed answer needs to be learned again, including the matching question in the other version.
+    Object.entries(banks).forEach(([version, data]) => data.questions.filter(q => q.variable === role).forEach(q => { delete prefs.q[C.key(q, { ...prefs, version })]; }));
+    prefs.session = null; save(); begin(); renderTotals(); renderSheet();
+    // Refresh only the displayed answer, preserving the user's focus in the input.
+    const article = event.target.closest('.ct-official');
+    const q = bank().find(q => q.variable === role);
+    if (article) {
+      article.querySelector('.ct-official-answer').textContent = resolved(q).answers.join(' / ');
+      article.querySelector('.ct-small').textContent = resolved(q).custom ? 'Your saved answer' : resolved(q).dated ? 'Reference checked ' + refs.verifiedOn : 'Use the official lookup, then save the name below.';
+    }
+    if (role === 'representative') {
+      $('[data-representative-value]').value = resolved(q).ready ? resolved(q).answers.join(' / ') : '';
+      $('#ct-representative-note').textContent = resolved(q).custom ? 'Your saved answer.' : 'Official House roster checked ' + refs.representatives.verifiedOn + '.';
+    }
+    announce('Answer saved. Practice for this answer starts fresh.');
   });
-
-  el('[data-ct-place]').addEventListener('change', function () {
-    var code = this.value;                 /* capture, rather than binding `this` into the find */
-    var s = load(); s.place = code; save(s);
-    var p = places.find(function (x) { return x.code === code; });
-    el('[data-ct-placenote]').textContent = p && p.note ? p.note : '';
-    el('[data-ct-placenote]').hidden = !(p && p.note);
-    renderMine();
+  $('#ct-search').addEventListener('input', renderSheet);
+  $('#ct-sheet-missed').addEventListener('change', renderSheet);
+  $('#ct-print-questions').addEventListener('change', preparePrint);
+  $('[data-print]').addEventListener('click', () => { preparePrint(); window.print(); });
+  window.addEventListener('beforeprint', preparePrint);
+  $('[data-listen]').addEventListener('click', () => {
+    if (isDone()) return;
+    stopSpeech();
+    const speech = new SpeechSynthesisUtterance(current().q);
+    speech.lang = 'en-US'; speech.rate = .88;
+    speech.onerror = () => announce('Audio is unavailable. You can still read the question on the card.');
+    window.speechSynthesis.speak(speech);
   });
-
-  /* ------------------------------------------------------------------- boot */
-
-  fetch('/assets/data/civics-2008.json')
-    .then(function (r) { if (!r.ok) throw new Error('HTTP ' + r.status); return r.json(); })
-    .then(function (d) {
-      data = d; bank = d.questions; places = d.places;
-      var store = load();
-      var sel = el('[data-ct-place]');
-      places.forEach(function (p) {
-        var o = document.createElement('option');
-        o.value = p.code; o.textContent = p.name;
-        if (p.code === store.place) o.selected = true;
-        sel.appendChild(o);
-      });
-      var cur = places.find(function (p) { return p.code === store.place; });
-      el('[data-ct-placenote]').textContent = cur && cur.note ? cur.note : '';
-      el('[data-ct-placenote]').hidden = !(cur && cur.note);
-      el('[data-ct-start]').disabled = false;
-      renderMine();
-      renderStats();
-    })
-    .catch(function (e) {
-      var w = el('[data-ct-loaderr]');
-      w.hidden = false;
-      w.textContent = 'Could not load the questions (' + e.message + '). Try refreshing.';
-    });
+  $('[data-card-area]').addEventListener('keydown', event => {
+    if (event.repeat || event.altKey || event.ctrlKey || event.metaKey || /INPUT|SELECT|TEXTAREA/.test(event.target.tagName)) return;
+    // Space retains native activation on buttons and links.
+    const space = event.code === 'Space' && !event.target.closest('button, a, summary');
+    if (space) { event.preventDefault(); reveal(); }
+    else if (event.key === 'ArrowLeft' && revealed) { event.preventDefault(); mark(false); }
+    else if (event.key === 'ArrowRight' && revealed) { event.preventDefault(); mark(true); }
+    else if (event.key.toLowerCase() === 'h') { event.preventDefault(); showHint(); }
+    else if (event.key.toLowerCase() === 'u') { event.preventDefault(); undo(); }
+  });
+  const card = $('[data-card]');
+  card.addEventListener('pointerdown', event => {
+    if (!revealed || !event.isPrimary || event.button !== 0 || event.target.closest('button, a, summary, input')) return;
+    gesture = { x: event.clientX, y: event.clientY, id: event.pointerId };
+  });
+  card.addEventListener('pointermove', event => {
+    if (!gesture || event.pointerId !== gesture.id) return;
+    const dx = event.clientX - gesture.x, dy = event.clientY - gesture.y;
+    card.classList.toggle('ct-swipe-left', dx < -45 && Math.abs(dx) > Math.abs(dy) * 1.5);
+    card.classList.toggle('ct-swipe-right', dx > 45 && Math.abs(dx) > Math.abs(dy) * 1.5 && resolved(current()).ready);
+  });
+  window.addEventListener('pointerup', event => {
+    const start = gesture; gesture = null;
+    card.classList.remove('ct-swipe-left', 'ct-swipe-right');
+    if (!start || event.pointerId !== start.id || window.getSelection()?.toString()) return;
+    const dx = event.clientX - start.x, dy = event.clientY - start.y;
+    if (Math.abs(dx) >= 85 && Math.abs(dx) > Math.abs(dy) * 1.5) mark(dx > 0);
+  });
+  window.addEventListener('pointercancel', () => { gesture = null; card.classList.remove('ct-swipe-left', 'ct-swipe-right'); });
+  window.addEventListener('pagehide', stopSpeech);
+  $('[data-reset]').addEventListener('click', () => { $('[data-reset-confirm]').hidden = false; $('[data-reset-yes]').focus(); });
+  $('[data-reset-no]').addEventListener('click', () => { $('[data-reset-confirm]').hidden = true; $('[data-reset]').focus(); });
+  $('[data-reset-yes]').addEventListener('click', () => {
+    try { localStorage.removeItem(LEGACY); } catch (_) { /* New store still takes precedence. */ }
+    prefs = C.blank(); settings(); $('#ct-mode').value = 'all'; $('#ct-topic').value = ''; begin();
+    $('[data-reset-confirm]').hidden = true; renderOfficials(); renderSheet(); $('#ct-settings-dialog').close(); switchView('study'); announce('Study data reset. A fresh start is ready.');
+  });
+  $('[data-retry]').addEventListener('click', init);
+  init();
 })();
