@@ -11,7 +11,7 @@
   const esc = value => String(value).replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' })[c]);
   const list = answers => '<ul>' + answers.map(a => `<li>${esc(a)}</li>`).join('') + '</ul>';
   const bookmarkKey = q => `${prefs.version}:${q.n}`;
-  let banks, places, refs, prefs, view = 'study', loading = false, revealed = false, hinted = false, gesture = null;
+  let banks, places, refs, prefs, view = 'study', historyFilter = 'all', loading = false, revealed = false, hinted = false, gesture = null;
   const bank = () => banks[prefs.version].questions;
   const current = () => bank().find(q => q.n === prefs.session?.queue[prefs.session.i]);
   const stat = q => prefs.q[C.key(q, prefs)] || C.emptyStat();
@@ -194,13 +194,20 @@
       const qs = pool.filter(q => q.section === section), learned = qs.filter(q => stat(q).streak >= 2).length;
       return `<article><h3>${esc(section)}</h3><p>${learned} of ${qs.length} learned</p><progress max="${qs.length}" value="${learned}" aria-label="${esc(section)} questions learned"></progress></article>`;
     }).join('');
-    const missed = pool.filter(q => stat(q).needsReview).sort((a, b) => stat(b).wrong - stat(a).wrong);
-    const mistakes = missed.filter(q => stat(q).wrong > 0);
+    const repeated = historyFilter === 'repeated';
+    const history = C.history(bank(), prefs, repeated);
+    const mistakes = repeated ? history.map(entry => entry.question) : pool.filter(q => stat(q).needsReview && stat(q).wrong > 0);
     $('[data-review-start]').disabled = !mistakes.length;
-    $('[data-review-start]').textContent = mistakes.length ? `Review ${mistakes.length} missed ${mistakes.length === 1 ? 'card' : 'cards'}` : 'No missed cards to review';
-    $('[data-review-list]').innerHTML = missed.length ? missed.map(q => `<details class="ct-review-item"><summary><strong>${q.n}. ${esc(q.q)}</strong><span>${stat(q).wrong} missed · ${Math.min(stat(q).streak, 2)}/2 unaided</span></summary>${list(resolved(q).answers)}<p class="ct-small">Memory tip: ${esc(q.hint)}</p><button type="button" class="ct-text-btn" data-practice-one="${q.n}">Practice this card</button></details>`).join('') : '<p class="ct-empty">Nothing to revisit yet. Any card you miss or use a hint on will be waiting here.</p>';
-    const history = pool.filter(q => stat(q).wrong > 0).sort((a, b) => stat(b).wrong - stat(a).wrong);
-    $('[data-mistake-history]').innerHTML = history.length ? history.map(q => `<article class="ct-review-item"><h3>${q.n}. ${esc(q.q)}</h3><p class="ct-small">${stat(q).wrong} missed · ${stat(q).right} correct · ${stat(q).needsReview ? 'Still practicing' : 'Learned'}</p></article>`).join('') : '<p class="ct-small">No mistakes recorded yet.</p>';
+    $('[data-review-start]').textContent = mistakes.length ? repeated ? `Practice these ${mistakes.length} cards` : `Review ${mistakes.length} missed ${mistakes.length === 1 ? 'card' : 'cards'}` : repeated ? 'No repeated misses yet' : 'No missed cards to review';
+    $$('[data-history-filter]').forEach(button => button.setAttribute('aria-pressed', String(button.dataset.historyFilter === historyFilter)));
+    $('[data-history-summary]').textContent = repeated ? `${history.length} questions missed at least twice, most missed first. Learned cards stay in this history.` : `${history.length} answered questions, most recent first. Counts include all your saved attempts for these study settings.`;
+    $('[data-review-list]').innerHTML = history.length ? history.map(({ question: q, stat: record }) => {
+      const status = record.needsReview ? 'Needs practice' : record.streak >= 2 ? 'Learned' : 'Getting there';
+      const latest = { correct: 'Correct', hinted: 'Correct with a hint', wrong: 'Missed' }[record.lastResult] || 'Not recorded in older progress';
+      const date = new Date(record.last);
+      const when = record.last > 0 && Number.isFinite(date.getTime()) ? date.toLocaleString(undefined, { dateStyle: 'medium', timeStyle: 'short' }) : 'Date not available';
+      return `<details class="ct-review-item ct-history-item"><summary><strong>${q.n}. ${esc(q.q)}</strong><span class="ct-history-counts">${record.right} correct · ${record.wrong} missed<span class="ct-history-status${record.needsReview ? ' ct-history-needs-practice' : ''}">${status}</span></span></summary><p class="ct-small">${record.right + record.wrong} attempts · ${record.assisted} correct with a hint<br />Last answer: ${latest}<br />Last practiced: ${esc(when)}</p><h4>Current accepted answer${q.required > 1 ? ' · Give ' + q.required + ' items' : ''}</h4>${list(resolved(q).answers)}<p class="ct-small">Memory tip: ${esc(q.hint)}</p><button type="button" class="ct-text-btn" data-practice-one="${q.n}">Practice this card</button></details>`;
+    }).join('') : `<p class="ct-empty">${repeated ? 'No questions missed twice yet. If one keeps catching you out, it will appear here.' : 'Your answered questions will appear here as you study. Skipped cards do not count as answered.'}</p>`;
   }
   const roleLabels = { senators: 'One of your U.S. senators', representative: 'Your U.S. representative', governor: 'Your governor', capital: 'Your state capital', president: 'President', vicePresident: 'Vice president', party: 'President’s political party', speaker: 'Speaker of the House', chiefJustice: 'Chief Justice', justices: 'Supreme Court justices' };
   const localRoles = ['senators', 'representative', 'governor', 'capital'];
@@ -319,7 +326,13 @@
     else begin(mode === 'repeat' ? 'missed' : mode);
   });
   $('[data-repeat]').addEventListener('click', () => begin('repeat', prefs.session.answers.filter(a => !a.correct && !a.skipped).map(a => a.n)));
-  $('[data-review-start]').addEventListener('click', () => { $('#ct-mode').value = 'missed'; $('#ct-topic').value = ''; begin('missed'); switchView('study'); });
+  $$('[data-history-filter]').forEach(button => button.addEventListener('click', () => { historyFilter = button.dataset.historyFilter; renderReview(); }));
+  $('[data-review-start]').addEventListener('click', () => {
+    $('#ct-mode').value = 'missed'; $('#ct-topic').value = '';
+    if (historyFilter === 'repeated') begin('repeat', C.history(bank(), prefs, true).slice(0, 10).map(entry => entry.question.n));
+    else begin('missed');
+    switchView('study');
+  });
   $('[data-bookmark]').addEventListener('click', () => {
     const id = bookmarkKey(current());
     prefs.bookmarks = prefs.bookmarks.includes(id) ? prefs.bookmarks.filter(k => k !== id) : [...prefs.bookmarks, id];
@@ -346,8 +359,11 @@
     if (!role) return;
     const ownKey = C.answerKey(role, prefs.place, C.districtFor(prefs));
     prefs.mine[ownKey] = event.target.value.trim();
-    // A changed answer needs to be learned again, including the matching question in the other version.
-    Object.entries(banks).forEach(([version, data]) => data.questions.filter(q => q.variable === role).forEach(q => { delete prefs.q[C.key(q, { ...prefs, version })]; }));
+    // Relearn changed answers without deleting the learner's question history.
+    Object.entries(banks).forEach(([version, data]) => data.questions.filter(q => q.variable === role).forEach(q => {
+      const key = C.key(q, { ...prefs, version }), previous = prefs.q[key];
+      if (previous) prefs.q[key] = { ...previous, streak: 0, needsReview: previous.right + previous.wrong > 0 };
+    }));
     prefs.session = null; save(); begin(); renderTotals(); renderSheet();
     // Refresh only the displayed answer, preserving the user's focus in the input.
     const article = event.target.closest('.ct-official');
@@ -360,7 +376,8 @@
       $('[data-representative-value]').value = resolved(q).ready ? resolved(q).answers.join(' / ') : '';
       $('#ct-representative-note').textContent = resolved(q).custom ? 'Your saved answer.' : 'Official House roster checked ' + refs.representatives.verifiedOn + '.';
     }
-    announce('Answer saved. Practice for this answer starts fresh.');
+    if (view === 'review') renderReview();
+    announce('Answer saved. This card needs practice again; your answer history is kept.');
   });
   $('#ct-search').addEventListener('input', renderSheet);
   $('#ct-sheet-missed').addEventListener('change', renderSheet);

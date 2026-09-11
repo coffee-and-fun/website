@@ -100,9 +100,14 @@
         <div class="ct-totals" data-totals></div>
         <button type="button" class="ct-btn ct-full" data-review-start>Review missed cards</button>
         <p class="ct-small ct-review-help">Two correct answers without a hint moves a card out of review.</p>
+        <h3>Your answered questions</h3>
+        <div class="ct-history-filters" role="group" aria-label="Question history filter">
+          <button type="button" data-history-filter="all" aria-pressed="true">All answered</button>
+          <button type="button" data-history-filter="repeated" aria-pressed="false">Keep missing</button>
+        </div>
+        <p class="ct-small" data-history-summary role="status"></p>
         <div class="ct-review-list" data-review-list></div>
         <details class="ct-extra"><summary>Progress by topic</summary><div class="ct-review-topics" data-review-topics></div></details>
-        <details class="ct-extra"><summary>Past mistakes</summary><div data-mistake-history></div></details>
         <details class="ct-extra"><summary>More ways to practice</summary>
           <button type="button" class="ct-btn ct-btn-outline ct-full" data-exam>Try a practice interview</button>
           <div class="ct-field"><label for="ct-mode">Practice cards</label><select id="ct-mode"><option value="all">All questions</option><option value="missed">Questions I got wrong</option><option value="review">Missed + hinted questions</option><option value="saved">Saved cards</option><option value="unseen">Questions I haven’t tried</option></select></div>

@@ -203,3 +203,47 @@ test('single-seat states and territories prefill automatically; vacant seats sta
     assert.match(answer.answers[0], /vacant/);
   }
 });
+
+test('answered history includes correct and missed cards, sorted by last practice', () => {
+  const p = C.blank();
+  const first = question(modern, 1), second = question(modern, 2);
+  p.q[C.key(first, p)] = C.record(null, true, false, 100);
+  p.q[C.key(second, p)] = C.record(null, false, false, 200);
+  assert.deepEqual(C.history(modern.questions, p).map(x => x.question.n), [2, 1]);
+  assert.equal(C.history(modern.questions, p)[0].stat.lastResult, 'wrong');
+  p.q[C.key(first, p)] = C.record(p.q[C.key(first, p)], true, true, 300);
+  const restored = C.normalize(JSON.parse(JSON.stringify(p)));
+  assert.deepEqual(C.history(modern.questions, restored).map(x => x.question.n), [1, 2]);
+  assert.equal(restored.q['2025:1'].lastResult, 'hinted');
+  assert.equal(restored.q['2025:1'].right, 2);
+  assert.equal(C.history(old.questions, { ...p, version: '2008' }).length, 0);
+});
+
+test('repeated misses stay in history after learning, with most missed first', () => {
+  const p = C.blank();
+  for (const [n, misses] of [[1, 2], [2, 3], [3, 1]]) {
+    const k = C.key(question(modern, n), p);
+    for (let i = 0; i < misses; i++) p.q[k] = C.record(p.q[k], false, false, 100 + i);
+  }
+  p.q['2025:1'] = C.record(p.q['2025:1'], true, false, 300);
+  p.q['2025:1'] = C.record(p.q['2025:1'], true, false, 400);
+  const history = C.history(modern.questions, p, true);
+  assert.deepEqual(history.map(x => x.question.n), [2, 1]);
+  assert.equal(history[1].stat.needsReview, false);
+  assert.equal(history[1].stat.wrong, 2);
+  assert.equal(history[1].stat.lastResult, 'correct');
+  assert.deepEqual(C.pool(modern.questions, p, 'missed').map(q => q.n), [2, 3]);
+});
+
+test('older saved history preserves totals without inventing a latest result; undo restores history', () => {
+  const p = C.normalize({ v: 2, q: { '2025:1': { right: 2, wrong: 3, last: 100 } } });
+  const before = p.q['2025:1'];
+  assert.equal(before.lastResult, null);
+  assert.equal(C.history(modern.questions, p)[0].stat.wrong, 3);
+  p.q['2025:1'] = C.record(before, true, false, 200);
+  assert.equal(C.history(modern.questions, p)[0].stat.lastResult, 'correct');
+  p.q['2025:1'] = before;
+  assert.equal(C.history(modern.questions, p)[0].stat.last, 100);
+  assert.equal(C.history(modern.questions, p)[0].stat.right, 2);
+  assert.equal(C.normalize({ v: 2, q: { '2025:1': { lastResult: 'bogus' } } }).q['2025:1'].lastResult, null);
+});

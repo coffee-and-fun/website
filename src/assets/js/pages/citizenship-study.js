@@ -6,7 +6,7 @@
   const districtFor = prefs => prefs.districts?.[prefs.place] || '';
   const key = (q, prefs) => `${prefs.version}:${q.n}${localRoles.includes(q.variable) ? ':' + prefs.place : ''}${q.variable === 'representative' && districtFor(prefs) ? ':' + districtFor(prefs) : ''}`;
   const answerKey = (role, place, district = '') => localRoles.includes(role) ? `${role}:${place}${role === 'representative' && district ? ':' + district : ''}` : role;
-  const emptyStat = () => ({ right: 0, wrong: 0, streak: 0, assisted: 0, needsReview: false, last: 0 });
+  const emptyStat = () => ({ right: 0, wrong: 0, streak: 0, assisted: 0, needsReview: false, last: 0, lastResult: null });
   function normalize(raw) {
     const data = blank();
     if (!raw || raw.v !== 2) return data;
@@ -22,6 +22,7 @@
         const safe = emptyStat();
         ['right', 'wrong', 'streak', 'assisted', 'last'].forEach(k => { safe[k] = Number.isFinite(stat[k]) && stat[k] >= 0 ? stat[k] : 0; });
         safe.needsReview = stat.needsReview === true;
+        safe.lastResult = ['correct', 'hinted', 'wrong'].includes(stat.lastResult) ? stat.lastResult : null;
         data.q[id] = safe;
       });
     }
@@ -47,7 +48,7 @@
     return normalize(data);
   }
   function record(previous, correct, assisted = false, now = Date.now()) {
-    const stat = { ...emptyStat(), ...previous, last: now };
+    const stat = { ...emptyStat(), ...previous, last: now, lastResult: correct ? assisted ? 'hinted' : 'correct' : 'wrong' };
     if (correct) {
       stat.right++;
       if (assisted) { stat.assisted++; stat.streak = 0; stat.needsReview = true; }
@@ -74,6 +75,11 @@
     const selected = mode === 'all' ? [...review.slice(0, 3), ...unseen] : [];
     const rest = items.sort((a, b) => a.stat.last - b.stat.last || a.jitter - b.jitter);
     return [...new Set([...selected, ...rest].map(x => x.q.n))].slice(0, size);
+  }
+  function history(bank, prefs, repeatedOnly = false) {
+    return pool(bank, prefs).map(question => ({ question, stat: prefs.q[key(question, prefs)] || emptyStat() }))
+      .filter(({ stat }) => stat.right + stat.wrong > 0 && (!repeatedOnly || stat.wrong >= 2))
+      .sort((a, b) => (repeatedOnly ? b.stat.wrong - a.stat.wrong : 0) || b.stat.last - a.stat.last || a.question.n - b.question.n);
   }
   function resolve(q, prefs, places, refs) {
     if (!q.variable) return { answers: q.answers, ready: true, source: '', custom: false };
@@ -116,7 +122,7 @@
     if (answers.length - correct > rules.size - rules.pass || answers.length >= rules.size) return 'practice';
     return null;
   }
-  const api = { blank, normalize, migrate, key, answerKey, districtFor, emptyStat, record, pool, queue, resolve, examRules, examOutcome };
+  const api = { blank, normalize, migrate, key, answerKey, districtFor, emptyStat, record, pool, queue, history, resolve, examRules, examOutcome };
   if (typeof module !== 'undefined' && module.exports) module.exports = api;
   else scope.CivicsStudy = api;
 })(globalThis);
