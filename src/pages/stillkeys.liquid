@@ -1,0 +1,223 @@
+---
+permalink: /stillkeys/
+---
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>{{ stillkeys.seoTitle | escape }}</title>
+  <meta name="description" content="{{ stillkeys.seoDescription | escape }}">
+  <link rel="canonical" href="https://www.coffeeandfun.com/stillkeys/">
+  <meta name="theme-color" content="#f8f7f3">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="Coffee & Fun">
+  <meta property="og:title" content="{{ stillkeys.seoTitle | escape }}">
+  <meta property="og:description" content="{{ stillkeys.seoDescription | escape }}">
+  <meta property="og:url" content="https://www.coffeeandfun.com/stillkeys/">
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="{{ stillkeys.seoTitle | escape }}">
+  <meta name="twitter:description" content="{{ stillkeys.seoDescription | escape }}">
+  <link rel="icon" type="image/png" sizes="32x32" href="/assets/images/stillkeys/favicon.png">
+  <link rel="apple-touch-icon" href="/assets/images/stillkeys/icon.png">
+  {% pageCss "stillkeys" %}
+  {% include schema-org.liquid %}
+  <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@graph": [
+        {
+          "@type": "WebPage",
+          "@id": "https://www.coffeeandfun.com/stillkeys/#webpage",
+          "url": "https://www.coffeeandfun.com/stillkeys/",
+          "name": {{ stillkeys.seoTitle | json }},
+          "description": {{ stillkeys.seoDescription | json }},
+          "inLanguage": "en",
+          "isPartOf": { "@id": "https://www.coffeeandfun.com/#website" },
+          "publisher": { "@id": "https://www.coffeeandfun.com/#organization" },
+          "mainEntity": { "@id": "https://www.coffeeandfun.com/stillkeys/#app" }
+        },
+        {
+          "@type": "SoftwareApplication",
+          "@id": "https://www.coffeeandfun.com/stillkeys/#app",
+          "name": "Stillkeys",
+          "url": "https://www.coffeeandfun.com/stillkeys/",
+          "mainEntityOfPage": { "@id": "https://www.coffeeandfun.com/stillkeys/#webpage" },
+          "description": {{ stillkeys.seoDescription | json }},
+          "applicationCategory": "UtilitiesApplication",
+          "operatingSystem": "macOS {{ stillkeys.minimumMacOS }} or later",
+          "isAccessibleForFree": false,
+          "inLanguage": "en",
+          "image": "https://www.coffeeandfun.com/assets/images/stillkeys/icon.png",
+          "featureList": [
+            "Timed cleaning screen that captures typing while active",
+            "30-second, 1-minute, 2-minute, and 5-minute timers",
+            "Finish with the mouse, a two-second Escape hold, or automatic expiry",
+            "Works offline without accounts, ads, analytics, or keystroke recording"
+          ],
+          "publisher": { "@id": "https://www.coffeeandfun.com/#organization" }
+        }
+      ]
+    }
+  </script>
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+  <header class="site-header wrap">
+    <a class="wordmark" href="/stillkeys/" aria-label="Stillkeys home">
+      <img src="/assets/images/stillkeys/icon.png" alt="" width="48" height="48">
+      <span>Stillkeys</span>
+    </a>
+    <nav aria-label="Main navigation">
+      <a href="#how-it-works">How it works</a>
+      <a href="#questions">Good to know</a>
+    </nav>
+    <a class="nav-maker" href="/" aria-label="Coffee &amp; Fun LLC homepage" title="Made by Coffee &amp; Fun LLC">
+      <img src="/assets/images/brand/coffee-and-fun-logo-dark.png" alt="Coffee &amp; Fun LLC" width="80" height="80">
+    </a>
+  </header>
+
+  <main id="main">
+    <section class="hero wrap" aria-labelledby="hero-heading">
+      <div class="hero-copy">
+        <p class="eyebrow"><span class="little-pause" aria-hidden="true">Ⅱ</span> KEYBOARD CLEANING FOR MAC</p>
+        <h1 id="hero-heading">A little pause. <br><span>A cleaner <br>keyboard.</span></h1>
+        <p class="hero-description"><strong>Disable typing while you clean your keyboard.</strong> Stillkeys blocks keystrokes in a timed cleaning screen. Finish anytime with your mouse or trackpad.</p>
+        <div class="hero-actions">
+          {% if stillkeys.appStoreUrl %}
+          <a class="button button-primary" href="{{ stillkeys.appStoreUrl }}">Get Stillkeys for Mac <span aria-hidden="true">↗</span></a>
+          {% else %}
+          <a class="button button-primary" href="#how-it-works">See how Stillkeys works <span aria-hidden="true">↓</span></a>
+          {% endif %}
+          <p class="release-note">{% if stillkeys.appStoreUrl %}{{ stillkeys.plannedPrice }} USD · One purchase. Yours to keep.{% else %}Coming soon to the Mac App Store<br><span>Planned price: {{ stillkeys.plannedPrice }} USD · No subscription</span>{% endif %}</p>
+        </div>
+        <p class="compatibility">Made for Mac · macOS {{ stillkeys.minimumMacOS }} or later</p>
+      </div>
+      <figure class="app-preview" id="app-preview" data-appearance="light">
+        <div class="preview-stage">
+          <div class="preview-halo" aria-hidden="true"></div>
+          <div class="app-screen">
+            <img class="app-capture capture-light" src="/assets/images/stillkeys/app-light.png" alt="Stillkeys in light appearance, showing the cleaning timer choices and Start cleaning screen button." width="2880" height="1800" fetchpriority="high">
+            <img class="app-capture capture-dark" src="/assets/images/stillkeys/app-dark.png" alt="Stillkeys in dark appearance, with the same timer choices and cleaning controls." width="2880" height="1800" loading="lazy" hidden>
+          </div>
+          <span class="preview-note">A small app. A little peace of mind.</span>
+        </div>
+        <figcaption class="preview-caption">
+          <span>Right at home on your Mac.</span>
+          <div class="appearance-picker" role="group" aria-label="App screenshot appearance" hidden>
+            <button type="button" data-appearance="light" aria-pressed="true">Light</button>
+            <button type="button" data-appearance="dark" aria-pressed="false">Dark</button>
+          </div>
+        </figcaption>
+      </figure>
+    </section>
+
+    <div class="quiet-details wrap" aria-label="At a glance">
+      <p><span aria-hidden="true">✓</span> Works offline</p>
+      <p><span aria-hidden="true">✓</span> No keystroke recording</p>
+      <p><span aria-hidden="true">✓</span> No account needed</p>
+      <p><span aria-hidden="true">✓</span> Finish with a click</p>
+    </div>
+
+    <section class="how-section wrap section-space" id="how-it-works" aria-labelledby="how-heading">
+      <div class="section-heading">
+        <p class="eyebrow">A MOMENT TO TIDY</p>
+        <h2 id="how-heading">Keyboard cleaning.<br>Three simple steps.</h2>
+        <p>Just enough time for a little keyboard care.<br>No setup, permissions, or account to get in the way.</p>
+      </div>
+      <ol class="steps">
+        <li>
+          <span class="step-number" aria-hidden="true">01</span>
+          <h3>Choose a little time.</h3>
+          <p>Pick your timer. Typing is captured immediately, with three seconds to get ready.</p>
+          <ul class="duration-list" aria-label="Available cleaning durations"><li>30 sec</li><li>1 min</li><li>2 min</li><li>5 min</li></ul>
+        </li>
+        <li>
+          <span class="step-number" aria-hidden="true">02</span>
+          <h3>Give your keys some care.</h3>
+          <p>The cleaning screen catches ordinary typing while it’s active. Your mouse and trackpad stay available.</p>
+          <span class="step-footnote">A quiet screen for stray keystrokes.</span>
+        </li>
+        <li>
+          <span class="step-number" aria-hidden="true">03</span>
+          <h3>Back when you’re ready.</h3>
+          <p>Click Finish cleaning, hold Escape for two seconds, or simply let the timer end.</p>
+          <span class="step-footnote"><kbd>esc</kbd> Hold for 2 seconds to finish.</span>
+        </li>
+      </ol>
+      <p class="care-note">Stillkeys doesn’t turn off your keyboard. Hardware controls and some system shortcuts stay active. <a href="#keyboard-limits">Know what stays available <span aria-hidden="true">↗</span></a></p>
+    </section>
+
+    <section class="privacy-section wrap" id="privacy" aria-labelledby="privacy-heading">
+      <div class="privacy-panel">
+        <div class="privacy-copy">
+          <p class="eyebrow">PRIVATE BY DESIGN</p>
+          <h2 id="privacy-heading">Your keys. <br>Your business.</h2>
+          <p>Stillkeys works entirely on your Mac. What you type isn’t saved, recorded, or sent anywhere.</p>
+          <a class="text-link" href="#privacy-details">A little more about privacy <span aria-hidden="true">↗</span></a>
+        </div>
+        <ul class="privacy-list">
+          <li><span class="privacy-symbol" aria-hidden="true">⌁</span><span>No internet needed<small>Ready whenever you are.</small></span></li>
+          <li><span class="privacy-symbol" aria-hidden="true">◎</span><span>No accounts or tracking<small>No ads. No analytics. Just the app.</small></span></li>
+          <li><span class="privacy-symbol" aria-hidden="true">⌫</span><span>No keystroke history<small>Accidental typing is discarded.</small></span></li>
+        </ul>
+      </div>
+    </section>
+
+    <section class="faq-section wrap section-space" id="questions" aria-labelledby="questions-heading">
+      <div class="faq-intro">
+        <p class="eyebrow">GOOD TO KNOW</p>
+        <h2 id="questions-heading">Little app. <br>Clear answers.</h2>
+        <p>Something else on your mind?<br><a class="text-link" href="mailto:{{ stillkeys.supportEmail }}?subject=Stillkeys">Say hello <span aria-hidden="true">↗</span></a></p>
+      </div>
+      <div class="faq-list">
+        <details id="keyboard-limits">
+          <summary>Can I disable my Mac keyboard for cleaning?<span aria-hidden="true">+</span></summary>
+          <div class="answer"><p>Stillkeys captures typing while its foreground cleaning screen is active and disables Command-Tab for that session. It does not turn off your keyboard hardware or block every system shortcut.</p><p>Power, Touch ID, media keys, some system controls, and Command-Option-Escape remain available. Your mouse and trackpad continue to work.</p></div>
+        </details>
+        <details>
+          <summary>How do I get back to my Mac?<span aria-hidden="true">+</span></summary>
+          <div class="answer"><p>Click Finish cleaning with your mouse or trackpad, hold Escape continuously for two seconds, or let the timer finish. A brief Escape tap won’t stop your session.</p><p>Stillkeys also ends the session if it loses focus, your Mac goes to sleep, or your display setup changes.</p></div>
+        </details>
+        <details>
+          <summary>Which Macs does it work on?<span aria-hidden="true">+</span></summary>
+          <div class="answer"><p>Stillkeys is built for Macs running macOS {{ stillkeys.minimumMacOS }} or later, with Apple silicon and Intel support. It follows your Mac’s light or dark appearance.</p><p>The Mac App Store version doesn’t need Accessibility permission, administrator access, or any extra setup.</p></div>
+        </details>
+        <details id="privacy-details">
+          <summary>What information does the app collect?<span aria-hidden="true">+</span></summary>
+          <div class="answer"><p>Stillkeys does not collect, store, or transmit personal information. It has no accounts, advertising, analytics, tracking, or third-party SDKs.</p><p>During a session, it discards keyboard events and checks whether Escape is held so you can exit. It doesn’t record typed text or keep a key history. The timer and your duration choice stay in memory and are cleared when you quit.</p><p>Optional support and cleaning-guide links open in your mail app or browser, which have their own privacy practices. macOS may handle diagnostics according to your system settings. This describes the Stillkeys app; see <a href="/privacy/">Coffee &amp; Fun’s website privacy policy</a> for this website.</p></div>
+        </details>
+        <details>
+          <summary>Anything to know before cleaning?<span aria-hidden="true">+</span></summary>
+          <div class="answer"><p>Always follow your device manufacturer’s cleaning instructions. Apple recommends shutting down and disconnecting power before cleaning. Stillkeys does not replace those steps or make liquid cleaning safe.</p><p><a href="https://support.apple.com/103258">Read Apple’s cleaning guidance <span aria-hidden="true">↗</span></a></p></div>
+        </details>
+        <details>
+          <summary>Is there a subscription?<span aria-hidden="true">+</span></summary>
+          <div class="answer"><p>No. {% if stillkeys.appStoreUrl %}Stillkeys is a {{ stillkeys.plannedPrice }} USD one-time purchase on the Mac App Store.{% else %}Stillkeys is coming to the Mac App Store with a planned one-time price of {{ stillkeys.plannedPrice }} USD.{% endif %} There are no subscriptions or in-app purchases. Local prices may vary.</p></div>
+        </details>
+      </div>
+    </section>
+
+    <section class="closing wrap" aria-labelledby="closing-heading">
+      <img src="/assets/images/stillkeys/icon.png" alt="" width="112" height="112" loading="lazy">
+      <p class="eyebrow">A SMALL MOMENT OF CARE</p>
+      <h2 id="closing-heading">A fresh start for your keys.</h2>
+      <p>One little app. Then back to whatever’s next.</p>
+      {% if stillkeys.appStoreUrl %}
+      <a class="button button-primary" href="{{ stillkeys.appStoreUrl }}">Get Stillkeys for Mac <span aria-hidden="true">↗</span></a>
+      <p class="release-note">{{ stillkeys.plannedPrice }} USD · No subscription · macOS {{ stillkeys.minimumMacOS }}+</p>
+      {% else %}
+      <p class="coming-soon">Coming soon to the Mac App Store</p>
+      <p class="release-note">Planned price: {{ stillkeys.plannedPrice }} USD · No subscription · macOS {{ stillkeys.minimumMacOS }}+</p>
+      {% endif %}
+    </section>
+  </main>
+
+  <footer class="site-footer wrap">
+    <a class="wordmark footer-brand" href="/stillkeys/"><img src="/assets/images/stillkeys/icon.png" alt="" width="36" height="36"><span>Stillkeys</span></a>
+    <p>Made with care by <a href="/">Coffee &amp; Fun</a>.</p>
+    <nav aria-label="Footer navigation"><a href="#privacy-details">App privacy</a><a href="mailto:{{ stillkeys.supportEmail }}?subject=Stillkeys">Support</a><a href="/apps/">Our other apps <span aria-hidden="true">↗</span></a></nav>
+  </footer>
+  {% pageJs "stillkeys" %}
+</body>
+</html>
