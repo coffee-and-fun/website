@@ -98,6 +98,7 @@
       <section data-panel="review" aria-labelledby="ct-review-title" hidden>
         <div class="ct-section-head"><h2 id="ct-review-title" tabindex="-1">Your progress</h2><p data-review-summary></p></div>
         <div class="ct-totals" data-totals></div>
+        <button type="button" class="ct-btn ct-btn-outline ct-full ct-ordered-start" data-ordered>Study questions in order</button>
         <button type="button" class="ct-btn ct-full" data-review-start>Review missed cards</button>
         <p class="ct-small ct-review-help">Two correct answers without a hint moves a card out of review.</p>
         <h3>Your answered questions</h3>
@@ -106,18 +107,21 @@
           <button type="button" data-history-filter="repeated" aria-pressed="false">Keep missing</button>
         </div>
         <p class="ct-small" data-history-summary role="status"></p>
+        <button type="button" class="ct-text-btn" data-mistake-sheet>Make a missed-question study sheet</button>
         <div class="ct-review-list" data-review-list></div>
         <details class="ct-extra"><summary>Progress by topic</summary><div class="ct-review-topics" data-review-topics></div></details>
         <details class="ct-extra"><summary>More ways to practice</summary>
           <button type="button" class="ct-btn ct-btn-outline ct-full" data-exam>Try a practice interview</button>
-          <div class="ct-field"><label for="ct-mode">Practice cards</label><select id="ct-mode"><option value="all">All questions</option><option value="missed">Questions I got wrong</option><option value="review">Missed + hinted questions</option><option value="saved">Saved cards</option><option value="unseen">Questions I haven’t tried</option></select></div>
+          <div class="ct-field"><label for="ct-mode">Practice cards</label><select id="ct-mode"><option value="all">All questions · mixed practice</option><option value="ordered">In question order · full set</option><option value="missed">Questions I got wrong</option><option value="review">Missed + hinted questions</option><option value="saved">Saved cards</option><option value="unseen">Questions I haven’t tried</option></select></div>
           <div class="ct-field"><label for="ct-topic">Topic</label><select id="ct-topic"><option value="">All topics</option></select></div>
           <button type="button" class="ct-btn ct-full" data-new>Start practice</button>
         </details>
       </section>
       <section data-panel="sheet" aria-labelledby="ct-sheet-title" hidden>
-        <div class="ct-section-head"><h2 id="ct-sheet-title" tabindex="-1">Your cheat sheet</h2><p>A quick refresher, wherever you study.</p></div>
+        <div class="ct-section-head"><h2 id="ct-sheet-title" tabindex="-1">Your cheat sheet</h2><p data-sheet-description>A quick refresher, wherever you study.</p></div>
+        <div class="ct-field"><label for="ct-sheet-scope">What to study</label><select id="ct-sheet-scope"><option value="all">Full cheat sheet</option><option value="missed">Questions I missed</option><option value="repeated">Questions I keep missing · twice or more</option></select></div>
         <button type="button" class="ct-btn ct-full" data-print>Print / save PDF</button>
+        <div data-sheet-reference>
         <div class="ct-facts">
           <article><span class="ct-fact-number">2 · 4 · 6</span><h3>Years in office</h3><p>House: <strong>2 years.</strong><br />President: <strong>4 years.</strong><br />Senate: <strong>6 years.</strong></p></article>
           <article><span class="ct-fact-number">1776 / 1787</span><h3>Founding documents</h3><p><strong>Declaration:</strong> July 4, 1776.<br /><strong>Constitution:</strong> 1787.<br /><strong>Bill of Rights:</strong> first 10 amendments.</p></article>
@@ -126,9 +130,10 @@
         </div>
         <h3>Your local &amp; current answers</h3><p class="ct-small" data-sheet-date></p><div class="ct-local-summary" data-sheet-officials></div>
         <button type="button" class="ct-text-btn" data-open-settings>Update your state &amp; answers</button>
-        <details class="ct-extra"><summary>Browse all questions &amp; hints</summary>
-          <div class="ct-sheet-filters"><div class="ct-field"><label for="ct-search">Search questions or answers</label><input type="search" id="ct-search" placeholder="Try “Constitution”" /></div><label class="ct-check"><input type="checkbox" id="ct-sheet-missed" /> Only cards needing practice</label></div>
-          <label class="ct-check"><input type="checkbox" id="ct-print-questions" /> Include these questions when printing</label>
+        </div>
+        <details class="ct-extra" data-sheet-questions><summary data-sheet-browse>Browse all questions &amp; hints</summary>
+          <div class="ct-sheet-filters"><div class="ct-field"><label for="ct-search">Search questions or answers</label><input type="search" id="ct-search" placeholder="Try “Constitution”" /></div></div>
+          <label class="ct-check" data-print-option><input type="checkbox" id="ct-print-questions" /> Include these questions when printing</label>
           <p class="ct-small" data-sheet-count role="status"></p><div data-sheet-content></div>
         </details>
         <div class="ct-faq" id="ct-guide">

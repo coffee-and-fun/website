@@ -24,7 +24,7 @@
   function stopSpeech() { if ('speechSynthesis' in window) window.speechSynthesis.cancel(); }
   function restoreSession() {
     const s = prefs.session;
-    const valid = s && ['all', 'missed', 'review', 'saved', 'unseen', 'exam', 'repeat'].includes(s.mode) &&
+    const valid = s && ['all', 'missed', 'review', 'saved', 'unseen', 'exam', 'repeat', 'ordered'].includes(s.mode) &&
       Array.isArray(s.queue) && s.queue.length <= 128 && new Set(s.queue).size === s.queue.length &&
       s.queue.every(n => bank().some(q => q.n === n && (!prefs.senior || q.seniorSet))) &&
       Number.isInteger(s.i) && s.i >= 0 && s.i <= s.queue.length && Array.isArray(s.answers) && s.answers.length === s.i &&
@@ -92,7 +92,7 @@
     const done = isDone();
     $('[data-card-area]').hidden = done;
     $('[data-result]').hidden = !done;
-    $('[data-session-name]').textContent = s?.mode === 'exam' ? 'Practice interview · self-assessed' : ({ all: 'Study cards', missed: 'Missed questions', review: 'Missed + hinted cards', unseen: 'New questions', saved: 'Saved cards', repeat: 'Repeat missed cards' }[s?.mode] || 'Study cards');
+    $('[data-session-name]').textContent = s?.mode === 'exam' ? 'Practice interview · self-assessed' : ({ all: 'Study cards', ordered: 'In question order', missed: 'Missed questions', review: 'Missed + hinted cards', unseen: 'New questions', saved: 'Saved cards', repeat: 'Repeat missed cards' }[s?.mode] || 'Study cards');
     $('[data-count]').textContent = s?.queue.length ? `${Math.min(s.i + (done ? 0 : 1), s.queue.length)} / ${s.queue.length}` : 'No cards in this set';
     $('[data-session-progress]').max = s?.queue.length || 1;
     $('[data-session-progress]').value = s?.i || 0;
@@ -182,7 +182,7 @@
     $('[data-result-stats]').textContent = empty ? '' : `${right} correct · ${wrong} to revisit${skipped ? ' · ' + skipped + ' skipped' : ''}`;
     $('[data-repeat]').hidden = !wrong;
     $('[data-result-undo]').hidden = !answers.length;
-    $('[data-next]').textContent = empty ? 'Study all questions' : 'Keep studying';
+    $('[data-next]').textContent = empty ? 'Study all questions' : s.mode === 'ordered' ? 'Start again in order' : 'Keep studying';
     if (focus) $('[data-result-title]').focus({ preventScroll: true });
   }
   function renderReview() {
@@ -198,9 +198,11 @@
     const history = C.history(bank(), prefs, repeated);
     const mistakes = repeated ? history.map(entry => entry.question) : pool.filter(q => stat(q).needsReview && stat(q).wrong > 0);
     $('[data-review-start]').disabled = !mistakes.length;
-    $('[data-review-start]').textContent = mistakes.length ? repeated ? `Practice these ${mistakes.length} cards` : `Review ${mistakes.length} missed ${mistakes.length === 1 ? 'card' : 'cards'}` : repeated ? 'No repeated misses yet' : 'No missed cards to review';
+    $('[data-review-start]').textContent = mistakes.length ? repeated ? `Practice ${mistakes.length === 1 ? 'this card' : 'these ' + mistakes.length + ' cards'}` : `Review ${mistakes.length} missed ${mistakes.length === 1 ? 'card' : 'cards'}` : repeated ? 'No repeated misses yet' : 'No missed cards to review';
+    $('[data-mistake-sheet]').disabled = !C.sheetPool(bank(), prefs, repeated ? 'repeated' : 'missed').length;
+    $('[data-mistake-sheet]').textContent = repeated ? 'Make a keep-missing study sheet' : 'Make a missed-question study sheet';
     $$('[data-history-filter]').forEach(button => button.setAttribute('aria-pressed', String(button.dataset.historyFilter === historyFilter)));
-    $('[data-history-summary]').textContent = repeated ? `${history.length} questions missed at least twice, most missed first. Learned cards stay in this history.` : `${history.length} answered questions, most recent first. Counts include all your saved attempts for these study settings.`;
+    $('[data-history-summary]').textContent = repeated ? `${history.length} ${history.length === 1 ? 'question' : 'questions'} missed at least twice, most missed first. Learned cards stay in this history.` : `${history.length} answered ${history.length === 1 ? 'question' : 'questions'}, most recent first. Counts include all your saved attempts for these study settings.`;
     $('[data-review-list]').innerHTML = history.length ? history.map(({ question: q, stat: record }) => {
       const status = record.needsReview ? 'Needs practice' : record.streak >= 2 ? 'Learned' : 'Getting there';
       const latest = { correct: 'Correct', hinted: 'Correct with a hint', wrong: 'Missed' }[record.lastResult] || 'Not recorded in older progress';
@@ -240,15 +242,30 @@
   }
   function sheetQuestions() {
     const search = $('#ct-search').value.trim().toLocaleLowerCase();
-    return C.pool(bank(), prefs, $('#ct-sheet-missed').checked ? 'missed' : 'all').filter(q => !search || `${q.n} ${q.q} ${resolved(q).answers.join(' ')} ${q.topic}`.toLocaleLowerCase().includes(search));
+    return C.sheetPool(bank(), prefs, $('#ct-sheet-scope').value).filter(q => !search || `${q.n} ${q.q} ${resolved(q).answers.join(' ')} ${q.topic}`.toLocaleLowerCase().includes(search));
   }
+  const targetedSheet = () => $('#ct-sheet-scope').value !== 'all';
+  const sheetTitle = () => ({ all: 'Your cheat sheet', missed: 'Questions you missed', repeated: 'Questions you keep missing' }[$('#ct-sheet-scope').value]);
   function sheetHtml(questions) {
-    if (!questions.length) return '<p class="ct-empty">No questions match. Try another search or turn off the practice-only filter.</p>';
-    return [...new Set(questions.map(q => q.topic))].map(topic => `<div class="ct-sheet-group"><h3>${esc(topic)}</h3>${questions.filter(q => q.topic === topic).map(q => `<article class="ct-sheet-item"><h4>${q.n}. ${esc(q.q)}</h4><p>${q.required > 1 ? '<strong>Give ' + q.required + ' items.</strong> ' : ''}${esc(resolved(q).answers.join(' • '))}</p>${q.variable ? `<p class="ct-small">${resolved(q).custom ? 'Your saved answer; verify before your interview.' : resolved(q).dated ? 'Reference checked ' + esc(refs.verifiedOn) + '; verify before your interview.' : 'Answer depends on where you live.'}</p>` : ''}<p class="ct-small">Memory tip: ${esc(q.hint)}</p></article>`).join('')}</div>`).join('');
+    if (!questions.length) return '<p class="ct-empty">No questions match yet. Study some cards, change the sheet selection, or clear your search.</p>';
+    const item = q => {
+      const r = resolved(q), record = stat(q);
+      const status = record.needsReview ? 'Needs practice' : record.streak >= 2 ? 'Learned' : 'Getting there';
+      return `<article class="ct-sheet-item"><${targetedSheet() ? 'h3' : 'h4'}>${q.n}. ${esc(q.q)}</${targetedSheet() ? 'h3' : 'h4'}>${targetedSheet() ? `<p class="ct-mistake-stats"><strong>${record.wrong} missed</strong> · ${record.right} correct · ${record.right + record.wrong} attempts<br />${record.assisted} correct with a hint · ${status}</p>` : ''}<p>${q.required > 1 ? '<strong>Give ' + q.required + ' items.</strong> ' : ''}${esc(r.answers.join(' • '))}</p>${q.variable ? `<p class="ct-small">${r.custom ? 'Your saved answer; verify before your interview.' : r.dated ? 'Reference checked ' + esc(r.verifiedOn) + '; verify before your interview.' : 'Answer depends on where you live.'}</p>` : ''}<p class="ct-small">Memory tip: ${esc(q.hint)}</p></article>`;
+    };
+    // Keep the most-missed ranking intact, even across topics.
+    if (targetedSheet()) return questions.map(item).join('');
+    return [...new Set(questions.map(q => q.topic))].map(topic => `<div class="ct-sheet-group"><h3>${esc(topic)}</h3>${questions.filter(q => q.topic === topic).map(item).join('')}</div>`).join('');
   }
   function renderSheet() {
-    const questions = sheetQuestions();
-    $('[data-sheet-count]').textContent = `${questions.length} questions · ${prefs.version} test${prefs.senior ? ' · 65/20 set' : ''}.`;
+    const questions = sheetQuestions(), targeted = targetedSheet();
+    $('#ct-sheet-title').textContent = sheetTitle();
+    $('[data-sheet-description]').textContent = targeted ? 'Most missed first. Includes past mistakes, even on cards you have since learned. Counts are saved on this device.' : 'A quick refresher, wherever you study.';
+    $('[data-sheet-reference]').hidden = targeted;
+    $('[data-print-option]').hidden = targeted;
+    $('[data-sheet-browse]').textContent = targeted ? 'Your questions, answers & mistake counts' : 'Browse all questions & hints';
+    if (targeted) $('[data-sheet-questions]').open = true;
+    $('[data-sheet-count]').textContent = `${questions.length} ${questions.length === 1 ? 'question' : 'questions'} · ${prefs.version} test${prefs.senior ? ' · 65/20 set' : ''}.`;
     $('[data-sheet-date]').textContent = `Reference checked ${refs.verifiedOn}. Verify names before your interview.`;
     $('[data-sheet-officials]').innerHTML = bank().filter(q => q.variable).map(q => `<p><strong>${esc(roleLabels[q.variable])}</strong><span>${esc(resolved(q).ready ? resolved(q).answers.join(' / ') : 'Add in Set up')}${resolved(q).custom ? ' (your answer)' : ''}</span></p>`).join('');
     $('[data-sheet-content]').innerHTML = sheetHtml(questions);
@@ -257,8 +274,8 @@
   function preparePrint() {
     if (!prefs) return;
     const place = places.find(p => p.code === prefs.place);
-    const rules = C.examRules(prefs), questions = sheetQuestions(), includeQuestions = $('#ct-print-questions').checked;
-    $('[data-print-content]').innerHTML = `<h1>US citizenship · study cheat sheet</h1><p>${prefs.version} test${prefs.senior ? ' · 65/20 set' : ''} · ${esc(place?.name || 'No state selected')}${includeQuestions ? ' · ' + questions.length + ' questions included' : ''}</p><p>Interview: up to ${rules.size} questions; ${rules.pass} correct to pass. Answer out loud and give the number of items requested. Officeholder reference checked ${esc(refs.verifiedOn)}; verify before your interview.</p><div class="ct-facts">${$('.ct-facts').innerHTML}</div><h2>Your local &amp; current answers</h2>${bank().filter(q => q.variable).map(q => `<p><strong>${esc(roleLabels[q.variable])}:</strong> ${esc(resolved(q).answers.join(' / '))}${resolved(q).custom ? ' (your saved answer)' : ''}</p>`).join('')}${includeQuestions ? '<h2>Questions &amp; memory tips</h2>' + sheetHtml(questions) : ''}<h2>Sources</h2><p>Official questions: ${esc(banks[prefs.version]._sourceUrl)}</p><p>Officeholders: senate.gov · nga.org/governors · whitehouse.gov · speaker.gov · supremecourt.gov. Representative lookup: house.gov/representatives/find-your-representative.</p><p>Memory tips by Coffee &amp; Fun are study aids, not USCIS wording. Independent tool; not endorsed by USCIS. coffeeandfun.com/citizenship-test/</p>`;
+    const rules = C.examRules(prefs), questions = sheetQuestions(), includeQuestions = targetedSheet() || $('#ct-print-questions').checked;
+    $('[data-print-content]').innerHTML = `<h1>US citizenship · ${esc(sheetTitle())}</h1><p>${prefs.version} test${prefs.senior ? ' · 65/20 set' : ''} · ${esc(place?.name || 'No state selected')}${includeQuestions ? ' · ' + questions.length + (questions.length === 1 ? ' question included' : ' questions included') : ''}</p><p>Interview: up to ${rules.size} questions; ${rules.pass} correct to pass. Answer out loud and give the number of items requested. Officeholder reference checked ${esc(refs.verifiedOn)}; verify before your interview.</p>${targetedSheet() ? `<p>Missed ${$('#ct-sheet-scope').value === 'repeated' ? 'at least twice' : 'at least once'} · most missed first. Historical counts include learned cards. Saved ${esc(new Date().toLocaleDateString())}.</p>` : `<div class="ct-facts">${$('.ct-facts').innerHTML}</div><h2>Your local &amp; current answers</h2>${bank().filter(q => q.variable).map(q => `<p><strong>${esc(roleLabels[q.variable])}:</strong> ${esc(resolved(q).answers.join(' / '))}${resolved(q).custom ? ' (your saved answer)' : ''}</p>`).join('')}`}${includeQuestions ? '<h2>Questions &amp; memory tips</h2>' + sheetHtml(questions) : ''}<h2>Sources</h2><p>Official questions: ${esc(banks[prefs.version]._sourceUrl)}</p><p>Officeholders: senate.gov · nga.org/governors · whitehouse.gov · speaker.gov · supremecourt.gov. Representative lookup: house.gov/representatives/find-your-representative.</p><p>Memory tips by Coffee &amp; Fun are study aids, not USCIS wording. Independent tool; not endorsed by USCIS. coffeeandfun.com/citizenship-test/</p>`;
     root.classList.add('ct-print-ready');
   }
   function openSettings() {
@@ -327,6 +344,13 @@
   });
   $('[data-repeat]').addEventListener('click', () => begin('repeat', prefs.session.answers.filter(a => !a.correct && !a.skipped).map(a => a.n)));
   $$('[data-history-filter]').forEach(button => button.addEventListener('click', () => { historyFilter = button.dataset.historyFilter; renderReview(); }));
+  $('[data-ordered]').addEventListener('click', () => {
+    $('#ct-mode').value = 'ordered'; $('#ct-topic').value = ''; begin('ordered'); switchView('study');
+  });
+  $('[data-mistake-sheet]').addEventListener('click', () => {
+    $('#ct-sheet-scope').value = historyFilter === 'repeated' ? 'repeated' : 'missed';
+    $('#ct-search').value = ''; switchView('sheet');
+  });
   $('[data-review-start]').addEventListener('click', () => {
     $('#ct-mode').value = 'missed'; $('#ct-topic').value = '';
     if (historyFilter === 'repeated') begin('repeat', C.history(bank(), prefs, true).slice(0, 10).map(entry => entry.question.n));
@@ -380,7 +404,7 @@
     announce('Answer saved. This card needs practice again; your answer history is kept.');
   });
   $('#ct-search').addEventListener('input', renderSheet);
-  $('#ct-sheet-missed').addEventListener('change', renderSheet);
+  $('#ct-sheet-scope').addEventListener('change', renderSheet);
   $('#ct-print-questions').addEventListener('change', preparePrint);
   $('[data-print]').addEventListener('click', () => { preparePrint(); window.print(); });
   window.addEventListener('beforeprint', preparePrint);

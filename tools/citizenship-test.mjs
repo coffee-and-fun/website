@@ -247,3 +247,35 @@ test('older saved history preserves totals without inventing a latest result; un
   assert.equal(C.history(modern.questions, p)[0].stat.right, 2);
   assert.equal(C.normalize({ v: 2, q: { '2025:1': { lastResult: 'bogus' } } }).q['2025:1'].lastResult, null);
 });
+
+test('ordered study covers the whole bank in official order regardless of previous mistakes', () => {
+  for (const data of [old, modern]) {
+    const p = C.blank(); p.version = data === old ? '2008' : '2025';
+    p.q[C.key(data.questions[50], p)] = C.record(null, false);
+    const shuffled = [...data.questions].reverse();
+    assert.deepEqual(C.queue(shuffled, p, 'ordered'), data.questions.map(q => q.n));
+    p.senior = true;
+    assert.deepEqual(C.queue(shuffled, p, 'ordered'), data.questions.filter(q => q.seniorSet).map(q => q.n));
+    const topic = data.questions[0].topic;
+    assert.deepEqual(C.queue(shuffled, p, 'ordered', topic), data.questions.filter(q => q.seniorSet && q.topic === topic).map(q => q.n));
+  }
+});
+
+test('mistake sheets rank historical misses, retain learned cards and exclude hint-only answers', () => {
+  const p = C.blank();
+  const miss = (n, times) => {
+    const id = C.key(question(modern, n), p);
+    for (let i = 0; i < times; i++) p.q[id] = C.record(p.q[id], false, false, 10 + n);
+    return id;
+  };
+  const learned = miss(2, 3); miss(3, 1); miss(4, 2);
+  p.q[learned] = C.record(C.record(p.q[learned], true), true);
+  p.q[C.key(question(modern, 1), p)] = C.record(null, true, true);
+  assert.deepEqual(C.sheetPool(modern.questions, p, 'missed').map(q => q.n), [2, 4, 3]);
+  assert.deepEqual(C.sheetPool(modern.questions, p, 'repeated').map(q => q.n), [2, 4]);
+  assert.equal(C.sheetPool(modern.questions, p).length, 128);
+  p.senior = true;
+  assert.deepEqual(C.sheetPool(modern.questions, p, 'repeated').map(q => q.n), [2]);
+  p.version = '2008';
+  assert.deepEqual(C.sheetPool(old.questions, p, 'missed'), []);
+});

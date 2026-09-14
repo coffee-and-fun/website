@@ -67,6 +67,8 @@
     });
   }
   function queue(bank, prefs, mode = 'all', topic = '', size = 10, random = Math.random) {
+    // Ordered study is one resumable run through the entire selected set.
+    if (mode === 'ordered') return pool(bank, prefs, mode, topic).map(q => q.n).sort((a, b) => a - b);
     const items = pool(bank, prefs, mode, topic).map(q => ({ q, jitter: random(), stat: prefs.q[key(q, prefs)] || emptyStat() }));
     if (mode === 'exam') return items.sort((a, b) => a.jitter - b.jitter).slice(0, size).map(x => x.q.n);
     // Reserve most cards for unseen questions so difficult cards cannot starve the rest of the bank.
@@ -80,6 +82,12 @@
     return pool(bank, prefs).map(question => ({ question, stat: prefs.q[key(question, prefs)] || emptyStat() }))
       .filter(({ stat }) => stat.right + stat.wrong > 0 && (!repeatedOnly || stat.wrong >= 2))
       .sort((a, b) => (repeatedOnly ? b.stat.wrong - a.stat.wrong : 0) || b.stat.last - a.stat.last || a.question.n - b.question.n);
+  }
+  function sheetPool(bank, prefs, scope = 'all') {
+    if (scope === 'all') return pool(bank, prefs);
+    return history(bank, prefs, scope === 'repeated').filter(({ stat }) => stat.wrong > 0)
+      .sort((a, b) => b.stat.wrong - a.stat.wrong || b.stat.last - a.stat.last || a.question.n - b.question.n)
+      .map(({ question }) => question);
   }
   function resolve(q, prefs, places, refs) {
     if (!q.variable) return { answers: q.answers, ready: true, source: '', custom: false };
@@ -122,7 +130,7 @@
     if (answers.length - correct > rules.size - rules.pass || answers.length >= rules.size) return 'practice';
     return null;
   }
-  const api = { blank, normalize, migrate, key, answerKey, districtFor, emptyStat, record, pool, queue, history, resolve, examRules, examOutcome };
+  const api = { blank, normalize, migrate, key, answerKey, districtFor, emptyStat, record, pool, queue, history, sheetPool, resolve, examRules, examOutcome };
   if (typeof module !== 'undefined' && module.exports) module.exports = api;
   else scope.CivicsStudy = api;
 })(globalThis);
