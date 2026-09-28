@@ -1,368 +1,1389 @@
 <!DOCTYPE html>
-<html class="brand-color-background scroll-smooth antialiased" lang="en" data-theme="light" style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;">
-<head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
+<html lang="en">
+	<head>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		<title>Free Receipt &amp; Invoice Generator | PDF Templates | Coffee &amp; Fun</title>
+		<meta
+			name="description"
+			content="Create and download receipts or invoices for free. Choose four templates, add your logo, calculate tax and discounts, and export an 80mm receipt or A4 PDF."
+		/>
+		<link rel="canonical" href="https://www.coffeeandfun.com/receipt-generator/" />
+		<meta name="robots" content="index, follow" />
+		<meta name="theme-color" content="#f7f5ff" />
+		<link rel="icon" href="/assets/images/brand/favicon.png" sizes="any" />
+		<meta property="og:type" content="website" />
+		<meta property="og:site_name" content="Coffee &amp; Fun" />
+		<meta property="og:title" content="Free Receipt &amp; Invoice Generator" />
+		<meta
+			property="og:description"
+			content="Your details. Four layouts. Ready to download. Create receipts and invoices with free PDF templates, tax calculations, and local draft saving."
+		/>
+		<meta property="og:url" content="https://www.coffeeandfun.com/receipt-generator/" />
+		<meta
+			property="og:image"
+			content="https://www.coffeeandfun.com/assets/images/social/pages/receipt-generator.png"
+		/>
+		<meta property="og:image:width" content="1200" />
+		<meta property="og:image:height" content="630" />
+		<meta property="og:image:alt" content="Free receipt generator by Coffee &amp; Fun" />
+		<meta name="twitter:card" content="summary_large_image" />
+		<meta name="twitter:title" content="Free Receipt &amp; Invoice Generator" />
+		<meta
+			name="twitter:description"
+			content="Four receipt and invoice layouts. Free PDF downloads. No account needed."
+		/>
+		<meta
+			name="twitter:image"
+			content="https://www.coffeeandfun.com/assets/images/social/pages/receipt-generator.png"
+		/>
+		<meta name="twitter:image:alt" content="Free receipt generator by Coffee &amp; Fun" />
+		{% include schema-org.liquid %}
+		<script type="application/ld+json">
+			{
+				"@context": "https://schema.org",
+				"@type": "WebApplication",
+				"@id": "https://www.coffeeandfun.com/receipt-generator/#app",
+				"name": "Free Receipt & Invoice Generator",
+				"url": "https://www.coffeeandfun.com/receipt-generator/",
+				"description": "Create receipts and invoices with four templates, tax and discount calculations, and free PDF downloads.",
+				"applicationCategory": "BusinessApplication",
+				"operatingSystem": "Any",
+				"browserRequirements": "Requires JavaScript and a modern web browser",
+				"isAccessibleForFree": true,
+				"inLanguage": "en",
+				"offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" },
+				"publisher": { "@id": "https://www.coffeeandfun.com/#organization" },
+				"featureList": [
+					"Four receipt and invoice templates",
+					"80mm receipt and A4 invoice PDF export",
+					"Tax and discount calculations",
+					"Six currencies",
+					"Local draft saving",
+					"Custom business logo"
+				]
+			}
+		</script>
+		{% pageCss "receipt-generator" %}
+		<script src="/assets/vendor/vue-3.5.43.global.prod.js" defer></script>
+		{% pageJs "receipt-core" %}
+		<script src="/assets/vendor/qrcode-2.0.4.js" defer></script>
+		{% pageJs "receipt-pdf" %} {% pageJs "receipt-generator" %}
+	</head>
+	<body>
+		<a class="skip-link" href="#main-content">Skip to receipt generator</a>
+		<header class="studio-header">
+			<a class="studio-wordmark" href="/receipt-generator/" aria-label="Receipt studio home"
+				><span class="studio-icon" aria-hidden="true">▤</span> receipt<span class="wordmark-light"
+					>studio</span
+				></a
+			>
+			<nav aria-label="Main">
+				<a href="/apps/">More free tools <span aria-hidden="true">↗</span></a
+				><a class="byline" href="/">by Coffee &amp; Fun</a>
+			</nav>
+		</header>
+		<main id="main-content">
+			<div class="page-intro">
+				<div>
+					<p class="eyebrow">FREE &amp; NO SIGN-UP</p>
+					<h1>Receipts, made <span>easy.</span></h1>
+					<p class="intro-copy">
+						Add your details. Pick a style. Download.
+						<span class="sr-only">Free receipt and invoice generator.</span>
+					</p>
+				</div>
+				<span class="intro-note"
+					><svg
+						viewBox="0 0 24 24"
+						fill="none"
+						stroke="currentColor"
+						stroke-width="1.6"
+						aria-hidden="true"
+					>
+						<rect x="5" y="10" width="14" height="11" rx="3" />
+						<path d="M8 10V7a4 4 0 0 1 8 0v3" /></svg
+					>Only saved on your device</span
+				>
+			</div>
+			<noscript
+				><p class="notice">
+					Enable JavaScript to use the receipt editor. Your receipt is created in your browser; no
+					account is needed.
+				</p></noscript
+			>
+			<p id="receipt-loading" class="loading-notice">
+				Loading your receipt editor… If it does not appear, refresh the page.
+			</p>
+			{% raw %}
+			<!-- prettier-ignore -->
+			<div id="app" v-cloak>
+				<div class="studio-tools">
+					<fieldset class="template-picker">
+						<legend>Pick a style</legend>
+						<div class="template-options">
+							<label
+								v-for="template in templates"
+								:key="template.id"
+								class="template-option"
+								:class="['style-' + template.id, { selected: receipt.template === template.id }]"
+							>
+								<input
+									type="radio"
+									name="receipt-template"
+									:value="template.id"
+									v-model="receipt.template"
+									:aria-describedby="'template-hint-' + template.id"
+								/>
+								<span class="template-thumb" :class="'thumb-' + template.id" aria-hidden="true"
+									><span class="mini-paper"
+										><b>{{ template.id === 'invoice' ? 'Invoice' : 'STORE' }}</b
+										><i></i><i></i><strong></strong><span class="mini-barcode"></span></span
+								></span>
+								<span class="template-copy"
+									><strong>{{ template.name }}</strong
+									><span class="sr-only" :id="'template-hint-' + template.id"
+										>{{ template.description }}. {{ template.size }}.</span
+									></span
+								><span class="template-check" aria-hidden="true">{{
+									receipt.template === template.id ? '✓' : ''
+								}}</span>
+							</label>
+						</div>
+					</fieldset>
+					<div class="workspace-toolbar">
+						<button type="button" class="button text-button" @click="loadExample">
+							Try an example <span aria-hidden="true">↗</span></button
+						><button type="button" class="button text-button" @click="resetReceipt">
+							Start fresh <span aria-hidden="true">＋</span>
+						</button>
+					</div>
+				</div>
+				<div class="mobile-view-switch" role="group" aria-label="Workspace view">
+					<button
+						type="button"
+						aria-controls="receipt-form"
+						:aria-pressed="mobileView === 'edit'"
+						@click="setMobileView('edit')"
+					>
+						Edit receipt</button
+					><button
+						type="button"
+						aria-controls="preview"
+						:aria-pressed="mobileView === 'preview'"
+						@click="setMobileView('preview')"
+					>
+						Preview
+					</button>
+				</div>
+				<div class="workspace" :data-mobile-view="mobileView">
+					<form id="receipt-form" class="receipt-editor" novalidate @submit.prevent="generatePDF">
+						<div
+							v-if="shownErrors.length"
+							id="error-summary"
+							class="error-summary"
+							tabindex="-1"
+							aria-labelledby="errors-title"
+						>
+							<h2 id="errors-title">A few details need attention</h2>
+							<p>
+								Your document has {{ shownErrors.length }}
+								{{ shownErrors.length === 1 ? 'issue' : 'issues' }}. Your work is still saved.
+							</p>
+							<ul>
+								<li v-for="error in shownErrors" :key="error.field + error.message">
+									<a :href="'#' + error.field" @click.prevent="focusField(error.field)">{{
+										error.message
+									}}</a>
+								</li>
+							</ul>
+						</div>
+						<section class="essentials" aria-labelledby="editor-title">
+							<div class="editor-heading">
+								<h2 id="editor-title">Your receipt</h2>
+								<span class="save-indicator" role="status" :title="saveStatus"
+									><span aria-hidden="true"></span>{{ shortSaveStatus }}</span
+								>
+							</div>
+							<div class="business-basics">
+								<div class="field">
+									<label for="f-bizname">Business name <span aria-hidden="true">*</span></label>
+									<input
+										id="f-bizname"
+										type="text"
+										v-model="receipt.businessName"
+										required
+										autocomplete="organization"
+										placeholder="e.g. Sunday Supply"
+										maxlength="100"
+										@blur="touch('f-bizname')"
+										:aria-invalid="!!errorFor('f-bizname')"
+										:aria-describedby="errorFor('f-bizname') ? 'f-bizname-error' : null"
+									/>
 
-    <title>Free Receipt Generator for Bookkeeping - Coffee & Fun LLC</title>
-    <meta name="title" content="Free Receipt Generator for Bookkeeping - Coffee & Fun LLC" />
-    <meta name="description" content="Create realistic thermal-style replacement receipts for bookkeeping, with barcode, tax and discount math, and an 80mm PDF download, all in your browser." />
-    <meta name="keywords" content="receipt generator, receipt maker, bookkeeping tool, replacement receipt, business receipt, PDF receipt, thermal receipt, tax calculator, Coffee & Fun" />
-    <meta name="author" content="Coffee & Fun LLC" />
-    <meta name="robots" content="index, follow" />
+									<p v-if="errorFor('f-bizname')" id="f-bizname-error" class="field-error">
+										{{ errorFor('f-bizname') }}
+									</p>
+								</div>
+								<div class="field">
+									<label for="f-currency">Currency</label
+									><select id="f-currency" v-model="receipt.currency">
+										<option v-for="currency in currencies" :key="currency.code" :value="currency.code">
+											{{ currency.code }} — {{ currency.symbol }}
+										</option>
+									</select>
+								</div>
+							</div>
+							<div class="items-section">
+								<div class="item-list">
+									<div
+										v-for="(item, index) in receipt.items"
+										:key="item.id"
+										class="item-edit"
+										role="group"
+										:aria-label="'Item ' + (index + 1)"
+									>
+										<div class="field item-desc-field">
+											<label :for="'item-desc-' + item.id" :class="{ 'sr-only': index > 0 }">Item</label
+											><input
+												:id="'item-desc-' + item.id"
+												type="text"
+												v-model="item.description"
+												maxlength="200"
+												placeholder="e.g. Coffee"
+												:aria-label="'Item ' + (index + 1) + ' description'"
+												@blur="touch('item-desc-' + item.id)"
+												@keydown.enter.prevent="focusField('item-qty-' + item.id)"
+												:aria-invalid="!!errorFor('item-desc-' + item.id)"
+												:aria-describedby="
+													errorFor('item-desc-' + item.id) ? 'item-desc-' + item.id + '-error' : null
+												"
+											/>
+											<p
+												v-if="errorFor('item-desc-' + item.id)"
+												:id="'item-desc-' + item.id + '-error'"
+												class="field-error"
+											>
+												{{ errorFor('item-desc-' + item.id) }}
+											</p>
+										</div>
+										<div class="field item-qty-field">
+											<label :for="'item-qty-' + item.id" :class="{ 'sr-only': index > 0 }">Qty</label
+											><input
+												:id="'item-qty-' + item.id"
+												type="number"
+												v-model="item.quantity"
+												min="0.001"
+												max="999999"
+												step="0.001"
+												inputmode="decimal"
+												:aria-label="'Item ' + (index + 1) + ' quantity (Qty)'"
+												@blur="touch('item-qty-' + item.id)"
+												@keydown.enter.prevent="focusField('item-price-' + item.id)"
+												:aria-invalid="!!errorFor('item-qty-' + item.id)"
+												:aria-describedby="
+													errorFor('item-qty-' + item.id) ? 'item-qty-' + item.id + '-error' : null
+												"
+											/>
+											<p
+												v-if="errorFor('item-qty-' + item.id)"
+												:id="'item-qty-' + item.id + '-error'"
+												class="field-error"
+											>
+												{{ errorFor('item-qty-' + item.id) }}
+											</p>
+										</div>
+										<div class="field item-price-field">
+											<label :for="'item-price-' + item.id" :class="{ 'sr-only': index > 0 }"
+												>Price ({{ currencyInfo.symbol }})</label
+											><input
+												:id="'item-price-' + item.id"
+												type="number"
+												v-model="item.price"
+												:step="currencyInfo.decimals ? '0.01' : '1'"
+												min="0"
+												inputmode="decimal"
+												:placeholder="currencyInfo.decimals ? '0.00' : '0'"
+												:aria-label="'Item ' + (index + 1) + ' price (' + currencyInfo.symbol + ')'"
+												@blur="touch('item-price-' + item.id)"
+												@keydown.enter.prevent="addItem"
+												:aria-invalid="!!errorFor('item-price-' + item.id)"
+												:aria-describedby="
+													errorFor('item-price-' + item.id) ? 'item-price-' + item.id + '-error' : null
+												"
+											/>
+											<p
+												v-if="errorFor('item-price-' + item.id)"
+												:id="'item-price-' + item.id + '-error'"
+												class="field-error"
+											>
+												{{ errorFor('item-price-' + item.id) }}
+											</p>
+										</div>
+										<button
+											type="button"
+											class="icon-button"
+											@click="removeItem(index)"
+											:aria-label="'Remove item ' + (index + 1)"
+										>
+											<svg
+												viewBox="0 0 24 24"
+												fill="none"
+												stroke="currentColor"
+												stroke-width="1.6"
+												aria-hidden="true"
+											>
+												<path d="m7 7 10 10M17 7 7 17" />
+											</svg>
+										</button>
+									</div>
+								</div>
+								<button
+									type="button"
+									class="button add-item"
+									@click="addItem"
+									:disabled="receipt.items.length >= 200"
+								>
+									<span aria-hidden="true">＋</span> Add item
+								</button>
+							</div>
+							<div class="quick-total">
+								<span
+									>Total <small>{{ receipt.currency }}</small></span
+								><strong>{{ money(totals.total) }}</strong>
+							</div>
+						</section>
+						<div class="optional-heading">MAKE IT YOURS <span>optional</span></div>
+						<details class="option-panel" id="business-options">
+							<summary>
+								<span><strong>Business details</strong><small>Address, contact &amp; logo</small></span
+								><span class="expand-icon" aria-hidden="true">＋</span>
+							</summary>
+							<div class="option-content">
+								<div class="field">
+									<label for="f-address">Business address</label
+									><textarea
+										id="f-address"
+										v-model="receipt.businessAddress"
+										rows="2"
+										maxlength="500"
+										autocomplete="street-address"
+										placeholder="Street address, city, ZIP or postal code"
+									></textarea>
+								</div>
+								<div class="field-grid">
+									<div class="field">
+										<label for="f-email">Email</label>
+										<input
+											id="f-email"
+											type="email"
+											v-model="receipt.businessEmail"
+											autocomplete="email"
+											maxlength="100"
+											placeholder="hello@example.com"
+											@blur="touch('f-email')"
+											:aria-invalid="!!errorFor('f-email')"
+											:aria-describedby="errorFor('f-email') ? 'f-email-error' : null"
+										/>
 
-    <link rel="canonical" href="https://www.coffeeandfun.com/receipt-generator/" />
-    <link rel="icon" href="/assets/images/brand/favicon.png" sizes="any" />
-    <link rel="apple-touch-icon" href="/assets/images/social/192.png" />
-    <link rel="icon" href="/assets/images/social/192.png" sizes="192x192" type="image/png" />
+										<p v-if="errorFor('f-email')" id="f-email-error" class="field-error">
+											{{ errorFor('f-email') }}
+										</p>
+									</div>
+									<div class="field">
+										<label for="f-phone">Phone</label>
+										<input
+											id="f-phone"
+											type="tel"
+											v-model="receipt.businessPhone"
+											autocomplete="tel"
+											maxlength="40"
+											placeholder="(555) 123-4567"
+											@blur="touch('f-phone')"
+											:aria-invalid="!!errorFor('f-phone')"
+											:aria-describedby="errorFor('f-phone') ? 'f-phone-error' : null"
+										/>
 
-    <meta property="og:type" content="website" />
-    <meta property="og:site_name" content="Coffee & Fun" />
-    <meta property="og:title" content="Free Receipt Generator for Bookkeeping - Coffee & Fun LLC" />
-    <meta property="og:description" content="Create realistic thermal-style replacement receipts for bookkeeping, with barcode, tax and discount math, and an 80mm PDF download, all in your browser." />
-    <meta property="og:url" content="https://www.coffeeandfun.com/receipt-generator/" />
-    <meta property="og:image" content="https://www.coffeeandfun.com/assets/images/social/pages/receipt-generator.png" />
-    <meta property="og:image:width" content="1200" />
-    <meta property="og:image:height" content="630" />
-    <meta property="og:image:alt" content="Receipt Generator card with an illustrated paper receipt and the Coffee & Fun logo" />
-    <meta property="og:locale" content="en_US" />
+										<p v-if="errorFor('f-phone')" id="f-phone-error" class="field-error">
+											{{ errorFor('f-phone') }}
+										</p>
+									</div>
+								</div>
+								<div class="logo-upload">
+									<div class="logo-tile" :class="{ 'has-logo': receipt.logo }">
+										<img v-if="receipt.logo" :src="receipt.logo" alt="Uploaded business logo" /><span
+											v-else
+											aria-hidden="true"
+											>＋</span
+										>
+									</div>
+									<div>
+										<label for="f-logo">{{ logoBusy ? 'Preparing your logo…' : 'Add your logo' }}</label
+										><input
+											id="f-logo"
+											type="file"
+											accept="image/png,image/jpeg,image/webp"
+											@change="handleLogoUpload"
+											:disabled="logoBusy"
+											aria-describedby="logo-hint"
+										/>
+										<p id="logo-hint" class="field-hint">PNG, JPG, or WebP · up to 5 MB</p>
+									</div>
+									<button
+										v-if="receipt.logo"
+										type="button"
+										class="button text-button"
+										@click="removeLogo"
+									>
+										Remove
+									</button>
+								</div>
+								<div class="card-footer">
+									<button type="button" class="button text-button" @click="saveBusinessInfo">
+										Save business details</button
+									><button
+										v-if="hasSavedBusinessInfo"
+										type="button"
+										class="button text-button"
+										@click="loadBusinessInfo(false)"
+									>
+										Load saved
+									</button>
+								</div>
+							</div>
+						</details>
+						<details class="option-panel" id="total-options">
+							<summary>
+								<span
+									><strong>Tax &amp; payment</strong><small>{{ adjustmentsSummary }}</small></span
+								><span class="expand-icon" aria-hidden="true">＋</span>
+							</summary>
+							<div class="option-content">
+								<div class="field-grid">
+									<div class="field">
+										<label for="f-tax">Tax rate (%)</label>
+										<input
+											id="f-tax"
+											type="number"
+											v-model="receipt.taxRate"
+											min="0"
+											max="100"
+											step="0.01"
+											inputmode="decimal"
+											placeholder="0"
+											@blur="touch('f-tax')"
+											:aria-invalid="!!errorFor('f-tax')"
+											:aria-describedby="errorFor('f-tax') ? 'f-tax-error' : null"
+										/>
 
-    <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:site" content="@bycoffeeandfun" />
-    <meta name="twitter:creator" content="@bycoffeeandfun" />
-    <meta name="twitter:title" content="Free Receipt Generator for Bookkeeping - Coffee & Fun LLC" />
-    <meta name="twitter:description" content="Create realistic thermal-style replacement receipts for bookkeeping, with barcode, tax and discount math, and an 80mm PDF download, all in your browser." />
-    <meta name="twitter:image" content="https://www.coffeeandfun.com/assets/images/social/pages/receipt-generator.png" />
-    <meta name="twitter:image:alt" content="Receipt Generator card with an illustrated paper receipt and the Coffee & Fun logo" />
+										<p v-if="errorFor('f-tax')" id="f-tax-error" class="field-error">
+											{{ errorFor('f-tax') }}
+										</p>
+									</div>
+									<div class="field">
+										<label for="f-discount">Discount</label>
+										<div class="joined-input">
+											<input
+												id="f-discount"
+												type="number"
+												v-model="receipt.discountValue"
+												min="0"
+												:max="receipt.discountType === 'percent' ? '100' : null"
+												:step="
+													receipt.discountType === 'percent' || currencyInfo.decimals ? '0.01' : '1'
+												"
+												inputmode="decimal"
+												placeholder="0"
+												@blur="touch('f-discount')"
+												:aria-invalid="!!errorFor('f-discount')"
+												:aria-describedby="errorFor('f-discount') ? 'f-discount-error' : null"
+											/><select v-model="receipt.discountType" aria-label="Discount type">
+												<option value="percent">%</option>
+												<option value="fixed">{{ currencyInfo.symbol }}</option>
+											</select>
+										</div>
+										<p v-if="errorFor('f-discount')" id="f-discount-error" class="field-error">
+											{{ errorFor('f-discount') }}
+										</p>
+									</div>
+								</div>
+								<p class="field-hint">Discounts apply before tax.</p>
+								<div class="field">
+									<label for="f-pay">Payment method</label
+									><select id="f-pay" v-model="receipt.paymentMethod">
+										<option v-for="method in paymentMethods" :key="method">{{ method }}</option>
+									</select>
+								</div>
+								<div v-if="receipt.paymentMethod === 'Cash' || isInvoice">
+									<div class="field">
+										<label for="f-paid">{{
+											isInvoice ? 'Amount already paid (optional)' : 'Cash received (optional)'
+										}}</label>
+										<input
+											id="f-paid"
+											type="number"
+											v-model="receipt.amountPaid"
+											min="0"
+											:step="currencyInfo.decimals ? '0.01' : '1'"
+											inputmode="decimal"
+											placeholder="0"
+											@blur="touch('f-paid')"
+											:aria-invalid="!!errorFor('f-paid')"
+											:aria-describedby="errorFor('f-paid') ? 'f-paid-error' : null"
+										/>
 
-    <link rel="manifest" href="/assets/images/social/site.webmanifest" />
-    <meta name="theme-color" content="#fef5ec" />
-    <meta name="mobile-web-app-capable" content="yes" />
-    <meta name="apple-mobile-web-app-capable" content="yes" />
-    <meta name="apple-mobile-web-app-status-bar-style" content="default" />
-    <meta name="apple-mobile-web-app-title" content="Receipt Generator" />
+										<p v-if="errorFor('f-paid')" id="f-paid-error" class="field-error">
+											{{ errorFor('f-paid') }}
+										</p>
+									</div>
+									<p v-if="cashEntered" class="payment-result">
+										{{
+											totals.change >= 0
+												? isInvoice
+													? 'Overpayment'
+													: 'Change to give'
+												: 'Balance due'
+										}}<strong>{{ money(Math.abs(totals.change)) }}</strong>
+									</p>
+								</div>
+							</div>
+						</details>
+						<details class="option-panel" id="document-options">
+							<summary>
+								<span
+									><strong>Date &amp; receipt number</strong
+									><small>{{ displayDate(receipt.date) }} · {{ receipt.receiptNumber }}</small></span
+								><span class="expand-icon" aria-hidden="true">＋</span>
+							</summary>
+							<div class="option-content">
+								<div class="field-grid">
+									<div class="field">
+										<label for="f-date">Date <span aria-hidden="true">*</span></label>
+										<input
+											id="f-date"
+											type="date"
+											v-model="receipt.date"
+											required
+											@blur="touch('f-date')"
+											:aria-invalid="!!errorFor('f-date')"
+											:aria-describedby="errorFor('f-date') ? 'f-date-error' : null"
+										/>
 
-    {% include schema-org.liquid %}
+										<p v-if="errorFor('f-date')" id="f-date-error" class="field-error">
+											{{ errorFor('f-date') }}
+										</p>
+									</div>
+									<div class="field">
+										<label for="f-time">Time <span aria-hidden="true">*</span></label>
+										<input
+											id="f-time"
+											type="time"
+											v-model="receipt.time"
+											required
+											@blur="touch('f-time')"
+											:aria-invalid="!!errorFor('f-time')"
+											:aria-describedby="errorFor('f-time') ? 'f-time-error' : null"
+										/>
 
-    {% bundledCss %}
-    {% include scripts.html %}
-    {% include sketch-styles.liquid %}
+										<p v-if="errorFor('f-time')" id="f-time-error" class="field-error">
+											{{ errorFor('f-time') }}
+										</p>
+									</div>
+									<div class="field">
+										<label for="f-number">{{ numberLabel }} <span aria-hidden="true">*</span></label>
+										<input
+											id="f-number"
+											type="text"
+											v-model="receipt.receiptNumber"
+											required
+											maxlength="24"
+											placeholder="RCP-0001"
+											@blur="touch('f-number')"
+											:aria-invalid="!!errorFor('f-number')"
+											:aria-describedby="errorFor('f-number') ? 'f-number-error' : null"
+										/>
 
-    <script src="https://unpkg.com/vue@3"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+										<p v-if="errorFor('f-number')" id="f-number-error" class="field-error">
+											{{ errorFor('f-number') }}
+										</p>
+									</div>
+									<div class="field">
+										<label for="f-cashier">Served by (optional)</label>
+										<input
+											id="f-cashier"
+											type="text"
+											v-model="receipt.cashier"
+											maxlength="60"
+											placeholder="Staff name"
+											@blur="touch('f-cashier')"
+											:aria-invalid="!!errorFor('f-cashier')"
+											:aria-describedby="errorFor('f-cashier') ? 'f-cashier-error' : null"
+										/>
 
-    {% pageCss "receipt-generator" %}
+										<p v-if="errorFor('f-cashier')" id="f-cashier-error" class="field-error">
+											{{ errorFor('f-cashier') }}
+										</p>
+									</div>
+								</div>
+							</div>
+						</details>
+						<details class="option-panel" id="customer-options" v-if="isInvoice">
+							<summary>
+								<span><strong>Customer details</strong><small>Name, address &amp; due date</small></span
+								><span class="expand-icon" aria-hidden="true">＋</span>
+							</summary>
+							<div class="option-content">
+								<div class="field">
+									<label for="f-customer">Customer name (optional)</label>
+									<input
+										id="f-customer"
+										type="text"
+										v-model="receipt.customerName"
+										maxlength="100"
+										autocomplete="off"
+										placeholder="Customer or company"
+										@blur="touch('f-customer')"
+										:aria-invalid="!!errorFor('f-customer')"
+										:aria-describedby="errorFor('f-customer') ? 'f-customer-error' : null"
+									/>
 
-    <script type="application/ld+json">
-      {
-        "@context": "https://schema.org",
-        "@type": "WebApplication",
-        "@id": "https://www.coffeeandfun.com/receipt-generator/#webpage",
-        "url": "https://www.coffeeandfun.com/receipt-generator/",
-        "name": "Free Receipt Generator",
-        "description": "Generate realistic thermal-style replacement receipts for bookkeeping with our privacy-focused tool.",
-        "isPartOf": {
-          "@id": "https://www.coffeeandfun.com/#website"
-        },
-        "applicationCategory": "BusinessApplication",
-        "publisher": {
-          "@id": "https://www.coffeeandfun.com/#organization"
-        },
-        "creator": {
-          "@id": "https://www.coffeeandfun.com/#founder"
-        },
-        "isAccessibleForFree": true,
-        "inLanguage": "en",
-        "offers": {
-          "@type": "Offer",
-          "price": "0",
-          "priceCurrency": "USD"
-        },
-        "featureList": [
-          "Realistic 80mm thermal receipt PDF",
-          "Scannable Code 39 barcode",
-          "Tax and discount calculations",
-          "Multi-currency support",
-          "Cash tendered and change",
-          "Auto-incrementing receipt numbers",
-          "Draft autosave",
-          "Local processing",
-          "No data tracking"
-        ]
-      }
-    </script>
-</head>
+									<p v-if="errorFor('f-customer')" id="f-customer-error" class="field-error">
+										{{ errorFor('f-customer') }}
+									</p>
+								</div>
+								<div class="field">
+									<label for="f-customer-address">Customer address (optional)</label
+									><textarea
+										id="f-customer-address"
+										v-model="receipt.customerAddress"
+										rows="2"
+										maxlength="500"
+									></textarea>
+								</div>
+								<div class="field-grid">
+									<div class="field">
+										<label for="f-customer-email">Customer email (optional)</label>
+										<input
+											id="f-customer-email"
+											type="email"
+											v-model="receipt.customerEmail"
+											maxlength="100"
+											autocomplete="off"
+											@blur="touch('f-customer-email')"
+											:aria-invalid="!!errorFor('f-customer-email')"
+											:aria-describedby="errorFor('f-customer-email') ? 'f-customer-email-error' : null"
+										/>
 
-<body>
-    {% assign showFun = true %}
-    {% assign showMiddleBadgeWithText = true %}
-    {% include header.liquid %}
+										<p
+											v-if="errorFor('f-customer-email')"
+											id="f-customer-email-error"
+											class="field-error"
+										>
+											{{ errorFor('f-customer-email') }}
+										</p>
+									</div>
+									<div class="field">
+										<label for="f-due">Due date (optional)</label>
+										<input
+											id="f-due"
+											type="date"
+											v-model="receipt.dueDate"
+											:min="receipt.date"
+											@blur="touch('f-due')"
+											:aria-invalid="!!errorFor('f-due')"
+											:aria-describedby="errorFor('f-due') ? 'f-due-error' : null"
+										/>
 
-    {% include tool-hero.liquid %}
+										<p v-if="errorFor('f-due')" id="f-due-error" class="field-error">
+											{{ errorFor('f-due') }}
+										</p>
+									</div>
+								</div>
+							</div>
+						</details>
+						<details class="option-panel" id="notes-options">
+							<summary>
+								<span
+									><strong>Notes &amp; extras</strong
+									><small>Message, store &amp; payment notes</small></span
+								><span class="expand-icon" aria-hidden="true">＋</span>
+							</summary>
+							<div class="option-content">
+								<div class="field">
+									<label for="f-note">Thank-you message (optional)</label
+									><textarea
+										id="f-note"
+										v-model="receipt.footerNote"
+										rows="2"
+										maxlength="500"
+										placeholder="Thank you for your business!"
+									></textarea>
+								</div>
+								<div v-if="receipt.template === 'compact'">
+									<div class="field">
+										<label for="f-header-note">Top message (Compact)</label
+										><textarea
+											id="f-header-note"
+											v-model="receipt.headerNote"
+											rows="2"
+											maxlength="500"
+										></textarea>
+									</div>
+									<div class="field">
+										<label for="f-tagline">Store tagline (Compact)</label>
+										<input
+											id="f-tagline"
+											type="text"
+											v-model="receipt.tagline"
+											maxlength="100"
+											@blur="touch('f-tagline')"
+											:aria-invalid="!!errorFor('f-tagline')"
+											:aria-describedby="errorFor('f-tagline') ? 'f-tagline-error' : null"
+										/>
 
-    <main id="main-content">
-        <div v-cloak id="app" style="max-width: 960px; margin: 0 auto; padding: 2rem 1.25rem 4rem;">
+										<p v-if="errorFor('f-tagline')" id="f-tagline-error" class="field-error">
+											{{ errorFor('f-tagline') }}
+										</p>
+									</div>
+								</div>
+								<div class="field-grid">
+									<div class="field">
+										<label for="f-store">Store number (optional)</label>
+										<input
+											id="f-store"
+											type="text"
+											v-model="receipt.storeNumber"
+											maxlength="24"
+											placeholder="01"
+											@blur="touch('f-store')"
+											:aria-invalid="!!errorFor('f-store')"
+											:aria-describedby="errorFor('f-store') ? 'f-store-error' : null"
+										/>
 
-            <!-- Header -->
-            <header style="text-align: center; margin-bottom: 2.5rem;">
-                <div style="display: flex; gap: 0.6rem; justify-content: center; flex-wrap: wrap; align-items: center;">
-                    <span class="privacy-pill">
-                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
-                        All data stays in your browser
-                    </span>
-                    <button @click="loadExample" class="btn-brand btn-ghost-brand btn-sm-brand">Try an example receipt</button>
-                </div>
-            </header>
+										<p v-if="errorFor('f-store')" id="f-store-error" class="field-error">
+											{{ errorFor('f-store') }}
+										</p>
+									</div>
+									<div class="field">
+										<label for="f-register">Register (optional)</label>
+										<input
+											id="f-register"
+											type="text"
+											v-model="receipt.register"
+											maxlength="24"
+											placeholder="02"
+											@blur="touch('f-register')"
+											:aria-invalid="!!errorFor('f-register')"
+											:aria-describedby="errorFor('f-register') ? 'f-register-error' : null"
+										/>
 
-            <!-- Screen reader announcements: total updates (debounced) -->
-            <div class="sr-only" role="status">{% raw %}{{ totalAnnouncement }}{% endraw %}</div>
+										<p v-if="errorFor('f-register')" id="f-register-error" class="field-error">
+											{{ errorFor('f-register') }}
+										</p>
+									</div>
+								</div>
+								<div class="field">
+									<label for="f-warranty">Warranty (optional)</label
+									><textarea
+										id="f-warranty"
+										v-model="receipt.warranty"
+										rows="2"
+										maxlength="500"
+									></textarea>
+								</div>
+								<div class="field">
+									<label for="f-returns">Return policy (optional)</label
+									><textarea
+										id="f-returns"
+										v-model="receipt.returnPolicy"
+										rows="2"
+										maxlength="500"
+									></textarea>
+								</div>
+								<div v-if="isInvoice">
+									<div class="field">
+										<label for="f-payment-url">Online payment link (optional)</label>
+										<input
+											id="f-payment-url"
+											type="url"
+											v-model="receipt.paymentUrl"
+											maxlength="200"
+											placeholder="https://…"
+											@blur="touch('f-payment-url')"
+											:aria-invalid="!!errorFor('f-payment-url')"
+											:aria-describedby="errorFor('f-payment-url') ? 'f-payment-url-error' : null"
+										/>
 
-            <div style="display: grid; grid-template-columns: 1fr; gap: 2rem;" class="receipt-layout">
+										<p v-if="errorFor('f-payment-url')" id="f-payment-url-error" class="field-error">
+											{{ errorFor('f-payment-url') }}
+										</p>
+									</div>
+									<div class="field">
+										<label for="f-instructions">Payment instructions (optional)</label
+										><textarea
+											id="f-instructions"
+											v-model="receipt.paymentInstructions"
+											rows="2"
+											maxlength="500"
+											placeholder="How and where your customer can pay"
+										></textarea>
+									</div>
+								</div>
+								<div v-if="receipt.template === 'compact'" class="compact-fields">
+									<h3>Transaction details</h3>
+									<div class="field-grid">
+										<div class="field">
+											<label for="f-transaction">Transaction reference</label>
+											<input
+												id="f-transaction"
+												type="text"
+												v-model="receipt.transactionId"
+												maxlength="32"
+												@blur="touch('f-transaction')"
+												:aria-invalid="!!errorFor('f-transaction')"
+												:aria-describedby="errorFor('f-transaction') ? 'f-transaction-error' : null"
+											/>
 
-                <!-- LEFT: Form -->
-                <div style="display: flex; flex-direction: column; gap: 1.5rem;">
+											<p v-if="errorFor('f-transaction')" id="f-transaction-error" class="field-error">
+												{{ errorFor('f-transaction') }}
+											</p>
+										</div>
+										<div class="field">
+											<label for="f-terminal">Terminal</label>
+											<input
+												id="f-terminal"
+												type="text"
+												v-model="receipt.terminalId"
+												maxlength="24"
+												@blur="touch('f-terminal')"
+												:aria-invalid="!!errorFor('f-terminal')"
+												:aria-describedby="errorFor('f-terminal') ? 'f-terminal-error' : null"
+											/>
 
-                    <!-- Business Info -->
-                    <fieldset class="form-section">
-                        <legend class="section-title">Business Information</legend>
-                        <div style="display: flex; flex-direction: column; gap: 0.85rem;">
-                            <div>
-                                <label class="form-label" for="f-bizname">Company Name *</label>
-                                <input id="f-bizname" type="text" v-model="receipt.businessName" placeholder="Your Business Name" class="form-input" autocomplete="organization" />
-                            </div>
-                            <div>
-                                <label class="form-label" for="f-address">Address</label>
-                                <textarea id="f-address" v-model="receipt.businessAddress" placeholder="123 Main St, City, State ZIP" class="form-input" rows="2"></textarea>
-                            </div>
-                            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 0.75rem;">
-                                <div>
-                                    <label class="form-label" for="f-phone">Phone</label>
-                                    <input id="f-phone" type="tel" v-model="receipt.businessPhone" placeholder="(555) 123-4567" class="form-input" autocomplete="tel" />
-                                </div>
-                                <div>
-                                    <label class="form-label" for="f-email">Email</label>
-                                    <input id="f-email" type="email" v-model="receipt.businessEmail" placeholder="info@business.com" class="form-input" autocomplete="email" />
-                                </div>
-                            </div>
-                            <div>
-                                <label class="form-label" for="f-logo">Logo <span class="optional-tag">(optional, printed black &amp; white, like a real register)</span></label>
-                                <input id="f-logo" type="file" @change="handleLogoUpload" accept="image/png,image/jpeg,image/webp" class="form-input" style="padding: 0.4rem;" />
-                                <button v-if="receipt.logo" @click="removeLogo" class="btn-brand btn-danger btn-sm-brand" style="margin-top: 0.5rem;">Remove Logo</button>
-                            </div>
-                            <div style="display: flex; gap: 0.5rem; flex-wrap: wrap;">
-                                <button @click="saveBusinessInfo(false)" class="btn-brand btn-ghost-brand btn-sm-brand">Remember my details</button>
-                                <button v-if="hasSavedBusinessInfo" @click="loadBusinessInfo(false)" class="btn-brand btn-ghost-brand btn-sm-brand">Load saved details</button>
-                            </div>
-                        </div>
-                    </fieldset>
+											<p v-if="errorFor('f-terminal')" id="f-terminal-error" class="field-error">
+												{{ errorFor('f-terminal') }}
+											</p>
+										</div>
+										<div class="field">
+											<label for="f-card-last4">Card last four digits</label>
+											<input
+												id="f-card-last4"
+												type="text"
+												v-model="receipt.cardLast4"
+												maxlength="4"
+												inputmode="numeric"
+												pattern="[0-9]{4}"
+												placeholder="1234"
+												@blur="touch('f-card-last4')"
+												:aria-invalid="!!errorFor('f-card-last4')"
+												:aria-describedby="errorFor('f-card-last4') ? 'f-card-last4-error' : null"
+											/>
 
-                    <!-- Receipt Details -->
-                    <fieldset class="form-section">
-                        <legend class="section-title">Receipt Details</legend>
-                        <div style="display: flex; flex-direction: column; gap: 0.85rem;">
-                            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 0.75rem;">
-                                <div>
-                                    <label class="form-label" for="f-rcpnum">Receipt Number</label>
-                                    <input id="f-rcpnum" type="text" v-model="receipt.receiptNumber" placeholder="RCP-0001" maxlength="16" class="form-input" />
-                                </div>
-                                <div>
-                                    <label class="form-label" for="f-date">Date *</label>
-                                    <input id="f-date" type="date" v-model="receipt.date" class="form-input" />
-                                </div>
-                            </div>
-                            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 0.75rem;">
-                                <div>
-                                    <label class="form-label" for="f-pay">Payment Method</label>
-                                    <select id="f-pay" v-model="receipt.paymentMethod" class="form-input">
-                                        <option>Cash</option>
-                                        <option>Credit Card</option>
-                                        <option>Debit Card</option>
-                                        <option>Check</option>
-                                        <option>Bank Transfer</option>
-                                        <option>Other</option>
-                                    </select>
-                                </div>
-                                <div>
-                                    <label class="form-label" for="f-currency">Currency</label>
-                                    <select id="f-currency" v-model="receipt.currency" class="form-input">
-                                        <option v-for="c in currencies" :key="c.code" :value="c.code">{% raw %}{{ c.code }} ({{ c.symbol }}){% endraw %}</option>
-                                    </select>
-                                </div>
-                            </div>
-                            <div>
-                                <label class="form-label" for="f-cashier">Served By <span class="optional-tag">(optional)</span></label>
-                                <input id="f-cashier" type="text" v-model="receipt.cashier" placeholder="Cashier or staff name" class="form-input" />
-                            </div>
-                        </div>
-                    </fieldset>
+											<p v-if="errorFor('f-card-last4')" id="f-card-last4-error" class="field-error">
+												{{ errorFor('f-card-last4') }}
+											</p>
+										</div>
+										<div class="field">
+											<label for="f-authorization">Authorization code</label>
+											<input
+												id="f-authorization"
+												type="text"
+												v-model="receipt.authorization"
+												maxlength="24"
+												@blur="touch('f-authorization')"
+												:aria-invalid="!!errorFor('f-authorization')"
+												:aria-describedby="errorFor('f-authorization') ? 'f-authorization-error' : null"
+											/>
 
-                    <!-- Items -->
-                    <fieldset class="form-section">
-                        <legend class="section-title">Items</legend>
-                        <div style="display: flex; flex-direction: column; gap: 0.75rem;">
-                            <div v-for="(item, index) in receipt.items" :key="index" class="item-row" role="group" :aria-label="'Item ' + (index + 1)">
-                                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.5rem;">
-                                    <span style="font-size: 0.75rem; font-weight: 600; color: var(--color-caramel);">{% raw %}ITEM {{ index + 1 }}{% endraw %}</span>
-                                    <button v-if="receipt.items.length > 1" @click="removeItem(index)" :aria-label="'Remove item ' + (index + 1)" class="item-remove">&times;</button>
-                                </div>
-                                <div style="display: grid; grid-template-columns: 1fr auto auto; gap: 0.5rem;">
-                                    <input type="text" :id="'item-desc-' + index" v-model="item.description" placeholder="Description" :aria-label="'Item ' + (index + 1) + ' description'" @keydown.enter.prevent="focusEl('item-qty-' + index)" class="form-input" style="font-size: 0.85rem; padding: 0.45rem 0.65rem;" />
-                                    <input type="number" :id="'item-qty-' + index" v-model.number="item.quantity" placeholder="Qty" min="0" step="1" :aria-label="'Item ' + (index + 1) + ' quantity'" @keydown.enter.prevent="focusEl('item-price-' + index)" @wheel="$event.target.blur()" class="form-input" style="width: 4rem; font-size: 0.85rem; padding: 0.45rem 0.5rem; text-align: center;" />
-                                    <input type="number" :id="'item-price-' + index" v-model.number="item.price" placeholder="Price" step="0.01" min="0" :aria-label="'Item ' + (index + 1) + ' unit price'" @keydown.enter.prevent="addItem(true)" @wheel="$event.target.blur()" class="form-input" style="width: 5.5rem; font-size: 0.85rem; padding: 0.45rem 0.5rem;" />
-                                </div>
-                                <div v-if="item.description && item.quantity > 0 && item.price > 0" class="line-total">{% raw %}Line total: {{ formatMoney(item.quantity * item.price) }}{% endraw %}</div>
-                            </div>
-                            <button ref="addItemBtn" @click="addItem(true)" class="btn-brand btn-secondary-brand" style="width: 100%; justify-content: center;">+ Add Item</button>
-                            <p class="sr-only">Tip: press Enter to move between item fields; Enter on a price adds the next item.</p>
-                        </div>
+											<p
+												v-if="errorFor('f-authorization')"
+												id="f-authorization-error"
+												class="field-error"
+											>
+												{{ errorFor('f-authorization') }}
+											</p>
+										</div>
+									</div>
+								</div>
+							</div>
+						</details>
+						<p class="editor-footnote">
+							<span>Dates and receipt numbers are filled in for you.</span
+							><button type="button" @click="clearDeviceData">Clear saved data</button>
+						</p>
+					</form>
+					<aside class="preview-column" aria-labelledby="preview-title">
+						<div class="preview-sticky">
+							<div class="preview-heading">
+								<div>
+									<span class="live-dot" aria-hidden="true"></span>
+									<h2 id="preview-title">Live preview</h2>
+									<button type="button" class="preview-edit-link" @click="setMobileView('edit')">
+										Edit details ↑
+									</button>
+								</div>
+								<span>{{ activeTemplate.size }}</span>
+							</div>
+							<div
+								class="preview-stage"
+								:class="{ 'invoice-stage': isInvoice }"
+								id="preview"
+								tabindex="0"
+								aria-label="Receipt preview; scroll to see the full document"
+							>
+								<article
+									id="receipt-preview"
+									class="document-paper"
+									:class="'paper-' + receipt.template"
+									aria-label="Document preview"
+								>
+									<template v-if="isInvoice">
+										<div class="invoice-top">
+											<div>
+												<h3>Invoice</h3>
+												<p class="document-number">
+													Invoice number {{ receipt.receiptNumber || 'Add a number' }}
+												</p>
+												<p>Issued {{ displayDate(receipt.date) }}</p>
+												<p v-if="receipt.dueDate">Date due {{ displayDate(receipt.dueDate) }}</p>
+											</div>
+											<img v-if="receipt.logo" :src="receipt.logo" alt="" class="document-logo" /><span
+												v-else
+												class="invoice-mark"
+												aria-hidden="true"
+												>{{ receipt.businessName.trim().slice(0, 1).toUpperCase() || 'Y' }}</span
+											>
+										</div>
+										<div class="invoice-parties">
+											<div>
+												<strong>{{ receipt.businessName || 'Your business' }}</strong>
+												<p class="preserve-lines">{{ receipt.businessAddress }}</p>
+												<p>{{ receipt.businessEmail }}</p>
+												<p>{{ receipt.businessPhone }}</p>
+											</div>
+											<div>
+												<p class="document-label">Bill to</p>
+												<strong>{{ receipt.customerName || 'Customer name' }}</strong>
+												<p class="preserve-lines">{{ receipt.customerAddress }}</p>
+												<p>{{ receipt.customerEmail }}</p>
+											</div>
+										</div>
+										<p class="invoice-due">
+											{{ money(totals.balance) }}
+											<span>{{
+												receipt.dueDate ? 'due ' + displayDate(receipt.dueDate) : 'amount due'
+											}}</span>
+										</p>
+										<a
+											v-if="receipt.paymentUrl && !errors.some((e) => e.field === 'f-payment-url')"
+											:href="receipt.paymentUrl"
+											target="_blank"
+											rel="noopener noreferrer"
+											class="invoice-payment-link"
+											>Pay online</a
+										>
+										<p class="preserve-lines invoice-thanks">
+											{{ receipt.footerNote || 'Thank you for your business!' }}
+										</p>
+										<table class="invoice-table">
+											<caption class="sr-only">
+												Invoice items
+											</caption>
+											<thead>
+												<tr>
+													<th scope="col">Description</th>
+													<th scope="col">Qty</th>
+													<th scope="col">Unit price</th>
+													<th scope="col">Amount</th>
+												</tr>
+											</thead>
+											<tbody>
+												<tr v-for="item in totals.items" :key="item.id">
+													<td>{{ item.description }}</td>
+													<td>{{ item.quantity }}</td>
+													<td>{{ money(item.priceMinor) }}</td>
+													<td>{{ money(item.totalMinor) }}</td>
+												</tr>
+												<tr v-if="!totals.items.length">
+													<td colspan="4" class="document-empty">Your items will appear here</td>
+												</tr>
+											</tbody>
+										</table>
+									</template>
+									<template v-else>
+										<div v-if="receipt.template === 'compact'" class="compact-promo">
+											<p class="preserve-lines">{{ receipt.headerNote }}</p>
+											<p>ID #: &nbsp; {{ receipt.receiptNumber }}</p>
+											<hr />
+										</div>
+										<div class="document-header">
+											<img v-if="receipt.logo" :src="receipt.logo" alt="" class="document-logo" />
+											<div
+												v-else-if="receipt.template === 'retail'"
+												class="placeholder-logo"
+												aria-label="Replaceable logo placeholder"
+											>
+												YOUR<br />LOGO
+											</div>
+											<h3>
+												{{ receipt.businessName || 'Your business'
+												}}<span v-if="receipt.template === 'retail' && receipt.storeNumber">
+													#{{ receipt.storeNumber }}</span
+												>
+											</h3>
+											<template v-if="receipt.template === 'compact'"
+												><p v-if="receipt.tagline" class="compact-tagline">{{ receipt.tagline }}</p>
+												<p>{{ receipt.businessPhone }}</p>
+												<p v-if="receipt.cashier">MANAGER {{ receipt.cashier }}</p>
+												<p class="preserve-lines">
+													{{ receipt.businessAddress || 'Your business address' }}
+												</p></template
+											>
+											<template v-else
+												><p class="preserve-lines">
+													{{ receipt.businessAddress || 'Your business address' }}
+												</p>
+												<p v-if="receipt.businessPhone">{{ receipt.businessPhone }}</p>
+												<p v-if="receipt.businessEmail">{{ receipt.businessEmail }}</p></template
+											>
+										</div>
+										<div class="document-meta">
+											<template v-if="receipt.template === 'compact'"
+												><p>
+													<span v-if="receipt.storeNumber">ST# {{ receipt.storeNumber }} </span
+													><span v-if="receipt.register"> TE# {{ receipt.register }} </span
+													><span v-if="receipt.transactionId"> TR# {{ receipt.transactionId }}</span>
+												</p></template
+											>
+											<template v-else
+												><p v-if="receipt.cashier || receipt.register">
+													<span v-if="receipt.cashier">Cashier: {{ receipt.cashier }}</span
+													><span v-if="receipt.register"
+														>{{ receipt.cashier ? ' | ' : '' }}Register: {{ receipt.register }}</span
+													>
+												</p>
+												<p>Date: {{ numericDate(receipt.date) }} | Time: {{ receipt.time }}</p>
+												<p v-if="receipt.template === 'classic'">
+													#{{ receipt.receiptNumber || 'Add a number' }}
+												</p></template
+											>
+										</div>
+										<hr v-if="receipt.template !== 'compact'" />
+										<div class="receipt-items">
+											<div v-for="item in totals.items" :key="item.id" class="receipt-line">
+												<div class="document-row">
+													<span>{{ item.description }}</span
+													><span>{{ documentMoney(item.totalMinor) }}</span>
+												</div>
+												<p v-if="item.quantity !== 1" class="quantity-detail">
+													{{ item.quantity }} @ {{ documentMoney(item.priceMinor) }}
+												</p>
+											</div>
+											<div v-if="!totals.items.length" class="document-empty">
+												<span class="empty-line"></span><span class="empty-line"></span>
+												<p>Your items will appear here</p>
+											</div>
+										</div>
+										<hr v-if="receipt.template !== 'compact'" />
+									</template>
+									<div class="document-totals">
+										<div class="document-row">
+											<span>Subtotal</span><span>{{ documentMoney(totals.subtotal) }}</span>
+										</div>
+										<div v-if="totals.discount" class="document-row">
+											<span
+												>Discount{{
+													receipt.discountType === 'percent' ? ' (' + receipt.discountValue + '%)' : ''
+												}}</span
+											><span>−{{ documentMoney(totals.discount) }}</span>
+										</div>
+										<div v-if="receipt.taxRate > 0" class="document-row">
+											<span>Tax ({{ receipt.taxRate }}%)</span
+											><span>{{ documentMoney(totals.tax) }}</span>
+										</div>
+										<div class="document-row document-total">
+											<strong>Total</strong><strong>{{ documentMoney(totals.total) }}</strong>
+										</div>
+										<template v-if="isInvoice"
+											><div v-if="totals.amountPaid" class="document-row">
+												<span>Amount paid</span><span>{{ money(totals.amountPaid) }}</span>
+											</div>
+											<div class="document-row document-due">
+												<strong>Amount due</strong><strong>{{ money(totals.balance) }}</strong>
+											</div>
+											<div v-if="totals.change > 0" class="document-row">
+												<span>Overpayment</span><span>{{ money(totals.change) }}</span>
+											</div></template
+										>
+										<template v-else-if="receipt.template !== 'retail'"
+											><div class="document-row">
+												<span>{{
+													receipt.template === 'compact' ? receipt.paymentMethod + ' TEND' : 'Payment'
+												}}</span
+												><span>{{
+													receipt.template === 'compact'
+														? documentMoney(
+																receipt.paymentMethod === 'Cash' && cashEntered
+																	? totals.amountPaid
+																	: totals.total
+															)
+														: receipt.paymentMethod
+												}}</span>
+											</div>
+											<template v-if="receipt.paymentMethod === 'Cash' && cashEntered"
+												><div v-if="receipt.template !== 'compact'" class="document-row">
+													<span>Cash received</span><span>{{ documentMoney(totals.amountPaid) }}</span>
+												</div>
+												<div class="document-row">
+													<span>{{ totals.change >= 0 ? 'Change due' : 'Balance due' }}</span
+													><span>{{ documentMoney(Math.abs(totals.change)) }}</span>
+												</div></template
+											></template
+										>
+									</div>
+									<div v-if="receipt.template === 'retail'" class="retail-policies">
+										<hr />
+										<div v-if="receipt.warranty" class="document-row">
+											<span>Warranty</span><span>{{ receipt.warranty }}</span>
+										</div>
+										<div v-if="receipt.returnPolicy" class="document-row">
+											<span>Return period</span><span>{{ receipt.returnPolicy }}</span>
+										</div>
+										<div class="document-row">
+											<span>Payment</span><span>{{ receipt.paymentMethod }}</span>
+										</div>
+										<template v-if="receipt.paymentMethod === 'Cash' && cashEntered"
+											><div class="document-row">
+												<span>Cash received</span><span>{{ money(totals.amountPaid) }}</span>
+											</div>
+											<div class="document-row">
+												<span>{{ totals.change >= 0 ? 'Change' : 'Balance due' }}</span
+												><span>{{ money(Math.abs(totals.change)) }}</span>
+											</div></template
+										>
+									</div>
+									<div v-if="receipt.template === 'compact'" class="compact-payment">
+										<p>{{ receipt.paymentMethod }} &nbsp; PAYMENT</p>
+										<p>{{ money(totals.total) }} TOTAL PURCHASE</p>
+										<p v-if="receipt.cardLast4 && receipt.paymentMethod !== 'Cash'">
+											CARD **** **** **** {{ receipt.cardLast4 }}
+										</p>
+										<p v-if="receipt.transactionId">REF # {{ receipt.transactionId }}</p>
+										<p v-if="receipt.authorization">APPR CODE {{ receipt.authorization }}</p>
+										<p v-if="receipt.terminalId">TERMINAL # {{ receipt.terminalId }}</p>
+										<p class="compact-payment-date">
+											{{ numericDate(receipt.date) }} &nbsp; {{ receipt.time }}
+										</p>
+									</div>
+									<div
+										v-if="
+											receipt.template !== 'retail' &&
+											(receipt.template !== 'compact' || receipt.warranty || receipt.returnPolicy)
+										"
+										class="document-notes"
+									>
+										<div v-if="isInvoice && receipt.paymentInstructions">
+											<strong>Payment instructions</strong>
+											<p class="preserve-lines">{{ receipt.paymentInstructions }}</p>
+										</div>
+										<div v-if="receipt.warranty">
+											<strong>Warranty</strong>
+											<p class="preserve-lines">{{ receipt.warranty }}</p>
+										</div>
+										<div v-if="receipt.returnPolicy">
+											<strong>Returns</strong>
+											<p class="preserve-lines">{{ receipt.returnPolicy }}</p>
+										</div>
+										<p v-if="receipt.template === 'classic'" class="preserve-lines thank-you">
+											{{ receipt.footerNote || 'Thank you for your business!' }}
+										</p>
+									</div>
+									<div v-if="!isInvoice" class="document-barcode">
+										<p v-if="receipt.template !== 'retail'">
+											{{
+												receipt.template === 'compact'
+													? '# ITEMS SOLD ' + itemCount
+													: itemCount + (itemCount === 1 ? ' item' : ' items')
+											}}
+										</p>
+										<p v-if="receipt.template === 'compact'" class="compact-tc">
+											TC# {{ barcodeText }}
+										</p>
+										<svg
+											:viewBox="'0 0 ' + barcode.width + ' 45'"
+											preserveAspectRatio="none"
+											aria-hidden="true"
+										>
+											<rect
+												v-for="(bar, index) in barcode.bars"
+												:key="index"
+												:x="bar.x"
+												y="0"
+												:width="bar.width"
+												height="45"
+												fill="currentColor"
+											/>
+										</svg>
+										<p v-if="receipt.template === 'classic'" class="barcode-text">
+											{{ barcodeText }}
+										</p>
+									</div>
+									<p
+										v-if="receipt.template === 'retail' || receipt.template === 'compact'"
+										class="preserve-lines thank-you after-barcode"
+									>
+										{{ receipt.footerNote || 'Thank you for your business!' }}
+									</p>
+									<div v-if="receipt.template === 'compact'" class="compact-bottom">
+										<svg
+											class="compact-qr"
+											:viewBox="'0 0 ' + qr.size + ' ' + qr.size"
+											aria-hidden="true"
+											shape-rendering="crispEdges"
+										>
+											<rect
+												v-for="(cell, index) in qr.cells"
+												:key="index"
+												:x="cell.x"
+												:y="cell.y"
+												width="1"
+												height="1"
+												fill="currentColor"
+											/>
+										</svg>
+									</div>
+									<p class="document-footnote">
+										{{
+											isInvoice
+												? receipt.receiptNumber +
+													' · ' +
+													money(totals.balance) +
+													(receipt.dueDate ? ' due ' + displayDate(receipt.dueDate) : ' amount due')
+												: 'Created for bookkeeping'
+										}}
+									</p>
+								</article>
+							</div>
+							<div class="export-panel">
+								<div class="export-total">
+									<span
+										>Document total <small>{{ receipt.currency }}</small></span
+									><strong>{{ money(totals.total) }}</strong>
+								</div>
+								<button
+									type="button"
+									class="button primary-button"
+									@click="generatePDF"
+									:disabled="busy || logoBusy"
+									:aria-busy="busy"
+								>
+									<svg
+										viewBox="0 0 24 24"
+										fill="none"
+										stroke="currentColor"
+										stroke-width="1.8"
+										aria-hidden="true"
+									>
+										<path d="M12 3v12m-5-5 5 5 5-5M4 16v5h16v-5" /></svg
+									>{{ busy ? 'Preparing document…' : 'Download PDF' }}</button
+								><button
+									type="button"
+									class="button print-button"
+									@click="printReceipt"
+									:disabled="busy || logoBusy"
+								>
+									Print document
+								</button>
+								<p class="export-hint">
+									{{
+										isInvoice
+											? 'A4 PDF · ready to send or print'
+											: '80 mm PDF · ready for a receipt printer'
+									}}
+								</p>
+								<p v-if="exportError" role="alert" class="field-error">{{ exportError }}</p>
+							</div>
+							<p class="preview-note">Your selected style is used for the PDF and printout.</p>
+						</div>
+					</aside>
+				</div>
+				<div class="mobile-actions">
+					<button
+						type="button"
+						class="mobile-preview"
+						@click="setMobileView(mobileView === 'edit' ? 'preview' : 'edit')"
+						:aria-controls="mobileView === 'edit' ? 'preview' : 'receipt-form'"
+					>
+						{{ mobileView === 'edit' ? 'Preview' : 'Edit receipt' }}
+						<span>{{ money(totals.total) }}</span></button
+					><button
+						type="button"
+						class="button primary-button"
+						@click="generatePDF"
+						:disabled="busy || logoBusy"
+					>
+						{{ busy ? 'Preparing…' : 'Download PDF' }}
+					</button>
+				</div>
+				<div class="toast-region" role="status" aria-live="polite" aria-atomic="true">
+					<p v-if="toast" class="toast-message"><span aria-hidden="true">✓</span>{{ toast }}</p>
+				</div>
+				<p class="sr-only" role="status">{{ totalAnnouncement }}</p>
+			</div>
+			{% endraw %}
+			<details class="tool-guide">
+				<summary>Need a hand? <span>How it works &amp; common questions</span></summary>
+				<div class="guide-content">
+					<div>
+						<h2>A receipt in three steps</h2>
+						<ol>
+							<li>Add your business name and items.</li>
+							<li>Choose a style. Add any optional details.</li>
+							<li>Download your PDF or print.</li>
+						</ol>
+						<p>
+							Classic, Retail, and Compact use 80mm paper. Invoice uses A4 and includes customer details.
+						</p>
+					</div>
+					<div class="faq">
+						<h2>Good to know</h2>
+						<details>
+							<summary>Is it free?</summary>
+							<p>Yes. Every template and PDF download is free. No account needed.</p>
+						</details>
+						<details>
+							<summary>Where is my information saved?</summary>
+							<p>
+								Your draft stays in this browser on this device. Receipt data and logos are not uploaded.
+								Use “Clear saved data” to remove it.
+							</p>
+						</details>
+						<details>
+							<summary>Can I change styles later?</summary>
+							<p>
+								Yes. Your own details stay in place when you switch. Retail and Compact include editable
+								sample store details to get you started.
+							</p>
+						</details>
+						<details>
+							<summary>How do tax and discounts work?</summary>
+							<p>
+								Discounts apply before tax. Line totals, discounts, and tax round to the currency’s
+								smallest unit so the amounts add up. Free items and quantities with up to three decimal
+								places are supported.
+							</p>
+						</details>
+					</div>
+				</div>
+			</details>
 
-                        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 0.75rem; margin-top: 1rem;">
-                            <div>
-                                <label class="form-label" for="f-tax">Tax Rate (%)</label>
-                                <input id="f-tax" type="number" v-model.number="receipt.taxRate" placeholder="0" step="0.01" min="0" max="100" @wheel="$event.target.blur()" class="form-input" />
-                            </div>
-                            <div>
-                                <label class="form-label" for="f-discount">Discount <span class="optional-tag">(optional)</span></label>
-                                <div style="display: flex; gap: 0.4rem;">
-                                    <input id="f-discount" type="number" v-model.number="receipt.discountValue" placeholder="0" step="0.01" min="0" @wheel="$event.target.blur()" class="form-input" style="flex: 1; min-width: 0;" />
-                                    <select v-model="receipt.discountType" aria-label="Discount type" class="form-input" style="width: 4.75rem; padding-left: 0.5rem; padding-right: 1.5rem;">
-                                        <option value="percent">%</option>
-                                        <option value="fixed">{% raw %}{{ currencyInfo.symbol }}{% endraw %}</option>
-                                    </select>
-                                </div>
-                            </div>
-                        </div>
-                    </fieldset>
-
-                    <!-- Cash payment (only for cash) -->
-                    <fieldset class="form-section" v-if="receipt.paymentMethod === 'Cash'">
-                        <legend class="section-title">Cash Payment</legend>
-                        <div>
-                            <label class="form-label" for="f-paid">Amount Received <span class="optional-tag">(optional)</span></label>
-                            <input id="f-paid" type="number" v-model.number="receipt.amountPaid" placeholder="0.00" step="0.01" min="0" @wheel="$event.target.blur()" class="form-input" style="max-width: 10rem;" />
-                            <div v-if="receipt.amountPaid > 0" style="margin-top: 0.5rem; font-size: 0.85rem; color: var(--color-espresso);">
-                                <span v-if="changeDue >= 0">{% raw %}Change to give: {{ formatMoney(changeDue) }}{% endraw %}</span>
-                                <span v-else style="color: #c0392b;">{% raw %}Short by: {{ formatMoney(-changeDue) }}{% endraw %}</span>
-                            </div>
-                        </div>
-                    </fieldset>
-
-                    <!-- Receipt note -->
-                    <fieldset class="form-section">
-                        <legend class="section-title">Receipt Note</legend>
-                        <div>
-                            <label class="form-label" for="f-note">Footer Message <span class="optional-tag">(optional)</span></label>
-                            <input id="f-note" type="text" v-model="receipt.footerNote" maxlength="80" placeholder="Thank you for your business!" class="form-input" />
-                        </div>
-                    </fieldset>
-                </div>
-
-                <!-- RIGHT: Preview -->
-                <div>
-                    <div style="position: sticky; top: 1.5rem;">
-                        <div class="panel-card">
-                            <h2 class="section-title">Preview</h2>
-
-                            <div class="receipt-stage">
-                                <div id="receipt-preview" class="receipt-paper" aria-label="Live receipt preview">
-                                    <img v-if="receipt.logo" :src="receipt.logo" alt="" class="rc-logo" />
-                                    <div class="rc-name">{% raw %}{{ receipt.businessName || 'Your Business' }}{% endraw %}</div>
-                                    <div v-if="receipt.businessAddress" class="rc-center rc-small" style="white-space: pre-line;">{% raw %}{{ receipt.businessAddress }}{% endraw %}</div>
-                                    <div v-if="hasContactInfo" class="rc-center rc-small">
-                                        <span v-if="receipt.businessPhone">{% raw %}{{ receipt.businessPhone }}{% endraw %}</span>
-                                        <span v-if="receipt.businessPhone && receipt.businessEmail"> &middot; </span>
-                                        <span v-if="receipt.businessEmail">{% raw %}{{ receipt.businessEmail }}{% endraw %}</span>
-                                    </div>
-
-                                    <div class="rc-sep" aria-hidden="true">------------------------------------------</div>
-
-                                    <div class="rc-row rc-small"><span>DATE {% raw %}{{ posDate }}{% endraw %}</span><span>TIME {% raw %}{{ posTime }}{% endraw %}</span></div>
-                                    <div class="rc-row rc-small"><span>{% raw %}{{ posRegisterLine }}{% endraw %}</span><span>{% raw %}{{ receiptDisplayNumber }}{% endraw %}</span></div>
-
-                                    <div class="rc-sep" aria-hidden="true">------------------------------------------</div>
-
-                                    <div v-if="validItems.length">
-                                        <div v-for="(item, index) in validItems" :key="index" style="margin-bottom: 3px;">
-                                            <div class="rc-row">
-                                                <span class="rc-item-desc">{% raw %}{{ item.description }}{% endraw %}</span>
-                                                <span>{% raw %}{{ formatMoney(item.quantity * item.price) }}{% endraw %}</span>
-                                            </div>
-                                            <div v-if="item.quantity > 1" class="rc-small">&nbsp;&nbsp;{% raw %}{{ item.quantity }} @ {{ formatMoney(item.price) }}{% endraw %}</div>
-                                        </div>
-                                    </div>
-                                    <div v-else class="rc-center rc-small" style="padding: 8px 0; color: #1a1a1a; opacity: 0.55;">NO ITEMS YET</div>
-
-                                    <div class="rc-sep" aria-hidden="true">------------------------------------------</div>
-
-                                    <div class="rc-row"><span>SUBTOTAL</span><span>{% raw %}{{ formatMoney(subtotal) }}{% endraw %}</span></div>
-                                    <div v-if="discountAmount > 0" class="rc-row"><span>{% raw %}DISCOUNT{{ receipt.discountType === 'percent' ? ' ' + receipt.discountValue + '%' : '' }}{% endraw %}</span><span>{% raw %}-{{ formatMoney(discountAmount) }}{% endraw %}</span></div>
-                                    <div v-if="receipt.taxRate > 0" class="rc-row"><span>{% raw %}TAX {{ receipt.taxRate }}%{% endraw %}</span><span>{% raw %}{{ formatMoney(taxAmount) }}{% endraw %}</span></div>
-
-                                    <div class="rc-sep" aria-hidden="true">******************************************</div>
-
-                                    <div class="rc-row rc-total"><span>TOTAL</span><span>{% raw %}{{ formatMoney(total) }}{% endraw %}</span></div>
-                                    <div class="rc-row rc-small"><span>TENDER</span><span style="text-transform: uppercase;">{% raw %}{{ receipt.paymentMethod }}{% endraw %}</span></div>
-                                    <template v-if="receipt.paymentMethod === 'Cash' && receipt.amountPaid > 0">
-                                        <div class="rc-row rc-small"><span>CASH</span><span>{% raw %}{{ formatMoney(receipt.amountPaid) }}{% endraw %}</span></div>
-                                        <div class="rc-row rc-small"><span>{% raw %}{{ changeDue >= 0 ? 'CHANGE' : 'BALANCE DUE' }}{% endraw %}</span><span>{% raw %}{{ formatMoney(absChange) }}{% endraw %}</span></div>
-                                    </template>
-
-                                    <div class="rc-sep" aria-hidden="true">------------------------------------------</div>
-
-                                    <div v-if="receipt.cashier" class="rc-center rc-small" style="margin-top: 4px;">{% raw %}YOU WERE SERVED BY {{ receipt.cashier.toUpperCase() }}{% endraw %}</div>
-                                    <div class="rc-center rc-small" :style="{ marginTop: receipt.cashier ? '0' : '4px' }">{% raw %}{{ (receipt.footerNote || 'Thank you for your business!').toUpperCase() }}{% endraw %}</div>
-                                    <div class="rc-center rc-small">{% raw %}{{ itemCount }} ITEM{{ itemCount === 1 ? '' : 'S' }}{% endraw %}</div>
-
-                                    <img v-if="barcodeUrl" :src="barcodeUrl" alt="" class="rc-barcode" aria-hidden="true" />
-                                    <div class="rc-center rc-small" style="letter-spacing: 2px;">{% raw %}{{ barcodePayload }}{% endraw %}</div>
-                                    <div class="rc-center rc-small" style="margin-top: 6px; opacity: 0.75;">GENERATED FOR BOOKKEEPING PURPOSES</div>
-                                </div>
-                            </div>
-
-                            <!-- Actions -->
-                            <div style="margin-top: 1rem;">
-                                <div style="display: flex; gap: 0.5rem; flex-wrap: wrap;">
-                                    <button @click="generatePDF" :disabled="!isValidReceipt" class="btn-brand btn-primary-brand">
-                                        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
-                                        Download PDF
-                                    </button>
-                                    <button @click="printReceipt" :disabled="!isValidReceipt" class="btn-brand btn-secondary-brand">Print</button>
-                                    <button @click="resetReceipt" class="btn-brand btn-ghost-brand">New Receipt</button>
-                                </div>
-                                <p class="validation-hint" role="status">
-                                    <template v-if="!isValidReceipt">
-                                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
-                                        <span>{% raw %}To download, add {{ missingList }}, or {% endraw %}<button @click="loadExample" style="background:none;border:none;padding:0;font:inherit;color:var(--color-espresso);text-decoration:underline;cursor:pointer;">load the example</button>.</span>
-                                    </template>
-                                </p>
-                                <p style="margin-top: 0.5rem; font-size: 0.75rem; color: #767676;">The PDF downloads at real 80mm thermal-receipt size with a scannable barcode.</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Mobile action bar -->
-            <div class="mobile-actionbar">
-                <div>
-                    <div class="ma-label">Total</div>
-                    <div class="ma-total">{% raw %}{{ formatMoney(total) }}{% endraw %}</div>
-                </div>
-                <button @click="generatePDF" :disabled="!isValidReceipt" class="btn-brand btn-primary-brand">Download PDF</button>
-            </div>
-
-            <!-- Toast notification: live region stays mounted so announcements are reliable -->
-            <div role="status" aria-live="polite">
-                <span v-if="toast" class="toast-msg">{% raw %}{{ toast }}{% endraw %}</span>
-            </div>
-        </div>
-        {% include related-tools.liquid %}
-    </main>
-
-
-    {% pageJs "receipt-generator" %}
-
-    {% include modals.liquid %}
-    {% include footer.liquid %}
-</body>
+		</main>
+		<footer class="studio-footer">
+			<span>A small tool by <a href="/">Coffee &amp; Fun</a>.</span>
+			<nav aria-label="Footer">
+				<a href="/privacy/">Privacy</a><a href="/support/">Support</a
+				><a href="/apps/">Explore more tools <span aria-hidden="true">↗</span></a>
+			</nav>
+		</footer>
+	</body>
 </html>

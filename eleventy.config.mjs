@@ -58,6 +58,12 @@ export default function (eleventyConfig) {
 	const assetVersions = { css: '' };
 
 	eleventyConfig.addPassthroughCopy({ 'src/assets/': '/assets/' });
+	// Pinned, first-party delivery for the receipt editor; PDF code loads on demand.
+	eleventyConfig.addPassthroughCopy({
+		'node_modules/vue/dist/vue.global.prod.js': 'assets/vendor/vue-3.5.43.global.prod.js',
+		'node_modules/jspdf/dist/jspdf.umd.min.js': 'assets/vendor/jspdf-4.2.1.umd.min.js',
+		'node_modules/qrcode-generator/dist/qrcode.js': 'assets/vendor/qrcode-2.0.4.js'
+	});
 
 	eleventyConfig.addLiquidFilter('limit', (arr, limit) => arr.slice(0, limit));
 
