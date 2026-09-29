@@ -1276,6 +1276,7 @@
 									@click="generatePDF"
 									:disabled="busy || logoBusy"
 									:aria-busy="busy"
+									aria-describedby="export-purpose"
 								>
 									<svg
 										viewBox="0 0 24 24"
@@ -1300,6 +1301,7 @@
 											? 'A4 PDF · ready to send or print'
 											: '80 mm PDF · ready for a receipt printer'
 									}}
+									<br><span id="export-purpose">For bookkeeping only.</span>
 								</p>
 								<p v-if="exportError" role="alert" class="field-error">{{ exportError }}</p>
 							</div>
@@ -1322,7 +1324,8 @@
 						@click="generatePDF"
 						:disabled="busy || logoBusy"
 					>
-						{{ busy ? 'Preparing…' : 'Download PDF' }}
+						<span>{{ busy ? 'Preparing…' : 'Download PDF' }}</span>
+						<small>For bookkeeping only.</small>
 					</button>
 				</div>
 				<div class="toast-region" role="status" aria-live="polite" aria-atomic="true">
