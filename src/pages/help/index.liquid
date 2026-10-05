@@ -62,7 +62,7 @@
     {% include schema-org.liquid %}
 
     {% bundledCss %}
-    {% include sketch-styles.liquid %}
+    {% pageCss "info-pages" %}
 
     {% pageCss "help" %}
 
@@ -70,15 +70,16 @@
     {% include scripts.html %}
 </head>
 
-<body>
+<body class="cf-info-page cf-info-blue">
     {% assign showFun = true %}
     {% assign showMiddleBadgeWithText = true %}
     {% include header.liquid %}
 
-    <main id="main-content">
+    <main tabindex="-1" id="main-content">
 
         <!-- Hero -->
         <section class="relative mx-auto max-w-5xl px-4 sm:px-6 lg:px-8 pt-20 sm:pt-28 pb-10 sm:pb-14 text-center overflow-visible">
+        {% include journal-doodles.liquid, journalStyle: "margin" %}
             <h1 class="brand-heading text-4xl sm:text-5xl lg:text-6xl leading-[1.15] sm:leading-[1.15] lg:leading-[1.15] mb-5">
                 Help Center
             </h1>
@@ -211,11 +212,11 @@
                     data-app="{{ guide.app | downcase }}">
                     <div class="flex items-center gap-2 mb-4">
                         {% if productData %}<img src="{{ productData.icon }}" alt="" width="20" height="20" class="rounded-[5px]" loading="lazy" />{% endif %}
-                        <span class="text-xs font-semibold text-stone-500">{{ guide.app }}</span>
-                        <span class="ml-auto text-xs text-stone-400">{{ guide.readTime }} read</span>
+                        <span class="text-xs font-semibold text-stone-600">{{ guide.app }}</span>
+                        <span class="ml-auto text-xs text-stone-600">{{ guide.readTime }} read</span>
                     </div>
                     <h2 class="text-[1.05rem] font-semibold text-stone-900 leading-snug mb-2 group-hover:text-mocha transition-colors">{{ guide.name }}</h2>
-                    <p class="text-sm text-stone-500 leading-relaxed line-clamp-2 mb-4">{{ guide.description }}</p>
+                    <p class="text-sm text-stone-600 leading-relaxed line-clamp-2 mb-4">{{ guide.description }}</p>
                     <span class="mt-auto pt-4 border-t border-stone-100 text-sm font-semibold inline-flex items-center gap-1" style="color: var(--color-mocha);">
                         Read guide
                         <span class="inline-block transition-transform duration-200 group-hover:translate-x-0.5" aria-hidden="true">&rarr;</span>
@@ -227,7 +228,7 @@
             <!-- No Results -->
             <div id="noResults" class="hidden text-center py-16">
                 <p class="text-2xl mb-2">No guides found</p>
-                <p class="text-stone-500">Try a different search, or <a href="/support/" class="underline" style="color:var(--color-mocha);">ask us directly</a>.</p>
+                <p class="text-stone-600">Try a different search, or <a href="/support/" class="underline" style="color:var(--color-mocha);">ask us directly</a>.</p>
             </div>
         </section>
 
@@ -266,7 +267,7 @@
 
     </main>
 
-    {% include modals.liquid %}
+
     {% include footer.liquid %}
 
     {% pageJs "help" %}

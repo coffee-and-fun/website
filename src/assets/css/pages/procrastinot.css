@@ -1,0 +1,68 @@
+/* Stillkeys supplies the layout. ProcrastiNOT keeps its coral identity. */
+:root {
+  --ink: #292432;
+  --muted: #514b58;
+  --violet: #89372f;
+  --violet-dark: #733029;
+  --lilac: #f7ded5;
+  --line: #ded8d5;
+}
+::selection { background: #ffc8b9; color: #482720; }
+.product-mark { width: 32px; height: 32px; border-radius: 9px; }
+.button-primary { box-shadow: 0 3px 0 #733029, 0 9px 20px #923d3616; }
+.button-primary:hover { box-shadow: 0 3px 0 #733029, 0 12px 24px #923d362a; }
+.preview-halo { background: radial-gradient(ellipse at 50% 58%, #f4c9bb 5%, #f4e2db 55%, #f8f7f300 73%); }
+.preview-note { color: #733d33; border-color: #e8d7d1; }
+.focus-window { position: relative; border: 1px solid #dfd9d5; border-radius: 20px; background: #fffcf9; box-shadow: 0 30px 60px -18px #66453530, 0 7px 17px #6645350b; overflow: hidden; transform: rotate(1.5deg); }
+.focus-window:focus-within { transform: none; }
+.focus-window-bar { display: grid; grid-template-columns: 1fr auto 1fr; align-items: center; gap: 12px; min-height: 42px; padding: 10px 17px; border-bottom: 1px solid #e5dcd6; background: #f1ebe6; font-size: .75rem; font-weight: 600; }
+.window-dots { display: flex; gap: 5px; }
+.window-dots i { width: 7px; height: 7px; border-radius: 50%; background: #c0b0a5; }
+.demo-tag { justify-self: end; color: var(--muted); font-size: .7rem; font-weight: 400; }
+.focus-window-content { padding: 32px 30px 29px; text-align: center; }
+.focus-app-icon { background: #ff7266; margin: 0 auto 23px; border-radius: 23px; box-shadow: 0 6px 16px #923d3614; }
+.hero .focus-status { display: block; margin: 0 0 13px; font-size: .65rem; color: var(--violet); }
+.focus-window h2 { font-size: clamp(2.3rem, 3.5vw, 3.3rem); line-height: 1.05; }
+.focus-caption { margin-top: 17px; color: var(--muted); font-size: .95rem; line-height: 1.65; }
+.focus-math { margin-top: 27px; padding-top: 22px; border-top: 1px solid var(--line); }
+.focus-math label { display: block; margin-bottom: 13px; color: var(--muted); font-size: .8rem; }
+.focus-math-row { display: flex; justify-content: center; align-items: center; flex-wrap: wrap; gap: 9px; }
+.focus-math-row > span { font-size: 1.1rem; font-weight: 600; font-variant-numeric: tabular-nums; margin-right: 2px; }
+.focus-math input { width: 65px; height: 46px; padding: 8px; border: 1px solid #8b7770; border-radius: 12px; background: #fff; color: var(--ink); font: inherit; font-size: 1rem; line-height: 1.5; text-align: center; }
+.focus-math input:focus-visible { outline: 3px solid var(--violet); outline-offset: 3px; }
+.focus-math input[aria-invalid="true"] { border: 2px solid var(--violet); }
+.focus-math button { min-height: 46px; padding: 10px 19px; border: 1px solid transparent; border-radius: 100px; color: #fff; background: var(--violet); font-size: .875rem; font-weight: 600; }
+.focus-math button:hover { background: var(--violet-dark); }
+.focus-feedback { font-size: .75rem; line-height: 1.6; color: var(--muted); margin-top: 15px; }
+.focus-reset { margin-top: 16px; min-height: 46px; padding: 10px 22px; border: 1px solid var(--violet); border-radius: 100px; background: transparent; color: var(--violet-dark); font-size: .875rem; font-weight: 600; }
+.focus-reset:hover { background: var(--lilac); }
+.focus-noscript { margin-top: 20px; font-size: .8rem; }
+.is-unlocked .focus-status { color: #355a48; }
+.is-unlocked .focus-window-content { background: #f2f6ef; }
+.steps > li { border-color: var(--line); }
+.privacy-panel { background: #f5e3db; }
+.privacy-copy h2, .privacy-list li { color: #71362f; }
+.privacy-copy .eyebrow, .privacy-copy > p:not(.eyebrow), .privacy-list small { color: #574237; }
+.privacy-list li + li { border-color: #d7bcb0; }
+.privacy-symbol { border-color: #d7bcb0; background: #fffcf966; }
+.privacy-symbol svg { width: 24px; height: 24px; }
+.closing-icon { border-radius: 28px; background: #ff7266; }
+@media (max-width: 1050px) and (min-width: 761px) {
+  .focus-window-content { padding-inline: 20px; }
+  .hero .eyebrow { font-size: .65rem; letter-spacing: .12em; }
+  .quiet-details { display: grid; grid-template-columns: 1fr 1fr; }
+}
+@media (max-width: 760px) {
+  .focus-window-content { padding: 29px 20px; }
+  .focus-window h2 { font-size: 2.8rem; }
+  .preview-caption { line-height: 1.7; text-align: center; }
+}
+@media (max-width: 370px) {
+  .hero .eyebrow { font-size: .65rem; letter-spacing: .1em; }
+  .focus-window-content { padding-inline: 13px; }
+  .focus-math-row { gap: 7px; }
+  .focus-math button { padding-inline: 14px; }
+}
+@media (forced-colors: active) {
+  .focus-window, .focus-math button, .focus-reset { border: 1px solid ButtonText; }
+}

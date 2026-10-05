@@ -1,0 +1,9 @@
+{% case journalExtra %}
+{% when 'hero' %}
+<div class="home-workbench-sketch" aria-hidden="true">{% include journal-mark.liquid, drawing: 'laptop' %}<span>little ideas,<br>real things.</span><svg class="home-sketch-squiggle" viewBox="0 0 120 18" fill="none" focusable="false"><path d="M4 9C22 1 31 17 49 8S78 16 96 7S111 8 117 5" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/></svg></div>
+<svg class="home-hero-flourish" viewBox="0 0 96 84" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" aria-hidden="true" focusable="false"><path d="M15 47C24 23 57 52 49 21C43 1 18 13 34 25C53 39 73 25 82 9M67 63L74 73M75 49L90 54M57 70L59 82"/></svg>
+{% when 'shelf' %}
+<div class="home-shelf-caption" aria-hidden="true"><span>a few things we’ve made</span><svg viewBox="0 0 260 16" fill="none" focusable="false"><path d="M4 9C49 1 77 13 123 7S213 12 253 5M30 14C81 8 174 16 229 10" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg></div>
+<div class="home-shelf-sketch home-shelf-sketch-left" aria-hidden="true">{% include journal-mark.liquid, drawing: 'rocket' %}<span>off we go!</span></div>
+<div class="home-shelf-sketch home-shelf-sketch-right" aria-hidden="true">{% include journal-mark.liquid, drawing: 'flower' %}<span>room to grow</span></div>
+{% endcase %}

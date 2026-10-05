@@ -1,0 +1,81 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>The Coffee &amp; Fun Podcast | Coffee, Apps &amp; Tech</title>
+    <meta name="description" content="A fresh coffee, app updates, and the tech we’re trying. Join the team behind Helperbird every other week, starting October 31, 2026.">
+    <link rel="canonical" href="https://www.coffeeandfun.com/podcast/">
+    <link rel="icon" href="/assets/images/brand/favicon.png">
+    <meta name="theme-color" content="#fef5ec">
+    <meta property="og:type" content="website">
+    <meta property="og:site_name" content="Coffee &amp; Fun">
+    <meta property="og:title" content="The Coffee &amp; Fun Podcast">
+    <meta property="og:description" content="Coffee, apps, and curious conversations with the team behind Helperbird. Every other week, starting Halloween 2026.">
+    <meta property="og:url" content="https://www.coffeeandfun.com/podcast/">
+    <meta property="og:image" content="https://www.coffeeandfun.com/assets/images/social/pages/podcast.png">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    <meta property="og:image:alt" content="The Coffee &amp; Fun Podcast. Coffee, apps, and curious conversations. Starting October 31, 2026.">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:site" content="@bycoffeeandfun">
+    <meta name="twitter:title" content="The Coffee &amp; Fun Podcast">
+    <meta name="twitter:description" content="Coffee, apps, and curious conversations with the team behind Helperbird. Every other week, starting Halloween 2026.">
+    <meta name="twitter:image" content="https://www.coffeeandfun.com/assets/images/social/pages/podcast.png">
+    <meta name="twitter:image:alt" content="The Coffee &amp; Fun Podcast. Coffee, apps, and curious conversations. Starting October 31, 2026.">
+    {% pageCss "podcast" %}
+    {% include schema-org.liquid %}
+    <script type="application/ld+json">
+      {"@context":"https://schema.org","@graph":[{"@type":"WebPage","@id":"https://www.coffeeandfun.com/podcast/#webpage","url":"https://www.coffeeandfun.com/podcast/","name":"The Coffee & Fun Podcast","description":"Coffee, app updates, and the tech we’re trying. Every other week, starting October 31, 2026.","inLanguage":"en","isPartOf":{"@id":"https://www.coffeeandfun.com/#website"},"mainEntity":{"@id":"https://www.coffeeandfun.com/podcast/#series"}},{"@type":"PodcastSeries","@id":"https://www.coffeeandfun.com/podcast/#series","name":"The Coffee & Fun Podcast","url":"https://www.coffeeandfun.com/podcast/","description":"A show from the Coffee & Fun team behind Helperbird in Hot Springs, Arkansas. New coffees, app updates, and the tech we’re trying, every other week starting October 31, 2026.","inLanguage":"en","sameAs":{{ podcast.youtubeUrl | json }},"image":"https://www.coffeeandfun.com/assets/images/social/pages/podcast.png","publisher":{"@id":"https://www.coffeeandfun.com/#organization"}}]}
+    </script>
+  </head>
+  <body class="cf-podcast-page">
+    {% include header.liquid %}
+    <main id="main-content" tabindex="-1" class="pc-main">
+      <div class="pc-layout">
+        <aside class="pc-show" aria-labelledby="podcast-title">
+          <div class="pc-show-inner">
+            <img class="pc-cover" src="/assets/images/podcast/show-cover.svg" alt="A coffee cup wearing headphones, on the Coffee &amp; Fun Podcast cover." width="720" height="720" fetchpriority="high">
+            <p class="pc-eyebrow pc-show-label">FRESH CONVERSATIONS, EVERY OTHER WEEK</p>
+            <h1 id="podcast-title">Coffee &amp; Fun<br><span>Podcast</span></h1>
+            <p class="pc-show-description">A new coffee. A few open tabs.<br>A catch-up with the team behind <a href="https://www.helperbird.com">Helperbird</a>.</p>
+            <a class="pc-youtube" href="{{ podcast.youtubeUrl }}">{% include podcast-youtube-icon.liquid %}Find us on YouTube</a>
+            <p class="pc-launch-note">First episode <time datetime="2026-10-31">October 31, 2026</time>.</p>
+            <details class="pc-about"><summary>About the show <span aria-hidden="true">+</span></summary><div><p>From our little corner of Hot Springs, Arkansas: honest coffee reviews, the apps we’re building, and the tech we can’t stop talking about.</p><p>Every featured roaster gets a link so you can brew along. Expect the occasional snack, gadget, or trip behind the scenes.</p><a href="/about/">Meet the Coffee &amp; Fun team</a></div></details>
+            <div class="pc-sidebar-note"><span aria-hidden="true">{% include journal-mark.liquid, drawing: 'cup' %}</span><p>Best enjoyed<br>with a full cup.</p></div>
+          </div>
+        </aside>
+        <div class="pc-feed">
+          <div class="pc-feed-intro">
+            <div class="pc-margin-headphones" aria-hidden="true">{% include journal-mark.liquid, drawing: 'headphones' %}</div>
+            <p class="pc-eyebrow">THE MICROPHONES ARE ALMOST READY</p>
+            <h2>Pull up a chair.</h2>
+            <p>Coffee, apps, and whatever<br>got us curious this week.</p>
+            <nav class="pc-section-nav" aria-label="Podcast sections"><a href="#episodes">Upcoming episodes</a><a href="#join-in">Have an idea?</a></nav>
+          </div>
+          <section class="pc-episodes" id="episodes" aria-labelledby="episodes-title">
+            <div class="pc-section-heading"><h2 id="episodes-title">On the horizon</h2><span>Season one · Coming soon</span></div>
+            {% for episode in podcast.episodeIdeas %}
+            <article class="pc-episode{% if forloop.first %} pc-episode-featured{% endif %}" aria-labelledby="episode-{{ forloop.index }}-title">
+              <div class="pc-episode-media"><img src="{{ episode.image }}" alt="{{ episode.imageAlt | escape }}" width="960" height="540" {% if forloop.first %}fetchpriority="high"{% else %}loading="lazy"{% endif %}></div>
+              <div class="pc-episode-copy">
+                <p class="pc-episode-meta">{% if forloop.first %}<time datetime="2026-10-31">October 31, 2026</time><span aria-hidden="true"> · </span>Planned premiere{% else %}From the notebook<span aria-hidden="true"> · </span>Episode idea{% endif %}</p>
+                <h3 id="episode-{{ forloop.index }}-title">{{ episode.title }}</h3>
+                <p class="pc-episode-description">{{ episode.description }}</p>
+                <div class="pc-episode-actions"><span class="pc-coming">{% include podcast-youtube-icon.liquid %}Video coming soon</span><details class="pc-episode-notes"><summary>Episode preview<span class="pc-sr-only">: {{ episode.title }}</span><span aria-hidden="true">+</span></summary><div><p>On our list for this conversation:</p><ul>{% for note in episode.notes %}<li>{{ note }}</li>{% endfor %}</ul></div></details></div>
+              </div>
+            </article>
+            {% endfor %}
+            <p class="pc-editor-note">A peek at the plan. Episode ideas may change as the show takes shape.</p>
+          </section>
+          <section class="pc-invite" id="join-in" aria-labelledby="invite-title">
+            <span class="pc-margin-plane" aria-hidden="true">{% include journal-mark.liquid, drawing: 'plane' %}</span>
+            <p class="pc-hand">there’s always room for one more idea</p><h2 id="invite-title">What should we try?</h2><p>A coffee you love, a gadget you’re curious about, or a question for the team. We’re all ears.</p><a class="pc-button" href="/support/">Send us an idea</a>
+          </section>
+        </div>
+      </div>
+      <section class="pc-premiere" aria-label="Podcast launch"><div><span class="pc-premiere-mark" aria-hidden="true">{% include podcast-youtube-icon.liquid %}</span><p><strong>First brew: Halloween 2026.</strong><span>New conversations every other week, on YouTube.</span></p></div><a href="{{ podcast.youtubeUrl }}">Visit our YouTube channel</a></section>
+    </main>
+    {% include footer.liquid %}
+  </body>
+</html>

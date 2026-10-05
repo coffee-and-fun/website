@@ -1,0 +1,36 @@
+<nav class="cf-nav" aria-label="Primary">
+  <details class="cf-dropdown">
+    <summary{% if page.url == '/about/' or page.url == '/resources/' or page.url == '/open-source/' or page.url == '/podcast/' %} class="cf-current"{% endif %}>Company <span aria-hidden="true">⌄</span></summary>
+    <div class="cf-dropdown-panel cf-dropdown-links cf-dropdown-company">
+      <a href="/about/"{% if page.url == '/about/' %} aria-current="page"{% endif %}>About us</a>
+      <a href="/resources/"{% if page.url == '/resources/' %} aria-current="page"{% endif %}>Resources</a>
+      <a href="/open-source/"{% if page.url == '/open-source/' %} aria-current="page"{% endif %}>Open source</a>
+      <a href="/podcast/"{% if page.url == '/podcast/' %} aria-current="page"{% endif %}>Podcast <small>Starts October 31</small></a>
+    </div>
+  </details>
+  <a href="/blog/"{% if page.url == '/blog/' %} aria-current="page"{% elsif page.url contains '/blog/' %} class="cf-current"{% endif %}>Blog</a>
+  <details class="cf-dropdown">
+    <summary{% if cfProduct or page.url == '/apps/' %} class="cf-current"{% endif %}>Apps <span aria-hidden="true">⌄</span></summary>
+    <div class="cf-dropdown-panel cf-app-menu">
+      <a class="cf-app-link cf-menu-yellow" href="/stillkeys/"{% if page.url == '/stillkeys/' %} aria-current="page"{% endif %}><img src="/assets/images/stillkeys/icon.png" alt="" width="44" height="44"><span>Stillkeys<small>Coming soon</small></span></a>
+      <a class="cf-app-link cf-menu-blue" href="/markdown-editor/"{% if page.url == '/markdown-editor/' %} aria-current="page"{% endif %}><img src="/assets/images/apps/markdown-editor-icon.png" alt="" width="44" height="44"><span>Markdown Editor</span></a>
+      <a class="cf-app-link cf-menu-pink" href="/procrastinot/"{% if page.url == '/procrastinot/' %} aria-current="page"{% endif %}><img src="/assets/images/apps/procrastinot-clear.png" alt="" width="44" height="44"><span>ProcrastiNOT</span></a>
+      <a class="cf-app-link cf-menu-mint" href="/hide-spoilers-extension/"{% if page.url == '/hide-spoilers-extension/' %} aria-current="page"{% endif %}><img src="/assets/images/apps/hide-spoilers-hero.png" alt="" width="44" height="44"><span>Hide Spoilers</span></a>
+      <a class="cf-app-link cf-menu-lilac" href="/immersive-reader/"{% if page.url == '/immersive-reader/' %} aria-current="page"{% endif %}><img src="/assets/images/apps/immersive-reader-clear.png" alt="" width="44" height="44"><span>Immersive Reader<small>Coming soon</small></span></a>
+      <a class="cf-app-link cf-menu-all" href="/apps/"><span>All apps</span></a>
+    </div>
+  </details>
+  <details class="cf-dropdown">
+    <summary{% if cfTool or toolPage %} class="cf-current"{% endif %}>Tools <span aria-hidden="true">⌄</span></summary>
+    <div class="cf-dropdown-panel cf-dropdown-links">
+      <a href="/focus-timer/"{% if page.url == '/focus-timer/' %} aria-current="page"{% endif %}>Focus timer</a>
+      <a href="/timezone-converter/"{% if page.url == '/timezone-converter/' %} aria-current="page"{% endif %}>Time zone converter</a>
+      <a href="/receipt-generator/"{% if page.url == '/receipt-generator/' %} aria-current="page"{% endif %}>Receipt generator</a>
+      <a href="/meta-images/"{% if page.url == '/meta-images/' %} aria-current="page"{% endif %}>Photo metadata remover</a>
+      <a href="/contrast-checker/"{% if page.url == '/contrast-checker/' %} aria-current="page"{% endif %}>Color contrast checker</a>
+      <a href="/apps/#tools">All tools</a>
+    </div>
+  </details>
+  <a href="/help/"{% if page.url == '/help/' %} aria-current="page"{% elsif page.url contains '/help/' %} class="cf-current"{% endif %}>Help</a>
+  <a href="/support/"{% if page.url == '/support/' %} aria-current="page"{% endif %}>Support</a>
+</nav>

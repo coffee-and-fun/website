@@ -82,6 +82,6 @@
 
     <p class="fpl-team-foot">
         Picked {{ week.generatedAt | date: "%e %B %Y" }}, before the deadline.
-        <a href="{{ week.postUrl }}">Read the full reasoning</a>.
+        {% if week.postUrl %}<a href="{{ week.postUrl }}">Read the full reasoning</a>.{% else %}<a href="/blog/ai-fantasy-premier-league-experiment/">Read about the experiment</a>.{% endif %}
     </p>
 </div>

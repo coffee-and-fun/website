@@ -1,103 +1,90 @@
-document.addEventListener('DOMContentLoaded', function() {
-    const searchInput = document.getElementById('appSearchInput');
-    const filterTabs = document.querySelectorAll('.filter-tab');
-    const noResults = document.getElementById('noResults');
-    const appGrid = document.getElementById('appGrid');
-    const toolsGrid = document.getElementById('toolsGrid');
-    const appsSection = appGrid.closest('section');
-    const toolsSection = toolsGrid.closest('section');
-    const opensourceSection = document.getElementById('opensourceGrid').closest('section');
-    const graveyardSection = document.getElementById('graveyardGrid').closest('section');
+document.addEventListener('DOMContentLoaded', () => {
+	const searchInput = document.getElementById('appSearchInput');
+	const filterTabs = [...document.querySelectorAll('.filter-tab')];
+	const clearButton = document.getElementById('clearCatalogue');
+	const noResults = document.getElementById('noResults');
+	const status = document.getElementById('catalogueStatus');
+	const appGrid = document.getElementById('appGrid');
+	const archive = document.querySelector('.ca-archive-notebook');
+	const sections = ['appGrid', 'toolsGrid', 'opensourceGrid', 'graveyardGrid'].map((id) => {
+		const grid = document.getElementById(id);
+		return { id, section: grid.closest('section'), cards: [...grid.querySelectorAll('.app-card')] };
+	});
+	let activeFilter = 'all';
+	let wasFiltering = false;
+	let archiveWasOpen = archive.open;
+	const initialStatus = status.textContent;
 
-    const mainCards = appGrid.querySelectorAll('.app-card');
-    const toolCards = toolsGrid.querySelectorAll('.app-card');
-    const osCards = document.getElementById('opensourceGrid').querySelectorAll('.app-card');
-    const gyCards = document.getElementById('graveyardGrid').querySelectorAll('.app-card');
+	function applyFilters() {
+		const searchTerm = searchInput.value.toLowerCase().trim();
+		const filtering = Boolean(searchTerm || activeFilter !== 'all');
+		if (filtering && !wasFiltering) archiveWasOpen = archive.open;
+		let total = 0;
+		sections.forEach(({ id, section, cards }) => {
+			const allowed = id !== 'graveyardGrid' || activeFilter === 'all';
+			let count = 0;
+			cards.forEach((card) => {
+				const platforms = card.dataset.platforms || '';
+				const content = `${card.dataset.title} ${card.dataset.description} ${platforms}`;
+				const matches =
+					allowed &&
+					content.includes(searchTerm) &&
+					(activeFilter === 'all' || platforms.includes(activeFilter.toLowerCase()));
+				card.classList.toggle('hidden-card', !matches);
+				if (matches) count++;
+			});
+			section.classList.toggle('section-hidden', count === 0);
+			if (id === 'toolsGrid') {
+				[section.previousElementSibling, section.nextElementSibling].forEach((wave) => {
+					if (wave?.classList.contains('cf-section-wave')) {
+						wave.classList.toggle('section-hidden', count === 0);
+					}
+				});
+			}
+			if (id === 'graveyardGrid' && searchTerm) archive.open = count > 0;
+			total += count;
+		});
+		if (!filtering && wasFiltering) archive.open = archiveWasOpen;
+		appGrid.classList.toggle('is-filtered', filtering);
+		document.getElementById('graveyardGrid').classList.toggle('is-filtered', filtering);
+		clearButton.hidden = !filtering;
+		status.classList.toggle('ca-sr-only', !filtering);
+		noResults.classList.toggle('hidden', total > 0);
+		status.textContent = filtering
+			? `${total} matching ${total === 1 ? 'project' : 'projects'}`
+			: initialStatus;
+		wasFiltering = filtering;
+	}
 
-    let activeFilter = 'all';
-
-    function filterCards(cards, searchTerm) {
-        let count = 0;
-        cards.forEach(card => {
-            const title = card.dataset.title || '';
-            const description = card.dataset.description || '';
-            const platforms = card.dataset.platforms || '';
-            const content = title + ' ' + description + ' ' + platforms;
-
-            const matchesSearch = searchTerm === '' || content.includes(searchTerm);
-            const matchesFilter = activeFilter === 'all' || platforms.includes(activeFilter.toLowerCase());
-
-            if (matchesSearch && matchesFilter) {
-                card.classList.remove('hidden-card');
-                count++;
-            } else {
-                card.classList.add('hidden-card');
-            }
-        });
-        return count;
-    }
-
-    function applyFilters() {
-        const searchTerm = searchInput.value.toLowerCase().trim();
-
-        const mainCount = filterCards(mainCards, searchTerm);
-        const toolsCount = filterCards(toolCards, searchTerm);
-        const osCount = filterCards(osCards, searchTerm);
-        const gyCount = filterCards(gyCards, searchTerm);
-
-        // Hide entire sections if no visible cards or filter doesn't match
-        const showOS = activeFilter === 'all' || activeFilter === 'Open Source';
-        const showGY = activeFilter === 'all';
-
-        if (mainCount > 0) {
-            appsSection.classList.remove('section-hidden');
-        } else {
-            appsSection.classList.add('section-hidden');
-        }
-
-        if (toolsCount > 0) {
-            toolsSection.classList.remove('section-hidden');
-        } else {
-            toolsSection.classList.add('section-hidden');
-        }
-
-        if (showOS && osCount > 0) {
-            opensourceSection.classList.remove('section-hidden');
-        } else {
-            opensourceSection.classList.add('section-hidden');
-        }
-
-        if (showGY && gyCount > 0) {
-            graveyardSection.classList.remove('section-hidden');
-        } else {
-            graveyardSection.classList.add('section-hidden');
-        }
-
-        // No results
-        const totalVisible = mainCount + toolsCount + (showOS ? osCount : 0) + (showGY ? gyCount : 0);
-        if (totalVisible === 0) {
-            noResults.classList.remove('hidden');
-        } else {
-            noResults.classList.add('hidden');
-        }
-    }
-
-    // Tab clicks
-    filterTabs.forEach(tab => {
-        tab.addEventListener('click', function() {
-            filterTabs.forEach(t => t.classList.remove('active'));
-            this.classList.add('active');
-            activeFilter = this.dataset.filter;
-            applyFilters();
-        });
-    });
-
-    // Search
-    searchInput.addEventListener('input', applyFilters);
-    searchInput.addEventListener('keydown', function(e) {
-        if (e.key === 'Escape') {
-            searchInput.value = '';
-            applyFilters();
-        }
-    });
+	function chooseFilter(value) {
+		activeFilter = value;
+		filterTabs.forEach((tab) => {
+			const selected = tab.dataset.filter === value;
+			tab.classList.toggle('active', selected);
+			tab.setAttribute('aria-pressed', String(selected));
+		});
+	}
+	function resetFilters() {
+		searchInput.value = '';
+		chooseFilter('all');
+		applyFilters();
+	}
+	filterTabs.forEach((tab) =>
+		tab.addEventListener('click', () => {
+			chooseFilter(tab.dataset.filter);
+			applyFilters();
+		})
+	);
+	searchInput.addEventListener('input', applyFilters);
+	searchInput.addEventListener('keydown', (event) => {
+		if (event.key === 'Escape') {
+			searchInput.value = '';
+			applyFilters();
+		}
+	});
+	clearButton.addEventListener('click', () => {
+		resetFilters();
+		searchInput.focus();
+	});
+	if (location.hash === '#archive') archive.open = true;
 });

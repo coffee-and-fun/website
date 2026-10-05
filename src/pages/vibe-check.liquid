@@ -97,7 +97,7 @@
 {% raw %}
     <a href="#tool" class="skip">Skip to the game</a>
 
-    <main v-cloak id="main-content" class="wrap">
+    <main tabindex="-1" v-cloak id="main-content" class="wrap">
         <header id="tool">
             <p class="puzzle-meta"><span aria-hidden="true">📅</span> Puzzle #{{ puzzleNumber }}</p>
         </header>
@@ -213,7 +213,7 @@
         {% include related-tools.liquid %}
     </main>
 
-    {% include modals.liquid %}
+
     {% include footer.liquid %}
 
     {% pageJs "vibe-check" %}

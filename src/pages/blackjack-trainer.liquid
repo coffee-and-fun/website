@@ -128,6 +128,10 @@
     </head>
 
 <body>
+{% assign toolPage = true %}
+{% assign skipTarget = 'app' %}
+{% include header.liquid %}
+
 {% raw %}
     <a href="#tool" class="skip">Skip to the trainer</a>
 
@@ -139,7 +143,7 @@
         <div class="wrap"><p class="lede">The blackjack trainer needs JavaScript turned on.</p></div>
     </noscript>
 
-    <main v-cloak id="app" class="wrap">
+    <main tabindex="-1" v-cloak id="app" class="wrap">
 
         <div class="topbar">
             <a href="/" class="home-link" aria-label="Back to coffeeandfun.com">
@@ -381,5 +385,6 @@
 {% endraw %}
 
     {% pageJs "blackjack-trainer" %}
+{% include footer.liquid %}
 </body>
 </html>

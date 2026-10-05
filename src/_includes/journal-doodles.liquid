@@ -1,0 +1,27 @@
+{% assign journalDrawing = 'plane' %}
+{% case journalStyle %}
+  {% when 'closing' %}{% assign journalDrawing = 'bulb' %}
+  {% when 'footer' %}{% assign journalDrawing = 'cup' %}
+  {% when 'product' %}
+    {% case productKey %}
+      {% when 'markdown-editor' %}{% assign journalDrawing = 'pencil' %}
+      {% when 'procrastinot' %}{% assign journalDrawing = 'timer' %}
+      {% when 'hide-spoilers-extension' %}{% assign journalDrawing = 'film' %}
+      {% when 'immersive-reader', 'flash-cards' %}{% assign journalDrawing = 'book' %}
+    {% endcase %}
+  {% when 'margin' %}
+    {% case page.url %}
+      {% when '/about/' %}{% assign journalDrawing = 'sprout' %}
+      {% when '/open-source/' %}{% assign journalDrawing = 'code' %}
+      {% when '/blog/', '/resources/' %}{% assign journalDrawing = 'book' %}
+      {% when '/help/' %}{% assign journalDrawing = 'pencil' %}
+      {% when '/support/' %}{% assign journalDrawing = 'headphones' %}
+      {% when '/apps/' %}{% assign journalDrawing = 'bulb' %}
+    {% endcase %}
+{% endcase %}
+<div class="cf-journal cf-journal-{{ journalStyle | default: 'margin' }}" aria-hidden="true">
+  {% include journal-mark.liquid, drawing: journalDrawing %}
+  {% if journalStyle == 'footer' %}<svg class="cf-journal-stars" viewBox="0 0 80 96" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" focusable="false"><path d="M14 37C0 16 30 -2 41 14C53 30 28 58 14 37ZM30 9C33 24 16 26 21 43M38 75C25 54 54 33 67 50C81 68 52 97 38 75ZM54 44C61 61 42 64 46 81"/></svg>{% elsif journalStyle == 'closing' %}<svg class="cf-journal-stars" viewBox="0 0 80 96" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" focusable="false"><path d="M37 26C62 24 66 61 42 65C17 69 10 31 37 26ZM39 6L40 17M39 76L40 87M5 44L14 45M65 45L75 43M11 15L21 25M58 67L68 78M63 14L56 25M11 75L20 67M29 41L30 45M46 40L47 44M31 51C36 57 43 57 48 50"/></svg>{% else %}<svg class="cf-journal-stars" viewBox="0 0 80 96" fill="none" focusable="false"><path d="M29 5L34 24L54 20L40 35L50 54L30 44L15 59L18 38L3 29L23 27Z" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/><path d="M62 64L63 86M51 75L74 73M54 67L69 82" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>{% endif %}
+  {% if journalStyle == 'margin' or journalStyle == 'product' %}<svg class="cf-journal-hatch" viewBox="0 0 64 32" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" focusable="false"><path d="M4 22L14 5M17 26L29 4M31 26L42 7M45 25L55 10"/></svg>{% endif %}
+  <svg class="cf-journal-heart" viewBox="0 0 76 66" fill="none" focusable="false"><path d="M37 57C21 47 5 35 11 20C18 4 31 15 36 22C41 7 55 7 62 18C72 36 48 53 37 57Z" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><path d="M7 52L3 58M64 5L70 1" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
+</div>

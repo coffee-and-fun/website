@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>{{ title | escape }} | Coffee &amp; Fun</title>
+  <meta name="description" content="{{ description | escape }}">
+  <link rel="canonical" href="https://www.coffeeandfun.com{{ page.url }}">
+  <link rel="icon" href="/assets/images/brand/favicon.png">
+  <meta name="theme-color" content="#fef5ec">
+  <meta property="og:type" content="website"><meta property="og:site_name" content="Coffee &amp; Fun">
+  <meta property="og:title" content="{{ title | escape }} | Coffee &amp; Fun">
+  <meta property="og:description" content="{{ description | escape }}">
+  <meta property="og:url" content="https://www.coffeeandfun.com{{ page.url }}">
+  <meta property="og:image" content="https://www.coffeeandfun.com/assets/images/social/pages/home.png">
+  <meta property="og:image:alt" content="Coffee &amp; Fun, crafting software one brew at a time">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="{{ title | escape }} | Coffee &amp; Fun">
+  <meta name="twitter:description" content="{{ description | escape }}">
+  <meta name="twitter:image" content="https://www.coffeeandfun.com/assets/images/social/pages/home.png">
+  {% pageCss "product" %}{% pageCss "editorial" %}{% if pageStyle %}{% pageCss pageStyle %}{% endif %}
+  {% include schema-org.liquid %}
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"WebPage","@id":"https://www.coffeeandfun.com{{ page.url }}#webpage","url":"https://www.coffeeandfun.com{{ page.url }}","name":{{ title | json }},"description":{{ description | json }},"inLanguage":"en","isPartOf":{"@id":"https://www.coffeeandfun.com/#website"},"publisher":{"@id":"https://www.coffeeandfun.com/#organization"}}</script>
+</head>
+<body class="cf-editorial-page {{ bodyClass }}">
+{% include header.liquid %}
+<main id="main-content" tabindex="-1" class="ce-main cp-wrap">{{ content }}</main>
+{% include footer.liquid %}
+</body>
+</html>

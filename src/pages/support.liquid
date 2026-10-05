@@ -43,7 +43,8 @@
 
     {% bundledCss %}
     {% include scripts.html %}
-    {% include sketch-styles.liquid %}
+    {% pageCss "product" %}
+    {% pageCss "support" %}
 
 
     <script type="application/ld+json">
@@ -63,169 +64,38 @@
     </script>
 </head>
 
-<body>
-    {% assign showFun = true %}
-    {% assign showMiddleBadgeWithText = true %}
+<body class="cf-support-page">
     {% include header.liquid %}
-
-    <main id="main-content">
-
-        <section class="relative mx-auto max-w-3xl px-4 sm:px-6 lg:px-8 py-16 sm:py-24 text-center overflow-visible">
-
-            <!-- Sketch: "we're here to help!" with arrow sweeping down-left onto the heading -->
-            <div class="sketch-note text-lg sm:text-xl" style="top: 10px; right: 20%; transform: rotate(-5deg);">
-                we're here to help!
-                <svg width="92" height="84" style="bottom: -76px; left: -36px;" aria-hidden="true">
-                    <path d="M86 4 C78 32, 54 56, 16 74" class="sketch-arrow"/>
-                    <path d="M16 60 L12 78 L32 72" class="sketch-arrow"/>
-                </svg>
+    <main id="main-content" tabindex="-1">
+      <section class="sp-support" aria-labelledby="support-title">
+        <div class="sp-background" aria-hidden="true">
+          <span class="sp-sketch sp-envelope">{% include support-doodles.liquid, drawing: 'envelope' %}</span>
+          <span class="sp-sketch sp-chat">{% include support-doodles.liquid, drawing: 'conversation' %}</span>
+          <span class="sp-sketch sp-cup">{% include journal-mark.liquid, drawing: 'cup' %}</span>
+          <span class="sp-sketch sp-star">{% include about-doodles.liquid, drawing: 'spark' %}</span>
+          <span class="sp-sketch sp-plane">{% include journal-mark.liquid, drawing: 'plane' %}</span>
+          <span class="sp-margin-note">straight to<br>the humans.</span>
+        </div>
+        <div class="sp-intro">
+          <h1 id="support-title">How can we help?</h1>
+          <p>Questions, ideas, or a little app trouble?<br> Leave us a note. We’re here to help.</p>
+        </div>
+        <div class="sp-contact" id="contact">
+          <div id="support-form-slot">
+            <div class="sp-form-preview">
+              <h2>Leave us a note.</h2>
+              <p>Our contact form is hosted on Google Forms.<br> Load it here whenever you’re ready.</p>
+              <button type="button" id="load-support-form" class="sp-button" aria-controls="support-form-slot" hidden>Load contact form</button>
+              <noscript><p>You can open the form below or email us directly.</p></noscript>
             </div>
-
-            <!-- Sketch: small star left -->
-            <div class="sketch-note" style="top: 40%; left: -3%;">
-                <svg width="24" height="24" viewBox="0 0 30 30" aria-hidden="true">
-                    <path d="M15 2 L17 11 L26 11 L19 17 L22 26 L15 21 L8 26 L11 17 L4 11 L13 11 Z" fill="none" stroke="#fd6155" stroke-width="1.5" stroke-linejoin="round" opacity="0.4"/>
-                </svg>
-            </div>
-
-            <h1 class="brand-heading text-4xl sm:text-5xl lg:text-6xl leading-[1.15] sm:leading-[1.15] lg:leading-[1.15] mb-4">
-                Support
-            </h1>
-            <p class="text-lg sm:text-xl text-stone-600 max-w-xl mx-auto leading-relaxed mb-10">
-                Have a question or running into an issue? Fill out the form below and we'll get back to you.
-            </p>
-
-            <!-- Sketch: "don't be shy!" with arrow reaching right into the form -->
-            <div class="sketch-note text-base sm:text-lg" style="top: 45%; left: -2%; transform: rotate(-6deg);">
-                don't be shy!
-                <svg width="60" height="34" style="top: 4px; right: -54px;" aria-hidden="true">
-                    <path d="M2 2 C18 8, 40 16, 54 28" class="sketch-arrow"/>
-                    <path d="M43 27 L56 31 L52 18" class="sketch-arrow"/>
-                </svg>
-            </div>
-
-            <!-- Sketch: heart floating right of form -->
-            <div class="sketch-note sketch-float" style="top: 50%; right: -3%; --sketch-rotate: 8deg;">
-                <svg width="22" height="20" viewBox="0 0 24 22" aria-hidden="true">
-                    <path d="M12 21 C12 21, 2 14, 2 7 C2 3, 5 1, 8 2 C10 3, 11 5, 12 6 C13 5, 14 3, 16 2 C19 1, 22 3, 22 7 C22 14, 12 21, 12 21 Z" class="sketch-heart"/>
-                </svg>
-            </div>
-
-            <!-- Sketch: squiggly decoration near bottom of form -->
-            <div class="sketch-note" style="top: 72%; left: -3%;">
-                <svg width="14" height="50" viewBox="0 0 14 50" aria-hidden="true">
-                    <path d="M7 2 C2 8, 12 14, 7 20 C2 26, 12 32, 7 38 C4 42, 10 46, 7 48" class="sketch-squiggle"/>
-                </svg>
-            </div>
-
-            <!-- Sketch: three dots near top-left -->
-            <div class="sketch-note" style="top: 28%; right: -2%;">
-                <svg width="8" height="24" viewBox="0 0 8 24" aria-hidden="true">
-                    <circle cx="4" cy="4" r="2.5" class="sketch-dots"/>
-                    <circle cx="4" cy="12" r="2.5" class="sketch-dots"/>
-                    <circle cx="4" cy="20" r="2.5" class="sketch-dots"/>
-                </svg>
-            </div>
-
-            <!-- Sketch: swirl near form left -->
-            <div class="sketch-note" style="top: 38%; left: -5%;">
-                <svg width="26" height="26" viewBox="0 0 30 30" aria-hidden="true">
-                    <path d="M15 15 C15 10, 20 8, 22 12 C24 16, 20 20, 15 18 C10 16, 8 10, 12 6 C16 2, 24 4, 26 10" class="sketch-swirl"/>
-                </svg>
-            </div>
-
-            <!-- Sketch: checkmark "we reply fast!" -->
-            <div class="sketch-note text-base sm:text-lg" style="top: 62%; right: -4%; transform: rotate(4deg);">
-                <svg width="18" height="16" viewBox="0 0 22 20" style="position: relative; display: inline-block; margin-right: 3px; vertical-align: middle;" aria-hidden="true">
-                    <path d="M3 10 L9 16 L19 4" class="sketch-check"/>
-                </svg>
-                we reply fast!
-            </div>
-
-            <!-- Sketch: lightning near bottom -->
-            <div class="sketch-note" style="top: 78%; left: -3%; transform: rotate(-8deg);">
-                <svg width="14" height="24" viewBox="0 0 16 28" aria-hidden="true">
-                    <path d="M10 0 L4 12 L10 12 L6 28" class="sketch-lightning"/>
-                </svg>
-            </div>
-
-            <!-- Sketch: loop arrow -->
-            <div class="sketch-note" style="top: 58%; left: -5%;">
-                <svg width="28" height="20" viewBox="0 0 30 22" aria-hidden="true">
-                    <path d="M4 18 C4 4, 20 4, 22 10 C24 18, 16 20, 14 12" class="sketch-loop"/>
-                    <path d="M10 14 L14 10 L18 14" class="sketch-loop"/>
-                </svg>
-            </div>
-
-            <!-- Sketch: leaf bottom-right -->
-            <div class="sketch-note" style="top: 82%; right: -3%; transform: rotate(25deg);">
-                <svg width="18" height="22" viewBox="0 0 24 28" aria-hidden="true">
-                    <path d="M12 2 C4 8, 2 18, 12 26 C22 18, 20 8, 12 2 Z" class="sketch-leaf"/>
-                    <path d="M12 6 L12 22" class="sketch-leaf"/>
-                </svg>
-            </div>
-
-            <!-- Google Forms facade: the iframe (and its third-party cookies) only loads
-                 after the visitor opts in, which keeps page load clean. -->
-            <div id="support-form-slot" class="w-full" style="min-height: 800px;">
-                <div class="flex flex-col items-center justify-center gap-4 rounded-xl border border-stone-200 bg-white p-10 text-center" style="min-height: 800px;">
-                    <h2 class="text-xl font-semibold text-stone-900">Contact form</h2>
-                    <p class="max-w-md text-stone-600">The form is hosted on Google Forms. Click below to load it, or email us directly at <a href="mailto:hello@coffeeandfun.com" class="underline" style="color: var(--color-caramel);">hello@coffeeandfun.com</a>.</p>
-                    <button
-                        type="button"
-                        id="load-support-form"
-                        class="rounded-full px-6 py-3 text-white font-semibold hover:opacity-90 focus:outline-none focus:ring-2 focus:ring-offset-2 transition"
-                        style="background-color: var(--color-espresso); --tw-ring-color: var(--color-espresso);"
-                    >
-                        Load contact form
-                    </button>
-                </div>
-            </div>
-    {% pageJs "support" %}
-
-            <!-- Sketch: sparkle near bottom of form -->
-            <div class="sketch-note sketch-float" style="top: 88%; left: -2%; --sketch-rotate: 0deg;">
-                <svg width="22" height="22" viewBox="0 0 22 22" aria-hidden="true">
-                    <path d="M11 2 L11 20" class="sketch-sparkle"/>
-                    <path d="M2 11 L20 11" class="sketch-sparkle"/>
-                    <path d="M4 4 L18 18" class="sketch-sparkle"/>
-                    <path d="M18 4 L4 18" class="sketch-sparkle"/>
-                </svg>
-            </div>
-
-            <!-- Sketch: coffee cup near bottom-right -->
-            <div class="sketch-note" style="top: 85%; right: -2%; transform: rotate(6deg);">
-                <svg width="22" height="26" viewBox="0 0 28 32" aria-hidden="true">
-                    <path d="M4 10 L4 26 C4 28 6 30 10 30 L18 30 C22 30 24 28 24 26 L24 10" class="sketch-arrow" style="opacity: 0.3;"/>
-                    <path d="M24 14 C28 14, 28 22, 24 22" class="sketch-arrow" style="opacity: 0.3;"/>
-                    <path d="M10 6 C10 2, 12 0, 12 0" class="sketch-arrow" style="opacity: 0.15;"/>
-                    <path d="M16 4 C16 0, 18 -2, 18 -2" class="sketch-arrow" style="opacity: 0.15;"/>
-                </svg>
-            </div>
-
-            <!-- Sketch: zigzag near the email text -->
-            <div class="sketch-note" style="bottom: -2%; left: 5%;">
-                <svg width="50" height="14" viewBox="0 0 50 14" aria-hidden="true">
-                    <path d="M2 12 L10 2 L18 12 L26 2 L34 12 L42 2 L50 10" class="sketch-zigzag"/>
-                </svg>
-            </div>
-
-            <div class="relative inline-block">
-                <p class="mt-8 text-sm text-stone-600">
-                    You can also reach us directly at <a href="mailto:hello@coffeeandfun.com" class="underline hover:text-stone-800 transition-colors" style="color: var(--color-caramel);">hello@coffeeandfun.com</a>
-                </p>
-                <!-- Sketch: wavy underline under email -->
-                <div class="sketch-note" style="bottom: -6px; left: 50%; transform: translateX(-50%);">
-                    <svg width="100" height="10" viewBox="0 0 100 10" aria-hidden="true">
-                        <path d="M2 7 C12 2, 22 10, 35 5 C48 0, 58 10, 72 5 C85 0, 92 8, 98 4" class="sketch-underline"/>
-                    </svg>
-                </div>
-            </div>
-        </section>
-
+          </div>
+          <p id="support-form-status" class="sp-form-status" role="status"></p>
+          <a class="sp-form-external" href="https://docs.google.com/forms/d/e/1FAIpQLSeOBpyxmu3enhScTOuJtYAx2jNK2wr9scFKtbQrj0AjqJfdEQ/viewform">Open in Google Forms</a>
+        </div>
+        <p class="sp-email">More of an email person?<br><a href="mailto:hello@coffeeandfun.com">hello@coffeeandfun.com</a></p>
+      </section>
     </main>
-
-    {% include modals.liquid %}
     {% include footer.liquid %}
+    {% pageJs "support" %}
 </body>
 </html>

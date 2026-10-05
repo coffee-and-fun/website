@@ -60,11 +60,15 @@
   {% pageCss "citizenship-test" %}
 </head>
 <body class="ct-body">
+{% assign toolPage = true %}
+{% assign skipTarget = 'main-content' %}
+{% include header.liquid %}
+
   <a class="ct-skip-link" href="#main-content">Skip to study cards</a>
-  <main id="main-content" class="ct-app" data-ct>
+  <main tabindex="-1" id="main-content" class="ct-app" data-ct>
     <header class="ct-app-header">
-      <a class="ct-app-brand" href="/citizenship-test/" aria-label="US citizenship study home"><span class="ct-flag" aria-hidden="true">🇺🇸</span><div><h1>U.S. citizenship</h1><p>One question at a time</p></div></a>
-      <button type="button" class="ct-settings-button" data-open-settings aria-label="Study settings and your state"><span aria-hidden="true">⚙</span><span>Set up</span></button>
+      <a class="ct-app-brand" href="/citizenship-test/"><span class="ct-flag" aria-hidden="true">🇺🇸</span><div><h1>U.S. citizenship</h1><p>One question at a time</p></div></a>
+      <button type="button" class="ct-settings-button" data-open-settings aria-label="Set up study settings and your state"><span aria-hidden="true">⚙</span><span>Set up</span></button>
     </header>
     <button type="button" class="ct-test-label" data-test-label data-open-settings>2025 test · Filed Oct 20, 2025 or later ›</button>
     <div class="ct-notice" data-load-error role="alert" hidden>We couldn’t load your cards. <button type="button" data-retry>Try again</button> Or download the <a href="https://www.uscis.gov/sites/default/files/document/questions-and-answers/2025-Civics-Test-128-Questions-and-Answers.pdf">official questions (PDF)</a>.</div>
@@ -171,5 +175,6 @@
   </main>
   {% pageJs "citizenship-study" %}
   {% pageJs "citizenship-test" %}
+{% include footer.liquid %}
 </body>
 </html>

@@ -1,0 +1,16 @@
+<div class="po-doodles po-doodles-{{ place }}" aria-hidden="true">
+{% case place %}
+{% when 'header' %}
+  <span class="po-sketch po-notebook">{% include journal-mark.liquid, drawing: 'book' %}</span>
+  <span class="po-sketch po-coffee">{% include journal-mark.liquid, drawing: 'cup' %}</span>
+  <span class="po-sketch po-header-spark">{% include about-doodles.liquid, drawing: 'spark' %}</span>
+{% when 'body' %}
+  <span class="po-sketch po-body-spark">{% include about-doodles.liquid, drawing: 'spark' %}</span>
+  <span class="po-sketch po-plane">{% include journal-mark.liquid, drawing: 'plane' %}</span>
+  <span class="po-sketch po-pencil">{% include journal-mark.liquid, drawing: 'pencil' %}</span>
+  <span class="po-sketch po-sprout">{% include journal-mark.liquid, drawing: 'sprout' %}</span>
+{% when 'footer' %}
+  <span class="po-sketch po-footer-cup">{% include journal-mark.liquid, drawing: 'cup' %}</span>
+  <span class="po-sketch po-footer-heart">{% include about-doodles.liquid, drawing: 'hello' %}</span>
+{% endcase %}
+</div>

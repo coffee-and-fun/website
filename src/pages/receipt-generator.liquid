@@ -71,19 +71,13 @@
 		{% pageJs "receipt-pdf" %} {% pageJs "receipt-generator" %}
 	</head>
 	<body>
+{% assign toolPage = true %}
+{% assign skipTarget = 'main-content' %}
+{% include header.liquid %}
+
 		<a class="skip-link" href="#main-content">Skip to receipt generator</a>
-		<header class="studio-header">
-			<a class="studio-wordmark" href="/receipt-generator/" aria-label="Receipt studio home"
-				><span class="studio-icon" aria-hidden="true">▤</span> receipt<span class="wordmark-light"
-					>studio</span
-				></a
-			>
-			<nav aria-label="Main">
-				<a href="/apps/">More free tools <span aria-hidden="true">↗</span></a
-				><a class="byline" href="/">by Coffee &amp; Fun</a>
-			</nav>
-		</header>
-		<main id="main-content">
+
+		<main tabindex="-1" id="main-content">
 			<div class="page-intro">
 				<div>
 					<p class="eyebrow">FREE &amp; NO SIGN-UP</p>
@@ -1381,12 +1375,7 @@
 			</details>
 
 		</main>
-		<footer class="studio-footer">
-			<span>A small tool by <a href="/">Coffee &amp; Fun</a>.</span>
-			<nav aria-label="Footer">
-				<a href="/privacy/">Privacy</a><a href="/support/">Support</a
-				><a href="/apps/">Explore more tools <span aria-hidden="true">↗</span></a>
-			</nav>
-		</footer>
-	</body>
+
+	{% include footer.liquid %}
+</body>
 </html>

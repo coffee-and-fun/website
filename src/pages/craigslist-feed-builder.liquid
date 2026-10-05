@@ -55,6 +55,10 @@
 </head>
 
 <body class="bg-base-200 min-h-dvh">
+{% assign toolPage = true %}
+{% assign skipTarget = 'main-content' %}
+{% include header.liquid %}
+
   <div v-cloak id="app">
    <div :class="{ 'text-sm': settings.size === 0, 'text-base': settings.size === 1, 'text-lg': settings.size === 2, 'text-xl': settings.size === 3 }">
 
@@ -80,7 +84,7 @@
           </div>
         </div>
 
-        <main id="main-content">
+        <main tabindex="-1" id="main-content">
 
           <!-- Masthead -->
           <div class="text-center">
@@ -294,5 +298,6 @@
   </div>
 
   {% pageJs "craigslist-feed-builder" %}
+{% include footer.liquid %}
 </body>
 </html>

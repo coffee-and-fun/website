@@ -52,6 +52,7 @@
 
 	// Function to launch the confetti animation
 	function launchConfetti() {
+        if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
 		loadScriptOnce(
 			'https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.3/dist/confetti.browser.min.js',
 			'sha384-Rv68Y7adOjMMJc1/xFMcdNvXre/HF51to4GZjBALmXr7ABnVl5V4UajJwBu7zbhN'
@@ -137,6 +138,7 @@
 	];
 
 	function applyCursorEffect() {
+        if (window.matchMedia('(prefers-reduced-motion: reduce)').matches && !cursorEffectsEnabled) return;
 		if (cursorEffectsEnabled) {
 			// Turn OFF
 			if (cursorEffect && typeof cursorEffect.destroy === 'function') {

@@ -179,6 +179,10 @@
 </head>
 
 <body>
+{% assign toolPage = true %}
+{% assign skipTarget = 'timer' %}
+{% include header.liquid %}
+
     <a href="#timer" class="skip-link">Skip to the timer</a>
 
     <div class="app theme-focus" id="app-root">
@@ -195,7 +199,7 @@
             </button>
         </header>
 
-        <main id="timer" class="stage">
+        <main tabindex="-1" id="timer" class="stage">
             <!-- Live region for discrete announcements only -->
             <p class="sr-only" role="status" aria-live="polite" id="announce"></p>
 
@@ -232,10 +236,10 @@
             <div id="presets-block">
                 <p class="presets-title" id="presets-title">How long can you focus right now?</p>
                 <div class="presets" role="group" aria-labelledby="presets-title">
-                    <button type="button" class="preset-btn" data-mins="10" aria-label="Set focus length to 10 minutes" aria-pressed="false"><span class="mins">10 min</span><span class="word" aria-hidden="true">tiny</span></button>
-                    <button type="button" class="preset-btn" data-mins="15" aria-label="Set focus length to 15 minutes" aria-pressed="false"><span class="mins">15 min</span><span class="word" aria-hidden="true">short</span></button>
-                    <button type="button" class="preset-btn" data-mins="25" aria-label="Set focus length to 25 minutes" aria-pressed="true"><span class="mins">25 min</span><span class="word" aria-hidden="true">classic</span></button>
-                    <button type="button" class="preset-btn" data-mins="45" aria-label="Set focus length to 45 minutes" aria-pressed="false"><span class="mins">45 min</span><span class="word" aria-hidden="true">deep</span></button>
+                    <button type="button" class="preset-btn" data-mins="10" aria-pressed="false"><span class="mins">10 min</span><span class="word" aria-hidden="true">tiny</span></button>
+                    <button type="button" class="preset-btn" data-mins="15" aria-pressed="false"><span class="mins">15 min</span><span class="word" aria-hidden="true">short</span></button>
+                    <button type="button" class="preset-btn" data-mins="25" aria-pressed="true"><span class="mins">25 min</span><span class="word" aria-hidden="true">classic</span></button>
+                    <button type="button" class="preset-btn" data-mins="45" aria-pressed="false"><span class="mins">45 min</span><span class="word" aria-hidden="true">deep</span></button>
                 </div>
                 <p class="presets-hint">If starting feels hard, start tiny.</p>
             </div>
@@ -369,5 +373,6 @@
     </dialog>
 
     {% pageJs "focus-timer" %}
+{% include footer.liquid %}
 </body>
 </html>

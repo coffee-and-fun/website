@@ -1,0 +1,85 @@
+{% assign product = products[productKey] %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>{{ product.seo | escape }}</title>
+  <meta name="description" content="{{ product.meta | escape }}">
+  <link rel="canonical" href="https://www.coffeeandfun.com/{{ product.slug }}/">
+  <link rel="icon" href="/assets/images/brand/favicon.png">
+  <meta name="theme-color" content="{{ product.paper }}">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="Coffee &amp; Fun">
+  <meta property="og:title" content="{{ product.seo | escape }}">
+  <meta property="og:description" content="{{ product.meta | escape }}">
+  <meta property="og:url" content="https://www.coffeeandfun.com/{{ product.slug }}/">
+  <meta property="og:image" content="https://www.coffeeandfun.com{{ product.social }}">
+  <meta property="og:image:alt" content="{{ product.name | escape }} by Coffee &amp; Fun">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="{{ product.seo | escape }}">
+  <meta name="twitter:description" content="{{ product.meta | escape }}">
+  <meta name="twitter:image" content="https://www.coffeeandfun.com{{ product.social }}">
+  <meta name="twitter:image:alt" content="{{ product.name | escape }} by Coffee &amp; Fun">
+  {% pageCss "product" %}
+  {% if productKey == "stillkeys" %}<link rel="apple-touch-icon" href="/assets/images/stillkeys/icon.png">{% endif %}
+  {% include schema-org.liquid %}
+  <script type="application/ld+json">
+  {"@context":"https://schema.org","@graph":[
+    {"@type":"WebPage","@id":"https://www.coffeeandfun.com/{{ product.slug }}/#webpage","url":"https://www.coffeeandfun.com/{{ product.slug }}/","name":{{ product.seo | json }},"description":{{ product.meta | json }},"inLanguage":"en","isPartOf":{"@id":"https://www.coffeeandfun.com/#website"},"mainEntity":{"@id":"https://www.coffeeandfun.com/{{ product.slug }}/#app"}},
+    {"@type":"SoftwareApplication","@id":"https://www.coffeeandfun.com/{{ product.slug }}/#app","name":{{ product.name | json }},"url":"https://www.coffeeandfun.com/{{ product.slug }}/","description":{{ product.meta | json }},"applicationCategory":{{ product.category | json }},"operatingSystem":{{ product.os | json }},"image":"https://www.coffeeandfun.com{{ product.icon }}","publisher":{"@id":"https://www.coffeeandfun.com/#organization"}},
+    {"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://www.coffeeandfun.com/"},{"@type":"ListItem","position":2,"name":"Apps","item":"https://www.coffeeandfun.com/apps/"},{"@type":"ListItem","position":3,"name":{{ product.name | json }},"item":"https://www.coffeeandfun.com/{{ product.slug }}/"}]}
+  ]}
+  </script>
+</head>
+<body class="cf-product-page cp-{{ productKey }}" style="--cp-paper: {{ product.paper }}; --cp-ink: {{ product.ink }}; --cp-accent: {{ product.color }}; --cp-tint: {{ product.tint }};">
+  {% include header.liquid %}
+  <nav class="cp-product-nav" aria-label="{{ product.name | escape }}">
+    <div class="cp-wrap"><a class="cp-product-name" href="#overview"><img src="{{ product.icon }}" alt="" width="28" height="28">{{ product.displayName }}</a><div class="cp-product-links"><a href="#features">Features</a><a href="#questions">FAQ</a><a class="cp-nav-download" href="#download">{% if product.comingSoon %}Coming soon{% elsif product.archived %}Project links{% else %}Get the app{% endif %}</a></div></div>
+  </nav>
+  <main id="main-content" tabindex="-1">
+    <section class="cp-hero cp-wrap" id="overview" aria-labelledby="product-heading">
+      {% include journal-doodles.liquid, journalStyle: "product" %}
+      <div class="cp-hero-copy">
+        <img class="cp-product-icon" src="{{ product.icon }}" alt="" width="80" height="80" fetchpriority="high">
+        {% if product.comingSoon %}<p class="cp-status">Coming soon</p>{% elsif product.archived %}<p class="cp-status">Retired project</p>{% endif %}
+        <h1 id="product-heading">{{ product.displayName }}</h1>
+        <p class="cp-tagline">{{ product.tagline }}</p>
+        <p class="cp-description">{{ product.description }}</p>
+        <div class="cp-actions">
+          {% if product.comingSoon %}<a class="cp-button cp-primary" href="#features">Explore features</a><a class="cp-button cp-secondary" href="#questions">Questions?</a>
+          {% else %}<a class="cp-button cp-primary" href="#download">{% if product.archived %}Project links{% else %}Get {{ product.displayName }}{% endif %}</a><a class="cp-button cp-secondary" href="#features">Explore features</a>{% endif %}
+        </div>
+        <div class="cp-platforms" aria-label="Supported platforms">{% for platform in product.platforms %}<span>{% include platform-icon.liquid %}<span>{% if platform == 'apple' %}{% if productKey == 'stillkeys' %}macOS{% else %}Mac &amp; iOS{% endif %}{% else %}{{ platform | capitalize }}{% endif %}</span></span>{% endfor %}</div>
+        <p class="cp-note">{{ product.note }}</p>
+      </div>
+      <div class="cp-showcase" id="preview">{% include product-stage.liquid %}</div>
+    </section>
+    <div class="cp-facts cp-wrap" aria-label="At a glance">{% for fact in product.facts %}<p><span aria-hidden="true">✓</span>{{ fact }}</p>{% endfor %}</div>
+
+    <section class="cp-features cp-wrap" id="features" aria-labelledby="features-heading">
+      <div class="cp-section-heading"><span class="cp-margin-drawing" aria-hidden="true">{% include journal-mark.liquid, drawing: 'plane' %}</span><p class="cp-eyebrow">THE LITTLE DETAILS</p><h2 id="features-heading">{% if productKey == 'markdown-editor' %}Everything your next draft needs.{% elsif productKey == 'stillkeys' %}A little care for your everyday keys.{% elsif productKey == 'hide-spoilers-extension' %}Stay curious. Keep the surprise.{% elsif productKey == 'procrastinot' %}More room for what matters.{% elsif productKey == 'immersive-reader' %}More ways into a good read.{% else %}A look at how it worked.{% endif %}</h2></div>
+      <div class="cp-feature-grid">
+        {% for feature in product.features %}<article class="cp-feature-card cp-feature-card-{{ forloop.index }}"><div class="cp-feature-copy"><h3>{{ feature[0] }}</h3><p>{{ feature[1] }}</p></div>{% assign art = product.featureArt[forloop.index0] %}{% include product-feature-art.liquid %}</article>{% endfor %}
+        <article class="cp-feature-card cp-feature-note"><img class="cp-note-icon" src="{{ product.icon }}" alt="" width="64" height="64" loading="lazy"><div class="cp-feature-copy"><h3>{{ product.panelTitle }}</h3><p>{{ product.panelText }}</p>{% if productKey == 'stillkeys' %}<a href="#privacy-details">Privacy details</a>{% elsif productKey == 'procrastinot' %}<a href="/blog/procrastinot-maths-challenge-update/">About the math challenge</a>{% endif %}</div></article>
+      </div>
+    </section>
+
+    <section class="cp-how cp-wrap" id="how-it-works" aria-labelledby="how-heading"><div class="cp-section-heading"><span class="cp-margin-drawing" aria-hidden="true">{% include journal-mark.liquid, drawing: 'cup' %}</span><p class="cp-eyebrow">{% if product.comingSoon %}WHAT TO EXPECT{% elsif product.archived %}HOW IT WORKED{% else %}GETTING STARTED{% endif %}</p><h2 id="how-heading">Three simple steps.</h2></div><ol class="cp-steps">{% for step in product.steps %}<li><span aria-hidden="true">0{{ forloop.index }}</span><h3>{{ step[0] }}</h3><p>{{ step[1] }}</p></li>{% endfor %}</ol>{% if productKey == 'stillkeys' %}<p class="cp-care-note">Stillkeys captures typing; it doesn’t turn off your keyboard hardware. <a href="#keyboard-limits">See what stays available.</a></p>{% endif %}</section>
+
+    <section class="cp-download cp-wrap" id="download" aria-labelledby="download-heading"><img class="cp-product-icon" src="{{ product.icon }}" alt="" width="72" height="72" loading="lazy"><h2 id="download-heading">{% if product.comingSoon %}A little something on the way.{% elsif product.archived %}From the Coffee &amp; Fun graveyard.{% else %}{{ product.closing }}{% endif %}</h2><p>{{ product.note }}</p>
+      {% include product-downloads.liquid %}
+      {% if productKey == 'stillkeys' %}<p class="cp-download-note">Planned price: {{ stillkeys.plannedPrice }} USD · No subscription · macOS {{ stillkeys.minimumMacOS }}+</p>{% endif %}
+    </section>
+
+    <section class="cp-details cp-wrap" id="questions" aria-labelledby="questions-heading"><div><p class="cp-eyebrow">GOOD TO KNOW</p><h2 id="questions-heading">A few answers.</h2><ul class="cp-guide-links">{% for guide in product.guides %}<li><a href="{{ guide[1] }}">{{ guide[0] }}</a></li>{% endfor %}</ul></div>
+      {% if productKey == 'stillkeys' %}{% include product-stillkeys-faq.liquid %}{% else %}<div class="cp-faq-list">{% for faq in product.faqs %}<details><summary>{{ faq[0] }}<span aria-hidden="true">+</span></summary><div class="cp-answer"><p>{{ faq[1] }}</p></div></details>{% endfor %}</div>{% endif %}
+    </section>
+    {% if productKey == 'markdown-editor' %}<details class="cp-history cp-wrap"><summary>Release notes <span aria-hidden="true">+</span></summary>{% include product-markdown-changelog.liquid %}</details>{% endif %}
+  </main>
+  {% include footer.liquid %}
+  {% pageJs "product" %}
+  {% if productKey == 'procrastinot' %}{% pageJs "procrastinot" %}{% endif %}
+  {% if productKey == 'stillkeys' %}{% pageJs "stillkeys" %}{% endif %}
+</body>
+</html>

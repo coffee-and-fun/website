@@ -159,7 +159,7 @@
 <body>
     {% include header.liquid %}
 
-    <main id="main-content" class="fpl-wrap">
+    <main tabindex="-1" id="main-content" class="fpl-wrap">
 
         <section class="fpl-hero">
             {%- if fplPicks.size > 0 -%}<p class="fpl-status">Live, updated every gameweek</p>{%- else -%}<p class="fpl-status">Coming soon</p>{%- endif -%}
@@ -365,7 +365,7 @@
 
     </main>
 
-    {% include modals.liquid %}
+
     {% include footer.liquid %}
 
     {% pageJs "fpl" %}

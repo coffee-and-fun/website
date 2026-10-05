@@ -1,61 +1,409 @@
-/* Preserve the illustrated homepage, with less space before the first action. */
-.cf-home-hero {
-	padding-block: clamp(64px, 8vw, 112px) 80px;
+.cf-home-page {
+	margin: 0;
+	background: #fffaf5;
+	color: #332219;
+	font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
 }
-.cf-home-hero h1 {
-	font-size: clamp(2rem, 7.8vw, 6rem);
-	line-height: 1.24;
+.cf-home-page * {
+	box-sizing: border-box;
 }
-.cf-home-hero h1 > span {
+.cf-home-page .cf-header {
+	--cf-ink: #332219;
+	background: #fef5ec;
+}
+.home-wrap {
+	width: min(1040px, calc(100% - 64px));
+	margin-inline: auto;
+}
+.home-hero {
+	background: #fef5ec;
+	padding: 56px 0 70px;
+	text-align: center;
+}
+.home-hero-inner {
+	position: relative;
+	padding-inline: 30px;
+}
+.home-announcement {
+	display: inline-flex;
+	align-items: center;
+	gap: 16px;
+	min-height: 44px;
+	padding: 9px 18px;
+	border: 1px solid #dbc5b2;
+	background: #fffaf580;
+	border-radius: 99px;
+	color: #332219;
+	font-size: 0.8125rem;
+	font-weight: 650;
+	text-decoration: none;
+	margin-bottom: 32px;
+}
+.home-announcement:hover {
+	text-decoration: underline;
+	text-underline-offset: 4px;
+}
+.home-hero h1 {
+	font:
+		400 clamp(3.4rem, 6.1vw, 5.6rem)/1.3 'Pacifico',
+		cursive;
+	letter-spacing: 0;
+	margin: 0;
+	color: #87502f;
+	text-shadow: 3px 5px 0 #ffb4a5;
+}
+.home-hero h1 > span {
 	display: block;
 }
-.cf-home-hero > p:not(.cf-home-trust) {
-	max-width: 46ch;
-	font-size: clamp(1.125rem, 1.7vw, 1.5rem);
+.home-intro {
+	font-size: 1.125rem;
+	line-height: 1.8;
+	max-width: 44ch;
+	margin: 30px auto 0;
+	text-wrap: balance;
 }
-.cf-home-actions .btn {
-	min-height: 48px;
-	border-radius: 12px;
-}
-.cf-home-primary {
-	display: inline-flex;
-}
-.cf-home-trust {
+.home-actions {
 	display: flex;
-	flex-wrap: wrap;
+	align-items: center;
 	justify-content: center;
-	gap: 4px 16px;
+	flex-wrap: wrap;
+	gap: 14px;
+	margin-top: 30px;
 }
-.cf-home-trust span {
-	white-space: nowrap;
+.home-button {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	gap: 24px;
+	min-height: 56px;
+	padding: 15px 25px;
+	border: 2px solid #653d27;
+	border-radius: 14px;
+	background: #653d27;
+	color: #fffbed;
+	text-decoration: none;
+	font-weight: 700;
+	font-size: 0.9375rem;
+	line-height: 1.4;
+	transition:
+		transform 0.18s,
+		background 0.18s;
 }
-.cf-home-trust span + span::before {
-	content: '·';
-	margin-right: 16px;
+.home-button:hover {
+	background: #fffbed;
+	color: #332219;
+	transform: translateY(-3px);
 }
-@media (max-width: 479px) {
-	.cf-home-hero {
-		padding-block: 48px 48px;
-	}
-	.cf-home-actions {
-		gap: 12px;
-	}
-	.cf-home-actions .btn {
+.home-button span {
+	font-size: 1.3rem;
+}
+.home-button-outline {
+	background: transparent;
+	color: #332219;
+}
+.home-handwritten {
+	font:
+		600 1.75rem/1.4 'Caveat',
+		cursive;
+	margin: 28px 0 0;
+}
+.home-doodle {
+	position: absolute;
+	color: #c96a56;
+	pointer-events: none;
+}
+.home-doodle-cup {
+	width: 48px;
+	height: 60px;
+	top: 80px;
+	left: -10px;
+	transform: rotate(-12deg);
+}
+.home-doodle-star {
+	width: 42px;
+	height: 42px;
+	top: 220px;
+	right: -6px;
+	transform: rotate(12deg);
+}
+.home-collection {
+	padding-block: 44px 80px;
+}
+.home-collection-note {
+	font:
+		600 1.8rem/1.4 'Caveat',
+		cursive;
+	display: flex;
+	align-items: center;
+	justify-content: flex-end;
+	gap: 14px;
+	margin: 0 4px 16px;
+}
+.home-collection-note svg {
+	width: 48px;
+	height: 56px;
+	flex-shrink: 0;
+}
+.home-bento {
+	display: grid;
+	grid-template-columns: 1fr 1fr;
+	gap: 24px;
+}
+.home-tile {
+	display: flex;
+	flex-direction: column;
+	overflow: hidden;
+	border-radius: 22px;
+	background: linear-gradient(140deg, #784b30, #583923);
+	color: #fffaf5;
+	text-decoration: none;
+	transition: transform 0.2s;
+}
+.home-tile-reading {
+	background: linear-gradient(140deg, #3d2b1f, #271e18);
+	color: #fffbed;
+}
+.home-tile-support {
+	background: linear-gradient(140deg, #91372f, #792b29);
+}
+.home-tile-story {
+	background: linear-gradient(140deg, #735033, #513b28);
+}
+.home-tile-art {
+	height: 290px;
+	overflow: hidden;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	padding: 18px 0 0;
+}
+.home-tile-art img {
+	display: block;
+	width: 100%;
+	height: 100%;
+	object-fit: contain;
+	transition: transform 0.25s;
+}
+.home-tile-apps .home-tile-art img {
+	width: 115%;
+	max-width: none;
+	object-fit: cover;
+}
+.home-tile-story .home-tile-art img {
+	width: 100%;
+	height: 100%;
+	max-width: 100%;
+}
+.home-tile-copy {
+	padding: 26px 32px 32px;
+}
+.home-tile h2 {
+	font:
+		750 1.65rem/1.35 -apple-system,
+		BlinkMacSystemFont,
+		'Segoe UI',
+		sans-serif;
+	letter-spacing: 0;
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	gap: 18px;
+	margin: 0 0 10px;
+}
+.home-tile p {
+	font-size: 0.875rem;
+	line-height: 1.7;
+	margin: 0;
+}
+.home-tile:hover {
+	transform: translateY(-5px);
+}
+.home-tile:hover img {
+	transform: scale(1.035);
+}
+.home-tile:hover h2 {
+	text-decoration: underline;
+	text-underline-offset: 7px;
+	text-decoration-thickness: 1px;
+}
+.home-closing {
+	background: #f9e7d8;
+	text-align: center;
+	padding: 64px 0 76px;
+}
+.home-closing .home-handwritten {
+	margin: 0 0 22px;
+}
+.home-closing h2 {
+	font:
+		700 clamp(3rem, 5.5vw, 4.7rem)/1.1 'Caveat',
+		cursive;
+	letter-spacing: 0;
+	margin: 0;
+	color: #332219;
+}
+.home-closing p:not(.home-handwritten) {
+	max-width: 43ch;
+	font-size: 1rem;
+	line-height: 1.8;
+	margin: 24px auto 30px;
+}
+.cf-home-page main :is(a, button):focus-visible {
+	outline: 3px solid currentColor;
+	outline-offset: 6px;
+}
+@media (max-width: 1000px) {
+	.home-hero-inner {
 		padding-inline: 20px;
-		font-size: 1rem;
 	}
-	.cf-home-trust {
-		margin-top: 32px;
-		gap: 2px 12px;
-		font-size: 1.25rem;
+	.home-hero h1 {
+		font-size: clamp(3.3rem, 7.5vw, 5rem);
 	}
-	.cf-home-trust span + span::before {
-		content: none;
+	.home-doodle-cup {
+		left: -6px;
+		width: 36px;
+	}
+	.home-doodle-star {
+		right: -8px;
+		width: 32px;
+	}
+	.home-tile-art {
+		height: 240px;
+	}
+	.home-tile h2 {
+		font-size: 1.7rem;
+	}
+	.home-tile-copy {
+		padding: 24px;
+	}
+	.home-tile-story .home-tile-art img {
+		width: 250px;
+		height: 250px;
+	}
+}
+@media (max-width: 640px) {
+	.home-wrap {
+		width: calc(100% - 36px);
+	}
+	.home-hero {
+		padding: 30px 0 44px;
+	}
+	.home-hero-inner {
+		padding: 0;
+	}
+	.home-announcement {
+		font-size: 0.6875rem;
+		padding-inline: 14px;
+		margin-bottom: 26px;
+	}
+	.home-hero h1 {
+		font-size: clamp(1.8rem, 7.4vw, 3rem);
+		line-height: 1.5;
+		text-shadow: 1.5px 2.5px 0 #ffb4a5;
+	}
+	.home-intro {
+		font-size: 0.9375rem;
+		line-height: 1.75;
+		margin-top: 22px;
+		max-width: 34ch;
+	}
+	.home-doodle {
+		display: none;
+	}
+	.home-actions {
+		gap: 10px;
+		margin-top: 24px;
+	}
+	.home-button {
+		padding: 13px 18px;
+		font-size: 0.8125rem;
+		gap: 12px;
+		min-height: 52px;
+	}
+	.home-handwritten {
+		font-size: 1.4rem;
+		margin-top: 24px;
+	}
+	.home-collection {
+		padding: 28px 0 46px;
+	}
+	.home-collection-note {
+		font-size: 1.5rem;
+		margin-bottom: 18px;
+	}
+	.home-bento {
+		gap: 18px;
+		grid-template-columns: 1fr;
+	}
+	.home-tile-art {
+		height: 245px;
+	}
+	.home-tile h2 {
+		font-size: 1.9rem;
+	}
+	.home-tile-copy {
+		padding: 20px 26px 28px;
+	}
+	.home-tile-story .home-tile-art img {
+		height: 265px;
+		width: 265px;
+	}
+	.home-closing {
+		padding: 46px 0 54px;
+	}
+	.home-closing h2 {
+		font-size: 2.8rem;
+	}
+	.home-closing p:not(.home-handwritten) {
+		font-size: 0.9375rem;
 	}
 }
 @media (prefers-reduced-motion: reduce) {
-	.cf-home-actions .btn {
+	.home-button,
+	.home-tile,
+	.home-tile img {
 		transition: none;
+	}
+	.home-button:hover,
+	.home-tile:hover,
+	.home-tile:hover img {
 		transform: none;
 	}
+}
+
+/* Original coffee colors, with a little coral in the details. */
+.home-button-outline {
+	border-color: #942e2d;
+	color: #942e2d;
+}
+.home-button-outline:hover {
+	background: #942e2d;
+	color: #fffaf5;
+}
+.home-handwritten,
+.home-collection-note {
+	color: #653d27;
+}
+.home-tile {
+	box-shadow: 0 7px 20px #653d2710;
+}
+.home-tile-copy {
+	padding-top: 22px;
+}
+.home-hero {
+	padding-bottom: 50px;
+}
+.home-closing {
+	padding-top: 64px;
+	padding-bottom: 100px;
+}
+
+.home-closing h2 > span {
+	text-decoration: underline;
+	text-decoration-color: #d9907b;
+	text-decoration-thickness: 2px;
+	text-underline-offset: 9px;
+}
+.home-closing > .home-wrap > :not(.cf-journal) {
+	position: relative;
 }

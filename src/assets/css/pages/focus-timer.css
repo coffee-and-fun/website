@@ -3,20 +3,20 @@
    keeps WCAG AA contrast even on the lightened panel. Color is never the
    only signal: every mode also has an icon + a word, and states are
    written out in plain language. */
-.theme-focus { --bg: #c2255c; }   /* Focus, raspberry (warm)  5.66:1, L .136 */
-.theme-short { --bg: #10808a; }   /* Short, teal (lightest)   4.69:1, L .174 */
+.theme-focus { --bg: #912044; }   /* Focus, raspberry (warm)  5.66:1, L .136 */
+.theme-short { --bg: #07545d; }   /* Short, teal (lightest)   4.69:1, L .174 */
 .theme-long  { --bg: #5133ad; }   /* Long, grape (darkest)   8.65:1, L .071 */
 /* Three distinct hues AND three distinct lightnesses, so the mode is legible
    with any colour-vision type, and the mode is always named in text too. */
 :root {
-    --panel: rgba(255, 255, 255, 0.1);
+    --panel: rgba(255, 255, 255, 0.04);
     --panel-hi: rgba(0, 0, 0, 0.15);
     --ink: #333333;
     --body-text: #555555;
     --line: #e5e5e5;
 }
 
-html { background: #c2255c; }
+html { background: #912044; }
 body { margin: 0; }
 
 .app {
@@ -24,7 +24,7 @@ body { margin: 0; }
     min-height: 100svh;
     display: flex;
     flex-direction: column;
-    background: var(--bg, #c2255c);
+    background: var(--bg, #912044);
     color: #fff;
     transition: background-color 0.5s ease;
 }
@@ -70,7 +70,7 @@ body { margin: 0; }
 @media (prefers-reduced-motion: reduce) { .bar-fill { transition: none; } }
 
 .start-btn { display: inline-block; min-width: 200px; max-width: 92%; min-height: 62px;
-    padding: 0.8rem 2rem; background: #fff; color: var(--bg, #c2255c); border: 0; border-radius: 8px;
+    padding: 0.8rem 2rem; background: #fff; color: var(--bg, #912044); border: 0; border-radius: 8px;
     cursor: pointer; font-size: 1.5rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase;
     box-shadow: 0 6px 0 rgba(0, 0, 0, 0.2); transition: transform 0.08s, box-shadow 0.08s, filter 0.15s; }
 .start-btn:hover { filter: brightness(0.97); }
@@ -99,7 +99,7 @@ body { margin: 0; }
     }
 }
 .session .sub { font-size: 0.98rem; opacity: 0.95; margin: 0.35rem 0 0; min-height: 1.4em; }
-.session .cadence { font-size: 0.85rem; opacity: 0.85; margin: 0.3rem 0 0; }
+.session .cadence { font-size: 0.85rem; opacity: 1; margin: 0.3rem 0 0; }
 
 /* ===== Presets ===== */
 #presets-block { width: 100%; margin-top: 1.6rem; text-align: center; }
@@ -112,8 +112,8 @@ body { margin: 0; }
 .preset-btn:hover { background: rgba(0, 0, 0, 0.25); }
 .preset-btn .mins { font-weight: 700; font-size: 1rem; }
 .preset-btn .word { font-size: 0.75rem; }
-.preset-btn[aria-pressed="true"] { background: #fff; color: var(--bg, #c2255c); }
-.presets-hint { font-size: 0.85rem; opacity: 0.85; margin: 0.55rem 0 0; }
+.preset-btn[aria-pressed="true"] { background: #fff; color: var(--bg, #912044); }
+.presets-hint { font-size: 0.85rem; opacity: 1; margin: 0.55rem 0 0; }
 @media (prefers-reduced-motion: reduce) { .preset-btn { transition: none; } }
 
 /* ===== Task ===== */
@@ -132,7 +132,7 @@ body { margin: 0; }
 .clear-intention:hover { background: rgba(255, 255, 255, 0.18); color: #fff; }
 .task-block.has-text .clear-intention { display: inline-flex; }
 
-.kbd-hint { text-align: center; font-size: 0.8rem; color: rgba(255, 255, 255, 0.85); margin: 1.7rem auto 0; }
+.kbd-hint { text-align: center; font-size: 0.8rem; color: rgba(255, 255, 255, 1); margin: 1.7rem auto 0; }
 .kbd-hint kbd { background: rgba(0, 0, 0, 0.25); border-radius: 4px; padding: 0.05em 0.4em;
     font-family: ui-monospace, Menlo, monospace; color: #fff; }
 
@@ -159,7 +159,7 @@ body { margin: 0; }
 .how-step { background: #fafafa; border: 1px solid var(--line); border-radius: 10px; padding: 1.25rem 1.1rem; text-align: center; }
 /* The Helperbird banner now lives in coco.css so any page can include it. */
 
-.how-step .n { width: 44px; height: 44px; border-radius: 50%; background: #c2255c; color: #fff;
+.how-step .n { width: 44px; height: 44px; border-radius: 50%; background: #912044; color: #fff;
     display: flex; align-items: center; justify-content: center; font-weight: 800; margin: 0 auto 0.7rem; }
 .how-step h3 { margin: 0 0 0.4rem; font-size: 1.02rem; color: var(--ink); }
 .how-step p { font-size: 0.92rem; margin: 0; }
@@ -192,10 +192,10 @@ dialog.settings::backdrop { background: rgba(0, 0, 0, 0.5); }
 .settings-grid input { border: 1.5px solid #767676; border-radius: 8px; padding: 0.55rem 0.7rem; font-size: 1rem; color: var(--ink); width: 100%; }
 .settings-toggles { margin-top: 1.1rem; display: flex; flex-direction: column; gap: 0.65rem; }
 .settings-toggles label { display: flex; align-items: center; gap: 0.6rem; font-size: 0.92rem; cursor: pointer; }
-.settings-toggles input { width: 20px; height: 20px; accent-color: #c2255c; }
+.settings-toggles input { width: 20px; height: 20px; accent-color: #912044; }
 .notify-blocked { color: #b3261e; font-size: 0.85rem; margin: 0.6rem 0 0; }
 .settings-actions { display: flex; justify-content: flex-end; margin-top: 1.3rem; }
-.btn-done { background: #c2255c; color: #fff; border: 0; border-radius: 8px; padding: 0.65rem 1.6rem;
+.btn-done { background: #912044; color: #fff; border: 0; border-radius: 8px; padding: 0.65rem 1.6rem;
     font-weight: 700; font-size: 1rem; cursor: pointer; min-height: 48px; }
 .btn-done:hover { filter: brightness(1.08); }
 dialog.settings :is(button, input, summary):focus-visible { outline: 3px solid #333; outline-offset: 2px; }

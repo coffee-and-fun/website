@@ -96,9 +96,10 @@
     {% assign showDonation = false %}
     {% assign showMysteryApp = true %}
     {% assign showKeyboardModal = false %}
+    {% assign skipTarget = 'app' %}
     {% include header.liquid %}
     
-    <main id="app" class="mx-auto max-w-5xl mb-12 bg-black text-white overflow-hidden">
+    <main tabindex="-1" id="app" class="mx-auto max-w-5xl mb-12 bg-black text-white overflow-hidden">
         <div class="flex flex-col min-h-screen">
             <!-- Header Section -->
             <div class="text-center py-12 px-8">
@@ -199,7 +200,7 @@
         </div>
     </main>
     
-    {% include modals.liquid %}
+
     {% include footer.liquid %}
     
     {% pageJs "forever-advert" %}

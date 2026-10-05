@@ -53,10 +53,14 @@ eleventyExcludeFromCollections: true
     {% pageCss "404" %}
 </head>
 <body>
+{% assign toolPage = true %}
+{% assign skipTarget = 'main-content' %}
+{% include header.liquid %}
+
     <a class="skip" href="#home-link">Skip to home link</a>
     <h1 class="sr-only">404 Tournament: Page Not Found</h1>
 
-    <main class="stage">
+    <main tabindex="-1" id="main-content" class="stage">
         <canvas id="game" width="640" height="360" role="img" aria-label="404 Tournament: a small pixel-art fighting game where two cats, Crash and Coco, battle on a rooftop under a giant 404 sign. Playable with keyboard or touch. The home link below works without playing."></canvas>
         <div class="scanlines" aria-hidden="true"></div>
         <div class="vignette" aria-hidden="true"></div>
@@ -158,5 +162,6 @@ eleventyExcludeFromCollections: true
     </noscript>
 
     {% pageJs "404" %}
+{% include footer.liquid %}
 </body>
 </html>

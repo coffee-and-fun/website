@@ -1,0 +1,56 @@
+{% if app.link == '/contrast-checker/' %}
+<img class="ca-tool-brand-icon" src="/assets/images/apps/contrast-checker-icon.png" alt="" width="512" height="512" loading="lazy" decoding="async">
+{% else %}
+<svg viewBox="0 0 320 180" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" focusable="false">
+{% case app.link %}
+{% when '/craigslist-feed-builder/' %}
+<path d="M79 32L238 27L242 148L83 153Z" class="ca-paper-fill"/><path d="M94 47L132 46M94 61L221 58M96 99L224 96M151 74L211 72M151 84L194 83M152 112L214 110M153 122L194 120"/><path d="M98 72L136 71L137 88L99 90ZM100 110L137 108L138 128L101 129Z" class="ca-accent-fill"/><circle cx="238" cy="35" r="19" class="ca-accent-fill"/><path d="M238 27L238 43M230 35L246 35M64 116L57 127M59 102L44 105"/>
+{% when '/tweet-cleanup/' %}
+<path d="M108 21L249 42L232 134L94 114Z" class="ca-accent-fill"/><path d="M67 50L209 41L216 145L74 154Z" class="ca-paper-fill"/><path d="M84 69L156 66M86 82L192 76M88 110L137 107M169 100L191 120M190 99L171 122M221 20L228 7M236 24L249 17"/><path d="M104 129L154 127" stroke-dasharray="4 5"/>
+{% when '/drop-dungeon/' %}
+<path d="M83 27L241 30L238 154L81 151Z" class="ca-paper-fill"/>{% for row in (0..2) %}{% for col in (0..3) %}<circle cx="{{ col | times: 35 | plus: 108 }}" cy="{{ row | times: 34 | plus: 55 }}" r="11" {% if row == 2 or col == 1 %}class="ca-accent-fill"{% endif %}/>{% endfor %}{% endfor %}<path d="M59 68L50 78L59 89M263 90L272 103L262 115M68 156L258 159"/>
+{% when '/word-clock/' %}
+<path d="M63 25L253 29L249 152L59 148Z" class="ca-paper-fill"/><text x="84" y="63" class="ca-svg-words">IT IS</text><text x="82" y="94" class="ca-svg-words ca-svg-soft">HALF PAST</text><text x="82" y="125" class="ca-svg-words">THREE</text><path d="M241 10L242 19M256 17L265 11M258 30L273 31"/>
+{% when '/mp3-transcript/' %}
+<path d="M38 85L38 97M49 67L49 113M61 52L61 129M74 64L74 117M87 79L87 105M102 87L102 98" stroke-width="4"/><path d="M160 28L265 32L260 151L155 147Z" class="ca-paper-fill"/><path d="M176 55L244 57M175 74L242 75M174 91L224 92M172 110L240 112M171 127L211 129M116 92L142 92M134 85L143 92L133 100"/>
+{% when '/focus-timer/' %}
+<circle cx="156" cy="91" r="57" class="ca-paper-fill"/><path d="M156 34C199 32 225 85 206 117" stroke-width="8" class="ca-accent-stroke"/><path d="M144 19L168 19M156 20L156 32M205 39L214 30M200 34L211 44"/><text x="116" y="102" class="ca-svg-timer">25:00</text><path d="M76 57L64 50M71 74L55 72M237 126L251 134M229 139L236 152"/>
+{% when '/private-line/' %}
+<path d="M62 40L211 36L214 114L143 117L116 141L114 118L65 119Z" class="ca-accent-fill"/><path d="M193 62L252 67L248 133L225 132L224 152L204 133L177 130" class="ca-paper-fill"/><rect x="109" y="70" width="53" height="36" rx="7" class="ca-paper-fill"/><path d="M119 69V60C119 39 150 40 151 59L151 68M135 85L135 92M45 35L37 25M53 25L51 10"/>
+{% when '/blackjack-trainer/' %}
+<path d="M76 39L148 20L177 132L105 151Z" class="ca-accent-fill"/><path d="M156 30L240 46L219 155L135 139Z" class="ca-paper-fill"/><text x="96" y="78" class="ca-svg-timer">A</text><text x="176" y="78" class="ca-svg-timer">8</text><path d="M184 113C162 95 176 83 187 97C202 85 212 103 184 113ZM264 78L279 78M271 70L272 87"/>
+{% when '/silicon-dreams/' %}
+<path d="M55 31L264 35L260 150L52 148Z" class="ca-paper-fill"/><path d="M56 53L263 56M67 42L69 42M79 42L81 42M91 43L93 43M73 80L84 87L73 95"/><text x="99" y="96" class="ca-svg-terminal">go north</text><path d="M73 119L113 119" class="ca-accent-stroke" stroke-width="6"/><path d="M280 28L282 43M274 35L289 34"/>
+{% when '/minecraft-pixel-art/' %}
+<path d="M93 55L225 55L225 143L93 143Z" class="ca-paper-fill"/><path d="M94 122L116 122L116 100L138 100L138 78L160 78L160 100L182 100L182 78L204 78L204 122L226 122L226 144L94 144Z" class="ca-accent-fill"/><path d="M66 32L79 32L79 45L66 45ZM235 26L251 26L251 42L235 42ZM57 111L70 111L70 124L57 124ZM150 24L167 24L167 41L150 41Z" class="ca-accent-fill"/>
+{% when '/email-signature-generator/' %}
+<path d="M61 60L262 63L258 150L58 148Z" class="ca-accent-fill"/><path d="M62 63L158 124L259 65M59 147L123 105M259 149L197 106"/><path d="M91 29L230 33L228 85L157 126L92 84Z" class="ca-paper-fill"/><path d="M108 69C121 42 117 90 133 70C146 50 139 82 156 68M110 92L208 93M167 56L214 57"/>
+{% when '/chrome-extension-icon-generator/' %}
+<rect x="56" y="28" width="116" height="116" rx="16" class="ca-paper-fill"/><rect x="188" y="65" width="78" height="78" rx="12" class="ca-accent-fill"/><path d="M172 17L267 17M266 17L266 53M259 45L267 55L274 44" stroke-dasharray="3 4"/><path d="M86 58L86 114L142 114L142 58ZM205 82L205 125L248 125L248 82ZM73 160L256 160"/>
+{% when '/secret-message-image-encoder/' %}
+<path d="M55 38L249 30L254 146L60 154Z" class="ca-paper-fill"/><circle cx="202" cy="64" r="16" class="ca-accent-fill"/><path d="M68 136L114 83L153 121L176 95L216 136Z" class="ca-accent-fill"/><path d="M213 92L278 95L275 136L250 135L236 151L236 135L210 132Z" class="ca-paper-fill"/><path d="M227 113L233 113M242 113L248 113M257 114L263 114"/>
+{% when '/meta-tags/' %}
+<path d="M51 31L265 34L261 148L54 151Z" class="ca-paper-fill"/><path d="M52 53L264 56M65 42L67 42M77 42L79 42M89 42L91 42M124 77L100 101L124 121M198 76L223 99L200 120M174 67L153 132"/><path d="M286 85L288 103M280 94L296 94"/>
+{% when '/text-converter/' %}
+<text x="48" y="106" class="ca-svg-type">Aa</text><text x="207" y="108" class="ca-svg-type ca-svg-soft">aA</text><path d="M137 83C158 70 178 73 191 88M183 76L193 89L178 91M190 118C171 133 149 131 137 119M139 132L135 117L150 119"/>
+{% when '/timezone-converter/' %}
+<circle cx="96" cy="82" r="42" class="ca-paper-fill"/><circle cx="226" cy="82" r="42" class="ca-accent-fill"/><path d="M96 56L96 83L112 93M226 55L226 81L247 81M150 78L173 78M166 72L174 79L167 85"/><text x="70" y="147" class="ca-svg-hand">here</text><text x="200" y="147" class="ca-svg-hand">there</text>
+{% when '/receipt-generator/' %}
+<path d="M102 20L219 24L215 162L200 153L185 162L171 153L156 161L140 151L123 159L100 149Z" class="ca-paper-fill"/><path d="M121 46L193 49M120 62L191 65M121 93L158 95M179 97L190 97M121 110L149 112M180 114L190 114M122 134L190 136"/><path d="M79 55L78 75M70 65L88 64M241 116L242 138M233 127L251 127"/>
+{% when '/meta-images/' %}
+<path d="M60 58L90 58L100 38L178 40L188 60L224 61L221 144L56 140Z" class="ca-paper-fill"/><circle cx="139" cy="96" r="30" class="ca-accent-fill"/><circle cx="139" cy="96" r="18"/><path d="M71 74L91 74"/><circle cx="237" cy="57" r="26" class="ca-paper-fill"/><path d="M237 53L237 73M236 42L238 42" stroke-width="4"/>
+{% when '/emoji/' %}
+<circle cx="90" cy="101" r="34" class="ca-accent-fill"/><circle cx="160" cy="61" r="34" class="ca-paper-fill"/><circle cx="231" cy="103" r="34" class="ca-accent-fill"/><path d="M77 91L77 95M100 91L100 95M75 108C85 122 100 120 107 107M148 50L148 55M171 50L171 55M146 68C154 82 171 80 177 67M216 95L224 93M240 92L244 97M218 115C229 108 238 109 245 115M60 41L63 55M55 49L70 47M266 136L271 151"/>
+{% when '/tactical-tiles/' %}
+<path d="M129 28L124 153M193 27L188 154M66 66L253 70M65 117L252 120"/><path d="M78 29L108 54M106 28L79 55M144 80L175 106M174 79L147 105M204 129L239 156M237 130L205 156" stroke-width="3"/><circle cx="223" cy="47" r="18" class="ca-accent-fill"/><circle cx="94" cy="92" r="18" class="ca-accent-fill"/><circle cx="157" cy="138" r="18"/>
+{% when '/netflix/' %}
+<path d="M55 31L137 35L134 144L52 141ZM149 32L229 37L226 145L145 142Z" class="ca-paper-fill"/><path d="M79 63L113 89L77 112ZM169 64L205 87L168 111Z" class="ca-accent-fill"/><circle cx="240" cy="109" r="27" class="ca-paper-fill"/><path d="M260 130L285 155" stroke-width="5"/>
+{% when '/dyslexia-font-tester/' %}
+<path d="M69 27L256 34L251 151L65 145Z" class="ca-paper-fill"/><text x="91" y="73" class="ca-svg-serif">Aa Bb Cc</text><text x="90" y="118" class="ca-svg-words">Aa Bb Cc</text><path d="M82 86L239 89M51 70L39 70M51 102L38 103M43 71L42 102"/>
+{% when '/accessible-palette-generator/' %}
+<g transform="rotate(-5 160 90)"><rect x="48" y="45" width="225" height="100" rx="9" class="ca-paper-fill"/><path d="M57 56H97V131H57Z" fill="#eed9c0" stroke="none"/><path d="M98 56H138V131H98Z" fill="#d2b597" stroke="none"/><path d="M139 56H179V131H139Z" fill="#aa8463" stroke="none"/><path d="M180 56H220V131H180Z" fill="#7b5844" stroke="none"/><path d="M221 56H262V131H221Z" fill="#483a33" stroke="none"/></g><path d="M248 20L252 7M264 23L276 16M277 34L290 33"/>
+{% else %}<path d="M57 33L265 38L261 146L54 144Z" class="ca-paper-fill"/><path d="M56 57L264 61M129 82L106 101L129 124M188 81L212 101L189 122M170 72L151 131"/>
+{% endcase %}
+</svg>
+
+{% endif %}

@@ -1,0 +1,101 @@
+.cf-info-page {
+	--cf-info-color: #edf1e8;
+	background: #fffaf5;
+	color: #202025;
+}
+.cf-info-pink {
+	--cf-info-color: #fbefe9;
+}
+.cf-info-blue {
+	--cf-info-color: #edf2f3;
+}
+.cf-info-yellow {
+	--cf-info-color: #fef5ec;
+}
+.cf-info-page .cf-header {
+	background: var(--cf-info-color);
+}
+.cf-info-page main > section:first-child {
+	width: 100%;
+	max-width: none;
+	background: var(--cf-info-color);
+	padding: 70px max(24px, calc((100% - 1100px) / 2)) 76px;
+	margin: 0 0 60px;
+}
+.cf-info-page main > section:first-child h1 {
+	font-size: clamp(3.5rem, 6vw, 6rem);
+	line-height: 1.02;
+	max-width: 17ch;
+	margin-left: auto;
+	margin-right: auto;
+	letter-spacing: -0.035em;
+}
+.cf-info-page main > section:first-child p {
+	color: #202025;
+}
+.cf-info-page .sketch-note {
+	display: none;
+}
+.cf-info-page main p[style*='Caveat'] {
+	font-family: 'Caveat', cursive !important;
+	font-size: 1.6rem;
+	line-height: 1.5;
+	font-weight: 600;
+}
+.cf-info-page .stat-number {
+	font-family: 'Pacifico', cursive;
+	font-weight: 400;
+}
+.cf-info-page main > section.full-bleed {
+	width: 100%;
+	margin-left: 0;
+	background: #41414b !important;
+}
+.cf-info-page main :is(a, button):focus-visible {
+	outline: 3px solid #202025;
+	outline-offset: 5px;
+}
+.cf-info-page #support-form-slot {
+	max-width: 760px;
+	margin: 40px auto 0;
+}
+.cf-info-page #support-form-slot > div {
+	border: 0;
+	border-radius: 20px;
+}
+.cf-info-page main > section:first-child:has(#support-form-slot) {
+	margin-bottom: 0;
+	padding-bottom: 64px;
+}
+.cf-info-page .blog-card-item img {
+	border-radius: 12px;
+}
+@media (max-width: 700px) {
+	.cf-info-page main > section:first-child {
+		padding: 44px 20px 48px;
+		margin-bottom: 40px;
+	}
+	.cf-info-page main > section:first-child h1 {
+		font-size: clamp(3rem, 12vw, 4.3rem);
+	}
+	.cf-info-page #support-form-slot > div {
+		padding: 28px 22px;
+	}
+	.cf-info-page main > section:first-child:has(#support-form-slot) {
+		padding-bottom: 48px;
+	}
+}
+.cf-info-page main > section:first-child h1 {
+	font-family: 'Pacifico', cursive;
+	font-size: clamp(3rem, 4.8vw, 4.8rem);
+	line-height: 1.4;
+	letter-spacing: 0;
+}
+.cf-info-page .stat-number {
+	font-family: 'Pacifico', cursive;
+}
+@media (max-width: 700px) {
+	.cf-info-page main > section:first-child h1 {
+		font-size: clamp(2.3rem, 8vw, 3.4rem);
+	}
+}

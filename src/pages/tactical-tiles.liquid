@@ -187,6 +187,10 @@
 </head>
 
   <body class="bg-base-100 min-h-screen">
+{% assign toolPage = true %}
+{% assign skipTarget = 'main-content' %}
+{% include header.liquid %}
+
     
     <!-- Loading screen -->
     <div id="app-loading" class="app-loading">
@@ -204,7 +208,7 @@
       Skip to main content
     </a>
 
-    <main id="app" style="display: none">
+    <main tabindex="-1" id="app" style="display: none">
       <!-- Enhanced navbar with better semantics -->
       <nav
         class="navbar border-b-2 border-primary text-primary-content"
@@ -863,7 +867,7 @@
 
     <!-- Load the JavaScript file -->
 
-        {% include modals.liquid %} 
+
     {% include footer.liquid %}
   </body>
 </html>

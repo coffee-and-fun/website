@@ -91,8 +91,13 @@
     {% pageCss "silicon-dreams" %}
 </head>
 <body>
+{% assign toolPage = true %}
+{% assign skipTarget = 'main-content' %}
+{% include header.liquid %}
+
   <a href="#scene" class="skip-link">Skip to game</a>
-  <div class="terminal-shell" role="main">
+  <div class="terminal-shell" role="main" id="main-content">
+    <h1 class="cf-sr-only">Silicon Dreams: a text adventure</h1>
     <div class="terminal-frame" aria-live="polite">
       <div class="terminal-header">
         <span>COCO-DOS v2.0</span>
@@ -132,5 +137,6 @@
   </div>
 
     {% pageJs "silicon-dreams" %}
+{% include footer.liquid %}
 </body>
 </html>

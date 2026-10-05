@@ -1,0 +1,60 @@
+---
+layout: templates/editorial.liquid
+title: The Reading Room — Guides, Research & Experiments
+description: Explore Coffee & Fun research, practical guides, free web tools, open-source projects, and the Coffee & Fun Podcast. A little something for curious minds.
+permalink: /resources/
+bodyClass: cf-reading-page
+pageStyle: reading-room
+---
+<header class="rr-hero">
+  <div class="rr-wrap rr-intro">
+    <div class="rr-doodles" aria-hidden="true">
+      <span class="rr-doodle-book">{% include journal-mark.liquid, drawing: 'book' %}</span>
+      <span class="rr-doodle-glasses">{% include resources-doodles.liquid, drawing: 'glasses' %}</span>
+      <span class="rr-doodle-pencil">{% include journal-mark.liquid, drawing: 'pencil' %}</span>
+      <span class="rr-doodle-spark">{% include about-doodles.liquid, drawing: 'spark' %}</span>
+      <span class="rr-margin-note">for curious minds.</span>
+    </div>
+    <h1>The Reading Room</h1>
+    <p>Research, guides, and experiments.<br>A little something for your next coffee break.</p>
+  </div>
+</header>
+{% include section-wave.liquid, waveFrom: '#fef5ec', waveTo: '#fffaf5' %}
+<section class="rr-wrap rr-collection" aria-labelledby="rr-collection-title">
+  <h2 id="rr-collection-title" class="cf-sr-only">Explore our resources</h2>
+  <div class="rr-bento">
+    <a class="rr-card rr-blog-card" href="/blog/">
+      <div class="rr-card-art rr-blog-art" aria-hidden="true"><img src="/assets/images/bento/bento-blog.png" alt="" width="1868" height="960" fetchpriority="high"><span class="rr-art-magnifier">{% include resources-doodles.liquid, drawing: 'magnifier' %}</span></div>
+      <div class="rr-card-copy"><span class="rr-hand">notes from the notebook</span><h3>The blog</h3><p>Things we’ve tried, built, and stayed up figuring out.</p><span class="rr-card-link">Find a good read</span></div>
+    </a>
+    <a class="rr-card rr-guide-card" href="/help/">
+      <div class="rr-card-art rr-guide-art" aria-hidden="true">{% include resources-doodles.liquid, drawing: 'guide' %}</div>
+      <div class="rr-card-copy"><span class="rr-hand">one step at a time</span><h3>Guides &amp; help</h3><p>A little help getting the most from our apps.</p><span class="rr-card-link">Find your guide</span></div>
+    </a>
+    <a class="rr-card rr-tools-card" href="/apps/#tools" id="make">
+      <div class="rr-card-art rr-tools-art" aria-hidden="true"><img src="/assets/images/bento/bento-apps.png" alt="" width="1868" height="960" loading="lazy" decoding="async"></div>
+      <div class="rr-card-copy"><h3>Free tools</h3><p>Little helpers. Ready when you are.</p><span class="rr-card-link">Try something useful</span></div>
+    </a>
+    <a class="rr-card rr-source-card" href="/open-source/">
+      <div class="rr-card-art rr-source-art" aria-hidden="true">{% include open-source-doodles.liquid, sketch: 'notebook' %}</div>
+      <div class="rr-card-copy"><h3>Open source</h3><p>A few good starting points for your next idea.</p><span class="rr-card-link">Make it your own</span></div>
+    </a>
+    <a class="rr-card rr-podcast-card" href="/podcast/" id="podcast">
+      <div class="rr-card-art rr-podcast-art" aria-hidden="true"><img src="/assets/images/podcast/recording-corner.svg" alt="" width="600" height="415" loading="lazy" decoding="async"></div>
+      <div class="rr-card-copy"><span class="rr-release">Coming October 31, 2026</span><h3>The podcast</h3><p>Coffee, apps, and a catch-up. Every other week.</p><span class="rr-card-link">Pull up a chair</span></div>
+    </a>
+  </div>
+</section>
+{% include section-wave.liquid, waveFrom: '#fffaf5', waveTo: '#f3ece4' %}
+<section class="rr-picks" id="read" aria-labelledby="rr-read-title" tabindex="-1">
+  <div class="rr-wrap">
+    <div class="rr-section-heading"><div><span class="rr-hand">a few from the shelf</span><h2 id="rr-read-title">Good rabbit holes.</h2></div><a class="rr-button" href="/blog/">All our stories</a></div>
+    <div class="rr-picks-grid">
+      <a class="rr-story rr-story-peach" href="/blog/how-psa-grades-pokemon-cards-research-guide/"><div class="rr-story-art"><img src="/assets/images/blog/psa-grading-research.webp" alt="" width="1200" height="630" loading="lazy" decoding="async"></div><div class="rr-story-copy"><span class="rr-category">Research</span><h3>What makes a perfect ten?</h3><p>Inside the world of Pokémon card grading.</p></div></a>
+      <a class="rr-story rr-story-lilac" href="/blog/how-we-score-game-accessibility/"><div class="rr-story-art"><img src="/assets/images/blog/how-we-score-game-accessibility.webp" alt="" width="1200" height="630" loading="lazy" decoding="async"></div><div class="rr-story-copy"><span class="rr-category">Accessibility</span><h3>Who gets to play?</h3><p>How we score game accessibility.</p></div></a>
+      <a class="rr-story rr-story-sage" href="/blog/ai-fantasy-premier-league-experiment/"><div class="rr-story-art"><img src="/assets/images/blog/ai-fantasy-premier-league-experiment.webp" alt="" width="1200" height="630" loading="lazy" decoding="async"></div><div class="rr-story-copy"><span class="rr-category">Experiments</span><h3>Can AI pick a better team?</h3><p>A season of fantasy football, with a twist.</p></div></a>
+    </div>
+    <div class="rr-shelf-note" aria-hidden="true">{% include journal-mark.liquid, drawing: 'cup' %}<span>something to read.<br>something to sip.</span></div>
+  </div>
+</section>
+{% include section-wave.liquid, waveFrom: '#f3ece4', waveTo: '#fffaf5' %}

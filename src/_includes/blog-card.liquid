@@ -1,0 +1,11 @@
+{% assign postTopics = post.platform | join: ' ' | downcase %}
+{% assign storyCategory = 'Notes' %}{% assign storyTone = 'peach' %}
+{% if postTopics contains 'hack' %}{% assign storyCategory = 'Research' %}{% assign storyTone = 'lilac' %}
+{% elsif postTopics contains 'update' %}{% assign storyCategory = 'Updates' %}{% assign storyTone = 'rose' %}
+{% elsif postTopics contains 'guide' %}{% assign storyCategory = 'Guide' %}{% assign storyTone = 'sage' %}
+{% elsif postTopics contains 'company' %}{% assign storyCategory = 'News' %}{% assign storyTone = 'peach' %}
+{% elsif postTopics contains 'web' %}{% assign storyCategory = 'Web' %}{% assign storyTone = 'blue' %}{% endif %}
+<a class="blog-card-item bl-card bl-card-{{ storyTone }}{% if forloop.first %} bl-card-feature{% elsif forloop.index == 2 or forloop.index == 3 %} bl-card-compact{% endif %}" href="{{ post.link }}" data-title="{{ post.name | downcase | escape }}" data-description="{{ post.description | downcase | escape }}" data-platforms="{{ postTopics | escape }}">
+  <div class="bl-card-art"><picture><source srcset="{{ post.image | replace: '.png', '.webp' | replace: '.jpg', '.webp' }}" type="image/webp"><img src="{{ post.image }}" width="1200" height="630" alt="" {% if forloop.first %}fetchpriority="high"{% else %}loading="lazy"{% endif %} decoding="async"></picture></div>
+  <div class="bl-card-copy"><span class="bl-card-category">{{ storyCategory }}</span><h3>{{ post.name | strip }}</h3><p class="bl-card-description">{{ post.description | truncatewords: 21 }}</p>{% if forloop.first %}<span class="bl-feature-link">Read the story</span>{% endif %}</div>
+</a>

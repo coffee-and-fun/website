@@ -139,7 +139,7 @@
     .doc-content ol li { list-style: decimal; }
     .doc-content a { color: var(--color-mocha); font-weight: 500; text-decoration: underline; text-underline-offset: 2px; }
     .doc-content strong { color: #1c1917; }
-    .doc-content code { background: #f5f5f4; border: 1px solid #e7e5e4; border-radius: 0.375rem; padding: 0.1rem 0.35rem; font-size: 0.88em; color: #96603c; }
+    .doc-content code { background: #f5f5f4; border: 1px solid #e7e5e4; border-radius: 0.375rem; padding: 0.1rem 0.35rem; font-size: 0.88em; color: #49434f; }
     /* Fenced blocks. The inline `code` rule above would otherwise put a border
        and a pill background around every line inside a block. */
     .doc-content pre { background: #f5f5f4; border: 1px solid #e7e5e4; border-radius: 0.6rem; padding: 0.9rem 1.1rem; margin: 0 0 1.2rem; overflow-x: auto; }
@@ -166,7 +166,7 @@
   {% assign showFun = true %}
   {% include header.liquid %}
 
-  <main id="main-content" class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 pt-4 pb-16 sm:pb-24">
+  <main tabindex="-1" id="main-content" class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 pt-4 pb-16 sm:pb-24">
 
     <!-- Breadcrumbs -->
     <nav aria-label="Breadcrumb" class="help-card px-5 py-3 mb-6">
@@ -190,7 +190,7 @@
         </a>
         <nav aria-label="{{ product_data.name }} help articles">
           {% for section in product_data.sections %}
-          <p class="px-2 mt-3 mb-1 text-[0.72rem] font-bold uppercase tracking-wider text-stone-400">{{ section.title }}</p>
+          <p class="px-2 mt-3 mb-1 text-[0.72rem] font-bold uppercase tracking-wider text-stone-600">{{ section.title }}</p>
           <ul class="list-none">
             {% for article in section.articles %}
             <li>
@@ -207,7 +207,7 @@
         <summary class="cursor-pointer font-semibold text-stone-900 text-[0.95rem]">Browse {{ product_data.name }} guides</summary>
         <nav aria-label="{{ product_data.name }} help articles" class="mt-3">
           {% for section in product_data.sections %}
-          <p class="mt-3 mb-1 text-[0.72rem] font-bold uppercase tracking-wider text-stone-400">{{ section.title }}</p>
+          <p class="mt-3 mb-1 text-[0.72rem] font-bold uppercase tracking-wider text-stone-600">{{ section.title }}</p>
           <ul class="list-none">
             {% for article in section.articles %}
             <li><a href="{{ article.url }}" class="help-side-link" {% if article.url == page.url %}aria-current="page"{% endif %}>{{ article.title }}</a></li>
@@ -224,8 +224,8 @@
           <h1 id="article-title" class="text-3xl sm:text-4xl font-bold tracking-tight text-stone-900 leading-tight" style="color: var(--color-espresso);">
             {{ cardTitle | default: title }}
           </h1>
-          <p class="mt-4 text-lg text-stone-500 leading-relaxed">{{ description }}</p>
-          <p class="mt-4 text-sm text-stone-400">
+          <p class="mt-4 text-lg text-stone-600 leading-relaxed">{{ description }}</p>
+          <p class="mt-4 text-sm text-stone-600">
             <time datetime="{{ date | date: '%Y-%m-%d' }}">Published {{ date | formatDateWithOrdinal }}</time>
             {% if updated %} · <time datetime="{{ updated | date: '%Y-%m-%d' }}">Updated {{ updated | formatDateWithOrdinal }}</time>{% endif %}
             {% if time %} · {{ time }}{% endif %}
@@ -255,7 +255,7 @@
 
         <!-- Article footer -->
         <footer class="mt-10 pt-6 border-t border-stone-200 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
-          <p class="text-sm text-stone-500">
+          <p class="text-sm text-stone-600">
             Didn't solve it?
             <a href="/support/" class="font-semibold" style="color: var(--color-mocha);">Contact support &rarr;</a>
           </p>
@@ -265,14 +265,14 @@
 
       <!-- On this page (desktop TOC) -->
       <aside class="hidden xl:block help-card p-5 sticky top-6" aria-label="On this page">
-        <p class="text-[0.72rem] font-bold uppercase tracking-wider text-stone-400 mb-2">On this page</p>
+        <p class="text-[0.72rem] font-bold uppercase tracking-wider text-stone-600 mb-2">On this page</p>
         <nav id="toc-nav" aria-label="Table of contents"></nav>
-        <noscript><p class="text-sm text-stone-400">Headings are listed within the article.</p></noscript>
+        <noscript><p class="text-sm text-stone-600">Headings are listed within the article.</p></noscript>
       </aside>
     </div>
   </main>
 
-  {% include modals.liquid %}
+
   {% include footer.liquid %}
 
   <script>

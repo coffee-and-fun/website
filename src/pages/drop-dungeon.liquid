@@ -91,6 +91,10 @@
     </head>
 
 <body>
+{% assign toolPage = true %}
+{% assign skipTarget = 'app' %}
+{% include header.liquid %}
+
     <div class="torch l" aria-hidden="true"></div>
     <div class="torch r" aria-hidden="true"></div>
 {% raw %}
@@ -104,7 +108,7 @@
         <div class="wrap"><p class="lede">Drop Dungeon needs JavaScript turned on to play.</p></div>
     </noscript>
 
-    <main v-cloak id="app" class="wrap">
+    <main tabindex="-1" v-cloak id="app" class="wrap">
 
         <div class="topbar">
             <a href="/" class="home-link" aria-label="Back to coffeeandfun.com">
@@ -357,5 +361,6 @@
 
 
     {% pageJs "drop-dungeon" %}
+{% include footer.liquid %}
 </body>
 </html>

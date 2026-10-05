@@ -104,7 +104,11 @@
 </head>
 
 <body class="mc-world min-h-screen">
-  <main id="main-content">
+{% assign toolPage = true %}
+{% assign skipTarget = 'main-content' %}
+{% include header.liquid %}
+
+  <main tabindex="-1" id="main-content">
     <div v-cloak id="app" class="mx-auto max-w-5xl px-4 sm:px-6 py-10 sm:py-14">
 
       <!-- Skip link -->
@@ -380,7 +384,7 @@
 
   <div class="grass-strip" aria-hidden="true"></div>
 
-  {% include modals.liquid %}
+
   {% include footer.liquid %}
 
     {% pageJs "minecraft-pixel-art" %}

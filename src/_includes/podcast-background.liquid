@@ -1,0 +1,18 @@
+<div class="pc-background pc-background-{{ place }}" aria-hidden="true">
+  {% if place == 'hero' %}
+    <span class="pc-sketch-cup">{% include journal-mark.liquid, drawing: 'cup' %}</span>
+    <span class="pc-sketch-headphones">{% include journal-mark.liquid, drawing: 'headphones' %}</span>
+    <span class="pc-sketch-mic"><svg viewBox="0 0 100 160" fill="none" stroke="currentColor" stroke-width="2.7" stroke-linecap="round" stroke-linejoin="round" focusable="false"><path d="M32 35C29 3 75 4 76 33L73 85C72 114 31 111 32 85ZM23 70L23 85C25 127 85 126 84 85L85 69M52 117L53 146M29 150L77 147M42 28L65 28M42 39L65 39M43 50L65 50M43 61L64 61M43 72L64 72M6 32L14 37M85 24L94 17"/></svg></span>
+    <span class="pc-sketch-plane">{% include journal-mark.liquid, drawing: 'plane' %}</span>
+    <span class="pc-sketch-wave"><svg viewBox="0 0 130 54" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" focusable="false"><path d="M5 24L5 32M15 16L15 40M26 22L26 34M37 8L37 46M48 1L48 53M59 13L59 40M70 19L70 35M81 5L81 48M92 16L92 38M103 23L103 32M115 19L115 37M125 25L125 30"/></svg></span>
+    <span class="pc-sketch-star"><svg viewBox="0 0 64 66" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linejoin="round" focusable="false"><path d="M29 6L36 23L54 20L42 35L47 55L29 44L14 56L18 37L4 27L23 25Z"/></svg></span>
+    <span class="pc-sketch-note">coffee first.<br>record second.</span>
+  {% elsif place == 'story' %}
+    <span class="pc-sketch-story-cup">{% include journal-mark.liquid, drawing: 'cup' %}</span>
+    <span class="pc-sketch-story-pencil">{% include journal-mark.liquid, drawing: 'pencil' %}</span>
+    <span class="pc-sketch-story-star">{% include about-doodles.liquid, drawing: 'spark' %}</span>
+  {% else %}
+    <span class="pc-sketch-invite-plane">{% include journal-mark.liquid, drawing: 'plane' %}</span>
+    <span class="pc-sketch-invite-headphones">{% include journal-mark.liquid, drawing: 'headphones' %}</span>
+  {% endif %}
+</div>

@@ -1,0 +1,7 @@
+{% assign platformIcon = platform | downcase %}
+{% case platformIcon %}
+{% when 'chrome', 'edge', 'firefox', 'safari', 'apple' %}<img class="cf-platform-icon" src="/assets/images/platforms/{{ platformIcon }}.svg" alt="" aria-hidden="true" width="24" height="24">
+{% when 'macos', 'ios' %}<img class="cf-platform-icon" src="/assets/images/platforms/apple.svg" alt="" aria-hidden="true" width="24" height="24">
+{% when 'web' %}<svg class="cf-platform-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="9"/><ellipse cx="12" cy="12" rx="4" ry="9"/><path d="M3 12h18M5 6h14M5 18h14"/></svg>
+{% when 'open source' %}<svg class="cf-platform-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="m7 6-6 6 6 6m10-12 6 6-6 6M14 3l-4 18"/></svg>
+{% endcase %}

@@ -42,10 +42,10 @@
     {% include schema-org.liquid %}
 
     {% bundledCss %}
-    {% include scripts.html %}
-    {% include sketch-styles.liquid %}
 
-    {% pageCss "apps" %}
+
+
+    {% pageCss "product" %}{% pageCss "apps" %}
 
     <script type="application/ld+json">
       {
@@ -69,415 +69,48 @@
     {% include apps-itemlist.liquid %}
 </head>
 
-<body>
-    {% assign showFun = true %}
-    {% assign showMiddleBadgeWithText = true %}
-    {% include header.liquid %}
-
-    <main id="main-content">
-
-        <!-- Hero -->
-        <section class="relative mx-auto max-w-5xl px-4 sm:px-6 lg:px-8 pt-20 sm:pt-28 pb-10 sm:pb-14 text-center overflow-visible">
-            <h1 class="brand-heading text-4xl sm:text-5xl lg:text-6xl leading-[1.15] sm:leading-[1.15] lg:leading-[1.15] mb-5">
-                Our Apps & Tools
-            </h1>
-            <p class="text-lg sm:text-xl text-stone-600 max-w-2xl mx-auto leading-relaxed">
-                Tools, extensions, and experiments, built with care.
-            </p>
-
-            <!-- Sketch: star + "made with love" -->
-            <div class="sketch-note text-lg sm:text-xl" style="top: 18px; right: 5%; transform: rotate(-5deg);">
-                <svg aria-hidden="true" width="18" height="18" viewBox="0 0 30 30" style="position: relative; display: inline-block; margin-right: 3px; vertical-align: middle;">
-                    <path d="M15 2 L17 11 L26 11 L19 17 L22 26 L15 21 L8 26 L11 17 L4 11 L13 11 Z" fill="none" stroke="#fd6155" stroke-width="1.5" stroke-linejoin="round" opacity="0.5"/>
-                </svg>
-                made with love
-            </div>
-
-            <!-- Sketch: small dashed circle left -->
-            <div class="sketch-note" style="top: 45%; left: -1%;">
-                <svg aria-hidden="true" width="28" height="28" viewBox="0 0 36 36">
-                    <circle cx="18" cy="18" r="12" class="sketch-circle" transform="rotate(15 18 18)"/>
-                </svg>
-            </div>
-
-            <!-- Sketch: heart doodle left of heading -->
-            <div class="sketch-note sketch-float-slow" style="top: 26%; left: 12%; --sketch-rotate: -10deg;">
-                <svg aria-hidden="true" width="20" height="18" viewBox="0 0 24 22">
-                    <path d="M12 21 C12 21, 2 14, 2 7 C2 3, 5 1, 8 2 C10 3, 11 5, 12 6 C13 5, 14 3, 16 2 C19 1, 22 3, 22 7 C22 14, 12 21, 12 21 Z" class="sketch-heart"/>
-                </svg>
-            </div>
-
-            <!-- Sketch: swirl top-right -->
-            <div class="sketch-note" style="top: 20%; right: 2%;">
-                <svg aria-hidden="true" width="26" height="26" viewBox="0 0 30 30">
-                    <path d="M15 15 C15 10, 20 8, 22 12 C24 16, 20 20, 15 18 C10 16, 8 10, 12 6 C16 2, 24 4, 26 10" class="sketch-swirl"/>
-                </svg>
-            </div>
-
-            <!-- Sketch: lightning bolt right of subtitle -->
-            <div class="sketch-note" style="top: 58%; right: 6%; transform: rotate(10deg);">
-                <svg aria-hidden="true" width="14" height="24" viewBox="0 0 16 28">
-                    <path d="M10 0 L4 12 L10 12 L6 28" class="sketch-lightning"/>
-                </svg>
-            </div>
-
-            <!-- Sketch: checkmark near heading -->
-            <div class="sketch-note sketch-wiggle" style="top: 30%; left: 5%; --sketch-rotate: -8deg;">
-                <svg aria-hidden="true" width="20" height="18" viewBox="0 0 22 20">
-                    <path d="M3 10 L9 16 L19 4" class="sketch-check"/>
-                </svg>
-            </div>
-        </section>
-
-        <!-- Search + Filters -->
-        <section class="relative mx-auto max-w-5xl px-4 sm:px-6 lg:px-8 pb-10 overflow-visible">
-            <!-- Search -->
-            {% assign searchId = 'appSearchInput' %}
-            {% assign searchPlaceholder = 'Search apps & tools...' %}
-            {% assign searchLabel = 'Search apps and tools' %}
-            {% include search-bar.liquid %}
-
-            <!-- Sketch: "psst... try filtering!" with arrow nudging left into the filter tabs -->
-            <div class="sketch-note text-base sm:text-lg" style="top: 60%; right: 3%; transform: rotate(4deg);">
-                psst... try filtering!
-                <svg aria-hidden="true" width="56" height="30" style="top: 2px; left: -52px;">
-                    <path d="M52 4 C38 9, 20 14, 6 22" class="sketch-arrow"/>
-                    <path d="M16 19 L4 24 L9 11" class="sketch-arrow"/>
-                </svg>
-            </div>
-
-            <!-- Filter Tabs -->
-            <div class="flex flex-wrap justify-center gap-2" id="filterTabs">
-                <button type="button" class="filter-tab active" data-filter="all">All</button>
-                <button type="button" class="filter-tab" data-filter="Web">Web</button>
-                <button type="button" class="filter-tab" data-filter="Chrome">Chrome</button>
-                <button type="button" class="filter-tab" data-filter="Safari">Safari</button>
-                <button type="button" class="filter-tab" data-filter="macOS">macOS</button>
-                <button type="button" class="filter-tab" data-filter="iOS">iOS</button>
-                <button type="button" class="filter-tab" data-filter="Open Source">Open Source</button>
-            </div>
-        </section>
-
-        <!-- Active Apps -->
-        <section class="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 pb-16 overflow-visible">
-            <!-- Sketch: squiggly decoration left of grid -->
-            <div class="sketch-note" style="top: 8%; left: -1%;">
-                <svg aria-hidden="true" width="16" height="60" viewBox="0 0 16 60">
-                    <path d="M8 2 C2 10, 14 18, 8 26 C2 34, 14 42, 8 50 C4 56, 10 58, 8 58" class="sketch-squiggle"/>
-                </svg>
-            </div>
-
-            <!-- Sketch: tiny heart floating right of grid -->
-            <div class="sketch-note sketch-float" style="top: 18%; right: 0%; --sketch-rotate: 8deg;">
-                <svg aria-hidden="true" width="16" height="14" viewBox="0 0 24 22">
-                    <path d="M12 21 C12 21, 2 14, 2 7 C2 3, 5 1, 8 2 C10 3, 11 5, 12 6 C13 5, 14 3, 16 2 C19 1, 22 3, 22 7 C22 14, 12 21, 12 21 Z" class="sketch-heart-filled"/>
-                </svg>
-            </div>
-
-            <!-- Sketch: checkmark floating mid-right -->
-            <div class="sketch-note sketch-wiggle" style="top: 42%; right: -1%; --sketch-rotate: 5deg;">
-                <svg aria-hidden="true" width="18" height="16" viewBox="0 0 22 20">
-                    <path d="M3 10 L9 16 L19 4" class="sketch-check"/>
-                </svg>
-            </div>
-
-            <!-- Sketch: leaf mid-left -->
-            <div class="sketch-note" style="top: 55%; left: -1%; transform: rotate(-15deg);">
-                <svg aria-hidden="true" width="18" height="22" viewBox="0 0 24 28">
-                    <path d="M12 2 C4 8, 2 18, 12 26 C22 18, 20 8, 12 2 Z" class="sketch-leaf"/>
-                    <path d="M12 6 L12 22" class="sketch-leaf"/>
-                </svg>
-            </div>
-
-            <!-- Sketch: dashed horizontal line -->
-            <div class="sketch-note" style="top: 70%; right: 3%;">
-                <svg aria-hidden="true" width="60" height="6" viewBox="0 0 60 6">
-                    <path d="M0 3 L60 3" class="sketch-dash"/>
-                </svg>
-            </div>
-
-            <!-- Sketch: exclamation mark -->
-            <div class="sketch-note" style="top: 30%; left: -1%;">
-                <svg aria-hidden="true" width="8" height="22" viewBox="0 0 10 24">
-                    <path d="M5 2 L5 16" class="sketch-exclaim"/>
-                    <circle cx="5" cy="22" r="2" fill="#fd6155" opacity="0.4"/>
-                </svg>
-            </div>
-            <h2 class="text-xl sm:text-2xl font-bold text-stone-800 mb-2">Apps &amp; extensions</h2>
-            <p class="text-sm text-stone-600 mb-8">Our apps and browser extensions for Mac, iOS, Chrome, and Safari.</p>
-            <div class="not-prose grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-3" id="appGrid">
-                {% for app in apps.apps %}
-                <a class="app-card card card-compact bg-base-100 shadow-md transition-all duration-200 hover:-translate-y-1 hover:shadow-xl rounded-2xl focus:outline-none focus:ring-2 focus:ring-offset-2 overflow-hidden"
-                    style="--tw-ring-color: var(--color-mocha);"
-                    href="{{ app.link }}"
-                    {% if app.link contains 'http' %}target="_blank" rel="noopener noreferrer"{% endif %}
-                    data-title="{{ app.name | downcase }}"
-                    data-description="{{ app.description | downcase }}"
-                    data-platforms="{{ app.platform | join: ' ' | downcase }}">
-                    <figure class="px-4 pt-4 pb-1">
-                        <img loading="lazy" decoding="async"
-                            src="{{ app.image }}"
-                            width="600" height="400"
-                            class="rounded-xl w-full aspect-video object-cover bg-stone-100"
-                            alt="" />
-                    </figure>
-                    <div class="card-body">
-                        <h2 class="card-title text-stone-800">{{ app.name }}</h2>
-                        <p class="text-sm text-stone-600 line-clamp-2">{{ app.description }}</p>
-                        <div class="flex flex-wrap gap-1.5 mt-3">
-                            {% for platform in app.platform %}
-                            {% assign ptag = platform | downcase %}
-                            {% if ptag == "chrome" %}
-                            <span class="text-xs font-medium px-2.5 py-1 rounded-full text-white" style="background-color:var(--color-caramel);">{{ platform }}</span>
-                            {% elsif ptag == "safari" %}
-                            <span class="text-xs font-medium px-2.5 py-1 rounded-full text-white" style="background-color:#4a7249;">{{ platform }}</span>
-                            {% elsif ptag == "web" %}
-                            <span class="text-xs font-medium px-2.5 py-1 rounded-full text-white" style="background-color:var(--color-espresso);">{{ platform }}</span>
-                            {% elsif ptag == "ios" %}
-                            <span class="text-xs font-medium px-2.5 py-1 rounded-full text-white" style="background-color:var(--color-coral-deep);">{{ platform }}</span>
-                            {% elsif ptag == "macos" %}
-                            <span class="text-xs font-medium px-2.5 py-1 rounded-full text-white" style="background-color:var(--color-caramel);">{{ platform }}</span>
-                            {% else %}
-                            <span class="text-xs font-medium px-2.5 py-1 rounded-full text-white" style="background-color:var(--color-mocha);">{{ platform }}</span>
-                            {% endif %}
-                            {% endfor %}
-                        </div>
-                    </div>
-                </a>
-                {% endfor %}
-            </div>
-
-        </section>
-
-        <!-- Free Web Tools Section -->
-        <section class="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 pb-16 overflow-visible">
-            <!-- Sketch: "no sign-up!" note -->
-            <div class="sketch-note text-lg sm:text-xl" style="top: -12px; right: 10%; transform: rotate(3deg);">
-                no sign-up needed!
-            </div>
-
-            <h2 class="text-xl sm:text-2xl font-bold text-stone-800 mb-2">Free web tools</h2>
-            <p class="text-sm text-stone-600 mb-8">Little utilities and games that run right in your browser.</p>
-            <div class="not-prose grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-3" id="toolsGrid">
-                {% for app in apps.tools %}
-                <a class="app-card card card-compact bg-base-100 shadow-md transition-all duration-200 hover:-translate-y-1 hover:shadow-xl rounded-2xl focus:outline-none focus:ring-2 focus:ring-offset-2 overflow-hidden"
-                    style="--tw-ring-color: var(--color-mocha);"
-                    href="{{ app.link }}"
-                    {% if app.link contains 'http' %}target="_blank" rel="noopener noreferrer"{% endif %}
-                    data-title="{{ app.name | downcase }}"
-                    data-description="{{ app.description | downcase }}"
-                    data-platforms="{{ app.platform | join: ' ' | downcase }}">
-                    <figure class="px-4 pt-4 pb-1">
-                        <img loading="lazy" decoding="async"
-                            src="{{ app.image }}"
-                            width="600" height="400"
-                            class="rounded-xl w-full aspect-video object-cover bg-stone-100"
-                            alt="" />
-                    </figure>
-                    <div class="card-body">
-                        <h2 class="card-title text-stone-800">{{ app.name }}</h2>
-                        <p class="text-sm text-stone-600 line-clamp-2">{{ app.description }}</p>
-                        <div class="flex flex-wrap gap-1.5 mt-3">
-                            {% for platform in app.platform %}
-                            {% assign ptag = platform | downcase %}
-                            {% if ptag == "chrome" %}
-                            <span class="text-xs font-medium px-2.5 py-1 rounded-full text-white" style="background-color:var(--color-caramel);">{{ platform }}</span>
-                            {% elsif ptag == "safari" %}
-                            <span class="text-xs font-medium px-2.5 py-1 rounded-full text-white" style="background-color:#4a7249;">{{ platform }}</span>
-                            {% elsif ptag == "web" %}
-                            <span class="text-xs font-medium px-2.5 py-1 rounded-full text-white" style="background-color:var(--color-espresso);">{{ platform }}</span>
-                            {% elsif ptag == "ios" %}
-                            <span class="text-xs font-medium px-2.5 py-1 rounded-full text-white" style="background-color:var(--color-coral-deep);">{{ platform }}</span>
-                            {% elsif ptag == "macos" %}
-                            <span class="text-xs font-medium px-2.5 py-1 rounded-full text-white" style="background-color:var(--color-caramel);">{{ platform }}</span>
-                            {% else %}
-                            <span class="text-xs font-medium px-2.5 py-1 rounded-full text-white" style="background-color:var(--color-mocha);">{{ platform }}</span>
-                            {% endif %}
-                            {% endfor %}
-                        </div>
-                    </div>
-                </a>
-                {% endfor %}
-            </div>
-        </section>
-
-        <!-- No Results -->
-        <section class="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 overflow-visible">
-            <div id="noResults" class="hidden text-center py-16">
-                <p class="text-2xl mb-2">Nothing Found</p>
-                <p class="text-stone-500">Try a different search or filter</p>
-            </div>
-        </section>
-
-        <!-- Open Source Section -->
-        <section class="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 pb-16 overflow-visible">
-            <!-- Sketch: "free & open!" with arrow -->
-            <div class="sketch-note text-lg sm:text-xl" style="top: -12px; right: 9%; transform: rotate(-4deg);">
-                free & open!
-                <svg aria-hidden="true" width="48" height="46" style="bottom: -40px; left: 12px;">
-                    <path d="M24 2 C20 16, 12 28, 6 40" class="sketch-arrow"/>
-                    <path d="M0 34 L6 42 L13 35" class="sketch-arrow"/>
-                </svg>
-            </div>
-
-            <!-- Sketch: sparkle burst left of heading -->
-            <div class="sketch-note" style="top: 2%; left: 2%;">
-                <svg aria-hidden="true" width="22" height="22" viewBox="0 0 22 22">
-                    <path d="M11 2 L11 20" class="sketch-sparkle"/>
-                    <path d="M2 11 L20 11" class="sketch-sparkle"/>
-                    <path d="M4 4 L18 18" class="sketch-sparkle"/>
-                    <path d="M18 4 L4 18" class="sketch-sparkle"/>
-                </svg>
-            </div>
-
-            <!-- Sketch: coffee cup near heading -->
-            <div class="sketch-note" style="top: -2%; left: 18%; transform: rotate(8deg);">
-                <svg aria-hidden="true" width="22" height="26" viewBox="0 0 28 32">
-                    <path d="M4 10 L4 26 C4 28 6 30 10 30 L18 30 C22 30 24 28 24 26 L24 10" class="sketch-arrow" style="opacity: 0.3;"/>
-                    <path d="M24 14 C28 14, 28 22, 24 22" class="sketch-arrow" style="opacity: 0.3;"/>
-                    <path d="M10 6 C10 2, 12 0, 12 0" class="sketch-arrow" style="opacity: 0.15;"/>
-                    <path d="M16 4 C16 0, 18 -2, 18 -2" class="sketch-arrow" style="opacity: 0.15;"/>
-                </svg>
-            </div>
-
-            <h2 class="text-xl sm:text-2xl font-bold text-stone-800 mb-8">Open Source</h2>
-            <div class="not-prose grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-3" id="opensourceGrid">
-                {% for app in apps.opensource %}
-                <a class="app-card card card-compact bg-base-100 shadow-md transition-all duration-200 hover:-translate-y-1 hover:shadow-xl rounded-2xl focus:outline-none focus:ring-2 focus:ring-offset-2 overflow-hidden"
-                    style="--tw-ring-color: var(--color-mocha);"
-                    href="{{ app.link }}"
-                    target="_blank" rel="noopener noreferrer"
-                    data-title="{{ app.name | downcase }}"
-                    data-description="{{ app.description | downcase }}"
-                    data-platforms="open source">
-                    <figure class="px-4 pt-4 pb-1">
-                        <img loading="lazy" decoding="async"
-                            src="{{ app.image }}"
-                            width="600" height="400"
-                            class="rounded-xl w-full aspect-video object-cover bg-stone-100"
-                            alt="" />
-                    </figure>
-                    <div class="card-body">
-                        <h2 class="card-title text-stone-800">{{ app.name }}</h2>
-                        <p class="text-sm text-stone-600 line-clamp-2">{{ app.description }}</p>
-                        <div class="flex flex-wrap gap-1.5 mt-3">
-                            {% for platform in app.platform %}
-                            {% assign ptag = platform | downcase %}
-                            {% if ptag == "chrome" %}
-                            <span class="text-xs font-medium px-2.5 py-1 rounded-full text-white" style="background-color:var(--color-caramel);">{{ platform }}</span>
-                            {% elsif ptag == "safari" %}
-                            <span class="text-xs font-medium px-2.5 py-1 rounded-full text-white" style="background-color:#4a7249;">{{ platform }}</span>
-                            {% elsif ptag == "web" %}
-                            <span class="text-xs font-medium px-2.5 py-1 rounded-full text-white" style="background-color:var(--color-espresso);">{{ platform }}</span>
-                            {% elsif ptag == "ios" %}
-                            <span class="text-xs font-medium px-2.5 py-1 rounded-full text-white" style="background-color:var(--color-coral-deep);">{{ platform }}</span>
-                            {% elsif ptag == "macos" %}
-                            <span class="text-xs font-medium px-2.5 py-1 rounded-full text-white" style="background-color:var(--color-caramel);">{{ platform }}</span>
-                            {% else %}
-                            <span class="text-xs font-medium px-2.5 py-1 rounded-full text-white" style="background-color:var(--color-mocha);">{{ platform }}</span>
-                            {% endif %}
-                            {% endfor %}
-                        </div>
-                    </div>
-                </a>
-                {% endfor %}
-            </div>
-        </section>
-
-        <!-- Graveyard Section -->
-        <section class="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 pb-28 overflow-visible">
-            <!-- Sketch: "gone but not forgotten" with cross -->
-            <div class="sketch-note text-lg" style="top: -6px; right: 8%; transform: rotate(3deg); opacity: 0.6;">
-                gone but not forgotten
-            </div>
-
-            <!-- Sketch: tiny cross/plus doodle -->
-            <div class="sketch-note" style="top: 4%; left: 3%;">
-                <svg aria-hidden="true" width="18" height="18" viewBox="0 0 18 18">
-                    <path d="M9 2 L9 16" class="sketch-cross"/>
-                    <path d="M2 9 L16 9" class="sketch-cross"/>
-                </svg>
-            </div>
-
-            <!-- Sketch: three dots -->
-            <div class="sketch-note" style="bottom: 15%; right: 2%;">
-                <svg aria-hidden="true" width="24" height="8" viewBox="0 0 24 8">
-                    <circle cx="4" cy="4" r="2.5" class="sketch-dots"/>
-                    <circle cx="12" cy="4" r="2.5" class="sketch-dots"/>
-                    <circle cx="20" cy="4" r="2.5" class="sketch-dots"/>
-                </svg>
-            </div>
-            <h2 class="text-xl sm:text-2xl font-bold text-stone-800 mb-2">The Graveyard</h2>
-            <p class="text-sm text-stone-600 mb-8">Apps we&rsquo;ve sunset or retired.</p>
-            <div class="not-prose grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-3 grayscale" id="graveyardGrid">
-                {% for app in apps.graveyard %}
-                {%- comment -%}
-                  Some of these are gone for good: no store listing, no repo, nothing
-                  left to link to. Those render as a plain div rather than an anchor,
-                  because an empty href just reloads this page and a card that lifts
-                  on hover promises somewhere to go.
-                {%- endcomment -%}
-                {%- capture graveyardCard -%}
-                    <figure class="px-4 pt-4 pb-1">
-                        <img loading="lazy" decoding="async"
-                            src="{{ app.image }}"
-                            width="600" height="400"
-                            class="rounded-xl w-full aspect-video object-cover bg-stone-100"
-                            alt="" />
-                    </figure>
-                    <div class="card-body">
-                        <h2 class="card-title text-stone-800">{{ app.name }}</h2>
-                        <p class="text-sm text-stone-600 line-clamp-2">{{ app.description }}</p>
-                        <div class="flex flex-wrap gap-1.5 mt-3">
-                            {% for platform in app.platform %}
-                            {% assign ptag = platform | downcase %}
-                            {% if ptag == "chrome" %}
-                            <span class="text-xs font-medium px-2.5 py-1 rounded-full text-white" style="background-color:var(--color-caramel);">{{ platform }}</span>
-                            {% elsif ptag == "safari" %}
-                            <span class="text-xs font-medium px-2.5 py-1 rounded-full text-white" style="background-color:#4a7249;">{{ platform }}</span>
-                            {% elsif ptag == "web" %}
-                            <span class="text-xs font-medium px-2.5 py-1 rounded-full text-white" style="background-color:var(--color-espresso);">{{ platform }}</span>
-                            {% elsif ptag == "ios" %}
-                            <span class="text-xs font-medium px-2.5 py-1 rounded-full text-white" style="background-color:var(--color-coral-deep);">{{ platform }}</span>
-                            {% elsif ptag == "macos" %}
-                            <span class="text-xs font-medium px-2.5 py-1 rounded-full text-white" style="background-color:var(--color-caramel);">{{ platform }}</span>
-                            {% else %}
-                            <span class="text-xs font-medium px-2.5 py-1 rounded-full text-white" style="background-color:var(--color-mocha);">{{ platform }}</span>
-                            {% endif %}
-                            {% endfor %}
-                            {%- unless app.link %}
-                            <span class="text-xs font-medium px-2.5 py-1 rounded-full border border-stone-300 text-stone-600">No longer available</span>
-                            {%- endunless %}
-                        </div>
-                    </div>
-                {%- endcapture -%}
-                {%- if app.link %}
-                <a class="app-card card card-compact bg-base-100 shadow-md transition-all duration-200 hover:-translate-y-1 hover:shadow-xl rounded-2xl focus:outline-none focus:ring-2 focus:ring-offset-2 overflow-hidden"
-                    style="--tw-ring-color: var(--color-mocha);"
-                    href="{{ app.link }}"
-                    {% if app.link contains 'http' %}target="_blank" rel="noopener noreferrer"{% endif %}
-                    data-title="{{ app.name | downcase }}"
-                    data-description="{{ app.description | downcase }}"
-                    data-platforms="{{ app.platform | join: ' ' | downcase }}">
-                    {{ graveyardCard }}
-                </a>
-                {%- else %}
-                <div class="app-card card card-compact bg-base-100 shadow-md rounded-2xl overflow-hidden"
-                    data-title="{{ app.name | downcase }}"
-                    data-description="{{ app.description | downcase }}"
-                    data-platforms="{{ app.platform | join: ' ' | downcase }}">
-                    {{ graveyardCard }}
-                </div>
-                {%- endif %}
-                {% endfor %}
-            </div>
-        </section>
-
-    </main>
-
-    {% include modals.liquid %}
-    {% include footer.liquid %}
-
-    {% pageJs "apps" %}
-</body>
-</html>
+<body class="cf-catalog-page">
+{% include header.liquid %}
+<main tabindex="-1" id="main-content">
+  <section class="ca-hero" aria-labelledby="catalog-title">
+    <div class="ca-wrap ca-intro">
+      <div class="ca-page-doodles" aria-hidden="true">
+        <svg class="ca-doodle-plane" viewBox="0 0 160 130" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" focusable="false"><path d="M82 19L147 8L119 69L107 44L82 19ZM107 44L147 8M106 45L103 61L114 53"/><path d="M91 76C24 131 7 72 39 77C67 83 39 117 12 117" stroke-dasharray="4 7"/></svg>
+        <svg class="ca-doodle-cursor" viewBox="0 0 90 105" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" focusable="false"><path d="M24 34L30 82L42 68L54 91L64 84L51 63L72 60L24 34ZM22 18L18 8M38 17L42 4M51 25L65 18M12 30L3 27"/></svg>
+        <svg class="ca-doodle-spark" viewBox="0 0 100 90" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" focusable="false"><path d="M34 12L40 33L62 39L41 45L34 68L27 47L7 40L27 33ZM77 57L79 80M67 69L91 68M79 11L87 21M87 11L79 21"/></svg>
+        <svg class="ca-doodle-heart" viewBox="0 0 60 65" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" focusable="false"><path d="M31 52C-1 34 8 8 25 24C40 1 64 23 31 52"/></svg>
+        <span class="ca-love-note">made with love</span>
+      </div>
+      <h1 id="catalog-title">Our Apps &amp; Tools</h1>
+      <p>Tools, extensions, and experiments, built with care.</p>
+    </div>
+    <div class="ca-controls ca-wrap" role="search" aria-label="Search the collection">
+      <label class="ca-search" for="appSearchInput"><span class="ca-sr-only">Search apps &amp; tools</span><span class="ca-search-field"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><circle cx="10" cy="10" r="6.5"/><path d="M15 15L21 21"/></svg><input id="appSearchInput" type="search" placeholder="Search apps &amp; tools…" autocomplete="off"></span></label>
+      <div class="ca-filter-area"><div id="filterTabs" class="ca-filters" role="group" aria-label="Filter by platform"><button class="filter-tab active" type="button" data-filter="all" aria-pressed="true">All</button>{% assign platforms = 'Web,Chrome,Safari,macOS,iOS,Open Source' | split: ',' %}{% for platform in platforms %}<button class="filter-tab" type="button" data-filter="{{ platform }}" aria-pressed="false">{% include platform-icon.liquid %}{{ platform }}</button>{% endfor %}</div><span class="ca-filter-note" aria-hidden="true"><svg viewBox="0 0 65 40" fill="none"><path d="M59 6Q28 8 7 29M12 15L6 30L24 30"/></svg>find your kind of thing</span></div>
+      <div class="ca-results-line"><p id="catalogueStatus" class="ca-sr-only" role="status" aria-live="polite">{{ apps.apps.size }} apps and {{ apps.tools.size }} free tools to explore.</p><button type="button" id="clearCatalogue" hidden>Clear search &amp; filters</button></div>
+    </div>
+  </section>
+  <div id="noResults" class="ca-empty ca-wrap hidden"><span aria-hidden="true">{% include journal-mark.liquid, drawing: 'bulb' %}</span><h2>No bright ideas by that name.</h2><p>Try another search, or clear the filters above.</p></div>
+  <section class="ca-section ca-wrap" id="our-apps" aria-labelledby="apps-heading">
+    <div class="ca-section-title"><div><h2 id="apps-heading">Apps &amp; extensions</h2><p>Little helpers. Big personalities.</p></div><span class="ca-margin-note" aria-hidden="true">pick a favorite <svg viewBox="0 0 80 50" fill="none"><path d="M6 8C47 0 67 17 52 37M43 27L52 40L65 30"/></svg></span></div>
+    <div class="ca-app-grid" id="appGrid">{% assign featuredApps = 'Stillkeys|Immersive Reader for Safari|ProcrastiNOT|Markdown Editor|Hide Spoilers|Confetti Cannon|Incognito Bear|Simple Screenshot Pro' | split: '|' %}{% for appName in featuredApps %}{% assign app = apps.apps | where: 'name', appName | first %}{% if app %}{% include catalog-card.liquid %}{% endif %}{% endfor %}{% for app in apps.apps %}{% unless featuredApps contains app.name %}{% include catalog-card.liquid %}{% endunless %}{% endfor %}</div>
+  </section>
+  {% include section-wave.liquid, waveFrom: '#fef5ec', waveTo: '#f6ebe1' %}
+  <section class="ca-section ca-tools" id="tools" aria-labelledby="tools-heading">
+    <div class="ca-wrap"><div class="ca-section-title"><div><h2 id="tools-heading">Free tools</h2><p>No download. Just open and go.</p></div><span class="ca-tools-doodle" aria-hidden="true"><svg viewBox="0 0 95 70" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 31L74 28L69 59L21 61L15 31ZM9 31L80 27M29 37L32 54M48 37L48 54M63 35L60 52M25 28L41 9M64 28L49 10M82 13L86 6M85 22L94 20"/></svg><span>help yourself!</span></span></div>
+    <div class="ca-tools-grid" id="toolsGrid">{% for app in apps.tools %}<a class="app-card ca-tool" href="{{ app.link }}" data-title="{{ app.name | downcase | escape }}" data-description="{{ app.description | downcase | escape }} {{ app.shortDescription | downcase | escape }}" data-platforms="{{ app.platform | join: ' ' | downcase }}"><div class="ca-tool-art ca-tool-{{ app.link | remove: "/" }}" aria-hidden="true">{% include catalog-tool-art.liquid %}</div><div class="ca-tool-copy"><h3>{{ app.name }}</h3><p>{{ app.shortDescription | default: app.description }}</p><span class="ca-tool-label">Free web tool</span></div></a>{% endfor %}</div>
+    </div>
+  </section>
+  {% include section-wave.liquid, waveFrom: '#f6ebe1', waveTo: '#fef5ec' %}
+  <section class="ca-section ca-wrap" id="open-source" aria-labelledby="source-heading">
+    <div class="ca-section-title"><div><h2 id="source-heading">Open source</h2><p>A few good starting points for your next idea.</p></div><span class="ca-margin-note" aria-hidden="true">make it your own.</span></div>
+    <div class="ca-source-grid" id="opensourceGrid">{% for app in apps.opensource %}<a class="app-card ca-source" href="{{ app.link }}" data-title="{{ app.name | downcase | escape }}" data-description="{{ app.description | downcase | escape }}" data-platforms="open source"><div class="ca-source-art ca-source-art-{{ forloop.index }}" aria-hidden="true"><img src="{{ app.image }}" alt="" width="800" height="420" loading="lazy" decoding="async">{% include catalog-source-doodles.liquid %}</div><div class="ca-source-copy"><h3>{{ app.name }}</h3><p>{% case forloop.index %}{% when 1 %}An open word list for your next project.{% when 2 %}Remove personal information from text.{% when 3 %}A tiny maths challenge for your forms.{% endcase %}</p><span class="ca-source-link">Explore project</span></div></a>{% endfor %}</div>
+  </section>
+  <section class="ca-section ca-wrap" id="archive" aria-labelledby="archive-heading">
+    <details class="ca-archive-notebook" open><summary><h2 class="ca-archive-title" id="archive-heading">The graveyard</h2><span class="ca-archive-summary">{{ apps.graveyard.size }} retired projects <span class="ca-archive-toggle" aria-hidden="true">+</span></span></summary><div class="ca-graveyard-intro"><p class="ca-archive-note">Retired projects from our sketchbook.</p><svg class="ca-graveyard-doodle" viewBox="0 0 100 85" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M24 71L24 34C23 3 71 2 73 34L78 71L63 64L53 74L43 65L24 71ZM38 34L39 39M57 33L58 38M42 49Q49 55 55 48M8 18L9 29M3 24L15 23M86 48L88 62M81 55L95 54"/></svg></div>
+    <div class="ca-archive-grid" id="graveyardGrid">{% for app in apps.graveyard %}{% include catalog-graveyard-card.liquid %}{% endfor %}</div></details>
+  </section>
+</main>
+{% include footer.liquid %}
+{% pageJs "apps" %}
+</body></html>

@@ -94,7 +94,11 @@
 	</head>
 	
 	<body>
-		<main class="relative isolate min-h-full special-red">
+{% assign toolPage = true %}
+{% assign skipTarget = 'main-content' %}
+{% include header.liquid %}
+
+		<main tabindex="-1" id="main-content" class="relative isolate min-h-full special-red">
 			<div class="mx-auto max-w-4xl px-6 py-32 text-center sm:py-40 lg:px-8">
 				<img
 					class="mx-auto block"
@@ -113,5 +117,6 @@
 		</main>
 
     {% pageJs "stop-wasting" %}
-	</body>
+	{% include footer.liquid %}
+</body>
 </html>

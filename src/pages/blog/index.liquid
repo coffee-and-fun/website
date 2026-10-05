@@ -65,10 +65,10 @@
         "publisher": {
           "@id": "https://www.coffeeandfun.com/#organization"
         },
-        "blogPost": {
-          "@type": "BlogPosting",
-          "headline": "Latest Updates from Coffee & Fun",
-          "description": "Discover our latest product releases, guides, and announcements"
+        "mainEntity": {
+          "@type": "ItemList",
+          "numberOfItems": {{ blog.posts.size }},
+          "itemListElement": [{% for post in blog.posts %}{"@type":"ListItem","position":{{ forloop.index }},"name":{{ post.name | strip | json }},"url":"https://www.coffeeandfun.com{{ post.link }}"}{% unless forloop.last %},{% endunless %}{% endfor %}]
         },
         "isPartOf": {
           "@id": "https://www.coffeeandfun.com/#website"
@@ -79,7 +79,7 @@
     {% include schema-org.liquid %}
 
     {% bundledCss %}
-    {% include sketch-styles.liquid %}
+    {% pageCss "product" %}
 
     {% pageCss "blog" %}
     
@@ -87,234 +87,42 @@
     {% include scripts.html %}
 </head>
 
-<body>
-    {% assign showFun = true %}
-    {% assign showMiddleBadgeWithText = true %}
-    {% include header.liquid %}
-
-    <main id="main-content">
-
-        <!-- Hero -->
-        <section class="relative mx-auto max-w-5xl px-4 sm:px-6 lg:px-8 pt-20 sm:pt-28 pb-10 sm:pb-14 text-center overflow-visible">
-            <h1 class="brand-heading text-4xl sm:text-5xl lg:text-6xl leading-[1.15] sm:leading-[1.15] lg:leading-[1.15] mb-5">
-                Our Blog
-            </h1>
-            <p class="text-lg sm:text-xl text-stone-600 max-w-2xl mx-auto leading-relaxed">
-                Updates, guides, and announcements from Coffee & Fun.
-            </p>
-
-            <!-- Sketch: "fresh off the press" label with arrow sweeping down-right to the heading -->
-            <div class="sketch-note text-lg sm:text-xl" style="top: 64px; left: 23%; transform: rotate(-7deg);">
-                fresh off the press
-                <svg width="76" height="46" style="bottom: -38px; right: -34px;">
-                    <path d="M6 4 C26 16, 48 24, 66 38" class="sketch-arrow"/>
-                    <path d="M55 36 L68 40 L63 27" class="sketch-arrow"/>
-                </svg>
-            </div>
-
-            <!-- Sketch: coffee bean top-right -->
-            <div class="sketch-note sketch-float" style="top: 22%; right: 11%; --sketch-rotate: 14deg;">
-                <svg width="22" height="28" viewBox="0 0 22 28">
-                    <ellipse cx="11" cy="14" rx="8" ry="12" class="sketch-leaf"/>
-                    <path d="M11 3 C7 9, 7 19, 11 25" class="sketch-leaf"/>
-                </svg>
-            </div>
-
-            <!-- Sketch: star upper-right -->
-            <div class="sketch-note" style="top: 30%; right: 4%; transform: rotate(12deg);">
-                <svg width="24" height="24" viewBox="0 0 30 30">
-                    <path d="M15 2 L17 11 L26 11 L19 17 L22 26 L15 21 L8 26 L11 17 L4 11 L13 11 Z" fill="none" stroke="#fd6155" stroke-width="1.5" stroke-linejoin="round" opacity="0.4"/>
-                </svg>
-            </div>
-
-            <!-- Sketch: heart near subtitle, lower-left -->
-            <div class="sketch-note sketch-float-slow" style="bottom: 14%; left: 7%; --sketch-rotate: -10deg;">
-                <svg width="20" height="18" viewBox="0 0 24 22">
-                    <path d="M12 21 C12 21, 2 14, 2 7 C2 3, 5 1, 8 2 C10 3, 11 5, 12 6 C13 5, 14 3, 16 2 C19 1, 22 3, 22 7 C22 14, 12 21, 12 21 Z" class="sketch-heart"/>
-                </svg>
-            </div>
-        </section>
-
-        <!-- Search + Filters -->
-        <section class="relative mx-auto max-w-5xl px-4 sm:px-6 lg:px-8 pb-10 overflow-visible">
-            <!-- Sketch: "dive in!" with arrow reaching into the search box -->
-            <div class="sketch-note text-base sm:text-lg" style="top: 0px; left: 18%; transform: rotate(-6deg);">
-                dive in!
-                <svg width="86" height="44" style="top: 6px; right: -82px;">
-                    <path d="M4 2 C28 8, 56 18, 80 32" class="sketch-arrow"/>
-                    <path d="M69 31 L82 35 L78 22" class="sketch-arrow"/>
-                </svg>
-            </div>
-            <!-- Search -->
-            {% assign searchId = 'blogSearchInput' %}
-            {% assign searchPlaceholder = 'Search posts...' %}
-            {% assign searchLabel = 'Search blog posts' %}
-            {% include search-bar.liquid %}
-
-            <!-- Sketch: coffee cup right of the search box -->
-            <div class="sketch-note sketch-float-slow" style="top: 2px; right: 15%; --sketch-rotate: 8deg;">
-                <svg width="22" height="26" viewBox="0 0 28 32">
-                    <path d="M4 10 L4 26 C4 28 6 30 10 30 L18 30 C22 30 24 28 24 26 L24 10" class="sketch-arrow" style="opacity: 0.3;"/>
-                    <path d="M24 14 C28 14, 28 22, 24 22" class="sketch-arrow" style="opacity: 0.3;"/>
-                    <path d="M10 6 C10 2, 12 0, 12 0" class="sketch-arrow" style="opacity: 0.15;"/>
-                    <path d="M16 4 C16 0, 18 -2, 18 -2" class="sketch-arrow" style="opacity: 0.15;"/>
-                </svg>
-            </div>
-
-            <!-- Sketch: "pick a topic" with arrow nudging up toward the filter tabs -->
-            <div class="sketch-note text-base sm:text-lg" style="bottom: 40px; left: 16%; transform: rotate(4deg);">
-                pick a topic
-                <svg width="72" height="34" style="top: 2px; right: -66px;">
-                    <path d="M4 28 C26 24, 48 16, 66 6" class="sketch-arrow-coral"/>
-                    <path d="M54 5 L68 4 L62 17" class="sketch-arrow-coral"/>
-                </svg>
-            </div>
-
-            <!-- Filter Tabs -->
-            <div class="flex flex-wrap justify-center gap-2" id="filterTabs">
-                <button type="button" class="filter-tab active" data-filter="all">All</button>
-                <button type="button" class="filter-tab" data-filter="web">Web</button>
-                <button type="button" class="filter-tab" data-filter="guide">Guides</button>
-                <button type="button" class="filter-tab" data-filter="update">Updates</button>
-                <button type="button" class="filter-tab" data-filter="company">News</button>
-                <button type="button" class="filter-tab" data-filter="hack">Research</button>
-            </div>
-        </section>
-
-        <!-- Blog Posts -->
-        <section class="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 pb-28 overflow-visible">
-            <!-- Sketch: "lots to read!" with arrow curving down to the first cards -->
-            <div class="sketch-note text-base sm:text-lg" style="top: -34px; right: 6%; transform: rotate(4deg);">
-                lots to read!
-                <svg width="48" height="42" style="bottom: -36px; left: 14px;">
-                    <path d="M30 2 C28 18, 20 28, 8 38" class="sketch-arrow-coral"/>
-                    <path d="M3 27 L7 40 L18 33" class="sketch-arrow-coral"/>
-                </svg>
-            </div>
-
-            <!-- Sketch: vertical squiggly line left edge -->
-            <div class="sketch-note" style="top: 12%; left: -1%;">
-                <svg width="14" height="50" viewBox="0 0 14 50">
-                    <path d="M7 2 C2 8, 12 14, 7 20 C2 26, 12 32, 7 38 C4 42, 10 46, 7 48" class="sketch-squiggle"/>
-                </svg>
-            </div>
-
-            <!-- Sketch: small dashed circle -->
-            <div class="sketch-note" style="bottom: 8%; right: 1%;">
-                <svg width="24" height="24" viewBox="0 0 36 36">
-                    <circle cx="18" cy="18" r="10" class="sketch-circle"/>
-                </svg>
-            </div>
-
-            <!-- Sketch: three dots bottom left -->
-            <div class="sketch-note" style="bottom: 3%; left: 4%;">
-                <svg width="24" height="8" viewBox="0 0 24 8">
-                    <circle cx="4" cy="4" r="2.5" class="sketch-dots"/>
-                    <circle cx="12" cy="4" r="2.5" class="sketch-dots"/>
-                    <circle cx="20" cy="4" r="2.5" class="sketch-dots"/>
-                </svg>
-            </div>
-
-            <!-- Sketch: swirl mid-left -->
-            <div class="sketch-note" style="top: 40%; left: -1%;">
-                <svg width="24" height="24" viewBox="0 0 30 30">
-                    <path d="M15 15 C15 10, 20 8, 22 12 C24 16, 20 20, 15 18 C10 16, 8 10, 12 6 C16 2, 24 4, 26 10" class="sketch-swirl"/>
-                </svg>
-            </div>
-
-            <!-- Sketch: exclamation right side -->
-            <div class="sketch-note sketch-wiggle" style="top: 25%; right: 0%; --sketch-rotate: 5deg;">
-                <svg width="8" height="22" viewBox="0 0 10 24">
-                    <path d="M5 2 L5 16" class="sketch-exclaim"/>
-                    <circle cx="5" cy="22" r="2" fill="#fd6155" opacity="0.4"/>
-                </svg>
-            </div>
-
-            <!-- Sketch: loop arrow bottom-right -->
-            <div class="sketch-note" style="bottom: 5%; right: 5%;">
-                <svg width="30" height="22" viewBox="0 0 30 22">
-                    <path d="M4 18 C4 4, 20 4, 22 10 C24 18, 16 20, 14 12" class="sketch-loop"/>
-                    <path d="M10 14 L14 10 L18 14" class="sketch-loop"/>
-                </svg>
-            </div>
-
-            <!-- Sketch: leaf near mid-right -->
-            <div class="sketch-note sketch-float-slow" style="top: 58%; right: -1%; --sketch-rotate: 20deg;">
-                <svg width="16" height="20" viewBox="0 0 24 28">
-                    <path d="M12 2 C4 8, 2 18, 12 26 C22 18, 20 8, 12 2 Z" class="sketch-leaf"/>
-                    <path d="M12 6 L12 22" class="sketch-leaf"/>
-                </svg>
-            </div>
-
-            <!-- Sketch: dashed horizontal line -->
-            <div class="sketch-note" style="top: 72%; left: 2%;">
-                <svg width="50" height="6" viewBox="0 0 50 6">
-                    <path d="M0 3 L50 3" class="sketch-dash"/>
-                </svg>
-            </div>
-            <div class="not-prose grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-3" id="blogGrid">
-                {% for post in blog.posts %}
-                <a class="blog-card-item group bg-white rounded-2xl border border-stone-200 overflow-hidden transition-all duration-200 hover:-translate-y-1 hover:shadow-lg focus:outline-none focus:ring-2 focus:ring-offset-2"
-                    style="--tw-ring-color: var(--color-mocha);"
-                    href="{{ post.link }}"
-                    data-title="{{ post.name | downcase }}"
-                    data-description="{{ post.description | downcase }}"
-                    data-platforms="{{ post.platform | join: ' ' | downcase }}">
-                    <figure class="px-4 pt-4 pb-1">
-                        <picture>
-                            <source srcset="{{ post.image | replace: '.png', '.webp' | replace: '.jpg', '.webp' }}" type="image/webp" />
-                            <img loading="lazy"
-                                src="{{ post.image }}"
-                                width="600" height="400"
-                                class="rounded-xl w-full object-cover bg-stone-100"
-                                alt="{{ post.name }}" />
-                        </picture>
-                    </figure>
-                    <div class="p-4 pt-3">
-                        <h2 class="text-lg font-semibold text-stone-900 mb-1 group-hover:text-mocha transition-colors">{{ post.name }}</h2>
-                        <p class="text-sm text-stone-600 line-clamp-2">{{ post.description }}</p>
-
-                        <div class="flex flex-wrap gap-1.5 mt-4">
-                            {% for platform in post.platform %}
-                            {% assign ptag = platform | downcase %}
-                            {% if ptag == "blog" %}
-                            <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium text-white" style="background-color:var(--color-mocha);">{{ platform }}</span>
-                            {% elsif ptag == "hack" %}
-                            <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium text-white" style="background-color:var(--color-coral-deep);">{{ platform }}</span>
-                            {% elsif ptag == "guide" %}
-                            <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium text-white" style="background-color:var(--color-caramel);">{{ platform }}</span>
-                            {% elsif ptag == "web" or ptag == "nodejs" %}
-                            <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium text-white" style="background-color:var(--color-espresso);">{{ platform }}</span>
-                            {% elsif ptag == "update" %}
-                            <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium text-white" style="background-color:var(--color-caramel);">{{ platform }}</span>
-                            {% elsif ptag == "company" %}
-                            <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium text-white" style="background-color:var(--color-cocoa);">{{ platform }}</span>
-                            {% elsif ptag == "ios" or ptag == "ipad" %}
-                            <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium text-white" style="background-color:#4a7249;">{{ platform }}</span>
-                            {% elsif ptag == "social" %}
-                            <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium text-white" style="background-color:#8b6f4e;">{{ platform }}</span>
-                            {% else %}
-                            <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium text-white" style="background-color:var(--color-mocha);">{{ platform }}</span>
-                            {% endif %}
-                            {% endfor %}
-                        </div>
-                    </div>
-                </a>
-                {% endfor %}
-            </div>
-
-            <!-- No Results -->
-            <div id="noResults" class="hidden text-center py-16">
-                <p class="text-2xl mb-2">No Posts Found</p>
-                <p class="text-stone-500">Try a different search or filter</p>
-            </div>
-        </section>
-
-    </main>
-
-    {% include modals.liquid %}
-    {% include footer.liquid %}
-
-    {% pageJs "blog" %}
+<body class="cf-blog-page">
+{% include header.liquid %}
+<main tabindex="-1" id="main-content">
+  <section class="bl-hero" aria-labelledby="blog-title">
+    <div class="bl-wrap bl-intro">
+      <div class="bl-doodles" aria-hidden="true">
+        <span class="bl-doodle-book">{% include journal-mark.liquid, drawing: 'book' %}</span>
+        <svg class="bl-doodle-glasses" viewBox="0 0 130 85" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round" focusable="false"><path d="M17 44L14 21L29 16M104 42L110 18L123 19M23 42C7 45 11 69 29 69C49 69 49 39 29 40ZM81 40C64 44 68 68 88 67C107 66 107 37 88 39ZM45 47Q57 37 70 47M38 10L42 20M54 5L54 17"/></svg>
+        <svg class="bl-doodle-star" viewBox="0 0 85 85" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" focusable="false"><path d="M33 9L39 32L60 37L40 45L33 67L26 45L5 39L26 32ZM67 60L70 80M61 70L79 69"/></svg>
+        <span class="bl-doodle-pencil">{% include journal-mark.liquid, drawing: 'pencil' %}</span>
+        <span class="bl-note">one more page…</span>
+      </div>
+      <h1 id="blog-title">Our Blog</h1>
+      <p>Research, guides, and the occasional rabbit hole.</p>
+    </div>
+    <div class="bl-controls bl-wrap" role="search" aria-label="Search the blog">
+      <label class="bl-search" for="blogSearchInput"><span class="bl-sr-only">Search blog posts</span><span class="bl-search-field"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><circle cx="10" cy="10" r="6.5"/><path d="M15 15L21 21"/></svg><input id="blogSearchInput" type="search" placeholder="Search stories…" autocomplete="off"></span></label>
+      <div class="bl-filter-area"><div class="bl-filters" id="filterTabs" role="group" aria-label="Filter stories by topic"><button class="filter-tab active" type="button" data-filter="all" aria-pressed="true">All</button><button class="filter-tab" type="button" data-filter="guide" aria-pressed="false">Guides</button><button class="filter-tab" type="button" data-filter="hack" aria-pressed="false">Research</button><button class="filter-tab" type="button" data-filter="update" aria-pressed="false">Updates</button><button class="filter-tab" type="button" data-filter="company" aria-pressed="false">News</button><button class="filter-tab" type="button" data-filter="web" aria-pressed="false">Web</button></div><span class="bl-filter-note" aria-hidden="true">follow your curiosity<svg viewBox="0 0 65 35" fill="none"><path d="M58 5Q28 6 7 25M13 12L6 26L24 27"/></svg></span></div>
+      <div class="bl-results-line"><p id="blogStatus" class="bl-sr-only" role="status" aria-live="polite">{{ blog.posts.size }} stories to explore.</p><button type="button" id="clearBlog" hidden>Clear search &amp; filters</button></div>
+    </div>
+  </section>
+  {% include section-wave.liquid, waveFrom: '#fef5ec', waveTo: '#fffaf5' %}
+  <section class="bl-stories bl-wrap" aria-labelledby="stories-heading">
+    <div class="bl-section-heading"><div><h2 id="stories-heading">From our notebook</h2><p>Things we’ve built, tried, and figured out.</p></div><span aria-hidden="true">a little light reading<svg viewBox="0 0 75 40" fill="none"><path d="M6 6C36 0 67 7 60 31M49 23L60 34L70 23"/></svg></span></div>
+    <div class="bl-grid" id="blogGrid">{% for post in blog.posts %}{% include blog-card.liquid %}{% endfor %}</div>
+    <div class="bl-empty" id="noResults" hidden><span aria-hidden="true">{% include journal-mark.liquid, drawing: 'book' %}</span><h3>No stories found just yet.</h3><p>Try another word or clear the filters above.</p></div>
+    <div class="bl-pagination" id="blogPagination" hidden><p id="blogProgress"></p><button type="button" id="loadMoreStories" aria-controls="blogGrid">Load more stories <span aria-hidden="true">+</span></button></div>
+  </section>
+  {% include section-wave.liquid, waveFrom: '#fffaf5', waveTo: '#f6ebe1' %}
+  <section class="bl-more" aria-label="Keep exploring"><div class="bl-wrap bl-more-grid">
+    <a href="/resources/" class="bl-more-card"><div><span class="bl-hand">stay a little longer</span><h2>The reading room</h2><p>Guides, experiments, and a podcast on the way.</p></div><span aria-hidden="true">{% include journal-mark.liquid, drawing: 'headphones' %}</span></a>
+    <a href="/apps/" class="bl-more-card"><div><span class="bl-hand">made for your everyday</span><h2>Apps &amp; free tools</h2><p>Put a little curiosity to work.</p></div><span aria-hidden="true">{% include journal-mark.liquid, drawing: 'laptop' %}</span></a>
+  </div></section>
+  {% include section-wave.liquid, waveFrom: '#f6ebe1', waveTo: '#fffaf5' %}
+</main>
+{% include footer.liquid %}
+{% pageJs "blog" %}
 </body>
 </html>

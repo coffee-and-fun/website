@@ -1,0 +1,29 @@
+{% case cardStyle %}
+{% when 'stillkeys' %}
+  <svg class="ca-art-doodle" viewBox="0 0 420 280" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round" focusable="false"><path d="M56 78L64 56L74 76L96 80L78 93L79 116L60 103L39 110L46 88ZM337 183L346 167L351 183L368 188L351 195L348 212L339 196L322 194Z"/><path d="M305 68C332 54 350 57 367 72M312 81Q340 69 354 81M59 209L74 200M70 221L85 210"/></svg>
+  <img class="ca-brand-icon ca-stillkeys-icon" src="{{ app.catalogIcon }}" alt="" width="220" height="220" loading="lazy" decoding="async">
+{% when 'reader' %}
+  <svg class="ca-art-doodle" viewBox="0 0 420 280" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" focusable="false"><path d="M44 112Q74 92 110 102L111 170Q77 160 49 178ZM111 102Q141 82 170 89L167 156Q142 153 111 170M60 122L92 115M62 136L94 127M335 57L335 77M325 67L346 67M307 198Q335 211 360 195M310 210Q338 223 364 207"/></svg>
+  <span class="ca-reader-badge"><img src="{{ app.catalogIcon }}" alt="" width="168" height="168" loading="lazy" decoding="async"></span>
+{% when 'focus' %}
+  <svg class="ca-art-doodle" viewBox="0 0 420 280" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" focusable="false"><path d="M55 63L64 79L82 51M323 207L334 220L359 188M315 51L331 64M332 38L344 58M354 38L356 55"/><path d="M52 201C50 181 84 182 83 207C82 228 107 224 112 211"/></svg>
+  <img class="ca-brand-icon ca-focus-icon" src="{{ app.catalogIcon }}" alt="" width="195" height="195" loading="lazy" decoding="async">
+{% when 'markdown' %}
+  <svg class="ca-art-doodle" viewBox="0 0 800 280" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" focusable="false"><path d="M63 53L83 38L91 54L82 71L63 53ZM41 206C59 181 71 229 93 207C115 186 128 228 151 208M694 45L703 27L711 47L733 49L716 63L720 81L701 71L684 81L688 61L675 50Z"/></svg>
+  <div class="ca-markdown-mark"><img src="{{ app.catalogIcon }}" alt="" width="112" height="112" loading="lazy"><span>hello, ideas.</span></div>
+  <img class="ca-editor-preview" src="/assets/images/apps/markdown-editor-app.webp" alt="" width="1440" height="860" loading="lazy" decoding="async">
+{% when 'spoilers' %}
+  <svg class="ca-art-doodle" viewBox="0 0 420 280" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" focusable="false"><path d="M58 58L76 74M58 75L76 57M326 205L344 223M327 223L343 206M47 161Q75 192 98 164M53 172L48 184M70 180L69 192M89 177L95 187M321 70C336 50 356 77 372 59"/></svg>
+  <img class="ca-brand-icon ca-spoiler-stamp" src="{{ app.catalogIcon }}" alt="" width="240" height="240" loading="lazy" decoding="async">
+{% when 'confetti' %}
+  <img class="ca-scene-image ca-confetti-image" src="{{ app.image }}" alt="" width="800" height="420" loading="lazy" decoding="async">
+  <svg class="ca-art-doodle" viewBox="0 0 420 280" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" focusable="false"><path d="M48 63L56 75M356 48L346 61M62 211L73 223M354 216L367 209M97 37C111 26 96 52 111 49M294 228C313 217 298 241 311 237M35 143L48 140M379 133L391 125"/><path d="M326 89L331 104L347 108L332 114L327 130L320 115L305 109L321 104Z"/></svg>
+{% when 'bear' %}
+  <img class="ca-scene-image" src="{{ app.image }}" alt="" width="800" height="420" loading="lazy" decoding="async">
+  <svg class="ca-art-doodle" viewBox="0 0 420 280" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" focusable="false"><path d="M53 66L69 70L56 89L72 94M339 181L361 187L339 211L359 217M307 51L309 66M301 59L318 58M66 188L74 204M84 185L88 201"/></svg>
+{% when 'screenshot' %}
+  <img class="ca-scene-image" src="{{ app.image }}" alt="" width="800" height="420" loading="lazy" decoding="async">
+  <svg class="ca-art-doodle" viewBox="0 0 420 280" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" focusable="false"><path d="M65 88L65 56L96 56M330 189L361 189L361 219M51 205L67 193M60 219L75 202M337 63L347 82M353 59L359 77"/></svg>
+{% else %}
+  <img class="ca-brand-icon" src="{{ app.catalogIcon | default: app.image }}" alt="" width="200" height="200" loading="lazy" decoding="async">
+{% endcase %}

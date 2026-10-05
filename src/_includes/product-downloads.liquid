@@ -1,0 +1,8 @@
+{% if product.downloads.size > 0 %}
+<div class="cp-store-grid">
+  {% for link in product.downloads %}
+    {% assign platform = 'apple' %}{% if link[1] contains 'chromewebstore.google.com' %}{% assign platform = 'chrome' %}{% elsif link[1] contains 'microsoftedge.microsoft.com' %}{% assign platform = 'edge' %}{% elsif link[1] contains 'addons.mozilla.org' %}{% assign platform = 'firefox' %}{% elsif link[0] contains 'Safari' %}{% assign platform = 'safari' %}{% endif %}
+    <a class="cp-store-link" href="{{ link[1] }}">{% include platform-icon.liquid %}<span><strong>{% if platform == 'apple' %}App Store{% else %}{{ platform | capitalize }}{% endif %}</strong><small>{% if product.archived %}View the listing{% elsif link[0] contains 'free' %}Free extension{% elsif productKey == 'markdown-editor' %}Mac, iPhone &amp; iPad · Paid app{% else %}Mac, iPhone &amp; iPad{% endif %}</small></span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true" focusable="false"><path d="M6 18 18 6M6 6h12v12"/></svg></a>
+  {% endfor %}
+</div>
+{% else %}<p class="cp-release-status">{% if productKey == 'stillkeys' %}{% include platform-icon.liquid, platform: 'apple' %}Coming soon to the Mac App Store{% else %}{% include platform-icon.liquid, platform: 'safari' %}Coming soon for Safari{% endif %}</p>{% endif %}

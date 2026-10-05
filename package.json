@@ -11,7 +11,9 @@
     "preview": "node tools/serve-docs.mjs",
     "seo": "node tools/seo-audit.mjs",
     "sitemap:check": "node tools/build-sitemap.mjs",
-    "test:receipt": "node --test tools/receipt-generator.test.cjs"
+    "test:receipt": "node --test tools/receipt-generator.test.cjs",
+    "audit:structure": "node tools/site-quality-audit.mjs",
+    "audit:pages": "node tools/page-audit.mjs"
   },
   "repository": {
     "type": "git",
@@ -31,6 +33,7 @@
   "devDependencies": {
     "@11ty/eleventy": "^3.0.0",
     "@tailwindcss/postcss": "^4.1.4",
+    "cheerio": "^1.2.0",
     "cssnano": "^5.1.15",
     "daisyui": "^5.7.9",
     "date-fns": "^2.30.0",

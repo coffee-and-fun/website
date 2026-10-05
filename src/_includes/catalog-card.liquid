@@ -1,0 +1,15 @@
+{% case app.name %}
+{% when 'Stillkeys' %}{% assign cardStyle = 'stillkeys' %}
+{% when 'Markdown Editor' %}{% assign cardStyle = 'markdown' %}
+{% when 'Immersive Reader for Safari' %}{% assign cardStyle = 'reader' %}
+{% when 'ProcrastiNOT' %}{% assign cardStyle = 'focus' %}
+{% when 'Hide Spoilers' %}{% assign cardStyle = 'spoilers' %}
+{% when 'Confetti Cannon' %}{% assign cardStyle = 'confetti' %}
+{% when 'Incognito Bear' %}{% assign cardStyle = 'bear' %}
+{% when 'Simple Screenshot Pro' %}{% assign cardStyle = 'screenshot' %}
+{% else %}{% assign cardStyle = 'other' %}
+{% endcase %}
+<a class="app-card ca-card ca-card-{{ cardStyle }}" href="{{ app.link }}" data-title="{{ app.name | downcase | escape }}" data-description="{{ app.description | downcase | escape }} {{ app.shortDescription | downcase | escape }}" data-platforms="{{ app.platform | join: ' ' | downcase }}">
+  <div class="ca-card-art ca-art-{{ cardStyle }}" aria-hidden="true">{% include catalog-art.liquid %}</div>
+  <div class="ca-card-copy"><div class="ca-card-heading"><h3>{% if cardStyle == 'reader' %}Immersive Reader{% else %}{{ app.name }}{% endif %}</h3>{% if app.status %}<span class="ca-card-status">{{ app.status }}</span>{% endif %}</div><p>{{ app.shortDescription | default: app.description }}</p><span class="ca-card-platform">{% for platform in app.platform %}<span>{% include platform-icon.liquid %}{{ platform }}</span>{% endfor %}</span></div>
+</a>
